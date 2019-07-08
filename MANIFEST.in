@@ -1,0 +1,48 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright (C) 2019 CERN.
+#
+# Invenio App RDM is free software; you can redistribute it and/or modify it
+# under the terms of the MIT License; see LICENSE file for more details.
+
+# To update your MANIFEST.in, use the following commands:
+#
+#  git init  # if not already done
+#  git add -A
+#  pipenv run check-manifest -u  # to install run "pipenv install --dev"
+#  # please sort the lines in this file after running the commands
+
+# Check manifest will not automatically add these two files:
+
+include .dockerignore
+include .editorconfig
+include .tx/config
+include *.rst
+include *.sh
+include *.yml
+include babel.ini
+include docker/haproxy/Dockerfile
+include docker/nginx/Dockerfile
+include docker/postgres/Dockerfile
+include Dockerfile
+include Dockerfile.base
+include LICENSE
+include Pipfile
+include pytest.ini
+include scripts/bootstrap
+include scripts/console
+include scripts/server
+include scripts/setup
+include scripts/update
+prune docs/_build
+recursive-include docs *.bat
+recursive-include docs *.py
+recursive-include docs *.rst
+recursive-include docs *.txt
+recursive-include docs Makefile
+recursive-include invenio_app_rdm *.gitkeep
+recursive-include invenio_app_rdm *.po *.pot *.mo
+recursive-include invenio_app_rdm *.json *.html *.js *.scss
+recursive-include invenio_app_rdm *.png *.jpg *.svg
+recursive-include docker *.cfg *.conf *.crt *.ini *.key *.pem *.sh
+recursive-include tests *.py

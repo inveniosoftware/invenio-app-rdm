@@ -1,0 +1,135 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright (C) 2019 CERN.
+#
+# Invenio App RDM is free software; you can redistribute it and/or modify it
+# under the terms of the MIT License; see LICENSE file for more details.
+#
+# Example of a full-stack production environment for Invenio.
+#
+# Usage::
+#
+#   $ ./docker/build-images.sh
+#   $ docker-compose -f docker-compose.full.yml up -d
+#   $ ./docker/wait-for-services.sh --full
+#   $ docker-compose -f docker-compose.full.yml run --rm web-ui ./scripts/setup
+#
+# This file is not intended to be used in production, but only serve as an
+# example of a full production environment.
+#
+# Following services are included:
+# - Load balancer: HAProxy (exposed ports: 80, 443, 8080)
+# - Frontend server: Nginx (not exposed)
+# - UI application: UWSGI (not exposed)
+# - API application: UWSGI (not exposed)
+# - Worker: Celery (not exposed)
+# - Flower: Monitoring of Celery (exposed port: 5555)
+# - Kibana: Inspect Elasticsearch (exposed port: 5601)
+# - Cache: Redis (exposed port: 6379)
+# - DB: (PostgresSQL/MySQL) (exposed port: 5432 or 3306)
+# - Message queue: RabbitMQ (exposed ports: 5672, 15672)
+# - Elasticsearch (exposed ports: 9200, 9300)
+#
+version: '2.3'
+services:
+  # Load balancer
+  # http://127.0.0.1 (redirects to https)
+  # https://127.0.0.1 (application)
+  # http://127.0.0.1:8080 (HAProxy statistics)
+  lb:
+    extends:
+      file: docker-services.yml
+      service: lb
+    links:
+      - frontend
+  # Frontend
+  frontend:
+    extends:
+      file: docker-services.yml
+      service: frontend
+    volumes:
+      - static_data:/opt/invenio/var/instance/static
+    links:
+      - web-ui
+      - web-api
+  # UI Application
+  web-ui:
+    extends:
+      file: docker-services.yml
+      service: app
+    command: ["uwsgi /opt/invenio/var/instance/uwsgi_ui.ini"]
+    image: invenio-app-rdm
+    ports:
+      - "5000"
+    volumes:
+      - static_data:/opt/invenio/var/instance/static
+    links:
+      - cache
+      - es
+      - mq
+      - db
+  # API Rest Application
+  web-api:
+    extends:
+      file: docker-services.yml
+      service: app
+    command: ["uwsgi /opt/invenio/var/instance/uwsgi_rest.ini"]
+    image: invenio-app-rdm
+    ports:
+      - "5001"
+    volumes:
+      - static_data:/opt/invenio/var/instance/static
+    links:
+      - cache
+      - es
+      - mq
+      - db
+  # Worker
+  worker:
+    extends:
+      file: docker-services.yml
+      service: app
+    restart: "always"
+    command: ["celery worker -A invenio_app.celery --loglevel=INFO"]
+    image: invenio-app-rdm
+    links:
+      - cache
+      - es
+      - mq
+      - db
+  # Monitoring of Celery
+  # http://127.0.0.1:5555
+  flower:
+    extends:
+      file: docker-services.yml
+      service: flower
+    links:
+      - mq
+  # Inspect Elasticsearch indexes
+  # http://127.0.0.1:5601
+  kibana:
+    extends:
+      file: docker-services.yml
+      service: kibana
+    links:
+      - es
+  # Base services
+  cache:
+    extends:
+      file: docker-services.yml
+      service: cache
+  db:
+    extends:
+      file: docker-services.yml
+      service: db
+  # http://guest:guest@127.0.0.1:15672
+  mq:
+    extends:
+      file: docker-services.yml
+      service: mq
+  es:
+    extends:
+      file: docker-services.yml
+      service: es
+volumes:
+  static_data:
