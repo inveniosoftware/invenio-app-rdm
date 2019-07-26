@@ -16,6 +16,12 @@ You overwrite and set instance-specific configuration by either:
 from __future__ import absolute_import, print_function
 
 from datetime import timedelta
+from invenio_indexer.api import RecordIndexer
+from invenio_records_permissions.permissions.records import \
+    record_list_permission_factory, record_create_permission_factory, \
+    record_read_permission_factory, record_update_permission_factory, \
+    record_delete_permission_factory
+from invenio_records_permissions.api import RecordsSearch
 
 
 def _(x):
@@ -114,12 +120,17 @@ CELERY_BEAT_SCHEDULE = {
 # ========
 #: Database URI including user and password
 SQLALCHEMY_DATABASE_URI = \
-    'postgresql+psycopg2://invenio-app-rdm:invenio-app-rdm@localhost/invenio-app-rdm'
+    'postgresql+psycopg2://invenio-app-rdm:invenio-app-rdm@localhost/' \
+    'invenio-app-rdm'
 
 # JSONSchemas
 # ===========
 #: Hostname used in URLs for local JSONSchemas.
-JSONSCHEMAS_HOST = 'invenio-app-rdm.org'
+# TODO: setup a proper value (e.g. zenodo.org)
+JSONSCHEMAS_HOST = '0.0.0.0'
+JSONSCHEMAS_ENDPOINT = '/schemas'
+# TODO: set up UI schemas for testing purposes. Shall it be public?
+JSONSCHEMAS_REGISTER_ENDPOINTS_UI = True
 
 # Flask configuration
 # ===================
@@ -137,12 +148,12 @@ SESSION_COOKIE_SECURE = True
 #: provided, the allowed hosts variable is set to localhost. In production it
 #: should be set to the correct host and it is strongly recommended to only
 #: route correct hosts to the application.
-APP_ALLOWED_HOSTS = ['invenio-app-rdm.org', 'localhost', '127.0.0.1']
+# TODO: add JSONSCHEMAS_HOST to the APP_ALLOWED_HOST list
+APP_ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1']
 
 # OAI-PMH
 # =======
 OAISERVER_ID_PREFIX = 'oai:invenio-app-rdm.org:'
-
 # Debug
 # =====
 # Flask-DebugToolbar is by default enabled when the application is running in
@@ -151,3 +162,36 @@ OAISERVER_ID_PREFIX = 'oai:invenio-app-rdm.org:'
 
 #: Switches off incept of redirects by Flask-DebugToolbar.
 DEBUG_TB_INTERCEPT_REDIRECTS = False
+
+
+# Records REST API endpoints.
+
+RECORDS_REST_ENDPOINTS = dict(
+    recid=dict(
+        pid_type='recid',
+        pid_minter='recid',
+        pid_fetcher='recid',
+        search_class=RecordsSearch,
+        indexer_class=RecordIndexer,
+        search_index=None,
+        search_type=None,
+        record_serializers={
+            'application/json': ('invenio_records_rest.serializers'
+                                 ':json_v1_response'),
+        },
+        search_serializers={
+            'application/json': ('invenio_records_rest.serializers'
+                                 ':json_v1_search'),
+        },
+        list_route='/records/',
+        item_route='/records/<pid(recid):pid_value>',
+        default_media_type='application/json',
+        max_result_window=10000,
+        error_handlers=dict(),
+        read_permission_factory_imp=record_read_permission_factory,
+        list_permission_factory_imp=record_list_permission_factory,
+        create_permission_factory_imp=record_create_permission_factory,
+        update_permission_factory_imp=record_update_permission_factory,
+        delete_permission_factory_imp=record_delete_permission_factory,
+    ),
+)
