@@ -5,7 +5,7 @@
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
-"""Invenio Research Data Management"""
+"""Invenio Research Data Management."""
 
 import os
 
@@ -40,6 +40,10 @@ setup(
             'invenio-app-rdm = invenio_app.cli:cli',
         ],
         'invenio_base.apps': [
+            # 'invenio_app_rdm_records = invenio_datacite.ext:InvenioDatacite',
+        ],
+        'invenio_base.api_apps': [
+            # 'invenio_app_rdm_records = invenio_datacite.ext:InvenioDatacite',
         ],
         'invenio_base.blueprints': [
             'invenio_app_rdm = invenio_app_rdm.theme.views:blueprint',
@@ -52,6 +56,12 @@ setup(
         ],
         'invenio_i18n.translations': [
             'messages = invenio_app_rdm',
+        ],
+        'invenio_jsonschemas.schemas': [
+            'invenio_app_rdm_records = invenio_datacite.jsonschemas',
+        ],
+        'invenio_search.mappings': [
+            'records = invenio_datacite.mappings',
         ],
     },
     classifiers=[
