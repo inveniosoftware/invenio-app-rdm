@@ -21,7 +21,7 @@ from invenio_records_permissions.permissions.records import \
     record_list_permission_factory, record_create_permission_factory, \
     record_read_permission_factory, record_update_permission_factory, \
     record_delete_permission_factory
-from .api import RDMRecordsSearch
+from invenio_records_permissions.api import RecordsSearch
 
 
 def _(x):
@@ -171,7 +171,7 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_type='recid',
         pid_minter='recid',
         pid_fetcher='recid',
-        search_class=RDMRecordsSearch,
+        search_class=RecordsSearch,
         indexer_class=RecordIndexer,
         search_index=None,
         search_type=None,
