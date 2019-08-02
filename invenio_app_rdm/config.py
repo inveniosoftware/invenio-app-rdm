@@ -195,3 +195,8 @@ RECORDS_REST_ENDPOINTS = dict(
         delete_permission_factory_imp=record_delete_permission_factory,
     ),
 )
+
+# Records Permissions
+
+RECORDS_PERMISSIONS_RECORD_FACTORY = 'invenio_app_rdm.permissions:' \
+    'RDMRecordPermissionConfig'
