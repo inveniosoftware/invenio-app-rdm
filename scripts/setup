@@ -15,6 +15,7 @@ pipenv run invenio db init create
 pipenv run invenio index destroy --force --yes-i-know
 pipenv run invenio index init --force
 pipenv run invenio index queue init purge
+pipenv run invenio files location --default 'default-location'  $(pipenv run invenio shell --no-term-title -c "print(app.instance_path)")
 
 # Create admin role to rectict access
 pipenv run invenio roles create admin
