@@ -23,3 +23,4 @@ class RDMRecordPermissionConfig(RecordPermissionConfig):
     """
 
     can_create = [AnyUser]
+    can_read_files = [AnyUser]
