@@ -13,6 +13,37 @@ from setuptools import find_packages, setup
 
 readme = open('README.rst').read()
 
+invenio_search_version = '1.2.0'
+
+extras_require = {
+    'elasticsearch5': [
+        'invenio-search[elasticsearch5]>={}'.format(invenio_search_version),
+    ],
+    'elasticsearch6': [
+        'invenio-search[elasticsearch6]>={}'.format(invenio_search_version),
+    ],
+    'elasticsearch7': [
+        'invenio-search[elasticsearch7]>={}'.format(invenio_search_version),
+    ],
+    'mysql': [
+        'invenio-db[mysql,versioning]>=1.0.0',
+    ],
+    'postgresql': [
+        'invenio-db[postgresql,versioning]>=1.0.0',
+    ],
+    'sqlite': [
+        'invenio-db[versioning]>=1.0.0',
+    ]
+}
+
+install_requires = [
+    'Invenio[base,auth,metadata,files]==3.2.0a4',
+    'invenio-jsonschemas>=1.0.0,<1.1.0',
+    'invenio-records-rest>=1.5.0,<1.6.0',
+    'invenio-records>=1.3.0,<1.4.0',
+    'invenio-records-files>=1.1.1,<1.2.0'
+]
+
 packages = find_packages()
 
 # Get the version string. Cannot be done with import!
@@ -62,6 +93,8 @@ setup(
             'records = invenio_datacite.mappings',
         ],
     },
+    extras_require=extras_require,
+    install_requires=install_requires,
     classifiers=[
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
