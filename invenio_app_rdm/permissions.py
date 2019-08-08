@@ -5,7 +5,8 @@
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
-from invenio_records_permissions.generators import AnyUser
+from invenio_records_permissions.generators import AnyUser, \
+    AnyUserIfPublicFiles
 from invenio_records_permissions.permissions.records import \
     RecordPermissionConfig
 
@@ -23,4 +24,4 @@ class RDMRecordPermissionConfig(RecordPermissionConfig):
     """
 
     can_create = [AnyUser]
-    can_read_files = [AnyUser]
+    can_read_files = [AnyUserIfPublicFiles]
