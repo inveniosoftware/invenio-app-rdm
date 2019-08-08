@@ -40,10 +40,8 @@ setup(
             'invenio-app-rdm = invenio_app.cli:cli',
         ],
         'invenio_base.apps': [
-            # 'invenio_app_rdm_records = invenio_datacite.ext:InvenioDatacite',
         ],
         'invenio_base.api_apps': [
-            # 'invenio_app_rdm_records = invenio_datacite.ext:InvenioDatacite',
         ],
         'invenio_base.blueprints': [
             'invenio_app_rdm = invenio_app_rdm.theme.views:blueprint',
