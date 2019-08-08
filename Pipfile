@@ -6,15 +6,17 @@ name = "pypi"
 [packages]
 Babel = ">=2.4.0"
 Flask-BabelEx = ">=0.9.3"
-invenio = {version = "==3.1.0",extras = ["base", "metadata", "postgresql", "auth", "elasticsearch6" ]}
+invenio = {version = "==3.2.0a4",extras = ["base", "auth", "metadata", "files", "postgresql", "elasticsearch6" ]}
 uwsgi = ">=2.0"
 uwsgitop = ">=0.11"
 uwsgi-tools = ">=1.1.1"
 lxml = ">=3.5.0,<4.2.6"
 invenio-jsonschemas = "*"
 invenio-search = {extras = ["postgresql"],version = "*"}
-invenio-records-rest = {extras = ["elasticsearch6"],version = "*"}
+invenio-records-rest = {extras = ["elasticsearch6", "postgresql"],version = ">=1.5.0"}
 invenio-records = {extras = ["pidstore", "postgresql"],version = "*"}
+invenio-records-files = "*"
+invenio-app-rdm = {editable = true,path = "."}
 
 [dev-packages]
 Flask-Debugtoolbar = ">=0.10.1"
