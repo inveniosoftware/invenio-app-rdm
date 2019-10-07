@@ -1,0 +1,29 @@
+# English translations for invenio-app-rdm.
+# Copyright (C) 2019 CERN
+# This file is distributed under the same license as the invenio-app-rdm
+# project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: invenio-app-rdm 1.0.0\n"
+"Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
+"POT-Creation-Date: 2019-10-08 15:30+0200\n"
+"PO-Revision-Date: 2019-10-08 15:30+0200\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.7.0\n"
+
+#: invenio_app_rdm/config.py:68 invenio_app_rdm/config.py:72
+msgid "Invenio App RDM"
+msgstr ""
+
+#: invenio_app_rdm/config.py:93
+msgid "Welcome to Invenio App RDM!"
+msgstr ""
+

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
+# Copyright (C) 2019 Northwestern University, Galter Health Sciences Library & Learning Center.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -27,7 +28,6 @@ include docker/postgres/Dockerfile
 include Dockerfile
 include Dockerfile.base
 include LICENSE
-include Pipfile
 include pytest.ini
 include scripts/bootstrap
 include scripts/console
@@ -41,8 +41,7 @@ recursive-include docs *.rst
 recursive-include docs *.txt
 recursive-include docs Makefile
 recursive-include invenio_app_rdm *.gitkeep
+recursive-include invenio_app_rdm *.html *.scss
 recursive-include invenio_app_rdm *.po *.pot *.mo
-recursive-include invenio_app_rdm *.json *.html *.js *.scss
-recursive-include invenio_app_rdm *.png *.jpg *.svg
 recursive-include docker *.cfg *.conf *.crt *.ini *.key *.pem *.sh
 recursive-include tests *.py
