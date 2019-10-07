@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
+# Copyright (C) 2019 Northwestern University,
+#                    Galter Health Sciences Library & Learning Center.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -16,12 +18,13 @@ You overwrite and set instance-specific configuration by either:
 from __future__ import absolute_import, print_function
 
 from datetime import timedelta
+
 from invenio_indexer.api import RecordIndexer
 from invenio_records_files.api import Record
-from invenio_records_permissions.permissions.records import \
-    record_list_permission_factory, record_create_permission_factory, \
-    record_read_permission_factory, record_read_files_permission_factory, \
-    record_update_permission_factory, record_delete_permission_factory
+from invenio_records_permissions import record_create_permission_factory, \
+    record_delete_permission_factory, record_list_permission_factory, \
+    record_read_files_permission_factory, record_read_permission_factory, \
+    record_update_permission_factory
 from invenio_records_permissions.api import RecordsSearch
 
 
@@ -127,10 +130,8 @@ SQLALCHEMY_DATABASE_URI = \
 # JSONSchemas
 # ===========
 #: Hostname used in URLs for local JSONSchemas.
-# TODO: setup a proper value (e.g. zenodo.org)
 JSONSCHEMAS_HOST = '0.0.0.0'
 JSONSCHEMAS_ENDPOINT = '/schemas'
-# TODO: set up UI schemas for testing purposes. Shall it be public?
 JSONSCHEMAS_REGISTER_ENDPOINTS_UI = True
 
 # Flask configuration
@@ -149,7 +150,6 @@ SESSION_COOKIE_SECURE = True
 #: provided, the allowed hosts variable is set to localhost. In production it
 #: should be set to the correct host and it is strongly recommended to only
 #: route correct hosts to the application.
-# TODO: add JSONSCHEMAS_HOST to the APP_ALLOWED_HOST list
 APP_ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1']
 
 # OAI-PMH
