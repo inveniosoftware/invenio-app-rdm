@@ -14,6 +14,16 @@ from setuptools import find_packages, setup
 
 readme = open('README.rst').read()
 
+tests_require = [
+    'check-manifest>=0.25',
+    'coverage>=4.0',
+    'isort>=4.3.3',
+    'pydocstyle>=2.0.0',
+    'pytest-cov>=2.5.1',
+    'pytest-pep8>=1.0.6',
+    'pytest-invenio>=1.0.5',
+]
+
 invenio_search_version = '1.2.0'
 
 extras_require = {
@@ -38,11 +48,8 @@ extras_require = {
 }
 
 install_requires = [
-    'Invenio[base,auth,metadata,files]==3.2.0a4',
-    'invenio-jsonschemas>=1.0.0,<1.1.0',
-    'invenio-records-rest>=1.5.0,<1.6.0',
-    'invenio-records>=1.3.0,<1.4.0',
-    'invenio-records-files>=1.1.1,<1.2.0'
+    'Invenio[base,metadata,files,auth]==3.2.0a4',
+    'invenio-rdm-records>=1.0.0a1'
 ]
 
 packages = find_packages()
@@ -71,10 +78,6 @@ setup(
         'console_scripts': [
             'invenio-app-rdm = invenio_app.cli:cli',
         ],
-        'invenio_base.apps': [
-        ],
-        'invenio_base.api_apps': [
-        ],
         'invenio_base.blueprints': [
             'invenio_app_rdm = invenio_app_rdm.theme.views:blueprint',
         ],
@@ -87,14 +90,7 @@ setup(
         'invenio_i18n.translations': [
             'messages = invenio_app_rdm',
         ],
-        'invenio_jsonschemas.schemas': [
-            'invenio_app_rdm_records = invenio_rdm_records.jsonschemas',
-        ],
-        'invenio_search.mappings': [
-            'records = invenio_rdm_records.mappings',
-        ],
     },
-    extras_require=extras_require,
     install_requires=install_requires,
     classifiers=[
         'Environment :: Web Environment',
