@@ -19,14 +19,6 @@ from __future__ import absolute_import, print_function
 
 from datetime import timedelta
 
-from invenio_indexer.api import RecordIndexer
-from invenio_records_files.api import Record
-from invenio_records_permissions import record_create_permission_factory, \
-    record_delete_permission_factory, record_list_permission_factory, \
-    record_read_files_permission_factory, record_read_permission_factory, \
-    record_update_permission_factory
-from invenio_records_permissions.api import RecordsSearch
-
 
 def _(x):
     """Identity function used to trigger string extraction."""
@@ -163,56 +155,3 @@ OAISERVER_ID_PREFIX = 'oai:invenio-app-rdm.org:'
 
 #: Switches off incept of redirects by Flask-DebugToolbar.
 DEBUG_TB_INTERCEPT_REDIRECTS = False
-
-
-# Records REST API endpoints.
-
-RECORDS_REST_ENDPOINTS = dict(
-    recid=dict(
-        pid_type='recid',
-        pid_minter='recid',
-        pid_fetcher='recid',
-        search_class=RecordsSearch,
-        indexer_class=RecordIndexer,
-        record_class=Record,
-        search_index=None,
-        search_type=None,
-        record_serializers={
-            'application/json': ('invenio_records_rest.serializers'
-                                 ':json_v1_response'),
-        },
-        search_serializers={
-            'application/json': ('invenio_records_rest.serializers'
-                                 ':json_v1_search'),
-        },
-        list_route='/records/',
-        item_route='/records/<pid(recid,'
-                   'record_class="invenio_records_files.api.Record")'
-                   ':pid_value>',
-        default_media_type='application/json',
-        max_result_window=10000,
-        error_handlers=dict(),
-        read_permission_factory_imp=record_read_permission_factory,
-        list_permission_factory_imp=record_list_permission_factory,
-        create_permission_factory_imp=record_create_permission_factory,
-        update_permission_factory_imp=record_update_permission_factory,
-        delete_permission_factory_imp=record_delete_permission_factory,
-    ),
-)
-
-# Records Permissions
-
-RECORDS_PERMISSIONS_RECORD_FACTORY = 'invenio_app_rdm.permissions:' \
-    'RDMRecordPermissionConfig'
-
-# Files REST
-
-FILES_REST_PERMISSION_FACTORY = record_read_files_permission_factory
-
-# Records Files
-
-RECORDS_FILES_REST_ENDPOINTS = {
-    'RECORDS_REST_ENDPOINTS': {
-        'recid': '/files',
-    }
-}
