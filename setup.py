@@ -21,7 +21,7 @@ tests_require = [
     'pydocstyle>=2.0.0',
     'pytest-cov>=2.5.1',
     'pytest-pep8>=1.0.6',
-    'pytest-invenio>=1.0.5',
+    'pytest-invenio>=1.2.0',
 ]
 
 invenio_search_version = '1.2.0'
