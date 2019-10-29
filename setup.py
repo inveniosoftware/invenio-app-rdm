@@ -22,13 +22,14 @@ tests_require = [
     'pytest-cov>=2.5.1',
     'pytest-pep8>=1.0.6',
     'pytest-invenio>=1.2.0',
+    'pytest>=4.0.0,<5.0.0',
 ]
 
 invenio_search_version = '1.2.0'
 
 extras_require = {
-    'elasticsearch5': [
-        'invenio-search[elasticsearch5]>={}'.format(invenio_search_version),
+    'docs': [
+        'Sphinx>=1.5.1',
     ],
     'elasticsearch6': [
         'invenio-search[elasticsearch6]>={}'.format(invenio_search_version),
@@ -44,8 +45,21 @@ extras_require = {
     ],
     'sqlite': [
         'invenio-db[versioning]>=1.0.0',
-    ]
+    ],
+    'tests': tests_require,
 }
+
+extras_require['all'] = []
+for name, reqs in extras_require.items():
+    if name[0] == ':' or name in ('elasticsearch6', 'elasticsearch7',
+                                  'mysql', 'postgresql', 'sqlite'):
+        continue
+    extras_require['all'].extend(reqs)
+
+setup_requires = [
+    'Babel>=1.3',
+    'pytest-runner>=3.0.0,<5',
+]
 
 install_requires = [
     'Invenio[base,metadata,files,auth]==3.2.0a4',
@@ -91,7 +105,10 @@ setup(
             'messages = invenio_app_rdm',
         ],
     },
+    extras_require=extras_require,
     install_requires=install_requires,
+    setup_requires=setup_requires,
+    tests_require=tests_require,
     classifiers=[
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
