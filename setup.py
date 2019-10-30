@@ -63,7 +63,7 @@ setup_requires = [
 
 install_requires = [
     'Invenio[base,metadata,files,auth]==3.2.0a4',
-    'invenio-rdm-records>=1.0.0a1'
+    'invenio-rdm-records>=1.0.0a2'
 ]
 
 packages = find_packages()
