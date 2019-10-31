@@ -7,3 +7,7 @@
 
 Changes
 =======
+
+Version 1.0.0 (released TBD)
+
+- Initial public release.
