@@ -81,5 +81,5 @@ deploy:
   on:
     tags: true
     python: "3.5"
-    repo: inveniosoftware/invenio-rdm-records
+    repo: inveniosoftware/invenio-app-rdm
     condition: $DEPLOY = true
