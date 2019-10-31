@@ -20,6 +20,7 @@ include .editorconfig
 include .tx/config
 include *.rst
 include *.sh
+include *.txt
 include *.yml
 include babel.ini
 include docker/haproxy/Dockerfile
