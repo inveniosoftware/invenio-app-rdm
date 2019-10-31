@@ -6,69 +6,68 @@
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
+dist: trusty
+
 addons:
-  chrome: stable # https://docs.travis-ci.com/user/chrome
-
-# Chrome Webdriver fails if not on sudo
-# See https://github.com/travis-ci/travis-ci/issues/8836
-sudo: true
-
-dist: trusty # Chrome driver fails if not trusty dist
+  postgresql: 9.5
 
 notifications:
-  email: # sent to the committer and the author
-    on_success: never # default: always
-    on_failure: always # default: always
+  email: false
+
+sudo: false
 
 language: python
 
 matrix:
   fast_finish: true
+  allow_failures:
+    - env: REQUIREMENTS=devel EXTRAS=all,postgresql,elasticsearch7 ES_URL=$ES7_DOWNLOAD_URL
 
 cache:
   - pip
 
 services:
-  - docker
+  - postgresql
+  - redis
 
 env:
   global:
-    # Print screenshots to console output
-    - E2E_OUTPUT=base64
-    # Enable end-to-end tests
-    - E2E=no
+    - ES6_DOWNLOAD_URL="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.8.2.tar.gz"
+    - ES7_DOWNLOAD_URL="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.3.0-linux-x86_64.tar.gz"
+    - ES_HOST=127.0.0.1
+    - SQLALCHEMY_DATABASE_URI="postgresql+psycopg2://postgres@localhost:5432/invenio"
   matrix:
-    - REQUIREMENTS=prod E2E=no
-    - REQUIREMENTS=qa
+    - REQUIREMENTS=lowest EXTRAS=all,postgresql,elasticsearch6 ES_URL=$ES6_DOWNLOAD_URL
+    - REQUIREMENTS=release EXTRAS=all,postgresql,elasticsearch6 ES_URL=$ES6_DOWNLOAD_URL
+    - REQUIREMENTS=release EXTRAS=all,postgresql,elasticsearch7 ES_URL=$ES7_DOWNLOAD_URL DEPLOY=true
+    - REQUIREMENTS=devel EXTRAS=all,postgresql,elasticsearch6 ES_URL=$ES6_DOWNLOAD_URL
+    - REQUIREMENTS=devel EXTRAS=all,postgresql,elasticsearch7 ES_URL=$ES7_DOWNLOAD_URL
 
 python:
   - "3.5"
 
 before_install:
-  # Stop default travis services
-  - "sudo service mysql stop"
-  - "sudo service postgresql stop"
-  # Start docker services
-  - "docker-compose up -d"
-  # Chrome webdriver for Selenium
-  - "PATH=$PATH:$HOME/webdrivers"
-  - "if [ ${E2E} == 'yes' ] && [ ! -f $HOME/webdrivers/chromedriver ]; then wget https://chromedriver.storage.googleapis.com/2.31/chromedriver_linux64.zip -P $HOME/webdrivers; unzip -d $HOME/webdrivers $HOME/webdrivers/chromedriver_linux64.zip; fi"
-  - "nvm install 6; nvm use 6"
-  - "travis_retry pip install --upgrade pip setuptools py pipenv"
-  - "travis_retry pip install twine wheel coveralls"
+  - "mkdir /tmp/elasticsearch"
+  - "wget -O - $ES_URL | tar xz --directory=/tmp/elasticsearch --strip-components=1"
+  - "/tmp/elasticsearch/bin/elasticsearch > /tmp/local-es.log &"
+  - "travis_retry pip install --upgrade pip setuptools py"
+  - "travis_retry pip install twine wheel coveralls requirements-builder"
+  - "requirements-builder -e $EXTRAS --level=min setup.py > .travis-lowest-requirements.txt"
+  - "requirements-builder -e $EXTRAS --level=pypi setup.py > .travis-release-requirements.txt"
+  - "requirements-builder -e $EXTRAS --level=dev --req requirements-devel.txt setup.py > .travis-devel-requirements.txt"
 
 install:
-  - "./scripts/bootstrap"
+  - "travis_retry pip install -r .travis-${REQUIREMENTS}-requirements.txt"
+  - "travis_retry pip install -e .[all]"
+  - "pip freeze"
 
 before_script:
-  # https://docs.travis-ci.com/user/gui-and-headless-browsers/
-  - "export DISPLAY=:99.0"
-  - "if [ ${E2E} == 'yes' ]; then sh -e /etc/init.d/xvfb start; sleep 3; fi"
-  # Allow services running inside docker to start
-  - "./docker/wait-for-services.sh"
+  # Allow ES to start
+  - sleep 5
+  - curl http://127.0.0.1:9200 && echo "Elasticsearch is up!" || cat /tmp/local-es.log
 
 script:
-  - ./run-tests.sh # E2E tests are skipped if E2E env is set to 'no'
+  - "./run-tests.sh"
 
 after_success:
   - coveralls
