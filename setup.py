@@ -62,8 +62,23 @@ setup_requires = [
 ]
 
 install_requires = [
-    'Invenio[base,metadata,files,auth]==3.2.0a4',
-    'invenio-rdm-records>=1.0.0a3'
+    'Invenio[base,auth]==3.2.0a9',
+    'invenio-rdm-records>=1.0.0a5',
+    'invenio-records-permissions>=1.0.0a4',
+    # metadata
+    'invenio-indexer>=1.1.0,<1.2.0',
+    'invenio-jsonschemas>=1.0.0,<1.1.0',
+    'invenio-oaiserver>=1.0.0,<1.2.0',
+    'invenio-pidstore>=1.0.0,<1.2.0',
+    'invenio-records-rest>=1.5.0,<1.6.0',
+    'invenio-records-ui>=1.0.1,<1.1.0',
+    'invenio-records>=1.3.0,<1.4.0',
+    'invenio-search-ui>=1.1.1,<1.2.0',
+    #files
+    'invenio-files-rest>=1.0.5,<1.1.0',
+    'invenio-records-files<1.2.0,>=1.1.1',
+    'invenio-previewer>=1.0.0,<1.1.0',
+    'invenio-iiif>=1.0.0,<1.1.0',
 ]
 
 packages = find_packages()
