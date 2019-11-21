@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
-# Copyright (C) 2019 Northwestern University,
-#                    Galter Health Sciences Library & Learning Center.
+# Copyright (C) 2019 Northwestern University.
 #
 # Invenio-RDM-Records is free software; you can redistribute it and/or modify
 # it under the terms of the MIT License; see LICENSE file for more details.
@@ -16,7 +15,24 @@ import json
 from invenio_search import current_search
 
 
-# TODO: Align this with invenio-rdm-records tests
+def assert_single_hit(response, expected_record):
+    assert response.status_code == 200
+
+    search_hits = response.json['hits']['hits']
+
+    # Kept for debugging
+    for hit in search_hits:
+        print("Search hit:", json.dumps(hit, indent=4, sort_keys=True))
+
+    assert len(search_hits) == 1
+
+    search_hit = search_hits[0]
+    for key in ['created', 'updated', 'metadata', 'links']:
+        assert key in search_hit
+
+    assert search_hit['metadata']['title'] == expected_record['title']
+
+
 def test_simple_flow(client, location):
     """Test simple flow using REST API."""
     # TODO pass headers and data to fixture
@@ -42,6 +58,6 @@ def test_simple_flow(client, location):
     assert response.status_code == 201
     current_search.flush_and_refresh('records')
 
-    # retrieve record
-    res = client.get('https://localhost:5000/records/1')
-    assert res.status_code == 200
+    # retrieve records
+    response = client.get('https://localhost:5000/records/')
+    assert_single_hit(response, data)
