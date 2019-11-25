@@ -6,7 +6,10 @@
 # Invenio-RDM-Records is free software; you can redistribute it and/or modify
 # it under the terms of the MIT License; see LICENSE file for more details.
 
-"""Module tests."""
+"""Module tests.
+
+TODO: Remove tests below because they are now covered in invenio-rdm-records.
+"""
 
 from __future__ import absolute_import, print_function
 

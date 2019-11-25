@@ -63,7 +63,7 @@ setup_requires = [
 
 install_requires = [
     'Invenio[base,auth]==3.2.0a9',
-    'invenio-rdm-records>=1.0.0a5',
+    'invenio-rdm-records>=1.0.0a6',
     'invenio-records-permissions>=1.0.0a4',
     # metadata
     'invenio-indexer>=1.1.0,<1.2.0',
@@ -76,7 +76,7 @@ install_requires = [
     'invenio-search-ui>=1.1.1,<1.2.0',
     #files
     'invenio-files-rest>=1.0.5,<1.1.0',
-    'invenio-records-files<1.2.0,>=1.1.1',
+    'invenio-records-files>=1.1.1,<1.2.0',
     'invenio-previewer>=1.0.0,<1.1.0',
     'invenio-iiif>=1.0.0,<1.1.0',
 ]
