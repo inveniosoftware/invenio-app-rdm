@@ -100,6 +100,13 @@ HEADER_TEMPLATE = 'invenio_theme/header.html'
 SETTINGS_TEMPLATE = 'invenio_theme/page_settings.html'
 """Settings base template."""
 
+# Theme configuration
+# ===================
+#: Site logo
+THEME_LOGO = 'images/invenio-rdm.png'
+#: Site name
+THEME_SITENAME = _('Invenio App RDM')
+#: Use default frontpage.
 THEME_FRONTPAGE = True
 """Use default frontpage."""
 
