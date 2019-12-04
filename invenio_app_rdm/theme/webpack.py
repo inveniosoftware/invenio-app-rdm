@@ -18,6 +18,7 @@ theme = WebpackBundle(
     'assets',
     entry={
         'invenio-app-rdm-theme': './scss/invenio_app_rdm/theme.scss',
+        'invenio-app-rdm-js': './js/invenio_app_rdm/inveniordm.js',
     },
     dependencies={
         # add any additional npm dependencies here...

@@ -100,17 +100,9 @@ HEADER_TEMPLATE = 'invenio_theme/header.html'
 SETTINGS_TEMPLATE = 'invenio_theme/page_settings.html'
 """Settings base template."""
 
-# Theme configuration
-# ===================
-#: Site logo
-THEME_LOGO = 'images/invenio-rdm.png'
-#: Site name
-THEME_SITENAME = _('Invenio App RDM')
-#: Use default frontpage.
 THEME_FRONTPAGE = True
-#: Frontpage title.
-THEME_FRONTPAGE_TITLE = _('The turn-key research data management repository')
-#: Frontpage template.
+"""Use default frontpage."""
+
 THEME_FRONTPAGE_TEMPLATE = 'invenio_app_rdm/frontpage.html'
 """Frontpage template."""
 
@@ -122,6 +114,15 @@ THEME_LOGO = 'images/invenio-rdm.png'
 
 THEME_SITENAME = _('InvenioRDM: Turn-key Research Data Management Repository')
 """Site name."""
+
+# Search UI templates
+# ===================
+
+SEARCH_UI_JSTEMPLATE_RESULTS = 'templates/invenio_app_rdm/results.html'
+"""Search results page."""
+
+SEARCH_UI_SEARCH_TEMPLATE = 'invenio_app_rdm/search.html'
+"""Search page."""
 
 # Invenio-Mail / Flask-Mail
 # =========================
