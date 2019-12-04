@@ -108,8 +108,9 @@ THEME_LOGO = 'images/invenio-rdm.png'
 THEME_SITENAME = _('Invenio App RDM')
 #: Use default frontpage.
 THEME_FRONTPAGE = True
-"""Use default frontpage."""
-
+#: Frontpage title.
+THEME_FRONTPAGE_TITLE = _('The turn-key research data management repository')
+#: Frontpage template.
 THEME_FRONTPAGE_TEMPLATE = 'invenio_app_rdm/frontpage.html'
 """Frontpage template."""
 
