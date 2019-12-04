@@ -1,17 +1,178 @@
 {#
   Copyright (C) 2019 CERN.
-  Copyright (C) 2019 Northwestern University, Galter Health Sciences Library & Learning Center.
+  Copyright (C) 2019 Northwestern University.
 
   Invenio App RDM is free software; you can redistribute it and/or modify it
   under the terms of the MIT License; see LICENSE file for more details.
 #}
 {%- extends "invenio_theme/frontpage.html" %}
 
+{%- block head_links %}
+{{ super() }}
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600|Oswald|Source+Code+Pro:400&amp;display=swap" rel="stylesheet">
+{%- endblock head_links %}
+
+
 {%- block page_body %}
-<div class="container marketing">
-  <div class="row">
-    <div class="col-lg-12">
-    <h1 class="text-center">Welcome to Invenio App RDM.</h1>
+
+<section class="invenio-rdm-project-section section-content-white-bg">
+  <div class="container">
+    <span class="section-title">You've successfully installed InvenioRDM !</span>
+    <div class="row centered">
+      <div class="col-md-8 col-md-offset-2">
+        <p>Your next steps:</p>
+        <ol>
+          <li>
+            <a href="https://github.com/inveniosoftware/invenio-app-rdm/wiki#configuration--customization">Configure and customize</a> your instance.
+          </li>
+          <li>Replace this page with your themed landing page.</li>
+          <li><a href="{{ url_for('invenio_search_ui.search') }}">Search</a> for records!</li>
+        </ol>
+      </div>
+    </div>
   </div>
-</div>
+</section>
+
+<section class="invenio-rdm-project-section section-content-light-bg">
+  <div class="container">
+    <span class="section-title">The InvenioRDM project</span>
+    <div class="row centered">
+      <div class="col-md-8 col-md-offset-2">
+        <p>
+        The InvenioRDM project is an open source collaboration with two main goals:
+        </p>
+        <div class="invenio-rdm-project-goals">
+          <div class="rdm-goal">
+            <i class="fa fa-key"></i>
+            <h3>Repository Platform</h3>
+            <p>Build a turn-key research data management (RDM) repository platform based on <a href="https://inveniosoftware.org/products/framework/">Invenio Framework</a> and <a href="https://www.zenodo.org">Zenodo</a>.</p>
+          </div>
+          <div class="rdm-goal">
+            <i class="fa fa-users"></i>
+            <h3>Community</h3>
+            <p>Grow a community of research institutions, private companies and individuals to sustain the platform going forward.</p>
+          </div>
+        </div>
+        <p>More information on the <a href="https://inveniosoftware.org/products/rdm">InvenioRDM product page</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="features" class="features-section section-content-white-bg">
+  <div class="container">
+    <span class="section-title">Features</span>
+    <div class="row features-section-row">
+      <div class="col-md-5">
+        <div class="row">
+          <div class="col-md-3 centered">
+            <img src="/static/images/icons8-web-design-80.png"/>
+          </div>
+          <div class="col-md-9">
+            <h6>Top of the class UX</h6>
+            <p>Finally a repository that your users will love! We have thought hard about user experience for everyone: end-users, curators, system administrators, and developers. Expect more of your repository!</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2"></div>
+      <div class="col-md-5">
+        <div class="row">
+          <div class="col-md-3 centered">
+            <img src="/static/images/icons8-growth-and-flag-128.png"/>
+          </div>
+          <div class="col-md-9">
+            <h6>Scalability</h6>
+            <p>InvenioRDM scales with you! Handle 1 or 100 million records, 1 byte or  several petabytes. It runs on bare-metal, VMs and container platforms such as Kubernetes and OpenShift.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row features-section-row">
+      <div class="col-md-5">
+        <div class="row">
+          <div class="col-md-3 centered">
+            <img src="/static/images/icons8-compare-git-80.png"/>
+          </div>
+          <div class="col-md-9">
+            <h6>Institutional integration</h6>
+            <p>InvenioRDM integrates with your institution. It supports your Single Sign-On (SSO) solution, your storage systems, your public/private clouds, your permissions models as well as your custom fields.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2"></div>
+      <div class="col-md-5">
+          <div class="row">
+              <div class="col-md-3 centered">
+                  <img src="/static/images/icons8-science-fiction-80.png"/>
+              </div>
+              <div class="col-md-9">
+                  <h6>Next Generation Repository</h6>
+                  <p>InvenioRDM implements the Next Generation Repository (NGR) vision and integrates with other Open Science infrastructures such ORCID, DataCite & OpenAIRE.</p>
+              </div>
+          </div>
+      </div>
+    </div>
+    <div class="row features-section-row">
+      <div class="col-md-5">
+        <div class="row">
+          <div class="col-md-3 centered">
+            <img src="/static/images/icons8-adjustment-80.png"/>
+          </div>
+          <div class="col-md-9">
+            <h6>Repository Profiles</h6>
+            <p>InvenioRDM comes with pre-configured repository profiles for institutional repositories (IRs), research data management (RDM) systems as well as domain-specific repositories for health and biomedical sciences.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2"></div>
+      <div class="col-md-5">
+          <div class="row">
+              <div class="col-md-3 centered">
+                  <img src="/static/images/icons8-bench-press-80.png"/>
+              </div>
+              <div class="col-md-9">
+                  <h6>Resilient</h6>
+                  <p>Architected from ground up to be resilient to changing business requirements. Stable APIs, easy maintenance and upgrade, as well as an extensible platform to ensure a reliable core on which you can build new innovative features and integrations.</p>
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="brought-to-you-section section-content-light-bg">
+  <div class="container">
+    <span class="section-title">Brought to you by</span>
+    <div class="row centered">
+      <div class="col">
+        <a href="http://www.bnl.gov/"><img src="/static/images/logo-bnl.png" title="Brookhaven National Laboratory"></a>
+        <a href="https://www.library.caltech.edu/"><img src="/static/images/logo-caltechlibrary.png" title="Caltech Library"></a>
+        <a href="http://home.cern"><img src="/static/images/logo-cern.png" title="CERN"></a>
+        <a href="https://ctsa.ncats.nih.gov/cd2h/"><img src="/static/images/logo-ctsa.png" title="CTSA Program National Center for Data to Health"></a>
+      </div>
+    </div>
+    <div class="row centered">
+      <div class="col">
+        <a href="https://www.data-futures.org/"><img src="/static/images/logo-data-futures.png" title="Data Futures"></a>
+        <a href="https://www.hzdr.de/"><img src="/static/images/logo-hzdr.png" title="Helmholtz Zentrum Dresden-Rossendorf"></a>
+        <a href="https://www.northwestern.edu/"><img src="/static/images/logo-northwestern-university.png" title="Northwestern University"></a>
+        <a href="https://www.openaire.eu/"><img src="/static/images/logo-openaire.png" title="OpenAIRE"></a>
+      </div>
+    </div>
+    <div class="row centered">
+      <div class="col">
+        <a href="https://tind.io/"><img src="/static/images/logo-tind.png" title="TIND"></a>
+        <a href="https://ulakbim.tubitak.gov.tr"><img src="/static/images/logo-tubitak.svg" title="Tubitak"></a>
+        <a href="https://www.tugraz.at/en/home/"><img src="/static/images/logo-tu-graz.svg" title="TU Graz"></a>
+      </div>
+    </div>
+    <div class="row centered">
+      <div class="col">
+        <a href="https://www.uni-hamburg.de/"><img src="/static/images/logo-uni-hamburg.png" title="Universität Hamburg"></a>
+        <a href="https://www.uni-muenster.de/en/"><img src="/static/images/logo-uni-munster.png" title="University of Münster"></a>
+      </div>
+    </div>
+  </div>
+</section>
+
 {%- endblock %}
