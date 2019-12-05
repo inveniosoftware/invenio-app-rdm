@@ -32,6 +32,7 @@ from datetime import timedelta
 
 from invenio_rdm_records.config import *
 
+
 def _(x):
     """Identity function used to trigger string extraction."""
     return x
@@ -104,14 +105,11 @@ BASE_TEMPLATE = 'invenio_app_rdm/page.html'
 COVER_TEMPLATE = 'invenio_theme/page_cover.html'
 """Cover page base template (used for e.g. login/sign-up)."""
 
-FOOTER_TEMPLATE = 'invenio_theme/footer.html'
-"""Footer base template."""
-
-HEADER_TEMPLATE = 'invenio_theme/header.html'
-"""Header base template."""
-
 SETTINGS_TEMPLATE = 'invenio_theme/page_settings.html'
 """Settings base template."""
+
+THEME_FOOTER_TEMPLATE = 'invenio_app_rdm/footer.html'
+"""Footer base template."""
 
 THEME_FRONTPAGE = True
 """Use default frontpage."""
@@ -122,20 +120,15 @@ THEME_FRONTPAGE_TEMPLATE = 'invenio_app_rdm/frontpage.html'
 THEME_FRONTPAGE_TITLE = _('Invenio App RDM')
 """Frontpage title."""
 
+THEME_HEADER_TEMPLATE = 'invenio_theme/header.html'
+"""Header base template."""
+
 THEME_LOGO = 'images/invenio-rdm.png'
 """Theme logo."""
 
 THEME_SITENAME = _('InvenioRDM: Turn-key Research Data Management Repository')
 """Site name."""
 
-# Search UI templates
-# ===================
-
-SEARCH_UI_JSTEMPLATE_RESULTS = 'templates/invenio_app_rdm/results.html'
-"""Search results page."""
-
-SEARCH_UI_SEARCH_TEMPLATE = 'invenio_app_rdm/search.html'
-"""Search page."""
 
 # Invenio-Mail / Flask-Mail
 # =========================
@@ -270,3 +263,28 @@ SEARCH_ELASTIC_HOSTS = [{"host": "localhost", "port": 9200}]
 
 WSGI_PROXIES = 2
 """Correct number of proxies in front of your application."""
+
+
+# Invenio-Records-UI
+# ==================
+# See https://invenio-records-ui.readthedocs.io/en/latest/configuration.html
+
+RECORDS_UI_ENDPOINTS = {
+    'recid': {
+        'pid_type': 'recid',
+        'route': '/records/<pid_value>',
+        'template': 'invenio_app_rdm/record_view_page.html'
+    },
+}
+"""Records UI for RDM Records."""
+
+
+# Invenio-Search-UI
+# ==================
+# See https://invenio-search-ui.readthedocs.io/en/latest/configuration.html
+
+SEARCH_UI_JSTEMPLATE_RESULTS = 'templates/invenio_app_rdm/results.html'
+"""The search results template."""
+
+SEARCH_UI_SEARCH_TEMPLATE = 'invenio_app_rdm/search.html'
+""""Search page."""

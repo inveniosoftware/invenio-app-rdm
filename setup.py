@@ -79,6 +79,8 @@ install_requires = [
     'invenio-records-files>=1.1.1,<1.2.0',
     'invenio-previewer>=1.0.0,<1.1.0',
     'invenio-iiif>=1.0.0,<1.1.0',
+    # other
+    'arrow>=0.13.0',
 ]
 
 packages = find_packages()
