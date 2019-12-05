@@ -1,0 +1,68 @@
+{#
+  Copyright (C) 2019 CERN.
+  Copyright (C) 2019 Northwestern University.
+
+  Invenio App RDM is free software; you can redistribute it and/or modify it
+  under the terms of the MIT License; see LICENSE file for more details.
+#}
+{%- extends config.BASE_TEMPLATE %}
+
+{#
+  This is a basic-basic page. Since much of the data model has not been
+  confirmed, we don't display it.
+#}
+
+{%- block page_body %}
+<div class="container record-detail">
+  <div class="row">
+    <div class="col-sm-12 col-md-12 col-left">
+      {%- block record_body %}
+
+      <span class="label label-info" title="Publication date">{{ record.publication_date|to_date|dateformat(format='long') }}</span>
+      <span class="label label-default">{{ record.resource_type.type }}</span>
+      {% if record.access_right in ["embargoed", "closed"] %}
+      <span class="label label-danger titlecase">
+      {% elif record.access_right == "restricted" %}
+      <span class="label label-warning titlecase">
+      {% else %}
+      <span class="label label-success titlecase">
+      {% endif %}
+      {{ record.access_right }} Access
+      </span>
+
+      <h1>{{ record.title }}</h1>
+
+      <div>
+        <ul class="list-inline authors">
+        {%- for author in record.contributors -%}
+          <li>
+            <!-- TODO: ORCID or other icon -->
+            <i class="fa fa-user" aria-hidden="true"></i>
+            <span class="text-muted">{{ author.name }}</span>
+          </li>
+        {%- endfor -%}
+        </ul>
+      </div>
+
+      <div><p><em>{{record.description|safe}}</em></p></div>
+
+      {# Deliberate Space for other fields #}
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+
+      <div class="pull-right"><small>Updated: <time datetime="{{ record.model.updated|dateformat(format='long') }}">{{record.model.updated|dateformat(format='long')}}</time></small></div>
+
+      {%- endblock record_body %}
+    </div>
+  </div>
+</div>
+{%- endblock %}
