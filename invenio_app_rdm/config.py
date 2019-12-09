@@ -8,15 +8,29 @@
 
 """Default configuration for Invenio App RDM.
 
-Each setting has a sensible default value. You overwrite and set
-instance-specific configuration by either:
+As a flavour extension, Invenio-App-RDM doesn't define configuration
+variables of its own, but rather forcefully sets other modules'
+configuration variables.
+
+Import below the configuration defined in other modules that should be
+(forcefully) set in an InvenioRDM instance, e.g.:
+
+    from invenio_rdm_records.config import *
+
+
+The role of Invenio App RDM is to configure other modules a specific way.
+These configurations can nevertheless be overridden by either:
 
 - Configuration file: ``<virtualenv prefix>/var/instance/invenio.cfg``
 - Environment variables: ``APP_<variable name>``
 
+WARNING: An instance should NOT install multiple flavour extensions since
+         there would be no guarantee of priority anymore.
 """
 
 from datetime import timedelta
+
+from invenio_rdm_records.config import *
 
 
 def _(x):
