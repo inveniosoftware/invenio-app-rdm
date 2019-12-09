@@ -32,7 +32,6 @@ from datetime import timedelta
 
 from invenio_rdm_records.config import *
 
-
 def _(x):
     """Identity function used to trigger string extraction."""
     return x
