@@ -14,6 +14,10 @@ from setuptools import find_packages, setup
 
 readme = open('README.rst').read()
 
+invenio_version = '==3.2.0a9'
+invenio_search_version = '>=1.2.0,<1.3.0'
+invenio_db_version = '>=1.0.4,<1.1.0'
+
 tests_require = [
     'check-manifest>=0.25',
     'coverage>=4.0',
@@ -25,26 +29,29 @@ tests_require = [
     'pytest>=4.0.0,<5.0.0',
 ]
 
-invenio_search_version = '1.2.0'
+setup_requires = [
+    'Babel>=1.3',
+    'pytest-runner>=3.0.0,<5',
+]
 
 extras_require = {
-    'docs': [
-        'Sphinx>=1.5.1',
-    ],
     'elasticsearch6': [
-        'invenio-search[elasticsearch6]>={}'.format(invenio_search_version),
+        'invenio-search[elasticsearch6]{}'.format(invenio_search_version)
     ],
     'elasticsearch7': [
-        'invenio-search[elasticsearch7]>={}'.format(invenio_search_version),
+        'invenio-search[elasticsearch7]{}'.format(invenio_search_version)
     ],
     'mysql': [
-        'invenio-db[mysql,versioning]>=1.0.0',
+        'invenio-db[mysql,versioning]{}'.format(invenio_db_version)
     ],
     'postgresql': [
-        'invenio-db[postgresql,versioning]>=1.0.0',
+        'invenio-db[postgresql,versioning]{}'.format(invenio_db_version)
     ],
     'sqlite': [
-        'invenio-db[versioning]>=1.0.0',
+        'invenio-db[versioning]{}'.format(invenio_db_version)
+    ],
+    'docs': [
+        'Sphinx>=1.5.1',
     ],
     'tests': tests_require,
 }
@@ -56,31 +63,10 @@ for name, reqs in extras_require.items():
         continue
     extras_require['all'].extend(reqs)
 
-setup_requires = [
-    'Babel>=1.3',
-    'pytest-runner>=3.0.0,<5',
-]
-
 install_requires = [
-    'Invenio[base,auth]==3.2.0a9',
-    'invenio-rdm-records>=1.0.0a6',
-    'invenio-records-permissions>=1.0.0a4',
-    # metadata
-    'invenio-indexer>=1.1.0,<1.2.0',
-    'invenio-jsonschemas>=1.0.0,<1.1.0',
-    'invenio-oaiserver>=1.0.0,<1.2.0',
-    'invenio-pidstore>=1.0.0,<1.2.0',
-    'invenio-records-rest>=1.5.0,<1.6.0',
-    'invenio-records-ui>=1.0.1,<1.1.0',
-    'invenio-records>=1.3.0,<1.4.0',
-    'invenio-search-ui>=1.1.1,<1.2.0',
-    #files
-    'invenio-files-rest>=1.0.5,<1.1.0',
-    'invenio-records-files>=1.1.1,<1.2.0',
-    'invenio-previewer>=1.0.0,<1.1.0',
-    'invenio-iiif>=1.0.0,<1.1.0',
-    # other
-    'arrow>=0.13.0',
+    'Invenio[base,auth,metadata,files]{}'.format(invenio_version),
+    'invenio-rdm-records>=1.0.0a7',
+    'invenio-records-permissions>=1.0.0a5',
 ]
 
 packages = find_packages()
