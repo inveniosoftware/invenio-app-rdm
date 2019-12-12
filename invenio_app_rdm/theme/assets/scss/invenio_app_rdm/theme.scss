@@ -31,14 +31,14 @@ h6 {
 }
 
 .navbar {
-  background-image: linear-gradient(348deg, rgba(3, 119, 205, 1), rgba(3, 119, 205, 1) 52.52%, rgba(251, 130, 115, 1));
+  background-image: linear-gradient(20deg, rgba(3, 119, 205, 1), rgba(3, 119, 205, 1) 52.52%, rgba(251, 130, 115, 1));
   background-color: unset;
   border-color: transparent;
-}
 
-.navbar .btn-warning {
-    background-color: #fb8172;
-    border-color: #fb8172;
+  .btn[href^="/signup"] {
+    background-color: #44a244;
+    border-color: #44a244;
+  }
 }
 
 .centered {

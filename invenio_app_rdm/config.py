@@ -117,7 +117,7 @@ THEME_FRONTPAGE = True
 THEME_FRONTPAGE_TEMPLATE = 'invenio_app_rdm/frontpage.html'
 """Frontpage template."""
 
-THEME_FRONTPAGE_TITLE = _('Invenio App RDM')
+THEME_FRONTPAGE_TITLE = _('The turn-key research data management repository')
 """Frontpage title."""
 
 THEME_HEADER_TEMPLATE = 'invenio_theme/header.html'
