@@ -12,14 +12,46 @@
   confirmed, we don't display it.
 #}
 
+{%- macro file_list(files) %}
+  <table class="table table-striped">
+    <thead>
+      <tr class="">
+        <th>{{_('Name')}}</th>
+        <th>{{_('Size')}}</th>
+        <th>{{_('Action')}}</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for file in files %}
+      {%- set file = file.dumps() %}
+      {%- set file_uri = url_for('invenio_records_ui.recid_file', pid_value=pid.pid_value, filename=file.key, download=1) %}
+      <tr class="">
+        <td>
+          <a class="forcewrap" href="{{ file_uri }}">
+            {{ file.key }} <br>
+          </a>
+        </td>
+        <td class="nowrap">{{ file.size | filesizeformat }}</td>
+        <td class="nowrap">
+          <a class="btn btn-xs btn-default" href="{{ file_uri }}">
+            <i class="fa fa-download"></i>
+            {{_('Download')}}
+          </a>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{%- endmacro %}
+
+
 {%- block page_body %}
 <div class="container record-detail">
   <div class="row">
     <div class="col-sm-12 col-md-12 col-left">
       {%- block record_body %}
-
       <span class="label label-info" title="Publication date">{{ record.publication_date|to_date|dateformat(format='long') }}</span>
-      <span class="label label-default">{{ record.resource_type.type }}</span>
+      <span class="label label-default">{{ record.resource_type.type if record.resource_type else "resource type" }}</span>
       {% if record.access_right in ["embargoed", "closed"] %}
       <span class="label label-danger titlecase">
       {% elif record.access_right == "restricted" %}
@@ -46,10 +78,16 @@
 
       <div><p><em>{{record.description|safe}}</em></p></div>
 
-      {# Deliberate Space for other fields #}
-      <br>
-      <br>
-      <br>
+      {# filler #}
+      {{ lipsum(4) }}
+
+      {# files #}
+      {%- if record.files %}
+        {{ file_list(record.files) }} <br>
+      {%- else %}
+        <p style="text-align: center;">No associated files.</p>
+      {% endif %}
+
       <br>
       <br>
       <br>
