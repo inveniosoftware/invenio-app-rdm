@@ -272,8 +272,15 @@ WSGI_PROXIES = 2
 RECORDS_UI_ENDPOINTS = {
     'recid': {
         'pid_type': 'recid',
+        'record_class': 'invenio_records_files.api:Record',
         'route': '/records/<pid_value>',
         'template': 'invenio_app_rdm/record_view_page.html'
+    },
+    'recid_file': {
+        'pid_type': 'recid',
+        'record_class': 'invenio_records_files.api:Record',
+        'route': '/records/<pid_value>/files/<path:filename>',
+        'view_imp': 'invenio_records_files.utils.file_download_ui',
     },
 }
 """Records UI for RDM Records."""
