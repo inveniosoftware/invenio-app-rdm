@@ -15,8 +15,11 @@ this file.
 
 from __future__ import absolute_import, print_function
 
+from os.path import splitext
+
 import arrow
 from flask import Blueprint
+from invenio_previewer.views import is_previewable
 
 blueprint = Blueprint(
     'invenio_app_rdm',
@@ -38,3 +41,15 @@ def to_date(date_string):
     """
     assert isinstance(date_string, str)
     return arrow.get(date_string).date()
+
+
+@blueprint.app_template_filter('select_previewable')
+def select_previewable(files):
+    """Return files that are previewable."""
+    def extension(file):
+        return splitext(file.get('key'))[1][1:].lower()
+
+    return [
+        f for f in files
+        if is_previewable(extension(f))
+    ]

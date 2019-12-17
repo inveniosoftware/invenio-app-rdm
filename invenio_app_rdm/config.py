@@ -282,6 +282,12 @@ RECORDS_UI_ENDPOINTS = {
         'route': '/records/<pid_value>/files/<path:filename>',
         'view_imp': 'invenio_records_files.utils.file_download_ui',
     },
+    'recid_preview': {
+        'pid_type': 'recid',
+        'record_class': 'invenio_records_files.api:Record',
+        'route': '/records/<pid_value>/preview/<path:filename>',
+        'view_imp': 'invenio_previewer.views.preview',
+    },
 }
 """Records UI for RDM Records."""
 
@@ -295,3 +301,21 @@ SEARCH_UI_JSTEMPLATE_RESULTS = 'templates/invenio_app_rdm/results.html'
 
 SEARCH_UI_SEARCH_TEMPLATE = 'invenio_app_rdm/search.html'
 """"Search page."""
+
+
+# Invenio-Previewer
+# =================
+# See https://github.com/inveniosoftware/invenio-previewer/blob/master/invenio_previewer/config.py  # noqa
+
+PREVIEWER_PREFERENCE = [
+    'csv_dthreejs',
+    'iiif_image',
+    'simple_image',
+    'json_prismjs',
+    'xml_prismjs',
+    'mistune',
+    'pdfjs',
+    'ipynb',
+    'zip',
+]
+"""Preferred previewers."""
