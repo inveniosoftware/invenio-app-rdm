@@ -5,12 +5,16 @@
   Invenio App RDM is free software; you can redistribute it and/or modify it
   under the terms of the MIT License; see LICENSE file for more details.
 #}
-{%- extends config.BASE_TEMPLATE %}
 
 {#
   This is a basic-basic page. Since much of the data model has not been
   confirmed, we don't display it.
 #}
+
+{%- extends config.BASE_TEMPLATE %}
+
+{%- from "invenio_previewer/macros.html" import preview_file %}
+
 
 {%- macro file_list(files) %}
   <table class="table table-striped">
@@ -79,18 +83,30 @@
       <div><p><em>{{record.description|safe}}</em></p></div>
 
       {# filler #}
-      {{ lipsum(4) }}
+      {{ lipsum(3) }}
 
       {# files #}
       {%- if record.files %}
-        {{ file_list(record.files) }} <br>
+      {% set ordered_record_files = record.files|sort(attribute="key") %}
+
+      {# files preview #}
+      {% set selected_file = ordered_record_files|select_previewable|first %}
+      <div id="preview" class="panel panel-default">
+        <div class="panel-heading">
+          {{_('Preview')}} - {{ selected_file.key }}
+        </div>
+        <div class="panel-body">
+          {{- preview_file('invenio_records_ui.recid_preview', pid=pid, filename=selected_file.key) }}
+        </div>
+      </div>
+
+      {# files list #}
+      {{ file_list(ordered_record_files) }}
+
       {%- else %}
         <p style="text-align: center;">No associated files.</p>
       {% endif %}
 
-      <br>
-      <br>
-      <br>
       <br>
       <br>
       <br>
