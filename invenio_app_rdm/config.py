@@ -319,3 +319,11 @@ PREVIEWER_PREFERENCE = [
     'zip',
 ]
 """Preferred previewers."""
+
+
+# Invenio-IIIF
+# =================
+# See https://invenio-iiif.readthedocs.io/en/latest/configuration.html
+
+IIIF_PREVIEW_TEMPLATE = "invenio_app_rdm/iiif_preview.html"
+"""Template for IIIF image preview."""

@@ -1,0 +1,29 @@
+{#
+  Copyright (C) 2019 CERN.
+  Copyright (C) 2019 Northwestern University.
+
+  Invenio App RDM is free software; you can redistribute it and/or modify it
+  under the terms of the MIT License; see LICENSE file for more details.
+#}
+
+{%- extends config.PREVIEWER_ABSTRACT_TEMPLATE %}
+
+{%- block head %}
+  {% if config.PREVIEWER_ASSETS_USE_WEBPACK %}
+    {{ webpack['invenio-app-rdm-theme.css'] }}
+    {% for css_bundle in css_bundles %}
+      {{ webpack[css_bundle] }}
+    {% endfor %}
+  {% else %}
+    {%- for bdl in css_bundles %}
+      {%- assets bdl %}
+        <link href="{{ ASSET_URL }}" rel="stylesheet">
+      {%- endassets %}
+    {%- endfor %}
+  {% endif %}
+{%- endblock %}
+
+
+{% block panel %}
+<img class="iiif-preview-img" src="{{ file_url }}" style="max-width: 100%;">
+{% endblock %}
