@@ -86,7 +86,7 @@
       {{ lipsum(3) }}
 
       {# files #}
-      {%- if record.files %}
+      {%- if record.files and record|can_list_files %}
       {% set ordered_record_files = record.files|sort(attribute="key") %}
 
       {# files preview #}
@@ -104,10 +104,10 @@
       {{ file_list(ordered_record_files) }}
 
       {%- else %}
+        <br>
         <p style="text-align: center;">No associated files.</p>
       {% endif %}
 
-      <br>
       <br>
       <br>
       <br>

@@ -20,6 +20,7 @@ from os.path import splitext
 import arrow
 from flask import Blueprint
 from invenio_previewer.views import is_previewable
+from invenio_records_permissions.policies import get_record_permission_policy
 
 blueprint = Blueprint(
     'invenio_app_rdm',
@@ -53,3 +54,16 @@ def select_previewable(files):
         f for f in files
         if is_previewable(extension(f))
     ]
+
+
+@blueprint.app_template_filter('can_list_files')
+def can_list_files(record):
+    """Permission check if current user can list files of record.
+
+    The current_user is used under the hood by flask-principal.
+
+    Once we move to Single-Page-App approach, we likely want to enforce
+    permissions at the final serialization level (only).
+    """
+    PermissionPolicy = get_record_permission_policy()
+    return PermissionPolicy(action='read_files', record=record).can()
