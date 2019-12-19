@@ -7,9 +7,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: invenio-app-rdm 1.0.0\n"
+"Project-Id-Version: invenio-app-rdm 1.0.0a5\n"
 "Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
-"POT-Creation-Date: 2019-10-08 15:30+0200\n"
+"POT-Creation-Date: 2019-12-19 08:33-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,11 +18,40 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.7.0\n"
 
-#: invenio_app_rdm/config.py:68 invenio_app_rdm/config.py:72
-msgid "Invenio App RDM"
+#: invenio_app_rdm/config.py:120
+msgid "The turn-key research data management repository"
 msgstr ""
 
-#: invenio_app_rdm/config.py:93
+#: invenio_app_rdm/config.py:129
+msgid "InvenioRDM: Turn-key Research Data Management Repository"
+msgstr ""
+
+#: invenio_app_rdm/config.py:169
 msgid "Welcome to Invenio App RDM!"
+msgstr ""
+
+#: invenio_app_rdm/theme/templates/invenio_app_rdm/footer.html:19
+#, python-format
+msgid "Powered by <a href=\"%(invenio_rdm)s\">InvenioRDM</a>"
+msgstr ""
+
+#: invenio_app_rdm/theme/templates/invenio_app_rdm/record_view_page.html:23
+msgid "Name"
+msgstr ""
+
+#: invenio_app_rdm/theme/templates/invenio_app_rdm/record_view_page.html:24
+msgid "Size"
+msgstr ""
+
+#: invenio_app_rdm/theme/templates/invenio_app_rdm/record_view_page.html:25
+msgid "Action"
+msgstr ""
+
+#: invenio_app_rdm/theme/templates/invenio_app_rdm/record_view_page.html:42
+msgid "Download"
+msgstr ""
+
+#: invenio_app_rdm/theme/templates/invenio_app_rdm/record_view_page.html:96
+msgid "Preview"
 msgstr ""
 
