@@ -276,13 +276,13 @@ RECORDS_UI_ENDPOINTS = {
         'route': '/records/<pid_value>',
         'template': 'invenio_app_rdm/record_view_page.html'
     },
-    'recid_file': {
+    'recid_files': {
         'pid_type': 'recid',
         'record_class': 'invenio_records_files.api:Record',
         'route': '/records/<pid_value>/files/<path:filename>',
         'view_imp': 'invenio_records_files.utils.file_download_ui',
     },
-    'recid_preview': {
+    'recid_previewer': {
         'pid_type': 'recid',
         'record_class': 'invenio_records_files.api:Record',
         'route': '/records/<pid_value>/preview/<path:filename>',

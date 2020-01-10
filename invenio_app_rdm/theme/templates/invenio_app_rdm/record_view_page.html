@@ -28,7 +28,7 @@
     <tbody>
     {% for file in files %}
       {%- set file = file.dumps() %}
-      {%- set file_uri = url_for('invenio_records_ui.recid_file', pid_value=pid.pid_value, filename=file.key, download=1) %}
+      {%- set file_uri = url_for('invenio_records_ui.recid_files', pid_value=pid.pid_value, filename=file.key, download=1) %}
       <tr class="">
         <td>
           <a class="forcewrap" href="{{ file_uri }}">
@@ -96,7 +96,7 @@
           {{_('Preview')}} - {{ selected_file.key }}
         </div>
         <div class="panel-body">
-          {{- preview_file('invenio_records_ui.recid_preview', pid=pid, filename=selected_file.key) }}
+          {{- preview_file('invenio_records_ui.recid_previewer', pid=pid, filename=selected_file.key) }}
         </div>
       </div>
 
