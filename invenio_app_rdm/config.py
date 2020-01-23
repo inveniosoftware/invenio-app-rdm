@@ -90,9 +90,10 @@ BABEL_DEFAULT_TIMEZONE = 'Europe/Zurich'
 # See https://invenio-i18n.readthedocs.io/en/latest/configuration.html
 
 # Other supported languages (do not include BABEL_DEFAULT_LOCALE in list).
-# I18N_LANGUAGES = [
-#     ('fr', _('French'))
-# ]
+I18N_LANGUAGES = [
+    ('en', _('English'))
+    ('tr', _('Turkish'))
+]
 
 
 # Invenio-Theme

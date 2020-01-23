@@ -1,23 +1,27 @@
-# English translations for invenio-app-rdm.
-# Copyright (C) 2019 CERN
+# Translations template for invenio-app-rdm.
+# Copyright (C) 2020 CERN
 # This file is distributed under the same license as the invenio-app-rdm
 # project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
 #
+# Translators:
+# Zacharias Zacharodimos <zacharias.zacharodimos@cern.ch>, 2020
+#
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: invenio-app-rdm 1.0.0\n"
+"Project-Id-Version: invenio-app-rdm 1.0.0a5\n"
 "Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
-"POT-Creation-Date: 2020-01-23 13:16+0100\n"
-"PO-Revision-Date: 2019-10-08 15:30+0200\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language: en\n"
-"Language-Team: en <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"POT-Creation-Date: 2020-01-23 14:21+0100\n"
+"PO-Revision-Date: 2020-01-23 13:11+0000\n"
+"Last-Translator: Zacharias Zacharodimos <zacharias.zacharodimos@cern.ch>, 2020\n"
+"Language-Team: Turkish (https://www.transifex.com/test-1070/teams/106766/tr/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
+"Language: tr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: invenio_app_rdm/config.py:94
 msgid "English"
@@ -25,11 +29,11 @@ msgstr ""
 
 #: invenio_app_rdm/config.py:95
 msgid "Turkish"
-msgstr ""
+msgstr "Turkishhhhh"
 
 #: invenio_app_rdm/config.py:121
 msgid "The turn-key research data management repository"
-msgstr ""
+msgstr "Anahtar Teslim Araştırma Verileri Yönetimi Sistemi ÜĞİŞÇÖüğişçö Iı İi"
 
 #: invenio_app_rdm/config.py:130
 msgid "InvenioRDM: Turn-key Research Data Management Repository"
@@ -61,10 +65,10 @@ msgstr ""
 msgid "Replace this page with your themed landing page."
 msgstr ""
 
-#: invenio_app_rdm/theme/templates/invenio_app_rdm/frontpage.html:30
-#, python-format
-msgid " <a href=\"%(search_link)s\">Search</a> for records!"
-msgstr ""
+#: invenio_app_rdm/theme/templates/invenio_app_rdm/frontpage.html:29
+#, fuzzy, python-format
+msgid "<a href=\"%(search_link)s\">Search</a> for records!"
+msgstr "Kayitlariniz icin <a href=\"%(search_link)s\">arama</a> yapin!"
 
 #: invenio_app_rdm/theme/templates/invenio_app_rdm/frontpage.html:39
 msgid "The InvenioRDM project"
@@ -72,8 +76,7 @@ msgstr ""
 
 #: invenio_app_rdm/theme/templates/invenio_app_rdm/frontpage.html:43
 msgid ""
-"The InvenioRDM project is an open source collaboration with two main "
-"goals:"
+"The InvenioRDM project is an open source collaboration with two main goals:"
 msgstr ""
 
 #: invenio_app_rdm/theme/templates/invenio_app_rdm/frontpage.html:48
@@ -83,8 +86,8 @@ msgstr ""
 #: invenio_app_rdm/theme/templates/invenio_app_rdm/frontpage.html:49
 #, python-format
 msgid ""
-" Build a turn-key research data management (RDM) repository platform "
-"based on <a href=\"%(framework_link)s\">Invenio Framework</a> and <a "
+" Build a turn-key research data management (RDM) repository platform based "
+"on <a href=\"%(framework_link)s\">Invenio Framework</a> and <a "
 "href=\"%(zenodo_link)s\">Zenodo</a>."
 msgstr ""
 
@@ -94,15 +97,15 @@ msgstr ""
 
 #: invenio_app_rdm/theme/templates/invenio_app_rdm/frontpage.html:54
 msgid ""
-"Grow a community of research institutions, private companies and "
-"individuals to sustain the platform going forward."
+"Grow a community of research institutions, private companies and individuals"
+" to sustain the platform going forward."
 msgstr ""
 
 #: invenio_app_rdm/theme/templates/invenio_app_rdm/frontpage.html:57
 #, python-format
 msgid ""
-"More information on the <a href=\"%(inveniordm_link)s\">InvenioRDM "
-"product page</a>"
+"More information on the <a href=\"%(inveniordm_link)s\">InvenioRDM product "
+"page</a>"
 msgstr ""
 
 #: invenio_app_rdm/theme/templates/invenio_app_rdm/frontpage.html:65
@@ -115,9 +118,9 @@ msgstr ""
 
 #: invenio_app_rdm/theme/templates/invenio_app_rdm/frontpage.html:74
 msgid ""
-"Finally a repository that your users will love! We have thought hard "
-"about user experience for everyone: end-users, curators, system "
-"administrators, and developers. Expect more of your repository!"
+"Finally a repository that your users will love! We have thought hard about "
+"user experience for everyone: end-users, curators, system administrators, "
+"and developers. Expect more of your repository!"
 msgstr ""
 
 #: invenio_app_rdm/theme/templates/invenio_app_rdm/frontpage.html:85
@@ -127,8 +130,8 @@ msgstr ""
 #: invenio_app_rdm/theme/templates/invenio_app_rdm/frontpage.html:86
 msgid ""
 "InvenioRDM scales with you! Handle 1 or 100 million records, 1 byte or  "
-"several petabytes. It runs on bare-metal, VMs and container platforms "
-"such as Kubernetes and OpenShift."
+"several petabytes. It runs on bare-metal, VMs and container platforms such "
+"as Kubernetes and OpenShift."
 msgstr ""
 
 #: invenio_app_rdm/theme/templates/invenio_app_rdm/frontpage.html:98
@@ -137,9 +140,9 @@ msgstr ""
 
 #: invenio_app_rdm/theme/templates/invenio_app_rdm/frontpage.html:99
 msgid ""
-"InvenioRDM integrates with your institution. It supports your Single "
-"Sign-On (SSO) solution, your storage systems, your public/private clouds,"
-" your permissions models as well as your custom fields."
+"InvenioRDM integrates with your institution. It supports your Single Sign-On"
+" (SSO) solution, your storage systems, your public/private clouds, your "
+"permissions models as well as your custom fields."
 msgstr ""
 
 #: invenio_app_rdm/theme/templates/invenio_app_rdm/frontpage.html:110
@@ -149,8 +152,8 @@ msgstr ""
 #: invenio_app_rdm/theme/templates/invenio_app_rdm/frontpage.html:111
 msgid ""
 "InvenioRDM implements the Next Generation Repository (NGR) vision and "
-"integrates with other Open Science infrastructures such ORCID, DataCite &"
-" OpenAIRE."
+"integrates with other Open Science infrastructures such ORCID, DataCite & "
+"OpenAIRE."
 msgstr ""
 
 #: invenio_app_rdm/theme/templates/invenio_app_rdm/frontpage.html:123
@@ -159,10 +162,9 @@ msgstr ""
 
 #: invenio_app_rdm/theme/templates/invenio_app_rdm/frontpage.html:124
 msgid ""
-"InvenioRDM comes with pre-configured repository profiles for "
-"institutional repositories (IRs), research data management (RDM) systems "
-"as well as domain-specific repositories for health and biomedical "
-"sciences."
+"InvenioRDM comes with pre-configured repository profiles for institutional "
+"repositories (IRs), research data management (RDM) systems as well as "
+"domain-specific repositories for health and biomedical sciences."
 msgstr ""
 
 #: invenio_app_rdm/theme/templates/invenio_app_rdm/frontpage.html:135
@@ -183,36 +185,20 @@ msgstr ""
 
 #: invenio_app_rdm/theme/templates/invenio_app_rdm/record_view_page.html:23
 msgid "Name"
-msgstr ""
+msgstr "İsim"
 
 #: invenio_app_rdm/theme/templates/invenio_app_rdm/record_view_page.html:24
 msgid "Size"
-msgstr ""
+msgstr "Boyut"
 
 #: invenio_app_rdm/theme/templates/invenio_app_rdm/record_view_page.html:25
 msgid "Action"
-msgstr ""
+msgstr "Eylem"
 
 #: invenio_app_rdm/theme/templates/invenio_app_rdm/record_view_page.html:42
 msgid "Download"
-msgstr ""
+msgstr "İndir"
 
 #: invenio_app_rdm/theme/templates/invenio_app_rdm/record_view_page.html:96
 msgid "Preview"
-msgstr ""
-
-#~ msgid "Invenio App RDM"
-#~ msgstr ""
-
-#~ msgid "<a href=\"%(search_ui_link)s\">Search</a> for records!"
-#~ msgstr ""
-
-#~ msgid "<a href=\"%(search_link)s\">Search</a> for records!"
-#~ msgstr ""
-
-#~ msgid " <a href=\"%(search_linkdd)s\">Search</a> for records!"
-#~ msgstr ""
-
-#~ msgid " <a href=\"%(search_link)s\">Search</a> for records!"
-#~ msgstr ""
-
+msgstr "Önizleme"
