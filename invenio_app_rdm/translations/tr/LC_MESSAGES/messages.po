@@ -3,19 +3,20 @@
 # This file is distributed under the same license as the invenio-app-rdm
 # project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
-#
+# 
 # Translators:
 # Zacharias Zacharodimos <zacharias.zacharodimos@cern.ch>, 2020
-#
+# Hakan Bayindir <hbayindir@gmail.com>, 2020
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: invenio-app-rdm 1.0.0a5\n"
 "Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
-"POT-Creation-Date: 2020-01-23 14:21+0100\n"
-"PO-Revision-Date: 2020-01-23 13:11+0000\n"
-"Last-Translator: Zacharias Zacharodimos <zacharias.zacharodimos@cern.ch>, 2020\n"
-"Language-Team: Turkish (https://www.transifex.com/test-1070/teams/106766/tr/)\n"
+"POT-Creation-Date: 2020-01-23 17:01+0100\n"
+"PO-Revision-Date: 2020-01-23 16:08+0000\n"
+"Last-Translator: Hakan Bayindir <hbayindir@gmail.com>, 2020\n"
+"Language-Team: Turkish (https://www.transifex.com/invenio-app-rdm/teams/106775/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -25,63 +26,66 @@ msgstr ""
 
 #: invenio_app_rdm/config.py:94
 msgid "English"
-msgstr ""
+msgstr "İngilizce"
 
 #: invenio_app_rdm/config.py:95
 msgid "Turkish"
-msgstr "Turkishhhhh"
+msgstr "Türkçe"
 
 #: invenio_app_rdm/config.py:121
 msgid "The turn-key research data management repository"
-msgstr "Anahtar Teslim Araştırma Verileri Yönetimi Sistemi ÜĞİŞÇÖüğişçö Iı İi"
+msgstr "Anahtar teslim araştırma verileri yönetimi sistemi"
 
 #: invenio_app_rdm/config.py:130
 msgid "InvenioRDM: Turn-key Research Data Management Repository"
-msgstr ""
+msgstr "InvenioRDM: Anahtar Teslim Araştırma Verileri Yönetimi Sistemi"
 
 #: invenio_app_rdm/config.py:170
 msgid "Welcome to Invenio App RDM!"
-msgstr ""
+msgstr "Invenio App RDM'e Hoşgeldiniz!"
 
 #: invenio_app_rdm/theme/templates/invenio_app_rdm/footer.html:19
 #, python-format
 msgid "Powered by <a href=\"%(invenio_rdm)s\">InvenioRDM</a>"
-msgstr ""
+msgstr "<a href=\"%(invenio_rdm)s\">InvenioRDM</a> üzerine inşa edilmiştir."
 
 #: invenio_app_rdm/theme/templates/invenio_app_rdm/frontpage.html:20
 msgid "You've successfully installed InvenioRDM !"
-msgstr ""
+msgstr "InvenioRDM'i başarı ile yüklediniz!"
 
 #: invenio_app_rdm/theme/templates/invenio_app_rdm/frontpage.html:23
 msgid "Your next steps:"
-msgstr ""
+msgstr "Sonraki adımlar:"
 
 #: invenio_app_rdm/theme/templates/invenio_app_rdm/frontpage.html:26
 #, python-format
 msgid "<a href=\"%(customize_link)s\">Configure and customize</a> your instance."
 msgstr ""
+"Kurulumunuzu <a href=\"%(customize_link)s\">yapılandırın ve "
+"özelleştirin</a>."
 
 #: invenio_app_rdm/theme/templates/invenio_app_rdm/frontpage.html:28
 msgid "Replace this page with your themed landing page."
-msgstr ""
+msgstr "Bu sayfayı özelleştirilmiş giriş sayfanız ile değiştirin."
 
-#: invenio_app_rdm/theme/templates/invenio_app_rdm/frontpage.html:29
-#, fuzzy, python-format
-msgid "<a href=\"%(search_link)s\">Search</a> for records!"
-msgstr "Kayitlariniz icin <a href=\"%(search_link)s\">arama</a> yapin!"
+#: invenio_app_rdm/theme/templates/invenio_app_rdm/frontpage.html:30
+#, python-format
+msgid " <a href=\"%(search_link)s\">Search</a> for records!"
+msgstr "Kayıtlarınız içerisinde <a href=\"%(search_link)s\">arama</a> yapın!"
 
 #: invenio_app_rdm/theme/templates/invenio_app_rdm/frontpage.html:39
 msgid "The InvenioRDM project"
-msgstr ""
+msgstr "InvenioRDM projesi"
 
 #: invenio_app_rdm/theme/templates/invenio_app_rdm/frontpage.html:43
 msgid ""
 "The InvenioRDM project is an open source collaboration with two main goals:"
 msgstr ""
+"InvenioRDM, iki temel hedefi olan bir açık kaynak işbirliği projesidir:"
 
 #: invenio_app_rdm/theme/templates/invenio_app_rdm/frontpage.html:48
 msgid "Repository Platform"
-msgstr ""
+msgstr "Veri Ambarı Platformu"
 
 #: invenio_app_rdm/theme/templates/invenio_app_rdm/frontpage.html:49
 #, python-format
@@ -90,16 +94,21 @@ msgid ""
 "on <a href=\"%(framework_link)s\">Invenio Framework</a> and <a "
 "href=\"%(zenodo_link)s\">Zenodo</a>."
 msgstr ""
+"<a href=\"%(framework_link)s\">Invenio Framework</a> ve <a "
+"href=\"%(zenodo_link)s\">Zenodo</a> üzerine inşa edilmiş bir anahtar teslim "
+"araştırma verileri (RDM) platformu kurun."
 
 #: invenio_app_rdm/theme/templates/invenio_app_rdm/frontpage.html:53
 msgid "Community"
-msgstr ""
+msgstr "Topluluklar"
 
 #: invenio_app_rdm/theme/templates/invenio_app_rdm/frontpage.html:54
 msgid ""
 "Grow a community of research institutions, private companies and individuals"
 " to sustain the platform going forward."
 msgstr ""
+"Platformunuzu sürdürülebilir hale getirmek için araştırma enstitüleri, özel "
+"şirketler ve bireylerden oluşan topluluklar kurun ve büyümelerini sağlayın."
 
 #: invenio_app_rdm/theme/templates/invenio_app_rdm/frontpage.html:57
 #, python-format
@@ -107,14 +116,16 @@ msgid ""
 "More information on the <a href=\"%(inveniordm_link)s\">InvenioRDM product "
 "page</a>"
 msgstr ""
+"Daha fazla bilgiyi <a href=\"%(inveniordm_link)s\">InvenioRDM ürün "
+"sayfasında</a> bulabilirsiniz."
 
 #: invenio_app_rdm/theme/templates/invenio_app_rdm/frontpage.html:65
 msgid "Features"
-msgstr ""
+msgstr "Özellikler"
 
 #: invenio_app_rdm/theme/templates/invenio_app_rdm/frontpage.html:73
 msgid "Top of the class UX"
-msgstr ""
+msgstr "Birinci Sınıf Kullanıcı Deneyimi"
 
 #: invenio_app_rdm/theme/templates/invenio_app_rdm/frontpage.html:74
 msgid ""
@@ -122,10 +133,13 @@ msgid ""
 "user experience for everyone: end-users, curators, system administrators, "
 "and developers. Expect more of your repository!"
 msgstr ""
+"Kullanıcılarınızın seveceği bir veri ambarı! Son kullanıcıların, "
+"küratörlerin, sistem yöneticilerin ve geliştiricilerin kullanıcı deneyimi "
+"düşünülerek tasarlandı."
 
 #: invenio_app_rdm/theme/templates/invenio_app_rdm/frontpage.html:85
 msgid "Scalability"
-msgstr ""
+msgstr "Ölçeklenebilir"
 
 #: invenio_app_rdm/theme/templates/invenio_app_rdm/frontpage.html:86
 msgid ""
@@ -133,10 +147,14 @@ msgid ""
 "several petabytes. It runs on bare-metal, VMs and container platforms such "
 "as Kubernetes and OpenShift."
 msgstr ""
+"1 ya da 100 milyon kaydınız; 1 byte ya da petabytelarca veriniz olsun, "
+"InvenioRDM ihtiyaçlarınıza göre ölçeklenebilir! İster donanım üzerinde, "
+"ister sanal makinelerde, isterseniz de Kubernetes ve OpenShift gibi "
+"container platformları ile çalışabilirsiniz."
 
 #: invenio_app_rdm/theme/templates/invenio_app_rdm/frontpage.html:98
 msgid "Institutional integration"
-msgstr ""
+msgstr "Kurumsal Entegrasyonu"
 
 #: invenio_app_rdm/theme/templates/invenio_app_rdm/frontpage.html:99
 msgid ""
@@ -144,10 +162,13 @@ msgid ""
 " (SSO) solution, your storage systems, your public/private clouds, your "
 "permissions models as well as your custom fields."
 msgstr ""
+"InvenioRDM kurumunuz ile entegre olur. Tek noktadan giriş (SSO) çözümünüz, "
+"depolama sisteminiz, açık ya da özel bulutunuz, izin modelleriniz ve özel "
+"veri alanlarınız ile uyumlu çalışır."
 
 #: invenio_app_rdm/theme/templates/invenio_app_rdm/frontpage.html:110
 msgid "Next Generation Repository"
-msgstr ""
+msgstr "Gelecek Nesil Veri Ambarı"
 
 #: invenio_app_rdm/theme/templates/invenio_app_rdm/frontpage.html:111
 msgid ""
@@ -155,10 +176,13 @@ msgid ""
 "integrates with other Open Science infrastructures such ORCID, DataCite & "
 "OpenAIRE."
 msgstr ""
+"InvenioRDM Gelecek Nesil Veri Ambarı (NGR) vizyonunu hayata geçirir ve "
+"ORCID, DataCite ve OpenAIRE gibi diğer Açık Bilim altyapıları ile entegre "
+"olarak çalışır,"
 
 #: invenio_app_rdm/theme/templates/invenio_app_rdm/frontpage.html:123
 msgid "Repository Profiles"
-msgstr ""
+msgstr "Veri Ambarı Profilleri"
 
 #: invenio_app_rdm/theme/templates/invenio_app_rdm/frontpage.html:124
 msgid ""
@@ -166,10 +190,13 @@ msgid ""
 "repositories (IRs), research data management (RDM) systems as well as "
 "domain-specific repositories for health and biomedical sciences."
 msgstr ""
+"InvenioRDM kurumsal depolar (IR), araştırma verisi yönetimi (RDM), sağlık ve"
+" biyomedikal bilimler gibi özel alanlar için veri ambarı profilleri ile "
+"beraber gelmektedir."
 
 #: invenio_app_rdm/theme/templates/invenio_app_rdm/frontpage.html:135
 msgid "Resilient"
-msgstr ""
+msgstr "Esnek"
 
 #: invenio_app_rdm/theme/templates/invenio_app_rdm/frontpage.html:136
 msgid ""
@@ -178,10 +205,15 @@ msgid ""
 "extensible platform to ensure a reliable core on which you can build new "
 "innovative features and integrations."
 msgstr ""
+"Değişen ihtiyaçlarınıza uyum sağlaması için geliştirildi. Kararlı APIlere "
+"sahiptir, kolayca yönetilebilir ve güncellenebilir. Aynı zamanda sağlam bir "
+"çekirdeğin üzerine geliştirme yapabilmeniz için eklentiler geliştirebilir, "
+"yenilikçi özellikler ekleyebilir ve farklı sistemler ile entegre "
+"edebilirsiniz."
 
 #: invenio_app_rdm/theme/templates/invenio_app_rdm/frontpage.html:146
 msgid "Brought to you by"
-msgstr ""
+msgstr "Katkı sağlayanlar"
 
 #: invenio_app_rdm/theme/templates/invenio_app_rdm/record_view_page.html:23
 msgid "Name"

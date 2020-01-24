@@ -91,7 +91,6 @@ BABEL_DEFAULT_TIMEZONE = 'Europe/Zurich'
 
 # Other supported languages (do not include BABEL_DEFAULT_LOCALE in list).
 I18N_LANGUAGES = [
-    ('en', _('English'))
     ('tr', _('Turkish'))
 ]
 
