@@ -327,3 +327,9 @@ PREVIEWER_PREFERENCE = [
 
 IIIF_PREVIEW_TEMPLATE = "invenio_app_rdm/iiif_preview.html"
 """Template for IIIF image preview."""
+
+
+# Invenio-APP-RDM
+# =============
+INSTANCE_THEME_FILE = './scss/invenio_app_rdm/theme.scss'
+"""Instance's theme file path to override the default theme."""
