@@ -31,8 +31,8 @@ h6 {
 }
 
 .navbar {
-  background-image: linear-gradient(20deg, rgba(3, 119, 205, 1), rgba(3, 119, 205, 1) 52.52%, rgba(251, 130, 115, 1));
-  background-color: unset;
+  background-image: $navbar_background_image;
+  background-color: $navbar_background_color;
   border-color: transparent;
 
   .btn[href^="/signup"] {

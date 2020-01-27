@@ -10,16 +10,24 @@
 
 from __future__ import absolute_import, print_function
 
+from flask import current_app
 from flask_webpackext import WebpackBundle
 
-theme = WebpackBundle(
-    __name__,
-    'assets',
-    entry={
-        'invenio-app-rdm-theme': './scss/invenio_app_rdm/theme.scss',
-        'invenio-app-rdm-js': './js/invenio_app_rdm/inveniordm.js',
-    },
-    dependencies={
-        # add any additional npm dependencies here...
-    }
-)
+
+def theme():
+    """Returns module's webpack bundle.
+
+    This is a callable function in order to lazy load `current_app`
+    and avoid working outside application context.
+    """
+    return WebpackBundle(
+        __name__,
+        'assets',
+        entry={
+            'invenio-app-rdm-theme': current_app.config['INSTANCE_THEME_FILE'],
+            'invenio-app-rdm-js': './js/invenio_app_rdm/inveniordm.js',
+        },
+        dependencies={
+            # add any additional npm dependencies here...
+        }
+    )
