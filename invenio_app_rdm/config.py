@@ -265,6 +265,17 @@ WSGI_PROXIES = 2
 """Correct number of proxies in front of your application."""
 
 
+# Invenio-Records-Files
+# =====================
+
+RECORDS_FILES_REST_ENDPOINTS = {
+    'RECORDS_REST_ENDPOINTS': {
+        'recid': '/files',
+    }
+}
+"""Set default files rest endpoints."""
+
+
 # Invenio-Records-UI
 # ==================
 # See https://invenio-records-ui.readthedocs.io/en/latest/configuration.html
