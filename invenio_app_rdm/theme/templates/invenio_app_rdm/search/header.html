@@ -1,0 +1,52 @@
+{#
+  Copyright (C) 2020 CERN.
+  Copyright (C) 2020 Northwestern University.
+
+  Invenio App RDM is free software; you can redistribute it and/or modify it
+  under the terms of the MIT License; see LICENSE file for more details.
+#}
+{% from "invenio_app_rdm/search/macros/searchbar.html" import render_searchbar %}
+
+{%- extends config.THEME_HEADER_TEMPLATE %}
+
+{%- block navbar %}
+<div class="ui fluid container">
+  <div class="ui fluid container search-header">
+    <div
+      class="ui container relaxed middle aligned grid"
+      style="padding: 2em 0px;"
+    >
+      <div class="row">
+        {% block search_left %}
+            <div class="three wide column">
+            {%- block brand %}
+              {%- if config.THEME_LOGO %}
+                <a href="/"><img class="ui image" src="{{ url_for('static', filename=config.THEME_LOGO)}}" alt="{{_(config.THEME_SITENAME)}}" /></a>
+              {%- else %}
+                <a class="navbar-brand" href="/">{{_(config.THEME_SITENAME)}}</a>
+              {%- endif %}
+            {%- endblock brand%}
+            </div>
+        {% endblock search_left%}
+        {%- block search_middle %}
+            <div class="nine wide column">
+            <div class="ui container">
+                {{ render_searchbar() }}
+            </div>
+            </div>
+        {% endblock search_middle %}
+        {% block search_right %}
+            <div class="four wide column">
+              <div class="ui container">
+                  <div class="ui buttons">
+                  <a class="ui button" role="button" href="/coming-soon">Upload</a
+                  ><a class="ui button" role="button" href="/coming-soon">Communities</a>
+                  </div>
+              </div>
+            </div>
+        {% endblock %}
+      </div>
+    </div>
+  </div>
+</div>
+{%- endblock navbar %}

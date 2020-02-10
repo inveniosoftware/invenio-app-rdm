@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2019 CERN.
-# Copyright (C) 2019 Northwestern University.
+# Copyright (C) 2019-2020 CERN.
+# Copyright (C) 2019-2020 Northwestern University.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -34,7 +34,8 @@ from invenio_rdm_records.config import FILES_REST_PERMISSION_FACTORY, \
     IIIF_PREVIEW_TEMPLATE, PIDSTORE_RECID_FIELD, PREVIEWER_PREFERENCE, \
     RECORD_CONTRIBUTOR_TYPES, RECORD_CONTRIBUTOR_TYPES_LABELS, \
     RECORDS_FILES_REST_ENDPOINTS, RECORDS_PERMISSIONS_RECORD_POLICY, \
-    RECORDS_REST_ENDPOINTS, RECORDS_UI_ENDPOINTS
+    RECORDS_REST_DEFAULT_SORT, RECORDS_REST_ENDPOINTS, RECORDS_REST_FACETS, \
+    RECORDS_REST_SORT_OPTIONS, RECORDS_UI_ENDPOINTS
 
 
 def _(x):
@@ -268,17 +269,17 @@ SEARCH_ELASTIC_HOSTS = [{"host": "localhost", "port": 9200}]
 WSGI_PROXIES = 2
 """Correct number of proxies in front of your application."""
 
-# Invenio-Search-UI
-# ==================
-# See https://invenio-search-ui.readthedocs.io/en/latest/configuration.html
-
-SEARCH_UI_JSTEMPLATE_RESULTS = 'templates/invenio_app_rdm/results.html'
-"""The search results template."""
-
-SEARCH_UI_SEARCH_TEMPLATE = 'invenio_app_rdm/search.html'
-""""Search page."""
 
 # Invenio-APP-RDM
 # =============
 INSTANCE_THEME_FILE = './scss/invenio_app_rdm/theme.scss'
 """Instance's theme file path to override the default theme."""
+
+INSTANCE_SEARCH_THEME_FILE = './scss/invenio_app_rdm/search/theme.scss'
+"""Instance's search theme file path to override the default search theme."""
+
+SEARCH_HEADER_TEMPLATE = 'invenio_app_rdm/search/header.html'
+"""Search page's header template."""
+
+SEARCH_BASE_TEMPLATE = 'invenio_app_rdm/search/search.html'
+"""Search page's base template."""

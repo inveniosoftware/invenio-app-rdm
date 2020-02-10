@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2019 CERN.
-# Copyright (C) 2019 Northwestern University.
+# Copyright (C) 2019-2020 CERN.
+# Copyright (C) 2019-2020 Northwestern University.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -64,7 +64,14 @@ for name, reqs in extras_require.items():
     extras_require['all'].extend(reqs)
 
 install_requires = [
-    'Invenio[base,auth,metadata,files]{}'.format(invenio_version),
+    'Invenio[base,auth,files]{}'.format(invenio_version),
+    'invenio-indexer>=1.1.1,<1.2.0',
+    'invenio-jsonschemas>=1.0.1,<1.1.0',
+    'invenio-oaiserver>=1.1.1,<1.2.0',
+    'invenio-pidstore>=1.1.0,<1.2.0',
+    'invenio-records-rest>=1.6.4,<1.7.0',
+    'invenio-records-ui>=1.0.1,<1.1.0',
+    'invenio-records>=1.3.0,<1.4.0',
     'invenio-rdm-records>=0.9.0',
     'invenio-records-permissions>=0.7.0',
 ]
