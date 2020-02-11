@@ -67,6 +67,7 @@ install_requires = [
     'Invenio[base,auth,metadata,files]{}'.format(invenio_version),
     'invenio-rdm-records>=1.0.0a8',
     'invenio-records-permissions>=1.0.0a6',
+    'Werkzeug>=0.16.1,<1.0.0'
 ]
 
 packages = find_packages()
