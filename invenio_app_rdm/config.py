@@ -30,7 +30,10 @@ WARNING: An instance should NOT install multiple flavour extensions since
 
 from datetime import timedelta
 
-from invenio_rdm_records.config import *
+from invenio_rdm_records.config import IIIF_PREVIEW_TEMPLATE, \
+    PREVIEWER_PREFERENCE, RECORD_CONTRIBUTOR_TYPES, \
+    RECORD_CONTRIBUTOR_TYPES_LABELS, RECORDS_UI_ENDPOINTS, \
+    RECORDS_FILES_REST_ENDPOINTS
 
 
 def _(x):
@@ -264,45 +267,6 @@ SEARCH_ELASTIC_HOSTS = [{"host": "localhost", "port": 9200}]
 WSGI_PROXIES = 2
 """Correct number of proxies in front of your application."""
 
-
-# Invenio-Records-Files
-# =====================
-
-RECORDS_FILES_REST_ENDPOINTS = {
-    'RECORDS_REST_ENDPOINTS': {
-        'recid': '/files',
-    }
-}
-"""Set default files rest endpoints."""
-
-
-# Invenio-Records-UI
-# ==================
-# See https://invenio-records-ui.readthedocs.io/en/latest/configuration.html
-
-RECORDS_UI_ENDPOINTS = {
-    'recid': {
-        'pid_type': 'recid',
-        'record_class': 'invenio_records_files.api:Record',
-        'route': '/records/<pid_value>',
-        'template': 'invenio_app_rdm/record_view_page.html'
-    },
-    'recid_files': {
-        'pid_type': 'recid',
-        'record_class': 'invenio_records_files.api:Record',
-        'route': '/records/<pid_value>/files/<path:filename>',
-        'view_imp': 'invenio_records_files.utils.file_download_ui',
-    },
-    'recid_previewer': {
-        'pid_type': 'recid',
-        'record_class': 'invenio_records_files.api:Record',
-        'route': '/records/<pid_value>/preview/<path:filename>',
-        'view_imp': 'invenio_previewer.views.preview',
-    },
-}
-"""Records UI for RDM Records."""
-
-
 # Invenio-Search-UI
 # ==================
 # See https://invenio-search-ui.readthedocs.io/en/latest/configuration.html
@@ -312,33 +276,6 @@ SEARCH_UI_JSTEMPLATE_RESULTS = 'templates/invenio_app_rdm/results.html'
 
 SEARCH_UI_SEARCH_TEMPLATE = 'invenio_app_rdm/search.html'
 """"Search page."""
-
-
-# Invenio-Previewer
-# =================
-# See https://github.com/inveniosoftware/invenio-previewer/blob/master/invenio_previewer/config.py  # noqa
-
-PREVIEWER_PREFERENCE = [
-    'csv_dthreejs',
-    'iiif_image',
-    'simple_image',
-    'json_prismjs',
-    'xml_prismjs',
-    'mistune',
-    'pdfjs',
-    'ipynb',
-    'zip',
-]
-"""Preferred previewers."""
-
-
-# Invenio-IIIF
-# =================
-# See https://invenio-iiif.readthedocs.io/en/latest/configuration.html
-
-IIIF_PREVIEW_TEMPLATE = "invenio_app_rdm/iiif_preview.html"
-"""Template for IIIF image preview."""
-
 
 # Invenio-APP-RDM
 # =============
