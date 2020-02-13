@@ -14,7 +14,7 @@ from setuptools import find_packages, setup
 
 readme = open('README.rst').read()
 
-invenio_version = '==3.2.0a9'
+invenio_version = '==3.2.1'
 invenio_search_version = '>=1.2.0,<1.3.0'
 invenio_db_version = '>=1.0.4,<1.1.0'
 
@@ -67,7 +67,6 @@ install_requires = [
     'Invenio[base,auth,metadata,files]{}'.format(invenio_version),
     'invenio-rdm-records[badges]>=1.0.0a8',
     'invenio-records-permissions>=1.0.0a6',
-    'Werkzeug>=0.16.1,<1.0.0'
 ]
 
 packages = find_packages()
