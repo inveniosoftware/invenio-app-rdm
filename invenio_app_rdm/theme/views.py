@@ -15,8 +15,6 @@ this file.
 
 from __future__ import absolute_import, print_function
 
-from os.path import splitext
-
 from flask import Blueprint
 
 blueprint = Blueprint(
