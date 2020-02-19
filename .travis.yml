@@ -44,7 +44,7 @@ env:
     - REQUIREMENTS=devel EXTRAS=all,postgresql,elasticsearch7 ES_URL=$ES7_DOWNLOAD_URL
 
 python:
-  - "3.5"
+  - "3.6"
 
 before_install:
   - "mkdir /tmp/elasticsearch"
@@ -80,6 +80,6 @@ deploy:
   distributions: "compile_catalog sdist bdist_wheel"
   on:
     tags: true
-    python: "3.5"
+    python: "3.6"
     repo: inveniosoftware/invenio-app-rdm
     condition: $DEPLOY = true
