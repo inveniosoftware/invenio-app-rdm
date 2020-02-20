@@ -65,8 +65,8 @@ for name, reqs in extras_require.items():
 
 install_requires = [
     'Invenio[base,auth,metadata,files]{}'.format(invenio_version),
-    'invenio-rdm-records[badges]>=1.0.0a8',
-    'invenio-records-permissions>=1.0.0a6',
+    'invenio-rdm-records>=1.0.0a8',
+    'invenio-records-permissions>=0.7.0',
 ]
 
 packages = find_packages()
