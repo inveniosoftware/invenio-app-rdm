@@ -11,7 +11,7 @@ import _truncate from 'lodash/truncate';
 
 export function ResultsGridItemTemplate(record, index) {
     return (
-      <Card fluid key={index} href={`#`}>
+      <Card fluid key={index} href={`/records/${record.id}`}>
         <Card.Content>
           <Card.Header>{record.metadata.titles[0].title}</Card.Header>
           <Card.Description>
