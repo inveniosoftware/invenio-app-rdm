@@ -11,7 +11,7 @@ import _truncate from 'lodash/truncate';
 
 export function ResultsItemTemplate(record, index) {
   return (
-    <Item key={index} href={`#`}>
+    <Item key={index} href={`/records/${record.id}`}>
       <Item.Content>
         <Item.Header>{record.metadata.titles[0].title}</Item.Header>
         <Item.Description>
