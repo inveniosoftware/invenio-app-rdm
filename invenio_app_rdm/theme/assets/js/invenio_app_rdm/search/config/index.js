@@ -62,7 +62,8 @@ const resultsPerPageValues = [
 const logo = "/static/images/logo.svg";
 
 const searchApi = {
-  url: "https://localhost:5000/api/records/",
+  baseURL: "",
+  url: "/api/records",
   timeout: 5000
 };
 
