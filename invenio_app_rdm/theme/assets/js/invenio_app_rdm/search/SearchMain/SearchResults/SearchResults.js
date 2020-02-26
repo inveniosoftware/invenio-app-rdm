@@ -6,7 +6,7 @@
 // under the terms of the MIT License; see LICENSE file for more details.
 
 import React, { Component } from "react";
-import { Container, Grid } from "semantic-ui-react";
+import { Container, Header, Icon, Grid, Segment } from "semantic-ui-react";
 import _truncate from "lodash/truncate";
 import {
   Count,
@@ -79,10 +79,18 @@ class Results extends Component {
 }
 
 const OnResults = withState(Results);
+const OnEmptyResults = () => (
+  <Segment placeholder textAlign="center">
+    <Header icon>
+      <Icon name="search" />
+      No results found!
+    </Header>
+  </Segment>
+);
 
 export const SearchResults = () => (
   <ResultsLoader>
-    <EmptyResults />
+    <EmptyResults renderElement={OnEmptyResults} />
     <Error />
     <OnResults
       sortValues={config.sortValues}
