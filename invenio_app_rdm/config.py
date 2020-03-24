@@ -131,7 +131,7 @@ THEME_HEADER_TEMPLATE = 'invenio_theme/header.html'
 THEME_LOGO = 'images/invenio-rdm.png'
 """Theme logo."""
 
-THEME_SITENAME = _('InvenioRDM: Turn-key Research Data Management Repository')
+THEME_SITENAME = _('InvenioRDM')
 """Site name."""
 
 

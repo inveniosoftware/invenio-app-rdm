@@ -179,3 +179,24 @@ h6 {
 .record-elem .record-description {
     color: #000000;
 }
+
+.site-wrapper {
+  background-image: $navbar_background_image;
+  background-color: $navbar_background_color;
+  border-color: transparent;
+}
+
+.btn-warning {
+  background-color: #44a244;
+  border-color: #44a244;
+}
+
+.btn-primary  {
+  background-color: #0377cd;
+  border-color: #0377cd;
+}
+
+.panel-free-title {
+  font-family: 'Oswald', 'Open Sans', sans-serif;
+  color: #0377cd;
+}
