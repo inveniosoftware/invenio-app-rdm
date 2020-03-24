@@ -1,0 +1,89 @@
+/*
+ *   Copyright (C) 2019 CERN.
+ *   Copyright (C) 2019 Northwestern University.
+ *
+ * Invenio App RDM is free software; you can redistribute it and/or modify it
+ * under the terms of the MIT License; see LICENSE file for more details.
+ */
+
+.numbering {
+    font-family: 'Oswald', 'Open Sans', sans-serif;
+    font-weight: 200;
+    font-size: 4em;
+    color: white;
+    background-color: #0377cd91;
+    box-sizing: border-box;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin: 0 auto;
+}
+.flex-center-vertically {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    height: auto;
+    margin: 0 0 20px 0;
+}
+@media only screen and (min-device-width: 993px),
+only screen and (min-width: 993px) {
+    .flex-center-vertically {
+        flex-direction: column;
+    }
+}
+@media only screen and (max-device-width: 992px),
+only screen and (max-width: 993px) {
+    .flex-center-vertically {
+        flex-direction: row;
+    }
+}
+
+.command-line {
+    font-family: 'Oswald', 'Open Sans', sans-serif;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #eeeeee;
+    text-align: center;
+    word-spacing: normal;
+    word-wrap: normal;
+    word-break: normal;
+    border-radius: 5px;
+}
+
+@media (max-width: 1200px) {
+    .command-line {
+        font-size: 0.5em;
+    }
+}
+
+.inline-row {
+    text-align: center;
+}
+
+.inline-row-pane {
+    display: inline-flex;
+    flex-direction: row;
+}
+
+.goto-button {
+    text-align: center;
+    padding: 20px 10px;
+    white-space: nowrap;
+}
+
+.goto-button a {
+    text-decoration: none;
+    border-radius: 4px;
+    line-height: 25px;
+    padding: 15px 30px;
+    background-color: #0377cd;
+    color: rgb(212, 229, 239) !important;
+    height: 50px;
+    font-size: 1em;
+    font-weight: 200;
+}
+
+.goto-button a:hover,
+.goto-button a:active {
+    color: white !important;
+}

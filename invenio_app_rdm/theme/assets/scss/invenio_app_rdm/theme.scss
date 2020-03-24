@@ -12,6 +12,7 @@
 @import "../invenio_theme/styles";
 
 @import "footer";
+@import "frontpage";
 
 
 html,
@@ -120,6 +121,13 @@ h6 {
   color: #0377cd;
   margin-bottom: 45px;
   font-weight: 500;
+}
+
+.section-subtitle {
+  font-family: 'Oswald', 'Open Sans', sans-serif;
+  color: #0377cd !important;
+  text-align: center;
+  margin-bottom: 40px;
 }
 
 .invenio-rdm-project-goals {
