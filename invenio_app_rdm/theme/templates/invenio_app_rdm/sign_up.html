@@ -1,0 +1,45 @@
+{# -*- coding: utf-8 -*-
+
+    This file is part of Invenio.
+    Copyright (C) 2020 CERN.
+    Copyright (C) 2020 Northwestern University.
+  
+    Invenio-App-RDM is free software; you can redistribute it and/or modify it
+    under the terms of the MIT License; see LICENSE file for more details.
+  #}
+  {%- extends config.ACCOUNTS_COVER_TEMPLATE %}
+  
+  {% from "invenio_accounts/_macros.html" import render_field, form_errors %}
+  
+  {% block panel %}
+  {%- with form = register_user_form %}
+  <div class="col-md-6 col-md-offset-3">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <h3 class="text-center panel-free-title">{% trans sitename=config.ACCOUNTS_SITENAME %}Sign up for an {{ sitename }} account!{% endtrans %}</h3>
+        <form action="{{ url_for_security('register') }}" method="POST" name="register_user_form">
+        {{ form_errors(form) }}
+        {{ form.hidden_tag() }}
+        {%- block registration_form_fields scoped %}
+        {{ render_field(form.email, icon="glyphicon glyphicon-user", autofocus=True, errormsg=False) }}
+        {{ render_field(form.password, icon="glyphicon glyphicon-lock", errormsg=False) }}
+        {%- if form.password_confirm %}
+          {{ render_field(form.password_confirm, icon="glyphicon glyphicon-lock", errormsg=False) }}
+        {%- endif %}
+        {%- endblock registration_form_fields %}
+        {%- if form.recaptcha %}
+          <div class="form-group form-group-lg">{{ form.recaptcha() }}</div>
+        {%- endif %}
+        <button type="submit" class="btn btn-warning btn-lg btn-block"><i class="fa fa-edit"></i> {{ _('Sign Up') }}</button>
+        </form>
+      </div>
+      <div class="panel-footer text-center">
+        <h4 class="text-muted">
+          {{ _('Already have an account?') }}
+          <a href="{{ url_for_security('login') }}">{{ _('Log In') }}</a>
+        </h4>
+      </div>
+    </div>
+  </div>
+  {%- endwith %}
+  {% endblock panel %}

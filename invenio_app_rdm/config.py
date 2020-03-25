@@ -134,6 +134,9 @@ THEME_LOGO = 'images/invenio-rdm.png'
 THEME_SITENAME = _('InvenioRDM')
 """Site name."""
 
+SECURITY_REGISTER_USER_TEMPLATE = 'invenio_app_rdm/sign_up.html'
+"""Default template for user registration."""
+
 
 # Invenio-Mail / Flask-Mail
 # =========================
