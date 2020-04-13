@@ -12,10 +12,12 @@
 
 html,
 body {
-  height: 100%;
-  width: 100%;
   font-family: 'Open Sans', sans-serif;
   color: #000;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 h1,
 h2,

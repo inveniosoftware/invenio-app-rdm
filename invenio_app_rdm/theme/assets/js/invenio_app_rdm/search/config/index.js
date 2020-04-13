@@ -12,16 +12,16 @@ const aggregations = [
     title: "Access Right",
     agg: {
       field: "access_right",
-      aggName: "access_right"
-    }
+      aggName: "access_right",
+    },
   },
   {
     title: "Resource types",
     agg: {
       field: "resource_type",
-      aggName: "resource_type"
-    }
-  }
+      aggName: "resource_type",
+    },
+  },
 ];
 
 const sortValues = [
@@ -29,42 +29,44 @@ const sortValues = [
     text: "Best match",
     sortBy: "bestmatch",
     sortOrder: "desc",
-    defaultOnEmptyString: true
+    defaultOnEmptyString: true,
   },
   {
     text: "Newest",
     sortBy: "mostrecent",
     sortOrder: "asc",
-    default: true
+    default: true,
   },
   {
     text: "Oldest",
     sortBy: "mostrecent",
-    sortOrder: "desc"
-  }
+    sortOrder: "desc",
+  },
 ];
 
 const resultsPerPageValues = [
   {
     text: "10",
-    value: 10
+    value: 10,
   },
   {
     text: "20",
-    value: 20
+    value: 20,
   },
   {
     text: "50",
-    value: 50
-  }
+    value: 50,
+  },
 ];
 
 const logo = "/static/images/logo.svg";
 
 const searchApi = {
-  baseURL: "",
-  url: "/api/records",
-  timeout: 5000
+  axios: {
+    baseURL: "",
+    url: "/api/records",
+    timeout: 5000,
+  },
 };
 
 export const config = {
@@ -72,5 +74,5 @@ export const config = {
   searchApi,
   aggregations,
   sortValues,
-  resultsPerPageValues
+  resultsPerPageValues,
 };

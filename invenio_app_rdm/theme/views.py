@@ -29,3 +29,46 @@ blueprint = Blueprint(
 def search():
     """Search page."""
     return render_template(current_app.config['SEARCH_BASE_TEMPLATE'])
+
+
+@blueprint.route('/records/new')
+def records_create():
+    """Record creation page."""
+    config = dict(apiUrl='/api/records/')
+    return render_template(
+        current_app.config['DEPOSITS_FORMS_BASE_TEMPLATE'],
+        ui_config=config
+    )
+
+
+@blueprint.route('/records/fake/<string:id>/edit')
+def records_fake_edit(id):
+    """Fake record edit page."""
+    config = dict(apiUrl='/api/records/')
+    return render_template(
+        current_app.config['DEPOSITS_FORMS_BASE_TEMPLATE'],
+        ui_config=config,
+        record=record)
+
+
+@blueprint.route('/drafts/<string:id>/edit')
+def drafts_edit(id):
+    """Drafts edit page."""
+    from invenio_pidstore.resolver import Resolver
+    from invenio_records.api import Record
+
+    resolver = Resolver(
+        pid_type='recid', object_type="rec", getter=Record.get_record
+    )
+    _, record = resolver.resolve(str(id))
+    config = dict(apiUrl='/api/records/')
+    return render_template(
+        current_app.config['DRAFTS_FORMS_BASE_TEMPLATE'],
+        ui_config=config,
+        record=record)
+
+
+@blueprint.route('/drafts/search')
+def drafts_search():
+    """Drafts search page."""
+    return render_template(current_app.config['DRAFTS_SEARCH_BASE_TEMPLATE'])
