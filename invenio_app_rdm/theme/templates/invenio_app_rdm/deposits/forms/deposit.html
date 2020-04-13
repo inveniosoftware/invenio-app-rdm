@@ -1,0 +1,38 @@
+{#
+  Copyright (C) 2020 CERN.
+  Copyright (C) 2020 Northwestern University.
+
+  Invenio App RDM is free software; you can redistribute it and/or modify it
+  under the terms of the MIT License; see LICENSE file for more details.
+#}
+{%- extends config.BASE_TEMPLATE %}
+
+{%- block head_links %}
+    {{ super() }}
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600|Oswald|Source+Code+Pro:400&amp;display=swap" rel="stylesheet">
+{%- endblock head_links %}
+
+{%- block css %}
+    {{ webpack['vendor.css']}}
+    {{ webpack['invenio-app-rdm-search-theme.css']}}
+{%-endblock %}
+
+{%- block page_header %}
+{%- include config.SEARCH_HEADER_TEMPLATE %}
+{%- endblock page_header %}
+
+{%- block page_body %}
+  {%- if record %}
+  <input id="deposits-record" type="hidden" name="deposits-record" value='{{record | tojson }}'></input>
+  {%- endif %}
+  {%- if ui_config %}
+  <input type="hidden" name="deposits-config" value='{{ui_config | tojson }}'></input>
+  {%- endif %}
+  <div id="deposit-form"></div>
+{%- endblock page_body %}
+
+{%- block javascript %}
+    {{ super() }}
+    {{ webpack['invenio-app-rdm-searchbar-js.js'] }}
+    {{ webpack['invenio-app-rdm-deposits-deposit-form-js.js'] }}
+{%- endblock %}

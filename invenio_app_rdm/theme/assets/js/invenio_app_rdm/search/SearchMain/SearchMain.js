@@ -9,7 +9,6 @@ import React, { Component } from "react";
 
 import { Container, Grid } from "semantic-ui-react";
 import { ReactSearchKit, InvenioSearchApi } from "react-searchkit";
-
 import { SearchResults } from "./SearchResults";
 import { SearchFacets } from "./SearchFacets";
 import { config } from "../config";

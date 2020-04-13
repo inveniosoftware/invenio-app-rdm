@@ -286,3 +286,7 @@ SEARCH_HEADER_TEMPLATE = 'invenio_app_rdm/search/header.html'
 
 SEARCH_BASE_TEMPLATE = 'invenio_app_rdm/search/search.html'
 """Search page's base template."""
+
+DEPOSITS_FORMS_BASE_TEMPLATE = 'invenio_app_rdm/deposits/forms/deposit.html'
+
+DEPOSITS_SEARCH_BASE_TEMPLATE = 'invenio_app_rdm/deposits/search/search.html'
