@@ -30,7 +30,10 @@ def theme():
             'invenio-app-rdm-search-js':
                 './js/invenio_app_rdm/search/SearchMain/index.js',
             'invenio-app-rdm-searchbar-js':
-                './js/invenio_app_rdm/search/SearchBar/index.js'
+                './js/invenio_app_rdm/search/SearchBar/index.js',
+            'invenio-app-rdm-deposit-js':
+                './js/invenio_app_rdm/deposit/index.js'
+
         },
         dependencies={
             # add any additional npm dependencies here...

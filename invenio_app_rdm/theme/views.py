@@ -29,3 +29,12 @@ blueprint = Blueprint(
 def search():
     """Search page."""
     return render_template(current_app.config['SEARCH_BASE_TEMPLATE'])
+
+
+@blueprint.route('/deposit')
+def deposit():
+    """Deposit page."""
+    return render_template(
+        current_app.config['DEPOSIT_TEMPLATE'],
+        record={'title': 'A demo title'}
+    )
