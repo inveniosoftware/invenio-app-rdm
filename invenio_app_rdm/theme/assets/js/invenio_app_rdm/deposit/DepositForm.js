@@ -10,8 +10,12 @@ import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Container, Grid } from "semantic-ui-react";
 
+import { InvenioForm } from 'invenio-forms';
+import { DepositSection } from './deposit-components';
+import { DepositUpload } from './deposit-components';
+
 // Use this import interface to allow us to extract it out later
-import { InvenioForm, SignupForm } from "./invenio-react-components";
+// import { InvenioForm, SignupForm } from "./invenio-react-components";
 
 // import { ReactSearchKit, InvenioSearchApi } from "react-searchkit";
 // import { SearchResults } from "./SearchResults";
@@ -47,7 +51,9 @@ import { InvenioForm, SignupForm } from "./invenio-react-components";
 
 export class DepositForm extends Component {
   render() {
+
     console.log("this.props.data", this.props.data);
+
     return (
       <Container>
         <p>Initial Data:</p>
@@ -55,13 +61,11 @@ export class DepositForm extends Component {
 
         <InvenioForm>
           <div type="col"> {/* 3/4 COLUMN */}
-            <div>  {/*SECTION*/}
-              <h3>FILES</h3>
-              <div>FILE UPLOAD</div>
-            </div>
+            <DepositSection header={<h3>Files</h3>}>
+              <DepositUpload />
+            </DepositSection>
 
-            <div> {/*SECTION*/}
-              <h3>IDENTIFIERS</h3>
+            <DepositSection header={<h3>Identifiers</h3>}>
               <div> {/*FIELD*/}
                 <label>Register DOI</label>
                 <input type="toggle" />
@@ -74,10 +78,9 @@ export class DepositForm extends Component {
                   <input type="text" />
                 </div>
               </div>
-            </div>
+            </DepositSection>
 
-            <div> {/*SECTION*/}
-              <h3>Required information</h3>
+            <DepositSection header={<h3>Required information</h3>}>
               <div> {/*FIELD*/}
                 <span>icon</span>
                 <label>Resource type</label>
@@ -174,11 +177,9 @@ export class DepositForm extends Component {
                 </div>
               </div>
 
-            </div>
+            </DepositSection>
 
-            <div> {/*SECTION*/}
-              <h3>Recommended information</h3>
-
+            <DepositSection header={<h3>Recommended information</h3>}>
               <div> {/*FIELD*/}
                 <span>icon</span>
                 <label>Subjects</label>
@@ -222,10 +223,9 @@ export class DepositForm extends Component {
                 <input type="text" />
               </div>
 
-            </div>
+            </DepositSection>
 
-            <div type="section"> {/*SECTION*/}
-              <h3>Funding</h3>
+            <DepositSection header={<h3>Funding</h3>}>
 
               <div type="field"> {/*FIELD*/}
                 <span>icon </span>
@@ -244,10 +244,9 @@ export class DepositForm extends Component {
                 </div>
               </div>
 
-             </div>
+             </DepositSection>
 
-            <div> {/*SECTION*/}
-              <h3>Related Work</h3>
+            <DepositSection header={<h3>Related Work</h3>}>
 
               <div type="field"> {/*FIELD*/}
                 <span>icon </span>
@@ -280,10 +279,9 @@ export class DepositForm extends Component {
                 </div>
               </div>
 
-            </div>
+            </DepositSection>
 
-            <div> {/*SECTION*/}
-              <h3>Geographical locations</h3>
+            <DepositSection header={<h3>Geographical locations</h3>}>
 
               <div type="field"> {/*FIELD*/}
                 <span>icon </span>
@@ -302,10 +300,9 @@ export class DepositForm extends Component {
                 </div>
               </div>
 
-            </div>
+            </DepositSection>
 
-            <div> {/*SECTION*/}
-              <h3>Dynamic Vocabulary A</h3>
+            <DepositSection header={<h3>Dynamic Vocabulary A</h3>}>
 
               <div type="field"> {/*FIELD*/}
                 <span>icon </span>
@@ -327,10 +324,9 @@ export class DepositForm extends Component {
                 </div>
               </div>
 
-            </div>
+            </DepositSection>
 
-            <div> {/*SECTION*/}
-              <h3>Dynamic Vocabulary B</h3>
+            <DepositSection header={<h3>Dynamic Vocabulary B</h3>}>
 
               <div type="field"> {/*FIELD*/}
                 <span>icon </span>
@@ -346,7 +342,8 @@ export class DepositForm extends Component {
                 </span>
               </div>
 
-            </div>
+            </DepositSection>
+
           </div>
 
           <div type="col"> {/* 1/4 COLUMN */}
@@ -394,27 +391,11 @@ export class DepositForm extends Component {
           </div>
 
         </InvenioForm>
-        <SignupForm />
 
       </Container>
     );
   }
 }
-
-
-class Greeting extends React.Component {
-  render() {
-    return (
-      <h1>Hello, {this.props.name}</h1>
-    );
-  }
-}
-
-Greeting.propTypes = {
-  name: PropTypes.string
-};
-
-
 
 /*
         <InvenioForm>

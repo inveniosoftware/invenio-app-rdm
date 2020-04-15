@@ -27,12 +27,20 @@ function getJSONData(element) {
   return {};
 }
 
-
 const data = getJSONData(depositElement);
 
+class App extends React.Component {
+  render() {
+    const data = this.props.data;
+    return (
+      <DepositForm
+        {...data}
+      />
+    );
+  }
+}
+
 ReactDOM.render(
-  <DepositForm
-    data={data}
-  />,
+  <App data={data} />,
   depositElement
 );
