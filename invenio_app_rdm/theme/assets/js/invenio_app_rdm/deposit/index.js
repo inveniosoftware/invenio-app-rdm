@@ -9,7 +9,7 @@ import React from "react";  // needs to be in scope when using JSX (from webpack
 import ReactDOM from "react-dom";
 // import "semantic-ui-css/semantic.min.css";
 
-import { DepositMain } from "./DepositMain";
+import { DepositForm } from "./DepositForm";
 
 const depositElement = document.getElementById("deposit-main");
 
@@ -27,7 +27,12 @@ function getJSONData(element) {
   return {};
 }
 
+
+const data = getJSONData(depositElement);
+
 ReactDOM.render(
-  <DepositMain data={getJSONData(depositElement)} />,
+  <DepositForm
+    data={data}
+  />,
   depositElement
 );
