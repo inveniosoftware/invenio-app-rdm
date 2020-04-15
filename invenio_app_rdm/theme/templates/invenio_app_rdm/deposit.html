@@ -26,7 +26,8 @@
 
 
 {%- block page_body %}
-    <div id="deposit-main" data='{'></div>
+    {# data='' Single quotes are necessary #}
+    <div id="deposit-main" data='{{record | tojson }}'></div>
 {%- endblock page_body %}
 
 {%- block javascript %}

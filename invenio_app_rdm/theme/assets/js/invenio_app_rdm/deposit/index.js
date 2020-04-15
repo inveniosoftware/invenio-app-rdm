@@ -15,8 +15,8 @@ const depositElement = document.getElementById("deposit-main");
 
 function getJSONData(element) {
   if (element.hasAttribute("data")) {
+    const data = element.getAttribute('data');
     try {
-      const data = element.getAttribute('data');
       return JSON.parse(data);
     } catch (e) {
       console.error("Couldn't parse 'data' from ", element);

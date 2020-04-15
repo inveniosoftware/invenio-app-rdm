@@ -38,6 +38,7 @@ def theme():
         dependencies={
             # add any additional npm dependencies here...
             'axios': '^0.19.0',
+            'formik': '^2.1.4',  # added
             'lodash': '^4.17.15',
             'path': '^0.12.7',
             'prop-types': '^15.7.2',
