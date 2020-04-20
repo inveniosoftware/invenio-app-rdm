@@ -45,6 +45,27 @@ def records_create():
 def records_fake_edit(id):
     """Fake record edit page."""
     config = dict(apiUrl='/api/records/')
+    # minimal record
+    record = {
+        "_access": {
+            "metadata_restricted": False,
+            "files_restricted": False
+        },
+        "_owners": [1],
+        "_created_by": 1,
+        "access_right": "open",
+        "resource_type": {
+            "type": "image",
+            "subtype": "image-photo"
+        },
+        # Technically not required
+        "creators": [],
+        "titles": [{
+            "title": "A Romans story",
+            "type": "Other",
+            "lang": "eng"
+        }]
+    }
     return render_template(
         current_app.config['DEPOSITS_FORMS_BASE_TEMPLATE'],
         ui_config=config,
