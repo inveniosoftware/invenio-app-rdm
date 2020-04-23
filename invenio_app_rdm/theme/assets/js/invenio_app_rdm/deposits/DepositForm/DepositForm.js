@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { Formik, Form } from "formik";
-import { ArrayField, ErrorMessage } from "invenio-forms";
+import { ArrayField, ErrorMessage, SelectField } from "invenio-forms";
 import { Button, Icon, Message, Container, Grid } from "semantic-ui-react";
 
 import { DepositSection } from './DepositComponents';
 import { DepositTextField } from './DepositComponents';
-import { DepositArrayField } from './DepositComponents';
 import { DepositArrayTitlesItem } from './DepositComponents';
+import { DepositResourceTypeField } from './DepositComponents';
 
 import {DepositAPI} from './DepositAPI';
 
@@ -34,7 +34,7 @@ export class DepositForm extends Component {
     super(props);
     // this.record needs to be initialized with all fields
     // (at least empty) in order for formik.touched to register them.
-    this.record = {titles: [{ title: '', type: '', lang: '' }], version: ''};  // props.record;
+    this.record = {titles: [{ title: '', type: '', lang: '' }], resource_type: null, version: ''};  // props.record;
     this.config = props.config || {};
     this.client = new DepositAPI(this.config);
     this.state = {
@@ -162,6 +162,8 @@ export class DepositForm extends Component {
       submitter: ""
     };
 
+    let vocabularies = this.config.vocabularies;
+
     return (
       <Container style={{ marginTop: "35px" }}>
         <Formik initialValues={initialValues} onSubmit={this.onSubmit}>
@@ -180,10 +182,16 @@ export class DepositForm extends Component {
                   <DepositSection header={<h3>Required Information</h3>}>
 
                     <ArrayField
-                      label={<span><Icon disabled name="book" />Title</span>}
                       fieldPath="titles"
                       defaultNewValue={{ title: '', type: '', lang: '' }}
+                      label={<span><Icon disabled name="book" />Title</span>}
                       renderArrayItem={DepositArrayTitlesItem} />
+
+                    <DepositResourceTypeField
+                      fieldPath="resource_type"
+                      label={<span><Icon disabled name="tag" />Resource type</span>}
+                      options={vocabularies.resource_type}
+                    />
 
                   </DepositSection>
 

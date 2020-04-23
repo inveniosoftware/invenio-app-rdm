@@ -2,6 +2,24 @@ import isEmpty from "lodash/isEmpty";
 
 import { http } from "../http";
 
+// WARNING:
+/*
+  Formik requires a full record in initialValues (but at least empty fields)
+  for validation to work.
+  ArrayFields requires an empty item to be able to display empty first item.
+
+  Combined those caused us to generate an empty record.
+
+  Problem:
+    Frontend sends all fields back:
+      some fields that are empty might cause a validation error on the backend
+      and therefore an error on frontend for untouched fields
+      -> bad user experience
+
+  Solution:
+    Pass null rather than empty string
+*/
+
 export class DepositAPI {
   constructor(config) {
     this.config = config || {};

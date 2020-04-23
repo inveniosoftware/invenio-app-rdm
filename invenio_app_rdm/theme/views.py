@@ -17,6 +17,10 @@ from __future__ import absolute_import, print_function
 
 from flask import Blueprint, current_app, render_template
 
+from invenio_rdm_records.marshmallow.json import MetadataSchemaV1, dump_empty
+from invenio_rdm_records.vocabularies import Vocabulary, dump_vocabularies
+
+
 blueprint = Blueprint(
     'invenio_app_rdm',
     __name__,
@@ -34,10 +38,15 @@ def search():
 @blueprint.route('/records/new')
 def records_create():
     """Record creation page."""
-    config = dict(apiUrl='/api/records/')
+    config = dict(
+        apiUrl='/api/records/',
+        vocabularies=dump_vocabularies(Vocabulary)
+    )
+    empty_record = dump_empty(MetadataSchemaV1)
     return render_template(
         current_app.config['DEPOSITS_FORMS_BASE_TEMPLATE'],
-        ui_config=config
+        ui_config=config,
+        record=empty_record
     )
 
 
