@@ -22,11 +22,12 @@ export class DepositResourceTypeField extends Component {
         resource_type_fieldpath,
         selectedOption.value
       );
-      formikBag.form.setFieldValue(
-        resource_subtype_fieldpath,
-        null
-      );
+      formikBag.form.setFieldValue(resource_subtype_fieldpath, '');
     }
+
+    const subtype_options = this.props.options.subtype.filter(
+      (e) => e['parent-value'] === resource_type
+    )
 
     return (
       <Form.Field>
@@ -37,15 +38,13 @@ export class DepositResourceTypeField extends Component {
           onChange={handleChange}
           placeholder='Select general resource type'
         />
-        <SelectField
-          fieldPath={resource_subtype_fieldpath}
-          placeholder='Select resource subtype'
-          options={
-            this.props.options.subtype.filter(
-              (e) => e['parent-value'] === resource_type
-            )
-          }
-        />
+        {subtype_options.length > 0 ?
+          <SelectField
+            fieldPath={resource_subtype_fieldpath}
+            placeholder='Select resource subtype'
+            options={subtype_options}
+          />
+          : null}
       </Form.Field>
     );
   }
