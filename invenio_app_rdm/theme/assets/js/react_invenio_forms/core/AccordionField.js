@@ -4,7 +4,10 @@ import { Field } from "formik";
 import { Accordion, Form, Icon } from "semantic-ui-react";
 
 export class AccordionField extends Component {
-  state = { active: false };
+  constructor(props) {
+    super(props);
+    this.state = { active: props.active || false };
+  }
 
   iconActive = (
     <Icon name="angle down" size="large" style={{ float: "right" }} />
@@ -61,6 +64,7 @@ export class AccordionField extends Component {
 }
 
 AccordionField.propTypes = {
+  active: PropTypes.bool,
   content: PropTypes.object.isRequired,
   fieldPath: PropTypes.string.isRequired,
   label: PropTypes.string,
@@ -68,6 +72,7 @@ AccordionField.propTypes = {
 };
 
 AccordionField.defaultProps = {
+  active: false,
   label: "",
   required: false,
 };
