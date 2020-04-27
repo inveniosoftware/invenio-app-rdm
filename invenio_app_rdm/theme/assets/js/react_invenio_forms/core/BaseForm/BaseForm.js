@@ -9,9 +9,7 @@ export class BaseForm extends Component {
     return (
       <Container>
         <Formik onSubmit={this.props.onSubmit} {...formik}>
-          {({ isSubmitting, handleSubmit }) => (
-            <Form loading={isSubmitting}>{this.props.children}</Form>
-          )}
+          <Form>{this.props.children}</Form>
         </Formik>
       </Container>
     );

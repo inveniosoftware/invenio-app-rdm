@@ -21,11 +21,13 @@ export default (state = {}, action) => {
       return {
         ...state,
         record: action.payload,
+        formAction: null,
       };
     case SAVE_SUCCESS:
       return {
         ...state,
         record: action.payload,
+        formAction: null,
       };
     default:
       return state;

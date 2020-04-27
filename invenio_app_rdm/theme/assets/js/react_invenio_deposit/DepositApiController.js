@@ -20,7 +20,7 @@ export class DepositApiController {
     this.validate(record);
     if (!this.exists(record)) {
       payload = await this.create(record);
-      window.history.replaceState(undefined, "", payload.links.edit);
+      // window.history.replaceState(undefined, "", payload.links.edit);
     }
     return this.apiClient.save(payload);
   }

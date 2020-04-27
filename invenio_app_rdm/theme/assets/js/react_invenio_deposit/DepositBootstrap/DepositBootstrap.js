@@ -4,14 +4,13 @@ import { BaseForm } from "../../react_invenio_forms";
 import { Container } from "semantic-ui-react";
 
 export default class DepositBootstrap extends Component {
-  onSubmit = async (values, formikBag) => {
+  onSubmit = (values, formikBag) => {
     switch (this.props.formAction) {
       case "save":
-        this.props.save(values, formikBag);
-        break;
+        return this.props.save(values, formikBag);
       case "publish":
-        this.props.publish(values, formikBag);
-        break;
+        debugger;
+        return this.props.publish(values, formikBag);
       default:
         console.log("onSubmit triggered some other way");
     }

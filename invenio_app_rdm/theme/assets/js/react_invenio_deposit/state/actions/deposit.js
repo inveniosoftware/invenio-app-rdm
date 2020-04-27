@@ -15,7 +15,6 @@ export const setFormErrorsFromResponse = (response, formik) => {
       return frontendErrors;
     };
     const extractedErrors = extractErrors(response);
-    formik.setSubmitting(false);
     formik.setErrors(extractedErrors);
     dispatch({
       type: "FORM_ACTION_FAILED",
@@ -33,7 +32,6 @@ export const publish = (record, formik) => {
         type: PUBLISH_SUCCESS,
         payload: response,
       });
-      formik.setSubmitting(false);
     } catch (error) {
       dispatch(setFormErrorsFromResponse(error, formik));
     }
@@ -49,8 +47,8 @@ export const save = (record, formik) => {
         type: SAVE_SUCCESS,
         payload: response,
       });
-      formik.setSubmitting(false);
     } catch (error) {
+      console.log("error");
       dispatch(setFormErrorsFromResponse(error, formik));
     }
   };

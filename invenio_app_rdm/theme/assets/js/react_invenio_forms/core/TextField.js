@@ -6,20 +6,16 @@ import { Form } from "semantic-ui-react";
 import { ErrorMessage } from "./ErrorMessage";
 
 export class TextField extends Component {
-  renderFormField = (props) => {
+  renderFormField = (formikBag) => {
     const { fieldPath, optimized, ...uiProps } = this.props;
-    const {
-      form: { values, handleChange, handleBlur },
-    } = props;
-
     return (
       <Form.Field id={fieldPath}>
         <Form.Input
           id={fieldPath}
           name={fieldPath}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          value={getIn(values, fieldPath, "")}
+          onChange={formikBag.form.handleChange}
+          onBlur={formikBag.form.handleBlur}
+          value={getIn(formikBag.form.values, fieldPath, "")}
           {...uiProps}
         ></Form.Input>
         <ErrorMessage fieldPath={fieldPath} />

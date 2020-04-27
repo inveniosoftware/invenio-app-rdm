@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { getIn, FieldArray } from 'formik';
-import { Form, Button, Icon } from 'semantic-ui-react';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { getIn, FieldArray } from "formik";
+import { Form, Button, Icon } from "semantic-ui-react";
 
 export class ArrayField extends Component {
-  renderFormField = props => {
+  renderFormField = (props) => {
     const {
       form: { values },
       ...arrayHelpers
@@ -14,7 +14,7 @@ export class ArrayField extends Component {
       addButtonLabel,
       defaultNewValue,
       label,
-      renderArrayItem,
+      children,
       ...uiProps
     } = this.props;
     return (
@@ -26,7 +26,7 @@ export class ArrayField extends Component {
           const key = `${arrayPath}.${indexPath}`;
           return (
             <div key={key}>
-              {renderArrayItem({ arrayPath, indexPath, key, ...props })}
+              {children({ arrayPath, indexPath, key, ...props })}
             </div>
           );
         })}
@@ -59,11 +59,11 @@ ArrayField.propTypes = {
   addButtonLabel: PropTypes.string,
   defaultNewValue: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
     .isRequired,
-  renderArrayItem: PropTypes.func.isRequired,
+  children: PropTypes.func.isRequired,
 };
 
 ArrayField.defaultProps = {
-  label: '',
-  addButtonLabel: 'Add new row',
-  placeholder: '',
+  label: "",
+  addButtonLabel: "Add new row",
+  placeholder: "",
 };
