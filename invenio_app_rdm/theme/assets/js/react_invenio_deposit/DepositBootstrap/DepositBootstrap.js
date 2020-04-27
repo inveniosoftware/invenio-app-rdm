@@ -5,15 +5,7 @@ import { Container } from "semantic-ui-react";
 
 export default class DepositBootstrap extends Component {
   onSubmit = (values, formikBag) => {
-    switch (this.props.formAction) {
-      case "save":
-        return this.props.save(values, formikBag);
-      case "publish":
-        debugger;
-        return this.props.publish(values, formikBag);
-      default:
-        console.log("onSubmit triggered some other way");
-    }
+    this.props.submitFormData(values, formikBag);
   };
 
   render() {

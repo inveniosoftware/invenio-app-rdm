@@ -8,6 +8,8 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export const PublishButton = connect(
-  null,
+  (state) => ({
+    formAction: state.deposit.formAction,
+  }),
   mapDispatchToProps
 )(PublishButtonComponent);

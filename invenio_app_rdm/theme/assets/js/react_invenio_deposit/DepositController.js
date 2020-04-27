@@ -1,4 +1,4 @@
-export class DepositApiController {
+export class DepositController {
   constructor(apiClient) {
     this.apiClient = apiClient;
   }
@@ -30,7 +30,7 @@ export class DepositApiController {
     this.validate(record);
     if (!this.exists(record)) {
       payload = await this.create(record);
-      window.history.replaceState(undefined, "", payload.links.edit);
+      // window.history.replaceState(undefined, "", payload.links.edit);
     }
     console.log("Record to publish", payload);
     return this.apiClient.publish(payload);

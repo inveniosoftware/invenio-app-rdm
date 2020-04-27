@@ -7,6 +7,8 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export const SaveButton = connect(
-  null,
+  (state) => ({
+    formAction: state.deposit.formAction,
+  }),
   mapDispatchToProps
 )(SaveButtonComponent);

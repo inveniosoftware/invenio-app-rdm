@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { publish, save, submitAction } from "../state/actions";
+import { submitFormData } from "../state/actions";
 import DepositBootstrapComponent from "./DepositBootstrap";
 
 const mapStateToProps = (state) => ({
@@ -8,8 +8,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  publish: (record, formik) => dispatch(publish(record, formik)),
-  save: (record, formik) => dispatch(save(record, formik)),
+  submitFormData: (record, formik) => dispatch(submitFormData(record, formik)),
 });
 
 export const DepositBootstrap = connect(

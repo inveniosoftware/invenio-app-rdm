@@ -44,7 +44,7 @@ export class AccordionField extends Component {
       <Accordion fluid index={0}>
         <Form.Field required={this.props.required}>
           <Accordion.Title as="label" onClick={() => this.handleClick(active)}>
-            {hasError && <Icon className="error" name="exclamation triangle" />}
+            {hasError && <Icon color="red" name="exclamation triangle" />}
             <label>{this.props.label}</label>
             <span>{active ? this.iconActive : this.iconInactive}</span>
           </Accordion.Title>

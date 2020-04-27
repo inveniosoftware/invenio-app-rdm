@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Container } from "semantic-ui-react";
+import { Container, Icon } from "semantic-ui-react";
 import { ActionButton } from "../../../react_invenio_forms";
 
 export default class PublishButton extends Component {
@@ -19,8 +19,18 @@ export default class PublishButton extends Component {
           isDisabled={this.isDisabled}
           name="publish"
           onClick={this.onPublishClick}
+          primary
         >
-          {(formik) => (formik.isSubmitting ? "Submitting..." : "Publish")}
+          {(formik) =>
+            formik.isSubmitting && this.props.formAction == "publish" ? (
+              <>
+                <Icon size="large" loading name="spinner" />
+                Publish
+              </>
+            ) : (
+              "Publish"
+            )
+          }
         </ActionButton>
       </Container>
     );

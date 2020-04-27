@@ -1,3 +1,4 @@
+import _join from "lodash/join";
 import {
   FORM_ACTION_EVENT_EMITTED,
   PUBLISH_SUCCESS,
@@ -5,20 +6,14 @@ import {
 } from "../types";
 
 export const setFormErrorsFromResponse = (response, formik) => {
-  return async (dispatch) => {
-    const extractErrors = (error) => {
-      let backendErrors = error.errors;
-      let frontendErrors = {};
-      for (const fieldError of backendErrors) {
-        frontendErrors[fieldError.field] = fieldError.message;
-      }
-      return frontendErrors;
-    };
-    const extractedErrors = extractErrors(response);
-    formik.setErrors(extractedErrors);
+  return async (dispatch, getState, config) => {
+    const errorHandler = config.apiErrorHandler;
+    const extractedErrors = errorHandler.extractErrors(response);
     dispatch({
       type: "FORM_ACTION_FAILED",
     });
+    formik.setSubmitting(false);
+    formik.setErrors(extractedErrors);
   };
 };
 
@@ -32,6 +27,7 @@ export const publish = (record, formik) => {
         type: PUBLISH_SUCCESS,
         payload: response,
       });
+      formik.setSubmitting(false);
     } catch (error) {
       dispatch(setFormErrorsFromResponse(error, formik));
     }
@@ -47,6 +43,7 @@ export const save = (record, formik) => {
         type: SAVE_SUCCESS,
         payload: response,
       });
+      formik.setSubmitting(false);
     } catch (error) {
       console.log("error");
       dispatch(setFormErrorsFromResponse(error, formik));
@@ -62,5 +59,21 @@ export const submitAction = (action, event, formik) => {
       payload: action,
     });
     formik.handleSubmit(event);
+  };
+};
+
+export const submitFormData = (record, formik) => {
+  return async (dispatch, getState, config) => {
+    const formAction = getState().deposit.formAction;
+    switch (formAction) {
+      case "save":
+        dispatch(save(record, formik));
+        break;
+      case "publish":
+        dispatch(publish(record, formik));
+        break;
+      default:
+        console.log("onSubmit triggered some other way");
+    }
   };
 };

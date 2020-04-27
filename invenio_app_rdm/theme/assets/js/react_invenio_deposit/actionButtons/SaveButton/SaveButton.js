@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Container } from "semantic-ui-react";
+import { Container, Icon } from "semantic-ui-react";
 import { ActionButton } from "../../../react_invenio_forms";
 
 export default class SaveButton extends Component {
@@ -19,8 +19,18 @@ export default class SaveButton extends Component {
           isDisabled={this.isDisabled}
           name="save"
           onClick={this.onSaveClick}
+          positive
         >
-          {(formik) => (formik.isSubmitting ? "Submitting..." : "Save draft")}
+          {(formik) =>
+            formik.isSubmitting && this.props.formAction == "save" ? (
+              <>
+                <Icon size="large" loading name="spinner" />
+                Save draft
+              </>
+            ) : (
+              "Save draft"
+            )
+          }
         </ActionButton>
       </Container>
     );

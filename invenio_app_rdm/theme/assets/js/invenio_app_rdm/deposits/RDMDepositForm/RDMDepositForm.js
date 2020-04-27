@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Message, Container, Grid, Icon } from "semantic-ui-react";
 
-import { RDMDepositApiClient } from "./RDMDepositAPIClient";
-import { RDMDepositApiController } from "./RDMDepositApiController";
+import { RDMDepositApiClient } from "./RDMDepositApiClient";
+import { RDMDepositController } from "./RDMDepositController";
 import {
   DepositFormApp,
   PublishButton,
@@ -29,7 +29,7 @@ export class RDMDepositForm extends Component {
   constructor(props) {
     super(props);
     this.config = props.config || {};
-    this.controller = new RDMDepositApiController(new RDMDepositApiClient());
+    this.controller = new RDMDepositController(new RDMDepositApiClient());
     this.state = {
       record: props.record || {},
     };

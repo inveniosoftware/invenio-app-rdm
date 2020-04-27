@@ -39,39 +39,9 @@ export class DepositApiClient {
           message: "Missing data for required field.",
         },
         {
-          parents: [],
-          field: "_created_by",
+          parents: ["titles", "0"],
+          field: "title",
           message: "Missing data for required field.",
-        },
-        {
-          parents: [],
-          field: "creators",
-          message: "Missing data for required field.",
-        },
-        {
-          parents: [],
-          field: "_owners",
-          message: "Missing data for required field.",
-        },
-        {
-          parents: [],
-          field: "titles",
-          message: "Missing data for required field.",
-        },
-        {
-          parents: [],
-          field: "access_right",
-          message: "Missing data for required field.",
-        },
-        {
-          parents: [],
-          field: "_access",
-          message: "Missing data for required field.",
-        },
-        {
-          parents: [],
-          field: "version",
-          message: "Not a valid string.",
         },
       ],
     };
