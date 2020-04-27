@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Message, Container, Grid, Icon } from "semantic-ui-react";
 
-import { RDMDepositApiClient } from "./RDMDepositApiClient";
+import { RDMDepositApiClient } from "./RDMDepositAPIClient";
 import { RDMDepositController } from "./RDMDepositController";
 import {
   DepositFormApp,
