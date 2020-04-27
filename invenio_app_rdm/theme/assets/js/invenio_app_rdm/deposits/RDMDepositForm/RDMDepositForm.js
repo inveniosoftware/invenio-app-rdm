@@ -25,6 +25,47 @@ class RecordPreviewer extends Component {
 }
 RecordPreviewer = connect(RecordPreviewer);
 
+class PayloadPreviewer extends Component {
+
+  isNullEquivalent = (obj) => {
+    // Identifies null equivalent obj
+    if (obj === null) {
+      return true;
+    } else if (Array.isArray(obj)) {
+      return obj.every(this.isNullEquivalent);
+    } else if (typeof obj == 'object') {
+      return Object.values(obj).every(this.isNullEquivalent)
+    } else {
+      return false;
+    }
+  }
+
+  stripNullEquivalentFields = (obj) => {
+    // Returns Object with top-level null equivalent fields stripped
+    const result = {};
+
+    for (const key of Object.keys(obj)) {
+      if (!this.isNullEquivalent(obj[key])) {
+        result[key] = obj[key];
+      }
+    }
+    return result;
+  }
+
+  render() {
+    const payload = this.stripNullEquivalentFields(this.props.deposit.record);
+
+    return (
+      <Message>
+        <Message.Header>Payload to send</Message.Header>
+        <pre>{JSON.stringify(payload, undefined, 2)}</pre>
+      </Message>
+    );
+  }
+}
+PayloadPreviewer = connect(PayloadPreviewer);
+
+
 export class RDMDepositForm extends Component {
   constructor(props) {
     super(props);
@@ -55,7 +96,7 @@ export class RDMDepositForm extends Component {
                   <TitlesField fieldPath="titles" label="Titles" />
                   <ResourceTypeField
                     fieldPath="resource_type"
-                    // lbael={<span><Icon disabled name="tag" />Resource type</span>}
+                    // label={<span><Icon disabled name="tag" />Resource type</span>}
                     label={"Resource type"}
                     options={vocabularies.resource_type}
                   />
@@ -72,6 +113,7 @@ export class RDMDepositForm extends Component {
             </Container>
           </Grid.Column>
         </Grid>
+        <PayloadPreviewer />
         <RecordPreviewer />
       </DepositFormApp>
     );
