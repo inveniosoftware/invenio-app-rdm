@@ -7,22 +7,20 @@ export class ActionButton extends Component {
   render() {
     const { name, content, isDisabled, ...uiProps } = this.props;
     return (
-      <Container>
-        <Field>
-          {({ form: formik }) => (
-            <Button
-              disabled={isDisabled(formik)}
-              name={name}
-              content={content}
-              type="button"
-              {...uiProps} // able to override above props
-              onClick={(e) => this.props.onClick(e, formik)}
-            >
-              {this.props.children ? this.props.children(formik) : null}
-            </Button>
-          )}
-        </Field>
-      </Container>
+      <Field>
+        {({ form: formik }) => (
+          <Button
+            disabled={isDisabled ? isDisabled(formik) : false}
+            name={name}
+            content={content}
+            type="button"
+            {...uiProps} // able to override above props
+            onClick={(e) => this.props.onClick(e, formik)}
+          >
+            {this.props.children ? this.props.children(formik) : null}
+          </Button>
+        )}
+      </Field>
     );
   }
 }

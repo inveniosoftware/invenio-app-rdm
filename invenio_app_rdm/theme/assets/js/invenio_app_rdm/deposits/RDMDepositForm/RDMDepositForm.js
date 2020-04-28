@@ -26,19 +26,18 @@ class RecordPreviewer extends Component {
 RecordPreviewer = connect(RecordPreviewer);
 
 class PayloadPreviewer extends Component {
-
   isNullEquivalent = (obj) => {
     // Identifies null equivalent obj
     if (obj === null) {
       return true;
     } else if (Array.isArray(obj)) {
       return obj.every(this.isNullEquivalent);
-    } else if (typeof obj == 'object') {
-      return Object.values(obj).every(this.isNullEquivalent)
+    } else if (typeof obj == "object") {
+      return Object.values(obj).every(this.isNullEquivalent);
     } else {
       return false;
     }
-  }
+  };
 
   stripNullEquivalentFields = (obj) => {
     // Returns Object with top-level null equivalent fields stripped
@@ -50,7 +49,7 @@ class PayloadPreviewer extends Component {
       }
     }
     return result;
-  }
+  };
 
   render() {
     const payload = this.stripNullEquivalentFields(this.props.deposit.record);
@@ -64,7 +63,6 @@ class PayloadPreviewer extends Component {
   }
 }
 PayloadPreviewer = connect(PayloadPreviewer);
-
 
 export class RDMDepositForm extends Component {
   constructor(props) {
@@ -107,10 +105,8 @@ export class RDMDepositForm extends Component {
             {/* header={<h3>Required Information</h3>} */}
           </Grid.Column>
           <Grid.Column>
-            <Container>
-              <PublishButton />
-              <SaveButton />
-            </Container>
+            <SaveButton />
+            <PublishButton />
           </Grid.Column>
         </Grid>
         <PayloadPreviewer />

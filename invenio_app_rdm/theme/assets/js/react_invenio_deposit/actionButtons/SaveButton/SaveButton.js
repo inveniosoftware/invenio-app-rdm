@@ -14,25 +14,23 @@ export default class SaveButton extends Component {
 
   render() {
     return (
-      <Container>
-        <ActionButton
-          isDisabled={this.isDisabled}
-          name="save"
-          onClick={this.onSaveClick}
-          positive
-        >
-          {(formik) =>
-            formik.isSubmitting && this.props.formAction == "save" ? (
-              <>
-                <Icon size="large" loading name="spinner" />
-                Save draft
-              </>
-            ) : (
-              "Save draft"
-            )
-          }
-        </ActionButton>
-      </Container>
+      <ActionButton
+        isDisabled={this.isDisabled}
+        name="save"
+        onClick={this.onSaveClick}
+        positive
+      >
+        {(formik) =>
+          formik.isSubmitting && this.props.formAction == "save" ? (
+            <>
+              <Icon size="large" loading name="spinner" />
+              Save draft
+            </>
+          ) : (
+            "Save draft"
+          )
+        }
+      </ActionButton>
     );
   }
 }
