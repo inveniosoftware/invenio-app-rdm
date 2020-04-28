@@ -1,17 +1,24 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { FastField, Field, getIn } from 'formik';
-import { Form } from 'semantic-ui-react';
-import isEmpty from 'lodash/isEmpty';
+// This file is part of React-Invenio-Forms
+// Copyright (C) 2020 CERN.
+// Copyright (C) 2020 Northwestern University.
+//
+// React-Invenio-Forms is free software; you can redistribute it and/or modify it
+// under the terms of the MIT License; see LICENSE file for more details.
+
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { FastField, Field, getIn } from "formik";
+import { Form } from "semantic-ui-react";
+import isEmpty from "lodash/isEmpty";
 
 export class SelectField extends Component {
-  renderError = (errors, name, value, direction = 'above') => {
+  renderError = (errors, name, value, direction = "above") => {
     let error = null;
     if (!Array.isArray(value)) {
       const options = this.props.options;
       if (
         !isEmpty(options) &&
-        !options.find(o => o.value === value) &&
+        !options.find((o) => o.value === value) &&
         !isEmpty(value)
       ) {
         error = `The current value "${value}" is invalid, please select another value.`;
@@ -36,16 +43,16 @@ export class SelectField extends Component {
     if (!this.props.required) {
       options = [
         {
-          key: '',
-          value: '',
-          text: '-',
+          key: "",
+          value: "",
+          text: "-",
         },
         ...options,
       ];
     }
     if (!this.props.loading) {
       for (const value of values) {
-        if (!isEmpty(value) && !options.find(o => o.value === value)) {
+        if (!isEmpty(value) && !options.find((o) => o.value === value)) {
           options.push({
             key: value,
             value: value,
@@ -59,13 +66,13 @@ export class SelectField extends Component {
   };
 
   renderLabel = (item, index, defaultLabelProps) => {
-    if (!this.props.loading && 'error' in item) {
-      defaultLabelProps.className = 'error';
+    if (!this.props.loading && "error" in item) {
+      defaultLabelProps.className = "error";
     }
     return item.text;
   };
 
-  renderFormField = props => {
+  renderFormField = (props) => {
     const {
       form: { values, setFieldValue, handleBlur, errors },
     } = props;
@@ -125,7 +132,7 @@ SelectField.propTypes = {
 };
 
 SelectField.defaultProps = {
-  defaultValue: '',
+  defaultValue: "",
   multiple: false,
   optimized: false,
 };
