@@ -88,7 +88,7 @@ def deposits_edit(id):
         record=initial_record)
 
 
-@blueprint.route('/deposit/search')
-def deposits_search():
-    """Deposits search page."""
-    return render_template(current_app.config['DEPOSITS_SEARCH_BASE_TEMPLATE'])
+@blueprint.route('/deposits')
+def deposits_user():
+    """List of user deposits page."""
+    return render_template(current_app.config['DEPOSITS_UPLOADS_TEMPLATE'])

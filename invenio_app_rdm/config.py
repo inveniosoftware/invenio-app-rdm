@@ -290,3 +290,5 @@ SEARCH_BASE_TEMPLATE = 'invenio_app_rdm/search/search.html'
 DEPOSITS_FORMS_BASE_TEMPLATE = 'invenio_app_rdm/deposits/forms/deposit.html'
 
 DEPOSITS_SEARCH_BASE_TEMPLATE = 'invenio_app_rdm/deposits/search/search.html'
+
+DEPOSITS_UPLOADS_TEMPLATE = 'invenio_app_rdm/deposits/deposits.html'

@@ -43,12 +43,12 @@ export class RDMDepositForm extends Component {
   }
 
   render() {
-    const vocabularies = this.config.vocabularies;
+    const vocabularies = this.config.vocabularies || {};
     return (
       <DepositFormApp
+        config={this.config}
         controller={this.controller}
         record={this.state.record}
-        config={this.config}
       >
         <ErrorMessage fieldPath="message" />
         <Grid columns={2}>

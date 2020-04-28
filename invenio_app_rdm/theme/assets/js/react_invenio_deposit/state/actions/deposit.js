@@ -39,6 +39,7 @@ export const publish = (record, formik) => {
       });
       formik.setSubmitting(false);
     } catch (error) {
+      console.log("error", error);
       dispatch(setFormErrorsFromResponse(error, formik));
     }
   };
@@ -50,7 +51,7 @@ export const save = (record, formik) => {
     const recordSerializer = config.recordSerializer;
 
     try {
-      const response = await controller.save(
+      const response = await controller.save_draft(
         recordSerializer.deserialize(record)
       );
       dispatch({
@@ -59,7 +60,7 @@ export const save = (record, formik) => {
       });
       formik.setSubmitting(false);
     } catch (error) {
-      console.log("error");
+      console.log("error", error);
       dispatch(setFormErrorsFromResponse(error, formik));
     }
   };

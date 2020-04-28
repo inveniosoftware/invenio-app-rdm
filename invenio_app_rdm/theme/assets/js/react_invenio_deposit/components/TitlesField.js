@@ -23,6 +23,7 @@ export class TitlesField extends Component {
   render() {
     return (
       <ArrayField
+        addButtonLabel={"Add another title"}
         fieldPath={this.props.fieldPath}
         defaultNewValue={this.props.defaultNewValue}
         // <span><Icon disabled name="book" />Title</span>
