@@ -8,6 +8,7 @@ import {
 export const setFormErrorsFromResponse = (response, formik) => {
   return async (dispatch, getState, config) => {
     const errorHandler = config.apiErrorHandler;
+
     const extractedErrors = errorHandler.extractErrors(response);
     dispatch({
       type: "FORM_ACTION_FAILED",
@@ -19,10 +20,12 @@ export const setFormErrorsFromResponse = (response, formik) => {
 
 export const publish = (record, formik) => {
   return async (dispatch, getState, config) => {
-    const controller = config.apiController;
-
+    const controller = config.controller;
+    const recordSerializer = config.recordSerializer;
     try {
-      const response = await controller.publish(record);
+      const response = await controller.publish(
+        recordSerializer.deserialize(record)
+      );
       dispatch({
         type: PUBLISH_SUCCESS,
         payload: response,
@@ -36,9 +39,13 @@ export const publish = (record, formik) => {
 
 export const save = (record, formik) => {
   return async (dispatch, getState, config) => {
-    const controller = config.apiController;
+    const controller = config.controller;
+    const recordSerializer = config.recordSerializer;
+
     try {
-      const response = await controller.save(record);
+      const response = await controller.save(
+        recordSerializer.deserialize(record)
+      );
       dispatch({
         type: SAVE_SUCCESS,
         payload: response,

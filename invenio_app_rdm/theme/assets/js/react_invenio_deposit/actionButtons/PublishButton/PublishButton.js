@@ -1,15 +1,14 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Container, Icon, Button, Modal, Header } from "semantic-ui-react";
+import { Icon, Button, Modal } from "semantic-ui-react";
 import { ActionButton } from "../../../react_invenio_forms";
 
 export default class PublishButton extends Component {
   state = { confirmOpen: false };
 
   onPublishClick = (event, formik) => {
-    this.setState({ confirmOpen: false }, () =>
-      this.props.publichClick(event, formik)
-    );
+    this.props.publichClick(event, formik);
+    this.setState({ confirmOpen: false });
   };
 
   isDisabled = (formik) => {

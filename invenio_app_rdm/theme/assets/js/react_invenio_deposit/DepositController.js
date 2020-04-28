@@ -11,7 +11,7 @@ export class DepositController {
     console.log("Validate record", record);
   }
 
-  async create(record) {
+  create(record) {
     return this.apiClient.create(record);
   }
 
@@ -20,7 +20,7 @@ export class DepositController {
     this.validate(record);
     if (!this.exists(record)) {
       payload = await this.create(record);
-      // window.history.replaceState(undefined, "", payload.links.edit);
+      window.history.replaceState(undefined, "", payload.links.edit);
     }
     return this.apiClient.save(payload);
   }
@@ -30,7 +30,7 @@ export class DepositController {
     this.validate(record);
     if (!this.exists(record)) {
       payload = await this.create(record);
-      // window.history.replaceState(undefined, "", payload.links.edit);
+      window.history.replaceState(undefined, "", payload.links.edit);
     }
     console.log("Record to publish", payload);
     return this.apiClient.publish(payload);

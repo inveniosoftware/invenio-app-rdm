@@ -1,3 +1,4 @@
+import _isEmpty from "lodash/isEmpty";
 export class DepositApiClient {
   create(record) {
     return new Promise((resolve, reject) => {
@@ -26,30 +27,42 @@ export class DepositApiClient {
   }
 
   publish(record) {
-    // For now publish always returns an error
+    // For now publish returns an error when titles array is empty
     // This has the shape of what our current API returns when there are errors
     // in the API call
-    const error = {
-      status: 400,
-      message: "Validation error.",
-      errors: [
-        {
-          parents: [],
-          field: "resource_type",
-          message: "Missing data for required field.",
-        },
-        {
-          parents: ["titles", "0"],
-          field: "title",
-          message: "Missing data for required field.",
-        },
-      ],
-    };
-
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        reject(error);
-      }, 500);
-    });
+    let response = null;
+    if (_isEmpty(record["titles"])) {
+      response = {
+        status: 400,
+        message: "Validation error.",
+        errors: [
+          {
+            parents: [],
+            field: "resource_type",
+            message: "Missing data for required field.",
+          },
+          {
+            parents: ["titles", "0"],
+            field: "title",
+            message: "Missing data for required field.",
+          },
+        ],
+      };
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          reject(response);
+        }, 500);
+      });
+    } else {
+      response = {
+        status: 200,
+        data: record,
+      };
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve(response);
+        }, 500);
+      });
+    }
   }
 }

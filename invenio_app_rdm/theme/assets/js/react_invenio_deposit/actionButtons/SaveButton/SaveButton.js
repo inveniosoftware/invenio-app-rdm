@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Container, Icon } from "semantic-ui-react";
+import { Icon } from "semantic-ui-react";
 import { ActionButton } from "../../../react_invenio_forms";
 
 export default class SaveButton extends Component {

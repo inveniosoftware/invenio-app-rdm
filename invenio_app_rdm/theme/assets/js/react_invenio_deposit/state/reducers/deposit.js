@@ -20,13 +20,13 @@ export default (state = {}, action) => {
     case PUBLISH_SUCCESS:
       return {
         ...state,
-        record: action.payload,
+        record: { ...state.record, ...action.payload.data },
         formAction: null,
       };
     case SAVE_SUCCESS:
       return {
         ...state,
-        record: action.payload,
+        record: action.payload.data,
         formAction: null,
       };
     default:

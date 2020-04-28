@@ -6,6 +6,7 @@ import { DepositBootstrap } from "./DepositBootstrap";
 import { DepositController } from "./DepositController";
 import { DepositApiClient } from "./DepositApiClient";
 import { DepositErrorHandler } from "./DepositErrorHandler";
+import { DepositRecordSerializer } from "./DepositRecordSerializer";
 
 export class DepositFormApp extends Component {
   constructor(props) {
@@ -14,18 +15,24 @@ export class DepositFormApp extends Component {
     const apiClient = props.apiClient
       ? props.apiClient
       : new DepositApiClient();
-    const apiController = props.apiController
-      ? props.apiController
+
+    const controller = props.controller
+      ? props.controller
       : new DepositController(apiClient);
 
     const apiErrorHandler = props.apiErrorHandler
       ? props.apiErrorHandler
       : new DepositErrorHandler();
 
+    const recordSerializer = props.recordSerializer
+      ? props.recordSerializer
+      : new DepositRecordSerializer();
+
     const appConfig = {
       config: props.config,
-      record: props.record,
-      apiController: apiController,
+      record: recordSerializer.serialize(props.record),
+      controller: controller,
+      recordSerializer: recordSerializer,
       apiErrorHandler: apiErrorHandler,
     };
 
