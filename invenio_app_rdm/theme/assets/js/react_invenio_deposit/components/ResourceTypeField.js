@@ -5,8 +5,6 @@ import { getIn, Field } from "formik";
 import { SelectField } from "../../react_invenio_forms";
 
 export class ResourceTypeField extends Component {
-  // NOTE: We use formik.form.values as the state for field components
-
   renderResourceTypeField = (formikBag) => {
     const resource_type_fieldpath = `${this.props.fieldPath}.type`;
     const resource_subtype_fieldpath = `${this.props.fieldPath}.subtype`;

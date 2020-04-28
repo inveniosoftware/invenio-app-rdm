@@ -26,7 +26,7 @@ export default (state = {}, action) => {
     case SAVE_SUCCESS:
       return {
         ...state,
-        record: action.payload.data,
+        record: { ...state.record, ...action.payload.data },
         formAction: null,
       };
     default:

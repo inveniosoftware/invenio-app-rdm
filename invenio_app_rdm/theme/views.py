@@ -35,7 +35,7 @@ def search():
 
 
 @blueprint.route('/deposit/new')
-def records_create():
+def deposits_create():
     """Record creation page."""
     config = dict(
         apiUrl='/api/records/',
@@ -50,18 +50,11 @@ def records_create():
 
 
 @blueprint.route('/deposit/<string:id>/edit')
-def deposits_fake_edit(id):
+def deposits_edit(id):
     """Fake deposits edit page."""
-    # TODO: Replace with real resolution of record
-    # from invenio_pidstore.resolver import Resolver
-    # from invenio_records.api import Record
-
-    # resolver = Resolver(
-    #     pid_type='recid', object_type="rec", getter=Record.get_record
-    # )
-    # _, record = resolver.resolve(str(id))
-
-    config = dict(apiUrl='/api/records/')
+    config = dict(
+        apiUrl='/api/records/',
+        vocabularies=dump_vocabularies(Vocabulary))
     # minimal record
     record = {
         "_access": {
@@ -87,30 +80,15 @@ def deposits_fake_edit(id):
             "edit": "/deposit/{}/edit".format(id)
         }
     }
+    initial_record = dump_empty(MetadataSchemaV1)
+    initial_record.update(record)
     return render_template(
         current_app.config['DEPOSITS_FORMS_BASE_TEMPLATE'],
         ui_config=config,
-        record=record)
+        record=initial_record)
 
 
-@blueprint.route('/deposit/<string:id>/edit')
-def deposits_edit(id):
-    """Deposits edit page."""
-    from invenio_pidstore.resolver import Resolver
-    from invenio_records.api import Record
-
-    resolver = Resolver(
-        pid_type='recid', object_type="rec", getter=Record.get_record
-    )
-    _, record = resolver.resolve(str(id))
-    config = dict(apiUrl='/api/records/')
-    return render_template(
-        current_app.config['DEPOSITS_FORMS_BASE_TEMPLATE'],
-        ui_config=config,
-        record=record)
-
-
-@blueprint.route('/upload/search')
+@blueprint.route('/deposit/search')
 def deposits_search():
     """Deposits search page."""
     return render_template(current_app.config['DEPOSITS_SEARCH_BASE_TEMPLATE'])

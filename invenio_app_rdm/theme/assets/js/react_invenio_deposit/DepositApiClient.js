@@ -21,7 +21,7 @@ export class DepositApiClient {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         console.log("Record saved", record);
-        resolve({ ...record });
+        resolve({ data: record });
       }, 500);
     });
   }
@@ -36,11 +36,6 @@ export class DepositApiClient {
         status: 400,
         message: "Validation error.",
         errors: [
-          {
-            parents: [],
-            field: "resource_type",
-            message: "Missing data for required field.",
-          },
           {
             parents: ["titles", "0"],
             field: "title",

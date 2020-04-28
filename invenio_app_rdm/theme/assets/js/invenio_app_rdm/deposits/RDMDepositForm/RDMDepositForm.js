@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Message, Container, Grid, Icon } from "semantic-ui-react";
+import { Message, Grid } from "semantic-ui-react";
 
 import { RDMDepositApiClient } from "./RDMDepositAPIClient";
 import { RDMDepositController } from "./RDMDepositController";
@@ -37,7 +37,6 @@ export class RDMDepositForm extends Component {
 
   render() {
     const vocabularies = this.config.vocabularies;
-
     return (
       <DepositFormApp
         controller={this.controller}
@@ -56,22 +55,18 @@ export class RDMDepositForm extends Component {
                   <TitlesField fieldPath="titles" label="Titles" />
                   <ResourceTypeField
                     fieldPath="resource_type"
-                    // label={<span><Icon disabled name="tag" />Resource type</span>}
                     label={"Resource type"}
                     options={vocabularies.resource_type}
                   />
                 </div>
               }
             />
-
-            {/* header={<h3>Required Information</h3>} */}
           </Grid.Column>
           <Grid.Column>
             <SaveButton />
             <PublishButton />
           </Grid.Column>
         </Grid>
-        {/* <PayloadPreviewer /> */}
         <RecordPreviewer />
       </DepositFormApp>
     );
