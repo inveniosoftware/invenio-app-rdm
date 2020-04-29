@@ -13,10 +13,7 @@ templates and static files located in the folders of the same names next to
 this file.
 """
 
-from __future__ import absolute_import, print_function
-
 from flask import Blueprint, current_app, render_template
-
 from invenio_rdm_records.marshmallow.json import MetadataSchemaV1, dump_empty
 from invenio_rdm_records.vocabularies import Vocabulary, dump_vocabularies
 
