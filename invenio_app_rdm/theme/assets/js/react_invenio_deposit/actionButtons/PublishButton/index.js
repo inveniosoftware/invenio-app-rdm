@@ -10,7 +10,7 @@ import { submitAction } from "../../state/actions";
 import PublishButtonComponent from "./PublishButton";
 
 const mapDispatchToProps = (dispatch) => ({
-  publichClick: (event, formik) =>
+  publishClick: (event, formik) =>
     dispatch(submitAction("publish", event, formik)),
 });
 

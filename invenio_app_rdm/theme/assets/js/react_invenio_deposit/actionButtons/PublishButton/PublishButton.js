@@ -14,7 +14,7 @@ export default class PublishButton extends Component {
   state = { confirmOpen: false };
 
   onPublishClick = (event, formik) => {
-    this.props.publichClick(event, formik);
+    this.props.publishClick(event, formik);
     this.setState({ confirmOpen: false });
   };
 
