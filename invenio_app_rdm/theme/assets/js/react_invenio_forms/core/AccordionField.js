@@ -56,7 +56,7 @@ export class AccordionField extends Component {
             <span>{active ? this.iconActive : this.iconInactive}</span>
           </Accordion.Title>
           <Accordion.Content active={active}>
-            {active && this.props.content}
+            {active && this.props.children}
           </Accordion.Content>
         </Form.Field>
       </Accordion>
@@ -72,7 +72,6 @@ export class AccordionField extends Component {
 
 AccordionField.propTypes = {
   active: PropTypes.bool,
-  content: PropTypes.object.isRequired,
   fieldPath: PropTypes.string.isRequired,
   label: PropTypes.string,
   required: PropTypes.bool,

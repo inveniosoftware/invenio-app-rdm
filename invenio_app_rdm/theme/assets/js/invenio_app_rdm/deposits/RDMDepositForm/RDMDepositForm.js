@@ -57,17 +57,16 @@ export class RDMDepositForm extends Component {
               fieldPath=""
               active={true}
               label={"Basic Information"}
-              content={
-                <div>
-                  <TitlesField fieldPath="titles" label="Titles" />
-                  <ResourceTypeField
-                    fieldPath="resource_type"
-                    label={"Resource type"}
-                    options={vocabularies.resource_type}
-                  />
-                </div>
-              }
-            />
+            >
+              <div>
+                <TitlesField fieldPath="titles" label="Titles" />
+                <ResourceTypeField
+                  fieldPath="resource_type"
+                  label={"Resource type"}
+                  options={vocabularies.resource_type}
+                />
+              </div>
+            </AccordionField>
           </Grid.Column>
           <Grid.Column>
             <SaveButton />
