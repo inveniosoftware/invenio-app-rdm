@@ -18,21 +18,21 @@
 {%-endblock %}
 
 {%- block page_header %}
-{%- include config.SEARCH_HEADER_TEMPLATE %}
+{%- include config.DEPOSITS_HEADER_TEMPLATE %}
 {%- endblock page_header %}
 
 {%- block page_body %}
   {%- if record %}
   <input id="deposits-record" type="hidden" name="deposits-record" value='{{record | tojson }}'></input>
   {%- endif %}
-  {%- if ui_config %}
-  <input type="hidden" name="deposits-config" value='{{ui_config | tojson }}'></input>
+  {%- if forms_config %}
+  <input type="hidden" name="deposits-config" value='{{forms_config | tojson }}'></input>
   {%- endif %}
   <div id="deposit-form"></div>
 {%- endblock page_body %}
 
 {%- block javascript %}
     {{ super() }}
-    {{ webpack['invenio-app-rdm-searchbar-js.js'] }}
+    {{ webpack['invenio-app-rdm-deposits-deposit-searchbar-js.js'] }}
     {{ webpack['invenio-app-rdm-deposits-deposit-form-js.js'] }}
 {%- endblock %}

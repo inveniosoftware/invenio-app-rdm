@@ -1,0 +1,14 @@
+{#
+  Copyright (C) 2020 CERN.
+  Copyright (C) 2020 Northwestern University.
+
+  Invenio App RDM is free software; you can redistribute it and/or modify it
+  under the terms of the MIT License; see LICENSE file for more details.
+#}
+
+{% macro render_searchbar(id, config) %}
+    {%- if config %}
+    <input type="hidden" name="{{id}}-config" value='{{config | tojson }}'></input>
+    {%- endif %}
+    <div id='{{id}}'></div>
+{% endmacro %}

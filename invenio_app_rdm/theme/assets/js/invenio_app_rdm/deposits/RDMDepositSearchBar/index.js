@@ -8,17 +8,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "semantic-ui-css/semantic.min.css";
-
-import {
-  getConfigFromDOM,
-  getRecordFromDOM,
-} from "../../../react_invenio_deposit";
-import { RDMDepositForm } from "./RDMDepositForm";
+import { RDMDepositSearchBar } from "./RDMDepositSearchBar";
+import { getConfigFromDOM } from "../../../react_invenio_deposit/dom";
 
 ReactDOM.render(
-  <RDMDepositForm
-    record={getRecordFromDOM("deposits-record")}
-    config={getConfigFromDOM("deposits-config")}
+  <RDMDepositSearchBar
+    config={getConfigFromDOM("deposits-searchbar-config")}
   />,
-  document.getElementById("deposit-form")
+  document.getElementById("deposits-searchbar")
 );

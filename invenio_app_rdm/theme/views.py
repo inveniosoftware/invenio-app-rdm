@@ -31,25 +31,27 @@ def search():
     return render_template(current_app.config['SEARCH_BASE_TEMPLATE'])
 
 
-@blueprint.route('/deposit/new')
+@blueprint.route('/deposits/new')
 def deposits_create():
     """Record creation page."""
-    config = dict(
+    forms_config = dict(
         apiUrl='/api/records/',
         vocabularies=dump_vocabularies(Vocabulary)
     )
+    searchbar_config = dict(searchUrl='/search')
     empty_record = dump_empty(MetadataSchemaV1)
     return render_template(
         current_app.config['DEPOSITS_FORMS_BASE_TEMPLATE'],
-        ui_config=config,
-        record=empty_record
+        forms_config=forms_config,
+        record=empty_record,
+        searchbar_config=searchbar_config
     )
 
 
-@blueprint.route('/deposit/<string:id>/edit')
+@blueprint.route('/deposits/<string:id>/edit')
 def deposits_edit(id):
     """Fake deposits edit page."""
-    config = dict(
+    forms_config = dict(
         apiUrl='/api/records/',
         vocabularies=dump_vocabularies(Vocabulary))
     # minimal record
@@ -77,12 +79,16 @@ def deposits_edit(id):
             "edit": "/deposit/{}/edit".format(id)
         }
     }
+    searchbar_config = dict(searchUrl='/search')
+
     initial_record = dump_empty(MetadataSchemaV1)
     initial_record.update(record)
     return render_template(
         current_app.config['DEPOSITS_FORMS_BASE_TEMPLATE'],
-        ui_config=config,
-        record=initial_record)
+        forms_config=forms_config,
+        record=initial_record,
+        searchbar_config=searchbar_config
+    )
 
 
 @blueprint.route('/deposits')

@@ -18,7 +18,7 @@
 {%-endblock %}
 
 {%- block page_header %}
-{%- include config.SEARCH_HEADER_TEMPLATE %}
+{%- include config.DEPOSITS_HEADER_TEMPLATE %}
 {%- endblock page_header %}
 
 {%- block page_body %}
@@ -48,6 +48,6 @@
 
 {%- block javascript %}
     {{ super() }}
-    {{ webpack['invenio-app-rdm-searchbar-js.js'] }}
+    {{ webpack['invenio-app-rdm-deposits-deposit-searchbar-js.js'] }}
     {{ webpack['invenio-app-rdm-deposits-deposit-form-js.js'] }}
 {%- endblock %}

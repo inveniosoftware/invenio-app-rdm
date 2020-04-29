@@ -31,6 +31,8 @@ def theme():
                 './js/invenio_app_rdm/search/SearchMain/index.js',
             'invenio-app-rdm-searchbar-js':
                 './js/invenio_app_rdm/search/SearchBar/index.js',
+            'invenio-app-rdm-deposits-deposit-searchbar-js':
+                './js/invenio_app_rdm/deposits/RDMDepositSearchBar/index.js',
             'invenio-app-rdm-deposits-deposit-form-js':
                 './js/invenio_app_rdm/deposits/RDMDepositForm/index.js',
         },

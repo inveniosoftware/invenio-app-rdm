@@ -287,8 +287,11 @@ SEARCH_HEADER_TEMPLATE = 'invenio_app_rdm/search/header.html'
 SEARCH_BASE_TEMPLATE = 'invenio_app_rdm/search/search.html'
 """Search page's base template."""
 
-DEPOSITS_FORMS_BASE_TEMPLATE = 'invenio_app_rdm/deposits/forms/deposit.html'
+DEPOSITS_FORMS_BASE_TEMPLATE = 'invenio_app_rdm/deposits/forms/deposits.html'
+"""Deposits form page's base template."""
 
-DEPOSITS_SEARCH_BASE_TEMPLATE = 'invenio_app_rdm/deposits/search/search.html'
+DEPOSITS_HEADER_TEMPLATE = 'invenio_app_rdm/deposits/header.html'
+"""Deposits header page's template."""
 
-DEPOSITS_UPLOADS_TEMPLATE = 'invenio_app_rdm/deposits/deposits.html'
+DEPOSITS_UPLOADS_TEMPLATE = 'invenio_app_rdm/deposits/uploads.html'
+"""Deposits user's uploads page template."""
