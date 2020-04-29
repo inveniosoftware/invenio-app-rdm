@@ -7,6 +7,8 @@
 
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { Form, Button, Icon } from "semantic-ui-react";
+
 import { ArrayField, TextField } from "../../react_invenio_forms";
 
 /**
@@ -29,7 +31,20 @@ export class TitlesField extends Component {
         // <span><Icon disabled name="book" />Title</span>
         label={this.props.label}
       >
-        {({ key }) => <TextField fluid fieldPath={`${key}.title`} />}
+        {
+          ({ array, arrayHelpers, indexPath, key }) => (
+            <Form.Group inline>
+              <TextField fieldPath={`${key}.title`} />
+              {
+                array.length === 1 ?
+                null :
+                <Button icon>
+                  <Icon name="close" size="large" onClick={() => arrayHelpers.remove(indexPath)} />
+                </Button>
+              }
+            </Form.Group>
+          )
+        }
       </ArrayField>
     );
   }

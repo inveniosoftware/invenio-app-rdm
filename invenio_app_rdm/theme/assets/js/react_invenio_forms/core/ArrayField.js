@@ -27,13 +27,16 @@ export class ArrayField extends Component {
     return (
       <Form.Field {...uiProps}>
         <label>{label}</label>
-        {getIn(values, fieldPath, []).map((value, index) => {
+        {getIn(values, fieldPath, []).map((value, index, array) => {
           const arrayPath = fieldPath;
           const indexPath = index;
           const key = `${arrayPath}.${indexPath}`;
+          // TODO: Revise what we pass to children to have a nice interface
+          // Passing: array, arrayHelpers, parentFieldPath, index and ...props
+          //          seems enough.
           return (
             <div key={key}>
-              {children({ arrayPath, indexPath, key, ...props })}
+              {children({ array, arrayHelpers, arrayPath, indexPath, key, ...props })}
             </div>
           );
         })}
