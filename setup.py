@@ -65,7 +65,7 @@ for name, reqs in extras_require.items():
 
 install_requires = [
     'Invenio[base,auth]{}'.format(invenio_version),
-    'invenio-rdm-records~=0.10.0',
+    'invenio-rdm-records~=0.11.0',
     'invenio-records-permissions~=0.7.0',
     # Due to search-ui
     'invenio-indexer>=1.1.1,<1.2.0',
