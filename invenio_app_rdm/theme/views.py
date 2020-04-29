@@ -13,9 +13,9 @@ templates and static files located in the folders of the same names next to
 this file.
 """
 
-from __future__ import absolute_import, print_function
-
 from flask import Blueprint, current_app, render_template
+from invenio_rdm_records.marshmallow.json import MetadataSchemaV1, dump_empty
+from invenio_rdm_records.vocabularies import Vocabulary, dump_vocabularies
 
 blueprint = Blueprint(
     'invenio_app_rdm',
@@ -29,3 +29,69 @@ blueprint = Blueprint(
 def search():
     """Search page."""
     return render_template(current_app.config['SEARCH_BASE_TEMPLATE'])
+
+
+@blueprint.route('/deposits/new')
+def deposits_create():
+    """Record creation page."""
+    forms_config = dict(
+        apiUrl='/api/records/',
+        vocabularies=dump_vocabularies(Vocabulary)
+    )
+    searchbar_config = dict(searchUrl='/search')
+    empty_record = dump_empty(MetadataSchemaV1)
+    return render_template(
+        current_app.config['DEPOSITS_FORMS_BASE_TEMPLATE'],
+        forms_config=forms_config,
+        record=empty_record,
+        searchbar_config=searchbar_config
+    )
+
+
+@blueprint.route('/deposits/<string:id>/edit')
+def deposits_edit(id):
+    """Fake deposits edit page."""
+    forms_config = dict(
+        apiUrl='/api/records/',
+        vocabularies=dump_vocabularies(Vocabulary))
+    # minimal record
+    record = {
+        "_access": {
+            "metadata_restricted": False,
+            "files_restricted": False
+        },
+        "_owners": [1],
+        "_created_by": 1,
+        "access_right": "open",
+        "id": "{}".format(id),
+        "resource_type": {
+            "type": "image",
+            "subtype": "image-photo"
+        },
+        # Technically not required
+        "creators": [],
+        "titles": [{
+            "title": "A Romans story",
+            "type": "Other",
+            "lang": "eng"
+        }],
+        "links": {
+            "edit": "/deposits/{}/edit".format(id)
+        }
+    }
+    searchbar_config = dict(searchUrl='/search')
+
+    initial_record = dump_empty(MetadataSchemaV1)
+    initial_record.update(record)
+    return render_template(
+        current_app.config['DEPOSITS_FORMS_BASE_TEMPLATE'],
+        forms_config=forms_config,
+        record=initial_record,
+        searchbar_config=searchbar_config
+    )
+
+
+@blueprint.route('/deposits')
+def deposits_user():
+    """List of user deposits page."""
+    return render_template(current_app.config['DEPOSITS_UPLOADS_TEMPLATE'])
