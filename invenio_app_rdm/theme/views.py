@@ -76,7 +76,7 @@ def deposits_edit(id):
             "lang": "eng"
         }],
         "links": {
-            "edit": "/deposit/{}/edit".format(id)
+            "edit": "/deposits/{}/edit".format(id)
         }
     }
     searchbar_config = dict(searchUrl='/search')

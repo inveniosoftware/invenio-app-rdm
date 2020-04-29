@@ -49,8 +49,7 @@ export class DepositController {
         window.history.replaceState(undefined, "", newURL);
       }
     }
-    console.log("Record to publish", payload);
-    return this.apiClient.publish(payload);
+    return this.apiClient.publish(payload.data);
     // TODO: don't return the result of the client directly
     // TODO: Redirect to record page
   }

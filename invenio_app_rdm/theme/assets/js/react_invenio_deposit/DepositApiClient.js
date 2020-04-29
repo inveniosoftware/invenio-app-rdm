@@ -16,7 +16,7 @@ export class DepositApiClient {
         var newRecord = {
           id: "q11jz-kkn59",
           links: {
-            edit: "/deposit/q11jz-kkn59/edit",
+            edit: "/deposits/q11jz-kkn59/edit",
           },
           ...record,
         };
@@ -44,7 +44,7 @@ export class DepositApiClient {
     // in the API call
     // TODO: Integrate with backend API
     let response = null;
-    if (_isEmpty(record["titles"])) {
+    if (_isEmpty(record.titles)) {
       response = {
         status: 400,
         message: "Validation error.",
