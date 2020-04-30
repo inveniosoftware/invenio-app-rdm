@@ -94,4 +94,7 @@ def deposits_edit(id):
 @blueprint.route('/deposits')
 def deposits_user():
     """List of user deposits page."""
-    return render_template(current_app.config['DEPOSITS_UPLOADS_TEMPLATE'])
+    return render_template(
+        current_app.config['DEPOSITS_UPLOADS_TEMPLATE'],
+        searchbar_config=dict(searchUrl='/search')
+    )
