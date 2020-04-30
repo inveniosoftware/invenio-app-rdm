@@ -29,11 +29,11 @@ export class DepositController {
       if (payload.errors) {
         console.log("create errors", payload.errors);
       } else {
-        const newURL = payload.data.links.edit
+        const newURL = payload.data.links.edit;
         window.history.replaceState(undefined, "", newURL);
       }
     }
-    return this.apiClient.save(payload);
+    return this.apiClient.save(payload.data);
   }
 
   async publish(record) {
@@ -45,7 +45,7 @@ export class DepositController {
       if (payload.errors) {
         console.log("create errors", payload.errors);
       } else {
-        const newURL = payload.data.links.edit
+        const newURL = payload.data.links.edit;
         window.history.replaceState(undefined, "", newURL);
       }
     }
