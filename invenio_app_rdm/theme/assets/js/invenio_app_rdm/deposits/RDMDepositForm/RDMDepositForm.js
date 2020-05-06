@@ -63,6 +63,7 @@ export class RDMDepositForm extends Component {
                 <ResourceTypeField
                   fieldPath="resource_type"
                   label={"Resource type"}
+                  label_icon={"tag"}
                   options={vocabularies.resource_type}
                 />
               </div>

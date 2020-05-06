@@ -92,20 +92,20 @@ export class SelectField extends Component {
       <Form.Dropdown
         fluid
         selection
-        searchInput={{ id: fieldPath }}
-        label={{ children: label, htmlFor: fieldPath }}
+        error={error || this.renderError(errors, fieldPath, value)}
+        id={fieldPath}
+        label={{ children: label, htmlFor: fieldPath}}
         loading={loading}
         multiple={multiple}
-        id={fieldPath}
         name={fieldPath}
+        onBlur={handleBlur}
         onChange={(event, data) => {
           setFieldValue(fieldPath, data.value);
         }}
-        onBlur={handleBlur}
-        value={value}
-        error={error || this.renderError(errors, fieldPath, value)}
         options={this.getAllOptions(options, value)}
         renderLabel={this.renderLabel}
+        searchInput={{ id: fieldPath }}
+        value={value}
         {...uiProps}
       />
     );
