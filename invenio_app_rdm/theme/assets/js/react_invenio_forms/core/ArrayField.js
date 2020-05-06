@@ -17,16 +17,17 @@ export class ArrayField extends Component {
       ...arrayHelpers
     } = props;
     const {
-      fieldPath,
       addButtonLabel,
-      defaultNewValue,
-      label,
       children,
+      defaultNewValue,
+      fieldPath,
+      label,
+      label_icon,
       ...uiProps
     } = this.props;
     return (
       <Form.Field {...uiProps}>
-        <label>{label}</label>
+        <label><Icon name={label_icon} />{label}</label>
         {getIn(values, fieldPath, []).map((value, index, array) => {
           const arrayPath = fieldPath;
           const indexPath = index;

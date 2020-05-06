@@ -26,18 +26,19 @@ export class TitlesField extends Component {
     return (
       <ArrayField
         addButtonLabel={"Add another title"}
-        fieldPath={this.props.fieldPath}
         defaultNewValue={this.props.defaultNewValue}
-        // <span><Icon disabled name="book" />Title</span>
+        fieldPath={this.props.fieldPath}
         label={this.props.label}
+        label_icon={this.props.label_icon}
       >
         {
           ({ array, arrayHelpers, indexPath, key }) => (
             <Form.Group inline>
               <TextField fieldPath={`${key}.title`} />
               {
-                array.length === 1 ?
-                null :
+                array.length === 1
+                ? null
+                :
                 <Button icon>
                   <Icon name="close" size="large" onClick={() => arrayHelpers.remove(indexPath)} />
                 </Button>
