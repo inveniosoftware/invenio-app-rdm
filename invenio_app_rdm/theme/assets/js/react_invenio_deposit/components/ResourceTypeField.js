@@ -8,8 +8,10 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { getIn, Field } from "formik";
+import { Form, Icon } from "semantic-ui-react";
 
 import { SelectField } from "../../react_invenio_forms";
+
 
 export class ResourceTypeField extends Component {
   renderResourceTypeField = (formikBag) => {
@@ -35,9 +37,10 @@ export class ResourceTypeField extends Component {
     );
     return (
       <div>
+        <label><Icon name={this.props.label_icon} />{this.props.label}</label>
         <SelectField
           fieldPath={resource_type_fieldpath}
-          label={this.props.label}
+          label={this.props.parent_label}
           options={this.props.options.type}
           onChange={handleChange}
           placeholder="Select general resource type"
@@ -45,8 +48,9 @@ export class ResourceTypeField extends Component {
         {subtype_options.length > 0 ? (
           <SelectField
             fieldPath={resource_subtype_fieldpath}
-            placeholder="Select resource subtype"
+            label={this.props.child_label}
             options={subtype_options}
+            placeholder="Select resource subtype"
           />
         ) : null}
       </div>
@@ -64,8 +68,10 @@ export class ResourceTypeField extends Component {
 }
 
 ResourceTypeField.propTypes = {
-  label: PropTypes.oneOfType([PropTypes.string, PropTypes.element]).isRequired,
+  child_label: PropTypes.string,
   fieldPath: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  label_icon: PropTypes.string,
   options: PropTypes.shape({
     type: PropTypes.arrayOf(
       PropTypes.shape({
@@ -83,4 +89,6 @@ ResourceTypeField.propTypes = {
       })
     ),
   }).isRequired,
+  parent_label: PropTypes.string,
+
 };
