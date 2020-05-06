@@ -59,7 +59,7 @@ export class RDMDepositForm extends Component {
               label={"Basic Information"}
             >
               <div>
-                <TitlesField fieldPath="titles" label="Titles" />
+                <TitlesField fieldPath="titles" label="Titles" label_icon="book" />
                 <ResourceTypeField
                   fieldPath="resource_type"
                   label={"Resource type"}
