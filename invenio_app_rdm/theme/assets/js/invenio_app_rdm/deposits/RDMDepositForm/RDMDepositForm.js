@@ -59,11 +59,11 @@ export class RDMDepositForm extends Component {
               label={"Basic Information"}
             >
               <div>
-                <TitlesField fieldPath="titles" label="Titles" label_icon="book" />
+                <TitlesField fieldPath="titles" label="Titles" labelIcon="book" />
                 <ResourceTypeField
                   fieldPath="resource_type"
                   label={"Resource type"}
-                  label_icon={"tag"}
+                  labelIcon={"tag"}
                   options={vocabularies.resource_type}
                 />
               </div>

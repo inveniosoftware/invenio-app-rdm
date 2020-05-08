@@ -29,7 +29,7 @@ export class TitlesField extends Component {
         defaultNewValue={this.props.defaultNewValue}
         fieldPath={this.props.fieldPath}
         label={this.props.label}
-        label_icon={this.props.label_icon}
+        labelIcon={this.props.labelIcon}
       >
         {
           ({ array, arrayHelpers, indexPath, key }) => (
@@ -52,11 +52,12 @@ export class TitlesField extends Component {
 }
 
 TitlesField.propTypes = {
-  label: PropTypes.string.isRequired,
-  fieldPath: PropTypes.string.isRequired,
   defaultNewValue: PropTypes.shape({
     title: PropTypes.string.isRequired,
   }),
+  fieldPath: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  labelIcon: PropTypes.string,
 };
 
 TitlesField.defaultProps = {
