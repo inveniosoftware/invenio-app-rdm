@@ -14,6 +14,6 @@
 
 pydocstyle invenio_app_rdm tests docs && \
 isort -rc -c -df && \
-# check-manifest --ignore ".travis-*" && \
+check-manifest --ignore ".travis-*" && \
 sphinx-build -qnNW docs docs/_build/html && \
 pytest
