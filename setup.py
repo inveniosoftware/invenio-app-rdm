@@ -25,7 +25,7 @@ tests_require = [
     'pydocstyle>=2.0.0',
     'pytest-cov>=2.5.1',
     'pytest-pep8>=1.0.6',
-    'pytest-invenio>=1.2.0',
+    'pytest-invenio>=1.3.0',
     'pytest>=4.0.0,<5.0.0',
 ]
 
