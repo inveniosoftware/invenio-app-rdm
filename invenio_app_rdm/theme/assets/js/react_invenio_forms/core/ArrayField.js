@@ -10,6 +10,8 @@ import PropTypes from "prop-types";
 import { getIn, FieldArray } from "formik";
 import { Form, Button, Icon } from "semantic-ui-react";
 
+import { FieldLabel } from "./FieldLabel";
+
 export class ArrayField extends Component {
   renderFormField = (props) => {
     const {
@@ -27,7 +29,7 @@ export class ArrayField extends Component {
     } = this.props;
     return (
       <Form.Field {...uiProps}>
-        <label><Icon name={labelIcon} />{label}</label>
+        <FieldLabel htmlFor={fieldPath} icon={labelIcon} label={label} />
         {getIn(values, fieldPath, []).map((value, index, array) => {
           const arrayPath = fieldPath;
           const indexPath = index;

@@ -56,7 +56,7 @@ TitlesField.propTypes = {
     title: PropTypes.string.isRequired,
   }),
   fieldPath: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string,
   labelIcon: PropTypes.string,
 };
 
