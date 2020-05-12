@@ -10,6 +10,7 @@ import PropTypes from "prop-types";
 import { getIn, Field } from "formik";
 import { Form, Icon } from "semantic-ui-react";
 
+import { FieldLabel } from "../../react_invenio_forms";
 import { SelectField } from "../../react_invenio_forms";
 
 
@@ -37,7 +38,7 @@ export class ResourceTypeField extends Component {
     );
     return (
       <div>
-        <label><Icon name={this.props.labelIcon} />{this.props.label}</label>
+        <FieldLabel htmlFor={this.props.fieldPath} icon={this.props.labelIcon} label={this.props.label} />
         <SelectField
           fieldPath={typeFieldPath}
           label={this.props.typeLabel}
@@ -69,7 +70,7 @@ export class ResourceTypeField extends Component {
 
 ResourceTypeField.propTypes = {
   fieldPath: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string,
   labelIcon: PropTypes.string,
   options: PropTypes.shape({
     type: PropTypes.arrayOf(

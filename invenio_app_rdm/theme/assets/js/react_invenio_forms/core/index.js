@@ -10,6 +10,7 @@ export { ArrayField } from "./ArrayField";
 export { BaseForm } from "./BaseForm";
 export { BooleanField } from "./BooleanField";
 export { ErrorMessage } from "./ErrorMessage";
+export { FieldLabel } from "./FieldLabel";
 export { GroupField } from "./GroupField";
 export { SelectField } from "./SelectField";
 export { TextField } from "./TextField";
