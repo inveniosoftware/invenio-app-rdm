@@ -4,16 +4,16 @@
 //
 // React-Invenio-Deposit is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
+
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Button, Grid} from "semantic-ui-react";
+import { Button, Form, Grid, Icon } from "semantic-ui-react";
 
 import { ArrayField } from "../../react_invenio_forms";
 import { CreatorOrContributorField } from "./CreatorOrContributorField";
 
-
-export class CreatorsField extends Component {
-  /** Top-level Creators Component */
+export class ContributorsField extends Component {
+  /** Top-level Contributors Component */
 
   render() {
     const {
@@ -35,6 +35,7 @@ export class CreatorsField extends Component {
       identifiersIdentifierSegment,
       identifiersSchemeSegment,
       typeSegment,
+      roleSegment,
     } = itemProps;
 
     const defaultNewValue = {
@@ -55,12 +56,13 @@ export class CreatorsField extends Component {
       ],
       [nameSegment]: "",
       [typeSegment]: "personal",
+      [roleSegment]: "",
     };
 
     return (
       // TODO: Replace by arrayProps
       <ArrayField
-        addButtonLabel={"Add creator"} // TODO: Pass by prop
+        addButtonLabel={"Add contributor"} // TODO: Pass by prop
         defaultNewValue={defaultNewValue}
         fieldPath={fieldPath}
         label={label}
@@ -71,19 +73,20 @@ export class CreatorsField extends Component {
             <>
               <CreatorOrContributorField
                 fieldPath={key}
+                isContributor={true}
                 {...itemProps}
               />
               <Grid>
                 <Grid.Column></Grid.Column>
                 <Grid.Column floated='right' >
-                {
-                  array.length === 1
-                  ? null
-                  :
-                    <Button color='red' floated='right' onClick={() => arrayHelpers.remove(indexPath)}>
-                      Remove
+                  {
+                    array.length === 1
+                      ? null
+                      :
+                      <Button color='red' floated='right' onClick={() => arrayHelpers.remove(indexPath)}>
+                        Remove
                     </Button>
-                }
+                  }
                 </Grid.Column>
               </Grid>
             </>
@@ -94,7 +97,7 @@ export class CreatorsField extends Component {
   }
 }
 
-CreatorsField.propTypes = {
+ContributorsField.propTypes = {
   fieldPath: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   labelIcon: PropTypes.string,
@@ -123,5 +126,6 @@ CreatorsField.propTypes = {
   nameSegment: PropTypes.string.isRequired,
   identifiersSegment: PropTypes.string.isRequired,
   affiliationsSegment: PropTypes.string.isRequired,
+  roleSegment: PropTypes.string.isRequired,
   // TODO: pass labels as props
 };

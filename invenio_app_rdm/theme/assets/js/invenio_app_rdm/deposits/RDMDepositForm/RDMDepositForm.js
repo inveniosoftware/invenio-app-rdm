@@ -16,6 +16,7 @@ import {
   PublishButton,
   SaveButton,
   connect,
+  ContributorsField,
   CreatorsField,
   TitlesField,
   ResourceTypeField,
@@ -60,9 +61,13 @@ function fakeInitialRecord(backendRecord) {
   /** Returns the initialRecord with experimental changes.
    * Used to group trial changes.
    */
-  // Experiment: no creators defined. Our default functionality will take the slack.
-  const { creators, ...fakedRecord } = backendRecord;
-  // console.log("fakedRecord", JSON.stringify(fakedRecord, null, 2))
+  // Experiment: Ignore backend for now and gradually fill what the frontend
+  //             needs for a brand new record
+  const {
+    creators,
+    contributors,
+    ...fakedRecord
+  } = backendRecord;
   return fakedRecord;
 }
 
@@ -90,6 +95,28 @@ const defaultRecord = {
         }
       ]
     }
+  ],
+  contributors: [
+    {
+      affiliations: [
+        {
+          identifier: "",
+          name: "",
+          scheme: "",
+        }
+      ],
+      given_name: "",
+      family_name: "",
+      name: "",
+      type: "personal",
+      identifiers: [
+        {
+          identifier: "",
+          scheme: "",
+        }
+      ],
+      role: ""
+    }
   ]
 }
 
@@ -109,6 +136,7 @@ export class RDMDepositForm extends Component {
     super(props);
     this.config = props.config || {};
     this.controller = new RDMDepositController(new RDMDepositApiClient());
+    // TODO: Remove when backend is better integrated
     console.log("backend initial record", JSON.stringify(props.record, null, 2))
     console.log("faked backend record", JSON.stringify(fakeInitialRecord(props.record), null, 2))
     const record = defaultize(fakeInitialRecord(props.record));
@@ -129,10 +157,19 @@ export class RDMDepositForm extends Component {
       // **Vocabulary experiments go here**
       creators: {
         type: [{ text: "Person", value: "personal"}, { text: "Organization", value: "organizational" }]
+      },
+      contributors: {
+        type: [{ text: "Person", value: "personal" }, { text: "Organization", value: "organizational" }],
+        role: [
+          { text: "Editor", value: "Editor" },
+          { text: "DataCurator", value: "DataCurator" },
+          { text: "DataManager", value: "DataManager" },
+          { text: "ProjectManager", value: "ProjectManager" },
+        ]
       }
+
     };
 
-    // columns = {2}
     return (
       <DepositFormApp
         config={this.config}
@@ -165,8 +202,24 @@ export class RDMDepositForm extends Component {
                   affiliationsIdentifierSegment={"identifier"}
                   affiliationsSchemeSegment={"scheme"}
                 />
+                <ContributorsField
+                  fieldPath="contributors"
+                  label="Contributors" labelIcon="group"
+                  options={vocabularies.contributors}
+                  typeSegment={"type"}
+                  familyNameSegment={"family_name"}
+                  givenNameSegment={"given_name"}
+                  nameSegment={"name"}
+                  identifiersSegment={"identifiers"}
+                  identifiersSchemeSegment={"scheme"}
+                  identifiersIdentifierSegment={"identifier"}
+                  affiliationsSegment={"affiliations"}
+                  affiliationsNameSegment={"name"}
+                  affiliationsIdentifierSegment={"identifier"}
+                  affiliationsSchemeSegment={"scheme"}
+                  roleSegment={"role"}
+                />
 
-                {/* <ContributorsField fieldPath="contributors" label="Creators" label_icon="group" /> */}
                 <ResourceTypeField
                   fieldPath="resource_type"
                   label={"Resource type"}
