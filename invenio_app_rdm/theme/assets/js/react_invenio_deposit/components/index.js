@@ -6,6 +6,8 @@
 // under the terms of the MIT License; see LICENSE file for more details.
 
 export { AffiliationField } from "./AffiliationField";
+export { CreatorOrContributorField } from "./CreatorOrContributorField";
+export { ContributorsField } from "./ContributorsField";
 export { CreatorsField } from "./CreatorsField";
 export { IdentifierField } from "./IdentifierField";
 export { ResourceTypeField } from "./ResourceTypeField";
