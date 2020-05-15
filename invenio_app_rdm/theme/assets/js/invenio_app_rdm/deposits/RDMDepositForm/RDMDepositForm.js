@@ -64,6 +64,7 @@ function fakeInitialRecord(backendRecord) {
   // Experiment: Ignore backend for now and gradually fill what the frontend
   //             needs for a brand new record
   const {
+    titles,
     creators,
     contributors,
     ...fakedRecord
@@ -75,6 +76,13 @@ function fakeInitialRecord(backendRecord) {
 //       with it. As the frontend, it needs to duplicate the knowledge, mimicking
 //       what other frontends would need to do.
 const defaultRecord = {
+  titles: [
+    {
+      lang: "",
+      title: "",
+      type: ""
+    }
+  ],
   creators: [
     {
       affiliations: [
