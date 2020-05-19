@@ -6,22 +6,16 @@
 // under the terms of the MIT License; see LICENSE file for more details.
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Button, Grid} from "semantic-ui-react";
+import { Button, Grid } from "semantic-ui-react";
 
 import { ArrayField } from "../../react_invenio_forms";
 import { CreatorOrContributorField } from "./CreatorOrContributorField";
-
 
 export class CreatorsField extends Component {
   /** Top-level Creators Component */
 
   render() {
-    const {
-      fieldPath,
-      label,
-      labelIcon,
-      ...itemProps
-    } = this.props;
+    const { fieldPath, label, labelIcon, ...itemProps } = this.props;
 
     const {
       familyNameSegment,
@@ -43,7 +37,7 @@ export class CreatorsField extends Component {
           [affiliationsIdentifierSegment]: "",
           [affiliationsNameSegment]: "",
           [affiliationsSchemeSegment]: "",
-        }
+        },
       ],
       [familyNameSegment]: "",
       [givenNameSegment]: "",
@@ -51,10 +45,10 @@ export class CreatorsField extends Component {
         {
           [identifiersIdentifierSegment]: "",
           [identifiersSchemeSegment]: "",
-        }
+        },
       ],
       [nameSegment]: "",
-      [typeSegment]: "personal",
+      [typeSegment]: "Personal",
     };
 
     return (
@@ -66,29 +60,25 @@ export class CreatorsField extends Component {
         label={label}
         labelIcon={labelIcon}
       >
-        {
-          ({ array, arrayHelpers, indexPath, key }) => (
-            <>
-              <CreatorOrContributorField
-                fieldPath={key}
-                {...itemProps}
-              />
-              <Grid>
-                <Grid.Column></Grid.Column>
-                <Grid.Column floated='right' >
-                {
-                  array.length === 1
-                  ? null
-                  :
-                    <Button color='red' floated='right' onClick={() => arrayHelpers.remove(indexPath)}>
-                      Remove
-                    </Button>
-                }
-                </Grid.Column>
-              </Grid>
-            </>
-          )
-        }
+        {({ array, arrayHelpers, indexPath, key }) => (
+          <>
+            <CreatorOrContributorField fieldPath={key} {...itemProps} />
+            <Grid>
+              <Grid.Column></Grid.Column>
+              <Grid.Column floated="right">
+                {array.length === 1 ? null : (
+                  <Button
+                    color="red"
+                    floated="right"
+                    onClick={() => arrayHelpers.remove(indexPath)}
+                  >
+                    Remove
+                  </Button>
+                )}
+              </Grid.Column>
+            </Grid>
+          </>
+        )}
       </ArrayField>
     );
   }
@@ -102,7 +92,7 @@ CreatorsField.propTypes = {
     // NOTE: It is fine for the interface to ask for 'type', because it doesn't
     //       presuppose the knowledge of the data model. It simply defines
     //       what it expects.
-    //       Other requirement: one of these options must have value "personal"
+    //       Other requirement: one of these options must have value "Personal"
     //       Alternative is to pass the "person-equivalent" option as a prop
     type: PropTypes.arrayOf(
       PropTypes.shape({

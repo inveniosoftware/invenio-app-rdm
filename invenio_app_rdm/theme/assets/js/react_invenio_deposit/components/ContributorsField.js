@@ -16,12 +16,7 @@ export class ContributorsField extends Component {
   /** Top-level Contributors Component */
 
   render() {
-    const {
-      fieldPath,
-      label,
-      labelIcon,
-      ...itemProps
-    } = this.props;
+    const { fieldPath, label, labelIcon, ...itemProps } = this.props;
 
     const {
       familyNameSegment,
@@ -44,7 +39,7 @@ export class ContributorsField extends Component {
           [affiliationsIdentifierSegment]: "",
           [affiliationsNameSegment]: "",
           [affiliationsSchemeSegment]: "",
-        }
+        },
       ],
       [familyNameSegment]: "",
       [givenNameSegment]: "",
@@ -52,10 +47,10 @@ export class ContributorsField extends Component {
         {
           [identifiersIdentifierSegment]: "",
           [identifiersSchemeSegment]: "",
-        }
+        },
       ],
       [nameSegment]: "",
-      [typeSegment]: "personal",
+      [typeSegment]: "Personal",
       [roleSegment]: "",
     };
 
@@ -68,30 +63,29 @@ export class ContributorsField extends Component {
         label={label}
         labelIcon={labelIcon}
       >
-        {
-          ({ array, arrayHelpers, indexPath, key }) => (
-            <>
-              <CreatorOrContributorField
-                fieldPath={key}
-                isContributor={true}
-                {...itemProps}
-              />
-              <Grid>
-                <Grid.Column></Grid.Column>
-                <Grid.Column floated='right' >
-                  {
-                    array.length === 1
-                      ? null
-                      :
-                      <Button color='red' floated='right' onClick={() => arrayHelpers.remove(indexPath)}>
-                        Remove
-                    </Button>
-                  }
-                </Grid.Column>
-              </Grid>
-            </>
-          )
-        }
+        {({ array, arrayHelpers, indexPath, key }) => (
+          <>
+            <CreatorOrContributorField
+              fieldPath={key}
+              isContributor={true}
+              {...itemProps}
+            />
+            <Grid>
+              <Grid.Column></Grid.Column>
+              <Grid.Column floated="right">
+                {array.length === 1 ? null : (
+                  <Button
+                    color="red"
+                    floated="right"
+                    onClick={() => arrayHelpers.remove(indexPath)}
+                  >
+                    Remove
+                  </Button>
+                )}
+              </Grid.Column>
+            </Grid>
+          </>
+        )}
       </ArrayField>
     );
   }
@@ -105,7 +99,7 @@ ContributorsField.propTypes = {
     // NOTE: It is fine for the interface to ask for 'type', because it doesn't
     //       presuppose the knowledge of the data model. It simply defines
     //       what it expects.
-    //       Other requirement: one of these options must have value "personal"
+    //       Other requirement: one of these options must have value "Personal"
     //       Alternative is to pass the "person-equivalent" option as a prop
     type: PropTypes.arrayOf(
       PropTypes.shape({

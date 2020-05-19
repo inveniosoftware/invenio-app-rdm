@@ -74,7 +74,7 @@ const _CreatorOrContributorField = ({ field, form, ...props }) => {
 
   };
 
-  const personValue = "personal";
+  const personValue = "Personal";
 
   return (
     // TODO: pass labels as props
