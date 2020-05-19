@@ -6,23 +6,18 @@
 // under the terms of the MIT License; see LICENSE file for more details.
 
 import _isEmpty from "lodash/isEmpty";
+import axios from "axios";
 
 export class DepositApiClient {
+  API_CREATE_ENDPOINT = "/api/records/";
+  API_SAVE_ENDPOINT = "/";
+  API_PUBLISH_ENDPOINT = "/";
+
   create(record) {
     // Calls the API to create a new record
-    // TODO: Integrate with backend API
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        var newRecord = {
-          id: "q11jz-kkn59",
-          links: {
-            edit: "/deposits/q11jz-kkn59/edit",
-          },
-          ...record,
-        };
-        console.log("Record created", newRecord);
-        resolve({data: newRecord});
-      }, 100);
+    // TODO: Integrate with deposit backend API
+    return axios.post(this.API_CREATE_ENDPOINT, record, {
+      headers: { "Content-Type": "application/json" },
     });
   }
 
@@ -33,7 +28,7 @@ export class DepositApiClient {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         console.log("Record saved", record);
-        resolve({data: record});
+        resolve({ data: record });
       }, 500);
     });
   }
@@ -43,34 +38,11 @@ export class DepositApiClient {
     // This has the shape of what our current API returns when there are errors
     // in the API call
     // TODO: Integrate with backend API
-    let response = null;
-    if (_isEmpty(record.titles)) {
-      response = {
-        status: 400,
-        message: "Validation error.",
-        errors: [
-          {
-            parents: ["titles", "0"],
-            field: "title",
-            message: "Missing data for required field.",
-          },
-        ],
-      };
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          reject(response);
-        }, 500);
-      });
-    } else {
-      response = {
-        status: 200,
-        data: record,
-      };
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve(response);
-        }, 500);
-      });
-    }
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        console.log("Record published", record);
+        resolve({ data: record });
+      }, 500);
+    });
   }
 }

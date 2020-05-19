@@ -7,6 +7,10 @@
 
 // Drives the business logic of the InvenioFormApp.
 // Defines what happens when a button is clicked.
+
+import { setFormErrorsFromResponse } from "./state/actions";
+import { PUBLISH_SUCCESS, SAVE_SUCCESS } from "./state/types";
+
 export class DepositController {
   constructor(apiClient) {
     this.apiClient = apiClient;
@@ -20,37 +24,50 @@ export class DepositController {
     console.log("Validate record", record);
   }
 
-  async save_draft(record) {
+  async save_draft(record, { formik, store }) {
     // Saves a draft of the record
-    let payload = record;
+    const recordSerializer = store.config.recordSerializer;
+    let payload = recordSerializer.serialize(record);
     this.validate(record);
-    if (!this.exists(record)) {
-      payload = await this.apiClient.create(record);
-      if (payload.errors) {
-        console.log("create errors", payload.errors);
-      } else {
-        const newURL = payload.data.links.edit;
+    try {
+      if (!this.exists(record)) {
+        const response = await this.apiClient.create(payload);
+        const newURL = response.data.links.edit;
         window.history.replaceState(undefined, "", newURL);
+        payload = response.data;
       }
+      const response = await this.apiClient.save(payload);
+      store.dispatch({
+        type: SAVE_SUCCESS,
+        payload: response,
+      });
+      formik.setSubmitting(false);
+    } catch (error) {
+      store.dispatch(setFormErrorsFromResponse(error, formik));
     }
-    return this.apiClient.save(payload.data);
   }
 
-  async publish(record) {
+  async publish_draft(record, { formik, store }) {
     // Publishes a draft to make it a full fledged record
-    let payload = record;
-    this.validate(record);
-    if (!this.exists(record)) {
-      payload = await this.apiClient.create(record);
-      if (payload.errors) {
-        console.log("create errors", payload.errors);
-      } else {
-        const newURL = payload.data.links.edit;
+    const recordSerializer = store.config.recordSerializer;
+    let payload = recordSerializer.serialize(record);
+    this.validate(payload);
+    try {
+      if (!this.exists(record)) {
+        const response = await this.apiClient.create(payload);
+        const newURL = response.data.links.edit;
         window.history.replaceState(undefined, "", newURL);
+        payload = response.data;
       }
+      const response = await this.apiClient.publish(payload);
+      store.dispatch({
+        type: PUBLISH_SUCCESS,
+        payload: response,
+      });
+      formik.setSubmitting(false);
+      window.location.replace(response.data.links.self.split("/api")[1]);
+    } catch (error) {
+      store.dispatch(setFormErrorsFromResponse(error, formik));
     }
-    return this.apiClient.publish(payload.data);
-    // TODO: don't return the result of the client directly
-    // TODO: Redirect to record page
   }
 }

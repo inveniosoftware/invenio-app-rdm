@@ -36,7 +36,6 @@ class RecordPreviewer extends Component {
 }
 RecordPreviewer = connect(RecordPreviewer);
 
-
 export class FormRecordPreviewer extends Component {
   renderFormField = (formikBag) => {
     const values = formikBag.form.values;
@@ -50,10 +49,7 @@ export class FormRecordPreviewer extends Component {
 
   render() {
     return (
-      <Field
-        name="FormRecordPreviewer"
-        component={this.renderFormField}
-      />
+      <Field name="FormRecordPreviewer" component={this.renderFormField} />
     );
   }
 }
@@ -64,12 +60,7 @@ function fakeInitialRecord(backendRecord) {
    */
   // Experiment: Ignore backend for now and gradually fill what the frontend
   //             needs for a brand new record
-  const {
-    titles,
-    creators,
-    contributors,
-    ...fakedRecord
-  } = backendRecord;
+  const { creators, contributors, ...fakedRecord } = backendRecord;
   return fakedRecord;
 }
 
@@ -81,8 +72,8 @@ const defaultRecord = {
     {
       lang: "",
       title: "",
-      type: ""
-    }
+      type: "",
+    },
   ],
   creators: [
     {
@@ -91,19 +82,19 @@ const defaultRecord = {
           identifier: "",
           name: "",
           scheme: "",
-        }
+        },
       ],
       given_name: "",
       family_name: "",
       name: "",
-      type: "personal",
+      type: "Personal",
       identifiers: [
         {
           identifier: "",
           scheme: "",
-        }
-      ]
-    }
+        },
+      ],
+    },
   ],
   contributors: [
     {
@@ -112,22 +103,22 @@ const defaultRecord = {
           identifier: "",
           name: "",
           scheme: "",
-        }
+        },
       ],
       given_name: "",
       family_name: "",
       name: "",
-      type: "personal",
+      type: "Personal",
       identifiers: [
         {
           identifier: "",
           scheme: "",
-        }
+        },
       ],
-      role: ""
-    }
-  ]
-}
+      role: "",
+    },
+  ],
+};
 
 // NOTE: RDMDepositForm knows the meaning associated to the field.
 // i.e. it knows its datamodel is the one sent by invenio-rdm-records.
@@ -146,10 +137,16 @@ export class RDMDepositForm extends Component {
     this.config = props.config || {};
     this.controller = new RDMDepositController(new RDMDepositApiClient());
     // TODO: Remove when backend is better integrated
-    console.log("backend initial record", JSON.stringify(props.record, null, 2))
-    console.log("faked backend record", JSON.stringify(fakeInitialRecord(props.record), null, 2))
+    console.log(
+      "backend initial record",
+      JSON.stringify(props.record, null, 2)
+    );
+    console.log(
+      "faked backend record",
+      JSON.stringify(fakeInitialRecord(props.record), null, 2)
+    );
     const record = defaultize(fakeInitialRecord(props.record));
-    console.log("initial form record", JSON.stringify(record, null, 2))
+    console.log("initial form record", JSON.stringify(record, null, 2));
     this.state = {
       record: record || {},
     };
@@ -165,18 +162,23 @@ export class RDMDepositForm extends Component {
       ...this.config.vocabularies,
       // **Vocabulary experiments go here**
       creators: {
-        type: [{ text: "Person", value: "personal"}, { text: "Organization", value: "organizational" }]
+        type: [
+          { text: "Person", value: "Personal" },
+          { text: "Organization", value: "Organizational" },
+        ],
       },
       contributors: {
-        type: [{ text: "Person", value: "personal" }, { text: "Organization", value: "organizational" }],
+        type: [
+          { text: "Person", value: "Personal" },
+          { text: "Organization", value: "Organizational" },
+        ],
         role: [
           { text: "Editor", value: "Editor" },
           { text: "DataCurator", value: "DataCurator" },
           { text: "DataManager", value: "DataManager" },
           { text: "ProjectManager", value: "ProjectManager" },
-        ]
-      }
-
+        ],
+      },
     };
 
     return (
@@ -194,10 +196,15 @@ export class RDMDepositForm extends Component {
               label={"Basic Information"}
             >
               <div>
-                <TitlesField fieldPath="titles" label="Titles" labelIcon="book" />
+                <TitlesField
+                  fieldPath="titles"
+                  label="Titles"
+                  labelIcon="book"
+                />
                 <CreatorsField
                   fieldPath="creators"
-                  label="Creators" labelIcon="group"
+                  label="Creators"
+                  labelIcon="group"
                   options={vocabularies.creators}
                   typeSegment={"type"}
                   familyNameSegment={"family_name"}
@@ -213,7 +220,8 @@ export class RDMDepositForm extends Component {
                 />
                 <ContributorsField
                   fieldPath="contributors"
-                  label="Contributors" labelIcon="group"
+                  label="Contributors"
+                  labelIcon="group"
                   options={vocabularies.contributors}
                   typeSegment={"type"}
                   familyNameSegment={"family_name"}
