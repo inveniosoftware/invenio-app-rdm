@@ -8,9 +8,6 @@
 import React, { Component } from "react";
 import { Message, Grid } from "semantic-ui-react";
 import { Field } from "formik";
-
-import { RDMDepositApiClient } from "./RDMDepositAPIClient";
-import { RDMDepositController } from "./RDMDepositController";
 import {
   AccessRightField,
   DepositFormApp,
@@ -21,8 +18,8 @@ import {
   CreatorsField,
   TitlesField,
   ResourceTypeField,
-} from "../../../react_invenio_deposit";
-import { AccordionField, ErrorMessage } from "../../../react_invenio_forms";
+} from "react-invenio-deposit";
+import { AccordionField, ErrorMessage } from "react-invenio-forms";
 
 class RecordPreviewer extends Component {
   render() {
@@ -135,7 +132,6 @@ export class RDMDepositForm extends Component {
   constructor(props) {
     super(props);
     this.config = props.config || {};
-    this.controller = new RDMDepositController(new RDMDepositApiClient());
     // TODO: Remove when backend is better integrated
     console.log(
       "backend initial record",
@@ -182,11 +178,7 @@ export class RDMDepositForm extends Component {
     };
 
     return (
-      <DepositFormApp
-        config={this.config}
-        controller={this.controller}
-        record={this.state.record}
-      >
+      <DepositFormApp config={this.config} record={this.state.record}>
         <ErrorMessage fieldPath="message" />
         <Grid>
           <Grid.Column width={12}>
@@ -249,8 +241,8 @@ export class RDMDepositForm extends Component {
 
           <Grid.Column width={4}>
             <Grid.Row>
-            <SaveButton />
-            <PublishButton />
+              <SaveButton />
+              <PublishButton />
             </Grid.Row>
             <Grid.Row>
               <AccessRightField
@@ -261,7 +253,6 @@ export class RDMDepositForm extends Component {
               />
             </Grid.Row>
           </Grid.Column>
-
         </Grid>
 
         <FormRecordPreviewer />

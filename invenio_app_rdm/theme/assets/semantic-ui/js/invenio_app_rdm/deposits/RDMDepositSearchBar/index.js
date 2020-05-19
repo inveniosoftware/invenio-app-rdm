@@ -9,7 +9,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "semantic-ui-css/semantic.min.css";
 import { RDMDepositSearchBar } from "./RDMDepositSearchBar";
-import { getConfigFromDOM } from "../../../react_invenio_deposit/dom";
+import { getConfigFromDOM } from "react-invenio-deposit";
 
 ReactDOM.render(
   <RDMDepositSearchBar

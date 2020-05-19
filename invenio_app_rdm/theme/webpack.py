@@ -40,20 +40,22 @@ def theme():
                 },
                 dependencies={
                     # add any additional npm dependencies here...
-                    'axios': '^0.19.0',
+                    "@babel/runtime": "^7.9.0",
+                    'axios': '^0.19.2',
                     'formik': '^2.1.4',
                     'lodash': '^4.17.15',
                     'luxon': '^1.23.0',
                     'path': '^0.12.7',
                     'prop-types': '^15.7.2',
                     'qs': '^6.9.1',
-                    'react': '^16.12.0',
-                    'react-dom': '^16.12.0',
-                    'react-redux': '^7.1.3',
+                    'react': '^16.13.1',
+                    'react-dom': '^16.13.1',
+                    'react-invenio-deposit': '^0.2.0',
+                    'react-invenio-forms': '^0.3.0',
+                    'react-redux': '^7.2',
                     'react-searchkit': '^0.18.0',
                     'redux': '^4.0.5',
                     'redux-thunk': '^2.3.0',
-                    "semantic-ui-calendar-react": "^0.15.3",
                     "semantic-ui-css": "^2.4.1",
                     "semantic-ui-react": "^0.88.0"
                 }
