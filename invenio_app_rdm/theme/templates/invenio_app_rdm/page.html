@@ -8,6 +8,7 @@
 {%- extends "invenio_theme/page.html" %}
 
 {%- block css %}
+{{ super() }}
 {{ webpack['invenio-app-rdm-theme.css'] }}
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>

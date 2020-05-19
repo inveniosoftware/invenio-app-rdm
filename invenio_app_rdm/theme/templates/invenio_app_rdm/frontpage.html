@@ -9,94 +9,170 @@
 
 {%- block head_links %}
 {{ super() }}
-<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600|Oswald|Source+Code+Pro:400&amp;display=swap" rel="stylesheet">
+<link
+  href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600|Oswald|Source+Code+Pro:400&amp;display=swap"
+  rel="stylesheet">
 {%- endblock head_links %}
 
+{%- block css %}
+{{ webpack['theme.css']}}
+{{ webpack['invenio-app-rdm-theme.css']}}
+{%-endblock css %}
+
+{%- block page_header %}
+{%- include "invenio_app_rdm/header_frontpage.html" %}
+{%- endblock page_header %}
 
 {%- block page_body %}
-  <section class="get-started-section section-content-white-bg">
-    <div class="container">
-      <h6 class="section-subtitle">You've successfully installed InvenioRDM! What is ahead?</h6>
-      <div class="row">
-        <div class="col-md-4">
-          <div class="flex-center-vertically">
-            <div class="numbering">1</div>
-          </div>
-          <h3 class="section-title">Configure</h3>
+<section class="get-started-section section-content-white-bg">
+  <div class="container centered">
+    <h6 class="section-subtitle">You've successfully installed InvenioRDM! What is ahead?</h6>
+    <div class="ui grid three column">
+      <div class="column">
+        <div class="flex-center-vertically">
+          <div class="numbering">1</div>
+        </div>
+        <h3 class="section-title">Configure</h3>
+        <div class="command-line">
+          Configure the datamodel, resource types, permissions and much more to make it suit your needs! For more
+          information on how to do it visit the <a
+            href="https://inveniordm.docs.cern.ch/develop/make_it_your_own/">configuration
+            section in the docs</a>.
+        </div>
+      </div>
+      <div class="column">
+        <div class="flex-center-vertically">
+          <div class="numbering">2</div>
+        </div>
+        <h3 class="section-title">Customize</h3>
+        <div class="command-line">
           <div class="command-line">
-            Configure the datamodel, resource types, permissions and much more to make it suit your needs! For more information on how to do it visit the <a href="https://inveniordm.docs.cern.ch/develop/config/">configuration section in the docs</a>.
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="flex-center-vertically">
-              <div class="numbering">2</div>
-          </div>
-          <h3 class="section-title">Customize</h3>
-          <div class="command-line">
-            <div class="command-line">
-              Customize the layout and adapt the styling to match your institution's. See how to do so <a href="https://inveniordm.docs.cern.ch/develop/customize/">here</a>. You can also add new functionality using <a href="https://inveniordm.docs.cern.ch/extensions/">supported plugins</a>, or <a href="https://inveniordm.docs.cern.ch/extensions/custom/">writing your own</a>.
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="flex-center-vertically">
-            <div class="numbering">3</div>
-          </div>
-          <h3 class="section-title">Deploy it!</h3>
-          <div class="command-line">
-            Use the Helm charts to deploy your InvenioRDM instance. You can use the Helm chart to <a href="https://inveniordm.docs.cern.ch/deployment/">deploy in OpenShift</a>.
+            Customize the layout and adapt the styling to match your institution's. See how to do so <a
+              href="https://inveniordm.docs.cern.ch/develop/make_it_your_own/">here</a>. You can also add new
+            functionality
+            using <a href="https://inveniordm.docs.cern.ch/extensions/">supported plugins</a>, or <a
+              href="https://inveniordm.docs.cern.ch/extensions/custom/">writing your own</a>.
           </div>
         </div>
       </div>
-      <div class="row inline-row">
-        <div class="inline-row-pane">
-          <div class="goto-button">
-            <a href="https://inveniordm.docs.cern.ch"><i class="fa fa-file-text-o"></i> Docs</a>
-          </div>
-          <div class="goto-button">
-            <a href="https://github.com/inveniosoftware"><i class="fa fa-github"></i> Code</a>
-          </div>
+      <div class="column">
+        <div class="flex-center-vertically">
+          <div class="numbering">3</div>
+        </div>
+        <h3 class="section-title">Deploy it!</h3>
+        <div class="command-line">
+          Use the Helm charts to deploy your InvenioRDM instance. You can use the Helm chart to <a
+            href="https://inveniordm.docs.cern.ch/deployment/">deploy in OpenShift</a>.
         </div>
       </div>
     </div>
-</section>
-
-<section class="brought-to-you-section section-content-light-bg">
-  <div class="container">
-    <span class="section-title">Brought to you by</span>
-    <div class="row centered">
-      <div class="col">
-        <a href="http://www.bnl.gov/"><img src="/static/images/logo-bnl.png" title="Brookhaven National Laboratory"></a>
-        <a href="https://www.library.caltech.edu/"><img src="/static/images/logo-caltechlibrary.png" title="Caltech Library"></a>
-        <a href="http://home.cern"><img src="/static/images/logo-cern.png" title="CERN"></a>
-        <a href="https://ctsa.ncats.nih.gov/cd2h/"><img src="/static/images/logo-cd2h.png" title="CTSA Program National Center for Data to Health"></a>
-      </div>
-    </div>
-    <div class="row centered">
-      <div class="col">
-        <a href="https://www.data-futures.org/"><img src="/static/images/logo-data-futures.png" title="Data Futures"></a>
-        <a href="http://www.earthobservations.org/"><img src="/static/images/logo-geo.svg" title="Group on Earth Observations"></a>
-        <a href="https://www.hzdr.de/"><img src="/static/images/logo-hzdr.png" title="Helmholtz Zentrum Dresden-Rossendorf"></a>
-        <a href="http://home.infn.it/"><img src="/static/images/logo-infn.svg" title="Istituto Nazionale di Fisica Nucleare"></a>
-      </div>
-    </div>
-    <div class="row centered">
-      <div class="col">
-        <a href="https://ec.europa.eu/jrc/"><img src="/static/images/logo-jrc.svg" title="Joint Research Centre"></a>
-        <a href="https://www.northwestern.edu/"><img src="/static/images/logo-northwestern-university.png" title="Northwestern University"></a>
-        <a href="https://www.openaire.eu/"><img src="/static/images/logo-openaire.png" title="OpenAIRE"></a>
-        <a href="https://tind.io/"><img src="/static/images/logo-tind.png" title="TIND"></a>
-      </div>
-    </div>
-    <div class="row centered">
-      <div class="col">
-        <a href="https://ulakbim.tubitak.gov.tr"><img src="/static/images/logo-tubitak.svg" title="Tubitak"></a>
-        <a href="https://www.tugraz.at/en/home/"><img src="/static/images/logo-tu-graz.svg" title="TU Graz"></a>
-        <a href="https://www.uni-hamburg.de/"><img src="/static/images/logo-uni-hamburg.png" title="Universität Hamburg"></a>
-        <a href="https://www.uni-muenster.de/en/"><img src="/static/images/logo-uni-munster.png" title="University of Münster"></a>
+    <div class="row inline-row">
+      <div class="inline-row-pane">
+        <div class="goto-button">
+          <a href="https://inveniordm.docs.cern.ch"><i class="fa fa-file-text-o"></i> Docs</a>
+        </div>
+        <div class="goto-button">
+          <a href="https://github.com/inveniosoftware"><i class="fa fa-github"></i> Code</a>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-{%- endblock %}
+<section class="brought-to-you-section section-content-light-bg">
+  <div class="container centered">
+    <span class="section-title">Brought to you by</span>
+    <div class="ui grid four column">
+      <div class="column">
+        <a href="http://www.bnl.gov/">
+          <img src="/static/images/logo-bnl.png" title="Brookhaven National Laboratory">
+        </a>
+      </div>
+      <div class="column">
+        <a href="https://www.library.caltech.edu/">
+          <img src="/static/images/logo-caltechlibrary.png" title="Caltech Library">
+        </a>
+      </div>
+      <div class="column">
+        <a href="http://home.cern">
+          <img src="/static/images/logo-cern.png" title="CERN">
+        </a>
+      </div>
+      <div class="column">
+        <a href="https://ctsa.ncats.nih.gov/cd2h/">
+          <img src="/static/images/logo-cd2h.png" title="CTSA Program National Center for Data to Health">
+        </a>
+      </div>
+    </div>
+    <div class="ui grid four column">
+      <div class="column">
+        <a href="https://www.data-futures.org/">
+          <img src="/static/images/logo-data-futures.png" title="Data Futures">
+        </a>
+      </div>
+      <div class="column">
+        <a href="http://www.earthobservations.org/">
+          <img src="/static/images/logo-geo.svg" title="Group on Earth Observations">
+        </a>
+      </div>
+      <div class="column">
+        <a href="https://www.hzdr.de/">
+          <img src="/static/images/logo-hzdr.png" title="Helmholtz Zentrum Dresden-Rossendorf">
+        </a>
+      </div>
+      <div class="column">
+        <a href="http://home.infn.it/">
+          <img src="/static/images/logo-infn.svg" title="Istituto Nazionale di Fisica Nucleare">
+        </a>
+      </div>
+    </div>
+    <div class="ui grid four column">
+      <div class="column">
+        <a href="https://ec.europa.eu/jrc/">
+          <img src="/static/images/logo-jrc.svg" title="Joint Research Centre">
+        </a>
+      </div>
+      <div class="column">
+        <a href="https://www.northwestern.edu/">
+          <img src="/static/images/logo-northwestern-university.png" title="Northwestern University">
+        </a>
+      </div>
+      <div class="column">
+        <a href="https://www.openaire.eu/">
+          <img src="/static/images/logo-openaire.png" title="OpenAIRE">
+        </a>
+      </div>
+      <div class="column">
+        <a href="https://tind.io/">
+          <img src="/static/images/logo-tind.png" title="TIND">
+        </a>
+      </div>
+    </div>
+    <div class="ui grid three column">
+      <div class="column">
+        <a href="https://ulakbim.tubitak.gov.tr">
+          <img src="/static/images/logo-tubitak.svg" title="Tubitak">
+        </a>
+      </div>
+      <div class="column">
+        <a href="https://www.tugraz.at/en/home/">
+          <img src="/static/images/logo-tu-graz.svg" title="TU Graz">
+        </a>
+      </div>
+      <div class="column">
+        <a href="https://www.uni-hamburg.de/">
+          <img src="/static/images/logo-uni-hamburg.png" title="Universität Hamburg">
+        </a>
+      </div>
+    </div>
+    <div class="ui grid one column">
+      <div class="column">
+        <a href="https://www.uni-muenster.de/en/">
+          <img src="/static/images/logo-uni-munster.png" title="University of Münster">
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{%- endblock page_body%}

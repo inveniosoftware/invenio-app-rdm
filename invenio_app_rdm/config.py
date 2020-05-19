@@ -104,6 +104,9 @@ BABEL_DEFAULT_TIMEZONE = 'Europe/Zurich'
 # =============
 # See https://invenio-theme.readthedocs.io/en/latest/configuration.html
 
+APP_THEME = ['semantic-ui']
+"""Application theme."""
+
 BASE_TEMPLATE = 'invenio_app_rdm/page.html'
 """Global base template."""
 
@@ -125,7 +128,7 @@ THEME_FRONTPAGE_TEMPLATE = 'invenio_app_rdm/frontpage.html'
 THEME_FRONTPAGE_TITLE = _('The turn-key research data management repository')
 """Frontpage title."""
 
-THEME_HEADER_TEMPLATE = 'invenio_theme/header.html'
+THEME_HEADER_TEMPLATE = 'invenio_app_rdm/header.html'
 """Header base template."""
 
 THEME_LOGO = 'images/invenio-rdm.png'
@@ -133,10 +136,6 @@ THEME_LOGO = 'images/invenio-rdm.png'
 
 THEME_SITENAME = _('InvenioRDM')
 """Site name."""
-
-SECURITY_REGISTER_USER_TEMPLATE = 'invenio_app_rdm/sign_up.html'
-"""Default template for user registration."""
-
 
 # Invenio-Mail / Flask-Mail
 # =========================

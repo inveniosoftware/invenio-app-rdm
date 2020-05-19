@@ -33,14 +33,22 @@ h6 {
   font-family: 'Oswald', 'Open Sans', sans-serif;
 }
 
-.navbar {
+.outer-navbar {
   background-image: $navbar_background_image;
   background-color: $navbar_background_color;
   border-color: transparent;
 
-  .btn[href^="/signup"] {
+  .button[href^="/signup"] {
     background-color: #44a244;
     border-color: #44a244;
+  }
+
+  #invenio-nav {
+    background: transparent;
+  }
+
+  #frontpage-search-bar{
+    background-color: unset;
   }
 }
 
@@ -182,12 +190,6 @@ h6 {
     color: #000000;
 }
 
-.site-wrapper {
-  background-image: $navbar_background_image;
-  background-color: $navbar_background_color;
-  border-color: transparent;
-}
-
 .btn-warning {
   background-color: #44a244;
   border-color: #44a244;
@@ -201,4 +203,12 @@ h6 {
 .panel-free-title {
   font-family: 'Oswald', 'Open Sans', sans-serif;
   color: #0377cd;
+}
+
+// Log-in and sign-up
+
+.cover-page {
+  background-image: $navbar_background_image;
+  background-color: $navbar_background_color;
+  border-color: transparent;
 }
