@@ -15,7 +15,7 @@ this file.
 
 from flask import Blueprint, current_app, render_template
 from invenio_rdm_records.marshmallow.json import MetadataSchemaV1, dump_empty
-from invenio_rdm_records.vocabularies import Vocabulary, dump_vocabularies
+from invenio_rdm_records.vocabularies import Vocabularies
 
 blueprint = Blueprint(
     'invenio_app_rdm',
@@ -36,7 +36,7 @@ def deposits_create():
     """Record creation page."""
     forms_config = dict(
         apiUrl='/api/records/',
-        vocabularies=dump_vocabularies(Vocabulary)
+        vocabularies=Vocabularies.dump()
     )
     searchbar_config = dict(searchUrl='/search')
     empty_record = dump_empty(MetadataSchemaV1)
@@ -53,7 +53,8 @@ def deposits_edit(id):
     """Fake deposits edit page."""
     forms_config = dict(
         apiUrl='/api/records/',
-        vocabularies=dump_vocabularies(Vocabulary))
+        vocabularies=Vocabularies.dump()
+    )
     # minimal record
     record = {
         "_access": {
