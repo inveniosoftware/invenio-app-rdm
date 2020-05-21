@@ -12,6 +12,7 @@ export { BooleanField } from "./BooleanField";
 export { ErrorMessage } from "./ErrorMessage";
 export { FieldLabel } from "./FieldLabel";
 export { GroupField } from "./GroupField";
+export { RadioField } from "./RadioField";
 export { SelectField } from "./SelectField";
 export { TextField } from "./TextField";
 export { ActionButton } from "./ActionButton";

@@ -12,6 +12,7 @@ import { Field } from "formik";
 import { RDMDepositApiClient } from "./RDMDepositAPIClient";
 import { RDMDepositController } from "./RDMDepositController";
 import {
+  AccessRightField,
   DepositFormApp,
   PublishButton,
   SaveButton,
@@ -239,9 +240,20 @@ export class RDMDepositForm extends Component {
           </Grid.Column>
 
           <Grid.Column width={4}>
+            <Grid.Row>
             <SaveButton />
             <PublishButton />
+            </Grid.Row>
+            <Grid.Row>
+              <AccessRightField
+                fieldPath="access_right"
+                label={"Protection"}
+                labelIcon={"shield"}
+                options={vocabularies.access_right}
+              />
+            </Grid.Row>
           </Grid.Column>
+
         </Grid>
 
         <FormRecordPreviewer />
