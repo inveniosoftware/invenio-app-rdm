@@ -21,43 +21,13 @@ import {
 } from "react-invenio-deposit";
 import { AccordionField, ErrorMessage } from "react-invenio-forms";
 
-class RecordPreviewer extends Component {
-  render() {
-    return (
-      <Message>
-        <Message.Header>Current record</Message.Header>
-        <pre>{JSON.stringify(this.props.deposit.record, undefined, 2)}</pre>
-      </Message>
-    );
-  }
-}
-RecordPreviewer = connect(RecordPreviewer);
-
-export class FormRecordPreviewer extends Component {
-  renderFormField = (formikBag) => {
-    const values = formikBag.form.values;
-    return (
-      <Message>
-        <Message.Header>Current Form record</Message.Header>
-        <pre>{JSON.stringify(values, undefined, 2)}</pre>
-      </Message>
-    );
-  };
-
-  render() {
-    return (
-      <Field name="FormRecordPreviewer" component={this.renderFormField} />
-    );
-  }
-}
-
 function fakeInitialRecord(backendRecord) {
   /** Returns the initialRecord with experimental changes.
    * Used to group trial changes.
    */
   // Experiment: Ignore backend for now and gradually fill what the frontend
   //             needs for a brand new record
-  const { creators, contributors, ...fakedRecord } = backendRecord;
+  const { creators, contributors, titles, ...fakedRecord } = backendRecord;
   return fakedRecord;
 }
 
@@ -132,17 +102,7 @@ export class RDMDepositForm extends Component {
   constructor(props) {
     super(props);
     this.config = props.config || {};
-    // TODO: Remove when backend is better integrated
-    console.log(
-      "backend initial record",
-      JSON.stringify(props.record, null, 2)
-    );
-    console.log(
-      "faked backend record",
-      JSON.stringify(fakeInitialRecord(props.record), null, 2)
-    );
     const record = defaultize(fakeInitialRecord(props.record));
-    console.log("initial form record", JSON.stringify(record, null, 2));
     this.state = {
       record: record || {},
     };
@@ -192,8 +152,15 @@ export class RDMDepositForm extends Component {
                   fieldPath="titles"
                   label="Titles"
                   labelIcon="book"
+                  required
                 />
-                <CreatorsField
+                <ResourceTypeField
+                  fieldPath="resource_type"
+                  label={"Resource type"}
+                  labelIcon={"tag"}
+                  options={vocabularies.resource_type}
+                />
+                {/* <CreatorsField
                   fieldPath="creators"
                   label="Creators"
                   labelIcon="group"
@@ -227,14 +194,7 @@ export class RDMDepositForm extends Component {
                   affiliationsIdentifierSegment={"identifier"}
                   affiliationsSchemeSegment={"scheme"}
                   roleSegment={"role"}
-                />
-
-                <ResourceTypeField
-                  fieldPath="resource_type"
-                  label={"Resource type"}
-                  labelIcon={"tag"}
-                  options={vocabularies.resource_type}
-                />
+                /> */}
               </div>
             </AccordionField>
           </Grid.Column>
@@ -254,9 +214,6 @@ export class RDMDepositForm extends Component {
             </Grid.Row>
           </Grid.Column>
         </Grid>
-
-        <FormRecordPreviewer />
-        <RecordPreviewer />
       </DepositFormApp>
     );
   }
