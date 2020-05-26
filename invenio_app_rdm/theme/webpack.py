@@ -27,8 +27,6 @@ def theme():
                 entry={
                     'invenio-app-rdm-theme':
                         current_app.config['INSTANCE_THEME_FILE'],
-                    'invenio-app-rdm-search-theme':
-                        current_app.config['INSTANCE_SEARCH_THEME_FILE'],
                     'invenio-app-rdm-search-js':
                         './js/invenio_app_rdm/search/SearchMain/index.js',
                     'invenio-app-rdm-searchbar-js':
@@ -58,7 +56,11 @@ def theme():
                     'redux-thunk': '^2.3.0',
                     "semantic-ui-css": "^2.4.1",
                     "semantic-ui-react": "^0.88.0"
+                },
+                aliases={
+                    '../../theme.config$': 'less/theme.config',
+                    '@templates': "templates",
                 }
-            )
+            ),
         }
     )

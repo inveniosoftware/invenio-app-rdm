@@ -274,10 +274,10 @@ WSGI_PROXIES = 2
 
 # Invenio-APP-RDM
 # =============
-INSTANCE_THEME_FILE = './scss/invenio_app_rdm/theme.scss'
+INSTANCE_THEME_FILE = './less/invenio_app_rdm/theme.less'
 """Instance's theme file path to override the default theme."""
 
-INSTANCE_SEARCH_THEME_FILE = './scss/invenio_app_rdm/search/theme.scss'
+INSTANCE_SEARCH_THEME_FILE = './less/invenio_app_rdm/search/theme.less'
 """Instance's search theme file path to override the default search theme."""
 
 SEARCH_HEADER_TEMPLATE = 'invenio_app_rdm/search/header.html'
