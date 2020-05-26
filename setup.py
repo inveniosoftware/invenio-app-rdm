@@ -14,9 +14,9 @@ from setuptools import find_packages, setup
 
 readme = open('README.rst').read()
 
-invenio_version = '==3.4.0a2'
-invenio_search_version = '>=1.2.0,<1.3.0'
-invenio_db_version = '>=1.0.4,<1.1.0'
+invenio_version = '==3.4.0a3'
+invenio_search_version = '>=1.3.1,<1.4.0'
+invenio_db_version = '>=1.0.5,<1.1.0'
 
 tests_require = [
     'pytest-invenio>=1.3.2',
