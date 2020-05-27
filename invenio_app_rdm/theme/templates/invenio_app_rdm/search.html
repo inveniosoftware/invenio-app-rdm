@@ -19,10 +19,6 @@
 {{ webpack['invenio-app-rdm-theme.css'] }}
 {%-endblock %}
 
-{%- block page_header %}
-{%- include config.SEARCH_HEADER_TEMPLATE %}
-{%- endblock page_header %}
-
 {% block javascript_searchapp_customization %}
 {{ webpack['invenio-app-rdm-search-app-js.js'] }}
 {% endblock javascript_searchapp_customization %}

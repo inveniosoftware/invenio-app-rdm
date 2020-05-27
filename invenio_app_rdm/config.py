@@ -128,7 +128,6 @@ THEME_FRONTPAGE_TEMPLATE = 'invenio_app_rdm/frontpage.html'
 THEME_FRONTPAGE_TITLE = _('The turn-key research data management repository')
 """Frontpage title."""
 
-HEADER_TEMPLATE = 'invenio_app_rdm/header.html'
 THEME_HEADER_TEMPLATE = 'invenio_app_rdm/header.html'
 """Header base template."""
 
@@ -278,13 +277,10 @@ WSGI_PROXIES = 2
 INSTANCE_THEME_FILE = './less/invenio_app_rdm/theme.less'
 """Instance's theme file path to override the default theme."""
 
-# INSTANCE_SEARCH_THEME_FILE = './less/invenio_app_rdm/search/theme.less'
-# """Instance's search theme file path to override the default search theme."""
+SEARCH_UI_HEADER_TEMPLATE = 'invenio_app_rdm/header.html'
+"""Search page's header template."""
 
-# SEARCH_HEADER_TEMPLATE = 'invenio_app_rdm/search/header.html'
-# """Search page's header template."""
-
-SEARCH_UI_SEARCH_TEMPLATE = 'invenio_app_rdm/search/search.html'
+SEARCH_UI_SEARCH_TEMPLATE = 'invenio_app_rdm/search.html'
 """Search page's base template."""
 
 DEPOSITS_FORMS_BASE_TEMPLATE = 'invenio_app_rdm/deposits/forms/deposits.html'
