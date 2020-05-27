@@ -6,7 +6,7 @@
 // under the terms of the MIT License; see LICENSE file for more details.
 
 import React, { Component } from "react";
-import { Message, Grid } from "semantic-ui-react";
+import { Button, Card, Grid, Icon } from "semantic-ui-react";
 import { Field } from "formik";
 import {
   AccessRightField,
@@ -145,6 +145,24 @@ export class RDMDepositForm extends Component {
             <AccordionField
               fieldPath=""
               active={true}
+              label={"Files"}
+            >
+              <p>COMING SOON</p>
+              <br/>
+            </AccordionField>
+
+            <AccordionField
+              fieldPath=""
+              active={true}
+              label={"Identifiers"}
+            >
+              <p>COMING SOON</p>
+              <br />
+            </AccordionField>
+
+            <AccordionField
+              fieldPath=""
+              active={true}
               label={"Basic Information"}
             >
               <div>
@@ -197,20 +215,32 @@ export class RDMDepositForm extends Component {
                 /> */}
               </div>
             </AccordionField>
+
+            <AccordionField
+              fieldPath=""
+              active={true}
+              label={"Recommended Information"}
+            >
+              <p>COMING SOON</p>
+              <br />
+            </AccordionField>
           </Grid.Column>
 
           <Grid.Column width={4}>
-            <Grid.Row>
-              <SaveButton />
-              <PublishButton />
-            </Grid.Row>
-            <Grid.Row>
-              <AccessRightField
-                fieldPath="access_right"
-                label={"Protection"}
-                labelIcon={"shield"}
-                options={vocabularies.access_right}
-              />
+            <Card className="actions">
+              <Card.Content>
+                <SaveButton fluid className="save-button" />
+                <PublishButton fluid />
+              </Card.Content>
+            </Card>
+            <AccessRightField
+              fieldPath="access_right"
+              label={"Protection"}
+              labelIcon={"shield"}
+              options={vocabularies.access_right}
+            />
+            <Grid.Row centered>
+              <Button className="disabled contact-support"><Icon name='mail outline' />Contact Support</Button>
             </Grid.Row>
           </Grid.Column>
         </Grid>

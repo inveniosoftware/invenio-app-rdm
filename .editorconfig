@@ -28,8 +28,8 @@ skip = .eggs
 [*.rst]
 indent_size = 4
 
-# CSS, HTML, JS, JSON, YML
-[*.{css,html,js,json,yml}]
+# CSS, HTML, JS, JSON, YML, LESS
+[*.{css,html,js,json,yml,less}]
 indent_size = 2
 
 # Matches the exact files either package.json or .travis.yml
