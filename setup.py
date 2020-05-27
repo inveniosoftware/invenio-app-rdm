@@ -57,21 +57,9 @@ for name, reqs in extras_require.items():
     extras_require['all'].extend(reqs)
 
 install_requires = [
-    'Invenio[base,auth]{}'.format(invenio_version),
+    'Invenio[base,auth,metadata,files]{}'.format(invenio_version),
     'invenio-rdm-records~=0.13.0',
-    'invenio-records-permissions~=0.8.0',
-    # Due to search-ui
-    'invenio-indexer>=1.1.1,<1.2.0',
-    'invenio-jsonschemas>=1.1.0,<1.2.0',
-    'invenio-oaiserver>=1.2.0,<1.3.0',
-    'invenio-pidstore>=1.2.0,<1.3.0',
-    'invenio-records-rest>=1.7.1,<1.8.0',
-    'invenio-records-ui>=1.2.0a1,<1.3.0',
-    'invenio-records>=1.3.1,<1.4.0',
-    # Due to files-rest
-    'invenio-files-rest>=1.2.0,<1.3.0',
-    'invenio-iiif>=1.1.0,<1.2.0',
-    'invenio-previewer>=1.2.1,<1.3.0',
+    'invenio-records-permissions~=0.8.0'
 ]
 
 packages = find_packages()

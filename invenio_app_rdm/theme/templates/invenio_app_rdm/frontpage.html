@@ -15,7 +15,7 @@
 {%- endblock head_links %}
 
 {%- block css %}
-{{ webpack['theme.css']}}
+{{ super() }}
 {{ webpack['invenio-app-rdm-theme.css']}}
 {%-endblock css %}
 
