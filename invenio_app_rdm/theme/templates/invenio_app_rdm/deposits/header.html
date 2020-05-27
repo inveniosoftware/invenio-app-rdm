@@ -6,6 +6,11 @@
   under the terms of the MIT License; see LICENSE file for more details.
 #}
 
+{#
+  TODO: reinstate when search UI is fixed
+  {% from "invenio_app_rdm/macros/searchbar.html" import render_searchbar %}
+#}
+
 {%- extends config.THEME_HEADER_TEMPLATE %}
 
 {%- block navbar %}
@@ -30,6 +35,10 @@
         {%- block search_middle %}
             <div class="nine wide column">
             <div class="ui container">
+              {#
+                TODO: reinstate when search UI is fixed
+                {{ render_searchbar('deposits-searchbar', searchbar_config) }}
+              #}
             </div>
             </div>
         {% endblock search_middle %}
