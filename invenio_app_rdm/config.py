@@ -277,6 +277,9 @@ WSGI_PROXIES = 2
 INSTANCE_THEME_FILE = './less/invenio_app_rdm/theme.less'
 """Instance's theme file path to override the default theme."""
 
+INSTANCE_SEARCH_THEME_FILE = './less/invenio_app_rdm/search/theme.less'
+"""Instance's search theme file path to override the default theme."""
+
 SEARCH_UI_HEADER_TEMPLATE = 'invenio_app_rdm/header.html'
 """Search page's header template."""
 
