@@ -27,35 +27,22 @@ def theme():
                 entry={
                     'invenio-app-rdm-theme':
                         current_app.config['INSTANCE_THEME_FILE'],
-                    'invenio-app-rdm-search-js':
-                        './js/invenio_app_rdm/search/SearchMain/index.js',
-                    'invenio-app-rdm-searchbar-js':
-                        './js/invenio_app_rdm/search/SearchBar/index.js',
                     'invenio-app-rdm-deposits-deposit-searchbar-js':
                         './js/invenio_app_rdm/deposits/RDMDepositSearchBar/index.js',  # noqa
                     'invenio-app-rdm-deposits-deposit-form-js':
                         './js/invenio_app_rdm/deposits/RDMDepositForm/index.js',  # noqa
+                    'invenio-app-rdm-search-app-js':
+                        './js/invenio_app_rdm/search_app_customizations.js',
                 },
                 dependencies={
                     # add any additional npm dependencies here...
                     "@babel/runtime": "^7.9.0",
-                    'axios': '^0.19.2',
                     'formik': '^2.1.4',
-                    'lodash': '^4.17.15',
                     'luxon': '^1.23.0',
                     'path': '^0.12.7',
                     'prop-types': '^15.7.2',
-                    'qs': '^6.9.1',
-                    'react': '^16.13.1',
-                    'react-dom': '^16.13.1',
                     'react-invenio-deposit': '^0.2.0',
                     'react-invenio-forms': '^0.3.0',
-                    'react-redux': '^7.2',
-                    'react-searchkit': '^0.18.0',
-                    'redux': '^4.0.5',
-                    'redux-thunk': '^2.3.0',
-                    "semantic-ui-css": "^2.4.1",
-                    "semantic-ui-react": "^0.88.0"
                 },
                 aliases={
                     '../../theme.config$': 'less/theme.config',

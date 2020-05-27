@@ -5,7 +5,7 @@
   Invenio App RDM is free software; you can redistribute it and/or modify it
   under the terms of the MIT License; see LICENSE file for more details.
 #}
-{%- extends config.BASE_TEMPLATE %}
+{%- extends "semantic-ui/invenio_search_ui/search.html" %}
 
 {%- block head_links %}
 {{ super() }}
@@ -15,20 +15,14 @@
 {%- endblock head_links %}
 
 {%- block css %}
-{{ webpack['theme.css']}}
-{{ webpack['invenio-app-rdm-search-theme.css']}}
+{{ super() }}
+{{ webpack['invenio-app-rdm-theme.css'] }}
 {%-endblock %}
 
 {%- block page_header %}
 {%- include config.SEARCH_HEADER_TEMPLATE %}
 {%- endblock page_header %}
 
-{%- block page_body %}
-<div id="search-main"></div>
-{%- endblock page_body %}
-
-{%- block javascript %}
-{{ super() }}
-{{ webpack['invenio-app-rdm-searchbar-js.js'] }}
-{{ webpack['invenio-app-rdm-search-js.js'] }}
-{%- endblock %}
+{% block javascript_searchapp_customization %}
+{{ webpack['invenio-app-rdm-search-app-js.js'] }}
+{% endblock javascript_searchapp_customization %}
