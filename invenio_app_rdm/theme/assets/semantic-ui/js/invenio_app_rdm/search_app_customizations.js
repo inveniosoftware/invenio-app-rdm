@@ -7,22 +7,18 @@
 
 import React from "react";
 import { overrideStore } from "react-overridable";
-import { Card, Input, Item, List } from "semantic-ui-react";
+import { Card, Input, Item } from "semantic-ui-react";
+import _truncate from "lodash/truncate";
 
 const RDMRecordResultsListItem = ({ result, index }) => {
-  const contributors = result.metadata.contributors || [];
   return (
     <Item key={index} href={`/records/${result.id}`}>
       <Item.Content>
-        <Item.Header>{result.metadata.title}</Item.Header>
+        <Item.Header>{result.metadata.titles[0].title}</Item.Header>
         <Item.Description>
-          {contributors && (
-            <List horizontal relaxed>
-              {contributors.map((contributor, idx) => (
-                <List.Item key={idx}>{contributor.name}</List.Item>
-              ))}
-            </List>
-          )}
+          {_truncate(result.metadata.descriptions[0].description, {
+            length: 200,
+          })}
         </Item.Description>
       </Item.Content>
     </Item>
@@ -32,19 +28,14 @@ const RDMRecordResultsListItem = ({ result, index }) => {
 overrideStore.add("ResultsList.item", RDMRecordResultsListItem);
 
 const RDMRecordResultsGridItem = ({ result, index }) => {
-  const contributors = result.metadata.contributors || [];
   return (
     <Card fluid key={index} href={`/records/${result.id}`}>
       <Card.Content>
-        <Card.Header>{result.metadata.title}</Card.Header>
+        <Card.Header>{result.metadata.titles[0].title}</Card.Header>
         <Card.Description>
-          {contributors && (
-            <List horizontal relaxed>
-              {contributors.map((contributor, idx) => (
-                <List.Item key={idx}>{contributor.name}</List.Item>
-              ))}
-            </List>
-          )}
+          {_truncate(result.metadata.descriptions[0].description, {
+            length: 200,
+          })}
         </Card.Description>
       </Card.Content>
     </Card>
