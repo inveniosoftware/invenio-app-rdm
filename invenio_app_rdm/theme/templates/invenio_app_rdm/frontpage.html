@@ -24,10 +24,12 @@
 {%- endblock page_header %}
 
 {%- block page_body %}
+{%- block first_section%}
 <section class="get-started-section section-content-white-bg">
-  <div class="container centered">
-    <h6 class="section-subtitle">You've successfully installed InvenioRDM! What is ahead?</h6>
-    <div class="ui grid three column">
+  <div class="ui two column centered grid">
+    <div class="column"></div>
+    <div class="six column centered row">
+      <span class="section-title">You've successfully installed InvenioRDM! What is ahead?</span>
       <div class="column">
         <div class="flex-center-vertically">
           <div class="numbering">1</div>
@@ -65,24 +67,28 @@
             href="https://inveniordm.docs.cern.ch/deployment/">deploy in OpenShift</a>.
         </div>
       </div>
-    </div>
-    <div class="row inline-row">
-      <div class="inline-row-pane">
-        <div class="goto-button">
-          <a href="https://inveniordm.docs.cern.ch"><i class="fa fa-file-text-o"></i> Docs</a>
-        </div>
-        <div class="goto-button">
-          <a href="https://github.com/inveniosoftware"><i class="fa fa-github"></i> Code</a>
+      <div class="row inline-row">
+        <div class="inline-row-pane">
+          <div class="goto-button">
+            <a href="https://inveniordm.docs.cern.ch"><i class="fa fa-file-text-o"></i> Docs</a>
+          </div>
+          <div class="goto-button">
+            <a href="https://github.com/inveniosoftware"><i class="fa fa-github"></i> Code</a>
+          </div>
         </div>
       </div>
     </div>
+
+  </div>
   </div>
 </section>
-
+{%- endblock first_section%}
+{%- block second_section%}
 <section class="brought-to-you-section section-content-light-bg">
-  <div class="container centered">
-    <span class="section-title">Brought to you by</span>
-    <div class="ui grid four column">
+  <div class="ui two column centered grid">
+    <div class="column"></div>
+    <div class="seven column centered row">
+      <span class="section-title">Brought to you by</span>
       <div class="column">
         <a href="http://www.bnl.gov/">
           <img src="/static/images/logo-bnl.png" title="Brookhaven National Laboratory">
@@ -104,7 +110,7 @@
         </a>
       </div>
     </div>
-    <div class="ui grid four column">
+    <div class="seven column centered row">
       <div class="column">
         <a href="https://www.data-futures.org/">
           <img src="/static/images/logo-data-futures.png" title="Data Futures">
@@ -126,7 +132,7 @@
         </a>
       </div>
     </div>
-    <div class="ui grid four column">
+    <div class="seven column centered row">
       <div class="column">
         <a href="https://ec.europa.eu/jrc/">
           <img src="/static/images/logo-jrc.svg" title="Joint Research Centre">
@@ -148,7 +154,7 @@
         </a>
       </div>
     </div>
-    <div class="ui grid three column">
+    <div class="seven column centered row">
       <div class="column">
         <a href="https://ulakbim.tubitak.gov.tr">
           <img src="/static/images/logo-tubitak.svg" title="Tubitak">
@@ -165,7 +171,7 @@
         </a>
       </div>
     </div>
-    <div class="ui grid one column">
+    <div class="seven column centered row">
       <div class="column">
         <a href="https://www.uni-muenster.de/en/">
           <img src="/static/images/logo-uni-munster.png" title="University of Münster">
@@ -174,5 +180,6 @@
     </div>
   </div>
 </section>
+{%- endblock second_section%}
 
 {%- endblock page_body%}
