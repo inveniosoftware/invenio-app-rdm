@@ -49,6 +49,7 @@
         {%- endif %}
 
         <div class="right menu">
+          <ul class="no-dots-list">
           <div class="item">
             {%- for item in current_menu.submenu('main').children|sort(attribute='order') if item.visible recursive %}
             {%- if item.children %}
@@ -64,12 +65,11 @@
               {%- endfor %}
               {%- endblock navbar_nav %}
               {%- block navbar_right %}
-
-              {%- include config.THEME_HEADER_LOGIN_TEMPLATE %}
+              <li>{%- include config.THEME_HEADER_LOGIN_TEMPLATE %}</li>
           </div>
           {%- endblock navbar_right %}
           {%- endblock navbar_inner %}
-
+        </ul>
         </div>
       </div>
     </nav>
