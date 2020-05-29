@@ -28,12 +28,14 @@ setup_requires = [
 ]
 
 extras_require = {
+    # Invenio-Search
     'elasticsearch6': [
         'invenio-search[elasticsearch6]{}'.format(invenio_search_version)
     ],
     'elasticsearch7': [
         'invenio-search[elasticsearch7]{}'.format(invenio_search_version)
     ],
+    # Invenio-DB
     'mysql': [
         'invenio-db[mysql,versioning]{}'.format(invenio_db_version)
     ],
@@ -43,6 +45,11 @@ extras_require = {
     'sqlite': [
         'invenio-db[versioning]{}'.format(invenio_db_version)
     ],
+    # Storage plugins
+    's3': [
+        'invenio-s3~=1.0.2'
+    ],
+    # Extras
     'docs': [
         'Sphinx>=1.5.1',
     ],
@@ -57,7 +64,7 @@ for name, reqs in extras_require.items():
     extras_require['all'].extend(reqs)
 
 install_requires = [
-    'Invenio[base,auth,metadata,files]{}'.format(invenio_version),
+    'invenio[base,auth,metadata,files]{}'.format(invenio_version),
     'invenio-rdm-records~=0.13.0',
     'invenio-records-permissions~=0.8.0'
 ]
