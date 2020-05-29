@@ -5,7 +5,7 @@
   Invenio App RDM is free software; you can redistribute it and/or modify it
   under the terms of the MIT License; see LICENSE file for more details.
 #}
-{%- extends "invenio_theme/frontpage.html" %}
+{%- extends "semantic-ui/invenio_theme/frontpage.html" %}
 
 {%- block head_links %}
 {{ super() }}
@@ -70,16 +70,14 @@
       <div class="row inline-row">
         <div class="inline-row-pane">
           <div class="goto-button">
-            <a href="https://inveniordm.docs.cern.ch"><i class="fa fa-file-text-o"></i> Docs</a>
+            <a href="https://inveniordm.docs.cern.ch"><i class="file alternate outline icon"></i>Docs</a>
           </div>
           <div class="goto-button">
-            <a href="https://github.com/inveniosoftware"><i class="fa fa-github"></i> Code</a>
+            <a href="https://github.com/inveniosoftware"><i class="github icon"></i>Code</a>
           </div>
         </div>
       </div>
     </div>
-
-  </div>
   </div>
 </section>
 {%- endblock first_section%}
