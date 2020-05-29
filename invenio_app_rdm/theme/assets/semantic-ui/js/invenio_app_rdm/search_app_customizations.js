@@ -8,17 +8,20 @@
 import React from "react";
 import { overrideStore } from "react-overridable";
 import { Card, Input, Item } from "semantic-ui-react";
+import _ from "lodash";
 import _truncate from "lodash/truncate";
 
 const RDMRecordResultsListItem = ({ result, index }) => {
+  const description = _.get(
+    result, 'metadata.descriptions[0].description', 'No description'
+  );
+
   return (
     <Item key={index} href={`/records/${result.id}`}>
       <Item.Content>
         <Item.Header>{result.metadata.titles[0].title}</Item.Header>
         <Item.Description>
-          {_truncate(result.metadata.descriptions[0].description, {
-            length: 200,
-          })}
+          {_truncate(description, {length: 200})}
         </Item.Description>
       </Item.Content>
     </Item>
@@ -28,14 +31,15 @@ const RDMRecordResultsListItem = ({ result, index }) => {
 overrideStore.add("ResultsList.item", RDMRecordResultsListItem);
 
 const RDMRecordResultsGridItem = ({ result, index }) => {
+  const description = _.get(
+    result, 'metadata.descriptions[0].description', 'No description'
+  );
   return (
     <Card fluid key={index} href={`/records/${result.id}`}>
       <Card.Content>
         <Card.Header>{result.metadata.titles[0].title}</Card.Header>
         <Card.Description>
-          {_truncate(result.metadata.descriptions[0].description, {
-            length: 200,
-          })}
+          {_truncate(description, {length: 200})}
         </Card.Description>
       </Card.Content>
     </Card>
