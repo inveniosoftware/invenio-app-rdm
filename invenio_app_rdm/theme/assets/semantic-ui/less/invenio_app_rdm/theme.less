@@ -37,8 +37,8 @@ h6 {
   border-color: transparent;
 
   .button[href^="/signup"] {
-    background-color: #44a244;
-    border-color: #44a244;
+    background-color: @signup_background_color;
+    border-color: @signup_background_color;
   }
 
   #invenio-nav {
@@ -202,8 +202,8 @@ h6 {
 }
 
 .btn-warning {
-  background-color: #44a244;
-  border-color: #44a244;
+  background-color: @signup_background_color;
+  border-color: @signup_background_color;
 }
 
 .btn-primary  {
@@ -222,4 +222,13 @@ h6 {
   background-image: @navbar_background_image;
   background-color: @navbar_background_color;
   border-color: transparent;
+}
+
+
+// Sign up form
+
+form[name="register_user_form"] {
+  button[type="submit"][class*="orange"] {
+    background-color: @signup_background_color;
+  }
 }
