@@ -7,17 +7,16 @@
   under the terms of the MIT License; see LICENSE file for more details.
 #}
 <footer id="footer" class="footer-bottom">
-  <div class="container">
-    <div class="row">
-      <div class="col-xs-6 col-xs-push-6 text-right">
-        {%- if config.I18N_LANGUAGES %}
-        {% from "invenio_i18n/macros/language_selector.html" import language_selector_dropdown %}
-        {{ language_selector_dropdown() }}
-        {%- endif %}
-      </div>
-      <div class="col-xs-6 col-xs-pull-6">
-        {% trans invenio_rdm="http://inveniosoftware.org/products/rdm" %}Powered by <a href="{{invenio_rdm}}">InvenioRDM</a>{% endtrans %}
-      </div>
+  <div class="ui grid container">
+    <div class="eight wide column left aligned">
+      {% trans invenio_rdm="http://inveniosoftware.org/products/rdm" %}Powered by <a
+        href="{{invenio_rdm}}">InvenioRDM</a>{% endtrans %}
+    </div>
+    <div class="eight wide column right aligned">
+      {%- if config.I18N_LANGUAGES %}
+      {% from "invenio_i18n/macros/language_selector.html" import language_selector_dropdown %}
+      {{ language_selector_dropdown() }}
+      {%- endif %}
     </div>
   </div>
 </footer>
