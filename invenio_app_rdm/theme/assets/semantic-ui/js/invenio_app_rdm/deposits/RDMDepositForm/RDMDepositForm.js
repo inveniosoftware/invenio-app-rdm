@@ -137,6 +137,8 @@ export class RDMDepositForm extends Component {
       },
     };
 
+    console.log("vocabularies", vocabularies);
+
     return (
       <DepositFormApp config={this.config} record={this.state.record}>
         <ErrorMessage fieldPath="message" />
@@ -170,6 +172,7 @@ export class RDMDepositForm extends Component {
                   fieldPath="titles"
                   label="Titles"
                   labelIcon="book"
+                  options={vocabularies.titles}
                   required
                 />
                 <ResourceTypeField
