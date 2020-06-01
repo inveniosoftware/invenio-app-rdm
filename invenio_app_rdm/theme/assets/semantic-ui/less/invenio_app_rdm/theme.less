@@ -7,28 +7,17 @@
  */
 
 @import "variables.less";
-
 @import "footer.less";
 @import "frontpage.less";
 @import "deposit.less";
 
-
 html,
 body {
-  font-family: 'Open Sans', sans-serif;
   color: #000;
   width: 100%;
   height: 100vh;
   display: flex;
   flex-direction: column;
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: 'Oswald', 'Open Sans', sans-serif;
 }
 
 .outer-navbar {
@@ -36,11 +25,6 @@ h6 {
   background-color: @navbar_background_color;
   border-color: transparent;
   padding: 8px;
-
-  .button[href^="/signup"] {
-    background-color: @signup_background_color;
-    border-color: @signup_background_color;
-  }
 
   #invenio-nav {
     background: transparent;
@@ -132,7 +116,6 @@ h6 {
 
 .section-title {
   -webkit-font-smoothing: antialiased;
-  font-family: 'Oswald', 'Open Sans', sans-serif;
   font-size: 2.5em;
   width: 100%;
   text-align: center;
@@ -143,7 +126,6 @@ h6 {
 }
 
 .section-subtitle {
-  font-family: 'Oswald', 'Open Sans', sans-serif;
   color: #0377cd !important;
   text-align: center;
   margin-bottom: 40px;
@@ -199,34 +181,18 @@ h6 {
     color: #000000;
 }
 
-.btn-warning {
-  background-color: @signup_background_color;
-  border-color: @signup_background_color;
-}
-
 .btn-primary  {
   background-color: #0377cd;
   border-color: #0377cd;
 }
 
 .panel-free-title {
-  font-family: 'Oswald', 'Open Sans', sans-serif;
   color: #0377cd;
 }
 
 // Log-in and sign-up
-
 .cover-page {
   background-image: @navbar_background_image;
   background-color: @navbar_background_color;
   border-color: transparent;
-}
-
-
-// Sign up form
-
-form[name="register_user_form"] {
-  button[type="submit"][class*="orange"] {
-    background-color: @signup_background_color;
-  }
 }

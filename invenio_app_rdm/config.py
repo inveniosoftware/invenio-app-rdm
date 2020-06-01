@@ -107,7 +107,7 @@ BABEL_DEFAULT_TIMEZONE = 'Europe/Zurich'
 APP_THEME = ['semantic-ui']
 """Application theme."""
 
-BASE_TEMPLATE = 'invenio_app_rdm/page.html'
+BASE_TEMPLATE = 'invenio_theme/page.html'
 """Global base template."""
 
 COVER_TEMPLATE = 'invenio_theme/page_cover.html'
@@ -274,9 +274,6 @@ WSGI_PROXIES = 2
 
 # Invenio-APP-RDM
 # =============
-INSTANCE_THEME_FILE = './less/invenio_app_rdm/theme.less'
-"""Instance's theme file path to override the default theme."""
-
 SEARCH_UI_HEADER_TEMPLATE = 'invenio_app_rdm/header.html'
 """Search page's header template."""
 
