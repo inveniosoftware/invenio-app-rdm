@@ -114,9 +114,24 @@ export class RDMDepositForm extends Component {
     //          so that iteration is faster and abstractions can be discovered.
     //          Then will let backend generate them (if appropriate).
     // const vocabularies = this.config.vocabularies || {
+    const titlesVocabularies = {
+      titles: {
+        ...this.config.vocabularies.titles,
+        lang: [
+          { text: "Danish", value: "dan" },
+          { text: "English", value: "eng" },
+          { text: "French", value: "fra" },
+          { text: "German", value: "deu" },
+          { text: "Greek", value: "ell" },
+          { text: "Italian", value: "ita" },
+          { text: "Spanish", value: "spa" }
+        ]
+      }
+    };
     const vocabularies = {
       ...this.config.vocabularies,
       // **Vocabulary experiments go here**
+      ...titlesVocabularies,
       creators: {
         type: [
           { text: "Person", value: "Personal" },
