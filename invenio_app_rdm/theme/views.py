@@ -33,7 +33,7 @@ def init_menu():
     item.register(
         'invenio_app_rdm.deposits_user',
         'Uploads',
-        order=3
+        order=1
     )
 
 
