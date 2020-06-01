@@ -165,6 +165,23 @@ export class RDMDepositForm extends Component {
                   options={vocabularies.titles}
                   required
                 />
+                <CreatorsField
+                  fieldPath="creators"
+                  label="Creators"
+                  labelIcon="group"
+                  options={vocabularies.creators}
+                  typeSegment={"type"}
+                  familyNameSegment={"family_name"}
+                  givenNameSegment={"given_name"}
+                  nameSegment={"name"}
+                  identifiersSegment={"identifiers"}
+                  identifiersSchemeSegment={"scheme"}
+                  identifiersIdentifierSegment={"identifier"}
+                  affiliationsSegment={"affiliations"}
+                  affiliationsNameSegment={"name"}
+                  affiliationsIdentifierSegment={"identifier"}
+                  affiliationsSchemeSegment={"scheme"}
+                />
                 <ResourceTypeField
                   fieldPath="resource_type"
                   label={"Resource type"}
