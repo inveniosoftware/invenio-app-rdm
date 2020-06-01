@@ -31,49 +31,53 @@
         {%- block navbar_inner %}
 
         {%- block navbar_nav %}
-        {%- if config.THEME_SEARCHBAR %}
-        {%- block navbar_search %}
+          {%- if config.THEME_SEARCHBAR %}
+            {%- block navbar_search %}
+              <div class="item" id="header-search-bar">
+                <form class="form" action="{{ config.THEME_SEARCH_ENDPOINT }}" role="search">
+                  <div class="ui action icon input">
+                    <input type="text" name="q" placeholder="{{ _('Search') }}">
+                    <button type="submit" class="ui icon button orange invenio-theme-search-button">
+                      <i class="icon search"></i>
+                    </button>
+                  </div>
+                </form>
+              </div>
 
-        <div class="item" id="header-search-bar">
-          <form class="form" action="{{ config.THEME_SEARCH_ENDPOINT }}" role="search">
-            <div class="ui action icon input">
-              <input type="text" name="q" placeholder="{{ _('Search') }}">
-              <button type="submit" class="ui icon button orange invenio-theme-search-button">
-                <i class="icon search"></i>
-              </button>
-            </div>
-          </form>
-        </div>
+            {%- endblock navbar_search %}
+          {%- endif %}
 
-        {%- endblock navbar_search %}
-        {%- endif %}
-
-        <div class="right menu">
           <ul class="no-dots-list">
-          <div class="item">
             {%- for item in current_menu.submenu('main').children|sort(attribute='order') if item.visible recursive %}
-            {%- if item.children %}
-            <div class="dropdown{{ ' active' if item.active else '' }}">
-              <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
-                href="{{ item.url }}">{{ item.text|safe }} <b class="caret"></b></a>
-              <ul class="dropdown-menu">{{ loop(item.children|sort(attribute='order')) }}</ul>
-            </div>
-            {%- else %}
-            <li{{ ' class="active"'|safe if item.active and loop.depth == 1 else '' }}>
-              <a href="{{ item.url }}">{{ item.text|safe }}</a></li>
-              {%- endif %}
+              <div class="item">
+                {%- if item.children %}
+                <div class="dropdown{{ ' active' if item.active else '' }}">
+                  <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                    aria-expanded="false" href="{{ item.url }}">{{ item.text|safe }} <b class="caret"></b></a>
+                  <ul class="dropdown-menu">{{ loop(item.children|sort(attribute='order')) }}</ul>
+                </div>
+                {%- else %}
+                <li{{ ' class="active"'|safe if item.active and loop.depth == 1 else '' }}>
+                  <a href="{{ item.url }}">{{ item.text|safe }}</a></li>
+                  {%- endif %}
               {%- endfor %}
-              {%- endblock navbar_nav %}
-              {%- block navbar_right %}
-              <li>{%- include config.THEME_HEADER_LOGIN_TEMPLATE %}</li>
+            </div>
+          </ul>
+        {%- endblock navbar_nav %}
+
+          <div class="right menu">
+            <ul class="no-dots-list">
+              <div class="item">
+        {%- block navbar_right %}
+          <li>{%- include config.THEME_HEADER_LOGIN_TEMPLATE %}</li>
+        {%- endblock navbar_right %}
+                </div>
+              {%- endblock navbar_inner %}
+              </ul>
+            </div>
           </div>
-          {%- endblock navbar_right %}
-          {%- endblock navbar_inner %}
-        </ul>
-        </div>
-      </div>
-    </nav>
-    {%- endblock navbar %}
+        </nav>
+      {%- endblock navbar %}
   </div>
   {%- block flashmessages %}
   {%- from "invenio_theme/macros/messages.html" import flashed_messages with context -%}
