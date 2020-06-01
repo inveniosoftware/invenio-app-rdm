@@ -27,8 +27,6 @@ def theme():
                 entry={
                     'invenio-app-rdm-theme':
                         current_app.config['INSTANCE_THEME_FILE'],
-                    'invenio-app-rdm-search-theme':
-                        current_app.config['INSTANCE_SEARCH_THEME_FILE'],
                     'invenio-app-rdm-deposits-deposit-searchbar-js':
                         './js/invenio_app_rdm/deposits/RDMDepositSearchBar/index.js',  # noqa
                     'invenio-app-rdm-deposits-deposit-form-js':

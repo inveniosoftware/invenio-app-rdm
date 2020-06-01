@@ -142,20 +142,12 @@ export class RDMDepositForm extends Component {
         <ErrorMessage fieldPath="message" />
         <Grid>
           <Grid.Column width={12}>
-            <AccordionField
-              fieldPath=""
-              active={true}
-              label={"Files"}
-            >
+            <AccordionField fieldPath="" active={true} label={"Files"}>
               <p>COMING SOON</p>
-              <br/>
+              <br />
             </AccordionField>
 
-            <AccordionField
-              fieldPath=""
-              active={true}
-              label={"Identifiers"}
-            >
+            <AccordionField fieldPath="" active={true} label={"Identifiers"}>
               <p>COMING SOON</p>
               <br />
             </AccordionField>
@@ -165,11 +157,12 @@ export class RDMDepositForm extends Component {
               active={true}
               label={"Basic Information"}
             >
-              <div>
+              <>
                 <TitlesField
                   fieldPath="titles"
                   label="Titles"
                   labelIcon="book"
+                  options={vocabularies.titles}
                   required
                 />
                 <ResourceTypeField
@@ -178,42 +171,7 @@ export class RDMDepositForm extends Component {
                   labelIcon={"tag"}
                   options={vocabularies.resource_type}
                 />
-                {/* <CreatorsField
-                  fieldPath="creators"
-                  label="Creators"
-                  labelIcon="group"
-                  options={vocabularies.creators}
-                  typeSegment={"type"}
-                  familyNameSegment={"family_name"}
-                  givenNameSegment={"given_name"}
-                  nameSegment={"name"}
-                  identifiersSegment={"identifiers"}
-                  identifiersSchemeSegment={"scheme"}
-                  identifiersIdentifierSegment={"identifier"}
-                  affiliationsSegment={"affiliations"}
-                  affiliationsNameSegment={"name"}
-                  affiliationsIdentifierSegment={"identifier"}
-                  affiliationsSchemeSegment={"scheme"}
-                />
-                <ContributorsField
-                  fieldPath="contributors"
-                  label="Contributors"
-                  labelIcon="group"
-                  options={vocabularies.contributors}
-                  typeSegment={"type"}
-                  familyNameSegment={"family_name"}
-                  givenNameSegment={"given_name"}
-                  nameSegment={"name"}
-                  identifiersSegment={"identifiers"}
-                  identifiersSchemeSegment={"scheme"}
-                  identifiersIdentifierSegment={"identifier"}
-                  affiliationsSegment={"affiliations"}
-                  affiliationsNameSegment={"name"}
-                  affiliationsIdentifierSegment={"identifier"}
-                  affiliationsSchemeSegment={"scheme"}
-                  roleSegment={"role"}
-                /> */}
-              </div>
+              </>
             </AccordionField>
 
             <AccordionField
@@ -240,7 +198,10 @@ export class RDMDepositForm extends Component {
               options={vocabularies.access_right}
             />
             <Grid.Row centered>
-              <Button className="disabled contact-support"><Icon name='mail outline' />Contact Support</Button>
+              <Button className="disabled contact-support">
+                <Icon name="mail outline" />
+                Contact Support
+              </Button>
             </Grid.Row>
           </Grid.Column>
         </Grid>

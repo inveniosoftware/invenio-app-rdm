@@ -14,6 +14,7 @@ this file.
 """
 
 from flask import Blueprint, current_app, render_template
+from flask_menu import current_menu
 from invenio_rdm_records.marshmallow.json import MetadataSchemaV1, dump_empty
 from invenio_rdm_records.vocabularies import Vocabularies
 
@@ -23,6 +24,17 @@ blueprint = Blueprint(
     template_folder='templates',
     static_folder='static',
 )
+
+
+@blueprint.before_app_first_request
+def init_menu():
+    """Initialize menu before first request."""
+    item = current_menu.submenu('main.deposit')
+    item.register(
+        'invenio_app_rdm.deposits_user',
+        'Uploads',
+        order=3
+    )
 
 
 @blueprint.route('/search')
