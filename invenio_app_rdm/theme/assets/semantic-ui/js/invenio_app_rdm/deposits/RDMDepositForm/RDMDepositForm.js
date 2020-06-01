@@ -182,6 +182,24 @@ export class RDMDepositForm extends Component {
                   affiliationsIdentifierSegment={"identifier"}
                   affiliationsSchemeSegment={"scheme"}
                 />
+                <ContributorsField
+                  fieldPath="contributors"
+                  label="Contributors"
+                  labelIcon="group"
+                  options={vocabularies.contributors}
+                  typeSegment={"type"}
+                  familyNameSegment={"family_name"}
+                  givenNameSegment={"given_name"}
+                  nameSegment={"name"}
+                  identifiersSegment={"identifiers"}
+                  identifiersSchemeSegment={"scheme"}
+                  identifiersIdentifierSegment={"identifier"}
+                  affiliationsSegment={"affiliations"}
+                  affiliationsNameSegment={"name"}
+                  affiliationsIdentifierSegment={"identifier"}
+                  affiliationsSchemeSegment={"scheme"}
+                  roleSegment={"role"}
+                />
                 <ResourceTypeField
                   fieldPath="resource_type"
                   label={"Resource type"}
