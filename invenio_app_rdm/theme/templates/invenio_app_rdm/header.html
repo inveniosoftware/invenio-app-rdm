@@ -17,10 +17,10 @@
         {%- block navbar_header %}
         {%- block brand %}
           {%- if config.THEME_LOGO %}
-          <img class="ui medium image rdm-logo"
-                src="{{ url_for('static', filename=config.THEME_LOGO) }}"
-                alt="{{ _(config.THEME_SITENAME) }}"
-                href="/"/>
+          <a href="/">
+            <img class="ui medium image rdm-logo"
+                src="{{ url_for('static', filename=config.THEME_LOGO) }}"/>
+          </a>
           {%- else %}
           <a class="logo" href="/">{{ _(config.THEME_SITENAME) }}</a>
           {%- endif %}
