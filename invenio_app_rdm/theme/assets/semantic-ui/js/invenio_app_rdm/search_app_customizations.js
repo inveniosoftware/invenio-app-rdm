@@ -13,7 +13,9 @@ import _truncate from "lodash/truncate";
 
 const RDMRecordResultsListItem = ({ result, index }) => {
   const description = _.get(
-    result, 'metadata.descriptions[0].description', 'No description'
+    result,
+    "metadata.descriptions[0].description",
+    "No description"
   );
 
   return (
@@ -21,7 +23,7 @@ const RDMRecordResultsListItem = ({ result, index }) => {
       <Item.Content>
         <Item.Header>{result.metadata.titles[0].title}</Item.Header>
         <Item.Description>
-          {_truncate(description, {length: 200})}
+          {_truncate(description, { length: 200 })}
         </Item.Description>
       </Item.Content>
     </Item>
@@ -32,14 +34,16 @@ overrideStore.add("ResultsList.item", RDMRecordResultsListItem);
 
 const RDMRecordResultsGridItem = ({ result, index }) => {
   const description = _.get(
-    result, 'metadata.descriptions[0].description', 'No description'
+    result,
+    "metadata.descriptions[0].description",
+    "No description"
   );
   return (
     <Card fluid key={index} href={`/records/${result.id}`}>
       <Card.Content>
         <Card.Header>{result.metadata.titles[0].title}</Card.Header>
         <Card.Description>
-          {_truncate(description, {length: 200})}
+          {_truncate(description, { length: 200 })}
         </Card.Description>
       </Card.Content>
     </Card>
@@ -68,8 +72,7 @@ const RDMRecordSearchBarElement = ({
       action={{
         icon: "search",
         onClick: onBtnSearchClick,
-        color: "orange",
-        className: "invenio-theme-search-button",
+        className: "search",
       }}
       placeholder={placeholder}
       onChange={(event, { value }) => {
