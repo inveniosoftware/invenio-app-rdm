@@ -25,12 +25,16 @@
         </h1>
         {%- endblock frontpage_title %}
         {%- block frontpage_form %}
-        <form action="/search" class="ui form">
-          <div class="ui fluid action input">
-            <input type="text" name="q" class="form-control" placeholder="Type and press enter to search">
-            <button type="submit" class="ui icon search button"><i class="search icon"></i></button>
+        <div class="ui center aligned grid">
+          <div class="eight wide column">
+            <form action="/search" class="ui form">
+              <div class="ui fluid big action input">
+                <input type="text" name="q" class="form-control" placeholder="Type and press enter to search">
+                <button type="submit" class="ui icon search button"><i class="search icon"></i></button>
+              </div>
+            </form>
           </div>
-        </form>
+        </div>
         <div class="ui divider hidden"></div>
         {%- endblock frontpage_form %}
       </div>
