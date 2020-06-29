@@ -8,7 +8,6 @@
 
 """JS/CSS Webpack bundles for theme."""
 
-from flask import current_app
 from invenio_assets.webpack import WebpackThemeBundle
 
 theme = WebpackThemeBundle(
