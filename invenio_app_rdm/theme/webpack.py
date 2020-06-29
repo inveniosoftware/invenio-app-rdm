@@ -30,7 +30,7 @@ theme = WebpackThemeBundle(
                 'luxon': '^1.23.0',
                 'path': '^0.12.7',
                 'prop-types': '^15.7.2',
-                'react-invenio-deposit': '^0.2.0',
+                'react-invenio-deposit': '^0.3.0',
                 'react-invenio-forms': '^0.3.0',
             },
             aliases={
