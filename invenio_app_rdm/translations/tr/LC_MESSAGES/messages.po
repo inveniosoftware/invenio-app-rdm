@@ -1,18 +1,23 @@
-# Translations template for invenio-app-rdm.
+# Turkish translations for invenio-app-rdm.
 # Copyright (C) 2020 CERN
 # This file is distributed under the same license as the invenio-app-rdm
 # project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
 #
-#, fuzzy
+# Translators:
+# Zacharias Zacharodimos <zacharias.zacharodimos@cern.ch>, 2020
+# Hakan Bayindir <hbayindir@gmail.com>, 2020
+# Beraat Aldemir <berataldemir@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: invenio-app-rdm 0.10.1\n"
 "Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
 "POT-Creation-Date: 2020-07-06 14:25+0300\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2020-07-06 14:27+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: tr\n"
+"Language-Team: tr <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,30 +25,30 @@ msgstr ""
 
 #: invenio_app_rdm/config.py:128
 msgid "The turn-key research data management repository"
-msgstr ""
+msgstr "Anahtar teslim araştırma verileri yönetimi sistemi"
 
 #: invenio_app_rdm/config.py:137
 msgid "InvenioRDM"
-msgstr ""
+msgstr "InvenioRDM"
 
 #: invenio_app_rdm/config.py:176
 msgid "Welcome to Invenio App RDM!"
-msgstr ""
+msgstr "Invenio App RDM'e Hoşgeldiniz!"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:12
 #, python-format
 msgid ""
 "Powered by <a\n"
 "        href=\"%(invenio_rdm)s\">InvenioRDM</a>"
-msgstr ""
+msgstr "<a href=\"%(invenio_rdm)s\">InvenioRDM</a> üzerine inşa edilmiştir."
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/frontpage.html:9
 msgid "You've successfully installed InvenioRDM! What is ahead?"
-msgstr ""
+msgstr "InvenioRDM'i başarı ile yüklediniz!"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/frontpage.html:17
 msgid "Configure"
-msgstr ""
+msgstr "Yapılandır"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/frontpage.html:19
 #, python-format
@@ -54,11 +59,13 @@ msgid ""
 "            information on how to do it visit the <a "
 "href=\"%(configuration_link)s\">configuration\n"
 "              section in the docs</a>."
-msgstr ""
+msgstr "Veri modelini, kaynak tiplerini, izinleri ve daha fazlasını ihtiyaçlarınıza uyacak şekilde yapılandırabilirsiniz!\n"
+"Nasıl yapılacağı ile ilgili daha fazla bilgi almak için dokümantasyondaki <a "
+"href=\"%(configuration_link)s\"> yapılandırma bölümünü</a> ziyaret edin."
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/frontpage.html:29
 msgid "Customize"
-msgstr ""
+msgstr "Özelleştir"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/frontpage.html:32
 #, python-format
@@ -71,11 +78,14 @@ msgid ""
 "                href=\"%(extensions_link)s\">supported plugins</a>, or <a"
 " href=\"%(custom_extension_link)s\">writing\n"
 "                your own</a>."
-msgstr ""
+msgstr "Kurumunuzun tarzına uyacak şekilde görünümü özelleştirin. Nasıl yapılacağını <a\n"
+" href=\"%(configuration_link)s\">buradaki</a> linkten görebilirsiniz. Aynı zamanda "
+"<a href=\"%(extensions_link)s\">desteklenen eklentiler</a> ile ya da <a\n"
+" href=\"%(custom_extension_link)s\">kendi eklentinizi yazarak</a> yeni işlevler ekleyebilirsiniz."
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/frontpage.html:44
 msgid "Deploy it!"
-msgstr ""
+msgstr "Kurulumu yapın!"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/frontpage.html:46
 #, python-format
@@ -84,21 +94,23 @@ msgid ""
 "            InvenioRDM instance. You can use the Helm chart to <a "
 "href=\"%(deployment_link)s\">deploy in\n"
 "              OpenShift</a>."
-msgstr ""
+msgstr "Kendi InvenioRDM kopyanızı kurmak için Helm Charts kullanın. Helm chart'ı <a\n"
+" href=\"%(deployment_link)s\">OpenShift'te kurmak</a>. için kullanabilirsiniz."
+
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/frontpage.html:57
 msgid "Docs"
-msgstr ""
+msgstr "Dokümanlar"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/frontpage.html:60
 msgid "Code"
-msgstr ""
+msgstr "Kaynak Kodu"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/frontpage.html:66
 msgid "Brought to you by"
-msgstr ""
+msgstr "Katkı sağlayanlar"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header.html:24
 msgid "Search"
-msgstr ""
+msgstr "Ara"
 
