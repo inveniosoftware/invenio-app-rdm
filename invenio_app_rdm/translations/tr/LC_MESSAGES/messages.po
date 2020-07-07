@@ -1,27 +1,27 @@
-# Turkish translations for invenio-app-rdm.
+# Translations template for invenio-app-rdm.
 # Copyright (C) 2020 CERN
 # This file is distributed under the same license as the invenio-app-rdm
 # project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
-#
+# 
 # Translators:
-# Zacharias Zacharodimos <zacharias.zacharodimos@cern.ch>, 2020
-# Hakan Bayindir <hbayindir@gmail.com>, 2020
 # Beraat Aldemir <berataldemir@gmail.com>, 2020
+# 
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: invenio-app-rdm 0.10.1\n"
 "Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
-"POT-Creation-Date: 2020-07-06 14:25+0300\n"
-"PO-Revision-Date: 2020-07-06 14:27+0300\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language: tr\n"
-"Language-Team: tr <LL@li.org>\n"
-"Plural-Forms: nplurals=1; plural=0\n"
+"POT-Creation-Date: 2020-07-07 13:39+0300\n"
+"PO-Revision-Date: 2020-07-07 14:12+0000\n"
+"Last-Translator: Beraat Aldemir <berataldemir@gmail.com>, 2020\n"
+"Language-Team: Turkish (https://www.transifex.com/inveniosoftware/teams/23537/tr/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
+"Language: tr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: invenio_app_rdm/config.py:128
 msgid "The turn-key research data management repository"
@@ -44,7 +44,7 @@ msgstr "<a href=\"%(invenio_rdm)s\">InvenioRDM</a> üzerine inşa edilmiştir."
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/frontpage.html:9
 msgid "You've successfully installed InvenioRDM! What is ahead?"
-msgstr "InvenioRDM'i başarı ile yüklediniz!"
+msgstr "InvenioRDM'i başarı ile yüklediniz! Sırada ne var?"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/frontpage.html:17
 msgid "Configure"
@@ -54,14 +54,12 @@ msgstr "Yapılandır"
 #, python-format
 msgid ""
 "Configure the\n"
-"            datamodel, resource types, permissions and much more to make "
-"it suit your needs! For more\n"
-"            information on how to do it visit the <a "
-"href=\"%(configuration_link)s\">configuration\n"
+"            datamodel, resource types, permissions and much more to make it suit your needs! For more\n"
+"            information on how to do it visit the <a href=\"%(configuration_link)s\">configuration\n"
 "              section in the docs</a>."
-msgstr "Veri modelini, kaynak tiplerini, izinleri ve daha fazlasını ihtiyaçlarınıza uyacak şekilde yapılandırabilirsiniz!\n"
-"Nasıl yapılacağı ile ilgili daha fazla bilgi almak için dokümantasyondaki <a "
-"href=\"%(configuration_link)s\"> yapılandırma bölümünü</a> ziyaret edin."
+msgstr ""
+"Veri modelini, kaynak tiplerini, izinleri ve daha fazlasını ihtiyaçlarınıza uyacak şekilde yapılandırabilirsiniz!\n"
+"Nasıl yapılacağı ile ilgili daha fazla bilgi almak için dokümantasyondaki <a href=\"%(configuration_link)s\"> yapılandırma bölümünü</a> ziyaret edin."
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/frontpage.html:29
 msgid "Customize"
@@ -71,16 +69,13 @@ msgstr "Özelleştir"
 #, python-format
 msgid ""
 "Customize\n"
-"              the layout and adapt the styling to match your "
-"institution's. See how to do so <a\n"
-"                href=\"%(configuration_link)s\">here</a>. You can also "
-"add new functionality using <a\n"
-"                href=\"%(extensions_link)s\">supported plugins</a>, or <a"
-" href=\"%(custom_extension_link)s\">writing\n"
+"              the layout and adapt the styling to match your institution's. See how to do so <a\n"
+"                href=\"%(configuration_link)s\">here</a>. You can also add new functionality using <a\n"
+"                href=\"%(extensions_link)s\">supported plugins</a>, or <a href=\"%(custom_extension_link)s\">writing\n"
 "                your own</a>."
-msgstr "Kurumunuzun tarzına uyacak şekilde görünümü özelleştirin. Nasıl yapılacağını <a\n"
-" href=\"%(configuration_link)s\">buradaki</a> linkten görebilirsiniz. Aynı zamanda "
-"<a href=\"%(extensions_link)s\">desteklenen eklentiler</a> ile ya da <a\n"
+msgstr ""
+"Kurumunuzun tarzına uyacak şekilde görünümü özelleştirin. Nasıl yapılacağını <a\n"
+" href=\"%(configuration_link)s\">buradaki</a> linkten görebilirsiniz. Aynı zamanda <a href=\"%(extensions_link)s\">desteklenen eklentiler</a> ile ya da <a\n"
 " href=\"%(custom_extension_link)s\">kendi eklentinizi yazarak</a> yeni işlevler ekleyebilirsiniz."
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/frontpage.html:44
@@ -91,12 +86,11 @@ msgstr "Kurulumu yapın!"
 #, python-format
 msgid ""
 "Use the Helm charts to deploy your\n"
-"            InvenioRDM instance. You can use the Helm chart to <a "
-"href=\"%(deployment_link)s\">deploy in\n"
+"            InvenioRDM instance. You can use the Helm chart to <a href=\"%(deployment_link)s\">deploy in\n"
 "              OpenShift</a>."
-msgstr "Kendi InvenioRDM kopyanızı kurmak için Helm Charts kullanın. Helm chart'ı <a\n"
-" href=\"%(deployment_link)s\">OpenShift'te kurmak</a>. için kullanabilirsiniz."
-
+msgstr ""
+"Kendi InvenioRDM kopyanızı kurmak için Helm Charts kullanın. Helm chart'ı <a\n"
+" href=\"%(deployment_link)s\">OpenShift'te kurmak</a> için kullanabilirsiniz."
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/frontpage.html:57
 msgid "Docs"
@@ -114,3 +108,6 @@ msgstr "Katkı sağlayanlar"
 msgid "Search"
 msgstr "Ara"
 
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_frontpage.html:20
+msgid "Type and press enter to search"
+msgstr "Yazın ve aramak için enter'a basın"
