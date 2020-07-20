@@ -13,7 +13,7 @@
 # released.
 
 pydocstyle invenio_app_rdm tests docs && \
-isort -rc -c -df && \
+isort invenio_app_rdm tests docs --check-only --diff && \
 check-manifest --ignore ".travis-*" && \
 sphinx-build -qnNW docs docs/_build/html && \
 pytest
