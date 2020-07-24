@@ -51,6 +51,7 @@ extras_require = {
     ],
     # Extras
     'docs': [
+        'docutils>=0.13.1,<0.16',
         'Sphinx>=1.5.1',
     ],
     'tests': tests_require,
@@ -97,6 +98,9 @@ setup(
         ],
         'invenio_base.blueprints': [
             'invenio_app_rdm = invenio_app_rdm.theme.views:blueprint',
+        ],
+        'invenio_base.api_blueprints': [
+            'invenio_app_rdm_bibl = invenio_app_rdm.theme.views:bibliographic_bp',
         ],
         'invenio_assets.webpack': [
             'invenio_app_rdm_theme = invenio_app_rdm.theme.webpack:theme',
