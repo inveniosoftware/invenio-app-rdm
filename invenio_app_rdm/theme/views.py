@@ -16,6 +16,7 @@ this file.
 from flask import Blueprint, current_app, render_template
 from flask_menu import current_menu
 from invenio_rdm_records.marshmallow.json import MetadataSchemaV1, dump_empty
+from invenio_rdm_records.resources import BibliographicRecordResource
 from invenio_rdm_records.vocabularies import Vocabularies
 
 blueprint = Blueprint(
@@ -111,3 +112,7 @@ def deposits_user():
         current_app.config['DEPOSITS_UPLOADS_TEMPLATE'],
         searchbar_config=dict(searchUrl='/search')
     )
+
+
+bibliographic_bp = BibliographicRecordResource().as_blueprint(
+    "bibliographic-resource")
