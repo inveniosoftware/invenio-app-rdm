@@ -16,48 +16,17 @@ from invenio_pidstore.minters import recid_minter
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
 from invenio_pidstore.proxies import current_pidstore
+from sqlalchemy.orm.exc import NoResultFound
 
 HEADERS = {"content-type": "application/json", "accept": "application/json"}
-SINGLE_RECORD_API_URL = "https://localhost:5000/rdm-records/{}"
-LIST_RECORDS_API_URL = "https://localhost:5000/records/"
+SINGLE_RECORD_API_URL = "/rdm-records/{}"
+LIST_RECORDS_API_URL = "/rdm-records"
+DRAFT_API_URL = "/rdm-records/{}/draft"
+DRAFT_ACTION_API_URL = "/rdm-records/{}/draft/actions/{}"
 
 
-@pytest.fixture(scope="function")
-def app_with_custom_minter(app):
-    """Application providing a minter creating unregistered pid values."""
-
-    def custom_minter(record_uuid, data):
-        """Custom class to mint a new pid in `NEW` state."""
-
-        class CustomRecordIdProvider(RecordIdProviderV2):
-            default_status_with_obj = PIDStatus.NEW
-
-        provider = CustomRecordIdProvider.create(
-            object_type='rec', object_uuid=record_uuid)
-        data['recid'] = provider.pid.pid_value
-        return provider.pid
-
-    current_pidstore.minters['recid_v2'] = custom_minter
-    yield app
-
-    current_pidstore.minters['recid_v2'] = recid_minter
-
-
-def test_record_read(client, location, minimal_record):
-    """Retrieve a record."""
-    # create a record
-    response = client.post(LIST_RECORDS_API_URL, json=minimal_record)
-    assert response.status_code == 201
-
-    recid = response.json["id"]
-
-    # retrieve record
-    response = client.get(SINGLE_RECORD_API_URL.format(recid))
-    assert response.status_code == 200
-    assert response.json is not None
-
-
-def test_record_read_non_existing_pid(client, location, minimal_record):
+def test_record_read_non_existing_pid(client, location, minimal_record,
+                                      es_clear):
     """Retrieve a non existing record."""
     # retrieve unknown record
     response = client.get(SINGLE_RECORD_API_URL.format('notfound'))
@@ -66,42 +35,110 @@ def test_record_read_non_existing_pid(client, location, minimal_record):
     assert response.json["message"] == "The pid does not exist."
 
 
-def test_record_read_unregistered_pid(app_with_custom_minter, location,
-                                      minimal_record):
-    """Retrieve a record with unregistered pid."""
-
-    client = app_with_custom_minter.test_client()
-
+def test_record_draft_create_and_read(client, location, minimal_record,
+                                      es_clear):
+    """Test draft creation of a non-existing record."""
     # create a record
     response = client.post(LIST_RECORDS_API_URL, json=minimal_record)
+
     assert response.status_code == 201
-    recid = response.json["id"]
 
-    response = client.get(SINGLE_RECORD_API_URL.format(recid), headers=HEADERS)
-    assert response.status_code == 404
+    response_fields = response.json.keys()
+    fields_to_check = ['pid', 'metadata', 'revision',
+                       'created', 'updated', 'links']
 
-    assert response.json["status"] == 404
-    assert response.json['message'] == "The pid is not registered."
+    for field in fields_to_check:
+        assert field in response_fields
+
+    recid = response.json["pid"]
+
+    # retrieve record draft
+    response = client.get(DRAFT_API_URL.format(recid))
+    assert response.status_code == 200
+    assert response.json is not None
 
 
-def test_read_record_with_redirected_pid(client, location, minimal_record):
+def test_record_draft_publish(client, minimal_record, es_clear):
+    """Test draft publication of a non-existing record.
+
+    It has to first create said draft and includes record read.
+    """
+    # Create the draft
+    response = client.post(
+        LIST_RECORDS_API_URL, data=json.dumps(minimal_record), headers=HEADERS
+    )
+
+    assert response.status_code == 201
+    recid = response.json['pid']
+
+    # Publish it
+    response = client.post(
+        DRAFT_ACTION_API_URL.format(recid, "publish"), headers=HEADERS
+    )
+
+    assert response.status_code == 200
+    response_fields = response.json.keys()
+    fields_to_check = ['pid', 'metadata', 'revision',
+                       'created', 'updated', 'links']
+
+    for field in fields_to_check:
+        assert field in response_fields
+
+    # Check draft deletion
+    # TODO: Remove import when exception is properly handled
+    with pytest.raises(NoResultFound):
+        response = client.get(
+            DRAFT_API_URL.format(recid),
+            headers=HEADERS
+        )
+    # assert response.status_code == 404
+
+    # Test record exists
+    response = client.get(
+        SINGLE_RECORD_API_URL.format(recid),
+        headers=HEADERS
+    )
+
+    assert response.status_code == 200
+
+    response_fields = response.json.keys()
+    fields_to_check = ['pid', 'metadata', 'revision',
+                       'created', 'updated', 'links']
+
+    for field in fields_to_check:
+        assert field in response_fields
+
+
+def test_read_record_with_redirected_pid(client, location, minimal_record,
+                                         es_clear):
     """Test read a record with a redirected pid."""
-
     # Create dummy record
     response = client.post(
         LIST_RECORDS_API_URL, headers=HEADERS, data=json.dumps(minimal_record)
     )
     assert response.status_code == 201
-    pid1 = PersistentIdentifier.get("recid", response.json["id"])
+    # Publish it
+    pid1_value = response.json["pid"]
+    response = client.post(
+        DRAFT_ACTION_API_URL.format(pid1_value, "publish"), headers=HEADERS
+    )
+    assert response.status_code == 200
 
     # Create another dummy record
     response = client.post(
         LIST_RECORDS_API_URL, headers=HEADERS, data=json.dumps(minimal_record)
     )
     assert response.status_code == 201
-    pid2 = PersistentIdentifier.get("recid", response.json["id"])
+    pid2_value = response.json["pid"]
+    # Publish it
+    response = client.post(
+        DRAFT_ACTION_API_URL.format(pid2_value, "publish"), headers=HEADERS
+    )
+    assert response.status_code == 200
 
     # redirect pid1 to pid2
+    pid1 = PersistentIdentifier.get("recid", pid1_value)
+    pid2 = PersistentIdentifier.get("recid", pid2_value)
     pid1.redirect(pid2)
 
     response = client.get(SINGLE_RECORD_API_URL.format(pid1.pid_value),
@@ -112,7 +149,8 @@ def test_read_record_with_redirected_pid(client, location, minimal_record):
     assert response.json['message'] == "Moved Permanently."
 
 
-def test_read_deleted_record(client, location, minimal_record, users):
+def test_read_deleted_record(client, location, minimal_record, users,
+                             es_clear):
     """Test read a deleted record."""
     user1 = users['user1']
     # Login user1
@@ -124,7 +162,12 @@ def test_read_deleted_record(client, location, minimal_record, users):
         LIST_RECORDS_API_URL, headers=HEADERS, data=json.dumps(minimal_record)
     )
     assert response.status_code == 201
-    recid = response.json["id"]
+    recid = response.json["pid"]
+    # Publish it
+    response = client.post(
+        DRAFT_ACTION_API_URL.format(recid, "publish"), headers=HEADERS
+    )
+    assert response.status_code == 200
 
     # Delete the record
     response = client.delete(SINGLE_RECORD_API_URL.format(recid),
@@ -135,3 +178,24 @@ def test_read_deleted_record(client, location, minimal_record, users):
     response = client.get(SINGLE_RECORD_API_URL.format(recid), headers=HEADERS)
     assert response.status_code == 410
     assert response.json['message'] == "The record has been deleted."
+
+
+def test_record_search(client, es_clear):
+    """Test record search."""
+    expected_response_keys = set(['hits', 'links', 'aggregations'])
+    expected_metadata_keys = set([
+        'access_right', 'resource_type', 'creators', 'titles'
+    ])
+
+    # Get published bibliographic records
+    response = client.get(LIST_RECORDS_API_URL, headers=HEADERS)
+
+    assert response.status_code == 200
+    response_keys = set(response.json.keys())
+    # The datamodel has other tests (jsonschemas, mappings, schemas)
+    # Here we just want to crosscheck the important ones are there.
+    assert expected_response_keys.issubset(response_keys)
+
+    for r in response.json["hits"]["hits"]:
+        metadata_keys = set(r["metadata"])
+        assert expected_metadata_keys.issubset(metadata_keys)

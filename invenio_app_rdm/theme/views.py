@@ -15,9 +15,12 @@ this file.
 
 from flask import Blueprint, current_app, render_template
 from flask_menu import current_menu
+from invenio_pidstore.models import PIDStatus
+from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
 from invenio_rdm_records.marshmallow.json import MetadataSchemaV1, dump_empty
-from invenio_rdm_records.resources import BibliographicRecordResource
-from invenio_rdm_records.services import BibliographicRecordService
+from invenio_rdm_records.resources import BibliographicDraftActionResource, \
+    BibliographicDraftResource, BibliographicRecordResource
+from invenio_rdm_records.services import BibliographicRecordDraftService
 from invenio_rdm_records.vocabularies import Vocabularies
 
 blueprint = Blueprint(
@@ -114,7 +117,16 @@ def deposits_user():
         searchbar_config=dict(searchUrl='/search')
     )
 
+# New implementation
+RecordIdProviderV2.default_status_with_obj = PIDStatus.NEW
 
-bibliographic_bp = BibliographicRecordResource(
-    service=BibliographicRecordService()).as_blueprint(
-        "bibliographic-resource")
+record_draft_service = BibliographicRecordDraftService()
+record_bp = BibliographicRecordResource(
+    service=record_draft_service
+).as_blueprint("bibliographic_record_resource")
+draft_bp = BibliographicDraftResource(
+    service=record_draft_service
+).as_blueprint("bibliographic_draft_resource")
+draft_action_bp = BibliographicDraftActionResource(
+    service=record_draft_service
+).as_blueprint("bibliographic_draft_action_resource")
