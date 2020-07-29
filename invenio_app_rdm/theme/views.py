@@ -17,6 +17,7 @@ from flask import Blueprint, current_app, render_template
 from flask_menu import current_menu
 from invenio_rdm_records.marshmallow.json import MetadataSchemaV1, dump_empty
 from invenio_rdm_records.resources import BibliographicRecordResource
+from invenio_rdm_records.services import BibliographicRecordService
 from invenio_rdm_records.vocabularies import Vocabularies
 
 blueprint = Blueprint(
@@ -114,5 +115,6 @@ def deposits_user():
     )
 
 
-bibliographic_bp = BibliographicRecordResource().as_blueprint(
-    "bibliographic-resource")
+bibliographic_bp = BibliographicRecordResource(
+    service=BibliographicRecordService()).as_blueprint(
+        "bibliographic-resource")
