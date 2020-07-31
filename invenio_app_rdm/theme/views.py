@@ -117,16 +117,58 @@ def deposits_user():
         searchbar_config=dict(searchUrl='/search')
     )
 
-# New implementation
-RecordIdProviderV2.default_status_with_obj = PIDStatus.NEW
 
-record_draft_service = BibliographicRecordDraftService()
+# New implementation
+# TEMPORARILY DISABLED
+# record_draft_service = BibliographicRecordDraftService()
+# Published Bibliographic Record Resource
+# record_bp = BibliographicRecordResource(
+#     service=record_draft_service
+# ).as_blueprint("bibliographic_record_resource")
+# Draft Bibliographic Record Resource
+# draft_bp = BibliographicDraftResource(
+#     service=record_draft_service
+# ).as_blueprint("bibliographic_draft_resource")
+# Draft Action Bibliographic Record Resource
+# draft_action_bp = BibliographicDraftActionResource(
+#     service=record_draft_service
+# ).as_blueprint("bibliographic_draft_action_resource")
+
+
+# TEMPORARY FIX
+# TODO: Remove this and shift to new api completely
+from invenio_rdm_records.marshmallow import MetadataSchemaV1
+from invenio_rdm_records.models import BibliographicRecord
+from invenio_rdm_records.permissions import RDMRecordPermissionPolicy
+from invenio_records_resources.services import MarshmallowDataValidator
+
+
+RecordIdProviderV2.default_status_with_obj = PIDStatus.REGISTERED
+
+
+class PublishedBibliographicRecordServiceConfig(RecordServiceConfig):
+    """Published Bibliographic record service config."""
+
+    # Record
+    record_cls = BibliographicRecord
+    permission_policy_cls = RDMRecordPermissionPolicy
+    data_validator = MarshmallowDataValidator(
+        schema=MetadataSchemaV1
+    )
+
+
+class PublishedBibliographicRecordService(RecordService):
+    """Temporary Record Service."""
+
+    default_config = PublishedBibliographicRecordServiceConfig
+
+
 record_bp = BibliographicRecordResource(
-    service=record_draft_service
+    service=PublishedBibliographicRecordService()
 ).as_blueprint("bibliographic_record_resource")
-draft_bp = BibliographicDraftResource(
-    service=record_draft_service
-).as_blueprint("bibliographic_draft_resource")
-draft_action_bp = BibliographicDraftActionResource(
-    service=record_draft_service
-).as_blueprint("bibliographic_draft_action_resource")
+
+
+- Resource: BibliographicRecordResource
+- Resource config: BibliographicRecordResourceConfig
+- Service: PublishedBibliographicRecordService
+- ServiceConfig:

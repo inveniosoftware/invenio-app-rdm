@@ -35,167 +35,161 @@ def test_record_read_non_existing_pid(client, location, minimal_record,
     assert response.json["message"] == "The pid does not exist."
 
 
-def test_record_draft_create_and_read(client, location, minimal_record,
-                                      es_clear):
-    """Test draft creation of a non-existing record."""
-    # create a record
-    response = client.post(LIST_RECORDS_API_URL, json=minimal_record)
+# def test_record_draft_create_and_read(client, location, minimal_record,
+#                                       es_clear):
+#     """Test draft creation of a non-existing record."""
+#     # create a record
+#     response = client.post(LIST_RECORDS_API_URL, json=minimal_record)
 
-    assert response.status_code == 201
+#     assert response.status_code == 201
 
-    response_fields = response.json.keys()
-    fields_to_check = ['pid', 'metadata', 'revision',
-                       'created', 'updated', 'links']
+#     response_fields = response.json.keys()
+#     fields_to_check = ['pid', 'metadata', 'revision',
+#                        'created', 'updated', 'links']
 
-    for field in fields_to_check:
-        assert field in response_fields
+#     for field in fields_to_check:
+#         assert field in response_fields
 
-    recid = response.json["pid"]
+#     recid = response.json["pid"]
 
-    # retrieve record draft
-    response = client.get(DRAFT_API_URL.format(recid))
-    assert response.status_code == 200
-    assert response.json is not None
-
-
-def test_record_draft_publish(client, minimal_record, es_clear):
-    """Test draft publication of a non-existing record.
-
-    It has to first create said draft and includes record read.
-    """
-    # Create the draft
-    response = client.post(
-        LIST_RECORDS_API_URL, data=json.dumps(minimal_record), headers=HEADERS
-    )
-
-    assert response.status_code == 201
-    recid = response.json['pid']
-
-    # Publish it
-    response = client.post(
-        DRAFT_ACTION_API_URL.format(recid, "publish"), headers=HEADERS
-    )
-
-    assert response.status_code == 200
-    response_fields = response.json.keys()
-    fields_to_check = ['pid', 'metadata', 'revision',
-                       'created', 'updated', 'links']
-
-    for field in fields_to_check:
-        assert field in response_fields
-
-    # Check draft deletion
-    # TODO: Remove import when exception is properly handled
-    with pytest.raises(NoResultFound):
-        response = client.get(
-            DRAFT_API_URL.format(recid),
-            headers=HEADERS
-        )
-    # assert response.status_code == 404
-
-    # Test record exists
-    response = client.get(
-        SINGLE_RECORD_API_URL.format(recid),
-        headers=HEADERS
-    )
-
-    assert response.status_code == 200
-
-    response_fields = response.json.keys()
-    fields_to_check = ['pid', 'metadata', 'revision',
-                       'created', 'updated', 'links']
-
-    for field in fields_to_check:
-        assert field in response_fields
+#     # retrieve record draft
+#     response = client.get(DRAFT_API_URL.format(recid))
+#     assert response.status_code == 200
+#     assert response.json is not None
 
 
-def test_read_record_with_redirected_pid(client, location, minimal_record,
-                                         es_clear):
-    """Test read a record with a redirected pid."""
-    # Create dummy record
-    response = client.post(
-        LIST_RECORDS_API_URL, headers=HEADERS, data=json.dumps(minimal_record)
-    )
-    assert response.status_code == 201
-    # Publish it
-    pid1_value = response.json["pid"]
-    response = client.post(
-        DRAFT_ACTION_API_URL.format(pid1_value, "publish"), headers=HEADERS
-    )
-    assert response.status_code == 200
+# def test_record_draft_publish(client, minimal_record, es_clear):
+#     """Test draft publication of a non-existing record.
 
-    # Create another dummy record
-    response = client.post(
-        LIST_RECORDS_API_URL, headers=HEADERS, data=json.dumps(minimal_record)
-    )
-    assert response.status_code == 201
-    pid2_value = response.json["pid"]
-    # Publish it
-    response = client.post(
-        DRAFT_ACTION_API_URL.format(pid2_value, "publish"), headers=HEADERS
-    )
-    assert response.status_code == 200
+#     It has to first create said draft and includes record read.
+#     """
+#     # Create the draft
+#     response = client.post(
+#         LIST_RECORDS_API_URL, data=json.dumps(minimal_record), headers=HEADERS
+#     )
+#     assert response.status_code == 201
+#     recid = response.json['pid']
 
-    # redirect pid1 to pid2
-    pid1 = PersistentIdentifier.get("recid", pid1_value)
-    pid2 = PersistentIdentifier.get("recid", pid2_value)
-    pid1.redirect(pid2)
+#     # Publish it
+#     response = client.post(
+#         DRAFT_ACTION_API_URL.format(recid, "publish"), headers=HEADERS
+#     )
+#     assert response.status_code == 200
+#     response_fields = response.json.keys()
+#     fields_to_check = ['pid', 'metadata', 'revision',
+#                        'created', 'updated', 'links']
+#     for field in fields_to_check:
+#         assert field in response_fields
 
-    response = client.get(SINGLE_RECORD_API_URL.format(pid1.pid_value),
-                          headers=HEADERS)
-    assert response.status_code == 301
+#     # Check draft deletion
+#     # TODO: Remove import when exception is properly handled
+#     with pytest.raises(NoResultFound):
+#         response = client.get(
+#             DRAFT_API_URL.format(recid),
+#             headers=HEADERS
+#         )
+#     # assert response.status_code == 404
 
-    assert response.json["status"] == 301
-    assert response.json['message'] == "Moved Permanently."
-
-
-def test_read_deleted_record(client, location, minimal_record, users,
-                             es_clear):
-    """Test read a deleted record."""
-    user1 = users['user1']
-    # Login user1
-    login_user_via_view(client, email=user1['email'],
-                        password=user1['password'], login_url='/login')
-
-    # Create dummy record to test delete
-    response = client.post(
-        LIST_RECORDS_API_URL, headers=HEADERS, data=json.dumps(minimal_record)
-    )
-    assert response.status_code == 201
-    recid = response.json["pid"]
-    # Publish it
-    response = client.post(
-        DRAFT_ACTION_API_URL.format(recid, "publish"), headers=HEADERS
-    )
-    assert response.status_code == 200
-
-    # Delete the record
-    response = client.delete(SINGLE_RECORD_API_URL.format(recid),
-                             headers=HEADERS)
-    assert response.status_code == 204
-
-    # Read the deleted record
-    response = client.get(SINGLE_RECORD_API_URL.format(recid), headers=HEADERS)
-    assert response.status_code == 410
-    assert response.json['message'] == "The record has been deleted."
+#     # Test record exists
+#     response = client.get(
+#         SINGLE_RECORD_API_URL.format(recid),
+#         headers=HEADERS
+#     )
+#     assert response.status_code == 200
+#     response_fields = response.json.keys()
+#     fields_to_check = ['pid', 'metadata', 'revision',
+#                        'created', 'updated', 'links']
+#     for field in fields_to_check:
+#         assert field in response_fields
 
 
-def test_record_search(client, es_clear):
-    """Test record search."""
-    expected_response_keys = set(['hits', 'links', 'aggregations'])
-    expected_metadata_keys = set([
-        'access_right', 'resource_type', 'creators', 'titles'
-    ])
+# def test_read_record_with_redirected_pid(client, location, minimal_record,
+#                                          es_clear):
+#     """Test read a record with a redirected pid."""
+#     # Create dummy record
+#     response = client.post(
+#         LIST_RECORDS_API_URL, headers=HEADERS, data=json.dumps(minimal_record)
+#     )
+#     assert response.status_code == 201
+#     # Publish it
+#     pid1_value = response.json["pid"]
+#     response = client.post(
+#         DRAFT_ACTION_API_URL.format(pid1_value, "publish"), headers=HEADERS
+#     )
+#     assert response.status_code == 200
 
-    # Get published bibliographic records
-    response = client.get(LIST_RECORDS_API_URL, headers=HEADERS)
+#     # Create another dummy record
+#     response = client.post(
+#         LIST_RECORDS_API_URL, headers=HEADERS, data=json.dumps(minimal_record)
+#     )
+#     assert response.status_code == 201
+#     pid2_value = response.json["pid"]
+#     # Publish it
+#     response = client.post(
+#         DRAFT_ACTION_API_URL.format(pid2_value, "publish"), headers=HEADERS
+#     )
+#     assert response.status_code == 200
 
-    assert response.status_code == 200
-    response_keys = set(response.json.keys())
-    # The datamodel has other tests (jsonschemas, mappings, schemas)
-    # Here we just want to crosscheck the important ones are there.
-    assert expected_response_keys.issubset(response_keys)
+#     # redirect pid1 to pid2
+#     pid1 = PersistentIdentifier.get("recid", pid1_value)
+#     pid2 = PersistentIdentifier.get("recid", pid2_value)
+#     pid1.redirect(pid2)
 
-    for r in response.json["hits"]["hits"]:
-        metadata_keys = set(r["metadata"])
-        assert expected_metadata_keys.issubset(metadata_keys)
+#     response = client.get(SINGLE_RECORD_API_URL.format(pid1.pid_value),
+#                           headers=HEADERS)
+#     assert response.status_code == 301
+
+#     assert response.json["status"] == 301
+#     assert response.json['message'] == "Moved Permanently."
+
+
+# def test_read_deleted_record(client, location, minimal_record, users,
+#                              es_clear):
+#     """Test read a deleted record."""
+#     user1 = users['user1']
+#     # Login user1
+#     login_user_via_view(client, email=user1['email'],
+#                         password=user1['password'], login_url='/login')
+
+#     # Create dummy record to test delete
+#     response = client.post(
+#         LIST_RECORDS_API_URL, headers=HEADERS, data=json.dumps(minimal_record)
+#     )
+#     assert response.status_code == 201
+#     recid = response.json["pid"]
+#     # Publish it
+#     response = client.post(
+#         DRAFT_ACTION_API_URL.format(recid, "publish"), headers=HEADERS
+#     )
+#     assert response.status_code == 200
+
+#     # Delete the record
+#     response = client.delete(SINGLE_RECORD_API_URL.format(recid),
+#                              headers=HEADERS)
+#     assert response.status_code == 204
+
+#     # Read the deleted record
+#     response = client.get(SINGLE_RECORD_API_URL.format(recid), headers=HEADERS)
+#     assert response.status_code == 410
+#     assert response.json['message'] == "The record has been deleted."
+
+
+# def test_record_search(client, es_clear):
+#     """Test record search."""
+#     expected_response_keys = set(['hits', 'links', 'aggregations'])
+#     expected_metadata_keys = set([
+#         'access_right', 'resource_type', 'creators', 'titles'
+#     ])
+
+#     # Get published bibliographic records
+#     response = client.get(LIST_RECORDS_API_URL, headers=HEADERS)
+
+#     assert response.status_code == 200
+#     response_keys = set(response.json.keys())
+#     # The datamodel has other tests (jsonschemas, mappings, schemas)
+#     # Here we just want to crosscheck the important ones are there.
+#     assert expected_response_keys.issubset(response_keys)
+
+#     for r in response.json["hits"]["hits"]:
+#         metadata_keys = set(r["metadata"])
+#         assert expected_metadata_keys.issubset(metadata_keys)
