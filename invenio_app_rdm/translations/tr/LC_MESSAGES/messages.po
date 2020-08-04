@@ -4,11 +4,10 @@
 # This file is distributed under the same license as the invenio-app-rdm
 # project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
-# 
+#
 # Translators:
 # Beraat Aldemir <berataldemir@gmail.com>, 2020
-# 
-#, fuzzy
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: invenio-app-rdm 0.10.1\n"
