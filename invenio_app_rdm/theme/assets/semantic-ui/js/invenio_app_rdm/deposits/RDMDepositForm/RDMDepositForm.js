@@ -39,7 +39,7 @@ const defaultRecord = {
     {
       lang: "",
       title: "",
-      type: "",
+      type: "MainTitle",
     },
   ],
   creators: [
