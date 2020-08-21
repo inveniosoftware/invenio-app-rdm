@@ -48,7 +48,7 @@
 
           <ul class="no-dots-list">
             {%- for item in current_menu.submenu('main').children|sort(attribute='order') if item.visible recursive %}
-              <div class="item">
+              <div class="item navbar-options">
                 {%- if item.children %}
                 <div class="dropdown{{ ' active' if item.active else '' }}">
                   <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -59,8 +59,8 @@
                 <li{{ ' class="active"'|safe if item.active and loop.depth == 1 else '' }}>
                   <a href="{{ item.url }}">{{ item.text|safe }}</a></li>
                   {%- endif %}
-              {%- endfor %}
-            </div>
+              </div>
+            {%- endfor %}
           </ul>
         {%- endblock navbar_nav %}
 
