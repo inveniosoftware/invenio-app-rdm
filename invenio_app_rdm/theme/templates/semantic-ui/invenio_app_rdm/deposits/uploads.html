@@ -12,26 +12,16 @@
 {%- endblock page_header %}
 
 {%- block page_body %}
-<div class="ui container page_body" style="margin-top: 35px">
-    <h1>Your deposits</h1>
-    <div class="ui menu">
-        <div class="ui action left icon input">
-            <i class="search icon"></i>
-            <input type="text" placeholder="Search">
-            <button class="ui button">Search</button>
-        </div>
-
-        <div class="right menu">
-            <div class="item">
-                <a class="ui button primary" role="button" href="{{ url_for('invenio_app_rdm.deposits_create') }}">New Deposit</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="ui text container">
-        <img width="600" src="{{ url_for('static', filename='images/coming-soon.svg')}}" />
-    </div>
-
-</div>
-
+  <div id="deposits-search-ui-app"></div>
 {%- endblock page_body %}
+
+{%- block javascript %}
+  {{ super() }}
+  {%- block javascript_searchapp_customization %}
+    {{ webpack['invenio-app-rdm-deposits-search-app-js.js'] }}
+  {%- endblock %}
+  {{ webpack['deposits_search_ui_app.js'] }}
+  <script type="text/javascript">
+    window.initSearchApp("deposits-search-ui-app", {{ config|format_config("recid")|tojson }});
+  </script>
+{%- endblock javascript %}
