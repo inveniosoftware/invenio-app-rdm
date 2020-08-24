@@ -90,10 +90,18 @@ body {
   }
 }
 
-.section-content-dark-bg,
-.section-content-white-bg,
+.section-content-dark-bg {
+  padding-top: calc(30px) !important;
+  padding-bottom: calc(2 * 30px);
+}
+
+.section-content-white-bg {
+  padding-top: calc(40px) !important;
+  padding-bottom: calc(2 * 30px);
+}
+
 .section-content-light-bg {
-  padding-top: calc(30px);
+  padding-top: calc(60px) !important;
   padding-bottom: calc(2 * 30px);
 }
 
@@ -175,6 +183,10 @@ body {
   }
 }
 
+.get-started-section > .section-title {
+  font-size: 2.65em;
+}
+
 @media only screen and (max-device-width: 768px) {
   .invenio-rdm-project-goals {
     flex-direction: column;
@@ -221,3 +233,4 @@ body {
   background-color: @navbar_background_color;
   border-color: transparent;
 }
+
