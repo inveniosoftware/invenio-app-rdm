@@ -76,7 +76,7 @@ def test_record_draft_publish(client, minimal_record, es_clear):
         DRAFT_ACTION_API_URL.format(recid, "publish"), headers=HEADERS
     )
 
-    assert response.status_code == 200
+    assert response.status_code == 202
     response_fields = response.json.keys()
     fields_to_check = ['pid', 'metadata', 'revision',
                        'created', 'updated', 'links']
@@ -122,7 +122,7 @@ def test_read_record_with_redirected_pid(client, location, minimal_record,
     response = client.post(
         DRAFT_ACTION_API_URL.format(pid1_value, "publish"), headers=HEADERS
     )
-    assert response.status_code == 200
+    assert response.status_code == 202
 
     # Create another dummy record
     response = client.post(
@@ -134,7 +134,7 @@ def test_read_record_with_redirected_pid(client, location, minimal_record,
     response = client.post(
         DRAFT_ACTION_API_URL.format(pid2_value, "publish"), headers=HEADERS
     )
-    assert response.status_code == 200
+    assert response.status_code == 202
 
     # redirect pid1 to pid2
     pid1 = PersistentIdentifier.get("recid", pid1_value)
@@ -167,7 +167,7 @@ def test_read_deleted_record(client, location, minimal_record, users,
     response = client.post(
         DRAFT_ACTION_API_URL.format(recid, "publish"), headers=HEADERS
     )
-    assert response.status_code == 200
+    assert response.status_code == 202
 
     # Delete the record
     response = client.delete(SINGLE_RECORD_API_URL.format(recid),
