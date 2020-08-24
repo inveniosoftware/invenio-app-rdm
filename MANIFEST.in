@@ -36,6 +36,7 @@ include scripts/server
 include scripts/setup
 include scripts/update
 prune docs/_build
+recursive-include .github/workflows *.yml
 recursive-include docs *.bat
 recursive-include docs *.py
 recursive-include docs *.rst
