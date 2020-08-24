@@ -39,7 +39,11 @@ body {
   }
 }
 
-#invenio-nav .item {
+.item.right-menu {
+  line-height: 44px !important;
+}
+
+#invenio-nav .item.navbar-options {
   display: inline-block;
   vertical-align: middle;
   line-height: 44px;
@@ -50,7 +54,7 @@ body {
 
   li a {
     display: block;
-    padding: 1em;
+    padding: .8em 1em;
   }
 
   :hover {
@@ -64,6 +68,10 @@ body {
   list-style-type:none;
   margin-block-start: unset;
   margin-block-end: unset;
+}
+
+.item.navbar-options:first-of-type {
+  margin-left: 2em;
 }
 
 .centered {
