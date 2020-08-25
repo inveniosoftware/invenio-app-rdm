@@ -11,17 +11,14 @@
 {%- include config.DEPOSITS_HEADER_TEMPLATE %}
 {%- endblock page_header %}
 
-{%- block page_body %}
-  <div id="deposits-search-ui-app"></div>
-{%- endblock page_body %}
-
 {%- block javascript %}
   {{ super() }}
-  {%- block javascript_searchapp_customization %}
-    {{ webpack['invenio-app-rdm-deposits-search-app-js.js'] }}
-  {%- endblock %}
-  {{ webpack['deposits_search_ui_app.js'] }}
-  <script type="text/javascript">
-    window.initSearchApp("deposits-search-ui-app", {{ config|format_config("recid")|tojson }});
-  </script>
+  {{ webpack['rdm_deposits_search_app.js'] }}
 {%- endblock javascript %}
+
+{%- block page_body %}
+<div data-invenio-search-config='{{ config|format_config(
+  "recid",
+  app_id="rdm-deposits-search",
+) | tojson(indent=2) }}'></div>
+{%- endblock page_body %}

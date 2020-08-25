@@ -6,7 +6,6 @@
 // under the terms of the MIT License; see LICENSE file for more details.
 
 import React from "react";
-import { overrideStore } from "react-overridable";
 import {
   Icon,
   Card,
@@ -15,24 +14,69 @@ import {
   Label,
   Input,
   Item,
+  Button,
+  Segment,
 } from "semantic-ui-react";
 import _ from "lodash";
 import _truncate from "lodash/truncate";
+import { Pagination, ResultsList, Sort, SearchBar } from "react-searchkit";
 
-const RDMRecordResultsListItem = ({ result, index }) => {
-  const startDate = _.get(result, "metadata.dates[0].start", "No metadata");
+export const RDMDepositResults = ({ sortOptions, currentResultsState }) => {
+  const { total } = currentResultsState.data;
+  return (
+    total && (
+      <>
+        <SearchBar />
+        <Button
+          color="green"
+          icon="upload"
+          floated="right"
+          href="/deposits/new"
+          content="New upload"
+        />
+        <Segment>
+          <Grid>
+            <Grid.Row verticalAlign="middle" className="header-row">
+              <Grid.Column width={7}>
+                <Checkbox label="Select all" />
+              </Grid.Column>
+              <Grid.Column width={5} textAlign="right"></Grid.Column>
+              <Grid.Column width={4} textAlign="right">
+                {sortOptions && (
+                  <Sort
+                    values={sortOptions}
+                    label={(cmp) => <>Sort by {cmp}</>}
+                  />
+                )}
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
+              <Grid.Column>
+                <ResultsList />
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row verticalAlign="middle" textAlign="center">
+              <Grid.Column>
+                <Pagination />
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </Segment>
+      </>
+    )
+  );
+};
+
+export const RDMRecordResultsListItem = ({ result, index }) => {
+  const createdDate = _.get(result, "created", "No metadata");
   const status = _.get(
     result,
     "metadata.resource_type.type",
     "No resource type"
   );
-  const access = _.get(
-    result,
-    "metadata._default_preview",
-    "No default preview"
-  );
+  const access = _.get(result, "metadata.access_right", "No default preview");
   const creatorName = _.get(result, "metadata.creators[0].name", "No creator");
-  const updatedDate = _.get(result, "metadata.embargo_date", "No updated date"); // FIXME: probably wrong
+  const updatedDate = _.get(result, "updated", "No updated date");
   const title = _.get(result, "metadata.titles[0].title", "No title");
   const author = _.get(result, "metadata._internal_notes[0].user", "anonymous");
 
@@ -54,7 +98,7 @@ const RDMRecordResultsListItem = ({ result, index }) => {
               <Item.Extra>
                 <div>
                   <Label size="tiny" color="blue">
-                    {updatedDate}
+                    {updatedDate.substring(0, 10)}
                   </Label>
                   <Label size="tiny" color="grey">
                     {status}
@@ -82,7 +126,8 @@ const RDMRecordResultsListItem = ({ result, index }) => {
               <Item.Meta>{creatorName}</Item.Meta>
               <Item.Extra>
                 <div>
-                  Created on <span>{startDate}</span> by <span>{author}</span>
+                  Created on <span>{createdDate.substring(0, 10)}</span> by{" "}
+                  <span>{author}</span>
                   <div className="ui right floated stats">
                     <span>
                       <Icon name="eye" />
@@ -107,14 +152,10 @@ const RDMRecordResultsListItem = ({ result, index }) => {
   );
 };
 
-export default RDMRecordResultsListItem;
-
-overrideStore.add("ResultsList.item", RDMRecordResultsListItem);
-
 // FIXME: Keeping ResultsGrid.item and SearchBar.element because otherwise
 // these components in RDM result broken.
 
-const RDMRecordResultsGridItem = ({ result, index }) => {
+export const RDMRecordResultsGridItem = ({ result, index }) => {
   const description = _.get(
     result,
     "metadata.descriptions[0].description",
@@ -131,39 +172,3 @@ const RDMRecordResultsGridItem = ({ result, index }) => {
     </Card>
   );
 };
-
-overrideStore.add("ResultsGrid.item", RDMRecordResultsGridItem);
-
-const RDMRecordSearchBarElement = ({
-  placeholder: passedPlaceholder,
-  queryString,
-  onInputChange,
-  executeSearch,
-}) => {
-  const placeholder = passedPlaceholder || "Search";
-  const onBtnSearchClick = () => {
-    executeSearch();
-  };
-  const onKeyPress = (event) => {
-    if (event.key === "Enter") {
-      executeSearch();
-    }
-  };
-  return (
-    <Input
-      action={{
-        icon: "search",
-        onClick: onBtnSearchClick,
-        className: "search",
-      }}
-      placeholder={placeholder}
-      onChange={(event, { value }) => {
-        onInputChange(value);
-      }}
-      value={queryString}
-      onKeyPress={onKeyPress}
-    />
-  );
-};
-
-overrideStore.add("SearchBar.element", RDMRecordSearchBarElement);

@@ -6,33 +6,73 @@
 // under the terms of the MIT License; see LICENSE file for more details.
 
 import React from "react";
-import { overrideStore } from "react-overridable";
-import { Card, Input, Item } from "semantic-ui-react";
+import { Card, Item, Input, Label, Button } from "semantic-ui-react";
 import _ from "lodash";
 import _truncate from "lodash/truncate";
 
-const RDMRecordResultsListItem = ({ result, index }) => {
+export const RDMRecordResultsListItem = ({ result, index }) => {
   const description = _.get(
     result,
     "metadata.descriptions[0].description",
     "No description"
   );
+  const publicationDate = _.get(
+    result,
+    "metadata.publication_date",
+    "No metadata"
+  );
+  const status = _.get(
+    result,
+    "metadata.resource_type.type",
+    "No resource type"
+  );
+  const access = _.get(
+    result,
+    "metadata.access_right",
+    "No access rights"
+  );
+  const creatorName = _.get(
+    result,
+    "metadata.creators[0].name",
+    "No creator"
+  );
+  const updatedDate = _.get(
+    result,
+    "updated",
+    "No updated date"
+  );
+  const title = _.get(
+    result,
+    "metadata.titles[0].title",
+    "No title"
+  );
 
   return (
     <Item key={index} href={`/records/${result.id}`}>
       <Item.Content>
-        <Item.Header>{result.metadata.titles[0].title}</Item.Header>
+        <Item.Extra>
+          <div>
+            <Label size="tiny" color="blue">{publicationDate}</Label>
+            <Label size="tiny" color="grey">{status}</Label>
+            <Label size="tiny" color="green">{access}</Label>
+            <Button basic floated='right'>View</Button>
+          </div>
+        </Item.Extra>
+        <Item.Header>{title}</Item.Header>
+        <Item.Meta>{creatorName}</Item.Meta>
         <Item.Description>
-          {_truncate(description, { length: 200 })}
+          {_truncate(description, { length: 350 })}
         </Item.Description>
+        <Item.Extra>
+          <div>Updated on <span>{updatedDate.substring(0, 10)}</span></div>
+        </Item.Extra>
       </Item.Content>
     </Item>
   );
 };
 
-overrideStore.add("ResultsList.item", RDMRecordResultsListItem);
-
-const RDMRecordResultsGridItem = ({ result, index }) => {
+// TODO: Update this according to the full List item template?
+export const RDMRecordResultsGridItem = ({ result, index }) => {
   const description = _.get(
     result,
     "metadata.descriptions[0].description",
@@ -50,9 +90,8 @@ const RDMRecordResultsGridItem = ({ result, index }) => {
   );
 };
 
-overrideStore.add("ResultsGrid.item", RDMRecordResultsGridItem);
 
-const RDMRecordSearchBarElement = ({
+export const RDMRecordSearchBarElement = ({
   placeholder: passedPlaceholder,
   queryString,
   onInputChange,
@@ -83,5 +122,3 @@ const RDMRecordSearchBarElement = ({
     />
   );
 };
-
-overrideStore.add("SearchBar.element", RDMRecordSearchBarElement);
