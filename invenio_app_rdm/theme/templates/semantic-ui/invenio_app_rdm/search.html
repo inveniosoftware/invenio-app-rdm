@@ -13,8 +13,12 @@
 {%- endblock %}
 
 {%- block page_body %}
-<div data-invenio-search-config='{{ config|format_config(
-  "recid",
-  app_id="rdm-search",
-) | tojson(indent=2) }}'></div>
+<div data-invenio-search-config='{{
+  search_app_helpers.invenio_records_rest.generate(
+    dict(
+      endpoint_id="recid",
+      app_id="rdm-search"
+    )
+  ) | tojson(indent=2) }}'></div>
+
 {%- endblock page_body %}
