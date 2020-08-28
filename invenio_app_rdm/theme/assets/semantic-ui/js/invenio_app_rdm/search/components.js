@@ -36,11 +36,7 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
     "metadata.creators[0].name",
     "No creator"
   );
-  const updatedDate = _.get(
-    result,
-    "updated",
-    "No updated date"
-  );
+  const updatedDate = _.get(result, "updated");
   const title = _.get(
     result,
     "metadata.titles[0].title",
@@ -48,7 +44,7 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
   );
 
   return (
-    <Item key={index} href={`/records/${result.id}`}>
+    <Item key={index} href={`/records/${result.pid}`}>
       <Item.Content>
         <Item.Extra>
           <div>
@@ -64,7 +60,7 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
           {_truncate(description, { length: 350 })}
         </Item.Description>
         <Item.Extra>
-          <div>Updated on <span>{updatedDate.substring(0, 10)}</span></div>
+          {updatedDate && <div>Updated on <span>{updatedDate}</span></div>}
         </Item.Extra>
       </Item.Content>
     </Item>
@@ -79,7 +75,7 @@ export const RDMRecordResultsGridItem = ({ result, index }) => {
     "No description"
   );
   return (
-    <Card fluid key={index} href={`/records/${result.id}`}>
+    <Card fluid key={index} href={`/records/${result.pid}`}>
       <Card.Content>
         <Card.Header>{result.metadata.titles[0].title}</Card.Header>
         <Card.Description>
