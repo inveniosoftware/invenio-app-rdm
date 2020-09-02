@@ -118,13 +118,34 @@ def deposits_user():
     )
 
 
-record_draft_service = BibliographicRecordService()
-record_bp = BibliographicRecordResource(
-    service=record_draft_service
-).as_blueprint("bibliographic_record_resource")
-draft_bp = BibliographicDraftResource(
-    service=record_draft_service
-).as_blueprint("bibliographic_draft_resource")
-draft_action_bp = BibliographicDraftActionResource(
-    service=record_draft_service
-).as_blueprint("bibliographic_draft_action_resource")
+#
+# Blueprints
+#
+def record_bp(app):
+    """Callable record blueprint (we need an application context)."""
+    with app.app_context():
+        service = BibliographicRecordService()
+        return (
+            BibliographicRecordResource(service=service)
+            .as_blueprint("bibliographic_record_resource")
+        )
+
+
+def draft_bp(app):
+    """Callable draft blueprint (we need an application context)."""
+    with app.app_context():
+        service = BibliographicRecordService()
+        return (
+            BibliographicDraftResource(service=service)
+            .as_blueprint("bibliographic_draft_resource")
+        )
+
+
+def draft_action_bp(app):
+    """Callable draft action blueprint (we need an application context)."""
+    with app.app_context():
+        service = BibliographicRecordService()
+        return (
+            BibliographicDraftActionResource(service=service)
+            .as_blueprint("bibliographic_draft_action_resource")
+        )
