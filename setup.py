@@ -97,7 +97,7 @@ setup(
             'invenio-app-rdm = invenio_app.cli:cli',
         ],
         'invenio_base.blueprints': [
-            'invenio_app_rdm = invenio_app_rdm.theme.views:blueprint',
+            'invenio_app_rdm = invenio_app_rdm.theme.views:ui_blueprint',
         ],
         'invenio_base.api_blueprints': [
             'invenio_app_rdm_record = invenio_app_rdm.theme.views:record_bp',
