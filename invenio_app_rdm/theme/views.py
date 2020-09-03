@@ -23,103 +23,108 @@ from invenio_rdm_records.resources import BibliographicDraftActionResource, \
 from invenio_rdm_records.services import BibliographicRecordService
 from invenio_rdm_records.vocabularies import Vocabularies
 
-blueprint = Blueprint(
-    'invenio_app_rdm',
-    __name__,
-    template_folder='templates',
-    static_folder='static',
-)
 
-
-@blueprint.before_app_first_request
-def init_menu():
-    """Initialize menu before first request."""
-    item = current_menu.submenu('main.deposit')
-    item.register(
-        'invenio_app_rdm.deposits_user',
-        'Uploads',
-        order=1
+def ui_blueprint(app):
+    """Dynamically registers routes (allows us to rely on config)."""
+    blueprint = Blueprint(
+        'invenio_app_rdm',
+        __name__,
+        template_folder='templates',
+        static_folder='static',
     )
 
+    @blueprint.before_app_first_request
+    def init_menu():
+        """Initialize menu before first request."""
+        item = current_menu.submenu('main.deposit')
+        item.register(
+            'invenio_app_rdm.deposits_user',
+            'Uploads',
+            order=1
+        )
 
-@blueprint.route('/search')
-def search():
-    """Search page."""
-    return render_template(current_app.config['SEARCH_BASE_TEMPLATE'])
+    @blueprint.route(app.config.get('RDM_RECORDS_UI_SEARCH_URL', '/search'))
+    def search():
+        """Search page."""
+        return render_template(current_app.config['SEARCH_BASE_TEMPLATE'])
 
+    @blueprint.route(app.config.get('RDM_RECORDS_UI_NEW_URL', '/uploads/new'))
+    def deposits_create():
+        """Record creation page."""
+        forms_config = dict(
+            # apiUrl='/api/records/',
+            vocabularies=Vocabularies.dump()
+        )
+        search_url = app.config.get('RDM_UI_RECORDS_SEARCH_URL', '/search')
+        searchbar_config = dict(searchUrl=search_url)
+        empty_record = dump_empty(MetadataSchemaV1)
+        return render_template(
+            current_app.config['DEPOSITS_FORMS_BASE_TEMPLATE'],
+            forms_config=forms_config,
+            record=empty_record,
+            searchbar_config=searchbar_config
+        )
 
-@blueprint.route('/deposits/new')
-def deposits_create():
-    """Record creation page."""
-    forms_config = dict(
-        apiUrl='/api/records/',
-        vocabularies=Vocabularies.dump()
+    @blueprint.route(
+        app.config.get('RDM_RECORDS_UI_EDIT_URL', '/uploads/<pid_value>')
     )
-    searchbar_config = dict(searchUrl='/search')
-    empty_record = dump_empty(MetadataSchemaV1)
-    return render_template(
-        current_app.config['DEPOSITS_FORMS_BASE_TEMPLATE'],
-        forms_config=forms_config,
-        record=empty_record,
-        searchbar_config=searchbar_config
-    )
-
-
-@blueprint.route('/deposits/<string:id>/edit')
-def deposits_edit(id):
-    """Fake deposits edit page."""
-    forms_config = dict(
-        apiUrl='/api/records/',
-        vocabularies=Vocabularies.dump()
-    )
-    # minimal record
-    record = {
-        "_access": {
-            "metadata_restricted": False,
-            "files_restricted": False
-        },
-        "_owners": [1],
-        "_created_by": 1,
-        "access_right": "open",
-        "id": "{}".format(id),
-        "resource_type": {
-            "type": "image",
-            "subtype": "image-photo"
-        },
-        # Technically not required
-        "creators": [],
-        "titles": [{
-            "title": "A Romans story",
-            "type": "Other",
-            "lang": "eng"
-        }],
-        "links": {
-            "edit": "/deposits/{}/edit".format(id)
+    def deposits_edit(pid_value):
+        """Fake deposits edit page."""
+        forms_config = dict(
+            apiUrl='/api/records/',
+            vocabularies=Vocabularies.dump()
+        )
+        # minimal record
+        record = {
+            "_access": {
+                "metadata_restricted": False,
+                "files_restricted": False
+            },
+            "_owners": [1],
+            "_created_by": 1,
+            "access_right": "open",
+            "id": f"{pid_value}",
+            "resource_type": {
+                "type": "image",
+                "subtype": "image-photo"
+            },
+            # Technically not required
+            "creators": [],
+            "titles": [{
+                "title": "A Romans story",
+                "type": "Other",
+                "lang": "eng"
+            }],
+            "links": {
+                "edit": "/deposits/{}/edit".format(id)
+            }
         }
-    }
-    searchbar_config = dict(searchUrl='/search')
+        searchbar_config = dict(searchUrl='/search')
 
-    initial_record = dump_empty(MetadataSchemaV1)
-    initial_record.update(record)
-    return render_template(
-        current_app.config['DEPOSITS_FORMS_BASE_TEMPLATE'],
-        forms_config=forms_config,
-        record=initial_record,
-        searchbar_config=searchbar_config
-    )
+        initial_record = dump_empty(MetadataSchemaV1)
+        initial_record.update(record)
+        return render_template(
+            current_app.config['DEPOSITS_FORMS_BASE_TEMPLATE'],
+            forms_config=forms_config,
+            record=initial_record,
+            searchbar_config=searchbar_config
+        )
 
+    @blueprint.route(
+        app.config.get('RDM_RECORDS_UI_SEARCH_USER_URL', '/uploads'))
+    def deposits_user():
+        """List of user deposits page."""
+        search_url = app.config.get('RDM_UI_RECORDS_SEARCH_URL', '/search')
+        return render_template(
+            current_app.config['DEPOSITS_UPLOADS_TEMPLATE'],
+            searchbar_config=dict(searchUrl=search_url)
+        )
 
-@blueprint.route('/deposits')
-def deposits_user():
-    """List of user deposits page."""
-    return render_template(
-        current_app.config['DEPOSITS_UPLOADS_TEMPLATE'],
-        searchbar_config=dict(searchUrl='/search')
-    )
+    return blueprint
 
 
 #
-# Blueprints
+# API Blueprints
 #
 def record_bp(app):
     """Callable record blueprint (we need an application context)."""
