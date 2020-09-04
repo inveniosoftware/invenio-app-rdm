@@ -22,6 +22,7 @@ from invenio_rdm_records.resources import BibliographicDraftActionResource, \
     BibliographicDraftResource, BibliographicRecordResource
 from invenio_rdm_records.services import BibliographicRecordService
 from invenio_rdm_records.vocabularies import Vocabularies
+from invenio_records_resources.links import api_route
 
 
 def ui_blueprint(app):
@@ -43,7 +44,9 @@ def ui_blueprint(app):
             order=1
         )
 
-    @blueprint.route(app.config.get('RDM_RECORDS_UI_SEARCH_URL', '/search'))
+    search_url = app.config.get('RDM_RECORDS_UI_SEARCH_URL', '/search')
+
+    @blueprint.route(search_url)
     def search():
         """Search page."""
         return render_template(current_app.config['SEARCH_BASE_TEMPLATE'])
@@ -52,17 +55,16 @@ def ui_blueprint(app):
     def deposits_create():
         """Record creation page."""
         forms_config = dict(
-            # apiUrl='/api/records/',
-            vocabularies=Vocabularies.dump()
+            createUrl=(
+                api_route(BibliographicRecordResource().config.list_route)
+            ),
+            vocabularies=Vocabularies.dump(),
         )
-        search_url = app.config.get('RDM_UI_RECORDS_SEARCH_URL', '/search')
-        searchbar_config = dict(searchUrl=search_url)
-        empty_record = dump_empty(MetadataSchemaV1)
         return render_template(
             current_app.config['DEPOSITS_FORMS_BASE_TEMPLATE'],
             forms_config=forms_config,
-            record=empty_record,
-            searchbar_config=searchbar_config
+            record=dump_empty(MetadataSchemaV1),
+            searchbar_config=dict(searchUrl=search_url)
         )
 
     @blueprint.route(
@@ -99,7 +101,7 @@ def ui_blueprint(app):
                 "edit": "/deposits/{}/edit".format(id)
             }
         }
-        searchbar_config = dict(searchUrl='/search')
+        searchbar_config = dict(searchUrl=search_url)
 
         initial_record = dump_empty(MetadataSchemaV1)
         initial_record.update(record)
@@ -114,7 +116,6 @@ def ui_blueprint(app):
         app.config.get('RDM_RECORDS_UI_SEARCH_USER_URL', '/uploads'))
     def deposits_user():
         """List of user deposits page."""
-        search_url = app.config.get('RDM_UI_RECORDS_SEARCH_URL', '/search')
         return render_template(
             current_app.config['DEPOSITS_UPLOADS_TEMPLATE'],
             searchbar_config=dict(searchUrl=search_url)
