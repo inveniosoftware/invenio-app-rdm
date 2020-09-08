@@ -20,6 +20,7 @@ invenio_db_version = '>=1.0.5,<1.1.0'
 
 tests_require = [
     'pytest-invenio>=1.3.2',
+    'isort>=4.2.2',
 ]
 
 setup_requires = [
