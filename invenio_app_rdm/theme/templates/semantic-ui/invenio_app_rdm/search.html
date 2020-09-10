@@ -15,7 +15,18 @@
 {%- block page_body %}
 <!-- TODO: Auto-generate for new API -->
 <div data-invenio-search-config='{
-  "aggs": [],
+  "aggs": [
+    {
+      "aggName": "access_right",
+      "field": "access_right",
+      "title": "Access Right"
+    },
+    {
+      "aggName": "resource_type",
+      "field": "resource_type",
+      "title": "Resource Type"
+    }
+  ],
   "appId": "rdm-search",
   "initialQueryState": {
     "hiddenParams": null
