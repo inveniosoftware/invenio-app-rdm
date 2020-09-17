@@ -20,24 +20,30 @@ from invenio_access.models import ActionUsers
 def minimal_input_record():
     """Minimal record data as dict coming from the external world."""
     return {
-        "_access": {
+        "access": {
             "metadata_restricted": False,
-            "files_restricted": False
+            "files_restricted": False,
+            "owners": [1],
+            "access_right": "open",
+            "created_by": 1,
         },
-        "_owners": [1],
-        "_created_by": 1,
-        "access_right": "open",
-        "resource_type": {
-            "type": "image",
-            "subtype": "image-photo"
-        },
-        # Technically not required
-        "creators": [],
-        "titles": [{
-            "title": "A Romans story",
-            "type": "Other",
-            "lang": "eng"
-        }]
+        "metadata": {
+            "publication_date": "2020-06-01",
+            "resource_type": {
+                "type": "image",
+                "subtype": "image-photo"
+            },
+            # Technically not required
+            "creators": [{
+                "name": "John Doe",
+                "type": "Personal"
+            }],
+            "titles": [{
+                "title": "A Romans story",
+                "type": "Other",
+                "lang": "eng"
+            }]
+        }
     }
 
 
