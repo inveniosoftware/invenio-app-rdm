@@ -12,8 +12,11 @@
 # removed when https://github.com/pyupio/safety-db/pull/2274 is merged and
 # released.
 
-pydocstyle invenio_app_rdm tests docs && \
-isort invenio_app_rdm tests docs --check-only --diff && \
-check-manifest --ignore ".travis-*" && \
-sphinx-build -qnNW docs docs/_build/html && \
-pytest
+docker-services-cli up postgresql es redis
+python -m check_manifest --ignore ".travis-*" && \
+python -m sphinx.cmd.build -qnNW docs docs/_build/html && \
+docker-services-cli up es postgresql redis
+python -m pytest
+tests_exit_code=$?
+docker-services-cli down
+exit "$tests_exit_code"
