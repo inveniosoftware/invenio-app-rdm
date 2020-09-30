@@ -19,17 +19,17 @@ from invenio_pidstore.proxies import current_pidstore
 from sqlalchemy.orm.exc import NoResultFound
 
 HEADERS = {"content-type": "application/json", "accept": "application/json"}
-SINGLE_RECORD_API_URL = "/rdm-records/{}"
-LIST_RECORDS_API_URL = "/rdm-records"
-DRAFT_API_URL = "/rdm-records/{}/draft"
-DRAFT_ACTION_API_URL = "/rdm-records/{}/draft/actions/{}"
+SINGLE_RECORD_API_URL = "/records/{}"
+LIST_RECORDS_API_URL = "/records"
+DRAFT_API_URL = "/records/{}/draft"
+DRAFT_ACTION_API_URL = "/records/{}/draft/actions/{}"
 
 
 def test_record_read_non_existing_pid(client, location, minimal_record,
                                       es_clear):
     """Retrieve a non existing record."""
     # retrieve unknown record
-    response = client.get(SINGLE_RECORD_API_URL.format('notfound'))
+    response = client.get(SINGLE_RECORD_API_URL.format("notfound"))
     assert response.status_code == 404
     assert response.json["status"] == 404
     assert response.json["message"] == "The pid does not exist."
@@ -44,13 +44,13 @@ def test_record_draft_create_and_read(client, location, minimal_record,
     assert response.status_code == 201
 
     response_fields = response.json.keys()
-    fields_to_check = ['pid', 'metadata', 'revision',
-                       'created', 'updated', 'links']
+    fields_to_check = ["id", "metadata", "revision_id",
+                       "created", "updated", "links"]
 
     for field in fields_to_check:
         assert field in response_fields
 
-    recid = response.json["pid"]
+    recid = response.json["id"]
 
     # retrieve record draft
     response = client.get(DRAFT_API_URL.format(recid))
@@ -69,7 +69,7 @@ def test_record_draft_publish(client, minimal_record, es_clear):
     )
 
     assert response.status_code == 201
-    recid = response.json['pid']
+    recid = response.json["id"]
 
     # Publish it
     response = client.post(
@@ -78,8 +78,8 @@ def test_record_draft_publish(client, minimal_record, es_clear):
 
     assert response.status_code == 202
     response_fields = response.json.keys()
-    fields_to_check = ['pid', 'metadata', 'revision',
-                       'created', 'updated', 'links']
+    fields_to_check = ["id", "metadata", "revision_id",
+                       "created", "updated", "links"]
 
     for field in fields_to_check:
         assert field in response_fields
@@ -102,8 +102,8 @@ def test_record_draft_publish(client, minimal_record, es_clear):
     assert response.status_code == 200
 
     response_fields = response.json.keys()
-    fields_to_check = ['pid', 'metadata', 'revision',
-                       'created', 'updated', 'links']
+    fields_to_check = ["id", "metadata", "revision_id",
+                       "created", "updated", "links"]
 
     for field in fields_to_check:
         assert field in response_fields
@@ -118,7 +118,7 @@ def test_read_record_with_redirected_pid(client, location, minimal_record,
     )
     assert response.status_code == 201
     # Publish it
-    pid1_value = response.json["pid"]
+    pid1_value = response.json["id"]
     response = client.post(
         DRAFT_ACTION_API_URL.format(pid1_value, "publish"), headers=HEADERS
     )
@@ -129,7 +129,7 @@ def test_read_record_with_redirected_pid(client, location, minimal_record,
         LIST_RECORDS_API_URL, headers=HEADERS, data=json.dumps(minimal_record)
     )
     assert response.status_code == 201
-    pid2_value = response.json["pid"]
+    pid2_value = response.json["id"]
     # Publish it
     response = client.post(
         DRAFT_ACTION_API_URL.format(pid2_value, "publish"), headers=HEADERS
@@ -146,23 +146,23 @@ def test_read_record_with_redirected_pid(client, location, minimal_record,
     assert response.status_code == 301
 
     assert response.json["status"] == 301
-    assert response.json['message'] == "Moved Permanently."
+    assert response.json["message"] == "Moved Permanently."
 
 
 def test_read_deleted_record(client, location, minimal_record, users,
                              es_clear):
     """Test read a deleted record."""
-    user1 = users['user1']
+    user1 = users["user1"]
     # Login user1
-    login_user_via_view(client, email=user1['email'],
-                        password=user1['password'], login_url='/login')
+    login_user_via_view(client, email=user1["email"],
+                        password=user1["password"], login_url="/login")
 
     # Create dummy record to test delete
     response = client.post(
         LIST_RECORDS_API_URL, headers=HEADERS, data=json.dumps(minimal_record)
     )
     assert response.status_code == 201
-    recid = response.json["pid"]
+    recid = response.json["id"]
     # Publish it
     response = client.post(
         DRAFT_ACTION_API_URL.format(recid, "publish"), headers=HEADERS
@@ -177,14 +177,14 @@ def test_read_deleted_record(client, location, minimal_record, users,
     # Read the deleted record
     response = client.get(SINGLE_RECORD_API_URL.format(recid), headers=HEADERS)
     assert response.status_code == 410
-    assert response.json['message'] == "The record has been deleted."
+    assert response.json["message"] == "The record has been deleted."
 
 
 def test_record_search(client, es_clear):
     """Test record search."""
-    expected_response_keys = set(['hits', 'links', 'aggregations'])
+    expected_response_keys = set(["hits", "links", "aggregations"])
     expected_metadata_keys = set([
-        'access_right', 'resource_type', 'creators', 'titles'
+        "access_right", "resource_type", "creators", "titles"
     ])
 
     # Get published bibliographic records

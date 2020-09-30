@@ -14,19 +14,12 @@ from setuptools import find_packages, setup
 
 readme = open('README.rst').read()
 
-invenio_version = '==3.4.0a7'
-invenio_search_version = '>=1.3.1,<1.4.0'
+invenio_version = '>=3.4.0a8'
+invenio_search_version = '>=1.4.0,<1.5.0'
 invenio_db_version = '>=1.0.5,<1.1.0'
 
 tests_require = [
-    'pytest-invenio>=1.3.4',
-    # TODO: Remove all lines below with pytest-invenio v1.4.0:
-    "pytest-cov>=2.10.1",
-    "pytest-isort>=1.2.0",
-    "pytest-pycodestyle>=2.2.0",
-    "pytest-pydocstyle>=2.2.0",
-    "pytest>=6,<7",
-
+    'pytest-invenio>=1.4.0',
 ]
 
 setup_requires = [
@@ -59,7 +52,7 @@ extras_require = {
     # Extras
     'docs': [
         'docutils>=0.13.1,<0.16',
-        'Sphinx>=1.5.1',
+        'Sphinx>=3',
     ],
     'tests': tests_require,
 }
@@ -73,8 +66,7 @@ for name, reqs in extras_require.items():
 
 install_requires = [
     'invenio[base,auth,metadata,files]{}'.format(invenio_version),
-    'invenio-rdm-records~=0.19.1',
-    'invenio-records-permissions~=0.9.0',
+    'invenio-rdm-records>=0.20.0',
 ]
 
 packages = find_packages()
