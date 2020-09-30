@@ -15,14 +15,16 @@ this file.
 
 from flask import Blueprint, current_app, render_template
 from flask_menu import current_menu
-from invenio_pidstore.models import PIDStatus
-from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
+from invenio_drafts_resources.resources.draft_config import DraftResourceConfig
 from invenio_rdm_records.marshmallow.json import MetadataSchemaV1, dump_empty
 from invenio_rdm_records.resources import BibliographicDraftActionResource, \
-    BibliographicDraftResource, BibliographicRecordResource
-from invenio_rdm_records.services import BibliographicRecordService
+    BibliographicDraftActionResourceConfig, BibliographicDraftResource, \
+    BibliographicRecordResource
+from invenio_rdm_records.services import BibliographicRecordService, \
+    BibliographicRecordServiceConfig
 from invenio_rdm_records.vocabularies import Vocabularies
-from invenio_records_resources.links import api_route
+from invenio_records_resources.resources.record_config import \
+    RecordResourceConfig
 
 
 def ui_blueprint(app):
@@ -55,9 +57,8 @@ def ui_blueprint(app):
     def deposits_create():
         """Record creation page."""
         forms_config = dict(
-            createUrl=(
-                api_route(BibliographicRecordResource().config.list_route)
-            ),
+            # api_route(BibliographicRecordResource().config.list_route)
+            createUrl=(""),
             vocabularies=Vocabularies.dump(),
         )
         return render_template(
@@ -89,16 +90,6 @@ def ui_blueprint(app):
             "resource_type": {
                 "type": "image",
                 "subtype": "image-photo"
-            },
-            # Technically not required
-            "creators": [],
-            "titles": [{
-                "title": "A Romans story",
-                "type": "Other",
-                "lang": "eng"
-            }],
-            "links": {
-                "edit": "/deposits/{}/edit".format(id)
             }
         }
         searchbar_config = dict(searchUrl=search_url)
@@ -130,28 +121,31 @@ def ui_blueprint(app):
 def record_bp(app):
     """Callable record blueprint (we need an application context)."""
     with app.app_context():
-        service = BibliographicRecordService()
-        return (
-            BibliographicRecordResource(service=service)
-            .as_blueprint("bibliographic_record_resource")
-        )
+        return BibliographicRecordResource(
+            config=RecordResourceConfig(),
+            service=BibliographicRecordService(
+                config=BibliographicRecordServiceConfig()
+            )
+        ).as_blueprint("bibliographic_record_resource")
 
 
 def draft_bp(app):
     """Callable draft blueprint (we need an application context)."""
     with app.app_context():
-        service = BibliographicRecordService()
-        return (
-            BibliographicDraftResource(service=service)
-            .as_blueprint("bibliographic_draft_resource")
-        )
+        return BibliographicDraftResource(
+            config=DraftResourceConfig(),
+            service=BibliographicRecordService(
+                config=BibliographicRecordServiceConfig()
+            )
+        ).as_blueprint("bibliographic_draft_resource")
 
 
 def draft_action_bp(app):
     """Callable draft action blueprint (we need an application context)."""
     with app.app_context():
-        service = BibliographicRecordService()
-        return (
-            BibliographicDraftActionResource(service=service)
-            .as_blueprint("bibliographic_draft_action_resource")
-        )
+        return BibliographicDraftActionResource(
+            config=BibliographicDraftActionResourceConfig(),
+            service=BibliographicRecordService(
+                config=BibliographicRecordServiceConfig()
+            )
+        ).as_blueprint("bibliographic_draft_action_resource")
