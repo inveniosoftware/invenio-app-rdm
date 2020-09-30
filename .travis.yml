@@ -11,11 +11,6 @@ branches:
   except:
   - /^v\d+\.\d+(\.\d+)?(\S*)?$/
 
-dist: trusty
-
-addons:
-  postgresql: 9.5
-
 notifications:
   email: false
 
@@ -26,35 +21,35 @@ language: python
 matrix:
   fast_finish: true
   allow_failures:
-    - env: REQUIREMENTS=devel EXTRAS=all,postgresql,elasticsearch7 ES_URL=$ES7_DOWNLOAD_URL
+    - env:
+      - REQUIREMENTS=devel EXTRAS=all,postgresql,elasticsearch7 ES_VERSION=ES_7_LATEST
+      - REQUIREMENTS=devel EXTRAS=all,postgresql,elasticsearch6 ES_VERSION=ES_6_LATEST
 
 cache:
   - pip
 
-services:
-  - postgresql
-  - redis
-
 env:
   global:
-    - ES6_DOWNLOAD_URL="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.8.2.tar.gz"
-    - ES7_DOWNLOAD_URL="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.3.0-linux-x86_64.tar.gz"
-    - ES_HOST=127.0.0.1
-    - SQLALCHEMY_DATABASE_URI="postgresql+psycopg2://postgres@localhost:5432/invenio"
+    - DOCKER_COMPOSE_VERSION=1.26.2
+    - SQLALCHEMY_DATABASE_URI="postgresql+psycopg2://invenio:invenio@localhost:5432/invenio"
   matrix:
-    - REQUIREMENTS=lowest EXTRAS=all,postgresql,elasticsearch6 ES_URL=$ES6_DOWNLOAD_URL
-    - REQUIREMENTS=release EXTRAS=all,postgresql,elasticsearch6 ES_URL=$ES6_DOWNLOAD_URL
-    - REQUIREMENTS=release EXTRAS=all,postgresql,elasticsearch7 ES_URL=$ES7_DOWNLOAD_URL
-    - REQUIREMENTS=devel EXTRAS=all,postgresql,elasticsearch6 ES_URL=$ES6_DOWNLOAD_URL
-    - REQUIREMENTS=devel EXTRAS=all,postgresql,elasticsearch7 ES_URL=$ES7_DOWNLOAD_URL
+    - REQUIREMENTS=lowest EXTRAS=all,postgresql,elasticsearch6 ES_VERSION=ES_6_LATEST
+    - REQUIREMENTS=lowest EXTRAS=all,postgresql,elasticsearch7 ES_VERSION=ES_7_LATEST
+    - REQUIREMENTS=release EXTRAS=all,postgresql,elasticsearch6 ES_VERSION=ES_6_LATEST
+    - REQUIREMENTS=release EXTRAS=all,postgresql,elasticsearch7 ES_VERSION=ES_7_LATEST
+    - REQUIREMENTS=devel EXTRAS=all,postgresql,elasticsearch6 ES_VERSION=ES_6_LATEST
+    - REQUIREMENTS=devel EXTRAS=all,postgresql,elasticsearch7 ES_VERSION=ES_7_LATEST
 
 python:
   - "3.6"
+  - "3.7"
+  - "3.8"
 
 before_install:
-  - "mkdir /tmp/elasticsearch"
-  - "wget -O - $ES_URL | tar xz --directory=/tmp/elasticsearch --strip-components=1"
-  - "/tmp/elasticsearch/bin/elasticsearch > /tmp/local-es.log &"
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
   - "travis_retry pip install --upgrade pip setuptools py"
   - "travis_retry pip install twine wheel coveralls requirements-builder"
   - "requirements-builder -e $EXTRAS --level=min setup.py > .travis-lowest-requirements.txt"
@@ -67,9 +62,8 @@ install:
   - "pip freeze"
 
 before_script:
-  # Allow ES to start
-  - sleep 5
-  - curl http://127.0.0.1:9200 && echo "Elasticsearch is up!" || cat /tmp/local-es.log
+  - "docker --version"
+  - "docker-compose --version"
 
 script:
   - "./run-tests.sh"
