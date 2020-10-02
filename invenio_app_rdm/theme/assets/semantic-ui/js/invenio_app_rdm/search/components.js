@@ -28,7 +28,7 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
   );
   const access = _.get(
     result,
-    "metadata.access_right",
+    "access.access_right",
     "No access rights"
   );
   const creatorName = _.get(
@@ -44,7 +44,7 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
   );
 
   return (
-    <Item key={index} href={`/records/${result.pid}`}>
+    <Item key={index} href={`/records/${result.id}`}>
       <Item.Content>
         <Item.Extra>
           <div>
