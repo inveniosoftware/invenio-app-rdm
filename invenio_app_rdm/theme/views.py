@@ -15,16 +15,14 @@ this file.
 
 from flask import Blueprint, current_app, render_template
 from flask_menu import current_menu
-from invenio_drafts_resources.resources.draft_config import DraftResourceConfig
 from invenio_rdm_records.marshmallow.json import MetadataSchemaV1, dump_empty
 from invenio_rdm_records.resources import BibliographicDraftActionResource, \
     BibliographicDraftActionResourceConfig, BibliographicDraftResource, \
-    BibliographicRecordResource
+    BibliographicDraftResourceConfig, BibliographicRecordResource, \
+    BibliographicRecordResourceConfig
 from invenio_rdm_records.services import BibliographicRecordService, \
     BibliographicRecordServiceConfig
 from invenio_rdm_records.vocabularies import Vocabularies
-from invenio_records_resources.resources.record_config import \
-    RecordResourceConfig
 
 
 def ui_blueprint(app):
@@ -122,7 +120,7 @@ def record_bp(app):
     """Callable record blueprint (we need an application context)."""
     with app.app_context():
         return BibliographicRecordResource(
-            config=RecordResourceConfig(),
+            config=BibliographicRecordResourceConfig(),
             service=BibliographicRecordService(
                 config=BibliographicRecordServiceConfig()
             )
@@ -133,7 +131,7 @@ def draft_bp(app):
     """Callable draft blueprint (we need an application context)."""
     with app.app_context():
         return BibliographicDraftResource(
-            config=DraftResourceConfig(),
+            config=BibliographicDraftResourceConfig(),
             service=BibliographicRecordService(
                 config=BibliographicRecordServiceConfig()
             )
