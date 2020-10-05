@@ -35,56 +35,65 @@ function fakeInitialRecord(backendRecord) {
 //       with it. As the frontend, it needs to duplicate the knowledge, mimicking
 //       what other frontends would need to do.
 const defaultRecord = {
-  titles: [
-    {
-      lang: "",
-      title: "",
-      type: "MainTitle",
-    },
-  ],
-  creators: [
-    {
-      affiliations: [
-        {
-          identifier: "",
-          name: "",
-          scheme: "",
-        },
-      ],
-      given_name: "",
-      family_name: "",
-      name: "",
-      type: "Personal",
-      identifiers: [
-        {
-          identifier: "",
-          scheme: "",
-        },
-      ],
-    },
-  ],
-  contributors: [
-    {
-      affiliations: [
-        {
-          identifier: "",
-          name: "",
-          scheme: "",
-        },
-      ],
-      given_name: "",
-      family_name: "",
-      name: "",
-      type: "Personal",
-      identifiers: [
-        {
-          identifier: "",
-          scheme: "",
-        },
-      ],
-      role: "",
-    },
-  ],
+  access: {
+    metadata_restricted: False,
+    files_restricted: False,
+    owners: [1],
+    access_right: "open",
+    created_by: 1,
+  },
+  metadata: {
+    titles: [
+      {
+        lang: "",
+        title: "",
+        type: "MainTitle",
+      },
+    ],
+    creators: [
+      {
+        affiliations: [
+          {
+            identifier: "",
+            name: "",
+            scheme: "",
+          },
+        ],
+        given_name: "",
+        family_name: "",
+        name: "",
+        type: "Personal",
+        identifiers: [
+          {
+            identifier: "",
+            scheme: "",
+          },
+        ],
+      },
+    ],
+    contributors: [
+      {
+        affiliations: [
+          {
+            identifier: "",
+            name: "",
+            scheme: "",
+          },
+        ],
+        given_name: "",
+        family_name: "",
+        name: "",
+        type: "Personal",
+        identifiers: [
+          {
+            identifier: "",
+            scheme: "",
+          },
+        ],
+        role: "",
+      },
+    ],
+  }
 };
 
 // NOTE: RDMDepositForm knows the meaning associated to the field.
@@ -174,14 +183,14 @@ export class RDMDepositForm extends Component {
             >
               <>
                 <TitlesField
-                  fieldPath="titles"
+                  fieldPath="metadata.titles"
                   label="Titles"
                   labelIcon="book"
                   options={vocabularies.titles}
                   required
                 />
                 <CreatorsField
-                  fieldPath="creators"
+                  fieldPath="metadata.creators"
                   label="Creators"
                   labelIcon="group"
                   options={vocabularies.creators}
@@ -198,7 +207,7 @@ export class RDMDepositForm extends Component {
                   affiliationsSchemeSegment={"scheme"}
                 />
                 <ContributorsField
-                  fieldPath="contributors"
+                  fieldPath="metadata.contributors"
                   label="Contributors"
                   labelIcon="group"
                   options={vocabularies.contributors}
@@ -216,7 +225,7 @@ export class RDMDepositForm extends Component {
                   roleSegment={"role"}
                 />
                 <ResourceTypeField
-                  fieldPath="resource_type"
+                  fieldPath="metadata.resource_type"
                   label={"Resource type"}
                   labelIcon={"tag"}
                   options={vocabularies.resource_type}
@@ -242,7 +251,7 @@ export class RDMDepositForm extends Component {
               </Card.Content>
             </Card>
             <AccessRightField
-              fieldPath="access_right"
+              fieldPath="access.access_right"
               label={"Protection"}
               labelIcon={"shield"}
               options={vocabularies.access_right}

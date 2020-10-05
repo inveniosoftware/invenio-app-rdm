@@ -15,7 +15,8 @@ this file.
 
 from flask import Blueprint, current_app, render_template
 from flask_menu import current_menu
-from invenio_rdm_records.marshmallow.json import MetadataSchemaV1, dump_empty
+from invenio_rdm_records.schemas.metadata import MetadataSchemaV1
+from invenio_rdm_records.marshmallow.json import dump_empty
 from invenio_rdm_records.resources import BibliographicDraftActionResource, \
     BibliographicDraftActionResourceConfig, BibliographicDraftResource, \
     BibliographicDraftResourceConfig, BibliographicRecordResource, \
@@ -55,8 +56,7 @@ def ui_blueprint(app):
     def deposits_create():
         """Record creation page."""
         forms_config = dict(
-            # api_route(BibliographicRecordResource().config.list_route)
-            createUrl=(""),
+            createUrl=("/api/records"),
             vocabularies=Vocabularies.dump(),
         )
         return render_template(
@@ -72,32 +72,33 @@ def ui_blueprint(app):
     def deposits_edit(pid_value):
         """Fake deposits edit page."""
         forms_config = dict(
-            apiUrl='/api/records/',
+            apiUrl=f"/api/records/{pid_value}/draft",
             vocabularies=Vocabularies.dump()
         )
         # minimal record
         record = {
-            "_access": {
+            "access": {
                 "metadata_restricted": False,
-                "files_restricted": False
+                "files_restricted": False,
+                "owners": [1],
+                "access_right": "open",
+                "created_by": 1,
             },
-            "_owners": [1],
-            "_created_by": 1,
-            "access_right": "open",
             "id": f"{pid_value}",
-            "resource_type": {
-                "type": "image",
-                "subtype": "image-photo"
-            }
+            "metadata": dump_empty(MetadataSchemaV1)
         }
+
+        record["metadata"]["resource_type"] = {
+            "type": "image",
+            "subtype": "image-photo"
+        }
+
         searchbar_config = dict(searchUrl=search_url)
 
-        initial_record = dump_empty(MetadataSchemaV1)
-        initial_record.update(record)
         return render_template(
             current_app.config['DEPOSITS_FORMS_BASE_TEMPLATE'],
             forms_config=forms_config,
-            record=initial_record,
+            record=record,
             searchbar_config=searchbar_config
         )
 
