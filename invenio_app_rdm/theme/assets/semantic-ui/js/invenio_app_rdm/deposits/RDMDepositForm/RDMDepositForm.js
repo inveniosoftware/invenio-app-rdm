@@ -13,7 +13,6 @@ import {
   DepositFormApp,
   PublishButton,
   SaveButton,
-  connect,
   ContributorsField,
   CreatorsField,
   TitlesField,
@@ -21,7 +20,7 @@ import {
 } from "react-invenio-deposit";
 import { AccordionField, ErrorMessage } from "react-invenio-forms";
 
-import { APIErrorHandler} from "./APIErrorHandler"
+import { APIErrorHandler } from "./APIErrorHandler";
 
 function fakeInitialRecord(backendRecord) {
   /** Returns the initialRecord with experimental changes.
@@ -37,13 +36,13 @@ function fakeInitialRecord(backendRecord) {
 //       with it. As the frontend, it needs to duplicate the knowledge, mimicking
 //       what other frontends would need to do.
 const defaultRecord = {
-  // access: {
-  //   metadata_restricted: false,
-  //   files_restricted: false,
-  //   owners: [1],
-  //   access_right: "open",
-  //   created_by: 1,
-  // },
+  access: {
+    metadata_restricted: false,
+    files_restricted: false,
+    owners: [1],
+    access_right: "open",
+    created_by: 1,
+  },
   metadata: {
     titles: [
       {
@@ -95,7 +94,7 @@ const defaultRecord = {
         role: "",
       },
     ],
-  }
+  },
 };
 
 // NOTE: RDMDepositForm knows the meaning associated to the field.
@@ -168,9 +167,12 @@ export class RDMDepositForm extends Component {
   }
 
   render() {
-
     return (
-      <DepositFormApp config={this.config} record={this.state.record} apiErrorHandler={this.apiErrorHandler}>
+      <DepositFormApp
+        config={this.config}
+        record={this.state.record}
+        apiErrorHandler={this.apiErrorHandler}
+      >
         <ErrorMessage fieldPath="message" />
         <Grid>
           <Grid.Column width={12}>
