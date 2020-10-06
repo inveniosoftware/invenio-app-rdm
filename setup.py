@@ -66,7 +66,7 @@ for name, reqs in extras_require.items():
 
 install_requires = [
     'invenio[base,auth,metadata,files]{}'.format(invenio_version),
-    'invenio-rdm-records>=0.20.6',
+    'invenio-rdm-records>=0.20.7',
 ]
 
 packages = find_packages()
@@ -103,6 +103,8 @@ setup(
             'invenio_app_rdm_draft = invenio_app_rdm.theme.views:draft_bp',
             'invenio_app_rdm_draft_action = \
                 invenio_app_rdm.theme.views:draft_action_bp',
+            'invenio_app_rdm_user_records = \
+                invenio_app_rdm.theme.views:user_records_bp'
         ],
         'invenio_assets.webpack': [
             'invenio_app_rdm_theme = invenio_app_rdm.theme.webpack:theme',
