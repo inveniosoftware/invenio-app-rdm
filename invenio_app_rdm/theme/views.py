@@ -13,7 +13,7 @@ templates and static files located in the folders of the same names next to
 this file.
 """
 
-from flask import Blueprint, current_app, render_template
+from flask import Blueprint, current_app, g, render_template
 from flask_menu import current_menu
 from invenio_rdm_records.marshmallow.json import dump_empty
 from invenio_rdm_records.resources import BibliographicDraftActionResource, \
@@ -34,6 +34,9 @@ def ui_blueprint(app):
         template_folder='templates',
         static_folder='static',
     )
+
+    service = BibliographicRecordService(
+            config=BibliographicRecordServiceConfig())
 
     @blueprint.before_app_first_request
     def init_menu():
@@ -70,35 +73,22 @@ def ui_blueprint(app):
         app.config.get('RDM_RECORDS_UI_EDIT_URL', '/uploads/<pid_value>')
     )
     def deposits_edit(pid_value):
-        """Fake deposits edit page."""
+        """Deposit edit page."""
+        links_config = BibliographicDraftResourceConfig.links_config
+        draft = service.read_draft(
+            id_=pid_value, identity=g.identity, links_config=links_config)
+
         forms_config = dict(
             apiUrl=f"/api/records/{pid_value}/draft",
             vocabularies=Vocabularies.dump()
         )
-        # minimal record
-        record = {
-            "access": {
-                "metadata_restricted": False,
-                "files_restricted": False,
-                "owners": [1],
-                "access_right": "open",
-                "created_by": 1,
-            },
-            "id": f"{pid_value}",
-            "metadata": dump_empty(MetadataSchemaV1)
-        }
-
-        record["metadata"]["resource_type"] = {
-            "type": "image",
-            "subtype": "image-photo"
-        }
 
         searchbar_config = dict(searchUrl=search_url)
 
         return render_template(
             current_app.config['DEPOSITS_FORMS_BASE_TEMPLATE'],
             forms_config=forms_config,
-            record=record,
+            record=draft.to_dict(),
             searchbar_config=searchbar_config
         )
 

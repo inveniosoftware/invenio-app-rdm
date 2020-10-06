@@ -32,6 +32,7 @@ theme = WebpackThemeBundle(
                 'prop-types': '^15.7.2',
                 'react-invenio-deposit': '^0.6.0',
                 'react-invenio-forms': '^0.3.0',
+                'react-dropzone': "^11.0.3",
             },
             aliases={
                 # Define Semantic-UI theme configuration needed by
