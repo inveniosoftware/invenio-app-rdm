@@ -29,7 +29,7 @@ function fakeInitialRecord(backendRecord) {
   // Experiment: Ignore backend for now and gradually fill what the frontend
   //             needs for a brand new record
   const { creators, contributors, titles, ...fakedRecord } = backendRecord;
-  return {metadata: fakedRecord};
+  return { metadata: fakedRecord };
 }
 
 // NOTE: RDMDepositForm knows the data model. No other way for it to interact
@@ -101,8 +101,8 @@ const defaultRecord = {
 // However, it is RDMDepositForm that gets to decide what are the frontend
 // defaults for this datamodel
 function defaultize(initialRecord) {
-  let record = {...defaultRecord};
-  record.metadata = { ...record.metadata, ...initialRecord.metadata};
+  let record = { ...defaultRecord };
+  record.metadata = { ...record.metadata, ...initialRecord.metadata };
   return record;
 }
 

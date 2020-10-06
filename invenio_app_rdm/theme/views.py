@@ -13,16 +13,18 @@ templates and static files located in the folders of the same names next to
 this file.
 """
 
-from flask import Blueprint, current_app, g, render_template
+from flask import Blueprint, config, current_app, g, render_template
 from flask_menu import current_menu
 from invenio_rdm_records.marshmallow.json import dump_empty
 from invenio_rdm_records.resources import BibliographicDraftActionResource, \
     BibliographicDraftActionResourceConfig, BibliographicDraftResource, \
     BibliographicDraftResourceConfig, BibliographicRecordResource, \
-    BibliographicRecordResourceConfig
+    BibliographicRecordResourceConfig, BibliographicUserRecordsResource, \
+    BibliographicUserRecordsResourceConfig
 from invenio_rdm_records.schemas.metadata import MetadataSchemaV1
 from invenio_rdm_records.services import BibliographicRecordService, \
-    BibliographicRecordServiceConfig
+    BibliographicRecordServiceConfig, BibliographicUserRecordsService, \
+    BibliographicUserRecordsServiceConfig
 from invenio_rdm_records.vocabularies import Vocabularies
 
 
@@ -138,3 +140,14 @@ def draft_action_bp(app):
                 config=BibliographicRecordServiceConfig()
             )
         ).as_blueprint("bibliographic_draft_action_resource")
+
+
+def user_records_bp(app):
+    """Callable user records blueprint (we need an application context)."""
+    with app.app_context():
+        return BibliographicUserRecordsResource(
+            config=BibliographicUserRecordsResourceConfig(),
+            service=BibliographicUserRecordsService(
+                config=BibliographicUserRecordsServiceConfig()
+            )
+        ).as_blueprint("bibliographic_user_records_resource")

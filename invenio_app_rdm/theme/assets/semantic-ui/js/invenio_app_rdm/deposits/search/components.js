@@ -17,7 +17,7 @@ import {
   Button,
   Segment,
 } from "semantic-ui-react";
-import _ from "lodash";
+import _get from "lodash/get";
 import _truncate from "lodash/truncate";
 import { Pagination, ResultsList, Sort, SearchBar } from "react-searchkit";
 
@@ -31,14 +31,15 @@ export const RDMDepositResults = ({ sortOptions, currentResultsState }) => {
           color="green"
           icon="upload"
           floated="right"
-          href="/deposits/new"
+          href="/uploads/new"
           content="New upload"
         />
         <Segment>
           <Grid>
             <Grid.Row verticalAlign="middle" className="header-row">
               <Grid.Column width={7}>
-                <Checkbox label="Select all" />
+                {/* FIXME */}
+                {/* <Checkbox label="Select all" /> */}
               </Grid.Column>
               <Grid.Column width={5} textAlign="right"></Grid.Column>
               <Grid.Column width={4} textAlign="right">
@@ -68,17 +69,19 @@ export const RDMDepositResults = ({ sortOptions, currentResultsState }) => {
 };
 
 export const RDMRecordResultsListItem = ({ result, index }) => {
-  const createdDate = _.get(result, "created", "No metadata");
-  const status = _.get(
+  const createdDate = _get(result, "created", "No metadata");
+  const status = _get(
     result,
     "metadata.resource_type.type",
     "No resource type"
   );
-  const access = _.get(result, "metadata.access_right", "No default preview");
-  const creatorName = _.get(result, "metadata.creators[0].name", "No creator");
-  const updatedDate = _.get(result, "updated", "No updated date");
-  const title = _.get(result, "metadata.titles[0].title", "No title");
-  const author = _.get(result, "metadata._internal_notes[0].user", "anonymous");
+  const access = _get(result, "metadata.access_right", "No default preview");
+  const creatorName = _get(result, "metadata.creators[0].name", "No creator");
+  const updatedDate = _get(result, "updated", "No updated date");
+  const title = _get(result, "metadata.titles[0].title", "No title");
+  const author = _get(result, "metadata._internal_notes[0].user", "anonymous");
+  const id = _get(result, "id");
+  const EditLink = `/uploads/${id}`;
 
   return (
     <Item key={index} className="deposits-list-item">
@@ -86,13 +89,7 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
         <Grid>
           <Grid.Row columns={2}>
             <Grid.Column width={1} className="checkbox-column">
-              <Checkbox />
-              {/* FIXME: prototype */}
-              {Math.floor(Math.random() * Math.floor(2)) ? (
-                <Icon name="check" color="green" />
-              ) : (
-                <Icon name="upload" color="red" />
-              )}
+              <Icon name="upload" color="red" />
             </Grid.Column>
             <Grid.Column width={15}>
               <Item.Extra>
@@ -107,22 +104,26 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
                     {access}
                   </Label>
                   <div className="ui right floated actions">
-                    <a href="#">
+                    {/* FIXME */}
+                    {/* <a href="#">
                       <Icon name="code branch" />
                       New version
-                    </a>
-                    <a href="#">
+                    </a> */}
+                    <a href={EditLink}>
                       <Icon name="edit" />
                       Edit
                     </a>
-                    <a href="#">
+                    {/* FIXME */}
+                    {/* <a href="#">
                       <Icon name="trash" />
                       Delete
-                    </a>
+                    </a> */}
                   </div>
                 </div>
               </Item.Extra>
-              <Item.Header>{title}</Item.Header>
+              <Item.Header as="a" href={EditLink}>
+                {title}
+              </Item.Header>
               <Item.Meta>{creatorName}</Item.Meta>
               <Item.Extra>
                 <div>
@@ -156,7 +157,7 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
 // these components in RDM result broken.
 
 export const RDMRecordResultsGridItem = ({ result, index }) => {
-  const description = _.get(
+  const description = _get(
     result,
     "metadata.descriptions[0].description",
     "No description"

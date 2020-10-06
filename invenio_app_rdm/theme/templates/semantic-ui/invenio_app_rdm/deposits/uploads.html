@@ -18,29 +18,69 @@
 
 {%- block page_body %}
 
-<div class="ui container page_body" style="margin-top: 35px">
-  <h1>Your deposits</h1>
-  <div class="ui menu">
-    <div class="ui action left icon input">
-      <i class="search icon"></i>
-      <input type="text" placeholder="Search">
-      <button class="ui button">Search</button>
-    </div>
+<div data-invenio-search-config='{
+  "aggs": [
+  {
+    "aggName": "access_right",
+    "field": "access_right",
+    "title": "Access Right"
+  },
+  {
+    "aggName": "resource_type",
+    "field": "resource_type",
+    "title": "Resource Type"
+  }
+  ],
+  "appId": "deposit-search",
+  "initialQueryState": {
+    "hiddenParams": null
+  },
+  "layoutOptions": {
+    "gridView": true,
+    "listView": true
+  },
+  "paginationOptions": {
+    "defaultValue": 10,
+    "resultsPerPage": [
+      {
+        "text": "10",
+        "value": 10
+      },
+      {
+        "text": "20",
+        "value": 20
+      },
+      {
+        "text": "50",
+        "value": 50
+      }
+    ]
+  },
+  "searchApi": {
+    "axios": {
+      "headers": {
+        "Accept": "application/json"
+      },
+      "url": "/api/user/records",
+      "withCredentials": true
+    }
+  },
+  "sortOptions": [
+    {
+      "default": true,
+      "defaultOnEmptyString": false,
+      "sortBy": "bestmatch",
+      "sortOrder": "asc",
+      "text": "Best match"
+    },
+    {
+      "default": false,
+      "defaultOnEmptyString": true,
+      "sortBy": "newest",
+      "sortOrder": "asc",
+      "text": "Newest"
+    }
+  ]
+}'></div>
 
-    <div class="right menu">
-      <div class="item">
-        <a class="ui button primary" role="button" href="{{ url_for('invenio_app_rdm.deposits_create') }}">
-          New Deposit
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <div class="ui text container">
-    <img width="600" src="{{ url_for('static', filename='images/coming-soon.svg')}}" />
-  </div>
-
-  {# TODO: Place user/records here #}
-
-</div>
 {%- endblock page_body %}

@@ -26,32 +26,28 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
     "metadata.resource_type.type",
     "No resource type"
   );
-  const access = _.get(
-    result,
-    "access.access_right",
-    "No access rights"
-  );
-  const creatorName = _.get(
-    result,
-    "metadata.creators[0].name",
-    "No creator"
-  );
+  const access = _.get(result, "access.access_right", "No access rights");
+  const creatorName = _.get(result, "metadata.creators[0].name", "No creator");
   const updatedDate = _.get(result, "updated");
-  const title = _.get(
-    result,
-    "metadata.titles[0].title",
-    "No title"
-  );
+  const title = _.get(result, "metadata.titles[0].title", "No title");
 
   return (
     <Item key={index} href={`/records/${result.id}`}>
       <Item.Content>
         <Item.Extra>
           <div>
-            <Label size="tiny" color="blue">{publicationDate}</Label>
-            <Label size="tiny" color="grey">{status}</Label>
-            <Label size="tiny" color="green">{access}</Label>
-            <Button basic floated='right'>View</Button>
+            <Label size="tiny" color="blue">
+              {publicationDate}
+            </Label>
+            <Label size="tiny" color="grey">
+              {status}
+            </Label>
+            <Label size="tiny" color="green">
+              {access}
+            </Label>
+            <Button basic floated="right">
+              View
+            </Button>
           </div>
         </Item.Extra>
         <Item.Header>{title}</Item.Header>
@@ -60,7 +56,11 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
           {_truncate(description, { length: 350 })}
         </Item.Description>
         <Item.Extra>
-          {updatedDate && <div>Updated on <span>{updatedDate}</span></div>}
+          {updatedDate && (
+            <div>
+              Updated on <span>{updatedDate}</span>
+            </div>
+          )}
         </Item.Extra>
       </Item.Content>
     </Item>
@@ -85,7 +85,6 @@ export const RDMRecordResultsGridItem = ({ result, index }) => {
     </Card>
   );
 };
-
 
 export const RDMRecordSearchBarElement = ({
   placeholder: passedPlaceholder,
