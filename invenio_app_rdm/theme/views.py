@@ -86,7 +86,6 @@ def ui_blueprint(app):
         )
 
         searchbar_config = dict(searchUrl=search_url)
-
         return render_template(
             current_app.config['DEPOSITS_FORMS_BASE_TEMPLATE'],
             forms_config=forms_config,

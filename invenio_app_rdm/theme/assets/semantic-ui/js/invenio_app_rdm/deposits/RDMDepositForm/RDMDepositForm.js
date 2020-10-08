@@ -22,16 +22,6 @@ import { AccordionField, ErrorMessage } from "react-invenio-forms";
 
 import { APIErrorHandler } from "./APIErrorHandler";
 
-function fakeInitialRecord(backendRecord) {
-  /** Returns the initialRecord with experimental changes.
-   * Used to group trial changes.
-   */
-  // Experiment: Ignore backend for now and gradually fill what the frontend
-  //             needs for a brand new record
-  const { creators, contributors, titles, ...fakedRecord } = backendRecord;
-  return { metadata: fakedRecord };
-}
-
 // NOTE: RDMDepositForm knows the data model. No other way for it to interact
 //       with it. As the frontend, it needs to duplicate the knowledge, mimicking
 //       what other frontends would need to do.
@@ -40,6 +30,7 @@ const defaultRecord = {
     metadata_restricted: false,
     files_restricted: false,
     owners: [1],
+    access_right: "open",
     created_by: 1,
   },
   metadata: {
@@ -101,16 +92,14 @@ const defaultRecord = {
 // However, it is RDMDepositForm that gets to decide what are the frontend
 // defaults for this datamodel
 function defaultize(initialRecord) {
-  let record = { ...defaultRecord };
-  record.metadata = { ...record.metadata, ...initialRecord.metadata };
-  return record;
+  return { ...defaultRecord, ...initialRecord };
 }
 
 export class RDMDepositForm extends Component {
   constructor(props) {
     super(props);
     this.config = props.config || {};
-    const record = defaultize(fakeInitialRecord(props.record));
+    const record = defaultize(props.record);
     this.state = {
       record: record || {},
     };

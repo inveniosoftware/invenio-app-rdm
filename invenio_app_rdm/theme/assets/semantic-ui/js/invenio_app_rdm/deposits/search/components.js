@@ -16,6 +16,7 @@ import {
   Item,
   Button,
   Segment,
+  Header,
 } from "semantic-ui-react";
 import _get from "lodash/get";
 import _truncate from "lodash/truncate";
@@ -171,5 +172,23 @@ export const RDMRecordResultsGridItem = ({ result, index }) => {
         </Card.Description>
       </Card.Content>
     </Card>
+  );
+};
+
+export const RDMEmptyResults = (props) => {
+  return (
+    <Segment placeholder textAlign="center">
+      <Header icon>
+        <Icon name="search" />
+        No results found!
+      </Header>
+      <Button
+        color="green"
+        icon="upload"
+        floated="right"
+        href="/uploads/new"
+        content="New upload"
+      />
+    </Segment>
   );
 };
