@@ -182,13 +182,19 @@ export const RDMEmptyResults = (props) => {
         <Icon name="search" />
         No results found!
       </Header>
-      <Button
-        color="green"
-        icon="upload"
-        floated="right"
-        href="/uploads/new"
-        content="New upload"
-      />
+      <Button.Group>
+        <Button primary onClick={() => props.resetQuery()}>
+          Clear query
+        </Button>
+        <Button.Or />
+        <Button
+          color="green"
+          icon="upload"
+          floated="right"
+          href="/uploads/new"
+          content="New upload"
+        />
+      </Button.Group>
     </Segment>
   );
 };
