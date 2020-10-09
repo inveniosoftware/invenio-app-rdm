@@ -76,7 +76,7 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
     "metadata.resource_type.type",
     "No resource type"
   );
-  const access = _get(result, "metadata.access_right", "No default preview");
+  const access = _get(result, "access.access_right", "Open access");
   const creatorName = _get(result, "metadata.creators[0].name", "No creator");
   const updatedDate = _get(result, "updated", "No updated date");
   const title = _get(result, "metadata.titles[0].title", "No title");
