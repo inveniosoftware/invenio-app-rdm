@@ -17,14 +17,11 @@ from flask import Blueprint, config, current_app, g, render_template
 from flask_menu import current_menu
 from invenio_rdm_records.marshmallow.json import dump_empty
 from invenio_rdm_records.resources import BibliographicDraftActionResource, \
-    BibliographicDraftActionResourceConfig, BibliographicDraftResource, \
-    BibliographicDraftResourceConfig, BibliographicRecordResource, \
-    BibliographicRecordResourceConfig, BibliographicUserRecordsResource, \
-    BibliographicUserRecordsResourceConfig
+    BibliographicDraftResource, BibliographicRecordResource, \
+    BibliographicUserRecordsResource
 from invenio_rdm_records.schemas.metadata import MetadataSchemaV1
 from invenio_rdm_records.services import BibliographicRecordService, \
-    BibliographicRecordServiceConfig, BibliographicUserRecordsService, \
-    BibliographicUserRecordsServiceConfig
+    BibliographicRecordServiceConfig, BibliographicUserRecordsService
 from invenio_rdm_records.vocabularies import Vocabularies
 
 
@@ -112,10 +109,7 @@ def record_bp(app):
     """Callable record blueprint (we need an application context)."""
     with app.app_context():
         return BibliographicRecordResource(
-            config=BibliographicRecordResourceConfig(),
-            service=BibliographicRecordService(
-                config=BibliographicRecordServiceConfig()
-            )
+            service=BibliographicRecordService()
         ).as_blueprint("bibliographic_record_resource")
 
 
@@ -123,10 +117,7 @@ def draft_bp(app):
     """Callable draft blueprint (we need an application context)."""
     with app.app_context():
         return BibliographicDraftResource(
-            config=BibliographicDraftResourceConfig(),
-            service=BibliographicRecordService(
-                config=BibliographicRecordServiceConfig()
-            )
+            service=BibliographicRecordService()
         ).as_blueprint("bibliographic_draft_resource")
 
 
@@ -134,10 +125,7 @@ def draft_action_bp(app):
     """Callable draft action blueprint (we need an application context)."""
     with app.app_context():
         return BibliographicDraftActionResource(
-            config=BibliographicDraftActionResourceConfig(),
-            service=BibliographicRecordService(
-                config=BibliographicRecordServiceConfig()
-            )
+            service=BibliographicRecordService()
         ).as_blueprint("bibliographic_draft_action_resource")
 
 
@@ -145,8 +133,5 @@ def user_records_bp(app):
     """Callable user records blueprint (we need an application context)."""
     with app.app_context():
         return BibliographicUserRecordsResource(
-            config=BibliographicUserRecordsResourceConfig(),
-            service=BibliographicUserRecordsService(
-                config=BibliographicUserRecordsServiceConfig()
-            )
+            service=BibliographicUserRecordsService()
         ).as_blueprint("bibliographic_user_records_resource")

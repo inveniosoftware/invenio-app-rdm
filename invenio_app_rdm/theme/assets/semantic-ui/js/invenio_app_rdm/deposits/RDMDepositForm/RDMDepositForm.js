@@ -87,19 +87,38 @@ const defaultRecord = {
   },
 };
 
-// NOTE: RDMDepositForm knows the meaning associated to the field.
-// i.e. it knows its datamodel is the one sent by invenio-rdm-records.
-// However, it is RDMDepositForm that gets to decide what are the frontend
-// defaults for this datamodel
-function defaultize(initialRecord) {
-  return { ...defaultRecord, ...initialRecord };
+
+function loadArrayField(record, field) {
+  return (
+    record[field].length === 0 || record[field][0] === null
+      ? defaultRecord.metadata[field]
+      : record[field]
+  )
+}
+
+/**
+ * Load backend record into frontend record. This function will change overtime
+ * as what is being provided by the backend changes.
+ *
+ * As of now, the backend sends an object containing the metadata fields
+ * directly (NOT inside a metadata field).
+ * @param {object} backendRecord record sent from the backend
+ *
+ */
+function loadRecord(backendRecord) {
+  let titles = loadArrayField(backendRecord, "titles");
+  let creators = loadArrayField(backendRecord, "creators");
+  let contributors = loadArrayField(backendRecord, "contributors");
+
+  let metadata = {...backendRecord, titles, creators, contributors};
+  return {access: defaultRecord.access, metadata};
 }
 
 export class RDMDepositForm extends Component {
   constructor(props) {
     super(props);
     this.config = props.config || {};
-    const record = defaultize(props.record);
+    const record = loadRecord(props.record);
     this.state = {
       record: record || {},
     };
