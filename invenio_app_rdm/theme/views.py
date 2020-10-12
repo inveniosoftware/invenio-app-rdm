@@ -17,14 +17,13 @@ from flask import Blueprint, config, current_app, g, render_template
 from flask_menu import current_menu
 from invenio_rdm_records.marshmallow.json import dump_empty
 from invenio_rdm_records.resources import BibliographicDraftActionResource, \
-    BibliographicDraftResource, BibliographicDraftResourceConfig,\
+    BibliographicDraftResource, BibliographicDraftResourceConfig, \
     BibliographicRecordResource, BibliographicUserRecordsResource
 from invenio_rdm_records.schemas.metadata import MetadataSchemaV1
 from invenio_rdm_records.services import BibliographicRecordService, \
     BibliographicRecordServiceConfig, BibliographicUserRecordsService
 from invenio_rdm_records.vocabularies import Vocabularies
 
-BibliographicDraftResourceConfig
 
 def ui_blueprint(app):
     """Dynamically registers routes (allows us to rely on config)."""
