@@ -5,6 +5,7 @@
 // Invenio App RDM is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
 
+import _get from 'lodash/get'
 import React, { Component } from "react";
 import { Button, Card, Grid, Icon } from "semantic-ui-react";
 import { Field } from "formik";
@@ -89,12 +90,16 @@ const defaultRecord = {
 
 
 function loadArrayField(record, field) {
+
+  const retrievedField = _get(record.metadata, field, [])
+
   return (
-    record[field].length === 0 || record[field][0] === null
+    retrievedField.length === 0 || retrievedField[0] === null
       ? defaultRecord.metadata[field]
-      : record[field]
+      : retrievedField
   )
 }
+
 
 /**
  * Load backend record into frontend record. This function will change overtime
@@ -110,8 +115,10 @@ function loadRecord(backendRecord) {
   let creators = loadArrayField(backendRecord, "creators");
   let contributors = loadArrayField(backendRecord, "contributors");
 
-  let metadata = {...backendRecord, titles, creators, contributors};
-  return {access: defaultRecord.access, metadata};
+  let access = _get(backendRecord, "access", defaultRecord.access);
+  let metadata = {...backendRecord.metadata, titles, creators, contributors};
+
+  return {...backendRecord, access, metadata};
 }
 
 export class RDMDepositForm extends Component {
