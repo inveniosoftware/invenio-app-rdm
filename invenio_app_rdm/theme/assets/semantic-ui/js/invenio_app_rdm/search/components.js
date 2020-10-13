@@ -27,6 +27,11 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
     "No resource type"
   );
   const access = _.get(result, "access.access_right", "No access rights");
+  const access_right_category = _.get(
+    result,
+    "ui.access_right.category",
+    "open"
+  );
   const creatorName = _.get(result, "metadata.creators[0].name", "No creator");
   const updatedDate = _.get(result, "updated");
   const title = _.get(result, "metadata.titles[0].title", "No title");
@@ -42,7 +47,10 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
             <Label size="tiny" color="grey">
               {status}
             </Label>
-            <Label size="tiny" color="green">
+            <Label
+              size="tiny"
+              className={`access-right ${access_right_category}`}
+            >
               {access}
             </Label>
             <Button basic floated="right">
