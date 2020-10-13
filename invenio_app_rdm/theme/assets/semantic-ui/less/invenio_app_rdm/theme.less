@@ -264,3 +264,20 @@ body {
     padding-right: 0.5em;
   }
 }
+
+.ui.label.access-right {
+  color: #FFFFFF;
+
+  &.open {
+      background-color: @accessRightOpen;
+  }
+  &.restricted {
+    background-color: @accessRightRestricted;
+  }
+  &.embargoed {
+    background-color: @accessRightEmbargoed;
+  }
+  &.closed {
+    background-color: @accessRightClosed;
+  }
+}
