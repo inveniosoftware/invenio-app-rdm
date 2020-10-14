@@ -7,34 +7,35 @@
 
 import React from "react";
 import { Card, Item, Input, Label, Button } from "semantic-ui-react";
-import _ from "lodash";
+import { BucketAggregation, withState } from "react-searchkit";
+import _get from "lodash/get";
 import _truncate from "lodash/truncate";
 
 export const RDMRecordResultsListItem = ({ result, index }) => {
-  const description = _.get(
+  const description = _get(
     result,
     "metadata.descriptions[0].description",
     "No description"
   );
-  const publicationDate = _.get(
+  const publicationDate = _get(
     result,
     "metadata.publication_date",
     "No metadata"
   );
-  const status = _.get(
+  const status = _get(
     result,
     "metadata.resource_type.type",
     "No resource type"
   );
-  const access = _.get(result, "access.access_right", "No access rights");
-  const access_right_category = _.get(
+  const access = _get(result, "access.access_right", "No access rights");
+  const access_right_category = _get(
     result,
     "ui.access_right.category",
     "open"
   );
-  const creatorName = _.get(result, "metadata.creators[0].name", "No creator");
-  const updatedDate = _.get(result, "updated");
-  const title = _.get(result, "metadata.titles[0].title", "No title");
+  const creatorName = _get(result, "metadata.creators[0].name", "No creator");
+  const updatedDate = _get(result, "updated");
+  const title = _get(result, "metadata.titles[0].title", "No title");
 
   return (
     <Item key={index} href={`/records/${result.id}`}>
@@ -77,7 +78,7 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
 
 // TODO: Update this according to the full List item template?
 export const RDMRecordResultsGridItem = ({ result, index }) => {
-  const description = _.get(
+  const description = _get(
     result,
     "metadata.descriptions[0].description",
     "No description"
@@ -125,3 +126,39 @@ export const RDMRecordSearchBarElement = ({
     />
   );
 };
+
+const _RDMRecordFacets = ({ aggs, currentResultsState }) => {
+  const createValuesLabels = (uiAggConfig) => {
+    return Object.keys(uiAggConfig).map((aggValue) => {
+      return {
+        label: uiAggConfig[aggValue],
+        value: aggValue,
+      };
+    });
+  };
+
+  return (
+    <>
+      {aggs.map((agg) => {
+        const valuesLabels = !currentResultsState.loading
+          ? createValuesLabels(
+              _get(currentResultsState.data.aggregations.ui, agg.field, {})
+            )
+          : [];
+        return (
+          <BucketAggregation
+            key={agg.title}
+            title={agg.title}
+            agg={{
+              field: agg.field,
+              aggName: agg.aggName,
+            }}
+            valuesLabels={valuesLabels}
+          />
+        );
+      })}
+    </>
+  );
+};
+
+export const RDMRecordFacets = withState(_RDMRecordFacets);
