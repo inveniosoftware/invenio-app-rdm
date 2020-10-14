@@ -10,10 +10,12 @@ import {
   RDMRecordResultsListItem,
   RDMRecordResultsGridItem,
   RDMRecordSearchBarElement,
+  RDMRecordFacets,
 } from "./components";
 
 const initSearchApp = createSearchAppInit({
   "ResultsList.item": RDMRecordResultsListItem,
   "ResultsGrid.item": RDMRecordResultsGridItem,
   "SearchBar.element": RDMRecordSearchBarElement,
+  "SearchApp.facets": RDMRecordFacets,
 });
