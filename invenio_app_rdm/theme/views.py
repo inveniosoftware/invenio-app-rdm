@@ -19,9 +19,9 @@ from invenio_rdm_records.marshmallow.json import dump_empty
 from invenio_rdm_records.resources import BibliographicDraftActionResource, \
     BibliographicDraftResource, BibliographicDraftResourceConfig, \
     BibliographicRecordResource, BibliographicUserRecordsResource
-from invenio_rdm_records.schemas.metadata import MetadataSchemaV1
 from invenio_rdm_records.services import BibliographicRecordService, \
     BibliographicRecordServiceConfig, BibliographicUserRecordsService
+from invenio_rdm_records.services.schemas.metadata import MetadataSchemaV1
 from invenio_rdm_records.vocabularies import Vocabularies
 
 
