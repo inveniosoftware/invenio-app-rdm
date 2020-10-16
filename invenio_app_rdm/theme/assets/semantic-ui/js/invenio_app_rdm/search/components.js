@@ -149,10 +149,7 @@ const _RDMRecordFacets = ({ aggs, currentResultsState }) => {
           <BucketAggregation
             key={agg.title}
             title={agg.title}
-            agg={{
-              field: agg.field,
-              aggName: agg.aggName,
-            }}
+            agg={agg}
             valuesLabels={valuesLabels}
           />
         );

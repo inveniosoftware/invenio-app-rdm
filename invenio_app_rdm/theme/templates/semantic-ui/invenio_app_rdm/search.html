@@ -23,8 +23,13 @@
     },
     {
       "aggName": "resource_type",
-      "field": "resource_type",
-      "title": "Resource Type"
+      "field": "resource_type.type",
+      "title": "Resource Type",
+      "childAgg": {
+        "aggName": "subtype",
+        "field": "resource_type.subtype",
+        "title": "Resource Type"
+      }
     }
   ],
   "appId": "rdm-search",
