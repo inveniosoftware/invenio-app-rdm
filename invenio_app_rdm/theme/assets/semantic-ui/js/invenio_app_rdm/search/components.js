@@ -19,8 +19,8 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
   );
   const publicationDate = _get(
     result,
-    "metadata.publication_date",
-    "No metadata"
+    "ui.publication_date_l10n.value",
+    "No publication date found."
   );
   const status = _get(
     result,
