@@ -6,8 +6,15 @@
 // under the terms of the MIT License; see LICENSE file for more details.
 
 import React from "react";
-import { Card, Item, Input, Label, Button } from "semantic-ui-react";
-import { BucketAggregation, withState } from "react-searchkit";
+import {
+  Card,
+  Item,
+  Input,
+  Label,
+  Button,
+  List,
+  Checkbox,
+} from "semantic-ui-react";
 import _get from "lodash/get";
 import _truncate from "lodash/truncate";
 
@@ -127,35 +134,25 @@ export const RDMRecordSearchBarElement = ({
   );
 };
 
-const _RDMRecordFacets = ({ aggs, currentResultsState }) => {
-  const createValuesLabels = (uiAggConfig) => {
-    return Object.keys(uiAggConfig).map((aggValue) => {
-      return {
-        label: uiAggConfig[aggValue],
-        value: aggValue,
-      };
-    });
-  };
-
+export const RDMRecordFacetsValues = ({
+  bucket,
+  isSelected,
+  onFilterClicked,
+  getChildAggCmps,
+}) => {
+  const childAggCmps = getChildAggCmps(bucket);
   return (
-    <>
-      {aggs.map((agg) => {
-        const valuesLabels = !currentResultsState.loading
-          ? createValuesLabels(
-              _get(currentResultsState.data.aggregations.ui, agg.field, {})
-            )
-          : [];
-        return (
-          <BucketAggregation
-            key={agg.title}
-            title={agg.title}
-            agg={agg}
-            valuesLabels={valuesLabels}
-          />
-        );
-      })}
-    </>
+    <List.Item key={bucket.key}>
+      <List.Content floated="right">
+        <Label circular>{bucket.doc_count}</Label>
+      </List.Content>
+      <Checkbox
+        label={bucket.label}
+        value={bucket.key}
+        onClick={() => onFilterClicked(bucket.key)}
+        checked={isSelected}
+      />
+      {childAggCmps}
+    </List.Item>
   );
 };
-
-export const RDMRecordFacets = withState(_RDMRecordFacets);
