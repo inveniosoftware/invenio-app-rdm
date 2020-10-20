@@ -14,9 +14,12 @@ import {
   Button,
   List,
   Checkbox,
+  Grid
 } from "semantic-ui-react";
+import { BucketAggregation, withState, Toggle } from "react-searchkit";
 import _get from "lodash/get";
 import _truncate from "lodash/truncate";
+import Overridable from 'react-overridable';
 
 export const RDMRecordResultsListItem = ({ result, index }) => {
   const description = _get(
@@ -154,5 +157,44 @@ export const RDMRecordFacetsValues = ({
       />
       {childAggCmps}
     </List.Item>
+  )}
+
+
+const SearchHelpLinks = () => {
+  return (
+    <Overridable
+    id={'RdmSearch.SearchHelpLinks'}>
+      <Grid className="searchHelpLinks">
+      <Grid.Row >
+        <a>Advanced search</a>
+      </Grid.Row>
+      <Grid.Row >
+        <a>Search guide</a>
+      </Grid.Row>
+    </Grid>
+    </Overridable>
+  )
+}
+
+export const RDMRecordFacets = ({ aggs, currentResultsState }) => {
+
+  return (
+    <>
+       <Toggle
+        title="Versions"
+        label="View all versions"
+        filterValue={['all_versions', 'true']}
+      />
+      {aggs.map((agg) => {
+        return (
+          <BucketAggregation
+            key={agg.title}
+            title={agg.title}
+            agg={agg}
+          />
+        );
+      })}
+      <SearchHelpLinks />
+    </>
   );
 };
