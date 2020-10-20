@@ -48,15 +48,29 @@ def minimal_input_record():
 
 
 @pytest.fixture(scope='function')
-def minimal_record(minimal_input_record):
-    """
-    Dictionary with the minimum required fields to create a record.
-
-    It fills in the missing and post_loaded fields.
-    """
-    record = deepcopy(minimal_input_record)
-    record['publication_date'] = date.today().isoformat()
-    return record
+def minimal_record():
+    """Minimal record data as dict coming from the external world."""
+    return {
+        "access": {
+            "metadata": False,
+            "files": False,
+            "owned_by": [1],
+            "access_right": "open"
+        },
+        "metadata": {
+            "publication_date": "2020-06-01",
+            "resource_type": {
+                "type": "image",
+                "subtype": "image-photo"
+            },
+            # Technically not required
+            "creators": [{
+                "name": "John Doe",
+                "type": "personal"
+            }],
+            "title": "A Romans story"
+        }
+    }
 
 
 @pytest.fixture()

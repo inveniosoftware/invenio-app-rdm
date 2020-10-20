@@ -15,13 +15,13 @@ this file.
 
 from flask import Blueprint, config, current_app, g, render_template
 from flask_menu import current_menu
-from invenio_rdm_records.marshmallow.json import dump_empty
 from invenio_rdm_records.resources import BibliographicDraftActionResource, \
     BibliographicDraftResource, BibliographicDraftResourceConfig, \
     BibliographicRecordResource, BibliographicUserRecordsResource
 from invenio_rdm_records.services import BibliographicRecordService, \
     BibliographicRecordServiceConfig, BibliographicUserRecordsService
-from invenio_rdm_records.services.schemas.metadata import MetadataSchemaV1
+from invenio_rdm_records.services.schemas import MetadataSchema
+from invenio_rdm_records.services.schemas.utils import dump_empty
 from invenio_rdm_records.vocabularies import Vocabularies
 
 
@@ -64,7 +64,7 @@ def ui_blueprint(app):
         return render_template(
             current_app.config['DEPOSITS_FORMS_BASE_TEMPLATE'],
             forms_config=forms_config,
-            record=dump_empty(MetadataSchemaV1),
+            record=dump_empty(MetadataSchema),
             searchbar_config=dict(searchUrl=search_url)
         )
 
