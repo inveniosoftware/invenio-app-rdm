@@ -7,9 +7,11 @@
 
 import React from "react";
 import { Card, Item, Input, Label, Button } from "semantic-ui-react";
-import { BucketAggregation, withState } from "react-searchkit";
+import { BucketAggregation, withState, Toggle } from "react-searchkit";
 import _get from "lodash/get";
 import _truncate from "lodash/truncate";
+import { Checkbox, Grid } from 'semantic-ui-react'
+import Overridable from 'react-overridable';
 
 export const RDMRecordResultsListItem = ({ result, index }) => {
   const description = _get(
@@ -127,6 +129,22 @@ export const RDMRecordSearchBarElement = ({
   );
 };
 
+const SearchHelpLinks = () => {
+  return (
+    <Overridable
+    id={'RdmSearch.SearchHelpLinks'}>
+    <Grid centered>
+      <Grid.Row >
+        <a>Advanced search</a>
+      </Grid.Row>
+      <Grid.Row >
+        <a>Search guide</a>
+      </Grid.Row>
+    </Grid>
+    </Overridable>
+  )
+}
+
 const _RDMRecordFacets = ({ aggs, currentResultsState }) => {
   const createValuesLabels = (uiAggConfig) => {
     return Object.keys(uiAggConfig).map((aggValue) => {
@@ -139,21 +157,21 @@ const _RDMRecordFacets = ({ aggs, currentResultsState }) => {
 
   return (
     <>
+       <Toggle
+        title="Versions"
+        label="View all versions"
+        filterValue={['all_versions', 'true']}
+      />
       {aggs.map((agg) => {
-        const valuesLabels = !currentResultsState.loading
-          ? createValuesLabels(
-              _get(currentResultsState.data.aggregations.ui, agg.field, {})
-            )
-          : [];
         return (
           <BucketAggregation
             key={agg.title}
             title={agg.title}
             agg={agg}
-            valuesLabels={valuesLabels}
           />
         );
       })}
+      <SearchHelpLinks />
     </>
   );
 };
