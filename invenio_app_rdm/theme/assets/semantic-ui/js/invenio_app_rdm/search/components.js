@@ -6,7 +6,15 @@
 // under the terms of the MIT License; see LICENSE file for more details.
 
 import React from "react";
-import { Card, Item, Input, Label, Button } from "semantic-ui-react";
+import {
+  Card,
+  Item,
+  Input,
+  Label,
+  Button,
+  List,
+  Checkbox,
+} from "semantic-ui-react";
 import { BucketAggregation, withState } from "react-searchkit";
 import _get from "lodash/get";
 import _truncate from "lodash/truncate";
@@ -19,8 +27,8 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
   );
   const publicationDate = _get(
     result,
-    "ui.publication_date_l10n.value",
-    "No publication date found."
+    "metadata.publication_date",
+    "No metadata"
   );
   const status = _get(
     result,
@@ -127,35 +135,21 @@ export const RDMRecordSearchBarElement = ({
   );
 };
 
-const _RDMRecordFacets = ({ aggs, currentResultsState }) => {
-  const createValuesLabels = (uiAggConfig) => {
-    return Object.keys(uiAggConfig).map((aggValue) => {
-      return {
-        label: uiAggConfig[aggValue],
-        value: aggValue,
-      };
-    });
-  };
-
+export const RDMRecordFacetsValues = (props) => {
+  const { bucket, isSelected, onFilterClicked, getChildAggCmps } = props;
+  const label = bucket.label
+    ? bucket.label
+    : `${bucket.key} (${bucket.doc_count})`;
+  const childAggCmps = getChildAggCmps(bucket);
   return (
-    <>
-      {aggs.map((agg) => {
-        const valuesLabels = !currentResultsState.loading
-          ? createValuesLabels(
-              _get(currentResultsState.data.aggregations.ui, agg.field, {})
-            )
-          : [];
-        return (
-          <BucketAggregation
-            key={agg.title}
-            title={agg.title}
-            agg={agg}
-            valuesLabels={valuesLabels}
-          />
-        );
-      })}
-    </>
+    <List.Item key={bucket.key}>
+      <Checkbox
+        label={label}
+        value={bucket.key}
+        onClick={() => onFilterClicked(bucket.key)}
+        checked={isSelected}
+      />
+      {childAggCmps}
+    </List.Item>
   );
 };
-
-export const RDMRecordFacets = withState(_RDMRecordFacets);
