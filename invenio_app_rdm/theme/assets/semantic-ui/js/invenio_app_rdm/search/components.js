@@ -24,7 +24,7 @@ import Overridable from 'react-overridable';
 export const RDMRecordResultsListItem = ({ result, index }) => {
   const description = _get(
     result,
-    "metadata.descriptions[0].description",
+    "metadata.description",
     "No description"
   );
   const publicationDate = _get(
@@ -43,17 +43,31 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
     "ui.access_right.category",
     "open"
   );
+  const access_right_icon = _get(
+    result,
+    "ui.access_right.icon",
+    "open"
+  );
   const creatorName = _get(result, "metadata.creators[0].name", "No creator");
   const updatedDate = _get(result, "updated");
-  const title = _get(result, "metadata.titles[0].title", "No title");
-
+  const title = _get(result, "metadata.title", "No title");
+  const subjects = _get(
+    result,
+    "metadata.subjects",
+    null
+  );
+  const version = _get(
+    result,
+    "metadata.version",
+    null
+  );
   return (
     <Item key={index} href={`/records/${result.id}`}>
       <Item.Content>
         <Item.Extra>
           <div>
             <Label size="tiny" color="blue">
-              {publicationDate}
+              {publicationDate} {version ? `(${version})` : null}
             </Label>
             <Label size="tiny" color="grey">
               {status}
@@ -62,6 +76,7 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
               size="tiny"
               className={`access-right ${access_right_category}`}
             >
+              <i className={`icon ${access_right_icon}`}></i>
               {access}
             </Label>
             <Button basic floated="right">
@@ -75,9 +90,14 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
           {_truncate(description, { length: 350 })}
         </Item.Description>
         <Item.Extra>
+          {subjects.map((subject, index) => (
+            <Label key={index} size="tiny">
+              {subject.subject}
+            </Label>
+          ))}
           {updatedDate && (
             <div>
-              Updated on <span>{updatedDate}</span>
+              Updated on <span>{updatedDate.substring(0, 10)}</span>
             </div>
           )}
         </Item.Extra>
@@ -90,13 +110,13 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
 export const RDMRecordResultsGridItem = ({ result, index }) => {
   const description = _get(
     result,
-    "metadata.descriptions[0].description",
+    "metadata.description",
     "No description"
   );
   return (
     <Card fluid key={index} href={`/records/${result.pid}`}>
       <Card.Content>
-        <Card.Header>{result.metadata.titles[0].title}</Card.Header>
+        <Card.Header>{result.metadata.title}</Card.Header>
         <Card.Description>
           {_truncate(description, { length: 200 })}
         </Card.Description>
