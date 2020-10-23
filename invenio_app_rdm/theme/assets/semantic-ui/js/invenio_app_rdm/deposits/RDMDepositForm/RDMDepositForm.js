@@ -26,6 +26,7 @@ import { APIErrorHandler } from "./APIErrorHandler";
 // NOTE: RDMDepositForm knows the data model. No other way for it to interact
 //       with it. As the frontend, it needs to duplicate the knowledge, mimicking
 //       what other frontends would need to do.
+const typePersonal = "personal";
 const defaultRecord = {
   access: {
     metadata_restricted: false,
@@ -35,13 +36,7 @@ const defaultRecord = {
     created_by: 1,
   },
   metadata: {
-    titles: [
-      {
-        lang: "",
-        title: "",
-        type: "MainTitle",
-      },
-    ],
+    title: "",
     creators: [
       {
         affiliations: [
@@ -54,7 +49,7 @@ const defaultRecord = {
         given_name: "",
         family_name: "",
         name: "",
-        type: "Personal",
+        type: typePersonal,
         identifiers: [
           {
             identifier: "",
@@ -75,7 +70,7 @@ const defaultRecord = {
         given_name: "",
         family_name: "",
         name: "",
-        type: "Personal",
+        type: typePersonal,
         identifiers: [
           {
             identifier: "",
@@ -157,21 +152,21 @@ export class RDMDepositForm extends Component {
 
         creators: {
           type: [
-            { text: "Person", value: "Personal" },
-            { text: "Organization", value: "Organizational" },
+            { text: "Person", value: typePersonal },
+            { text: "Organization", value: "organizational" },
           ],
         },
 
         contributors: {
           type: [
-            { text: "Person", value: "Personal" },
-            { text: "Organization", value: "Organizational" },
+            { text: "Person", value: typePersonal },
+            { text: "Organization", value: "organizational" },
           ],
           role: [
-            { text: "Editor", value: "Editor" },
-            { text: "DataCurator", value: "DataCurator" },
-            { text: "DataManager", value: "DataManager" },
-            { text: "ProjectManager", value: "ProjectManager" },
+            { text: "Editor", value: "editor" },
+            { text: "Data Curator", value: "datacurator" },
+            { text: "Data Manager", value: "datamanager" },
+            { text: "Project Manager", value: "projectmanager" },
           ],
         },
       },
@@ -206,9 +201,6 @@ export class RDMDepositForm extends Component {
             >
               <>
                 <TitlesField
-                  fieldPath="metadata.titles"
-                  label="Titles"
-                  labelIcon="book"
                   options={this.vocabularies.metadata.titles}
                   required
                 />
