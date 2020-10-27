@@ -183,15 +183,15 @@ export const RDMRecordFacetsValues = ({
 const SearchHelpLinks = () => {
   return (
     <Overridable
-    id={'RdmSearch.SearchHelpLinks'}>
+      id={'RdmSearch.SearchHelpLinks'}>
       <Grid className="searchHelpLinks">
-      <Grid.Row >
-        <a>Advanced search</a>
-      </Grid.Row>
-      <Grid.Row >
-        <a>Search guide</a>
-      </Grid.Row>
-    </Grid>
+        <Grid.Row >
+          <a>Advanced search</a>
+        </Grid.Row>
+        <Grid.Row >
+          <a>Search guide</a>
+        </Grid.Row>
+      </Grid>
     </Overridable>
   )
 }
@@ -200,7 +200,7 @@ export const RDMRecordFacets = ({ aggs, currentResultsState }) => {
 
   return (
     <>
-       <Toggle
+      <Toggle
         title="Versions"
         label="View all versions"
         filterValue={['all_versions', 'true']}
@@ -218,3 +218,55 @@ export const RDMRecordFacets = ({ aggs, currentResultsState }) => {
     </>
   );
 };
+
+
+export const RDMBucketAggregationElement = ({ title, containerCmp }) => {
+  return (
+    <Card className="borderless-facet">
+      <Card.Content>
+        <Card.Header>{title}</Card.Header>
+      </Card.Content>
+      <Card.Content>{containerCmp}</Card.Content>
+    </Card>
+  )
+}
+
+
+export const RDMToggleComponent = ({
+    updateQueryFilters,
+    userSelectionFilters,
+    filterValue,
+    label,
+    title,
+    isChecked
+  }) => {
+
+  const _isChecked = (userSelectionFilters) => {
+    const isFilterActive = userSelectionFilters.filter(
+      (filter) => filter[0] === filterValue[0]
+    ).length > 0
+    return isFilterActive
+  };
+
+  const onToggleClicked = () => {
+    updateQueryFilters(filterValue);
+  };
+
+  var isChecked = _isChecked(userSelectionFilters);
+  return (
+    <Card className="borderless-facet">
+      <Card.Content>
+        <Card.Header>{title}</Card.Header>
+      </Card.Content>
+      <Card.Content>
+        <Checkbox
+          toggle
+          label={label}
+          onClick={onToggleClicked}
+          checked={isChecked}
+        />
+      </Card.Content>
+    </Card>
+  )
+}
+
