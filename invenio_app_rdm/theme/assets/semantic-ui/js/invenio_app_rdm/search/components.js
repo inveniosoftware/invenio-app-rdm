@@ -184,12 +184,24 @@ const SearchHelpLinks = () => {
   return (
     <Overridable
       id={'RdmSearch.SearchHelpLinks'}>
-      <Grid className="searchHelpLinks">
+      <Grid>
         <Grid.Row >
-          <a>Advanced search</a>
+          <Grid.Column>
+          <Card className="borderless-facet">
+            <Card.Content>
+            <a>Advanced search</a>
+            </Card.Content>
+          </Card>
+          </Grid.Column>
         </Grid.Row>
         <Grid.Row >
-          <a>Search guide</a>
+        <Grid.Column>
+          <Card className="borderless-facet">
+            <Card.Content>
+            <a>Search guide</a>
+            </Card.Content>
+          </Card>
+          </Grid.Column>
         </Grid.Row>
       </Grid>
     </Overridable>
