@@ -33,6 +33,8 @@ theme = WebpackThemeBundle(
                 'react-invenio-deposit': '^0.7.3',
                 'react-invenio-forms': '^0.3.0',
                 'react-dropzone': "^11.0.3",
+                '@ckeditor/ckeditor5-build-classic': '^16.0.0',
+                '@ckeditor/ckeditor5-react': '^2.1.0',
             },
             aliases={
                 # Define Semantic-UI theme configuration needed by
