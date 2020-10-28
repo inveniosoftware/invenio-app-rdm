@@ -5,7 +5,7 @@
 // Invenio App RDM is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
 
-import React from "react";
+import React, {useState} from "react";
 import {
   Card,
   Item,
@@ -164,20 +164,27 @@ export const RDMRecordFacetsValues = ({
   getChildAggCmps,
 }) => {
   const childAggCmps = getChildAggCmps(bucket);
+  const [isActive, setisActive] = useState(false);
+  const hasChildren = childAggCmps && childAggCmps.props.buckets.length > 0
   return (
-    <List.Item key={bucket.key}>
-      <List.Content floated="right">
-        <Label circular>{bucket.doc_count}</Label>
-      </List.Content>
-      <Checkbox
-        label={bucket.label}
-        value={bucket.key}
-        onClick={() => onFilterClicked(bucket.key)}
-        checked={isSelected}
-      />
-      {childAggCmps}
-    </List.Item>
-  )}
+      <List.Item key={bucket.key}>
+        <div className={`title ${hasChildren? '': 'facet-title'} ${isActive? 'active': ''}`}>
+          <List.Content floated="right">
+            <Label circular>{bucket.doc_count}</Label>
+          </List.Content>
+          {hasChildren ? (<i className={`angle ${isActive? 'down': 'right'} icon`} onClick={()=>setisActive(!isActive)}></i>) : null}
+          <Checkbox
+            label={bucket.label}
+            value={bucket.key}
+            onClick={() => onFilterClicked(bucket.key)}
+            checked={isSelected}
+          />
+        </div>
+        <div className={`content facet-content ${isActive? 'active': ''}`}>
+          {childAggCmps}
+        </div>
+      </List.Item>
+  )};
 
 
 const SearchHelpLinks = () => {
@@ -187,20 +194,20 @@ const SearchHelpLinks = () => {
       <Grid>
         <Grid.Row >
           <Grid.Column>
-          <Card className="borderless-facet">
-            <Card.Content>
-            <a>Advanced search</a>
-            </Card.Content>
-          </Card>
+            <Card className="borderless-facet">
+              <Card.Content>
+                <a>Advanced search</a>
+              </Card.Content>
+            </Card>
           </Grid.Column>
         </Grid.Row>
         <Grid.Row >
-        <Grid.Column>
-          <Card className="borderless-facet">
-            <Card.Content>
-            <a>Search guide</a>
-            </Card.Content>
-          </Card>
+          <Grid.Column>
+            <Card className="borderless-facet">
+              <Card.Content>
+                <a>Search guide</a>
+              </Card.Content>
+            </Card>
           </Grid.Column>
         </Grid.Row>
       </Grid>
@@ -219,11 +226,13 @@ export const RDMRecordFacets = ({ aggs, currentResultsState }) => {
       />
       {aggs.map((agg) => {
         return (
+          <div className="ui accordion">
           <BucketAggregation
             key={agg.title}
             title={agg.title}
             agg={agg}
           />
+          </div>
         );
       })}
       <SearchHelpLinks />
@@ -245,13 +254,13 @@ export const RDMBucketAggregationElement = ({ title, containerCmp }) => {
 
 
 export const RDMToggleComponent = ({
-    updateQueryFilters,
-    userSelectionFilters,
-    filterValue,
-    label,
-    title,
-    isChecked
-  }) => {
+  updateQueryFilters,
+  userSelectionFilters,
+  filterValue,
+  label,
+  title,
+  isChecked
+}) => {
 
   const _isChecked = (userSelectionFilters) => {
     const isFilterActive = userSelectionFilters.filter(
