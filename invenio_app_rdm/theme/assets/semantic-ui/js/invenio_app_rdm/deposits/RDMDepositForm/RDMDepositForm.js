@@ -10,14 +10,16 @@ import React, { Component } from "react";
 import { Button, Card, Grid, Icon } from "semantic-ui-react";
 import {
   AccessRightField,
-  DepositFormApp,
-  PublishButton,
-  SaveButton,
   ContributorsField,
   CreatorsField,
-  TitlesField,
-  ResourceTypeField,
+  DepositFormApp,
   DescriptionsField,
+  PublishButton,
+  PublicationDateField,
+  ResourceTypeField,
+  SaveButton,
+  TitlesField,
+
 } from "react-invenio-deposit";
 import { AccordionField, ErrorMessage } from "react-invenio-forms";
 
@@ -126,6 +128,11 @@ export class RDMDepositForm extends Component {
               label={"Basic Information"}
             >
               <>
+                <ResourceTypeField
+                  label={"Resource type"}
+                  labelIcon={"tag"}
+                  options={this.vocabularies.metadata.resource_type}
+                />
                 <TitlesField
                   label={"Title"}
                   options={this.vocabularies.metadata.titles}
@@ -146,11 +153,10 @@ export class RDMDepositForm extends Component {
                   labelIcon="group"
                   options={this.vocabularies.metadata.contributors}
                 />
-                <ResourceTypeField
-                  label={"Resource type"}
-                  labelIcon={"tag"}
-                  options={this.vocabularies.metadata.resource_type}
-                />
+                <PublicationDateField required />
+
+                <br />
+
               </>
             </AccordionField>
 
