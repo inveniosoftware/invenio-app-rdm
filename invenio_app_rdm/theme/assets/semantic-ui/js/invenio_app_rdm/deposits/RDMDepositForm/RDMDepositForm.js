@@ -17,6 +17,7 @@ import {
   CreatorsField,
   TitlesField,
   ResourceTypeField,
+  DescriptionsField,
 } from "react-invenio-deposit";
 import { AccordionField, ErrorMessage } from "react-invenio-forms";
 
@@ -41,6 +42,26 @@ export class RDMDepositForm extends Component {
 
         titles: {
           ...this.config.vocabularies.titles,
+          lang: [
+            { text: "Danish", value: "dan" },
+            { text: "English", value: "eng" },
+            { text: "French", value: "fra" },
+            { text: "German", value: "deu" },
+            { text: "Greek", value: "ell" },
+            { text: "Italian", value: "ita" },
+            { text: "Spanish", value: "spa" },
+          ],
+        },
+
+        descriptions: {
+          type: [
+            { text: "Abstract", value: "abstract" },
+            { text: "Methods", value: "methods" },
+            { text: "Series Information", value: "seriesinformation" },
+            { text: "Table of Contents", value: "tableofcontents" },
+            { text: "Technical Info", value: "technicalinfo" },
+            { text: "Other", value: "other" },
+          ],
           lang: [
             { text: "Danish", value: "dan" },
             { text: "English", value: "eng" },
@@ -106,8 +127,14 @@ export class RDMDepositForm extends Component {
             >
               <>
                 <TitlesField
+                  label={"Title"}
                   options={this.vocabularies.metadata.titles}
                   required
+                />
+                <DescriptionsField
+                  label="Description"
+                  labelIcon="pencil"
+                  options={this.vocabularies.metadata.descriptions}
                 />
                 <CreatorsField
                   label="Creators"
