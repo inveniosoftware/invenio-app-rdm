@@ -16,10 +16,10 @@ import {
   DescriptionsField,
   PublishButton,
   PublicationDateField,
+  PublisherField,
   ResourceTypeField,
   SaveButton,
   TitlesField,
-
 } from "react-invenio-deposit";
 import { AccordionField, ErrorMessage } from "react-invenio-forms";
 
@@ -129,34 +129,25 @@ export class RDMDepositForm extends Component {
             >
               <>
                 <ResourceTypeField
-                  label={"Resource type"}
-                  labelIcon={"tag"}
                   options={this.vocabularies.metadata.resource_type}
+                  required
                 />
+                <PublicationDateField required />
                 <TitlesField
-                  label={"Title"}
                   options={this.vocabularies.metadata.titles}
                   required
                 />
+                <CreatorsField
+                  options={this.vocabularies.metadata.creators}
+                  required
+                />
                 <DescriptionsField
-                  label="Description"
-                  labelIcon="pencil"
                   options={this.vocabularies.metadata.descriptions}
                 />
-                <CreatorsField
-                  label="Creators"
-                  labelIcon="group"
-                  options={this.vocabularies.metadata.creators}
-                />
                 <ContributorsField
-                  label="Contributors"
-                  labelIcon="group"
                   options={this.vocabularies.metadata.contributors}
                 />
-                <PublicationDateField required />
-
                 <br />
-
               </>
             </AccordionField>
 
@@ -165,7 +156,7 @@ export class RDMDepositForm extends Component {
               active={true}
               label={"Recommended Information"}
             >
-              <p>COMING SOON</p>
+              <PublisherField />
               <br />
             </AccordionField>
           </Grid.Column>
