@@ -12,6 +12,7 @@ import {
   AccessRightField,
   ContributorsField,
   CreatorsField,
+  DatesField,
   DepositFormApp,
   DescriptionsField,
   PublishButton,
@@ -97,7 +98,23 @@ export class RDMDepositForm extends Component {
             { text: "Project Manager", value: "projectmanager" },
           ],
         },
-      },
+
+        dates: {
+          type: [
+            { text: "Accepted", value: "accepted"},
+            { text: "Available", value: "available"},
+            { text: "Copyrighted", value: "copyrighted"},
+            { text: "Collected", value: "collected"},
+            { text: "Created", value: "created"},
+            { text: "Issued", value: "issued"},
+            { text: "Submitted", value: "submitted"},
+            { text: "Updated", value: "updated"},
+            { text: "Valid", value: "valid"},
+            { text: "Withdrawn", value: "withdrawn"},
+            { text: "Other", value: "other"}
+          ],
+        },
+      }
     };
     this.apiErrorHandler = new APIErrorHandler(this.vocabularies);
   }
@@ -132,7 +149,6 @@ export class RDMDepositForm extends Component {
                   options={this.vocabularies.metadata.resource_type}
                   required
                 />
-                <PublicationDateField required />
                 <TitlesField
                   options={this.vocabularies.metadata.titles}
                   required
@@ -141,12 +157,13 @@ export class RDMDepositForm extends Component {
                   options={this.vocabularies.metadata.creators}
                   required
                 />
-                <DescriptionsField
-                  options={this.vocabularies.metadata.descriptions}
-                />
                 <ContributorsField
                   options={this.vocabularies.metadata.contributors}
                 />
+                <DescriptionsField
+                  options={this.vocabularies.metadata.descriptions}
+                />
+                <PublicationDateField required />
                 <br />
               </>
             </AccordionField>
@@ -156,6 +173,9 @@ export class RDMDepositForm extends Component {
               active={true}
               label={"Recommended Information"}
             >
+              <DatesField
+                options={this.vocabularies.metadata.dates}
+              />
               <PublisherField />
               <br />
             </AccordionField>
