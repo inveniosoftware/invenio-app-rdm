@@ -1,0 +1,92 @@
+name: CI
+
+on:
+  push:
+    branches: master
+  pull_request:
+    branches: master
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron:  '0 3 * * 6'
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: 'Reason'
+        required: false
+        default: 'Manual trigger'
+
+jobs:
+  Tests:
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+          python-version: [3.6, 3.7, 3.8]
+          # You can add more combinations e.g. dev requirements or MySQL by adding
+          # a new item to this list. Add its corresponding definition below.
+          # EXTRAS and REQUIREMENTS_LEVEL are always needed.
+          services: [release, lowest, devel]
+          include:
+          - services: release
+            SQLALCHEMY_DATABASE_URI: "postgresql+psycopg2://invenio:invenio@localhost:5432/invenio"
+            POSTGRESQL_VERSION: POSTGRESQL_12_LATEST
+            ES_VERSION: "ES_7_LATEST"
+            EXTRAS: "all,postgresql,elasticsearch7"
+            REQUIREMENTS_LEVEL: "pypi"
+          - services: lowest
+            SQLALCHEMY_DATABASE_URI: "postgresql+psycopg2://invenio:invenio@localhost:5432/invenio"
+            POSTGRESQL_VERSION: POSTGRESQL_9_LATEST
+            ES_VERSION: "ES_6_LATEST"
+            EXTRAS: "all,postgresql,elasticsearch6"
+            REQUIREMENTS_LEVEL: "min"
+          - services: devel
+            SQLALCHEMY_DATABASE_URI: "postgresql+psycopg2://invenio:invenio@localhost:5432/invenio"
+            POSTGRESQL_VERSION: POSTGRESQL_12_LATEST
+            ES_VERSION: "ES_7_LATEST"
+            EXTRAS: "all,postgresql,elasticsearch7"
+            REQUIREMENTS_LEVEL: "dev"
+
+    env:
+      SQLALCHEMY_DATABASE_URI: ${{matrix.SQLALCHEMY_DATABASE_URI}}
+      POSTGRESQL_VERSION: ${{matrix.POSTGRESQL_VERSION}}
+      ES_VERSION: ${{matrix.ES_VERSION}}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Generate dependencies
+        if: ${{ matrix.REQUIREMENTS_LEVEL != 'dev' }}
+        run: |
+          python -m pip install --upgrade pip setuptools py wheel requirements-builder
+          requirements-builder -e ${{ matrix.EXTRAS }} --level=${{ matrix.REQUIREMENTS_LEVEL }} setup.py > .${{ matrix.REQUIREMENTS_LEVEL }}-${{ matrix.python-version }}-requirements.txt
+
+      - name: Generate dependencies devel
+        if: ${{ matrix.REQUIREMENTS_LEVEL == 'dev' }}
+        run: |
+          python -m pip install --upgrade pip setuptools py wheel requirements-builder
+          requirements-builder -e ${{ matrix.EXTRAS }} --level=${{ matrix.REQUIREMENTS_LEVEL }} --req requirements-devel.txt setup.py > .${{ matrix.REQUIREMENTS_LEVEL }}-${{ matrix.python-version }}-requirements.txt
+
+      - name: Cache pip
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('.${{ matrix.REQUIREMENTS_LEVEL }}-${{ matrix.python-version }}-requirements.txt') }}
+
+      - name: Install dependencies
+        run: |
+          pip install -r .${{matrix.REQUIREMENTS_LEVEL}}-${{ matrix.python-version }}-requirements.txt
+          pip install -e .[all]
+          pip freeze
+          docker --version
+          docker-compose --version
+
+      - name: Run tests
+        # You must change the ignore command for the manifest check.
+        # Remove `.travis-*` and add `.*-requirements.txt`
+        run: |
+          ./run-tests.sh
