@@ -15,12 +15,15 @@ import {
   DatesField,
   DepositFormApp,
   DescriptionsField,
+  IdentifiersField,
+  LanguagesField,
   PublishButton,
   PublicationDateField,
   PublisherField,
   ResourceTypeField,
   SaveButton,
   TitlesField,
+  RelatedIdentifiersField,
 } from "react-invenio-deposit";
 import { AccordionField, ErrorMessage } from "react-invenio-forms";
 
@@ -43,6 +46,15 @@ export class RDMDepositForm extends Component {
       metadata: {
         ...this.config.vocabularies,
 
+        languages: [
+          { text: "Danish", value: "dan" },
+          { text: "English", value: "eng" },
+          { text: "French", value: "fra" },
+          { text: "German", value: "deu" },
+          { text: "Greek", value: "ell" },
+          { text: "Italian", value: "ita" },
+          { text: "Spanish", value: "spa" },
+        ],
         titles: {
           ...this.config.vocabularies.titles,
           lang: [
@@ -101,20 +113,79 @@ export class RDMDepositForm extends Component {
 
         dates: {
           type: [
-            { text: "Accepted", value: "accepted"},
-            { text: "Available", value: "available"},
-            { text: "Copyrighted", value: "copyrighted"},
-            { text: "Collected", value: "collected"},
-            { text: "Created", value: "created"},
-            { text: "Issued", value: "issued"},
-            { text: "Submitted", value: "submitted"},
-            { text: "Updated", value: "updated"},
-            { text: "Valid", value: "valid"},
-            { text: "Withdrawn", value: "withdrawn"},
-            { text: "Other", value: "other"}
+            { text: "Accepted", value: "accepted" },
+            { text: "Available", value: "available" },
+            { text: "Copyrighted", value: "copyrighted" },
+            { text: "Collected", value: "collected" },
+            { text: "Created", value: "created" },
+            { text: "Issued", value: "issued" },
+            { text: "Submitted", value: "submitted" },
+            { text: "Updated", value: "updated" },
+            { text: "Valid", value: "valid" },
+            { text: "Withdrawn", value: "withdrawn" },
+            { text: "Other", value: "other" },
           ],
         },
-      }
+        related_identifiers: {
+          resource_type: this.config.vocabularies.resource_type,
+          scheme: [
+            { text: "ARK", value: "ark" },
+            { text: "ARXIV", value: "arxiv" },
+            { text: "BIBCODE", value: "bibcode" },
+            { text: "DOI", value: "doi" },
+            { text: "EAN13", value: "ean13" },
+            { text: "EISSN", value: "eissn" },
+            { text: "HANDLE", value: "handle" },
+            { text: "IGSN", value: "igsn" },
+            { text: "ISBN", value: "isbn" },
+            { text: "ISSN", value: "issn" },
+            { text: "ISTC", value: "istc" },
+            { text: "LISSN", value: "lissn" },
+            { text: "LSID", value: "lsid" },
+            { text: "PMID", value: "pmid" },
+            { text: "PURL", value: "purl" },
+            { text: "UPC", value: "upc" },
+            { text: "URL", value: "url" },
+            { text: "URN", value: "urn" },
+            { text: "W3ID", value: "w3id" },
+          ],
+          relations: [
+            { text: "Is cited by", value: "iscitedby" },
+            { text: "Cites", value: "cites" },
+            { text: "Is suplement to", value: "issupplementto" },
+            { text: "Is suplemented by", value: "issupplementedby" },
+            { text: "Is continued by", value: "iscontinuedby" },
+            { text: "Continues", value: "continues" },
+            { text: "Is described by", value: "isdescribedby" },
+            { text: "Describes", value: "describes" },
+            { text: "Has metadata", value: "hasmetadata" },
+            { text: "Is metadata for", value: "ismetadatafor" },
+            { text: "Has version", value: "hasversion" },
+            { text: "Is version of", value: "isversionof" },
+            { text: "Is new version of", value: "isnewversionof" },
+            { text: "Is previous version of", value: "ispreviousversionof" },
+            { text: "Is part of", value: "ispartof" },
+            { text: "Has part", value: "haspart" },
+            { text: "Is referenced by", value: "isreferencedby" },
+            { text: "References", value: "references" },
+            { text: "Is documented by", value: "isdocumentedby" },
+            { text: "Documents", value: "documents" },
+            { text: "Is compiled by", value: "iscompiledby" },
+            { text: "Compiles", value: "compiles" },
+            { text: "Is variant form of", value: "isvariantformof" },
+            { text: "Is original form of", value: "isoriginalformof" },
+            { text: "Is identical to", value: "isidenticalto" },
+            { text: "Is reviewed by", value: "isreviewedby" },
+            { text: "Reviews", value: "reviews" },
+            { text: "Is derived from", value: "isderivedfrom" },
+            { text: "Is source of", value: "issourceof" },
+            { text: "Is required by", value: "isrequiredby" },
+            { text: "Requires", value: "requires" },
+            { text: "Is obsoleted by", value: "isobsoletedby" },
+            { text: "Obsoletes", value: "obsoletes" },
+          ],
+        },
+      },
     };
     this.apiErrorHandler = new APIErrorHandler(this.vocabularies);
   }
@@ -135,7 +206,7 @@ export class RDMDepositForm extends Component {
             </AccordionField>
 
             <AccordionField fieldPath="" active={true} label={"Identifiers"}>
-              <p>COMING SOON</p>
+              <IdentifiersField />
               <br />
             </AccordionField>
 
@@ -173,10 +244,15 @@ export class RDMDepositForm extends Component {
               active={true}
               label={"Recommended Information"}
             >
-              <DatesField
-                options={this.vocabularies.metadata.dates}
-              />
+              <LanguagesField options={this.vocabularies.metadata.languages} />
+              <DatesField options={this.vocabularies.metadata.dates} />
               <PublisherField />
+              <br />
+            </AccordionField>
+            <AccordionField fieldPath="" active={true} label={"Related work"}>
+              <RelatedIdentifiersField
+                options={this.vocabularies.metadata.related_identifiers}
+              />
               <br />
             </AccordionField>
           </Grid.Column>
