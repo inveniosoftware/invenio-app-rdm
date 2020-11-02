@@ -5,7 +5,7 @@
 // Invenio App RDM is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
 
-import React, {useState} from "react";
+import React, { useState } from "react";
 import {
   Card,
   Item,
@@ -32,12 +32,17 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
     "ui.publication_date_l10n",
     "No publication date found."
   );
-  const status = _get(
+  const updatedDate = _get(
     result,
-    "metadata.resource_type.type",
+    "ui.updated_date_l10n",
+    "No updated date found."
+  );
+  const resource_type = _get(
+    result,
+    "ui.resource_type.title",
     "No resource type"
   );
-  const access = _get(result, "access.access_right", "No access rights");
+  const access = _get(result, "ui.access_right.title", "Open Access");
   const access_right_category = _get(
     result,
     "ui.access_right.category",
@@ -49,7 +54,6 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
     "open"
   );
   const creatorName = _get(result, "metadata.creators[0].name", "No creator");
-  const updatedDate = _get(result, "updated");
   const title = _get(result, "metadata.title", "No title");
   const subjects = _get(
     result,
@@ -70,7 +74,7 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
               {publicationDate} {version ? `(${version})` : null}
             </Label>
             <Label size="tiny" color="grey">
-              {status}
+              {resource_type}
             </Label>
             <Label
               size="tiny"
@@ -97,7 +101,9 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
           ))}
           {updatedDate && (
             <div>
-              Updated on <span>{updatedDate.substring(0, 10)}</span>
+              <small>
+                Updated on <span>{updatedDate}</span>
+              </small>
             </div>
           )}
         </Item.Extra>
@@ -167,24 +173,25 @@ export const RDMRecordFacetsValues = ({
   const [isActive, setisActive] = useState(false);
   const hasChildren = childAggCmps && childAggCmps.props.buckets.length > 0
   return (
-      <List.Item key={bucket.key}>
-        <div className={`title ${hasChildren? '': 'facet-title'} ${isActive? 'active': ''}`}>
-          <List.Content floated="right">
-            <Label circular>{bucket.doc_count}</Label>
-          </List.Content>
-          {hasChildren ? (<i className={`angle ${isActive? 'down': 'right'} icon`} onClick={()=>setisActive(!isActive)}></i>) : null}
-          <Checkbox
-            label={bucket.label}
-            value={bucket.key}
-            onClick={() => onFilterClicked(bucket.key)}
-            checked={isSelected}
-          />
-        </div>
-        <div className={`content facet-content ${isActive? 'active': ''}`}>
-          {childAggCmps}
-        </div>
-      </List.Item>
-  )};
+    <List.Item key={bucket.key}>
+      <div className={`title ${hasChildren ? '' : 'facet-title'} ${isActive ? 'active' : ''}`}>
+        <List.Content floated="right">
+          <Label circular>{bucket.doc_count}</Label>
+        </List.Content>
+        {hasChildren ? (<i className={`angle ${isActive ? 'down' : 'right'} icon`} onClick={() => setisActive(!isActive)}></i>) : null}
+        <Checkbox
+          label={bucket.label}
+          value={bucket.key}
+          onClick={() => onFilterClicked(bucket.key)}
+          checked={isSelected}
+        />
+      </div>
+      <div className={`content facet-content ${isActive ? 'active' : ''}`}>
+        {childAggCmps}
+      </div>
+    </List.Item>
+  )
+};
 
 
 const SearchHelpLinks = () => {
@@ -227,11 +234,11 @@ export const RDMRecordFacets = ({ aggs, currentResultsState }) => {
       {aggs.map((agg) => {
         return (
           <div className="ui accordion">
-          <BucketAggregation
-            key={agg.title}
-            title={agg.title}
-            agg={agg}
-          />
+            <BucketAggregation
+              key={agg.title}
+              title={agg.title}
+              agg={agg}
+            />
           </div>
         );
       })}
