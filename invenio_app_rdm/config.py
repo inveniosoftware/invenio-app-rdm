@@ -31,8 +31,7 @@ WARNING: An instance should NOT install multiple flavour extensions since
 from datetime import timedelta
 
 from invenio_rdm_records.config import IIIF_PREVIEW_TEMPLATE, \
-    PREVIEWER_PREFERENCE, RECORD_CONTRIBUTOR_TYPES, \
-    RECORD_CONTRIBUTOR_TYPES_LABELS, RECORDS_UI_ENDPOINTS
+    PREVIEWER_PREFERENCE, RECORDS_UI_ENDPOINTS
 
 # PIDSTORE_RECID_FIELD
 # RECORDS_PERMISSIONS_RECORD_POLICY
