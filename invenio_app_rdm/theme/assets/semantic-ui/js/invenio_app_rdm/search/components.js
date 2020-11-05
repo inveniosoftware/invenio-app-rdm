@@ -32,10 +32,10 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
     "ui.publication_date_l10n",
     "No publication date found."
   );
-  const updatedDate = _get(
+  const createdDate = _get(
     result,
-    "ui.updated_date_l10n",
-    "No updated date found."
+    "ui.created_date_l10n",
+    "No creation date found."
   );
   const resource_type = _get(
     result,
@@ -99,10 +99,10 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
               {subject.subject}
             </Label>
           ))}
-          {updatedDate && (
+          {createdDate && (
             <div>
               <small>
-                Updated on <span>{updatedDate}</span>
+                Uploaded on <span>{createdDate}</span>
               </small>
             </div>
           )}
