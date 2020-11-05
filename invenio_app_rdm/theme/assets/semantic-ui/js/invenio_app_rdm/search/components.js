@@ -7,14 +7,14 @@
 
 import React, { useState } from "react";
 import {
-  Card,
-  Item,
-  Input,
-  Label,
   Button,
-  List,
+  Card,
   Checkbox,
-  Grid
+  Grid,
+  Input,
+  Item,
+  Label,
+  List
 } from "semantic-ui-react";
 import { BucketAggregation, withState, Toggle } from "react-searchkit";
 import _get from "lodash/get";
