@@ -23,8 +23,7 @@ tests_require = [
 ]
 
 setup_requires = [
-    'Babel>=1.3',
-    'pytest-runner>=3.0.0,<5',
+    'Babel>=2.8',
 ]
 
 extras_require = {
@@ -51,7 +50,6 @@ extras_require = {
     ],
     # Extras
     'docs': [
-        'docutils>=0.13.1,<0.16',
         'Sphinx>=3',
     ],
     'tests': tests_require,
