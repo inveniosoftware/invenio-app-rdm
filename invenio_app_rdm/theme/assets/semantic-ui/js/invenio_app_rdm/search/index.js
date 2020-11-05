@@ -7,21 +7,21 @@
 
 import { createSearchAppInit } from "@js/invenio_search_ui";
 import {
-  RDMRecordResultsListItem,
-  RDMRecordResultsGridItem,
-  RDMRecordSearchBarElement,
-  RDMRecordFacetsValues,
-  RDMRecordFacets,
   RDMBucketAggregationElement,
+  RDMRecordFacets,
+  RDMRecordFacetsValues,
+  RDMRecordResultsGridItem,
+  RDMRecordResultsListItem,
+  RDMRecordSearchBarElement,
   RDMToggleComponent,
 } from "./components";
 
 const initSearchApp = createSearchAppInit({
-  "ResultsList.item": RDMRecordResultsListItem,
-  "ResultsGrid.item": RDMRecordResultsGridItem,
-  "SearchBar.element": RDMRecordSearchBarElement,
+  "BucketAggregation.element": RDMBucketAggregationElement,
   "BucketAggregationValues.element": RDMRecordFacetsValues,
+  "ResultsGrid.item": RDMRecordResultsGridItem,
+  "ResultsList.item": RDMRecordResultsListItem,
   "SearchApp.facets": RDMRecordFacets,
-  "BucketAggregation.element":RDMBucketAggregationElement,
-  'SearchFilters.ToggleComponent':RDMToggleComponent,
+  "SearchBar.element": RDMRecordSearchBarElement,
+  "SearchFilters.ToggleComponent": RDMToggleComponent,
 });
