@@ -6,26 +6,35 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
- #footer {
-   color: #fff;
-   margin-top: auto;
+.footer-global {
+  color: @footerTextDarkColor;
+  font-weight: 300;
+  margin-top: 0rem; // Default was `6rem`
+  font-size: @font-size-base;
 
-  &.footer-bottom {
-    background-color: #0377cd;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    font-weight: 300;
-    font-size: 14px;
+  a {
+    text-decoration: none;
+    color: @footerTextLightColor;
 
-    a {
-      text-decoration: none;
-      color: #ffffffd6;
-      font-weight: 600;
-
-      &:hover, &:focus {
-        color: #ffffff;
-      }
+    &:hover, &:focus {
+      color: @footerTextDarkColor;
     }
   }
+}
 
+.footer-top {
+  background-color: @footerLightColor;
+}
+
+.margin-small {
+  margin: 0em 0em 0.5em;
+}
+
+.footer-bottom {
+  background-color: @footerDarkColor;
+  box-shadow: 0 2px 5px rgba(0,0,0,.2) inset;
+}
+
+.footer-global > .ui.container > .ui.grid {
+  margin: 0rem;  // Default was `-1rem -1rem`
 }
