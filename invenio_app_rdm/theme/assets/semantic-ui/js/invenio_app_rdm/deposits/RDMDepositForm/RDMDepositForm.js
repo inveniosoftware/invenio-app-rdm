@@ -26,6 +26,7 @@ import {
   SubjectsField,
   TitlesField,
   RelatedIdentifiersField,
+  VersionField,
 } from "react-invenio-deposit";
 import { AccordionField, ErrorMessage } from "react-invenio-forms";
 
@@ -312,6 +313,7 @@ export class RDMDepositForm extends Component {
               />
               <LanguagesField options={this.vocabularies.metadata.languages} />
               <DatesField options={this.vocabularies.metadata.dates} />
+              <VersionField />
               <PublisherField />
               <br />
             </AccordionField>
