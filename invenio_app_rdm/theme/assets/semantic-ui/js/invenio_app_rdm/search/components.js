@@ -174,7 +174,7 @@ export const RDMRecordFacetsValues = ({
   const hasChildren = childAggCmps && childAggCmps.props.buckets.length > 0
   return (
     <List.Item key={bucket.key}>
-      <div className={`title ${hasChildren ? '' : 'facet-title'} ${isActive ? 'active' : ''}`}>
+      <div className={`title ${hasChildren ? '' : 'facet-subtitle'} ${isActive ? 'active' : ''}`}>
         <List.Content floated="right">
           <Label circular>{bucket.doc_count}</Label>
         </List.Content>
@@ -198,8 +198,8 @@ const SearchHelpLinks = () => {
   return (
     <Overridable
       id={'RdmSearch.SearchHelpLinks'}>
-      <Grid>
-        <Grid.Row >
+      <Grid className="padded-small">
+        <Grid.Row className="no-padded">
           <Grid.Column>
             <Card className="borderless-facet">
               <Card.Content>
@@ -208,7 +208,7 @@ const SearchHelpLinks = () => {
             </Card>
           </Grid.Column>
         </Grid.Row>
-        <Grid.Row >
+        <Grid.Row className="no-padded">
           <Grid.Column>
             <Card className="borderless-facet">
               <Card.Content>
