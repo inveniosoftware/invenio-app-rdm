@@ -15,6 +15,7 @@ import {
   DatesField,
   DepositFormApp,
   DescriptionsField,
+  FundingField,
   IdentifiersField,
   LanguagesField,
   PublishButton,
@@ -113,6 +114,49 @@ export class RDMDepositForm extends Component {
             { text: "Other", value: "other" },
           ],
         },
+
+        // TODO: Replace with an API backend
+        funding: {
+          funder: [
+            {
+              name: 'National Institutes of Health (US)',
+              identifier: 'funder1',
+              scheme: 'funderScheme1',
+            },
+            {
+              name: 'European Commission (EU)',
+              identifier: 'funder2',
+              scheme: 'funderScheme2',
+            },
+          ],
+          award: [
+            {
+              title: 'CANCER &AIDS DRUGS--PRECLIN PHARMACOL/TOXICOLOGY',
+              number: 'N01CM037835-016',
+              identifier: 'awardA',
+              scheme: 'awardSchemeA',
+              parentScheme: 'funderScheme1',
+              parentIdentifier: 'funder1',
+            },
+            {
+              title: 'Beyond the Standard Model at the LHC and with Atom Interferometers.',
+              number: '228169',
+              identifier: 'awardB1',
+              scheme: 'awardSchemeB',
+              parentScheme: 'funderScheme2',
+              parentIdentifier: 'funder2',
+            },
+            {
+              title: 'ENvironmental COnditions in GLAucoma Patients',
+              number: '747441',
+              identifier: 'awardB2',
+              scheme: 'awardSchemeB',
+              parentScheme: 'funderScheme2',
+              parentIdentifier: 'funder2',
+            },
+          ],
+        },
+
         related_identifiers: {
           resource_type: this.config.vocabularies.resource_type,
           scheme: [
@@ -269,6 +313,13 @@ export class RDMDepositForm extends Component {
               <LanguagesField options={this.vocabularies.metadata.languages} />
               <DatesField options={this.vocabularies.metadata.dates} />
               <PublisherField />
+              <br />
+            </AccordionField>
+
+            <AccordionField fieldPath="" active={true} label={"Funding"}>
+              <FundingField
+                options={this.vocabularies.metadata.funding}
+              />
               <br />
             </AccordionField>
 
