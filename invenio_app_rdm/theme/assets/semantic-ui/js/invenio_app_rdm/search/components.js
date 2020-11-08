@@ -53,7 +53,7 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
     "ui.access_right.icon",
     "open"
   );
-  const creatorName = _get(result, "metadata.creators[0].name", "No creator");
+  const creators = result.ui.creators.creators.slice(0, 3)
   const title = _get(result, "metadata.title", "No title");
   const subjects = _get(
     result,
@@ -89,7 +89,17 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
           </div>
         </Item.Extra>
         <Item.Header>{title}</Item.Header>
-        <Item.Meta>{creatorName}</Item.Meta>
+        <Item.Meta>
+          {creators.map((creator, index) => (
+            <span key={index}>
+              {_get(creator, "identifiers.orcid") ?
+                (
+                  <img className="inline-orcid" src="/static/images/orcid.svg" />
+                ) : null}
+              {creator.name}
+              {creators.length > 1 && index != creators.length - 1 ? (',') : null}</span>
+          ))}
+        </Item.Meta>
         <Item.Description>
           {_truncate(description, { length: 350 })}
         </Item.Description>
