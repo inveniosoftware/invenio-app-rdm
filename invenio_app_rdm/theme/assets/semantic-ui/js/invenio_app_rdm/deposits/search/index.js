@@ -13,6 +13,12 @@ import {
   RDMDepositResults,
   RDMEmptyResults,
 } from "./components";
+import {
+  RDMBucketAggregationElement,
+  RDMRecordFacets,
+  RDMRecordFacetsValues,
+  RDMToggleComponent,
+} from "../../search/components";
 import { RDMRecordSearchBarElement } from "../../search/components";
 
 const initSearchApp = createSearchAppInit({
@@ -22,4 +28,9 @@ const initSearchApp = createSearchAppInit({
   "SearchBar.element": RDMRecordSearchBarElement,
   "SearchApp.searchbar": () => null,
   "EmptyResults.element": RDMEmptyResults,
+  "BucketAggregation.element": RDMBucketAggregationElement,
+  "BucketAggregationValues.element": RDMRecordFacetsValues,
+  "SearchFilters.ToggleComponent": RDMToggleComponent,
+  "SearchApp.facets": RDMRecordFacets,
+
 });
