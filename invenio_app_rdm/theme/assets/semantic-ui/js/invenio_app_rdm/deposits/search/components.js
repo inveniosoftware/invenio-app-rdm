@@ -70,17 +70,20 @@ export const RDMDepositResults = ({ sortOptions, currentResultsState }) => {
 };
 
 export const RDMRecordResultsListItem = ({ result, index }) => {
-  const createdDate = _get(result, "created", "No metadata");
-  const status = _get(
+  const resource_type = _get(
     result,
-    "metadata.resource_type.type",
+    "ui.resource_type.title",
     "No resource type"
   );
-  const access = _get(result, "access.access_right", "Open access");
-  const creatorName = _get(result, "metadata.creators[0].name", "No creator");
-  const updatedDate = _get(result, "updated", "No updated date");
-  const title = _get(result, "metadata.titles[0].title", "No title");
-  const author = _get(result, "metadata._internal_notes[0].user", "anonymous");
+  const createdDate = _get(
+    result,
+    "ui.created_date_l10n",
+    "No creation date found."
+  );
+  const access = _get(result, "ui.access_right.title", "Open Access");
+  const creator = result.ui.creators.creators[0]
+  const title = _get(result, "metadata.title", "No title");
+    const author = _get(result, "metadata._internal_notes[0].user", "anonymous");
   const id = _get(result, "id");
   const EditLink = `/uploads/${id}`;
 
@@ -96,10 +99,10 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
               <Item.Extra>
                 <div>
                   <Label size="tiny" color="blue">
-                    {updatedDate.substring(0, 10)}
+                    {createdDate}
                   </Label>
                   <Label size="tiny" color="grey">
-                    {status}
+                    {resource_type}
                   </Label>
                   <Label size="tiny" color="green">
                     {access}
@@ -125,11 +128,9 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
               <Item.Header as="a" href={EditLink}>
                 {title}
               </Item.Header>
-              <Item.Meta>{creatorName}</Item.Meta>
               <Item.Extra>
                 <div>
-                  Created on <span>{createdDate.substring(0, 10)}</span> by{" "}
-                  <span>{author}</span>
+                  Created on <span>{createdDate}</span> by {creator.name}
                   <div className="ui right floated stats">
                     <span>
                       <Icon name="eye" />

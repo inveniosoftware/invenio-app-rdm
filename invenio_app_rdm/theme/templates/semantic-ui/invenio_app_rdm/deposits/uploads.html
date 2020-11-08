@@ -12,31 +12,37 @@
 {%- endblock page_header %}
 
 {%- block javascript %}
-  {{ super() }}
-  {{ webpack['rdm_deposits_search_app.js'] }}
+{{ super() }}
+{{ webpack['rdm_deposits_search_app.js'] }}
 {%- endblock javascript %}
 
 {%- block page_body %}
 
 <div data-invenio-search-config='{
   "aggs": [
-  {
-    "aggName": "access_right",
-    "field": "access_right",
-    "title": "Access Right"
-  },
-  {
-    "aggName": "resource_type",
-    "field": "resource_type",
-    "title": "Resource Type"
-  }
+    {
+      "aggName": "access_right",
+      "field": "access_right",
+      "title": "Access Right"
+    },
+    {
+      "aggName": "resource_type",
+      "field": "resource_type.type",
+      "title": "Resource Type",
+      "childAgg": {
+        "aggName": "subtype",
+        "field": "resource_type.subtype",
+        "title": "Resource Type"
+      }
+    }
   ],
   "appId": "deposit-search",
   "initialQueryState": {
-    "hiddenParams": null
+    "hiddenParams": null,
+    "size": 10
   },
   "layoutOptions": {
-    "gridView": true,
+    "gridView": false,
     "listView": true
   },
   "paginationOptions": {
@@ -59,7 +65,7 @@
   "searchApi": {
     "axios": {
       "headers": {
-        "Accept": "application/json"
+        "Accept": "application/vnd.inveniordm.v1+json"
       },
       "url": "/api/user/records",
       "withCredentials": true
@@ -67,17 +73,11 @@
   },
   "sortOptions": [
     {
-      "default": true,
-      "defaultOnEmptyString": false,
       "sortBy": "bestmatch",
-      "sortOrder": "asc",
       "text": "Best match"
     },
     {
-      "default": false,
-      "defaultOnEmptyString": true,
       "sortBy": "newest",
-      "sortOrder": "asc",
       "text": "Newest"
     }
   ]
