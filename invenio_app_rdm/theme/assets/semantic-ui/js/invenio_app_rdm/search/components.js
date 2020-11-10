@@ -29,17 +29,17 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
   );
   const publicationDate = _get(
     result,
-    "ui.publication_date_l10n",
+    "ui.publication_date_l10n_long",
     "No publication date found."
   );
   const createdDate = _get(
     result,
-    "ui.created_date_l10n",
+    "ui.created_date_l10n_long",
     "No creation date found."
   );
   const resource_type = _get(
     result,
-    "ui.resource_type.title",
+    "ui.resource_type",
     "No resource type"
   );
   const access = _get(result, "ui.access_right.title", "Open Access");
