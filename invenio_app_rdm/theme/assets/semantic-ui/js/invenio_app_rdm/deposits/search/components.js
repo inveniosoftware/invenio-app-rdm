@@ -77,13 +77,13 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
   );
   const createdDate = _get(
     result,
-    "ui.created_date_l10n",
+    "ui.created_date_l10n_long",
     "No creation date found."
   );
   const access = _get(result, "ui.access_right.title", "Open Access");
   const creator = result.ui.creators.creators[0]
   const title = _get(result, "metadata.title", "No title");
-    const author = _get(result, "metadata._internal_notes[0].user", "anonymous");
+  const author = _get(result, "metadata._internal_notes[0].user", "anonymous");
   const id = _get(result, "id");
   const EditLink = `/uploads/${id}`;
 
