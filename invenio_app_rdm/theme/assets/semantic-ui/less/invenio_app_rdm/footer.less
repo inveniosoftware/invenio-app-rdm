@@ -9,8 +9,13 @@
 .footer-global {
   color: @footerTextDarkColor;
   font-weight: 300;
-  margin-top: 0rem; // Default was `6rem`
+  margin-top: auto;
   font-size: @font-size-base;
+  padding-top: 1rem;
+
+  & > .ui.grid {
+    margin: 0rem;  // Default was `-1rem -1rem`
+  }
 
   a {
     text-decoration: none;
@@ -33,8 +38,4 @@
 .footer-bottom {
   background-color: @footerDarkColor;
   box-shadow: 0 2px 5px rgba(0,0,0,.2) inset;
-}
-
-.footer-global > .ui.container > .ui.grid {
-  margin: 0rem;  // Default was `-1rem -1rem`
 }
