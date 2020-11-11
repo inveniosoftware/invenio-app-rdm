@@ -70,10 +70,11 @@ export const RDMDepositResults = ({ sortOptions, currentResultsState }) => {
 };
 
 export const RDMRecordResultsListItem = ({ result, index }) => {
-  const resource_type = _get(
+  const resource_type = _get(result, "ui.resource_type", "No resource type");
+  const publicationDate = _get(
     result,
-    "ui.resource_type.title",
-    "No resource type"
+    "ui.publication_date_l10n_long",
+    "No publication date found."
   );
   const createdDate = _get(
     result,
@@ -81,14 +82,21 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
     "No creation date found."
   );
   const access = _get(result, "ui.access_right.title", "Open Access");
-  const creator = result.ui.creators.creators[0]
+  const access_right_category = _get(
+    result,
+    "ui.access_right.category",
+    "open"
+  );
+  const access_right_icon = _get(result, "ui.access_right.icon", "open");
+  const creator = result.ui.creators.creators[0];
   const title = _get(result, "metadata.title", "No title");
   const author = _get(result, "metadata._internal_notes[0].user", "anonymous");
   const id = _get(result, "id");
   const EditLink = `/uploads/${id}`;
+  const version = _get(result, "metadata.version", null);
 
   return (
-    <Item key={index} className="deposits-list-item">
+    <Item key={index} href={EditLink} className="deposits-list-item">
       <Item.Content>
         <Grid>
           <Grid.Row columns={2}>
@@ -99,12 +107,16 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
               <Item.Extra>
                 <div>
                   <Label size="tiny" color="blue">
-                    {createdDate}
+                    {publicationDate} {version ? `(${version})` : null}
                   </Label>
                   <Label size="tiny" color="grey">
                     {resource_type}
                   </Label>
-                  <Label size="tiny" color="green">
+                  <Label
+                    size="tiny"
+                    className={`access-right ${access_right_category}`}
+                  >
+                    <i className={`icon ${access_right_icon}`}></i>
                     {access}
                   </Label>
                   <div className="ui right floated actions">
