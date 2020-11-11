@@ -82,7 +82,7 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
           ))}
         </Item.Meta>
         <Item.Description>
-          {_truncate(description, { length: 350 })}
+          {_truncate(description.replace(/(<([^>]+)>)/ig, '') , { length: 350 })}
         </Item.Description>
         <Item.Extra>
           {subjects.map((subject, index) => (
