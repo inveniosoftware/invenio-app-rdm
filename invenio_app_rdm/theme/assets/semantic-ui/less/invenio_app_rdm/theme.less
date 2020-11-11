@@ -114,6 +114,12 @@ body {
 .section-content-light-bg {
   padding-top: calc(60px) !important;
   padding-bottom: calc(2 * 30px);
+
+  &:last-of-type {
+    // NOTE: Fixes spacing between content and footer in the frontpage
+    // TODO: Fix body content padding/margins in general
+    margin-bottom: -1rem;
+  }
 }
 
 .section-content-white-bg a,
