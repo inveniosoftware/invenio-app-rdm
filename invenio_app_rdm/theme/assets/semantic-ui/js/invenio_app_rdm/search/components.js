@@ -14,19 +14,16 @@ import {
   Input,
   Item,
   Label,
-  List
+  List,
 } from "semantic-ui-react";
-import { BucketAggregation, withState, Toggle } from "react-searchkit";
+import { BucketAggregation, Toggle } from "react-searchkit";
 import _get from "lodash/get";
 import _truncate from "lodash/truncate";
-import Overridable from 'react-overridable';
+import Overridable from "react-overridable";
+import { SearchBar } from "@js/invenio_search_ui/components";
 
 export const RDMRecordResultsListItem = ({ result, index }) => {
-  const description = _get(
-    result,
-    "metadata.description",
-    "No description"
-  );
+  const description = _get(result, "metadata.description", "No description");
   const publicationDate = _get(
     result,
     "ui.publication_date_l10n_long",
@@ -37,34 +34,18 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
     "ui.created_date_l10n_long",
     "No creation date found."
   );
-  const resource_type = _get(
-    result,
-    "ui.resource_type",
-    "No resource type"
-  );
+  const resource_type = _get(result, "ui.resource_type", "No resource type");
   const access = _get(result, "ui.access_right.title", "Open Access");
   const access_right_category = _get(
     result,
     "ui.access_right.category",
     "open"
   );
-  const access_right_icon = _get(
-    result,
-    "ui.access_right.icon",
-    "open"
-  );
-  const creators = result.ui.creators.creators.slice(0, 3)
+  const access_right_icon = _get(result, "ui.access_right.icon", "open");
+  const creators = result.ui.creators.creators.slice(0, 3);
   const title = _get(result, "metadata.title", "No title");
-  const subjects = _get(
-    result,
-    "metadata.subjects",
-    null
-  );
-  const version = _get(
-    result,
-    "metadata.version",
-    null
-  );
+  const subjects = _get(result, "metadata.subjects", null);
+  const version = _get(result, "metadata.version", null);
   return (
     <Item key={index} href={`/records/${result.id}`}>
       <Item.Content>
@@ -92,12 +73,12 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
         <Item.Meta>
           {creators.map((creator, index) => (
             <span key={index}>
-              {_get(creator, "identifiers.orcid") ?
-                (
-                  <img className="inline-orcid" src="/static/images/orcid.svg" />
-                ) : null}
+              {_get(creator, "identifiers.orcid") ? (
+                <img className="inline-orcid" src="/static/images/orcid.svg" />
+              ) : null}
               {creator.name}
-              {creators.length > 1 && index != creators.length - 1 ? (',') : null}</span>
+              {creators.length > 1 && index != creators.length - 1 ? "," : null}
+            </span>
           ))}
         </Item.Meta>
         <Item.Description>
@@ -124,11 +105,7 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
 
 // TODO: Update this according to the full List item template?
 export const RDMRecordResultsGridItem = ({ result, index }) => {
-  const description = _get(
-    result,
-    "metadata.description",
-    "No description"
-  );
+  const description = _get(result, "metadata.description", "No description");
   return (
     <Card fluid key={index} href={`/records/${result.pid}`}>
       <Card.Content>
@@ -138,6 +115,14 @@ export const RDMRecordResultsGridItem = ({ result, index }) => {
         </Card.Description>
       </Card.Content>
     </Card>
+  );
+};
+
+export const RDMRecordSearchBarContainer = () => {
+  return (
+    <Overridable id={"SearchApp.searchbar"}>
+      <SearchBar />
+    </Overridable>
   );
 };
 
@@ -181,14 +166,23 @@ export const RDMRecordFacetsValues = ({
 }) => {
   const childAggCmps = getChildAggCmps(bucket);
   const [isActive, setisActive] = useState(false);
-  const hasChildren = childAggCmps && childAggCmps.props.buckets.length > 0
+  const hasChildren = childAggCmps && childAggCmps.props.buckets.length > 0;
   return (
     <List.Item key={bucket.key}>
-      <div className={`title ${hasChildren ? '' : 'facet-subtitle'} ${isActive ? 'active' : ''}`}>
+      <div
+        className={`title ${hasChildren ? "" : "facet-subtitle"} ${
+          isActive ? "active" : ""
+        }`}
+      >
         <List.Content floated="right">
           <Label circular>{bucket.doc_count}</Label>
         </List.Content>
-        {hasChildren ? (<i className={`angle ${isActive ? 'down' : 'right'} icon`} onClick={() => setisActive(!isActive)}></i>) : null}
+        {hasChildren ? (
+          <i
+            className={`angle ${isActive ? "down" : "right"} icon`}
+            onClick={() => setisActive(!isActive)}
+          ></i>
+        ) : null}
         <Checkbox
           label={bucket.label}
           value={bucket.key}
@@ -196,18 +190,16 @@ export const RDMRecordFacetsValues = ({
           checked={isSelected}
         />
       </div>
-      <div className={`content facet-content ${isActive ? 'active' : ''}`}>
+      <div className={`content facet-content ${isActive ? "active" : ""}`}>
         {childAggCmps}
       </div>
     </List.Item>
-  )
+  );
 };
-
 
 const SearchHelpLinks = () => {
   return (
-    <Overridable
-      id={'RdmSearch.SearchHelpLinks'}>
+    <Overridable id={"RdmSearch.SearchHelpLinks"}>
       <Grid className="padded-small">
         <Grid.Row className="no-padded">
           <Grid.Column>
@@ -229,26 +221,21 @@ const SearchHelpLinks = () => {
         </Grid.Row>
       </Grid>
     </Overridable>
-  )
-}
+  );
+};
 
 export const RDMRecordFacets = ({ aggs, currentResultsState }) => {
-
   return (
     <>
       <Toggle
         title="Versions"
         label="View all versions"
-        filterValue={['all_versions', 'true']}
+        filterValue={["all_versions", "true"]}
       />
       {aggs.map((agg) => {
         return (
           <div className="ui accordion">
-            <BucketAggregation
-              key={agg.title}
-              title={agg.title}
-              agg={agg}
-            />
+            <BucketAggregation key={agg.title} title={agg.title} agg={agg} />
           </div>
         );
       })}
@@ -256,7 +243,6 @@ export const RDMRecordFacets = ({ aggs, currentResultsState }) => {
     </>
   );
 };
-
 
 export const RDMBucketAggregationElement = ({ title, containerCmp }) => {
   return (
@@ -266,9 +252,8 @@ export const RDMBucketAggregationElement = ({ title, containerCmp }) => {
       </Card.Content>
       <Card.Content>{containerCmp}</Card.Content>
     </Card>
-  )
-}
-
+  );
+};
 
 export const RDMToggleComponent = ({
   updateQueryFilters,
@@ -276,14 +261,13 @@ export const RDMToggleComponent = ({
   filterValue,
   label,
   title,
-  isChecked
+  isChecked,
 }) => {
-
   const _isChecked = (userSelectionFilters) => {
-    const isFilterActive = userSelectionFilters.filter(
-      (filter) => filter[0] === filterValue[0]
-    ).length > 0
-    return isFilterActive
+    const isFilterActive =
+      userSelectionFilters.filter((filter) => filter[0] === filterValue[0])
+        .length > 0;
+    return isFilterActive;
   };
 
   const onToggleClicked = () => {
@@ -305,6 +289,5 @@ export const RDMToggleComponent = ({
         />
       </Card.Content>
     </Card>
-  )
-}
-
+  );
+};

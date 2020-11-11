@@ -12,6 +12,7 @@ import {
   RDMRecordFacetsValues,
   RDMRecordResultsGridItem,
   RDMRecordResultsListItem,
+  RDMRecordSearchBarContainer,
   RDMRecordSearchBarElement,
   RDMToggleComponent,
 } from "./components";
@@ -22,7 +23,7 @@ const initSearchApp = createSearchAppInit({
   "ResultsGrid.item": RDMRecordResultsGridItem,
   "ResultsList.item": RDMRecordResultsListItem,
   "SearchApp.facets": RDMRecordFacets,
-  "SearchApp.searchbarContainer": () => null,
+  "SearchApp.searchbarContainer": RDMRecordSearchBarContainer,
   "SearchBar.element": RDMRecordSearchBarElement,
   "SearchFilters.ToggleComponent": RDMToggleComponent,
 });
