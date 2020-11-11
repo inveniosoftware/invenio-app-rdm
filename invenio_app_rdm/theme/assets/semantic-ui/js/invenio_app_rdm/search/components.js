@@ -85,7 +85,7 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
           {_truncate(description, { length: 350 })}
         </Item.Description>
         <Item.Extra>
-          {subjects.map((subject, index) => (
+          {subjects && subjects.map((subject, index) => (
             <Label key={index} size="tiny">
               {subject.subject}
             </Label>
