@@ -279,17 +279,12 @@ WSGI_PROXIES = 2
 
 # Invenio-APP-RDM
 # =============
-SEARCH_UI_HEADER_TEMPLATE = 'invenio_app_rdm/header.html'
-"""Search page's header template."""
 
 SEARCH_UI_SEARCH_TEMPLATE = 'invenio_app_rdm/search.html'
 """Search page's base template."""
 
 DEPOSITS_FORMS_BASE_TEMPLATE = 'invenio_app_rdm/deposits/forms/deposits.html'
 """Deposits form page's base template."""
-
-DEPOSITS_HEADER_TEMPLATE = 'invenio_app_rdm/header.html'
-"""Deposits header page's template."""
 
 DEPOSITS_UPLOADS_TEMPLATE = 'invenio_app_rdm/deposits/uploads.html'
 """Deposits user's uploads page template."""
