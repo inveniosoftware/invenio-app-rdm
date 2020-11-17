@@ -27,7 +27,6 @@
         {%- endblock brand %}
         {%- endblock navbar_header %}
 
-        {%- block navbar_inner %}
 
         {%- block navbar_nav %}
           {%- if config.THEME_SEARCHBAR %}
@@ -64,19 +63,19 @@
           </ul>
         {%- endblock navbar_nav %}
 
-          <div class="right menu">
-            <ul class="no-dots-list">
-              <div class="item right-menu">
-        {%- block navbar_right %}
-          <li>{%- include config.THEME_HEADER_LOGIN_TEMPLATE %}</li>
-        {%- endblock navbar_right %}
-                </div>
-              {%- endblock navbar_inner %}
-              </ul>
+        <div class="right menu">
+          <ul class="no-dots-list">
+            <div class="item right-menu">
+            {%- block navbar_right %}
+              <li>{%- include config.THEME_HEADER_LOGIN_TEMPLATE %}</li>
+            {%- endblock navbar_right %}
             </div>
-          </div>
-        </nav>
-      {%- endblock navbar %}
+          </ul>
+        </div>
+
+      </div>
+    </nav>
+    {%- endblock navbar %}
   </div>
   {%- block flashmessages %}
   {%- from "invenio_theme/macros/messages.html" import flashed_messages with context -%}
