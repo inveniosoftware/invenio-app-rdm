@@ -321,3 +321,55 @@ body {
   vertical-align: middle;
   padding-right: 3px;
 }
+
+.ui.grid {
+  .row.file-upload-area-row {
+    padding-top: 0px;
+    padding-bottom: 0px;
+
+    .ui.basic.very.padded.segment.file-upload-area {
+      border: 2px dashed #999999;
+      border-radius: 5px;
+      background: #EEEEEE none;
+      margin-top: 20px;
+
+      &.no-files{
+        margin: 0px;
+      }
+    }
+  }
+
+  .row.file-upload-note-row {
+    padding-top: 5px ;
+
+    .ui.basic.segment.file-upload-note {
+      background-color: #FFE599;
+      font-size: 10px;
+      text-align: center;
+    }
+  }
+}
+
+.ui.table {
+  .ui.blue.medium.file-upload-progress {
+    &.progress, &.success {
+      &.active, &.disabled {
+        margin-bottom: 0px;
+        &.error {
+            margin-bottom: 0px;
+        }
+      }
+    }
+  }
+
+  .file-table-row {
+    .file-table-header-cell {
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+    .file-table-cell {
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+  }
+}
