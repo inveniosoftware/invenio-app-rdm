@@ -15,6 +15,7 @@ import {
   DatesField,
   DepositFormApp,
   DescriptionsField,
+  FileUploader,
   FundingField,
   IdentifiersField,
   LanguagesField,
@@ -120,40 +121,41 @@ export class RDMDepositForm extends Component {
         funding: {
           funder: [
             {
-              name: 'National Institutes of Health (US)',
-              identifier: 'funder1',
-              scheme: 'funderScheme1',
+              name: "National Institutes of Health (US)",
+              identifier: "funder1",
+              scheme: "funderScheme1",
             },
             {
-              name: 'European Commission (EU)',
-              identifier: 'funder2',
-              scheme: 'funderScheme2',
+              name: "European Commission (EU)",
+              identifier: "funder2",
+              scheme: "funderScheme2",
             },
           ],
           award: [
             {
-              title: 'CANCER &AIDS DRUGS--PRECLIN PHARMACOL/TOXICOLOGY',
-              number: 'N01CM037835-016',
-              identifier: 'awardA',
-              scheme: 'awardSchemeA',
-              parentScheme: 'funderScheme1',
-              parentIdentifier: 'funder1',
+              title: "CANCER &AIDS DRUGS--PRECLIN PHARMACOL/TOXICOLOGY",
+              number: "N01CM037835-016",
+              identifier: "awardA",
+              scheme: "awardSchemeA",
+              parentScheme: "funderScheme1",
+              parentIdentifier: "funder1",
             },
             {
-              title: 'Beyond the Standard Model at the LHC and with Atom Interferometers.',
-              number: '228169',
-              identifier: 'awardB1',
-              scheme: 'awardSchemeB',
-              parentScheme: 'funderScheme2',
-              parentIdentifier: 'funder2',
+              title:
+                "Beyond the Standard Model at the LHC and with Atom Interferometers.",
+              number: "228169",
+              identifier: "awardB1",
+              scheme: "awardSchemeB",
+              parentScheme: "funderScheme2",
+              parentIdentifier: "funder2",
             },
             {
-              title: 'ENvironmental COnditions in GLAucoma Patients',
-              number: '747441',
-              identifier: 'awardB2',
-              scheme: 'awardSchemeB',
-              parentScheme: 'funderScheme2',
-              parentIdentifier: 'funder2',
+              title: "ENvironmental COnditions in GLAucoma Patients",
+              number: "747441",
+              identifier: "awardB2",
+              scheme: "awardSchemeB",
+              parentScheme: "funderScheme2",
+              parentIdentifier: "funder2",
             },
           ],
         },
@@ -220,34 +222,34 @@ export class RDMDepositForm extends Component {
         subjects: {
           options: [
             {
-              text: 'Deep Learning',
+              text: "Deep Learning",
               value: {
-                subject: 'Deep Learning',
-                scheme: 'user',
-                identifier: 'U1'
+                subject: "Deep Learning",
+                scheme: "user",
+                identifier: "U1",
               },
             },
             {
-              text: 'MeSH: Cognitive Neuroscience',
+              text: "MeSH: Cognitive Neuroscience",
               value: {
-                subject: 'Cognitive Neuroscience',
-                scheme: 'mesh',
-                identifier: 'D000066494'
+                subject: "Cognitive Neuroscience",
+                scheme: "mesh",
+                identifier: "D000066494",
               },
             },
             {
-              text: 'FAST: Glucagonoma',
+              text: "FAST: Glucagonoma",
               value: {
-                subject: 'Glucagonoma',
-                scheme: 'fast',
-                identifier: '943672'
+                subject: "Glucagonoma",
+                scheme: "fast",
+                identifier: "943672",
               },
             },
           ],
           limitToOptions: [
-            {text: 'All', value: 'all'},
-            {text: 'MeSH', value: 'mesh'},
-            {text: 'FAST', value: 'fast'},
+            { text: "All", value: "all" },
+            { text: "MeSH", value: "mesh" },
+            { text: "FAST", value: "fast" },
           ],
         },
       },
@@ -256,18 +258,40 @@ export class RDMDepositForm extends Component {
   }
 
   render() {
+    // TODO: Remove dummy files
+    const files = [
+      {
+        filename: "foo.png",
+        size: 1000,
+        checksum: "md5:fafawfasdasdfsdf",
+        links: {
+          self: "#",
+          version: "#",
+        },
+      },
+      {
+        filename: "bar.png",
+        size: 1000,
+        checksum: "md5:fafawfadsdssdasdfsdf",
+        links: {
+          self: "#",
+          version: "#",
+        },
+      },
+    ];
+    const record = this.props.record;
+    record.files = files;
     return (
       <DepositFormApp
         config={this.config}
-        record={this.props.record}
+        record={record}
         apiErrorHandler={this.apiErrorHandler}
       >
         <ErrorMessage fieldPath="message" />
         <Grid>
           <Grid.Column width={12}>
             <AccordionField fieldPath="" active={true} label={"Files"}>
-              <p>COMING SOON</p>
-              <br />
+              <FileUploader />
             </AccordionField>
 
             <AccordionField fieldPath="" active={true} label={"Identifiers"}>
@@ -309,7 +333,9 @@ export class RDMDepositForm extends Component {
             >
               <SubjectsField
                 options={this.vocabularies.metadata.subjects.options}
-                limitToOptions={this.vocabularies.metadata.subjects.limitToOptions}
+                limitToOptions={
+                  this.vocabularies.metadata.subjects.limitToOptions
+                }
               />
               <LanguagesField options={this.vocabularies.metadata.languages} />
               <DatesField options={this.vocabularies.metadata.dates} />
@@ -319,9 +345,7 @@ export class RDMDepositForm extends Component {
             </AccordionField>
 
             <AccordionField fieldPath="" active={true} label={"Funding"}>
-              <FundingField
-                options={this.vocabularies.metadata.funding}
-              />
+              <FundingField options={this.vocabularies.metadata.funding} />
               <br />
             </AccordionField>
 
