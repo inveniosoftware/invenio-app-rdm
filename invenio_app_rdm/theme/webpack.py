@@ -30,7 +30,7 @@ theme = WebpackThemeBundle(
                 'luxon': '^1.23.0',
                 'path': '^0.12.7',
                 'prop-types': '^15.7.2',
-                'react-invenio-deposit': '^0.7.6',
+                'react-invenio-deposit': '^0.8.1',
                 'react-invenio-forms': '^0.3.4',
                 'react-dropzone': "^11.0.3",
                 '@ckeditor/ckeditor5-build-classic': '^16.0.0',
