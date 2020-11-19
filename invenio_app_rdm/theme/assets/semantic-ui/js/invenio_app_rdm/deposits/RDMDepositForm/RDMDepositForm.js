@@ -10,8 +10,7 @@ import React, { Component } from "react";
 import { Button, Card, Grid, Icon } from "semantic-ui-react";
 import {
   AccessRightField,
-  ContributorsField,
-  CreatorsField,
+  CreatibutorsField,
   DatesField,
   DepositFormApp,
   DescriptionsField,
@@ -83,9 +82,12 @@ export class RDMDepositForm extends Component {
             { text: "Person", value: "personal" },
             { text: "Organization", value: "organizational" },
           ],
-          identifiers: {
-            orcid: "0000-0001-8135-3489",
-          },
+          role: [
+            { text: "Editor", value: "editor" },
+            { text: "Data Curator", value: "datacurator" },
+            { text: "Data Manager", value: "datamanager" },
+            { text: "Project Manager", value: "projectmanager" },
+          ],
         },
 
         contributors: {
@@ -312,12 +314,16 @@ export class RDMDepositForm extends Component {
                 options={this.vocabularies.metadata.titles}
                 required
               />
-              <CreatorsField
+              <CreatibutorsField
                 options={this.vocabularies.metadata.creators}
                 required
               />
-              <ContributorsField
+              <CreatibutorsField
+                addButtonLabel={"Add contributor"}
+                label={"Contributors"}
+                fieldPath={"metadata.contributors"}
                 options={this.vocabularies.metadata.contributors}
+                roleRequired={true}
               />
               <DescriptionsField
                 options={this.vocabularies.metadata.descriptions}
