@@ -17,6 +17,10 @@ from flask import Blueprint, config, current_app, g, render_template
 from flask_menu import current_menu
 from invenio_rdm_records.resources import BibliographicDraftActionResource, \
     BibliographicDraftResource, BibliographicDraftResourceConfig, \
+    BibliographicRecordFilesResource, \
+    BibliographicRecordFilesResourceConfig, \
+    BibliographicRecordFilesActionResource, \
+    BibliographicRecordFilesActionResourceConfig, \
     BibliographicRecordResource, BibliographicUserRecordsResource
 from invenio_rdm_records.services import BibliographicRecordService, \
     BibliographicRecordServiceConfig, BibliographicUserRecordsService
@@ -135,3 +139,18 @@ def user_records_bp(app):
         return BibliographicUserRecordsResource(
             service=BibliographicUserRecordsService()
         ).as_blueprint("bibliographic_user_records_resource")
+
+
+def record_files_bp(app):
+    """Callable record files blueprint (we need an application context)."""
+    with app.app_context():
+        return BibliographicRecordFilesResource(
+        ).as_blueprint("bibliographic_record_files_resource")
+
+
+def record_files_action_bp(app):
+    """Callable record files action blueprint (we need an application context).
+    """
+    with app.app_context():
+        return BibliographicRecordFilesActionResource(
+        ).as_blueprint("bibliographic_record_files_action_resource")

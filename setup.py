@@ -102,7 +102,11 @@ setup(
             'invenio_app_rdm_draft_action = \
                 invenio_app_rdm.theme.views:draft_action_bp',
             'invenio_app_rdm_user_records = \
-                invenio_app_rdm.theme.views:user_records_bp'
+                invenio_app_rdm.theme.views:user_records_bp',
+            'invenio_app_rdm_record_files = \
+                invenio_app_rdm.theme.views:record_files_bp',
+            'invenio_app_rdm_record_files_action = \
+                invenio_app_rdm.theme.views:record_files_action_bp',
         ],
         'invenio_assets.webpack': [
             'invenio_app_rdm_theme = invenio_app_rdm.theme.webpack:theme',

@@ -282,7 +282,7 @@ export class RDMDepositForm extends Component {
       },
     ];
     const record = this.props.record;
-    record.files = files;
+    // record.files = files;
     return (
       <DepositFormApp
         config={this.config}
