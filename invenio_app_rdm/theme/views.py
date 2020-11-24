@@ -17,15 +17,16 @@ from flask import Blueprint, config, current_app, g, render_template
 from flask_menu import current_menu
 from invenio_rdm_records.resources import BibliographicDraftActionResource, \
     BibliographicDraftResource, BibliographicDraftResourceConfig, \
-    BibliographicRecordFilesResource, \
-    BibliographicRecordFilesResourceConfig, \
-    BibliographicRecordFilesActionResource, \
-    BibliographicRecordFilesActionResourceConfig, \
+    BibliographicRecordFilesActionResource, BibliographicRecordFilesResource, \
     BibliographicRecordResource, BibliographicUserRecordsResource
+from invenio_rdm_records.resources.resources import \
+    BibliographicDraftFilesActionResource, BibliographicDraftFilesResource
 from invenio_rdm_records.services import BibliographicRecordService, \
     BibliographicRecordServiceConfig, BibliographicUserRecordsService
 from invenio_rdm_records.services.schemas import RDMRecordSchema
 from invenio_rdm_records.services.schemas.utils import dump_empty
+from invenio_rdm_records.services.services import \
+    BibliographicDraftFilesService, BibliographicRecordFilesService
 from invenio_rdm_records.vocabularies import Vocabularies
 
 
@@ -142,15 +143,32 @@ def user_records_bp(app):
 
 
 def record_files_bp(app):
-    """Callable record files blueprint (we need an application context)."""
+    """Callable record files blueprint."""
     with app.app_context():
         return BibliographicRecordFilesResource(
+            service=BibliographicRecordFilesService()
         ).as_blueprint("bibliographic_record_files_resource")
 
 
 def record_files_action_bp(app):
-    """Callable record files action blueprint (we need an application context).
-    """
+    """Callable record files action blueprint."""
     with app.app_context():
         return BibliographicRecordFilesActionResource(
+            service=BibliographicRecordFilesService()
         ).as_blueprint("bibliographic_record_files_action_resource")
+
+
+def draft_files_bp(app):
+    """Callable record files blueprint."""
+    with app.app_context():
+        return BibliographicDraftFilesResource(
+            service=BibliographicDraftFilesService()
+        ).as_blueprint("bibliographic_draft_files_resource")
+
+
+def draft_files_action_bp(app):
+    """Callable record files action blueprint."""
+    with app.app_context():
+        return BibliographicDraftFilesActionResource(
+            service=BibliographicDraftFilesService()
+        ).as_blueprint("bibliographic_draft_files_action_resource")
