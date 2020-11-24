@@ -20,7 +20,8 @@ from invenio_rdm_records.resources import BibliographicDraftActionResource, \
     BibliographicRecordFilesActionResource, BibliographicRecordFilesResource, \
     BibliographicRecordResource, BibliographicUserRecordsResource
 from invenio_rdm_records.resources.resources import \
-    BibliographicDraftFilesActionResource, BibliographicDraftFilesResource
+    BibliographicDraftFilesActionResource, BibliographicDraftFilesResource, \
+    BibliographicDraftFilesResourceConfig
 from invenio_rdm_records.services import BibliographicRecordService, \
     BibliographicRecordServiceConfig, BibliographicUserRecordsService
 from invenio_rdm_records.services.schemas import RDMRecordSchema
@@ -82,6 +83,11 @@ def ui_blueprint(app):
         draft = service.read_draft(
             id_=pid_value, identity=g.identity, links_config=links_config)
 
+        files_service = BibliographicDraftFilesService()
+        files_list = files_service.list_files(
+            id_=pid_value, identity=g.identity,
+            links_config=BibliographicDraftFilesResourceConfig.links_config)
+
         forms_config = dict(
             apiUrl=f"/api/records/{pid_value}/draft",
             vocabularies=Vocabularies.dump()
@@ -92,6 +98,7 @@ def ui_blueprint(app):
             current_app.config['DEPOSITS_FORMS_BASE_TEMPLATE'],
             forms_config=forms_config,
             record=draft.to_dict(),
+            files=files_list.to_dict(),
             searchbar_config=searchbar_config
         )
 

@@ -12,6 +12,9 @@
   {%- if record %}
   <input id="deposits-record" type="hidden" name="deposits-record" value='{{record | tojson }}'></input>
   {%- endif %}
+  {%- if files %}
+  <input id="deposits-record-files" type="hidden" name="deposits-record-files" value='{{files | tojson }}'></input>
+  {%- endif %}
   {%- if forms_config %}
   <input type="hidden" name="deposits-config" value='{{forms_config | tojson }}'></input>
   {%- endif %}

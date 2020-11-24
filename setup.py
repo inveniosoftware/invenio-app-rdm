@@ -107,6 +107,10 @@ setup(
                 invenio_app_rdm.theme.views:record_files_bp',
             'invenio_app_rdm_record_files_action = \
                 invenio_app_rdm.theme.views:record_files_action_bp',
+            'invenio_app_rdm_draft_files = \
+                invenio_app_rdm.theme.views:draft_files_bp',
+            'invenio_app_rdm_draft_files_action = \
+                invenio_app_rdm.theme.views:draft_files_action_bp',
         ],
         'invenio_assets.webpack': [
             'invenio_app_rdm_theme = invenio_app_rdm.theme.webpack:theme',

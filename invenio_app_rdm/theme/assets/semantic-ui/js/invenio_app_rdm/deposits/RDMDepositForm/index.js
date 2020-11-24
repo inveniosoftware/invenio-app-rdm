@@ -9,13 +9,14 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "semantic-ui-css/semantic.min.css";
 
-import { getConfigFromDOM, getRecordFromDOM } from "react-invenio-deposit";
+import { getInputFromDOM } from "react-invenio-deposit";
 import { RDMDepositForm } from "./RDMDepositForm";
 
 ReactDOM.render(
   <RDMDepositForm
-    record={getRecordFromDOM("deposits-record")}
-    config={getConfigFromDOM("deposits-config")}
+    record={getInputFromDOM("deposits-record")}
+    files={getInputFromDOM("deposits-record-files")}
+    config={getInputFromDOM("deposits-config")}
   />,
   document.getElementById("deposit-form")
 );

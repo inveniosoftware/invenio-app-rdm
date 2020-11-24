@@ -260,29 +260,14 @@ export class RDMDepositForm extends Component {
   }
 
   render() {
-    // TODO: Remove dummy files
-    const files = [
-      {
-        filename: "foo.png",
-        size: 1000,
-        checksum: "md5:fafawfasdasdfsdf",
-        links: {
-          self: "#",
-          version: "#",
-        },
-      },
-      {
-        filename: "bar.png",
-        size: 1000,
-        checksum: "md5:fafawfadsdssdasdfsdf",
-        links: {
-          self: "#",
-          version: "#",
-        },
-      },
-    ];
+    const files = this.props.files.entries.map((file) => ({
+      filename: file.key,
+      size: file.size,
+      checksum: file.checksum,
+      links: file.links,
+    }));
     const record = this.props.record;
-    // record.files = files;
+    record.files = files;
     return (
       <DepositFormApp
         config={this.config}
