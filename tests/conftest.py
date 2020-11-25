@@ -65,8 +65,10 @@ def minimal_record():
             },
             # Technically not required
             "creators": [{
-                "name": "John Doe",
-                "type": "personal"
+                "type": "personal",
+                "name": "Doe, John",
+                "given_name": "John Doe",
+                "family_name": "Doe",
             }],
             "title": "A Romans story"
         }
