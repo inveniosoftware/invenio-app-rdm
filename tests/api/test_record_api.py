@@ -58,7 +58,7 @@ def test_record_draft_create_and_read(client, location, minimal_record,
     assert response.json is not None
 
 
-def test_record_draft_publish(client, minimal_record, es_clear):
+def test_record_draft_publish(client, location, minimal_record, es_clear):
     """Test draft publication of a non-existing record.
 
     It has to first create said draft and includes record read.
