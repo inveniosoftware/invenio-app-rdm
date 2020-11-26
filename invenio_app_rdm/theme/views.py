@@ -71,7 +71,9 @@ def ui_blueprint(app):
             current_app.config['DEPOSITS_FORMS_BASE_TEMPLATE'],
             forms_config=forms_config,
             record=dump_empty(RDMRecordSchema),
-            files=dict(entries=[], links={}),
+            files=dict(
+                default_preview=None, enabled=True, entries=[], links={}
+            ),
             searchbar_config=dict(searchUrl=search_url)
         )
 
