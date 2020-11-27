@@ -96,11 +96,21 @@ def ui_blueprint(app):
             vocabularies=Vocabularies.dump()
         )
 
+        # TODO: get the `is_published` field when reading the draft
+        _record = draft.to_dict()
+        from invenio_pidstore.errors import PIDUnregistered
+        try:
+            _ = service.draft_cls.pid.resolve(
+                    pid_value, registered_only=True)
+            _record["is_published"] = True
+        except PIDUnregistered:
+            _record["is_published"] = False
+
         searchbar_config = dict(searchUrl=search_url)
         return render_template(
             current_app.config['DEPOSITS_FORMS_BASE_TEMPLATE'],
             forms_config=forms_config,
-            record=draft.to_dict(),
+            record=_record,
             files=files_list.to_dict(),
             searchbar_config=searchbar_config
         )
