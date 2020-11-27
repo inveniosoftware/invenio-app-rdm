@@ -273,7 +273,7 @@ export class RDMDepositForm extends Component {
         <Grid>
           <Grid.Column width={12}>
             <AccordionField fieldPath="" active={true} label={"Files"}>
-              <FileUploader />
+              <FileUploader isDraftRecord={!this.props.record.is_published} />
             </AccordionField>
 
             <AccordionField fieldPath="" active={true} label={"Identifiers"}>
