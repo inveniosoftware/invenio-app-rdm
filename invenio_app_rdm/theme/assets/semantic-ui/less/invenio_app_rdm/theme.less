@@ -11,6 +11,7 @@
 @import "frontpage.less";
 @import "deposit.less";
 @import "search.less";
+@import "navbar.less";
 
 html,
 body {
@@ -25,16 +26,17 @@ body {
   background-image: @navbar_background_image;
   background-color: @navbar_background_color;
   border-color: transparent;
-  padding: 8px;
 
   #invenio-nav {
     background: transparent;
-    padding-top:10px;
-    padding-bottom:5px;
   }
 
   #frontpage-search-bar{
     background: transparent;
+    .search-bar {
+      width: 50%;
+      padding: 1rem;
+    }
   }
 
   a{
@@ -46,25 +48,6 @@ body {
   line-height: 44px !important;
 }
 
-#invenio-nav .item.navbar-options {
-  display: inline-block;
-  vertical-align: middle;
-  line-height: 44px;
-}
-
-.item.navbar-options {
-  padding: 0 !important;
-
-  li a {
-    display: block;
-    padding: .8em 1em;
-  }
-
-  :hover {
-    color: white;
-    background-color: rgba(255,255,255,.2);
-  }
-}
 
 
 .no-dots-list {
@@ -73,20 +56,12 @@ body {
   margin-block-end: unset;
 }
 
-.item.navbar-options:first-of-type {
-  margin-left: 2em;
-}
-
 .centered {
   text-align: center;
 }
 
 .titlecase {
   text-transform: capitalize;
-}
-
-.rdm-logo {
-  margin-right: -40px;
 }
 
 // Frontpage
@@ -183,20 +158,26 @@ body {
 
 .invenio-rdm-project-goals {
   display: flex;
-  flex-direction: row;
-  margin: 60px 80px;
-
-  i {
-    font-size: 5em;
-    color: #0377cd;
-  }
-
-  h3 {
-    color: #0377cd;
-  }
-
+  justify-content: center;
+  text-align: center;
+  height: auto;
+  
   .rdm-goal {
-    margin-bottom: 20px;
+    width: 33.33333333%;
+    padding: 1em;
+  }
+}
+
+.invenio-rdm-project-collaborators {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  height: auto;
+  width: 100%;
+  
+  .rdm-collaborators {
+    width: 25%;
+    padding: 1em;
   }
 }
 
@@ -204,9 +185,42 @@ body {
   font-size: 2.65em;
 }
 
-@media only screen and (max-device-width: 768px) {
+.collaborators-logo {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  display: block;
+  max-width: 100% !important;
+}
+
+
+@media only screen and (max-width: 767px) {
   .invenio-rdm-project-goals {
-    flex-direction: column;
+    flex-direction: column !important;
+    align-items: center !important;
+    padding-top: 1em;
+
+    .rdm-goal {
+      width: 100%;
+  }
+  }
+  .outer-navbar {
+    #frontpage-search-bar{
+      .ui.container.grid{
+        width: 100% !important;
+      }
+      .search-bar {
+        width: 90%;
+      }
+    }
+  }
+  .invenio-rdm-project-collaborators {
+    flex-direction: column !important;
+    align-items: center !important;
+    padding-top: 1em;
+
+    .rdm-collaborators {
+      width: 100%;
+    }
   }
 }
 

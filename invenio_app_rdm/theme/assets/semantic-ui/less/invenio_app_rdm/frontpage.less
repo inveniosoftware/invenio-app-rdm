@@ -28,13 +28,18 @@
     height: auto;
     margin: 0 0 20px 0;
 }
+
+.frontpage-title {
+    line-height: normal;
+}
+
 @media only screen and (min-device-width: 993px),
 only screen and (min-width: 993px) {
     .flex-center-vertically {
         flex-direction: column;
     }
 }
-@media only screen and (max-device-width: 992px),
+@media only screen and (max-device-width: 993px),
 only screen and (max-width: 993px) {
     .flex-center-vertically {
         flex-direction: row;
@@ -52,13 +57,10 @@ only screen and (max-width: 993px) {
     border-radius: 5px;
     color: rgba(16, 16, 16, 0.7);
     line-height: 1.5em;
+    max-width: 332px;
+    display: inline-block;
 }
 
-@media (max-width: 1200px) {
-    .command-line {
-        font-size: 0.5em;
-    }
-}
 
 .inline-row {
     text-align: center;
