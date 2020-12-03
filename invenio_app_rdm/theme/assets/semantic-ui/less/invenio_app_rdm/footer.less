@@ -39,3 +39,45 @@
   background-color: @footerDarkColor;
   box-shadow: 0 2px 5px rgba(0,0,0,.2) inset;
 }
+
+.invenio-rdm-footer {
+  text-align: left;
+  align-self: inherit;
+  width: 62.5%;
+  padding: 1em 0em 1em 0em;
+}
+
+.rdm-footer {
+  text-align: left;
+  align-self: inherit;
+  width: 25%;
+  padding: 1em 0em 1em 0em;
+}
+
+#lang-code {
+  min-width: 14em;
+}
+
+@media only screen and (max-width: 1024px) {
+  .invenio-rdm-footer {
+    width: 90%;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .invenio-rdm-footer {
+    width: 100%;
+  }
+  .rdm-footer {
+    width: 33%;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .rdm-footer {
+    width: 33%;
+  }
+  #lang-code {
+    min-width: 10em;
+  }
+}

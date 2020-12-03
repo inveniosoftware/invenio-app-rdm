@@ -14,11 +14,11 @@
 {%- block page_body %}
 {%- block first_section%}
 <section class="get-started-section section-content-white-bg">
-  <span class="section-title">{{ _("You've successfully installed InvenioRDM! What is ahead?") }}</span>
+  <span class="section-title frontpage-title">{{ _("You've successfully installed InvenioRDM! What is ahead?") }}</span>
   <div class="ui container">
     <div class="ui padded relaxed centered grid">
-      <div class="three column row">
-        <div class="column">
+      <div class="invenio-rdm-project-goals">
+        <div class="rdm-goal">
           <div class="flex-center-vertically">
             <div class="numbering">1</div>
           </div>
@@ -30,7 +30,7 @@
               section in the docs</a>.{% endtrans %}
           </div>
         </div>
-        <div class="column">
+        <div class="rdm-goal">
           <div class="flex-center-vertically">
             <div class="numbering">2</div>
           </div>
@@ -43,7 +43,7 @@
                 your own</a>.{% endtrans %}
           </div>
         </div>
-        <div class="column">
+        <div class="rdm-goal">
           <div class="flex-center-vertically">
             <div class="numbering">3</div>
           </div>
@@ -71,109 +71,106 @@
 {%- endblock first_section%}
 {%- block second_section%}
 <section class="brought-to-you-section section-content-light-bg">
-  <span class="section-title">{{ _("Brought to you by") }}</span>
+  <span class="section-title frontpage-title">{{ _("Brought to you by") }}</span>
   <div class="ui container">
     <div class="ui padded relaxed centered grid">
-      <div class="four column row">
-        <div class="column">
+      <div class="invenio-rdm-project-collaborators">
+        <div class="rdm-collaborators">
           <a href="http://www.bnl.gov/">
-            <img src="/static/images/logo-bnl.png" title="Brookhaven National Laboratory">
+            <img class="collaborators-logo" src="/static/images/logo-bnl.png" title="Brookhaven National Laboratory">
           </a>
         </div>
-        <div class="column">
+        <div class="rdm-collaborators">
           <a href="https://www.library.caltech.edu/">
-            <img src="/static/images/logo-caltechlibrary.png" title="Caltech Library">
+            <img class="collaborators-logo" src="/static/images/logo-caltechlibrary.png" title="Caltech Library">
           </a>
         </div>
-        <div class="column">
+        <div class="rdm-collaborators">
           <a href="http://home.cern">
-            <img src="/static/images/logo-cern.png" title="CERN">
+            <img class="collaborators-logo" src="/static/images/logo-cern.png" title="CERN">
           </a>
         </div>
-        <div class="column">
+        <div class="rdm-collaborators">
           <a href="https://ctsa.ncats.nih.gov/cd2h/">
-            <img src="/static/images/logo-cd2h.png" title="CTSA Program National Center for Data to Health">
+            <img class="collaborators-logo" src="/static/images/logo-cd2h.png" title="CTSA Program National Center for Data to Health">
           </a>
         </div>
       </div>
-      <div class="four column row">
-        <div class="column">
+      <div class="invenio-rdm-project-collaborators">
+        <div class="rdm-collaborators">
           <a href="https://www.data-futures.org/">
-            <img src="/static/images/logo-data-futures.png" title="Data Futures">
+            <img class="collaborators-logo" src="/static/images/logo-data-futures.png" title="Data Futures">
           </a>
         </div>
-        <div class="column">
+        <div class="rdm-collaborators">
           <a href="https://www.eko-konnect.org.ng">
-            <img src="/static/images/logo-eko-konnect.png" title="Eko Konnect">
+            <img class="collaborators-logo" src="/static/images/logo-eko-konnect.png" title="Eko Konnect">
           </a>
         </div>
-        <div class="column">
+        <div class="rdm-collaborators">
           <a href="http://www.earthobservations.org/">
-            <img src="/static/images/logo-geo.svg" title="Group on Earth Observations">
+            <img class="collaborators-logo" src="/static/images/logo-geo.svg" title="Group on Earth Observations">
           </a>
         </div>
-        <div class="column">
+        <div class="rdm-collaborators">
           <a href="https://www.hzdr.de/">
-            <img src="/static/images/logo-hzdr.png" title="Helmholtz Zentrum Dresden-Rossendorf">
+            <img class="collaborators-logo" src="/static/images/logo-hzdr.png" title="Helmholtz Zentrum Dresden-Rossendorf">
           </a>
         </div>
       </div>
-      <div class="four column row">
-        <div class="column">
+      <div class="invenio-rdm-project-collaborators">
+        <div class="rdm-collaborators">
           <a href="http://home.infn.it/">
-            <img src="/static/images/logo-infn.svg" title="Istituto Nazionale di Fisica Nucleare">
+            <img class="collaborators-logo" src="/static/images/logo-infn.svg" title="Istituto Nazionale di Fisica Nucleare">
           </a>
         </div>
-        <div class="column">
+        <div class="rdm-collaborators">
           <a href="https://ec.europa.eu/jrc/">
-            <img src="/static/images/logo-jrc.svg" title="Joint Research Centre">
+            <img class="collaborators-logo" src="/static/images/logo-jrc.svg" title="Joint Research Centre">
           </a>
         </div>
-        <div class="column">
+        <div class="rdm-collaborators">
           <a href="https://www.northwestern.edu/">
-            <img src="/static/images/logo-northwestern-university.png" title="Northwestern University">
+            <img class="collaborators-logo" src="/static/images/logo-northwestern-university.png" title="Northwestern University">
           </a>
         </div>
-        <div class="column">
+        <div class="rdm-collaborators">
           <a href="https://www.openaire.eu/">
-            <img src="/static/images/logo-openaire.png" title="OpenAIRE">
+            <img class="collaborators-logo" src="/static/images/logo-openaire.png" title="OpenAIRE">
           </a>
         </div>
       </div>
-      <div class="four column row">
-        <div class="column">
+      <div class="invenio-rdm-project-collaborators">
+        <div class="rdm-collaborators">
           <a href="https://tind.io/">
-            <img src="/static/images/logo-tind.png" title="TIND">
+            <img class="collaborators-logo" src="/static/images/logo-tind.png" title="TIND">
           </a>
         </div>
-        <div class="column">
+        <div class="rdm-collaborators">
           <a href="https://ulakbim.tubitak.gov.tr">
-            <img src="/static/images/logo-tubitak.svg" title="Tubitak">
+            <img class="collaborators-logo" src="/static/images/logo-tubitak.svg" title="Tubitak">
           </a>
         </div>
-        <div class="column">
+        <div class="rdm-collaborators">
           <a href="https://www.tugraz.at/en/home/">
-            <img src="/static/images/logo-tu-graz.svg" title="TU Graz">
+            <img class="collaborators-logo" src="/static/images/logo-tu-graz.svg" title="TU Graz">
           </a>
         </div>
-        <div class="column">
+        <div class="rdm-collaborators">
           <a href="https://www.uni-hamburg.de/">
-            <img src="/static/images/logo-uni-hamburg.png" title="Universität Hamburg">
+            <img class="collaborators-logo" src="/static/images/logo-uni-hamburg.png" title="Universität Hamburg">
           </a>
         </div>
       </div>
-      <div class="two column row">
-        <div class="center aligned">
-          <div class="column">
+      <div class="invenio-rdm-project-collaborators">
+          <div class="rdm-collaborators">
             <a href="https://www.uni-muenster.de/en/">
-              <img src="/static/images/logo-uni-munster.png" title="University of Münster">
+              <img class="collaborators-logo" src="/static/images/logo-uni-munster.png" title="University of Münster">
             </a>
           </div>
-        </div>
-        <div class="center aligned">
-          <div class="center aligned column">
+          <div class="rdm-collaborators">
             <a href="https://www.wacren.net">
-              <img src="/static/images/logo-wacren.png" title="West and Central African Research and Education Network">
+              <img class="collaborators-logo" src="/static/images/logo-wacren.png" title="West and Central African Research and Education Network">
             </a>
           </div>
         </div>

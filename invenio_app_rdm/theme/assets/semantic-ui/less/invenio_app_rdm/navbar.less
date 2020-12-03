@@ -1,0 +1,206 @@
+nav {
+  padding: 0 15px;
+}
+
+.navbar-menu {
+  list-style-type: none;
+  width: 100%;
+}
+
+.navbar-item {
+  padding: 10px;
+}
+
+.navbar-item.navbar-button {
+  padding: 9px 5px;
+}
+
+.navbar-item:not(.navbar-button) a:hover,
+.navbar-item a:hover::after {
+  color: #ccc;
+}
+
+.navbar-options {
+  :hover {
+    color: white;
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+}
+
+.logo-link {
+    width: 100%;
+    padding: 0px !important;
+  }
+  
+  .rdm-sign-buttons {
+    padding-inline-start: 0px;
+  }
+  
+  .logo {
+    width: 200px;
+  }
+
+/* Mobile menu */
+.navbar-menu {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-menu li a {
+  display: block;
+  padding: 15px 5px;
+}
+
+.toggle {
+  order: 1;
+  font-size: 20px;
+}
+
+.navbar-item.navbar-button {
+  order: 2;
+}
+
+.navbar-item {
+  order: 3;
+  width: 100%;
+  text-align: center;
+  display: none;
+}
+
+.active .navbar-item {
+  display: block;
+}
+
+#header-search-bar {
+  width: auto;
+  text-align: center;
+
+  .ui.action.input {
+    margin-right: 40px;
+  }
+}
+
+/* Tablet menu */
+@media all and (min-width: 745px) {
+  .navbar-menu {
+    justify-content: flex-start;
+  }
+  .navbar-item.navbar-button {
+    width: auto;
+    order: 1;
+    display: block;
+    text-align: right;
+    flex: 1;
+  }
+  .toggle {
+    flex: 1;
+    text-align: right;
+    order: 2;
+  }
+  /* Button up from tablet screen */
+  .navbar-menu li.navbar-button a {
+    padding: 10px 15px;
+    margin: 2px;
+  }
+}
+
+/* Desktop menu */
+@media all and (min-width: 1000px) {
+  .navbar-menu {
+    flex-wrap: nowrap;
+    background: none;
+  }
+  .logo {
+    order: 0;
+  }
+  .navbar-item {
+    order: 1;
+    position: relative;
+    display: block;
+    width: auto;
+  }
+  .navbar-button {
+    order: 2;
+  }
+  .toggle {
+    display: none;
+  }
+  #header-search-bar {
+    width: 250px;
+    text-align: left;
+  }
+}
+
+@media all and (min-width: 1200px) {
+  .logo {
+    width: 250px;
+    margin-right: 20px;
+  }
+}
+
+/* menu icon (Hamburguer icon) */
+.menu-icon {
+  cursor: pointer;
+  display: inline-block;
+  float: right;
+  padding: 28px 20px;
+  position: relative;
+  user-select: none;
+}
+
+.menu-icon .navicon {
+  background: #333;
+  display: block;
+  height: 2px;
+  position: relative;
+  transition: background 0.2s ease-out;
+  width: 18px;
+}
+
+.menu-icon .navicon:before,
+.menu-icon .navicon:after {
+  background: #333;
+  content: "";
+  display: block;
+  height: 100%;
+  position: absolute;
+  transition: all 0.2s ease-out;
+  width: 100%;
+}
+
+.menu-icon .navicon:before {
+  top: 5px;
+}
+
+.menu-icon .navicon:after {
+  top: -5px;
+}
+
+/* menu btn */
+
+.menu-btn {
+  display: none;
+}
+
+.menu-btn:checked ~ .menu {
+  max-height: 240px;
+}
+
+.menu-btn:checked ~ .menu-icon .navicon {
+  background: transparent;
+}
+
+.menu-btn:checked ~ .menu-icon .navicon:before {
+  transform: rotate(-45deg);
+}
+
+.menu-btn:checked ~ .menu-icon .navicon:after {
+  transform: rotate(45deg);
+}
+
+.menu-btn:checked ~ .menu-icon:not(.steps) .navicon:before,
+.menu-btn:checked ~ .menu-icon:not(.steps) .navicon:after {
+  top: 0;
+}
