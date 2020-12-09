@@ -27,6 +27,7 @@ import {
   TitlesField,
   RelatedIdentifiersField,
   VersionField,
+  LicenseField,
 } from "react-invenio-deposit";
 import { AccordionField, ErrorMessage } from "react-invenio-forms";
 
@@ -247,6 +248,131 @@ export class RDMDepositForm extends Component {
       },
     };
     this.apiErrorHandler = new APIErrorHandler(this.vocabularies);
+    if (!this.props.record.metadata) {
+      this.props.record.metadata = {};
+      this.props.record.metadata["licenses"] = [
+        {
+          id: "CC-BY 4.0",
+          title: "Creative Commons Attribution 4.0 International (CC-BY 4.0)",
+          description:
+            "This license requires that reuses give credit to the creator. It allows reusers to distribute, remix, adapt, and build upon the material in any medium or format, even for commercial purposes.",
+        },
+        {
+          id: "CC0 1.0",
+          title: "Creative Commons Zero (CC0 1.0)",
+          description:
+            "By marking your work with a CC0 public domain dedication, you are giving up your copyright and allowing reusers to distribute, remix, adapt, and build upon the material in any medium or format, even for commercial purposes.",
+        },
+        {
+          id: "MIT",
+          title: "MIT",
+          description:
+            "This license requires that reuses give credit to the creator. It allows reusers to distribute, remix, adapt, and build upon the material in any medium or format, even for commercial purposes.",
+        },
+        {
+          id: "CERN",
+          title: "Copyright (C) 2020 CERN.",
+          description:
+            "This license requires that reuses give credit to the creator. It allows reusers to distribute, remix, adapt, and build upon the material in any medium or format, even for commercial purposes.",
+        },
+        {
+          id: "CC-BY 4.0",
+          title: "Creative Commons Attribution 4.0 International (CC-BY 4.0)",
+          description:
+            "This license requires that reuses give credit to the creator. It allows reusers to distribute, remix, adapt, and build upon the material in any medium or format, even for commercial purposes.",
+        },
+        {
+          id: "CC0 1.0",
+          title: "Creative Commons Zero (CC0 1.0)",
+          description:
+            "By marking your work with a CC0 public domain dedication, you are giving up your copyright and allowing reusers to distribute, remix, adapt, and build upon the material in any medium or format, even for commercial purposes.",
+        },
+        {
+          id: "MIT",
+          title: "MIT",
+          description:
+            "This license requires that reuses give credit to the creator. It allows reusers to distribute, remix, adapt, and build upon the material in any medium or format, even for commercial purposes.",
+        },
+        {
+          id: "CERN",
+          title: "Copyright (C) 2020 CERN.",
+          description:
+            "This license requires that reuses give credit to the creator. It allows reusers to distribute, remix, adapt, and build upon the material in any medium or format, even for commercial purposes.",
+        },
+        {
+          id: "CC-BY 4.0",
+          title: "Creative Commons Attribution 4.0 International (CC-BY 4.0)",
+          description:
+            "This license requires that reuses give credit to the creator. It allows reusers to distribute, remix, adapt, and build upon the material in any medium or format, even for commercial purposes.",
+        },
+        {
+          id: "CC0 1.0",
+          title: "Creative Commons Zero (CC0 1.0)",
+          description:
+            "By marking your work with a CC0 public domain dedication, you are giving up your copyright and allowing reusers to distribute, remix, adapt, and build upon the material in any medium or format, even for commercial purposes.",
+        },
+        {
+          id: "MIT",
+          title: "MIT",
+          description:
+            "This license requires that reuses give credit to the creator. It allows reusers to distribute, remix, adapt, and build upon the material in any medium or format, even for commercial purposes.",
+        },
+        {
+          id: "CERN",
+          title: "Copyright (C) 2020 CERN.",
+          description:
+            "This license requires that reuses give credit to the creator. It allows reusers to distribute, remix, adapt, and build upon the material in any medium or format, even for commercial purposes.",
+        },
+        {
+          id: "CC-BY 4.0",
+          title: "Creative Commons Attribution 4.0 International (CC-BY 4.0)",
+          description:
+            "This license requires that reuses give credit to the creator. It allows reusers to distribute, remix, adapt, and build upon the material in any medium or format, even for commercial purposes.",
+        },
+        {
+          id: "CC0 1.0",
+          title: "Creative Commons Zero (CC0 1.0)",
+          description:
+            "By marking your work with a CC0 public domain dedication, you are giving up your copyright and allowing reusers to distribute, remix, adapt, and build upon the material in any medium or format, even for commercial purposes.",
+        },
+        {
+          id: "MIT",
+          title: "MIT",
+          description:
+            "This license requires that reuses give credit to the creator. It allows reusers to distribute, remix, adapt, and build upon the material in any medium or format, even for commercial purposes.",
+        },
+        {
+          id: "CERN",
+          title: "Copyright (C) 2020 CERN.",
+          description:
+            "This license requires that reuses give credit to the creator. It allows reusers to distribute, remix, adapt, and build upon the material in any medium or format, even for commercial purposes.",
+        },
+        {
+          id: "CC-BY 4.0",
+          title: "Creative Commons Attribution 4.0 International (CC-BY 4.0)",
+          description:
+            "This license requires that reuses give credit to the creator. It allows reusers to distribute, remix, adapt, and build upon the material in any medium or format, even for commercial purposes.",
+        },
+        {
+          id: "CC0 1.0",
+          title: "Creative Commons Zero (CC0 1.0)",
+          description:
+            "By marking your work with a CC0 public domain dedication, you are giving up your copyright and allowing reusers to distribute, remix, adapt, and build upon the material in any medium or format, even for commercial purposes.",
+        },
+        {
+          id: "MIT",
+          title: "MIT",
+          description:
+            "This license requires that reuses give credit to the creator. It allows reusers to distribute, remix, adapt, and build upon the material in any medium or format, even for commercial purposes.",
+        },
+        {
+          id: "CERN",
+          title: "Copyright (C) 2020 CERN.",
+          description:
+            "This license requires that reuses give credit to the creator. It allows reusers to distribute, remix, adapt, and build upon the material in any medium or format, even for commercial purposes.",
+        },
+      ];
+    }
   }
 
   render() {
@@ -303,6 +429,23 @@ export class RDMDepositForm extends Component {
                 options={this.vocabularies.metadata.descriptions}
               />
               <PublicationDateField required />
+              <LicenseField
+                // TODO: configure the searchEndpoint
+                searchConfig={{
+                  searchApi: {
+                    axios: {
+                      headers: {
+                        Accept: "application/vnd.inveniordm.v1+json",
+                      },
+                      url: "http://127.0.0.1:3000/api/licences",
+                      // withCredentials: false,
+                    },
+                  },
+                  initialQueryState: {
+                    filters: [["type", "recommended"]],
+                  },
+                }}
+              />
               <br />
             </AccordionField>
 
