@@ -248,17 +248,6 @@ export class RDMDepositForm extends Component {
       },
     };
     this.apiErrorHandler = new APIErrorHandler(this.vocabularies);
-    if (!this.props.record.metadata) {
-      this.props.record.metadata = {};
-      this.props.record.metadata["licenses"] = [
-        {
-          id: "MIT",
-          title: "MIT",
-          description:
-            "This license requires that reuses give credit to the creator. It allows reusers to distribute, remix, adapt, and build upon the material in any medium or format, even for commercial purposes.",
-        },
-      ];
-    }
   }
 
   render() {
