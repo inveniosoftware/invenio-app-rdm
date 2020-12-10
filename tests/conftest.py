@@ -23,9 +23,8 @@ def minimal_input_record():
         "access": {
             "metadata_restricted": False,
             "files_restricted": False,
-            "owners": [1],
+            "owned_by": [1],
             "access_right": "open",
-            "created_by": 1,
         },
         "metadata": {
             "publication_date": "2020-06-01",
