@@ -13,6 +13,7 @@ import {
   CreatibutorsField,
   DatesField,
   DepositFormApp,
+  FormFeedback,
   DescriptionsField,
   FileUploader,
   FundingField,
@@ -29,9 +30,8 @@ import {
   VersionField,
   LicenseField,
 } from "react-invenio-deposit";
-import { AccordionField, ErrorMessage } from "react-invenio-forms";
+import { AccordionField } from "react-invenio-forms";
 
-import { APIErrorHandler } from "./APIErrorHandler";
 
 export class RDMDepositForm extends Component {
   constructor(props) {
@@ -247,7 +247,6 @@ export class RDMDepositForm extends Component {
         },
       },
     };
-    this.apiErrorHandler = new APIErrorHandler(this.vocabularies);
   }
 
   render() {
@@ -258,15 +257,15 @@ export class RDMDepositForm extends Component {
         files={this.props.files}
         apiErrorHandler={this.apiErrorHandler}
       >
-        <ErrorMessage fieldPath="message" />
         <Grid>
           <Grid.Column width={12}>
+            <FormFeedback fieldPath="message" />
             <AccordionField fieldPath="" active={true} label={"Files"}>
               <FileUploader
                 isDraftRecord={!this.props.record.is_published}
                 quota={{
                   maxFiles: 100,
-                  maxStorage: 10000000000,
+                  maxStorage: 10**10,
                 }}
               />
             </AccordionField>
