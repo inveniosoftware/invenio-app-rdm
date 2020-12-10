@@ -1,6 +1,6 @@
 ..
-    Copyright (C) 2019 CERN.
-    Copyright (C) 2019 Northwestern University.
+    Copyright (C) 2020 CERN.
+    Copyright (C) 2020 Northwestern University.
 
     Invenio App RDM is free software; you can redistribute it and/or modify
     it under the terms of the MIT License; see LICENSE file for more details.
@@ -120,5 +120,5 @@ Before you submit a pull request, check that it meets these guidelines:
 2. If the pull request adds functionality, the docs should be updated. Put
    your new functionality into a function with a docstring.
 3. The pull request should work for Python 2.7, 3.3, 3.4 and 3.5. Check
-   https://travis-ci.org/inveniosoftware/invenio-app-rdm/pull_requests
+   https://github.com/inveniosoftware/invenio-app-rdm/actions?query=event%3Apull_request
    and make sure that the tests pass for all supported Python versions.
