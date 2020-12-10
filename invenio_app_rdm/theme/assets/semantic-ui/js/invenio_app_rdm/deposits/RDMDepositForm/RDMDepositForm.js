@@ -330,12 +330,22 @@ export class RDMDepositForm extends Component {
               label={"Recommended Information"}
             >
               <SubjectsField
-                options={this.vocabularies.metadata.subjects.options}
+                initialOptions={_get(
+                  this.props.record,
+                  "metadata.subjects",
+                  null
+                )}
                 limitToOptions={
                   this.vocabularies.metadata.subjects.limitToOptions
                 }
               />
-              <LanguagesField />
+              <LanguagesField
+                initialOptions={_get(
+                  this.props.record,
+                  "metadata.languages",
+                  null
+                )}
+              />
               <DatesField options={this.vocabularies.metadata.dates} />
               <VersionField />
               <PublisherField />
