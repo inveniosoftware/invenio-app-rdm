@@ -96,6 +96,8 @@ def ui_blueprint(app):
             vocabularies=Vocabularies.dump()
         )
 
+        # Dereference relations (languages, licenses, etc.)
+        draft._record.relations.dereference()
         # TODO: get the `is_published` field when reading the draft
         _record = draft.to_dict()
         from invenio_pidstore.errors import PIDUnregistered
