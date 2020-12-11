@@ -310,10 +310,10 @@ export class RDMDepositForm extends Component {
                   searchApi: {
                     axios: {
                       headers: {
-                        Accept: "application/vnd.inveniordm.v1+json",
+                        Accept: "application/json",
                       },
-                      url: "http://127.0.0.1:3000/api/licences",
-                      // withCredentials: false,
+                      url: "/api/vocabularies/licenses",
+                      withCredentials: false,
                     },
                   },
                   initialQueryState: {
