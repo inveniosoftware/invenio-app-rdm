@@ -1,0 +1,17 @@
+{#
+  Copyright (C) 2020 CERN.
+  Copyright (C) 2020 Northwestern University.
+
+  Invenio RDM Records is free software; you can redistribute it and/or modify
+  it under the terms of the MIT License; see LICENSE file for more details.
+#}
+
+{% set rights = metadata.get('rights') %}
+{% if rights %}
+<dt><b>{{ _('Licenses')}}</b><i class="question circle outline icon"></i></dt>
+<dd>
+  {%- for right in rights%}
+  <a href="{{ right.uri }}">{{ right.identifier }}</a>
+  {% endfor %}
+</dd>
+{% endif %}

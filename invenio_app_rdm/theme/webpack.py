@@ -17,6 +17,10 @@ theme = WebpackThemeBundle(
     themes={
         'semantic-ui': dict(
             entry={
+                'invenio-app-rdm-records':
+                    './js/invenio_app_rdm/landing_page/index.js',
+                'invenio-app-rdm-record-management':
+                    './js/invenio_app_rdm/landing_page/recordManagement.js',
                 'invenio-app-rdm-deposits-deposit-form-js':
                     './js/invenio_app_rdm/deposits/RDMDepositForm/index.js',
                 'rdm_search_app': './js/invenio_app_rdm/search/index.js',

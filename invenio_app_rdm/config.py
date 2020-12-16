@@ -30,8 +30,7 @@ WARNING: An instance should NOT install multiple flavour extensions since
 
 from datetime import timedelta
 
-from invenio_rdm_records.config import IIIF_PREVIEW_TEMPLATE, \
-    PREVIEWER_PREFERENCE, RECORDS_UI_ENDPOINTS
+from .theme.utils import previewer_record_file_factory
 
 # PIDSTORE_RECID_FIELD
 # RECORDS_PERMISSIONS_RECORD_POLICY
@@ -141,6 +140,71 @@ THEME_LOGO = 'images/invenio-rdm.svg'
 
 THEME_SITENAME = _('InvenioRDM')
 """Site name."""
+
+
+# Invenio-IIIF
+# =================
+# See https://invenio-iiif.readthedocs.io/en/latest/configuration.html
+
+IIIF_PREVIEW_TEMPLATE = "invenio_app_rdm/landing_page/iiif_preview.html"
+"""Template for IIIF image preview."""
+
+# Invenio-Previewer
+# =================
+# See https://github.com/inveniosoftware/invenio-previewer/blob/master/invenio_previewer/config.py  # noqa
+
+PREVIEWER_PREFERENCE = [
+    'csv_dthreejs',
+    # TODO: IIIF checks bucket-level permissions, and thus won't work
+    # 'iiif_image',
+    'simple_image',
+    'json_prismjs',
+    'xml_prismjs',
+    'mistune',
+    'pdfjs',
+    'ipynb',
+    'zip',
+]
+"""Preferred previewers."""
+
+PREVIEWER_RECORD_FILE_FACOTRY = previewer_record_file_factory
+
+# Invenio-Records-UI
+# ==================
+# See https://invenio-records-ui.readthedocs.io/en/latest/configuration.html
+
+RECORDS_UI_ENDPOINTS = {
+    'recid': {
+        'pid_type': 'recid',
+        'record_class': 'invenio_rdm_records.records:BibliographicRecord',
+        'route': '/records/<pid_value>',
+        'template': 'invenio_app_rdm/landing_page/record_landing_page.html'
+    },
+    'recid_files': {
+        'pid_type': 'recid',
+        'record_class': 'invenio_rdm_records.records:BibliographicRecord',
+        'route': '/records/<pid_value>/files/<path:filename>',
+        'view_imp': 'invenio_app_rdm.theme.views.file_download_ui',
+    },
+    'recid_previewer': {
+        'pid_type': 'recid',
+        'record_class': 'invenio_rdm_records.records:BibliographicRecord',
+        'route': '/records/<pid_value>/preview/<path:filename>',
+        'view_imp': 'invenio_previewer.views.preview',
+    },
+}
+
+"""Records UI for RDM Records."""
+
+
+# Invenio-Formatter
+# =================
+
+FORMATTER_BADGES_ALLOWED_TITLES = ['DOI', 'doi']
+"""List of allowed titles in badges."""
+
+FORMATTER_BADGES_TITLE_MAPPING = {'doi': 'DOI'}
+"""Mapping of titles."""
 
 # Invenio-Mail / Flask-Mail
 # =========================
@@ -278,7 +342,7 @@ WSGI_PROXIES = 2
 
 
 # Invenio-APP-RDM
-# =============
+# ===============
 
 SEARCH_UI_SEARCH_TEMPLATE = 'invenio_app_rdm/search.html'
 """Search page's base template."""

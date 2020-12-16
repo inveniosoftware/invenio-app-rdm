@@ -1,0 +1,89 @@
+{#
+  Copyright (C) 2020 CERN.
+
+  Invenio RDM Records is free software; you can redistribute it and/or modify
+  it under the terms of the MIT License; see LICENSE file for more details.
+#}
+
+{% macro show_detail(title, value) %}
+<div class="ui relaxed grid">
+  <div class="two column row">
+    <div class="four wide column">
+      <p><b>{{ title }}</b></p>
+    </div>
+    <div class="twelve wide column">
+      {{ value }}
+    </div>
+  </div>
+</div>
+{%- endmacro %}
+
+{% macro show_sanitized_detail(title, value) %}
+<div class="ui relaxed grid">
+  <div class="two column row">
+    <div class="four wide column">
+      <p><b>{{ title }}</b></p>
+    </div>
+    <div class="twelve wide column">
+      {{ value | sanitize_html()| safe }}
+    </div>
+  </div>
+</div>
+{%- endmacro %}
+
+{% macro list_sizes(sizes) %}
+  {% for size in sizes %}
+    {{ size }}{{ ", " if not loop.last }}
+  {% endfor %}
+{% endmacro %}
+
+{% macro list_formats(formats) %}
+  {% for format in formats %}
+    {{ format }}{{ ", " if not loop.last }}
+  {% endfor %}
+{% endmacro %}
+
+{% macro show_add_titles(add_titles) %}
+  {% for add_title in add_titles %}
+    {{ show_detail(add_title.type, add_title.title) }}
+  {% endfor %}
+{% endmacro %}
+
+{% macro show_add_descriptions(add_descriptions) %}
+  {% for add_description in add_descriptions %}
+    {{
+      show_sanitized_detail(add_description.type, add_description.description)
+    }}
+  {% endfor %}
+{% endmacro %}
+
+{% macro show_dates(dates) %}
+  {% for date in dates %}
+    {{ show_detail(date.type, date.date) }}
+  {% endfor %}
+{% endmacro %}
+
+{% macro show_funding(funding) %}
+  {% for fund in funding %}
+    {{ show_detail('Award', fund.award.title + ' ( ' + fund.award.number + ' )' ) if fund.award }}
+    {{ show_detail('Funder', fund.funder.name) if fund.funder }}
+  {% endfor %}
+{% endmacro %}
+
+{% macro show_references(references) %}
+  {% for reference in references %}
+    <p>{{ reference.reference + ' ( ' + reference.scheme + ' - ' +  reference.identifier + ' )'}}</p>
+  {% endfor %}
+{% endmacro %}
+
+{% macro _identifiers_for_group(related_identifiers) %}
+  {% for identifier in related_identifiers %}
+  <p>{{ identifier.identifier + ' ( ' + identifier.scheme + ' )' }}</p>
+  {% endfor %}
+{% endmacro %}
+
+{% macro show_related_identifiers(related_identifiers) %}
+  {%- for group in related_identifiers | groupby('relation_type')%}
+    {{ show_detail(group.grouper, _identifiers_for_group(group.list)) }}
+  {%- endfor %}
+{% endmacro %}

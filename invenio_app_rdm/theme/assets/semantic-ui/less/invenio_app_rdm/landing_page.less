@@ -1,0 +1,158 @@
+/*
+ *   Copyright (C) 2020 CERN.
+ *   Copyright (C) 2020 Northwestern University.
+ *
+ * Invenio RDM Records is free software; you can redistribute it and/or modify
+ * it under the terms of the MIT License; see LICENSE file for more details.
+ */
+
+ .font-small {
+     font-size: @font-size-small
+ }
+
+ .font-tiny {
+     font-size: @font-size-tiny
+ }
+
+ .top-bottom-padded {
+     margin: 15px 0px 20px 0px;
+ }
+
+ .top-padded {
+     margin: 15px 0px 0px 0px;
+ }
+
+ // Preview
+ .iiif-preview-img {
+     display: block;
+     margin-left: auto;
+     margin-right: auto;
+ }
+
+ .preview-iframe {
+     border-style: none;
+ }
+
+ // Record info
+
+ .ui.label > .icon { //Overwrite default icon
+     margin: 0rem 0.25rem 0rem 0rem;
+ }
+
+ .label-keyword {
+     color:#777;
+     border: 2px solid rgba(119, 119, 119, 0.56);
+     border-radius: 4px;
+     padding: 3.5px;
+ }
+
+ .stats-box {
+     padding: 1rem 0rem 0rem 0rem;
+
+     .stats-data {
+         font-size: @font-size-massive;
+     }
+ }
+
+ dd { // Start left aligned
+     margin-inline-start: 0px;
+ }
+
+ .version-first {
+     background-color: @versionFirst;
+ }
+
+ .ui.rdm-sidebar {
+     background-color: #f5f5f5;
+     border: 1px solid #e3e3e3;
+     border-radius: 4px;
+
+     a.export-format {
+         margin: 3px;
+     }
+ }
+
+ .inline-orcid {
+     height: @font-size-base;
+ }
+
+ .thin-line {
+     margin: 0rem 0rem 0.5rem 0rem !important;
+ }
+
+ // Files toogles
+
+ .hide-on-collapsed {
+     display: block;
+ }
+ .show-on-collapsed {
+     display: none;
+ }
+ .panel-toggle.collapsed {
+   .hide-on-collapsed {
+     display: none;
+   }
+   .show-on-collapsed {
+     display: block;
+   }
+ }
+
+
+ /* use these classes to change accordion title when up/down */
+ div.accordion div.title.active span.up {
+   display: none;
+ }
+
+ div.accordion div.title.active span.down {
+   display: inline;
+ }
+
+ div.accordion div.title span.up {
+   display: inline;
+ }
+
+ div.accordion div.title span.down {
+   display: none;
+ }
+
+ .reverse-header-margin{
+     margin-top: -20px;
+ }
+
+ .record-management-buttons{
+     margin-top:10px;
+
+     button {
+         margin-right:7px !important;
+     }
+ }
+
+ .panel-spacing {
+     padding-top: 20px;
+     padding-bottom: 20px;
+ }
+
+ .panel-heading {
+     padding: 10px !important;
+     border-bottom: 1px solid transparent;
+     background-color: #f5f5f5;
+     border-color: #ddd;
+     color: #428bca !important;
+     a {
+         text-decoration: none;
+     }
+     i {
+         float: right !important;
+     }
+ }
+
+ .panel {
+     margin-bottom: 10px;
+     border-radius: 10px;
+     border-color: #ddd !important;
+     border: 1px solid;
+
+     .content{
+         padding-top: 0px !important;
+     }
+ }

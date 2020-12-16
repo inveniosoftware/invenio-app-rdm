@@ -1,0 +1,34 @@
+{#
+  Copyright (C) 2020 CERN.
+  Copyright (C) 2020 Northwestern University.
+
+  Invenio RDM Records is free software; you can redistribute it and/or modify
+  it under the terms of the MIT License; see LICENSE file for more details.
+#}
+
+{%- set id_doi = metadata.identifiers|doi_identifier %}
+<dd>
+{% if id_doi %}
+  <span class="get-badge" data-toggle="tooltip" data-placement="bottom" style="cursor: pointer;"
+    title="Get the DOI badge!">
+    <img id="record-doi-badge" data-target="[data-modal='{{ id_doi }}']"
+      src="{{ url_for('invenio_formatter_badges.badge', title='DOI', value=id_doi, ext='svg') }}" alt="{{ id_doi }}">
+    </img>
+  </span>
+  <div id="doi-modal" class="ui modal fade badge-modal" data-modal="{{ id_doi }}">
+    <div class="header">RDM DOI Badge</div>
+    <div class="content">
+      <h4>
+        <small>DOI</small>
+      </h4>
+      <h4>
+        <pre>{{ id_doi }}</pre>
+      </h4>
+      {% from "semantic-ui/invenio_formatter/macros/badges.html" import badges_formats_list %}
+      {{ badges_formats_list(url_for('invenio_formatter_badges.badge', title='DOI', value=id_doi, ext='svg', _external=True, _scheme='https'), id_doi|pid_url(scheme='doi')) }}
+    </div>
+  </div>
+{% else %}
+  {{ _("No minted DOI") }}
+{% endif %}
+</dd>

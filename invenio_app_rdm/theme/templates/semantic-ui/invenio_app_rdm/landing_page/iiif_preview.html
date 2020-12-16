@@ -1,0 +1,19 @@
+{#
+    Copyright (C) 2020 CERN.
+    Copyright (C) 2020 Northwestern University.
+
+    Invenio RDM Records is free software; you can redistribute it and/or modify
+    it under the terms of the MIT License; see LICENSE file for more details.
+#}
+
+{%- extends config.PREVIEWER_ABSTRACT_TEMPLATE %}
+
+{%- block head %}
+{% for css_bundle in css_bundles %}
+{{ webpack[css_bundle] }}
+{% endfor %}
+{%- endblock %}
+
+{% block panel %}
+<img class="iiif-preview-img" src="{{ file_url }}" style="max-width: 100%;">
+{% endblock %}

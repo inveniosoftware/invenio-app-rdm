@@ -1,0 +1,101 @@
+{#
+  Copyright (C) 2020 CERN.
+
+  Invenio RDM Records is free software; you can redistribute it and/or modify
+  it under the terms of the MIT License; see LICENSE file for more details.
+#}
+
+<div class="row stats-box">
+  <div class="ui padded grid">
+    <!-- Banner -->
+    <div class="two column row">
+      <div class="eight wide column centered">
+        <div><span class="stats-data">1,175</span></div>
+        <i class="eye icon"></i> views
+      </div>
+      <div class="eight wide column centered">
+        <div><span class="stats-data">52</span></div>
+        <i class="download icon"></i> downloads
+      </div>
+    </div>
+
+    <!-- Collapsed details -->
+    <div class="centered row">
+      <div class="ui grid accordion">
+        <div class="title centered row">
+          <a style="cursor: pointer;" class="dropdown">
+            <span class="up">Show details<i class="angle right icon"></i></span>
+            <span class="down">Hide details<i class="angle down icon"></i></span>
+          </a>
+        </div>
+        <div class="centered row">
+          <div class="transition hidden">
+            <div class="ui padded grid">
+              <div class="centered row">
+                <table class="ui very basic table">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th class="middle aligned">All versions</th>
+                      <th class="middle aligned">This version</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="centered">
+                      <td class="left aligned">Views
+                        <span class="ui tooltip-popup text-muted"
+                          data-content="Total views."
+                        ><i class="question circle outline icon"></i></span>
+                      </td>
+                      <td>1,175</td>
+                      <td>265</td>
+                    </tr>
+                    <tr class="centered">
+                      <td class="left aligned">Downloads
+                        <span class="ui tooltip-popup text-muted"
+                          data-content="Total downloads."
+                        ><i class="question circle outline icon"></i></span>
+                      </td>
+                      <td>52</td>
+                      <td>10</td>
+                    </tr>
+                    <tr class="centered">
+                      <td class="left aligned">Data volume
+                        <span class="ui tooltip-popup text-muted"
+                          data-content="Total download volume."
+                        ><i class="question circle outline icon"></i></span>
+                      </td>
+                      <td>191.3 MB</td>
+                      <td>21.8 MB</td>
+                    </tr>
+                    <tr class="centered">
+                      <td class="left aligned">Unique views
+                        <span class="ui tooltip-popup text-muted"
+                          data-content="Views in one hour user-sessions are counted only once."
+                        ><i class="question circle outline icon"></i></span>
+                      </td>
+                      <td>880</td>
+                      <td>192</td>
+                    </tr>
+                    <tr class="centered">
+                      <td class="left aligned">Unique downloads
+                        <span class="ui tooltip-popup text-muted"
+                          data-content="Downloads in one hour user-sessions are counted only once."
+                        ><i class="question circle outline icon"></i></span>
+                      </td>
+                      <td>46</td>
+                      <td>8</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="centered row">
+                <a href="/coming-soon">More info on how stats are collected.</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

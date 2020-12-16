@@ -1,0 +1,58 @@
+{#
+  Copyright (C) 2020 CERN.
+  Copyright (C) 2020 Northwestern University.
+
+  Invenio RDM Records is free software; you can redistribute it and/or modify
+  it under the terms of the MIT License; see LICENSE file for more details.
+#}
+
+{%- from "invenio_app_rdm/landing_page/macros/version.html" import show_version %}
+
+
+<div class="ui segment rdm-sidebar">
+  <dt><b>{{ _('Metrics')}}</b></dt>
+  <hr class="thin-line">
+  </hr>
+  <dd>
+    <!-- Stats -->
+    {%- include "invenio_app_rdm/landing_page/details/stats.html" %}
+  </dd>
+</div>
+
+<div class="ui segment rdm-sidebar">
+  <dt><b>{{ _('Versions')}}</b></dt>
+  <hr class="thin-line">
+  </hr>
+  <dd class="versions">
+    {{ show_version(metadata.version, record.ui.publication_date_l10n_medium, None) }}
+    <div class="ui container">
+      <div class="ui padded grid">
+      <div class="one column row">
+        <p class="font-small">
+          <strong>Cite all versions?</strong> You can cite all versions by using the DOI <a
+            href="https://doi.org/{{ metadata.identifiers|doi_identifier }}">{{ metadata.identifiers|doi_identifier }}</a>. This
+          DOI represents all versions, and will always resolve to the latest one. <a href="/coming-soon">Read more</a>.
+        </p>
+      </div>
+      </div>
+    </div>
+  </dd>
+</div>
+
+<div class="ui segment rdm-sidebar">
+  <dt><b>{{ _('Export')}}</b></dt>
+  <hr class="thin-line">
+  </hr>
+  <dd class="top-bottom-padded">
+    <a class="export-format" href="/coming-soon">BibTeX</a>
+    <a class="export-format" href="/coming-soon">CSL</a>
+    <a class="export-format" href="/coming-soon">DataCite</a>
+    <a class="export-format" href="/coming-soon">Dublin Core</a>
+    <a class="export-format" href="/coming-soon">DCAT</a>
+    <a class="export-format" href="/coming-soon">JSON</a>
+    <a class="export-format" href="/coming-soon">JSON-LD</a>
+    <a class="export-format" href="/coming-soon">GeoJSON</a>
+    <a class="export-format" href="/coming-soon">MARCXML</a>
+    <a class="export-format" href="/coming-soon">Mendeley</a>
+  </dd>
+</div>

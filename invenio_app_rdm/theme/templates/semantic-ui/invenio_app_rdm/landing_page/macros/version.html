@@ -1,0 +1,22 @@
+{#
+  Copyright (C) 2020 CERN.
+
+  Invenio RDM Records is free software; you can redistribute it and/or modify
+  it under the terms of the MIT License; see LICENSE file for more details.
+#}
+
+{% macro show_version(version, publication_date, doi) %}
+<div class="ui padded grid">
+  <div class="two column row version-first">
+    <div class="ten wide column left aligned">
+      <a href="">Version {{ version }}</a>
+      {% set doi = doi if doi else "No DOI available" %}
+      <p class="text-muted font-small">{{ doi }}</p>
+    </div>
+    <div class="six wide column right aligned">
+      <p class="text-muted font-small">{{ publication_date }}</p>
+    </div>
+  </div>
+</div>
+{%- endmacro %}
+

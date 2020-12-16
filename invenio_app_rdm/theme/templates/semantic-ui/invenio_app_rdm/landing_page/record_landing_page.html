@@ -1,0 +1,112 @@
+{#
+  Copyright (C) 2020 CERN.
+  Copyright (C) 2020 Northwestern University.
+
+  Invenio RDM Records is free software; you can redistribute it and/or modify
+  it under the terms of the MIT License; see LICENSE file for more details.
+#}
+
+{%- extends config.BASE_TEMPLATE %}
+
+{%- block css %}
+{{ super() }}
+{%- endblock css %}
+
+{%- from "invenio_app_rdm/landing_page/macros/files.html" import file_list_box, preview_file_box %}
+{%- from "invenio_app_rdm/landing_page/macros/detail.html" import show_detail %}
+
+{%- set record = record|serialize_ui %}
+{%- set metadata = record.metadata %}
+
+{%- block page_body %}
+<div
+  id="recordManagement"
+  data-recid='{{ record["id"] | tojson }}'>
+</div>
+<div class="ui container">
+  <div class="ui padded relaxed grid">
+    <div class="two column row">
+      <div class="eleven wide column">
+        {%- block record_body %}
+        <div class="ui grid middle aligned">
+          <div class="two column row">
+            <div class="left floated left aligned column">
+              <span class="ui" title="Publication date">{{ record.ui.publication_date_l10n_long }}</span>
+              {%- if metadata.version %}
+              <span class="label text-muted"> | Version {{ metadata.version }}</span>
+              {% endif %}
+            </div>
+            <div class="right floated right aligned column">
+              <span class="ui label small grey">{{ record.ui.resource_type }}</span>
+              <span class="ui label small access-right {{ record.ui.access_right.icon }}">
+                <i class="icon {{ record.ui.access_right.icon }}"></i>{{ record.ui.access_right.title }}</span>
+            </div>
+          </div>
+        </div>
+        <h1>{{ metadata.title }}</h1>
+        <p>{%- include "invenio_app_rdm/landing_page/details/creators.html" %}</p>
+        <p>{%- include "invenio_app_rdm/landing_page/details/contributors.html" %}</p>
+
+        {%- include "invenio_app_rdm/landing_page/details/subjects.html" %}
+        <div class="top-padded">
+        {%- include "invenio_app_rdm/landing_page/details/description.html" %}
+        </div>
+        <div class="top-padded">
+        {%- include "invenio_app_rdm/landing_page/details/licenses.html" %}
+        </div>
+        {# files #}
+        {%- if record.files and record|can_list_files %}
+          {%- set files = record.files|make_files_preview_compatible %}
+          {%- set default_preview_file = files|select_preview_file(default_preview=record.files.default_preview) %}
+          {{ preview_file_box(default_preview_file, pid) }}
+          {{ file_list_box(files, pid) }}
+        {% endif %}
+
+        {# More details #}
+        <div class="top-padded">
+        {%- include "invenio_app_rdm/landing_page/details/details.html" %}
+        </div>
+
+        <div class="ui grid">
+          <div class="two column row top-bottom-padded font-small">
+            <div class="four wide column">
+              <p><b>Upload infromation</b></p>
+            </div>
+            <div class="twelve wide column">
+              <span class="label text-muted">
+                <b>Created:</b> {{ record.ui.created_date_l10n_long }} | <b>Modified:</b> {{ record.ui.updated_date_l10n_long }}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ui grid">
+          <div class="centered row" id="jump-btn">
+            <a style="cursor: pointer;">
+              <span class="ui button">
+                <i class="arrow alternate circle up outline icon"></i>Jump up</span>
+            </a>
+          </div>
+        </div>
+
+        {%- endblock record_body %}
+      </div>
+      <div class="five wide column">
+        {% block sidebar %}
+        {%- include "invenio_app_rdm/landing_page/details/side_bar.html" %}
+        {% endblock sidebar %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{%- endblock page_body %}
+
+{%- block javascript %}
+{{ super() }}
+{{ webpack['invenio-app-rdm-records.js'] }}
+{# Communities management #}
+{{ webpack['invenio-communities-records.js'] }}
+{{ webpack['previewer_theme.js'] }}
+{{ webpack['invenio-app-rdm-record-management.js'] }}
+{%- endblock javascript %}
