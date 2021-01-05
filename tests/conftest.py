@@ -15,6 +15,8 @@ import pytest
 from flask_security.utils import hash_password
 from invenio_access.models import ActionUsers
 
+pytest_plugins = ("celery.contrib.pytest", )
+
 
 @pytest.fixture(scope='function')
 def minimal_input_record():
