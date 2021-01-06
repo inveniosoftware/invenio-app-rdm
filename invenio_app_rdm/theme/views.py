@@ -220,6 +220,14 @@ def ui_blueprint(app):
         vocabulary = Vocabularies.get_vocabulary(vocabulary_key)
         return vocabulary.get_title_by_dict(dict_key) if vocabulary else ""
 
+    @blueprint.app_template_filter('dereference_record')
+    def dereference_record(record):
+        """Returns the UI serialization of a record."""
+        record.relations.dereference()
+
+        return record
+
+
     @blueprint.app_template_filter('serialize_ui')
     def serialize_ui(record):
         """Returns the UI serialization of a record."""

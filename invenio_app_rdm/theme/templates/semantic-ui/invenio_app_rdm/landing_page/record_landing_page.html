@@ -15,7 +15,7 @@
 {%- from "invenio_app_rdm/landing_page/macros/files.html" import file_list_box, preview_file_box %}
 {%- from "invenio_app_rdm/landing_page/macros/detail.html" import show_detail %}
 
-{%- set record = record|serialize_ui %}
+{%- set record = record|dereference_record|serialize_ui %}
 {%- set metadata = record.metadata %}
 
 {%- block page_body %}
