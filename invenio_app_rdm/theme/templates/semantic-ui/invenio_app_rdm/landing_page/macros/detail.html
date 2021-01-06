@@ -87,3 +87,9 @@
     {{ show_detail(group.grouper, _identifiers_for_group(group.list)) }}
   {%- endfor %}
 {% endmacro %}
+
+{% macro list_languages(languages) %}
+  {% for lang in languages %}
+    {{ lang.title }}{{ ", " if not loop.last }}
+  {% endfor %}
+{% endmacro %}

@@ -227,7 +227,6 @@ def ui_blueprint(app):
 
         return record
 
-
     @blueprint.app_template_filter('serialize_ui')
     def serialize_ui(record):
         """Returns the UI serialization of a record."""

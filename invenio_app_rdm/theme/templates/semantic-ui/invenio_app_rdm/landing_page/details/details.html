@@ -7,8 +7,8 @@
 #}
 
 
-{%- from "invenio_app_rdm/landing_page/macros/detail.html" import list_formats, list_sizes,
-  show_add_descriptions, show_add_titles, show_dates, show_detail, show_funding,
+{%- from "invenio_app_rdm/landing_page/macros/detail.html" import list_formats, list_languages,
+  list_sizes, show_add_descriptions, show_add_titles, show_dates, show_detail, show_funding,
   show_references, show_related_identifiers %}
 
 <dt><b>{{ _('Details')}}</b></dt>
@@ -20,6 +20,7 @@
   {{ show_detail(_('Additional titles'), show_add_titles(metadata.additional_titles)) if metadata.additional_titles }}
   {{ show_detail(_('Additional descriptions'), show_add_descriptions(metadata.additional_descriptions)) if metadata.additional_descriptions }}
   {{ show_detail(_('Dates'), show_dates(metadata.dates)) if metadata.dates }}
+  {{ show_detail(_('Languages'), list_languages(record.ui.languages)) if record.ui.languages }}
   {{ show_detail(_('Formats'), list_formats(metadata.formats)) if metadata.formats }}
   {{ show_detail(_('Sizes'), list_sizes(metadata.sizes)) if metadata.sizes }}
   {{ show_detail(_('Funding'), show_funding(metadata.funding)) if metadata.funding }}
