@@ -248,6 +248,7 @@ export class RDMDepositForm extends Component {
       },
     };
     this.apiErrorHandler = new APIErrorHandler(this.vocabularies);
+    debugger;
   }
 
   render() {
@@ -345,6 +346,13 @@ export class RDMDepositForm extends Component {
                   "metadata.languages",
                   null
                 )}
+                serializeSuggestions={(suggestions) =>
+                  suggestions.map((item) => ({
+                    text: item.metadata.title[this.config.current_locale],
+                    value: item.id,
+                    key: item.id,
+                  }))
+                }
               />
               <DatesField options={this.vocabularies.metadata.dates} />
               <VersionField />

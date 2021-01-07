@@ -20,6 +20,7 @@ import idutils
 from flask import Blueprint, abort, current_app, g, render_template, request
 from flask_menu import current_menu
 from invenio_files_rest.views import ObjectResource
+from invenio_i18n.ext import current_i18n
 from invenio_previewer.views import is_previewable
 from invenio_rdm_records.resources import \
     BibliographicDraftFilesResourceConfig, BibliographicDraftResourceConfig
@@ -69,6 +70,7 @@ def ui_blueprint(app):
         forms_config = dict(
             createUrl=("/api/records"),
             vocabularies=Vocabularies.dump(),
+            current_locale=str(current_i18n.locale)
         )
         return render_template(
             current_app.config['DEPOSITS_FORMS_BASE_TEMPLATE'],
@@ -96,7 +98,8 @@ def ui_blueprint(app):
 
         forms_config = dict(
             apiUrl=f"/api/records/{pid_value}/draft",
-            vocabularies=Vocabularies.dump()
+            vocabularies=Vocabularies.dump(),
+            current_locale=str(current_i18n.locale)
         )
 
         # Dereference relations (languages, licenses, etc.)
