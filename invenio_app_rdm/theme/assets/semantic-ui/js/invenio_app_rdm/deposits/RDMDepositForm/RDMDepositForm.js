@@ -248,7 +248,6 @@ export class RDMDepositForm extends Component {
       },
     };
     this.apiErrorHandler = new APIErrorHandler(this.vocabularies);
-    debugger;
   }
 
   render() {
