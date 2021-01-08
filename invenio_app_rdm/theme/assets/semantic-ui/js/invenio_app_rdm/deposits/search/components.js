@@ -88,7 +88,7 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
     "open"
   );
   const access_right_icon = _get(result, "ui.access_right.icon", "open");
-  const creator = result.ui.creators.creators[0];
+  const creator_name = _get(result, "ui.creators.creators[0].name", "No creator found");
   const title = _get(result, "metadata.title", "No title");
   const author = _get(result, "metadata._internal_notes[0].user", "anonymous");
   const id = _get(result, "id");
@@ -142,7 +142,7 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
               </Item.Header>
               <Item.Extra>
                 <div>
-                  Created on <span>{createdDate}</span> by {creator.name}
+                  Created on <span>{createdDate}</span> by {creator_name}
                   <div className="ui right floated stats">
                     <span>
                       <Icon name="eye" />
