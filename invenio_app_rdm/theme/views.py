@@ -104,8 +104,9 @@ def ui_blueprint(app):
 
         # Dereference relations (languages, licenses, etc.)
         draft._record.relations.dereference()
+        serializer = UIJSONSerializer()
+        _record = serializer.serialize_object_to_dict(draft._record)
         # TODO: get the `is_published` field when reading the draft
-        _record = draft.to_dict()
         from invenio_pidstore.errors import PIDUnregistered
         try:
             _ = service.draft_cls.pid.resolve(
