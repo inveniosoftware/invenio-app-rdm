@@ -15,9 +15,9 @@ jobs:
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         # Never close stale issues
-        days-before-close: -1,
+        days-before-close: -1
         # Only label issues, no commenting.
-        skip-stale-pr-message: true,
-        skip-stale-issue-message: true,  
+        skip-stale-pr-message: true
+        skip-stale-issue-message: true
         stale-issue-label: 'stale'
         stale-pr-label: 'stale'
