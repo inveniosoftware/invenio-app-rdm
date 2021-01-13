@@ -7,8 +7,6 @@
 
 """Sphinx configuration."""
 
-from __future__ import print_function
-
 import os
 
 import sphinx.environment
