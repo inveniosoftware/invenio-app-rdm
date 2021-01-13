@@ -14,12 +14,12 @@ from setuptools import find_packages, setup
 
 readme = open('README.rst').read()
 
-invenio_version = '>=3.4.0rc1'
+invenio_version = '~=3.4.0'
 invenio_search_version = '>=1.4.0,<1.5.0'
 invenio_db_version = '>=1.0.5,<1.1.0'
 
 tests_require = [
-    'pytest-invenio>=1.4.1',
+    'pytest-invenio~=1.4.1',
 ]
 
 setup_requires = [
@@ -29,20 +29,20 @@ setup_requires = [
 extras_require = {
     # Invenio-Search
     'elasticsearch6': [
-        'invenio-search[elasticsearch6]{}'.format(invenio_search_version)
+        f'invenio-search[elasticsearch6]{invenio_search_version}'
     ],
     'elasticsearch7': [
-        'invenio-search[elasticsearch7]{}'.format(invenio_search_version)
+        f'invenio-search[elasticsearch7]{invenio_search_version}'
     ],
     # Invenio-DB
     'mysql': [
-        'invenio-db[mysql,versioning]{}'.format(invenio_db_version)
+        f'invenio-db[mysql,versioning]{invenio_db_version}'
     ],
     'postgresql': [
-        'invenio-db[postgresql,versioning]{}'.format(invenio_db_version)
+        f'invenio-db[postgresql,versioning]{invenio_db_version}'
     ],
     'sqlite': [
-        'invenio-db[versioning]{}'.format(invenio_db_version)
+        f'invenio-db[versioning]{invenio_db_version}'
     ],
     # Storage plugins
     's3': [
@@ -64,7 +64,7 @@ for name, reqs in extras_require.items():
 
 install_requires = [
     'CairoSVG>=1.0.20',
-    'invenio[base,auth,metadata,files]{}'.format(invenio_version),
+    f'invenio[base,auth,metadata,files]{invenio_version}',
     'invenio-rdm-records>=0.25.7',
 ]
 
@@ -120,6 +120,9 @@ setup(
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
         'Development Status :: 3 - Alpha',
     ],
 )

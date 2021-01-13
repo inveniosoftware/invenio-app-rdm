@@ -9,5 +9,4 @@
 Configuration
 =============
 
-.. automodule:: invenio_app_rdm.config
-   :members:
+See https://inveniordm.docs.cern.ch/reference/configuration/
