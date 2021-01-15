@@ -105,23 +105,22 @@ def ui_blueprint(app):
         # Dereference relations (languages, licenses, etc.)
         draft._record.relations.dereference()
         serializer = UIJSONSerializer()
-        _record = serializer.serialize_object_to_dict(draft._record)
+        record = serializer.serialize_object_to_dict(draft.to_dict())
+
         # TODO: get the `is_published` field when reading the draft
         from invenio_pidstore.errors import PIDUnregistered
         try:
-            _ = service.draft_cls.pid.resolve(
-                    pid_value, registered_only=True)
-            _record["is_published"] = True
+            service.draft_cls.pid.resolve(pid_value, registered_only=True)
+            record["is_published"] = True
         except PIDUnregistered:
-            _record["is_published"] = False
+            record["is_published"] = False
 
-        searchbar_config = dict(searchUrl=search_url)
         return render_template(
             current_app.config['DEPOSITS_FORMS_BASE_TEMPLATE'],
             forms_config=forms_config,
-            record=_record,
+            record=record,
             files=files_list.to_dict(),
-            searchbar_config=searchbar_config
+            searchbar_config=dict(searchUrl=search_url)
         )
 
     @blueprint.route(

@@ -14,6 +14,7 @@ import {
   DatesField,
   DepositFormApp,
   FormFeedback,
+  DeleteButton,
   DescriptionsField,
   FileUploader,
   FundingField,
@@ -255,7 +256,6 @@ export class RDMDepositForm extends Component {
         config={this.config}
         record={this.props.record}
         files={this.props.files}
-        apiErrorHandler={this.apiErrorHandler}
       >
         <Grid>
           <Grid.Column width={12}>
@@ -378,17 +378,31 @@ export class RDMDepositForm extends Component {
                 <PublishButton fluid />
               </Card.Content>
             </Card>
+
+            <Card className="actions">
+              <Card.Content>
+                <DeleteButton
+                  fluid
+                  // TODO: make is_published part of the API response
+                  //       so we don't have to do this
+                  isPublished={this.props.record.is_published}
+                />
+              </Card.Content>
+            </Card>
+
             <AccessRightField
               label={"Protection"}
               labelIcon={"shield"}
               options={this.vocabularies.access.access_right}
             />
+
             <Grid.Row centered>
               <Button className="disabled contact-support">
                 <Icon name="mail outline" />
                 Contact Support
               </Button>
             </Grid.Row>
+
           </Grid.Column>
         </Grid>
       </DepositFormApp>
