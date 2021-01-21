@@ -289,9 +289,9 @@ export class RDMDepositForm extends Component {
               >
                 {/* <IdentifiersField /> */}
                 <ComingSoonField
-                  fieldPath='metadata.identifiers'
-                  label='Identifier(s)'
-                  labelIcon='barcode'
+                  fieldPath="metadata.identifiers"
+                  label="Identifier(s)"
+                  labelIcon="barcode"
                 />
                 <br />
               </AccordionField>
@@ -311,15 +311,21 @@ export class RDMDepositForm extends Component {
                   required
                 />
                 <CreatibutorsField
-                  options={this.vocabularies.metadata.creators}
-                  required
+                  label={"Creators"}
+                  fieldPath={"metadata.creators"}
+                  roleOptions={this.vocabularies.metadata.creators.role}
+                  schema="creators"
                 />
                 <CreatibutorsField
                   addButtonLabel={"Add contributor"}
                   label={"Contributors"}
                   fieldPath={"metadata.contributors"}
-                  options={this.vocabularies.metadata.contributors}
-                  roleRequired={true}
+                  roleOptions={this.vocabularies.metadata.contributors.role}
+                  schema="contributors"
+                  modal={{
+                    addLabel: "Add contributor",
+                    editLabel: "Edit contributor",
+                  }}
                 />
                 <DescriptionsField
                   options={this.vocabularies.metadata.descriptions}
@@ -363,12 +369,12 @@ export class RDMDepositForm extends Component {
                 /> */}
 
                 <ComingSoonField
-                  fieldPath='metadata.subjects'
-                  label='Subjects'
-                  labelIcon='tag'
+                  fieldPath="metadata.subjects"
+                  label="Subjects"
+                  labelIcon="tag"
                 />
 
-                <LanguagesField
+                {/* <LanguagesField
                   initialOptions={_get(
                     this.props.record,
                     "metadata.languages",
@@ -381,7 +387,7 @@ export class RDMDepositForm extends Component {
                       key: item.id,
                     }))
                   }
-                />
+                /> */}
                 <DatesField options={this.vocabularies.metadata.dates} />
                 <VersionField />
                 <PublisherField />
@@ -396,9 +402,9 @@ export class RDMDepositForm extends Component {
               >
                 {/* <FundingField options={this.vocabularies.metadata.funding} /> */}
                 <ComingSoonField
-                  fieldPath='metadata.funding'
-                  label='Awards'
-                  labelIcon='money bill alternate outline'
+                  fieldPath="metadata.funding"
+                  label="Awards"
+                  labelIcon="money bill alternate outline"
                 />
 
                 <br />

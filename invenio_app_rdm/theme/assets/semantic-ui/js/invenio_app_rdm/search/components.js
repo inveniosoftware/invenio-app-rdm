@@ -17,6 +17,7 @@ import {
   List,
 } from "semantic-ui-react";
 import { BucketAggregation, Toggle } from "react-searchkit";
+import _find from "lodash/find";
 import _get from "lodash/get";
 import _truncate from "lodash/truncate";
 import Overridable from "react-overridable";
@@ -73,23 +74,26 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
         <Item.Meta>
           {creators.map((creator, index) => (
             <span key={index}>
-              {_get(creator, "identifiers.orcid") ? (
+              {_get(creator, "person_or_org.identifiers", []).some(
+                (identifier) => identifier.scheme === "orcid"
+              ) ? (
                 <img className="inline-orcid" src="/static/images/orcid.svg" />
               ) : null}
-              {creator.name}
+              {creator.person_or_org.name}
               {creators.length > 1 && index != creators.length - 1 ? "," : null}
             </span>
           ))}
         </Item.Meta>
         <Item.Description>
-          {_truncate(description.replace(/(<([^>]+)>)/ig, '') , { length: 350 })}
+          {_truncate(description.replace(/(<([^>]+)>)/gi, ""), { length: 350 })}
         </Item.Description>
         <Item.Extra>
-          {subjects && subjects.map((subject, index) => (
-            <Label key={index} size="tiny">
-              {subject.subject}
-            </Label>
-          ))}
+          {subjects &&
+            subjects.map((subject, index) => (
+              <Label key={index} size="tiny">
+                {subject.subject}
+              </Label>
+            ))}
           {createdDate && (
             <div>
               <small>
@@ -234,8 +238,8 @@ export const RDMRecordFacets = ({ aggs, currentResultsState }) => {
       />
       {aggs.map((agg) => {
         return (
-          <div className="ui accordion">
-            <BucketAggregation key={agg.title} title={agg.title} agg={agg} />
+          <div className="ui accordion" key={agg.title}>
+            <BucketAggregation title={agg.title} agg={agg} />
           </div>
         );
       })}
