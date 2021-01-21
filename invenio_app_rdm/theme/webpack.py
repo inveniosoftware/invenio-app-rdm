@@ -34,6 +34,8 @@ theme = WebpackThemeBundle(
                 'luxon': '^1.23.0',
                 'path': '^0.12.7',
                 'prop-types': '^15.7.2',
+                'react-dnd': '^11.1.3',
+                'react-dnd-html5-backend': '^11.1.3',
                 'react-invenio-deposit': '^0.10.4',
                 'react-invenio-forms': '^0.5.3',
                 'react-dropzone': "^11.0.3",

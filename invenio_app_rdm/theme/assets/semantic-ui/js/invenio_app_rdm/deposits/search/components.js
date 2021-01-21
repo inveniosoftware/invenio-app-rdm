@@ -88,7 +88,11 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
     "open"
   );
   const access_right_icon = _get(result, "ui.access_right.icon", "open");
-  const creator_name = _get(result, "ui.creators.creators[0].name", "No creator found");
+  const creator_name = _get(
+    result,
+    "ui.creators.creators[0].person_or_org.name",
+    "No creator found"
+  );
   const title = _get(result, "metadata.title", "No title");
   const author = _get(result, "metadata._internal_notes[0].user", "anonymous");
   const id = _get(result, "id");

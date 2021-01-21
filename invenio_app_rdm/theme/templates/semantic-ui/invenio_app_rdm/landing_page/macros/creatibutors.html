@@ -7,16 +7,22 @@
 #}
 
 {% macro creatibutor_icon(creatibutor) %}
-{%- if "orcid" in creatibutor.identifiers %}
-<a href="{{ creatibutor.identifiers['orcid']|pid_url('orcid') }}">
+{% set identifier_found = namespace(value=False) %}
+{% for scheme, identifier in creatibutor.person_or_org.identifiers|groupby("scheme") %}
+{%- if scheme == "orcid" %}
+{% set identifier_found.value = True %}
+<a href="{{ identifier[0]['identifier']|pid_url('orcid') }}">
   <img class="inline-orcid" src="{{ url_for('static', filename='images/orcid.svg') }}" />
 </a>
-{%- elif "ror" in creatibutor.identifiers %}
-<a href="{{ creatibutor.identifiers['ror']|pid_url('ror') }}">
+{%- elif scheme == "ror" %}
+{% set identifier_found.value = True %}
+<a href="{{ identifier[0]['identifier']|pid_url('ror') }}">
   <i class="building outline icon"></i>
 </a>
+{%- endif %}
+{% endfor %}
 {# if no identifiers: distinguish btw people and organizations #}
-{%- elif creatibutor.type == "organizational" %}
+{%- if not identifier_found.value and creatibutor.person_or_org.type == 'organizational'%}
 <i class="group icon"></i>
 {%- endif %}
 {% endmacro %}
@@ -30,7 +36,7 @@
         data-content="{{ creatibutor.affiliations|join('; ', attribute='1') }}"
       {% endif %}
     >
-      {{ creatibutor.name }}
+      {{ creatibutor.person_or_org.name }}
     </span>
     <sup class="font-tiny">
       {% for affiliation in creatibutor.affiliations %}
