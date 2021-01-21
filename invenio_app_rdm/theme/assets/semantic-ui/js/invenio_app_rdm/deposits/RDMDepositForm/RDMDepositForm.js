@@ -6,8 +6,8 @@
 // under the terms of the MIT License; see LICENSE file for more details.
 
 import _get from "lodash/get";
-import React, { Component } from "react";
-import { Button, Card, Grid, Icon } from "semantic-ui-react";
+import React, { Component, createRef } from "react";
+import { Button, Card, Grid, Icon, Ref, Sticky } from "semantic-ui-react";
 import {
   AccessRightField,
   CreatibutorsField,
@@ -251,6 +251,8 @@ export class RDMDepositForm extends Component {
     };
   }
 
+  contextRef = createRef()
+
   render() {
     return (
       <DepositFormApp
@@ -260,152 +262,159 @@ export class RDMDepositForm extends Component {
       >
         <DepositFormTitle />
         <Grid>
-          <Grid.Column width={12}>
-            <FormFeedback fieldPath="message" />
-            <AccordionField fieldPath="" active={true} label={"Files"}>
-              <FileUploader
-                isDraftRecord={!this.props.record.is_published}
-                quota={{
-                  maxFiles: 100,
-                  maxStorage: 10**10,
-                }}
-              />
-            </AccordionField>
+          <Grid.Row>
 
-            <AccordionField fieldPath="" active={true} label={"Identifiers"}>
-              <IdentifiersField />
-              <br />
-            </AccordionField>
-
-            <AccordionField
-              fieldPath=""
-              active={true}
-              label={"Basic Information"}
-            >
-              <ResourceTypeField
-                options={this.vocabularies.metadata.resource_type}
-                required
-              />
-              <TitlesField
-                options={this.vocabularies.metadata.titles}
-                required
-              />
-              <CreatibutorsField
-                options={this.vocabularies.metadata.creators}
-                required
-              />
-              <CreatibutorsField
-                addButtonLabel={"Add contributor"}
-                label={"Contributors"}
-                fieldPath={"metadata.contributors"}
-                options={this.vocabularies.metadata.contributors}
-                roleRequired={true}
-              />
-              <DescriptionsField
-                options={this.vocabularies.metadata.descriptions}
-              />
-              <PublicationDateField required />
-              <LicenseField
-                // TODO: configure the searchEndpoint
-                searchConfig={{
-                  searchApi: {
-                    axios: {
-                      headers: {
-                        Accept: "application/json",
-                      },
-                      url: "/api/vocabularies/licenses",
-                      withCredentials: false,
-                    },
-                  },
-                  initialQueryState: {
-                    filters: [["type", "recommended"]],
-                  },
-                }}
-              />
-              <br />
-            </AccordionField>
-
-            <AccordionField
-              fieldPath=""
-              active={true}
-              label={"Recommended Information"}
-            >
-              <SubjectsField
-                initialOptions={_get(
-                  this.props.record,
-                  "metadata.subjects",
-                  null
-                )}
-                limitToOptions={
-                  this.vocabularies.metadata.subjects.limitToOptions
-                }
-              />
-              <LanguagesField
-                initialOptions={_get(
-                  this.props.record,
-                  "metadata.languages",
-                  null
-                )}
-                serializeSuggestions={(suggestions) =>
-                  suggestions.map((item) => ({
-                    text: item.metadata.title[this.config.current_locale],
-                    value: item.id,
-                    key: item.id,
-                  }))
-                }
-              />
-              <DatesField options={this.vocabularies.metadata.dates} />
-              <VersionField />
-              <PublisherField />
-              <br />
-            </AccordionField>
-
-            <AccordionField fieldPath="" active={true} label={"Funding"}>
-              <FundingField options={this.vocabularies.metadata.funding} />
-              <br />
-            </AccordionField>
-
-            <AccordionField fieldPath="" active={true} label={"Related work"}>
-              <RelatedIdentifiersField
-                options={this.vocabularies.metadata.related_identifiers}
-              />
-              <br />
-            </AccordionField>
-          </Grid.Column>
-
-          <Grid.Column width={4}>
-            <Card className="actions">
-              <Card.Content>
-                <SaveButton fluid className="save-button" />
-                <PublishButton fluid />
-              </Card.Content>
-            </Card>
-
-            <Card className="actions">
-              <Card.Content>
-                <DeleteButton
-                  fluid
-                  // TODO: make is_published part of the API response
-                  //       so we don't have to do this
-                  isPublished={this.props.record.is_published}
+            <Grid.Column width={12}>
+              <FormFeedback fieldPath="message" />
+              <AccordionField fieldPath="" active={true} label={"Files"}>
+                <FileUploader
+                  isDraftRecord={!this.props.record.is_published}
+                  quota={{
+                    maxFiles: 100,
+                    maxStorage: 10**10,
+                  }}
                 />
-              </Card.Content>
-            </Card>
+              </AccordionField>
 
-            <AccessRightField
-              label={"Protection"}
-              labelIcon={"shield"}
-              options={this.vocabularies.access.access_right}
-            />
+              <AccordionField fieldPath="" active={true} label={"Identifiers"}>
+                <IdentifiersField />
+                <br />
+              </AccordionField>
 
-            <Grid.Row centered>
-              <Button className="disabled contact-support">
-                <Icon name="mail outline" />
-                Contact Support
-              </Button>
-            </Grid.Row>
+              <AccordionField
+                fieldPath=""
+                active={true}
+                label={"Basic Information"}
+              >
+                <ResourceTypeField
+                  options={this.vocabularies.metadata.resource_type}
+                  required
+                />
+                <TitlesField
+                  options={this.vocabularies.metadata.titles}
+                  required
+                />
+                <CreatibutorsField
+                  options={this.vocabularies.metadata.creators}
+                  required
+                />
+                <CreatibutorsField
+                  addButtonLabel={"Add contributor"}
+                  label={"Contributors"}
+                  fieldPath={"metadata.contributors"}
+                  options={this.vocabularies.metadata.contributors}
+                  roleRequired={true}
+                />
+                <DescriptionsField
+                  options={this.vocabularies.metadata.descriptions}
+                />
+                <PublicationDateField required />
+                <LicenseField
+                  // TODO: configure the searchEndpoint
+                  searchConfig={{
+                    searchApi: {
+                      axios: {
+                        headers: {
+                          Accept: "application/json",
+                        },
+                        url: "/api/vocabularies/licenses",
+                        withCredentials: false,
+                      },
+                    },
+                    initialQueryState: {
+                      filters: [["type", "recommended"]],
+                    },
+                  }}
+                />
+                <br />
+              </AccordionField>
 
-          </Grid.Column>
+              <AccordionField
+                fieldPath=""
+                active={true}
+                label={"Recommended Information"}
+              >
+                <SubjectsField
+                  initialOptions={_get(
+                    this.props.record,
+                    "metadata.subjects",
+                    null
+                  )}
+                  limitToOptions={
+                    this.vocabularies.metadata.subjects.limitToOptions
+                  }
+                />
+                <LanguagesField
+                  initialOptions={_get(
+                    this.props.record,
+                    "metadata.languages",
+                    null
+                  )}
+                  serializeSuggestions={(suggestions) =>
+                    suggestions.map((item) => ({
+                      text: item.metadata.title[this.config.current_locale],
+                      value: item.id,
+                      key: item.id,
+                    }))
+                  }
+                />
+                <DatesField options={this.vocabularies.metadata.dates} />
+                <VersionField />
+                <PublisherField />
+                <br />
+              </AccordionField>
+
+              <AccordionField fieldPath="" active={true} label={"Funding"}>
+                <FundingField options={this.vocabularies.metadata.funding} />
+                <br />
+              </AccordionField>
+
+              <AccordionField fieldPath="" active={true} label={"Related work"}>
+                <RelatedIdentifiersField
+                  options={this.vocabularies.metadata.related_identifiers}
+                />
+                <br />
+              </AccordionField>
+            </Grid.Column>
+
+            <Ref innerRef={this.contextRef}>
+              <Grid.Column width={4}>
+                <Sticky context={this.contextRef}>
+                  <Card className="actions">
+                    <Card.Content>
+                      <SaveButton fluid className="save-button" />
+                      <PublishButton fluid />
+                    </Card.Content>
+                  </Card>
+
+                  <Card className="actions">
+                    <Card.Content>
+                      <DeleteButton
+                        fluid
+                        // TODO: make is_published part of the API response
+                        //       so we don't have to do this
+                        isPublished={this.props.record.is_published}
+                      />
+                    </Card.Content>
+                  </Card>
+
+                  <AccessRightField
+                    label={"Protection"}
+                    labelIcon={"shield"}
+                    options={this.vocabularies.access.access_right}
+                  />
+
+                  <Grid.Row centered>
+                    <Button className="disabled contact-support">
+                      <Icon name="mail outline" />
+                      Contact Support
+                    </Button>
+                  </Grid.Row>
+                </Sticky>
+              </Grid.Column>
+            </Ref>
+
+          </Grid.Row>
         </Grid>
       </DepositFormApp>
     );
