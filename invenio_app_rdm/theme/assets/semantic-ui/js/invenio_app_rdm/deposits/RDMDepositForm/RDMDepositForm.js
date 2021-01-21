@@ -15,6 +15,7 @@ import {
   DepositFormApp,
   FormFeedback,
   DeleteButton,
+  DepositFormTitle,
   DescriptionsField,
   FileUploader,
   FundingField,
@@ -257,6 +258,7 @@ export class RDMDepositForm extends Component {
         record={this.props.record}
         files={this.props.files}
       >
+        <DepositFormTitle />
         <Grid>
           <Grid.Column width={12}>
             <FormFeedback fieldPath="message" />
