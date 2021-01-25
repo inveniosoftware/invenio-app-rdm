@@ -34,7 +34,6 @@ import {
 } from "react-invenio-deposit";
 import { AccordionField } from "react-invenio-forms";
 
-
 export class RDMDepositForm extends Component {
   constructor(props) {
     super(props);
@@ -251,7 +250,8 @@ export class RDMDepositForm extends Component {
     };
   }
 
-  contextRef = createRef()
+  contextRef = createRef();
+  accordionStyle = { header: { className: "inverted brand" } };
 
   render() {
     return (
@@ -263,20 +263,29 @@ export class RDMDepositForm extends Component {
         <DepositFormTitle />
         <Grid>
           <Grid.Row>
-
             <Grid.Column width={12}>
               <FormFeedback fieldPath="message" />
-              <AccordionField fieldPath="" active={true} label={"Files"}>
+              <AccordionField
+                fieldPath=""
+                active={true}
+                label={"Files"}
+                ui={this.accordionStyle}
+              >
                 <FileUploader
                   isDraftRecord={!this.props.record.is_published}
                   quota={{
                     maxFiles: 100,
-                    maxStorage: 10**10,
+                    maxStorage: 10 ** 10,
                   }}
                 />
               </AccordionField>
 
-              <AccordionField fieldPath="" active={true} label={"Identifiers"}>
+              <AccordionField
+                fieldPath=""
+                active={true}
+                label={"Identifiers"}
+                ui={this.accordionStyle}
+              >
                 <IdentifiersField />
                 <br />
               </AccordionField>
@@ -285,6 +294,7 @@ export class RDMDepositForm extends Component {
                 fieldPath=""
                 active={true}
                 label={"Basic Information"}
+                ui={this.accordionStyle}
               >
                 <ResourceTypeField
                   options={this.vocabularies.metadata.resource_type}
@@ -333,6 +343,7 @@ export class RDMDepositForm extends Component {
                 fieldPath=""
                 active={true}
                 label={"Recommended Information"}
+                ui={this.accordionStyle}
               >
                 <SubjectsField
                   initialOptions={_get(
@@ -364,12 +375,22 @@ export class RDMDepositForm extends Component {
                 <br />
               </AccordionField>
 
-              <AccordionField fieldPath="" active={true} label={"Funding"}>
+              <AccordionField
+                fieldPath=""
+                active={true}
+                label={"Funding"}
+                ui={this.accordionStyle}
+              >
                 <FundingField options={this.vocabularies.metadata.funding} />
                 <br />
               </AccordionField>
 
-              <AccordionField fieldPath="" active={true} label={"Related work"}>
+              <AccordionField
+                fieldPath=""
+                active={true}
+                label={"Related work"}
+                ui={this.accordionStyle}
+              >
                 <RelatedIdentifiersField
                   options={this.vocabularies.metadata.related_identifiers}
                 />
@@ -413,7 +434,6 @@ export class RDMDepositForm extends Component {
                 </Sticky>
               </Grid.Column>
             </Ref>
-
           </Grid.Row>
         </Grid>
       </DepositFormApp>
