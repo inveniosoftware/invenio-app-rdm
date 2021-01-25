@@ -28,7 +28,7 @@ import {
   SaveButton,
   SubjectsField,
   TitlesField,
-  RelatedIdentifiersField,
+  RelatedWorksField,
   VersionField,
   LicenseField,
 } from "react-invenio-deposit";
@@ -388,10 +388,10 @@ export class RDMDepositForm extends Component {
               <AccordionField
                 fieldPath=""
                 active={true}
-                label={"Related work"}
+                label={"Related works"}
                 ui={this.accordionStyle}
               >
-                <RelatedIdentifiersField
+                <RelatedWorksField
                   options={this.vocabularies.metadata.related_identifiers}
                 />
                 <br />
