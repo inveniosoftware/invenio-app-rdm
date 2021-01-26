@@ -10,6 +10,7 @@ import React, { Component, createRef } from "react";
 import { Button, Card, Grid, Icon, Ref, Sticky } from "semantic-ui-react";
 import {
   AccessRightField,
+  ComingSoonField,
   CreatibutorsField,
   DatesField,
   DepositFormApp,
@@ -286,7 +287,12 @@ export class RDMDepositForm extends Component {
                 label={"Identifiers"}
                 ui={this.accordionStyle}
               >
-                <IdentifiersField />
+                {/* <IdentifiersField /> */}
+                <ComingSoonField
+                  fieldPath='metadata.identifiers'
+                  label='Identifier(s)'
+                  labelIcon='barcode'
+                />
                 <br />
               </AccordionField>
 
@@ -345,7 +351,7 @@ export class RDMDepositForm extends Component {
                 label={"Recommended Information"}
                 ui={this.accordionStyle}
               >
-                <SubjectsField
+                {/* <SubjectsField
                   initialOptions={_get(
                     this.props.record,
                     "metadata.subjects",
@@ -354,7 +360,14 @@ export class RDMDepositForm extends Component {
                   limitToOptions={
                     this.vocabularies.metadata.subjects.limitToOptions
                   }
+                /> */}
+
+                <ComingSoonField
+                  fieldPath='metadata.subjects'
+                  label='Subjects'
+                  labelIcon='tag'
                 />
+
                 <LanguagesField
                   initialOptions={_get(
                     this.props.record,
@@ -381,7 +394,13 @@ export class RDMDepositForm extends Component {
                 label={"Funding"}
                 ui={this.accordionStyle}
               >
-                <FundingField options={this.vocabularies.metadata.funding} />
+                {/* <FundingField options={this.vocabularies.metadata.funding} /> */}
+                <ComingSoonField
+                  fieldPath='metadata.funding'
+                  label='Awards'
+                  labelIcon='money bill alternate outline'
+                />
+
                 <br />
               </AccordionField>
 
