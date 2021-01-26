@@ -400,7 +400,7 @@ export class RDMDepositForm extends Component {
 
             <Ref innerRef={this.contextRef}>
               <Grid.Column width={4}>
-                <Sticky context={this.contextRef}>
+                <Sticky context={this.contextRef} offset={20}>
                   <Card className="actions">
                     <Card.Content>
                       <SaveButton fluid className="save-button" />
