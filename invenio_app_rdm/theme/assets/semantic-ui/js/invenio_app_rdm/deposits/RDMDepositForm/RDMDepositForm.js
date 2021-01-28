@@ -370,7 +370,6 @@ export class RDMDepositForm extends Component {
                     this.vocabularies.metadata.subjects.limitToOptions
                   }
                 /> */}
-
                 <ComingSoonField
                   fieldPath="metadata.subjects"
                   label="Subjects"
@@ -391,6 +390,12 @@ export class RDMDepositForm extends Component {
                     }))
                   }
                 /> */}
+                <ComingSoonField
+                  fieldPath="metadata.languages"
+                  label="Languages"
+                  labelIcon="globe"
+                />
+
                 <DatesField options={this.vocabularies.metadata.dates} />
                 <VersionField />
                 <PublisherField />
