@@ -25,7 +25,7 @@ def minimal_input_record():
         "access": {
             "metadata_restricted": False,
             "files_restricted": False,
-            "owned_by": [1],
+            "owned_by": [{'user': 1}],
             "access_right": "open",
         },
         "metadata": {
@@ -36,8 +36,10 @@ def minimal_input_record():
             },
             # Technically not required
             "creators": [{
-                "name": "John Doe",
-                "type": "Personal"
+                "person_or_org": {
+                    "name": "John Doe",
+                    "type": "organizational"
+                }
             }],
             "titles": [{
                 "title": "A Romans story",
@@ -55,7 +57,7 @@ def minimal_record():
         "access": {
             "metadata": False,
             "files": False,
-            "owned_by": [1],
+            "owned_by": [{'user': 1}],
             "access_right": "open"
         },
         "metadata": {
@@ -66,10 +68,12 @@ def minimal_record():
             },
             # Technically not required
             "creators": [{
-                "type": "personal",
-                "name": "Doe, John",
-                "given_name": "John Doe",
-                "family_name": "Doe",
+                "person_or_org": {
+                    "type": "personal",
+                    "name": "Doe, John",
+                    "given_name": "John Doe",
+                    "family_name": "Doe",
+                }
             }],
             "title": "A Romans story"
         }
