@@ -310,15 +310,19 @@ export class RDMDepositForm extends Component {
                   options={this.vocabularies.metadata.titles}
                   required
                 />
+                <PublicationDateField required />
                 <CreatibutorsField
                   label={"Creators"}
+                  labelIcon={"user"}
                   fieldPath={"metadata.creators"}
                   roleOptions={this.vocabularies.metadata.creators.role}
                   schema="creators"
+                  required
                 />
                 <CreatibutorsField
                   addButtonLabel={"Add contributor"}
                   label={"Contributors"}
+                  labelIcon={"user plus"}
                   fieldPath={"metadata.contributors"}
                   roleOptions={this.vocabularies.metadata.contributors.role}
                   schema="contributors"
@@ -330,7 +334,6 @@ export class RDMDepositForm extends Component {
                 <DescriptionsField
                   options={this.vocabularies.metadata.descriptions}
                 />
-                <PublicationDateField required />
                 <LicenseField
                   // TODO: configure the searchEndpoint
                   searchConfig={{
