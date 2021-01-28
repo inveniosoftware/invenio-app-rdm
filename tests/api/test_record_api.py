@@ -32,7 +32,8 @@ def test_record_read_non_existing_pid(client, location, minimal_record,
     response = client.get(SINGLE_RECORD_API_URL.format("notfound"))
     assert response.status_code == 404
     assert response.json["status"] == 404
-    assert response.json["message"] == "The pid does not exist."
+    assert response.json["message"] == \
+        "The persistent identifier does not exist."
 
 
 def test_record_draft_create_and_read(client, location, minimal_record,
@@ -84,14 +85,11 @@ def test_record_draft_publish(client, location, minimal_record, es_clear):
     for field in fields_to_check:
         assert field in response_fields
 
-    # Check draft deletion
-    # TODO: Remove import when exception is properly handled
-    with pytest.raises(NoResultFound):
-        response = client.get(
-            DRAFT_API_URL.format(recid),
-            headers=HEADERS
-        )
-    # assert response.status_code == 404
+    response = client.get(
+        DRAFT_API_URL.format(recid),
+        headers=HEADERS
+    )
+    assert response.status_code == 404
 
     # Test record exists
     response = client.get(

@@ -22,11 +22,10 @@ from flask_menu import current_menu
 from invenio_files_rest.views import ObjectResource
 from invenio_i18n.ext import current_i18n
 from invenio_previewer.views import is_previewable
-from invenio_rdm_records.resources import \
-    BibliographicDraftFilesResourceConfig, BibliographicDraftResourceConfig
+from invenio_rdm_records.resources.config import RDMDraftFilesResourceConfig, \
+    RDMDraftResourceConfig
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
-from invenio_rdm_records.services import BibliographicDraftFilesService, \
-    BibliographicRecordService
+from invenio_rdm_records.services import RDMDraftFilesService, RDMRecordService
 from invenio_rdm_records.services.schemas import RDMRecordSchema
 from invenio_rdm_records.services.schemas.utils import dump_empty
 from invenio_rdm_records.vocabularies import Vocabularies
@@ -45,7 +44,7 @@ def ui_blueprint(app):
         static_folder='static',
     )
 
-    service = BibliographicRecordService()
+    service = RDMRecordService()
 
     @blueprint.before_app_first_request
     def init_menu():
@@ -87,14 +86,14 @@ def ui_blueprint(app):
     )
     def deposits_edit(pid_value):
         """Deposit edit page."""
-        links_config = BibliographicDraftResourceConfig.links_config
+        links_config = RDMDraftResourceConfig.links_config
         draft = service.read_draft(
             id_=pid_value, identity=g.identity, links_config=links_config)
 
-        files_service = BibliographicDraftFilesService()
+        files_service = RDMDraftFilesService()
         files_list = files_service.list_files(
             id_=pid_value, identity=g.identity,
-            links_config=BibliographicDraftFilesResourceConfig.links_config)
+            links_config=RDMDraftFilesResourceConfig.links_config)
 
         forms_config = dict(
             apiUrl=f"/api/records/{pid_value}/draft",

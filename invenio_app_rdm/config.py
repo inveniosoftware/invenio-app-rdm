@@ -176,19 +176,19 @@ PREVIEWER_RECORD_FILE_FACOTRY = previewer_record_file_factory
 RECORDS_UI_ENDPOINTS = {
     'recid': {
         'pid_type': 'recid',
-        'record_class': 'invenio_rdm_records.records:BibliographicRecord',
+        'record_class': 'invenio_rdm_records.records:RDMRecord',
         'route': '/records/<pid_value>',
         'template': 'invenio_app_rdm/landing_page/record_landing_page.html'
     },
     'recid_files': {
         'pid_type': 'recid',
-        'record_class': 'invenio_rdm_records.records:BibliographicRecord',
+        'record_class': 'invenio_rdm_records.records:RDMRecord',
         'route': '/records/<pid_value>/files/<path:filename>',
         'view_imp': 'invenio_app_rdm.theme.views.file_download_ui',
     },
     'recid_previewer': {
         'pid_type': 'recid',
-        'record_class': 'invenio_rdm_records.records:BibliographicRecord',
+        'record_class': 'invenio_rdm_records.records:RDMRecord',
         'route': '/records/<pid_value>/preview/<path:filename>',
         'view_imp': 'invenio_previewer.views.preview',
     },
@@ -291,7 +291,7 @@ Default value is provided to make module testing easier.
 # ===================
 # See https://invenio-jsonschemas.readthedocs.io/en/latest/configuration.html
 
-JSONSCHEMAS_HOST = '0.0.0.0'
+JSONSCHEMAS_HOST = 'localhost'
 """Hostname used in URLs for local JSONSchemas."""
 
 
