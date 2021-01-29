@@ -39,7 +39,6 @@ export class RDMDepositForm extends Component {
   constructor(props) {
     super(props);
     this.config = props.config || {};
-
     // TODO: retrieve from backend
     this.config["canHaveMetadataOnlyRecords"] = true;
 
@@ -387,8 +386,8 @@ export class RDMDepositForm extends Component {
                   initialOptions={_get(
                     this.props.record,
                     "metadata.languages",
-                    null
-                  )}
+                    []
+                  ).filter((lang) => lang !== null)} // needed because dumped empty record from backend gives [null]
                   serializeSuggestions={(suggestions) =>
                     suggestions.map((item) => ({
                       text: item.title_l10n,
