@@ -340,6 +340,11 @@ export class RDMDepositForm extends Component {
                       filters: [["type", "recommended"]],
                     },
                   }}
+                  serializeLicenses={(result) => ({
+                    title: result.title_l10n,
+                    description: result.description_l10n,
+                    id: result.id,
+                  })}
                 />
                 <br />
               </AccordionField>
@@ -392,12 +397,6 @@ export class RDMDepositForm extends Component {
                     }))
                   }
                 />
-                <ComingSoonField
-                  fieldPath="metadata.languages"
-                  label="Languages"
-                  labelIcon="globe"
-                />
-
                 <DatesField options={this.vocabularies.metadata.dates} />
                 <VersionField />
                 <PublisherField />
