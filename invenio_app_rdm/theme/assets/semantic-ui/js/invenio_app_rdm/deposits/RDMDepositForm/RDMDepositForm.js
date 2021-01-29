@@ -336,11 +336,12 @@ export class RDMDepositForm extends Component {
                 />
                 <LicenseField
                   // TODO: configure the searchEndpoint
+                  fieldPath="metadata.rights"
                   searchConfig={{
                     searchApi: {
                       axios: {
                         headers: {
-                          Accept: "application/json",
+                          Accept: "application/vnd.inveniordm.v1+json",
                         },
                         url: "/api/vocabularies/licenses",
                         withCredentials: false,
