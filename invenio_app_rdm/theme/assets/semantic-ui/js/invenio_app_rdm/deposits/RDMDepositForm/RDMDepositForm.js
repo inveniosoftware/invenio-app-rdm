@@ -181,8 +181,8 @@ export class RDMDepositForm extends Component {
           relations: [
             { text: "Is cited by", value: "iscitedby" },
             { text: "Cites", value: "cites" },
-            { text: "Is suplement to", value: "issupplementto" },
-            { text: "Is suplemented by", value: "issupplementedby" },
+            { text: "Is supplement to", value: "issupplementto" },
+            { text: "Is supplemented by", value: "issupplementedby" },
             { text: "Is continued by", value: "iscontinuedby" },
             { text: "Continues", value: "continues" },
             { text: "Is described by", value: "isdescribedby" },
