@@ -336,7 +336,7 @@ export class RDMDepositForm extends Component {
                       },
                     },
                     initialQueryState: {
-                      filters: [["type", "recommended"]],
+                      filters: [["tags", "recommended"]],
                     },
                   }}
                   serializeLicenses={(result) => ({
