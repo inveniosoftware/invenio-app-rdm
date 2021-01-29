@@ -252,7 +252,9 @@ export class RDMDepositForm extends Component {
   }
 
   contextRef = createRef();
-  accordionStyle = { header: { className: "inverted brand" } };
+  accordionStyle = {
+    header: { className: "inverted brand", style: { cursor: "pointer" } },
+  };
 
   render() {
     return (
@@ -319,23 +321,10 @@ export class RDMDepositForm extends Component {
                   schema="creators"
                   required
                 />
-                <CreatibutorsField
-                  addButtonLabel={"Add contributor"}
-                  label={"Contributors"}
-                  labelIcon={"user plus"}
-                  fieldPath={"metadata.contributors"}
-                  roleOptions={this.vocabularies.metadata.contributors.role}
-                  schema="contributors"
-                  modal={{
-                    addLabel: "Add contributor",
-                    editLabel: "Edit contributor",
-                  }}
-                />
                 <DescriptionsField
                   options={this.vocabularies.metadata.descriptions}
                 />
                 <LicenseField
-                  // TODO: configure the searchEndpoint
                   fieldPath="metadata.rights"
                   searchConfig={{
                     searchApi: {
@@ -361,6 +350,18 @@ export class RDMDepositForm extends Component {
                 label={"Recommended Information"}
                 ui={this.accordionStyle}
               >
+                <CreatibutorsField
+                  addButtonLabel={"Add contributor"}
+                  label={"Contributors"}
+                  labelIcon={"user plus"}
+                  fieldPath={"metadata.contributors"}
+                  roleOptions={this.vocabularies.metadata.contributors.role}
+                  schema="contributors"
+                  modal={{
+                    addLabel: "Add contributor",
+                    editLabel: "Edit contributor",
+                  }}
+                />
                 {/* <SubjectsField
                   initialOptions={_get(
                     this.props.record,
@@ -377,7 +378,7 @@ export class RDMDepositForm extends Component {
                   labelIcon="tag"
                 />
 
-                {/* <LanguagesField
+                <LanguagesField
                   initialOptions={_get(
                     this.props.record,
                     "metadata.languages",
@@ -385,12 +386,12 @@ export class RDMDepositForm extends Component {
                   )}
                   serializeSuggestions={(suggestions) =>
                     suggestions.map((item) => ({
-                      text: item.metadata.title[this.config.current_locale],
+                      text: item.title_l10n,
                       value: item.id,
                       key: item.id,
                     }))
                   }
-                /> */}
+                />
                 <ComingSoonField
                   fieldPath="metadata.languages"
                   label="Languages"
