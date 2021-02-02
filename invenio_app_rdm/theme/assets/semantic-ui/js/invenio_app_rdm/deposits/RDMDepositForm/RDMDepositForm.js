@@ -1,6 +1,7 @@
 // This file is part of InvenioRDM
 // Copyright (C) 2020 CERN.
 // Copyright (C) 2020 Northwestern University.
+// Copyright (C) 2021 Graz University of Technology.
 //
 // Invenio App RDM is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
@@ -281,21 +282,21 @@ export class RDMDepositForm extends Component {
                   }}
                 />
               </AccordionField>
-
-              <AccordionField
+              {/**TODO: uncomment to use IdentifiersField*/}
+              {/* <AccordionField
                 fieldPath=""
                 active={true}
                 label={"Identifiers"}
                 ui={this.accordionStyle}
               >
-                {/* <IdentifiersField /> */}
+                <IdentifiersField />
                 <ComingSoonField
                   fieldPath="metadata.identifiers"
                   label="Identifier(s)"
                   labelIcon="barcode"
                 />
                 <br />
-              </AccordionField>
+              </AccordionField> */}
 
               <AccordionField
                 fieldPath=""
@@ -366,6 +367,7 @@ export class RDMDepositForm extends Component {
                     editLabel: "Edit contributor",
                   }}
                 />
+                {/**TODO: uncomment to use Subjects*/}
                 {/* <SubjectsField
                   initialOptions={_get(
                     this.props.record,
@@ -375,12 +377,12 @@ export class RDMDepositForm extends Component {
                   limitToOptions={
                     this.vocabularies.metadata.subjects.limitToOptions
                   }
-                /> */}
+                />
                 <ComingSoonField
                   fieldPath="metadata.subjects"
                   label="Subjects"
                   labelIcon="tag"
-                />
+                /> */}
 
                 <LanguagesField
                   initialOptions={_get(
@@ -401,14 +403,14 @@ export class RDMDepositForm extends Component {
                 <PublisherField />
                 <br />
               </AccordionField>
-
-              <AccordionField
+              {/**TODO: uncomment to use FundingField*/}
+              {/* <AccordionField
                 fieldPath=""
                 active={true}
                 label={"Funding"}
                 ui={this.accordionStyle}
               >
-                {/* <FundingField options={this.vocabularies.metadata.funding} /> */}
+                <FundingField options={this.vocabularies.metadata.funding} />
                 <ComingSoonField
                   fieldPath="metadata.funding"
                   label="Awards"
@@ -416,7 +418,7 @@ export class RDMDepositForm extends Component {
                 />
 
                 <br />
-              </AccordionField>
+              </AccordionField> */}
 
               <AccordionField
                 fieldPath=""
