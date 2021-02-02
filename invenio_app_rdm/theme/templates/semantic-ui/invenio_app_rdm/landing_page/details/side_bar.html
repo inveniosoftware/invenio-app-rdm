@@ -1,6 +1,7 @@
 {#
   Copyright (C) 2020 CERN.
   Copyright (C) 2020 Northwestern University.
+  Copyright (C) 2021 TU Wien.
 
   Invenio RDM Records is free software; you can redistribute it and/or modify
   it under the terms of the MIT License; see LICENSE file for more details.
@@ -9,6 +10,8 @@
 {%- from "invenio_app_rdm/landing_page/macros/version.html" import show_version %}
 
 
+{#
+<!-- TODO add again once the metrics are working -->
 <div class="ui segment rdm-sidebar">
   <dt><b>{{ _('Metrics')}}</b></dt>
   <hr class="thin-line">
@@ -18,7 +21,10 @@
     {%- include "invenio_app_rdm/landing_page/details/stats.html" %}
   </dd>
 </div>
+#}
 
+{#
+<!-- TODO add again once versioning is working -->
 <div class="ui segment rdm-sidebar">
   <dt><b>{{ _('Versions')}}</b></dt>
   <hr class="thin-line">
@@ -38,21 +44,27 @@
     </div>
   </dd>
 </div>
+#}
 
 <div class="ui segment rdm-sidebar">
   <dt><b>{{ _('Export')}}</b></dt>
   <hr class="thin-line">
   </hr>
   <dd class="top-bottom-padded">
+    {#
+    <!-- TODO add again once exports are working -->
     <a class="export-format" href="/coming-soon">BibTeX</a>
     <a class="export-format" href="/coming-soon">CSL</a>
     <a class="export-format" href="/coming-soon">DataCite</a>
     <a class="export-format" href="/coming-soon">Dublin Core</a>
     <a class="export-format" href="/coming-soon">DCAT</a>
+    #}
     <a class="export-format" href="/coming-soon">JSON</a>
+    {#
     <a class="export-format" href="/coming-soon">JSON-LD</a>
     <a class="export-format" href="/coming-soon">GeoJSON</a>
     <a class="export-format" href="/coming-soon">MARCXML</a>
     <a class="export-format" href="/coming-soon">Mendeley</a>
+    #}
   </dd>
 </div>
