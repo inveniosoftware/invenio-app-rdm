@@ -1,6 +1,7 @@
 // This file is part of InvenioRDM
 // Copyright (C) 2020 CERN.
 // Copyright (C) 2020 Northwestern University.
+// Copyright (C) 2020 Graz University of Technology.
 //
 // Invenio App RDM is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
@@ -231,11 +232,12 @@ const SearchHelpLinks = () => {
 export const RDMRecordFacets = ({ aggs, currentResultsState }) => {
   return (
     <>
-      <Toggle
+      {/* TODO: uncomment once versioning is working */}
+      {/* <Toggle
         title="Versions"
         label="View all versions"
         filterValue={["all_versions", "true"]}
-      />
+      /> */}
       {aggs.map((agg) => {
         return (
           <div className="ui accordion" key={agg.title}>
