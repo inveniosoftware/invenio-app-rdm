@@ -1,6 +1,7 @@
 {#
   Copyright (C) 2020 CERN.
   Copyright (C) 2020 Northwestern University.
+  Copyright (C) 2021 TU Wien.
 
   Invenio RDM Records is free software; you can redistribute it and/or modify
   it under the terms of the MIT License; see LICENSE file for more details.
@@ -105,8 +106,8 @@
 {%- block javascript %}
 {{ super() }}
 {{ webpack['invenio-app-rdm-records.js'] }}
-{# Communities management #}
-{{ webpack['invenio-communities-records.js'] }}
+{# Communities management -- TODO include again when communities are ready #}
+{# {{ webpack['invenio-communities-records.js'] }} #}
 {{ webpack['previewer_theme.js'] }}
 {{ webpack['invenio-app-rdm-record-management.js'] }}
 {%- endblock javascript %}
