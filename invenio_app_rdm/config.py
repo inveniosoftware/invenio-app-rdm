@@ -347,8 +347,8 @@ WSGI_PROXIES = 2
 SEARCH_UI_SEARCH_TEMPLATE = 'invenio_app_rdm/search.html'
 """Search page's base template."""
 
-DEPOSITS_FORMS_BASE_TEMPLATE = 'invenio_app_rdm/deposits/forms/deposits.html'
-"""Deposits form page's base template."""
+DEPOSITS_FORMS_BASE_TEMPLATE = 'invenio_app_rdm/deposit.html'
+"""Deposit page's base template."""
 
-DEPOSITS_UPLOADS_TEMPLATE = 'invenio_app_rdm/deposits/uploads.html'
-"""Deposits user's uploads page template."""
+DEPOSITS_UPLOADS_TEMPLATE = 'invenio_app_rdm/user_records_search.html'
+"""User records' search page's template."""
