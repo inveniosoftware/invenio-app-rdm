@@ -18,15 +18,14 @@ theme = WebpackThemeBundle(
     themes={
         'semantic-ui': dict(
             entry={
-                'invenio-app-rdm-records':
+                'invenio-app-rdm-landing-page':
                     './js/invenio_app_rdm/landing_page/index.js',
-                'invenio-app-rdm-record-management':
-                    './js/invenio_app_rdm/landing_page/recordManagement.js',
-                'invenio-app-rdm-deposits-deposit-form-js':
-                    './js/invenio_app_rdm/deposits/RDMDepositForm/index.js',
-                'rdm_search_app': './js/invenio_app_rdm/search/index.js',
-                'rdm_deposits_search_app':
-                    './js/invenio_app_rdm/deposits/search/index.js',
+                'invenio-app-rdm-deposit':
+                    './js/invenio_app_rdm/deposit/index.js',
+                'invenio-app-rdm-search':
+                    './js/invenio_app_rdm/search/index.js',
+                'invenio-app-rdm-user-records-search':
+                    './js/invenio_app_rdm/user_records_search/index.js',
             },
             dependencies={
                 # add any additional npm dependencies here...

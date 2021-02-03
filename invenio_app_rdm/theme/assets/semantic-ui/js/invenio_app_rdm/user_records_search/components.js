@@ -1,6 +1,6 @@
 // This file is part of InvenioRDM
-// Copyright (C) 2020 CERN.
-// Copyright (C) 2020 Northwestern University.
+// Copyright (C) 2020-2021 CERN.
+// Copyright (C) 2020-2021 Northwestern University.
 //
 // Invenio App RDM is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
@@ -96,11 +96,13 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
   const title = _get(result, "metadata.title", "No title");
   const author = _get(result, "metadata._internal_notes[0].user", "anonymous");
   const id = _get(result, "id");
-  const EditLink = `/uploads/${id}`;
+  const editLink = `/uploads/${id}`;
   const version = _get(result, "metadata.version", null);
 
+  // STOPPED HERE
+  // href={editLink}
   return (
-    <Item key={index} href={EditLink} className="deposits-list-item">
+    <Item key={index} className="deposits-list-item">
       <Item.Content>
         <Grid>
           <Grid.Row columns={2}>
@@ -129,7 +131,7 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
                       <Icon name="code branch" />
                       New version
                     </a> */}
-                    <a href={EditLink}>
+                    <a href={editLink}>
                       <Icon name="edit" />
                       Edit
                     </a>
@@ -141,7 +143,7 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
                   </div>
                 </div>
               </Item.Extra>
-              <Item.Header as="a" href={EditLink}>
+              <Item.Header as="a" href={editLink}>
                 {title}
               </Item.Header>
               <Item.Extra>

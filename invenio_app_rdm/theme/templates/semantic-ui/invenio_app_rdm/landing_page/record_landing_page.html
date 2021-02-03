@@ -105,9 +105,8 @@
 
 {%- block javascript %}
 {{ super() }}
-{{ webpack['invenio-app-rdm-records.js'] }}
+{{ webpack['invenio-app-rdm-landing-page.js'] }}
 {# Communities management -- TODO include again when communities are ready #}
 {# {{ webpack['invenio-communities-records.js'] }} #}
 {{ webpack['previewer_theme.js'] }}
-{{ webpack['invenio-app-rdm-record-management.js'] }}
 {%- endblock javascript %}

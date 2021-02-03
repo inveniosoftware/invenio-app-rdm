@@ -1,6 +1,7 @@
 /*
  * This file is part of Invenio.
- * Copyright (C) 2020 CERN.
+ * Copyright (C) 2020-2021 CERN.
+ * Copyright (C) 2020-2021 Northwestern University.
  *
  * Invenio is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
@@ -18,11 +19,8 @@ import {
   RDMRecordFacets,
   RDMRecordFacetsValues,
   RDMToggleComponent,
-} from "../../search/components";
-import {
-  RDMRecordSearchBarElement,
-  RDMCountComponent,
-} from "../../search/components";
+} from "../search/components";
+import { RDMRecordSearchBarElement } from "../search/components";
 
 const initSearchApp = createSearchAppInit({
   "ResultsList.item": RDMRecordResultsListItem,
@@ -35,5 +33,4 @@ const initSearchApp = createSearchAppInit({
   "BucketAggregationValues.element": RDMRecordFacetsValues,
   "SearchFilters.ToggleComponent": RDMToggleComponent,
   "SearchApp.facets": RDMRecordFacets,
-  "Count.element": RDMCountComponent,
 });
