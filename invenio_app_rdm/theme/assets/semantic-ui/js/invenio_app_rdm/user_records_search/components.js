@@ -70,17 +70,6 @@ export const RDMDepositResults = ({ sortOptions, currentResultsState }) => {
 };
 
 export const RDMRecordResultsListItem = ({ result, index }) => {
-  const resource_type = _get(result, "ui.resource_type", "No resource type");
-  const publicationDate = _get(
-    result,
-    "ui.publication_date_l10n_long",
-    "No publication date found."
-  );
-  const createdDate = _get(
-    result,
-    "ui.created_date_l10n_long",
-    "No creation date found."
-  );
   const access = _get(result, "ui.access_right.title", "Open Access");
   const access_right_category = _get(
     result,
@@ -88,86 +77,84 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
     "open"
   );
   const access_right_icon = _get(result, "ui.access_right.icon", "open");
-  const creator_name = _get(
+  const createdDate = _get(
     result,
-    "ui.creators.creators[0].person_or_org.name",
-    "No creator found"
+    "ui.created_date_l10n_long",
+    "No creation date found."
   );
+  const creators = _get(result, "ui.creators.creators", []).slice(0, 3);
+  const description = _get(result, "metadata.description", "No description");
+  const publicationDate = _get(
+    result,
+    "ui.publication_date_l10n_long",
+    "No publication date found."
+    );
+  const resource_type = _get(result, "ui.resource_type", "No resource type");
   const title = _get(result, "metadata.title", "No title");
-  const author = _get(result, "metadata._internal_notes[0].user", "anonymous");
-  const id = _get(result, "id");
-  const editLink = `/uploads/${id}`;
+  const subjects = _get(result, "metadata.subjects", []);
   const version = _get(result, "metadata.version", null);
 
-  // STOPPED HERE
-  // href={editLink}
+  // Derivatives
+  const editLink = `/uploads/${result.id}`;
+
   return (
-    <Item key={index} className="deposits-list-item">
+    <Item key={index} href={editLink} className="deposits-list-item">
+      <div style={{display: "flex", flexDirection: "column", justifyContent: "center", marginRight: "10px"}}>
+        <Icon name="upload" color="red" />
+      </div>
       <Item.Content>
-        <Grid>
-          <Grid.Row columns={2}>
-            <Grid.Column width={1} className="checkbox-column">
-              <Icon name="upload" color="red" />
-            </Grid.Column>
-            <Grid.Column width={15}>
-              <Item.Extra>
-                <div>
-                  <Label size="tiny" color="blue">
-                    {publicationDate} {version ? `(${version})` : null}
-                  </Label>
-                  <Label size="tiny" color="grey">
-                    {resource_type}
-                  </Label>
-                  <Label
-                    size="tiny"
-                    className={`access-right ${access_right_category}`}
-                  >
-                    <i className={`icon ${access_right_icon}`}></i>
-                    {access}
-                  </Label>
-                  <div className="ui right floated actions">
-                    {/* FIXME */}
-                    {/* <a href="#">
-                      <Icon name="code branch" />
-                      New version
-                    </a> */}
-                    <a href={editLink}>
-                      <Icon name="edit" />
-                      Edit
-                    </a>
-                    {/* FIXME */}
-                    {/* <a href="#">
-                      <Icon name="trash" />
-                      Delete
-                    </a> */}
-                  </div>
-                </div>
-              </Item.Extra>
-              <Item.Header as="a" href={editLink}>
-                {title}
-              </Item.Header>
-              <Item.Extra>
-                <div>
-                  Created on <span>{createdDate}</span> by {creator_name}
-                  <div className="ui right floated stats">
-                    <span>
-                      <Icon name="eye" />
-                      3,113
-                    </span>
-                    <span>
-                      <Icon name="download" />
-                      420
-                    </span>
-                    <span>
-                      <Icon name="quote right" />
-                      70
-                    </span>
-                  </div>
-                </div>
-              </Item.Extra>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
+        <Item.Extra>
+          <div> {/* For reduced spacing between labels. */}
+            <Label size="tiny" color="blue">
+              {publicationDate} {version ? `(${version})` : null}
+            </Label>
+            <Label size="tiny" color="grey">
+              {resource_type}
+            </Label>
+            <Label
+              size="tiny"
+              className={`access-right ${access_right_category}`}
+            >
+              <i className={`icon tiny ${access_right_icon}`}></i>
+              {access}
+            </Label>
+            <Button basic floated="right">
+              <Icon name="edit" />
+              Edit
+            </Button>
+          </div>
+        </Item.Extra>
+        <Item.Header>{title}</Item.Header>
+        <Item.Meta>
+          {creators.map((creator, index) => (
+            <span key={index}>
+              {_get(creator, "person_or_org.identifiers", []).some(
+                (identifier) => identifier.scheme === "orcid"
+              ) &&
+                <img className="inline-orcid" src="/static/images/orcid.svg" />
+              }
+              {creator.person_or_org.name}
+              {index < creators.length - 1 && ","}
+            </span>
+          ))}
+        </Item.Meta>
+        <Item.Description>
+          {_truncate(description.replace(/(<([^>]+)>)/gi, ""), { length: 350 })}
+        </Item.Description>
+        <Item.Extra>
+          {subjects.map((subject, index) => (
+            <Label key={index} size="tiny">
+              {subject.subject}
+            </Label>
+          ))}
+          {createdDate && (
+            <div>
+              <small>
+                Uploaded on <span>{createdDate}</span>
+              </small>
+            </div>
+          )}
+        </Item.Extra>
       </Item.Content>
     </Item>
   );

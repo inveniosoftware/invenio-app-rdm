@@ -12,6 +12,7 @@ import {
   Card,
   Checkbox,
   Grid,
+  Icon,
   Input,
   Item,
   Label,
@@ -24,19 +25,8 @@ import _truncate from "lodash/truncate";
 import Overridable from "react-overridable";
 import { SearchBar } from "@js/invenio_search_ui/components";
 
+
 export const RDMRecordResultsListItem = ({ result, index }) => {
-  const description = _get(result, "metadata.description", "No description");
-  const publicationDate = _get(
-    result,
-    "ui.publication_date_l10n_long",
-    "No publication date found."
-  );
-  const createdDate = _get(
-    result,
-    "ui.created_date_l10n_long",
-    "No creation date found."
-  );
-  const resource_type = _get(result, "ui.resource_type", "No resource type");
   const access = _get(result, "ui.access_right.title", "Open Access");
   const access_right_category = _get(
     result,
@@ -44,12 +34,28 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
     "open"
   );
   const access_right_icon = _get(result, "ui.access_right.icon", "open");
+  const createdDate = _get(
+    result,
+    "ui.created_date_l10n_long",
+    "No creation date found."
+  );
   const creators = result.ui.creators.creators.slice(0, 3);
+  const description = _get(result, "metadata.description", "No description");
+  const publicationDate = _get(
+    result,
+    "ui.publication_date_l10n_long",
+    "No publication date found."
+  );
+  const resource_type = _get(result, "ui.resource_type", "No resource type");
+  const subjects = _get(result, "metadata.subjects", []);
   const title = _get(result, "metadata.title", "No title");
-  const subjects = _get(result, "metadata.subjects", null);
   const version = _get(result, "metadata.version", null);
+
+  // Derivatives
+  const viewLink = `/records/${result.id}`;
+
   return (
-    <Item key={index} href={`/records/${result.id}`}>
+    <Item key={index} href={viewLink}>
       <Item.Content>
         <Item.Extra>
           <div>
@@ -63,10 +69,11 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
               size="tiny"
               className={`access-right ${access_right_category}`}
             >
-              <i className={`icon ${access_right_icon}`}></i>
+              <i className={`icon tiny ${access_right_icon}`}></i>
               {access}
             </Label>
             <Button basic floated="right">
+              <Icon name="eye" />
               View
             </Button>
           </div>
@@ -77,11 +84,11 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
             <span key={index}>
               {_get(creator, "person_or_org.identifiers", []).some(
                 (identifier) => identifier.scheme === "orcid"
-              ) ? (
+              ) &&
                 <img className="inline-orcid" src="/static/images/orcid.svg" />
-              ) : null}
+              }
               {creator.person_or_org.name}
-              {creators.length > 1 && index != creators.length - 1 ? "," : null}
+              {index < creators.length - 1 && ","}
             </span>
           ))}
         </Item.Meta>
@@ -89,12 +96,11 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
           {_truncate(description.replace(/(<([^>]+)>)/gi, ""), { length: 350 })}
         </Item.Description>
         <Item.Extra>
-          {subjects &&
-            subjects.map((subject, index) => (
-              <Label key={index} size="tiny">
-                {subject.subject}
-              </Label>
-            ))}
+          {subjects.map((subject, index) => (
+            <Label key={index} size="tiny">
+              {subject.subject}
+            </Label>
+          ))}
           {createdDate && (
             <div>
               <small>
