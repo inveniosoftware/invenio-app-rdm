@@ -207,19 +207,13 @@ const SearchHelpLinks = () => {
     <Overridable id={"RdmSearch.SearchHelpLinks"}>
       <Grid className="padded-small">
         <Grid.Row className="no-padded">
-          <Grid.Column>
-            <Card className="borderless-facet">
-              <Card.Content>
-                <a>Advanced search</a>
-              </Card.Content>
-            </Card>
-          </Grid.Column>
+          <Grid.Column></Grid.Column>
         </Grid.Row>
         <Grid.Row className="no-padded">
           <Grid.Column>
             <Card className="borderless-facet">
               <Card.Content>
-                <a>Search guide</a>
+                <a href="/help/search">Search guide</a>
               </Card.Content>
             </Card>
           </Grid.Column>
