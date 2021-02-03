@@ -297,3 +297,7 @@ export const RDMToggleComponent = ({
     </Card>
   );
 };
+
+export const RDMCountComponent = ({ totalResults }) => {
+  return <Label>{totalResults.toLocaleString("en-US")}</Label>;
+};

@@ -19,7 +19,10 @@ import {
   RDMRecordFacetsValues,
   RDMToggleComponent,
 } from "../../search/components";
-import { RDMRecordSearchBarElement } from "../../search/components";
+import {
+  RDMRecordSearchBarElement,
+  RDMCountComponent,
+} from "../../search/components";
 
 const initSearchApp = createSearchAppInit({
   "ResultsList.item": RDMRecordResultsListItem,
@@ -32,5 +35,5 @@ const initSearchApp = createSearchAppInit({
   "BucketAggregationValues.element": RDMRecordFacetsValues,
   "SearchFilters.ToggleComponent": RDMToggleComponent,
   "SearchApp.facets": RDMRecordFacets,
-
+  "Count.element": RDMCountComponent,
 });
