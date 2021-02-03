@@ -236,6 +236,11 @@ def ui_blueprint(app):
         # We need a dict not a string
         return serializer.serialize_object_to_dict(record)
 
+    @blueprint.route('/help/search')
+    def help_search():
+        """Search help guide."""
+        return render_template('invenio_app_rdm/help/search.html')
+
     return blueprint
 
 
