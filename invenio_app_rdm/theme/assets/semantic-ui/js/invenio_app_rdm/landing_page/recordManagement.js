@@ -1,36 +1,35 @@
 // This file is part of InvenioRDM
 // Copyright (C) 2020-2021 CERN.
 // Copyright (C) 2020-2021 Northwestern University.
+// Copyright (C) 2021 Graz University of Technology.
 //
 // Invenio RDM Records is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
 
 import React from "react";
 import axios from "axios";
-import { Grid, Icon, Button } from 'semantic-ui-react'
-
+import { Grid, Icon, Button } from "semantic-ui-react";
 
 const domContainer = document.getElementById("recordManagement");
 const recid = JSON.parse(domContainer.dataset.recid);
 
 export const RecordManagement = () => {
-
   var editRecord = () => {
     axios
       .post(`/api/records/${recid}/draft`)
-      .then(response => {
+      .then((response) => {
         window.location = `/uploads/${recid}`;
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error.response.data);
-      })
-  }
+      });
+  };
 
   return (
-    <div className="reverse-header-margin">
-      <div className="ui warning flashed message">
-        <div className="ui container">
-          <Grid padded relaxed>
+    <div class="reverse-header-margin">
+      <div class="ui warning flashed message">
+        <div class="ui container">
+          <Grid relaxed>
             <Grid.Column>
               <Grid.Row>
                 <Icon name="cogs" />
@@ -51,5 +50,5 @@ export const RecordManagement = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

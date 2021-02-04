@@ -2,6 +2,7 @@
   Copyright (C) 2020 CERN.
   Copyright (C) 2020 Northwestern University.
   Copyright (C) 2021 TU Wien.
+  Copyright (C) 2021 Graz University of Technology.
 
   Invenio RDM Records is free software; you can redistribute it and/or modify
   it under the terms of the MIT License; see LICENSE file for more details.
@@ -25,8 +26,8 @@
   data-recid='{{ record["id"] | tojson }}'>
 </div>
 <div class="ui container">
-  <div class="ui padded relaxed grid">
-    <div class="two column row">
+  <div class="ui relaxed grid">
+    <div class="two column row top-padded">
       <div class="eleven wide column">
         {%- block record_body %}
         <div class="ui grid middle aligned">
