@@ -9,10 +9,8 @@ import React from "react";
 import {
   Icon,
   Card,
-  Checkbox,
   Grid,
   Label,
-  Input,
   Item,
   Button,
   Segment,
@@ -20,51 +18,72 @@ import {
 } from "semantic-ui-react";
 import _get from "lodash/get";
 import _truncate from "lodash/truncate";
-import { Pagination, ResultsList, Sort, SearchBar } from "react-searchkit";
+import {
+  Count,
+  Pagination,
+  ResultsList,
+  Sort,
+  SearchBar,
+} from "react-searchkit";
 
 export const RDMDepositResults = ({ sortOptions, currentResultsState }) => {
   const { total } = currentResultsState.data;
   return (
     total && (
-      <>
-        <SearchBar />
-        <Button
-          color="green"
-          icon="upload"
-          floated="right"
-          href="/uploads/new"
-          content="New upload"
-        />
-        <Segment>
-          <Grid>
-            <Grid.Row verticalAlign="middle" className="header-row">
-              <Grid.Column width={7}>
-                {/* FIXME */}
-                {/* <Checkbox label="Select all" /> */}
-              </Grid.Column>
-              <Grid.Column width={5} textAlign="right"></Grid.Column>
-              <Grid.Column width={4} textAlign="right">
-                {sortOptions && (
-                  <Sort
-                    values={sortOptions}
-                    label={(cmp) => <>Sort by {cmp}</>}
-                  />
-                )}
-              </Grid.Column>
-            </Grid.Row>
-            <Grid.Row>
-              <Grid.Column>
-                <ResultsList />
-              </Grid.Column>
-            </Grid.Row>
-            <Grid.Row verticalAlign="middle" textAlign="center">
-              <Grid.Column>
-                <Pagination />
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-        </Segment>
-      </>
+      <Grid>
+        <Grid.Row className="no-padding">
+          <Grid.Column width="10" className="no-padding">
+            <SearchBar placeholder="Search uploads..." />
+          </Grid.Column>
+          <Grid.Column width="6" className="no-padding">
+            <Button
+              color="green"
+              icon="upload"
+              href="/uploads/new"
+              content="New upload"
+              floated="right"
+            />
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row>
+          <Segment>
+            <Grid>
+              <Grid.Row
+                verticalAlign="middle"
+                className="small padding-tb-5 deposit-result-header"
+              >
+                <Grid.Column width={4}>
+                  <Count label={() => <>{total} result(s) found</>} />
+                </Grid.Column>
+                <Grid.Column
+                  width={12}
+                  textAlign="right"
+                  className="padding-r-5"
+                >
+                  {sortOptions && (
+                    <Sort
+                      values={sortOptions}
+                      label={(cmp) => <>Sort by {cmp}</>}
+                    />
+                  )}
+                </Grid.Column>
+              </Grid.Row>
+              <Grid.Row>
+                <Grid.Column>
+                  <ResultsList />
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+          </Segment>
+        </Grid.Row>
+        <Grid.Row centered className="no-padding">
+          <Pagination
+            options={{
+              size: "mini",
+            }}
+          />
+        </Grid.Row>
+      </Grid>
     )
   );
 };
@@ -88,7 +107,7 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
     result,
     "ui.publication_date_l10n_long",
     "No publication date found."
-    );
+  );
   const resource_type = _get(result, "ui.resource_type", "No resource type");
   const title = _get(result, "metadata.title", "No title");
   const subjects = _get(result, "metadata.subjects", []);
@@ -99,12 +118,21 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
 
   return (
     <Item key={index} href={editLink} className="deposits-list-item">
-      <div style={{display: "flex", flexDirection: "column", justifyContent: "center", marginRight: "10px"}}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          marginRight: "10px",
+        }}
+      >
         <Icon name="upload" color="red" />
       </div>
       <Item.Content>
         <Item.Extra>
-          <div> {/* For reduced spacing between labels. */}
+          <div>
+            {" "}
+            {/* For reduced spacing between labels. */}
             <Label size="tiny" color="blue">
               {publicationDate} {version ? `(${version})` : null}
             </Label>
@@ -130,9 +158,9 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
             <span key={index}>
               {_get(creator, "person_or_org.identifiers", []).some(
                 (identifier) => identifier.scheme === "orcid"
-              ) &&
+              ) && (
                 <img className="inline-orcid" src="/static/images/orcid.svg" />
-              }
+              )}
               {creator.person_or_org.name}
               {index < creators.length - 1 && ","}
             </span>

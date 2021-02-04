@@ -13,6 +13,7 @@ import {
   RDMRecordResultsGridItem,
   RDMDepositResults,
   RDMEmptyResults,
+  RDMPagination,
 } from "./components";
 import {
   RDMBucketAggregationElement,
@@ -24,15 +25,20 @@ import {
 } from "../search/components";
 
 const initSearchApp = createSearchAppInit({
+  "BucketAggregation.element": RDMBucketAggregationElement,
+  "BucketAggregationValues.element": RDMRecordFacetsValues,
+  "Count.element": RDMCountComponent,
+  "EmptyResults.element": RDMEmptyResults,
   "ResultsList.item": RDMRecordResultsListItem,
   "ResultsGrid.item": RDMRecordResultsGridItem,
+  "SearchApp.facets": RDMRecordFacets,
+  "SearchApp.resultOptions": () => null,
   "SearchApp.results": RDMDepositResults,
+  "SearchApp.searchbarContainer": () => null,
   "SearchBar.element": RDMRecordSearchBarElement,
   "SearchApp.searchbarContainer": () => null,
   "EmptyResults.element": RDMEmptyResults,
   "BucketAggregation.element": RDMBucketAggregationElement,
   "BucketAggregationValues.element": RDMRecordFacetsValues,
   "SearchFilters.ToggleComponent": RDMToggleComponent,
-  "SearchApp.facets": RDMRecordFacets,
-  "Count.element": RDMCountComponent,
 });

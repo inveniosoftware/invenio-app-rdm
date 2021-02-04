@@ -25,7 +25,6 @@ import _truncate from "lodash/truncate";
 import Overridable from "react-overridable";
 import { SearchBar } from "@js/invenio_search_ui/components";
 
-
 export const RDMRecordResultsListItem = ({ result, index }) => {
   const access = _get(result, "ui.access_right.title", "Open Access");
   const access_right_category = _get(
@@ -84,9 +83,9 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
             <span key={index}>
               {_get(creator, "person_or_org.identifiers", []).some(
                 (identifier) => identifier.scheme === "orcid"
-              ) &&
+              ) && (
                 <img className="inline-orcid" src="/static/images/orcid.svg" />
-              }
+              )}
               {creator.person_or_org.name}
               {index < creators.length - 1 && ","}
             </span>
@@ -159,6 +158,7 @@ export const RDMRecordSearchBarElement = ({
         onClick: onBtnSearchClick,
         className: "search",
       }}
+      fluid
       placeholder={placeholder}
       onChange={(event, { value }) => {
         onInputChange(value);
