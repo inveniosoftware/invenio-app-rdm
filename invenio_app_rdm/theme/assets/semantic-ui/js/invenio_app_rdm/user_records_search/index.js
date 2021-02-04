@@ -28,7 +28,7 @@ const initSearchApp = createSearchAppInit({
   "ResultsGrid.item": RDMRecordResultsGridItem,
   "SearchApp.results": RDMDepositResults,
   "SearchBar.element": RDMRecordSearchBarElement,
-  "SearchApp.searchbar": () => null,
+  "SearchApp.searchbarContainer": () => null,
   "EmptyResults.element": RDMEmptyResults,
   "BucketAggregation.element": RDMBucketAggregationElement,
   "BucketAggregationValues.element": RDMRecordFacetsValues,
