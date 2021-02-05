@@ -1,0 +1,5 @@
+/*******************************
+     User Global Variables
+*******************************/
+
+@import "@invenio_theme/globals/site.variables";

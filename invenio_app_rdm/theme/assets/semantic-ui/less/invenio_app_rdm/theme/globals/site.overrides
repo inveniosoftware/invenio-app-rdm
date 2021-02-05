@@ -1,0 +1,5 @@
+/*******************************
+         Site Overrides
+*******************************/
+
+@import "@invenio_theme/globals/site.overrides";

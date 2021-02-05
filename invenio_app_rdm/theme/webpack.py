@@ -49,6 +49,8 @@ theme = WebpackThemeBundle(
                 # entry point). theme.config itself is provided by
                 # cookiecutter-invenio-rdm.
                 '../../theme.config$': 'less/theme.config',
+                'themes/rdm': 'less/invenio_app_rdm/theme',
+                '@invenio_theme': 'less/invenio_theme/theme'
             }
         ),
     }
