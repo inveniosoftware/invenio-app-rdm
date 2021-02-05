@@ -2,16 +2,12 @@
 #
 # Copyright (C) 2019-2020 CERN.
 # Copyright (C) 2019-2020 Northwestern University.
+# Copyright (C)      2021 TU Wien.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
-"""Blueprint used for loading templates.
-
-The sole purpose of this blueprint is to ensure that Invenio can find the
-templates and static files located in the folders of the same names next to
-this file.
-"""
+"""Blueprint for record-related pages provided by Invenio-App-RDM."""
 
 from operator import itemgetter
 from os.path import splitext
@@ -28,116 +24,39 @@ from invenio_rdm_records.resources.config import (
     RDMDraftResourceConfig,
 )
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
-from invenio_rdm_records.services import RDMDraftFilesService, RDMRecordService
+from invenio_rdm_records.services import RDMDraftFilesService
 from invenio_rdm_records.services.schemas import RDMRecordSchema
 from invenio_rdm_records.services.schemas.utils import dump_empty
 from invenio_rdm_records.vocabularies import Vocabularies
 from invenio_records_files.api import FileObject
 from invenio_records_permissions.policies import get_record_permission_policy
 
-from .utils import previewer_record_file_factory, obj_or_import_string
+from ..utils import obj_or_import_string, previewer_record_file_factory
 
 
-def ui_blueprint(app):
+def records_ui_blueprint(app):
     """Dynamically registers routes (allows us to rely on config)."""
     blueprint = Blueprint(
-        'invenio_app_rdm',
+        "invenio_app_rdm_records_ui",
         __name__,
-        template_folder='templates',
-        static_folder='static',
+        template_folder="../templates",
+        static_folder="../static",
     )
 
-    service = RDMRecordService()
+    service = app.extensions["invenio-rdm-records"].records_service
+    search_url = app.config.get("RDM_RECORDS_UI_SEARCH_URL", "/search")
 
     @blueprint.before_app_first_request
     def init_menu():
         """Initialize menu before first request."""
-        item = current_menu.submenu('main.deposit')
+        item = current_menu.submenu("main.deposit")
         item.register(
-            'invenio_app_rdm.deposits_user',
-            'Uploads',
-            order=1
+            "invenio_app_rdm_records_ui.deposits_user", "Uploads", order=1
         )
 
-    search_url = app.config.get('RDM_RECORDS_UI_SEARCH_URL', '/search')
-
-    @blueprint.route(search_url)
-    def search():
-        """Search page."""
-        return render_template(current_app.config['SEARCH_BASE_TEMPLATE'])
-
-    @blueprint.route(app.config.get('RDM_RECORDS_UI_NEW_URL', '/uploads/new'))
-    def deposits_create():
-        """Record creation page."""
-        forms_config = dict(
-            createUrl=("/api/records"),
-            vocabularies=Vocabularies.dump(),
-            current_locale=str(current_i18n.locale)
-        )
-        return render_template(
-            current_app.config['DEPOSITS_FORMS_BASE_TEMPLATE'],
-            forms_config=forms_config,
-            record=dump_empty(RDMRecordSchema),
-            files=dict(
-                default_preview=None, enabled=True, entries=[], links={}
-            ),
-            searchbar_config=dict(searchUrl=search_url)
-        )
-
-    @blueprint.route(
-        app.config.get('RDM_RECORDS_UI_EDIT_URL', '/uploads/<pid_value>')
-    )
-    def deposits_edit(pid_value):
-        """Deposit edit page."""
-        links_config = RDMDraftResourceConfig.links_config
-        draft = service.read_draft(
-            id_=pid_value, identity=g.identity, links_config=links_config)
-
-        files_service = RDMDraftFilesService()
-        files_list = files_service.list_files(
-            id_=pid_value, identity=g.identity,
-            links_config=RDMDraftFilesResourceConfig.links_config)
-
-        forms_config = dict(
-            apiUrl=f"/api/records/{pid_value}/draft",
-            vocabularies=Vocabularies.dump(),
-            current_locale=str(current_i18n.locale)
-        )
-
-        # Dereference relations (languages, licenses, etc.)
-        draft._record.relations.dereference()
-        serializer = UIJSONSerializer()
-        record = serializer.serialize_object_to_dict(draft.to_dict())
-
-        # TODO: get the `is_published` field when reading the draft
-        from invenio_pidstore.errors import PIDUnregistered
-        try:
-            service.draft_cls.pid.resolve(pid_value, registered_only=True)
-            record["is_published"] = True
-        except PIDUnregistered:
-            record["is_published"] = False
-
-        return render_template(
-            current_app.config['DEPOSITS_FORMS_BASE_TEMPLATE'],
-            forms_config=forms_config,
-            record=record,
-            files=files_list.to_dict(),
-            searchbar_config=dict(searchUrl=search_url)
-        )
-
-    @blueprint.route(
-        app.config.get('RDM_RECORDS_UI_SEARCH_USER_URL', '/uploads'))
-    def deposits_user():
-        """List of user deposits page."""
-        return render_template(
-            current_app.config['DEPOSITS_UPLOADS_TEMPLATE'],
-            searchbar_config=dict(searchUrl=search_url)
-        )
-
-    @blueprint.route('/coming-soon')
-    def coming_soon():
-        """Route to display on soon-to-come features."""
-        return render_template('invenio_app_rdm/coming_soon_page.html')
+    # ------- #
+    # Filters #
+    # ------- #
 
     @blueprint.app_template_filter()
     def make_files_preview_compatible(files):
@@ -148,7 +67,8 @@ def ui_blueprint(app):
         file_objects = []
         for file in files:
             file_objects.append(
-                FileObject(obj=files[file].object_version, data={}).dumps())
+                FileObject(obj=files[file].object_version, data={}).dumps()
+            )
         return file_objects
 
     @blueprint.app_template_filter()
@@ -157,12 +77,12 @@ def ui_blueprint(app):
         selected = None
 
         try:
-            for f in sorted(files or [], key=itemgetter('key')):
-                file_type = splitext(f['key'])[1][1:].lower()
+            for f in sorted(files or [], key=itemgetter("key")):
+                file_type = splitext(f["key"])[1][1:].lower()
                 if is_previewable(file_type):
                     if selected is None:
                         selected = f
-                    elif f['key'] == default_preview:
+                    elif f["key"] == default_preview:
                         selected = f
         except KeyError:
             pass
@@ -171,10 +91,12 @@ def ui_blueprint(app):
     @blueprint.app_template_filter()
     def to_previewer_files(record):
         """Get previewer-compatible files list."""
-        return [FileObject(obj=f.object_version, data=f.metadata or {})
-                for f in record.files.values()]
+        return [
+            FileObject(obj=f.object_version, data=f.metadata or {})
+            for f in record.files.values()
+        ]
 
-    @blueprint.app_template_filter('can_list_files')
+    @blueprint.app_template_filter("can_list_files")
     def can_list_files(record):
         """Permission check if current user can list files of record.
 
@@ -184,10 +106,10 @@ def ui_blueprint(app):
         permissions at the final serialization level (only).
         """
         PermissionPolicy = get_record_permission_policy()
-        return PermissionPolicy(action='read_files', record=record).can()
+        return PermissionPolicy(action="read_files", record=record).can()
 
-    @blueprint.app_template_filter('pid_url')
-    def pid_url(identifier, scheme=None, url_scheme='https'):
+    @blueprint.app_template_filter("pid_url")
+    def pid_url(identifier, scheme=None, url_scheme="https"):
         """Convert persistent identifier into a link."""
         if scheme is None:
             try:
@@ -197,23 +119,24 @@ def ui_blueprint(app):
         try:
             if scheme and identifier:
                 return idutils.to_url(
-                    identifier, scheme, url_scheme=url_scheme)
+                    identifier, scheme, url_scheme=url_scheme
+                )
         except Exception:
             current_app.logger.warning(
                 f"URL generation for identifier {identifier} failed.",
-                exc_info=True
+                exc_info=True,
             )
-        return ''
+        return ""
 
-    @blueprint.app_template_filter('doi_identifier')
+    @blueprint.app_template_filter("doi_identifier")
     def doi_identifier(identifiers):
         """Extract DOI from sequence of identifiers."""
         for identifier in identifiers:
             # TODO: extract this "DOI" constant to a registry?
-            if identifier == 'doi':
+            if identifier == "doi":
                 return identifiers[identifier]
 
-    @blueprint.app_template_filter('vocabulary_title')
+    @blueprint.app_template_filter("vocabulary_title")
     def vocabulary_title(dict_key, vocabulary_key, alt_key=None):
         """Returns formatted vocabulary-corresponding human-readable string.
 
@@ -225,24 +148,96 @@ def ui_blueprint(app):
         vocabulary = Vocabularies.get_vocabulary(vocabulary_key)
         return vocabulary.get_title_by_dict(dict_key) if vocabulary else ""
 
-    @blueprint.app_template_filter('dereference_record')
+    @blueprint.app_template_filter("dereference_record")
     def dereference_record(record):
         """Returns the UI serialization of a record."""
         record.relations.dereference()
 
         return record
 
-    @blueprint.app_template_filter('serialize_ui')
+    @blueprint.app_template_filter("serialize_ui")
     def serialize_ui(record):
         """Returns the UI serialization of a record."""
         serializer = UIJSONSerializer()
         # We need a dict not a string
         return serializer.serialize_object_to_dict(record)
 
-    @blueprint.route('/help/search')
-    def help_search():
-        """Search help guide."""
-        return render_template('invenio_app_rdm/help/search.html')
+    # ------ #
+    # Routes #
+    # ------ #
+
+    @blueprint.route(app.config.get("RDM_RECORDS_UI_NEW_URL", "/uploads/new"))
+    def deposits_create():
+        """Record creation page."""
+        forms_config = dict(
+            createUrl=("/api/records"),
+            vocabularies=Vocabularies.dump(),
+            current_locale=str(current_i18n.locale),
+        )
+        return render_template(
+            current_app.config["DEPOSITS_FORMS_BASE_TEMPLATE"],
+            forms_config=forms_config,
+            record=dump_empty(RDMRecordSchema),
+            files=dict(
+                default_preview=None, enabled=True, entries=[], links={}
+            ),
+            searchbar_config=dict(searchUrl=search_url),
+        )
+
+    @blueprint.route(
+        app.config.get("RDM_RECORDS_UI_EDIT_URL", "/uploads/<pid_value>")
+    )
+    def deposits_edit(pid_value):
+        """Deposit edit page."""
+        links_config = RDMDraftResourceConfig.links_config
+        draft = service.read_draft(
+            id_=pid_value, identity=g.identity, links_config=links_config
+        )
+
+        files_service = RDMDraftFilesService()
+        files_list = files_service.list_files(
+            id_=pid_value,
+            identity=g.identity,
+            links_config=RDMDraftFilesResourceConfig.links_config,
+        )
+
+        forms_config = dict(
+            apiUrl=f"/api/records/{pid_value}/draft",
+            vocabularies=Vocabularies.dump(),
+            current_locale=str(current_i18n.locale),
+        )
+
+        # Dereference relations (languages, licenses, etc.)
+        draft._record.relations.dereference()
+        serializer = UIJSONSerializer()
+        record = serializer.serialize_object_to_dict(draft.to_dict())
+
+        # TODO: get the `is_published` field when reading the draft
+        from invenio_pidstore.errors import PIDUnregistered
+
+        try:
+            service.draft_cls.pid.resolve(pid_value, registered_only=True)
+            record["is_published"] = True
+        except PIDUnregistered:
+            record["is_published"] = False
+
+        return render_template(
+            current_app.config["DEPOSITS_FORMS_BASE_TEMPLATE"],
+            forms_config=forms_config,
+            record=record,
+            files=files_list.to_dict(),
+            searchbar_config=dict(searchUrl=search_url),
+        )
+
+    @blueprint.route(
+        app.config.get("RDM_RECORDS_UI_SEARCH_USER_URL", "/uploads")
+    )
+    def deposits_user():
+        """List of user deposits page."""
+        return render_template(
+            current_app.config["DEPOSITS_UPLOADS_TEMPLATE"],
+            searchbar_config=dict(searchUrl=search_url),
+        )
 
     @blueprint.route(
         app.config.get(
@@ -299,12 +294,11 @@ def file_download_ui(pid, record, _record_file_factory=None, **kwargs):
     :param pid: The persistent identifier instance.
     :param record: The record metadata.
     """
-    _record_file_factory = _record_file_factory or \
-        previewer_record_file_factory
-    # Extract file from record.
-    fileobj = _record_file_factory(
-        pid, record, kwargs.get('filename')
+    _record_file_factory = (
+        _record_file_factory or previewer_record_file_factory
     )
+    # Extract file from record.
+    fileobj = _record_file_factory(pid, record, kwargs.get("filename"))
     if not fileobj:
         abort(404)
 
@@ -315,12 +309,13 @@ def file_download_ui(pid, record, _record_file_factory=None, **kwargs):
 
     # Send file.
     return ObjectResource.send_object(
-        obj.bucket, obj,
-        expected_chksum=fileobj.get('checksum'),
+        obj.bucket,
+        obj,
+        expected_chksum=fileobj.get("checksum"),
         logger_data={
-            'bucket_id': obj.bucket_id,
-            'pid_type': pid.pid_type,
-            'pid_value': pid.pid_value,
+            "bucket_id": obj.bucket_id,
+            "pid_type": pid.pid_type,
+            "pid_value": pid.pid_value,
         },
-        as_attachment=('download' in request.args)
+        as_attachment=("download" in request.args),
     )
