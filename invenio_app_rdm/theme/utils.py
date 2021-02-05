@@ -10,6 +10,7 @@
 
 from invenio_records.errors import MissingModelError
 from invenio_records_files.api import FileObject
+from werkzeug.utils import import_string
 
 
 def previewer_record_file_factory(pid, record, filename):
@@ -32,3 +33,17 @@ def previewer_record_file_factory(pid, record, filename):
             return FileObject(obj=rf.file, data=rf.metadata or {})
     except KeyError:
         return None
+
+
+def obj_or_import_string(value, default=None):
+    """Import string or return object.
+
+    :params value: Import path or class object to instantiate.
+    :params default: Default object to return if the import fails.
+    :returns: The imported object.
+    """
+    if isinstance(value, str):
+        return import_string(value)
+    elif value:
+        return value
+    return default
