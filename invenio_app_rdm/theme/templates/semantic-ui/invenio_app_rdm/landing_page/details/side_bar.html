@@ -46,25 +46,18 @@
 </div>
 #}
 
+{%- if config.get("APP_RDM_RECORD_EXPORTERS") -%}
+{# if no export formats are specified, don't bother showing the box #}
 <div class="ui segment rdm-sidebar">
   <dt><b>{{ _('Export')}}</b></dt>
   <hr class="thin-line">
   </hr>
   <dd class="top-bottom-padded">
-    {#
-    <!-- TODO add again once exports are working -->
-    <a class="export-format" href="/coming-soon">BibTeX</a>
-    <a class="export-format" href="/coming-soon">CSL</a>
-    <a class="export-format" href="/coming-soon">DataCite</a>
-    <a class="export-format" href="/coming-soon">Dublin Core</a>
-    <a class="export-format" href="/coming-soon">DCAT</a>
-    #}
-    <a class="export-format" href="/coming-soon">JSON</a>
-    {#
-    <a class="export-format" href="/coming-soon">JSON-LD</a>
-    <a class="export-format" href="/coming-soon">GeoJSON</a>
-    <a class="export-format" href="/coming-soon">MARCXML</a>
-    <a class="export-format" href="/coming-soon">Mendeley</a>
-    #}
+    {# dynamically create the list of export formats #}
+    {%- for fmt, val in config.get("APP_RDM_RECORD_EXPORTERS", {}).items() -%}
+      {%- set name = val.get("name", fmt) -%}
+      <a class="export-format" href="/coming-soon">{{ name }}</a>
+    {%- endfor -%}
   </dd>
 </div>
+{%- endif -%}
