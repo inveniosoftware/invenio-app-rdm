@@ -263,7 +263,11 @@ export class RDMDepositForm extends Component {
         record={this.props.record}
         files={this.props.files}
       >
-        <DepositFormTitle />
+        <DepositFormTitle
+          // TODO: make is_published part of the API response
+          //       so we don't have to do this
+          isPublished={this.props.record.is_published}
+        />
         <Grid>
           <Grid.Row>
             <Grid.Column width={12}>
