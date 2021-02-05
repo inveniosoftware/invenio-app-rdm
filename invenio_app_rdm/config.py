@@ -352,3 +352,13 @@ DEPOSITS_FORMS_BASE_TEMPLATE = 'invenio_app_rdm/deposit.html'
 
 DEPOSITS_UPLOADS_TEMPLATE = 'invenio_app_rdm/user_records_search.html'
 """User records' search page's template."""
+
+APP_RDM_RECORD_EXPORTERS = {
+    "json": {
+        "name": "JSON",
+        "serializer": ("invenio_rdm_records.resources.serializers:"
+                       "UIJSONSerializer")
+    }
+}
+
+APP_RDM_RECORDS_EXPORT_URL = "/records/<pid_value>/export/<export_format>"
