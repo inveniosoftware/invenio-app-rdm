@@ -2,6 +2,7 @@
 #
 # Copyright (C) 2019-2020 CERN.
 # Copyright (C) 2019-2020 Northwestern University.
+# Copyright (C)      2021 TU Wien.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -95,7 +96,10 @@ setup(
             'invenio-app-rdm = invenio_app.cli:cli',
         ],
         'invenio_base.blueprints': [
-            'invenio_app_rdm = invenio_app_rdm.theme.views:ui_blueprint',
+            ("invenio_app_rdm = invenio_app_rdm.theme.views:"
+             "ui_blueprint"),
+            ("invenio_app_rdm_records = invenio_app_rdm.theme.views:"
+             "records_ui_blueprint"),
         ],
         'invenio_assets.webpack': [
             'invenio_app_rdm_theme = invenio_app_rdm.theme.webpack:theme',
