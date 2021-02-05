@@ -56,7 +56,8 @@
     {# dynamically create the list of export formats #}
     {%- for fmt, val in config.get("APP_RDM_RECORD_EXPORTERS", {}).items() -%}
       {%- set name = val.get("name", fmt) -%}
-      <a class="export-format" href="/coming-soon">{{ name }}</a>
+      {%- set export_url = url_for('invenio_app_rdm_records_ui.export_record', pid_value=record.pid.pid_value, export_format=fmt) -%}
+      <a class="export-format" href="{{ export_url }}">{{ name }}</a>
     {%- endfor -%}
   </dd>
 </div>
