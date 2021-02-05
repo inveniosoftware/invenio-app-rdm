@@ -22,8 +22,11 @@ from flask_menu import current_menu
 from invenio_files_rest.views import ObjectResource
 from invenio_i18n.ext import current_i18n
 from invenio_previewer.views import is_previewable
-from invenio_rdm_records.resources.config import RDMDraftFilesResourceConfig, \
-    RDMDraftResourceConfig
+from invenio_rdm_records.proxies import current_rdm_records
+from invenio_rdm_records.resources.config import (
+    RDMDraftFilesResourceConfig,
+    RDMDraftResourceConfig,
+)
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
 from invenio_rdm_records.services import RDMDraftFilesService, RDMRecordService
 from invenio_rdm_records.services.schemas import RDMRecordSchema
@@ -32,7 +35,7 @@ from invenio_rdm_records.vocabularies import Vocabularies
 from invenio_records_files.api import FileObject
 from invenio_records_permissions.policies import get_record_permission_policy
 
-from .utils import previewer_record_file_factory
+from .utils import previewer_record_file_factory, obj_or_import_string
 
 
 def ui_blueprint(app):
@@ -240,6 +243,49 @@ def ui_blueprint(app):
     def help_search():
         """Search help guide."""
         return render_template('invenio_app_rdm/help/search.html')
+
+    @blueprint.route(
+        app.config.get(
+            "APP_RDM_RECORDS_EXPORT_URL",
+            "/records/<pid_value>/export/<export_format>",
+        )
+    )
+    def export_record(pid_value, export_format="json", **kwargs):
+        """Record export-as landing page."""
+
+        template = kwargs.get(
+            "template", "invenio_app_rdm/landing_page/export_page.html"
+        )
+
+        resource = current_rdm_records.records_resource
+        service = current_rdm_records.records_service
+        links_config = resource.config.links_config
+
+        record = service.read(
+            id_=pid_value, identity=g.identity, links_config=links_config
+        )._record
+
+        # get the configured serializer
+        temp = app.config.get("APP_RDM_RECORD_EXPORTERS", {}).get(
+            export_format
+        )
+        if temp is None:
+            raise Exception(
+                "no exporter for the specified format registered: {}".format(
+                    export_format
+                )
+            )
+
+        format_name = temp.get("name", export_format)
+        serializer = obj_or_import_string(temp["serializer"])()
+        exported_record = serializer.serialize_object(record)
+
+        return render_template(
+            template,
+            export_format=format_name,
+            exported_record=exported_record,
+            record=record,
+        )
 
     return blueprint
 
