@@ -7,164 +7,27 @@
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
-"""Blueprint for record-related pages provided by Invenio-App-RDM."""
+"""Routes for record-related pages provided by Invenio-App-RDM."""
 
-from operator import itemgetter
-from os.path import splitext
-
-import idutils
-from flask import Blueprint, abort, current_app, g, render_template, request
-from flask_menu import current_menu
+from flask import abort, current_app, g, render_template, request
 from invenio_files_rest.views import ObjectResource
 from invenio_i18n.ext import current_i18n
-from invenio_previewer.views import is_previewable
 from invenio_rdm_records.proxies import current_rdm_records
-from invenio_rdm_records.resources.config import (
-    RDMDraftFilesResourceConfig,
-    RDMDraftResourceConfig,
-)
+from invenio_rdm_records.resources.config import RDMDraftFilesResourceConfig, \
+    RDMDraftResourceConfig
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
 from invenio_rdm_records.services import RDMDraftFilesService
 from invenio_rdm_records.services.schemas import RDMRecordSchema
 from invenio_rdm_records.services.schemas.utils import dump_empty
 from invenio_rdm_records.vocabularies import Vocabularies
-from invenio_records_files.api import FileObject
-from invenio_records_permissions.policies import get_record_permission_policy
 
 from ..utils import obj_or_import_string, previewer_record_file_factory
 
 
-def records_ui_blueprint(app):
+def register_records_ui_routes(app, blueprint):
     """Dynamically registers routes (allows us to rely on config)."""
-    blueprint = Blueprint(
-        "invenio_app_rdm_records_ui",
-        __name__,
-        template_folder="../templates",
-        static_folder="../static",
-    )
-
     service = app.extensions["invenio-rdm-records"].records_service
     search_url = app.config.get("RDM_RECORDS_UI_SEARCH_URL", "/search")
-
-    @blueprint.before_app_first_request
-    def init_menu():
-        """Initialize menu before first request."""
-        item = current_menu.submenu("main.deposit")
-        item.register(
-            "invenio_app_rdm_records_ui.deposits_user", "Uploads", order=1
-        )
-
-    # ------- #
-    # Filters #
-    # ------- #
-
-    @blueprint.app_template_filter()
-    def make_files_preview_compatible(files):
-        """Processes a list of RecordFiles to a list of FileObjects.
-
-        This is needed to make the objects compatible with invenio-previewer.
-        """
-        file_objects = []
-        for file in files:
-            file_objects.append(
-                FileObject(obj=files[file].object_version, data={}).dumps()
-            )
-        return file_objects
-
-    @blueprint.app_template_filter()
-    def select_preview_file(files, default_preview=None):
-        """Get list of files and select one for preview."""
-        selected = None
-
-        try:
-            for f in sorted(files or [], key=itemgetter("key")):
-                file_type = splitext(f["key"])[1][1:].lower()
-                if is_previewable(file_type):
-                    if selected is None:
-                        selected = f
-                    elif f["key"] == default_preview:
-                        selected = f
-        except KeyError:
-            pass
-        return selected
-
-    @blueprint.app_template_filter()
-    def to_previewer_files(record):
-        """Get previewer-compatible files list."""
-        return [
-            FileObject(obj=f.object_version, data=f.metadata or {})
-            for f in record.files.values()
-        ]
-
-    @blueprint.app_template_filter("can_list_files")
-    def can_list_files(record):
-        """Permission check if current user can list files of record.
-
-        The current_user is used under the hood by flask-principal.
-
-        Once we move to Single-Page-App approach, we likely want to enforce
-        permissions at the final serialization level (only).
-        """
-        PermissionPolicy = get_record_permission_policy()
-        return PermissionPolicy(action="read_files", record=record).can()
-
-    @blueprint.app_template_filter("pid_url")
-    def pid_url(identifier, scheme=None, url_scheme="https"):
-        """Convert persistent identifier into a link."""
-        if scheme is None:
-            try:
-                scheme = idutils.detect_identifier_schemes(identifier)[0]
-            except IndexError:
-                scheme = None
-        try:
-            if scheme and identifier:
-                return idutils.to_url(
-                    identifier, scheme, url_scheme=url_scheme
-                )
-        except Exception:
-            current_app.logger.warning(
-                f"URL generation for identifier {identifier} failed.",
-                exc_info=True,
-            )
-        return ""
-
-    @blueprint.app_template_filter("doi_identifier")
-    def doi_identifier(identifiers):
-        """Extract DOI from sequence of identifiers."""
-        for identifier in identifiers:
-            # TODO: extract this "DOI" constant to a registry?
-            if identifier == "doi":
-                return identifiers[identifier]
-
-    @blueprint.app_template_filter("vocabulary_title")
-    def vocabulary_title(dict_key, vocabulary_key, alt_key=None):
-        """Returns formatted vocabulary-corresponding human-readable string.
-
-        In some cases the dict needs to be reconstructed. `alt_key` will be the
-        key while `dict_key` will become the value.
-        """
-        if alt_key:
-            dict_key = {alt_key: dict_key}
-        vocabulary = Vocabularies.get_vocabulary(vocabulary_key)
-        return vocabulary.get_title_by_dict(dict_key) if vocabulary else ""
-
-    @blueprint.app_template_filter("dereference_record")
-    def dereference_record(record):
-        """Returns the UI serialization of a record."""
-        record.relations.dereference()
-
-        return record
-
-    @blueprint.app_template_filter("serialize_ui")
-    def serialize_ui(record):
-        """Returns the UI serialization of a record."""
-        serializer = UIJSONSerializer()
-        # We need a dict not a string
-        return serializer.serialize_object_to_dict(record)
-
-    # ------ #
-    # Routes #
-    # ------ #
 
     @blueprint.route(app.config.get("RDM_RECORDS_UI_NEW_URL", "/uploads/new"))
     def deposits_create():
@@ -247,7 +110,6 @@ def records_ui_blueprint(app):
     )
     def export_record(pid_value, export_format="json", **kwargs):
         """Record export-as landing page."""
-
         template = kwargs.get(
             "template", "invenio_app_rdm/landing_page/export_page.html"
         )

@@ -7,19 +7,13 @@
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
-"""Blueprint for general pages provided by Invenio-App-RDM."""
+"""Routes for general pages provided by Invenio-App-RDM."""
 
-from flask import Blueprint, current_app, render_template
+from flask import current_app, render_template
 
 
-def ui_blueprint(app):
-    """Dynamically registers routes (allows us to rely on config)."""
-    blueprint = Blueprint(
-        "invenio_app_rdm_theme",
-        __name__,
-        template_folder="../templates",
-        static_folder="../static",
-    )
+def register_general_ui_routes(app, blueprint):
+    """Register routes for general pages provided by Invenio-App-RDM."""
 
     @blueprint.route(app.config.get("RDM_RECORDS_UI_SEARCH_URL", "/search"))
     def search():
