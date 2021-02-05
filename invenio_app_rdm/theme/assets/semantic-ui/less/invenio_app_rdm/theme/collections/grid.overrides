@@ -1,0 +1,21 @@
+/*******************************
+         Site Overrides
+*******************************/
+
+@import "@invenio_theme/collections/grid.overrides";
+
+/** Deposit */
+.row.deposit-result-header {
+    background-color: #d7d7d7;
+
+    &.padding-tb-5 {
+        padding-top: 5px !important;
+        padding-bottom: 5px !important;
+    }
+    &.small {
+        font-size: small;
+    }
+    .padding-r-5.column {
+        padding-right: 5px !important;
+    }
+}

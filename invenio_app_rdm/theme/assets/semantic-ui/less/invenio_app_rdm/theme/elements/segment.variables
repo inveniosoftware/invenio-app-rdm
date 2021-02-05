@@ -1,0 +1,5 @@
+/*******************************
+    User Variable Overrides
+*******************************/
+
+@import "@invenio_theme/elements/segment.variables";
