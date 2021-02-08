@@ -348,6 +348,7 @@ export class RDMDepositForm extends Component {
                     title: result.title_l10n,
                     description: result.description_l10n,
                     id: result.id,
+                    link: result.props.url,
                   })}
                 />
                 <br />
