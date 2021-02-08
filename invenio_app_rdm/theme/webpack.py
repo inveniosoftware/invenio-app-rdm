@@ -50,7 +50,7 @@ theme = WebpackThemeBundle(
                 # cookiecutter-invenio-rdm.
                 '../../theme.config$': 'less/theme.config',
                 'themes/rdm': 'less/invenio_app_rdm/theme',
-                '@invenio_theme': 'less/invenio_theme/theme'
+                '@less/invenio_app_rdm': 'less/invenio_app_rdm',
             }
         ),
     }

@@ -2,4 +2,4 @@
      User Global Variables
 *******************************/
 
-@import "@invenio_theme/globals/reset.variables";
+@import "@less/invenio_theme/theme/globals/reset.variables";
