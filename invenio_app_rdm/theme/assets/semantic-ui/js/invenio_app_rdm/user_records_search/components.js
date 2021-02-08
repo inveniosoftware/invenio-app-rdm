@@ -24,9 +24,14 @@ import {
   ResultsList,
   Sort,
   SearchBar,
+  ResultsPerPage,
 } from "react-searchkit";
 
-export const RDMDepositResults = ({ sortOptions, currentResultsState }) => {
+export const RDMDepositResults = ({
+  sortOptions,
+  paginationOptions,
+  currentResultsState,
+}) => {
   const { total } = currentResultsState.data;
   return (
     total && (
@@ -76,12 +81,23 @@ export const RDMDepositResults = ({ sortOptions, currentResultsState }) => {
             </Grid>
           </Segment>
         </Grid.Row>
-        <Grid.Row centered className="no-padding">
-          <Pagination
-            options={{
-              size: "mini",
-            }}
-          />
+        <Grid.Row verticalAlign="middle">
+          <Grid.Column width={4}></Grid.Column>
+          <Grid.Column width={8} textAlign="center">
+            <Pagination
+              options={{
+                size: "mini",
+                showFirst: false,
+                showLast: false,
+              }}
+            />
+          </Grid.Column>
+          <Grid.Column textAlign="right" width={4}>
+            <ResultsPerPage
+              values={paginationOptions.resultsPerPage}
+              label={(cmp) => <> {cmp} results per page</>}
+            />
+          </Grid.Column>
         </Grid.Row>
       </Grid>
     )
