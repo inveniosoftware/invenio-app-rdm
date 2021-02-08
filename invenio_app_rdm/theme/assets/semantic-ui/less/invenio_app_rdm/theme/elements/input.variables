@@ -2,4 +2,4 @@
     User Variable Overrides
 *******************************/
 
-@import "@invenio_theme/elements/input.variables";
+@import "@less/invenio_theme/theme/elements/input.variables";

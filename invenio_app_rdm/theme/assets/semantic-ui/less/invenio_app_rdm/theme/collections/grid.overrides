@@ -2,7 +2,7 @@
          Site Overrides
 *******************************/
 
-@import "@invenio_theme/collections/grid.overrides";
+@import "@less/invenio_theme/theme/collections/grid.overrides";
 
 /** Deposit */
 .row.deposit-result-header {

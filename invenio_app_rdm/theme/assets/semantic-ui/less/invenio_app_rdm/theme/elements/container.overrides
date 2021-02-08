@@ -2,4 +2,4 @@
          Site Overrides
 *******************************/
 
-@import "@invenio_theme/elements/container.overrides";
+@import "@less/invenio_theme/theme/elements/container.overrides";

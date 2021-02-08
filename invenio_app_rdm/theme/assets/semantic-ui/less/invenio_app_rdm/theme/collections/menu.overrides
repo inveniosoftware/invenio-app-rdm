@@ -2,4 +2,4 @@
          Site Overrides
 *******************************/
 
-@import "@invenio_theme/collections/menu.overrides";
+@import "@less/invenio_theme/theme/collections/menu.overrides";

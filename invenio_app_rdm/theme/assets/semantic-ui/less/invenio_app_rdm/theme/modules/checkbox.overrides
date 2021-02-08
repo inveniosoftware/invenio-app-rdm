@@ -2,4 +2,4 @@
          Site Overrides
 *******************************/
 
-@import "@invenio_theme/modules/checkbox.overrides";
+@import "@less/invenio_theme/theme/modules/checkbox.overrides";

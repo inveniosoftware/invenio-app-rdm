@@ -2,4 +2,4 @@
     User Variable Overrides
 *******************************/
 
-@import "@invenio_theme/collections/grid.variables";
+@import "@less/invenio_theme/theme/collections/grid.variables";
