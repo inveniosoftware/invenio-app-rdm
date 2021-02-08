@@ -1,0 +1,5 @@
+/*******************************
+    User Variable Overrides
+*******************************/
+
+@import "@less/invenio_theme/theme/elements/list.variables";

@@ -1,0 +1,33 @@
+/*******************************
+    User Variable Overrides
+*******************************/
+
+@import "@less/invenio_theme/theme/elements/list.overrides";
+
+/* Deposit license field */
+
+.item.deposit-drag-listitem {
+    margin-bottom: 5px;
+    &.hidden {
+      opacity: 0;
+    }
+    .drag-anchor {
+        cursor: move;
+    }
+}
+
+.ui.items > .item.license-item {
+    cursor: pointer;
+    .image.license-radiobox {
+        padding-left: 5px;
+        padding-top: 2em;
+        width: 4%;
+    }
+    .content.license-item-content {
+        padding-left: 10px;
+        .description.license-item-description {
+            font-size: smaller;
+            color: rgba(0, 0, 0, 0.6);
+        }
+    }
+}
