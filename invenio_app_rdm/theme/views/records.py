@@ -37,28 +37,29 @@ def register_records_ui_routes(app, blueprint):
 
         record = service.read(
             id_=pid_value, identity=g.identity, links_config=links_config
-        )._record
+        )
 
         # get the configured serializer
-        temp = app.config.get("APP_RDM_RECORD_EXPORTERS", {}).get(
+        exporter = app.config.get("APP_RDM_RECORD_EXPORTERS", {}).get(
             export_format
         )
-        if temp is None:
+        if exporter is None:
             raise Exception(
                 "no exporter for the specified format registered: {}".format(
                     export_format
                 )
             )
 
-        format_name = temp.get("name", export_format)
-        serializer = obj_or_import_string(temp["serializer"])()
-        exported_record = serializer.serialize_object(record)
+        format_name = exporter.get("name", export_format)
+        serializer = obj_or_import_string(exporter["serializer"])()
+        exported_record = serializer.serialize_object(record.to_dict())
 
         return render_template(
             template,
             export_format=format_name,
             exported_record=exported_record,
             record=record,
+            pid_value=record.id,
         )
 
     return blueprint

@@ -14,14 +14,10 @@
 {%- from "invenio_app_rdm/landing_page/macros/files.html" import file_list_box, preview_file_box %}
 {%- from "invenio_app_rdm/landing_page/macros/detail.html" import show_detail %}
 
-{%- set record = record|dereference_record|serialize_ui %}
+{%- set record = record.data|serialize_ui %}
 {%- set metadata = record.metadata %}
 
 {%- block page_body %}
-<div
-  id="recordManagement"
-  data-recid='{{ record["id"] | tojson }}'>
-</div>
 <div class="ui container">
   <div class="ui padded relaxed grid">
     <div class="two column row">
@@ -37,8 +33,11 @@
             </div>
             <div class="right floated right aligned column">
               <span class="ui label small grey">{{ record.ui.resource_type }}</span>
+              {# note: keeping this results in an error, because record.ui has no access_right property here #}
+              {#
               <span class="ui label small access-right {{ record.ui.access_right.icon }}">
                 <i class="icon {{ record.ui.access_right.icon }}"></i>{{ record.ui.access_right.title }}</span>
+              #}
             </div>
           </div>
         </div>
@@ -47,7 +46,7 @@
 
         <h3>{{ export_format }} Export</h3>
         <div class="top-padded">
-          <pre style="white-space: pre-wrap;">
+          <pre class="export result">
           {{- exported_record -}}
           </pre>
         </div>
