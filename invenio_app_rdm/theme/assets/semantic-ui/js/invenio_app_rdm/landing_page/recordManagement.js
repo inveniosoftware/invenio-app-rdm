@@ -26,28 +26,26 @@ export const RecordManagement = () => {
   };
 
   return (
-    <div class="reverse-header-margin">
-      <div class="ui warning flashed message">
-        <div class="ui container">
-          <Grid relaxed>
-            <Grid.Column>
-              <Grid.Row>
-                <Icon name="cogs" />
-                <span>Manage</span>
-              </Grid.Row>
-              <Grid.Row className="record-management-buttons">
-                <Button color="orange" size="mini" onClick={() => editRecord()}>
-                  <Icon name="edit" />
-                  Edit
-                </Button>
-                <Button color="green" size="mini" disabled>
-                  <Icon name="clone" />
-                  New Version
-                </Button>
-              </Grid.Row>
-            </Grid.Column>
-          </Grid>
-        </div>
+    <div className="ui warning flashed top-attached manage message">
+      <div className="ui container">
+        <Grid relaxed>
+          <Grid.Column>
+            <Grid.Row>
+              <Icon name="cogs" />
+              <span>Manage</span>
+            </Grid.Row>
+            <Grid.Row className="record-management-buttons">
+              <Button color="orange" size="mini" onClick={() => editRecord()}>
+                <Icon name="edit" />
+                Edit
+              </Button>
+              <Button color="green" size="mini" disabled>
+                <Icon name="clone" />
+                New Version
+              </Button>
+            </Grid.Row>
+          </Grid.Column>
+        </Grid>
       </div>
     </div>
   );
