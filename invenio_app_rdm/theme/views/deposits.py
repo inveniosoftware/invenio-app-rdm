@@ -48,8 +48,7 @@ def register_deposits_ui_routes(app, blueprint):
 
         new_record = dump_empty(RDMRecordSchema)
         defaults = app.config.get("APP_RDM_DEPOSIT_FORM_DEFAULTS") or {}
-        for key in defaults:
-            value = defaults[key]
+        for key, value in defaults.items():
             set_default_value(new_record, value, key)
 
         return render_template(
