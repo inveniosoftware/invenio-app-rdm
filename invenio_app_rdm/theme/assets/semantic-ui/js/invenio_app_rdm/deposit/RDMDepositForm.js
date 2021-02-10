@@ -8,7 +8,15 @@
 
 import _get from "lodash/get";
 import React, { Component, createRef } from "react";
-import { Button, Card, Grid, Icon, Ref, Sticky } from "semantic-ui-react";
+import {
+  Button,
+  Card,
+  Container,
+  Grid,
+  Icon,
+  Ref,
+  Sticky,
+} from "semantic-ui-react";
 import {
   AccessRightField,
   ComingSoonField,
@@ -251,7 +259,9 @@ export class RDMDepositForm extends Component {
     };
   }
 
-  contextRef = createRef();
+  formFeedbackRef = createRef();
+  sidebarRef = createRef();
+
   accordionStyle = {
     header: { className: "inverted brand", style: { cursor: "pointer" } },
   };
@@ -263,31 +273,32 @@ export class RDMDepositForm extends Component {
         record={this.props.record}
         files={this.props.files}
       >
-        <DepositFormTitle
-          // TODO: make is_published part of the API response
-          //       so we don't have to do this
-          isPublished={this.props.record.is_published}
-        />
-        <Grid>
-          <Grid.Row>
-            <Grid.Column width={12}>
-              <FormFeedback fieldPath="message" />
-              <AccordionField
-                fieldPath=""
-                active={true}
-                label={"Files"}
-                ui={this.accordionStyle}
-              >
-                <FileUploader
-                  isDraftRecord={!this.props.record.is_published}
-                  quota={{
-                    maxFiles: 100,
-                    maxStorage: 10 ** 10,
-                  }}
-                />
-              </AccordionField>
-              {/**TODO: uncomment to use IdentifiersField*/}
-              {/* <AccordionField
+        <FormFeedback fieldPath="message" />
+        <Container style={{ marginTop: "10px" }}>
+          <DepositFormTitle
+            // TODO: make is_published part of the API response
+            //       so we don't have to do this
+            isPublished={this.props.record.is_published}
+          />
+          <Grid>
+            <Grid.Row>
+              <Grid.Column width={12}>
+                <AccordionField
+                  fieldPath=""
+                  active={true}
+                  label={"Files"}
+                  ui={this.accordionStyle}
+                >
+                  <FileUploader
+                    isDraftRecord={!this.props.record.is_published}
+                    quota={{
+                      maxFiles: 100,
+                      maxStorage: 10 ** 10,
+                    }}
+                  />
+                </AccordionField>
+                {/**TODO: uncomment to use IdentifiersField*/}
+                {/* <AccordionField
                 fieldPath=""
                 active={true}
                 label={"Identifiers"}
@@ -302,78 +313,78 @@ export class RDMDepositForm extends Component {
                 <br />
               </AccordionField> */}
 
-              <AccordionField
-                fieldPath=""
-                active={true}
-                label={"Basic Information"}
-                ui={this.accordionStyle}
-              >
-                <ResourceTypeField
-                  options={this.vocabularies.metadata.resource_type}
-                  required
-                />
-                <TitlesField
-                  options={this.vocabularies.metadata.titles}
-                  required
-                />
-                <PublicationDateField required />
-                <CreatibutorsField
-                  label={"Creators"}
-                  labelIcon={"user"}
-                  fieldPath={"metadata.creators"}
-                  roleOptions={this.vocabularies.metadata.creators.role}
-                  schema="creators"
-                  required
-                />
-                <DescriptionsField
-                  options={this.vocabularies.metadata.descriptions}
-                />
-                <LicenseField
-                  fieldPath="metadata.rights"
-                  searchConfig={{
-                    searchApi: {
-                      axios: {
-                        headers: {
-                          Accept: "application/vnd.inveniordm.v1+json",
+                <AccordionField
+                  fieldPath=""
+                  active={true}
+                  label={"Basic Information"}
+                  ui={this.accordionStyle}
+                >
+                  <ResourceTypeField
+                    options={this.vocabularies.metadata.resource_type}
+                    required
+                  />
+                  <TitlesField
+                    options={this.vocabularies.metadata.titles}
+                    required
+                  />
+                  <PublicationDateField required />
+                  <CreatibutorsField
+                    label={"Creators"}
+                    labelIcon={"user"}
+                    fieldPath={"metadata.creators"}
+                    roleOptions={this.vocabularies.metadata.creators.role}
+                    schema="creators"
+                    required
+                  />
+                  <DescriptionsField
+                    options={this.vocabularies.metadata.descriptions}
+                  />
+                  <LicenseField
+                    fieldPath="metadata.rights"
+                    searchConfig={{
+                      searchApi: {
+                        axios: {
+                          headers: {
+                            Accept: "application/vnd.inveniordm.v1+json",
+                          },
+                          url: "/api/vocabularies/licenses",
+                          withCredentials: false,
                         },
-                        url: "/api/vocabularies/licenses",
-                        withCredentials: false,
                       },
-                    },
-                    initialQueryState: {
-                      filters: [["tags", "recommended"]],
-                    },
-                  }}
-                  serializeLicenses={(result) => ({
-                    title: result.title_l10n,
-                    description: result.description_l10n,
-                    id: result.id,
-                    link: result.props.url,
-                  })}
-                />
-                <br />
-              </AccordionField>
+                      initialQueryState: {
+                        filters: [["tags", "recommended"]],
+                      },
+                    }}
+                    serializeLicenses={(result) => ({
+                      title: result.title_l10n,
+                      description: result.description_l10n,
+                      id: result.id,
+                      link: result.props.url,
+                    })}
+                  />
+                  <br />
+                </AccordionField>
 
-              <AccordionField
-                fieldPath=""
-                active={true}
-                label={"Recommended Information"}
-                ui={this.accordionStyle}
-              >
-                <CreatibutorsField
-                  addButtonLabel={"Add contributor"}
-                  label={"Contributors"}
-                  labelIcon={"user plus"}
-                  fieldPath={"metadata.contributors"}
-                  roleOptions={this.vocabularies.metadata.contributors.role}
-                  schema="contributors"
-                  modal={{
-                    addLabel: "Add contributor",
-                    editLabel: "Edit contributor",
-                  }}
-                />
-                {/**TODO: uncomment to use Subjects*/}
-                {/* <SubjectsField
+                <AccordionField
+                  fieldPath=""
+                  active={true}
+                  label={"Recommended Information"}
+                  ui={this.accordionStyle}
+                >
+                  <CreatibutorsField
+                    addButtonLabel={"Add contributor"}
+                    label={"Contributors"}
+                    labelIcon={"user plus"}
+                    fieldPath={"metadata.contributors"}
+                    roleOptions={this.vocabularies.metadata.contributors.role}
+                    schema="contributors"
+                    modal={{
+                      addLabel: "Add contributor",
+                      editLabel: "Edit contributor",
+                    }}
+                  />
+                  {/**TODO: uncomment to use Subjects*/}
+                  {/* <SubjectsField
                   initialOptions={_get(
                     this.props.record,
                     "metadata.subjects",
@@ -389,27 +400,27 @@ export class RDMDepositForm extends Component {
                   labelIcon="tag"
                 /> */}
 
-                <LanguagesField
-                  initialOptions={_get(
-                    this.props.record,
-                    "metadata.languages",
-                    []
-                  ).filter((lang) => lang !== null)} // needed because dumped empty record from backend gives [null]
-                  serializeSuggestions={(suggestions) =>
-                    suggestions.map((item) => ({
-                      text: item.title_l10n,
-                      value: item.id,
-                      key: item.id,
-                    }))
-                  }
-                />
-                <DatesField options={this.vocabularies.metadata.dates} />
-                <VersionField />
-                <PublisherField />
-                <br />
-              </AccordionField>
-              {/**TODO: uncomment to use FundingField*/}
-              {/* <AccordionField
+                  <LanguagesField
+                    initialOptions={_get(
+                      this.props.record,
+                      "metadata.languages",
+                      []
+                    ).filter((lang) => lang !== null)} // needed because dumped empty record from backend gives [null]
+                    serializeSuggestions={(suggestions) =>
+                      suggestions.map((item) => ({
+                        text: item.title_l10n,
+                        value: item.id,
+                        key: item.id,
+                      }))
+                    }
+                  />
+                  <DatesField options={this.vocabularies.metadata.dates} />
+                  <VersionField />
+                  <PublisherField />
+                  <br />
+                </AccordionField>
+                {/**TODO: uncomment to use FundingField*/}
+                {/* <AccordionField
                 fieldPath=""
                 active={true}
                 label={"Funding"}
@@ -425,57 +436,58 @@ export class RDMDepositForm extends Component {
                 <br />
               </AccordionField> */}
 
-              <AccordionField
-                fieldPath=""
-                active={true}
-                label={"Related works"}
-                ui={this.accordionStyle}
-              >
-                <RelatedWorksField
-                  options={this.vocabularies.metadata.related_identifiers}
-                />
-                <br />
-              </AccordionField>
-            </Grid.Column>
-
-            <Ref innerRef={this.contextRef}>
-              <Grid.Column width={4}>
-                <Sticky context={this.contextRef} offset={20}>
-                  <Card className="actions">
-                    <Card.Content>
-                      <SaveButton fluid className="save-button" />
-                      <PublishButton fluid />
-                    </Card.Content>
-                  </Card>
-
-                  <Card className="actions">
-                    <Card.Content>
-                      <DeleteButton
-                        fluid
-                        // TODO: make is_published part of the API response
-                        //       so we don't have to do this
-                        isPublished={this.props.record.is_published}
-                      />
-                    </Card.Content>
-                  </Card>
-
-                  <AccessRightField
-                    label={"Protection"}
-                    labelIcon={"shield"}
-                    options={this.vocabularies.access.access_right}
+                <AccordionField
+                  fieldPath=""
+                  active={true}
+                  label={"Related works"}
+                  ui={this.accordionStyle}
+                >
+                  <RelatedWorksField
+                    options={this.vocabularies.metadata.related_identifiers}
                   />
-
-                  <Grid.Row centered>
-                    <Button className="disabled contact-support">
-                      <Icon name="mail outline" />
-                      Contact Support
-                    </Button>
-                  </Grid.Row>
-                </Sticky>
+                  <br />
+                </AccordionField>
               </Grid.Column>
-            </Ref>
-          </Grid.Row>
-        </Grid>
+
+              <Ref innerRef={this.sidebarRef}>
+                <Grid.Column width={4}>
+                  <Sticky context={this.sidebarRef} offset={20}>
+                    <Card className="actions">
+                      <Card.Content>
+                        <SaveButton fluid className="save-button" />
+                        <PublishButton fluid />
+                      </Card.Content>
+                    </Card>
+
+                    <Card className="actions">
+                      <Card.Content>
+                        <DeleteButton
+                          fluid
+                          // TODO: make is_published part of the API response
+                          //       so we don't have to do this
+                          isPublished={this.props.record.is_published}
+                        />
+                      </Card.Content>
+                    </Card>
+
+                    <AccessRightField
+                      label={"Protection"}
+                      labelIcon={"shield"}
+                      options={this.vocabularies.access.access_right}
+                    />
+
+                    <Grid.Row centered>
+                      <Button className="disabled contact-support">
+                        <Icon name="mail outline" />
+                        Contact Support
+                      </Button>
+                    </Grid.Row>
+                  </Sticky>
+                </Grid.Column>
+              </Ref>
+            </Grid.Row>
+          </Grid>
+        </Container>
       </DepositFormApp>
     );
   }
