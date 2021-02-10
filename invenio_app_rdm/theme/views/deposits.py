@@ -19,6 +19,8 @@ from invenio_rdm_records.services.schemas import RDMRecordSchema
 from invenio_rdm_records.services.schemas.utils import dump_empty
 from invenio_rdm_records.vocabularies import Vocabularies
 
+from ..utils import set_default_value
+
 
 def register_deposits_ui_routes(app, blueprint):
     """Dynamically registers routes (allows us to rely on config)."""
@@ -43,10 +45,17 @@ def register_deposits_ui_routes(app, blueprint):
             vocabularies=Vocabularies.dump(),
             current_locale=str(current_i18n.locale),
         )
+
+        new_record = dump_empty(RDMRecordSchema)
+        defaults = app.config.get("APP_RDM_DEPOSIT_FORM_DEFAULTS") or {}
+        for key in defaults:
+            value = defaults[key]
+            set_default_value(new_record, value, key)
+
         return render_template(
             current_app.config["DEPOSITS_FORMS_BASE_TEMPLATE"],
             forms_config=forms_config,
-            record=dump_empty(RDMRecordSchema),
+            record=new_record,
             files=dict(
                 default_preview=None, enabled=True, entries=[], links={}
             ),
