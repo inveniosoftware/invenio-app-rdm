@@ -9,6 +9,7 @@
 
 """Utility functions."""
 
+from invenio_records.dictutils import dict_set
 from invenio_records.errors import MissingModelError
 from invenio_records_files.api import FileObject
 from werkzeug.utils import import_string
@@ -48,3 +49,24 @@ def obj_or_import_string(value, default=None):
     elif value:
         return value
     return default
+
+
+def set_default_value(record_dict, value, path, default_prefix="metadata"):
+    """Set the value with the specified dot-separated path in the record.
+
+    :param record_dict: The dict in which to set the value.
+    :param value: The value to set (can be callable).
+    :param path: The dot-separated path to the value.
+    :param default_prefix: The default path prefix to assume.
+    """
+    if callable(value):
+        value = value()
+
+    # if the path explicitly starts with a dot, we know that we shouldn't
+    # prepend the default_prefix to the path
+    if path.startswith("."):
+        path = path[1:]
+    else:
+        path = "{}.{}".format(default_prefix, path)
+
+    dict_set(record_dict, path, value)

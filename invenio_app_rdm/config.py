@@ -28,7 +28,7 @@ WARNING: An instance should NOT install multiple flavour extensions since
          there would be no guarantee of priority anymore.
 """
 
-from datetime import timedelta
+from datetime import datetime, timedelta
 
 from .theme.utils import previewer_record_file_factory
 
@@ -362,3 +362,26 @@ APP_RDM_RECORD_EXPORTERS = {
 }
 
 APP_RDM_RECORDS_EXPORT_URL = "/records/<pid_value>/export/<export_format>"
+
+APP_RDM_DEPOSIT_FORM_DEFAULTS = {
+    "publication_date": lambda: datetime.now().strftime("%Y-%m-%d"),
+    "rights": [
+        {
+            "id": "cc-by-4.0",
+            "title": "Creative Commons Attribution 4.0 International",
+            "description": ("The Creative Commons Attribution license allows "
+                            "re-distribution and re-use of a licensed work "
+                            "on the condition that the creator is "
+                            "appropriately credited."),
+            "link": "https://creativecommons.org/licenses/by/4.0/legalcode",
+        }
+    ],
+    "publisher": "CERN",
+}
+"""Default values for new records in the deposit UI.
+
+The keys denote the dot-separated path, where in the record's metadata
+the values should be set (see invenio-records.dictutils).
+If the value is callable, its return value will be used for the field
+(e.g. lambda/function for dynamic calculation of values).
+"""
