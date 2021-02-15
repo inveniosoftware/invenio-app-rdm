@@ -5,16 +5,13 @@
   Invenio App RDM is free software; you can redistribute it and/or modify it
   under the terms of the MIT License; see LICENSE file for more details.
 #}
-{%- extends "invenio_theme/frontpage.html" %}
-
-{%- block page_header %}
-{%- endblock page_header %}
+{%- extends "invenio_theme/page.html" %}
 
 {%- block page_body %}
 <div class="ui container">
   <h1>Search guide</h1>
   <p>
-    This guide explains how to perform advanced search queries on RDM using easy
+    This guide explains how to write advanced search queries using easy
     to understand examples.
   </p>
   <h3>Simple search (one or multiple terms)</h3>
@@ -62,7 +59,7 @@
   <h3>Phrase search</h3>
   <p>
     <strong>Example:</strong>
-    <a href='/search?page=1&amp;size=20&amp;q="open%20science"'
+    <a href="/search?page=1&amp;size=20&amp;q=%22open%20science%22"
       ><code>"open science"</code></a
     >
   </p>
@@ -85,7 +82,7 @@
   <p>
     <strong>Example:</strong>
     <a href="/search?page=1&amp;size=20&amp;q=metadata.title:(open%20science%29"
-      ><code>title:(open science)</code></a
+      ><code>metadata.title:(open science)</code></a
     >
   </p>
   <p>
