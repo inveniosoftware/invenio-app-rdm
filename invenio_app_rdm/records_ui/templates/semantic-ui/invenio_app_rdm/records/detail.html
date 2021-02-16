@@ -1,5 +1,5 @@
 {#
-  Copyright (C) 2020 CERN.
+  Copyright (C) 2020-2021 CERN.
   Copyright (C) 2020 Northwestern University.
   Copyright (C) 2021 TU Wien.
   Copyright (C) 2021 Graz University of Technology.
@@ -10,14 +10,10 @@
 
 {%- extends config.BASE_TEMPLATE %}
 
-{%- block css %}
-{{ super() }}
-{%- endblock css %}
+{%- from "invenio_app_rdm/records/macros/files.html" import file_list_box, preview_file_box %}
+{%- from "invenio_app_rdm/records/macros/detail.html" import show_detail %}
 
-{%- from "invenio_app_rdm/landing_page/macros/files.html" import file_list_box, preview_file_box %}
-{%- from "invenio_app_rdm/landing_page/macros/detail.html" import show_detail %}
-
-{%- set record = record|dereference_record|serialize_ui %}
+{%- set record = record|serialize_ui %}
 {%- set metadata = record.metadata %}
 
 {%- block page_body %}
@@ -29,7 +25,8 @@
   <div class="ui relaxed grid">
     <div class="two column row top-padded">
       <div class="eleven wide column">
-        {%- block record_body %}
+        {%- block record_body -%}
+        {%- block record_header -%}
         <div class="ui grid middle aligned">
           <div class="two column row">
             <div class="left floated left aligned column">
@@ -40,35 +37,43 @@
             </div>
             <div class="right floated right aligned column">
               <span class="ui label small grey">{{ record.ui.resource_type }}</span>
-              <span class="ui label small access-right {{ record.ui.access_right.icon }}">
-                <i class="icon {{ record.ui.access_right.icon }}"></i>{{ record.ui.access_right.title }}</span>
+              <span class="ui label small access-right {{ 'unlock' }}">
+                <i class="icon {{ 'unlock' }}"></i>{{ _("Open Access") }}</span>
             </div>
           </div>
         </div>
+        {%- endblock record_header -%}
+        {%- block record_title -%}
         <h1>{{ metadata.title }}</h1>
-        <p>{%- include "invenio_app_rdm/landing_page/details/creators.html" %}</p>
-        <p>{%- include "invenio_app_rdm/landing_page/details/contributors.html" %}</p>
+        <p>{%- include "invenio_app_rdm/records/details/creators.html" %}</p>
+        {%- endblock record_title -%}
+        {%- block record_content -%}
+        <p>{%- include "invenio_app_rdm/records/details/contributors.html" %}</p>
 
-        {%- include "invenio_app_rdm/landing_page/details/subjects.html" %}
+        {%- include "invenio_app_rdm/records/details/subjects.html" %}
         <div class="top-padded">
-        {%- include "invenio_app_rdm/landing_page/details/description.html" %}
+        {%- include "invenio_app_rdm/records/details/description.html" %}
         </div>
         <div class="top-padded">
-        {%- include "invenio_app_rdm/landing_page/details/licenses.html" %}
+        {%- include "invenio_app_rdm/records/details/licenses.html" %}
         </div>
+        {%- endblock record_content -%}
         {# files #}
+        {%- block record_files -%}
         {%- if record.files and record|can_list_files %}
           {%- set files = record.files|make_files_preview_compatible %}
           {%- set default_preview_file = files|select_preview_file(default_preview=record.files.default_preview) %}
           {{ preview_file_box(default_preview_file, pid) }}
           {{ file_list_box(files, pid) }}
         {% endif %}
-
+        {%- endblock record_files -%}
+        {%- block record_details -%}
         {# More details #}
         <div class="top-padded">
-        {%- include "invenio_app_rdm/landing_page/details/details.html" %}
+        {%- include "invenio_app_rdm/records/details/details.html" %}
         </div>
-
+        {%- endblock record_details -%}
+        {%- block record_footer -%}
         <div class="ui grid">
           <div class="two column row top-bottom-padded font-small">
             <div class="four wide column">
@@ -81,7 +86,8 @@
             </div>
           </div>
         </div>
-
+        {%- endblock record_footer -%}
+        {%- block jump -%}
         <div class="ui grid">
           <div class="centered row" id="jump-btn">
             <a style="cursor: pointer;">
@@ -90,13 +96,13 @@
             </a>
           </div>
         </div>
-
+        {%- endblock jump -%}
         {%- endblock record_body %}
       </div>
       <div class="five wide column">
-        {% block sidebar %}
-        {%- include "invenio_app_rdm/landing_page/details/side_bar.html" %}
-        {% endblock sidebar %}
+        {% block record_sidebar %}
+        {%- include "invenio_app_rdm/records/details/side_bar.html" %}
+        {% endblock record_sidebar %}
       </div>
     </div>
   </div>

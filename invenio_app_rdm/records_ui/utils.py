@@ -37,20 +37,6 @@ def previewer_record_file_factory(pid, record, filename):
         return None
 
 
-def obj_or_import_string(value, default=None):
-    """Import string or return object.
-
-    :params value: Import path or class object to instantiate.
-    :params default: Default object to return if the import fails.
-    :returns: The imported object.
-    """
-    if isinstance(value, str):
-        return import_string(value)
-    elif value:
-        return value
-    return default
-
-
 def set_default_value(record_dict, value, path, default_prefix="metadata"):
     """Set the value with the specified dot-separated path in the record.
 

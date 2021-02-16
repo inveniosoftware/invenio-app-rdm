@@ -7,7 +7,7 @@
   it under the terms of the MIT License; see LICENSE file for more details.
 #}
 
-{%- from "invenio_app_rdm/landing_page/macros/version.html" import show_version %}
+{%- from "invenio_app_rdm/records/macros/version.html" import show_version %}
 
 
 {#
@@ -56,13 +56,7 @@
     {# dynamically create the list of export formats #}
     {%- for fmt, val in config.get("APP_RDM_RECORD_EXPORTERS", {}).items() -%}
       {%- set name = val.get("name", fmt) -%}
-      {%- if pid_value is not defined -%}
-        {# in older render_template calls, it may be that no 'pid_value' was specified #}
-        {# and the 'record' was specified as RDMRecord instead of as RecordItem #}
-        {# TODO clean up those calls and this #}
-        {%- set pid_value = record.pid.pid_value -%}
-      {%- endif -%}
-      {%- set export_url = url_for('invenio_app_rdm.export_record', pid_value=pid_value, export_format=fmt) -%}
+      {%- set export_url = url_for('invenio_app_rdm_records.record_export', pid_value=record.id, export_format=fmt) -%}
       <a class="export-format" href="{{ export_url }}">{{ name }}</a>
     {%- endfor -%}
   </dd>

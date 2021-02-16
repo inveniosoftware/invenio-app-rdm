@@ -1,0 +1,27 @@
+{#
+  Copyright (C) 2021 TU Wien.
+
+  Invenio RDM Records is free software; you can redistribute it and/or modify
+  it under the terms of the MIT License; see LICENSE file for more details.
+#}
+
+{%- extends "invenio_app_rdm/records/detail.html" %}
+
+
+{% block record_header %}
+<a class="ui button small compact" href="{{ url_for('invenio_app_rdm_records.record_detail', pid_value=record.id) }}"><i class="ui icon angle left"></i> {{_('Back to details') }}</a>
+{{super()}}
+{% endblock record_header %}
+
+{% block record_content %}
+<h3>{{ export_format }} Export</h3>
+<div class="top-padded">
+  <pre class="export result">
+  {{- exported_record -}}
+  </pre>
+</div>
+{%- endblock record_content %}
+
+{% block record_files %}{% endblock %}
+{% block record_details %}{% endblock %}
+{% block record_footer %}{% endblock %}

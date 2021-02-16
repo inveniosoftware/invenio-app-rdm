@@ -182,7 +182,7 @@ def test_record_search(client, es_clear):
     """Test record search."""
     expected_response_keys = set(["hits", "links", "aggregations"])
     expected_metadata_keys = set([
-        "access_right", "resource_type", "creators", "titles"
+        "resource_type", "creators", "titles"
     ])
 
     # Get published bibliographic records

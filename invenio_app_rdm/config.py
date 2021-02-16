@@ -30,7 +30,7 @@ WARNING: An instance should NOT install multiple flavour extensions since
 
 from datetime import datetime, timedelta
 
-from .theme.utils import previewer_record_file_factory
+from .records_ui.utils import previewer_record_file_factory
 
 # PIDSTORE_RECID_FIELD
 # RECORDS_PERMISSIONS_RECORD_POLICY
@@ -40,6 +40,7 @@ from .theme.utils import previewer_record_file_factory
 
 # TODO: Remove when records-rest is out of communities and files
 RECORDS_REST_ENDPOINTS = {}
+RECORDS_UI_ENDPOINTS = {}
 
 
 def _(x):
@@ -74,6 +75,8 @@ SECURITY WARNING: keep the secret key used in production secret!
 SESSION_COOKIE_SECURE = True
 """Sets cookie with the secure flag by default."""
 
+SESSION_COOKIE_SAMESITE = "Lax"
+"""Restricts how cookies are sent with requests from external sites."""
 
 # Flask-Limiter
 # =============
@@ -123,11 +126,8 @@ SETTINGS_TEMPLATE = 'invenio_theme/page_settings.html'
 THEME_FOOTER_TEMPLATE = 'invenio_app_rdm/footer.html'
 """Footer base template."""
 
-THEME_FRONTPAGE = True
+THEME_FRONTPAGE = False
 """Use default frontpage."""
-
-THEME_FRONTPAGE_TEMPLATE = 'invenio_app_rdm/frontpage.html'
-"""Frontpage template."""
 
 THEME_FRONTPAGE_TITLE = _('The turn-key research data management repository')
 """Frontpage title."""
@@ -167,35 +167,7 @@ PREVIEWER_PREFERENCE = [
 ]
 """Preferred previewers."""
 
-PREVIEWER_RECORD_FILE_FACOTRY = previewer_record_file_factory
-
-# Invenio-Records-UI
-# ==================
-# See https://invenio-records-ui.readthedocs.io/en/latest/configuration.html
-
-RECORDS_UI_ENDPOINTS = {
-    'recid': {
-        'pid_type': 'recid',
-        'record_class': 'invenio_rdm_records.records:RDMRecord',
-        'route': '/records/<pid_value>',
-        'template': 'invenio_app_rdm/landing_page/record_landing_page.html'
-    },
-    'recid_files': {
-        'pid_type': 'recid',
-        'record_class': 'invenio_rdm_records.records:RDMRecord',
-        'route': '/records/<pid_value>/files/<path:filename>',
-        'view_imp': 'invenio_app_rdm.theme.views.file_download_ui',
-    },
-    'recid_previewer': {
-        'pid_type': 'recid',
-        'record_class': 'invenio_rdm_records.records:RDMRecord',
-        'route': '/records/<pid_value>/preview/<path:filename>',
-        'view_imp': 'invenio_previewer.views.preview',
-    },
-}
-
-"""Records UI for RDM Records."""
-
+# PREVIEWER_RECORD_FILE_FACOTRY = previewer_record_file_factory
 
 # Invenio-Formatter
 # =================
@@ -344,18 +316,25 @@ WSGI_PROXIES = 2
 # Invenio-APP-RDM
 # ===============
 
-SEARCH_UI_SEARCH_TEMPLATE = 'invenio_app_rdm/search.html'
+SEARCH_UI_SEARCH_TEMPLATE = 'invenio_app_rdm/records/search.html'
 """Search page's base template."""
 
-DEPOSITS_FORMS_BASE_TEMPLATE = 'invenio_app_rdm/deposit.html'
-"""Deposit page's base template."""
-
-DEPOSITS_UPLOADS_TEMPLATE = 'invenio_app_rdm/user_records_search.html'
-"""User records' search page's template."""
+APP_RDM_ROUTES = {
+    "index": "/",
+    "help_search": "/help/search",
+    "record_search": "/search2",
+    "record_detail": "/records/<pid_value>",
+    "record_export": "/records/<pid_value>/export/<export_format>",
+    "record_file_preview": "/records/<pid_value>/preview/<path:filename>",
+    "record_file_download": "/records/<pid_value>/files/<path:filename>",
+    "deposit_search": "/uploads",
+    "deposit_create": "/uploads/new",
+    "deposit_edit": "/uploads/<pid_value>",
+}
 
 APP_RDM_RECORD_EXPORTERS = {
     "json": {
-        "name": "JSON",
+        "name": _("JSON"),
         "serializer": ("invenio_rdm_records.resources.serializers:"
                        "UIJSONSerializer")
     }
