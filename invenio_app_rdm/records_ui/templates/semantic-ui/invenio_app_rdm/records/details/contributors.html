@@ -5,7 +5,7 @@
     Invenio RDM Records is free software; you can redistribute it and/or modify
     it under the terms of the MIT License; see LICENSE file for more details.
 #}
-{%- from "invenio_app_rdm/landing_page/macros/creatibutors.html" import show_affiliations, show_creatibutors %}
+{%- from "invenio_app_rdm/records/macros/creatibutors.html" import show_affiliations, show_creatibutors %}
 
 {% if record.ui.contributors and record.ui.contributors.contributors %}
   {%- for group in record.ui.contributors.contributors|groupby('role')%}

@@ -27,7 +27,7 @@
         {%- block frontpage_form %}
         <div class="ui center aligned grid">
           <div class="search-bar">
-            <form action="/search" class="ui form">
+            <form action="{{ url_for('invenio_search_ui.search') }}" class="ui form">
               <div class="ui fluid big action input">
                 <input type="text" name="q" class="form-control" placeholder="{{ _("Type and press enter to search") }}">
                 <button type="submit" class="ui icon search button"><i class="search icon"></i></button>

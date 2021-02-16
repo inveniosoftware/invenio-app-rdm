@@ -9,16 +9,7 @@
 
 from datetime import datetime
 
-from invenio_app_rdm.theme.utils import obj_or_import_string, set_default_value
-
-
-def test_obj_or_import_string():
-    """Test retrieval of objects via obj_or_import_string."""
-    string = "invenio_app_rdm.theme.utils:obj_or_import_string"
-    obj = obj_or_import_string
-
-    assert obj_or_import_string(obj) == obj
-    assert obj_or_import_string(string) == obj
+from invenio_app_rdm.records_ui.utils import set_default_value
 
 
 def test_set_default_value__value():
