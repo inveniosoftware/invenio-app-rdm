@@ -57,9 +57,6 @@ export class RDMDepositForm extends Component {
     // discovered by generating vocabulary here. Once happy with vocabularies,
     // then we can generate it in the backend.
     this.vocabularies = {
-      access: {
-        access_right: this.config.vocabularies.access_right,
-      },
       metadata: {
         ...this.config.vocabularies,
 
@@ -282,7 +279,7 @@ export class RDMDepositForm extends Component {
           />
           <Grid>
             <Grid.Row>
-              <Grid.Column width={12}>
+              <Grid.Column width={11}>
                 <AccordionField
                   fieldPath=""
                   active={true}
@@ -301,7 +298,7 @@ export class RDMDepositForm extends Component {
                 {/* <AccordionField
                 fieldPath=""
                 active={true}
-                label={"Identifiers"}
+                label={"Files"}
                 ui={this.accordionStyle}
               >
                 <IdentifiersField />
@@ -448,9 +445,8 @@ export class RDMDepositForm extends Component {
                   <br />
                 </AccordionField>
               </Grid.Column>
-
               <Ref innerRef={this.sidebarRef}>
-                <Grid.Column width={4}>
+                <Grid.Column width={5} className="deposit-sidebar">
                   <Sticky context={this.sidebarRef} offset={20}>
                     <Card className="actions">
                       <Card.Content>
@@ -473,7 +469,6 @@ export class RDMDepositForm extends Component {
                     <AccessRightField
                       label={"Protection"}
                       labelIcon={"shield"}
-                      options={this.vocabularies.access.access_right}
                     />
 
                     <Grid.Row centered>
