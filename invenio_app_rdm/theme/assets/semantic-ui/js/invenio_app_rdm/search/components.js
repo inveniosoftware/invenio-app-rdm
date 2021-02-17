@@ -178,6 +178,7 @@ export const RDMRecordFacetsValues = ({
   const childAggCmps = getChildAggCmps(bucket);
   const [isActive, setisActive] = useState(false);
   const hasChildren = childAggCmps && childAggCmps.props.buckets.length > 0;
+  const keyField = bucket.key_as_string ? bucket.key_as_string : bucket.key;
   return (
     <List.Item key={bucket.key}>
       <div
@@ -195,9 +196,9 @@ export const RDMRecordFacetsValues = ({
           ></i>
         ) : null}
         <Checkbox
-          label={bucket.label}
-          value={bucket.key}
-          onClick={() => onFilterClicked(bucket.key)}
+          label={bucket.label || keyField}
+          value={keyField}
+          onClick={() => onFilterClicked(keyField)}
           checked={isSelected}
         />
       </div>

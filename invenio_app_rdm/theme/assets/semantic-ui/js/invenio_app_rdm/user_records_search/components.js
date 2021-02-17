@@ -27,6 +27,8 @@ import {
   ResultsPerPage,
 } from "react-searchkit";
 
+import axios from "axios";
+
 export const RDMDepositResults = ({
   sortOptions,
   paginationOptions,
@@ -130,10 +132,25 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
   const version = _get(result, "metadata.version", null);
 
   // Derivatives
-  const editLink = `/uploads/${result.id}`;
+  // const editLink = `/uploads/${result.id}`;
+
+  const editRecord = () => {
+    axios
+      .post(`/api/records/${result.id}/draft`)
+      .then((response) => {
+        window.location = `/uploads/${result.id}`;
+      })
+      .catch((error) => {
+        console.log(error.response.data);
+      });
+  };
 
   return (
-    <Item key={index} href={editLink} className="deposits-list-item">
+    <Item
+      key={index}
+      onClick={() => editRecord()}
+      className="deposits-list-item"
+    >
       <div
         style={{
           display: "flex",
