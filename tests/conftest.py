@@ -19,14 +19,14 @@ pytest_plugins = ("celery.contrib.pytest", )
 
 
 @pytest.fixture(scope='function')
-def minimal_input_record():
+def minimal_input_record(users):
     """Minimal record data as dict coming from the external world."""
+    user = users["user1"]
     return {
         "access": {
-            "metadata_restricted": False,
-            "files_restricted": False,
-            "owned_by": [{'user': 1}],
-            "access_right": "open",
+            "record": "public",
+            "files": "public",
+            "owned_by": [{"user": user["id"]}],
         },
         "metadata": {
             "publication_date": "2020-06-01",
@@ -51,14 +51,14 @@ def minimal_input_record():
 
 
 @pytest.fixture(scope='function')
-def minimal_record():
+def minimal_record(users):
     """Minimal record data as dict coming from the external world."""
+    user = users["user1"]
     return {
         "access": {
-            "metadata": False,
-            "files": False,
-            "owned_by": [{'user': 1}],
-            "access_right": "open"
+            "record": "public",
+            "files": "public",
+            "owned_by": [{"user": user["id"]}],
         },
         "metadata": {
             "publication_date": "2020-06-01",
