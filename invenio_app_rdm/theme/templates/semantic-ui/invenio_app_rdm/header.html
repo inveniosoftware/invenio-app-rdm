@@ -56,9 +56,7 @@
                     </div>
                   </li>
                     {%- else %}
-                    <li class="navbar-item navbar-options">
-
-                    <li{{ ' class="navbar-item navbar-options active"'|safe if item.active and loop.depth == 1 else 'navbar-item' }}>
+                      <li class={{ "navbar-item navbar-options active" if item.active and loop.depth == 0 else "navbar-item" }}>
                       <a href="{{ item.url }}">{{ item.text|safe }}</a></li>
                       {%- endif %}
                 {%- endfor %}
