@@ -1,6 +1,7 @@
 // This file is part of InvenioRDM
 // Copyright (C) 2020-2021 CERN.
 // Copyright (C) 2020-2021 Northwestern University.
+// Copyright (C) 2021 Graz University of Technology.
 //
 // Invenio App RDM is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
@@ -15,6 +16,7 @@ import {
   Button,
   Segment,
   Header,
+  Divider,
 } from "semantic-ui-react";
 import _get from "lodash/get";
 import _truncate from "lodash/truncate";
@@ -227,16 +229,13 @@ export const RDMRecordResultsGridItem = ({ result, index }) => {
 
 export const RDMEmptyResults = (props) => {
   return (
-    <Segment placeholder textAlign="center">
-      <Header icon>
-        <Icon name="search" />
-        No results found!
-      </Header>
-      <Button.Group>
-        <Button primary onClick={() => props.resetQuery()}>
-          Clear query
-        </Button>
-        <Button.Or />
+    <Segment.Group>
+      <Segment>
+        <Button.Group>
+          <Button primary floated="left" onClick={() => props.resetQuery()}>
+            Clear query
+          </Button>
+        </Button.Group>
         <Button
           color="green"
           icon="upload"
@@ -244,7 +243,26 @@ export const RDMEmptyResults = (props) => {
           href="/uploads/new"
           content="New upload"
         />
-      </Button.Group>
-    </Segment>
+      </Segment>
+      <Segment placeholder textAlign="center" padded="very">
+        <Header as="h1" align="center">
+          <Header.Content>
+            Get started!
+            <Header.Subheader>
+              Make your first upload - all research outputs from across all
+              fields of research are welcome.
+            </Header.Subheader>
+          </Header.Content>
+        </Header>
+        <Divider hidden />
+        <Button
+          color="green"
+          icon="upload"
+          floated="right"
+          href="/uploads/new"
+          content="New upload"
+        />
+      </Segment>
+    </Segment.Group>
   );
 };
