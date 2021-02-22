@@ -470,13 +470,6 @@ export class RDMDepositForm extends Component {
                       label={"Protection"}
                       labelIcon={"shield"}
                     />
-
-                    <Grid.Row centered>
-                      <Button className="disabled contact-support">
-                        <Icon name="mail outline" />
-                        Contact Support
-                      </Button>
-                    </Grid.Row>
                   </Sticky>
                 </Grid.Column>
               </Ref>
