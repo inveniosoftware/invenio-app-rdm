@@ -66,7 +66,7 @@ for name, reqs in extras_require.items():
 install_requires = [
     'CairoSVG>=1.0.20',
     f'invenio[base,auth,metadata,files]{invenio_version}',
-    'invenio-rdm-records>=0.27.2,<0.28.0',
+    'invenio-rdm-records>=0.27.6,<0.28.0',
 ]
 
 packages = find_packages()
@@ -96,7 +96,9 @@ setup(
             'invenio-app-rdm = invenio_app.cli:cli',
         ],
         'invenio_base.blueprints': [
-            "invenio_app_rdm = invenio_app_rdm.theme.views:ui_blueprint",
+            'invenio_app_rdm_records = ' \
+                'invenio_app_rdm.records_ui.views:create_blueprint',
+            'invenio_app_rdm = invenio_app_rdm.theme.views:create_blueprint',
         ],
         'invenio_assets.webpack': [
             'invenio_app_rdm_theme = invenio_app_rdm.theme.webpack:theme',

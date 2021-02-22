@@ -1,0 +1,24 @@
+{#
+  Copyright (C) 2021 CERN.
+
+  Invenio App RDM is free software; you can redistribute it and/or modify it
+  under the terms of the MIT License; see LICENSE file for more details.
+#}
+{% extends config.THEME_ERROR_TEMPLATE %}
+
+{%- set title = _("Tombstone") + " | " + config.THEME_SITENAME -%}
+
+{% block message %}
+  <h1><i class="fa fa-flash"></i> {{_('Gone')}}</h1>
+  <p>
+  {% trans sitename=config.THEME_SITENAME %}
+    The record  you are trying to access was removed from {{sitename}}. The
+    metadata of the record is kept for archival purposes.
+  {% endtrans %}
+  </p>
+  {% if record and record.removal_reason %}
+  <p>
+    <strong>Reason for removal:</strong> {{record.removal_reason}}
+  </p>
+  {% endif %}
+{% endblock message %}
