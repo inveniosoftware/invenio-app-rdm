@@ -135,8 +135,6 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
   const version = _get(result, "metadata.version", null);
 
   // Derivatives
-  // const editLink = `/uploads/${result.id}`;
-
   const editRecord = () => {
     axios
       .post(`/api/records/${result.id}/draft`)
