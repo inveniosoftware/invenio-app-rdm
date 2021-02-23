@@ -10,6 +10,7 @@ import React from "react";
 import {
   Icon,
   Card,
+  Container,
   Grid,
   Label,
   Item,
@@ -28,6 +29,10 @@ import {
   SearchBar,
   ResultsPerPage,
 } from "react-searchkit";
+import {
+  SearchAppFacets,
+  SearchAppResultsPane,
+} from "@js/invenio_search_ui/components";
 
 import axios from "axios";
 
@@ -40,20 +45,6 @@ export const RDMDepositResults = ({
   return (
     total && (
       <Grid>
-        <Grid.Row className="no-padding">
-          <Grid.Column width="10" className="no-padding">
-            <SearchBar placeholder="Search uploads..." />
-          </Grid.Column>
-          <Grid.Column width="6" className="no-padding">
-            <Button
-              color="green"
-              icon="upload"
-              href="/uploads/new"
-              content="New upload"
-              floated="right"
-            />
-          </Grid.Column>
-        </Grid.Row>
         <Grid.Row>
           <Segment>
             <Grid>
@@ -284,3 +275,33 @@ export const RDMEmptyResults = (props) => {
     </Segment.Group>
   );
 };
+
+export const RDMUserRecordsSearchLayout = (props) => (
+  <Container>
+    <Grid relaxed>
+      <Grid.Row columns={3}>
+        <Grid.Column width={4} />
+        <Grid.Column width={8} className="deposit-searchbar">
+          <SearchBar placeholder="Search uploads..." />
+        </Grid.Column>
+        <Grid.Column width={4} className="deposit-new-upload">
+          <Button
+            color="green"
+            icon="upload"
+            href="/uploads/new"
+            content="New upload"
+            floated="right"
+          />
+        </Grid.Column>
+      </Grid.Row>
+      <Grid.Row columns={2}>
+        <Grid.Column width={4}>
+          <SearchAppFacets aggs={props.config.aggs} />
+        </Grid.Column>
+        <Grid.Column width={12}>
+          <SearchAppResultsPane layoutOptions={props.config.layoutOptions} />
+        </Grid.Column>
+      </Grid.Row>
+    </Grid>
+  </Container>
+);
