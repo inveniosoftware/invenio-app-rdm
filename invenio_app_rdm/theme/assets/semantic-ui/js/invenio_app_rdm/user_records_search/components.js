@@ -109,13 +109,14 @@ export const RDMDepositResults = ({
 };
 
 export const RDMRecordResultsListItem = ({ result, index }) => {
-  const access = _get(result, "ui.access_right.title", "Open Access");
-  const access_right_category = _get(
-    result,
-    "ui.access_right.category",
-    "open"
-  );
-  const access_right_icon = _get(result, "ui.access_right.icon", "open");
+  // TODO: Enable Access Right badge
+  // const access = _get(result, "ui.access_right.title", "Open Access");
+  // const access_right_category = _get(
+  //   result,
+  //   "ui.access_right.category",
+  //   "open"
+  // );
+  // const access_right_icon = _get(result, "ui.access_right.icon", "open");
   const createdDate = _get(
     result,
     "ui.created_date_l10n_long",
@@ -174,13 +175,15 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
             <Label size="tiny" color="grey">
               {resource_type}
             </Label>
-            <Label
+            {/* temporary: February release removal
+                TODO: Re-enable in next releases*/}
+            {/* <Label
               size="tiny"
               className={`access-right ${access_right_category}`}
             >
               <i className={`icon tiny ${access_right_icon}`}></i>
               {access}
-            </Label>
+            </Label> */}
             <Button basic floated="right">
               <Icon name="edit" />
               Edit
