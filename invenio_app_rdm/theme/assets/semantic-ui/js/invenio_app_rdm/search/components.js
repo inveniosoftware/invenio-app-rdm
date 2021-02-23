@@ -1,7 +1,7 @@
 // This file is part of InvenioRDM
 // Copyright (C) 2020-2021 CERN.
 // Copyright (C) 2020-2021 Northwestern University.
-// Copyright (C) 2020-2021 Graz University of Technology.
+// Copyright (C) 2021 Graz University of Technology.
 //
 // Invenio App RDM is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
@@ -26,13 +26,14 @@ import Overridable from "react-overridable";
 import { SearchBar } from "@js/invenio_search_ui/components";
 
 export const RDMRecordResultsListItem = ({ result, index }) => {
-  const access = _get(result, "ui.access_right.title", "Open Access");
-  const access_right_category = _get(
-    result,
-    "ui.access_right.category",
-    "open"
-  );
-  const access_right_icon = _get(result, "ui.access_right.icon", "open");
+  // TODO: Enable Access_Right badge
+  // const access = _get(result, "ui.access_right.title", "Open Access");
+  // const access_right_category = _get(
+  //   result,
+  //   "ui.access_right.category",
+  //   "open"
+  // );
+  // const access_right_icon = _get(result, "ui.access_right.icon", "open");
   const createdDate = _get(
     result,
     "ui.created_date_l10n_long",
@@ -64,13 +65,15 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
             <Label size="tiny" color="grey">
               {resource_type}
             </Label>
-            <Label
+            {/* temporary: February release removal
+                TODO: Re-enable in next releases*/}
+            {/* <Label
               size="tiny"
               className={`access-right ${access_right_category}`}
             >
               <i className={`icon tiny ${access_right_icon}`}></i>
               {access}
-            </Label>
+            </Label> */}
             <Button basic floated="right">
               <Icon name="eye" />
               View
