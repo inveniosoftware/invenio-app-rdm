@@ -60,12 +60,20 @@
         {%- endblock record_content -%}
         {# files #}
         {%- block record_files -%}
-        {%- if record.files and record|can_list_files %}
-          {%- set files = record.files|make_files_preview_compatible %}
-          {%- set default_preview_file = files|select_preview_file(default_preview=record.files.default_preview) %}
-          {{ preview_file_box(default_preview_file, pid) }}
-          {{ file_list_box(files, pid) }}
-        {% endif %}
+        {%- if files is not none -%}
+          {%- if files.enabled and record|can_list_files %}
+            {%- set default_preview = files.default_preview %}
+            {%- set files = files|order_entries %}
+            {%- if files|has_previewable_files -%}
+              {%- set default_preview_file = files|select_preview_file(default_preview=default_preview) %}
+              {{ preview_file_box(default_preview_file, pid) }}
+            {%- endif -%}
+            {{ file_list_box(files, pid) }}
+          {% endif %}
+        {%- else -%}
+          {# TODO: come up with a proper display #}
+          <div>Sorry, the files are restricted!</div>
+        {%- endif -%}
         {%- endblock record_files -%}
         {%- block record_details -%}
         {# More details #}

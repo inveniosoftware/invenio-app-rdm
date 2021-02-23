@@ -1,13 +1,24 @@
 {#
   Copyright (C) 2020 CERN.
   Copyright (C) 2020 Northwestern University.
-  Copyright (C) 2021 Graz University of Technology
+  Copyright (C) 2021 Graz University of Technology.
+  Copyright (C) 2021 TU Wien.
 
   Invenio RDM Records is free software; you can redistribute it and/or modify
   it under the terms of the MIT License; see LICENSE file for more details.
 #}
 
-{% from 'invenio_previewer/macros.html' import file_list, preview_file %}
+{%- macro preview_file(preview_endpoint, pid_value, filename, id='preview-iframe', width='100%', height='400' ) %}
+  <iframe
+    class="preview-iframe"
+    id="{{id}}"
+    name="{{id}}"
+    width="{{width}}"
+    height="{{height}}"
+    src="{{ url_for(preview_endpoint, pid_value=pid_value, filename=filename) }}">
+  </iframe>
+{%- endmacro %}
+
 
 {% macro preview_file_box(file, pid) %}
 <div class="panel-spacing">
@@ -17,12 +28,55 @@
       <i class="angle down icon"></i>
     </div>
     <div id="collapsablePreview" class="active content">
-      {{ preview_file('invenio_records_ui.recid_previewer', pid=pid, filename=file.key) }}
+      {{ preview_file('invenio_app_rdm_records.record_file_preview', pid_value=pid, filename=file.key) }}
     </div>
   </div>
 </div>
 {%- endmacro %}
 
+
+{%- macro file_list(files, pid, with_preview=true, download_endpoint='invenio_app_rdm_records.record_file_download', preview_endpoint='invenio_app_rdm_records.record_file_preview') %}
+  <table class="ui striped table">
+    <thead>
+      <tr>
+        <th>{{_('Name')}}</th>
+        <th>{{_('Size')}}</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for file in files %}
+      {%- set file_url_download = url_for(download_endpoint, pid_value=pid, filename=file.key, download=1) %}
+      {%- set file_url_preview = url_for(preview_endpoint, pid_value=pid, filename=file.key) %}
+      {%- set file_type = file.key.split('.')[-1] %}
+      <tr>
+        <td>
+          <a href="{{ file_url_download }}">{{ file.key }}</a>
+          <br/>
+          <small>{{ file.checksum }}</small>
+          <div class="ui icon inline-block" data-tooltip="{{_('This is the file fingerprint (checksum), which can be used to verify the file integrity.')}}">
+            <i class="question circle checksum icon"></i>
+          </div>
+        </td>
+        <td>{{ file.size|filesizeformat }}</td>
+        <td class="right aligned">
+          <span>
+            {% if with_preview and file_type is previewable %}
+            <a class="ui basic mini button" href="{{ file_url_preview }}" target="preview-iframe">
+              <i class="eye icon"></i> {{_("Preview")}}
+            </a>
+            {% endif %}
+            <a class="ui basic mini button" href="{{ file_url_download }}">
+              <i class="download icon"></i>
+              {{_('Download')}}
+            </a>
+          </span>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{%- endmacro %}
 
 
 {% macro file_list_box(files, pid) %}
@@ -40,6 +94,4 @@
     </div>
   </div>
 </div>
-
-
 {%- endmacro %}

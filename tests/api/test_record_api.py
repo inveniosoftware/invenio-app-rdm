@@ -11,7 +11,6 @@
 import json
 
 import pytest
-from invenio_accounts.testutils import login_user_via_view
 from invenio_pidstore.minters import recid_minter
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
@@ -36,10 +35,12 @@ def test_record_read_non_existing_pid(client, location, minimal_record,
         "The persistent identifier does not exist."
 
 
-def test_record_draft_create_and_read(client, location, minimal_record,
-                                      es_clear):
+def test_record_draft_create_and_read(
+    client_with_login, location, minimal_record, es_clear
+):
     """Test draft creation of a non-existing record."""
     # create a record
+    client = client_with_login
     response = client.post(LIST_RECORDS_API_URL, json=minimal_record)
 
     assert response.status_code == 201
@@ -59,12 +60,15 @@ def test_record_draft_create_and_read(client, location, minimal_record,
     assert response.json is not None
 
 
-def test_record_draft_publish(client, location, minimal_record, es_clear):
+def test_record_draft_publish(
+    client_with_login, location, minimal_record, es_clear
+):
     """Test draft publication of a non-existing record.
 
     It has to first create said draft and includes record read.
     """
     # Create the draft
+    client = client_with_login
     response = client.post(
         LIST_RECORDS_API_URL, data=json.dumps(minimal_record), headers=HEADERS
     )
@@ -107,10 +111,12 @@ def test_record_draft_publish(client, location, minimal_record, es_clear):
         assert field in response_fields
 
 
-def test_read_record_with_redirected_pid(client, location, minimal_record,
-                                         es_clear):
+def test_read_record_with_redirected_pid(
+    client_with_login, location, minimal_record, es_clear
+):
     """Test read a record with a redirected pid."""
     # Create dummy record
+    client = client_with_login
     response = client.post(
         LIST_RECORDS_API_URL, headers=HEADERS, data=json.dumps(minimal_record)
     )
@@ -147,13 +153,12 @@ def test_read_record_with_redirected_pid(client, location, minimal_record,
     assert response.json["message"] == "Moved Permanently."
 
 
-def test_read_deleted_record(client, location, minimal_record, users,
-                             es_clear):
+@pytest.mark.skip()
+def test_read_deleted_record(
+    client_with_login, location, minimal_record, es_clear, admin_user
+):
     """Test read a deleted record."""
-    user1 = users["user1"]
-    # Login user1
-    login_user_via_view(client, email=user1["email"],
-                        password=user1["password"], login_url="/login")
+    client = client_with_login
 
     # Create dummy record to test delete
     response = client.post(

@@ -123,3 +123,33 @@ def serialize_ui(record):
     serializer = UIJSONSerializer()
     # We need a dict not a string
     return serializer.serialize_object_to_dict(record)
+
+
+def has_previewable_files(files):
+    """Check if any of the files is previewable."""
+    # 'splitext' inclues the dot of the file extension in the
+    # extension, we have to get rid of that
+    extensions = [
+        ext[1:] if ext.startswith(".") else ext
+        for ext in (splitext(f["key"])[-1] for f in files)
+    ]
+
+    return any([is_previewable(ext) for ext in extensions])
+
+
+def order_entries(files):
+    """Re-order the file entries, if an order is given."""
+    order = files.get("order")
+    files = files.get("entries", [])
+    if order:
+        files_ = files.copy()
+        keys = [f["key"] for f in files]
+
+        def get_file(key):
+            idx = keys.index(key)
+            keys.pop(idx)
+            return files_.pop(idx)
+
+        files = [get_file(key) for key in order]
+
+    return files

@@ -14,8 +14,9 @@ from invenio_pidstore.errors import PIDDeletedError
 
 from .deposits import deposit_create, deposit_edit, deposit_search
 from .filters import can_list_files, dereference_record, doi_identifier, \
-    make_files_preview_compatible, pid_url, select_preview_file, \
-    serialize_ui, to_previewer_files, vocabulary_title
+    has_previewable_files, make_files_preview_compatible, order_entries, \
+    pid_url, select_preview_file, serialize_ui, to_previewer_files, \
+    vocabulary_title
 from .records import record_detail, record_export, record_file_download, \
     record_file_preview, record_tombstone_error
 
@@ -83,5 +84,7 @@ def create_blueprint(app):
     blueprint.add_app_template_filter(serialize_ui)
     blueprint.add_app_template_filter(to_previewer_files)
     blueprint.add_app_template_filter(vocabulary_title)
+    blueprint.add_app_template_filter(has_previewable_files)
+    blueprint.add_app_template_filter(order_entries)
 
     return blueprint
