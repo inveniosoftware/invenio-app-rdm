@@ -13,6 +13,7 @@ from functools import wraps
 
 from flask import g
 from invenio_rdm_records.proxies import current_rdm_records
+from invenio_records_resources.services.errors import PermissionDeniedError
 
 
 def links_config():
@@ -28,6 +29,11 @@ def draft_links_config():
 def service():
     """Get the record service."""
     return current_rdm_records.records_service
+
+
+def files_service():
+    """Get the record files service."""
+    return current_rdm_records.record_files_service
 
 
 def pass_record(f):
@@ -54,5 +60,68 @@ def pass_draft(f):
             links_config=draft_links_config()
         )
         kwargs['draft'] = draft
+        return f(**kwargs)
+    return view
+
+
+def pass_file_item(f):
+    """Decorate a view to pass a file item using the files service."""
+    @wraps(f)
+    def view(**kwargs):
+        try:
+            pid_value = kwargs.get('pid_value')
+            file_key = kwargs.get('filename')
+
+            item = files_service().get_file_content(
+                id_=pid_value,
+                file_key=file_key,
+                identity=g.identity,
+                links_config=links_config(),
+            )
+            kwargs['file_item'] = item
+
+        except (KeyError, PermissionDeniedError):
+            kwargs['file_item'] = None
+
+        return f(**kwargs)
+    return view
+
+
+def pass_file_metadata(f):
+    """Decorate a view to pass a file's metadata using the files service."""
+    @wraps(f)
+    def view(**kwargs):
+        try:
+            pid_value = kwargs.get('pid_value')
+            file_key = kwargs.get('filename')
+            files = files_service().read_file_metadata(
+                id_=pid_value,
+                file_key=file_key,
+                identity=g.identity,
+                links_config=links_config(),
+            )
+            kwargs['file_metadata'] = files
+
+        except (KeyError, PermissionDeniedError):
+            kwargs['file_metadata'] = None
+
+        return f(**kwargs)
+    return view
+
+
+def pass_record_files(f):
+    """Decorate a view to pass a record's files using the files service."""
+    @wraps(f)
+    def view(**kwargs):
+        try:
+            pid_value = kwargs.get('pid_value')
+            files = files_service().list_files(
+                id_=pid_value, identity=g.identity, links_config=links_config()
+            )
+            kwargs['files'] = files
+
+        except PermissionDeniedError:
+            kwargs['files'] = None
+
         return f(**kwargs)
     return view

@@ -12,8 +12,13 @@ from copy import deepcopy
 from datetime import date
 
 import pytest
+from flask_security import login_user
 from flask_security.utils import hash_password
 from invenio_access.models import ActionUsers
+from invenio_access.proxies import current_access
+from invenio_accounts.proxies import current_datastore
+from invenio_accounts.testutils import login_user_via_session
+from invenio_db import db
 
 pytest_plugins = ("celery.contrib.pytest", )
 
@@ -21,12 +26,10 @@ pytest_plugins = ("celery.contrib.pytest", )
 @pytest.fixture(scope='function')
 def minimal_input_record(users):
     """Minimal record data as dict coming from the external world."""
-    user = users["user1"]
     return {
         "access": {
             "record": "public",
             "files": "public",
-            "owned_by": [{"user": user["id"]}],
         },
         "metadata": {
             "publication_date": "2020-06-01",
@@ -53,12 +56,10 @@ def minimal_input_record(users):
 @pytest.fixture(scope='function')
 def minimal_record(users):
     """Minimal record data as dict coming from the external world."""
-    user = users["user1"]
     return {
         "access": {
             "record": "public",
             "files": "public",
-            "owned_by": [{"user": user["id"]}],
         },
         "metadata": {
             "publication_date": "2020-06-01",
@@ -83,13 +84,6 @@ def minimal_record(users):
 @pytest.fixture()
 def users(app, db):
     """Create users."""
-    def dump_user(user):
-        """User object to dict."""
-        return {
-            'email': user.email,
-            'id': user.id,
-            'password': password
-        }
     password = '123456'
     with db.session.begin_nested():
         datastore = app.extensions['security'].datastore
@@ -104,6 +98,44 @@ def users(app, db):
                                    user=user1))
     db.session.commit()
     return {
-        'user1': dump_user(user1),
-        'user2': dump_user(user2)
+        'user1': user1,
+        'user2': user2,
     }
+
+
+@pytest.fixture()
+def roles(app, db):
+    """Create some roles."""
+    with db.session.begin_nested():
+        datastore = app.extensions["security"].datastore
+        role1 = datastore.create_role(name="admin",
+                                      description="admin role")
+        role2 = datastore.create_role(name="test",
+                                      description="tests are coming")
+
+    db.session.commit()
+    return {
+        "admin": role1,
+        "test": role2
+    }
+
+
+@pytest.fixture()
+def admin_user(users, roles):
+    """Give admin rights to a user."""
+    user = users["user1"]
+    role = roles["admin"]
+    current_datastore.add_role_to_user(user, role)
+    action = current_access.actions["superuser-access"]
+    db.session.add(ActionUsers.allow(action, user_id=user.id))
+
+    return user
+
+
+@pytest.fixture()
+def client_with_login(client, users):
+    """Log in a user to the client."""
+    user = users["user1"]
+    login_user(user, remember=True)
+    login_user_via_session(client, email=user.email)
+    return client
