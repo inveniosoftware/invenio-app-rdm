@@ -9,26 +9,63 @@
 
 """Routes for record-related pages provided by Invenio-App-RDM."""
 
-from functools import wraps
+from os.path import splitext
 
-from flask import abort, current_app, g, render_template, request
+from flask import abort, current_app, g, render_template, request, url_for
 from invenio_base.utils import obj_or_import_string
-from invenio_files_rest.views import ObjectResource
+from invenio_previewer.extensions import default
+from invenio_previewer.proxies import current_previewer
+from invenio_rdm_records.proxies import current_rdm_records
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
 
-from ..utils import previewer_record_file_factory
-from .decorators import pass_record
+from .decorators import pass_file_item, pass_file_metadata, pass_record, \
+    pass_record_files
+
+
+class PreviewFile:
+    """Preview file implmentation for InvenioRDM."""
+
+    def __init__(self, file_item, record_pid_value, url=None):
+        """Create a new PreviewFile."""
+        self.file = file_item
+        self.data = file_item.data
+        self.size = self.data["size"]
+        self.filename = self.data["key"]
+        self.bucket = self.data["bucket_id"]
+        self.uri = url or url_for(
+            "invenio_app_rdm_records.record_file_download",
+            pid_value=record_pid_value,
+            filename=self.filename
+        )
+
+    def is_local(self):
+        """Check if file is local."""
+        return True
+
+    def has_extensions(self, *exts):
+        """Check if file has one of the extensions."""
+        file_ext = splitext(self.data["key"])[1]
+        file_ext = file_ext.lower()
+        return file_ext.lower() in exts
+
+    def open(self):
+        """Open the file."""
+        return self.file._file.file.storage().open()
 
 
 #
 # Views
 #
 @pass_record
-def record_detail(record=None, pid_value=None):
+@pass_record_files
+def record_detail(record=None, files=None, pid_value=None):
     """Record detail page (aka landing page)."""
+    files_dict = None if files is None else files.to_dict()
     return render_template(
         "invenio_app_rdm/records/detail.html",
         record=UIJSONSerializer().serialize_object_to_dict(record.to_dict()),
+        pid=pid_value,
+        files=files_dict,
     )
 
 
@@ -43,7 +80,11 @@ def record_export(record=None, export_format=None, pid_value=None):
         abort(404)
 
     serializer = obj_or_import_string(exporter["serializer"])(
-        options={"indent": 2, "sort_keys": True, })
+        options={
+            "indent": 2,
+            "sort_keys": True,
+        }
+    )
     exported_record = serializer.serialize_object(record.to_dict())
 
     return render_template(
@@ -55,40 +96,45 @@ def record_export(record=None, export_format=None, pid_value=None):
 
 
 @pass_record
-def record_file_preview(record=None, pid_value=None):
-    """Render a preview of."""
-    abort(404)
-
-
-@pass_record
-def record_file_download(record=None, pid_value=None):
-    """Download a file from a record."""
-    abort(404)
-    _record_file_factory = (
-        _record_file_factory or previewer_record_file_factory
-    )
-    # Extract file from record.
-    fileobj = _record_file_factory(pid, record, kwargs.get("filename"))
-    if not fileobj:
+@pass_file_metadata
+def record_file_preview(
+    record=None,
+    pid_value=None,
+    pid_type="recid",
+    file_metadata=None,
+    **kwargs
+):
+    """Render a preview of the specified file."""
+    if not file_metadata:
         abort(404)
 
-    obj = fileobj.obj
+    # Try to see if specific previewer is set
+    # TODO: what's the analog of: file_previewer = fileobj.get("previewer") ?
+    file_previewer = file_metadata.data.get("previewer")
 
-    # Check permissions
-    # ObjectResource.check_object_permission(obj)
+    # Find a suitable previewer
+    fileobj = PreviewFile(file_metadata, pid_value)
+    for plugin in current_previewer.iter_previewers(
+        previewers=[file_previewer] if file_previewer else None
+    ):
+        if plugin.can_preview(fileobj):
+            return plugin.preview(fileobj)
 
-    # Send file.
-    return ObjectResource.send_object(
-        obj.bucket,
-        obj,
-        expected_chksum=fileobj.get("checksum"),
-        logger_data={
-            "bucket_id": obj.bucket_id,
-            "pid_type": pid.pid_type,
-            "pid_value": pid.pid_value,
-        },
-        as_attachment=("download" in request.args),
-    )
+    return default.preview(fileobj)
+
+
+@pass_file_item
+def record_file_download(
+    file_item=None,
+    pid_value=None,
+    **kwargs
+):
+    """Download a file from a record."""
+    if file_item is None:
+        abort(404)
+
+    download = bool(request.args.get("download"))
+    return file_item.send_file(as_attachment=download)
 
 
 #
