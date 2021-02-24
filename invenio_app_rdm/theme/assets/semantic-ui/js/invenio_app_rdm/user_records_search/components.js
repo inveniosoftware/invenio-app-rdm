@@ -46,35 +46,37 @@ export const RDMDepositResults = ({
     total && (
       <Grid>
         <Grid.Row>
-          <Segment>
-            <Grid>
-              <Grid.Row
-                verticalAlign="middle"
-                className="small padding-tb-5 deposit-result-header"
-              >
-                <Grid.Column width={4}>
-                  <Count label={() => <>{total} result(s) found</>} />
-                </Grid.Column>
-                <Grid.Column
-                  width={12}
-                  textAlign="right"
-                  className="padding-r-5"
+          <Grid.Column width={16}>
+            <Segment>
+              <Grid>
+                <Grid.Row
+                  verticalAlign="middle"
+                  className="small padding-tb-5 deposit-result-header"
                 >
-                  {sortOptions && (
-                    <Sort
-                      values={sortOptions}
-                      label={(cmp) => <>Sort by {cmp}</>}
-                    />
-                  )}
-                </Grid.Column>
-              </Grid.Row>
-              <Grid.Row>
-                <Grid.Column>
-                  <ResultsList />
-                </Grid.Column>
-              </Grid.Row>
-            </Grid>
-          </Segment>
+                  <Grid.Column width={4}>
+                    <Count label={() => <>{total} result(s) found</>} />
+                  </Grid.Column>
+                  <Grid.Column
+                    width={12}
+                    textAlign="right"
+                    className="padding-r-5"
+                  >
+                    {sortOptions && (
+                      <Sort
+                        values={sortOptions}
+                        label={(cmp) => <>Sort by {cmp}</>}
+                      />
+                    )}
+                  </Grid.Column>
+                </Grid.Row>
+                <Grid.Row>
+                  <Grid.Column>
+                    <ResultsList />
+                  </Grid.Column>
+                </Grid.Row>
+              </Grid>
+            </Segment>
+          </Grid.Column>
         </Grid.Row>
         <Grid.Row verticalAlign="middle">
           <Grid.Column width={4}></Grid.Column>
@@ -124,6 +126,7 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
   const title = _get(result, "metadata.title", "No title");
   const subjects = _get(result, "metadata.subjects", []);
   const version = _get(result, "metadata.version", null);
+  const status = result.status;
 
   // Derivatives
   const editRecord = () => {
@@ -136,13 +139,10 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
         console.log(error.response.data);
       });
   };
+  const viewLink = `/records/${result.id}`;
 
   return (
-    <Item
-      key={index}
-      onClick={() => editRecord()}
-      className="deposits-list-item"
-    >
+    <Item key={index} className="deposits-list-item">
       <div
         style={{
           display: "flex",
@@ -151,7 +151,8 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
           marginRight: "10px",
         }}
       >
-        <Icon name="upload" color="red" />
+        {status === "draft" && <Icon name="upload" color="red" />}
+        {status === "published" && <Icon name="check" color="green" />}
       </div>
       <Item.Content>
         <Item.Extra>
@@ -173,10 +174,22 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
               <i className={`icon tiny ${access_right_icon}`}></i>
               {access}
             </Label> */}
-            <Button basic floated="right">
-              <Icon name="edit" />
-              Edit
-            </Button>
+            {status === "published" && (
+              <Button
+                basic
+                floated="right"
+                onClick={() => (window.location.href = viewLink)}
+              >
+                <Icon name="eye" />
+                View
+              </Button>
+            )}
+            {status === "draft" && (
+              <Button basic floated="right" onClick={() => editRecord()}>
+                <Icon name="edit" />
+                Edit
+              </Button>
+            )}
           </div>
         </Item.Extra>
         <Item.Header>{title}</Item.Header>
@@ -278,13 +291,13 @@ export const RDMEmptyResults = (props) => {
 
 export const RDMUserRecordsSearchLayout = (props) => (
   <Container>
-    <Grid relaxed>
+    <Grid>
       <Grid.Row columns={3}>
         <Grid.Column width={4} />
-        <Grid.Column width={8} className="deposit-searchbar">
+        <Grid.Column width={8}>
           <SearchBar placeholder="Search uploads..." />
         </Grid.Column>
-        <Grid.Column width={4} className="deposit-new-upload">
+        <Grid.Column width={4}>
           <Button
             color="green"
             icon="upload"
@@ -294,7 +307,7 @@ export const RDMUserRecordsSearchLayout = (props) => (
           />
         </Grid.Column>
       </Grid.Row>
-      <Grid.Row columns={2}>
+      <Grid.Row>
         <Grid.Column width={4}>
           <SearchAppFacets aggs={props.config.aggs} />
         </Grid.Column>

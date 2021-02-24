@@ -36,12 +36,3 @@
     opacity: 0.5;
     cursor: default;
 }
-
-.ui.relaxed.grid > .row > .column {
-    &.deposit-searchbar {
-        padding-left: 6px;
-    }
-    &.deposit-new-upload {
-        padding-right: 7px;
-    }
-}
