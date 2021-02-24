@@ -55,9 +55,7 @@ def pass_draft(f):
     def view(**kwargs):
         pid_value = kwargs.get('pid_value')
         draft = service().read_draft(
-            id_=pid_value,
-            identity=g.identity,
-            links_config=draft_links_config()
+            id_=pid_value, identity=g.identity, links_config=links_config()
         )
         kwargs['draft'] = draft
         return f(**kwargs)
@@ -125,3 +123,23 @@ def pass_record_files(f):
 
         return f(**kwargs)
     return view
+
+
+def user_permissions(actions=[]):
+    """Decorate a view to pass user's permissions for the provided actions.
+
+    :param actions: The action list to check permissions against.
+    """
+    def _wrapper_func(f):
+        @wraps(f)
+        def view(**kwargs):
+            permissions = {}
+            for action in actions:
+                action_can = service().permission_policy(action).allows(
+                    g.identity
+                )
+                permissions[f"can_{action}"] = action_can
+            kwargs['permissions'] = permissions
+            return f(**kwargs)
+        return view
+    return _wrapper_func
