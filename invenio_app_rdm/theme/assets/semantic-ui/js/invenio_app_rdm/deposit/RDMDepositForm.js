@@ -254,6 +254,15 @@ export class RDMDepositForm extends Component {
         },
       },
     };
+    
+    // check if files are present
+    this.noFiles = false
+    if (
+      !Array.isArray(this.props.files.entries) ||
+      !this.props.files.entries.length && this.props.record.is_published
+    ) {
+      this.noFiles = true
+    }
   }
 
   formFeedbackRef = createRef();
@@ -286,6 +295,17 @@ export class RDMDepositForm extends Component {
                   label={"Files"}
                   ui={this.accordionStyle}
                 >
+                  {this.noFiles && (
+                  <p
+                    style={{
+                      textAlign: "center",
+                      opacity: "0.5",
+                      cursor: "default !important",
+                    }}
+                  >
+                    <em>The record has no files.</em>
+                  </p>
+                  )}
                   <FileUploader
                     isDraftRecord={!this.props.record.is_published}
                     quota={{
