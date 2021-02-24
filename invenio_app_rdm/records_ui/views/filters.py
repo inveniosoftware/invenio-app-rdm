@@ -118,13 +118,6 @@ def dereference_record(record):
     return record
 
 
-def serialize_ui(record):
-    """Returns the UI serialization of a record."""
-    serializer = UIJSONSerializer()
-    # We need a dict not a string
-    return serializer.serialize_object_to_dict(record)
-
-
 def has_previewable_files(files):
     """Check if any of the files is previewable."""
     # 'splitext' inclues the dot of the file extension in the

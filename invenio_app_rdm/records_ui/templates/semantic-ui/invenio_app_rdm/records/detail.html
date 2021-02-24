@@ -13,14 +13,16 @@
 {%- from "invenio_app_rdm/records/macros/files.html" import file_list_box, preview_file_box %}
 {%- from "invenio_app_rdm/records/macros/detail.html" import show_detail %}
 
-{%- set record = record|serialize_ui %}
 {%- set metadata = record.metadata %}
 
+
 {%- block page_body %}
-<div
-  id="recordManagement"
-  data-recid='{{ record["id"] | tojson }}'>
-</div>
+{% if permissions.can_update_draft %}
+  <div
+    id="recordManagement"
+    data-recid='{{ record["id"] | tojson }}'>
+  </div>
+{% endif %}
 <div class="ui container">
   <div class="ui relaxed grid">
     <div class="two column row top-padded">
