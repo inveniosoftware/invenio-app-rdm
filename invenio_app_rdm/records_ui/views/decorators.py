@@ -55,7 +55,9 @@ def pass_draft(f):
     def view(**kwargs):
         pid_value = kwargs.get('pid_value')
         draft = service().read_draft(
-            id_=pid_value, identity=g.identity, links_config=links_config()
+            id_=pid_value,
+            identity=g.identity,
+            links_config=draft_links_config()
         )
         kwargs['draft'] = draft
         return f(**kwargs)
