@@ -258,6 +258,11 @@ SQLALCHEMY_DATABASE_URI = \
 Default value is provided to make module testing easier.
 """
 
+# Disable logging user information in SQLAlchemy-Continuum. This setting is not
+# documented on purpose, since we don't want administrators to be aware of the
+# setting.
+DB_VERSIONING_USER_MODEL = None
+
 
 # Invenio-JSONSchemas
 # ===================
