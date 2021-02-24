@@ -11,7 +11,8 @@
 
 from os.path import splitext
 
-from flask import abort, current_app, g, render_template, request, url_for
+from flask import abort, current_app, render_template, request, url_for
+from flask_login import current_user
 from invenio_base.utils import obj_or_import_string
 from invenio_previewer.extensions import default
 from invenio_previewer.proxies import current_previewer
@@ -19,7 +20,7 @@ from invenio_rdm_records.proxies import current_rdm_records
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
 
 from .decorators import pass_file_item, pass_file_metadata, pass_record, \
-    pass_record_files
+    pass_record_files, user_permissions
 
 
 class PreviewFile:
@@ -56,9 +57,10 @@ class PreviewFile:
 #
 # Views
 #
+@user_permissions(actions=['update_draft'])
 @pass_record
 @pass_record_files
-def record_detail(record=None, files=None, pid_value=None):
+def record_detail(record=None, files=None, pid_value=None, permissions=None):
     """Record detail page (aka landing page)."""
     files_dict = None if files is None else files.to_dict()
     return render_template(
@@ -66,6 +68,7 @@ def record_detail(record=None, files=None, pid_value=None):
         record=UIJSONSerializer().serialize_object_to_dict(record.to_dict()),
         pid=pid_value,
         files=files_dict,
+        permissions=permissions,
     )
 
 
@@ -143,3 +146,11 @@ def record_file_download(
 def record_tombstone_error(error):
     """Tombstone page."""
     return render_template("invenio_app_rdm/records/tombstone.html"), 410
+
+
+def record_permission_denied_error(error):
+    """Handle permission denier error on record views."""
+    if not current_user.is_authenticated:
+        # trigger the flask-login unauthorized handler
+        return current_app.login_manager.unauthorized()
+    return render_template(current_app.config['THEME_403_TEMPLATE']), 403

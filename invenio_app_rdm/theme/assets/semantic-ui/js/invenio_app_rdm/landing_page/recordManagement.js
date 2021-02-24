@@ -11,9 +11,9 @@ import axios from "axios";
 import { Grid, Icon, Button } from "semantic-ui-react";
 
 const domContainer = document.getElementById("recordManagement");
-const recid = JSON.parse(domContainer.dataset.recid);
 
 export const RecordManagement = () => {
+  const recid = JSON.parse(domContainer.dataset.recid);
   var editRecord = () => {
     axios
       .post(`/api/records/${recid}/draft`)
