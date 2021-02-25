@@ -16,7 +16,6 @@ from flask_login import current_user
 from invenio_base.utils import obj_or_import_string
 from invenio_previewer.extensions import default
 from invenio_previewer.proxies import current_previewer
-from invenio_rdm_records.proxies import current_rdm_records
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
 
 from .decorators import pass_file_item, pass_file_metadata, pass_record, \
@@ -72,8 +71,11 @@ def record_detail(record=None, files=None, pid_value=None, permissions=None):
     )
 
 
+@user_permissions(actions=['update_draft'])
 @pass_record
-def record_export(record=None, export_format=None, pid_value=None):
+def record_export(
+    record=None, export_format=None, pid_value=None, permissions=None
+):
     """Export page view."""
     # Get the configured serializer
     exporter = current_app.config.get("APP_RDM_RECORD_EXPORTERS", {}).get(
@@ -95,6 +97,7 @@ def record_export(record=None, export_format=None, pid_value=None):
         export_format=exporter.get("name", export_format),
         exported_record=exported_record,
         record=UIJSONSerializer().serialize_object_to_dict(record.to_dict()),
+        permissions=permissions,
     )
 
 
