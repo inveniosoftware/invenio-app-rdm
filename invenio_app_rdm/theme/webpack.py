@@ -36,7 +36,7 @@ theme = WebpackThemeBundle(
                 'prop-types': '^15.7.2',
                 'react-dnd': '^11.1.3',
                 'react-dnd-html5-backend': '^11.1.3',
-                'react-invenio-deposit': '^0.11.7',
+                'react-invenio-deposit': '^0.11.8',
                 'react-invenio-forms': '^0.6.3',
                 'react-dropzone': "^11.0.3",
                 'yup': '^0.27.0',
