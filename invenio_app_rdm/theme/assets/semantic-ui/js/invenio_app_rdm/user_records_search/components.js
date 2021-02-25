@@ -176,6 +176,10 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
               <i className={`icon tiny ${access_right_icon}`}></i>
               {access}
             </Label> */}
+            <Button basic floated="right" onClick={() => editRecord()}>
+              <Icon name="edit" />
+              Edit
+            </Button>
             {status === "published" && (
               <Button
                 basic
@@ -186,10 +190,6 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
                 View
               </Button>
             )}
-            <Button basic floated="right" onClick={() => editRecord()}>
-              <Icon name="edit" />
-              Edit
-            </Button>
           </div>
         </Item.Extra>
         <Item.Header>{title}</Item.Header>
