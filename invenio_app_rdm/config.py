@@ -317,6 +317,8 @@ CACHE_REDIS_URL = "redis://localhost:6379/0"
 CACHE_TYPE = "redis"
 """Use Redis caching object."""
 
+ACCESS_CACHE = "invenio_cache:current_cache"
+"""Use the cache for permmissions caching."""
 
 # Invenio-Search
 # ==============
