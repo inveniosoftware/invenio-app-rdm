@@ -128,6 +128,7 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
   const subjects = _get(result, "metadata.subjects", []);
   const version = _get(result, "metadata.version", null);
   const status = result.status;
+  const published = result.published;
 
   // Derivatives
   const editRecord = () => {
@@ -180,7 +181,7 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
               <Icon name="edit" />
               Edit
             </Button>
-            {status === "published" && (
+            {published === true && (
               <Button
                 basic
                 floated="right"
