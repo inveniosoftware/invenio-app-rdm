@@ -111,9 +111,6 @@ def record_file_preview(
     **kwargs
 ):
     """Render a preview of the specified file."""
-    if not file_metadata:
-        abort(404)
-
     # Try to see if specific previewer is set
     # TODO: what's the analog of: file_previewer = fileobj.get("previewer") ?
     file_previewer = file_metadata.data.get("previewer")
@@ -136,9 +133,6 @@ def record_file_download(
     **kwargs
 ):
     """Download a file from a record."""
-    if file_item is None:
-        abort(404)
-
     download = bool(request.args.get("download"))
     return file_item.send_file(as_attachment=download)
 
@@ -146,6 +140,11 @@ def record_file_download(
 #
 # Error handlers
 #
+def not_found_error(error):
+    """Handler for 'Not Found' errors."""
+    return render_template(current_app.config['THEME_404_TEMPLATE']), 404
+
+
 def record_tombstone_error(error):
     """Tombstone page."""
     return render_template("invenio_app_rdm/records/tombstone.html"), 410
