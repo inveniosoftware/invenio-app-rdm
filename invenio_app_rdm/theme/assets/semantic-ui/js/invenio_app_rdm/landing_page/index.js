@@ -36,8 +36,22 @@ if (document.getElementById("recordManagement")) {
     $("#preview-iframe").attr("src", $(event.target).data("url"));
   });
 
-  $("#jump-btn").on("click", function (event) {
-    document.documentElement.scrollTop = 0;
+
+  // Show `Jump up` button window scroll
+  $(function() {
+    var jumpbtn = document.getElementById("jump-btn");
+    var prevScrollTop = $(window).scrollTop()
+    $(window).on('scroll', function(e) {
+      var $src = $('.main-div');
+      var currentScrollTop = $(this).scrollTop()
+      if (currentScrollTop >= prevScrollTop && currentScrollTop > 44) {
+        jumpbtn.style.display = "block";
+      }
+    });
+    $("#jump-btn").on("click", function (event) {
+      document.documentElement.scrollTop = 0;
+    });
+
   });
 
   // func to toggle the icon class
