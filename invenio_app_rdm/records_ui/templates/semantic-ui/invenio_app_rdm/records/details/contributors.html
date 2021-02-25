@@ -13,10 +13,12 @@
     <div class="title">
       <h4><b>{{group.grouper | vocabulary_title('contributors.role', 'role')}}(s)</b></h4>
       {{ show_creatibutors(group.list, show_affiliations=True) }}
+      {% if record.ui.contributors.affiliations %}
       <a style="cursor: pointer;" class="dropdown">
         <span class="up ui label small">show affiliations</span>
         <span class="down ui label small">hide affiliations</span>
       </a>
+      {% endif %}
     </div>
     {% if record.ui.contributors.affiliations %}
     <div class="content">
