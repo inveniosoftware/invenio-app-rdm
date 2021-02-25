@@ -39,10 +39,6 @@ export const RecordManagement = () => {
                 <Icon name="edit" />
                 Edit
               </Button>
-              <Button color="green" size="mini" disabled>
-                <Icon name="clone" />
-                New Version
-              </Button>
             </Grid.Row>
           </Grid.Column>
         </Grid>
