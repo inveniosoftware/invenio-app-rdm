@@ -45,6 +45,9 @@ def pass_record(f):
             id_=pid_value, identity=g.identity, links_config=links_config()
         )
         kwargs['record'] = record
+        # TODO: Remove - all this should happen in service
+        # Dereference relations (languages, licenses, etc.)
+        record._record.relations.dereference()
         return f(**kwargs)
     return view
 
@@ -59,6 +62,9 @@ def pass_draft(f):
             identity=g.identity,
             links_config=draft_links_config()
         )
+        # TODO: Remove - all this should happen in service
+        # Dereference relations (languages, licenses, etc.)
+        draft._record.relations.dereference()
         kwargs['draft'] = draft
         return f(**kwargs)
     return view

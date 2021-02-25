@@ -90,6 +90,6 @@
 
 {% macro list_languages(languages) %}
   {% for lang in languages %}
-    {{ lang.title }}{{ ", " if not loop.last }}
+    {{ lang.title_l10n }}{{ ", " if not loop.last }}
   {% endfor %}
 {% endmacro %}

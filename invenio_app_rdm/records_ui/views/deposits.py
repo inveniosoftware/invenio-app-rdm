@@ -88,9 +88,6 @@ def deposit_edit(draft=None, pid_value=None):
         links_config=RDMDraftFilesResourceConfig.links_config,
     )
 
-    # TODO: Remove - all this should happen in service
-    # Dereference relations (languages, licenses, etc.)
-    draft._record.relations.dereference()
     serializer = UIJSONSerializer()
     record = serializer.serialize_object_to_dict(draft.to_dict())
 

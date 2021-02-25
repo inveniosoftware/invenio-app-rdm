@@ -254,7 +254,7 @@ export class RDMDepositForm extends Component {
         },
       },
     };
-    
+
     // check if files are present
     this.noFiles = false
     if (
