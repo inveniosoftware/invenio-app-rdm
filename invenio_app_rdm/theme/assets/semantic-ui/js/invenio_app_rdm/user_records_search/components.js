@@ -23,6 +23,7 @@ import _get from "lodash/get";
 import _truncate from "lodash/truncate";
 import {
   Count,
+  EmptyResults,
   Pagination,
   ResultsList,
   Sort,
@@ -252,7 +253,9 @@ export const RDMRecordResultsGridItem = ({ result, index }) => {
 };
 
 export const RDMEmptyResults = (props) => {
-  return (
+  const queryString = props.queryString;
+  return queryString === "" ? (
+    <Segment.Group>
       <Segment placeholder textAlign="center" padded="very">
         <Header as="h1" align="center">
           <Header.Content>
@@ -272,6 +275,19 @@ export const RDMEmptyResults = (props) => {
           content="New upload"
         />
       </Segment>
+    </Segment.Group>
+  ) : (
+    <Segment placeholder textAlign="center">
+      <Header icon>
+        <Icon name="search" />
+        No results found!
+      </Header>
+      {queryString && <em>Current search "{queryString}"</em>}
+      <br />
+      <Button primary onClick={() => props.resetQuery()}>
+        Clear query
+      </Button>
+    </Segment>
   );
 };
 
