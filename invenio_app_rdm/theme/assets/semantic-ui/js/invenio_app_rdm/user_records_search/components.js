@@ -258,8 +258,7 @@ export const RDMEmptyResults = (props) => {
           <Header.Content>
             Get started!
             <Header.Subheader>
-              Make your first upload - all research outputs from across all
-              fields of research are welcome.
+              Make your first upload!
             </Header.Subheader>
           </Header.Content>
         </Header>
