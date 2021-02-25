@@ -62,8 +62,9 @@ class PreviewFile:
 def record_detail(record=None, files=None, pid_value=None, permissions=None):
     """Record detail page (aka landing page)."""
     files_dict = None if files is None else files.to_dict()
+    template = current_app.config["APP_RDM_RECORD_DETAIL_TEMPLATE"]
     return render_template(
-        "invenio_app_rdm/records/detail.html",
+        template,
         record=UIJSONSerializer().serialize_object_to_dict(record.to_dict()),
         pid=pid_value,
         files=files_dict,
@@ -91,9 +92,10 @@ def record_export(
         }
     )
     exported_record = serializer.serialize_object(record.to_dict())
+    template = current_app.config["APP_RDM_RECORD_EXPORT_TEMPLATE"]
 
     return render_template(
-        "invenio_app_rdm/records/export.html",
+        template,
         export_format=exporter.get("name", export_format),
         exported_record=exported_record,
         record=UIJSONSerializer().serialize_object_to_dict(record.to_dict()),
@@ -147,7 +149,12 @@ def not_found_error(error):
 
 def record_tombstone_error(error):
     """Tombstone page."""
-    return render_template("invenio_app_rdm/records/tombstone.html"), 410
+    return (
+        render_template(
+            current_app.config['APP_RDM_RECORD_TOMBSTONE_TEMPLATE']
+        ),
+        410
+    )
 
 
 def record_permission_denied_error(error):

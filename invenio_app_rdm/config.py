@@ -340,6 +340,21 @@ WSGI_PROXIES = 2
 SEARCH_UI_SEARCH_TEMPLATE = 'invenio_app_rdm/records/search.html'
 """Search page's base template."""
 
+APP_RDM_RECORD_DETAIL_TEMPLATE = 'invenio_app_rdm/records/detail.html'
+"""Default details page template."""
+
+APP_RDM_RECORD_EXPORT_TEMPLATE = "invenio_app_rdm/records/export.html"
+"""Default export page template."""
+
+APP_RDM_RECORD_TOMBSTONE_TEMPLATE = "invenio_app_rdm/records/tombstone.html"
+"""Default tombstone page template."""
+
+APP_RDM_DEPOSIT_SEARCH_TEMPLATE = "invenio_app_rdm/records/search_deposit.html"
+"""Default deposit search page template."""
+
+APP_RDM_DEPOSIT_TEMPLATE = "invenio_app_rdm/records/deposit.html"
+"""Default deposit page template."""
+
 APP_RDM_ROUTES = {
     "index": "/",
     "help_search": "/help/search",

@@ -57,7 +57,7 @@ def new_record():
 def deposit_search():
     """List of user deposits page."""
     return render_template(
-        "invenio_app_rdm/records/search_deposit.html",
+        current_app.config['APP_RDM_DEPOSIT_SEARCH_TEMPLATE'],
         searchbar_config=dict(searchUrl=get_search_url()),
     )
 
@@ -66,7 +66,7 @@ def deposit_search():
 def deposit_create():
     """Create a new deposit."""
     return render_template(
-        "invenio_app_rdm/records/deposit.html",
+        current_app.config['APP_RDM_DEPOSIT_TEMPLATE'],
         forms_config=get_form_config(createUrl=("/api/records")),
         searchbar_config=dict(searchUrl=get_search_url()),
         record=new_record(),
@@ -100,7 +100,7 @@ def deposit_edit(draft=None, pid_value=None):
         record["is_published"] = False
 
     return render_template(
-        "invenio_app_rdm/records/deposit.html",
+        current_app.config['APP_RDM_DEPOSIT_TEMPLATE'],
         forms_config=get_form_config(apiUrl=f"/api/records/{pid_value}/draft"),
         record=record,
         files=files_list.to_dict(),
