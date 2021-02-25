@@ -148,16 +148,13 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
       className="deposits-list-item"
       style={{ cursor: "default" }}
     >
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          marginRight: "10px",
-        }}
-      >
-        {status === "draft" && <Icon name="upload" color="red" />}
-        {status === "published" && <Icon name="check" color="green" />}
+      <div className="status-icon">
+        <Item.Content verticalAlign="top">
+          <Item.Extra>
+            {status === "draft" && <Icon name="upload" color="red" />}
+            {status === "published" && <Icon name="check" color="green" />}{" "}
+          </Item.Extra>
+        </Item.Content>
       </div>
       <Item.Content style={{ cursor: "default" }}>
         <Item.Extra>
