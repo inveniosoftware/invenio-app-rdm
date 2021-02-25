@@ -8,8 +8,5 @@
 
 {% set description = metadata.get('description') %}
 {% if description %}
-<dt><b>{{ _('Description') }}</b></dt>
-<dd>
-  {{ description | sanitize_html() | safe }}
-</dd>
+{{ description | sanitize_html() | safe }}
 {% endif %}
