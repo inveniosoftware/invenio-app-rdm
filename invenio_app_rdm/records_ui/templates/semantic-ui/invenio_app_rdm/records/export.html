@@ -9,7 +9,9 @@
 
 
 {% block record_header %}
-<a class="ui button small compact" href="{{ url_for('invenio_app_rdm_records.record_detail', pid_value=record.id) }}"><i class="ui icon angle left"></i> {{_('Back to details') }}</a>
+<div style="margin-bottom: 12px;">
+  <a class="ui button small compact" href="{{ url_for('invenio_app_rdm_records.record_detail', pid_value=record.id) }}"><i class="ui icon angle left"></i> {{_('Back to details') }}</a>
+</div>
 {{super()}}
 {% endblock record_header %}
 
