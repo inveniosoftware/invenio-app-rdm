@@ -62,11 +62,11 @@
         <td class="right aligned">
           <span>
             {% if with_preview and file_type is previewable %}
-            <a class="ui basic mini button" href="{{ file_url_preview }}" target="preview-iframe">
+            <a class="ui compact mini button" href="{{ file_url_preview }}" target="preview-iframe">
               <i class="eye icon"></i> {{_("Preview")}}
             </a>
             {% endif %}
-            <a class="ui basic mini button" href="{{ file_url_download }}">
+            <a class="ui compact mini button" href="{{ file_url_download }}">
               <i class="download icon"></i>
               {{_('Download')}}
             </a>
