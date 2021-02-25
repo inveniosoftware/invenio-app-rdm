@@ -142,7 +142,11 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
   const viewLink = `/records/${result.id}`;
 
   return (
-    <Item key={index} className="deposits-list-item">
+    <Item
+      key={index}
+      className="deposits-list-item"
+      style={{ cursor: "default" }}
+    >
       <div
         style={{
           display: "flex",
@@ -154,7 +158,7 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
         {status === "draft" && <Icon name="upload" color="red" />}
         {status === "published" && <Icon name="check" color="green" />}
       </div>
-      <Item.Content>
+      <Item.Content style={{ cursor: "default" }}>
         <Item.Extra>
           <div>
             {" "}
@@ -184,12 +188,10 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
                 View
               </Button>
             )}
-            {status === "draft" && (
-              <Button basic floated="right" onClick={() => editRecord()}>
-                <Icon name="edit" />
-                Edit
-              </Button>
-            )}
+            <Button basic floated="right" onClick={() => editRecord()}>
+              <Icon name="edit" />
+              Edit
+            </Button>
           </div>
         </Item.Extra>
         <Item.Header>{title}</Item.Header>
