@@ -68,21 +68,16 @@ def pass_file_item(f):
     """Decorate a view to pass a file item using the files service."""
     @wraps(f)
     def view(**kwargs):
-        try:
-            pid_value = kwargs.get('pid_value')
-            file_key = kwargs.get('filename')
+        pid_value = kwargs.get('pid_value')
+        file_key = kwargs.get('filename')
 
-            item = files_service().get_file_content(
-                id_=pid_value,
-                file_key=file_key,
-                identity=g.identity,
-                links_config=links_config(),
-            )
-            kwargs['file_item'] = item
-
-        except (KeyError, PermissionDeniedError):
-            kwargs['file_item'] = None
-
+        item = files_service().get_file_content(
+            id_=pid_value,
+            file_key=file_key,
+            identity=g.identity,
+            links_config=links_config(),
+        )
+        kwargs['file_item'] = item
         return f(**kwargs)
     return view
 
@@ -91,20 +86,15 @@ def pass_file_metadata(f):
     """Decorate a view to pass a file's metadata using the files service."""
     @wraps(f)
     def view(**kwargs):
-        try:
-            pid_value = kwargs.get('pid_value')
-            file_key = kwargs.get('filename')
-            files = files_service().read_file_metadata(
-                id_=pid_value,
-                file_key=file_key,
-                identity=g.identity,
-                links_config=links_config(),
-            )
-            kwargs['file_metadata'] = files
-
-        except (KeyError, PermissionDeniedError):
-            kwargs['file_metadata'] = None
-
+        pid_value = kwargs.get('pid_value')
+        file_key = kwargs.get('filename')
+        files = files_service().read_file_metadata(
+            id_=pid_value,
+            file_key=file_key,
+            identity=g.identity,
+            links_config=links_config(),
+        )
+        kwargs['file_metadata'] = files
         return f(**kwargs)
     return view
 
@@ -121,6 +111,9 @@ def pass_record_files(f):
             kwargs['files'] = files
 
         except PermissionDeniedError:
+            # this is handled here because we don't want a 404 on the landing
+            # page when a user is allowed to read the metadata but not the
+            # files
             kwargs['files'] = None
 
         return f(**kwargs)
