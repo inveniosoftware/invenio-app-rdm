@@ -13,8 +13,8 @@
 {%- from "invenio_app_rdm/records/macros/files.html" import file_list_box, preview_file_box %}
 {%- from "invenio_app_rdm/records/macros/detail.html" import show_detail %}
 
+{%- set title = record.metadata.title -%}
 {%- set metadata = record.metadata %}
-
 
 {%- block page_body %}
 {% if permissions is defined and permissions.can_update_draft %}
