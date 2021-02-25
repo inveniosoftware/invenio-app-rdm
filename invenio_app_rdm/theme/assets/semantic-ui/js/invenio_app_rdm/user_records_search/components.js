@@ -251,21 +251,6 @@ export const RDMRecordResultsGridItem = ({ result, index }) => {
 
 export const RDMEmptyResults = (props) => {
   return (
-    <Segment.Group>
-      <Segment>
-        <Button.Group>
-          <Button primary floated="left" onClick={() => props.resetQuery()}>
-            Clear query
-          </Button>
-        </Button.Group>
-        <Button
-          color="green"
-          icon="upload"
-          floated="right"
-          href="/uploads/new"
-          content="New upload"
-        />
-      </Segment>
       <Segment placeholder textAlign="center" padded="very">
         <Header as="h1" align="center">
           <Header.Content>
@@ -285,7 +270,6 @@ export const RDMEmptyResults = (props) => {
           content="New upload"
         />
       </Segment>
-    </Segment.Group>
   );
 };
 
