@@ -53,10 +53,11 @@
         <td>
           <a href="{{ file_url_download }}">{{ file.key }}</a>
           <br/>
-          <small>{{ file.checksum }}</small>
+          <small class="ui text-muted">{{ file.checksum }}
           <div class="ui icon inline-block" data-tooltip="{{_('This is the file fingerprint (checksum), which can be used to verify the file integrity.')}}">
             <i class="question circle checksum icon"></i>
           </div>
+          </small>
         </td>
         <td>{{ file.size|filesizeformat }}</td>
         <td class="right aligned">

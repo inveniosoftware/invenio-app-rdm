@@ -9,7 +9,7 @@
 
 {% set rights = metadata.get('rights') %}
 {% if rights %}
-<dt><b>{{ _('Licenses')}}</b><i class="question circle outline icon"></i></dt>
+<dt><b>{{ _('Licenses')}}</b></dt>
 <dd>
   {%- for right in rights%}
   <a href="{{ right.link }}" target="_blank">{{ right.title }}</a>
