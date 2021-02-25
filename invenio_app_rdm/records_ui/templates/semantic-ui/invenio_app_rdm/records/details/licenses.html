@@ -12,7 +12,24 @@
 <dt><b>{{ _('Licenses')}}</b><i class="question circle outline icon"></i></dt>
 <dd>
   {%- for right in rights%}
-  <a href="{{ right.link }}" target="_blank">{{ right.title }}</a>
+  <div class="content">
+    <div class="header">
+      {{ right.title }}
+    </div>
+    <div class="description">
+      {% if right.description %}
+      <span style="color: rgba(0,0,0,.7);">
+        {{ right.description }}
+      </span>
+      {% endif %}
+      {% if right.link %}
+      <span style="display: inline;">
+        <a href="{{ right.link }}" target="_blank">Read more</a>
+      </span>
+      {% endif %}
+    </div>
+  </div>
+  <br>
   {% endfor %}
 </dd>
 {% endif %}
