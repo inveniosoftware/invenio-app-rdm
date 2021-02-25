@@ -355,6 +355,14 @@ export class RDMDepositForm extends Component {
                   />
                   <DescriptionsField
                     options={this.vocabularies.metadata.descriptions}
+                    editorConfig={
+                      {
+                        removePlugins: [
+                          "Image", "ImageCaption", "ImageStyle", "ImageToolbar", "ImageUpload", "MediaEmbed",
+                          "Table", "TableToolbar", "TableProperties", "TableCellProperties"
+                        ]
+                      }
+                    }
                   />
                   <LicenseField
                     fieldPath="metadata.rights"
