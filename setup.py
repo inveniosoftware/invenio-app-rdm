@@ -92,9 +92,6 @@ setup(
     include_package_data=True,
     platforms='any',
     entry_points={
-        'console_scripts': [
-            'invenio-app-rdm = invenio_app.cli:cli',
-        ],
         'invenio_base.blueprints': [
             'invenio_app_rdm_records = ' \
                 'invenio_app_rdm.records_ui.views:create_blueprint',
