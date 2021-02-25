@@ -30,6 +30,9 @@ WARNING: An instance should NOT install multiple flavour extensions since
 
 from datetime import datetime, timedelta
 
+from flask_principal import Denial
+from invenio_access.permissions import any_user
+
 from .records_ui.utils import previewer_record_file_factory
 
 # PIDSTORE_RECID_FIELD
@@ -140,6 +143,19 @@ THEME_LOGO = 'images/invenio-rdm.svg'
 
 THEME_SITENAME = _('InvenioRDM')
 """Site name."""
+
+
+# Invenio-files-rest
+# ==================
+# See https://invenio-files-rest.readthedocs.io/en/latest/configuration.html
+
+def files_rest_permission_factory(obj, action):
+    """Generate a denying permission."""
+    return Denial(any_user)
+
+
+FILES_REST_PERMISSION_FACTORY = files_rest_permission_factory
+"""Set default files permission factory."""
 
 
 # Invenio-IIIF
