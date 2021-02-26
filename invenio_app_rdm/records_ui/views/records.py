@@ -56,9 +56,9 @@ class PreviewFile:
 #
 # Views
 #
-@user_permissions(actions=['update_draft'])
 @pass_record
 @pass_record_files
+@user_permissions(actions=['update_draft'])
 def record_detail(record=None, files=None, pid_value=None, permissions=None):
     """Record detail page (aka landing page)."""
     files_dict = None if files is None else files.to_dict()
@@ -71,8 +71,8 @@ def record_detail(record=None, files=None, pid_value=None, permissions=None):
     )
 
 
-@user_permissions(actions=['update_draft'])
 @pass_record
+@user_permissions(actions=['update_draft'])
 def record_export(
     record=None, export_format=None, pid_value=None, permissions=None
 ):
