@@ -256,12 +256,12 @@ export class RDMDepositForm extends Component {
     };
 
     // check if files are present
-    this.noFiles = false
+    this.noFiles = false;
     if (
       !Array.isArray(this.props.files.entries) ||
-      !this.props.files.entries.length && this.props.record.is_published
+      (!this.props.files.entries.length && this.props.record.is_published)
     ) {
-      this.noFiles = true
+      this.noFiles = true;
     }
   }
 
@@ -296,15 +296,15 @@ export class RDMDepositForm extends Component {
                   ui={this.accordionStyle}
                 >
                   {this.noFiles && (
-                  <p
-                    style={{
-                      textAlign: "center",
-                      opacity: "0.5",
-                      cursor: "default !important",
-                    }}
-                  >
-                    <em>The record has no files.</em>
-                  </p>
+                    <p
+                      style={{
+                        textAlign: "center",
+                        opacity: "0.5",
+                        cursor: "default !important",
+                      }}
+                    >
+                      <em>The record has no files.</em>
+                    </p>
                   )}
                   <FileUploader
                     isDraftRecord={!this.props.record.is_published}
@@ -355,14 +355,20 @@ export class RDMDepositForm extends Component {
                   />
                   <DescriptionsField
                     options={this.vocabularies.metadata.descriptions}
-                    editorConfig={
-                      {
-                        removePlugins: [
-                          "Image", "ImageCaption", "ImageStyle", "ImageToolbar", "ImageUpload", "MediaEmbed",
-                          "Table", "TableToolbar", "TableProperties", "TableCellProperties"
-                        ]
-                      }
-                    }
+                    editorConfig={{
+                      removePlugins: [
+                        "Image",
+                        "ImageCaption",
+                        "ImageStyle",
+                        "ImageToolbar",
+                        "ImageUpload",
+                        "MediaEmbed",
+                        "Table",
+                        "TableToolbar",
+                        "TableProperties",
+                        "TableCellProperties",
+                      ],
+                    }}
                   />
                   <LicenseField
                     fieldPath="metadata.rights"
@@ -428,7 +434,7 @@ export class RDMDepositForm extends Component {
                   <LanguagesField
                     initialOptions={_get(
                       this.props.record,
-                      "metadata.languages",
+                      "ui.languages",
                       []
                     ).filter((lang) => lang !== null)} // needed because dumped empty record from backend gives [null]
                     serializeSuggestions={(suggestions) =>
