@@ -124,31 +124,3 @@ def pass_record_files(f):
 
         return f(**kwargs)
     return view
-
-
-def user_permissions(actions=[]):
-    """Decorate a view to pass user's permissions for the provided actions.
-
-    :param actions: The action list to check permissions against.
-    """
-    def _wrapper_func(f):
-        @wraps(f)
-        def view(**kwargs):
-            action_args = {}
-            if 'record' in kwargs:
-                # Permissions deal with record data objects, not result items
-                action_args['record'] = kwargs['record']._record
-            elif 'draft' in kwargs:
-                # Permissions deal with record data objects, not result items
-                # TODO: We need a way in the service to pass a result item
-                # and ask for the permissions (to avoid accessing internal obj)
-                action_args['record'] = kwargs['draft']._record
-            permissions = {}
-            for action in actions:
-                action_can = service().permission_policy(
-                    action, **action_args).allows(g.identity)
-                permissions[f"can_{action}"] = action_can
-            kwargs['permissions'] = permissions
-            return f(**kwargs)
-        return view
-    return _wrapper_func
