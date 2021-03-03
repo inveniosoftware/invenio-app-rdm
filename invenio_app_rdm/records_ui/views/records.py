@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2019-2020 CERN.
-# Copyright (C) 2019-2020 Northwestern University.
+# Copyright (C) 2019-2021 CERN.
+# Copyright (C) 2019-2021 Northwestern University.
 # Copyright (C)      2021 TU Wien.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
@@ -19,7 +19,7 @@ from invenio_previewer.proxies import current_previewer
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
 
 from .decorators import pass_file_item, pass_file_metadata, pass_record, \
-    pass_record_files, user_permissions
+    pass_record_files
 
 
 class PreviewFile:
@@ -58,8 +58,7 @@ class PreviewFile:
 #
 @pass_record
 @pass_record_files
-@user_permissions(actions=['update_draft'])
-def record_detail(record=None, files=None, pid_value=None, permissions=None):
+def record_detail(record=None, files=None, pid_value=None):
     """Record detail page (aka landing page)."""
     files_dict = None if files is None else files.to_dict()
     return render_template(
@@ -67,12 +66,11 @@ def record_detail(record=None, files=None, pid_value=None, permissions=None):
         record=UIJSONSerializer().serialize_object_to_dict(record.to_dict()),
         pid=pid_value,
         files=files_dict,
-        permissions=permissions,
+        permissions=record.has_permissions_to(['update_draft']),
     )
 
 
 @pass_record
-@user_permissions(actions=['update_draft'])
 def record_export(
     record=None, export_format=None, pid_value=None, permissions=None
 ):
@@ -97,7 +95,7 @@ def record_export(
         export_format=exporter.get("name", export_format),
         exported_record=exported_record,
         record=UIJSONSerializer().serialize_object_to_dict(record.to_dict()),
-        permissions=permissions,
+        permissions=record.has_permissions_to(['update_draft']),
     )
 
 
