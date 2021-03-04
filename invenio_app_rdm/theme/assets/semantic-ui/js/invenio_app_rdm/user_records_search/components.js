@@ -177,13 +177,13 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
               <i className={`icon tiny ${access_right_icon}`}></i>
               {access}
             </Label> */}
-            <Button basic floated="right" onClick={() => editRecord()}>
+            <Button compact floated="right" onClick={() => editRecord()}>
               <Icon name="edit" />
               Edit
             </Button>
             {published === true && (
               <Button
-                basic
+                compact
                 floated="right"
                 onClick={() => (window.location.href = viewLink)}
               >
@@ -258,9 +258,7 @@ export const RDMEmptyResults = (props) => {
         <Header as="h1" align="center">
           <Header.Content>
             Get started!
-            <Header.Subheader>
-              Make your first upload!
-            </Header.Subheader>
+            <Header.Subheader>Make your first upload!</Header.Subheader>
           </Header.Content>
         </Header>
         <Divider hidden />
