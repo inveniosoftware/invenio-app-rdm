@@ -117,7 +117,13 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
     "No creation date found."
   );
   const creators = _get(result, "ui.creators.creators", []).slice(0, 3);
-  const description = _get(result, "metadata.description", "No description");
+
+  const description_stripped = _get(
+    result,
+    "ui.description_stripped",
+    "No description"
+  );
+
   const publicationDate = _get(
     result,
     "ui.publication_date_l10n_long",
@@ -208,7 +214,9 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
           ))}
         </Item.Meta>
         <Item.Description>
-          {_truncate(description.replace(/(<([^>]+)>)/gi, ""), { length: 350 })}
+          {_truncate(description_stripped, {
+            length: 350,
+          })}
         </Item.Description>
         <Item.Extra>
           {subjects.map((subject, index) => (
@@ -233,17 +241,17 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
 // these components in RDM result broken.
 
 export const RDMRecordResultsGridItem = ({ result, index }) => {
-  const description = _get(
+  const description_stripped = _get(
     result,
-    "metadata.descriptions[0].description",
+    "ui.description_stripped",
     "No description"
   );
   return (
     <Card fluid key={index} href={`/records/${result.id}`}>
       <Card.Content>
-        <Card.Header>{result.metadata.titles[0].title}</Card.Header>
+        <Card.Header>{result.metadata.title}</Card.Header>
         <Card.Description>
-          {_truncate(description, { length: 200 })}
+          {_truncate(description_stripped, { length: 200 })}
         </Card.Description>
       </Card.Content>
     </Card>
