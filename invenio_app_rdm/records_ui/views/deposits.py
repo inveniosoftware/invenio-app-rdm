@@ -91,14 +91,6 @@ def deposit_edit(draft=None, pid_value=None):
     serializer = UIJSONSerializer()
     record = serializer.serialize_object_to_dict(draft.to_dict())
 
-    # TODO: get the `is_published` field when reading the draft
-    from invenio_pidstore.errors import PIDUnregistered
-    try:
-        service().draft_cls.pid.resolve(pid_value, registered_only=True)
-        record["is_published"] = True
-    except PIDUnregistered:
-        record["is_published"] = False
-
     return render_template(
         "invenio_app_rdm/records/deposit.html",
         forms_config=get_form_config(apiUrl=f"/api/records/{pid_value}/draft"),

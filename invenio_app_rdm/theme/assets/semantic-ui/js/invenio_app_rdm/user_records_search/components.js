@@ -6,13 +6,14 @@
 // Invenio App RDM is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
 
-import React from "react";
+import React, { useState } from "react";
 import {
   Icon,
   Card,
   Container,
   Grid,
   Label,
+  Modal,
   Item,
   Button,
   Segment,
@@ -36,6 +37,49 @@ import {
 } from "@js/invenio_search_ui/components";
 
 import axios from "axios";
+
+const DeleteDraftButton = (props) => {
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const handleOpen = () => setModalOpen(true);
+
+  const handleClose = () => setModalOpen(false);
+
+  const handleDelete = async () => {
+    const resp = await axios.delete(
+      `/api/records/${props.record.id}/draft`,
+      {},
+      {
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+    handleClose();
+    window.location.reload();
+  };
+
+  return (
+    <>
+      <Button compact floated="right" color="red" onClick={handleOpen}>
+        <Icon name="trash alternate outline" />
+        Delete
+      </Button>
+
+      <Modal open={modalOpen} onClose={handleClose} size="tiny">
+        <Modal.Content>
+          <h3>Are you sure you want to delete this draft?</h3>
+        </Modal.Content>
+        <Modal.Actions>
+          <Button onClick={handleClose} floated="left">
+            Cancel
+          </Button>
+          <Button color="red" onClick={handleDelete}>
+            Delete
+          </Button>
+        </Modal.Actions>
+      </Modal>
+    </>
+  );
+};
 
 export const RDMDepositResults = ({
   sortOptions,
@@ -133,8 +177,7 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
   const title = _get(result, "metadata.title", "No title");
   const subjects = _get(result, "metadata.subjects", []);
   const version = _get(result, "metadata.version", null);
-  const status = result.status;
-  const published = result.published;
+  const is_published = result.is_published;
 
   // Derivatives
   const editRecord = () => {
@@ -147,6 +190,7 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
         console.log(error.response.data);
       });
   };
+
   const viewLink = `/records/${result.id}`;
 
   return (
@@ -158,8 +202,11 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
       <div className="status-icon">
         <Item.Content verticalAlign="top">
           <Item.Extra>
-            {status === "draft" && <Icon name="upload" color="red" />}
-            {status === "published" && <Icon name="check" color="green" />}{" "}
+            {is_published ? (
+              <Icon name="check" color="green" />
+            ) : (
+              <Icon name="upload" color="red" />
+            )}
           </Item.Extra>
         </Item.Content>
       </div>
@@ -187,7 +234,7 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
               <Icon name="edit" />
               Edit
             </Button>
-            {published === true && (
+            {is_published ? (
               <Button
                 compact
                 floated="right"
@@ -196,6 +243,8 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
                 <Icon name="eye" />
                 View
               </Button>
+            ) : (
+              <DeleteDraftButton record={result} />
             )}
           </div>
         </Item.Extra>
