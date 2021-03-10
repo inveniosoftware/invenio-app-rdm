@@ -291,6 +291,12 @@ DB_VERSIONING_USER_MODEL = None
 JSONSCHEMAS_HOST = 'localhost'
 """Hostname used in URLs for local JSONSchemas."""
 
+JSONSCHEMAS_REGISTER_ENDPOINTS_API = False
+"""Don't' register schema endpoints."""
+
+JSONSCHEMAS_REGISTER_ENDPOINTS_UI = False
+"""Don't' register schema endpoints."""
+
 
 # OAI-PMH
 # =======
