@@ -7,9 +7,9 @@
 // under the terms of the MIT License; see LICENSE file for more details.
 
 import React, { useState } from "react";
-import axios from "axios";
-import { Grid, Icon, Button } from "semantic-ui-react";
+import { Grid, Icon } from "semantic-ui-react";
 
+import { EditButton } from "./EditButton";
 import { NewVersionButton } from "./NewVersionButton";
 
 
@@ -17,16 +17,6 @@ export const RecordManagement = (props) => {
   const recid = props.recid;
   const permissions = props.permissions;
   const [error, setError] = useState("");
-  const editRecord = () => {
-    axios
-      .post(`/api/records/${recid}/draft`)
-      .then((response) => {
-        window.location = `/uploads/${recid}`;
-      })
-      .catch((error) => {
-        console.log(error.response.data);
-      });
-  };
   const handleError = (errorMessage) => {
     console.log(errorMessage);
     setError(errorMessage);
@@ -39,15 +29,12 @@ export const RecordManagement = (props) => {
           <Icon name="cogs" />
           <span>Manage</span>
         </Grid.Row>
-        <Grid.Row className="record-management-buttons">
-          <Button color="orange" size="mini" onClick={() => editRecord()}>
-            <Icon name="edit" />
-            Edit
-          </Button>
+        <Grid.Row className="record-management-row">
+          { permissions.can_update_draft && <EditButton recid={recid} onError={handleError} /> }
           { permissions.can_manage && <NewVersionButton recid={recid} onError={handleError} /> }
         </Grid.Row>
         { error &&
-        <Grid.Row className="record-management-buttons">
+        <Grid.Row className="record-management-row">
           <p>{error}</p>
         </Grid.Row>
         }
