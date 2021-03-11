@@ -26,23 +26,19 @@ export const RecordManagement = () => {
   };
 
   return (
-    <div className="ui warning flashed top-attached manage message">
-      <div className="ui container">
-        <Grid relaxed>
-          <Grid.Column>
-            <Grid.Row>
-              <Icon name="cogs" />
-              <span>Manage</span>
-            </Grid.Row>
-            <Grid.Row className="record-management-buttons">
-              <Button color="orange" size="mini" onClick={() => editRecord()}>
-                <Icon name="edit" />
-                Edit
-              </Button>
-            </Grid.Row>
-          </Grid.Column>
-        </Grid>
-      </div>
-    </div>
+    <Grid relaxed>
+      <Grid.Column>
+        <Grid.Row>
+          <Icon name="cogs" />
+          <span>Manage</span>
+        </Grid.Row>
+        <Grid.Row className="record-management-buttons">
+          <Button color="orange" size="mini" onClick={() => editRecord()}>
+            <Icon name="edit" />
+            Edit
+          </Button>
+        </Grid.Row>
+      </Grid.Column>
+    </Grid>
   );
 };
