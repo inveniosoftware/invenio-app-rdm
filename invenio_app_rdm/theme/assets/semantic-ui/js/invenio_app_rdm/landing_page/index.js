@@ -12,36 +12,37 @@ import ReactDOM from "react-dom";
 
 import { RecordManagement } from "./recordManagement";
 
-if (document.getElementById("recordManagement")) {
+
+const reactAppDiv = document.getElementById("recordManagement");
+
+if (reactAppDiv) {
   ReactDOM.render(
-    <RecordManagement />,
-    document.getElementById("recordManagement")
+    <RecordManagement recid={ JSON.parse(reactAppDiv.dataset.recid) } />,
+    reactAppDiv
   );
-
-  $(document).ready(function () {
-    $(".ui.accordion").accordion();
-
-    $("#record-doi-badge").click(function () {
-      $("#doi-modal").modal("show");
-    });
-
-    $(".ui.tooltip-popup").popup();
-  });
-
-  $(".preview-link").on("click", function (event) {
-    $("#preview")
-      .find(".title .filename")
-      .html($(event.target).data("fileKey"));
-    $("#preview").accordion("open", 0);
-    $("#preview-iframe").attr("src", $(event.target).data("url"));
-  });
-
-  $("#jump-btn").on("click", function (event) {
-    document.documentElement.scrollTop = 0;
-  });
-
-  // func to toggle the icon class
-  $(".panel-heading").click(function () {
-    $("i", this).toggleClass("down right");
-  });
 }
+
+$(".ui.accordion").accordion();
+
+$("#record-doi-badge").click(function () {
+  $("#doi-modal").modal("show");
+});
+
+$(".ui.tooltip-popup").popup();
+
+$(".preview-link").on("click", function (event) {
+  $("#preview")
+    .find(".title .filename")
+    .html($(event.target).data("fileKey"));
+  $("#preview").accordion("open", 0);
+  $("#preview-iframe").attr("src", $(event.target).data("url"));
+});
+
+$("#jump-btn").on("click", function (event) {
+  document.documentElement.scrollTop = 0;
+});
+
+// func to toggle the icon class
+$(".panel-heading").click(function () {
+  $("i", this).toggleClass("down right");
+});
