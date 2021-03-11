@@ -1,6 +1,6 @@
 {#
   Copyright (C) 2020-2021 CERN.
-  Copyright (C) 2020 Northwestern University.
+  Copyright (C) 2020-2021 Northwestern University.
   Copyright (C) 2021 TU Wien.
   Copyright (C) 2021 Graz University of Technology.
 
@@ -15,14 +15,37 @@
 
 {%- set title = record.metadata.title -%}
 {%- set metadata = record.metadata %}
+{%- set newer_version_exists = True %}
 
 {%- block page_body %}
-{% if permissions is defined and permissions.can_update_draft %}
-  <div
-    id="recordManagement"
-    data-recid='{{ record["id"] | tojson }}'>
+<div class="banners">
+  {% if newer_version_exists %}
+  <div class="ui warning flashed top-attached manage message">
+    <div class="ui container">
+      <div class="ui relaxed grid">
+        <div class="column">
+          <div class="row">
+            <p>
+            {% trans link_start=('<a href="/records/' + record.id + '/latest"><b>')|safe, link_end='</b></a>'|safe %}
+            There is a {{ link_start }}newer version{{ link_end }} of the record available.
+            {% endtrans %}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-{% endif %}
+  {% endif %}
+  {% if permissions is defined and permissions.can_update_draft %}
+  <div class="ui warning flashed top-attached manage message">
+    <div class="ui container">
+      <div id="recordManagement" data-recid='{{ record["id"] | tojson }}'></div>
+    </div>
+  </div>
+  {% endif %}
+</div>
+
+
 <div class="ui container">
   <div class="ui relaxed grid">
     <div class="two column row top-padded">
