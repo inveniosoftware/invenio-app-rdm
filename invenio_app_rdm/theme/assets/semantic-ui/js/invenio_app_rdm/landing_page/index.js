@@ -17,7 +17,9 @@ const reactAppDiv = document.getElementById("recordManagement");
 
 if (reactAppDiv) {
   ReactDOM.render(
-    <RecordManagement recid={ JSON.parse(reactAppDiv.dataset.recid) } />,
+    <RecordManagement
+      recid={ JSON.parse(reactAppDiv.dataset.recid) }
+      permissions={ JSON.parse(reactAppDiv.dataset.permissions) } />,
     reactAppDiv
   );
 }

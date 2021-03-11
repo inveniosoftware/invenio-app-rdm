@@ -6,13 +6,17 @@
 // Invenio RDM Records is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
 
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { Grid, Icon, Button } from "semantic-ui-react";
+
+import { NewVersionButton } from "./NewVersionButton";
 
 
 export const RecordManagement = (props) => {
   const recid = props.recid;
+  const permissions = props.permissions;
+  const [error, setError] = useState("");
   const editRecord = () => {
     axios
       .post(`/api/records/${recid}/draft`)
@@ -23,6 +27,10 @@ export const RecordManagement = (props) => {
         console.log(error.response.data);
       });
   };
+  const handleError = (errorMessage) => {
+    console.log(errorMessage);
+    setError(errorMessage);
+  }
 
   return (
     <Grid relaxed>
@@ -36,7 +44,13 @@ export const RecordManagement = (props) => {
             <Icon name="edit" />
             Edit
           </Button>
+          { permissions.can_manage && <NewVersionButton recid={recid} onError={handleError} /> }
         </Grid.Row>
+        { error &&
+        <Grid.Row className="record-management-buttons">
+          <p>{error}</p>
+        </Grid.Row>
+        }
       </Grid.Column>
     </Grid>
   );

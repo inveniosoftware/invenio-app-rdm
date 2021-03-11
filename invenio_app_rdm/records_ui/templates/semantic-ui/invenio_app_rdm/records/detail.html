@@ -39,7 +39,7 @@
   {% if permissions is defined and permissions.can_update_draft %}
   <div class="ui warning flashed top-attached manage message">
     <div class="ui container">
-      <div id="recordManagement" data-recid='{{ record["id"] | tojson }}'></div>
+      <div id="recordManagement" data-recid='{{ record["id"] | tojson }}' data-permissions='{{ permissions | tojson }}'></div>
     </div>
   </div>
   {% endif %}
