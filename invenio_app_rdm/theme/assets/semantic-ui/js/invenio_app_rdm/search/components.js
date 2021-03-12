@@ -246,12 +246,11 @@ const SearchHelpLinks = () => {
 export const RDMRecordFacets = ({ aggs, currentResultsState }) => {
   return (
     <>
-      {/* TODO: uncomment once versioning is working */}
-      {/* <Toggle
+      <Toggle
         title="Versions"
         label="View all versions"
         filterValue={["all_versions", "true"]}
-      /> */}
+      />
       {aggs.map((agg) => {
         return (
           <div className="ui accordion" key={agg.title}>
