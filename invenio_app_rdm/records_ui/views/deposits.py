@@ -12,9 +12,9 @@
 from flask import current_app, g, render_template
 from flask_login import login_required
 from invenio_i18n.ext import current_i18n
+from invenio_rdm_records.proxies import current_rdm_records
 from invenio_rdm_records.resources.config import RDMDraftFilesResourceConfig
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
-from invenio_rdm_records.services import RDMDraftFilesService
 from invenio_rdm_records.services.schemas import RDMRecordSchema
 from invenio_rdm_records.services.schemas.utils import dump_empty
 from invenio_rdm_records.vocabularies import Vocabularies
@@ -80,9 +80,7 @@ def deposit_create():
 @pass_draft
 def deposit_edit(draft=None, pid_value=None):
     """Edit an existing deposit."""
-    # TODO: should be embedded in record service
-    files_service = RDMDraftFilesService()
-    files_list = files_service.list_files(
+    files_list = current_rdm_records.draft_files_service.list_files(
         id_=pid_value,
         identity=g.identity,
         links_config=RDMDraftFilesResourceConfig.links_config,
