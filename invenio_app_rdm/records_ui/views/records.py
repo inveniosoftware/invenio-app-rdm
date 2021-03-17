@@ -66,7 +66,7 @@ def record_detail(record=None, files=None, pid_value=None):
         record=UIJSONSerializer().serialize_object_to_dict(record.to_dict()),
         pid=pid_value,
         files=files_dict,
-        permissions=record.has_permissions_to(['update_draft']),
+        permissions=record.has_permissions_to(['edit', 'new_version']),
     )
 
 

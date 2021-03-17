@@ -80,7 +80,7 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
               <i className={`icon tiny ${access_right_icon}`}></i>
               {access}
             </Label> */}
-            <Button basic floated="right">
+            <Button compact floated="right">
               <Icon name="eye" />
               View
             </Button>
