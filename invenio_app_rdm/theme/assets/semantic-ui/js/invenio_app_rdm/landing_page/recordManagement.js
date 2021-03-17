@@ -30,8 +30,8 @@ export const RecordManagement = (props) => {
           <span>Manage</span>
         </Grid.Row>
         <Grid.Row className="record-management-row">
-          { permissions.can_update_draft && <EditButton recid={recid} onError={handleError} /> }
-          { permissions.can_manage && <NewVersionButton recid={recid} onError={handleError} /> }
+          { permissions.can_edit && <EditButton recid={recid} onError={handleError} /> }
+          { permissions.can_edit && <NewVersionButton recid={recid} onError={handleError} /> }
         </Grid.Row>
         { error &&
         <Grid.Row className="record-management-row">

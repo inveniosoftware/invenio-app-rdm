@@ -15,18 +15,17 @@
 
 {%- set title = record.metadata.title -%}
 {%- set metadata = record.metadata %}
-{%- set newer_version_exists = True %}
 
 {%- block page_body %}
 <div class="banners">
-  {% if permissions is defined and permissions.can_update_draft %}
+  {% if permissions is defined and permissions.can_edit %}
   <div class="ui warning flashed top-attached manage message">
     <div class="ui container">
       <div id="recordManagement" data-recid='{{ record["id"] | tojson }}' data-permissions='{{ permissions | tojson }}'></div>
     </div>
   </div>
   {% endif %}
-  {% if newer_version_exists %}
+  {% if not record.versions.is_latest %}
   <div class="ui warning flashed top-attached manage message">
     <div class="ui container">
       <div class="ui relaxed grid">
