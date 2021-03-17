@@ -17,7 +17,7 @@ readme = open('README.rst').read()
 
 invenio_version = '~=3.4.0'
 invenio_search_version = '>=1.4.0,<1.5.0'
-invenio_db_version = '>=1.0.5,<1.1.0'
+invenio_db_version = '>=1.0.8,<1.1.0'
 
 tests_require = [
     'pytest-invenio~=1.4.1',
