@@ -10,17 +10,28 @@ import $ from "jquery";
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { RecordManagement } from "./recordManagement";
+import { RecordManagement } from "./RecordManagement";
+import { RecordVersionsList } from "./RecordVersionsList";
 
+const recordManagementAppDiv = document.getElementById("recordManagement");
+const recordVersionsAppDiv = document.getElementById("recordVersions");
 
-const reactAppDiv = document.getElementById("recordManagement");
-
-if (reactAppDiv) {
+if (recordManagementAppDiv) {
   ReactDOM.render(
     <RecordManagement
-      recid={ JSON.parse(reactAppDiv.dataset.recid) }
-      permissions={ JSON.parse(reactAppDiv.dataset.permissions) } />,
-    reactAppDiv
+      recid={JSON.parse(recordManagementAppDiv.dataset.recid)}
+      permissions={JSON.parse(recordManagementAppDiv.dataset.permissions)}
+    />,
+    recordManagementAppDiv
+  );
+}
+
+if (recordVersionsAppDiv) {
+  ReactDOM.render(
+    <RecordVersionsList
+      record={JSON.parse(recordVersionsAppDiv.dataset.record)}
+    />,
+    recordVersionsAppDiv
   );
 }
 
@@ -33,9 +44,7 @@ $("#record-doi-badge").click(function () {
 $(".ui.tooltip-popup").popup();
 
 $(".preview-link").on("click", function (event) {
-  $("#preview")
-    .find(".title .filename")
-    .html($(event.target).data("fileKey"));
+  $("#preview").find(".title .filename").html($(event.target).data("fileKey"));
   $("#preview").accordion("open", 0);
   $("#preview-iframe").attr("src", $(event.target).data("url"));
 });
