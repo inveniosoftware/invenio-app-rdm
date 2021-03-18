@@ -23,28 +23,15 @@
 </div>
 #}
 
-{#
 <!-- TODO add again once versioning is working -->
 <div class="ui segment rdm-sidebar">
   <dt><b>{{ _('Versions')}}</b></dt>
   <hr class="thin-line">
   </hr>
   <dd class="versions">
-    {{ show_version(metadata.version, record.ui.publication_date_l10n_medium, None) }}
-    <div class="ui container">
-      <div class="ui padded grid">
-      <div class="one column row">
-        <p class="font-small">
-          <strong>Cite all versions?</strong> You can cite all versions by using the DOI <a
-            href="https://doi.org/{{ metadata.identifiers|doi_identifier }}">{{ metadata.identifiers|doi_identifier }}</a>. This
-          DOI represents all versions, and will always resolve to the latest one. <a href="/coming-soon">Read more</a>.
-        </p>
-      </div>
-      </div>
-    </div>
+    <div id="recordVersions" data-record='{{ record | tojson }}'></div>
   </dd>
 </div>
-#}
 
 {%- if config.get("APP_RDM_RECORD_EXPORTERS") -%}
 {# if no export formats are specified, don't bother showing the box #}
