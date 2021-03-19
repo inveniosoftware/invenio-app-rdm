@@ -52,6 +52,19 @@ def pass_record(f):
     return view
 
 
+def pass_record_latest(f):
+    """Decorate a view to pass the latest version of a record."""
+    @wraps(f)
+    def view(**kwargs):
+        pid_value = kwargs.get('pid_value')
+        record_latest = service().read_latest(
+            id_=pid_value, identity=g.identity, links_config=links_config()
+        )
+        kwargs['record'] = record_latest
+        return f(**kwargs)
+    return view
+
+
 def pass_draft(f):
     """Decorator to retrieve the draft using the record service."""
     @wraps(f)

@@ -18,7 +18,7 @@ from .filters import can_list_files, dereference_record, doi_identifier, \
     has_previewable_files, make_files_preview_compatible, order_entries, \
     pid_url, select_preview_file, to_previewer_files, vocabulary_title
 from .records import not_found_error, record_detail, record_export, \
-    record_file_download, record_file_preview, \
+    record_file_download, record_file_preview, record_latest, \
     record_permission_denied_error, record_tombstone_error
 
 
@@ -39,6 +39,11 @@ def create_blueprint(app):
     blueprint.add_url_rule(
         routes["record_detail"],
         view_func=record_detail,
+    )
+
+    blueprint.add_url_rule(
+        routes["record_latest"],
+        view_func=record_latest,
     )
 
     blueprint.add_url_rule(

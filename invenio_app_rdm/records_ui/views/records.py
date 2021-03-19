@@ -11,7 +11,8 @@
 
 from os.path import splitext
 
-from flask import abort, current_app, render_template, request, url_for
+from flask import abort, current_app, redirect, render_template, request, \
+    url_for
 from flask_login import current_user
 from invenio_base.utils import obj_or_import_string
 from invenio_previewer.extensions import default
@@ -19,7 +20,7 @@ from invenio_previewer.proxies import current_previewer
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
 
 from .decorators import pass_file_item, pass_file_metadata, pass_record, \
-    pass_record_files
+    pass_record_files, pass_record_latest
 
 
 class PreviewFile:
@@ -133,6 +134,12 @@ def record_file_download(
     """Download a file from a record."""
     download = bool(request.args.get("download"))
     return file_item.send_file(as_attachment=download)
+
+
+@pass_record_latest
+def record_latest(record=None, **kwargs):
+    """Redirect to record'd latest version page."""
+    return redirect(record["links"]["self_html"], code=301)
 
 
 #
