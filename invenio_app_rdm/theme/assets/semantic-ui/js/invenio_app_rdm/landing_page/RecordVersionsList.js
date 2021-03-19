@@ -41,6 +41,21 @@ const RecordVersionItem = ({ item, activeVersion }) => {
   );
 };
 
+const PlaceholderLoader = ({ size = NUMBER_OF_VERSIONS }) => {
+  const PlaceholderItem = () => (
+    <Placeholder.Header>
+      <Placeholder.Line />
+      <Placeholder.Line />
+    </Placeholder.Header>
+  );
+  let numberOfHeader = [];
+  for (let i = 0; i < size; i++) {
+    numberOfHeader.push(<PlaceholderItem key={i} />);
+  }
+
+  return <Placeholder>{numberOfHeader}</Placeholder>;
+};
+
 export const RecordVersionsList = (props) => {
   const record = deserializeRecord(props.record);
   const recid = record.id;
@@ -69,12 +84,7 @@ export const RecordVersionsList = (props) => {
   }, []);
 
   return loading ? (
-    <Placeholder>
-      <Placeholder.Header>
-        <Placeholder.Line />
-        <Placeholder.Line />
-      </Placeholder.Header>
-    </Placeholder>
+    <PlaceholderLoader />
   ) : (
     <Grid padded>
       {recordVersions.hits.map((item) => (

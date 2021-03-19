@@ -418,6 +418,7 @@ APP_RDM_ROUTES = {
     "record_export": "/records/<pid_value>/export/<export_format>",
     "record_file_preview": "/records/<pid_value>/preview/<path:filename>",
     "record_file_download": "/records/<pid_value>/files/<path:filename>",
+    "record_latest": "/records/<pid_value>/latest",
     "deposit_search": "/uploads",
     "deposit_create": "/uploads/new",
     "deposit_edit": "/uploads/<pid_value>",
