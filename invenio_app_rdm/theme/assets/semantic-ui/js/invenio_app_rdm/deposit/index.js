@@ -17,6 +17,7 @@ ReactDOM.render(
     record={getInputFromDOM("deposits-record")}
     files={getInputFromDOM("deposits-record-files")}
     config={getInputFromDOM("deposits-config")}
+    permissions={getInputFromDOM("deposits-record-permissions")}
   />,
   document.getElementById("deposit-form")
 );

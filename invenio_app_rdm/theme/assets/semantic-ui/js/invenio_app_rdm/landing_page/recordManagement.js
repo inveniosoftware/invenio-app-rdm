@@ -10,8 +10,7 @@ import React, { useState } from "react";
 import { Grid, Icon } from "semantic-ui-react";
 
 import { EditButton } from "./EditButton";
-import { NewVersionButton } from "./NewVersionButton";
-
+import { NewVersionButton } from "react-invenio-deposit";
 
 export const RecordManagement = (props) => {
   const recid = props.recid;
@@ -20,7 +19,7 @@ export const RecordManagement = (props) => {
   const handleError = (errorMessage) => {
     console.log(errorMessage);
     setError(errorMessage);
-  }
+  };
 
   return (
     <Grid relaxed>
@@ -30,14 +29,22 @@ export const RecordManagement = (props) => {
           <span>Manage</span>
         </Grid.Row>
         <Grid.Row className="record-management-row">
-          { permissions.can_edit && <EditButton recid={recid} onError={handleError} /> }
-          { permissions.can_edit && <NewVersionButton recid={recid} onError={handleError} /> }
+          {permissions.can_edit && (
+            <EditButton recid={recid} onError={handleError} />
+          )}
+          {permissions.can_new_version && (
+            <NewVersionButton
+              recid={recid}
+              onError={handleError}
+              disabled={!permissions.can_new_version}
+            />
+          )}
         </Grid.Row>
-        { error &&
-        <Grid.Row className="record-management-row">
-          <p>{error}</p>
-        </Grid.Row>
-        }
+        {error && (
+          <Grid.Row className="record-management-row">
+            <p>{error}</p>
+          </Grid.Row>
+        )}
       </Grid.Column>
     </Grid>
   );
