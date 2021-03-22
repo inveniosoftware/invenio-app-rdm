@@ -282,7 +282,7 @@ export class RDMDepositForm extends Component {
       >
         <FormFeedback fieldPath="message" />
         <Container style={{ marginTop: "10px" }}>
-          <DepositFormTitle isPublished={this.props.record.is_published} />
+          <DepositFormTitle />
           <Grid>
             <Grid.Row>
               <Grid.Column width={11}>
