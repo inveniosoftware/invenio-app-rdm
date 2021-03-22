@@ -95,4 +95,5 @@ def deposit_edit(draft=None, pid_value=None):
         record=record,
         files=files_list.to_dict(),
         searchbar_config=dict(searchUrl=get_search_url()),
+        permissions=draft.has_permissions_to(['new_version'])
     )
