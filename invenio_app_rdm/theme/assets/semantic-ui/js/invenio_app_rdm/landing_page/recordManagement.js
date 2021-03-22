@@ -37,7 +37,6 @@ export const RecordManagement = (props) => {
             onError={handleError}
             disabled={!permissions.can_new_version}
           />
-          )
         </Grid.Row>
         {error && (
           <Grid.Row className="record-management-row">
