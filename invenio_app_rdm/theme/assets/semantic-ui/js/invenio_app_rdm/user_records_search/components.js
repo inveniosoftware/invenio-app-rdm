@@ -176,7 +176,7 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
   const resource_type = _get(result, "ui.resource_type", "No resource type");
   const title = _get(result, "metadata.title", "No title");
   const subjects = _get(result, "metadata.subjects", []);
-  const version = _get(result, "metadata.version", null);
+  const version = _get(result, "ui.version", null);
   const is_published = result.is_published;
 
   // Derivatives
@@ -216,7 +216,7 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
             {" "}
             {/* For reduced spacing between labels. */}
             <Label size="tiny" color="blue">
-              {publicationDate} {version ? `(${version})` : null}
+              {publicationDate} ({version})
             </Label>
             <Label size="tiny" color="grey">
               {resource_type}

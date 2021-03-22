@@ -55,9 +55,7 @@
           <div class="two column row">
             <div class="left floated left aligned column">
               <span class="ui" title="Publication date">{{ record.ui.publication_date_l10n_long }}</span>
-              {%- if metadata.version %}
-              <span class="label text-muted"> | Version {{ metadata.version }}</span>
-              {% endif %}
+              <span class="label text-muted"> | Version {{ record.ui.version }}</span>
             </div>
             <div class="right floated right aligned column">
               <span class="ui label small grey">{{ record.ui.resource_type }}</span>

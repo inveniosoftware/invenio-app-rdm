@@ -55,7 +55,7 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
   const resource_type = _get(result, "ui.resource_type", "No resource type");
   const subjects = _get(result, "metadata.subjects", []);
   const title = _get(result, "metadata.title", "No title");
-  const version = _get(result, "metadata.version", null);
+  const version = _get(result, "ui.version", null);
 
   // Derivatives
   const viewLink = `/records/${result.id}`;
@@ -66,7 +66,7 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
         <Item.Extra>
           <div>
             <Label size="tiny" color="blue">
-              {publicationDate} {version ? `(${version})` : null}
+              {publicationDate} ({version})
             </Label>
             <Label size="tiny" color="grey">
               {resource_type}
