@@ -14,7 +14,7 @@ const deserializeRecord = (record) => ({
   id: record.id,
   parent_id: record.parent.id,
   publication_date: record.ui.publication_date_l10n_medium,
-  version: record.metadata.version,
+  version: record.ui.version,
 });
 
 const NUMBER_OF_VERSIONS = 5;
