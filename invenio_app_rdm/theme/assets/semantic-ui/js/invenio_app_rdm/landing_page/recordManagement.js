@@ -32,13 +32,12 @@ export const RecordManagement = (props) => {
           {permissions.can_edit && (
             <EditButton recid={recid} onError={handleError} />
           )}
-          {permissions.can_new_version && (
-            <NewVersionButton
-              recid={recid}
-              onError={handleError}
-              disabled={!permissions.can_new_version}
-            />
-          )}
+          <NewVersionButton
+            recid={recid}
+            onError={handleError}
+            disabled={!permissions.can_new_version}
+          />
+          )
         </Grid.Row>
         {error && (
           <Grid.Row className="record-management-row">
