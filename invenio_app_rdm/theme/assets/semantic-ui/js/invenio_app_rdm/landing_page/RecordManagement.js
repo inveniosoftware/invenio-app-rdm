@@ -13,7 +13,6 @@ import { EditButton } from "./EditButton";
 import { NewVersionButton } from "react-invenio-deposit";
 
 export const RecordManagement = (props) => {
-  console.log(props.record);
   const record = props.record;
   const recid = record.id;
   const permissions = props.permissions;
