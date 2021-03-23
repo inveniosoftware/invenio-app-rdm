@@ -15,6 +15,7 @@ const deserializeRecord = (record) => ({
   parent_id: record.parent.id,
   publication_date: record.ui.publication_date_l10n_medium,
   version: record.ui.version,
+  links: record.links,
 });
 
 const NUMBER_OF_VERSIONS = 5;
@@ -66,7 +67,7 @@ export const RecordVersionsList = (props) => {
   useEffect(() => {
     async function fetchVersions() {
       const result = await axios(
-        `/api/records/${recid}/versions?size=${NUMBER_OF_VERSIONS}&sort=newest`,
+        `${record.links.versions}?size=${NUMBER_OF_VERSIONS}&sort=version`,
         {
           headers: {
             Accept: "application/vnd.inveniordm.v1+json",
@@ -102,7 +103,7 @@ export const RecordVersionsList = (props) => {
       )}
       <Grid.Row centered>
         <a
-          href={`/search?q=parent.id:${record.parent_id}`}
+          href={`/search?q=parent.id:${record.parent_id}&sort=version`}
           target="_blank"
           className="font-small"
         >
