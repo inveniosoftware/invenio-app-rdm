@@ -13,7 +13,9 @@ import { EditButton } from "./EditButton";
 import { NewVersionButton } from "react-invenio-deposit";
 
 export const RecordManagement = (props) => {
-  const recid = props.recid;
+  console.log(props.record);
+  const record = props.record;
+  const recid = record.id;
   const permissions = props.permissions;
   const [error, setError] = useState("");
   const handleError = (errorMessage) => {
@@ -31,7 +33,7 @@ export const RecordManagement = (props) => {
         <Grid.Row className="record-management-row">
           <EditButton recid={recid} onError={handleError} />
           <NewVersionButton
-            recid={recid}
+            record={record}
             onError={handleError}
             disabled={!permissions.can_new_version}
           />
