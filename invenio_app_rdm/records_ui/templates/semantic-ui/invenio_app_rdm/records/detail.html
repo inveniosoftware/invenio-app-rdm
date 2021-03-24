@@ -32,7 +32,7 @@
         <div class="column">
           <div class="row">
             <p>
-            {% trans link_start=('<a href="/records/' + record.id + '/latest"><b>')|safe, link_end='</b></a>'|safe %}
+            {% trans link_start=('<a href="' + record.links.latest_html + '"><b>')|safe, link_end='</b></a>'|safe %}
             There is a {{ link_start }}newer version{{ link_end }} of the record available.
             {% endtrans %}
             </p>
