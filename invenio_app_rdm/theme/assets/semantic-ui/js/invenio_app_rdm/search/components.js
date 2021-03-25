@@ -249,7 +249,7 @@ export const RDMRecordFacets = ({ aggs, currentResultsState }) => {
       <Toggle
         title="Versions"
         label="View all versions"
-        filterValue={["all_versions", "true"]}
+        filterValue={["allversions", "true"]}
       />
       {aggs.map((agg) => {
         return (

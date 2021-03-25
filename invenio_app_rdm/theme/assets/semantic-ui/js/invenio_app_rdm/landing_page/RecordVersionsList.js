@@ -67,7 +67,7 @@ export const RecordVersionsList = (props) => {
   useEffect(() => {
     async function fetchVersions() {
       const result = await axios(
-        `${record.links.versions}?size=${NUMBER_OF_VERSIONS}&sort=version`,
+        `${record.links.versions}?size=${NUMBER_OF_VERSIONS}&sort=version&allversions=true`,
         {
           headers: {
             Accept: "application/vnd.inveniordm.v1+json",
@@ -103,7 +103,7 @@ export const RecordVersionsList = (props) => {
       )}
       <Grid.Row centered>
         <a
-          href={`/search?q=parent.id:${record.parent_id}&sort=version`}
+          href={`/search?q=parent.id:${record.parent_id}&sort=version&f=allversions:true`}
           target="_blank"
           className="font-small"
         >
