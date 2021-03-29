@@ -44,9 +44,7 @@ $("#record-doi-badge").click(function () {
 $(".ui.tooltip-popup").popup();
 
 $(".preview-link").on("click", function (event) {
-  $("#preview").find(".title .filename").html($(event.target).data("fileKey"));
-  $("#preview").accordion("open", 0);
-  $("#preview-iframe").attr("src", $(event.target).data("url"));
+  $("#preview").find(".title").html(event.target.dataset.fileKey);
 });
 
 $("#jump-btn").on("click", function (event) {
