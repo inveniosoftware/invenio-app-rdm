@@ -10,6 +10,7 @@ import React, { useState } from "react";
 import { Grid, Icon } from "semantic-ui-react";
 
 import { EditButton } from "./EditButton";
+import { ShareButton } from "./ShareButton";
 import { NewVersionButton } from "react-invenio-deposit";
 
 export const RecordManagement = (props) => {
@@ -23,7 +24,7 @@ export const RecordManagement = (props) => {
   };
 
   return (
-    <Grid relaxed>
+    <Grid relaxed columns={2}>
       <Grid.Column>
         <Grid.Row>
           <Icon name="cogs" />
@@ -43,6 +44,11 @@ export const RecordManagement = (props) => {
           </Grid.Row>
         )}
       </Grid.Column>
+      {permissions.can_manage && (
+        <Grid.Column floated="right" width={2}>
+          <ShareButton disabled={!permissions.can_update_draft} />
+        </Grid.Column>
+      )}
     </Grid>
   );
 };
