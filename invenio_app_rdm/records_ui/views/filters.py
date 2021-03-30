@@ -127,7 +127,7 @@ def has_previewable_files(files):
         for ext in (splitext(f["key"])[-1] for f in files)
     ]
 
-    return any([is_previewable(ext) for ext in extensions])
+    return any([is_previewable(ext.lower()) for ext in extensions])
 
 
 def order_entries(files):

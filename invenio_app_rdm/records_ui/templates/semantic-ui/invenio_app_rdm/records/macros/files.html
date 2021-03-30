@@ -62,7 +62,7 @@
         <td>{{ file.size|filesizeformat }}</td>
         <td class="right aligned">
           <span>
-            {% if with_preview and file_type is previewable %}
+            {% if with_preview and file_type|lower is previewable %}
             <a class="ui compact mini button preview-link" href="{{ file_url_preview }}" target="preview-iframe" data-file-key="{{file.key}}">
               <i class="eye icon"></i> {{_("Preview")}}
             </a>
