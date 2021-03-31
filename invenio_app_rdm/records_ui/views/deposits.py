@@ -9,18 +9,16 @@
 
 """Routes for record-related pages provided by Invenio-App-RDM."""
 
-from flask import current_app, g, render_template
+from flask import current_app, render_template
 from flask_login import login_required
 from invenio_i18n.ext import current_i18n
-from invenio_rdm_records.proxies import current_rdm_records
-from invenio_rdm_records.resources.config import RDMDraftFilesResourceConfig
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
 from invenio_rdm_records.services.schemas import RDMRecordSchema
 from invenio_rdm_records.services.schemas.utils import dump_empty
 from invenio_rdm_records.vocabularies import Vocabularies
 
 from ..utils import set_default_value
-from .decorators import pass_draft, service
+from .decorators import pass_draft, pass_draft_files
 
 
 #
@@ -78,14 +76,9 @@ def deposit_create():
 
 @login_required
 @pass_draft
-def deposit_edit(draft=None, pid_value=None):
+@pass_draft_files
+def deposit_edit(draft=None, draft_files=None, pid_value=None):
     """Edit an existing deposit."""
-    files_list = current_rdm_records.draft_files_service.list_files(
-        id_=pid_value,
-        identity=g.identity,
-        links_config=RDMDraftFilesResourceConfig.links_config,
-    )
-
     serializer = UIJSONSerializer()
     record = serializer.serialize_object_to_dict(draft.to_dict())
 
@@ -93,7 +86,7 @@ def deposit_edit(draft=None, pid_value=None):
         "invenio_app_rdm/records/deposit.html",
         forms_config=get_form_config(apiUrl=f"/api/records/{pid_value}/draft"),
         record=record,
-        files=files_list.to_dict(),
+        files=draft_files.to_dict(),
         searchbar_config=dict(searchUrl=get_search_url()),
         permissions=draft.has_permissions_to(['new_version'])
     )

@@ -16,16 +16,6 @@ from invenio_rdm_records.proxies import current_rdm_records
 from invenio_records_resources.services.errors import PermissionDeniedError
 
 
-def links_config():
-    """Get the record links config."""
-    return current_rdm_records.records_resource.config.links_config
-
-
-def draft_links_config():
-    """Get the drafts links config."""
-    return current_rdm_records.records_resource.config.draft_links_config
-
-
 def service():
     """Get the record service."""
     return current_rdm_records.records_service
@@ -33,7 +23,12 @@ def service():
 
 def files_service():
     """Get the record files service."""
-    return current_rdm_records.record_files_service
+    return current_rdm_records.records_service.files
+
+
+def draft_files_service():
+    """Get the record files service."""
+    return current_rdm_records.records_service.draft_files
 
 
 def pass_record(f):
@@ -42,7 +37,7 @@ def pass_record(f):
     def view(**kwargs):
         pid_value = kwargs.get('pid_value')
         record = service().read(
-            id_=pid_value, identity=g.identity, links_config=links_config()
+            id_=pid_value, identity=g.identity,
         )
         kwargs['record'] = record
         # TODO: Remove - all this should happen in service
@@ -58,7 +53,7 @@ def pass_record_latest(f):
     def view(**kwargs):
         pid_value = kwargs.get('pid_value')
         record_latest = service().read_latest(
-            id_=pid_value, identity=g.identity, links_config=links_config()
+            id_=pid_value, identity=g.identity,
         )
         kwargs['record'] = record_latest
         return f(**kwargs)
@@ -72,8 +67,7 @@ def pass_draft(f):
         pid_value = kwargs.get('pid_value')
         draft = service().read_draft(
             id_=pid_value,
-            identity=g.identity,
-            links_config=draft_links_config()
+            identity=g.identity
         )
         # TODO: Remove - all this should happen in service
         # Dereference relations (languages, licenses, etc.)
@@ -94,7 +88,6 @@ def pass_file_item(f):
             id_=pid_value,
             file_key=file_key,
             identity=g.identity,
-            links_config=links_config(),
         )
         kwargs['file_item'] = item
         return f(**kwargs)
@@ -111,7 +104,6 @@ def pass_file_metadata(f):
             id_=pid_value,
             file_key=file_key,
             identity=g.identity,
-            links_config=links_config(),
         )
         kwargs['file_metadata'] = files
         return f(**kwargs)
@@ -125,7 +117,7 @@ def pass_record_files(f):
         try:
             pid_value = kwargs.get('pid_value')
             files = files_service().list_files(
-                id_=pid_value, identity=g.identity, links_config=links_config()
+                id_=pid_value, identity=g.identity,
             )
             kwargs['files'] = files
 
@@ -134,6 +126,27 @@ def pass_record_files(f):
             # page when a user is allowed to read the metadata but not the
             # files
             kwargs['files'] = None
+
+        return f(**kwargs)
+    return view
+
+
+def pass_draft_files(f):
+    """Decorate a view to pass a draft's files using the files service."""
+    @wraps(f)
+    def view(**kwargs):
+        try:
+            pid_value = kwargs.get('pid_value')
+            files = draft_files_service().list_files(
+                id_=pid_value, identity=g.identity,
+            )
+            kwargs['draft_files'] = files
+
+        except PermissionDeniedError:
+            # this is handled here because we don't want a 404 on the landing
+            # page when a user is allowed to read the metadata but not the
+            # files
+            kwargs['draft_files'] = None
 
         return f(**kwargs)
     return view
