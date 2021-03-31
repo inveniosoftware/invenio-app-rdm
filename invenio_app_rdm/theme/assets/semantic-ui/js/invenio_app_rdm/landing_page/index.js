@@ -30,6 +30,7 @@ if (recordVersionsAppDiv) {
   ReactDOM.render(
     <RecordVersionsList
       record={JSON.parse(recordVersionsAppDiv.dataset.record)}
+      isPreview={JSON.parse(recordVersionsAppDiv.dataset.preview)}
     />,
     recordVersionsAppDiv
   );

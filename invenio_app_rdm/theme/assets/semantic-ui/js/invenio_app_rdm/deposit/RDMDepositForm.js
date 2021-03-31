@@ -36,6 +36,7 @@ import {
   PublisherField,
   ResourceTypeField,
   SaveButton,
+  PreviewButton,
   SubjectsField,
   TitlesField,
   RelatedWorksField,
@@ -481,7 +482,10 @@ export class RDMDepositForm extends Component {
                   <Sticky context={this.sidebarRef} offset={20}>
                     <Card className="actions">
                       <Card.Content>
-                        <SaveButton fluid className="save-button" />
+                        <div className="sidebar-buttons">
+                          <SaveButton fluid className="save-button" />
+                          <PreviewButton fluid className="preview-button" />
+                        </div>
                         <PublishButton fluid />
                       </Card.Content>
                     </Card>

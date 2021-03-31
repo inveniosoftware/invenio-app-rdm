@@ -7,7 +7,7 @@
 // under the terms of the MIT License; see LICENSE file for more details.
 
 import React, { useState, useEffect } from "react";
-import { Grid, Placeholder, Divider } from "semantic-ui-react";
+import { Grid, Placeholder, Divider, Message, Icon } from "semantic-ui-react";
 import axios from "axios";
 
 const deserializeRecord = (record) => ({
@@ -57,8 +57,25 @@ const PlaceholderLoader = ({ size = NUMBER_OF_VERSIONS }) => {
   return <Placeholder>{numberOfHeader}</Placeholder>;
 };
 
+const PreviewMessage = () => {
+  return (
+    <Grid.Row>
+      <Grid.Column className="versions-preview-info">
+        <Message info>
+          <Message.Header>
+            <Icon name="eye" />
+            Preview
+          </Message.Header>
+          <p>Only published versions are displayed.</p>
+        </Message>
+      </Grid.Column>
+    </Grid.Row>
+  );
+};
+
 export const RecordVersionsList = (props) => {
   const record = deserializeRecord(props.record);
+  const { isPreview } = props;
   const recid = record.id;
   const [loading, setLoading] = useState(true);
   const [currentRecordInResults, setCurrentRecordInResults] = useState(false);
@@ -85,9 +102,10 @@ export const RecordVersionsList = (props) => {
   }, []);
 
   return loading ? (
-    <PlaceholderLoader />
+    <>{isPreview ? <PreviewMessage /> : <PlaceholderLoader />}</>
   ) : (
     <Grid padded>
+      {isPreview ? <PreviewMessage /> : null}
       {recordVersions.hits.map((item) => (
         <RecordVersionItem
           key={item.id}
