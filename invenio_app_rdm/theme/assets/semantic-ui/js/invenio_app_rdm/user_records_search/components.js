@@ -194,11 +194,7 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
   const viewLink = `/records/${result.id}`;
 
   return (
-    <Item
-      key={index}
-      className="deposits-list-item"
-      style={{ cursor: "default" }}
-    >
+    <Item key={index} className="deposits-list-item">
       <div className="status-icon">
         <Item.Content verticalAlign="top">
           <Item.Extra>
@@ -211,44 +207,42 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
         </Item.Content>
       </div>
       <Item.Content style={{ cursor: "default" }}>
-        <Item.Extra>
-          <div>
-            {" "}
-            {/* For reduced spacing between labels. */}
-            <Label size="tiny" color="blue">
-              {publicationDate} ({version})
-            </Label>
-            <Label size="tiny" color="grey">
-              {resource_type}
-            </Label>
-            {/* temporary: February release removal
+        <Item.Extra className="labels-actions">
+          {/* For reduced spacing between labels. */}
+          <Label size="tiny" color="blue">
+            {publicationDate} ({version})
+          </Label>
+          <Label size="tiny" color="grey">
+            {resource_type}
+          </Label>
+          {/* temporary: February release removal
                 TODO: Re-enable in next releases*/}
-            {/* <Label
+          {/* <Label
               size="tiny"
               className={`access-right ${access_right_category}`}
             >
               <i className={`icon tiny ${access_right_icon}`}></i>
               {access}
             </Label> */}
-            <Button compact floated="right" onClick={() => editRecord()}>
-              <Icon name="edit" />
-              Edit
+          <Button
+            compact
+            size="small"
+            floated="right"
+            onClick={() => editRecord()}
+          >
+            <Icon name="edit" />
+            Edit
+          </Button>
+          {is_published ? (
+            <Button compact size="small" floated="right" href={viewLink}>
+              <Icon name="eye" />
+              View
             </Button>
-            {is_published ? (
-              <Button
-                compact
-                floated="right"
-                onClick={() => (window.location.href = viewLink)}
-              >
-                <Icon name="eye" />
-                View
-              </Button>
-            ) : (
-              <DeleteDraftButton record={result} />
-            )}
-          </div>
+          ) : (
+            <DeleteDraftButton record={result} />
+          )}
         </Item.Extra>
-        <Item.Header>{title}</Item.Header>
+        <Item.Header href={viewLink}>{title}</Item.Header>
         <Item.Meta>
           {creators.map((creator, index) => (
             <span key={index}>
