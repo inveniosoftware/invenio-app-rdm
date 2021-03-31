@@ -63,28 +63,26 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
   return (
     <Item key={index} href={viewLink}>
       <Item.Content>
-        <Item.Extra>
-          <div>
-            <Label size="tiny" color="blue">
-              {publicationDate} ({version})
-            </Label>
-            <Label size="tiny" color="grey">
-              {resource_type}
-            </Label>
-            {/* temporary: February release removal
+        <Item.Extra className="labels-actions">
+          <Label size="tiny" color="blue">
+            {publicationDate} ({version})
+          </Label>
+          <Label size="tiny" color="grey">
+            {resource_type}
+          </Label>
+          {/* temporary: February release removal
                 TODO: Re-enable in next releases*/}
-            {/* <Label
+          {/* <Label
               size="tiny"
               className={`access-right ${access_right_category}`}
             >
               <i className={`icon tiny ${access_right_icon}`}></i>
               {access}
             </Label> */}
-            <Button compact floated="right">
-              <Icon name="eye" />
-              View
-            </Button>
-          </div>
+          <Button compact size="small" floated="right">
+            <Icon name="eye" />
+            View
+          </Button>
         </Item.Extra>
         <Item.Header>{title}</Item.Header>
         <Item.Meta>
