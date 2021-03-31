@@ -1,4 +1,5 @@
 // This file is part of InvenioRDM
+// Copyright (C) 2021 CERN.
 // Copyright (C) 2021 Northwestern University.
 //
 // Invenio RDM Records is free software; you can redistribute it and/or modify it
@@ -32,7 +33,11 @@ export const ShareButton = (props) => {
           </div>
         }
       />
-      <ShareModal open={modalOpen} handleClose={handleClose} />
+      <ShareModal
+        open={modalOpen}
+        handleClose={handleClose}
+        recid={props.recid}
+      />
     </>
   );
 };

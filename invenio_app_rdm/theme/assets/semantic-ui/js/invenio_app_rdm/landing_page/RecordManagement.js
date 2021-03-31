@@ -46,7 +46,7 @@ export const RecordManagement = (props) => {
       </Grid.Column>
       {permissions.can_manage && (
         <Grid.Column floated="right" width={2}>
-          <ShareButton disabled={!permissions.can_update_draft} />
+          <ShareButton disabled={!permissions.can_update_draft} recid={recid} />
         </Grid.Column>
       )}
     </Grid>
