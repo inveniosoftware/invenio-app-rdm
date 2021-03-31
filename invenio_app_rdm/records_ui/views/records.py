@@ -19,8 +19,8 @@ from invenio_previewer.extensions import default
 from invenio_previewer.proxies import current_previewer
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
 
-from .decorators import pass_file_item, pass_file_metadata, pass_record, \
-    pass_record_files, pass_record_latest
+from .decorators import pass_file_item, pass_file_metadata, pass_is_preview, \
+    pass_record_files, pass_record_latest, pass_record_or_draft
 
 
 class PreviewFile:
@@ -57,11 +57,13 @@ class PreviewFile:
 #
 # Views
 #
-@pass_record
+@pass_is_preview
+@pass_record_or_draft
 @pass_record_files
-def record_detail(record=None, files=None, pid_value=None):
+def record_detail(record=None, files=None, pid_value=None, is_preview=False):
     """Record detail page (aka landing page)."""
     files_dict = None if files is None else files.to_dict()
+
     return render_template(
         "invenio_app_rdm/records/detail.html",
         record=UIJSONSerializer().serialize_object_to_dict(record.to_dict()),
@@ -69,12 +71,18 @@ def record_detail(record=None, files=None, pid_value=None):
         files=files_dict,
         permissions=record.has_permissions_to(['edit', 'new_version', 'manage',
                                                'update_draft']),
+        is_preview=is_preview,
     )
 
 
-@pass_record
+@pass_is_preview
+@pass_record_or_draft
 def record_export(
-    record=None, export_format=None, pid_value=None, permissions=None
+    record=None,
+    export_format=None,
+    pid_value=None,
+    permissions=None,
+    is_preview=False
 ):
     """Export page view."""
     # Get the configured serializer
@@ -91,23 +99,25 @@ def record_export(
         }
     )
     exported_record = serializer.serialize_object(record.to_dict())
-
     return render_template(
         "invenio_app_rdm/records/export.html",
         export_format=exporter.get("name", export_format),
         exported_record=exported_record,
         record=UIJSONSerializer().serialize_object_to_dict(record.to_dict()),
         permissions=record.has_permissions_to(['update_draft']),
+        is_preview=is_preview,
     )
 
 
-@pass_record
+@pass_is_preview
+@pass_record_or_draft
 @pass_file_metadata
 def record_file_preview(
     record=None,
     pid_value=None,
     pid_type="recid",
     file_metadata=None,
+    is_preview=False,
     **kwargs
 ):
     """Render a preview of the specified file."""
@@ -115,8 +125,14 @@ def record_file_preview(
     # TODO: what's the analog of: file_previewer = fileobj.get("previewer") ?
     file_previewer = file_metadata.data.get("previewer")
 
+    url = url_for(
+            "invenio_app_rdm_records.record_file_download",
+            pid_value=pid_value,
+            filename=file_metadata.data["key"],
+            preview=1 if is_preview else 0
+        )
     # Find a suitable previewer
-    fileobj = PreviewFile(file_metadata, pid_value)
+    fileobj = PreviewFile(file_metadata, pid_value, url)
     for plugin in current_previewer.iter_previewers(
         previewers=[file_previewer] if file_previewer else None
     ):
@@ -126,10 +142,12 @@ def record_file_preview(
     return default.preview(fileobj)
 
 
+@pass_is_preview
 @pass_file_item
 def record_file_download(
     file_item=None,
     pid_value=None,
+    is_preview=False,
     **kwargs
 ):
     """Download a file from a record."""

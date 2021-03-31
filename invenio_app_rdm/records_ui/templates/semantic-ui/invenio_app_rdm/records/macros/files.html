@@ -8,19 +8,24 @@
   it under the terms of the MIT License; see LICENSE file for more details.
 #}
 
-{%- macro preview_file(preview_endpoint, pid_value, filename, id='preview-iframe', width='100%', height='400' ) %}
+{%- macro preview_file(preview_endpoint, pid_value, filename, is_preview, id='preview-iframe', width='100%', height='400' ) %}
+  {% if is_preview %}
+    {%- set preview_url = url_for(preview_endpoint, pid_value=pid_value, filename=filename, preview=1) -%}
+  {% else %}
+    {%- set preview_url = url_for(preview_endpoint, pid_value=pid_value, filename=filename) -%}
+  {% endif %}
   <iframe
     class="preview-iframe"
     id="{{id}}"
     name="{{id}}"
     width="{{width}}"
     height="{{height}}"
-    src="{{ url_for(preview_endpoint, pid_value=pid_value, filename=filename) }}">
+    src="{{ preview_url }}">
   </iframe>
 {%- endmacro %}
 
 
-{% macro preview_file_box(file, pid) %}
+{% macro preview_file_box(file, pid, is_preview) %}
 <div class="panel-spacing">
   <div class="ui accordion panel" id="preview" href="#collapsablePreview">
     <div class="active title panel-heading">
@@ -28,14 +33,14 @@
       <i class="angle down icon"></i>
     </div>
     <div id="collapsablePreview" class="active content">
-      {{ preview_file('invenio_app_rdm_records.record_file_preview', pid_value=pid, filename=file.key) }}
+      {{ preview_file('invenio_app_rdm_records.record_file_preview', pid_value=pid, filename=file.key, is_preview=is_preview) }}
     </div>
   </div>
 </div>
 {%- endmacro %}
 
 
-{%- macro file_list(files, pid, with_preview=true, download_endpoint='invenio_app_rdm_records.record_file_download', preview_endpoint='invenio_app_rdm_records.record_file_preview') %}
+{%- macro file_list(files, pid, is_preview, with_preview=true, download_endpoint='invenio_app_rdm_records.record_file_download', preview_endpoint='invenio_app_rdm_records.record_file_preview') %}
   <table class="ui striped table">
     <thead>
       <tr>
@@ -46,8 +51,13 @@
     </thead>
     <tbody>
     {% for file in files %}
-      {%- set file_url_download = url_for(download_endpoint, pid_value=pid, filename=file.key, download=1) %}
-      {%- set file_url_preview = url_for(preview_endpoint, pid_value=pid, filename=file.key) %}
+      {% if is_preview %}
+        {%- set file_url_download = url_for(download_endpoint, pid_value=pid, filename=file.key, download=1, preview=1) %}
+        {%- set file_url_preview = url_for(preview_endpoint, pid_value=pid, filename=file.key, preview=1) %}
+      {% else %}
+        {%- set file_url_download = url_for(download_endpoint, pid_value=pid, filename=file.key, download=1) %}
+        {%- set file_url_preview = url_for(preview_endpoint, pid_value=pid, filename=file.key) %}
+      {% endif %}
       {%- set file_type = file.key.split('.')[-1] %}
       <tr>
         <td>
@@ -80,7 +90,7 @@
 {%- endmacro %}
 
 
-{% macro file_list_box(files, pid) %}
+{% macro file_list_box(files, pid, is_preview) %}
 <div class="panel-spacing">
   <div class="ui accordion panel" id="preview" href="#collapsablePreview">
     <div class="title panel-heading">
@@ -90,7 +100,7 @@
     </div>
     <div class="active content">
       <div id="collapsableFiles">
-        {{ file_list(files, pid) }}
+        {{ file_list(files, pid, is_preview) }}
       </div>
     </div>
   </div>

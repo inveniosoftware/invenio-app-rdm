@@ -18,14 +18,42 @@
 
 {%- block page_body %}
 <div class="banners">
-  {% if permissions is defined and permissions.can_edit %}
+  {% if is_preview %}
+  <div class="ui info flashed top-attached manage message">
+    <div class="ui container">
+      <div class="ui relaxed grid">
+        <div class="column">
+          <div class="row">
+            <div class="header">
+              <i class="eye icon"></i> Preview
+            </div>
+            <p>
+              {% if record.is_published %}
+                You are previewing changes that have not yet been published.
+              {% endif %}
+
+              {% if not record.is_published and record.versions.index == 1 %}
+                You are previewing a new record that has not yet been published.
+              {% endif %}
+
+              {% if not record.is_published and record.versions.index > 1 %}
+                You are previewing a new record version that has not yet been published.
+              {% endif %}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  {% if permissions is defined and permissions.can_edit and not is_preview %}
   <div class="ui warning flashed top-attached manage message">
     <div class="ui container">
       <div id="recordManagement" data-record='{{ record | tojson }}' data-permissions='{{ permissions | tojson }}'></div>
     </div>
   </div>
   {% endif %}
-  {% if not record.versions.is_latest %}
+  {% if (not record.versions.is_latest and not is_preview) or (is_preview and not record.versions.is_latest_draft) %}
   <div class="ui warning flashed top-attached manage message">
     <div class="ui container">
       <div class="ui relaxed grid">
@@ -89,9 +117,9 @@
             {%- set files = files|order_entries %}
             {%- if files|has_previewable_files -%}
               {%- set default_preview_file = files|select_preview_file(default_preview=default_preview) %}
-              {{ preview_file_box(default_preview_file, pid) }}
+              {{ preview_file_box(default_preview_file, pid, is_preview) }}
             {%- endif -%}
-            {{ file_list_box(files, pid) }}
+            {{ file_list_box(files, pid, is_preview) }}
           {% endif %}
         {%- else -%}
           {# TODO: come up with a proper display #}

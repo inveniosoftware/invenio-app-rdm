@@ -11,9 +11,12 @@
 
 from functools import wraps
 
-from flask import g
+from flask import g, request
+from invenio_pidstore.errors import PIDUnregistered
 from invenio_rdm_records.proxies import current_rdm_records
+from invenio_rdm_records.resources.config import RDMDraftFilesResourceConfig
 from invenio_records_resources.services.errors import PermissionDeniedError
+from sqlalchemy.orm.exc import NoResultFound
 
 
 def service():
@@ -31,29 +34,13 @@ def draft_files_service():
     return current_rdm_records.records_service.draft_files
 
 
-def pass_record(f):
-    """Decorate a view to pass a record using the record service."""
-    @wraps(f)
-    def view(**kwargs):
-        pid_value = kwargs.get('pid_value')
-        record = service().read(
-            id_=pid_value, identity=g.identity,
-        )
-        kwargs['record'] = record
-        # TODO: Remove - all this should happen in service
-        # Dereference relations (languages, licenses, etc.)
-        record._record.relations.dereference()
-        return f(**kwargs)
-    return view
-
-
 def pass_record_latest(f):
     """Decorate a view to pass the latest version of a record."""
     @wraps(f)
     def view(**kwargs):
         pid_value = kwargs.get('pid_value')
         record_latest = service().read_latest(
-            id_=pid_value, identity=g.identity,
+            id_=pid_value, identity=g.identity
         )
         kwargs['record'] = record_latest
         return f(**kwargs)
@@ -77,18 +64,63 @@ def pass_draft(f):
     return view
 
 
+def pass_is_preview(f):
+    """Decorate a view to check if it's a preview."""
+    @wraps(f)
+    def view(**kwargs):
+        preview = request.args.get('preview')
+        is_preview = False
+        if preview == '1':
+            is_preview = True
+        kwargs['is_preview'] = is_preview
+        # TODO: Remove - all this should happen in service
+        # Dereference relations (languages, licenses, etc.)
+        return f(**kwargs)
+    return view
+
+
+def pass_record_or_draft(f):
+    """Decorate to retrieve the record or draft using the record service."""
+    @wraps(f)
+    def view(**kwargs):
+        pid_value = kwargs.get('pid_value')
+        is_preview = kwargs.get('is_preview')
+        if is_preview:
+            record = service().read_draft(
+                id_=pid_value,
+                identity=g.identity
+            )
+        else:
+            record = service().read(
+                id_=pid_value, identity=g.identity
+            )
+        kwargs['record'] = record
+        # TODO: Remove - all this should happen in service
+        # Dereference relations (languages, licenses, etc.)
+        record._record.relations.dereference()
+        return f(**kwargs)
+    return view
+
+
 def pass_file_item(f):
     """Decorate a view to pass a file item using the files service."""
     @wraps(f)
     def view(**kwargs):
         pid_value = kwargs.get('pid_value')
         file_key = kwargs.get('filename')
-
-        item = files_service().get_file_content(
-            id_=pid_value,
-            file_key=file_key,
-            identity=g.identity,
-        )
+        is_preview = kwargs.get('is_preview')
+        if is_preview:
+            item = draft_files_service().get_file_content(
+                id_=pid_value,
+                file_key=file_key,
+                identity=g.identity
+            )
+        else:
+            item = files_service().get_file_content(
+                id_=pid_value,
+                file_key=file_key,
+                identity=g.identity
+            )
         kwargs['file_item'] = item
         return f(**kwargs)
     return view
@@ -100,11 +132,19 @@ def pass_file_metadata(f):
     def view(**kwargs):
         pid_value = kwargs.get('pid_value')
         file_key = kwargs.get('filename')
-        files = files_service().read_file_metadata(
-            id_=pid_value,
-            file_key=file_key,
-            identity=g.identity,
-        )
+        is_preview = kwargs.get('is_preview')
+        if is_preview:
+            files = draft_files_service().read_file_metadata(
+                id_=pid_value,
+                file_key=file_key,
+                identity=g.identity
+            )
+        else:
+            files = files_service().read_file_metadata(
+                id_=pid_value,
+                file_key=file_key,
+                identity=g.identity
+            )
         kwargs['file_metadata'] = files
         return f(**kwargs)
     return view
@@ -114,11 +154,19 @@ def pass_record_files(f):
     """Decorate a view to pass a record's files using the files service."""
     @wraps(f)
     def view(**kwargs):
+        preview = request.args.get('preview')
+        is_preview = kwargs.get('is_preview')
+
         try:
             pid_value = kwargs.get('pid_value')
-            files = files_service().list_files(
-                id_=pid_value, identity=g.identity,
-            )
+            if is_preview:
+                files = draft_files_service().list_files(
+                    id_=pid_value, identity=g.identity
+                )
+            else:
+                files = files_service().list_files(
+                    id_=pid_value, identity=g.identity
+                )
             kwargs['files'] = files
 
         except PermissionDeniedError:
@@ -138,7 +186,7 @@ def pass_draft_files(f):
         try:
             pid_value = kwargs.get('pid_value')
             files = draft_files_service().list_files(
-                id_=pid_value, identity=g.identity,
+                id_=pid_value, identity=g.identity
             )
             kwargs['draft_files'] = files
 

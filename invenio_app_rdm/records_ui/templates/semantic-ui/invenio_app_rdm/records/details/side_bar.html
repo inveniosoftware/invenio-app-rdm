@@ -28,7 +28,7 @@
   <hr class="thin-line">
   </hr>
   <dd class="versions">
-    <div id="recordVersions" data-record='{{ record | tojson }}'></div>
+    <div id="recordVersions" data-record='{{ record | tojson }}' data-preview='{{ is_preview | tojson }}'></div>
   </dd>
 </div>
 
@@ -42,7 +42,11 @@
     {# dynamically create the list of export formats #}
     {%- for fmt, val in config.get("APP_RDM_RECORD_EXPORTERS", {}).items() -%}
       {%- set name = val.get("name", fmt) -%}
-      {%- set export_url = url_for('invenio_app_rdm_records.record_export', pid_value=record.id, export_format=fmt) -%}
+      {% if is_preview %}
+        {%- set export_url = url_for('invenio_app_rdm_records.record_export', pid_value=record.id, export_format=fmt, preview=1) -%}
+      {% else %}
+        {%- set export_url = url_for('invenio_app_rdm_records.record_export', pid_value=record.id, export_format=fmt) -%}
+      {% endif %}
       <a class="export-format" href="{{ export_url }}">{{ name }}</a>
     {%- endfor -%}
   </dd>
