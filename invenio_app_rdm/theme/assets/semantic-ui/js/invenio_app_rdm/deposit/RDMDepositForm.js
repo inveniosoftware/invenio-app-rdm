@@ -254,7 +254,7 @@ export class RDMDepositForm extends Component {
         },
       },
     };
-
+    
     // check if files are present
     this.noFiles = false;
     if (
@@ -273,6 +273,9 @@ export class RDMDepositForm extends Component {
   };
 
   render() {
+    const rewritesScoreCalculation = {
+      rewrite: "scoring_boolean"
+    }
     return (
       <DepositFormApp
         config={this.config}
@@ -441,6 +444,7 @@ export class RDMDepositForm extends Component {
                         key: item.id,
                       }))
                     }
+                    queryStringExtraParams={rewritesScoreCalculation}
                   />
                   <DatesField options={this.vocabularies.metadata.dates} />
                   <VersionField />
