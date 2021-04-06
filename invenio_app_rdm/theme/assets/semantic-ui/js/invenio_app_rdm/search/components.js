@@ -193,11 +193,11 @@ export const RDMRecordFacetsValues = ({
   return (
     <List.Item key={bucket.key}>
       <div
-        className={`title ${hasChildren ? "" : "facet-subtitle"} ${
-          isActive ? "active" : ""
-        }`}
+        className={`facet-wrapper title ${
+          hasChildren ? "" : "facet-subtitle"
+        } ${isActive ? "active" : ""}`}
       >
-        <List.Content floated="right">
+        <List.Content className="facet-count">
           <Label circular>{bucket.doc_count}</Label>
         </List.Content>
         {hasChildren ? (
