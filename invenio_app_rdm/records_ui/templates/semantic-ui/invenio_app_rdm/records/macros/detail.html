@@ -93,16 +93,9 @@
   {% endfor %}
 {% endmacro %}
 
-{% macro _identifiers_for_group(related_identifiers) %}
-  {% for identifier in related_identifiers %}
-  <p>{{ identifier.identifier + ' ( ' + identifier.scheme + ' )' }}</p>
-  {% endfor %}
-{% endmacro %}
 
 {% macro show_related_identifiers(related_identifiers) %}
-  {%- for group in related_identifiers | groupby('relation_type')%}
-    {{ show_detail(group.grouper, _identifiers_for_group(group.list)) }}
-  {%- endfor %}
+  <div id="recordRelatedIdentifiers" data-related-identifiers='{{ related_identifiers | groupby('relation_type') | tojson }}'></div>
 {% endmacro %}
 
 {% macro list_languages(languages) %}
