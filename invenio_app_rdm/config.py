@@ -342,12 +342,9 @@ See https://docs.sqlalchemy.org/en/latest/core/engines.html.
 DB_VERSIONING_USER_MODEL = None
 
 
-# Invenio-JSONSchemas
-# ===================
+# Invenio-JSONSchemas/Invenio-Records
+# ===================================
 # See https://invenio-jsonschemas.readthedocs.io/en/latest/configuration.html
-
-JSONSCHEMAS_HOST = 'localhost'
-"""Hostname used in URLs for local JSONSchemas."""
 
 JSONSCHEMAS_REGISTER_ENDPOINTS_API = False
 """Don't' register schema endpoints."""
@@ -355,6 +352,26 @@ JSONSCHEMAS_REGISTER_ENDPOINTS_API = False
 JSONSCHEMAS_REGISTER_ENDPOINTS_UI = False
 """Don't' register schema endpoints."""
 
+JSONSCHEMAS_HOST = 'unused'
+# This variable is set to something different than localhost to avoid a warning
+# being issued. The value is however not used, because of the two variables
+# set below.
+
+RECORDS_REFRESOLVER_CLS = "invenio_records.resolver.InvenioRefResolver"
+"""Custom JSONSchemas ref resolver class.
+
+Note that when using a custom ref resolver class you should also set
+``RECORDS_REFRESOLVER_STORE`` to point to a JSONSchema ref resolver store.
+"""
+
+RECORDS_REFRESOLVER_STORE = (
+    "invenio_jsonschemas.proxies.current_refresolver_store"
+)
+"""JSONSchemas ref resolver store.
+
+Used together with ``RECORDS_REFRESOLVER_CLS`` to provide a specific
+ref resolver store.
+"""
 
 # OAI-PMH
 # =======
