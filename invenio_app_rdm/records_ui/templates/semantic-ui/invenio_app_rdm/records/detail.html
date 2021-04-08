@@ -87,9 +87,10 @@
             </div>
             <div class="right floated right aligned column">
               <span class="ui label small grey">{{ record.ui.resource_type }}</span>
-              <!--TODO: Re-enable in next releases-->
-              <!-- <span class="ui label small access-right {{ 'unlock' }}">
-                <i class="icon {{ 'unlock' }}"></i>{{ _("Open Access") }}</span> -->
+              <span class="ui label small access-status {{ record.ui.access_status.id }}" data-tooltip="{{ record.ui.access_status.description_l10n }}" data-inverted="">
+                {% if record.ui.access_status.icon %}<i class="icon {{ record.ui.access_status.icon }}"></i>{% endif %}
+                {{ record.ui.access_status.title_l10n }}
+              </span>
             </div>
           </div>
         </div>
