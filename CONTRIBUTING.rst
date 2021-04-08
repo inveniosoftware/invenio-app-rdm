@@ -9,7 +9,9 @@ Contributing
 ============
 
 Contributions are welcome, and they are greatly appreciated! Every
-little bit helps, and credit will always be given.
+little bit helps, and credit will always be given. Additional documentation 
+can be found in the Invenio `maintainers guide <https://inveniordm.docs.cern.ch/maintenance/newcomers/#tools>`_.
+
 
 Types of Contributions
 ----------------------
@@ -75,8 +77,9 @@ Ready to contribute? Here's how to set up `invenio-app-rdm` for local developmen
 
    .. code-block:: console
 
+      $ mkvirtualenv invenio-app-rdm
       $ cd invenio-app-rdm/
-      $ pipenv run install -e .[all]
+      $ pip install -e ".[all]"
 
 4. Create a branch for local development:
 
