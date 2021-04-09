@@ -113,12 +113,12 @@ export class RDMDepositForm extends Component {
           funder: [
             {
               name: "National Institutes of Health (US)",
-              identifier: "funder1",
+              id: "funder1",
               scheme: "funderScheme1",
             },
             {
               name: "European Commission (EU)",
-              identifier: "funder2",
+              id: "funder2",
               scheme: "funderScheme2",
             },
           ],
@@ -126,7 +126,7 @@ export class RDMDepositForm extends Component {
             {
               title: "CANCER &AIDS DRUGS--PRECLIN PHARMACOL/TOXICOLOGY",
               number: "N01CM037835-016",
-              identifier: "awardA",
+              id: "awardA",
               scheme: "awardSchemeA",
               parentScheme: "funderScheme1",
               parentIdentifier: "funder1",
@@ -135,18 +135,18 @@ export class RDMDepositForm extends Component {
               title:
                 "Beyond the Standard Model at the LHC and with Atom Interferometers.",
               number: "228169",
-              identifier: "awardB1",
+              id: "awardB1",
               scheme: "awardSchemeB",
               parentScheme: "funderScheme2",
-              parentIdentifier: "funder2",
+              parentId: "funder2",
             },
             {
-              title: "ENvironmental COnditions in GLAucoma Patients",
+              title: "Environmental Conditions in Glaucoma Patients",
               number: "747441",
-              identifier: "awardB2",
+              id: "awardB2",
               scheme: "awardSchemeB",
               parentScheme: "funderScheme2",
-              parentIdentifier: "funder2",
+              parentId: "funder2",
             },
           ],
         },
@@ -254,6 +254,34 @@ export class RDMDepositForm extends Component {
     ) {
       this.noFiles = true;
     }
+
+    // FIXME: to replace with data coming from backend
+    // Inject dummy funding values
+    this.props.record.metadata.funding = [
+      {
+        funder: {
+          name: "My dummy funder",
+          id: "funder1",
+          scheme: "funderScheme1",
+        },
+
+        award: {
+          title: "My dummy award",
+          number: "747441",
+          id: "award1",
+          scheme: "awardSchemeA",
+          parentScheme: "funderScheme1",
+          parentId: "funder1",
+        },
+      },
+      {
+        funder: {
+          name: "My dummy funder (no award)",
+          id: "funder2",
+          scheme: "funderScheme2",
+        },
+      },
+    ];
   }
 
   formFeedbackRef = createRef();
@@ -474,22 +502,35 @@ export class RDMDepositForm extends Component {
                   <PublisherField />
                   <br />
                 </AccordionField>
-                {/**TODO: uncomment to use FundingField*/}
-                {/* <AccordionField
-                fieldPath=""
-                active={true}
-                label={"Funding"}
-                ui={this.accordionStyle}
-              >
-                <FundingField options={this.vocabularies.metadata.funding} />
-                <ComingSoonField
-                  fieldPath="metadata.funding"
-                  label="Awards"
-                  labelIcon="money bill alternate outline"
-                />
+                <AccordionField
+                  fieldPath=""
+                  active={true}
+                  label={"Funding"}
+                  ui={this.accordionStyle}
+                >
+                  <FundingField
+                    fieldPath="metadata.funding"
+                    // searchConfig={{
+                    //   searchApi: {
+                    //     axios: {
+                    //       headers: {
+                    //         Accept: "application/vnd.inveniordm.v1+json",
+                    //       },
+                    //       url: "/api/vocabularies/licenses",
+                    //       withCredentials: false,
+                    //     },
+                    //   },
+                    //   initialQueryState: {
+                    //     filters: [["tags", "recommended"]],
+                    //   },
+                    // }}
+                    options={this.vocabularies.metadata.funding}
+                    label="Awards"
+                    labelIcon="money bill alternate outline"
+                  />
 
-                <br />
-              </AccordionField> */}
+                  <br />
+                </AccordionField>
 
                 <AccordionField
                   fieldPath=""
