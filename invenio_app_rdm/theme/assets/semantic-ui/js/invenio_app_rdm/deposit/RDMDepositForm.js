@@ -7,43 +7,33 @@
 // under the terms of the MIT License; see LICENSE file for more details.
 
 import _get from "lodash/get";
-import React, { Component, createRef } from "react";
-import {
-  Button,
-  Card,
-  Container,
-  Grid,
-  Icon,
-  Ref,
-  Sticky,
-} from "semantic-ui-react";
+import React, { Component, createRef, Fragment } from "react";
 import {
   AccessRightField,
-  ComingSoonField,
   CreatibutorsField,
   DatesField,
-  DepositFormApp,
-  FormFeedback,
   DeleteButton,
+  DepositFormApp,
   DepositFormTitle,
   DescriptionsField,
   FileUploader,
-  FundingField,
+  FormFeedback,
   IdentifiersField,
   LanguagesField,
-  PublishButton,
+  LicenseField,
+  PIDField,
+  PreviewButton,
   PublicationDateField,
+  PublishButton,
   PublisherField,
+  RelatedWorksField,
   ResourceTypeField,
   SaveButton,
-  PreviewButton,
-  SubjectsField,
   TitlesField,
-  RelatedWorksField,
   VersionField,
-  LicenseField,
 } from "react-invenio-deposit";
 import { AccordionField } from "react-invenio-forms";
+import { Card, Container, Divider, Grid, Ref, Sticky } from "semantic-ui-react";
 
 export class RDMDepositForm extends Component {
   constructor(props) {
@@ -161,7 +151,7 @@ export class RDMDepositForm extends Component {
           ],
         },
 
-        related_identifiers: {
+        identifiers: {
           resource_type: this.config.vocabularies.resource_type,
           scheme: [
             { text: "ARK", value: "ark" },
@@ -273,6 +263,23 @@ export class RDMDepositForm extends Component {
     header: { className: "inverted brand", style: { cursor: "pointer" } },
   };
 
+  /* PIDS-FIXME and inject me from a config*/
+  PIDsProviders = [
+    {
+      scheme: "doi",
+      pidProvider: "datacite",
+      pidClient: "zenodo",
+      pidLabel: "DOI",
+      pidPlaceholder: "10.5321/zenodo.123456",
+      canBeManaged: true,
+      canBeUnmanaged: true,
+      btnLabelGetPID: "Get DOI now!",
+      managedHelpText:
+        "Reserve a DOI or leave this field blank to have one automatically assigned when publishing.",
+      unmanagedHelpText: "Copy and paste here your DOI",
+    },
+  ];
+
   render() {
     return (
       <DepositFormApp
@@ -312,21 +319,6 @@ export class RDMDepositForm extends Component {
                     }}
                   />
                 </AccordionField>
-                {/**TODO: uncomment to use IdentifiersField*/}
-                {/* <AccordionField
-                fieldPath=""
-                active={true}
-                label={"Files"}
-                ui={this.accordionStyle}
-              >
-                <IdentifiersField />
-                <ComingSoonField
-                  fieldPath="metadata.identifiers"
-                  label="Identifier(s)"
-                  labelIcon="barcode"
-                />
-                <br />
-              </AccordionField> */}
 
                 <AccordionField
                   fieldPath=""
@@ -390,6 +382,40 @@ export class RDMDepositForm extends Component {
                       id: result.id,
                       link: result.props.url,
                     })}
+                  />
+                  <br />
+                </AccordionField>
+
+                <AccordionField
+                  fieldPath=""
+                  active={true}
+                  label={"Identifiers"}
+                  ui={this.accordionStyle}
+                >
+                  {this.PIDsProviders.map((pid) => (
+                    <Fragment key={pid.scheme}>
+                      <PIDField
+                        btnLabelGetPID={pid.btnLabelGetPID}
+                        canBeManaged={pid.canBeManaged}
+                        canBeUnmanaged={pid.canBeUnmanaged}
+                        fieldPath={`pids.${pid.scheme}`}
+                        managedHelpText={pid.managedHelpText}
+                        pidClient={pid.pidClient}
+                        pidLabel={pid.pidLabel}
+                        pidPlaceholder={pid.pidPlaceholder}
+                        pidProvider={pid.pidProvider}
+                        unmanagedHelpText={pid.unmanagedHelpText}
+                      />
+                      <Divider />
+                    </Fragment>
+                  ))}
+                  <IdentifiersField
+                    fieldPath="metadata.identifiers"
+                    label="Identifier(s)"
+                    labelIcon="barcode"
+                    schemeOptions={
+                      this.vocabularies.metadata.identifiers.scheme
+                    }
                   />
                   <br />
                 </AccordionField>
@@ -472,7 +498,7 @@ export class RDMDepositForm extends Component {
                   ui={this.accordionStyle}
                 >
                   <RelatedWorksField
-                    options={this.vocabularies.metadata.related_identifiers}
+                    options={this.vocabularies.metadata.identifiers}
                   />
                   <br />
                 </AccordionField>
