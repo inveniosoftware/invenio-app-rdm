@@ -6,7 +6,7 @@
   it under the terms of the MIT License; see LICENSE file for more details.
 #}
 
-{%- set id_doi = metadata.identifiers|doi_identifier %}
+{%- set id_doi = record.pids|doi_identifier %}
 <dd>
 {% if id_doi %}
   <span class="get-badge" data-toggle="tooltip" data-placement="bottom" style="cursor: pointer;"

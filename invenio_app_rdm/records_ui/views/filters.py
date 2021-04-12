@@ -96,7 +96,7 @@ def doi_identifier(identifiers):
     for identifier in identifiers:
         # TODO: extract this "DOI" constant to a registry?
         if identifier == "doi":
-            return identifiers[identifier]
+            return identifiers[identifier]['identifier']
 
 
 def vocabulary_title(dict_key, vocabulary_key, alt_key=None):
