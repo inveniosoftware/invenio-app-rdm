@@ -93,10 +93,8 @@ def pid_url(identifier, scheme=None, url_scheme="https"):
 
 def doi_identifier(identifiers):
     """Extract DOI from sequence of identifiers."""
-    for identifier in identifiers:
-        # TODO: extract this "DOI" constant to a registry?
-        if identifier == "doi":
-            return identifiers[identifier]['identifier']
+    doi_identifier = identifiers.get("doi")
+    return doi_identifier['identifier'] if doi_identifier else None
 
 
 def vocabulary_title(dict_key, vocabulary_key, alt_key=None):
