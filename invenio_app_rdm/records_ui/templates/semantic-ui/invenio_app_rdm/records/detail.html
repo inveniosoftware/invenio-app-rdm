@@ -97,10 +97,12 @@
         {%- block record_title -%}
         <h1>{{ metadata.title }}</h1>
         <p>{%- include "invenio_app_rdm/records/details/creators.html" %}</p>
+
         {%- endblock record_title -%}
+
         {%- block record_content -%}
         <p>{%- include "invenio_app_rdm/records/details/contributors.html" %}</p>
-
+        <p>{%- include "invenio_app_rdm/records/details/doi.html" %}</p>
         {%- include "invenio_app_rdm/records/details/subjects.html" %}
         <div class="top-padded">
         {%- include "invenio_app_rdm/records/details/description.html" %}
