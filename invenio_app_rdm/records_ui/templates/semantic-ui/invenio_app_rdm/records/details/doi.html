@@ -7,8 +7,9 @@
 #}
 
 {%- set id_doi = record.pids|doi_identifier %}
-<dd>
 {% if id_doi %}
+<dt><b>{{_('DOI')}}</b></dt>
+<dd class="top-bottom-padded">
   <span class="get-badge" data-toggle="tooltip" data-placement="bottom" style="cursor: pointer;"
     title="Get the DOI badge!">
     <img id="record-doi-badge" data-target="[data-modal='{{ id_doi }}']"
@@ -28,7 +29,5 @@
       {{ badges_formats_list(url_for('invenio_formatter_badges.badge', title='DOI', value=id_doi, ext='svg', _external=True, _scheme='https'), id_doi|pid_url(scheme='doi')) }}
     </div>
   </div>
-{% else %}
-  {{ _("No minted DOI") }}
-{% endif %}
 </dd>
+{% endif %}
