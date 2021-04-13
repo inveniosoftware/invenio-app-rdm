@@ -18,6 +18,7 @@ import {
   DescriptionsField,
   FileUploader,
   FormFeedback,
+  FundingField,
   IdentifiersField,
   LanguagesField,
   LicenseField,
@@ -151,7 +152,7 @@ export class RDMDepositForm extends Component {
           ],
         },
 
-        identifiers: {
+        related_identifiers: {
           resource_type: this.config.vocabularies.resource_type,
           scheme: [
             { text: "ARK", value: "ark" },
@@ -260,25 +261,31 @@ export class RDMDepositForm extends Component {
     this.props.record.metadata.funding = [
       {
         funder: {
-          name: "My dummy funder",
-          id: "funder1",
-          scheme: "funderScheme1",
+          id: "00k4n6c32",
+          name: "European Commission",
         },
-
         award: {
-          title: "My dummy award",
-          number: "747441",
-          id: "award1",
-          scheme: "awardSchemeA",
-          parentScheme: "funderScheme1",
-          parentId: "funder1",
+          id: "a88e6ee0-106c-4413-b3e8-11024bef24ff",
+          title: "OpenAIRE - Open Access Infrastructure for Research in Europe",
+          number: "246686",
+          link: "https://cordis.europa.eu/project/id/246686",
         },
       },
       {
         funder: {
-          name: "My dummy funder (no award)",
-          id: "funder2",
-          scheme: "funderScheme2",
+          id: "00k4n6c32",
+          name: "European Commission",
+        },
+        award: {
+          title: "Custom award",
+          number: "246686",
+          link: "https://cordis.europa.eu/project/id/246686",
+        },
+      },
+      {
+        funder: {
+          id: "0001",
+          name: "My Funder - no award",
         },
       },
     ];
@@ -510,21 +517,25 @@ export class RDMDepositForm extends Component {
                 >
                   <FundingField
                     fieldPath="metadata.funding"
-                    // searchConfig={{
-                    //   searchApi: {
-                    //     axios: {
-                    //       headers: {
-                    //         Accept: "application/vnd.inveniordm.v1+json",
-                    //       },
-                    //       url: "/api/vocabularies/licenses",
-                    //       withCredentials: false,
-                    //     },
-                    //   },
-                    //   initialQueryState: {
-                    //     filters: [["tags", "recommended"]],
-                    //   },
-                    // }}
-                    options={this.vocabularies.metadata.funding}
+                    searchConfig={{
+                      searchApi: {
+                        axios: {
+                          headers: {
+                            Accept: "application/vnd.inveniordm.v1+json",
+                          },
+                          // FIXME: Remove mocked host part
+                          url: "http://127.0.0.1:9999/api/vocabularies/awards",
+                          withCredentials: false,
+                        },
+                      },
+                      initialQueryState: {
+                        sortBy: "bestmatch",
+                        sortOrder: "asc",
+                        layout: "list",
+                        page: 1,
+                        size: 3,
+                      },
+                    }}
                     label="Awards"
                     labelIcon="money bill alternate outline"
                   />
