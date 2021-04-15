@@ -42,6 +42,7 @@ def get_search_url():
 def new_record():
     """Create an empty record with default values."""
     record = dump_empty(RDMRecordSchema)
+    record["files"] = {"enabled": True}
     defaults = current_app.config.get("APP_RDM_DEPOSIT_FORM_DEFAULTS") or {}
     for key, value in defaults.items():
         set_default_value(record, value, key)
@@ -69,7 +70,7 @@ def deposit_create():
         searchbar_config=dict(searchUrl=get_search_url()),
         record=new_record(),
         files=dict(
-            default_preview=None, enabled=True, entries=[], links={}
+            default_preview=None, entries=[], links={}
         ),
     )
 
