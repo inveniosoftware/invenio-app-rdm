@@ -1,23 +1,16 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2019 CERN.
-# Copyright (C) 2019 Northwestern University.
+# Copyright (C) 2019-2021 CERN.
+# Copyright (C) 2019-2021 Northwestern University.
 #
 # Invenio-RDM-Records is free software; you can redistribute it and/or modify
 # it under the terms of the MIT License; see LICENSE file for more details.
 
 """Module tests."""
 
-import json
-
 import pytest
-from invenio_pidstore.minters import recid_minter
-from invenio_pidstore.models import PersistentIdentifier, PIDStatus
-from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
-from invenio_pidstore.proxies import current_pidstore
-from sqlalchemy.orm.exc import NoResultFound
+from invenio_pidstore.models import PersistentIdentifier
 
-HEADERS = {"content-type": "application/json", "accept": "application/json"}
 SINGLE_RECORD_API_URL = "/records/{}"
 LIST_RECORDS_API_URL = "/records"
 DRAFT_API_URL = "/records/{}/draft"
@@ -61,7 +54,7 @@ def test_record_draft_create_and_read(
 
 
 def test_record_draft_publish(
-    client_with_login, location, minimal_record, es_clear
+    client_with_login, headers, location, minimal_record, es_clear
 ):
     """Test draft publication of a non-existing record.
 
@@ -70,7 +63,7 @@ def test_record_draft_publish(
     # Create the draft
     client = client_with_login
     response = client.post(
-        LIST_RECORDS_API_URL, data=json.dumps(minimal_record), headers=HEADERS
+        LIST_RECORDS_API_URL, json=minimal_record, headers=headers
     )
 
     assert response.status_code == 201
@@ -78,7 +71,7 @@ def test_record_draft_publish(
 
     # Publish it
     response = client.post(
-        DRAFT_ACTION_API_URL.format(recid, "publish"), headers=HEADERS
+        DRAFT_ACTION_API_URL.format(recid, "publish"), headers=headers
     )
 
     assert response.status_code == 202
@@ -91,14 +84,14 @@ def test_record_draft_publish(
 
     response = client.get(
         DRAFT_API_URL.format(recid),
-        headers=HEADERS
+        headers=headers
     )
     assert response.status_code == 404
 
     # Test record exists
     response = client.get(
         SINGLE_RECORD_API_URL.format(recid),
-        headers=HEADERS
+        headers=headers
     )
 
     assert response.status_code == 200
@@ -112,31 +105,31 @@ def test_record_draft_publish(
 
 
 def test_read_record_with_redirected_pid(
-    client_with_login, location, minimal_record, es_clear
+    client_with_login, headers, location, minimal_record, es_clear
 ):
     """Test read a record with a redirected pid."""
     # Create dummy record
     client = client_with_login
     response = client.post(
-        LIST_RECORDS_API_URL, headers=HEADERS, data=json.dumps(minimal_record)
+        LIST_RECORDS_API_URL, headers=headers, json=minimal_record
     )
     assert response.status_code == 201
     # Publish it
     pid1_value = response.json["id"]
     response = client.post(
-        DRAFT_ACTION_API_URL.format(pid1_value, "publish"), headers=HEADERS
+        DRAFT_ACTION_API_URL.format(pid1_value, "publish"), headers=headers
     )
     assert response.status_code == 202
 
     # Create another dummy record
     response = client.post(
-        LIST_RECORDS_API_URL, headers=HEADERS, data=json.dumps(minimal_record)
+        LIST_RECORDS_API_URL, headers=headers, json=minimal_record
     )
     assert response.status_code == 201
     pid2_value = response.json["id"]
     # Publish it
     response = client.post(
-        DRAFT_ACTION_API_URL.format(pid2_value, "publish"), headers=HEADERS
+        DRAFT_ACTION_API_URL.format(pid2_value, "publish"), headers=headers
     )
     assert response.status_code == 202
 
@@ -146,7 +139,7 @@ def test_read_record_with_redirected_pid(
     pid1.redirect(pid2)
 
     response = client.get(SINGLE_RECORD_API_URL.format(pid1.pid_value),
-                          headers=HEADERS)
+                          headers=headers)
     assert response.status_code == 301
 
     assert response.json["status"] == 301
@@ -155,35 +148,35 @@ def test_read_record_with_redirected_pid(
 
 @pytest.mark.skip()
 def test_read_deleted_record(
-    client_with_login, location, minimal_record, es_clear, admin_user
+    client_with_login, headers, location, minimal_record, es_clear, admin_user
 ):
     """Test read a deleted record."""
     client = client_with_login
 
     # Create dummy record to test delete
     response = client.post(
-        LIST_RECORDS_API_URL, headers=HEADERS, data=json.dumps(minimal_record)
+        LIST_RECORDS_API_URL, headers=headers, json=minimal_record
     )
     assert response.status_code == 201
     recid = response.json["id"]
     # Publish it
     response = client.post(
-        DRAFT_ACTION_API_URL.format(recid, "publish"), headers=HEADERS
+        DRAFT_ACTION_API_URL.format(recid, "publish"), headers=headers
     )
     assert response.status_code == 202
 
     # Delete the record
     response = client.delete(SINGLE_RECORD_API_URL.format(recid),
-                             headers=HEADERS)
+                             headers=headers)
     assert response.status_code == 204
 
     # Read the deleted record
-    response = client.get(SINGLE_RECORD_API_URL.format(recid), headers=HEADERS)
+    response = client.get(SINGLE_RECORD_API_URL.format(recid), headers=headers)
     assert response.status_code == 410
     assert response.json["message"] == "The record has been deleted."
 
 
-def test_record_search(client, es_clear):
+def test_record_search(client, headers, es_clear):
     """Test record search."""
     expected_response_keys = set(["hits", "links", "aggregations"])
     expected_metadata_keys = set([
@@ -191,7 +184,7 @@ def test_record_search(client, es_clear):
     ])
 
     # Get published bibliographic records
-    response = client.get(LIST_RECORDS_API_URL, headers=HEADERS)
+    response = client.get(LIST_RECORDS_API_URL, headers=headers)
 
     assert response.status_code == 200
     response_keys = set(response.json.keys())
