@@ -5,7 +5,13 @@
   Invenio App RDM is free software; you can redistribute it and/or modify it
   under the terms of the MIT License; see LICENSE file for more details.
 #}
-{%- set title = "New upload" %}
+{%- if not record.is_published and record.versions.index and record.versions.index > 1%}
+  {%- set title = _("New version") %}
+{%- elif not record.is_published %}
+  {%- set title = _("New upload") %}
+{% else %}
+  {%- set title = _("Edit upload") %}
+{%- endif %}
 {%- extends config.BASE_TEMPLATE %}
 
 {%- block page_body %}
