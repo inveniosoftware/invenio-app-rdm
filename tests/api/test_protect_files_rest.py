@@ -27,7 +27,7 @@ def init_file(client, recid, headers):
     )
 
 
-def upload_file(client, recid, headers):
+def upload_file(client, recid):
     """Create draft and return its id."""
     return client.put(
         f"/records/{recid}/draft/files/test.pdf/content",
@@ -54,9 +54,10 @@ def test_files_rest_endpoint_is_protected(
     client = client_with_login
 
     # Create draft with file
+    minimal_record["files"] = {"enabled": True}
     recid = create_draft(client, minimal_record, headers)
     init_file(client, recid, headers)
-    upload_file(client, recid, headers)
+    upload_file(client, recid)
     commit_file(client, recid, headers)
 
     # Get bucket information

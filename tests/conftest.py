@@ -8,9 +8,6 @@
 
 """Common pytest fixtures and plugins."""
 
-from copy import deepcopy
-from datetime import date
-
 import pytest
 from flask_security import login_user
 from flask_security.utils import hash_password
@@ -24,42 +21,15 @@ pytest_plugins = ("celery.contrib.pytest", )
 
 
 @pytest.fixture(scope='function')
-def minimal_input_record(users):
-    """Minimal record data as dict coming from the external world."""
-    return {
-        "access": {
-            "record": "public",
-            "files": "public",
-        },
-        "metadata": {
-            "publication_date": "2020-06-01",
-            "resource_type": {
-                "type": "image",
-                "subtype": "image-photo"
-            },
-            # Technically not required
-            "creators": [{
-                "person_or_org": {
-                    "name": "John Doe",
-                    "type": "organizational"
-                }
-            }],
-            "titles": [{
-                "title": "A Romans story",
-                "type": "Other",
-                "lang": "eng"
-            }]
-        }
-    }
-
-
-@pytest.fixture(scope='function')
 def minimal_record(users):
     """Minimal record data as dict coming from the external world."""
     return {
         "access": {
             "record": "public",
             "files": "public",
+        },
+        "files": {
+            "enabled": False  # Most tests don't care about file upload
         },
         "metadata": {
             "publication_date": "2020-06-01",
