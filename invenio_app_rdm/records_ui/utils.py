@@ -12,7 +12,6 @@
 from invenio_records.dictutils import dict_set
 from invenio_records.errors import MissingModelError
 from invenio_records_files.api import FileObject
-from werkzeug.utils import import_string
 
 
 def previewer_record_file_factory(pid, record, filename):
