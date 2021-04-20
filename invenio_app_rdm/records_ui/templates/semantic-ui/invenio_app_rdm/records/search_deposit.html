@@ -21,16 +21,21 @@
     {
       "aggName": "is_published",
       "field": "is_published",
-      "title": "Status"
+      "title": "{{_("Status")}}"
+    },
+    {
+      "aggName": "access_status",
+      "field": "access.status",
+      "title": "{{_("Access status")}}"
     },
     {
       "aggName": "resource_type",
       "field": "resource_type.type",
-      "title": "Resource Type",
+      "title": "{{_("Resource type")}}",
       "childAgg": {
         "aggName": "subtype",
         "field": "resource_type.subtype",
-        "title": "Resource Type"
+        "title": "{{_("Resource type")}}"
       }
     }
   ],
@@ -74,23 +79,23 @@
   "sortOptions": [
     {
       "sortBy": "bestmatch",
-      "text": "Best match"
+      "text": "{{_("Best match")}}"
     },
     {
       "sortBy": "newest",
-      "text": "Newest"
+      "text": "{{_("Newest")}}"
     },
     {
       "sortBy":"updated-desc",
-      "text": "Recently updated"
+      "text": "{{_("Recently updated")}}"
     },
     {
       "sortBy":"updated-asc",
-      "text": "Least recently updated"
+      "text": "{{_("Least recently updated")}}"
     },
     {
       "sortBy":"version",
-      "text": "Version"
+      "text": "{{_("Version")}}"
     }
   ]
 }'></div>

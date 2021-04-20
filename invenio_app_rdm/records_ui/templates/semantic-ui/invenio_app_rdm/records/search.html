@@ -21,22 +21,22 @@
     {
       "aggName": "access_status",
       "field": "access.status",
-      "title": "Access status"
+      "title": "{{_("Access status")}}"
     },
     {
       "aggName": "resource_type",
       "field": "resource_type.type",
-      "title": "Resource Type",
+      "title": "{{_("Resource type")}}",
       "childAgg": {
         "aggName": "subtype",
         "field": "resource_type.subtype",
-        "title": "Resource Type"
+        "title": "{{_("Resource type")}}"
       }
     },
     {
       "aggName": "languages",
       "field": "languages",
-      "title": "Laguanges"
+      "title": "{{_("Languages")}}"
     }
   ],
   "appId": "rdm-search",
@@ -86,19 +86,19 @@
   "sortOptions": [
     {
       "sortBy": "bestmatch",
-      "text": "Best match"
+      "text": "{{_("Best match")}}"
     },
     {
       "sortBy": "newest",
-      "text": "Newest"
+      "text": "{{_("Newest")}}"
     },
     {
       "sortBy": "oldest",
-      "text": "Oldest"
+      "text": "{{_("Oldest")}}"
     },
     {
       "sortBy": "version",
-      "text": "Version"
+      "text": "{{_("Version")}}"
     }
   ]
 }'></div>
