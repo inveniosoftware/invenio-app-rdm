@@ -399,7 +399,7 @@ DEBUG_TB_INTERCEPT_REDIRECTS = False
 CACHE_REDIS_URL = "redis://localhost:6379/0"
 """URL to connect to Redis server."""
 
-CACHE_TYPE = "redis"
+CACHE_TYPE = "flask_caching.backends.redis"
 """Use Redis caching object."""
 
 ACCESS_CACHE = "invenio_cache:current_cache"
