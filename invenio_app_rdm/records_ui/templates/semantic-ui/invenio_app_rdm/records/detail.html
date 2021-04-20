@@ -77,6 +77,14 @@
   <div class="ui relaxed grid">
     <div class="two column row top-padded">
       <div class="eleven wide column">
+        {% if record.access.record == 'restricted' %}
+          <div class="ui {{ record.ui.access_status.message_class }} message">
+            <strong><i class="{{ record.ui.access_status.icon }} icon"></i>{{ record.ui.access_status.title_l10n }}</strong> {{ record.ui.access_status.description_l10n }}
+            {% if record.access.embargo.reason %}
+            <p>Reason: {{ record.access.embargo.reason }}</p>
+            {% endif %}
+          </div>
+        {% endif %}
         {%- block record_body -%}
         {%- block record_header -%}
         <div class="ui grid middle aligned">
@@ -112,20 +120,36 @@
         {%- endblock record_content -%}
         {# files #}
         {%- block record_files -%}
-        {%- if files is not none -%}
-          {%- if files.enabled and record|can_list_files %}
-            {%- set default_preview = files.default_preview %}
+        {%- if record.files.enabled -%}
+          {%- if permissions.can_read_files -%}
+            {# record has files AND user can see files #}
             {%- set files = files|order_entries %}
             {%- if files|has_previewable_files -%}
-              {%- set default_preview_file = files|select_preview_file(default_preview=default_preview) %}
-              {{ preview_file_box(default_preview_file, pid, is_preview) }}
+              {%- set preview_file = files|select_preview_file(default_preview=files.default_preview) %}
+              {{ preview_file_box(preview_file, pid, is_preview, record) }}
             {%- endif -%}
-            {{ file_list_box(files, pid, is_preview) }}
-          {% endif %}
-        {%- else -%}
-          {# TODO: come up with a proper display #}
-          <div>Sorry, the files are restricted!</div>
-        {%- endif -%}
+            {{ file_list_box(files, pid, is_preview, record) }}
+          {% else %}
+            {# record has files BUT user cannot see files #}
+            <div class="panel-spacing">
+              <div class="ui accordion panel {{ record.ui.access_status.id }}" id="preview" href="#collapsablePreview">
+                <div class="active title panel-heading {{ record.ui.access_status.id }}">
+                  {{ _("Files") }}
+                  <i class="angle down icon"></i>
+                </div>
+                <div id="collapsablePreview" class="active content">
+                  <div class="ui {{ record.ui.access_status.message_class }} message file-box-message">
+                    <i class="ui {{ record.ui.access_status.icon }} icon"></i><b>{{ record.ui.access_status.title_l10n }}</b>
+                    <p>{{ record.ui.access_status.description_l10n }}</p>
+                    {% if record.access.embargo.reason %}
+                      <p>{{_("Reason")}}: {{record.access.embargo.reason}}</p>
+                    {% endif%}
+                  </div>
+                </div>
+              </div>
+            </div>
+          {%- endif %}
+        {%- endif %}
         {%- endblock record_files -%}
         {%- block record_details -%}
         {# More details #}

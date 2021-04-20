@@ -70,7 +70,7 @@ def record_detail(record=None, files=None, pid_value=None, is_preview=False):
         pid=pid_value,
         files=files_dict,
         permissions=record.has_permissions_to(['edit', 'new_version', 'manage',
-                                               'update_draft']),
+                                               'update_draft', 'read_files']),
         is_preview=is_preview,
     )
 
