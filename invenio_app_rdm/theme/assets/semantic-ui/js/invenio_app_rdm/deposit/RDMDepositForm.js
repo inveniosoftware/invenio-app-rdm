@@ -323,7 +323,7 @@ export class RDMDepositForm extends Component {
                 <AccordionField
                   fieldPath=""
                   active={true}
-                  label={"Basic Information"}
+                  label={"Basic information"}
                   ui={this.accordionStyle}
                 >
                   <ResourceTypeField
@@ -423,7 +423,7 @@ export class RDMDepositForm extends Component {
                 <AccordionField
                   fieldPath=""
                   active={true}
-                  label={"Recommended Information"}
+                  label={"Recommended information"}
                   ui={this.accordionStyle}
                 >
                   <CreatibutorsField
