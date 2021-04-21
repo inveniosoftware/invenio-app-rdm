@@ -10,7 +10,8 @@
 """Views related to records and deposits."""
 
 from flask import Blueprint
-from invenio_pidstore.errors import PIDDeletedError, PIDDoesNotExistError
+from invenio_pidstore.errors import PIDDeletedError, PIDDoesNotExistError, \
+    PIDUnregistered
 from invenio_records_resources.services.errors import PermissionDeniedError
 
 from .deposits import deposit_create, deposit_edit, deposit_search
@@ -80,6 +81,7 @@ def create_blueprint(app):
     # Register error handlers
     blueprint.register_error_handler(PIDDeletedError, record_tombstone_error)
     blueprint.register_error_handler(PIDDoesNotExistError, not_found_error)
+    blueprint.register_error_handler(PIDUnregistered, not_found_error)
     blueprint.register_error_handler(KeyError, not_found_error)
     blueprint.register_error_handler(
         PermissionDeniedError, record_permission_denied_error)

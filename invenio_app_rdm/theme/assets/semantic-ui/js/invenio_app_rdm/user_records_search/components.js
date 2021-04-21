@@ -59,7 +59,7 @@ const DeleteDraftButton = (props) => {
 
   return (
     <>
-      <Button compact floated="right" color="red" onClick={handleOpen}>
+      <Button compact size="small" floated="right" color="red" onClick={handleOpen}>
         <Icon name="trash alternate outline" />
         Delete
       </Button>
@@ -186,7 +186,7 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
       });
   };
 
-  const viewLink = `/records/${result.id}`;
+  const viewLink = is_published ? `/records/${result.id}` : `/uploads/${result.id}`;
 
   return (
     <Item key={index} className="deposits-list-item">
