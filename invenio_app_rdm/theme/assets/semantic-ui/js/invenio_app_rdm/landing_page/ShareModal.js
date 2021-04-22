@@ -132,7 +132,7 @@ export const ShareModal = (props) => {
         <div className="share-content">
           <Input id="input" value={getAccessLink(accessLinkObj)} readOnly />
           <Dropdown
-            className="ui small"
+            className="ui small share-link-dropdown"
             size="small"
             button
             options={dropdownOptions}

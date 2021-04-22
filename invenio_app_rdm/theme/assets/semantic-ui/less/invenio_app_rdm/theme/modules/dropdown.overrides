@@ -51,6 +51,9 @@
   content: "\f00d";
 }
 
+.ui.dropdown.share-link-dropdown {
+  line-height: normal;
+}
 
 
 /* Icons for Reference (Subsetted in 2.4.0)
