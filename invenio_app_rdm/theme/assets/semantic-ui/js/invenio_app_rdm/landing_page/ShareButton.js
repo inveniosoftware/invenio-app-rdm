@@ -20,7 +20,7 @@ export const ShareButton = (props) => {
         content="You don't have permissions to share this record."
         disabled={!props.disabled}
         trigger={
-          <div>
+          <div className={props.divClassName}>
             <Button
               onClick={handleOpen}
               disabled={props.disabled}

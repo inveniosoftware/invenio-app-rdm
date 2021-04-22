@@ -24,7 +24,7 @@ export const RecordManagement = (props) => {
   };
 
   return (
-    <Grid relaxed columns={2}>
+    <Grid relaxed>
       <Grid.Column>
         <Grid.Row>
           <Icon name="cogs" />
@@ -37,6 +37,13 @@ export const RecordManagement = (props) => {
             onError={handleError}
             disabled={!permissions.can_new_version}
           />
+          {permissions.can_manage && (
+            <ShareButton
+              divClassName="share-button"
+              disabled={!permissions.can_update_draft}
+              recid={recid}
+            />
+          )}
         </Grid.Row>
         {error && (
           <Grid.Row className="record-management-row">
@@ -44,11 +51,6 @@ export const RecordManagement = (props) => {
           </Grid.Row>
         )}
       </Grid.Column>
-      {permissions.can_manage && (
-        <Grid.Column floated="right" width={2}>
-          <ShareButton disabled={!permissions.can_update_draft} recid={recid} />
-        </Grid.Column>
-      )}
     </Grid>
   );
 };
