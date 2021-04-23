@@ -14,6 +14,9 @@
 <dt><b>{{ _('Details')}}</b></dt>
 <hr class="thin-line"></hr>
 <dd class="top-bottom-padded">
+  record: {{ record | tojson }}
+  <br/>
+  record.ui: {{ record.ui }}
   {{ show_detail(_('Resource type'), record.ui.resource_type) if record.ui.resource_type }}
   {{ show_detail(_('Publication date'), record.ui.publication_date_l10n) if record.ui.publication_date_l10n }}
   {{ show_detail(_('Publisher'), metadata.publisher) if metadata.publisher }}

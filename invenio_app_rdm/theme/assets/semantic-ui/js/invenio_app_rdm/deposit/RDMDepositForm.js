@@ -254,6 +254,7 @@ export class RDMDepositForm extends Component {
     ) {
       this.noFiles = true;
     }
+    console.dir("this.props.record", this.props.record);
   }
 
   formFeedbackRef = createRef();

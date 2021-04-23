@@ -45,14 +45,16 @@
 
 {% macro show_add_titles(add_titles) %}
   {% for add_title in add_titles %}
-    {{ show_detail(add_title.type, add_title.title) }}
+    <!-- add_title.lang: <id> => add_title.lang: {id: <id>, title_l10n: <> }: -->
+    {{ show_detail(add_title.type + " (" + add_title.lang + ")", add_title.title) }}
   {% endfor %}
 {% endmacro %}
 
 {% macro show_add_descriptions(add_descriptions) %}
   {% for add_description in add_descriptions %}
+    <!-- add_title.lang: <id> => add_title.lang: {id: <id>, title_l10n: <> }: -->
     {{
-      show_sanitized_detail(add_description.type, add_description.description)
+      show_sanitized_detail(add_description.type + " (" + add_description.lang + ")", add_description.description)
     }}
   {% endfor %}
 {% endmacro %}
