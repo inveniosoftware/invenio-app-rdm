@@ -6,9 +6,9 @@
 // Invenio RDM Records is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
 
-import React, { useState, useEffect } from "react";
-import { Grid, Placeholder, Divider, Message, Icon } from "semantic-ui-react";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Divider, Grid, Icon, Message, Placeholder } from "semantic-ui-react";
 
 const deserializeRecord = (record) => ({
   id: record.id,
@@ -16,6 +16,7 @@ const deserializeRecord = (record) => ({
   publication_date: record.ui.publication_date_l10n_medium,
   version: record.ui.version,
   links: record.links,
+  pids: record.pids,
 });
 
 const NUMBER_OF_VERSIONS = 5;
@@ -25,7 +26,7 @@ const RecordVersionItem = ({ item, activeVersion }) => {
     <>
       <Grid.Row
         key={item.id}
-        columns={2}
+        columns={3}
         {...(activeVersion && { className: "version-active" })}
       >
         <Grid.Column width={10}>
@@ -34,6 +35,11 @@ const RecordVersionItem = ({ item, activeVersion }) => {
         <Grid.Column width={6}>
           <p className="text-muted font-small" style={{ float: "right" }}>
             {item.publication_date}
+          </p>
+        </Grid.Column>
+        <Grid.Column width={12}>
+          <p className="text-muted font-small">
+            {_.get(item.pids, "doi.identifier", "")}
           </p>
         </Grid.Column>
       </Grid.Row>
