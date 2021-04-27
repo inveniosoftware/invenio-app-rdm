@@ -12,6 +12,7 @@
 from flask import current_app, render_template
 from flask_login import login_required
 from invenio_i18n.ext import current_i18n
+from invenio_rdm_records.proxies import current_rdm_records
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
 from invenio_rdm_records.services.schemas import RDMRecordSchema
 from invenio_rdm_records.services.schemas.utils import dump_empty
@@ -24,11 +25,52 @@ from .decorators import pass_draft, pass_draft_files
 #
 # Helpers
 #
+def get_form_pids_config():
+    """Prepare configuration for the pids field."""
+    service = current_rdm_records.records_service
+    pids_providers = []
+    for scheme, providers in service.config.pids_providers.items():
+        can_be_managed = False
+        can_be_unmanaged = False
+        provider_enabled = False
+        for name, provider_attrs in providers.items():
+            is_enabled = provider_attrs.get("enabled", True)
+            if not provider_enabled and is_enabled:
+                provider_enabled = True
+
+            if provider_attrs["system_managed"]:
+                can_be_managed = True
+            else:
+                can_be_unmanaged = True
+
+        # all providers disabled for this scheme
+        if not provider_enabled:
+            continue
+
+        u_scheme = scheme.upper()
+
+        pids_provider = {
+            "scheme": scheme,
+            "pid_label": u_scheme,
+            "pid_placeholder": "10.1234/datacite.123456",
+            "can_be_managed": can_be_managed,
+            "can_be_unmanaged": can_be_unmanaged,
+            "btn_label_get_pid": f"Get a {u_scheme} now!",
+            "managed_help_text": f"Reserve a {u_scheme} or leave this "
+                                 "field blank to have one automatically "
+                                 "assigned when publishing.",
+            "unmanaged_help_text": f"Copy and paste here your {u_scheme}",
+        }
+        pids_providers.append(pids_provider)
+    return pids_providers
+
+
 def get_form_config(**kwargs):
-    """Get the react form configration."""
+    """Get the react form configuration."""
     return dict(
         vocabularies=Vocabularies.dump(),
         current_locale=str(current_i18n.locale),
+        pids=get_form_pids_config(),
         **kwargs
     )
 

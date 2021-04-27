@@ -263,23 +263,6 @@ export class RDMDepositForm extends Component {
     header: { className: "inverted brand", style: { cursor: "pointer" } },
   };
 
-  /* PIDS-FIXME and inject me from a config*/
-  PIDsProviders = [
-    {
-      scheme: "doi",
-      pidProvider: "datacite",
-      pidClient: "zenodo",
-      pidLabel: "DOI",
-      pidPlaceholder: "10.5321/zenodo.123456",
-      canBeManaged: true,
-      canBeUnmanaged: true,
-      btnLabelGetPID: "Get DOI now!",
-      managedHelpText:
-        "Reserve a DOI or leave this field blank to have one automatically assigned when publishing.",
-      unmanagedHelpText: "Copy and paste here your DOI",
-    },
-  ];
-
   render() {
     return (
       <DepositFormApp
@@ -326,6 +309,26 @@ export class RDMDepositForm extends Component {
                   label={"Basic information"}
                   ui={this.accordionStyle}
                 >
+                  {this.config.pids.map((pid) => (
+                    <Fragment key={pid.scheme}>
+                      <PIDField
+                        btnLabelGetPID={pid.btn_label_get_pid}
+                        canBeManaged={pid.can_be_managed}
+                        canBeUnmanaged={pid.can_be_unmanaged}
+                        fieldPath={`pids.${pid.scheme}`}
+                        isEditingPublishedRecord={
+                          this.props.record.is_published === true // is_published is `null` at first upload
+                        }
+                        managedHelpText={pid.managed_help_text}
+                        pidLabel={pid.pid_label}
+                        pidPlaceholder={pid.pid_placeholder}
+                        pidType={pid.scheme}
+                        unmanagedHelpText={pid.unmanaged_help_text}
+                      />
+                      <Divider />
+                    </Fragment>
+                  ))}
+
                   <ResourceTypeField
                     options={this.vocabularies.metadata.resource_type}
                     required
@@ -389,35 +392,17 @@ export class RDMDepositForm extends Component {
                 <AccordionField
                   fieldPath=""
                   active={true}
-                  label={"Identifiers"}
+                  label={"Alternate identifiers"}
                   ui={this.accordionStyle}
                 >
-                  {this.PIDsProviders.map((pid) => (
-                    <Fragment key={pid.scheme}>
-                      <PIDField
-                        btnLabelGetPID={pid.btnLabelGetPID}
-                        canBeManaged={pid.canBeManaged}
-                        canBeUnmanaged={pid.canBeUnmanaged}
-                        fieldPath={`pids.${pid.scheme}`}
-                        managedHelpText={pid.managedHelpText}
-                        pidClient={pid.pidClient}
-                        pidLabel={pid.pidLabel}
-                        pidPlaceholder={pid.pidPlaceholder}
-                        pidProvider={pid.pidProvider}
-                        unmanagedHelpText={pid.unmanagedHelpText}
-                      />
-                      <Divider />
-                    </Fragment>
-                  ))}
                   <IdentifiersField
                     fieldPath="metadata.identifiers"
-                    label="Identifier(s)"
+                    label="Alternate identifier(s)"
                     labelIcon="barcode"
                     schemeOptions={
                       this.vocabularies.metadata.identifiers.scheme
                     }
                   />
-                  <br />
                 </AccordionField>
 
                 <AccordionField
