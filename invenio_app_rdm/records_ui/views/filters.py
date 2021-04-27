@@ -35,19 +35,15 @@ def make_files_preview_compatible(files):
 
 
 def select_preview_file(files, default_preview=None):
-    """Get list of files and select one for preview."""
+    """Return file to preview or None if no previewable file."""
     selected = None
-
-    try:
-        for f in sorted(files or [], key=itemgetter("key")):
-            file_type = splitext(f["key"])[1][1:].lower()
-            if is_previewable(file_type):
-                if selected is None:
-                    selected = f
-                elif f["key"] == default_preview:
-                    selected = f
-    except KeyError:
-        pass
+    for f in files or []:
+        file_type = splitext(f.get("key", ""))[1][1:].lower()
+        if is_previewable(file_type):
+            if selected is None:
+                selected = f
+            elif f.get("key") == default_preview:
+                return f
     return selected
 
 

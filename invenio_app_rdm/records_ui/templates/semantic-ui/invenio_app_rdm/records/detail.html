@@ -118,6 +118,7 @@
         {%- include "invenio_app_rdm/records/details/licenses.html" %}
         </div>
         {%- endblock record_content -%}
+
         {# files #}
         {%- block record_files -%}
         {%- if record.files.enabled -%}
@@ -125,7 +126,7 @@
             {# record has files AND user can see files #}
             {%- set files = files|order_entries %}
             {%- if files|has_previewable_files -%}
-              {%- set preview_file = files|select_preview_file(default_preview=files.default_preview) %}
+              {%-set preview_file = files|select_preview_file(default_preview=record.files.default_preview) %}
               {{ preview_file_box(preview_file, pid, is_preview, record) }}
             {%- endif -%}
             {{ file_list_box(files, pid, is_preview, record) }}
@@ -151,6 +152,7 @@
           {%- endif %}
         {%- endif %}
         {%- endblock record_files -%}
+
         {%- block record_details -%}
         {# More details #}
         <div class="top-padded">
