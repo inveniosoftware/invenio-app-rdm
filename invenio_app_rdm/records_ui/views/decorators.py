@@ -79,6 +79,24 @@ def pass_is_preview(f):
     return view
 
 
+def pass_record_from_pid(f):
+    """Decorate a view to pass the latest version of a record."""
+    @wraps(f)
+    def view(*args, **kwargs):
+        pid_type = kwargs.get('pid_scheme')
+        pid_value = kwargs.get('pid_value')
+
+        record = service().resolve_pid(
+            id_=pid_value,
+            pid_type=pid_type,
+            identity=g.identity
+        )
+
+        kwargs['record'] = record
+        return f(**kwargs)
+    return view
+
+
 def pass_record_or_draft(f):
     """Decorate to retrieve the record or draft using the record service."""
     @wraps(f)

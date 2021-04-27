@@ -20,7 +20,8 @@ from invenio_previewer.proxies import current_previewer
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
 
 from .decorators import pass_file_item, pass_file_metadata, pass_is_preview, \
-    pass_record_files, pass_record_latest, pass_record_or_draft
+    pass_record_files, pass_record_from_pid, pass_record_latest, \
+    pass_record_or_draft
 
 
 class PreviewFile:
@@ -157,6 +158,12 @@ def record_file_download(
 
 @pass_record_latest
 def record_latest(record=None, **kwargs):
+    """Redirect to record'd latest version page."""
+    return redirect(record["links"]["self_html"], code=301)
+
+
+@pass_record_from_pid
+def record_from_pid(record=None, **kwargs):
     """Redirect to record'd latest version page."""
     return redirect(record["links"]["self_html"], code=301)
 
