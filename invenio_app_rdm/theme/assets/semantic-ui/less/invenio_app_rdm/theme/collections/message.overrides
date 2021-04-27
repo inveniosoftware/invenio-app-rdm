@@ -3,3 +3,13 @@
 *******************************/
 
 @import "@less/invenio_theme/theme/collections/message.overrides";
+
+.ui.flashed.message,
+.ui.form .flashed.message {
+   &.top-attached {
+       margin-top: -20px;
+   }
+   &.manage {
+        padding: 0 0 12px 0;
+   }
+}
