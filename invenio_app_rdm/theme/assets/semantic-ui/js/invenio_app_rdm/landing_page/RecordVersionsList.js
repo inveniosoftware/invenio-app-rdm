@@ -7,9 +7,9 @@
 // under the terms of the MIT License; see LICENSE file for more details.
 
 import axios from "axios";
+import _get from "lodash/get";
 import React, { useEffect, useState } from "react";
 import { Divider, Grid, Icon, Message, Placeholder } from "semantic-ui-react";
-
 const deserializeRecord = (record) => ({
   id: record.id,
   parent_id: record.parent.id,
@@ -37,11 +37,11 @@ const RecordVersionItem = ({ item, activeVersion }) => {
             {item.publication_date}
           </p>
         </Grid.Column>
-        <Grid.Column width={12}>
-          <p className="text-muted font-small">
-            {_.get(item.pids, "doi.identifier", "")}
-          </p>
-        </Grid.Column>
+      </Grid.Row>
+      <Grid.Row columns={1}>
+        <p className="text-muted font-small">
+          {_get(item.pids, "doi.identifier", "")}
+        </p>
       </Grid.Row>
       <Divider fitted style={{ margin: "0" }} />
     </>
