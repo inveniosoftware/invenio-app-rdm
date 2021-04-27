@@ -67,8 +67,8 @@ def execute_upgrade():
             rec.parent = parent
 
             # versions housekeeping
-            rec.versions.set_latest()
             rec.model.index = 1
+            rec.versions.set_latest()
             rec.commit()
 
             assert rec.parent["id"] == parent["id"]
