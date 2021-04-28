@@ -31,17 +31,15 @@ const RecordVersionItem = ({ item, activeVersion }) => {
       >
         <Grid.Column width={10}>
           <a href={`/records/${item.id}`}>Version {item.version}</a>
+          <p className="text-muted font-small">
+            {_get(item.pids, "doi.identifier", "")}
+          </p>
         </Grid.Column>
         <Grid.Column width={6}>
           <p className="text-muted font-small" style={{ float: "right" }}>
             {item.publication_date}
           </p>
         </Grid.Column>
-      </Grid.Row>
-      <Grid.Row columns={1}>
-        <p className="text-muted font-small">
-          {_get(item.pids, "doi.identifier", "")}
-        </p>
       </Grid.Row>
       <Divider fitted style={{ margin: "0" }} />
     </>
