@@ -22,18 +22,17 @@ const deserializeRecord = (record) => ({
 const NUMBER_OF_VERSIONS = 5;
 
 const RecordVersionItem = ({ item, activeVersion }) => {
+  const doi = _get(item.pids, "doi.identifier", "");
   return (
     <>
       <Grid.Row
         key={item.id}
-        columns={3}
+        columns={2}
         {...(activeVersion && { className: "version-active" })}
       >
         <Grid.Column width={10}>
           <a href={`/records/${item.id}`}>Version {item.version}</a>
-          <p className="text-muted font-small">
-            {_get(item.pids, "doi.identifier", "")}
-          </p>
+          {doi && <p className="text-muted font-small">{doi}</p>}
         </Grid.Column>
         <Grid.Column width={6}>
           <p className="text-muted font-small" style={{ float: "right" }}>
