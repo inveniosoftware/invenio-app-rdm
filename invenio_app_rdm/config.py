@@ -261,6 +261,10 @@ CELERY_BEAT_SCHEDULE = {
     'accounts': {
         'task': 'invenio_accounts.tasks.clean_session_table',
         'schedule': timedelta(minutes=60),
+    },
+    'draft_resources': {
+        'task': 'invenio_draft_resources.tasks.cleanup_drafts',
+        'schedule': timedelta(minutes=60),
     }
 }
 """Scheduled tasks configuration (aka cronjobs)."""
