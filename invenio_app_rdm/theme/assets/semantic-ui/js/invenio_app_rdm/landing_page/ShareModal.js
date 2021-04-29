@@ -10,18 +10,25 @@ import axios from "axios";
 
 export const ShareModal = (props) => {
   const [accessLinkObj, setAccessLinkObj] = useState();
-  const [shareMode, setShareMode] = useState("read");
+  const [shareMode, setShareMode] = useState("view");
 
   const dropdownOptions = [
-    { key: "read", text: "Can view", value: "read" },
+    { key: "view", text: "Can view", value: "view" },
+    { key: "preview", text: "Can preview", value: "preview" },
     { key: "edit", text: "Can edit", value: "edit" },
   ];
 
   const message = {
-    read: (
+    view: (
       <span>
-        Anyone on the Internet with this link{" "}
+        Anyone with this link{" "}
         <strong>can view all versions</strong> of this record & files.
+      </span>
+    ),
+    preview: (
+      <span>
+        Anyone with this link{" "}
+        <strong>can view all published and unpublished versions</strong> of this record & files.
       </span>
     ),
     edit: (

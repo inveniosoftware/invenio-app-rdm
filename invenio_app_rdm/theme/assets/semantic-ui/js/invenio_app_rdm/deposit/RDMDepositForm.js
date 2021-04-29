@@ -392,22 +392,6 @@ export class RDMDepositForm extends Component {
                 <AccordionField
                   fieldPath=""
                   active={true}
-                  label={"Alternate identifiers"}
-                  ui={this.accordionStyle}
-                >
-                  <IdentifiersField
-                    fieldPath="metadata.identifiers"
-                    label="Alternate identifier(s)"
-                    labelIcon="barcode"
-                    schemeOptions={
-                      this.vocabularies.metadata.identifiers.scheme
-                    }
-                  />
-                </AccordionField>
-
-                <AccordionField
-                  fieldPath=""
-                  active={true}
                   label={"Recommended information"}
                   ui={this.accordionStyle}
                 >
@@ -479,6 +463,22 @@ export class RDMDepositForm extends Component {
                 <AccordionField
                   fieldPath=""
                   active={true}
+                  label={"Alternate identifiers"}
+                  ui={this.accordionStyle}
+                >
+                  <IdentifiersField
+                    fieldPath="metadata.identifiers"
+                    label="Alternate identifier(s)"
+                    labelIcon="barcode"
+                    schemeOptions={
+                      this.vocabularies.metadata.identifiers.scheme
+                    }
+                  />
+                </AccordionField>
+
+                <AccordionField
+                  fieldPath=""
+                  active={true}
                   label={"Related works"}
                   ui={this.accordionStyle}
                 >
@@ -513,7 +513,7 @@ export class RDMDepositForm extends Component {
                     </Card>
 
                     <AccessRightField
-                      label={"Protection"}
+                      label={"Visibility"}
                       labelIcon={"shield"}
                     />
                   </Sticky>
