@@ -448,7 +448,7 @@ APP_RDM_RECORD_EXPORTERS = {
                        "UIJSONSerializer")
     },
     "datacite": {
-       "name": _("DataCite"),
+       "name": _("DataCite JSON"),
        "serializer": ("invenio_rdm_records.resources.serializers:"
                       "DataCite43JSONSerializer")
    }
