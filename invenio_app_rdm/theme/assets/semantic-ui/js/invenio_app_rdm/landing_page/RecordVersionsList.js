@@ -10,6 +10,7 @@ import axios from "axios";
 import _get from "lodash/get";
 import React, { useEffect, useState } from "react";
 import { Divider, Grid, Icon, Message, Placeholder } from "semantic-ui-react";
+
 const deserializeRecord = (record) => ({
   id: record.id,
   parent_id: record.parent.id,
@@ -32,7 +33,11 @@ const RecordVersionItem = ({ item, activeVersion }) => {
       >
         <Grid.Column width={10}>
           <a href={`/records/${item.id}`}>Version {item.version}</a>
-          {doi && <p className="text-muted font-small">{doi}</p>}
+          {doi && (
+            <small className="text-muted" style={{ float: "left" }}>
+              {doi}
+            </small>
+          )}
         </Grid.Column>
         <Grid.Column width={6}>
           <p className="text-muted font-small" style={{ float: "right" }}>
