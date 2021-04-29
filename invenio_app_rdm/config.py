@@ -148,7 +148,14 @@ THEME_SITENAME = _('InvenioRDM')
 """Site name."""
 
 
-# Invenio-files-rest
+# Invenio-Communities
+# ===================
+
+COMMUNITIES_ENABLED = False
+"""Control if community views and endpoints are enabled."""
+
+
+# Invenio-Files-REST
 # ==================
 # See https://invenio-files-rest.readthedocs.io/en/latest/configuration.html
 
