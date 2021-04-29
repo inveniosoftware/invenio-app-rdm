@@ -103,15 +103,21 @@ def pass_record_or_draft(f):
     def view(**kwargs):
         pid_value = kwargs.get('pid_value')
         is_preview = kwargs.get('is_preview')
+
+        def get_record():
+            """Retrieve record."""
+            return service().read(id_=pid_value, identity=g.identity)
+
         if is_preview:
-            record = service().read_draft(
-                id_=pid_value,
-                identity=g.identity
-            )
+            try:
+                record = service().read_draft(
+                    id_=pid_value,
+                    identity=g.identity
+                )
+            except NoResultFound:
+                record = get_record()
         else:
-            record = service().read(
-                id_=pid_value, identity=g.identity
-            )
+            record = get_record()
         kwargs['record'] = record
         # TODO: Remove - all this should happen in service
         # Dereference relations (languages, licenses, etc.)
@@ -127,18 +133,26 @@ def pass_file_item(f):
         pid_value = kwargs.get('pid_value')
         file_key = kwargs.get('filename')
         is_preview = kwargs.get('is_preview')
+
+        def get_record_file_content():
+            """Retrieve record file content."""
+            return files_service().get_file_content(
+                    id_=pid_value,
+                    file_key=file_key,
+                    identity=g.identity
+            )
+
         if is_preview:
-            item = draft_files_service().get_file_content(
-                id_=pid_value,
-                file_key=file_key,
-                identity=g.identity
-            )
+            try:
+                item = draft_files_service().get_file_content(
+                    id_=pid_value,
+                    file_key=file_key,
+                    identity=g.identity
+                )
+            except NoResultFound:
+                item = get_record_file_content()
         else:
-            item = files_service().get_file_content(
-                id_=pid_value,
-                file_key=file_key,
-                identity=g.identity
-            )
+            item = get_record_file_content()
         kwargs['file_item'] = item
         return f(**kwargs)
     return view
@@ -151,18 +165,26 @@ def pass_file_metadata(f):
         pid_value = kwargs.get('pid_value')
         file_key = kwargs.get('filename')
         is_preview = kwargs.get('is_preview')
+
+        def get_record_file_content():
+            """Retrieve record file metadata."""
+            return files_service().read_file_metadata(
+                    id_=pid_value,
+                    file_key=file_key,
+                    identity=g.identity
+            )
+
         if is_preview:
-            files = draft_files_service().read_file_metadata(
-                id_=pid_value,
-                file_key=file_key,
-                identity=g.identity
-            )
+            try:
+                files = draft_files_service().read_file_metadata(
+                    id_=pid_value,
+                    file_key=file_key,
+                    identity=g.identity
+                )
+            except NoResultFound:
+                files = get_record_file_content()
         else:
-            files = files_service().read_file_metadata(
-                id_=pid_value,
-                file_key=file_key,
-                identity=g.identity
-            )
+            files = get_record_file_content()
         kwargs['file_metadata'] = files
         return f(**kwargs)
     return view
@@ -172,19 +194,26 @@ def pass_record_files(f):
     """Decorate a view to pass a record's files using the files service."""
     @wraps(f)
     def view(**kwargs):
-        preview = request.args.get('preview')
         is_preview = kwargs.get('is_preview')
+
+        def list_record_files():
+            """List record files."""
+            return files_service().list_files(
+                id_=pid_value, identity=g.identity
+            )
+            return service().read(id_=pid_value, identity=g.identity)
 
         try:
             pid_value = kwargs.get('pid_value')
             if is_preview:
-                files = draft_files_service().list_files(
-                    id_=pid_value, identity=g.identity
-                )
+                try:
+                    files = draft_files_service().list_files(
+                        id_=pid_value, identity=g.identity
+                    )
+                except NoResultFound:
+                    files = list_record_files()
             else:
-                files = files_service().list_files(
-                    id_=pid_value, identity=g.identity
-                )
+                files = list_record_files()
             kwargs['files'] = files
 
         except PermissionDeniedError:
