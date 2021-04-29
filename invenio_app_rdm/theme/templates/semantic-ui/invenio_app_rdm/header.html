@@ -28,10 +28,10 @@
               {%- endblock brand %}
               {%- endblock navbar_header %}
             </li>
-            <li class="navbar-item">
+            <li class="navbar-item navbar-search-bar">
               {%- if config.THEME_SEARCHBAR %}
                   {%- block navbar_search %}
-                    <div class="navbar-item" id="header-search-bar">
+                    <div class="navbar-item navbar-search-bar" id="header-search-bar">
                       <form class="form" action="{{ config.THEME_SEARCH_ENDPOINT }}" role="search">
                         <div class="ui action icon input">
                           <input type="text" name="q" placeholder="{{ _('Search') }}">
