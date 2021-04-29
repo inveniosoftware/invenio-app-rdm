@@ -64,7 +64,8 @@ def execute_upgrade():
 
     # Cleanup associated deleted drafts.
 
-    drafts = RDMDraftMetadata.query.filter(RDMDraftMetadata.is_deleted == True).all()
+    drafts = RDMDraftMetadata.query.filter(
+        RDMDraftMetadata.is_deleted == True).all()  # noqa
     for d in drafts:
         # Delete all file draft records
         RDMFileDraftMetadata.query.filter_by(record_id=d.id).delete()
