@@ -39,8 +39,10 @@ export const ShareModal = (props) => {
     ),
   };
 
-  const getAccessLink = (linkObj) =>
-    linkObj ? `${window.location}?token=${linkObj.token}` : "";
+  const getAccessLink = (linkObj) => {
+    const extraParam = shareMode === "preview" ? "preview=1&" : "";
+    return linkObj ? `${window.location}?${extraParam}token=${linkObj.token}` : "";
+  };
 
   const updateAccessLink = async () => {
     await axios.patch(
