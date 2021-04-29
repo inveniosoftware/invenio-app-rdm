@@ -5,6 +5,7 @@
 #
 # Invenio-RDM-Records is free software; you can redistribute it and/or modify
 # it under the terms of the MIT License; see LICENSE file for more details.
+
 """Record migration script from InvenioRDM 2.0 to 3.0.
 
 Disclaimer: This script is intended to be executed *only once*, namely when
@@ -15,6 +16,8 @@ is that nothing happens!
 
 from invenio_db import db
 from invenio_rdm_records.records.api import RDMDraft, RDMParent, RDMRecord
+from invenio_rdm_records.records.models import RDMDraftMetadata, \
+    RDMFileDraftMetadata, RDMRecordMetadata
 
 
 def execute_upgrade():
@@ -58,6 +61,24 @@ def execute_upgrade():
         parent.pop("$schema", None)
 
         parent.commit()
+
+    # Cleanup associated deleted drafts.
+
+    drafts = RDMDraftMetadata.query.filter(RDMDraftMetadata.is_deleted == True).all()
+    for d in drafts:
+        # Delete all file draft records
+        RDMFileDraftMetadata.query.filter_by(record_id=d.id).delete()
+
+        # Bucket deletion
+        bucket = d.bucket
+        d.bucket = None
+        d.bucket_id = None
+
+        # Object and bucket not be removed if it's also associated with the
+        # record.
+        r = RDMRecordMetadata.query.filter_by(id=d.id).one_or_none()
+        if r is None or r.bucket_id != bucket.id:
+            bucket.remove()
 
     db.session.commit()
 
