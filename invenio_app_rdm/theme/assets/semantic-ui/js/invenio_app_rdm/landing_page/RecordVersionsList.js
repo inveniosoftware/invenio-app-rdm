@@ -28,21 +28,20 @@ const RecordVersionItem = ({ item, activeVersion }) => {
     <>
       <Grid.Row
         key={item.id}
-        columns={2}
+        columns={1}
         {...(activeVersion && { className: "version-active" })}
       >
-        <Grid.Column width={10}>
+        <Grid.Column>
+          <small className="text-muted" style={{ float: "right" }}>
+            {item.publication_date}
+          </small>
           <a href={`/records/${item.id}`}>Version {item.version}</a>
+          {<br />}
           {doi && (
-            <small className="text-muted" style={{ float: "left" }}>
+            <small className="text-muted" style={{ wordWrap: "break-word" }}>
               {doi}
             </small>
           )}
-        </Grid.Column>
-        <Grid.Column width={6}>
-          <p className="text-muted font-small" style={{ float: "right" }}>
-            {item.publication_date}
-          </p>
         </Grid.Column>
       </Grid.Row>
       <Divider fitted style={{ margin: "0" }} />
