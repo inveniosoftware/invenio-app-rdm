@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2019-2020 CERN.
-# Copyright (C) 2019-2020 Northwestern University.
+# Copyright (C) 2019-2021 CERN.
+# Copyright (C) 2019-2021 Northwestern University.
 # Copyright (C)      2021 TU Wien.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
@@ -66,7 +66,7 @@ for name, reqs in extras_require.items():
 install_requires = [
     'CairoSVG>=1.0.20',
     f'invenio[base,auth,metadata,files]{invenio_version}',
-    'invenio-rdm-records>=0.29.16,<0.30.0',
+    'invenio-rdm-records>=0.30.0,<0.31.0',
     'invenio-communities>=2.2.4,<2.3.0',
 ]
 
