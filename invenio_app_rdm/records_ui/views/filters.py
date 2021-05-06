@@ -105,13 +105,6 @@ def vocabulary_title(dict_key, vocabulary_key, alt_key=None):
     return vocabulary.get_title_by_dict(dict_key) if vocabulary else ""
 
 
-def dereference_record(record):
-    """Returns the UI serialization of a record."""
-    record.relations.dereference()
-
-    return record
-
-
 def has_previewable_files(files):
     """Check if any of the files is previewable."""
     # 'splitext' inclues the dot of the file extension in the
