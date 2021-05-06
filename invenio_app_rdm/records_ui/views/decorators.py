@@ -56,9 +56,6 @@ def pass_draft(f):
             id_=pid_value,
             identity=g.identity
         )
-        # TODO: Remove - all this should happen in service
-        # Dereference relations (languages, licenses, etc.)
-        draft._record.relations.dereference()
         kwargs['draft'] = draft
         return f(**kwargs)
     return view
@@ -73,8 +70,6 @@ def pass_is_preview(f):
         if preview == '1':
             is_preview = True
         kwargs['is_preview'] = is_preview
-        # TODO: Remove - all this should happen in service
-        # Dereference relations (languages, licenses, etc.)
         return f(**kwargs)
     return view
 
@@ -119,9 +114,6 @@ def pass_record_or_draft(f):
         else:
             record = get_record()
         kwargs['record'] = record
-        # TODO: Remove - all this should happen in service
-        # Dereference relations (languages, licenses, etc.)
-        record._record.relations.dereference()
         return f(**kwargs)
     return view
 
