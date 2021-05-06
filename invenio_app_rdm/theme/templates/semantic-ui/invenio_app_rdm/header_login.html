@@ -25,7 +25,7 @@
     {# Quick-create ("plus") menu #}
     {%- set plus_menu_items = current_menu.submenu('plus').children %}
     {%- if plus_menu_items %}
-      <div class="rdm-plus-menu ui dropdown floating">
+      <div class="rdm-plus-menu ui dropdown floating" style="position: absolute;margin-top: 5px;">
         <i class="fitted plus icon inverted"></i>
         <i class="fitted dropdown icon inverted"></i>
         <div class="menu">
@@ -40,7 +40,7 @@
     {% endif %}
 
     {%- if config.USERPROFILES %}
-      <div class="ui buttons">
+      <div class="ui buttons"style= "margin-left: 40px;">
         <a class="ui button"
            href="{{ url_for('invenio_userprofiles.profile') }}">
           <i class="user icon"></i> {{ current_user.email|truncate(31,true) }}
