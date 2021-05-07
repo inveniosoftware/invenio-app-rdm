@@ -1,0 +1,226 @@
+{#
+  Copyright (C) 2021 CERN.
+  Copyright (C) 2021 Graz University of Technology.
+
+  Invenio App RDM is free software; you can redistribute it and/or modify it
+  under the terms of the MIT License; see LICENSE file for more details.
+#}
+{%- set title = _("Search guide") %}
+{%- extends "invenio_theme/page.html" %}
+
+{%- block page_body %}
+<div class="ui container">
+  <h1>Suchanleitung</h1>
+  <p>
+    Diese Anleitung erklärt anhand von leicht verständlichen Beispielen,
+    wie man erweiterte Suchanfragen schreibt.
+  </p>
+  <h3>Einfache Suche (ein oder mehrere Begriffe)</h3>
+  <p>
+    <strong>Beispiel:</strong>
+    <a href="/search?page=1&amp;size=20&amp;q=open%20science"><code>open science</code></a>
+  </p>
+  <p>
+    Die Ergebnisse entsprechen Datensätzen mit den <em>Begriffen</em> <code>open</code>
+    <em>oder</em> <code>science</code> in einem <em>beliebigen Feld</em>. Beachten Sie, dass die Abstammung angewendet
+    wird,
+    so dass z. B. <code>science</code> auch mit
+    <code>sciences</code>übereinstimmt. Die Suchergebnisse werden nach einem Algorithmus geordnet,
+    der Ihre Suchbegriffe berücksichtigt.
+  </p>
+  <p>
+    Sie können das <em>Vorhandensein</em> beider Terme entweder mit dem
+    <code>+</code> oder dem <code>AND</code> Operator verlangen:
+  </p>
+  <p>
+    <strong>Beispiele:</strong>
+    <a href="/search?page=1&amp;size=20&amp;q=%2Bopen%20%2Bscience"><code>+open +science</code></a>
+    oder
+    <a href="/search?page=1&amp;size=20&amp;q=open%20AND%20science"><code>open AND science</code></a>
+  </p>
+  <p>
+    Sie können das <em>Nichtvorhandensein</em> eines oder mehrerer Begriffe mit dem Operator
+    <code>-</code> oder <code>NOT</code> verlangen:
+  </p>
+  <p>
+    <strong>Beispiele:</strong>
+    <a href="/search?page=1&amp;size=20&amp;q=-open%20%2Bscience"><code>-open +science</code></a>
+    oder
+    <a href="/search?page=1&amp;size=20&amp;q=NOT%20open%20AND%20science"><code>NOT open AND science</code></a>
+  </p>
+  <h3>Phrasensuche</h3>
+  <p>
+    <strong>Beispiel:</strong>
+    <a href="/search?page=1&amp;size=20&amp;q=%22open%20science%22"><code>"open science"</code></a>
+  </p>
+  <p>
+    Die Ergebnisse entsprechen Datensätzen mit der <em>phrase</em>
+    <code>open science</code> in einem <em>beliebigen Feld</em>.
+  </p>
+  <h3>Feldsuche</h3>
+  <p>
+    <strong>Beispiel:</strong>
+    <a href="/search?page=1&amp;size=20&amp;q=metadata.title:open"><code>metadata.title:open</code></a>
+  </p>
+  <p>
+    Die Ergebnisse stimmen mit Datensätzen überein, bei denen der <em>Begriff</em> <code>open</code> im
+    <em>Feld</em> <code>metadata.title</code>ist. enn Sie nach mehreren Begriffen im Titel suchen möchten,
+    müssen Sie <strong>die Begriffe</strong> mit Klammern gruppieren:
+  </p>
+  <p>
+    <strong>Beispiel:</strong>
+    <a
+      href="/search?page=1&amp;size=20&amp;q=metadata.title:(open%20science%29"><code>metadata.title:(open science)</code></a>
+  </p>
+  <p>
+    Die vollständige Liste der Felder, die Sie durchsuchen können, finden Sie in der Feldreferenz unten.
+  </p>
+  <h3>Kombinierte einfache, Phrasen- oder Feldsuche</h3>
+  <p>
+    <strong>Beispiel:</strong>
+    <a
+      href="/search?page=1&amp;size=20&amp;q=%2Bmetadata.title:%22open%20science%22%20-metadata.title:policy"><code>+metadata.title:"open science" -metadata.title:policy</code></a>
+    oder z. B.
+    <a
+      href="/search?page=1&amp;size=20&amp;q=metadata.title:(-open%20%2Bscience%29"><code>metadata.title:(-open +science)</code></a>
+  </p>
+  <p>
+    Sie können einfache, Phrasen- und Feldsuche kombinieren, um erweiterte Suchanfragen zu konstruieren.
+  </p>
+  <h3>Bereichssuche</h3>
+  <p>
+    <strong>Beispiel:</strong>
+    <a
+      href="/search?page=1&amp;size=20&amp;q=metadata.publication_date:%5B2017%20TO%202018%5D"><code>metadata.publication_date:[2017 TO 2018]</code></a>
+    (Achtung, <code>TO</code> muss großgeschrieben werden).
+  </p>
+  <p>
+    Die Ergebnisse entsprechen allen Datensätzen mit einem Veröffentlichungsdatum
+    zwischen 2017-01-01 und 2018-01-01 (beide Daten inklusive).
+  </p>
+  <p>Beachten Sie, dass partielle Daten zu vollständigen Daten erweitert werden, z. B.:</p>
+  <ul>
+    <li>2017 wird erweitert auf 2017-01-01</li>
+    <li>2017-06 wird erweitert auf 2017-06-01</li>
+  </ul>
+  <p>
+    Verwenden Sie eckige Klammern (<code>[]</code>) für <em>einschließende</em> Bereiche und geschweifte
+    Klammern (<code>{}</code>) für <em>ausschließende</em> Bereiche, z. B.:
+  </p>
+  <ul>
+    <li>
+      <code>[2017 TO 2018}</code> ist aufgrund der Datumserweiterung
+      und der exklusiven Obergrenze äquivalent zu
+      <code>[2017-01-01 TO 2017-12-31]</code>.
+    </li>
+  </ul>
+  <p>Beispiele für andere Bereiche:</p>
+  <ul>
+    <li>
+      <code>metadata.publication_date:{* TO 2017-01-01}</code>: Alle Tage bis 2017.
+    </li>
+    <li>
+      <code>metadata.publication_date:[2017-01-01 TO *]</code>: Alle Tage von 2017.
+    </li>
+  </ul>
+  <h3>Ranking/Sortierung</h3>
+  <p>
+    Standardmäßig werden alle Suchen nach einem internen Ranking-Algorithmus sortiert,
+    der jede Übereinstimmung mit Ihrer Abfrage bewertet. Sowohl in der Benutzeroberfläche
+    als auch in der REST-API ist es möglich, die Ergebnisse zu sortieren nach:
+  </p>
+  <ul>
+    <li>Aktuellste</li>
+    <li>Beste Übereinstimmung</li>
+  </ul>
+  <h3>Reguläre Ausdrücke</h3>
+  <p>
+    Reguläre Ausdrücke sind eine mächtige Sprache für den Mustervergleich, mit der
+    man nach bestimmten Mustern in einem Feld suchen kann. Wenn wir zum Beispiel
+    alle Datensätze mit dem DOI-Präfix 10.5281 finden wollen, können wir eine Suche mit
+    regulären Ausdrücken verwenden:
+  </p>
+  <p>
+    <strong>Beispiel:</strong>
+    <a
+      href="/search?page=1&amp;size=20&amp;q=metadata.subjects.identifier:%2F03yrm5c2%5B1%2C6%5D%2F"><code>metadata.subjects.identifier:/03yrm5c2[1,6]/</code></a>
+  </p>
+  <p>
+    Vorsicht, der reguläre Ausdruck muss mit dem <em>gesamten</em> Feldwert übereinstimmen.
+    Weitere Einzelheiten finden Sie in der
+    <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-regexp-query.html#regexp-syntax">Syntax
+      des regulären Ausdrucks</a>
+    .
+  </p>
+  <h3>Fehlende Werte</h3>
+  <p>
+    Es ist möglich, mit den Feldnamen <code>_exists_</code> und
+    <code>_missing_</code> nach Datensätzen zu suchen,
+    in denen entweder ein Wert fehlt oder die einen Wert in einem bestimmten Feld haben.
+  </p>
+  <p>
+    <strong>Beispiel:</strong>
+    <a
+      href="/search?page=1&amp;size=20&amp;q=_missing_:metadata.additional_titles"><code>_missing_:metadata.additional_titles</code></a>
+    (alle Datensätze ohne metadata.additional_titles)
+  </p>
+  <p>
+    <strong>Beispiel:</strong>
+    <a href="/search?page=1&amp;size=20&amp;q=_exists_:metadata.creators"><code>_exists_:metadata.creators</code></a>
+    (alle Datensätze mit metadata.creators)
+  </p>
+  <h3>Erweiterte Konzepte</h3>
+  <h4>Boosten</h4>
+  <p>
+    Sie können den Boost-Operator <code>^</code> verwenden, wenn ein Begriff relevanter ist als ein
+    anderer. Sie können z. B. nach allen Datensätzen suchen, die den Ausdruck
+    <em>open science</em> entweder <em>im title</em> oder im
+    <em>description</em> feld enthalten, aber Datensätze mit dem Ausdruck im
+    <em>title</em> feld höher einstufen:
+  </p>
+  <p>
+    <strong>Beispiel:</strong>
+    <a
+      href="/search?page=1&amp;size=20&amp;q=metadata.title:%22open%20science%22%5E5%20metadata.description:%22open%20science%22"><code>metadata.title:"open science"^5 metadata.description:"open science"</code></a>
+  </p>
+  <h4>Unschärfe</h4>
+  <p>
+    Mit dem Fuzzy-Operator <code>~</code>können Sie nach
+    Begriffen suchen, die Ihrem Suchbegriff ähnlich, aber nicht genau gleich sind.
+  </p>
+  <p>
+    <strong>Beispiel:</strong>
+    <a href="/search?page=1&amp;size=20&amp;q=oepn~"><code>oepn~</code></a>
+  </p>
+  <p>
+    Die Ergebnisse entsprechen Datensätzen mit ähnlichen Begriffen wie <code>oepn</code> die z. B.
+    auch auf <code>open</code> passen würden.
+  </p>
+  <h4>Näherungssuche</h4>
+  <p>
+    Eine Phrasensuche wie <code>"open science"</code> erwartet standardmäßig alle Begriffe in
+    genau der gleichen Reihenfolge und würde daher z. B. nicht auf einen Datensatz
+    passen, der die Phrase <em>"open access and science"</em> enthält.
+    Eine Proximity-Suche erlaubt, dass die Begriffe nicht in der exakten Reihenfolge stehen
+    und auch andere Begriffe dazwischen enthalten können.
+    Der Grad der Flexibilität wird anschließend durch eine Ganzzahl angegeben:
+  </p>
+  <p>
+    <strong>Beispiel:</strong>
+    <a href="/search?page=1&amp;size=20&amp;q=%22open%20science%22~5"><code>"open science"~5</code></a>
+  </p>
+  <h4>Wildcards</h4>
+  <p>
+    Sie können Wildcards in Suchbegriffen verwenden, um ein einzelnes Zeichen (mit
+    dem Operator<code>?</code> operator) oder null oder mehr Zeichen (mit dem Operator
+    <code>*</code> ) zu ersetzen.
+  </p>
+  <p>
+    <strong>Beispiel:</strong>
+    <a href="/search?page=1&amp;size=20&amp;q=ope%3F%20scien*"><code>ope? scien*</code></a>
+  </p>
+  <p>
+    Platzhaltersuchen können langsam sein und sollten normalerweise nach Möglichkeit vermieden werden.
+  </p>
+</div>
+{%- endblock page_body%}
