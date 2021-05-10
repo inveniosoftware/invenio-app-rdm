@@ -39,6 +39,7 @@ theme = WebpackThemeBundle(
                 'react-invenio-deposit': '^0.13.5',
                 'react-invenio-forms': '^0.7.0',
                 'react-dropzone': "^11.0.3",
+                'react-scroll': '^1.8.2',
                 'yup': '^0.27.0',
                 '@ckeditor/ckeditor5-build-classic': '^16.0.0',
                 '@ckeditor/ckeditor5-react': '^2.1.0',
