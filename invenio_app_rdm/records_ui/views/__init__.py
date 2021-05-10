@@ -15,9 +15,9 @@ from invenio_pidstore.errors import PIDDeletedError, PIDDoesNotExistError, \
 from invenio_records_resources.services.errors import PermissionDeniedError
 
 from .deposits import deposit_create, deposit_edit, deposit_search
-from .filters import can_list_files, doi_identifier, \
-    has_previewable_files, make_files_preview_compatible, order_entries, \
-    pid_url, select_preview_file, to_previewer_files, vocabulary_title
+from .filters import can_list_files, doi_identifier, has_previewable_files, \
+    make_files_preview_compatible, order_entries, pid_url, \
+    select_preview_file, to_previewer_files, vocabulary_title
 from .records import not_found_error, record_detail, record_export, \
     record_file_download, record_file_preview, record_from_pid, \
     record_latest, record_permission_denied_error, record_tombstone_error
