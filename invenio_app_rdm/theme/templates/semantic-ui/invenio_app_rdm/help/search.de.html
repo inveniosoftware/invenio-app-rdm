@@ -30,7 +30,7 @@
   </p>
   <p>
     Sie können das <em>Vorhandensein</em> beider Terme entweder mit dem
-    <code>+</code> oder dem <code>AND</code> Operator verlangen:
+    <code>+</code> oder dem <code>AND</code> Operator erzwingen:
   </p>
   <p>
     <strong>Beispiele:</strong>
@@ -40,7 +40,7 @@
   </p>
   <p>
     Sie können das <em>Nichtvorhandensein</em> eines oder mehrerer Begriffe mit dem Operator
-    <code>-</code> oder <code>NOT</code> verlangen:
+    <code>-</code> oder <code>NOT</code> erzwingen:
   </p>
   <p>
     <strong>Beispiele:</strong>
@@ -64,7 +64,7 @@
   </p>
   <p>
     Die Ergebnisse stimmen mit Datensätzen überein, bei denen der <em>Begriff</em> <code>open</code> im
-    <em>Feld</em> <code>metadata.title</code>ist. enn Sie nach mehreren Begriffen im Titel suchen möchten,
+    <em>Feld</em> <code>metadata.title</code>ist. Wenn Sie nach mehreren Begriffen im Titel suchen möchten,
     müssen Sie <strong>die Begriffe</strong> mit Klammern gruppieren:
   </p>
   <p>
@@ -75,7 +75,7 @@
   <p>
     Die vollständige Liste der Felder, die Sie durchsuchen können, finden Sie in der Feldreferenz unten.
   </p>
-  <h3>Kombinierte einfache, Phrasen- oder Feldsuche</h3>
+  <h3>Kombinierte einfache Phrasen- oder Feldsuche</h3>
   <p>
     <strong>Beispiel:</strong>
     <a
@@ -85,7 +85,7 @@
       href="/search?page=1&amp;size=20&amp;q=metadata.title:(-open%20%2Bscience%29"><code>metadata.title:(-open +science)</code></a>
   </p>
   <p>
-    Sie können einfache, Phrasen- und Feldsuche kombinieren, um erweiterte Suchanfragen zu konstruieren.
+    Sie können einfache Phrasen- und Feldsuche kombinieren, um erweiterte Suchanfragen zu konstruieren.
   </p>
   <h3>Bereichssuche</h3>
   <p>
@@ -136,8 +136,8 @@
   <h3>Reguläre Ausdrücke</h3>
   <p>
     Reguläre Ausdrücke sind eine mächtige Sprache für den Mustervergleich, mit der
-    man nach bestimmten Mustern in einem Feld suchen kann. Wenn wir zum Beispiel
-    alle Datensätze mit dem DOI-Präfix 10.5281 finden wollen, können wir eine Suche mit
+    man nach bestimmten Mustern in einem Feld suchen kann. Wenn Sie zum Beispiel
+    alle Datensätze mit dem DOI-Präfix 10.5281 finden wollen, können Sie eine Suche mit
     regulären Ausdrücken verwenden:
   </p>
   <p>
@@ -174,9 +174,9 @@
   <p>
     Sie können den Boost-Operator <code>^</code> verwenden, wenn ein Begriff relevanter ist als ein
     anderer. Sie können z. B. nach allen Datensätzen suchen, die den Ausdruck
-    <em>open science</em> entweder <em>im title</em> oder im
-    <em>description</em> feld enthalten, aber Datensätze mit dem Ausdruck im
-    <em>title</em> feld höher einstufen:
+    <em>open science</em> entweder im <em>title</em> oder im
+    <em>description</em> Feld enthalten, aber Datensätze mit dem Ausdruck im
+    <em>title</em> Feld höher einstufen:
   </p>
   <p>
     <strong>Beispiel:</strong>
@@ -193,17 +193,19 @@
     <a href="/search?page=1&amp;size=20&amp;q=oepn~"><code>oepn~</code></a>
   </p>
   <p>
-    Die Ergebnisse entsprechen Datensätzen mit ähnlichen Begriffen wie <code>oepn</code> die z. B.
-    auch auf <code>open</code> passen würden.
+    Die Ergebnisse entsprechen Datensätzen mit ähnlichen Begriffen (oder
+    Rechtschreibfehlern) wie <code>oepn</code> die z. B. auch auf
+    <code>open</code> passen würden.
   </p>
   <h4>Näherungssuche</h4>
   <p>
-    Eine Phrasensuche wie <code>"open science"</code> erwartet standardmäßig alle Begriffe in
-    genau der gleichen Reihenfolge und würde daher z. B. nicht auf einen Datensatz
-    passen, der die Phrase <em>"open access and science"</em> enthält.
-    Eine Proximity-Suche erlaubt, dass die Begriffe nicht in der exakten Reihenfolge stehen
-    und auch andere Begriffe dazwischen enthalten können.
-    Der Grad der Flexibilität wird anschließend durch eine Ganzzahl angegeben:
+    Eine Phrasensuche wie <code>"open science"</code> (mit Anführungszeichen)
+    erwartet standardmäßig alle Begriffe in genau der gleichen Reihenfolge und
+    würde daher z. B. nicht auf einen Datensatz passen, der die Phrase
+    <em>"open access and science"</em> enthält. Eine Proximity-Suche erlaubt,
+    dass die Begriffe nicht in der exakten Reihenfolge stehen und auch andere
+    Begriffe dazwischen enthalten können. Der Grad der Flexibilität wird
+    anschließend durch eine Ganzzahl angegeben:
   </p>
   <p>
     <strong>Beispiel:</strong>
@@ -211,9 +213,9 @@
   </p>
   <h4>Wildcards</h4>
   <p>
-    Sie können Wildcards in Suchbegriffen verwenden, um ein einzelnes Zeichen (mit
-    dem Operator<code>?</code> operator) oder null oder mehr Zeichen (mit dem Operator
-    <code>*</code> ) zu ersetzen.
+    Sie können Wildcards in Suchbegriffen verwenden, um ein einzelnes Zeichen
+    (mit dem <code>?</code> Operator) oder keines bis mehrere Zeichen (mit dem
+    <code>*</code> Operator) zu ersetzen.
   </p>
   <p>
     <strong>Beispiel:</strong>
