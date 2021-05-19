@@ -94,7 +94,7 @@
               <span class="label text-muted"> | Version {{ record.ui.version }}</span>
             </div>
             <div class="right floated right aligned column">
-              <span class="ui label small grey">{{ record.ui.resource_type }}</span>
+              <span class="ui label small grey">{{ record.ui.resource_type.title_l10n }}</span>
               <span class="ui label small access-status {{ record.ui.access_status.id }}" data-tooltip="{{ record.ui.access_status.description_l10n }}" data-inverted="">
                 {% if record.ui.access_status.icon %}<i class="icon {{ record.ui.access_status.icon }}"></i>{% endif %}
                 {{ record.ui.access_status.title_l10n }}

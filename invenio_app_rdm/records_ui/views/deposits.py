@@ -11,12 +11,14 @@
 
 from flask import current_app, render_template
 from flask_login import login_required
+from invenio_access.permissions import system_identity
 from invenio_i18n.ext import current_i18n
 from invenio_rdm_records.proxies import current_rdm_records
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
 from invenio_rdm_records.services.schemas import RDMRecordSchema
 from invenio_rdm_records.services.schemas.utils import dump_empty
 from invenio_rdm_records.vocabularies import Vocabularies
+from invenio_vocabularies.proxies import current_service as vocabulary_service
 
 from ..utils import set_default_value
 from .decorators import pass_draft, pass_draft_files
@@ -65,10 +67,28 @@ def get_form_pids_config():
     return pids_providers
 
 
+def _dump_resource_type_vocabulary():
+    """Dump resource type vocabulary."""
+    # TODO: invenio-vocabularies needs to implement read_all before it can be
+    #       used here.
+    results = vocabulary_service.search(
+        system_identity, type='resource_types', size=100)
+    return [
+        {
+            "icon": r["props"].get("type_icon", ""),
+            "id": r["id"],
+            "subtype_name": r["props"].get("subtype_name", ""),
+            "type_name": r["props"]["type_name"],
+        } for r in results.to_dict()["hits"]["hits"]
+    ]
+
+
 def get_form_config(**kwargs):
     """Get the react form configuration."""
+    vocabularies = Vocabularies.dump()
+    vocabularies["resource_type"] = _dump_resource_type_vocabulary()
     return dict(
-        vocabularies=Vocabularies.dump(),
+        vocabularies=vocabularies,
         current_locale=str(current_i18n.locale),
         pids=get_form_pids_config(),
         **kwargs

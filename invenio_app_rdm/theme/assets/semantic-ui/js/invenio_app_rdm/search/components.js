@@ -47,7 +47,8 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
     "ui.publication_date_l10n_long",
     "No publication date found."
   );
-  const resource_type = _get(result, "ui.resource_type", "No resource type");
+  const resource_type = _get(
+    result, "ui.resource_type.title_l10n", "No resource type");
   const subjects = _get(result, "metadata.subjects", []);
   const title = _get(result, "metadata.title", "No title");
   const version = _get(result, "ui.version", null);

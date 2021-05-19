@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2019-2020 CERN.
-# Copyright (C) 2019-2020 Northwestern University.
+# Copyright (C) 2019-2021 CERN.
+# Copyright (C) 2019-2021 Northwestern University.
 # Copyright (C)      2021 TU Wien.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
@@ -36,7 +36,7 @@ theme = WebpackThemeBundle(
                 'prop-types': '^15.7.2',
                 'react-dnd': '^11.1.3',
                 'react-dnd-html5-backend': '^11.1.3',
-                'react-invenio-deposit': '^0.13.5',
+                'react-invenio-deposit': '^0.14.0',
                 'react-invenio-forms': '^0.7.0',
                 'react-dropzone': "^11.0.3",
                 'yup': '^0.27.0',

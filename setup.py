@@ -67,7 +67,7 @@ install_requires = [
     'CairoSVG>=1.0.20',
     'flask>=1.1,<2.0',
     f'invenio[base,auth,metadata,files]{invenio_version}',
-    'invenio-rdm-records>=0.30.1,<0.31.0',
+    'invenio-rdm-records>=0.30.4,<0.31.0',
     'invenio-communities>=2.3.0.dev1,<2.4.0',
 ]
 
