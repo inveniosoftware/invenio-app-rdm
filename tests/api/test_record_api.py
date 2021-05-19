@@ -29,7 +29,7 @@ def test_record_read_non_existing_pid(client, location, minimal_record,
 
 
 def test_record_draft_create_and_read(
-    client_with_login, location, minimal_record, es_clear
+    client_with_login, running_app, minimal_record, es_clear
 ):
     """Test draft creation of a non-existing record."""
     # create a record
@@ -54,7 +54,7 @@ def test_record_draft_create_and_read(
 
 
 def test_record_draft_publish(
-    client_with_login, headers, location, minimal_record, es_clear
+    client_with_login, headers, running_app, minimal_record, es_clear
 ):
     """Test draft publication of a non-existing record.
 
@@ -105,7 +105,7 @@ def test_record_draft_publish(
 
 
 def test_read_record_with_redirected_pid(
-    client_with_login, headers, location, minimal_record, es_clear
+    client_with_login, headers, running_app, minimal_record, es_clear
 ):
     """Test read a record with a redirected pid."""
     # Create dummy record

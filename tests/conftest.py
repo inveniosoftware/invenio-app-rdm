@@ -1,21 +1,25 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2019 CERN.
-# Copyright (C) 2019 Northwestern University.
+# Copyright (C) 2019-2021 CERN.
+# Copyright (C) 2019-2021 Northwestern University.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """Common pytest fixtures and plugins."""
 
+from collections import namedtuple
+
 import pytest
 from flask_security import login_user
 from flask_security.utils import hash_password
 from invenio_access.models import ActionUsers
+from invenio_access.permissions import system_identity
 from invenio_access.proxies import current_access
 from invenio_accounts.proxies import current_datastore
 from invenio_accounts.testutils import login_user_via_session
 from invenio_db import db
+from invenio_vocabularies.proxies import current_service as vocabulary_service
 
 pytest_plugins = ("celery.contrib.pytest", )
 
@@ -34,8 +38,7 @@ def minimal_record(users):
         "metadata": {
             "publication_date": "2020-06-01",
             "resource_type": {
-                "type": "image",
-                "subtype": "image-photo"
+                "id": "image-photo",
             },
             # Technically not required
             "creators": [{
@@ -109,3 +112,46 @@ def client_with_login(client, users):
     login_user(user, remember=True)
     login_user_via_session(client, email=user.email)
     return client
+
+
+@pytest.fixture(scope="module")
+def resource_type_type(app):
+    """Resource type vocabulary type."""
+    return vocabulary_service.create_type(
+        system_identity, "resource_types", "rsrct")
+
+
+@pytest.fixture(scope="module")
+def resource_type_item(app, resource_type_type):
+    """Resource type vocabulary record."""
+    return vocabulary_service.create(system_identity, {
+        "id": "image-photo",
+        "props": {
+            "csl": "graphic",
+            "datacite_general": "Image",
+            "datacite_type": "Photo",
+            "openaire_resourceType": "25",
+            "openaire_type": "dataset",
+            "schema.org": "https://schema.org/Photograph",
+            "subtype": "image-photo",
+            "subtype_name": "Photo",
+            "type": "image",
+            "type_icon": "chart bar outline",
+            "type_name": "Image",
+        },
+        "title": {
+            "en": "Photo"
+        },
+        "type": "resource_types"
+    })
+
+
+RunningApp = namedtuple("RunningApp", [
+    "app", "location", "resource_type_item"
+])
+
+
+@pytest.fixture
+def running_app(app, location, resource_type_item):
+    """Fixture mimicking a running app."""
+    return RunningApp(app, location, resource_type_item)

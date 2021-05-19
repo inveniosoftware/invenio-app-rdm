@@ -14,7 +14,7 @@
 <dt><b>{{ _('Details')}}</b></dt>
 <hr class="thin-line"></hr>
 <dd class="top-bottom-padded">
-  {{ show_detail(_('Resource type'), record.ui.resource_type) if record.ui.resource_type }}
+  {{ show_detail(_('Resource type'), record.ui.resource_type.title_l10n) if record.ui.resource_type }}
   {{ show_detail(_('Publication date'), record.ui.publication_date_l10n) if record.ui.publication_date_l10n }}
   {{ show_detail(_('Publisher'), metadata.publisher) if metadata.publisher }}
   {{ show_detail(_('Additional titles'), show_add_titles(metadata.additional_titles)) if metadata.additional_titles }}
