@@ -30,14 +30,14 @@
 {% macro show_creatibutors(creatibutors, show_affiliations=False) %}
   {% for creatibutor in creatibutors %}
     {{ creatibutor_icon(creatibutor) }}
-    <span
+    <a
       class="ui tooltip-popup text-muted"
       {% if show_affiliations and creatibutor.affiliations %}
         data-content="{{ creatibutor.affiliations|join('; ', attribute='1') }}"
       {% endif %}
-    >
+      href="{{url_for('invenio_search_ui.search', q='metadata.creators.person_or_org.name:"' + creatibutor.person_or_org.name + '"')}}">
       {{ creatibutor.person_or_org.name }}
-    </span>
+      </a>
     <sup class="font-tiny">
       {% for affiliation in creatibutor.affiliations %}
         {{ affiliation[0] }}{{ ", " if not loop.last }}
