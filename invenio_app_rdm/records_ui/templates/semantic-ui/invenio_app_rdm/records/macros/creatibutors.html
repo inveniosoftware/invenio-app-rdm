@@ -35,10 +35,9 @@
       {% if show_affiliations and creatibutor.affiliations %}
         data-content="{{ creatibutor.affiliations|join('; ', attribute='1') }}"
       {% endif %}
-      href="/search?q=metadata.creators.person_or_org.name{{ creatibutor.person_or_org.name}}"
-    >
+      href="{{ url_for('invenio_search_ui.search', q='metadata.creators.person_or_org.name:') }}{{ creatibutor.person_or_org.name}}">
       {{ creatibutor.person_or_org.name }}
-</a>
+      </a>
     <sup class="font-tiny">
       {% for affiliation in creatibutor.affiliations %}
         {{ affiliation[0] }}{{ ", " if not loop.last }}
