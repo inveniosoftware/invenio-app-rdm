@@ -493,3 +493,10 @@ the values should be set (see invenio-records.dictutils).
 If the value is callable, its return value will be used for the field
 (e.g. lambda/function for dynamic calculation of values).
 """
+
+
+# Invenio-IIIF
+# ===================
+
+IIIF_API_DECORATOR_HANDLER = None
+IIIF_IMAGE_OPENER_HANDLER = "invenio_rdm_records.resources.iiif:image_opener"
