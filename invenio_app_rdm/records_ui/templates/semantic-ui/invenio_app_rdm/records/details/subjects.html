@@ -11,7 +11,7 @@
 <dt><b>{{_('Subjects')}}</b></dt>
 <dd class="top-bottom-padded">
   {%- for keyword in metadata.subjects %}
-  <span class="label label-keyword">{{ keyword.subject }}</span>
+  <span style="display: inline-block;" class="label label-keyword">{{ keyword.subject }}</span>
   {%- endfor %}
 </dd>
 {% endif %}
