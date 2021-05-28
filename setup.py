@@ -68,7 +68,7 @@ install_requires = [
     'flask>=1.1,<2.0',
     f'invenio[base,auth,metadata,files]{invenio_version}',
     'invenio-rdm-records>=0.30.4,<0.31.0',
-    'invenio-communities>=2.3.0.dev1,<2.4.0',
+    'invenio-communities>=2.3.0,<2.4.0',
 ]
 
 packages = find_packages()
