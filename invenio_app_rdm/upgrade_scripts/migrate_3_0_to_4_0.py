@@ -26,27 +26,39 @@ def execute_upgrade():
 
     def remove_duplicate_languages(record):
         """Remove duplicate languages."""
-        if 'languages' in record['metadata']:
+        if "languages" in record["metadata"]:
             serialized_languages = map(
                 tuple,
-                map(sorted, map(dict.items, record['metadata']['languages']))
+                map(sorted, map(dict.items, record["metadata"]["languages"])),
             )
             unique_languages = set(serialized_languages)
             languages_list = list(map(dict, unique_languages))
-            record['metadata']['languages'] = languages_list
+            record["metadata"]["languages"] = languages_list
 
     def update_resource_type(record):
         """Updates resource type to become a vocabulary."""
-        if 'subtype' in record['metadata']['resource_type']:
-            record['metadata']['resource_type'] = dict(
-                id=record['metadata']['resource_type']['subtype']
-            )
-            record.commit()
-        elif 'type' in record['metadata']['resource_type']:
-            record['metadata']['resource_type'] = dict(
-                id=record['metadata']['resource_type']['type']
-            )
-            record.commit()
+
+        def get_res_type_vocabulary(data):
+            """Returns the id value of the resource type vocabulary."""
+            if "subtype" in data["resource_type"]:
+                return data["resource_type"]["subtype"]
+            elif "type" in data["resource_type"]:
+                return data["resource_type"]["type"]
+
+        if "resource_type" in record["metadata"]:
+            res_type_vocab = get_res_type_vocabulary(record["metadata"])
+            record["metadata"]["resource_type"] = dict(id=res_type_vocab)
+
+        for idx, val in enumerate(
+            record["metadata"].get("related_identifiers", [])
+        ):
+            if "resource_type" in val:
+                res_type_vocab = get_res_type_vocabulary(val)
+                record["metadata"]["related_identifiers"][idx][
+                    "resource_type"
+                ] = dict(id=res_type_vocab)
+
+        record.commit()
 
     for record_metadata in RDMRecord.model_cls.query.all():
         record = RDMRecord(record_metadata.data, model=record_metadata)
