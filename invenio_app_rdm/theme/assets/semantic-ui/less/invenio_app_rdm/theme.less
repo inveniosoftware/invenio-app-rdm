@@ -33,7 +33,7 @@ body {
     background: transparent;
   }
 
-  #frontpage-search-bar{
+  #frontpage-search-bar {
     background: transparent;
     .search-bar {
       width: 50%;
@@ -41,7 +41,7 @@ body {
     }
   }
 
-  a{
+  a {
     color: #dbeaff;
   }
 }
@@ -50,10 +50,8 @@ body {
   line-height: 44px !important;
 }
 
-
-
 .no-dots-list {
-  list-style-type:none;
+  list-style-type: none;
   margin-block-start: unset;
   margin-block-end: unset;
 }
@@ -194,7 +192,6 @@ body {
   max-width: 100% !important;
 }
 
-
 @media only screen and (max-width: 767px) {
   .invenio-rdm-project-goals {
     flex-direction: column !important;
@@ -203,11 +200,11 @@ body {
 
     .rdm-goal {
       width: 100%;
-  }
+    }
   }
   .outer-navbar {
-    #frontpage-search-bar{
-      .ui.container.grid{
+    #frontpage-search-bar {
+      .ui.container.grid {
         width: 100% !important;
       }
       .search-bar {
@@ -244,14 +241,14 @@ body {
 
 // Search page
 .record-elem .record-title {
-    color: #0377cd;
+  color: #0377cd;
 }
 
 .record-elem .record-description {
-    color: #000000;
+  color: #000000;
 }
 
-.btn-primary  {
+.btn-primary {
   background-color: #0377cd;
   border-color: #0377cd;
 }
@@ -268,7 +265,7 @@ body {
 }
 
 .theme.header {
-  box-shadow: 0 2px 5px rgba(0,0,0,.2);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 // Deposits page
@@ -282,7 +279,6 @@ body {
       padding-left: 0.5em;
       padding-bottom: 20px;
     }
-
   }
 
   div.status-icon {
@@ -300,7 +296,7 @@ body {
 }
 
 .ui.label.access-status {
-  color: #FFFFFF;
+  color: #ffffff;
 
   &.open {
     background-color: @accessRightOpen;
@@ -316,26 +312,26 @@ body {
   }
 }
 
-.ui.card.borderless-facet{
+.ui.card.borderless-facet {
   box-shadow: none;
-  .content{
+  .content {
     border-top: none;
-    .header{
-      font-size: 1.10em !important;
+    .header {
+      font-size: 1.1em !important;
     }
   }
 }
 
-.content.facet-content.active{
-    padding-left: 21px !important;
+.content.facet-content.active {
+  padding-left: 21px !important;
 }
 
-.facet-subtitle{
+.facet-subtitle {
   padding-left: 20px !important;
 }
 
-.result-options{
-  height:66px;
+.result-options {
+  height: 66px;
 }
 
 .inline-orcid {
@@ -352,17 +348,17 @@ body {
     .ui.basic.very.padded.segment.file-upload-area {
       border: 2px dashed #999999;
       border-radius: 5px;
-      background: #EEEEEE none;
+      background: #eeeeee none;
       margin-top: 20px;
 
-      &.no-files{
+      &.no-files {
         margin: 0px;
       }
     }
   }
 
   .row.file-upload-note-row {
-    padding-top: 5px ;
+    padding-top: 5px;
   }
 
   .row.file-import-note-row {
@@ -373,11 +369,13 @@ body {
 
 .ui.table {
   .ui.blue.medium.file-upload-progress {
-    &.progress, &.success {
-      &.active, &.disabled {
+    &.progress,
+    &.success {
+      &.active,
+      &.disabled {
         margin-bottom: 0px;
         &.error {
-            margin-bottom: 0px;
+          margin-bottom: 0px;
         }
       }
     }
@@ -407,8 +405,8 @@ body {
 
 .ui.menu {
   .active.item.license-menu-item-active {
-    border-color: #2185D0;
-    background-color: #2185D0;
+    border-color: #2185d0;
+    background-color: #2185d0;
     color: white;
 
     &:hover {
@@ -416,5 +414,34 @@ body {
       background-color: #0d71bb;
       color: white;
     }
+  }
+}
+
+#record-citation {
+  margin-top: 1em;
+  margin-bottom: 1em;
+
+  .citation-style-selector {
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
+
+  .citation-style-link {
+    margin-right: 0.25em;
+    margin-left: 0.25em;
+    cursor: pointer;
+
+    &.loading {
+      pointer-events: none;
+    }
+  }
+
+  .citation-style-p {
+    display: inline;
+    margin-right: 1em;
+  }
+
+  .citation-error-message {
+    color: #9f3a38;
   }
 }
