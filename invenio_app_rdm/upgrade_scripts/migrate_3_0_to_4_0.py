@@ -35,8 +35,8 @@ def execute_upgrade():
             languages_list = list(map(dict, unique_languages))
             record["metadata"]["languages"] = languages_list
 
-    def update_resource_type(record):
-        """Updates resource type to become a vocabulary."""
+    def update_vocabularies(record):
+        """Updates languages and resource_type to become vocabularies."""
 
         def get_res_type_vocabulary(data):
             """Returns the id value of the resource type vocabulary."""
@@ -45,10 +45,23 @@ def execute_upgrade():
             elif "type" in data["resource_type"]:
                 return data["resource_type"]["type"]
 
+        def get_language_vocabulary(data):
+            """Returns the language as vocabulary."""
+            return dict(id=data)
+
+        def migrate_language(field):
+            """Migrates language field."""
+            for idx, val in enumerate(record["metadata"].get(field, [])):
+                if "lang" in val:
+                    language_vocab = get_language_vocabulary(val["lang"])
+                    record["metadata"][field][idx]["lang"] = language_vocab
+
+        # Migrate resource_type
         if "resource_type" in record["metadata"]:
             res_type_vocab = get_res_type_vocabulary(record["metadata"])
             record["metadata"]["resource_type"] = dict(id=res_type_vocab)
 
+        # Migrate resource_type of related_identifiers
         for idx, val in enumerate(
             record["metadata"].get("related_identifiers", [])
         ):
@@ -57,6 +70,11 @@ def execute_upgrade():
                 record["metadata"]["related_identifiers"][idx][
                     "resource_type"
                 ] = dict(id=res_type_vocab)
+
+        # Migrate languages from additional_descriptions
+        migrate_language("additional_descriptions")
+        # Migrate languages from additional_titles
+        migrate_language("additional_titles")
 
         record.commit()
 
@@ -98,7 +116,7 @@ def execute_upgrade():
     for record_metadata in RDMRecord.model_cls.query.all():
         record = RDMRecord(record_metadata.data, model=record_metadata)
 
-        update_resource_type(record)
+        update_vocabularies(record)
 
     for draft_metadata in RDMDraft.model_cls.query.all():
         # Skipping deleted drafts because can't be committed
@@ -107,7 +125,7 @@ def execute_upgrade():
 
         draft = RDMDraft(draft_metadata.data, model=draft_metadata)
 
-        update_resource_type(draft)
+        update_vocabularies(draft)
 
     for parent_metadata in RDMParent.model_cls.query.all():
         parent = RDMParent(parent_metadata.data, model=parent_metadata)
