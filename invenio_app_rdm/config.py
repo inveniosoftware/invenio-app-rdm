@@ -30,6 +30,7 @@ WARNING: An instance should NOT install multiple flavour extensions since
 
 from datetime import datetime, timedelta
 
+from celery.schedules import crontab
 from flask_principal import Denial
 from invenio_access.permissions import any_user
 
@@ -265,6 +266,10 @@ CELERY_BEAT_SCHEDULE = {
     'draft_resources': {
         'task': 'invenio_draft_resources.tasks.cleanup_drafts',
         'schedule': timedelta(minutes=60),
+    },
+    'rdm_records': {
+        'task': 'invenio_rdm_records.tasks.update_expired_embargos',
+        'schedule': crontab(minute=2, hour=0),
     }
 }
 """Scheduled tasks configuration (aka cronjobs)."""
