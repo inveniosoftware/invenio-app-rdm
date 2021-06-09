@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: invenio-app-rdm 5.0.0.dev0\n"
 "Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
-"POT-Creation-Date: 2021-06-08 15:01+0200\n"
+"POT-Creation-Date: 2021-06-09 13:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -52,6 +52,11 @@ msgstr ""
 msgid "Edit upload"
 msgstr ""
 
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:28
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:77
+msgid "Preview"
+msgstr ""
+
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:63
 #, python-format
 msgid ""
@@ -69,6 +74,14 @@ msgstr ""
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:146
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:107
 msgid "Reason"
+msgstr ""
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:166
+msgid "Upload information"
+msgstr ""
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:181
+msgid "Jump up"
 msgstr ""
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/export.html:18
@@ -236,15 +249,15 @@ msgid ""
 "file integrity."
 msgstr ""
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:77
-msgid "Preview"
-msgstr ""
-
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:82
 msgid "Download"
 msgstr ""
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:21
+msgid "About InvenioRDM"
+msgstr ""
+
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:22
 #, python-format
 msgid ""
 "\n"
@@ -253,7 +266,7 @@ msgid ""
 "                "
 msgstr ""
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:24
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:25
 #, python-format
 msgid ""
 "\n"
@@ -262,7 +275,7 @@ msgid ""
 "                "
 msgstr ""
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:27
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:28
 #, python-format
 msgid ""
 "\n"
@@ -271,7 +284,7 @@ msgid ""
 "                "
 msgstr ""
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:30
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:31
 #, python-format
 msgid ""
 "\n"
@@ -281,6 +294,10 @@ msgid ""
 msgstr ""
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:36
+msgid "Get involved"
+msgstr ""
+
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:37
 #, python-format
 msgid ""
 "\n"
@@ -289,7 +306,7 @@ msgid ""
 "                "
 msgstr ""
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:39
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:40
 #, python-format
 msgid ""
 "\n"
@@ -298,7 +315,7 @@ msgid ""
 "                "
 msgstr ""
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:42
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:43
 #, python-format
 msgid ""
 "\n"
@@ -308,6 +325,10 @@ msgid ""
 msgstr ""
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:48
+msgid "Community"
+msgstr ""
+
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:49
 #, python-format
 msgid ""
 "\n"
@@ -316,7 +337,7 @@ msgid ""
 "                "
 msgstr ""
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:51
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:52
 #, python-format
 msgid ""
 "\n"
@@ -325,7 +346,7 @@ msgid ""
 "                "
 msgstr ""
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:54
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:55
 #, python-format
 msgid ""
 "\n"
@@ -334,7 +355,7 @@ msgid ""
 "                "
 msgstr ""
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:75
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:76
 #, python-format
 msgid ""
 "Powered by <a\n"
