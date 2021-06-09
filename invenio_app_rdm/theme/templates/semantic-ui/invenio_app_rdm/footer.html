@@ -2,6 +2,7 @@
 
   Copyright (C) 2019-2020 CERN.
   Copyright (C) 2019-2020 Northwestern University.
+  Copyright (C)      2021 Graz University of Technology.
 
   Invenio App RDM is free software; you can redistribute it and/or modify it
   under the terms of the MIT License; see LICENSE file for more details.
@@ -17,7 +18,7 @@
             {%- block footer_top_left %}
             <div class="ui row grid">
               <div class="rdm-footer">
-                <h4>About InvenioRDM</h4>
+                <h4>{{_ ("About InvenioRDM")}}</h4>
                 {% trans invenio_rdm="http://inveniosoftware.org/products/rdm" %}
                 <p class="margin-small"><a href="{{invenio_rdm}}">Product page</a></p>
                 {% endtrans %}
@@ -32,7 +33,7 @@
                 {% endtrans %}
               </div>
               <div class="rdm-footer">
-                <h4>Get involved</h4>
+                <h4>{{_ ("Get involved")}}</h4>
                 {% trans invenio_rdm_gh="https://github.com/inveniosoftware/invenio-app-rdm" %}
                 <p class="margin-small"><a href="{{invenio_rdm_gh}}">GitHub</a></p>
                 {% endtrans %}
@@ -44,7 +45,7 @@
                 {% endtrans %}
               </div>
               <div class="rdm-footer">
-                <h4>Community</h4>
+                <h4>{{_ ("Community")}}</h4>
                 {% trans invenio_rdm_chatroom="https://discord.gg/8qatqBC" %}
                 <p class="margin-small"><a href="{{invenio_rdm_chatroom}}">Chatroom</a></p>
                 {% endtrans %}
