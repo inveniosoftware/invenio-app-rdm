@@ -59,7 +59,13 @@ const DeleteDraftButton = (props) => {
 
   return (
     <>
-      <Button compact size="small" floated="right" color="red" onClick={handleOpen}>
+      <Button
+        compact
+        size="small"
+        floated="right"
+        color="red"
+        onClick={handleOpen}
+      >
         <Icon name="trash alternate outline" />
         Delete
       </Button>
@@ -169,9 +175,12 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
     "No publication date found."
   );
   const resource_type = _get(
-    result, "ui.resource_type.title_l10n", "No resource type");
+    result,
+    "ui.resource_type.title_l10n",
+    "No resource type"
+  );
   const title = _get(result, "metadata.title", "No title");
-  const subjects = _get(result, "metadata.subjects", []);
+  const subjects = _get(result, "ui.subjects", []);
   const version = _get(result, "ui.version", null);
   const is_published = result.is_published;
 
@@ -187,8 +196,9 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
       });
   };
 
-  const viewLink = is_published ? `/records/${result.id}` : `/uploads/${result.id}`;
-
+  const viewLink = is_published
+    ? `/records/${result.id}`
+    : `/uploads/${result.id}`;
   return (
     <Item key={index} className="deposits-list-item">
       <div className="status-icon">
@@ -257,7 +267,7 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
         <Item.Extra>
           {subjects.map((subject, index) => (
             <Label key={index} size="tiny">
-              {subject.subject}
+              {subject.title_l10n}
             </Label>
           ))}
           {createdDate && (

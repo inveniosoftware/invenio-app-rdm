@@ -6,12 +6,13 @@
   it under the terms of the MIT License; see LICENSE file for more details.
 #}
 
-{% set subjects = metadata.get('subjects') %}
+{% set subjects = record.ui.subjects %}
+
 {% if subjects %}
 <dt><b>{{_('Subjects')}}</b></dt>
 <dd class="top-bottom-padded">
-  {%- for keyword in metadata.subjects %}
-  <span class="label label-keyword">{{ keyword.subject }}</span>
+  {%- for subject in subjects %}
+  <span class="label label-keyword">{{ subject.title_l10n}}</span>
   {%- endfor %}
 </dd>
 {% endif %}
