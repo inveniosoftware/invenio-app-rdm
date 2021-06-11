@@ -48,14 +48,16 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
     "No publication date found."
   );
   const resource_type = _get(
-    result, "ui.resource_type.title_l10n", "No resource type");
-  const subjects = _get(result, "metadata.subjects", []);
+    result,
+    "ui.resource_type.title_l10n",
+    "No resource type"
+  );
+  const subjects = _get(result, "ui.subjects", []);
   const title = _get(result, "metadata.title", "No title");
   const version = _get(result, "ui.version", null);
 
   // Derivatives
   const viewLink = `/records/${result.id}`;
-
   return (
     <Item key={index} href={viewLink}>
       <Item.Content>
@@ -97,7 +99,7 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
         <Item.Extra>
           {subjects.map((subject, index) => (
             <Label key={index} size="tiny">
-              {subject.subject}
+              {subject.title_l10n}
             </Label>
           ))}
           {createdDate && (

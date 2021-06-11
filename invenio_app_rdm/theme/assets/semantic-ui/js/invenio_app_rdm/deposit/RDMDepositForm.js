@@ -20,6 +20,7 @@ import {
   FormFeedback,
   IdentifiersField,
   LanguagesField,
+  SubjectsField,
   LicenseField,
   PIDField,
   PreviewButton,
@@ -239,8 +240,7 @@ export class RDMDepositForm extends Component {
           ],
           limitToOptions: [
             { text: "All", value: "all" },
-            { text: "MeSH", value: "mesh" },
-            { text: "FAST", value: "fast" },
+            { text: "Science", value: "science" },
           ],
         },
       },
@@ -407,23 +407,16 @@ export class RDMDepositForm extends Component {
                       editLabel: "Edit contributor",
                     }}
                   />
-                  {/**TODO: uncomment to use Subjects*/}
-                  {/* <SubjectsField
-                  initialOptions={_get(
-                    this.props.record,
-                    "metadata.subjects",
-                    null
-                  )}
-                  limitToOptions={
-                    this.vocabularies.metadata.subjects.limitToOptions
-                  }
-                />
-                <ComingSoonField
-                  fieldPath="metadata.subjects"
-                  label="Subjects"
-                  labelIcon="tag"
-                /> */}
-
+                  <SubjectsField
+                    initialOptions={_get(
+                      this.props.record,
+                      "ui.subjects",
+                      null
+                    )}
+                    limitToOptions={
+                      this.vocabularies.metadata.subjects.limitToOptions
+                    }
+                  />
                   <LanguagesField
                     initialOptions={_get(
                       this.props.record,
