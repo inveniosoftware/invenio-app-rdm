@@ -24,7 +24,7 @@
   {{ show_detail(_('Formats'), list_formats(metadata.formats)) if metadata.formats }}
   {{ show_detail(_('Sizes'), list_sizes(metadata.sizes)) if metadata.sizes }}
   {{ show_detail(_('Funding'), show_funding(metadata.funding)) if metadata.funding }}
-  {{ show_detail(_('Related works'), show_related_identifiers(metadata.related_identifiers)) if metadata.related_identifiers }}
+  {{ show_detail(_('Related works'), show_related_identifiers(record.ui.related_identifiers)) if record.ui.related_identifiers }}
   {{ show_detail(_('References'), show_references(metadata.references)) if metadata.references }}
 </dd>
 <hr class="thin-line"></hr>

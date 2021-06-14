@@ -114,8 +114,13 @@ def _dump_description_types_vocabulary():
 
 
 def _dump_date_types_vocabulary():
-    """Dump description type vocabulary."""
+    """Dump date type vocabulary."""
     return _dump_vocabulary_w_basic_fields('datetypes')
+
+
+def _dump_relation_types_vocabulary():
+    """Dump relation type vocabulary."""
+    return _dump_vocabulary_w_basic_fields('relationtypes')
 
 
 def get_form_config(**kwargs):
@@ -135,6 +140,8 @@ def get_form_config(**kwargs):
     vocabularies["dates"] = dict(
         type=_dump_date_types_vocabulary()
     )
+    vocabularies["relation_type"] = _dump_relation_types_vocabulary()
+
     return dict(
         vocabularies=vocabularies,
         current_locale=str(current_i18n.locale),
