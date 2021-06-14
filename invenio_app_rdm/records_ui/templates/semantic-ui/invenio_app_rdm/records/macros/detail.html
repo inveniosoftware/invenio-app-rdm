@@ -93,9 +93,28 @@
   {% endfor %}
 {% endmacro %}
 
+{% macro _identifiers_for_group(related_identifiers) %}
+  {% for identifier in related_identifiers %}
+    <div class="ui relaxed grid">
+      <div class="two column row">
+        <div class="eight wide column">
+          <p>{{ identifier.identifier + ' ( ' + identifier.scheme + ' )' }}</p>
+        </div>
+        <div class="eight wide column">
+          {% if identifier.resource_type is defined %}
+            {{ identifier.resource_type.title_l10n }}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+{% endmacro %}
+
 
 {% macro show_related_identifiers(related_identifiers) %}
-  <div id="recordRelatedIdentifiers" data-related-identifiers='{{ related_identifiers | groupby('relation_type') | tojson }}'></div>
+  {%- for group in related_identifiers | groupby('relation_type.title_l10n')%}
+    {{ show_detail(group.grouper, _identifiers_for_group(group.list))}}
+  {%- endfor %}
 {% endmacro %}
 
 {% macro list_languages(languages) %}

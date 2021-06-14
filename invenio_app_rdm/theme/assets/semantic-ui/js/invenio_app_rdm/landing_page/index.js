@@ -13,14 +13,10 @@ import ReactDOM from "react-dom";
 import { RecordManagement } from "./RecordManagement";
 import { RecordVersionsList } from "./RecordVersionsList";
 import { RecordCitationField } from "./RecordCitationField";
-import { RecordRelatedIdentifiers } from "./RecordRelatedIdentifiers";
 
 const recordManagementAppDiv = document.getElementById("recordManagement");
 const recordVersionsAppDiv = document.getElementById("recordVersions");
 const recordCitationAppDiv = document.getElementById("recordCitation");
-const recordRelatedIdentifiersAppDiv = document.getElementById(
-  "recordRelatedIdentifiers"
-);
 
 if (recordManagementAppDiv) {
   ReactDOM.render(
@@ -50,17 +46,6 @@ if (recordCitationAppDiv) {
       defaultStyle={JSON.parse(recordCitationAppDiv.dataset.defaultstyle)}
     />,
     recordCitationAppDiv
-  );
-}
-
-if (recordRelatedIdentifiersAppDiv) {
-  ReactDOM.render(
-    <RecordRelatedIdentifiers
-      relatedIdentifiers={JSON.parse(
-        recordRelatedIdentifiersAppDiv.dataset.relatedIdentifiers
-      )}
-    />,
-    recordRelatedIdentifiersAppDiv
   );
 }
 
