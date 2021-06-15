@@ -268,7 +268,7 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': timedelta(minutes=60),
     },
     'rdm_records': {
-        'task': 'invenio_rdm_records.tasks.update_expired_embargos',
+        'task': 'invenio_rdm_records.services.tasks.update_expired_embargos',
         'schedule': crontab(minute=2, hour=0),
     }
 }
