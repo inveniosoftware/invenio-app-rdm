@@ -6,12 +6,11 @@
 # project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: invenio-app-rdm 5.0.0.dev0\n"
+"Project-Id-Version: invenio-app-rdm 5.0.0.dev1\n"
 "Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
-"POT-Creation-Date: 2021-06-09 13:23+0200\n"
+"POT-Creation-Date: 2021-06-16 14:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,24 +19,28 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.1\n"
 
-#: invenio_app_rdm/config.py:135
+#: invenio_app_rdm/config.py:136
 msgid "The turn-key research data management repository"
 msgstr ""
 
-#: invenio_app_rdm/config.py:147
+#: invenio_app_rdm/config.py:148
 msgid "InvenioRDM"
 msgstr ""
 
-#: invenio_app_rdm/config.py:243
+#: invenio_app_rdm/config.py:244
 msgid "Welcome to Invenio App RDM!"
 msgstr ""
 
-#: invenio_app_rdm/config.py:461
+#: invenio_app_rdm/config.py:466
 msgid "JSON"
 msgstr ""
 
-#: invenio_app_rdm/config.py:466
+#: invenio_app_rdm/config.py:471
 msgid "DataCite JSON"
+msgstr ""
+
+#: invenio_app_rdm/config.py:476
+msgid "CSL JSON"
 msgstr ""
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/deposit.html:9
@@ -109,22 +112,28 @@ msgstr ""
 msgid "Languages"
 msgstr ""
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/search.html:89
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/search_deposit.html:82
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/subjects.html:12
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/search.html:44
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/search_deposit.html:44
+msgid "Subjects"
+msgstr ""
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/search.html:94
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/search_deposit.html:87
 msgid "Best match"
 msgstr ""
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/search.html:93
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/search_deposit.html:86
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/search.html:98
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/search_deposit.html:91
 msgid "Newest"
 msgstr ""
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/search.html:97
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/search.html:102
 msgid "Oldest"
 msgstr ""
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/search.html:101
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/search_deposit.html:98
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/search.html:106
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/search_deposit.html:103
 msgid "Version"
 msgstr ""
 
@@ -137,11 +146,11 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/search_deposit.html:90
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/search_deposit.html:95
 msgid "Recently updated"
 msgstr ""
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/search_deposit.html:94
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/search_deposit.html:99
 msgid "Least recently updated"
 msgstr ""
 
@@ -216,7 +225,16 @@ msgid "References"
 msgstr ""
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/doi.html:11
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/doi.html:23
 msgid "DOI"
+msgstr ""
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/doi.html:14
+msgid "Get the DOI badge!"
+msgstr ""
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/doi.html:20
+msgid "DOI Badge"
 msgstr ""
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/licenses.html:12
@@ -229,10 +247,6 @@ msgstr ""
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar.html:38
 msgid "Export"
-msgstr ""
-
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/subjects.html:11
-msgid "Subjects"
 msgstr ""
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:47

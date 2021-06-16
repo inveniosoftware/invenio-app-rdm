@@ -11,16 +11,16 @@
 <dt><b>{{_('DOI')}}</b></dt>
 <dd class="top-bottom-padded">
   <span class="get-badge" data-toggle="tooltip" data-placement="bottom" style="cursor: pointer;"
-    title="Get the DOI badge!">
+    title="{{ _("Get the DOI badge!") }}">
     <img id="record-doi-badge" data-target="[data-modal='{{ id_doi }}']"
       src="{{ url_for('invenio_formatter_badges.badge', title='DOI', value=id_doi, ext='svg') }}" alt="{{ id_doi }}">
     </img>
   </span>
   <div id="doi-modal" class="ui modal fade badge-modal" data-modal="{{ id_doi }}">
-    <div class="header">DOI Badge</div>
+    <div class="header">{{ _("DOI Badge") }}</div>
     <div class="content">
       <h4>
-        <small>DOI</small>
+        <small>{{ _("DOI") }}</small>
       </h4>
       <h4>
         <pre>{{ id_doi }}</pre>
