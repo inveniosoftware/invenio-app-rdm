@@ -87,6 +87,15 @@
         {% endif %}
         {%- block record_body -%}
         {%- block record_header -%}
+        {%- block record_header_button -%}
+        {% if is_preview %}
+        <div style="margin-bottom: 12px;">
+          {%- set back_page = url_for('invenio_app_rdm_records.deposit_edit', pid_value=record.id, preview=1) -%}
+          {%- set back_btn_label = _('Back to form') -%}
+          <a class="ui button small compact" href="{{ back_page }}"><i class="ui icon angle left"></i> {{ back_btn_label }}</a>
+        </div>
+        {% endif %}
+        {%- endblock record_header_button -%}
         <div class="ui grid middle aligned">
           <div class="two column row">
             <div class="left floated left aligned column">
