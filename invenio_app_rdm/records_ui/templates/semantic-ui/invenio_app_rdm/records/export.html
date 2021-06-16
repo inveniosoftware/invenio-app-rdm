@@ -8,17 +8,15 @@
 {%- extends "invenio_app_rdm/records/detail.html" %}
 
 
-{% block record_header %}
+{%- block record_header_button -%}
+{% if is_preview %}
 <div style="margin-bottom: 12px;">
-  {% if is_preview %}
-    {%- set details_page = url_for('invenio_app_rdm_records.record_detail', pid_value=record.id, preview=1) -%}
-  {% else %}
-    {%- set details_page = url_for('invenio_app_rdm_records.record_detail', pid_value=record.id) -%}
-  {% endif %}
-    <a class="ui button small compact" href="{{ details_page }}"><i class="ui icon angle left"></i> {{_('Back to details') }}</a>
+  {%- set back_page = url_for('invenio_app_rdm_records.record_detail', pid_value=record.id) -%}
+  {%- set back_btn_label = _('Back to details') -%}
+  <a class="ui button small compact" href="{{ back_page }}"><i class="ui icon angle left"></i> {{ back_btn_label }}</a>
 </div>
-{{super()}}
-{% endblock record_header %}
+{% endif %}
+{%- endblock record_header_button -%}
 
 {% block record_content %}
 <h3>{{ export_format }} Export</h3>
