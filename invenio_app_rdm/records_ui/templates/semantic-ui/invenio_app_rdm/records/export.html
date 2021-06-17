@@ -9,13 +9,15 @@
 
 
 {%- block record_header_button -%}
-{% if is_preview %}
 <div style="margin-bottom: 12px;">
-  {%- set back_page = url_for('invenio_app_rdm_records.record_detail', pid_value=record.id) -%}
+  {% if is_preview %}
+    {%- set back_page = url_for('invenio_app_rdm_records.record_detail', pid_value=record.id, preview=1) -%}
+  {% else %}
+    {%- set back_page = url_for('invenio_app_rdm_records.record_detail', pid_value=record.id) -%}
+  {% endif %}
   {%- set back_btn_label = _('Back to details') -%}
   <a class="ui button small compact" href="{{ back_page }}"><i class="ui icon angle left"></i> {{ back_btn_label }}</a>
 </div>
-{% endif %}
 {%- endblock record_header_button -%}
 
 {% block record_content %}

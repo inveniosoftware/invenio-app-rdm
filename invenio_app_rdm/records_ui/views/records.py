@@ -73,6 +73,7 @@ def record_detail(record=None, files=None, pid_value=None, is_preview=False):
         permissions=record.has_permissions_to(['edit', 'new_version', 'manage',
                                                'update_draft', 'read_files']),
         is_preview=is_preview,
+        is_draft=record._record.is_draft,
     )
 
 
@@ -107,6 +108,7 @@ def record_export(
         record=UIJSONSerializer().serialize_object_to_dict(record.to_dict()),
         permissions=record.has_permissions_to(['update_draft']),
         is_preview=is_preview,
+        is_draft=record._record.is_draft
     )
 
 
