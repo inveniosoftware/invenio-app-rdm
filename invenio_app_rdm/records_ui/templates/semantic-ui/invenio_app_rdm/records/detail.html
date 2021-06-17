@@ -28,15 +28,13 @@
               <i class="eye icon"></i> {{_ ("Preview")}}
             </div>
             <p>
-              {% if record.is_published %}
+              {% if not is_draft %}
+               You are previewing a published record.
+              {% elif record.is_published %}
                 You are previewing changes that have not yet been published.
-              {% endif %}
-
-              {% if not record.is_published and record.versions.index == 1 %}
+              {% elif not record.is_published and record.versions.index == 1 %}
                 You are previewing a new record that has not yet been published.
-              {% endif %}
-
-              {% if not record.is_published and record.versions.index > 1 %}
+              {% elif not record.is_published and record.versions.index > 1 %}
                 You are previewing a new record version that has not yet been published.
               {% endif %}
             </p>
@@ -53,7 +51,7 @@
     </div>
   </div>
   {% endif %}
-  {% if (not record.versions.is_latest and not is_preview) or (is_preview and not record.versions.is_latest_draft) %}
+  {% if record.is_published and not record.versions.is_latest %}
   <div class="ui warning flashed top-attached manage message">
     <div class="ui container">
       <div class="ui relaxed grid">
@@ -61,7 +59,7 @@
           <div class="row">
             <p>
             {% trans link_start=('<a href="' + record.links.latest_html + '"><b>')|safe, link_end='</b></a>'|safe %}
-            There is a {{ link_start }}newer version{{ link_end }} of the record available.
+              There is a {{ link_start }}newer version{{ link_end }} of the record available.
             {% endtrans %}
             </p>
           </div>
@@ -88,7 +86,7 @@
         {%- block record_body -%}
         {%- block record_header -%}
         {%- block record_header_button -%}
-        {% if is_preview %}
+        {% if is_preview and permissions.can_edit and is_draft %}
         <div style="margin-bottom: 12px;">
           {%- set back_page = url_for('invenio_app_rdm_records.deposit_edit', pid_value=record.id, preview=1) -%}
           {%- set back_btn_label = _('Back to edit') -%}
