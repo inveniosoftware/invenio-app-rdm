@@ -39,16 +39,18 @@
   <hr class="thin-line">
   </hr>
   <dd class="top-bottom-padded">
-    {# dynamically create the list of export formats #}
-    {%- for fmt, val in config.get("APP_RDM_RECORD_EXPORTERS", {}).items() -%}
-      {%- set name = val.get("name", fmt) -%}
-      {% if is_preview %}
-        {%- set export_url = url_for('invenio_app_rdm_records.record_export', pid_value=record.id, export_format=fmt, preview=1) -%}
-      {% else %}
-        {%- set export_url = url_for('invenio_app_rdm_records.record_export', pid_value=record.id, export_format=fmt) -%}
-      {% endif %}
-      <a class="export-format" href="{{ export_url }}">{{ name }}</a>
-    {%- endfor -%}
+    <div class="ui celled horizontal list exports-list">
+      {# dynamically create the list of export formats #}
+      {%- for fmt, val in config.get("APP_RDM_RECORD_EXPORTERS", {}).items() -%}
+        {%- set name = val.get("name", fmt) -%}
+        {% if is_preview %}
+          {%- set export_url = url_for('invenio_app_rdm_records.record_export', pid_value=record.id, export_format=fmt, preview=1) -%}
+        {% else %}
+          {%- set export_url = url_for('invenio_app_rdm_records.record_export', pid_value=record.id, export_format=fmt) -%}
+        {% endif %}
+         <div class="item"><a class="export-format" href="{{ export_url }}">{{ name }}</a></div>
+      {%- endfor -%}
+    </div>
   </dd>
 </div>
 {%- endif -%}
