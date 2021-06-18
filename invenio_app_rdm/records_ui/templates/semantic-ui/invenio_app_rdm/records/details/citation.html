@@ -1,5 +1,5 @@
 {#
-    Copyright (C) 2020 CERN.
+    Copyright (C) 2020-2021 CERN.
     Copyright (C) 2020 Northwestern University.
 
     Invenio RDM Records is free software; you can redistribute it and/or modify
@@ -7,10 +7,9 @@
 #}
 
 <hr class="thin-line"></hr>
-<dt>{{_('Citation')}}:</dt>
-<dd>
-<p><em>Coming soon!</em></p>
-<br>
-<br>
-</dd>
-<hr class="thin-line"></hr>
+  <div class="ui container">
+    <div id="recordCitation" data-record='{{ record | tojson }}'
+    data-styles='{{ config.get("RDM_CITATION_STYLES") | tojson }}'
+    data-defaultstyle='{{ config.get("RDM_DEFAULT_CITATION_STYLE") | tojson }}'></div>
+  </div>
+  <hr class="thin-line"></hr>

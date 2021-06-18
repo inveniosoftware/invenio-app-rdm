@@ -510,3 +510,20 @@ If the value is callable, its return value will be used for the field
 
 IIIF_API_DECORATOR_HANDLER = None
 IIIF_IMAGE_OPENER_HANDLER = "invenio_rdm_records.resources.iiif:image_opener"
+
+RDM_CITATION_STYLES = [
+     ('chicago-annotated-bibliography', _('Chicago')),
+     ('ieee', _('IEEE')),
+     ('science', _('Science')),
+     ('apa', _('APA')),
+     ('cell', _('Cell')),
+     ('elsevier-harvard', _('Harvard')),
+     ('modern-language-association', _('MLA')),
+     ('nature', _('Nature')),
+     ('frontiers', _('Frontiers')),
+     ('american-medical-association', _('AMA')),
+]
+""" List of citation style """
+
+RDM_DEFAULT_CITATION_STYLE = 'chicago-annotated-bibliography'
+"""Default citation style"""

@@ -12,9 +12,11 @@ import ReactDOM from "react-dom";
 
 import { RecordManagement } from "./RecordManagement";
 import { RecordVersionsList } from "./RecordVersionsList";
+import { RecordCitationField } from "./RecordCitationField";
 
 const recordManagementAppDiv = document.getElementById("recordManagement");
 const recordVersionsAppDiv = document.getElementById("recordVersions");
+const recordCitationAppDiv = document.getElementById("recordCitation");
 
 if (recordManagementAppDiv) {
   ReactDOM.render(
@@ -33,6 +35,17 @@ if (recordVersionsAppDiv) {
       isPreview={JSON.parse(recordVersionsAppDiv.dataset.preview)}
     />,
     recordVersionsAppDiv
+  );
+}
+
+if (recordCitationAppDiv) {
+  ReactDOM.render(
+    <RecordCitationField
+      record={JSON.parse(recordCitationAppDiv.dataset.record)}
+      styles={JSON.parse(recordCitationAppDiv.dataset.styles)}
+      defaultStyle={JSON.parse(recordCitationAppDiv.dataset.defaultstyle)}
+    />,
+    recordCitationAppDiv
   );
 }
 
