@@ -50,7 +50,7 @@ export class RecordCitationField extends Component {
       `${record.links.self}?locale=${navigator.language}&style=${style}`,
       {
         headers: {
-          Accept: " text/x-bibliography",
+          Accept: "text/x-bibliography",
         },
       }
     );
