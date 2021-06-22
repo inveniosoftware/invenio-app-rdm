@@ -2,6 +2,7 @@
 #
 # Copyright (C) 2019-2020 CERN.
 # Copyright (C) 2019-2020 Northwestern University.
+# Copyright (C) 2021 Graz University of Technology.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -467,21 +468,26 @@ APP_RDM_RECORD_EXPORTERS = {
         "serializer": ("invenio_rdm_records.resources.serializers:"
                        "UIJSONSerializer")
     },
-    "datacite-json": {
-       "name": _("DataCite-JSON"),
-       "serializer": ("invenio_rdm_records.resources.serializers:"
-                      "DataCite43JSONSerializer")
-    },
     "csl": {
        "name": _("CSL JSON"),
        "serializer": ("invenio_rdm_records.resources.serializers:"
                       "CSLJSONSerializer")
     },
+    "datacite-json": {
+       "name": _("DataCite JSON"),
+       "serializer": ("invenio_rdm_records.resources.serializers:"
+                      "DataCite43JSONSerializer")
+    },
     "datacite-xml": {
-        "name": _("DataCite-XML"),
+        "name": _("DataCite XML"),
         "serializer": ("invenio_rdm_records.resources.serializers:"
                        "DataCite43XMLSerializer")
-    }
+    },
+    "dublincore": {
+        "name": _("Dublin Core XML"),
+        "serializer": ("invenio_rdm_records.resources.serializers:"
+                       "DublinCoreXMLSerializer")
+    },
 }
 
 APP_RDM_RECORDS_EXPORT_URL = "/records/<pid_value>/export/<export_format>"
