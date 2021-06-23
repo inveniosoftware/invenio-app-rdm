@@ -69,10 +69,8 @@ def get_form_pids_config():
 
 def _dump_resource_type_vocabulary():
     """Dump resource type vocabulary."""
-    # TODO: invenio-vocabularies needs to implement read_all before it can be
-    #       used here.
-    results = vocabulary_service.search(
-        system_identity, type='resource_types', size=100)
+    results = vocabulary_service.read_all(
+        system_identity, fields=["id", "props"], type='resource_types')
     return [
         {
             "icon": r["props"].get("type_icon", ""),
@@ -83,10 +81,10 @@ def _dump_resource_type_vocabulary():
     ]
 
 
-def _dump_title_types_vocabulary():
-    """Dump title type vocabulary."""
+def _dump_vocabulary_w_basic_fields(vocabulary_type):
+    """Dump vocabulary with id and title field."""
     results = vocabulary_service.read_all(
-        system_identity, fields=["id", "title"], type='title_types')
+        system_identity, fields=["id", "title"], type=vocabulary_type)
     return [
         {
             "text": r["title"].get(str(current_i18n.locale)),
@@ -95,12 +93,31 @@ def _dump_title_types_vocabulary():
     ]
 
 
+def _dump_title_types_vocabulary():
+    """Dump title type vocabulary."""
+    return _dump_vocabulary_w_basic_fields('title_types')
+
+
+def _dump_creators_role_vocabulary():
+    """Dump creators role vocabulary."""
+    return _dump_vocabulary_w_basic_fields('creatorsroles')
+
+
+def _dump_contributors_role_vocabulary():
+    """Dump contributors role vocabulary."""
+    return _dump_vocabulary_w_basic_fields('contributorsroles')
+
+
 def get_form_config(**kwargs):
     """Get the react form configuration."""
     vocabularies = Vocabularies.dump()
     vocabularies["resource_type"] = _dump_resource_type_vocabulary()
     vocabularies["titles"] = dict(
         type=_dump_title_types_vocabulary()
+    )
+    vocabularies["creators"] = dict(role=_dump_creators_role_vocabulary())
+    vocabularies["contributors"] = dict(
+        role=_dump_contributors_role_vocabulary()
     )
     return dict(
         vocabularies=vocabularies,

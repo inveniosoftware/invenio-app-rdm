@@ -343,7 +343,7 @@ export class RDMDepositForm extends Component {
                     label={"Creators"}
                     labelIcon={"user"}
                     fieldPath={"metadata.creators"}
-                    roleOptions={this.vocabularies.metadata.creators.role}
+                    roleOptions={this.config.vocabularies.creators.role}
                     schema="creators"
                     required
                   />
@@ -401,7 +401,7 @@ export class RDMDepositForm extends Component {
                     label={"Contributors"}
                     labelIcon={"user plus"}
                     fieldPath={"metadata.contributors"}
-                    roleOptions={this.vocabularies.metadata.contributors.role}
+                    roleOptions={this.config.vocabularies.contributors.role}
                     schema="contributors"
                     modal={{
                       addLabel: "Add contributor",
