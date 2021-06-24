@@ -20,7 +20,6 @@ import {
   FormFeedback,
   IdentifiersField,
   LanguagesField,
-  SubjectsField,
   LicenseField,
   PIDField,
   PreviewButton,
@@ -30,6 +29,7 @@ import {
   RelatedWorksField,
   ResourceTypeField,
   SaveButton,
+  SubjectsField,
   TitlesField,
   VersionField,
 } from "react-invenio-deposit";
@@ -320,10 +320,12 @@ export class RDMDepositForm extends Component {
                           this.props.record.is_published === true // is_published is `null` at first upload
                         }
                         managedHelpText={pid.managed_help_text}
+                        managedProvider={pid.managed_provider}
                         pidLabel={pid.pid_label}
                         pidPlaceholder={pid.pid_placeholder}
                         pidType={pid.scheme}
                         unmanagedHelpText={pid.unmanaged_help_text}
+                        unmanagedProvider={pid.unmanaged_provider}
                       />
                       <Divider />
                     </Fragment>

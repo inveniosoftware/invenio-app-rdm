@@ -35,6 +35,8 @@ def get_form_pids_config():
         can_be_managed = False
         can_be_unmanaged = False
         provider_enabled = False
+        managed_provider = ""
+        unmanaged_provider = ""
         for name, provider_attrs in providers.items():
             is_enabled = provider_attrs.get("enabled", True)
             if not provider_enabled and is_enabled:
@@ -42,8 +44,10 @@ def get_form_pids_config():
 
             if provider_attrs["system_managed"]:
                 can_be_managed = True
+                managed_provider = name
             else:
                 can_be_unmanaged = True
+                unmanaged_provider = name
 
         # all providers disabled for this scheme
         if not provider_enabled:
@@ -56,6 +60,8 @@ def get_form_pids_config():
             "pid_label": u_scheme,
             "pid_placeholder": "10.1234/datacite.123456",
             "can_be_managed": can_be_managed,
+            "managed_provider": managed_provider,
+            "unmanaged_provider": unmanaged_provider,
             "can_be_unmanaged": can_be_unmanaged,
             "btn_label_get_pid": f"Get a {u_scheme} now!",
             "managed_help_text": f"Reserve a {u_scheme} or leave this "
