@@ -176,7 +176,7 @@ def test_read_deleted_record(
     assert response.json["message"] == "The record has been deleted."
 
 
-def test_record_search(client, headers, es_clear):
+def test_record_search(client, headers, running_app, es_clear):
     """Test record search."""
     expected_response_keys = set(["hits", "links", "aggregations"])
     expected_metadata_keys = set([

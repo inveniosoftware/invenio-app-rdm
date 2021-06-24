@@ -146,12 +146,60 @@ def resource_type_item(app, resource_type_type):
     })
 
 
+@pytest.fixture(scope="module")
+def languages_type(app):
+    """Language vocabulary type."""
+    return vocabulary_service.create_type(
+        system_identity, "languages", "lng")
+
+
+@pytest.fixture(scope="module")
+def language_item(app, languages_type):
+    """Language vocabulary record."""
+    return vocabulary_service.create(system_identity, {
+        "id": "eng",
+        "props": {
+            "alpha_2": "",
+        },
+        "title": {
+            "en": "English"
+        },
+        "type": "languages"
+    })
+
+
+@pytest.fixture(scope="module")
+def subjects_type(app):
+    """Subject vocabulary type."""
+    return vocabulary_service.create_type(
+        system_identity, "subjects", "sub")
+
+
+@pytest.fixture(scope="module")
+def subject_item(app, subjects_type):
+    """Subject vocabulary record."""
+    return vocabulary_service.create(system_identity, {
+        "id": "A-D000008",
+        "props": {
+            "subjectScheme": "MeSH",
+        },
+        "title": {
+            "en": "Abdominal Neoplasms"
+        },
+        "type": "subjects"
+    })
+
+
 RunningApp = namedtuple("RunningApp", [
-    "app", "location", "resource_type_item"
+    "app", "location", "resource_type_item", "language_item", "subject_item"
 ])
 
 
 @pytest.fixture
-def running_app(app, location, resource_type_item):
+def running_app(
+    app, location, resource_type_item, language_item, subject_item
+):
     """Fixture mimicking a running app."""
-    return RunningApp(app, location, resource_type_item)
+    return RunningApp(
+        app, location, resource_type_item, language_item, subject_item
+    )
