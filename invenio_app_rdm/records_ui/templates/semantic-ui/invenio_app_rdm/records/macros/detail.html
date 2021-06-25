@@ -18,6 +18,19 @@
 </div>
 {%- endmacro %}
 
+{% macro show_title_detail(title, language, value) %}
+<div class="ui relaxed grid">
+  <div class="three column row">
+    <div class="six wide column">
+      <p><b>{{ title }}</b> {{ '(' + language + ')' if language}}</p>
+    </div>
+    <div class="ten wide column">
+      {{ value }}
+    </div>
+  </div>
+</div>
+{%- endmacro %}
+
 {% macro show_sanitized_detail(title, value) %}
 <div class="ui relaxed grid">
   <div class="two column row">
@@ -45,8 +58,12 @@
 
 {% macro show_add_titles(add_titles) %}
   {% for add_title in add_titles %}
-    {{ show_detail(add_title.type, add_title.title) }}
-  {% endfor %}
+    {% if add_title.lang %}
+    {{ show_title_detail(add_title.type.title_l10n, add_title.lang.title_l10n, add_title.title)}}
+  {% else %}
+    {{ show_title_detail(add_title.type.title_l10n,None, add_title.title)}}
+  {% endif %}
+{% endfor %}
 {% endmacro %}
 
 {% macro show_add_descriptions(add_descriptions) %}

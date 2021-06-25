@@ -83,10 +83,25 @@ def _dump_resource_type_vocabulary():
     ]
 
 
+def _dump_title_types_vocabulary():
+    """Dump title type vocabulary."""
+    results = vocabulary_service.read_all(
+        system_identity, fields=["id", "title"], type='title_types')
+    return [
+        {
+            "text": r["title"].get(str(current_i18n.locale)),
+            "value": r["id"],
+        } for r in results.to_dict()["hits"]["hits"]
+    ]
+
+
 def get_form_config(**kwargs):
     """Get the react form configuration."""
     vocabularies = Vocabularies.dump()
     vocabularies["resource_type"] = _dump_resource_type_vocabulary()
+    vocabularies["titles"] = dict(
+        type=_dump_title_types_vocabulary()
+    )
     return dict(
         vocabularies=vocabularies,
         current_locale=str(current_i18n.locale),

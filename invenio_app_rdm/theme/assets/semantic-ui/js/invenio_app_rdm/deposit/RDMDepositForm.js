@@ -334,7 +334,8 @@ export class RDMDepositForm extends Component {
                     required
                   />
                   <TitlesField
-                    options={this.vocabularies.metadata.titles}
+                    options={this.config.vocabularies.titles}
+                    recordUI={this.props.record.ui}
                     required
                   />
                   <PublicationDateField required />
