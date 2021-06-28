@@ -10,7 +10,7 @@
 from invenio_vocabularies.proxies import current_service as vocabulary_service
 
 from invenio_app_rdm.records_ui.views.deposits import \
-    _dump_resource_type_vocabulary
+    _dump_resource_type_vocabulary, _dump_subjects_vocabulary
 
 
 def test_dump_resource_type_vocabulary(running_app):
@@ -27,5 +27,18 @@ def test_dump_resource_type_vocabulary(running_app):
     ]
 
     result = _dump_resource_type_vocabulary()
+
+    assert expected == result
+
+
+def test_dump_subjects_vocabulary(running_app):
+    expected = {
+        "limit_to": [
+            {"text": "All", "value": "all"},
+            {"text": "MeSH", "value": "MeSH"},
+        ]
+    }
+
+    result = _dump_subjects_vocabulary()
 
     assert expected == result

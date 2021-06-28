@@ -19,7 +19,16 @@ from invenio_access.proxies import current_access
 from invenio_accounts.proxies import current_datastore
 from invenio_accounts.testutils import login_user_via_session
 from invenio_db import db
+from invenio_rdm_records.proxies import current_rdm_records
 from invenio_vocabularies.proxies import current_service as vocabulary_service
+from invenio_vocabularies.records.models import VocabularyScheme
+
+
+@pytest.fixture(scope="module")
+def subjects_service(app):
+    """Subjects service."""
+    return getattr(current_rdm_records, "subjects_service")
+
 
 pytest_plugins = ("celery.contrib.pytest", )
 
@@ -169,25 +178,24 @@ def language_item(app, languages_type):
     })
 
 
-@pytest.fixture(scope="module")
-def subjects_type(app):
-    """Subject vocabulary type."""
-    return vocabulary_service.create_type(
-        system_identity, "subjects", "sub")
+@pytest.fixture
+def subjects_mesh_scheme(app, db):
+    """Subject Scheme for MeSH."""
+    scheme = VocabularyScheme.create(
+        id="MeSH", parent_id="subjects",
+        name="Medical Subject Headings",
+        uri="https://www.nlm.nih.gov/mesh/meshhome.html")
+    db.session.commit()
+    return scheme
 
 
-@pytest.fixture(scope="module")
-def subject_item(app, subjects_type):
+@pytest.fixture
+def subject_item(app, subjects_mesh_scheme, subjects_service):
     """Subject vocabulary record."""
-    return vocabulary_service.create(system_identity, {
-        "id": "A-D000008",
-        "props": {
-            "subjectScheme": "MeSH",
-        },
-        "title": {
-            "en": "Abdominal Neoplasms"
-        },
-        "type": "subjects"
+    return subjects_service.create(system_identity, {
+        "id": "https://id.nlm.nih.gov/mesh/D000015",
+        "scheme": "MeSH",
+        "subject": "Abnormalities, Multiple"
     })
 
 
