@@ -177,38 +177,6 @@ export class RDMDepositForm extends Component {
           ],
           relations: this.config.vocabularies.relation_type,
         },
-        subjects: {
-          options: [
-            {
-              text: "Deep Learning",
-              value: {
-                subject: "Deep Learning",
-                scheme: "user",
-                identifier: "U1",
-              },
-            },
-            {
-              text: "MeSH: Cognitive Neuroscience",
-              value: {
-                subject: "Cognitive Neuroscience",
-                scheme: "mesh",
-                identifier: "D000066494",
-              },
-            },
-            {
-              text: "FAST: Glucagonoma",
-              value: {
-                subject: "Glucagonoma",
-                scheme: "fast",
-                identifier: "943672",
-              },
-            },
-          ],
-          limitToOptions: [
-            { text: "All", value: "all" },
-            { text: "Science", value: "science" },
-          ],
-        },
       },
     };
 
@@ -382,9 +350,10 @@ export class RDMDepositForm extends Component {
                       null
                     )}
                     limitToOptions={
-                      this.vocabularies.metadata.subjects.limitToOptions
+                      this.vocabularies.metadata.subjects.limit_to
                     }
                   />
+
                   <LanguagesField
                     initialOptions={_get(
                       this.props.record,

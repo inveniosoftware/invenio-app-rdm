@@ -19,7 +19,9 @@ from invenio_rdm_records.services.schemas import RDMRecordSchema
 from invenio_rdm_records.services.schemas.utils import dump_empty
 from invenio_rdm_records.vocabularies import Vocabularies
 from invenio_vocabularies.proxies import current_service as vocabulary_service
+from invenio_vocabularies.records.models import VocabularyScheme
 from marshmallow_utils.fields.babel import gettext_from_dict
+from sqlalchemy.orm import load_only
 
 from ...config import BABEL_DEFAULT_LOCALE
 from ..utils import set_default_value
@@ -83,6 +85,22 @@ def _dump_resource_type_vocabulary():
     ]
 
 
+def _dump_subjects_vocabulary():
+    """Dump subjects vocabulary (limitTo really)."""
+    subjects = (
+        VocabularyScheme.query
+        .filter_by(parent_id="subjects")
+        .options(load_only("id"))
+        .all()
+    )
+    limit_to = [{"text": "All", "value": "all"}]
+    # id is human readable and shorter, so we use it
+    limit_to += [{"text": s.id, "value": s.id} for s in subjects]
+    return {
+        "limit_to": limit_to
+    }
+
+
 def _dump_vocabulary_w_basic_fields(vocabulary_type):
     """Dump vocabulary with id and title field."""
     results = vocabulary_service.read_all(
@@ -130,7 +148,9 @@ def _dump_relation_types_vocabulary():
 def get_form_config(**kwargs):
     """Get the react form configuration."""
     vocabularies = Vocabularies.dump()
+    # TODO: Nest vocabularies inside "metadata" key so that frontend dumber
     vocabularies["resource_type"] = _dump_resource_type_vocabulary()
+    vocabularies["subjects"] = _dump_subjects_vocabulary()
     vocabularies["titles"] = dict(
         type=_dump_title_types_vocabulary()
     )
