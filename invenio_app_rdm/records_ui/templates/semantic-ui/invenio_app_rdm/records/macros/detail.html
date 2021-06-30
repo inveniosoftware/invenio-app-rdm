@@ -69,7 +69,7 @@
 {% macro show_add_descriptions(add_descriptions) %}
   {% for add_description in add_descriptions %}
     {{
-      show_sanitized_detail(add_description.type, add_description.description)
+      show_sanitized_detail(add_description.type.title_l10n, add_description.description)
     }}
   {% endfor %}
 {% endmacro %}
