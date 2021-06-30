@@ -34,12 +34,12 @@
 
 {%- if config.get("APP_RDM_RECORD_EXPORTERS") -%}
 {# if no export formats are specified, don't bother showing the box #}
-<div class="ui segment rdm-sidebar">
+<div class="ui segment rdm-sidebar exports">
   <dt><b>{{ _('Export')}}</b></dt>
   <hr class="thin-line">
   </hr>
   <dd class="top-bottom-padded">
-    <div class="ui celled horizontal list exports-list">
+    <div class="ui celled horizontal list separated-list">
       {# dynamically create the list of export formats #}
       {%- for fmt, val in config.get("APP_RDM_RECORD_EXPORTERS", {}).items() -%}
         {%- set name = val.get("name", fmt) -%}
@@ -48,7 +48,7 @@
         {% else %}
           {%- set export_url = url_for('invenio_app_rdm_records.record_export', pid_value=record.id, export_format=fmt) -%}
         {% endif %}
-         <div class="item"><a class="export-format" href="{{ export_url }}">{{ name }}</a></div>
+         <div class="item"><a href="{{ export_url }}">{{ name }}</a></div>
       {%- endfor -%}
     </div>
   </dd>

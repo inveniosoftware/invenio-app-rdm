@@ -4,6 +4,12 @@
 
 @import "@less/invenio_theme/theme/collections/grid.overrides";
 
+/** General util classes */
+
+.row.no-padding-t {
+    padding-top: 0px !important;
+}
+
 /** Deposit search page */
 
 .row.deposit-result-header {

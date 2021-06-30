@@ -44,6 +44,7 @@ theme = WebpackThemeBundle(
                 '@ckeditor/ckeditor5-react': '^2.1.0',
                 "i18next": "^20.3.1",
                 "i18next-browser-languagedetector": "^6.1.1",
+                'react-copy-to-clipboard': '^5.0.3'
             },
             aliases={
                 # Define Semantic-UI theme configuration needed by

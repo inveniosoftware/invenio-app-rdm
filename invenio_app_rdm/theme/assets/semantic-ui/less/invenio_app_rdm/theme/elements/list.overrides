@@ -36,3 +36,18 @@
     opacity: 0.5;
     cursor: default;
 }
+
+.ui.celled.list.separated-list {
+    >.item:first-child {
+        padding-left: 0;
+        border-left: none;
+    }
+    >.item:last-child {
+        padding-right: 0;
+        border-right: none;
+    }
+
+    .item > a {
+        margin: 3px;
+    }
+}
