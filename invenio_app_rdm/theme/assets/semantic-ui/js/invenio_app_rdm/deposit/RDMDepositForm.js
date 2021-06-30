@@ -348,7 +348,12 @@ export class RDMDepositForm extends Component {
                     required
                   />
                   <DescriptionsField
-                    options={this.vocabularies.metadata.descriptions}
+                    options={this.config.vocabularies.descriptions}
+                    recordUI={_get(
+                      this.props.record,
+                      "ui",
+                      null
+                    )}
                     editorConfig={{
                       removePlugins: [
                         "Image",

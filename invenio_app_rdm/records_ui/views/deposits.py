@@ -108,6 +108,11 @@ def _dump_contributors_role_vocabulary():
     return _dump_vocabulary_w_basic_fields('contributorsroles')
 
 
+def _dump_description_types_vocabulary():
+    """Dump description type vocabulary."""
+    return _dump_vocabulary_w_basic_fields('descriptiontypes')
+
+
 def get_form_config(**kwargs):
     """Get the react form configuration."""
     vocabularies = Vocabularies.dump()
@@ -118,6 +123,9 @@ def get_form_config(**kwargs):
     vocabularies["creators"] = dict(role=_dump_creators_role_vocabulary())
     vocabularies["contributors"] = dict(
         role=_dump_contributors_role_vocabulary()
+    )
+    vocabularies["descriptions"] = dict(
+        type=_dump_description_types_vocabulary()
     )
     return dict(
         vocabularies=vocabularies,
