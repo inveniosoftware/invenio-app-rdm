@@ -7,9 +7,8 @@
 #}
 
 <hr class="thin-line"></hr>
-  <div class="ui container">
-    <div id="recordCitation" data-record='{{ record | tojson }}'
+  <div id="recordCitation" data-record='{{ record | tojson }}'
     data-styles='{{ config.get("RDM_CITATION_STYLES") | tojson }}'
-    data-defaultstyle='{{ config.get("RDM_DEFAULT_CITATION_STYLE") | tojson }}'></div>
+    data-defaultstyle='{{ config.get("RDM_DEFAULT_CITATION_STYLE") | tojson }}'>
   </div>
-  <hr class="thin-line"></hr>
+<hr class="thin-line"></hr>

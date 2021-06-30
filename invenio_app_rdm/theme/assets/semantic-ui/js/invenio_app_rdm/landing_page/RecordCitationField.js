@@ -5,11 +5,11 @@
 // under the terms of the MIT License; see LICENSE file for more details.
 
 import axios from "axios";
-import _get from "lodash/get";
 import React, { Component } from "react";
-import PropTypes from 'prop-types';
-import { Header, Placeholder } from "semantic-ui-react";
+import PropTypes from "prop-types";
+import { Header, Placeholder, List, Grid, Button } from "semantic-ui-react";
 import { withCancel } from "../utils";
+import { CopyButton } from "../utlis/CopyButton";
 
 export class RecordCitationField extends Component {
   constructor(props) {
@@ -19,12 +19,17 @@ export class RecordCitationField extends Component {
       loading: true,
       citation: "",
       error: null,
+      selectedStyle: null,
     };
   }
 
   componentDidMount() {
     const { record, defaultStyle } = this.props;
     this.getCitation(record, defaultStyle);
+  }
+
+  componentWillUnmount() {
+    this.cancellableFetchCitation?.cancel();
   }
 
   placeholderLoader = () => {
@@ -46,7 +51,7 @@ export class RecordCitationField extends Component {
   };
 
   fetchCitation = async (record, style) => {
-    const response = await axios(
+    return await axios(
       `${record.links.self}?locale=${navigator.language}&style=${style}`,
       {
         headers: {
@@ -54,13 +59,14 @@ export class RecordCitationField extends Component {
         },
       }
     );
-    return response;
   };
 
   getCitation = async (record, style) => {
     this.setState({
       loading: true,
+      citation: "",
       error: "",
+      selectedStyle: null,
     });
     this.cancellableFetchCitation = withCancel(
       this.fetchCitation(record, style)
@@ -70,6 +76,7 @@ export class RecordCitationField extends Component {
       this.setState({
         loading: false,
         citation: response.data,
+        selectedStyle: style,
       });
     } catch (error) {
       if (error !== "UNMOUNTED") {
@@ -85,31 +92,57 @@ export class RecordCitationField extends Component {
 
   render() {
     const { styles, record } = this.props;
-    const { loading, citation, error } = this.state;
+    const { loading, citation, error, selectedStyle } = this.state;
+
     return (
       <div id="record-citation">
         <Header size="medium">Citation</Header>
-        {loading ? this.placeholderLoader() : citation}
-        {error ? this.errorMessage(error) : null}
-        <div className="citation-style-selector">
-          <p className="citation-style-p">
-            <b>Style</b>
-          </p>
-          {styles.map((style) => {
-            return (
-              <a
-                onClick={() => this.getCitation(record, style[0])}
-                className={
-                  loading
-                    ? "citation-style-link loading"
-                    : "citation-style-link"
-                }
-              >
-                {style[1]}
-              </a>
-            );
-          })}
-        </div>
+        <Grid container>
+          <Grid.Row className="no-padding-tb">
+            <div className="citation-style-selector">
+              <p className="citation-style-p">
+                <b>Style</b>
+              </p>
+              <List celled horizontal className="separated-list">
+                {styles.map((style) => {
+                  return (
+                    <List.Item>
+                      <a
+                        onClick={() => this.getCitation(record, style[0])}
+                        className={
+                          loading
+                            ? "citation-style-link loading"
+                            : "citation-style-link"
+                        }
+                      >
+                        <span
+                          className={
+                            selectedStyle === style[0]
+                              ? "selected-citation-type"
+                              : ""
+                          }
+                        >
+                          {style[1]}
+                        </span>
+                      </a>
+                    </List.Item>
+                  );
+                })}
+              </List>
+            </div>
+          </Grid.Row>
+          <Grid.Row className="no-padding-t">
+            <Grid.Column width={14} className="no-padding">
+              <div id="citation-text">
+                {loading ? this.placeholderLoader() : citation}
+              </div>
+            </Grid.Column>
+            <Grid.Column width={2} className="no-padding-lr" textAlign="right">
+              <CopyButton text={citation} position="top" />
+            </Grid.Column>
+          </Grid.Row>
+          {error ? this.errorMessage(error) : null}
+        </Grid>
       </div>
     );
   }
@@ -118,5 +151,5 @@ export class RecordCitationField extends Component {
 RecordCitationField.propTypes = {
   styles: PropTypes.array.isRequired,
   record: PropTypes.object.isRequired,
-  defaultStyle: PropTypes.string.isRequired
+  defaultStyle: PropTypes.string.isRequired,
 };
