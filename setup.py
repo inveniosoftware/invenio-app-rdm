@@ -16,7 +16,7 @@ from setuptools import find_packages, setup
 readme = open('README.rst').read()
 
 invenio_version = '~=3.5.0a2'
-invenio_search_version = '>=1.4.0,<1.5.0'
+invenio_search_version = '>=1.4.1,<1.5.0'
 invenio_db_version = '>=1.0.9,<1.1.0'
 
 tests_require = [
@@ -65,10 +65,9 @@ for name, reqs in extras_require.items():
 
 install_requires = [
     'CairoSVG>=1.0.20',
-    'flask>=1.1,<2.0',
     f'invenio[base,auth,metadata,files]{invenio_version}',
-    'invenio-rdm-records>=0.31.0,<0.32.0',
-    'invenio-communities>=2.4.0.dev0,<2.5.0',
+    'invenio-rdm-records>=0.31.6,<0.32.0',
+    'invenio-communities>=2.4.0.dev1,<2.5.0',
 ]
 
 packages = find_packages()
