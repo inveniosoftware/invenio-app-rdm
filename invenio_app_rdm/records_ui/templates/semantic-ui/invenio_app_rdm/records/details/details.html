@@ -19,7 +19,7 @@
   {{ show_detail(_('Publisher'), metadata.publisher) if metadata.publisher }}
   {{ show_detail(_('Additional titles'), show_add_titles(record.ui.additional_titles)) if metadata.additional_titles }}
   {{ show_detail(_('Additional descriptions'), show_add_descriptions(record.ui.additional_descriptions)) if record.ui.additional_descriptions }}
-  {{ show_detail(_('Dates'), show_dates(metadata.dates)) if metadata.dates }}
+  {{ show_detail(_('Dates'), show_dates(record.ui.dates)) if record.ui.dates }}
   {{ show_detail(_('Languages'), list_languages(record.ui.languages)) if record.ui.languages }}
   {{ show_detail(_('Formats'), list_formats(metadata.formats)) if metadata.formats }}
   {{ show_detail(_('Sizes'), list_sizes(metadata.sizes)) if metadata.sizes }}

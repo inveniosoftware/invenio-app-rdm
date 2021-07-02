@@ -76,7 +76,7 @@
 
 {% macro show_dates(dates) %}
   {% for date in dates %}
-    {{ show_detail(date.type, date.date) }}
+    {{ show_detail(date.type.title_l10n, date.date) }}
   {% endfor %}
 {% endmacro %}
 

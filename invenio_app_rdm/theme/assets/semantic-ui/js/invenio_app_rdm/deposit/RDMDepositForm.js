@@ -349,11 +349,7 @@ export class RDMDepositForm extends Component {
                   />
                   <DescriptionsField
                     options={this.config.vocabularies.descriptions}
-                    recordUI={_get(
-                      this.props.record,
-                      "ui",
-                      null
-                    )}
+                    recordUI={_get(this.props.record, "ui", null)}
                     editorConfig={{
                       removePlugins: [
                         "Image",
@@ -437,7 +433,7 @@ export class RDMDepositForm extends Component {
                       }))
                     }
                   />
-                  <DatesField options={this.vocabularies.metadata.dates} />
+                  <DatesField options={this.config.vocabularies.dates} />
                   <VersionField />
                   <PublisherField />
                   <br />
