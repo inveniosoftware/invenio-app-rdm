@@ -344,6 +344,7 @@ export class RDMDepositForm extends Component {
                     labelIcon={"user"}
                     fieldPath={"metadata.creators"}
                     roleOptions={this.config.vocabularies.creators.role}
+                    affiliationsOptions={this.config.vocabularies.creators.affiliations}
                     schema="creators"
                     required
                   />
