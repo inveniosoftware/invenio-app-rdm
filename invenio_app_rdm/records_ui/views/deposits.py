@@ -113,6 +113,11 @@ def _dump_description_types_vocabulary():
     return _dump_vocabulary_w_basic_fields('descriptiontypes')
 
 
+def _dump_date_types_vocabulary():
+    """Dump description type vocabulary."""
+    return _dump_vocabulary_w_basic_fields('datetypes')
+
+
 def get_form_config(**kwargs):
     """Get the react form configuration."""
     vocabularies = Vocabularies.dump()
@@ -126,6 +131,9 @@ def get_form_config(**kwargs):
     )
     vocabularies["descriptions"] = dict(
         type=_dump_description_types_vocabulary()
+    )
+    vocabularies["dates"] = dict(
+        type=_dump_date_types_vocabulary()
     )
     return dict(
         vocabularies=vocabularies,
