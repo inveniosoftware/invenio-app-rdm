@@ -95,7 +95,7 @@ def _dump_vocabulary_w_basic_fields(vocabulary_type):
 
 def _dump_title_types_vocabulary():
     """Dump title type vocabulary."""
-    return _dump_vocabulary_w_basic_fields('title_types')
+    return _dump_vocabulary_w_basic_fields('titletypes')
 
 
 def _dump_creators_role_vocabulary():
