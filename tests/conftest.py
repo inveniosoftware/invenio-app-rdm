@@ -118,7 +118,7 @@ def client_with_login(client, users):
 def resource_type_type(app):
     """Resource type vocabulary type."""
     return vocabulary_service.create_type(
-        system_identity, "resource_types", "rsrct")
+        system_identity, "resourcetypes", "rsrct")
 
 
 @pytest.fixture(scope="module")
@@ -142,7 +142,7 @@ def resource_type_item(app, resource_type_type):
         "title": {
             "en": "Photo"
         },
-        "type": "resource_types"
+        "type": "resourcetypes"
     })
 
 
