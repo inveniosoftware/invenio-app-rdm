@@ -72,7 +72,7 @@ def get_form_pids_config():
 def _dump_resource_type_vocabulary():
     """Dump resource type vocabulary."""
     results = vocabulary_service.read_all(
-        system_identity, fields=["id", "props"], type='resource_types')
+        system_identity, fields=["id", "props"], type='resourcetypes')
     return [
         {
             "icon": r["props"].get("type_icon", ""),
