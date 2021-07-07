@@ -19,7 +19,9 @@ from invenio_rdm_records.services.schemas import RDMRecordSchema
 from invenio_rdm_records.services.schemas.utils import dump_empty
 from invenio_rdm_records.vocabularies import Vocabularies
 from invenio_vocabularies.proxies import current_service as vocabulary_service
+from marshmallow_utils.fields.babel import gettext_from_dict
 
+from ...config import BABEL_DEFAULT_LOCALE
 from ..utils import set_default_value
 from .decorators import pass_draft, pass_draft_files
 
@@ -87,7 +89,9 @@ def _dump_vocabulary_w_basic_fields(vocabulary_type):
         system_identity, fields=["id", "title"], type=vocabulary_type)
     return [
         {
-            "text": r["title"].get(str(current_i18n.locale)),
+            "text": gettext_from_dict(
+                r["title"], current_i18n.locale, BABEL_DEFAULT_LOCALE
+            ),
             "value": r["id"],
         } for r in results.to_dict()["hits"]["hits"]
     ]
