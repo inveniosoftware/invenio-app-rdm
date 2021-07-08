@@ -467,8 +467,8 @@ APP_RDM_RECORD_EXPORTERS = {
         "serializer": ("invenio_rdm_records.resources.serializers:"
                        "UIJSONSerializer")
     },
-    "datacite": {
-       "name": _("DataCite JSON"),
+    "datacite-json": {
+       "name": _("DataCite-JSON"),
        "serializer": ("invenio_rdm_records.resources.serializers:"
                       "DataCite43JSONSerializer")
     },
@@ -477,8 +477,8 @@ APP_RDM_RECORD_EXPORTERS = {
        "serializer": ("invenio_rdm_records.resources.serializers:"
                       "CSLJSONSerializer")
     },
-    "xml": {
-        "name": _("DataCite XML"),
+    "datacite-xml": {
+        "name": _("DataCite-XML"),
         "serializer": ("invenio_rdm_records.resources.serializers:"
                        "DataCite43XMLSerializer")
     }
