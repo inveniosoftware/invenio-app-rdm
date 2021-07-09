@@ -79,7 +79,7 @@
           <div class="ui {{ record.ui.access_status.message_class }} message">
             <strong><i class="{{ record.ui.access_status.icon }} icon"></i>{{ record.ui.access_status.title_l10n }}</strong> {{ record.ui.access_status.description_l10n }}
             {% if record.access.embargo.reason %}
-            <p>Reason: {{ record.access.embargo.reason }}</p>
+            <p>{{ _("Reason:") }} {{ record.access.embargo.reason }}</p>
             {% endif %}
           </div>
         {% endif %}
@@ -175,7 +175,7 @@
             </div>
             <div class="twelve wide column">
               <span class="label text-muted">
-                <b>Created:</b> {{ record.ui.created_date_l10n_long }} | <b>Modified:</b> {{ record.ui.updated_date_l10n_long }}
+                <b>{{ _("Created:") }}</b> {{ record.ui.created_date_l10n_long }} | <b>{{ _("Modified:") }}</b> {{ record.ui.updated_date_l10n_long }}
               </span>
             </div>
           </div>

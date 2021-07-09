@@ -8,9 +8,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: invenio-app-rdm 5.0.0.dev1\n"
+"Project-Id-Version: invenio-app-rdm 5.0.0.dev2\n"
 "Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
-"POT-Creation-Date: 2021-06-16 14:19+0200\n"
+"POT-Creation-Date: 2021-07-09 09:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43,6 +43,50 @@ msgstr ""
 msgid "CSL JSON"
 msgstr ""
 
+#: invenio_app_rdm/config.py:481
+msgid "DataCite XML"
+msgstr ""
+
+#: invenio_app_rdm/config.py:520
+msgid "Chicago"
+msgstr ""
+
+#: invenio_app_rdm/config.py:521
+msgid "IEEE"
+msgstr ""
+
+#: invenio_app_rdm/config.py:522
+msgid "Science"
+msgstr ""
+
+#: invenio_app_rdm/config.py:523
+msgid "APA"
+msgstr ""
+
+#: invenio_app_rdm/config.py:524
+msgid "Cell"
+msgstr ""
+
+#: invenio_app_rdm/config.py:525
+msgid "Harvard"
+msgstr ""
+
+#: invenio_app_rdm/config.py:526
+msgid "MLA"
+msgstr ""
+
+#: invenio_app_rdm/config.py:527
+msgid "Nature"
+msgstr ""
+
+#: invenio_app_rdm/config.py:528
+msgid "Frontiers"
+msgstr ""
+
+#: invenio_app_rdm/config.py:529
+msgid "AMA"
+msgstr ""
+
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/deposit.html:9
 msgid "New version"
 msgstr ""
@@ -60,30 +104,51 @@ msgstr ""
 msgid "Preview"
 msgstr ""
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:63
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:61
 #, python-format
 msgid ""
 "\n"
-"            There is a %(link_start)snewer version%(link_end)s of the "
+"              There is a %(link_start)snewer version%(link_end)s of the "
 "record available.\n"
 "            "
 msgstr ""
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:138
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:82
+msgid "Reason:"
+msgstr ""
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:92
+msgid "Back to edit"
+msgstr ""
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:100
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:18
+msgid "Publication date"
+msgstr ""
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:146
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:97
 msgid "Files"
 msgstr ""
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:146
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:154
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:107
 msgid "Reason"
 msgstr ""
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:166
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:174
 msgid "Upload information"
 msgstr ""
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:181
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:178
+msgid "Created:"
+msgstr ""
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:178
+msgid "Modified:"
+msgstr ""
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:189
 msgid "Jump up"
 msgstr ""
 
@@ -172,8 +237,8 @@ msgid ""
 "  "
 msgstr ""
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/citation.html:10
-msgid "Citation"
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/tombstone.html:21
+msgid "Reason for removal:"
 msgstr ""
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:14
@@ -182,10 +247,6 @@ msgstr ""
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:17
 msgid "Resource type"
-msgstr ""
-
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:18
-msgid "Publication date"
 msgstr ""
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:19
