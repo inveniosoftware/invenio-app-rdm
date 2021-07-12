@@ -101,7 +101,9 @@
               <span class="label text-muted"> | Version {{ record.ui.version }}</span>
             </div>
             <div class="right floated right aligned column">
+              {% if record.ui.resource_type %}
               <span class="ui label small grey">{{ record.ui.resource_type.title_l10n }}</span>
+              {% endif %}
               <span class="ui label small access-status {{ record.ui.access_status.id }}" data-tooltip="{{ record.ui.access_status.description_l10n }}" data-inverted="">
                 {% if record.ui.access_status.icon %}<i class="icon {{ record.ui.access_status.icon }}"></i>{% endif %}
                 {{ record.ui.access_status.title_l10n }}
@@ -112,7 +114,9 @@
         {%- endblock record_header -%}
         {%- block record_title -%}
         <h1>{{ metadata.title }}</h1>
+        {% if record.ui.creators %}
         <p>{%- include "invenio_app_rdm/records/details/creators.html" %}</p>
+        {% endif %}
         {%- endblock record_title -%}
         {%- block record_content -%}
         <p>{%- include "invenio_app_rdm/records/details/contributors.html" %}</p>
