@@ -5,9 +5,10 @@
 // under the terms of the MIT License; see LICENSE file for more details.
 
 import axios from "axios";
+import _debounce from "lodash/debounce";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Header, Placeholder, List, Grid, Button } from "semantic-ui-react";
+import { Header, Placeholder, List, Grid } from "semantic-ui-react";
 import { withCancel } from "../utils";
 import { CopyButton } from "../utlis/CopyButton";
 
@@ -106,14 +107,13 @@ export class RecordCitationField extends Component {
               <List celled horizontal className="separated-list">
                 {styles.map((style) => {
                   return (
-                    <List.Item>
+                    <List.Item key={style[0]}>
                       <a
-                        onClick={() => this.getCitation(record, style[0])}
-                        className={
-                          loading
-                            ? "citation-style-link loading"
-                            : "citation-style-link"
-                        }
+                        onClick={_debounce(
+                          () => this.getCitation(record, style[0]),
+                          500
+                        )}
+                        className="citation-style-link"
                       >
                         <span
                           className={
