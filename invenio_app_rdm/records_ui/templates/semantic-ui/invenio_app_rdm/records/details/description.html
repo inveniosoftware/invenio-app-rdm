@@ -8,5 +8,6 @@
 
 {% set description = metadata.get('description') %}
 {% if description %}
-{{ description | sanitize_html() | safe }}
+{# description data is being sanitized by marshmallow in the backend #}
+{{ description | safe }}
 {% endif %}
