@@ -86,8 +86,7 @@ export class RecordCitationField extends Component {
         this.setState({
           loading: false,
           citation: "",
-          error:
-          i18next.t('An error ocurred while generating the citation, please try again. If this error continues please contact our technical support.'),
+          error: i18next.t("An error ocurred while generating the citation."),
         });
       }
     }
@@ -99,12 +98,12 @@ export class RecordCitationField extends Component {
 
     return (
       <div id="record-citation">
-        <Header size="medium">{i18next.t('Citation')}</Header>
+        <Header size="medium">{i18next.t("Citation")}</Header>
         <Grid container>
           <Grid.Row className="no-padding-tb">
             <div className="citation-style-selector">
               <p className="citation-style-p">
-                <b>{i18next.t('Style')}</b>
+                <b>{i18next.t("Style")}</b>
               </p>
               <List celled horizontal className="separated-list">
                 {styles.map((style) => {
@@ -117,15 +116,7 @@ export class RecordCitationField extends Component {
                         )}
                         className="citation-style-link"
                       >
-                        <span
-                          className={
-                            selectedStyle === style[0]
-                              ? "selected-citation-type"
-                              : ""
-                          }
-                        >
-                          {style[1]}
-                        </span>
+                        <span>{style[1]}</span>
                       </a>
                     </List.Item>
                   );
