@@ -8,7 +8,7 @@
 """Test that all export formats are working."""
 
 
-def test_export_formats(client, running_app, minimal_record):
+def test_export_formats(client, running_app, record):
     """Test that all expected export formats are working."""
     # Expected export formats:
     formats = [
@@ -18,7 +18,6 @@ def test_export_formats(client, running_app, minimal_record):
         "datacite-xml",
         "dublincore",
     ]
-    id_ = minimal_record['id']
     for f in formats:
-        res = client.get("/records/{id_}/export/{f}")
+        res = client.get(f"/records/{record.id}/export/{f}")
         assert res.status_code == 200
