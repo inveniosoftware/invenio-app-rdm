@@ -6,13 +6,31 @@
   it under the terms of the MIT License; see LICENSE file for more details.
 #}
 
-{% set subjects = record.ui.subjects %}
+{% set subjects = record.metadata.subjects %}
 
 {% if subjects %}
-<dt><b>{{_('Subjects')}}</b></dt>
-<dd class="top-bottom-padded">
-  {%- for subject in subjects %}
-  <span class="label label-keyword label-aligned">{{ subject.title_l10n}}</span>
+<dd class="top-bottom-padded" id="record-subjects">
+  {%- for scheme, subjects in subjects|selectattr("scheme")|groupby('scheme')|sort(attribute='scheme') %}
+  <div class="ui grid">
+    <div class="sixteen wide subject-scheme column">
+      <span class="ui tiny subject header">{{scheme}}</span>
+    </div>
+    <div class="sixteen wide subject-label column">
+      {%- for subject in subjects %}
+          <span class="subject">{{ subject.subject}}</span>
+        {%- endfor %}
+    </div>
+  </div>
+  {%- endfor %}
+  {%- for subject in subjects|rejectattr("scheme")%}
+  <div class="ui grid">
+    <div class="sixteen wide subject-scheme column">
+      <span class="ui tiny subject header">{{_('Keywords')}}</span>
+    </div>
+    <div class="sixteen wide subject-label column">
+      <span class="subject">{{ subject.subject}}</span>
+    </div>
+  </div>
   {%- endfor %}
 </dd>
 {% endif %}
