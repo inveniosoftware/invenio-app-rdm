@@ -130,6 +130,7 @@ def resource_type_item(app, resource_type_type):
             "csl": "graphic",
             "datacite_general": "Image",
             "datacite_type": "Photo",
+            "eurepo": "info:eu-repo/semantic/image-photo",
             "openaire_resourceType": "25",
             "openaire_type": "dataset",
             "schema.org": "https://schema.org/Photograph",
