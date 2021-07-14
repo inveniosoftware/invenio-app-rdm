@@ -68,3 +68,6 @@ target/
 .*.sw?
 .vscode/
 *.sublime-*
+
+# node modules
+**/*/node_modules

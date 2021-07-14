@@ -1,0 +1,14 @@
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2021-07-15T07:37:20.488Z\n"
+"PO-Revision-Date: 2021-07-15T07:37:20.488Z\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"mime-version: 1.0\n"
+
+msgid "Basic information"
+msgstr "Basic information"
