@@ -22,7 +22,6 @@ from invenio_vocabularies.records.models import VocabularyScheme
 from marshmallow_utils.fields.babel import gettext_from_dict
 from sqlalchemy.orm import load_only
 
-from ...config import BABEL_DEFAULT_LOCALE
 from ..utils import set_default_value
 from .decorators import pass_draft, pass_draft_files
 
@@ -107,7 +106,8 @@ def _dump_vocabulary_w_basic_fields(vocabulary_type):
     return [
         {
             "text": gettext_from_dict(
-                r["title"], current_i18n.locale, BABEL_DEFAULT_LOCALE
+                r["title"], current_i18n.locale,
+                current_app.config.get('BABEL_DEFAULT_LOCALE', 'en')
             ),
             "value": r["id"],
         } for r in results.to_dict()["hits"]["hits"]
@@ -168,6 +168,7 @@ def get_form_config(**kwargs):
     return dict(
         vocabularies=vocabularies,
         current_locale=str(current_i18n.locale),
+        default_locale=current_app.config.get('BABEL_DEFAULT_LOCALE', 'en'),
         pids=get_form_pids_config(),
         **kwargs
     )
