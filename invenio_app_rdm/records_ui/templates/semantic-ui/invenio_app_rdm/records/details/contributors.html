@@ -8,10 +8,10 @@
 {%- from "invenio_app_rdm/records/macros/creatibutors.html" import show_affiliations, show_creatibutors %}
 
 {% if record.ui.contributors and record.ui.contributors.contributors %}
-  {%- for group in record.ui.contributors.contributors|groupby('role.id')%}
+  {%- for group in record.ui.contributors.contributors|groupby('role.title')%}
   <div class="ui accordion">
     <div class="title">
-      <h4><b>{{group.grouper | vocabulary_title('contributors.role', 'role')}}(s)</b></h4>
+      <h4><b>{{group.grouper}}(s)</b></h4>
       {{ show_creatibutors(group.list, show_affiliations=True) }}
       {% if record.ui.contributors.affiliations %}
       <a style="cursor: pointer;" class="dropdown">

@@ -9,14 +9,11 @@
 
 """Filters to be used in the Jinja templates."""
 
-from operator import itemgetter
 from os.path import splitext
 
 import idutils
 from flask import current_app
 from invenio_previewer.views import is_previewable
-from invenio_rdm_records.resources.serializers import UIJSONSerializer
-from invenio_rdm_records.vocabularies import Vocabularies
 from invenio_records_files.api import FileObject
 from invenio_records_permissions.policies import get_record_permission_policy
 
@@ -85,24 +82,6 @@ def pid_url(identifier, scheme=None, url_scheme="https"):
             exc_info=True,
         )
     return ""
-
-
-def doi_identifier(identifiers):
-    """Extract DOI from sequence of identifiers."""
-    doi_identifier = identifiers.get("doi")
-    return doi_identifier['identifier'] if doi_identifier else None
-
-
-def vocabulary_title(dict_key, vocabulary_key, alt_key=None):
-    """Returns formatted vocabulary-corresponding human-readable string.
-
-    In some cases the dict needs to be reconstructed. `alt_key` will be the
-    key while `dict_key` will become the value.
-    """
-    if alt_key:
-        dict_key = {alt_key: dict_key}
-    vocabulary = Vocabularies.get_vocabulary(vocabulary_key)
-    return vocabulary.get_title_by_dict(dict_key) if vocabulary else ""
 
 
 def has_previewable_files(files):

@@ -17,7 +17,6 @@ from invenio_rdm_records.proxies import current_rdm_records
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
 from invenio_rdm_records.services.schemas import RDMRecordSchema
 from invenio_rdm_records.services.schemas.utils import dump_empty
-from invenio_rdm_records.vocabularies import Vocabularies
 from invenio_vocabularies.proxies import current_service as vocabulary_service
 from invenio_vocabularies.records.models import VocabularyScheme
 from marshmallow_utils.fields.babel import gettext_from_dict
@@ -147,7 +146,7 @@ def _dump_relation_types_vocabulary():
 
 def get_form_config(**kwargs):
     """Get the react form configuration."""
-    vocabularies = Vocabularies.dump()
+    vocabularies = {}
     # TODO: Nest vocabularies inside "metadata" key so that frontend dumber
     vocabularies["resource_type"] = _dump_resource_type_vocabulary()
     vocabularies["subjects"] = _dump_subjects_vocabulary()
