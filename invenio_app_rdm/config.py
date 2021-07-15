@@ -469,7 +469,7 @@ APP_RDM_RECORD_EXPORTERS = {
                        "UIJSONSerializer")
     },
     "csl": {
-       "name": _("CSL JSON"),
+       "name": _("CSL"),
        "serializer": ("invenio_rdm_records.resources.serializers:"
                       "CSLJSONSerializer")
     },
