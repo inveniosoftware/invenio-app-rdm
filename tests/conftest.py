@@ -20,7 +20,9 @@ from invenio_accounts.proxies import current_datastore
 from invenio_accounts.testutils import login_user_via_session
 from invenio_db import db
 from invenio_rdm_records.proxies import current_rdm_records
+from invenio_vocabularies.contrib.subjects.api import Subject
 from invenio_vocabularies.proxies import current_service as vocabulary_service
+from invenio_vocabularies.records.api import Vocabulary
 from invenio_vocabularies.records.models import VocabularyScheme
 
 
@@ -133,7 +135,7 @@ def resource_type_type(app):
 @pytest.fixture(scope="module")
 def resource_type_item(app, resource_type_type):
     """Resource type vocabulary record."""
-    return vocabulary_service.create(system_identity, {
+    rst = vocabulary_service.create(system_identity, {
         "id": "image-photo",
         "props": {
             "csl": "graphic",
@@ -155,6 +157,10 @@ def resource_type_item(app, resource_type_type):
         "type": "resourcetypes"
     })
 
+    Vocabulary.index.refresh()
+
+    return rst
+
 
 @pytest.fixture(scope="module")
 def languages_type(app):
@@ -166,7 +172,7 @@ def languages_type(app):
 @pytest.fixture(scope="module")
 def language_item(app, languages_type):
     """Language vocabulary record."""
-    return vocabulary_service.create(system_identity, {
+    lang = vocabulary_service.create(system_identity, {
         "id": "eng",
         "props": {
             "alpha_2": "",
@@ -176,6 +182,10 @@ def language_item(app, languages_type):
         },
         "type": "languages"
     })
+
+    Vocabulary.index.refresh()
+
+    return lang
 
 
 @pytest.fixture
@@ -192,11 +202,15 @@ def subjects_mesh_scheme(app, db):
 @pytest.fixture
 def subject_item(app, subjects_mesh_scheme, subjects_service):
     """Subject vocabulary record."""
-    return subjects_service.create(system_identity, {
+    subj = subjects_service.create(system_identity, {
         "id": "https://id.nlm.nih.gov/mesh/D000015",
         "scheme": "MeSH",
         "subject": "Abnormalities, Multiple"
     })
+
+    Subject.index.refresh()
+
+    return subj
 
 
 RunningApp = namedtuple("RunningApp", [

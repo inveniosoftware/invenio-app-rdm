@@ -465,8 +465,7 @@ APP_RDM_ROUTES = {
 APP_RDM_RECORD_EXPORTERS = {
     "json": {
         "name": _("JSON"),
-        "serializer": ("invenio_rdm_records.resources.serializers:"
-                       "UIJSONSerializer")
+        "serializer": ("flask_resources.serializers:JSONSerializer")
     },
     "csl": {
        "name": _("CSL"),
