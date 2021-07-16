@@ -143,12 +143,23 @@ def _dump_relation_types_vocabulary():
     """Dump relation type vocabulary."""
     return _dump_vocabulary_w_basic_fields('relationtypes')
 
+def _dump_identifier_schemes_label():
+    """Dump identifiers schemes labels."""
+    ids = current_app.config["RDM_RECORDS_IDENTIFIERS_SCHEMES"]
+    labelled_ids = []
+
+    for scheme, values in ids.items():
+        labelled_ids.append({"text": values["label"], "value": scheme})
+
+    return labelled_ids
+
 
 def get_form_config(**kwargs):
     """Get the react form configuration."""
     vocabularies = {}
     # TODO: Nest vocabularies inside "metadata" key so that frontend dumber
     vocabularies["resource_type"] = _dump_resource_type_vocabulary()
+
     vocabularies["subjects"] = _dump_subjects_vocabulary()
     vocabularies["titles"] = dict(
         type=_dump_title_types_vocabulary()
@@ -164,6 +175,12 @@ def get_form_config(**kwargs):
         type=_dump_date_types_vocabulary()
     )
     vocabularies["relation_type"] = _dump_relation_types_vocabulary()
+
+    vocabularies["identifiers"] = {
+        "relations": vocabularies["relation_type"],
+        "resource_type": vocabularies["resource_type"],
+        "scheme": _dump_identifier_schemes_label()
+    }
 
     return dict(
         vocabularies=vocabularies,
