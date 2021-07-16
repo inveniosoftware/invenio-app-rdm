@@ -32,7 +32,7 @@ source_lang = en
 type = PO
 
 
-#
+# Translate JavaScript strings
 # 1) Navigate to the invenio_app_rdm/theme/assets/semantic-ui/translations/invenio_app_rdm folder
 # 2) Install i18n dev dependencies
 #    npm install

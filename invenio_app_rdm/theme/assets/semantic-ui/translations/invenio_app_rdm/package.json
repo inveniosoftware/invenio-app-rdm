@@ -9,10 +9,11 @@
   },
   "devDependencies": {
     "i18next-conv": "^10.2.0",
-    "i18next-scanner": "^3.0.0"
+    "i18next-scanner": "^3.0.0",
+    "react-i18next": "^11.11.3"
   },
   "scripts": {
-    "extract_messages": "i18next-scanner --config i18next-scanner.config.js '../../**/*.{js,jsx}'",
+    "extract_messages": "i18next-scanner --config i18next-scanner.config.js '../../js/**/*.{js,jsx}'",
     "postextract_messages": "i18next-conv -l en -s ./messages/en/translations.json -t ./translations.pot",
     "compile_catalog": "node ./scripts/compileCatalog.js",
     "init_catalog": "node ./scripts/initCatalog"

@@ -7,6 +7,7 @@
 import React, { useEffect, useState } from "react";
 import { Dropdown, Icon, Input, Button, Modal } from "semantic-ui-react";
 import axios from "axios";
+import { Trans } from 'react-i18next';
 
 export const ShareModal = (props) => {
   const [accessLinkObj, setAccessLinkObj] = useState();
@@ -20,10 +21,13 @@ export const ShareModal = (props) => {
 
   const message = {
     view: (
+      <Trans>
       <span>
         Anyone with this link{" "}
         <strong>can view all versions</strong> of this record & files.
       </span>
+      </Trans>
+
     ),
     preview: (
       <span>
