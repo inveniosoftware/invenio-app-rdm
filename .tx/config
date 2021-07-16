@@ -60,7 +60,7 @@ type = PO
 #    $ npm run compile_catalog lang <lang>
 
 [invenio.invenio-app-rdm-messages-ui]
-file_filter = invenio_app_rdm/theme/translations/invenio_app_rdm/messages/<lang>/messages.po
-source_file = invenio_app_rdm/theme/translations/invenio_app_rdm/translations.pot
+file_filter = invenio_app_rdm/theme/assets/semantic-ui/translations/invenio_app_rdm/messages/<lang>/messages.po
+source_file = invenio_app_rdm/theme/assets/semantic-ui/translations/invenio_app_rdm/translations.pot
 source_lang = en
 type = PO
