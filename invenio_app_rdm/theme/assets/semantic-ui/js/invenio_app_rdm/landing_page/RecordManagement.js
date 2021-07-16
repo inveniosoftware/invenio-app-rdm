@@ -12,6 +12,7 @@ import { Grid, Icon } from "semantic-ui-react";
 import { EditButton } from "./EditButton";
 import { ShareButton } from "./ShareButton";
 import { NewVersionButton } from "react-invenio-deposit";
+import { i18next } from "@translations/invenio_app_rdm/i18next";
 
 export const RecordManagement = (props) => {
   const record = props.record;
@@ -28,7 +29,7 @@ export const RecordManagement = (props) => {
       <Grid.Column>
         <Grid.Row>
           <Icon name="cogs" />
-          <span>Manage</span>
+          <span>{i18next.t('Manage')}</span>
         </Grid.Row>
         <Grid.Row className="record-management-row">
           <EditButton recid={recid} onError={handleError} />

@@ -8,6 +8,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Button, Popup } from "semantic-ui-react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import { i18next } from "@translations/invenio_app_rdm/i18next";
 
 class SimpleCopyButton extends React.Component {
   render() {
@@ -44,7 +45,7 @@ export class CopyButton extends Component {
   onCopy = () => {
     this.setState(() => ({
       confirmationPopupIsOpen: true,
-      confirmationPopupMsg: "Copied!",
+      confirmationPopupMsg: i18next.t('Copied!'),
     }));
     this.delayClosePopup();
   };
@@ -69,7 +70,7 @@ export class CopyButton extends Component {
           size="mini"
         />
         <Popup
-          content="Copy to clipboard"
+          content={i18next.t('Copy to clipboard')}
           position={popUpPosition}
           size="mini"
           trigger={

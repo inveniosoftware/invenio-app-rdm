@@ -5,16 +5,162 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-07-16T12:06:35.565Z\n"
-"PO-Revision-Date: 2021-07-16T12:06:35.565Z\n"
+"POT-Creation-Date: 2021-07-16T13:16:26.221Z\n"
+"PO-Revision-Date: 2021-07-16T13:16:26.221Z\n"
 "Language: en\n"
 
 msgid "Basic information"
 msgstr "Basic information"
 
+msgid "Anyone with this link <1>can view all versions</1> of this record & files."
+msgstr "Anyone with this link <1>can view all versions</1> of this record & files."
+
 msgid ""
-"<0>Anyone with this link <2>can view all versions</2> of this record & "
-"files.</0>"
+"Anyone with this link <2>can view all published and unpublished "
+"versions</2> of this record & files."
 msgstr ""
-"<0>Anyone with this link <2>can view all versions</2> of this record & "
-"files.</0>"
+"Anyone with this link <2>can view all published and unpublished "
+"versions</2> of this record & files."
+
+msgid ""
+"Anyone with an account and this link <2>can edit all versions</2> of this "
+"record & files."
+msgstr ""
+"Anyone with an account and this link <2>can edit all versions</2> of this "
+"record & files."
+
+msgid "Get a link"
+msgstr "Get a link"
+
+msgid "Copy link"
+msgstr "Copy link"
+
+msgid "Delete link"
+msgstr "Delete link"
+
+msgid "Done"
+msgstr "Done"
+
+msgid "No link has been created. Click on 'Get a Link' to make a new link"
+msgstr "No link has been created. Click on 'Get a Link' to make a new link"
+
+msgid "Delete"
+msgstr "Delete"
+
+msgid "Are you sure you want to delete this draft?"
+msgstr "Are you sure you want to delete this draft?"
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "result(s) found"
+msgstr "result(s) found"
+
+msgid "Sort by"
+msgstr "Sort by"
+
+msgid "results per page"
+msgstr "results per page"
+
+msgid "Edit"
+msgstr "Edit"
+
+msgid "View"
+msgstr "View"
+
+msgid "Uploaded on"
+msgstr "Uploaded on"
+
+msgid "Get started!"
+msgstr "Get started!"
+
+msgid "Make your first upload!"
+msgstr "Make your first upload!"
+
+msgid "New upload"
+msgstr "New upload"
+
+msgid "No results found!"
+msgstr "No results found!"
+
+msgid "Current search"
+msgstr "Current search"
+
+msgid "Clear query"
+msgstr "Clear query"
+
+msgid "Copied!"
+msgstr "Copied!"
+
+msgid "Copy to clipboard"
+msgstr "Copy to clipboard"
+
+msgid "Version"
+msgstr "Version"
+
+msgid "Preview"
+msgstr "Preview"
+
+msgid "Only published versions are displayed."
+msgstr "Only published versions are displayed."
+
+msgid "View all {{total}} versions"
+msgstr "View all {{total}} versions"
+
+msgid "You don't have permissions to share this record."
+msgstr "You don't have permissions to share this record."
+
+msgid "Share"
+msgstr "Share"
+
+msgid "Can view"
+msgstr "Can view"
+
+msgid "Can preview"
+msgstr "Can preview"
+
+msgid "Can edit"
+msgstr "Can edit"
+
+msgid "Search guide"
+msgstr "Search guide"
+
+msgid "Versions"
+msgstr "Versions"
+
+msgid "View all versions"
+msgstr "View all versions"
+
+msgid "Files"
+msgstr "Files"
+
+msgid "The record has no files."
+msgstr "The record has no files."
+
+msgid "Recommended information"
+msgstr "Recommended information"
+
+msgid "Add contributor"
+msgstr "Add contributor"
+
+msgid "Contributors"
+msgstr "Contributors"
+
+msgid "Visibility"
+msgstr "Visibility"
+
+msgid ""
+"An error ocurred while generating the citation, please try again. If this "
+"error continues please contact our technical support."
+msgstr ""
+"An error ocurred while generating the citation, please try again. If this "
+"error continues please contact our technical support."
+
+msgid "Citation"
+msgstr "Citation"
+
+msgid "Style"
+msgstr "Style"
+
+msgid "Manage"
+msgstr "Manage"

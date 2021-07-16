@@ -10,6 +10,7 @@ import axios from "axios";
 import _get from "lodash/get";
 import React, { useEffect, useState } from "react";
 import { Divider, Grid, Icon, Message, Placeholder } from "semantic-ui-react";
+import { i18next } from "@translations/invenio_app_rdm/i18next";
 
 const deserializeRecord = (record) => ({
   id: record.id,
@@ -35,7 +36,7 @@ const RecordVersionItem = ({ item, activeVersion }) => {
           <small className="text-muted" style={{ float: "right" }}>
             {item.publication_date}
           </small>
-          <a href={`/records/${item.id}`}>Version {item.version}</a>
+          <a href={`/records/${item.id}`}>{i18next.t('Version')} {item.version}</a>
           {<br />}
           {doi && (
             <small className="text-muted" style={{ wordWrap: "break-word" }}>
@@ -71,9 +72,9 @@ const PreviewMessage = () => {
         <Message info>
           <Message.Header>
             <Icon name="eye" />
-            Preview
+            {i18next.t('Preview')}
           </Message.Header>
-          <p>Only published versions are displayed.</p>
+          <p>{i18next.t('Only published versions are displayed.')}</p>
         </Message>
       </Grid.Column>
     </Grid.Row>
@@ -132,7 +133,7 @@ export const RecordVersionsList = (props) => {
           target="_blank"
           className="font-small"
         >
-          View all {recordVersions.total} versions
+          {i18next.t(`View all {{total}} versions`,{total:recordVersions.total})}
         </a>
       </Grid.Row>
     </Grid>
