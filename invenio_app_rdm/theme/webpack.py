@@ -39,7 +39,7 @@ theme = WebpackThemeBundle(
                 'react-invenio-deposit': '^0.15.7',
                 'react-invenio-forms': '^0.8.2',
                 'react-dropzone': "^11.0.3",
-                'yup': '^0.27.0',
+                'yup': '^0.32.9',
                 '@ckeditor/ckeditor5-build-classic': '^16.0.0',
                 '@ckeditor/ckeditor5-react': '^2.1.0',
                 "i18next": "^20.3.1",
