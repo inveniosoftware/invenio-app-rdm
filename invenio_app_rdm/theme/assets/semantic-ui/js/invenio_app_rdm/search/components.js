@@ -24,6 +24,7 @@ import _get from "lodash/get";
 import _truncate from "lodash/truncate";
 import Overridable from "react-overridable";
 import { SearchBar } from "@js/invenio_search_ui/components";
+import { i18next } from "@translations/invenio_app_rdm/i18next";
 
 export const RDMRecordResultsListItem = ({ result, index }) => {
   const access_status_id = _get(result, "ui.access_status.id", "open");
@@ -76,7 +77,7 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
           </Label>
           <Button compact size="small" floated="right">
             <Icon name="eye" />
-            View
+            {i18next.t('View')}
           </Button>
         </Item.Extra>
         <Item.Header>{title}</Item.Header>
@@ -105,7 +106,7 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
           {createdDate && (
             <div>
               <small>
-                Uploaded on <span>{createdDate}</span>
+              {i18next.t('Uploaded on')} <span>{createdDate}</span>
               </small>
             </div>
           )}
@@ -226,7 +227,7 @@ const SearchHelpLinks = () => {
           <Grid.Column>
             <Card className="borderless-facet">
               <Card.Content>
-                <a href="/help/search">Search guide</a>
+                <a href="/help/search">{i18next.t('Search guide')}</a>
               </Card.Content>
             </Card>
           </Grid.Column>
@@ -240,8 +241,8 @@ export const RDMRecordFacets = ({ aggs, currentResultsState }) => {
   return (
     <>
       <Toggle
-        title="Versions"
-        label="View all versions"
+        title={i18next.t('Versions')}
+        label={i18next.t('View all versions')}
         filterValue={["allversions", "true"]}
       />
       {aggs.map((agg) => {

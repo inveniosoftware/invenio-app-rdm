@@ -1,5 +1,6 @@
 // This file is part of InvenioRDM
 // Copyright (C) 2021 CERN.
+// Copyright (C) 2021 Graz University of Technology.
 //
 // Invenio RDM Records is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
@@ -11,6 +12,7 @@ import PropTypes from "prop-types";
 import { Header, Placeholder, List, Grid } from "semantic-ui-react";
 import { withCancel } from "../utils";
 import { CopyButton } from "../utlis/CopyButton";
+import { i18next } from "@translations/invenio_app_rdm/i18next";
 
 export class RecordCitationField extends Component {
   constructor(props) {
@@ -85,7 +87,7 @@ export class RecordCitationField extends Component {
           loading: false,
           citation: "",
           error:
-            "An error ocurred while generating the citation, please try again. If this error continues please contact our technical support.",
+          i18next.t('An error ocurred while generating the citation, please try again. If this error continues please contact our technical support.'),
         });
       }
     }
@@ -97,12 +99,12 @@ export class RecordCitationField extends Component {
 
     return (
       <div id="record-citation">
-        <Header size="medium">Citation</Header>
+        <Header size="medium">{i18next.t('Citation')}</Header>
         <Grid container>
           <Grid.Row className="no-padding-tb">
             <div className="citation-style-selector">
               <p className="citation-style-p">
-                <b>Style</b>
+                <b>{i18next.t('Style')}</b>
               </p>
               <List celled horizontal className="separated-list">
                 {styles.map((style) => {

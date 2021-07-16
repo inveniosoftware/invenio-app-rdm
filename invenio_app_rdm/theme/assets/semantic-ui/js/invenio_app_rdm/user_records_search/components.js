@@ -35,7 +35,7 @@ import {
   SearchAppFacets,
   SearchAppResultsPane,
 } from "@js/invenio_search_ui/components";
-
+import { i18next } from "@translations/invenio_app_rdm/i18next";
 import axios from "axios";
 
 const DeleteDraftButton = (props) => {
@@ -67,19 +67,19 @@ const DeleteDraftButton = (props) => {
         onClick={handleOpen}
       >
         <Icon name="trash alternate outline" />
-        Delete
+        {i18next.t("Delete")}
       </Button>
 
       <Modal open={modalOpen} onClose={handleClose} size="tiny">
         <Modal.Content>
-          <h3>Are you sure you want to delete this draft?</h3>
+          <h3>{i18next.t("Are you sure you want to delete this draft?")}</h3>
         </Modal.Content>
         <Modal.Actions>
           <Button onClick={handleClose} floated="left">
-            Cancel
+            {i18next.t("Cancel")}
           </Button>
           <Button color="red" onClick={handleDelete}>
-            Delete
+            {i18next.t("Delete")}
           </Button>
         </Modal.Actions>
       </Modal>
@@ -105,7 +105,13 @@ export const RDMDepositResults = ({
                   className="small padding-tb-5 deposit-result-header"
                 >
                   <Grid.Column width={4}>
-                    <Count label={() => <>{total} result(s) found</>} />
+                    <Count
+                      label={() => (
+                        <>
+                          {total} {i18next.t("result(s) found")}
+                        </>
+                      )}
+                    />
                   </Grid.Column>
                   <Grid.Column
                     width={12}
@@ -115,7 +121,11 @@ export const RDMDepositResults = ({
                     {sortOptions && (
                       <Sort
                         values={sortOptions}
-                        label={(cmp) => <>Sort by {cmp}</>}
+                        label={(cmp) => (
+                          <>
+                            {i18next.t("Sort by")} {cmp}
+                          </>
+                        )}
                       />
                     )}
                   </Grid.Column>
@@ -143,7 +153,12 @@ export const RDMDepositResults = ({
           <Grid.Column textAlign="right" width={4}>
             <ResultsPerPage
               values={paginationOptions.resultsPerPage}
-              label={(cmp) => <> {cmp} results per page</>}
+              label={(cmp) => (
+                <>
+                  {" "}
+                  {cmp} {i18next.t("results per page")}
+                </>
+              )}
             />
           </Grid.Column>
         </Grid.Row>
@@ -234,12 +249,12 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
             onClick={() => editRecord()}
           >
             <Icon name="edit" />
-            Edit
+            {i18next.t("Edit")}
           </Button>
           {is_published ? (
             <Button compact size="small" floated="right" href={viewLink}>
               <Icon name="eye" />
-              View
+              {i18next.t("View")}
             </Button>
           ) : (
             <DeleteDraftButton record={result} />
@@ -273,7 +288,7 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
           {createdDate && (
             <div>
               <small>
-                Uploaded on <span>{createdDate}</span>
+                {i18next.t("Uploaded on")} <span>{createdDate}</span>
               </small>
             </div>
           )}
@@ -311,8 +326,10 @@ export const RDMEmptyResults = (props) => {
       <Segment placeholder textAlign="center" padded="very">
         <Header as="h1" align="center">
           <Header.Content>
-            Get started!
-            <Header.Subheader>Make your first upload!</Header.Subheader>
+            {i18next.t("Get started!")}
+            <Header.Subheader>
+              {i18next.t("Make your first upload!")}
+            </Header.Subheader>
           </Header.Content>
         </Header>
         <Divider hidden />
@@ -321,7 +338,7 @@ export const RDMEmptyResults = (props) => {
           icon="upload"
           floated="right"
           href="/uploads/new"
-          content="New upload"
+          content={i18next.t("New upload")}
         />
       </Segment>
     </Segment.Group>
@@ -329,12 +346,16 @@ export const RDMEmptyResults = (props) => {
     <Segment placeholder textAlign="center">
       <Header icon>
         <Icon name="search" />
-        No results found!
+        {i18next.t("No results found!")}
       </Header>
-      {queryString && <em>Current search "{queryString}"</em>}
+      {queryString && (
+        <em>
+          {i18next.t("Current search")} "{queryString}"
+        </em>
+      )}
       <br />
       <Button primary onClick={() => props.resetQuery()}>
-        Clear query
+        {i18next.t("Clear query")}
       </Button>
     </Segment>
   );
@@ -353,7 +374,7 @@ export const RDMUserRecordsSearchLayout = (props) => (
             color="green"
             icon="upload"
             href="/uploads/new"
-            content="New upload"
+            content={i18next.t("New upload")}
             floated="right"
           />
         </Grid.Column>

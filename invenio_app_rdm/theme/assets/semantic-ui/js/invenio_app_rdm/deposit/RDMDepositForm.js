@@ -215,7 +215,7 @@ export class RDMDepositForm extends Component {
                 <AccordionField
                   fieldPath=""
                   active={true}
-                  label={"Files"}
+                  label={i18next.t('Files')}
                   ui={this.accordionStyle}
                 >
                   {this.noFiles && this.props.record.is_published && (
@@ -226,7 +226,7 @@ export class RDMDepositForm extends Component {
                         cursor: "default !important",
                       }}
                     >
-                      <em>The record has no files.</em>
+                      <em>{i18next.t('The record has no files.')}</em>
                     </p>
                   )}
                   <FileUploader
@@ -329,12 +329,12 @@ export class RDMDepositForm extends Component {
                 <AccordionField
                   fieldPath=""
                   active={true}
-                  label={"Recommended information"}
+                  label={i18next.t('Recommended information')}
                   ui={this.accordionStyle}
                 >
                   <CreatibutorsField
-                    addButtonLabel={"Add contributor"}
-                    label={"Contributors"}
+                    addButtonLabel={i18next.t('Add contributor')}
+                    label={i18next.t('Contributors')}
                     labelIcon={"user plus"}
                     fieldPath={"metadata.contributors"}
                     roleOptions={this.config.vocabularies.contributors.role}
@@ -444,7 +444,7 @@ export class RDMDepositForm extends Component {
                     </Card>
 
                     <AccessRightField
-                      label={"Visibility"}
+                      label={i18next.t('Visibility')}
                       labelIcon={"shield"}
                     />
                   </Sticky>

@@ -7,45 +7,52 @@
 import React, { useEffect, useState } from "react";
 import { Dropdown, Icon, Input, Button, Modal } from "semantic-ui-react";
 import axios from "axios";
-import { Trans } from 'react-i18next';
+import { Trans } from "react-i18next";
+import { i18next } from "@translations/invenio_app_rdm/i18next";
 
 export const ShareModal = (props) => {
   const [accessLinkObj, setAccessLinkObj] = useState();
   const [shareMode, setShareMode] = useState("view");
 
   const dropdownOptions = [
-    { key: "view", text: "Can view", value: "view" },
-    { key: "preview", text: "Can preview", value: "preview" },
-    { key: "edit", text: "Can edit", value: "edit" },
+    { key: "view", text: i18next.t('Can view'), value: "view" },
+    { key: "preview", text: i18next.t('Can preview'), value: "preview" },
+    { key: "edit", text: i18next.t('Can edit'), value: "edit" },
   ];
 
   const message = {
     view: (
-      <Trans>
       <span>
-        Anyone with this link{" "}
-        <strong>can view all versions</strong> of this record & files.
+        <Trans>
+          Anyone with this link <strong>can view all versions</strong> of this
+          record & files.
+        </Trans>
       </span>
-      </Trans>
-
     ),
     preview: (
       <span>
-        Anyone with this link{" "}
-        <strong>can view all published and unpublished versions</strong> of this record & files.
+        <Trans>
+          Anyone with this link{" "}
+          <strong>can view all published and unpublished versions</strong> of
+          this record & files.
+        </Trans>
       </span>
     ),
     edit: (
       <span>
-        Anyone with an account and this link{" "}
-        <strong>can edit all versions</strong> of this record & files.
+        <Trans>
+          Anyone with an account and this link{" "}
+          <strong>can edit all versions</strong> of this record & files.
+        </Trans>
       </span>
     ),
   };
 
   const getAccessLink = (linkObj) => {
     const extraParam = shareMode === "preview" ? "preview=1&" : "";
-    return linkObj ? `${window.location}?${extraParam}token=${linkObj.token}` : "";
+    return linkObj
+      ? `${window.location}?${extraParam}token=${linkObj.token}`
+      : "";
   };
 
   const updateAccessLink = async () => {
@@ -139,7 +146,7 @@ export const ShareModal = (props) => {
     >
       <Modal.Header>
         <Icon name="share alternate" />
-        Get a link
+        {i18next.t("Get a link")}
       </Modal.Header>
       <Modal.Content>
         <div className="share-content">
@@ -158,14 +165,16 @@ export const ShareModal = (props) => {
             icon
           >
             <Icon name="copy outline" />
-            {accessLinkObj ? "Copy link" : "Get a link"}
+            {accessLinkObj ? i18next.t("Copy link") : i18next.t("Get a link")}
           </Button>
         </div>
         <Modal.Description>
           <p className="share-description">
             <Icon name="warning circle" />
             {!!!accessLinkObj
-              ? 'No link has been created. Click on "Get a Link" to make a new link'
+              ? i18next.t(
+                  "No link has been created. Click on 'Get a Link' to make a new link"
+                )
               : message[shareMode]}
           </p>
         </Modal.Description>
@@ -180,11 +189,11 @@ export const ShareModal = (props) => {
             icon
           >
             <Icon name="trash alternate outline" />
-            Delete link
+            {i18next.t("Delete link")}
           </Button>
         )}
         <Button size="small" onClick={props.handleClose}>
-          Done
+          {i18next.t("Done")}
         </Button>
       </Modal.Actions>
     </Modal>
