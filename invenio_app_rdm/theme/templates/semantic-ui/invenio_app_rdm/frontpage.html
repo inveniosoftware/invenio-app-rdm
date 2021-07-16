@@ -24,10 +24,11 @@
           </div>
           <h3 class="section-title">{{ _("Configure") }}</h3>
           <div class="command-line">
-            {% trans configuration_link="https://inveniordm.docs.cern.ch/install/configuration/" %}Configure the
-            datamodel, resource types, permissions and much more to make it suit your needs! For more
-            information on how to do it visit the <a href="{{ configuration_link }}">configuration
-              section in the docs</a>.{% endtrans %}
+            {% trans configuration_link="https://inveniordm.docs.cern.ch/install/configuration/" %}
+              Configure the datamodel, resource types, permissions and much more to make it suit your needs! For more
+              information on how to do it visit the <a href="{{ configuration_link }}" target="_blank">configuration
+              section in the docs</a>.
+            {% endtrans %}
           </div>
         </div>
         <div class="rdm-goal">
@@ -36,11 +37,10 @@
           </div>
           <h3 class="section-title">{{ _("Customize") }}</h3>
             <div class="command-line">
-              {% trans configuration_link="https://inveniordm.docs.cern.ch/customize/styling/", extensions_link="https://inveniordm.docs.cern.ch/extensions/", custom_extension_link="https://inveniordm.docs.cern.ch/extensions/custom/" %}Customize
-              the layout and adapt the styling to match your institution's. See how to do so <a
-                href="{{ configuration_link }}">here</a>. You can also add new functionality using <a
-                href="{{ extensions_link }}">supported plugins</a>, or <a href="{{ custom_extension_link }}">writing
-                your own</a>.{% endtrans %}
+              {% trans configuration_link="https://inveniordm.docs.cern.ch/customize/styling/" %}
+                Customize the layout and adapt the styling to match your institution's. See how to do so <a
+                href="{{ configuration_link }}" target="_blank">here</a>. 
+              {% endtrans %}
           </div>
         </div>
         <div class="rdm-goal">
@@ -49,9 +49,10 @@
           </div>
           <h3 class="section-title">{{ _("Deploy it!") }}</h3>
           <div class="command-line">
-            {% trans deployment_link="https://inveniordm.docs.cern.ch/deployment/" %}Use the Helm charts to deploy your
-            InvenioRDM instance. You can use the Helm chart to <a href="{{ deployment_link }}">deploy in
-              OpenShift</a>.{% endtrans %}
+            {% trans deployment_link="https://inveniordm.docs.cern.ch/deployment/" %}
+              Use the Helm charts to deploy your InvenioRDM instance. You can use the Helm chart to 
+              <a href="{{ deployment_link }}" target="_blank">deploy in OpenShift</a>.
+            {% endtrans %}
           </div>
         </div>
       </div>
@@ -60,10 +61,10 @@
   <div class="row inline-row">
     <div class="inline-row-pane">
       <div class="goto-button">
-        <a href="https://inveniordm.docs.cern.ch"><i class="file alternate outline icon"></i>{{ _("Docs") }}</a>
+        <a href="https://inveniordm.docs.cern.ch" target="_blank"><i class="file alternate outline icon"></i>{{ _("Docs") }}</a>
       </div>
       <div class="goto-button">
-        <a href="https://github.com/inveniosoftware"><i class="github icon"></i>{{ _("Code") }}</a>
+        <a href="https://github.com/inveniosoftware" target="_blank"><i class="github icon"></i>{{ _("Code") }}</a>
       </div>
     </div>
   </div>
