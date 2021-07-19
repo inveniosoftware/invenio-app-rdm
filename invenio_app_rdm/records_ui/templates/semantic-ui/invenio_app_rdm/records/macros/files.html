@@ -69,7 +69,12 @@
           </div>
           </small>
         </td>
-        <td>{{ file.size|filesizeformat }}</td>
+        <td>
+          {%if file.size %} 
+            {{ file.size|filesizeformat }}
+          {% else %}
+            {{ 0|filesizeformat }}
+          {% endif %}</td>
         <td class="right aligned">
           <span>
             {% if with_preview and file_type|lower is previewable %}
@@ -95,7 +100,7 @@
   <div class="ui accordion panel {{record.ui.access_status.id}}" id="preview" href="#collapsablePreview">
     <div class="title panel-heading {{record.ui.access_status.id}}">
       {{ _("Files") }}
-      <small class="text-muted">{% if files %} ({{files|sum(attribute='size')|filesizeformat}}){% endif %}</small>
+      <small class="text-muted">{% if files %}({{files|selectattr('size')|sum(attribute='size')|filesizeformat}}){% endif %}</small>
       <i class="angle down icon"></i>
     </div>
     <div class="active content">
