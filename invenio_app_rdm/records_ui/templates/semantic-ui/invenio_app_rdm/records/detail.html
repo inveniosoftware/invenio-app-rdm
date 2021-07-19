@@ -29,13 +29,13 @@
             </div>
             <p>
               {% if not is_draft %}
-               You are previewing a published record.
+               {{ _("You are previewing a published record.") }}
               {% elif record.is_published %}
-                You are previewing changes that have not yet been published.
+                {{ _("You are previewing changes that have not yet been published.") }}
               {% elif not record.is_published and record.versions.index == 1 %}
-                You are previewing a new record that has not yet been published.
+                {{ _("You are previewing a new record that has not yet been published.") }}
               {% elif not record.is_published and record.versions.index > 1 %}
-                You are previewing a new record version that has not yet been published.
+                {{ _("You are previewing a new record version that has not yet been published.") }}
               {% endif %}
             </p>
           </div>
