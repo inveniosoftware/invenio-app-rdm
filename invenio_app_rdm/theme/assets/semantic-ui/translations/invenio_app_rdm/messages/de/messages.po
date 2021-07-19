@@ -1,9 +1,18 @@
 # 
+# Translators:
+# Alizee Pace <alizee.pace@gmail.com>, 2021
+# Tibor Simko <tibor.simko@cern.ch>, 2021
+# Chriz Uniba <christina.zeller@uni-bamberg.de>, 2021
+# Hermann Schranzhofer <hermann.schranzhofer@tugraz.at>, 2021
+# Mojib Wali <mojib.wali@tugraz.at>, 2021
+# Alexander Gruber <alexander.gruber@tugraz.at>, 2021
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-07-15T07:37:20.488Z\n"
+"POT-Creation-Date: 2021-07-16T13:16:26.221Z\n"
 "PO-Revision-Date: 2021-07-14 16:07+0000\n"
+"Last-Translator: Alexander Gruber <alexander.gruber@tugraz.at>, 2021\n"
 "Language-Team: German (https://www.transifex.com/inveniosoftware/teams/23537/de/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -12,4 +21,163 @@ msgstr ""
 "mime-version: 1.0\n"
 
 msgid "Basic information"
+msgstr "Allgemeine Informationen"
+
+msgid ""
+"Anyone with this link <1>can view all versions</1> of this record & files."
 msgstr ""
+"Jeder, der diesen Link hat, <1>kann alle Versionen</1> dieses Eintrags und "
+"der Dateien einsehen."
+
+msgid ""
+"Anyone with this link <2>can view all published and unpublished versions</2>"
+" of this record & files."
+msgstr ""
+"Jeder mit diesem Link <2>kann alle veröffentlichten und unveröffentlichten "
+"Versionen</2> dieses Eintrags und der Dateien einsehen."
+
+msgid ""
+"Anyone with an account and this link <2>can edit all versions</2> of this "
+"record & files."
+msgstr ""
+"Jeder mit einem Konto und diesem Link <2>kann alle Versionen</2> dieses "
+"Eintrags und der Dateien bearbeiten."
+
+msgid "Get a link"
+msgstr "Einen Link erhalten"
+
+msgid "Copy link"
+msgstr "Link kopieren"
+
+msgid "Delete link"
+msgstr "Link löschen"
+
+msgid "Done"
+msgstr "Erledigt"
+
+msgid "No link has been created. Click on 'Get a Link' to make a new link"
+msgstr ""
+"Es wurde noch kein Link erstellt. Klicken Sie auf 'Einen Link erhalten', um "
+"einen neuen Link zu erstellen"
+
+msgid "Delete"
+msgstr "Löschen"
+
+msgid "Are you sure you want to delete this draft?"
+msgstr "Sind Sie sicher, dass Sie diesen Entwurf löschen möchten?"
+
+msgid "Cancel"
+msgstr "Abbrechen"
+
+msgid "result(s) found"
+msgstr "Ergebnis(e) gefunden"
+
+msgid "Sort by"
+msgstr "Sortieren nach"
+
+msgid "results per page"
+msgstr "Ergebnisse pro Seite"
+
+msgid "Edit"
+msgstr "Editieren"
+
+msgid "View"
+msgstr "Ansicht"
+
+msgid "Uploaded on"
+msgstr "Hochgeladen am"
+
+msgid "Get started!"
+msgstr "Los geht's!"
+
+msgid "Make your first upload!"
+msgstr "Machen Sie Ihren ersten Eintrag!"
+
+msgid "New upload"
+msgstr "Neuer Eintrag"
+
+msgid "No results found!"
+msgstr "Keine Ergebnisse gefunden!"
+
+msgid "Current search"
+msgstr "Aktuelle Suche"
+
+msgid "Clear query"
+msgstr "Abfrage löschen"
+
+msgid "Copied!"
+msgstr "Kopiert!"
+
+msgid "Copy to clipboard"
+msgstr "In die Zwischenablage kopieren"
+
+msgid "Version"
+msgstr "Version"
+
+msgid "Preview"
+msgstr "Vorschau"
+
+msgid "Only published versions are displayed."
+msgstr "Es werden nur veröffentlichte Versionen angezeigt."
+
+msgid "View all {{total}} versions"
+msgstr "Alle {{total}}  Versionen anzeigen"
+
+msgid "You don't have permissions to share this record."
+msgstr "Sie haben nicht die Berechtigung, diesen Eintrag freizugeben."
+
+msgid "Share"
+msgstr "Teilen"
+
+msgid "Can view"
+msgstr "Kann ansehen"
+
+msgid "Can preview"
+msgstr "Kann vorschauen"
+
+msgid "Can edit"
+msgstr "Kann bearbeiten"
+
+msgid "Search guide"
+msgstr "Suchanleitung"
+
+msgid "Versions"
+msgstr "Versionen"
+
+msgid "View all versions"
+msgstr "Alle Versionen ansehen"
+
+msgid "Files"
+msgstr "Dateien"
+
+msgid "The record has no files."
+msgstr "Der Eintrag hat keine Dateien."
+
+msgid "Recommended information"
+msgstr "Empfohlene Informationen"
+
+msgid "Add contributor"
+msgstr "Mitwirkende hinzufügen"
+
+msgid "Contributors"
+msgstr "Mitwirkende"
+
+msgid "Visibility"
+msgstr "Sichtbarkeit"
+
+msgid ""
+"An error ocurred while generating the citation, please try again. If this "
+"error continues please contact our technical support."
+msgstr ""
+"Beim Generieren des Zitats ist ein Fehler aufgetreten, bitte versuchen Sie "
+"es erneut. Wenn dieser Fehler weiterhin auftritt, kontaktieren Sie bitte "
+"unseren technischen Support."
+
+msgid "Citation"
+msgstr "Zitierung"
+
+msgid "Style"
+msgstr "Stil"
+
+msgid "Manage"
+msgstr "Verwalten"

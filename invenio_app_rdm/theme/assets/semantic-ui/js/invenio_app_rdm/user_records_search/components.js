@@ -367,7 +367,7 @@ export const RDMUserRecordsSearchLayout = (props) => (
       <Grid.Row columns={3}>
         <Grid.Column width={4} />
         <Grid.Column width={8}>
-          <SearchBar placeholder="Search uploads..." />
+          <SearchBar placeholder={i18next.t("Search uploads...")} />
         </Grid.Column>
         <Grid.Column width={4}>
           <Button

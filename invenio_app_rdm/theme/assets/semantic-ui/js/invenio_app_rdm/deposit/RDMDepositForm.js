@@ -275,7 +275,7 @@ export class RDMDepositForm extends Component {
                   />
                   <PublicationDateField required />
                   <CreatibutorsField
-                    label={"Creators"}
+                    label={i18next.t("Creators")}
                     labelIcon={"user"}
                     fieldPath={"metadata.creators"}
                     roleOptions={this.config.vocabularies.creators.role}
@@ -394,12 +394,12 @@ export class RDMDepositForm extends Component {
                 <AccordionField
                   fieldPath=""
                   active={true}
-                  label={"Alternate identifiers"}
+                  label={i18next.t("Alternate identifiers")}
                   ui={this.accordionStyle}
                 >
                   <IdentifiersField
                     fieldPath="metadata.identifiers"
-                    label="Alternate identifier(s)"
+                    label={i18next.t("Alternate identifier(s)")}
                     labelIcon="barcode"
                     schemeOptions={
                       this.vocabularies.metadata.identifiers.scheme
@@ -410,7 +410,7 @@ export class RDMDepositForm extends Component {
                 <AccordionField
                   fieldPath=""
                   active={true}
-                  label={"Related works"}
+                  label={i18next.t("Related works")}
                   ui={this.accordionStyle}
                 >
                   <RelatedWorksField

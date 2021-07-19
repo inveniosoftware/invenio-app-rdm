@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-07-16T13:16:26.221Z\n"
-"PO-Revision-Date: 2021-07-16T13:16:26.221Z\n"
+"POT-Creation-Date: 2021-07-19T07:11:57.014Z\n"
+"PO-Revision-Date: 2021-07-19T07:11:57.014Z\n"
 "Language: en\n"
 
 msgid "Basic information"
@@ -164,3 +164,18 @@ msgstr "Style"
 
 msgid "Manage"
 msgstr "Manage"
+
+msgid "Search uploads..."
+msgstr "Search uploads..."
+
+msgid "Creators"
+msgstr "Creators"
+
+msgid "Alternate identifiers"
+msgstr "Alternate identifiers"
+
+msgid "Alternate identifier(s)"
+msgstr "Alternate identifier(s)"
+
+msgid "Related works"
+msgstr "Related works"
