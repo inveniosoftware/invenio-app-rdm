@@ -339,7 +339,7 @@ export class RDMDepositForm extends Component {
                 active={true}
                 label={"Funding"}
                 ui={this.accordionStyle}
-              >
+                >
                 <FundingField options={this.vocabularies.metadata.funding} />
                 <ComingSoonField
                   fieldPath="metadata.funding"
@@ -348,7 +348,7 @@ export class RDMDepositForm extends Component {
                 />
 
                 <br />
-              </AccordionField> */}
+                </AccordionField> */}
 
                 <AccordionField
                   fieldPath=""
