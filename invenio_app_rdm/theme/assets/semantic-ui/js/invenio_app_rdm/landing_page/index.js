@@ -13,6 +13,8 @@ import ReactDOM from "react-dom";
 import { RecordManagement } from "./RecordManagement";
 import { RecordVersionsList } from "./RecordVersionsList";
 import { RecordCitationField } from "./RecordCitationField";
+import { I18nextProvider } from 'react-i18next';
+import { i18next } from "@translations/invenio_app_rdm/i18next";
 
 const recordManagementAppDiv = document.getElementById("recordManagement");
 const recordVersionsAppDiv = document.getElementById("recordVersions");
@@ -20,31 +22,34 @@ const recordCitationAppDiv = document.getElementById("recordCitation");
 
 if (recordManagementAppDiv) {
   ReactDOM.render(
+    <I18nextProvider i18n={i18next}>
     <RecordManagement
       record={JSON.parse(recordManagementAppDiv.dataset.record)}
       permissions={JSON.parse(recordManagementAppDiv.dataset.permissions)}
-    />,
+    /></I18nextProvider>,
     recordManagementAppDiv
   );
 }
 
 if (recordVersionsAppDiv) {
   ReactDOM.render(
+    <I18nextProvider i18n={i18next}>
     <RecordVersionsList
       record={JSON.parse(recordVersionsAppDiv.dataset.record)}
       isPreview={JSON.parse(recordVersionsAppDiv.dataset.preview)}
-    />,
+    /></I18nextProvider>,
     recordVersionsAppDiv
   );
 }
 
 if (recordCitationAppDiv) {
   ReactDOM.render(
+    <I18nextProvider i18n={i18next}>
     <RecordCitationField
       record={JSON.parse(recordCitationAppDiv.dataset.record)}
       styles={JSON.parse(recordCitationAppDiv.dataset.styles)}
       defaultStyle={JSON.parse(recordCitationAppDiv.dataset.defaultstyle)}
-    />,
+    /></I18nextProvider>,
     recordCitationAppDiv
   );
 }

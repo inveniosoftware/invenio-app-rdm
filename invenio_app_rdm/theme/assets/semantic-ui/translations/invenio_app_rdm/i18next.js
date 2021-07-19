@@ -23,6 +23,12 @@ const options = {
     // cache user language off
     caches: [],
   },
+  react: {
+    // Set empty - to allow html tags convert to trans tags
+    // HTML TAG | Trans TAG
+    //  <span>  | <1>
+    transKeepBasicHtmlNodesFor: []
+  }
 };
 
 const i18next = i18n.createInstance();

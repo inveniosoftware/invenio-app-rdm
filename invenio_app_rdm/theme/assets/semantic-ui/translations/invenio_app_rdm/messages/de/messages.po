@@ -4,15 +4,15 @@
 # Tibor Simko <tibor.simko@cern.ch>, 2021
 # Chriz Uniba <christina.zeller@uni-bamberg.de>, 2021
 # Hermann Schranzhofer <hermann.schranzhofer@tugraz.at>, 2021
-# Mojib Wali <mojib.wali@tugraz.at>, 2021
 # Alexander Gruber <alexander.gruber@tugraz.at>, 2021
+# Mojib Wali <mojib.wali@tugraz.at>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-07-16T13:16:26.221Z\n"
+"POT-Creation-Date: 2021-07-19T07:11:57.014Z\n"
 "PO-Revision-Date: 2021-07-14 16:07+0000\n"
-"Last-Translator: Alexander Gruber <alexander.gruber@tugraz.at>, 2021\n"
+"Last-Translator: Mojib Wali <mojib.wali@tugraz.at>, 2021\n"
 "Language-Team: German (https://www.transifex.com/inveniosoftware/teams/23537/de/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -181,3 +181,18 @@ msgstr "Stil"
 
 msgid "Manage"
 msgstr "Verwalten"
+
+msgid "Search uploads..."
+msgstr "Eintrag Suchen..."
+
+msgid "Creators"
+msgstr "Erstellerinnen"
+
+msgid "Alternate identifiers"
+msgstr "Alternative Kennungen"
+
+msgid "Alternate identifier(s)"
+msgstr "Alternative Bezeichnung(en)"
+
+msgid "Related works"
+msgstr "Verwandte Werke"
