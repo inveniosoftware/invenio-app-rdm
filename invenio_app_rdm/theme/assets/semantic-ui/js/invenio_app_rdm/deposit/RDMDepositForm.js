@@ -53,61 +53,20 @@ export class RDMDepositForm extends Component {
       metadata: {
         ...this.config.vocabularies,
 
-        titles: {
-          ...this.config.vocabularies.titles,
-        },
-
-        descriptions: {
-          type: [
-            { text: "Abstract", value: "abstract" },
-            { text: "Methods", value: "methods" },
-            { text: "Series Information", value: "seriesinformation" },
-            { text: "Table of Contents", value: "tableofcontents" },
-            { text: "Technical Info", value: "technicalinfo" },
-            { text: "Other", value: "other" },
-          ],
-        },
-
         creators: {
+          ...this.config.vocabularies.creators,
           type: [
             { text: "Person", value: "personal" },
             { text: "Organization", value: "organizational" },
-          ],
-          role: [
-            { text: "Editor", value: "editor" },
-            { text: "Data Curator", value: "datacurator" },
-            { text: "Data Manager", value: "datamanager" },
-            { text: "Project Manager", value: "projectmanager" },
-          ],
+          ]
         },
 
         contributors: {
+          ...this.config.vocabularies.creators,
           type: [
             { text: "Person", value: "personal" },
             { text: "Organization", value: "organizational" },
-          ],
-          role: [
-            { text: "Editor", value: "editor" },
-            { text: "Data Curator", value: "datacurator" },
-            { text: "Data Manager", value: "datamanager" },
-            { text: "Project Manager", value: "projectmanager" },
-          ],
-        },
-
-        dates: {
-          type: [
-            { text: "Accepted", value: "accepted" },
-            { text: "Available", value: "available" },
-            { text: "Copyrighted", value: "copyrighted" },
-            { text: "Collected", value: "collected" },
-            { text: "Created", value: "created" },
-            { text: "Issued", value: "issued" },
-            { text: "Submitted", value: "submitted" },
-            { text: "Updated", value: "updated" },
-            { text: "Valid", value: "valid" },
-            { text: "Withdrawn", value: "withdrawn" },
-            { text: "Other", value: "other" },
-          ],
+          ]
         },
 
         // TODO: Replace with an API backend
@@ -269,7 +228,7 @@ export class RDMDepositForm extends Component {
                     required
                   />
                   <TitlesField
-                    options={this.config.vocabularies.titles}
+                    options={this.vocabularies.metadata.titles}
                     recordUI={this.props.record.ui}
                     required
                   />
@@ -278,12 +237,12 @@ export class RDMDepositForm extends Component {
                     label={i18next.t("Creators")}
                     labelIcon={"user"}
                     fieldPath={"metadata.creators"}
-                    roleOptions={this.config.vocabularies.creators.role}
+                    roleOptions={this.vocabularies.metadata.creators.role}
                     schema="creators"
                     required
                   />
                   <DescriptionsField
-                    options={this.config.vocabularies.descriptions}
+                    options={this.vocabularies.metadata.descriptions}
                     recordUI={_get(this.props.record, "ui", null)}
                     editorConfig={{
                       removePlugins: [
@@ -337,7 +296,7 @@ export class RDMDepositForm extends Component {
                     label={i18next.t('Contributors')}
                     labelIcon={"user plus"}
                     fieldPath={"metadata.contributors"}
-                    roleOptions={this.config.vocabularies.contributors.role}
+                    roleOptions={this.vocabularies.metadata.contributors.role}
                     schema="contributors"
                     modal={{
                       addLabel: "Add contributor",
@@ -369,7 +328,7 @@ export class RDMDepositForm extends Component {
                       }))
                     }
                   />
-                  <DatesField options={this.config.vocabularies.dates} />
+                  <DatesField options={this.vocabularies.metadata.dates} />
                   <VersionField />
                   <PublisherField />
                   <br />
