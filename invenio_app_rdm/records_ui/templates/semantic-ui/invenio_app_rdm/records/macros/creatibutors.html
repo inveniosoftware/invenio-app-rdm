@@ -1,6 +1,7 @@
 {#
     Copyright (C) 2020 CERN.
     Copyright (C) 2020 Northwestern University.
+    Copyright (C) 2021 Graz University of Technology.
 
     Invenio RDM Records is free software; you can redistribute it and/or modify
     it under the terms of the MIT License; see LICENSE file for more details.
@@ -12,7 +13,7 @@
 {%- if scheme == "orcid" %}
 {% set identifier_found.value = True %}
 <a href="{{ identifier[0]['identifier']|pid_url('orcid') }}">
-  <img class="inline-orcid" src="{{ url_for('static', filename='images/orcid.svg') }}" />
+  <img class="inline-orcid inline-orcid-icon" src="{{ url_for('static', filename='images/orcid.svg') }}" />
 </a>
 {%- elif scheme == "ror" %}
 {% set identifier_found.value = True %}
