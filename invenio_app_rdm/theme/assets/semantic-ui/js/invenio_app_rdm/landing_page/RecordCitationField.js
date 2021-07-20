@@ -108,7 +108,12 @@ export class RecordCitationField extends Component {
               <List celled horizontal className="separated-list">
                 {styles.map((style) => {
                   return (
-                    <List.Item key={style[0]}>
+                    <List.Item
+                      key={style[0]}
+                      {...(style[0] === selectedStyle
+                        ? { className: "selected-citation-type" }
+                        : {})}
+                    >
                       <a
                         onClick={_debounce(
                           () => this.getCitation(record, style[0]),

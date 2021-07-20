@@ -522,18 +522,14 @@ IIIF_API_DECORATOR_HANDLER = None
 IIIF_IMAGE_OPENER_HANDLER = "invenio_rdm_records.resources.iiif:image_opener"
 
 RDM_CITATION_STYLES = [
-     ('chicago-annotated-bibliography', _('Chicago')),
-     ('ieee', _('IEEE')),
-     ('science', _('Science')),
      ('apa', _('APA')),
-     ('cell', _('Cell')),
-     ('elsevier-harvard', _('Harvard')),
+     ('harvard-cite-them-right', _('Harvard')),
      ('modern-language-association', _('MLA')),
-     ('nature', _('Nature')),
-     ('frontiers', _('Frontiers')),
-     ('american-medical-association', _('AMA')),
+     ('vancouver', _('Vancouver')),
+     ('chicago-fullnote-bibliography', _('Chicago')),
+     ('ieee', _('IEEE')),
 ]
 """ List of citation style """
 
-RDM_DEFAULT_CITATION_STYLE = 'chicago-annotated-bibliography'
+RDM_DEFAULT_CITATION_STYLE = 'apa'
 """Default citation style"""
