@@ -8,9 +8,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: invenio-app-rdm 5.0.0.dev6\n"
+"Project-Id-Version: invenio-app-rdm 5.0.0.dev7\n"
 "Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
-"POT-Creation-Date: 2021-07-19 09:17+0200\n"
+"POT-Creation-Date: 2021-07-20 17:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -96,6 +96,7 @@ msgid "New version"
 msgstr ""
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/deposit.html:11
+#: invenio_app_rdm/theme/views.py:44
 msgid "New upload"
 msgstr ""
 
@@ -197,7 +198,6 @@ msgstr ""
 msgid "Languages"
 msgstr ""
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/subjects.html:12
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/search.html:44
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/search_deposit.html:44
 msgid "Subjects"
@@ -259,6 +259,14 @@ msgstr ""
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/tombstone.html:21
 msgid "Reason for removal:"
+msgstr ""
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/contributors.html:18
+msgid "show affiliations"
+msgstr ""
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/contributors.html:19
+msgid "hide affiliations"
 msgstr ""
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:14
@@ -328,6 +336,10 @@ msgstr ""
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar.html:38
 msgid "Export"
+msgstr ""
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/subjects.html:28
+msgid "Keywords"
 msgstr ""
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:47
