@@ -282,7 +282,7 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
         <Item.Extra>
           {subjects.map((subject, index) => (
             <Label key={index} size="tiny">
-              {subject.title_l10n}
+              {subject.subject}
             </Label>
           ))}
           {createdDate && (
