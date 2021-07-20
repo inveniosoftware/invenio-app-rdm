@@ -41,7 +41,7 @@ def create_blueprint(app):
 
         item = current_menu.submenu('plus.deposit').register(
             'invenio_app_rdm_records.deposit_create',
-            'New upload',
+            _('New upload'),
             order=1,
         )
 
