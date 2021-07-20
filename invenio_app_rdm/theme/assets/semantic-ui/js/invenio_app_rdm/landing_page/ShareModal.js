@@ -15,9 +15,9 @@ export const ShareModal = (props) => {
   const [shareMode, setShareMode] = useState("view");
 
   const dropdownOptions = [
-    { key: "view", text: i18next.t('Can view'), value: "view" },
-    { key: "preview", text: i18next.t('Can preview'), value: "preview" },
-    { key: "edit", text: i18next.t('Can edit'), value: "edit" },
+    { key: "view", text: i18next.t("Can view"), value: "view" },
+    { key: "preview", text: i18next.t("Can preview"), value: "preview" },
+    { key: "edit", text: i18next.t("Can edit"), value: "edit" },
   ];
 
   const message = {
