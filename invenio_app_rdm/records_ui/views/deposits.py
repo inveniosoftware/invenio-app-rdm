@@ -51,19 +51,22 @@ def get_form_pids_config():
         if not provider_enabled:
             continue
 
-        u_scheme = scheme.upper()
+        record_pid_config = current_app.config[
+            "RDM_RECORDS_RECORD_PID_SCHEMES"]
+        scheme_label = record_pid_config.get(scheme, {}).get("label", scheme)
 
         pids_provider = {
             "scheme": scheme,
-            "pid_label": u_scheme,
+            "pid_label": scheme_label,
             "pid_placeholder": "10.1234/datacite.123456",
             "can_be_managed": can_be_managed,
             "can_be_unmanaged": can_be_unmanaged,
-            "btn_label_get_pid": f"Get a {u_scheme} now!",
-            "managed_help_text": f"Reserve a {u_scheme} or leave this "
+            "btn_label_discard_pid": f"Discard the reserved {scheme_label}",
+            "btn_label_get_pid": f"Get a {scheme_label} now!",
+            "managed_help_text": f"Reserve a {scheme_label} or leave this "
                                  "field blank to have one automatically "
                                  "assigned when publishing.",
-            "unmanaged_help_text": f"Copy and paste here your {u_scheme}",
+            "unmanaged_help_text": f"Copy and paste here your {scheme_label}",
         }
         pids_providers.append(pids_provider)
     return pids_providers
@@ -142,6 +145,7 @@ def _dump_date_types_vocabulary():
 def _dump_relation_types_vocabulary():
     """Dump relation type vocabulary."""
     return _dump_vocabulary_w_basic_fields('relationtypes')
+
 
 def _dump_identifier_schemes_label():
     """Dump identifiers schemes labels."""
