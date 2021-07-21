@@ -17,6 +17,8 @@ import {
   Item,
   Label,
   List,
+  Segment,
+  Header,
 } from "semantic-ui-react";
 import { BucketAggregation, Toggle } from "react-searchkit";
 import _find from "lodash/find";
@@ -149,7 +151,7 @@ export const RDMRecordSearchBarElement = ({
   onInputChange,
   executeSearch,
 }) => {
-  const placeholder = passedPlaceholder || "Search";
+  const placeholder = passedPlaceholder || i18next.t("Search");
   const onBtnSearchClick = () => {
     executeSearch();
   };
@@ -307,4 +309,27 @@ export const RDMToggleComponent = ({
 
 export const RDMCountComponent = ({ totalResults }) => {
   return <Label>{totalResults.toLocaleString("en-US")}</Label>;
+};
+
+export const RDMEmptyResults = (props) => {
+  const queryString = props.queryString;
+  return (
+    <>
+      <Segment placeholder textAlign="center">
+        <Header icon>
+          <Icon name="search" />
+          {i18next.t("No results found!")}
+        </Header>
+        {queryString && (
+          <em>
+            {i18next.t("Current search")} "{queryString}"
+          </em>
+        )}
+        <br />
+        <Button primary onClick={() => props.resetQuery()}>
+          {i18next.t("Clear query")}
+        </Button>
+      </Segment>
+    </>
+  );
 };
