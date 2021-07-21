@@ -16,12 +16,14 @@ import {
   RDMRecordSearchBarElement,
   RDMToggleComponent,
   RDMCountComponent,
+  RDMEmptyResults,
 } from "./components";
 
 const initSearchApp = createSearchAppInit({
   "BucketAggregation.element": RDMBucketAggregationElement,
   "BucketAggregationValues.element": RDMRecordFacetsValues,
   "ResultsGrid.item": RDMRecordResultsGridItem,
+  "EmptyResults.element": RDMEmptyResults,
   "ResultsList.item": RDMRecordResultsListItem,
   "SearchApp.facets": RDMRecordFacets,
   "SearchApp.searchbarContainer": RDMRecordSearchBarContainer,
