@@ -66,7 +66,7 @@ for name, reqs in extras_require.items():
 install_requires = [
     'CairoSVG>=1.0.20',
     f'invenio[base,auth,metadata,files]{invenio_version}',
-    'invenio-rdm-records>=0.31.12,<0.32.0',
+    'invenio-rdm-records>=0.31.15,<0.32.0',
     'invenio-communities>=2.4.0.dev1,<2.5.0',
 ]
 
