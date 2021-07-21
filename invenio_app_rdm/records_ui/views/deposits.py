@@ -143,6 +143,7 @@ def _dump_relation_types_vocabulary():
     """Dump relation type vocabulary."""
     return _dump_vocabulary_w_basic_fields('relationtypes')
 
+
 def _dump_identifier_schemes_label():
     """Dump identifiers schemes labels."""
     ids = current_app.config["RDM_RECORDS_IDENTIFIERS_SCHEMES"]
