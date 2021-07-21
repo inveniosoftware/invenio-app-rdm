@@ -22,15 +22,18 @@
     </div>
   </div>
   {%- endfor %}
-  {%- for subject in subjects|rejectattr("scheme")%}
+  {% set keywords = subjects|rejectattr("scheme") %}
+  {% if keywords %}
   <div class="ui grid">
     <div class="sixteen wide subject-scheme column">
       <span class="ui tiny subject header">{{_('Keywords')}}</span>
     </div>
     <div class="sixteen wide subject-label column">
+    {%- for subject in keywords %}
       <span class="subject">{{ subject.subject}}</span>
+    {%- endfor %}
     </div>
   </div>
-  {%- endfor %}
+  {% endif %}
 </dd>
 {% endif %}
