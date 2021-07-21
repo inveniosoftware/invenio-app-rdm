@@ -8,7 +8,7 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """Routes for record-related pages provided by Invenio-App-RDM."""
-
+from elasticsearch_dsl import Q
 from flask import current_app, render_template
 from flask_login import login_required
 from invenio_access.permissions import system_identity
@@ -72,10 +72,14 @@ def get_form_pids_config():
     return pids_providers
 
 
-def _dump_resource_type_vocabulary():
+def _dump_resource_type_vocabulary(extra_filter):
     """Dump resource type vocabulary."""
     results = vocabulary_service.read_all(
-        system_identity, fields=["id", "props"], type='resourcetypes')
+        system_identity,
+        fields=["id", "props"],
+        type='resourcetypes',
+        extra_filter=extra_filter
+    )
     return [
         {
             "icon": r["props"].get("type_icon", ""),
@@ -84,6 +88,22 @@ def _dump_resource_type_vocabulary():
             "type_name": r["props"]["type_name"],
         } for r in results.to_dict()["hits"]["hits"]
     ]
+
+
+def _dump_linkable_resource_type_vocabulary():
+    """Dump linkable resource type vocabulary."""
+    return _dump_resource_type_vocabulary(
+        extra_filter=~Q('exists', field="props.relation_type") |
+        Q('term', props__relation_type="linkable")
+    )
+
+
+def _dump_depositable_resource_type_vocabulary():
+    """Dump depositable resource type vocabulary."""
+    return _dump_resource_type_vocabulary(
+        extra_filter=~Q('exists', field="props.relation_type") |
+        Q('term', props__relation_type="depositable")
+    )
 
 
 def _dump_subjects_vocabulary():
@@ -162,8 +182,8 @@ def get_form_config(**kwargs):
     """Get the react form configuration."""
     vocabularies = {}
     # TODO: Nest vocabularies inside "metadata" key so that frontend dumber
-    vocabularies["resource_type"] = _dump_resource_type_vocabulary()
-
+    vocabularies["resource_type"] = \
+        _dump_depositable_resource_type_vocabulary()
     vocabularies["subjects"] = _dump_subjects_vocabulary()
     vocabularies["titles"] = dict(
         type=_dump_title_types_vocabulary()
@@ -182,7 +202,7 @@ def get_form_config(**kwargs):
 
     vocabularies["identifiers"] = {
         "relations": vocabularies["relation_type"],
-        "resource_type": vocabularies["resource_type"],
+        "resource_type": _dump_linkable_resource_type_vocabulary(),
         "scheme": _dump_identifier_schemes_label()
     }
 
