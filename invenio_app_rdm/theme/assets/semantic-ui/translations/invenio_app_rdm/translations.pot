@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-07-19T07:11:57.014Z\n"
-"PO-Revision-Date: 2021-07-19T07:11:57.014Z\n"
+"POT-Creation-Date: 2021-07-21T12:00:21.510Z\n"
+"PO-Revision-Date: 2021-07-21T12:00:21.510Z\n"
 "Language: en\n"
 
 msgid "Basic information"
@@ -149,13 +149,6 @@ msgstr "Contributors"
 msgid "Visibility"
 msgstr "Visibility"
 
-msgid ""
-"An error ocurred while generating the citation, please try again. If this "
-"error continues please contact our technical support."
-msgstr ""
-"An error ocurred while generating the citation, please try again. If this "
-"error continues please contact our technical support."
-
 msgid "Citation"
 msgstr "Citation"
 
@@ -179,3 +172,9 @@ msgstr "Alternate identifier(s)"
 
 msgid "Related works"
 msgstr "Related works"
+
+msgid "An error ocurred while generating the citation."
+msgstr "An error ocurred while generating the citation."
+
+msgid "Search"
+msgstr "Search"

@@ -43,7 +43,6 @@
   "Add contributor": "Add contributor",
   "Contributors": "Contributors",
   "Visibility": "Visibility",
-  "An error ocurred while generating the citation, please try again. If this error continues please contact our technical support.": "An error ocurred while generating the citation, please try again. If this error continues please contact our technical support.",
   "Citation": "Citation",
   "Style": "Style",
   "Manage": "Manage",
@@ -51,5 +50,7 @@
   "Creators": "Creators",
   "Alternate identifiers": "Alternate identifiers",
   "Alternate identifier(s)": "Alternate identifier(s)",
-  "Related works": "Related works"
+  "Related works": "Related works",
+  "An error ocurred while generating the citation.": "An error ocurred while generating the citation.",
+  "Search": "Search"
 }
