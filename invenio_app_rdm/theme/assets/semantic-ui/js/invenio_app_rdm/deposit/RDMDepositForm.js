@@ -58,7 +58,7 @@ export class RDMDepositForm extends Component {
           type: [
             { text: "Person", value: "personal" },
             { text: "Organization", value: "organizational" },
-          ]
+          ],
         },
 
         contributors: {
@@ -66,7 +66,7 @@ export class RDMDepositForm extends Component {
           type: [
             { text: "Person", value: "personal" },
             { text: "Organization", value: "organizational" },
-          ]
+          ],
         },
 
         // TODO: Replace with an API backend
@@ -151,7 +151,7 @@ export class RDMDepositForm extends Component {
                 <AccordionField
                   fieldPath=""
                   active={true}
-                  label={i18next.t('Files')}
+                  label={i18next.t("Files")}
                   ui={this.accordionStyle}
                 >
                   {this.noFiles && this.props.record.is_published && (
@@ -162,7 +162,7 @@ export class RDMDepositForm extends Component {
                         cursor: "default !important",
                       }}
                     >
-                      <em>{i18next.t('The record has no files.')}</em>
+                      <em>{i18next.t("The record has no files.")}</em>
                     </p>
                   )}
                   <FileUploader
@@ -183,6 +183,7 @@ export class RDMDepositForm extends Component {
                   {this.config.pids.map((pid) => (
                     <Fragment key={pid.scheme}>
                       <PIDField
+                        btnLabelDiscardPID={pid.btn_label_discard_pid}
                         btnLabelGetPID={pid.btn_label_get_pid}
                         canBeManaged={pid.can_be_managed}
                         canBeUnmanaged={pid.can_be_unmanaged}
@@ -265,12 +266,12 @@ export class RDMDepositForm extends Component {
                 <AccordionField
                   fieldPath=""
                   active={true}
-                  label={i18next.t('Recommended information')}
+                  label={i18next.t("Recommended information")}
                   ui={this.accordionStyle}
                 >
                   <CreatibutorsField
-                    addButtonLabel={i18next.t('Add contributor')}
-                    label={i18next.t('Contributors')}
+                    addButtonLabel={i18next.t("Add contributor")}
+                    label={i18next.t("Contributors")}
                     labelIcon={"user plus"}
                     fieldPath={"metadata.contributors"}
                     roleOptions={this.vocabularies.metadata.contributors.role}
@@ -380,7 +381,7 @@ export class RDMDepositForm extends Component {
                     </Card>
 
                     <AccessRightField
-                      label={i18next.t('Visibility')}
+                      label={i18next.t("Visibility")}
                       labelIcon={"shield"}
                     />
                   </Sticky>
