@@ -408,6 +408,40 @@ ref resolver store.
 OAISERVER_ID_PREFIX = 'oai:invenio-app-rdm.org:'
 """The prefix that will be applied to the generated OAI-PMH ids."""
 
+OAISERVER_SEARCH_CLS = 'invenio_rdm_records.oai:OAIRecordSearch'
+"""Class for record search."""
+
+OAISERVER_ID_FETCHER = 'invenio_rdm_records.oai:oaiid_fetcher'
+"""OAI ID fetcher function."""
+
+OAISERVER_METADATA_FORMATS = {
+    'oai_dc': {
+        'serializer': (
+            'invenio_rdm_records.oai:dublincore_etree'
+        ),
+        'schema': 'http://www.openarchives.org/OAI/2.0/oai_dc.xsd',
+        'namespace': 'http://www.openarchives.org/OAI/2.0/oai_dc/',
+    },
+}
+
+OAISERVER_LAST_UPDATE_KEY = 'updated'
+"""Record update key."""
+
+OAISERVER_CREATED_KEY = "created"
+"""Record created key."""
+
+OAISERVER_RECORD_CLS = 'invenio_rdm_records.records.api:RDMRecord'
+"""Record retrieval class."""
+
+OAISERVER_RECORD_SETS_FETCHER = 'invenio_oaiserver.utils:record_sets_fetcher'
+"""Record's OAI sets function."""
+
+OAISERVER_RECORD_INDEX = 'rdmrecords-records'
+"""Specify an Elastic index with records that should be exposed via OAI-PMH."""
+
+OAISERVER_GETRECORD_FETCHER = 'invenio_rdm_records.oai:getrecord_fetcher'
+"""Record data fetcher for serialization."""
+
 
 # Flask-DebugToolbar
 # ==================
