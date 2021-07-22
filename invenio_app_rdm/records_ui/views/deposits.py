@@ -10,6 +10,7 @@
 """Routes for record-related pages provided by Invenio-App-RDM."""
 
 from flask import current_app, render_template
+from flask_babelex import lazy_gettext as _
 from flask_login import login_required
 from invenio_access.permissions import system_identity
 from invenio_i18n.ext import current_i18n
@@ -61,12 +62,16 @@ def get_form_pids_config():
             "pid_placeholder": "10.1234/datacite.123456",
             "can_be_managed": can_be_managed,
             "can_be_unmanaged": can_be_unmanaged,
-            "btn_label_discard_pid": f"Discard the reserved {scheme_label}",
-            "btn_label_get_pid": f"Get a {scheme_label} now!",
-            "managed_help_text": f"Reserve a {scheme_label} or leave this "
-                                 "field blank to have one automatically "
-                                 "assigned when publishing.",
-            "unmanaged_help_text": f"Copy and paste here your {scheme_label}",
+            "btn_label_discard_pid": _("Discard the reserved {scheme_label}")
+            .format(scheme_label=scheme_label),
+            "btn_label_get_pid": _("Get a {scheme_label} now!")
+            .format(scheme_label=scheme_label),
+            "managed_help_text": _("Reserve a {scheme_label} or leave this "
+                                   "field blank to have one automatically "
+                                   "assigned when publishing.")
+            .format(scheme_label=scheme_label),
+            "unmanaged_help_text": _("Copy and paste here your {scheme_label}")
+            .format(scheme_label=scheme_label),
         }
         pids_providers.append(pids_provider)
     return pids_providers

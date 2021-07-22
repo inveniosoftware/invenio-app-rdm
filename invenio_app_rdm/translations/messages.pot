@@ -8,9 +8,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: invenio-app-rdm 5.0.0.dev7\n"
+"Project-Id-Version: invenio-app-rdm 5.0.0.dev8\n"
 "Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
-"POT-Creation-Date: 2021-07-20 17:15+0200\n"
+"POT-Creation-Date: 2021-07-22 10:34+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -52,43 +52,27 @@ msgid "Dublin Core XML"
 msgstr ""
 
 #: invenio_app_rdm/config.py:525
-msgid "Chicago"
-msgstr ""
-
-#: invenio_app_rdm/config.py:526
-msgid "IEEE"
-msgstr ""
-
-#: invenio_app_rdm/config.py:527
-msgid "Science"
-msgstr ""
-
-#: invenio_app_rdm/config.py:528
 msgid "APA"
 msgstr ""
 
-#: invenio_app_rdm/config.py:529
-msgid "Cell"
-msgstr ""
-
-#: invenio_app_rdm/config.py:530
+#: invenio_app_rdm/config.py:526
 msgid "Harvard"
 msgstr ""
 
-#: invenio_app_rdm/config.py:531
+#: invenio_app_rdm/config.py:527
 msgid "MLA"
 msgstr ""
 
-#: invenio_app_rdm/config.py:532
-msgid "Nature"
+#: invenio_app_rdm/config.py:528
+msgid "Vancouver"
 msgstr ""
 
-#: invenio_app_rdm/config.py:533
-msgid "Frontiers"
+#: invenio_app_rdm/config.py:529
+msgid "Chicago"
 msgstr ""
 
-#: invenio_app_rdm/config.py:534
-msgid "AMA"
+#: invenio_app_rdm/config.py:530
+msgid "IEEE"
 msgstr ""
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/deposit.html:9
@@ -338,7 +322,7 @@ msgstr ""
 msgid "Export"
 msgstr ""
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/subjects.html:28
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/subjects.html:29
 msgid "Keywords"
 msgstr ""
 
@@ -358,6 +342,24 @@ msgstr ""
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:82
 msgid "Download"
+msgstr ""
+
+#: invenio_app_rdm/records_ui/views/deposits.py:65
+msgid "Discard the reserved {scheme_label}"
+msgstr ""
+
+#: invenio_app_rdm/records_ui/views/deposits.py:67
+msgid "Get a {scheme_label} now!"
+msgstr ""
+
+#: invenio_app_rdm/records_ui/views/deposits.py:69
+msgid ""
+"Reserve a {scheme_label} or leave this field blank to have one "
+"automatically assigned when publishing."
+msgstr ""
+
+#: invenio_app_rdm/records_ui/views/deposits.py:73
+msgid "Copy and paste here your {scheme_label}"
 msgstr ""
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:21
