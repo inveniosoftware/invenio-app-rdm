@@ -9,15 +9,14 @@
 # Translators:
 # Alizee Pace <alizee.pace@gmail.com>, 2021
 # Chriz Uniba <christina.zeller@uni-bamberg.de>, 2021
-# Alexander Gruber <alexander.gruber@tugraz.at>, 2021
 # Tibor Simko <tibor.simko@cern.ch>, 2021
 # Mojib Wali <mojib.wali@tugraz.at>, 2021
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: invenio-app-rdm 5.0.0.dev7\n"
+"Project-Id-Version: invenio-app-rdm 5.0.0.dev8\n"
 "Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
-"POT-Creation-Date: 2021-07-20 17:15+0200\n"
+"POT-Creation-Date: 2021-07-22 10:34+0200\n"
 "PO-Revision-Date: 2020-07-07 14:12+0000\n"
 "Last-Translator: Mojib Wali <mojib.wali@tugraz.at>, 2021\n"
 "Language-Team: German (https://www.transifex.com/inveniosoftware/teams/23537/de/)\n"
@@ -61,44 +60,28 @@ msgid "Dublin Core XML"
 msgstr "Dublin Core XML"
 
 #: invenio_app_rdm/config.py:525
-msgid "Chicago"
-msgstr "Chicago"
-
-#: invenio_app_rdm/config.py:526
-msgid "IEEE"
-msgstr "IEEE"
-
-#: invenio_app_rdm/config.py:527
-msgid "Science"
-msgstr "Wissenschaft"
-
-#: invenio_app_rdm/config.py:528
 msgid "APA"
 msgstr "APA"
 
-#: invenio_app_rdm/config.py:529
-msgid "Cell"
-msgstr "Zelle"
-
-#: invenio_app_rdm/config.py:530
+#: invenio_app_rdm/config.py:526
 msgid "Harvard"
 msgstr "Harvard"
 
-#: invenio_app_rdm/config.py:531
+#: invenio_app_rdm/config.py:527
 msgid "MLA"
 msgstr "MLA"
 
-#: invenio_app_rdm/config.py:532
-msgid "Nature"
-msgstr "Natur"
+#: invenio_app_rdm/config.py:528
+msgid "Vancouver"
+msgstr "Vancouver"
 
-#: invenio_app_rdm/config.py:533
-msgid "Frontiers"
-msgstr "Grenzen"
+#: invenio_app_rdm/config.py:529
+msgid "Chicago"
+msgstr "Chicago"
 
-#: invenio_app_rdm/config.py:534
-msgid "AMA"
-msgstr "AMA"
+#: invenio_app_rdm/config.py:530
+msgid "IEEE"
+msgstr "IEEE"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/deposit.html:9
 msgid "New version"
@@ -357,7 +340,7 @@ msgstr "Versionen"
 msgid "Export"
 msgstr "Exportieren"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/subjects.html:28
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/subjects.html:29
 msgid "Keywords"
 msgstr "Schlagwörter"
 
@@ -380,6 +363,26 @@ msgstr ""
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:82
 msgid "Download"
 msgstr "Herunterladen"
+
+#: invenio_app_rdm/records_ui/views/deposits.py:65
+msgid "Discard the reserved {scheme_label}"
+msgstr "Verwerfen der reservierten {scheme_label}"
+
+#: invenio_app_rdm/records_ui/views/deposits.py:67
+msgid "Get a {scheme_label} now!"
+msgstr "Holen Sie sich jetzt einen {scheme_label}!"
+
+#: invenio_app_rdm/records_ui/views/deposits.py:69
+msgid ""
+"Reserve a {scheme_label} or leave this field blank to have one automatically"
+" assigned when publishing."
+msgstr ""
+"Reservieren Sie einen {scheme_label} oder lassen Sie dieses Feld leer, um "
+"beim Veröffentlichen automatisch einen zugewiesen zu bekommen."
+
+#: invenio_app_rdm/records_ui/views/deposits.py:73
+msgid "Copy and paste here your {scheme_label}"
+msgstr "Kopieren und fügen Sie hier Ihre {scheme_label} ein"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:21
 msgid "About InvenioRDM"
