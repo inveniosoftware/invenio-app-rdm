@@ -269,7 +269,7 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
               ) && (
                 <img className="inline-orcid" src="/static/images/orcid.svg" />
               )}
-              {creator.person_or_org.name}
+              {_get(creator, "person_or_org.name", "No name")}
               {index < creators.length - 1 && ","}
             </span>
           ))}
