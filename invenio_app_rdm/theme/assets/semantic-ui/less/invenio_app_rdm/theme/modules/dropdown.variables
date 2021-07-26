@@ -1,0 +1,11 @@
+/*******************************
+    User Variable Overrides
+*******************************/
+
+@import "@less/invenio_theme/theme/modules/dropdown.variables";
+
+
+// This height displays at most 15 items or so
+// Tablets/phones were left as-is because they have less screen estate
+@selectionComputerMaxMenuHeight : 575px;
+@selectionWidescreenMaxMenuHeight : 575px;
