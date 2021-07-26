@@ -98,7 +98,7 @@
     <div class="ui relaxed grid">
       <div class="two column row">
         <div class="eight wide column">
-          <p>{{ identifier.identifier + ' ( ' + identifier.scheme + ' )' }}</p>
+          <p>{{ identifier.identifier + ' ( ' + identifier.scheme | get_scheme_label + ' )' }}</p>
         </div>
         <div class="eight wide column">
           {% if identifier.resource_type is defined %}
@@ -116,6 +116,15 @@
     {{ show_detail(group.grouper, _identifiers_for_group(group.list))}}
   {%- endfor %}
 {% endmacro %}
+
+
+{% macro show_alternate_identifiers(identifiers) %}
+  {% for alt_id in identifiers %}
+    {# upper() is in keeping with the displayed schemes in RDMDEpositForm.js #}
+    {{ show_detail(alt_id.scheme | get_scheme_label, alt_id.identifier) }}
+  {% endfor %}
+{% endmacro %}
+
 
 {% macro list_languages(languages) %}
   {% for lang in languages %}

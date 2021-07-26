@@ -25,6 +25,7 @@ from sqlalchemy.orm import load_only
 
 from ..utils import set_default_value
 from .decorators import pass_draft, pass_draft_files
+from .filters import get_scheme_label
 
 
 #
@@ -172,15 +173,18 @@ def _dump_relation_types_vocabulary():
     return _dump_vocabulary_w_basic_fields('relationtypes')
 
 
-def _dump_identifier_schemes_label():
-    """Dump identifiers schemes labels."""
-    ids = current_app.config["RDM_RECORDS_IDENTIFIERS_SCHEMES"]
-    labelled_ids = []
+def _dump_identifiers_scheme_label():
+    """Dump identifiers scheme (fake) vocabulary.
 
-    for scheme, values in ids.items():
-        labelled_ids.append({"text": values["label"], "value": scheme})
-
-    return labelled_ids
+    "Fake" because identifiers scheme is not a vocabulary.
+    """
+    return [
+        {
+            "text": get_scheme_label(scheme),
+            "value": scheme
+        } for scheme in current_app.config.get(
+            "RDM_RECORDS_IDENTIFIERS_SCHEMES", {})
+    ]
 
 
 def get_form_config(**kwargs):
@@ -208,7 +212,7 @@ def get_form_config(**kwargs):
     vocabularies["identifiers"] = {
         "relations": vocabularies["relation_type"],
         "resource_type": _dump_linkable_resource_type_vocabulary(),
-        "scheme": _dump_identifier_schemes_label()
+        "scheme": _dump_identifiers_scheme_label()
     }
 
     return dict(
