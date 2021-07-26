@@ -112,3 +112,12 @@ def order_entries(files):
         files = [get_file(key) for key in order]
 
     return files
+
+
+def get_scheme_label(scheme):
+    """Convert backend scheme to frontend label."""
+    scheme_to_label = current_app.config.get(
+        "RDM_RECORDS_IDENTIFIERS_SCHEMES", {}
+    )
+
+    return scheme_to_label.get(scheme, {}).get("label", scheme)

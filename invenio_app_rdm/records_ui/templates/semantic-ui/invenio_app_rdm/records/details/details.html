@@ -9,7 +9,7 @@
 
 {%- from "invenio_app_rdm/records/macros/detail.html" import list_formats, list_languages,
   list_sizes, show_add_descriptions, show_add_titles, show_dates, show_detail, show_funding,
-  show_references, show_related_identifiers %}
+  show_references, show_alternate_identifiers, show_related_identifiers %}
 
 <dt><b>{{ _('Details')}}</b></dt>
 <hr class="thin-line"></hr>
@@ -24,6 +24,7 @@
   {{ show_detail(_('Formats'), list_formats(metadata.formats)) if metadata.formats }}
   {{ show_detail(_('Sizes'), list_sizes(metadata.sizes)) if metadata.sizes }}
   {{ show_detail(_('Funding'), show_funding(metadata.funding)) if metadata.funding }}
+  {{ show_detail(_('Alternate identifiers'), show_alternate_identifiers(metadata.identifiers)) if metadata.identifiers }}
   {{ show_detail(_('Related works'), show_related_identifiers(record.ui.related_identifiers)) if record.ui.related_identifiers }}
   {{ show_detail(_('References'), show_references(metadata.references)) if metadata.references }}
 </dd>
