@@ -51,6 +51,11 @@
 
 {% macro show_affiliations(affiliations) %}
   {% for affiliation in affiliations %}
-    <p>{{ affiliation[0] }} {{'. ' + affiliation[1] }}</p>
+      {{ affiliation[0] }}.
+      {%- if affiliation[2] %}
+        <a href="https://ror.org/{{affiliation[2]}}"><img class="inline-orcid inline-orcid-icon" src="{{ url_for('static', filename='images/ror-icon.svg') }}"/></a>
+      {%- endif %}
+      {{affiliation[1]}}
+    <br />
   {% endfor %}
 {%- endmacro %}
