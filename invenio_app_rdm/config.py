@@ -140,6 +140,9 @@ THEME_FRONTPAGE_TITLE = _('The turn-key research data management repository')
 THEME_HEADER_TEMPLATE = 'invenio_app_rdm/header.html'
 """Header base template."""
 
+THEME_FRONTPAGE_TEMPLATE = 'invenio_app_rdm/frontpage.html'
+"""Frontpage template."""
+
 THEME_HEADER_LOGIN_TEMPLATE = 'invenio_app_rdm/header_login.html'
 """Header login base template."""
 

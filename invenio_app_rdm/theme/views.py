@@ -9,7 +9,7 @@
 
 """Routes for general pages provided by Invenio-App-RDM."""
 
-from flask import Blueprint, render_template
+from flask import Blueprint, current_app, render_template
 from flask_babelex import get_locale
 from flask_babelex import lazy_gettext as _
 from flask_menu import current_menu
@@ -53,7 +53,9 @@ def create_blueprint(app):
 #
 def index():
     """Frontpage."""
-    return render_template("invenio_app_rdm/frontpage.html")
+    return render_template(
+        current_app.config['THEME_FRONTPAGE_TEMPLATE'],
+    )
 
 
 def help_search():
