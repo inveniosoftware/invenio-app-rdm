@@ -24,7 +24,7 @@ tests_require = [
 ]
 
 setup_requires = [
-    'Babel>=2.8,<3.0',
+    'Babel>=2.8,<3',
 ]
 
 extras_require = {
@@ -64,9 +64,9 @@ for name, reqs in extras_require.items():
     extras_require['all'].extend(reqs)
 
 install_requires = [
-    'flask>=1.1,<2.0',
-    'CairoSVG>=2.5.2',
+    'CairoSVG>=2.5.2,<3.0.0',
     f'invenio[base,auth,metadata,files]{invenio_version}',
+    'invenio-communities>=2.5.0.dev1,<2.6.0',
     'invenio-rdm-records>=0.32.0,<0.33.0',
 ]
 
@@ -124,6 +124,6 @@ setup(
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 5 - Production/Stable',
     ],
 )
