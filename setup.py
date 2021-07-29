@@ -16,15 +16,15 @@ from setuptools import find_packages, setup
 readme = open('README.rst').read()
 
 invenio_version = '~=3.5.0a2'
-invenio_search_version = '>=1.4.1,<1.5.0'
+invenio_search_version = '>=1.4.2,<1.5.0'
 invenio_db_version = '>=1.0.9,<1.1.0'
 
 tests_require = [
-    'pytest-invenio~=1.4.1',
+    'pytest-invenio~=1.4.2',
 ]
 
 setup_requires = [
-    'Babel>=2.8',
+    'Babel>=2.8,<3.0',
 ]
 
 extras_require = {
@@ -64,9 +64,9 @@ for name, reqs in extras_require.items():
     extras_require['all'].extend(reqs)
 
 install_requires = [
-    'CairoSVG>=1.0.20',
+    'CairoSVG>=2.5.2,<3.0',
     f'invenio[base,auth,metadata,files]{invenio_version}',
-    'invenio-rdm-records>=0.31.18,<0.32.0',
+    'invenio-rdm-records>=0.32.0,<0.33.0',
     'invenio-communities>=2.4.0.dev1,<2.5.0',
 ]
 
