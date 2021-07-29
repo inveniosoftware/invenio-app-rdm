@@ -198,6 +198,7 @@ PREVIEWER_PREFERENCE = [
     'pdfjs',
     'ipynb',
     'zip',
+    'txt',
 ]
 """Preferred previewers."""
 

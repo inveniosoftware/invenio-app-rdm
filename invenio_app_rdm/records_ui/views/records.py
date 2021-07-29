@@ -25,7 +25,11 @@ from .decorators import pass_file_item, pass_file_metadata, pass_is_preview, \
 
 
 class PreviewFile:
-    """Preview file implmentation for InvenioRDM."""
+    """Preview file implementation for InvenioRDM.
+
+    This class was apparently created because of subtle differences with
+    `invenio_previewer.api.PreviewFile`.
+    """
 
     def __init__(self, file_item, record_pid_value, url=None):
         """Create a new PreviewFile."""
@@ -45,10 +49,12 @@ class PreviewFile:
         return True
 
     def has_extensions(self, *exts):
-        """Check if file has one of the extensions."""
-        file_ext = splitext(self.data["key"])[1]
-        file_ext = file_ext.lower()
-        return file_ext.lower() in exts
+        """Check if file has one of the extensions.
+
+        Each `exts` has the format `.{file type}` e.g. `.txt` .
+        """
+        file_ext = splitext(self.data["key"])[1].lower()
+        return file_ext in exts
 
     def open(self):
         """Open the file."""

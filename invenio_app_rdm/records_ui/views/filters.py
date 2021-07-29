@@ -88,12 +88,8 @@ def has_previewable_files(files):
     """Check if any of the files is previewable."""
     # 'splitext' inclues the dot of the file extension in the
     # extension, we have to get rid of that
-    extensions = [
-        ext[1:] if ext.startswith(".") else ext
-        for ext in (splitext(f["key"])[-1] for f in files)
-    ]
-
-    return any([is_previewable(ext.lower()) for ext in extensions])
+    extensions = [splitext(f["key"])[-1].strip(".").lower() for f in files]
+    return any([is_previewable(ext) for ext in extensions])
 
 
 def order_entries(files):
