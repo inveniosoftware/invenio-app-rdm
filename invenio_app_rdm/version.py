@@ -20,4 +20,4 @@ This file is imported by ``invenio_app_rdm.__init__``, and parsed by
 #
 # See PEP 0440 for details - https://www.python.org/dev/peps/pep-0440
 
-__version__ = '6.0.0.dev0'
+__version__ = '6.0.0.dev1'
