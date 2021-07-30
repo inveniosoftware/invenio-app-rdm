@@ -447,6 +447,11 @@ SEARCH_ELASTIC_HOSTS = [{"host": "localhost", "port": 9200}]
 WSGI_PROXIES = 2
 """Correct number of proxies in front of your application."""
 
+# Invenio-Admin
+# =============
+
+# Admin interface is deprecated and should not be used.
+ADMIN_PERMISSION_FACTORY = 'invenio_app_rdm.admin.permission_factory'
 
 # Invenio-APP-RDM
 # ===============
