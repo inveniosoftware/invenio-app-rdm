@@ -78,145 +78,186 @@ def get_form_pids_config():
     return pids_providers
 
 
-def _dump_resource_type_vocabulary(extra_filter):
-    """Dump resource type vocabulary."""
-    results = vocabulary_service.read_all(
-        system_identity,
-        fields=["id", "props"],
-        type='resourcetypes',
-        extra_filter=extra_filter
-    )
-    return [
-        {
-            "icon": r["props"].get("type_icon", ""),
-            "id": r["id"],
-            "subtype_name": r["props"].get("subtype_name", ""),
-            "type_name": r["props"]["type_name"],
-        } for r in results.to_dict()["hits"]["hits"]
-    ]
+class VocabulariesOptions:
+    """Holds React form vocabularies options."""
 
+    def __init__(self):
+        """Constructor."""
+        self._vocabularies = {}
 
-def _dump_linkable_resource_type_vocabulary():
-    """Dump linkable resource type vocabulary."""
-    return _dump_resource_type_vocabulary(
-        extra_filter=~Q('exists', field="props.relation_type") |
-        Q('term', props__relation_type="linkable")
-    )
+    # Utilities
+    def _get_label(self, hit):
+        """Return label (translated title) of hit."""
+        return gettext_from_dict(
+            hit["title"],
+            current_i18n.locale,
+            current_app.config.get('BABEL_DEFAULT_LOCALE', 'en')
+        )
 
+    def _get_type_subtype_label(self, hit, type_labels):
+        """Return (type, subtype) pair for this hit."""
+        id_ = hit["id"]
+        type_ = hit.get("props", {}).get("type")
 
-def _dump_depositable_resource_type_vocabulary():
-    """Dump depositable resource type vocabulary."""
-    return _dump_resource_type_vocabulary(
-        extra_filter=~Q('exists', field="props.relation_type") |
-        Q('term', props__relation_type="depositable")
-    )
+        if id_ == type_:
+            # dataset-like case
+            return (self._get_label(hit), "")
+        elif type_ not in type_labels:
+            # safety net to generate a valid type, subtype and not break search
+            return (self._get_label(hit), "")
+        else:
+            return (type_labels[type_], self._get_label(hit))
 
+    def _resource_types(self, extra_filter):
+        """Dump resource type vocabulary."""
+        type_ = 'resourcetypes'
+        all_resource_types = vocabulary_service.read_all(
+            system_identity,
+            fields=["id", "props", "title"],
+            type=type_,
+            # Sorry, we have over 100+ resource types entry at NU actually
+            max_records=150
+        )
+        type_labels = {
+            hit["id"]: self._get_label(hit)
+            for hit in all_resource_types.to_dict()["hits"]["hits"]
+        }
+        subset_resource_types = vocabulary_service.read_all(
+            system_identity,
+            fields=["id", "props", "title"],
+            type=type_,
+            extra_filter=extra_filter,
+            # Sorry, we have over 100+ resource types entry at NU actually
+            max_records=150
+        )
 
-def _dump_subjects_vocabulary():
-    """Dump subjects vocabulary (limitTo really)."""
-    subjects = (
-        VocabularyScheme.query
-        .filter_by(parent_id="subjects")
-        .options(load_only("id"))
-        .all()
-    )
-    limit_to = [{"text": "All", "value": "all"}]
-    # id is human readable and shorter, so we use it
-    limit_to += [{"text": s.id, "value": s.id} for s in subjects]
-    return {
-        "limit_to": limit_to
-    }
+        return [
+            {
+                "icon": hit["props"].get("type_icon", ""),
+                "id": hit["id"],
+                "subtype_name": self._get_type_subtype_label(hit, type_labels)[1],  # noqa
+                "type_name": self._get_type_subtype_label(hit, type_labels)[0],
+            } for hit in subset_resource_types.to_dict()["hits"]["hits"]
+        ]
 
+    def _dump_vocabulary_w_basic_fields(self, vocabulary_type):
+        """Dump vocabulary with id and title field."""
+        results = vocabulary_service.read_all(
+            system_identity, fields=["id", "title"], type=vocabulary_type)
+        return [
+            {
+                "text": self._get_label(hit),
+                "value": hit["id"],
+            } for hit in results.to_dict()["hits"]["hits"]
+        ]
 
-def _dump_vocabulary_w_basic_fields(vocabulary_type):
-    """Dump vocabulary with id and title field."""
-    results = vocabulary_service.read_all(
-        system_identity, fields=["id", "title"], type=vocabulary_type)
-    return [
-        {
-            "text": gettext_from_dict(
-                r["title"], current_i18n.locale,
-                current_app.config.get('BABEL_DEFAULT_LOCALE', 'en')
-            ),
-            "value": r["id"],
-        } for r in results.to_dict()["hits"]["hits"]
-    ]
+    # Vocabularies
+    def depositable_resource_types(self):
+        """Return depositable resource type options (value, label) pairs."""
+        self._vocabularies["resource_type"] = (
+            self._resource_types(Q('term', tags="depositable"))
+        )
+        return self._vocabularies["resource_type"]
 
+    def subjects(self):
+        """Dump subjects vocabulary (limitTo really)."""
+        subjects = (
+            VocabularyScheme.query
+            .filter_by(parent_id="subjects")
+            .options(load_only("id"))
+            .all()
+        )
+        limit_to = [{"text": "All", "value": "all"}]
+        # id is human readable and shorter, so we use it
+        limit_to += [{"text": s.id, "value": s.id} for s in subjects]
 
-def _dump_title_types_vocabulary():
-    """Dump title type vocabulary."""
-    return _dump_vocabulary_w_basic_fields('titletypes')
+        self._vocabularies["subjects"] = {"limit_to": limit_to}
+        return self._vocabularies["subjects"]
 
+    def title_types(self):
+        """Dump title type vocabulary."""
+        self._vocabularies["titles"] = dict(
+            type=self._dump_vocabulary_w_basic_fields('titletypes')
+        )
+        return self._vocabularies["titles"]
 
-def _dump_creators_role_vocabulary():
-    """Dump creators role vocabulary."""
-    return _dump_vocabulary_w_basic_fields('creatorsroles')
+    def creator_roles(self):
+        """Dump creators role vocabulary."""
+        self._vocabularies["creators"] = dict(
+            role=self._dump_vocabulary_w_basic_fields('creatorsroles')
+        )
+        return self._vocabularies["creators"]
 
+    def contributor_roles(self):
+        """Dump contributors role vocabulary."""
+        self._vocabularies["contributors"] = dict(
+            role=self._dump_vocabulary_w_basic_fields('contributorsroles')
+        )
+        return self._vocabularies["contributors"]
 
-def _dump_contributors_role_vocabulary():
-    """Dump contributors role vocabulary."""
-    return _dump_vocabulary_w_basic_fields('contributorsroles')
+    def description_types(self):
+        """Dump description type vocabulary."""
+        self._vocabularies["descriptions"] = dict(
+            type=self._dump_vocabulary_w_basic_fields('descriptiontypes')
+        )
+        return self._vocabularies["descriptions"]
 
+    def date_types(self):
+        """Dump date type vocabulary."""
+        self._vocabularies["dates"] = dict(
+            type=self._dump_vocabulary_w_basic_fields('datetypes')
+        )
+        return self._vocabularies["dates"]
 
-def _dump_description_types_vocabulary():
-    """Dump description type vocabulary."""
-    return _dump_vocabulary_w_basic_fields('descriptiontypes')
+    def relation_types(self):
+        """Dump relation type vocabulary."""
+        return self._dump_vocabulary_w_basic_fields('relationtypes')
 
+    def linkable_resource_types(self):
+        """Dump linkable resource type vocabulary."""
+        return self._resource_types(Q('term', tags="linkable"))
 
-def _dump_date_types_vocabulary():
-    """Dump date type vocabulary."""
-    return _dump_vocabulary_w_basic_fields('datetypes')
+    def identifier_schemes(self):
+        """Dump identifiers scheme (fake) vocabulary.
 
+        "Fake" because identifiers scheme is not a vocabulary.
+        """
+        return [
+            {
+                "text": get_scheme_label(scheme),
+                "value": scheme
+            } for scheme in current_app.config.get(
+                "RDM_RECORDS_IDENTIFIERS_SCHEMES", {})
+        ]
 
-def _dump_relation_types_vocabulary():
-    """Dump relation type vocabulary."""
-    return _dump_vocabulary_w_basic_fields('relationtypes')
+    def identifiers(self):
+        """Dump related identifiers vocabulary."""
+        self._vocabularies["identifiers"] = {
+            "relations": self.relation_types(),
+            "resource_type": self.linkable_resource_types(),
+            "scheme": self.identifier_schemes()
+        }
 
-
-def _dump_identifiers_scheme_label():
-    """Dump identifiers scheme (fake) vocabulary.
-
-    "Fake" because identifiers scheme is not a vocabulary.
-    """
-    return [
-        {
-            "text": get_scheme_label(scheme),
-            "value": scheme
-        } for scheme in current_app.config.get(
-            "RDM_RECORDS_IDENTIFIERS_SCHEMES", {})
-    ]
+    def dump(self):
+        """Dump into dict."""
+        # TODO: Nest vocabularies inside "metadata" key so that frontend dumber
+        self.depositable_resource_types()
+        self.title_types()
+        self.creator_roles()
+        self.description_types()
+        self.date_types()
+        self.contributor_roles()
+        self.subjects()
+        self.identifiers()
+        # We removed
+        # vocabularies["relation_type"] = _dump_relation_types_vocabulary()
+        return self._vocabularies
 
 
 def get_form_config(**kwargs):
     """Get the react form configuration."""
-    vocabularies = {}
-    # TODO: Nest vocabularies inside "metadata" key so that frontend dumber
-    vocabularies["resource_type"] = \
-        _dump_depositable_resource_type_vocabulary()
-    vocabularies["subjects"] = _dump_subjects_vocabulary()
-    vocabularies["titles"] = dict(
-        type=_dump_title_types_vocabulary()
-    )
-    vocabularies["creators"] = dict(role=_dump_creators_role_vocabulary())
-    vocabularies["contributors"] = dict(
-        role=_dump_contributors_role_vocabulary()
-    )
-    vocabularies["descriptions"] = dict(
-        type=_dump_description_types_vocabulary()
-    )
-    vocabularies["dates"] = dict(
-        type=_dump_date_types_vocabulary()
-    )
-    vocabularies["relation_type"] = _dump_relation_types_vocabulary()
-
-    vocabularies["identifiers"] = {
-        "relations": vocabularies["relation_type"],
-        "resource_type": _dump_linkable_resource_type_vocabulary(),
-        "scheme": _dump_identifiers_scheme_label()
-    }
-
     return dict(
-        vocabularies=vocabularies,
+        vocabularies=VocabulariesOptions().dump(),
         current_locale=str(current_i18n.locale),
         default_locale=current_app.config.get('BABEL_DEFAULT_LOCALE', 'en'),
         pids=get_form_pids_config(),

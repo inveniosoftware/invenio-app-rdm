@@ -154,6 +154,7 @@ def resource_type_item(app, resource_type_type):
         "title": {
             "en": "Photo"
         },
+        "tags": ["depositable", "linkable"],
         "type": "resourcetypes"
     })
 
