@@ -9,7 +9,7 @@ import axios from "axios";
 import _debounce from "lodash/debounce";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Header, Placeholder, List, Grid } from "semantic-ui-react";
+import { Header, Placeholder, Grid, Dropdown } from "semantic-ui-react";
 import { withCancel } from "../utils";
 import { CopyButton } from "../utlis/CopyButton";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
@@ -21,8 +21,7 @@ export class RecordCitationField extends Component {
     this.state = {
       loading: true,
       citation: "",
-      error: null,
-      selectedStyle: null,
+      error: null
     };
   }
 
@@ -38,9 +37,11 @@ export class RecordCitationField extends Component {
   placeholderLoader = () => {
     return (
       <Placeholder>
-        <Placeholder.Header>
-          <Placeholder.Line />
-        </Placeholder.Header>
+          <Placeholder.Paragraph>
+            <Placeholder.Line />
+            <Placeholder.Line />
+            <Placeholder.Line />
+          </Placeholder.Paragraph>
       </Placeholder>
     );
   };
@@ -68,20 +69,21 @@ export class RecordCitationField extends Component {
     this.setState({
       loading: true,
       citation: "",
-      error: "",
-      selectedStyle: null,
+      error: ""
     });
+
     this.cancellableFetchCitation = withCancel(
       this.fetchCitation(record, style)
     );
+
     try {
       const response = await this.cancellableFetchCitation.promise;
       this.setState({
         loading: false,
-        citation: response.data,
-        selectedStyle: style,
+        citation: response.data
       });
-    } catch (error) {
+    } 
+    catch (error) {
       if (error !== "UNMOUNTED") {
         this.setState({
           loading: false,
@@ -93,55 +95,55 @@ export class RecordCitationField extends Component {
   };
 
   render() {
-    const { styles, record } = this.props;
-    const { loading, citation, error, selectedStyle } = this.state;
+    const { styles, record, defaultStyle } = this.props;
+    const { loading, citation, error } = this.state;
+
+    const citationOptions = styles.map((style) => {
+      return {
+        key: style[0],
+        value: style[0],
+        text: style[1]
+      }
+    })
 
     return (
-      <div id="record-citation">
-        <Header size="medium">{i18next.t("Citation")}</Header>
-        <Grid container>
-          <Grid.Row className="no-padding-tb">
+      <Grid id="record-citation">
+        <Grid.Row verticalAlign="middle" className="relaxed">
+          <Grid.Column mobile={8} tablet={8} computer={12} className="no-padding">
+            <Header as="h2">{i18next.t("Citation")}</Header>
+          </Grid.Column>
+
+          <Grid.Column mobile={8} tablet={8} computer={4} className="no-padding" textAlign="right">
             <div className="citation-style-selector">
-              <p className="citation-style-p">
-                <b>{i18next.t("Style")}</b>
-              </p>
-              <List celled horizontal className="separated-list">
-                {styles.map((style) => {
-                  return (
-                    <List.Item
-                      key={style[0]}
-                      {...(style[0] === selectedStyle
-                        ? { className: "selected-citation-type" }
-                        : {})}
-                    >
-                      <a
-                        onClick={_debounce(
-                          () => this.getCitation(record, style[0]),
-                          500
-                        )}
-                        className="citation-style-link"
-                      >
-                        <span>{style[1]}</span>
-                      </a>
-                    </List.Item>
-                  );
-                })}
-              </List>
+              <label>{i18next.t("Style")}</label>
+              <Dropdown
+                className="citation-dropdown"
+                defaultValue={defaultStyle}
+                options={citationOptions}
+                selection
+                onChange={_debounce(
+                  (event, data) => this.getCitation(record, data.value),
+                  500
+                )}
+              />
             </div>
-          </Grid.Row>
-          <Grid.Row className="no-padding-t">
-            <Grid.Column width={14} className="no-padding">
-              <div id="citation-text">
-                {loading ? this.placeholderLoader() : citation}
-              </div>
-            </Grid.Column>
-            <Grid.Column width={2} className="no-padding-lr" textAlign="right">
-              <CopyButton text={citation} position="top" />
-            </Grid.Column>
-          </Grid.Row>
-          {error ? this.errorMessage(error) : null}
-        </Grid>
-      </div>
+          </Grid.Column>
+        </Grid.Row>
+
+        <Grid.Row verticalAlign="bottom">
+          <Grid.Column computer={12} className="no-padding">
+            <div id="citation-text">
+              {loading ? this.placeholderLoader() : citation}
+            </div>
+          </Grid.Column>
+
+          <Grid.Column computer={4} className="no-padding" textAlign="right">
+            <CopyButton text={citation}/>
+          </Grid.Column>
+        </Grid.Row>
+
+        {error ? this.errorMessage(error) : null}
+      </Grid>
     );
   }
 }
