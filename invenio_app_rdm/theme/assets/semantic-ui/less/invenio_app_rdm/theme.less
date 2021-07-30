@@ -418,23 +418,21 @@ body {
 }
 
 #record-citation {
-  margin-top: 1em;
-  margin-bottom: 1em;
+  margin: 0px;
+
+  label {
+    font-weight: 700;
+  }
 
   .citation-style-selector {
-    margin-top: 1em;
-    margin-bottom: 1em;
-  }
+    display: inline-block;
+    width: 157px;
 
-  .citation-style-link {
-    margin-right: 0.25em;
-    margin-left: 0.25em;
-    cursor: pointer;
-  }
-
-  .citation-style-p {
-    display: inline;
-    margin-right: 1em;
+    .ui.selection.dropdown {
+      min-width: 112px;
+      max-width: 112px;
+      margin-left: 10px;
+    }
   }
 
   .citation-error-message {
