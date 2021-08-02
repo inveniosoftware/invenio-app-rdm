@@ -133,7 +133,8 @@ def check_affiliations():
     if needs_ror:
         print(
             "You have affiliations with ROR identifiers, you need to " +
-            "add its vocabulary. Instructions to do so are available in TODO"
+            "add its vocabulary. Instructions to do so are available in "
+            "https://inveniordm.docs.cern.ch/releases/upgrading/upgrade-v6.0/#prepare-vocabularies"  # noqa
         )
 
 
