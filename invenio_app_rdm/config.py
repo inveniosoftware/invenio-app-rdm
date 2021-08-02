@@ -453,6 +453,13 @@ WSGI_PROXIES = 2
 # Admin interface is deprecated and should not be used.
 ADMIN_PERMISSION_FACTORY = 'invenio_app_rdm.admin.permission_factory'
 
+# Invenio-REST
+# ------------
+REST_CSRF_ENABLED = True
+# TODO: remove when https://github.com/inveniosoftware/invenio-rest/issues/125
+# is solved
+CSRF_HEADER = "X-CSRFToken"
+
 # Invenio-APP-RDM
 # ===============
 

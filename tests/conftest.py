@@ -26,6 +26,15 @@ from invenio_vocabularies.records.api import Vocabulary
 from invenio_vocabularies.records.models import VocabularyScheme
 
 
+@pytest.fixture(scope='module')
+def app_config(app_config):
+    """Override pytest-invenio app_config fixture to disable CSRF check."""
+    # Variable not used. We set it to silent warnings
+    app_config['REST_CSRF_ENABLED'] = False
+
+    return app_config
+
+
 @pytest.fixture(scope="module")
 def subjects_service(app):
     """Subjects service."""

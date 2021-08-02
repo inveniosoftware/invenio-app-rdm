@@ -36,7 +36,7 @@ import {
   SearchAppResultsPane,
 } from "@js/invenio_search_ui/components";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
-import axios from "axios";
+import { axiosWithconfig } from "../utils";
 
 const DeleteDraftButton = (props) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -46,7 +46,7 @@ const DeleteDraftButton = (props) => {
   const handleClose = () => setModalOpen(false);
 
   const handleDelete = async () => {
-    const resp = await axios.delete(
+    const resp = await axiosWithconfig.delete(
       `/api/records/${props.record.id}/draft`,
       {},
       {
@@ -201,7 +201,7 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
 
   // Derivatives
   const editRecord = () => {
-    axios
+    axiosWithconfig
       .post(`/api/records/${result.id}/draft`)
       .then((response) => {
         window.location = `/uploads/${result.id}`;
