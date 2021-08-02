@@ -40,8 +40,13 @@
     },
     {
       "aggName": "subjects",
-      "field": "subjects",
-      "title": "{{_("Subjects")}}"
+      "field": "subjects.scheme",
+      "title": "{{_("Subjects")}}",
+      "childAgg": {
+        "aggName": "inner",
+        "field": "subjects.subject",
+        "title": "{{_("Subjects")}}"
+      }
     }
   ],
   "appId": "deposit-search",
