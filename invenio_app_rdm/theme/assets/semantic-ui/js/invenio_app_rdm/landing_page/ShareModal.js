@@ -9,6 +9,7 @@ import { Dropdown, Icon, Input, Button, Modal } from "semantic-ui-react";
 import axios from "axios";
 import { Trans } from "react-i18next";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
+import { axiosWithconfig } from "../utils";
 
 export const ShareModal = (props) => {
   const [accessLinkObj, setAccessLinkObj] = useState();
@@ -56,7 +57,7 @@ export const ShareModal = (props) => {
   };
 
   const updateAccessLink = async () => {
-    await axios.patch(
+    await axiosWithconfig.patch(
       `/api/records/${props.recid}/access/links/${accessLinkObj.id}`,
       {
         permission: shareMode,
@@ -71,7 +72,7 @@ export const ShareModal = (props) => {
   };
 
   const createAccessLink = async () => {
-    await axios
+    await axiosWithconfig
       .post(
         `/api/records/${props.recid}/access/links`,
         { permission: shareMode },
@@ -97,7 +98,7 @@ export const ShareModal = (props) => {
   const handleChangeMode = (e, { value }) => setShareMode(value);
 
   const handleDelete = async () => {
-    await axios
+    await axiosWithconfig
       .delete(`/api/records/${props.recid}/access/links/${accessLinkObj.id}`, {
         headers: {
           Accept: "application/json",
