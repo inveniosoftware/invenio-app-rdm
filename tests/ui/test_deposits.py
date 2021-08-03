@@ -21,6 +21,7 @@ def additional_resource_types(running_app):
     """Resource type vocabulary record."""
     vocabulary_service.create(system_identity, {
         "id": "publication",
+        "icon": "file alternate",
         "props": {
             "csl": "report",
             "datacite_general": "Text",
@@ -30,10 +31,7 @@ def additional_resource_types(running_app):
             "openaire_type": "publication",
             "schema.org": "https://schema.org/CreativeWork",
             "subtype": "",
-            "subtype_name": "",
             "type": "publication",
-            "type_icon": "file alternate",
-            "type_name": "Publication",
         },
         "title": {
             "en": "Publication"
@@ -43,6 +41,7 @@ def additional_resource_types(running_app):
     })
     vocabulary_service.create(system_identity, {
         "id": "publication-annotationcollection",
+        "icon": "file alternate",
         "props": {
             "csl": "report",
             "datacite_general": "Collection",
@@ -52,10 +51,7 @@ def additional_resource_types(running_app):
             "openaire_type": "publication",
             "schema.org": "https://schema.org/Collection",
             "subtype": "publication-annotationcollection",
-            "subtype_name": "Annotation collection",
             "type": "publication",
-            "type_icon": "file alternate",
-            "type_name": "Publication",
         },
         "title": {
             "en": "Annotation collection"

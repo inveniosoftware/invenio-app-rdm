@@ -113,7 +113,7 @@ class VocabulariesOptions:
         type_ = 'resourcetypes'
         all_resource_types = vocabulary_service.read_all(
             system_identity,
-            fields=["id", "props", "title"],
+            fields=["id", "props", "title", "icon"],
             type=type_,
             # Sorry, we have over 100+ resource types entry at NU actually
             max_records=150
@@ -124,7 +124,7 @@ class VocabulariesOptions:
         }
         subset_resource_types = vocabulary_service.read_all(
             system_identity,
-            fields=["id", "props", "title"],
+            fields=["id", "props", "title", "icon"],
             type=type_,
             extra_filter=extra_filter,
             # Sorry, we have over 100+ resource types entry at NU actually
@@ -133,7 +133,7 @@ class VocabulariesOptions:
 
         return [
             {
-                "icon": hit["props"].get("type_icon", ""),
+                "icon": hit.get("icon", ""),
                 "id": hit["id"],
                 "subtype_name": self._get_type_subtype_label(hit, type_labels)[1],  # noqa
                 "type_name": self._get_type_subtype_label(hit, type_labels)[0],

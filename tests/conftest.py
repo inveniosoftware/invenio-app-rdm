@@ -137,6 +137,7 @@ def resource_type_item(app, resource_type_type):
     """Resource type vocabulary record."""
     rst = vocabulary_service.create(system_identity, {
         "id": "image-photo",
+        "icon": "chart bar outline",
         "props": {
             "csl": "graphic",
             "datacite_general": "Image",
@@ -146,10 +147,7 @@ def resource_type_item(app, resource_type_type):
             "openaire_type": "dataset",
             "schema.org": "https://schema.org/Photograph",
             "subtype": "image-photo",
-            "subtype_name": "Photo",
             "type": "image",
-            "type_icon": "chart bar outline",
-            "type_name": "Image",
         },
         "title": {
             "en": "Photo"
