@@ -7,24 +7,19 @@
     it under the terms of the MIT License; see LICENSE file for more details.
 #}
 
-{%- from "invenio_app_rdm/records/macros/creatibutors.html" import show_affiliations, show_creatibutors %}
+{%- from "invenio_app_rdm/records/macros/creatibutors.html" import affiliations_accordion, show_creatibutors %}
 
-<div class="ui accordion">
-  <div class="title">
-    {{ show_creatibutors(record.ui.creators.creators, show_affiliations=True) }}
-    {% if record.ui.creators.affiliations %}
-    <a style="cursor: pointer;" class="dropdown">
-      <span class="up ui label small">show affiliations</span>
-      <span class="down ui label small">hide affiliations</span>
-    </a>
-    {% endif %}
-  </div>
-
-  {% if record.ui.creators.affiliations %}
-  <div class="content">
-    <div class="transition hidden">
-      {{ show_affiliations(record.ui.creators.affiliations) }}
+<div class="ui grid">
+  <div class="row">
+    <div class="sixteen wide column">
+      {{ show_creatibutors(record.ui.creators.creators, show_affiliations=True) }}
     </div>
   </div>
-  {% endif %}
+  <div class="row">
+    <div class="sixteen wide column right aligned">
+    {% if record.ui.creators.affiliations %}
+      {{affiliations_accordion(record.ui.creators.affiliations)}}
+    {% endif %}
+    </div>
+  </div>
 </div>

@@ -51,6 +51,12 @@ if (recordCitationAppDiv) {
 
 $(".ui.accordion").accordion();
 
+$(".affiliations-accordion").accordion({
+  selector: {
+    trigger: '.title .affiliations-button'
+  }
+});
+
 $("#record-doi-badge").click(function () {
   $("#doi-modal").modal("show");
 });

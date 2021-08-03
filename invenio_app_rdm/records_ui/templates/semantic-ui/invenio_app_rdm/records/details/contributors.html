@@ -5,28 +5,32 @@
     Invenio RDM Records is free software; you can redistribute it and/or modify
     it under the terms of the MIT License; see LICENSE file for more details.
 #}
-{%- from "invenio_app_rdm/records/macros/creatibutors.html" import show_affiliations, show_creatibutors %}
+{%- from "invenio_app_rdm/records/macros/creatibutors.html" import affiliations_accordion, show_creatibutors %}
 
 {% if record.ui.contributors and record.ui.contributors.contributors %}
-  {%- for group in record.ui.contributors.contributors|groupby('role.title')%}
-  <div class="ui accordion">
-    <div class="title">
-      <h4><b>{{group.grouper}}(s)</b></h4>
-      {{ show_creatibutors(group.list, show_affiliations=True) }}
-      {% if record.ui.contributors.affiliations %}
-      <a style="cursor: pointer;" class="dropdown">
-        <span class="up ui label small">{{ _("show affiliations") }}</span>
-        <span class="down ui label small">{{ _("hide affiliations") }}</span>
-      </a>
-      {% endif %}
-    </div>
-    {% if record.ui.contributors.affiliations %}
-    <div class="content">
-      <div class="transition hidden">
-        {{ show_affiliations(record.ui.contributors.affiliations) }}
+<hr class="thin-line"/>
+
+<div class="contributors-section">
+  <div class="ui grid contributors">
+    <div class="row">
+      <div class="sixteen wide column">
+        <h2>Contributors</h2>
       </div>
     </div>
-    {% endif %}
-  </div>
+  {%- for group in record.ui.contributors.contributors|groupby('role.title')%}
+    <div class="sixteen wide mobile eight wide tablet four wide computer column">
+      <h3>{{group.grouper}}{%- if group.list|length > 1 -%}s{%- endif -%}</h3>
+      {{ show_creatibutors(group.list, list_view=True, show_affiliations=True) }}
+    </div>
   {%- endfor %}
+
+  {% if record.ui.contributors.affiliations %}
+    <div class="row">
+      <div class="sixteen wide right aligned column">
+        {{affiliations_accordion(record.ui.contributors.affiliations)}}
+      </div>
+    </div>
+  {% endif %}
+  </div>
+</div>
 {% endif %}

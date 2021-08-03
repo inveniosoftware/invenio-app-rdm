@@ -8,54 +8,75 @@
 #}
 
 {% macro creatibutor_icon(creatibutor) %}
-{% set identifier_found = namespace(value=False) %}
-{% for scheme, identifier in creatibutor.person_or_org.identifiers|groupby("scheme") %}
-{%- if scheme == "orcid" %}
-{% set identifier_found.value = True %}
-<a href="{{ identifier[0]['identifier']|pid_url('orcid') }}">
-  <img class="inline-orcid inline-orcid-icon" src="{{ url_for('static', filename='images/orcid.svg') }}" />
-</a>
-{%- elif scheme == "ror" %}
-{% set identifier_found.value = True %}
-<a href="{{ identifier[0]['identifier']|pid_url('ror') }}">
-  <i class="building outline icon"></i>
-</a>
-{%- endif %}
-{% endfor %}
-{# if no identifiers: distinguish btw people and organizations #}
-{%- if not identifier_found.value and creatibutor.person_or_org.type == 'organizational'%}
-<i class="group icon"></i>
-{%- endif %}
+  {% set identifier_found = namespace(value=False) %}
+
+  {% for scheme, identifier in creatibutor.person_or_org.identifiers|groupby("scheme") %}
+    {%- if scheme == "orcid" %}
+      {% set identifier_found.value = True %}
+      <a class="identifier-link" href="{{ identifier[0]['identifier']|pid_url('orcid') }}">
+        <img class="identifier-icon" src="{{ url_for('static', filename='images/orcid.svg') }}" />
+      </a>
+    {%- elif scheme == "ror" %}
+      {% set identifier_found.value = True %}
+      <a href="{{ identifier[0]['identifier']|pid_url('ror') }}">
+        <i class="building outline icon"></i>
+      </a>
+    {%- endif %}
+  {% endfor %}
+
+  {# if no identifiers: distinguish btw people and organizations #}
+  {%- if not identifier_found.value and creatibutor.person_or_org.type == 'organizational'%}
+    <i class="group icon"></i>
+  {%- endif %}
 {% endmacro %}
 
-{% macro show_creatibutors(creatibutors, show_affiliations=False) %}
+
+{% macro show_creatibutors(creatibutors, list_view=False, show_affiliations=False) %}
+<div class="creatibutors {{ 'list-view' if list_view }}">
   {% for creatibutor in creatibutors %}
+  <span class="creatibutor-wrap">
     {{ creatibutor_icon(creatibutor) }}
-    <a
-      class="ui tooltip-popup text-muted"
+    <a class="ui tooltip-popup text-muted creatibutor-link"
       {% if show_affiliations and creatibutor.affiliations %}
         data-content="{{ creatibutor.affiliations|join('; ', attribute='1') }}"
       {% endif %}
-      href="{{url_for('invenio_search_ui.search', q='metadata.creators.person_or_org.name:"' + creatibutor.person_or_org.name + '"')}}">
-      {{ creatibutor.person_or_org.name }}
-      </a>
-    <sup class="font-tiny">
-      {% for affiliation in creatibutor.affiliations %}
-        {{ affiliation[0] }}{{ ", " if not loop.last }}
-      {% endfor %}
-    </sup>
-    {{ "; " if not loop.last }}
-    {% endfor %}
+      href="{{url_for('invenio_search_ui.search', q='metadata.creators.person_or_org.name:"' + creatibutor.person_or_org.name + '"')}}"
+    >
+    
+      <span class="creatibutor-name">
+        {{ creatibutor.person_or_org.name }}
+      </span>
 
-{%- endmacro %}
+      <sup class="font-tiny">
+        {% for affiliation in creatibutor.affiliations %}
+          {{ affiliation[0] }}{{ ", " if not loop.last }}
+        {% endfor %}
+      </sup>
+    </a>
+  </span>
 
-{% macro show_affiliations(affiliations) %}
-  {% for affiliation in affiliations %}
-      {{ affiliation[0] }}.
-      {%- if affiliation[2] %}
-        <a href="https://ror.org/{{affiliation[2]}}"><img class="inline-orcid inline-orcid-icon" src="{{ url_for('static', filename='images/ror-icon.svg') }}"/></a>
-      {%- endif %}
-      {{affiliation[1]}}
-    <br />
   {% endfor %}
+</div>
 {%- endmacro %}
+
+
+{% macro affiliations_accordion(affiliations) %}
+<div class="ui accordion affiliations-accordion">
+  <div class="title dropdown">
+    <span aria-role="button" class="ui affiliations-button button mini up">{{ _("show affiliations") }}</span>
+    <span aria-role="button" class="ui affiliations-button button mini down">{{ _("hide affiliations") }}</span>
+  </div>
+  <div class="ui left aligned container content">
+    {% for affiliation in affiliations %}
+        {{ affiliation[0] }}.
+        {%- if affiliation[2] %}
+          <a class="identifier-link" href="https://ror.org/{{affiliation[2]}}">
+            <img class="identifier-icon" src="{{ url_for('static', filename='images/ror-icon.svg') }}"/>
+          </a>
+        {%- endif %}
+        {{affiliation[1]}}
+      <br />
+    {% endfor %}
+  </div>
+</div>
+{% endmacro %}
