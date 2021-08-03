@@ -320,7 +320,9 @@ def execute_upgrade():
         update_contributors_roles(record)
         update_additional_titles(record)
         update_additional_descriptions(record)
-        update_list_field_vocabulary(record, "related_identifiers", "type")
+        update_list_field_vocabulary(
+            record, "related_identifiers", "relation_type"
+        )
         update_list_field_vocabulary(record, "dates", "type")
         update_subjects(record)
         update_creators_affiliations(record)
