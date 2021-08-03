@@ -263,10 +263,10 @@ BROKER_URL = "amqp://guest:guest@localhost:5672/"
 """URL of message broker for Celery 3 (default is RabbitMQ)."""
 
 CELERY_BEAT_SCHEDULE = {
-    'indexer': {
-        'task': 'invenio_indexer.tasks.process_bulk_queue',
-        'schedule': timedelta(minutes=5),
-    },
+    # 'indexer': {
+    #     'task': 'invenio_indexer.tasks.process_bulk_queue',
+    #     'schedule': timedelta(minutes=5),
+    # },
     'accounts': {
         'task': 'invenio_accounts.tasks.clean_session_table',
         'schedule': timedelta(minutes=60),
