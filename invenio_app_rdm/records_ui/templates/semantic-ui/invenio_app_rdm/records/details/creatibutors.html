@@ -1,0 +1,38 @@
+{%- from "invenio_app_rdm/records/macros/creatibutors.html" import affiliations_accordion, show_creatibutors %}
+
+
+<div class="ui grid">
+    <div class="row ui accordion affiliations-accordion">
+        <div class="sixteen wide tablet thirteen wide computer column">
+            {% if record.ui.creators and record.ui.creators.creators %}
+            <dl class="creatibutors">
+                {{ show_creatibutors(record.ui.creators.creators, show_affiliations=True) }}
+            </dl>
+            {% endif %}
+        </div>
+
+        {# Todo: get full list of all affiliations (both creators & contributors) e.g.
+        record.ui.affiliation and merge to one accordion #}
+        {% if record.ui.creators and record.ui.creators.affiliations %}
+          {{ affiliations_accordion(record.ui.creators.affiliations)}}
+        {% endif %}
+    </div>
+
+
+    <div class="row ui accordion affiliations-accordion">
+      <div class="sixteen wide tablet thirteen wide computer column">
+          {% if record.ui.contributors and record.ui.contributors.contributors %}
+          {%- for group in record.ui.contributors.contributors|groupby('role.title')%}
+          <dl class="creatibutors">
+              <dt class="text-muted">{{group.grouper}}{%- if group.list|length > 1 -%}s{%- endif -%}:</dt>
+              {{ show_creatibutors(group.list, show_affiliations=True) }}
+          </dl>
+          {%- endfor %}
+          {% endif %}
+      </div>
+
+      {% if record.ui.contributors and record.ui.contributors.affiliations %}
+        {{ affiliations_accordion(record.ui.contributors.affiliations)}}
+      {% endif %}
+  </div>
+</div>

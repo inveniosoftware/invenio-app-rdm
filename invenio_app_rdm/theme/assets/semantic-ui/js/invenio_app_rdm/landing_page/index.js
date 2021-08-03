@@ -55,6 +55,12 @@ $(".ui.accordion").accordion({
   }
 });
 
+$(".ui.accordion.affiliations-accordion").accordion({
+  selector: {
+    trigger: '.title .affiliations-button'
+  }
+});
+
 $("#record-doi-badge").click(function () {
   $("#doi-modal").modal("show");
 });

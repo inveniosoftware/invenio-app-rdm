@@ -8,46 +8,94 @@
  * it under the terms of the MIT License; see LICENSE file for more details.
  */
 
- .detail-section:not(:empty) {
-   margin: 1rem auto;
-   border-bottom: 1px solid #e5e5e5;
-   padding-bottom: 1.5rem;
-   .ui.header {
-    font-size: 1.3rem;
-   }
-   &#record-citation{
-     padding-bottom: .5rem;
-   }
- }
 .font-small {
   font-size: @font-size-small
- }
+}
 
 .font-tiny {
   font-size: @font-size-tiny
- }
+}
 
 .top-bottom-padded {
   margin: 15px 0px 20px 0px;
- }
+}
+
+// Creatibutors
+.row.ui.accordion.affiliations-accordion {
+  padding-bottom: 1.5rem;
+
+  .title {
+    cursor: default;
+  }
+
+  .button-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding-top: 1.5rem;
+    box-sizing: border-box;
+
+    .ui.button.affiliations-button {
+      margin: 0px;
+    }
+  }
+
+  dl.creatibutors {
+    margin: 0rem 0rem 0.75rem 0rem;
+
+    &:last-child {
+      margin-bottom: 0rem;
+    }
+
+    dt {
+      display: inline;
+      font-weight: bold;
+      margin: 0rem 0.25rem 0rem 0rem;
+    }
+
+    dd.creatibutor-wrap {
+      display: inline;
+
+      &:nth-child(n):not(:last-child) {
+        margin-right: 0.5rem;
+      }
+    }
+  }
+
+  .content {
+    dl {
+      font-size: @font-size-small;
+      background-color: #F9FAFB;
+      padding: 1rem;
+      margin: 1.2rem 0rem 0rem 0rem;
+    }
+  }
+}
+
+a.identifier-link:hover {
+  text-decoration: none;
+}
 
 // Preview
 .iiif-preview-img {
   display: block;
   margin-left: auto;
   margin-right: auto;
- }
+}
 
 .preview-iframe {
-  display: block;
   border-style: none;
 }
 
 // Record info
 
-.ui.label > .icon { //Overwrite default icon
+.ui.label>.icon {
+  //Overwrite default icon
   margin: 0rem 0.25rem 0rem 0rem;
- }
+}
 
 .stats-box {
   padding: 1rem 0rem 0rem 0rem;
@@ -57,15 +105,13 @@
   }
 }
 
-dd { // Start left aligned
+dd {
+  // Start left aligned
   margin-inline-start: 0px;
 }
 
 .version-active {
   background-color: @versionActive;
-  .text-muted {
-    color: #686868;
-  }
 }
 
 .ui.rdm-sidebar {
@@ -76,17 +122,19 @@ dd { // Start left aligned
 
 .thin-line {
   border: none;
-  border-bottom: 1px solid rgba(0,0,0,0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
- // Files toggles
+// Files toogles
 
 .hide-on-collapsed {
   display: block;
 }
+
 .show-on-collapsed {
   display: none;
 }
+
 .panel-toggle.collapsed {
   .hide-on-collapsed {
     display: none;
@@ -97,33 +145,38 @@ dd { // Start left aligned
   }
 }
 
- // Preview view
- .column.versions-preview-info {
+// Preview view
+.column.versions-preview-info {
   padding: 0em !important;
 }
 
+
 /* use these classes to change accordion title when up/down */
-div.accordion div.title.active span.up {
+div.accordion div.title.active span.up,
+div.accordion div.title.active button.up {
   display: none;
 }
 
-div.accordion div.title.active span.down {
+div.accordion div.title.active span.down,
+div.accordion div.title.active button.down {
   display: inline-grid;
 }
 
-div.accordion div.title span.up {
+div.accordion div.title span.up,
+div.accordion div.title button.up {
   display: inline-grid;
 }
 
-div.accordion div.title span.down {
+div.accordion div.title span.down,
+div.accordion div.title button.down {
   display: none;
 }
 
-.record-management-row{
-  margin-top:10px;
+.record-management-row {
+  margin-top: 10px;
 
   button {
-    margin-right:7px !important;
+    margin-right: 7px !important;
   }
 }
 
@@ -141,25 +194,27 @@ div.accordion div.title span.down {
 
 .panel-heading {
   padding: 10px !important;
-  border-radius: 10px;
+  border-bottom: 1px solid transparent;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
   background-color: #f5f5f5;
+  border-color: #ddd;
   color: #428bca !important;
 
-  &.active {
-    border-radius: 10px 10px 0px 0px;
-    border-bottom: 1px solid #ddd;
-  }
   a {
     text-decoration: none;
   }
+
   i {
     &.angle {
       float: right !important;
     }
   }
+
   &.restricted {
     background-color: @restricted-components-background-color;
   }
+
   &.embargoed {
     background-color: @embargoed-components-background-color;
   }
@@ -168,20 +223,21 @@ div.accordion div.title span.down {
 .panel {
   margin-bottom: 10px;
   border-radius: 10px;
-  border: 1px solid #ddd;
+  border-color: #ddd !important;
+  border: 1px solid;
 
-  .content{
+  .content {
     padding-top: 0px !important;
   }
- }
+}
 
 .ui.accordion.panel {
-  &.restricted{
-    border-color: @restricted-components-border-color !important;
+  &.restricted {
+    border-color: @restricted-components-border-color  !important;
   }
 
   &.embargoed {
-    border-color: @embargoed-components-border-color !important;
+    border-color: @embargoed-components-border-color  !important;
   }
 }
 
@@ -209,7 +265,8 @@ div.accordion div.title span.down {
 }
 
 .share-button {
-    float: right;
+  display: inline-block;
+  float: right;
 }
 
 .ui.accordion.creatibutors {
@@ -224,6 +281,7 @@ div.accordion div.title span.down {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
 .selection-wrap {
     display: flex;
     flex-direction: row;
