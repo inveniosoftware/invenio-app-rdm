@@ -22,7 +22,7 @@
     </div>
   </div>
   {%- endfor %}
-  {% set keywords = subjects|rejectattr("scheme") %}
+  {% set keywords = subjects|rejectattr("scheme")|list %}
   {% if keywords %}
   <div class="ui grid">
     <div class="sixteen wide subject-scheme column">
