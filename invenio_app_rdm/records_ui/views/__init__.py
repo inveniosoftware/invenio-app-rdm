@@ -14,6 +14,7 @@ from invenio_pidstore.errors import PIDDeletedError, PIDDoesNotExistError, \
     PIDUnregistered
 from invenio_records_resources.services.errors import PermissionDeniedError
 
+from ..searchapp import search_app_context
 from .deposits import deposit_create, deposit_edit, deposit_search
 from .filters import can_list_files, get_scheme_label, has_previewable_files, \
     make_files_preview_compatible, order_entries, pid_url, \
@@ -105,5 +106,8 @@ def create_blueprint(app):
     blueprint.add_app_template_filter(has_previewable_files)
     blueprint.add_app_template_filter(order_entries)
     blueprint.add_app_template_filter(get_scheme_label)
+
+    # Register context processor
+    blueprint.app_context_processor(search_app_context)
 
     return blueprint

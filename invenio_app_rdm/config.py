@@ -35,8 +35,6 @@ from celery.schedules import crontab
 from flask_principal import Denial
 from invenio_access.permissions import any_user
 
-from .records_ui.utils import previewer_record_file_factory
-
 # PIDSTORE_RECID_FIELD
 # RECORDS_PERMISSIONS_RECORD_POLICY
 # RECORDS_REST_DEFAULT_SORT

@@ -75,7 +75,7 @@ def pass_is_preview(f):
 
 
 def pass_record_from_pid(f):
-    """Decorate a view to pass the latest version of a record."""
+    """Decorate a view to pass the record from a pid."""
     @wraps(f)
     def view(*args, **kwargs):
         pid_type = kwargs.get('pid_scheme')
