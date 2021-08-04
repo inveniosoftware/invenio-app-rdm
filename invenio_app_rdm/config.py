@@ -546,7 +546,7 @@ RDM_CITATION_STYLES = [
      ('chicago-fullnote-bibliography', _('Chicago')),
      ('ieee', _('IEEE')),
 ]
-""" List of citation style """
+"""List of citation style """
 
-RDM_DEFAULT_CITATION_STYLE = 'apa'
+RDM_CITATION_STYLES_DEFAULT = 'apa'
 """Default citation style"""
