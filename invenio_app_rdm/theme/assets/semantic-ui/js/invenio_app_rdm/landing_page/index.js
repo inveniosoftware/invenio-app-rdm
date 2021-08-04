@@ -73,3 +73,10 @@ $("#jump-btn").on("click", function (event) {
 $(".panel-heading").click(function () {
   $("i", this).toggleClass("down right");
 });
+
+$(".dropdown.export").dropdown({
+  action: 'activate',
+  onChange: function(value) {
+    $(".export.button").attr("href", value);
+  }
+})
