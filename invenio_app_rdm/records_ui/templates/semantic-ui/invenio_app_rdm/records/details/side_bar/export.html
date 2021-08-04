@@ -10,13 +10,15 @@
 
 {%- if config.get("APP_RDM_RECORD_EXPORTERS") -%}
 {# if no export formats are specified, don't bother showing the box #}
-<dl class="ui segment rdm-sidebar exports">
-  <dt><b>{{ _('Export')}}</b>
-    <hr class="thin-line">
-  </dt>
-  <dd class="top-bottom-padded">
-    <div class="ui celled horizontal list separated-list">
+<div class="ui segment rdm-sidebar exports">
+  <dt><b>{{ _('Export')}}</b></dt>
+  <hr class="thin-line">
+  </hr>
+
+  <div class="selection-wrap">
+    <select class="ui selection dropdown export">
       {# dynamically create the list of export formats #}
+      {%- set ns = namespace(initial_val="") %}
       {%- for fmt, val in config.get("APP_RDM_RECORD_EXPORTERS", {}).items() -%}
         {%- set name = val.get("name", fmt) -%}
         {% if is_preview %}
@@ -24,9 +26,14 @@
         {% else %}
           {%- set export_url = url_for('invenio_app_rdm_records.record_export', pid_value=record.id, export_format=fmt) -%}
         {% endif %}
-         <div class="item"><a href="{{ export_url }}">{{ name }}</a></div>
+
+        {% if loop.first %}
+          {%- set ns.initial_val = export_url %}
+        {% endif %}
+         <option value="{{ export_url }}">{{ name }}</option>
       {%- endfor -%}
-    </div>
-  </dd>
-</dl>
+    </select>
+    <a class="ui export button" href="{{ ns.initial_val }}">{{ _('Export')}}</a>
+  </div>
+</div>
 {%- endif -%}
