@@ -12,49 +12,65 @@ upgrading from InvenioRDM 4.0 to 6.0!
 If this script is executed at any other time, probably the best case scenario
 is that nothing happens!
 """
-from pathlib import Path
 
 import yaml
 from invenio_access.permissions import system_identity
 from invenio_db import db
+from invenio_pidstore.models import PersistentIdentifier
 from invenio_rdm_records.records.api import RDMDraft, RDMRecord
-from invenio_vocabularies.proxies import current_service
+from invenio_vocabularies.records.api import Vocabulary
 from invenio_vocabularies.records.models import VocabularyScheme, \
     VocabularyType
+from sqlalchemy.orm.exc import NoResultFound
 
 
 def migrate_vocabularies():
     """Migrate old vocabularies."""
     print("Migrating old vocabularies...")
-    # update the vocabulary type records
-    rsrcts = current_service.search(
-        system_identity, type="resource_types", size=100
-    )
-    rsrct = VocabularyType.query.filter_by(id="resource_types").one()
-    rsrct.id = "resourcetypes"
-    db.session.commit()
+    # remove resource types
+    try:
+        # DO NOT DO THIS KIND OF QUERY FOR LARGE SETS
+        rsrcts = PersistentIdentifier.query.filter_by(pid_type="rsrct")
+        for rsrct in rsrcts:
+            Vocabulary.get_record(id_=rsrct.object_uuid).delete(force=True)
+        rsrcts.delete()  # delete from pidstore
+        db.session.commit()
+        print("resource_types vocabularies removed: OK.")
+    except NoResultFound:
+        print("No resource_types vocabularies found: OK.")
+    try:
+        rsrct = VocabularyType.query.filter_by(id="resource_types").one()
+        db.session.delete(rsrct)
+        db.session.commit()
+        print("resource_types vocabulary type removed: OK.")
+    except NoResultFound:
+        print("No resource_types vocabulary found: OK.")
 
-    for rsrct in rsrcts:
-        rsrct["type"] = "resourcetypes"
-        current_service.update(
-            ("resourcetypes", rsrct["id"]), system_identity, rsrct
-        )
+    # remove old affiliations
+    try:
+        schemes = VocabularyScheme.query.filter_by(
+            parent_id="affiliations").all()
+        for scheme in schemes:
+            db.session.delete(scheme)
+        db.session.commit()
+        print("Affiliations schemes removed: OK.")
+    except NoResultFound:
+        print("No affiliations scheme not found: OK.")
+    try:
+        db.session.delete(VocabularyType.query.filter_by(
+            id="affiliations").one())
+        db.session.commit()
+        print("Affiliations vocabulary type removed: OK.")
+    except NoResultFound:
+        print("No parent affiliations not found: OK.")
 
-    # Remove old affiliations
-    schemes = VocabularyScheme.query.filter_by(parent_id="affiliations").all()
-    for scheme in schemes:
-        db.session.delete(scheme)
-    db.session.delete(VocabularyType.query.filter_by(id="affiliations").one())
-    db.session.commit()
     print("Old vocabularies migrated.")
 
 
 def check_affiliations():
     """Checks the migration readiness of creatibutor affiliations."""
-    total = 0
-    needs_ror = False
 
-    def _should_be_vocabulary(creatibutors):
+    def _should_be_vocabulary(creatibutors, total, needs_ror):
         """Checks the schema of the affiliation.
 
         If an affiliation has identifiers but no ROR, it is not valid.
@@ -67,26 +83,27 @@ def check_affiliations():
                 ror = None
                 for id_ in ids:
                     if id_.get("scheme") == "ror":
-                        needs_ror = True
+                        needs_ror = needs_ror or True
                         ror = id_["identifier"]
                         break
                 if not ror and ids:
                     total += 1
                     vocab_affs.append(aff["name"])
 
-        return vocab_affs
+        return vocab_affs, total, needs_ror
 
     print("Checking for affiliations migration readiness...")
-    invalid_affiliations_rec = {}
+    invalid_affiliations_rec, total, needs_ror = {}, 0, False
+
     for record_metadata in RDMRecord.model_cls.query.all():
         record = RDMRecord(record_metadata.data, model=record_metadata)
         # publish record subjects take presedence if id is repeated
         # | operator is only available from py 3.9 on
-        inv_affs_creators = _should_be_vocabulary(
-            record.get("metadata").get("creators", [])
+        inv_affs_creators, total, needs_ror = _should_be_vocabulary(
+            record.get("metadata").get("creators", []), total, needs_ror
         )
-        inv_affs_contributors = _should_be_vocabulary(
-            record.get("metadata").get("contributors", [])
+        inv_affs_contributors, total, needs_ror = _should_be_vocabulary(
+            record.get("metadata").get("contributors", []), total, needs_ror
         )
 
         if inv_affs_creators or inv_affs_contributors:
@@ -102,11 +119,11 @@ def check_affiliations():
             continue
 
         draft = RDMDraft(draft_metadata.data, model=draft_metadata)
-        inv_affs_creators = _should_be_vocabulary(
-            draft.get("metadata").get("creators", [])
+        inv_affs_creators, total, needs_ror = _should_be_vocabulary(
+            draft.get("metadata").get("creators", []), total, needs_ror
         )
-        inv_affs_contributors = _should_be_vocabulary(
-            draft.get("metadata").get("contributors", [])
+        inv_affs_contributors, total, needs_ror = _should_be_vocabulary(
+            draft.get("metadata").get("contributors", []), total, needs_ror
         )
         if inv_affs_creators or inv_affs_contributors:
             invalid_affiliations_draft[draft["id"]] = {
@@ -134,7 +151,7 @@ def check_affiliations():
         print(
             "You have affiliations with ROR identifiers, you need to " +
             "add its vocabulary. Instructions to do so are available in "
-            "https://inveniordm.docs.cern.ch/releases/upgrading/upgrade-v6.0/#prepare-vocabularies"  # noqa
+            "https://inveniordm.docs.cern.ch/customize/vocabularies/affiliations/"  # noqa
         )
 
 
