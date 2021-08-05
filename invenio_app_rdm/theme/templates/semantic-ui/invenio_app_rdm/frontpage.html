@@ -47,11 +47,10 @@
           <div class="flex-center-vertically">
             <div class="numbering">3</div>
           </div>
-          <h3 class="section-title">{{ _("Deploy it!") }}</h3>
+          <h3 class="section-title">{{ _("Run it!") }}</h3>
           <div class="command-line">
-            {% trans deployment_link="https://inveniordm.docs.cern.ch/deployment/" %}
-              Use the Helm charts to deploy your InvenioRDM instance. You can use the Helm chart to
-              <a href="{{ deployment_link }}" target="_blank">deploy in OpenShift</a>.
+            {% trans deployment_link="https://inveniordm.docs.cern.ch/install/build-setup-run/#run_1" %}
+              <a href="{{ deployment_link }}" target="_blank">Run</a> your InvenioRDM instance locally or in containers.
             {% endtrans %}
           </div>
         </div>
