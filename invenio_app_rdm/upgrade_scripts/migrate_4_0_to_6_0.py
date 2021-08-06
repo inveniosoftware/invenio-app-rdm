@@ -14,6 +14,7 @@ is that nothing happens!
 """
 
 import yaml
+from flask import current_app
 from invenio_access.permissions import system_identity
 from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier
@@ -330,6 +331,18 @@ def execute_upgrade():
             record["metadata"]["contributors"] = \
                 update_affiliations(contributors)
 
+    def update_rights(record):
+        """Update record rights."""
+        rights = record.get("metadata").get("rights", [])
+        for right in rights:
+            locale = current_app.config.get('BABEL_DEFAULT_LOCALE', 'en')
+            right["title"] = {
+                locale: right["title"]
+            }
+            right["description"] = {
+                locale: right["description"]
+            }
+
     def migrate_record(record):
         """Migrates a record/draft to the new schema's values."""
         # Force the new jsonschema
@@ -345,6 +358,7 @@ def execute_upgrade():
         update_subjects(record)
         update_creators_affiliations(record)
         update_contributors_affiliations(record)
+        update_rights(record)
 
         return record
 
