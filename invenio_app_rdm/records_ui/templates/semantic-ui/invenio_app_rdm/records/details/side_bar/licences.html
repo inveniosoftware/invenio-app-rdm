@@ -1,0 +1,9 @@
+
+{% set rights = record.ui.get('rights') %}
+{% if rights %}
+<div class="ui segment rdm-sidebar">
+  <h2 class="ui small header">{{ _('Licenses')}}</h2>
+  <hr class="thin-line"/>
+  {%- include "invenio_app_rdm/records/details/licenses.html" %}
+</div>
+{% endif %}

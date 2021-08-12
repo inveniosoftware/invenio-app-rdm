@@ -12,7 +12,7 @@
 {%- extends config.BASE_TEMPLATE %}
 
 {%- from "invenio_app_rdm/records/macros/files.html" import file_list_box, preview_file_box %}
-{%- from "invenio_app_rdm/records/macros/detail.html" import show_detail %}
+{%- from "invenio_app_rdm/records/macros/detail.html" import show_add_titles %}
 
 {%- set title = record.metadata.title -%}
 {%- set metadata = record.metadata %}
@@ -115,7 +115,21 @@
         {%- endblock record_header -%}
 
         {%- block record_title -%}
+
+        {% if record.ui.additional_titles %}
+        <div class="ui accordion additional-titles">
+          <div class="title" tabindex="0" data-index="0">
+            <h1>{{ metadata.title }}</h1>
+            <i class="dropdown icon text-muted"></i>
+          </div>
+          <div class="ui content">
+            {{ show_add_titles(record.ui.additional_titles) }}
+            <hr class="thin-line"/>
+          </div>
+        </div>
+        {% else %}
         <h1>{{ metadata.title }}</h1>
+        {% endif %}
 
         {% if record.ui.creators or record.ui.contributors %}
           {%- include "invenio_app_rdm/records/details/creatibutors.html" %}
@@ -124,15 +138,13 @@
         {%- endblock record_title -%}
 
         {%- block record_content -%}
-        <p>{%- include "invenio_app_rdm/records/details/doi.html" %}</p>
+
         <p>{%- include "invenio_app_rdm/records/details/citation.html" %}</p>
-        {%- include "invenio_app_rdm/records/details/subjects.html" %}
+
         <div class="top-padded">
         {%- include "invenio_app_rdm/records/details/description.html" %}
         </div>
-        <div class="top-padded">
-        {%- include "invenio_app_rdm/records/details/licenses.html" %}
-        </div>
+
         {%- endblock record_content -%}
 
         {# files #}
@@ -171,22 +183,17 @@
 
         {%- block record_details -%}
         {# More details #}
-        <section id ="record-details" class="detail-section">{%- include "invenio_app_rdm/records/details/details.html" %}</section>
+
+        {% if record.ui.related_identifiers or metadata.references %}
+        <h2>{{ _('Additional data') }}</h2>
+        {%- include "invenio_app_rdm/records/details/details.html" %}
+        {% endif %}
+
         {%- endblock record_details -%}
+
         {%- block record_footer -%}
-        <div class="ui grid">
-          <div class="two column row top-bottom-padded font-small">
-            <div class="four wide column">
-              <p><b>{{_ ("Upload information")}}</b></p>
-            </div>
-            <div class="twelve wide column">
-              <span class="label text-muted">
-                <b>{{ _("Created:") }}</b> {{ record.ui.created_date_l10n_long }} | <b>{{ _("Modified:") }}</b> {{ record.ui.updated_date_l10n_long }}
-              </span>
-            </div>
-          </div>
-        </div>
         {%- endblock record_footer -%}
+
         {%- block jump -%}
         <div class="ui grid">
           <div class="centered row" id="jump-btn">

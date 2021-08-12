@@ -8,23 +8,36 @@
 #}
 
 
-{%- from "invenio_app_rdm/records/macros/detail.html" import list_formats, list_languages,
-  list_sizes, show_add_descriptions, show_add_titles, show_dates, show_detail, show_funding,
-  show_references, show_alternate_identifiers, show_related_identifiers %}
+{%- from "invenio_app_rdm/records/macros/detail.html" import show_references, show_related_identifiers %}
 
-<h2 class="ui header">{{ _('Details')}}</h2>
-<div class="top-bottom-padded">
-  {{ show_detail(_('Resource type'), record.ui.resource_type.title_l10n) if record.ui.resource_type }}
-  {{ show_detail(_('Publication date'), record.ui.publication_date_l10n) if record.ui.publication_date_l10n }}
-  {{ show_detail(_('Publisher'), metadata.publisher) if metadata.publisher }}
-  {{ show_detail(_('Additional titles'), show_add_titles(record.ui.additional_titles)) if metadata.additional_titles }}
-  {{ show_detail(_('Additional descriptions'), show_add_descriptions(record.ui.additional_descriptions)) if record.ui.additional_descriptions }}
-  {{ show_detail(_('Dates'), show_dates(record.ui.dates)) if record.ui.dates }}
-  {{ show_detail(_('Languages'), list_languages(record.ui.languages)) if record.ui.languages }}
-  {{ show_detail(_('Formats'), list_formats(metadata.formats)) if metadata.formats }}
-  {{ show_detail(_('Sizes'), list_sizes(metadata.sizes)) if metadata.sizes }}
-  {{ show_detail(_('Funding'), show_funding(metadata.funding)) if metadata.funding }}
-  {{ show_detail(_('Alternate identifiers'), show_alternate_identifiers(metadata.identifiers)) if metadata.identifiers }}
-  {{ show_detail(_('Related works'), show_related_identifiers(record.ui.related_identifiers)) if record.ui.related_identifiers }}
-  {{ show_detail(_('References'), show_references(metadata.references)) if metadata.references }}
-</div>
+  <div class="ui top attached menu">
+
+    {% if record.ui.related_identifiers %}
+    <a class="active item" data-tab="related-works" tabindex="0">
+      {{ _('Related works') }}
+    </a>
+    {% endif %}
+
+    {% if metadata.references %}
+    <a class="{{ 'active' if not record.ui.related_identifiers }} item" data-tab="references" tabindex="0">
+      {{ _('References') }}
+    </a>
+    {% endif %}
+  </div>
+
+
+  {% if record.ui.related_identifiers %}
+  <div class="ui bottom attached active tab segment" data-tab="related-works">
+    <dl class="details-list">
+      {{ show_related_identifiers(record.ui.related_identifiers) }}
+    </dl>
+  </div>
+  {% endif %}
+
+  {% if metadata.references %}
+  <div class="ui bottom attached {{ 'active' if not record.ui.related_identifiers }} tab segment" data-tab="references">
+    <dl class="details-list">
+      {{ show_references(metadata.references) }}
+    </dl>
+  </div>
+  {% endif %}
