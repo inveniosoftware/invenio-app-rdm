@@ -147,11 +147,11 @@ msgid "Upload information"
 msgstr ""
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:178
-msgid "Created:"
-msgstr "Δημιουργήθηκε:"
+msgid "Created"
+msgstr "Δημιουργήθηκε"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:178
-msgid "Modified:"
+msgid "Modified"
 msgstr ""
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:189

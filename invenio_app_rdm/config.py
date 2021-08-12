@@ -43,6 +43,8 @@ from invenio_vocabularies.contrib.names.datastreams import \
 from invenio_vocabularies.contrib.names.datastreams import \
     VOCABULARIES_DATASTREAM_WRITERS as NAMES_WRITERS
 
+import glob, os
+
 # TODO: Remove when records-rest is out of communities and files
 RECORDS_REST_ENDPOINTS = {}
 RECORDS_UI_ENDPOINTS = {}
@@ -612,6 +614,12 @@ RDM_CITATION_STYLES_DEFAULT = 'apa'
 APP_RDM_DETAIL_SIDE_BAR_TEMPLATES = [
     "invenio_app_rdm/records/details/side_bar/metrics.html",
     "invenio_app_rdm/records/details/side_bar/versions.html",
+    "invenio_app_rdm/records/details/side_bar/keywords_subjects.html",
+    "invenio_app_rdm/records/details/side_bar/details.html",
+    "invenio_app_rdm/records/details/side_bar/funding.html",
+    "invenio_app_rdm/records/details/side_bar/identifiers.html",
+    "invenio_app_rdm/records/details/side_bar/licences.html",
+    "invenio_app_rdm/records/details/side_bar/upload_info.html",
     "invenio_app_rdm/records/details/side_bar/export.html",
 ]
 """Template names for detail view sidebar components"""

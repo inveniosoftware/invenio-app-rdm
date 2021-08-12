@@ -11,10 +11,8 @@
 {%- if config.get("APP_RDM_RECORD_EXPORTERS") -%}
 {# if no export formats are specified, don't bother showing the box #}
 <div class="ui segment rdm-sidebar exports">
-  <dt><b>{{ _('Export')}}</b></dt>
-  <hr class="thin-line">
-  </hr>
-
+  <h2 class="ui small header">{{ _('Export')}}</h2>
+  <hr class="thin-line"/>
   <div class="selection-wrap">
     <select class="ui selection dropdown export">
       {# dynamically create the list of export formats #}

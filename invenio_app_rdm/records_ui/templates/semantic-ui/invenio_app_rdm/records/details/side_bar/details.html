@@ -1,0 +1,24 @@
+{%- from "invenio_app_rdm/records/macros/detail.html" import list_formats, list_languages,
+  list_sizes, show_dates, show_detail %}
+
+<div class="ui segment rdm-sidebar">
+  <h2 class="ui small header">{{ _('Details')}}</h2>
+  <hr class="thin-line"/>
+
+  <dl class="details-list">
+    {{ show_detail(_('Resource type'), record.ui.resource_type.title_l10n) if record.ui.resource_type }}
+    {{ show_detail(_('Publication date'), record.ui.publication_date_l10n) if record.ui.publication_date_l10n }}
+    {{ show_detail(_('Publisher'), metadata.publisher) if metadata.publisher }}
+    {{ show_detail(_('Languages'), list_languages(record.ui.languages)) if record.ui.languages }}
+    {{ show_detail(_('Formats'), list_formats(metadata.formats)) if metadata.formats }}
+    {{ show_detail(_('Sizes'), list_sizes(metadata.sizes)) if metadata.sizes }}
+  </dl>
+
+  {% if record.ui.dates %}
+  <hr class="thin-line"/>
+
+  <dl class="details-list">
+    {{ show_dates(record.ui.dates) }}
+  </dl>
+  {% endif %}
+</div>

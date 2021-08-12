@@ -61,6 +61,7 @@ $(".ui.accordion.affiliations-accordion").accordion({
   }
 });
 
+
 $("#record-doi-badge").click(function () {
   $("#doi-modal").modal("show");
 });
@@ -86,3 +87,15 @@ $(".dropdown.export").dropdown({
     $(".export.button").attr("href", value);
   }
 })
+
+$('.menu .item').tab();
+
+$('.menu .item')
+  .keydown(function(event) {
+    if(event.keyCode === 13) {
+      let dataTab = event.target.attributes['data-tab'];
+      let tabName = dataTab && dataTab.value;
+      $(event.target).tab('change tab', tabName);
+    }
+  })
+;

@@ -143,12 +143,12 @@ msgid "Upload information"
 msgstr "Upload information"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:178
-msgid "Created:"
-msgstr "Created:"
+msgid "Created"
+msgstr "Created"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:178
-msgid "Modified:"
-msgstr "Modified:"
+msgid "Modified"
+msgstr "Modified"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:189
 msgid "Jump up"

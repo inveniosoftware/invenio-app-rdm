@@ -1,0 +1,15 @@
+{%- from "invenio_app_rdm/records/macros/detail.html" import show_alternate_identifiers %}
+
+{%- set id_doi = record.pids.get('doi', {}).get('identifier') %}
+{% if id_doi or metadata.identifiers %}
+<div class="ui segment rdm-sidebar">
+  <h2 class="ui small header">{{ _('Identifiers') }}</h2>
+  <hr class="thin-line"/>
+
+  {%- include "invenio_app_rdm/records/details/doi.html" %}
+
+  {% if metadata.identifiers %}
+    {{ show_alternate_identifiers(metadata.identifiers) }}
+  {% endif %}
+</div>
+{% endif %}

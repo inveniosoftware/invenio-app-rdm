@@ -5,14 +5,14 @@
 # This file is distributed under the same license as the invenio-app-rdm
 # project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
-# 
+#
 # Translators:
 # Alizee Pace <alizee.pace@gmail.com>, 2021
 # Mojib Wali <mojib.wali@tugraz.at>, 2021
 # David Eckhard <dabombeeer@gmail.com>, 2021
 # chriz_uniba <christina.zeller@uni-bamberg.de>, 2022
 # Tibor Simko <tibor.simko@cern.ch>, 2022
-# 
+#
 #, fuzzy
 msgid ""
 msgstr ""
@@ -165,12 +165,12 @@ msgid "Upload information"
 msgstr "Informationen zum Eintrag"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:177
-msgid "Created:"
-msgstr "Erstellt:"
+msgid "Created"
+msgstr "Erstellt"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:177
-msgid "Modified:"
-msgstr "Geändert:"
+msgid "Modified"
+msgstr "Geändert"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:188
 msgid "Jump up"

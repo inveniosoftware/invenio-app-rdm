@@ -1,0 +1,11 @@
+{%- from "invenio_app_rdm/records/macros/detail.html" import show_funding %}
+
+{% if metadata.funding %}
+<div class="ui segment rdm-sidebar">
+  <h2 class="ui small header">{{ _('Funding') }}</h2>
+  <hr class="thin-line"/>
+  <dl class="details-list">
+    {{ show_funding(metadata.funding) }}
+  </dl>
+</div>
+{% endif %}

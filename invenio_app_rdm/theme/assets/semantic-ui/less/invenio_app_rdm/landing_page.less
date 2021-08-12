@@ -8,6 +8,10 @@
  * it under the terms of the MIT License; see LICENSE file for more details.
  */
 
+@import "./landing_page/details.less";
+@import "./landing_page/sidebar.less";
+@import "./landing_page/titles.less";
+
 .font-small {
   font-size: @font-size-small
 }
@@ -283,18 +287,40 @@ div.accordion div.title button.down {
 }
 
 .selection-wrap {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
 
-    .ui.selection.dropdown {
-        min-width: 0px;
-        width: 14em;
-        margin-right: 0.5em;
-        flex-grow: 1;
+  .ui.selection.dropdown {
+    min-width: 0px;
+    width: 14em;
+    margin-right: 0.5em;
+    flex-grow: 1;
+  }
+
+  .ui.export.button {
+    margin: 0px;
+  }
+}
+
+dl.details-list {
+  margin: 1.5rem 0;
+
+  &:last-child {
+    margin-bottom: 0px;
+  }
+
+  dt.ui.tiny.header {
+    margin-bottom: 0.5rem;
+  }
+
+  dd {
+    &:not(:last-child) {
+      margin-bottom: 0.5rem;
     }
 
-    .ui.export.button {
-        margin: 0px;
+    div:not(:last-child) {
+      margin-bottom: 0.25rem;
     }
+  }
 }

@@ -8,11 +8,10 @@
   it under the terms of the MIT License; see LICENSE file for more details.
 -#}
 
-<dl class="ui segment rdm-sidebar">
-  <dt><b>{{ _('Versions')}}</b>
-    <hr class="thin-line">
-  </dt>
+<div class="ui segment rdm-sidebar">
+  <h2 class="ui small header">{{ _('Versions')}}</h2>
+  <hr class="thin-line"/>
   <dd class="versions">
     <div id="recordVersions" data-record='{{ record | tojson }}' data-preview='{{ is_preview | tojson }}'></div>
   </dd>
-</dl>
+</div>
