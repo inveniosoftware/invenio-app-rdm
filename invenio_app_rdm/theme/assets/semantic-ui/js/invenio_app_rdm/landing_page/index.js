@@ -55,6 +55,16 @@ $(".ui.accordion").accordion({
   }
 });
 
+//Add tabindex & data-index to title-element to make accordion accessible by keyboard
+$(".ui.accordion .title").keydown(function(event) {
+  if(event.keyCode === 13) {
+    let dataIndex = event.target.attributes['data-index'];
+    let panelIndex = dataIndex && parseInt(dataIndex.value);
+    let behavior = event.target.className.indexOf('active') === -1 ? 'open' : 'close';
+    $(event.target.parentElement).accordion(behavior, panelIndex);
+  }
+})
+
 $("#record-doi-badge").click(function () {
   $("#doi-modal").modal("show");
 });
@@ -73,3 +83,15 @@ $("#jump-btn").on("click", function (event) {
 $(".panel-heading").click(function () {
   $("i", this).toggleClass("down right");
 });
+
+$('.menu .item').tab();
+
+$('.menu .item')
+  .keydown(function(event) {
+    if(event.keyCode === 13) {
+      let dataTab = event.target.attributes['data-tab'];
+      let tabName = dataTab && dataTab.value;
+      $(event.target).tab('change tab', tabName);
+    }
+  })
+;

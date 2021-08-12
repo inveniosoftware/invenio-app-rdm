@@ -6,8 +6,12 @@
   it under the terms of the MIT License; see LICENSE file for more details.
 #}
 
+{%- from "invenio_app_rdm/records/macros/detail.html" import show_add_descriptions %}
+
 {% set description = metadata.get('description') %}
 {% if description %}
 {# description data is being sanitized by marshmallow in the backend #}
-{{ description | safe }}
+<p>{{ description | safe }}</p>
 {% endif %}
+
+{{ show_add_descriptions(record.ui.additional_descriptions) if record.ui.additional_descriptions }}

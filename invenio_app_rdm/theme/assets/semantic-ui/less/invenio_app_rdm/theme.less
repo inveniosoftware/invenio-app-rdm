@@ -440,26 +440,16 @@ body {
   }
 }
 
-#record-subjects {
-  .subject-scheme {
-    &.column {
-      padding-top: 5px;
-      padding-bottom: 0px;
-      .subject {
-        margin-right: 2em;
-      }
-    }
+.subject {
+      display: inline-block;
+      padding: 3px 10px;
+      margin-bottom: 3px;
+      box-sizing: border-box;
+      color:#777;
+      border: 2px solid rgba(119, 119, 119, 0.56);
+      border-radius: 4px;
   }
 
-  .subject-label {
-    &.column {
-      padding-top: 10px;
-      .subject {
-        color:#777;
-        border: 2px solid rgba(119, 119, 119, 0.56);
-        border-radius: 4px;
-        padding: 3.5px;
-      }
-    }
+  .ui.segment.rdm-sidebar dl dd.subject {
+    margin-bottom: 3px;
   }
-}

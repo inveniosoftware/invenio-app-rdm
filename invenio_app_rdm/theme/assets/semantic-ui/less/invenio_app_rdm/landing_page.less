@@ -7,6 +7,10 @@
  * it under the terms of the MIT License; see LICENSE file for more details.
  */
 
+ @import "./landing_page/details.less";
+ @import "./landing_page/sidebar.less";
+ @import "./landing_page/titles.less";
+
  .font-small {
      font-size: @font-size-small
  }
@@ -52,11 +56,6 @@
      background-color: @versionActive;
  }
 
- .ui.rdm-sidebar {
-     background-color: #f5f5f5;
-     border: 1px solid #e3e3e3;
-     border-radius: 4px;
- }
 
  .inline-orcid {
      height: @font-size-base;
@@ -214,4 +213,25 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+dl.details-list {
+    margin: 1.5rem 0;
+
+    &:last-child {
+        margin-bottom: 0px;
+    }
+    
+    dt.ui.tiny.header {
+        margin-bottom: 0.5rem;
+    }
+
+     dd {
+        &:not(:last-child){
+            margin-bottom: 0.5rem;
+        }
+
+        div:not(:last-child){
+            margin-bottom: 0.25rem;
+        }    
+    }
 }

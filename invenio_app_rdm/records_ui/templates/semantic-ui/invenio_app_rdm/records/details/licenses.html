@@ -9,19 +9,17 @@
 
 {% set rights = record.ui.get('rights') %}
 {% if rights %}
-<dt><b>{{ _('Licenses')}}</b></dt>
-<dd>
+<dl class="details-list">
   {%- for right in rights%}
-  <div class="content">
-    <div class="header">
-      {{ right.title_l10n }}
-    </div>
+  <dt class="ui tiny header">{{ right.title_l10n }}</dt>
+  <dd>
     <div class="description">
       {% if right.description_l10n %}
-      <span style="color: rgba(0,0,0,.7);">
+      <span class="text-muted">
         {{ right.description_l10n }}
       </span>
       {% endif %}
+
       {% if right.link %}
       <span style="display: inline;">
         <a href="{{ right.link }}" target="_blank">Read more</a>
@@ -32,8 +30,7 @@
       </span>
       {% endif %}
     </div>
-  </div>
-  <br>
+  </dd>
   {% endfor %}
-</dd>
+</dl>
 {% endif %}

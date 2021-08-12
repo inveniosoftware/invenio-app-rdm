@@ -9,31 +9,21 @@
 {% set subjects = record.metadata.subjects %}
 
 {% if subjects %}
-<dd class="top-bottom-padded" id="record-subjects">
-  {%- for scheme, subjects in subjects|selectattr("scheme")|groupby('scheme')|sort(attribute='scheme') %}
-  <div class="ui grid">
-    <div class="sixteen wide subject-scheme column">
-      <span class="ui tiny subject header">{{scheme}}</span>
-    </div>
-    <div class="sixteen wide subject-label column">
-      {%- for subject in subjects %}
-          <span class="subject">{{ subject.subject}}</span>
-        {%- endfor %}
-    </div>
-  </div>
-  {%- endfor %}
   {% set keywords = subjects|rejectattr("scheme")|list %}
   {% if keywords %}
-  <div class="ui grid">
-    <div class="sixteen wide subject-scheme column">
-      <span class="ui tiny subject header">{{_('Keywords')}}</span>
-    </div>
-    <div class="sixteen wide subject-label column">
+  <dl class="details-list">
     {%- for subject in keywords %}
-      <span class="subject">{{ subject.subject}}</span>
+      <dd class="subject">{{ subject.subject}}</dd>
     {%- endfor %}
-    </div>
-  </div>
+  </dl>
   {% endif %}
-</dd>
+
+  {%- for scheme, subjects in subjects|selectattr("scheme")|groupby('scheme')|sort(attribute='scheme') %}
+  <dl class="details-list">
+    <dt class="ui tiny header">{{scheme}}</dt>
+    {%- for subject in subjects %}
+      <dd class="subject">{{ subject.subject}}</dd>
+    {%- endfor %}
+  </dl>
+  {%- endfor %}
 {% endif %}
