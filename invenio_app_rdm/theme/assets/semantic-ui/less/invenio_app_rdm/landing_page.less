@@ -27,6 +27,7 @@
  }
 
  .preview-iframe {
+     display: block;
      border-style: none;
  }
 
@@ -133,12 +134,14 @@
 
  .panel-heading {
      padding: 10px !important;
-     border-bottom: 1px solid transparent;
-     border-top-left-radius: 10px;
-     border-top-right-radius: 10px;
+     border-radius: 10px;
      background-color: #f5f5f5;
-     border-color: #ddd;
      color: #428bca !important;
+
+     &.active {
+        border-radius: 10px 10px 0px 0px;
+        border-bottom: 1px solid #ddd;
+    }
      a {
          text-decoration: none;
      }
@@ -158,8 +161,7 @@
  .panel {
      margin-bottom: 10px;
      border-radius: 10px;
-     border-color: #ddd !important;
-     border: 1px solid;
+     border: 1px solid #ddd;
 
      .content{
          padding-top: 0px !important;

@@ -20,7 +20,8 @@
     name="{{id}}"
     width="{{width}}"
     height="{{height}}"
-    src="{{ preview_url }}">
+    src="{{ preview_url }}"
+  >
   </iframe>
 {%- endmacro %}
 
@@ -33,7 +34,9 @@
       <i class="ui angle down icon"></i>
     </div>
     <div id="collapsablePreview" class="active content">
-      {{ preview_file('invenio_app_rdm_records.record_file_preview', pid_value=pid, filename=file.key, is_preview=is_preview) }}
+      <div>
+        {{ preview_file('invenio_app_rdm_records.record_file_preview', pid_value=pid, filename=file.key, is_preview=is_preview) }}
+      </div>
     </div>
   </div>
 </div>
@@ -93,7 +96,7 @@
 {% macro file_list_box(files, pid, is_preview, record) %}
 <div class="">
   <div class="ui accordion panel {{record.ui.access_status.id}}" id="preview" href="#collapsablePreview">
-    <div class="title panel-heading {{record.ui.access_status.id}}">
+    <div class="active title panel-heading {{record.ui.access_status.id}}">
       {{ _("Files") }}
       <small class="text-muted">{% if files %} ({{files|sum(attribute='size')|filesizeformat}}){% endif %}</small>
       <i class="angle down icon"></i>
