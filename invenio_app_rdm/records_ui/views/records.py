@@ -70,10 +70,17 @@ class PreviewFile:
 def record_detail(record=None, files=None, pid_value=None, is_preview=False):
     """Record detail page (aka landing page)."""
     files_dict = None if files is None else files.to_dict()
-
+    record_ui = UIJSONSerializer().serialize_object_to_dict(record.to_dict())
+    if is_preview:
+        # If is preview, only display values if required fields are filled in
+        record_ui['ui']['related_identifiers'] = [
+            rec for rec in record_ui['ui']['related_identifiers']
+            if rec.get('identifier') and rec.get('scheme')
+            and rec.get('relation_type')
+        ]
     return render_template(
         "invenio_app_rdm/records/detail.html",
-        record=UIJSONSerializer().serialize_object_to_dict(record.to_dict()),
+        record=record_ui,
         pid=pid_value,
         files=files_dict,
         permissions=record.has_permissions_to(['edit', 'new_version', 'manage',
