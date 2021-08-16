@@ -9,13 +9,13 @@
 
 {%- from "invenio_app_rdm/records/macros/creatibutors.html" import show_affiliations, show_creatibutors %}
 
-<div class="ui accordion">
+<div class="ui accordion creatibutors">
   <div class="title">
     {{ show_creatibutors(record.ui.creators.creators, show_affiliations=True) }}
     {% if record.ui.creators.affiliations %}
     <a style="cursor: pointer;" class="dropdown">
-      <span class="up ui label small">show affiliations</span>
-      <span class="down ui label small">hide affiliations</span>
+      <span class="up ui label small">{{ _("Show affiliations") }}</span>
+      <span class="down ui label small">{{ _("Hide affiliations") }}</span>
     </a>
     {% endif %}
   </div>

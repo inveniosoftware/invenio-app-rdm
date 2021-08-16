@@ -9,14 +9,14 @@
 
 {% if record.ui.contributors and record.ui.contributors.contributors %}
   {%- for group in record.ui.contributors.contributors|groupby('role.title')%}
-  <div class="ui accordion">
+  <div class="ui accordion creatibutors">
     <div class="title">
       <h4><b>{{group.grouper}}(s)</b></h4>
       {{ show_creatibutors(group.list, show_affiliations=True) }}
       {% if record.ui.contributors.affiliations %}
       <a style="cursor: pointer;" class="dropdown">
-        <span class="up ui label small">{{ _("show affiliations") }}</span>
-        <span class="down ui label small">{{ _("hide affiliations") }}</span>
+        <span class="up ui label small">{{ _("Show affiliations") }}</span>
+        <span class="down ui label small">{{ _("Hide affiliations") }}</span>
       </a>
       {% endif %}
     </div>
