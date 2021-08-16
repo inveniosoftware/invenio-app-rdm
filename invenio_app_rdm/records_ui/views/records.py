@@ -11,13 +11,15 @@
 
 from os.path import splitext
 
-from flask import abort, current_app, redirect, render_template, request, \
+from flask import abort, current_app, g, redirect, render_template, request, \
     url_for
 from flask_login import current_user
 from invenio_base.utils import obj_or_import_string
 from invenio_previewer.extensions import default
 from invenio_previewer.proxies import current_previewer
+from invenio_rdm_records.proxies import current_rdm_records
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
+from marshmallow import ValidationError
 
 from .decorators import pass_file_item, pass_file_metadata, pass_is_preview, \
     pass_record_files, pass_record_from_pid, pass_record_latest, \
@@ -70,16 +72,24 @@ class PreviewFile:
 def record_detail(record=None, files=None, pid_value=None, is_preview=False):
     """Record detail page (aka landing page)."""
     files_dict = None if files is None else files.to_dict()
-
+    record_ui = UIJSONSerializer().serialize_object_to_dict(record.to_dict())
+    is_draft = record._record.is_draft
+    if is_preview and is_draft:
+        try:
+            current_rdm_records.records_service.validate_draft(
+                g.identity, record.id
+            )
+        except ValidationError:
+            abort(404)
     return render_template(
         "invenio_app_rdm/records/detail.html",
-        record=UIJSONSerializer().serialize_object_to_dict(record.to_dict()),
+        record=record_ui,
         pid=pid_value,
         files=files_dict,
         permissions=record.has_permissions_to(['edit', 'new_version', 'manage',
                                                'update_draft', 'read_files']),
         is_preview=is_preview,
-        is_draft=record._record.is_draft,
+        is_draft=is_draft,
     )
 
 
