@@ -49,7 +49,11 @@ if (recordCitationAppDiv) {
   );
 }
 
-$(".ui.accordion").accordion();
+$(".ui.accordion").accordion({
+  selector: {
+    trigger: '.title .dropdown'
+  }
+});
 
 $("#record-doi-badge").click(function () {
   $("#doi-modal").modal("show");
