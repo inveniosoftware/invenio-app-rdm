@@ -274,9 +274,6 @@ CELERY_BEAT_SCHEDULE = {
             'invenio_drafts_resources.services.records.tasks.cleanup_drafts'
         ),
         'schedule': timedelta(minutes=60),
-        "args": [
-            "invenio_rdm_records.proxies:current_rdm_records_service"
-        ],
     },
     'rdm_records': {
         'task': 'invenio_rdm_records.services.tasks.update_expired_embargos',
