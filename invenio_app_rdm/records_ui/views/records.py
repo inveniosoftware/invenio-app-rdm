@@ -21,6 +21,7 @@ from invenio_rdm_records.proxies import current_rdm_records
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
 from marshmallow import ValidationError
 
+from ..utils import get_sentry_config
 from .decorators import pass_file_item, pass_file_metadata, pass_is_preview, \
     pass_record_files, pass_record_from_pid, pass_record_latest, \
     pass_record_or_draft
@@ -83,6 +84,7 @@ def record_detail(record=None, files=None, pid_value=None, is_preview=False):
             abort(404)
     return render_template(
         "invenio_app_rdm/records/detail.html",
+        sentry_config=get_sentry_config(),
         record=record_ui,
         pid=pid_value,
         files=files_dict,

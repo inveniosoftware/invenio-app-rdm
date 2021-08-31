@@ -8,9 +8,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "semantic-ui-css/semantic.min.css";
-import { i18next } from "@translations/invenio_app_rdm/i18next";
 import { getInputFromDOM } from "react-invenio-deposit";
 import { RDMDepositForm } from "./RDMDepositForm";
+import { initSentry } from "../utils";
+
+initSentry(getInputFromDOM("sentry-config"));
 
 ReactDOM.render(
   <RDMDepositForm

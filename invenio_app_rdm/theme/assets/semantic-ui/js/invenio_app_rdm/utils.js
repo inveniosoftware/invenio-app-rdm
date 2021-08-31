@@ -5,6 +5,8 @@
 // under the terms of the MIT License; see LICENSE file for more details.
 
 import axios from "axios";
+import * as Sentry from "@sentry/react";
+import { Integrations } from "@sentry/tracing";
 
 /**
  * Wrap a promise to be cancellable and avoid potential memory leaks
@@ -37,3 +39,13 @@ const apiConfig = {
 };
 
 export const axiosWithconfig = axios.create(apiConfig);
+
+export const initSentry = (config) => {
+  if (config !== null) {
+    Sentry.init({
+      integrations: [new Integrations.BrowserTracing()],
+      tracesSampleRate: 1.0,
+      ...config,
+    });
+  }
+};

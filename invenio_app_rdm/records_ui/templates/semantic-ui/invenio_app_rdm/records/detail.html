@@ -17,6 +17,11 @@
 {%- set metadata = record.metadata %}
 
 {%- block page_body %}
+
+{%- if sentry_config %}
+<input id="sentry-config" type="hidden" name="sentry-config" value='{{sentry_config | tojson}}'></input>
+{%- endif %}
+
 <div class="banners">
   {% if is_preview %}
   <div class="ui info flashed top-attached manage message">

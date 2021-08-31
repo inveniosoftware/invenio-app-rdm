@@ -10,9 +10,13 @@ import $ from "jquery";
 import React from "react";
 import ReactDOM from "react-dom";
 
+import { getInputFromDOM } from "react-invenio-deposit";
 import { RecordManagement } from "./RecordManagement";
 import { RecordVersionsList } from "./RecordVersionsList";
 import { RecordCitationField } from "./RecordCitationField";
+import { initSentry } from "../utils";
+
+initSentry(getInputFromDOM("sentry-config"));
 
 const recordManagementAppDiv = document.getElementById("recordManagement");
 const recordVersionsAppDiv = document.getElementById("recordVersions");
@@ -51,8 +55,8 @@ if (recordCitationAppDiv) {
 
 $(".ui.accordion").accordion({
   selector: {
-    trigger: '.title .dropdown'
-  }
+    trigger: ".title .dropdown",
+  },
 });
 
 $("#record-doi-badge").click(function () {

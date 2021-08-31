@@ -23,7 +23,7 @@ from invenio_vocabularies.records.models import VocabularyScheme
 from marshmallow_utils.fields.babel import gettext_from_dict
 from sqlalchemy.orm import load_only
 
-from ..utils import set_default_value
+from ..utils import get_sentry_config, set_default_value
 from .decorators import pass_draft, pass_draft_files
 from .filters import get_scheme_label
 
@@ -298,6 +298,7 @@ def deposit_create():
     """Create a new deposit."""
     return render_template(
         "invenio_app_rdm/records/deposit.html",
+        sentry_config=get_sentry_config(),
         forms_config=get_form_config(createUrl=("/api/records")),
         searchbar_config=dict(searchUrl=get_search_url()),
         record=new_record(),
@@ -317,6 +318,7 @@ def deposit_edit(draft=None, draft_files=None, pid_value=None):
 
     return render_template(
         "invenio_app_rdm/records/deposit.html",
+        sentry_config=get_sentry_config(),
         forms_config=get_form_config(apiUrl=f"/api/records/{pid_value}/draft"),
         record=record,
         files=draft_files.to_dict(),

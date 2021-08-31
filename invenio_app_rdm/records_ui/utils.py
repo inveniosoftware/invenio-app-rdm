@@ -9,6 +9,7 @@
 
 """Utility functions."""
 
+from flask import current_app
 from invenio_records.dictutils import dict_set
 from invenio_records.errors import MissingModelError
 from invenio_records_files.api import FileObject
@@ -55,3 +56,16 @@ def set_default_value(record_dict, value, path, default_prefix="metadata"):
         path = "{}.{}".format(default_prefix, path)
 
     dict_set(record_dict, path, value)
+
+
+def get_sentry_config():
+    """Gets the sentry config for UI (React)."""
+    dsn = current_app.config.get("SENTRY_DSN", None)
+
+    if not dsn:
+        return None
+
+    return {
+        "dsn": dsn,
+        "environment": current_app.config.get("SENTRY_ENVIRONMENT", "dev"),
+    }

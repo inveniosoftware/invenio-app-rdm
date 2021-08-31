@@ -27,6 +27,10 @@
   {%- if permissions %}
   <input id="deposits-record-permissions" type="hidden" name="deposits-record-permissions" value='{{permissions | tojson }}'></input>
   {%- endif %}
+  {%- if sentry_config %}
+  <input id="sentry-config" type="hidden" name="sentry-config" value='{{sentry_config}}'></input>
+  {%- endif %}
+
   <div id="deposit-form"></div>
 {%- endblock page_body %}
 
