@@ -25,6 +25,7 @@ tests_require = [
 
 setup_requires = [
     'Babel>=2.8,<3',
+    'setuptools<0.58', # because "fs" uses "use_2to3" which was removed in 0.58
 ]
 
 extras_require = {
