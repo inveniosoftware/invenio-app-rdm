@@ -1,6 +1,7 @@
 // This file is part of InvenioRDM
 // Copyright (C) 2021 CERN.
 // Copyright (C) 2021 Graz University of Technology.
+// Copyright (C) 2021 TU Wien
 //
 // Invenio RDM Records is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
@@ -11,7 +12,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Header, Placeholder, Grid, Dropdown } from "semantic-ui-react";
 import { withCancel } from "../utils";
-import { CopyButton } from "../utlis/CopyButton";
+import { CopyButton } from "../utils/CopyButton";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 
 export class RecordCitationField extends Component {
