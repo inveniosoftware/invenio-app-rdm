@@ -117,15 +117,13 @@ def record_export(
         }
     )
     exported_record = serializer.serialize_object(record.to_dict())
-    return render_template(
-        "invenio_app_rdm/records/export.html",
-        export_format=exporter.get("name", export_format),
-        exported_record=exported_record,
-        record=UIJSONSerializer().serialize_object_to_dict(record.to_dict()),
-        permissions=record.has_permissions_to(['update_draft']),
-        is_preview=is_preview,
-        is_draft=record._record.is_draft
-    )
+    contentType = exporter.get("content-type", export_format)
+    filename = exporter.get("filename", export_format).format(id=pid_value)
+    headers = {
+        'Content-Type': contentType,
+        'Content-Disposition': f'attachment; filename={filename}'
+    }
+    return (exported_record, 200, headers)
 
 
 @pass_is_preview
@@ -145,11 +143,11 @@ def record_file_preview(
     file_previewer = file_metadata.data.get("previewer")
 
     url = url_for(
-            "invenio_app_rdm_records.record_file_download",
-            pid_value=pid_value,
-            filename=file_metadata.data["key"],
-            preview=1 if is_preview else 0
-        )
+        "invenio_app_rdm_records.record_file_download",
+        pid_value=pid_value,
+        filename=file_metadata.data["key"],
+        preview=1 if is_preview else 0
+    )
     # Find a suitable previewer
     fileobj = PreviewFile(file_metadata, pid_value, url)
     for plugin in current_previewer.iter_previewers(
