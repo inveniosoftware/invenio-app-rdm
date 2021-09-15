@@ -549,27 +549,37 @@ APP_RDM_ROUTES = {
 APP_RDM_RECORD_EXPORTERS = {
     "json": {
         "name": _("JSON"),
-        "serializer": ("flask_resources.serializers:JSONSerializer")
+        "serializer": ("flask_resources.serializers:JSONSerializer"),
+        "content-type": "application/json",
+        "filename": "{id}.json"
     },
     "csl": {
-       "name": _("CSL"),
-       "serializer": ("invenio_rdm_records.resources.serializers:"
-                      "CSLJSONSerializer")
+        "name": _("CSL"),
+        "serializer": ("invenio_rdm_records.resources.serializers:"
+                       "CSLJSONSerializer"),
+        "content-type": "application/vnd.citationstyles.csl+json",
+        "filename": "{id}.json"
     },
     "datacite-json": {
-       "name": _("DataCite JSON"),
-       "serializer": ("invenio_rdm_records.resources.serializers:"
-                      "DataCite43JSONSerializer")
+        "name": _("DataCite JSON"),
+        "serializer": ("invenio_rdm_records.resources.serializers:"
+                       "DataCite43JSONSerializer"),
+        "content-type": "application/vnd.datacite.datacite+json",
+        "filename": "{id}.json"
     },
     "datacite-xml": {
         "name": _("DataCite XML"),
         "serializer": ("invenio_rdm_records.resources.serializers:"
-                       "DataCite43XMLSerializer")
+                       "DataCite43XMLSerializer"),
+        "content-type": "application/vnd.datacite.datacite+json",
+        "filename": "{id}.xml"
     },
     "dublincore": {
         "name": _("Dublin Core XML"),
         "serializer": ("invenio_rdm_records.resources.serializers:"
-                       "DublinCoreXMLSerializer")
+                       "DublinCoreXMLSerializer"),
+        "content-type": "application/x-dc+xml",
+        "filename": "{id}.xml"
     },
 }
 
@@ -599,12 +609,12 @@ If the value is callable, its return value will be used for the field
 """
 
 RDM_CITATION_STYLES = [
-     ('apa', _('APA')),
-     ('harvard-cite-them-right', _('Harvard')),
-     ('modern-language-association', _('MLA')),
-     ('vancouver', _('Vancouver')),
-     ('chicago-fullnote-bibliography', _('Chicago')),
-     ('ieee', _('IEEE')),
+    ('apa', _('APA')),
+    ('harvard-cite-them-right', _('Harvard')),
+    ('modern-language-association', _('MLA')),
+    ('vancouver', _('Vancouver')),
+    ('chicago-fullnote-bibliography', _('Chicago')),
+    ('ieee', _('IEEE')),
 ]
 """List of citation style """
 
