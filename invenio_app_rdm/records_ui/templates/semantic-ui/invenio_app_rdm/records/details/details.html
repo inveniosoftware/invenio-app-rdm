@@ -8,36 +8,127 @@
 #}
 
 
-{%- from "invenio_app_rdm/records/macros/detail.html" import show_references, show_related_identifiers %}
+{%- from "invenio_app_rdm/records/macros/detail.html" import show_references, show_add_titles,
+show_alternate_identifiers, show_related_identifiers, show_funding, show_dates %}
 
-  <div class="ui top attached menu">
+{% set rights = record.ui.get('rights') %}
+{% set active = true %}
 
-    {% if record.ui.related_identifiers %}
-    <a class="active item" data-tab="related-works" tabindex="0">
-      {{ _('Related works') }}
+<h2>{{ _('Additional data') }}</h2>
+
+{# Tabs #}
+<div class="ui top attached menu">
+  {% if record.ui.additional_titles %}
+    <a class="{{ 'active' if active }} item" data-tab="additional-titles" tabindex="0">
+      {{ _('Additional titles') }}
     </a>
-    {% endif %}
+    {% set active = false %}
+  {% endif %}
 
-    {% if metadata.references %}
-    <a class="{{ 'active' if not record.ui.related_identifiers }} item" data-tab="references" tabindex="0">
-      {{ _('References') }}
+
+  {% if metadata.identifiers %}
+    <a class="{{ 'active' if active }} item" data-tab="identifiers" tabindex="0">
+      {{ _('Identifiers') }}
     </a>
-    {% endif %}
-  </div>
-
+    {% set active = false %}
+  {% endif %}
 
   {% if record.ui.related_identifiers %}
-  <div class="ui bottom attached active tab segment" data-tab="related-works">
+    <a class="{{ 'active' if active }} item" data-tab="related-works" tabindex="0">
+      {{ _('Related works') }}
+    </a>
+    {% set active = false %}
+  {% endif %}
+
+  {% if rights %}
+    <a class="{{ 'active' if active }} item" data-tab="licenses" tabindex="0">
+      {{ _('Licenses') }}
+    </a>
+    {% set active = false %}
+  {% endif %}
+
+  {% if metadata.funding %}
+    <a class="{{ 'active' if active }} item" data-tab="funding" tabindex="0">
+      {{ _('Funding') }}
+    </a>
+    {% set active = false %}
+  {% endif %}
+
+  {% if record.ui.dates %}
+    <a class="{{ 'active' if active }} item" data-tab="dates" tabindex="0">
+      {{ _('Dates') }}
+    </a>
+    {% set active = false %}
+  {% endif %}
+
+  {% if metadata.references %}
+    <a class="{{ 'active' if active }} item" data-tab="references" tabindex="0">
+      {{ _('References') }}
+    </a>
+  {% endif %}
+</div>
+
+{# Content #}
+{% set active = true %}
+
+{% if record.ui.additional_titles %}
+  <div class="ui bottom attached {{ 'active' if active }} tab segment" data-tab="additional-titles">
+    <dl class="details-list">
+      {{ show_add_titles(record.ui.additional_titles) }}
+    </dl>
+  </div>
+  {% set active = false %}
+{% endif %}
+
+{% if metadata.identifiers %}
+  <div class="ui bottom attached {{ 'active' if active }} tab segment" data-tab="identifiers">
+    <dl class="details-list">
+      {{ show_alternate_identifiers(metadata.identifiers) }}
+    </dl>
+  </div>
+  {% set active = false %}
+{% endif %}
+
+{% if record.ui.related_identifiers %}
+  <div class="ui bottom attached {{ 'active' if active }} tab segment" data-tab="related-works">
     <dl class="details-list">
       {{ show_related_identifiers(record.ui.related_identifiers) }}
     </dl>
   </div>
-  {% endif %}
+  {% set active = false %}
+{% endif %}
 
-  {% if metadata.references %}
-  <div class="ui bottom attached {{ 'active' if not record.ui.related_identifiers }} tab segment" data-tab="references">
+{% if rights %}
+  <div class="ui bottom attached {{ 'active' if active }} tab segment" data-tab="licenses">
+    <dl class="details-list">
+    {%- include "invenio_app_rdm/records/details/licenses.html" %}
+    </dl>
+  </div>
+  {% set active = false %}
+{% endif %}
+
+{% if metadata.funding %}
+  <div class="ui bottom attached {{ 'active' if active }} tab segment" data-tab="funding">
+    <dl class="details-list">
+      {{ show_funding(metadata.funding) }}
+    </dl>
+  </div>
+  {% set active = false %}
+{% endif %}
+
+{% if record.ui.dates %}
+  <div class="ui bottom attached {{ 'active' if active }} tab segment" data-tab="dates">
+    <dl class="details-list">
+      {{ show_dates(record.ui.dates) }}
+    </dl>
+  </div>
+  {% set active = false %}
+{% endif %}
+
+{% if metadata.references %}
+  <div class="ui bottom attached {{ 'active' if active }} tab segment" data-tab="references">
     <dl class="details-list">
       {{ show_references(metadata.references) }}
     </dl>
   </div>
-  {% endif %}
+{% endif %}

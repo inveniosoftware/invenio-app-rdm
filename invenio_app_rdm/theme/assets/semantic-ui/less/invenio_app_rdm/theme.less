@@ -36,6 +36,7 @@ body {
 
   #frontpage-search-bar {
     background: transparent;
+
     .search-bar {
       width: 50%;
       padding: 1rem;
@@ -182,7 +183,7 @@ body {
   }
 }
 
-.get-started-section > .section-title {
+.get-started-section>.section-title {
   font-size: 2.65em;
 }
 
@@ -203,16 +204,19 @@ body {
       width: 100%;
     }
   }
+
   .outer-navbar {
     #frontpage-search-bar {
       .ui.container.grid {
         width: 100% !important;
       }
+
       .search-bar {
         width: 90%;
       }
     }
   }
+
   .invenio-rdm-project-collaborators {
     flex-direction: column !important;
     align-items: center !important;
@@ -228,6 +232,7 @@ body {
   max-height: 60px;
   max-width: 100%;
 }
+
 .features-section-row {
   padding-bottom: 30px;
 }
@@ -282,13 +287,13 @@ body {
     margin-right: 10px;
   }
 
-  .actions > a,
-  .stats > span {
+  .actions>a,
+  .stats>span {
     padding-right: 0.5em;
   }
 }
 
-.ui.items > .item .extra.labels-actions {
+.ui.items>.item .extra.labels-actions {
   margin-bottom: 0.75em;
 }
 
@@ -298,12 +303,15 @@ body {
   &.open {
     background-color: @accessRightOpen;
   }
+
   &.restricted {
     background-color: @accessRightRestricted;
   }
+
   &.embargoed {
     background-color: @accessRightEmbargoed;
   }
+
   &.metadata-only {
     background-color: @accessRightMetadataOnly;
   }
@@ -311,8 +319,10 @@ body {
 
 .ui.card.borderless-facet {
   box-shadow: none;
+
   .content {
     border-top: none;
+
     .header {
       font-size: 1.1em !important;
     }
@@ -369,11 +379,14 @@ body {
 
 .ui.table {
   .ui.blue.medium.file-upload-progress {
+
     &.progress,
     &.success {
+
       &.active,
       &.disabled {
         margin-bottom: 0px;
+
         &.error {
           margin-bottom: 0px;
         }
@@ -386,9 +399,11 @@ body {
       padding-top: 10px;
       padding-bottom: 10px;
     }
+
     .file-table-cell {
       padding-top: 5px;
       padding-bottom: 5px;
+
       &.file-upload-pending {
         text-align: center;
       }
@@ -417,11 +432,12 @@ body {
   }
 }
 
-#details {
-  margin-top: 2rem;
-}
 #record-citation {
-  margin: -1rem 0 0 0;
+  margin: 0 0 0 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 0.5rem 0rem;
+
   label {
     font-weight: 700;
   }
@@ -443,40 +459,22 @@ body {
 }
 
 .subject {
-      display: inline-block;
-      padding: 3px 10px;
-      margin-bottom: 3px;
-      box-sizing: border-box;
-      color:#777;
-      border: 2px solid rgba(119, 119, 119, 0.56);
-      border-radius: 4px;
+  display: inline-block;
+  padding: 3px 10px;
+  margin-bottom: 3px;
+  box-sizing: border-box;
+  color: #777;
+  border: 2px solid rgba(119, 119, 119, 0.56);
+  border-radius: 4px;
+}
+
+.ui.segment.rdm-sidebar dl {
+
+  dt.hidden {
+    display: none;
   }
 
-//   .subject-label {
-//     &.column {
-//       padding-top: 10px;
-//       .subject {
-//         color:#777;
-//         border: 2px solid rgba(119, 119, 119, 0.56);
-//         border-radius: 4px;
-//         padding: 3.5px;
-//         display: inline-block;
-//       }
-//     }
-//   }
-
-// .ui.items > .item .creatibutors, .creatibutors {
-//   .header {
-//     margin: 1rem auto .5rem;
-//     font-size: 1.1rem;
-//   }
-//  span {
-//     margin-right:.5rem;
-//   }
-//   a {
-//     color: #646464;
-//   }
-// }
-  .ui.segment.rdm-sidebar dl dd.subject {
+  dd.subject {
     margin-bottom: 3px;
   }
+}

@@ -8,9 +8,40 @@
  * it under the terms of the MIT License; see LICENSE file for more details.
  */
 
+@import "./landing_page/creatibutors.less";
 @import "./landing_page/details.less";
 @import "./landing_page/sidebar.less";
-@import "./landing_page/titles.less";
+
+.main-record-content {
+
+  h1,
+  h1.ui.header {
+    font-size: 2rem;
+  }
+
+  h2,
+  h2.ui.header {
+    font-size: 1.5rem;
+
+    &:not(:first-child) {
+      margin-top: 2.5rem;
+    }
+  }
+
+  h3,
+  h3.ui.header {
+    font-size: 1.2rem;
+  }
+
+  h4,
+  h4.ui.header {
+    font-size: 1rem;
+  }
+}
+
+.section-spacing {
+    margin-top: 2.5rem;
+}
 
 .font-small {
   font-size: @font-size-small
@@ -22,61 +53,6 @@
 
 .top-bottom-padded {
   margin: 15px 0px 20px 0px;
-}
-
-// Creatibutors
-.row.ui.accordion.affiliations-accordion {
-  padding-bottom: 1.5rem;
-
-  .title {
-    cursor: default;
-  }
-
-  .button-wrapper {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-    justify-content: flex-end;
-    align-items: flex-end;
-    padding-top: 1.5rem;
-    box-sizing: border-box;
-
-    .ui.button.affiliations-button {
-      margin: 0px;
-    }
-  }
-
-  dl.creatibutors {
-    margin: 0rem 0rem 0.75rem 0rem;
-
-    &:last-child {
-      margin-bottom: 0rem;
-    }
-
-    dt {
-      display: inline;
-      font-weight: bold;
-      margin: 0rem 0.25rem 0rem 0rem;
-    }
-
-    dd.creatibutor-wrap {
-      display: inline;
-
-      &:nth-child(n):not(:last-child) {
-        margin-right: 0.5rem;
-      }
-    }
-  }
-
-  .content {
-    dl {
-      font-size: @font-size-small;
-      background-color: #F9FAFB;
-      padding: 1rem;
-      margin: 1.2rem 0rem 0rem 0rem;
-    }
-  }
 }
 
 a.identifier-link:hover {
@@ -116,12 +92,6 @@ dd {
 
 .version-active {
   background-color: @versionActive;
-}
-
-.ui.rdm-sidebar {
-  background-color: #f5f5f5;
-  border: 1px solid #e3e3e3;
-  border-radius: 4px;
 }
 
 .thin-line {
@@ -251,6 +221,11 @@ div.accordion div.title button.down {
   border-bottom-right-radius: 10px;
   table-layout: fixed;
   width: 100%;
+
+  th.hidden {
+    color: transparent;
+    user-select: none;
+  }
 }
 
 .share-modal {

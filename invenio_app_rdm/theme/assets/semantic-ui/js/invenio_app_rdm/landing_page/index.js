@@ -62,7 +62,7 @@ $(".ui.accordion.affiliations-accordion").accordion({
 });
 
 
-$("#record-doi-badge").click(function () {
+$("#record-doi-badge").on('click', function () {
   $("#doi-modal").modal("show");
 });
 
@@ -77,7 +77,7 @@ $("#jump-btn").on("click", function (event) {
 });
 
 // func to toggle the icon class
-$(".panel-heading").click(function () {
+$(".panel-heading").on('click', function () {
   $("i", this).toggleClass("down right");
 });
 
@@ -91,8 +91,8 @@ $(".dropdown.export").dropdown({
 $('.menu .item').tab();
 
 $('.menu .item')
-  .keydown(function(event) {
-    if(event.keyCode === 13) {
+  .on('keydown', function(event) {
+    if(event.key === "Enter") {
       let dataTab = event.target.attributes['data-tab'];
       let tabName = dataTab && dataTab.value;
       $(event.target).tab('change tab', tabName);

@@ -15,7 +15,7 @@
 
 {% macro show_title_detail(title, language, value) %}
   <dt class="ui tiny header">
-    {{ title }} 
+    {{ title }}
     <span class="language text-muted">
       {{ '(' + language + ')' if language}}
     </span>
@@ -48,7 +48,6 @@
 
 
 {% macro show_add_titles(add_titles) %}
-<dl class="details-list">
   {% for add_title in add_titles %}
     {% if add_title.lang %}
       {{ show_title_detail(add_title.type.title_l10n, add_title.lang.title_l10n, add_title.title)}}
@@ -56,7 +55,6 @@
       {{ show_title_detail(add_title.type.title_l10n,None, add_title.title)}}
     {% endif %}
   {% endfor %}
-</dl>
 {% endmacro %}
 
 
@@ -98,10 +96,10 @@
   {% for identifier in related_identifiers %}
     <dd>
       {% if identifier.resource_type is defined %}
-      {{ identifier.resource_type.title_l10n }}: 
+      {{ identifier.resource_type.title_l10n }}:
       {% endif %}
 
-      {{ identifier.identifier + ' ( ' + identifier.scheme | get_scheme_label + ' )' }}    
+      {{ identifier.identifier + ' ( ' + identifier.scheme | get_scheme_label + ' )' }}
     </dd>
   {% endfor %}
 {% endmacro %}
@@ -116,12 +114,10 @@
 
 
 {% macro show_alternate_identifiers(identifiers) %}
-<dl class="details-list">
   {% for alt_id in identifiers %}
     {# upper() is in keeping with the displayed schemes in RDMDEpositForm.js #}
    {{ show_detail(alt_id.scheme | get_scheme_label, alt_id.identifier) }}
   {% endfor %}
-</dl>
 {% endmacro %}
 
 

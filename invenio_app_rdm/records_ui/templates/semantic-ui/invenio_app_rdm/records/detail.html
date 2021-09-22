@@ -12,208 +12,217 @@
 {%- extends config.BASE_TEMPLATE %}
 
 {%- from "invenio_app_rdm/records/macros/files.html" import file_list_box, preview_file_box %}
-{%- from "invenio_app_rdm/records/macros/detail.html" import show_add_titles %}
 
 {%- set title = record.metadata.title -%}
 {%- set metadata = record.metadata %}
 
 {%- block page_body %}
-<div class="banners">
-  {% if is_preview %}
-  <div class="ui info flashed top-attached manage message">
-    <div class="ui container">
-      <div class="ui relaxed grid">
-        <div class="column">
-          <div class="row">
-            <div class="header">
-              <i class="eye icon"></i> {{_ ("Preview")}}
-            </div>
-            <p>
-              {% if not is_draft %}
-               {{ _("You are previewing a published record.") }}
-              {% elif record.is_published %}
-                {{ _("You are previewing changes that have not yet been published.") }}
-              {% elif not record.is_published and record.versions.index == 1 %}
-                {{ _("You are previewing a new record that has not yet been published.") }}
-              {% elif not record.is_published and record.versions.index > 1 %}
-                {{ _("You are previewing a new record version that has not yet been published.") }}
-              {% endif %}
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  {% endif %}
-  {% if permissions is defined and permissions.can_edit and not is_preview %}
-  <div class="ui warning flashed top-attached manage message">
-    <div class="ui container">
-      <div id="recordManagement" data-record='{{ record | tojson }}' data-permissions='{{ permissions | tojson }}'></div>
-    </div>
-  </div>
-  {% endif %}
-  {% if record.is_published and not record.versions.is_latest %}
-  <div class="ui warning flashed top-attached manage message">
-    <div class="ui container">
-      <div class="ui relaxed grid">
-        <div class="column">
-          <div class="row">
-            <p>
-            {% trans link_start=('<a href="' + record.links.latest_html + '"><b>')|safe, link_end='</b></a>'|safe %}
-              There is a {{ link_start }}newer version{{ link_end }} of the record available.
-            {% endtrans %}
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  {% endif %}
-</div>
-
-
-<div class="ui container">
-  <div class="ui relaxed grid">
-    <div class="two column row">
-      <article class="eleven wide column">
-        {% if record.access.record == 'restricted' %}
-          <div class="ui {{ record.ui.access_status.message_class }} message">
-            <strong><i class="{{ record.ui.access_status.icon }} icon"></i>{{ record.ui.access_status.title_l10n }}</strong> {{ record.ui.access_status.description_l10n }}
-            {% if record.access.embargo.reason %}
-            <p>{{ _("Reason:") }} {{ record.access.embargo.reason }}</p>
-            {% endif %}
-          </div>
-        {% endif %}
-        {%- block record_body -%}
-        {%- block record_header -%}
-        {%- block record_header_button -%}
-        {% if is_preview and permissions.can_edit and is_draft %}
-        <div style="margin-bottom: 12px;">
-          {%- set back_page = url_for('invenio_app_rdm_records.deposit_edit', pid_value=record.id, preview=1) -%}
-          {%- set back_btn_label = _('Back to edit') -%}
-          <a class="ui button small compact" href="{{ back_page }}"><i class="ui icon angle left"></i> {{ back_btn_label }}</a>
-        </div>
-        {% endif %}
-        {%- endblock record_header_button -%}
-        <div class="ui grid middle aligned">
-          <div class="two column row">
-            <div class="left floated left aligned column">
-              <span class="ui" title="{{ _('Publication date') }}">{{ record.ui.publication_date_l10n_long }}</span>
-              <span class="label text-muted"> | Version {{ record.ui.version }}</span>
-            </div>
-            <div class="right floated right aligned column">
-              {% if record.ui.resource_type %}
-              <span class="ui label small grey">{{ record.ui.resource_type.title_l10n }}</span>
-              {% endif %}
-              <span class="ui label small access-status {{ record.ui.access_status.id }}" data-tooltip="{{ record.ui.access_status.description_l10n }}" data-inverted="">
-                {% if record.ui.access_status.icon %}<i class="icon {{ record.ui.access_status.icon }}"></i>{% endif %}
-                {{ record.ui.access_status.title_l10n }}
-              </span>
-            </div>
-          </div>
-        </div>
-        {%- endblock record_header -%}
-
-        {%- block record_title -%}
-
-        {% if record.ui.additional_titles %}
-        <div class="ui accordion additional-titles">
-          <div class="title" tabindex="0" data-index="0">
-            <h1>{{ metadata.title }}</h1>
-            <i class="dropdown icon text-muted"></i>
-          </div>
-          <div class="ui content">
-            {{ show_add_titles(record.ui.additional_titles) }}
-            <hr class="thin-line"/>
-          </div>
-        </div>
-        {% else %}
-        <h1>{{ metadata.title }}</h1>
-        {% endif %}
-
-        {% if record.ui.creators or record.ui.contributors %}
-          {%- include "invenio_app_rdm/records/details/creatibutors.html" %}
-        {% endif %}
-
-        {%- endblock record_title -%}
-
-        {%- block record_content -%}
-
-        <p>{%- include "invenio_app_rdm/records/details/citation.html" %}</p>
-
-        <div class="top-padded">
-        {%- include "invenio_app_rdm/records/details/description.html" %}
-        </div>
-
-        {%- endblock record_content -%}
-
-        {# files #}
-        {%- block record_files -%}
-        {%- if record.files.enabled -%}
-          {%- if permissions.can_read_files -%}
-            {# record has files AND user can see files #}
-            {%- set files = files|order_entries %}
-            {%- if files|has_previewable_files -%}
-              {%-set preview_file = files|select_preview_file(default_preview=record.files.default_preview) %}
-              {{ preview_file_box(preview_file, pid, is_preview, record) }}
-            {%- endif -%}
-            {{ file_list_box(files, pid, is_preview, record) }}
-          {% else %}
-            {# record has files BUT user cannot see files #}
-            <div class="panel-spacing">
-              <div class="ui accordion panel {{ record.ui.access_status.id }}" id="preview" href="#collapsablePreview">
-                <div class="active title panel-heading {{ record.ui.access_status.id }}">
-                  {{ _("Files") }}
-                  <i class="angle down icon"></i>
+  <div class="banners">
+    {% if is_preview %}
+      <div class="ui info flashed top-attached manage message">
+        <div class="ui container">
+          <div class="ui relaxed grid">
+            <div class="column">
+              <div class="row">
+                <div class="header">
+                  <i class="eye icon"></i> {{_ ("Preview")}}
                 </div>
-                <div id="collapsablePreview" class="active content">
-                  <div class="ui {{ record.ui.access_status.message_class }} message file-box-message">
-                    <i class="ui {{ record.ui.access_status.icon }} icon"></i><b>{{ record.ui.access_status.title_l10n }}</b>
-                    <p>{{ record.ui.access_status.description_l10n }}</p>
-                    {% if record.access.embargo.reason %}
-                      <p>{{_("Reason")}}: {{record.access.embargo.reason}}</p>
-                    {% endif%}
+                <p>
+                  {% if not is_draft %}
+                    {{ _("You are previewing a published record.") }}
+                  {% elif record.is_published %}
+                    {{ _("You are previewing changes that have not yet been published.") }}
+                  {% elif not record.is_published and record.versions.index == 1 %}
+                    {{ _("You are previewing a new record that has not yet been published.") }}
+                  {% elif not record.is_published and record.versions.index > 1 %}
+                    {{ _("You are previewing a new record version that has not yet been published.") }}
+                  {% endif %}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+
+    {% if permissions is defined and permissions.can_edit and not is_preview %}
+    <div class="ui warning flashed top-attached manage message">
+      <div class="ui container">
+        <div id="recordManagement" data-record='{{ record | tojson }}' data-permissions='{{ permissions | tojson }}'></div>
+      </div>
+    </div>
+    {% endif %}
+
+    {% if record.is_published and not record.versions.is_latest %}
+    <div class="ui warning flashed top-attached manage message">
+      <div class="ui container">
+        <div class="ui relaxed grid">
+          <div class="column">
+            <div class="row">
+              <p>
+              {% trans link_start=('<a href="' + record.links.latest_html + '"><b>')|safe, link_end='</b></a>'|safe %}
+                There is a {{ link_start }}newer version{{ link_end }} of the record available.
+              {% endtrans %}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+
+  <div class="ui container">
+    <div class="ui relaxed grid">
+      <div class="two column row top-padded">
+
+        {# Main content #}
+        <article class="sixteen wide tablet eleven wide computer column main-record-content">
+          {% if record.access.record == 'restricted' %}
+            <div class="ui {{ record.ui.access_status.message_class }} message">
+              <strong><i class="{{ record.ui.access_status.icon }} icon"></i>{{ record.ui.access_status.title_l10n }}</strong> {{ record.ui.access_status.description_l10n }}
+
+              {% if record.access.embargo.reason %}
+                <p>{{ _("Reason:") }} {{ record.access.embargo.reason }}</p>
+              {% endif %}
+            </div>
+          {% endif %}
+
+          {%- block record_body -%}
+
+            {%- block record_header -%}
+
+              {%- block record_header_button -%}
+
+                {% if is_preview and permissions.can_edit and is_draft %}
+                  <div style="margin-bottom: 12px;">
+                    {%- set back_page = url_for('invenio_app_rdm_records.deposit_edit', pid_value=record.id, preview=1) -%}
+                    {%- set back_btn_label = _('Back to edit') -%}
+                    <a class="ui button small compact" href="{{ back_page }}"><i class="ui icon angle left"></i> {{ back_btn_label }}</a>
+                  </div>
+                {% endif %}
+
+              {%- endblock record_header_button -%}
+
+              <div class="ui grid middle aligned">
+                <div class="two column row">
+                  <div class="left floated left aligned column">
+                    <span class="ui" title="{{ _('Publication date') }}">
+                      {{ _('Published') }} {{ record.ui.publication_date_l10n_long }}
+                    </span>
+                    <span class="label text-muted"> | Version {{ record.ui.version }}</span>
+                  </div>
+                  <div class="right floated right aligned column">
+                    {% if record.ui.resource_type %}
+                      <span class="ui label small grey">{{ record.ui.resource_type.title_l10n }}</span>
+                    {% endif %}
+                    <span class="ui label small access-status {{ record.ui.access_status.id }}" data-tooltip="{{ record.ui.access_status.description_l10n }}" data-inverted="">
+                      {% if record.ui.access_status.icon %}
+                        <i class="icon {{ record.ui.access_status.icon }}"></i>
+                      {% endif %}
+                      {{ record.ui.access_status.title_l10n }}
+                    </span>
                   </div>
                 </div>
               </div>
-            </div>
-          {%- endif %}
-        {%- endif %}
-        {%- endblock record_files -%}
+            {%- endblock record_header -%}
 
-        {%- block record_details -%}
-        {# More details #}
+            {# Title #}
+            {%- block record_title -%}
+              <h1>{{ metadata.title }}</h1>
 
-        {% if record.ui.related_identifiers or metadata.references %}
-        <h2>{{ _('Additional data') }}</h2>
-        {%- include "invenio_app_rdm/records/details/details.html" %}
-        {% endif %}
+              {% if record.ui.creators or record.ui.contributors %}
+                <section id="creatibutors">{%- include "invenio_app_rdm/records/details/creatibutors.html" %}</section>
+              {% endif %}
+            {%- endblock record_title -%}
 
-        {%- endblock record_details -%}
+            {# Citation & Description #}
+            {%- block record_content -%}
+              <section id="citation">{%- include "invenio_app_rdm/records/details/citation.html" %}</section>
+              <section id="description" class="section-spacing">{%- include "invenio_app_rdm/records/details/description.html" %}</section>
+            {%- endblock record_content -%}
 
-        {%- block record_footer -%}
-        {%- endblock record_footer -%}
+            {# Files #}
+            {%- block record_files -%}
+              <section id="record-files" class="section-spacing">
+                {%- if record.files.enabled -%}
+                  {%- if permissions.can_read_files -%}
+                    {# record has files AND user can see files #}
+                    <h2>{{ _('Files') }}</h2>
+                    {%- set files = files|order_entries %}
 
-        {%- block jump -%}
-        <div class="ui grid">
-          <div class="centered row" id="jump-btn">
-            <a style="cursor: pointer;">
-              <span class="ui button">
-                <i class="arrow alternate circle up outline icon"></i>{{_ ("Jump up")}}</span>
-            </a>
-          </div>
+                    {%- if files|has_previewable_files -%}
+                      {%-set preview_file = files|select_preview_file(default_preview=record.files.default_preview) %}
+                      {{ preview_file_box(preview_file, pid, is_preview, record) }}
+                    {%- endif -%}
+                    {{ file_list_box(files, pid, is_preview, record) }}
+                  {% else %}
+                    {# record has files BUT user cannot see files #}
+                    <div class="panel-spacing">
+                      <div class="ui accordion panel {{ record.ui.access_status.id }}" id="preview" href="#collapsablePreview">
+                        <div class="active title panel-heading {{ record.ui.access_status.id }}">
+                          {{ _("Files") }}
+                          <i class="angle down icon"></i>
+                        </div>
+                        <div id="collapsablePreview" class="active content">
+                          <div class="ui {{ record.ui.access_status.message_class }} message file-box-message">
+                            <i class="ui {{ record.ui.access_status.icon }} icon"></i><b>{{ record.ui.access_status.title_l10n }}</b>
+                            <p>{{ record.ui.access_status.description_l10n }}</p>
+
+                            {% if record.access.embargo.reason %}
+                              <p>{{_("Reason")}}: {{record.access.embargo.reason}}</p>
+                            {% endif%}
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  {%- endif %}
+                {%- endif %}
+              </section>
+            {%- endblock record_files -%}
+
+            {# Additional data #}
+            {%- block record_details -%}
+              <section id="record-details" class="section-spacing">{%- include "invenio_app_rdm/records/details/details.html" %}</section>
+            {%- endblock record_details -%}
+
+            {# Record footer #}
+            {%- block record_footer -%}
+            {%- endblock record_footer -%}
+
+          {%- endblock record_body %}
+        </article>
+
+        {# Sidebar #}
+        <div class="sixteen wide tablet five wide computer column sidebar">
+          {% block record_sidebar %}
+            {%- include "invenio_app_rdm/records/details/side_bar.html" %}
+          {% endblock record_sidebar %}
         </div>
-        {%- endblock jump -%}
-        {%- endblock record_body %}
-      </article>
-      <div class="five wide column">
-        {% block record_sidebar %}
-        {%- include "invenio_app_rdm/records/details/side_bar.html" %}
-        {% endblock record_sidebar %}
       </div>
     </div>
+
+    {# Jump up button #}
+    <div class="ui relaxed grid">
+      <div class="two column row top-padded">
+        <div class="sixteen wide tablet eleven wide computer column">
+          {%- block jump -%}
+            <div class="ui grid">
+              <div class="centered row" id="jump-btn">
+                <a style="cursor: pointer;">
+                  <span class="ui button">
+                    <i class="arrow alternate circle up outline icon"></i>{{_ ("Jump up")}}</span>
+                </a>
+              </div>
+            </div>
+            {%- endblock jump -%}
+        </div>
+      </div>
+    </div>
+
   </div>
-</div>
 
 {%- endblock page_body %}
 

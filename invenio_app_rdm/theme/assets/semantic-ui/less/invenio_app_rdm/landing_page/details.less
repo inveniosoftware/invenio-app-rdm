@@ -1,12 +1,37 @@
+.ui.top.attached.menu {
+
+  @media screen and (max-width: @computerBreakpoint) {
+    flex-wrap: wrap;
+  }
+
+  &:not(.tabular) {
+    @media screen and (max-width: @computerBreakpoint) {
+      border-bottom: 0px;
+    }
+  }
+
+  .item {
+    flex: 1 0 auto;
+
+    @media screen and (max-width: @computerBreakpoint) {
+      border-bottom: 1px solid #D4D4D5;
+      font-weight: bold;
+    }
+  }
+}
 
 .ui.tab.segment {
-    padding: 1.5rem 1rem;
-    
-    h3.ui.tiny.header {
-        margin-bottom: 0.5rem;
-    }
+  padding: 1.5rem 1rem;
 
-    dl.details-list {
-        margin-top: 0rem;
-    }
+  h3.ui.tiny.header {
+    margin-bottom: 0.5rem;
+  }
+
+  dl.details-list {
+    margin-top: 0rem;
+  }
+}
+
+.language {
+  font-weight: normal;
 }

@@ -16,7 +16,7 @@
     {%- set preview_url = url_for(preview_endpoint, pid_value=pid_value, filename=filename) -%}
   {% endif %}
   <iframe
-    title="{{_("Preview")}}" 
+    title="{{_('Preview')}}"
     class="preview-iframe"
     id="{{id}}"
     name="{{id}}"
@@ -51,7 +51,7 @@
       <tr>
         <th>{{_('Name')}}</th>
         <th>{{_('Size')}}</th>
-        <th></th>
+        <th class="hidden">{{_('Actions')}}</th>
       </tr>
     </thead>
     <tbody>

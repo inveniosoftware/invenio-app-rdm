@@ -11,8 +11,9 @@
 
 {% set description = metadata.get('description') %}
 {% if description %}
+<h2>{{ _('Description') }}</h2>
 {# description data is being sanitized by marshmallow in the backend #}
-<p>{{ description | safe }}</p>
+{{ description | safe }}
 {% endif %}
 
 {{ show_add_descriptions(record.ui.additional_descriptions) if record.ui.additional_descriptions }}

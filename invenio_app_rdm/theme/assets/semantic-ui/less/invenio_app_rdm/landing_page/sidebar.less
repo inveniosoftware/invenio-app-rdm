@@ -1,11 +1,35 @@
+.sixteen.wide.tablet.five.wide.computer.column.sidebar {
+  @media screen and (max-width: @computerBreakpoint) {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+}
 
 .ui.segment.rdm-sidebar {
 
-    .thin-line:not(:nth-child(2)) {
-        border-bottom: 1px solid rgba(0,0,0,0.045);
-    }
+  @media screen and (max-width: @computerBreakpoint) {
+    box-shadow: none;
+    flex-basis: calc(50% - 0.5rem);
+    margin-top: 0rem;
+    margin-bottom: 1rem;
 
-    h2.ui.small.header {
-        margin-bottom: 0.5rem;
+    &:first-child,
+    &:last-child {
+      margin-top: 0rem;
+      margin-bottom: 1rem;
     }
+  }
+
+  @media screen and (max-width: @tabletBreakpoint) {
+    flex-basis: 100%;
+  }
+
+  .thin-line:not(:nth-child(2)) {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.045);
+  }
+
+  h2.ui.small.header {
+    margin-bottom: 0.5rem;
+  }
 }
