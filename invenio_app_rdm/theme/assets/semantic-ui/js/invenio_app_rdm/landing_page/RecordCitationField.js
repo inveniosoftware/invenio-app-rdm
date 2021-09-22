@@ -83,7 +83,7 @@ export class RecordCitationField extends Component {
         loading: false,
         citation: response.data
       });
-    } 
+    }
     catch (error) {
       if (error !== "UNMOUNTED") {
         this.setState({
@@ -111,7 +111,7 @@ export class RecordCitationField extends Component {
       <Grid id="record-citation">
         <Grid.Row verticalAlign="middle" className="relaxed">
           <Grid.Column mobile={8} tablet={8} computer={12} className="no-padding">
-            <Header as="h2">{i18next.t("Citation")}</Header>
+            <h2>{i18next.t("Citation")}</h2>
           </Grid.Column>
 
           <Grid.Column mobile={8} tablet={8} computer={4} className="no-padding" textAlign="right">

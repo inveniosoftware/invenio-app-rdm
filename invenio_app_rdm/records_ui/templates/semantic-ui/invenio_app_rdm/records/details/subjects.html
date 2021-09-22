@@ -13,6 +13,7 @@
   {% set keywords = subjects|rejectattr("scheme")|list %}
   {% if keywords %}
   <dl class="details-list">
+    <dt class="hidden">Keywords</dt>
     {%- for subject in keywords %}
       <dd class="subject">{{ subject.subject}}</dd>
     {%- endfor %}
