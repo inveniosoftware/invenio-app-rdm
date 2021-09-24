@@ -282,6 +282,11 @@ export class RDMDepositForm extends Component {
                     }}
                   />
                   <SubjectsField
+                    initialOptions={_get(
+                      this.props.record,
+                      "ui.subjects",
+                      null
+                    )}
                     limitToOptions={
                       this.vocabularies.metadata.subjects.limit_to
                     }
