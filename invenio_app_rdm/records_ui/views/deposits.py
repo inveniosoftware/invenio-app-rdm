@@ -8,6 +8,7 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """Routes for record-related pages provided by Invenio-App-RDM."""
+from copy import deepcopy
 from elasticsearch_dsl import Q
 from flask import current_app, render_template
 from flask_babelex import lazy_gettext as _
@@ -38,20 +39,12 @@ def get_form_pids_config():
     for scheme, providers in service.config.pids_providers.items():
         can_be_managed = False
         can_be_unmanaged = False
-        provider_enabled = False
-        for name, provider_attrs in providers.items():
-            is_enabled = provider_attrs.get("enabled", True)
-            if not provider_enabled and is_enabled:
-                provider_enabled = True
-
-            if provider_attrs["system_managed"]:
-                can_be_managed = True
-            else:
-                can_be_unmanaged = True
-
-        # all providers disabled for this scheme
-        if not provider_enabled:
-            continue
+        # TODO: compute the manageability of a pid according to the
+        # <provider>.is_managed() property when we support multiple pid
+        # providers
+        if scheme == "doi":
+            can_be_managed = True
+            can_be_unmanaged = True
 
         record_pid_config = current_app.config[
             "RDM_RECORDS_RECORD_PID_SCHEMES"]
