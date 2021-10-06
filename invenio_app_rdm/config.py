@@ -265,9 +265,13 @@ CELERY_BEAT_SCHEDULE = {
     #     'task': 'invenio_indexer.tasks.process_bulk_queue',
     #     'schedule': timedelta(minutes=5),
     # },
-    'accounts': {
+    'accounts_sessions': {
         'task': 'invenio_accounts.tasks.clean_session_table',
         'schedule': timedelta(minutes=60),
+    },
+    'accounts_ips': {
+        'task': 'invenio_accounts.tasks.delete_ips',
+        'schedule': timedelta(hours=6),
     },
     'draft_resources': {
         'task': (
