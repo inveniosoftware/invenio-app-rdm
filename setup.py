@@ -51,7 +51,7 @@ extras_require = {
     ],
     # Extras
     'docs': [
-        'Sphinx>=3,<3.4.2',
+        'Sphinx==4.2.0',
     ],
     'tests': tests_require,
 }
