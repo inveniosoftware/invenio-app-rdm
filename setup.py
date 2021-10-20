@@ -15,7 +15,7 @@ from setuptools import find_packages, setup
 
 readme = open('README.rst').read()
 
-invenio_version = '~=3.5.0a2'
+invenio_version = '~=3.5.0a3'
 invenio_search_version = '>=1.4.2,<1.5.0'
 invenio_db_version = '>=1.0.9,<1.1.0'
 
@@ -47,7 +47,7 @@ extras_require = {
     ],
     # Storage plugins
     's3': [
-        'invenio-s3~=1.0.2'
+        'invenio-s3~=1.0.5'
     ],
     # Extras
     'docs': [
@@ -66,9 +66,9 @@ for name, reqs in extras_require.items():
 install_requires = [
     'CairoSVG>=2.5.2,<3.0.0',
     f'invenio[base,auth,metadata,files]{invenio_version}',
-    'invenio-communities>=2.6.0.dev0,<2.7.0',
+    'invenio-communities>=2.6.0.dev1,<2.7.0',
     'invenio-logging[sentry-sdk]>=1.3.0,<1.4.0',
-    'invenio-rdm-records>=0.33.0,<0.34.0',
+    'invenio-rdm-records>=0.33.2,<0.34.0',
 ]
 
 packages = find_packages()
