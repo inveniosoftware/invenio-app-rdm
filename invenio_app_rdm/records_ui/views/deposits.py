@@ -71,7 +71,7 @@ def get_form_pids_config():
                                    "field blank to have one automatically "
                                    "assigned when publishing.")
             .format(scheme_label=scheme_label),
-            "unmanaged_help_text": _("Copy and paste here your {scheme_label}")
+            "unmanaged_help_text": _("Copy and paste here your {scheme_label}.")  # noqa
             .format(scheme_label=scheme_label),
         }
         pids_providers.append(pids_provider)
