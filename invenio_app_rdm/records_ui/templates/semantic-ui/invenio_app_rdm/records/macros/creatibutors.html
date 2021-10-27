@@ -13,12 +13,12 @@
 {%- if scheme == "orcid" %}
 {% set identifier_found.value = True %}
 <a href="{{ identifier[0]['identifier']|pid_url('orcid') }}">
-  <img class="inline-orcid inline-orcid-icon" src="{{ url_for('static', filename='images/orcid.svg') }}" />
+  <img class="inline-id-icon" src="{{ url_for('static', filename='images/orcid.svg') }}" />
 </a>
 {%- elif scheme == "ror" %}
 {% set identifier_found.value = True %}
 <a href="{{ identifier[0]['identifier']|pid_url('ror') }}">
-  <i class="building outline icon"></i>
+  <img class="inline-id-icon" src="{{ url_for('static', filename='images/ror-icon.svg') }}" />
 </a>
 {%- endif %}
 {% endfor %}
@@ -53,7 +53,7 @@
   {% for affiliation in affiliations %}
       {{ affiliation[0] }}.
       {%- if affiliation[2] %}
-        <a href="https://ror.org/{{affiliation[2]}}"><img class="inline-orcid inline-orcid-icon" src="{{ url_for('static', filename='images/ror-icon.svg') }}"/></a>
+        <a href="https://ror.org/{{affiliation[2]}}"><img class="inline-id-icon" src="{{ url_for('static', filename='images/ror-icon.svg') }}"/></a>
       {%- endif %}
       {{affiliation[1]}}
     <br />

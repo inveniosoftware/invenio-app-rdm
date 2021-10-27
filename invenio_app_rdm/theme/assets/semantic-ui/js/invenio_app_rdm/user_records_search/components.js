@@ -36,7 +36,8 @@ import {
   SearchAppResultsPane,
 } from "@js/invenio_search_ui/components";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
-import { axiosWithconfig } from "../utils";
+import { axiosWithconfig, SearchItemCreators } from "../utils";
+
 
 const DeleteDraftButton = (props) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -262,17 +263,7 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
         </Item.Extra>
         <Item.Header href={viewLink}>{title}</Item.Header>
         <Item.Meta>
-          {creators.map((creator, index) => (
-            <span key={index}>
-              {_get(creator, "person_or_org.identifiers", []).some(
-                (identifier) => identifier.scheme === "orcid"
-              ) && (
-                <img className="inline-orcid" src="/static/images/orcid.svg" />
-              )}
-              {_get(creator, "person_or_org.name", "No name")}
-              {index < creators.length - 1 && ","}
-            </span>
-          ))}
+          <SearchItemCreators creators={creators} />
         </Item.Meta>
         <Item.Description>
           {_truncate(description_stripped, {
