@@ -159,6 +159,7 @@ export const RDMRecordSearchBarElement = ({
         icon: "search",
         onClick: onBtnSearchClick,
         className: "search",
+        'aria-label': "Search"
       }}
       fluid
       placeholder={placeholder}
