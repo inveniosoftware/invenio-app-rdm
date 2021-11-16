@@ -13,12 +13,12 @@
 {%- if scheme == "orcid" %}
 {% set identifier_found.value = True %}
 <a href="{{ identifier[0]['identifier']|pid_url('orcid') }}">
-  <img class="inline-id-icon" src="{{ url_for('static', filename='images/orcid.svg') }}" />
+  <img alt="" class="inline-id-icon" src="{{ url_for('static', filename='images/orcid.svg') }}" />
 </a>
 {%- elif scheme == "ror" %}
 {% set identifier_found.value = True %}
 <a href="{{ identifier[0]['identifier']|pid_url('ror') }}">
-  <img class="inline-id-icon" src="{{ url_for('static', filename='images/ror-icon.svg') }}" />
+  <img alt=""  class="inline-id-icon" src="{{ url_for('static', filename='images/ror-icon.svg') }}" />
 </a>
 {%- endif %}
 {% endfor %}
