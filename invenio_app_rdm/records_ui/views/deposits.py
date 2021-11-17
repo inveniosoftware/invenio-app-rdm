@@ -8,7 +8,6 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """Routes for record-related pages provided by Invenio-App-RDM."""
-from copy import deepcopy
 from elasticsearch_dsl import Q
 from flask import current_app, render_template
 from flask_babelex import lazy_gettext as _
@@ -33,23 +32,21 @@ from .filters import get_scheme_label
 # Helpers
 #
 def get_form_pids_config():
-    """Prepare configuration for the pids field."""
+    """Prepare configuration for the pids field.
+
+    Currently supporting only doi.
+    """
     service = current_rdm_records.records_service
     pids_providers = []
-    for scheme, providers in service.config.pids_providers.items():
-        can_be_managed = False
-        can_be_unmanaged = False
-        # TODO: compute the manageability of a pid according to the
-        # <provider>.is_managed() property when we support multiple pid
-        # providers
-        if scheme == "doi":
-            can_be_managed = True
-            can_be_unmanaged = True
-
+    # FIXME: User provider.is_managed() requires tiny fix in config
+    can_be_managed = True
+    can_be_unmanaged = True
+    for scheme in service.config.pids_providers.keys():
+        if not scheme == "doi":
+            continue
         record_pid_config = current_app.config[
             "RDM_RECORDS_RECORD_PID_SCHEMES"]
         scheme_label = record_pid_config.get(scheme, {}).get("label", scheme)
-
         pids_provider = {
             "scheme": scheme,
             "pid_label": scheme_label,
@@ -64,10 +61,14 @@ def get_form_pids_config():
                                    "field blank to have one automatically "
                                    "assigned when publishing.")
             .format(scheme_label=scheme_label),
-            "unmanaged_help_text": _("Copy and paste here your {scheme_label}.")  # noqa
+            "unmanaged_help_text": _("Copy and paste here your {scheme_label} "
+                                     "or leave this field blank to have one "
+                                     "automatically assigned when publishing."
+                                    )
             .format(scheme_label=scheme_label),
         }
         pids_providers.append(pids_provider)
+
     return pids_providers
 
 
