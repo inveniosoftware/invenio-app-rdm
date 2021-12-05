@@ -3,3 +3,4 @@
 *******************************/
 
 @import "@less/invenio_theme/theme/collections/message.variables";
+@infoTextColor: #0e576c;
