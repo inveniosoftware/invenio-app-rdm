@@ -11,7 +11,7 @@
   {%- for group in record.ui.contributors.contributors|groupby('role.title')%}
   <div class="ui accordion creatibutors">
     <div class="title">
-      <h4><b>{{group.grouper}}(s)</b></h4>
+      <h2 class="header">{{group.grouper}}(s)</h2>
       {{ show_creatibutors(group.list, show_affiliations=True) }}
       {% if record.ui.contributors.affiliations %}
       <a style="cursor: pointer;" class="dropdown">

@@ -9,5 +9,6 @@
 {% set description = metadata.get('description') %}
 {% if description %}
 {# description data is being sanitized by marshmallow in the backend #}
-{{ description | safe }}
+<h2 class="ui header">{{ _('Description')}}</h2>
+<div>{{ description | safe }}</div>
 {% endif %}

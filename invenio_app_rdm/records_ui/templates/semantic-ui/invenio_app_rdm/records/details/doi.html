@@ -6,10 +6,10 @@
   it under the terms of the MIT License; see LICENSE file for more details.
 #}
 
-{%- set id_doi = record.pids.get('doi', {}).get('identifier') %}
-{% if id_doi %}
-<dt><b>{{_('DOI')}}</b></dt>
-<dd class="top-bottom-padded">
+{%- set id_doi = record.pids.get('doi', {}).get('identifier') -%}
+{%- if id_doi %}
+<h2 class="ui header">{{ _('DOI')}}</h2>
+<div class="top-bottom-padded">
   <span class="get-badge" data-toggle="tooltip" data-placement="bottom" style="cursor: pointer;"
     title="{{ _("Get the DOI badge!") }}">
     <img id="record-doi-badge" data-target="[data-modal='{{ id_doi }}']"
@@ -29,5 +29,5 @@
       {{ badges_formats_list(url_for('invenio_formatter_badges.badge', title='DOI', value=id_doi, ext='svg', _external=True, _scheme='https'), id_doi|pid_url(scheme='doi')) }}
     </div>
   </div>
-</dd>
-{% endif %}
+</div>
+{%- endif -%}

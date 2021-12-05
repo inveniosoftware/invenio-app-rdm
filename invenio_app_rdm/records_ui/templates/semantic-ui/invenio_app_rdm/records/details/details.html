@@ -11,9 +11,8 @@
   list_sizes, show_add_descriptions, show_add_titles, show_dates, show_detail, show_funding,
   show_references, show_alternate_identifiers, show_related_identifiers %}
 
-<dt><b>{{ _('Details')}}</b></dt>
-<hr class="thin-line"></hr>
-<dd class="top-bottom-padded">
+<h2 class="ui header">{{ _('Details')}}</h2>
+<div class="top-bottom-padded">
   {{ show_detail(_('Resource type'), record.ui.resource_type.title_l10n) if record.ui.resource_type }}
   {{ show_detail(_('Publication date'), record.ui.publication_date_l10n) if record.ui.publication_date_l10n }}
   {{ show_detail(_('Publisher'), metadata.publisher) if metadata.publisher }}
@@ -27,5 +26,4 @@
   {{ show_detail(_('Alternate identifiers'), show_alternate_identifiers(metadata.identifiers)) if metadata.identifiers }}
   {{ show_detail(_('Related works'), show_related_identifiers(record.ui.related_identifiers)) if record.ui.related_identifiers }}
   {{ show_detail(_('References'), show_references(metadata.references)) if metadata.references }}
-</dd>
-<hr class="thin-line"></hr>
+</div>

@@ -9,8 +9,8 @@
 
 {% set rights = record.ui.get('rights') %}
 {% if rights %}
-<dt><b>{{ _('Licenses')}}</b></dt>
-<dd>
+<h2 class="ui header">{{ _('Licenses')}}</h2>
+<div>
   {%- for right in rights%}
   <div class="content">
     <div class="header">
@@ -33,7 +33,6 @@
       {% endif %}
     </div>
   </div>
-  <br>
   {% endfor %}
-</dd>
+</div>
 {% endif %}
