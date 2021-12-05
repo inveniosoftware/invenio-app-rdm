@@ -35,7 +35,6 @@ from celery.schedules import crontab
 from flask_principal import Denial
 from invenio_access.permissions import any_user
 
-
 # TODO: Remove when records-rest is out of communities and files
 RECORDS_REST_ENDPOINTS = {}
 RECORDS_UI_ENDPOINTS = {}
