@@ -66,7 +66,7 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
   // Derivatives
   const viewLink = `/records/${result.id}`;
   return (
-    <Item key={index} href={viewLink}>
+    <Item key={index}>
       <Item.Content>
         <Item.Extra className="labels-actions">
           <Label size="tiny" color="blue">
@@ -81,13 +81,9 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
             )}
             {access_status}
           </Label>
-          <Button compact size="small" floated="right">
-            <Icon name="eye" />
-            {i18next.t("View")}
-          </Button>
         </Item.Extra>
-        <Item.Header>{title}</Item.Header>
-        <Item.Meta>
+        <Item.Header as='h2'><a href={viewLink}>{title}</a></Item.Header>
+        <Item.Meta className="creatibutors">
           <SearchItemCreators creators={creators} />
         </Item.Meta>
         <Item.Description>

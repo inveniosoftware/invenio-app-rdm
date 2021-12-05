@@ -261,8 +261,8 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
             <DeleteDraftButton record={result} />
           )}
         </Item.Extra>
-        <Item.Header href={viewLink}>{title}</Item.Header>
-        <Item.Meta>
+        <Item.Header as='h2'><a href={viewLink}>{title}</a></Item.Header>
+        <Item.Meta className="creatibutors">
           <SearchItemCreators creators={creators} />
         </Item.Meta>
         <Item.Description>
