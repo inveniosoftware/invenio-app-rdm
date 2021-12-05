@@ -188,6 +188,7 @@ export class RDMDepositForm extends Component {
                         canBeManaged={pid.can_be_managed}
                         canBeUnmanaged={pid.can_be_unmanaged}
                         fieldPath={`pids.${pid.scheme}`}
+                        fieldLabel={pid.field_label}
                         isEditingPublishedRecord={
                           this.props.record.is_published === true // is_published is `null` at first upload
                         }
@@ -196,6 +197,7 @@ export class RDMDepositForm extends Component {
                         pidPlaceholder={pid.pid_placeholder}
                         pidType={pid.scheme}
                         unmanagedHelpText={pid.unmanaged_help_text}
+                        required
                       />
                       <Divider />
                     </Fragment>
