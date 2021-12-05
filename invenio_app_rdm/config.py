@@ -35,12 +35,6 @@ from celery.schedules import crontab
 from flask_principal import Denial
 from invenio_access.permissions import any_user
 
-# PIDSTORE_RECID_FIELD
-# RECORDS_PERMISSIONS_RECORD_POLICY
-# RECORDS_REST_DEFAULT_SORT
-# RECORDS_REST_FACETS
-# RECORDS_REST_SORT_OPTIONS
-
 # TODO: Remove when records-rest is out of communities and files
 RECORDS_REST_ENDPOINTS = {}
 RECORDS_UI_ENDPOINTS = {}
@@ -88,6 +82,10 @@ SESSION_COOKIE_SAMESITE = "Lax"
 RATELIMIT_STORAGE_URL = "redis://localhost:6379/3"
 """Storage for ratelimiter."""
 
+# Increase defaults
+RATELIMIT_AUTHENTICATED_USER = "25000 per hour;1000 per minute"
+
+RATELIMIT_GUEST_USER = "5000 per hour;500 per minute"
 
 # Flask-Babel
 # ===========
@@ -199,8 +197,6 @@ PREVIEWER_PREFERENCE = [
     'txt',
 ]
 """Preferred previewers."""
-
-# PREVIEWER_RECORD_FILE_FACOTRY = previewer_record_file_factory
 
 # Invenio-Formatter
 # =================
