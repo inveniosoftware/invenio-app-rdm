@@ -1,0 +1,19 @@
+/*******************************
+         Theme Overrides
+*******************************/
+.ui.items > .item > .content > .header {
+  display: block;
+  a {
+    display: inline-block;
+    padding: .5rem 0 .1rem;
+    &:hover, &:focus {
+        text-decoration: underline;
+    }
+  }
+}
+.ui.items > .item .extra {
+    color:#666666;
+}
+.ui.items > .item .meta * {
+    margin-right: 0.1em;
+}
