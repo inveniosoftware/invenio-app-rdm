@@ -10,6 +10,4 @@
 Changes
 =======
 
-Version 1.0.0 (released 2021-02-26)
-
-- Initial public release.
+Version 7.0.0 (released 2021-12-06)
