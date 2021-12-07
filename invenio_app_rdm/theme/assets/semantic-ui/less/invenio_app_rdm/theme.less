@@ -1,6 +1,7 @@
 /*
  *   Copyright (C) 2019-2020 CERN.
  *   Copyright (C) 2019-2020 Northwestern University.
+ *   Copyright (C) 2021 New York University.
  *
  * Invenio App RDM is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
@@ -42,7 +43,7 @@ body {
   }
 
   a {
-    color: #dbeaff;
+    color: #f0f6ff;
   }
 }
 
@@ -101,7 +102,7 @@ body {
 .section-content-light-bg a,
 .hp-blog-section a {
   text-decoration: none;
-  color: #0377cdb5;
+  color: #0267b2;
   font-weight: 600;
 }
 
@@ -416,9 +417,11 @@ body {
   }
 }
 
+#details {
+  margin-top: 2rem;
+}
 #record-citation {
-  margin: 0px;
-
+  margin: -1rem 0 0 0;
   label {
     font-weight: 700;
   }
@@ -458,7 +461,20 @@ body {
         border: 2px solid rgba(119, 119, 119, 0.56);
         border-radius: 4px;
         padding: 3.5px;
+        display: inline-block;
       }
     }
+  }
+}
+.ui.items > .item .creatibutors, .creatibutors {
+  .header {
+    margin: 1rem auto .5rem;
+    font-size: 1.1rem;
+  }
+ span {
+    margin-right:.5rem;
+  }
+  a {
+    color: #646464;
   }
 }

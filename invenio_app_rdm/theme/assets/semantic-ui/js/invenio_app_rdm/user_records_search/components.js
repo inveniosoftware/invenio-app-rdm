@@ -2,6 +2,7 @@
 // Copyright (C) 2020-2021 CERN.
 // Copyright (C) 2020-2021 Northwestern University.
 // Copyright (C) 2021 Graz University of Technology.
+// Copyright (C) 2021 New York University.
 //
 // Invenio App RDM is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
@@ -261,8 +262,8 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
             <DeleteDraftButton record={result} />
           )}
         </Item.Extra>
-        <Item.Header href={viewLink}>{title}</Item.Header>
-        <Item.Meta>
+        <Item.Header as='h2'><a href={viewLink}>{title}</a></Item.Header>
+        <Item.Meta className="creatibutors">
           <SearchItemCreators creators={creators} />
         </Item.Meta>
         <Item.Description>
