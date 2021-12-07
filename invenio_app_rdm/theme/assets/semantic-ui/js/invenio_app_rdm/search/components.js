@@ -294,6 +294,8 @@ export const RDMToggleComponent = ({
         <Checkbox
           toggle
           label={label}
+          name="versions-toggle"
+          id="versions-toggle"
           onClick={onToggleClicked}
           checked={isChecked}
         />
