@@ -51,7 +51,7 @@ if (recordCitationAppDiv) {
 
 $(".ui.accordion").accordion({
   selector: {
-    trigger: '.title .dropdown'
+    trigger: '.title'
   }
 });
 
