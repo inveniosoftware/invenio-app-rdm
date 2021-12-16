@@ -57,4 +57,4 @@ def record(running_app, minimal_record):
     """Create and publish a record."""
     s = current_rdm_records.records_service
     draft = s.create(system_identity, minimal_record)
-    return s.publish(draft.id, system_identity)
+    return s.publish(system_identity, draft.id)
