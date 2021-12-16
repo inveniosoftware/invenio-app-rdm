@@ -82,8 +82,8 @@ def pass_record_from_pid(f):
         pid_value = kwargs.get('pid_value')
 
         record = service().pids.resolve(
-            pid_value,
             g.identity,
+            pid_value,
             scheme,
         )
 
@@ -193,7 +193,6 @@ def pass_record_files(f):
             return files_service().list_files(
                 id_=pid_value, identity=g.identity
             )
-            return service().read(id_=pid_value, identity=g.identity)
 
         try:
             pid_value = kwargs.get('pid_value')
