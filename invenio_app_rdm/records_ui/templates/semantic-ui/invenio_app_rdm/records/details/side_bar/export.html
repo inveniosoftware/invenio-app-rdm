@@ -9,7 +9,7 @@
 
 {%- if config.get("APP_RDM_RECORD_EXPORTERS") -%}
 {# if no export formats are specified, don't bother showing the box #}
-<div class="ui segment rdm-sidebar exports">
+<dl class="ui segment rdm-sidebar exports">
   <dt><b>{{ _('Export')}}</b></dt>
   <hr class="thin-line">
   </hr>
@@ -27,5 +27,5 @@
       {%- endfor -%}
     </div>
   </dd>
-</div>
+</dl>
 {%- endif -%}
