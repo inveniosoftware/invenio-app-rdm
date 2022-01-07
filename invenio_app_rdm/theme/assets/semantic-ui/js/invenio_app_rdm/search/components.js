@@ -232,7 +232,7 @@ const SearchHelpLinks = () => {
 
 export const RDMRecordFacets = ({ aggs, currentResultsState }) => {
   return (
-    <>
+    <aside aria-label={i18next.t("filters")} id="search-filters">
       <Toggle
         title={i18next.t("Versions")}
         label={i18next.t("View all versions")}
@@ -246,7 +246,7 @@ export const RDMRecordFacets = ({ aggs, currentResultsState }) => {
         );
       })}
       <SearchHelpLinks />
-    </>
+    </aside>
   );
 };
 
