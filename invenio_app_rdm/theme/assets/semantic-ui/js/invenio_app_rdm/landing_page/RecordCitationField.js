@@ -89,7 +89,7 @@ export class RecordCitationField extends Component {
         this.setState({
           loading: false,
           citation: "",
-          error: i18next.t("An error ocurred while generating the citation."),
+          error: i18next.t("An error occurred while generating the citation."),
         });
       }
     }
