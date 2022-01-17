@@ -187,7 +187,11 @@ export const RDMRecordFacetsValues = ({
         } ${isActive ? "active" : ""}`}
       >
         <List.Content className="facet-count">
-          <Label circular>{bucket.doc_count}</Label>
+          <Label circular
+            id={`${keyField}-count`}
+          >
+            {bucket.doc_count}
+          </Label>
         </List.Content>
         {hasChildren ? (
           <i
@@ -198,6 +202,7 @@ export const RDMRecordFacetsValues = ({
         <Checkbox
           label={bucket.label || keyField}
           id={`${keyField}-facet-checkbox`}
+          aria-describedby={`${keyField}-count`}
           value={keyField}
           onClick={() => onFilterClicked(keyField)}
           checked={isSelected}
