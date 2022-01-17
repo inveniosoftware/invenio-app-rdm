@@ -197,6 +197,7 @@ export const RDMRecordFacetsValues = ({
         ) : null}
         <Checkbox
           label={bucket.label || keyField}
+          id={`${keyField}-facet-checkbox`}
           value={keyField}
           onClick={() => onFilterClicked(keyField)}
           checked={isSelected}
