@@ -15,5 +15,7 @@
 {%- endblock javascript %}
 
 {%- block page_body %}
+<main id="main">
 <div data-invenio-search-config='{{ search_drafts_app_config(app_id="deposit-search") | tojson }}'></div>
+</main>
 {%- endblock page_body %}
