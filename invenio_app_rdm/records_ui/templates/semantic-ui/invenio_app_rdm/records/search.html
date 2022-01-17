@@ -14,5 +14,7 @@
 {%- endblock %}
 
 {%- block page_body %}
+<main id="main">
 <div data-invenio-search-config='{{ search_app_config(app_id="rdm-search") | tojson }}'></div>
+</main>
 {%- endblock page_body %}
