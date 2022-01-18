@@ -15,7 +15,6 @@
 {%- extends config.BASE_TEMPLATE %}
 
 {%- block page_body %}
-<main id="main">
   {%- if record %}
   <input id="deposits-record" type="hidden" name="deposits-record" value='{{record | tojson }}'></input>
   {%- endif %}
@@ -29,7 +28,6 @@
   <input id="deposits-record-permissions" type="hidden" name="deposits-record-permissions" value='{{permissions | tojson }}'></input>
   {%- endif %}
   <div id="deposit-form"></div>
-</main>
 {%- endblock page_body %}
 
 {%- block javascript %}
