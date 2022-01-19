@@ -34,6 +34,14 @@ from datetime import datetime, timedelta
 from celery.schedules import crontab
 from flask_principal import Denial
 from invenio_access.permissions import any_user
+from invenio_vocabularies.config import VOCABULARIES_DATASTREAM_READERS, \
+    VOCABULARIES_DATASTREAM_TRANSFORMERS, VOCABULARIES_DATASTREAM_WRITERS
+from invenio_vocabularies.contrib.names.datastreams import \
+    VOCABULARIES_DATASTREAM_READERS as NAMES_READERS
+from invenio_vocabularies.contrib.names.datastreams import \
+    VOCABULARIES_DATASTREAM_TRANSFORMERS as NAMES_TRANSFORMERS
+from invenio_vocabularies.contrib.names.datastreams import \
+    VOCABULARIES_DATASTREAM_WRITERS as NAMES_WRITERS
 
 # TODO: Remove when records-rest is out of communities and files
 RECORDS_REST_ENDPOINTS = {}
@@ -493,6 +501,27 @@ REST_CSRF_ENABLED = True
 # TODO: remove when https://github.com/inveniosoftware/invenio-rest/issues/125
 # is solved
 CSRF_HEADER = "X-CSRFToken"
+
+# Invenio-Vocabularies
+# =============
+
+VOCABULARIES_DATASTREAM_READERS = {
+    **VOCABULARIES_DATASTREAM_READERS,
+    **NAMES_READERS,
+}
+"""Data Streams readers."""
+
+VOCABULARIES_DATASTREAM_TRANSFORMERS = {
+    **VOCABULARIES_DATASTREAM_TRANSFORMERS,
+    **NAMES_TRANSFORMERS,
+}
+"""Data Streams transformers."""
+
+VOCABULARIES_DATASTREAM_WRITERS = {
+    **VOCABULARIES_DATASTREAM_WRITERS,
+    **NAMES_WRITERS,
+}
+"""Data Streams writers."""
 
 # Invenio-APP-RDM
 # ===============
