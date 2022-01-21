@@ -31,7 +31,6 @@ import { SearchBar } from "@js/invenio_search_ui/components";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import { SearchItemCreators } from "../utils";
 
-
 export const RDMRecordResultsListItem = ({ result, index }) => {
   const access_status_id = _get(result, "ui.access_status.id", "open");
   const access_status = _get(result, "ui.access_status.title_l10n", "Open");
@@ -82,7 +81,9 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
             {access_status}
           </Label>
         </Item.Extra>
-        <Item.Header as='h2'><a href={viewLink}>{title}</a></Item.Header>
+        <Item.Header as="h2">
+          <a href={viewLink}>{title}</a>
+        </Item.Header>
         <Item.Meta className="creatibutors">
           <SearchItemCreators creators={creators} />
         </Item.Meta>
@@ -156,7 +157,7 @@ export const RDMRecordSearchBarElement = ({
         icon: "search",
         onClick: onBtnSearchClick,
         className: "search",
-        'aria-label': "Search"
+        "aria-label": "Search",
       }}
       fluid
       placeholder={placeholder}
@@ -187,9 +188,7 @@ export const RDMRecordFacetsValues = ({
         } ${isActive ? "active" : ""}`}
       >
         <List.Content className="facet-count">
-          <Label circular
-            id={`${keyField}-count`}
-          >
+          <Label circular id={`${keyField}-count`}>
             {bucket.doc_count}
           </Label>
         </List.Content>
@@ -215,7 +214,7 @@ export const RDMRecordFacetsValues = ({
   );
 };
 
-const SearchHelpLinks = () => {
+export const SearchHelpLinks = () => {
   return (
     <Overridable id={"RdmSearch.SearchHelpLinks"}>
       <Grid className="padded-small">
