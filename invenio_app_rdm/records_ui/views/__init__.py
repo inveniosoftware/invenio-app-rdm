@@ -15,7 +15,7 @@ from invenio_pidstore.errors import PIDDeletedError, PIDDoesNotExistError, \
 from invenio_records_resources.services.errors import PermissionDeniedError
 
 from ..searchapp import search_app_context
-from .deposits import deposit_create, deposit_edit, deposit_search
+from .deposits import deposit_create, deposit_edit, dashboard
 from .filters import can_list_files, get_scheme_label, has_previewable_files, \
     make_files_preview_compatible, order_entries, pid_url, \
     select_preview_file, to_previewer_files
@@ -75,8 +75,12 @@ def create_blueprint(app):
 
     # Deposit URL rules
     blueprint.add_url_rule(
-        routes["deposit_search"],
-        view_func=deposit_search,
+        routes["dashboard_home"],
+        view_func=dashboard,
+    )
+    blueprint.add_url_rule(
+        routes["dashboard_item"],
+        view_func=dashboard,
     )
 
     blueprint.add_url_rule(
