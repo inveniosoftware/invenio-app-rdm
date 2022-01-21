@@ -227,6 +227,12 @@ def search_app_context():
     return {
         'search_app_config': partial(
             search_app_config, 'RDM_SEARCH', '/api/records'),
-        'search_drafts_app_config': partial(
-            search_app_config, 'RDM_SEARCH_DRAFTS', '/api/user/records')
+        'search_app_user_uploads_config': partial(
+            search_app_config, 'RDM_SEARCH_DRAFTS', '/api/user/records'),
+        'search_app_user_communities_config': partial(
+            search_app_config, 'RDM_SEARCH_USER_COMMUNITIES', '/api/communities',
+                headers={"Accept": "application/json"}),
+        'search_drafts_user_requests_config': partial(
+            search_app_config, 'RDM_SEARCH_USER_REQUESTS', '/api/requests',
+            headers={"Accept": "application/json"})
     }
