@@ -24,8 +24,8 @@ theme = WebpackThemeBundle(
                     './js/invenio_app_rdm/deposit/index.js',
                 'invenio-app-rdm-search':
                     './js/invenio_app_rdm/search/index.js',
-                'invenio-app-rdm-user-records-search':
-                    './js/invenio_app_rdm/user_records_search/index.js',
+                'invenio-app-rdm-user-dashboard':
+                './js/invenio_app_rdm/user_dashboard/index.js',
             },
             dependencies={
                 # add any additional npm dependencies here...
