@@ -7,38 +7,36 @@
 // Invenio App RDM is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
 
-import React, { useState } from "react";
-import {
-  Icon,
-  Card,
-  Container,
-  Grid,
-  Label,
-  Modal,
-  Item,
-  Button,
-  Segment,
-  Header,
-  Divider,
-} from "semantic-ui-react";
-import _get from "lodash/get";
-import _truncate from "lodash/truncate";
-import {
-  Count,
-  EmptyResults,
-  Pagination,
-  ResultsList,
-  Sort,
-  SearchBar,
-  ResultsPerPage,
-} from "react-searchkit";
 import {
   SearchAppFacets,
   SearchAppResultsPane,
 } from "@js/invenio_search_ui/components";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
+import _get from "lodash/get";
+import _truncate from "lodash/truncate";
+import React, { useState } from "react";
+import {
+  Count,
+  Pagination,
+  ResultsList,
+  ResultsPerPage,
+  SearchBar,
+  Sort,
+} from "react-searchkit";
+import {
+  Button,
+  Card,
+  Container,
+  Divider,
+  Grid,
+  Header,
+  Icon,
+  Item,
+  Label,
+  Modal,
+  Segment,
+} from "semantic-ui-react";
 import { axiosWithconfig, SearchItemCreators } from "../utils";
-
 
 const DeleteDraftButton = (props) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -262,7 +260,9 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
             <DeleteDraftButton record={result} />
           )}
         </Item.Extra>
-        <Item.Header as='h2'><a href={viewLink}>{title}</a></Item.Header>
+        <Item.Header as="h2">
+          <a href={viewLink}>{title}</a>
+        </Item.Header>
         <Item.Meta className="creatibutors">
           <SearchItemCreators creators={creators} />
         </Item.Meta>

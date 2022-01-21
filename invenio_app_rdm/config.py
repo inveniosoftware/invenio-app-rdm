@@ -539,7 +539,8 @@ APP_RDM_ROUTES = {
     "record_file_download": "/records/<pid_value>/files/<path:filename>",
     "record_from_pid": "/<any({schemes}):pid_scheme>/<path:pid_value>",
     "record_latest": "/records/<pid_value>/latest",
-    "deposit_search": "/uploads",
+    "dashboard": "/dashboard",
+    "dashboard_specific": "/dashboard/<dashboard_name>",
     "deposit_create": "/uploads/new",
     "deposit_edit": "/uploads/<pid_value>",
 }
@@ -615,3 +616,16 @@ APP_RDM_DETAIL_SIDE_BAR_TEMPLATES = [
     "invenio_app_rdm/records/details/side_bar/export.html",
 ]
 """Template names for detail view sidebar components"""
+
+
+
+
+
+RDM_SEARCH_USER_DASHBOARD_COMMUNITIES = {
+    'facets': [],
+    'sort': ['bestmatch', 'newest', 'oldest'],
+}
+RDM_SEARCH_USER_DASHBOARD_REQUESTS = {
+    'facets': [],
+    'sort': ['bestmatch', 'newest', 'oldest'],
+}
