@@ -283,10 +283,13 @@ def new_record():
 # Views
 #
 @login_required
-def deposit_search():
-    """List of user deposits page."""
+# def dashboard(page_name=None):
+def dashboard():
+    """Display user dashboard page."""
     return render_template(
-        "invenio_app_rdm/records/search_deposit.html",
+        "invenio_app_rdm/records/dashboard.html",
+        page_name="uploads",
+        #page_name=page_name,
         searchbar_config=dict(searchUrl=get_search_url()),
     )
 

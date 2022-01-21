@@ -9,13 +9,6 @@
 
 import { createSearchAppInit } from "@js/invenio_search_ui";
 import {
-  RDMRecordResultsListItem,
-  RDMRecordResultsGridItem,
-  RDMDepositResults,
-  RDMEmptyResults,
-  RDMUserRecordsSearchLayout,
-} from "./components";
-import {
   RDMBucketAggregationElement,
   RDMCountComponent,
   RDMRecordFacets,
@@ -23,19 +16,30 @@ import {
   RDMRecordSearchBarElement,
   RDMToggleComponent,
 } from "../search/components";
+import {
+  RDMDepositResults,
+  RDMEmptyResults,
+  RDMRecordResultsGridItem,
+  RDMRecordResultsListItem,
+  RDMUserRecordsSearchLayout,
+} from "./components";
 
-const initSearchApp = createSearchAppInit({
-  "BucketAggregation.element": RDMBucketAggregationElement,
-  "BucketAggregationValues.element": RDMRecordFacetsValues,
-  "Count.element": RDMCountComponent,
-  "EmptyResults.element": RDMEmptyResults,
-  "ResultsList.item": RDMRecordResultsListItem,
-  "ResultsGrid.item": RDMRecordResultsGridItem,
-  "SearchApp.facets": RDMRecordFacets,
-  "SearchApp.layout": RDMUserRecordsSearchLayout,
-  "SearchApp.results": RDMDepositResults,
-  "SearchBar.element": RDMRecordSearchBarElement,
-  "BucketAggregation.element": RDMBucketAggregationElement,
-  "BucketAggregationValues.element": RDMRecordFacetsValues,
-  "SearchFilters.ToggleComponent": RDMToggleComponent,
-});
+createSearchAppInit(
+  {
+    "BucketAggregation.element": RDMBucketAggregationElement,
+    "BucketAggregationValues.element": RDMRecordFacetsValues,
+    "Count.element": RDMCountComponent,
+    "EmptyResults.element": RDMEmptyResults,
+    "ResultsList.item": RDMRecordResultsListItem,
+    "ResultsGrid.item": RDMRecordResultsGridItem,
+    "SearchApp.facets": RDMRecordFacets,
+    "SearchApp.layout": RDMUserRecordsSearchLayout,
+    "SearchApp.results": RDMDepositResults,
+    "SearchBar.element": RDMRecordSearchBarElement,
+    "BucketAggregation.element": RDMBucketAggregationElement,
+    "BucketAggregationValues.element": RDMRecordFacetsValues,
+    "SearchFilters.ToggleComponent": RDMToggleComponent,
+  },
+  true,
+  "invenio-search-user-dashboard"
+);
