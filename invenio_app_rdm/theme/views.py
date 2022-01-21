@@ -35,11 +35,13 @@ def create_blueprint(app):
     @blueprint.before_app_first_request
     def init_menu():
         """Initialize menu before first request."""
-        item = current_menu.submenu("main.deposit")
-        item.register(
-            "invenio_app_rdm_records.deposit_search", _("Uploads"), order=1)
+        current_menu.submenu('actions.deposit').register(
+            'invenio_app_rdm_records.deposit_search',
+            _('My dashboard'),
+            order=1
+        )
 
-        item = current_menu.submenu('plus.deposit').register(
+        current_menu.submenu('plus.deposit').register(
             'invenio_app_rdm_records.deposit_create',
             _('New upload'),
             order=1,
