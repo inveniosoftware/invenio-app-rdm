@@ -1,5 +1,5 @@
 // This file is part of InvenioRDM
-// Copyright (C) 2020-2021 CERN.
+// Copyright (C) 2020-2022 CERN.
 // Copyright (C) 2020-2021 Northwestern University.
 // Copyright (C) 2021 Graz University of Technology.
 // Copyright (C) 2021 New York University.
@@ -7,38 +7,44 @@
 // Invenio App RDM is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
 
-import React, { useState } from "react";
-import {
-  Icon,
-  Card,
-  Container,
-  Grid,
-  Label,
-  Modal,
-  Item,
-  Button,
-  Segment,
-  Header,
-  Divider,
-} from "semantic-ui-react";
-import _get from "lodash/get";
-import _truncate from "lodash/truncate";
-import {
-  Count,
-  EmptyResults,
-  Pagination,
-  ResultsList,
-  Sort,
-  SearchBar,
-  ResultsPerPage,
-} from "react-searchkit";
 import {
   SearchAppFacets,
   SearchAppResultsPane,
 } from "@js/invenio_search_ui/components";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
-import { axiosWithconfig, SearchItemCreators } from "../utils";
-
+import _get from "lodash/get";
+import _truncate from "lodash/truncate";
+import React, { useState } from "react";
+import {
+  Count,
+  Pagination,
+  ResultsList,
+  ResultsPerPage,
+  SearchBar,
+  Sort,
+} from "react-searchkit";
+import {
+  Button,
+  Card,
+  Container,
+  Divider,
+  Grid,
+  Header,
+  Icon,
+  Item,
+  Label,
+  Modal,
+  Segment,
+} from "semantic-ui-react";
+import { axiosWithconfig, SearchItemCreators } from "../../utils";
+import {
+  RDMBucketAggregationElement,
+  RDMCountComponent,
+  RDMRecordFacets,
+  RDMRecordFacetsValues,
+  RDMRecordSearchBarElement,
+  RDMToggleComponent,
+} from "../../search/components";
 
 const DeleteDraftButton = (props) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -143,7 +149,7 @@ export const RDMDepositResults = ({
         </Grid.Row>
         <Grid.Row verticalAlign="middle">
           <Grid.Column width={4}></Grid.Column>
-          <Grid.Column width={8} textAlign="center">
+          <Grid.Column width={8} textAlign="center" floated="right">
             <Pagination
               options={{
                 size: "mini",
@@ -262,7 +268,9 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
             <DeleteDraftButton record={result} />
           )}
         </Item.Extra>
-        <Item.Header as='h2'><a href={viewLink}>{title}</a></Item.Header>
+        <Item.Header as="h2">
+          <a href={viewLink}>{title}</a>
+        </Item.Header>
         <Item.Meta className="creatibutors">
           <SearchItemCreators creators={creators} />
         </Item.Meta>
@@ -353,7 +361,7 @@ export const RDMEmptyResults = (props) => {
   );
 };
 
-export const RDMUserRecordsSearchLayout = (props) => (
+export const RDMDashboardUploadsSearchLayout = (props) => (
   <Container>
     <Grid>
       <Grid.Row columns={3}>
@@ -382,3 +390,19 @@ export const RDMUserRecordsSearchLayout = (props) => (
     </Grid>
   </Container>
 );
+
+export const defaultComponents = {
+  "BucketAggregation.element": RDMBucketAggregationElement,
+  "BucketAggregationValues.element": RDMRecordFacetsValues,
+  "Count.element": RDMCountComponent,
+  "EmptyResults.element": RDMEmptyResults,
+  "ResultsList.item": RDMRecordResultsListItem,
+  "ResultsGrid.item": RDMRecordResultsGridItem,
+  "SearchApp.facets": RDMRecordFacets,
+  "SearchApp.layout": RDMDashboardUploadsSearchLayout,
+  "SearchApp.results": RDMDepositResults,
+  "SearchBar.element": RDMRecordSearchBarElement,
+  "BucketAggregation.element": RDMBucketAggregationElement,
+  "BucketAggregationValues.element": RDMRecordFacetsValues,
+  "SearchFilters.ToggleComponent": RDMToggleComponent,
+};
