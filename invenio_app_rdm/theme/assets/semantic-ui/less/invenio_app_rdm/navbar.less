@@ -24,9 +24,10 @@ nav {
   color: #ccc;
 }
 
-.navbar-item:hover:not(.navbar-button):not(.navbar-search-bar){
+.navbar-item:hover:not(.navbar-button):not(.navbar-search-bar) {
   background-color: rgba(255, 255, 255, 0.2);
-  a:hover{
+
+  a:hover {
     background-color: transparent;
     color: white;
   }
@@ -38,7 +39,13 @@ nav {
 }
 
 .rdm-sign-buttons {
-  padding-inline-start: 0px;
+  padding-inline-start: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.navbar-actions-container {
+  display: none;
 }
 
 .rdm-plus-menu {
@@ -46,14 +53,14 @@ nav {
   padding-bottom: 8px;
 }
 
-@media only screen and (min-width: 745px) and (max-width: 1200px){
+@media only screen and (min-width: 745px) and (max-width: 1200px) {
   .rdm-plus-menu-responsive {
-    position: absolute!important;
-    margin-top: 0.75rem ;
+    position: absolute !important;
+    margin-top: 0.75rem;
   }
 
   .user-profile {
-    margin-left: 3rem!important;
+    margin-left: 3rem !important;
   }
 }
 
@@ -94,6 +101,19 @@ nav {
   display: block;
 }
 
+.active .navbar-item.navbar-button.navbar-actions-container {
+  display: block;
+  order: 3;
+
+  .dashboard-button {
+    order: 1;
+  }
+
+  .request-button {
+    order: 2;
+  }
+ }
+
 #header-search-bar {
   width: auto;
   text-align: center;
@@ -108,6 +128,8 @@ nav {
   .navbar-menu {
     justify-content: flex-start;
   }
+
+
   .navbar-item.navbar-button {
     width: auto;
     order: 1;
@@ -115,11 +137,51 @@ nav {
     text-align: right;
     flex: 1;
   }
+
+  .navbar-item.navbar-button.navbar-actions-container {
+    order: 3;
+    display: none;
+
+    .rdm-sign-buttons {
+      align-items: center;
+      justify-content: end;
+      margin-left: auto;
+      flex-wrap: nowrap;
+
+      .navbar-item {
+        padding-right: 5px;
+        padding-left: 5px;
+        order: 3;
+
+        .navbar-button {
+          padding: 10px 5px;
+        }
+      }
+
+      .navbar-item.navbar-button {
+        flex: none;
+
+        .icon.inbox {
+          padding-right: 10px;
+          padding-left: 5px;
+          margin-right: 5px;
+        }
+      }
+
+    }
+
+
+
+  }
+
+
+
   .toggle {
     flex: 1;
     text-align: right;
     order: 2;
   }
+
   /* Button up from tablet screen */
   .navbar-menu li.navbar-button a {
     padding: 10px 15px;
@@ -133,21 +195,30 @@ nav {
     flex-wrap: nowrap;
     background: none;
   }
+
   .logo {
     order: 0;
   }
+
+  .navbar-item.navbar-button.navbar-actions-container {
+    display: block;
+  }
+
   .navbar-item {
     order: 1;
     position: relative;
     display: block;
     width: auto;
   }
+
   .navbar-button {
     order: 2;
   }
+
   .toggle {
     display: none;
   }
+
   #header-search-bar {
     width: 250px;
     text-align: left;
