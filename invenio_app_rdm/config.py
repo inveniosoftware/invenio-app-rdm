@@ -529,6 +529,8 @@ VOCABULARIES_DATASTREAM_WRITERS = {
 SEARCH_UI_SEARCH_TEMPLATE = 'invenio_app_rdm/records/search.html'
 """Search page's base template."""
 
+_DASHBOARD_ROUTES = ["uploads", "communities", "requests"]
+
 APP_RDM_ROUTES = {
     "index": "/",
     "help_search": "/help/search",
@@ -540,7 +542,8 @@ APP_RDM_ROUTES = {
     "record_from_pid": "/<any({schemes}):pid_scheme>/<path:pid_value>",
     "record_latest": "/records/<pid_value>/latest",
     "dashboard_home": "/me",
-    "dashboard_item": "/me/<dashboard_name>",
+    "dashboard_item": "/me/<any({routes}):dashboard_name>"
+        .format(routes=",".join(_DASHBOARD_ROUTES)),
     "deposit_create": "/uploads/new",
     "deposit_edit": "/uploads/<pid_value>",
 }
