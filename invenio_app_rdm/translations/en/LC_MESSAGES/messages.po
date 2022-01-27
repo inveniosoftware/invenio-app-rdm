@@ -5,7 +5,7 @@
 # This file is distributed under the same license as the invenio-app-rdm
 # project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: invenio-app-rdm 5.0.0.dev2\n"
@@ -116,8 +116,8 @@ msgstr ""
 "            "
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:82
-msgid "Reason:"
-msgstr "Reason:"
+msgid "Reason"
+msgstr "Reason"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:92
 msgid "Back to edit"

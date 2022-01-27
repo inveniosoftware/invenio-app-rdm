@@ -9,7 +9,11 @@
 {% macro show_detail(title, value) %}
   <dt class="ui tiny header">{{ title }}</dt>
   <dd>
-    {{ value }}
+    {% if title == 'URL' %}
+      <a href="{{value}}" target="_blank" title="{{ _('Opens in new tab') }}">{{value}}</a>
+    {% else %}
+      {{ value }}
+    {% endif %}
   </dd>
 {%- endmacro %}
 
@@ -60,8 +64,10 @@
 
 {% macro show_add_descriptions(add_descriptions) %}
   {% for add_description in add_descriptions %}
-    <h3>{{add_description.type.title_l10n }}</h3>
+  <section id="additional-description-{{loop.index}}" class="section-spacing" aria-label="{{ _( add_description.type.title_l10n ) }}">
+    <h2>{{add_description.type.title_l10n }} <span class="text-muted language">{{ '(' + add_description.lang.title_l10n + ')' if add_description.lang }}</span></h2>
     <p>{{ add_description.description | sanitize_html() | safe}}</p>
+  </section>
   {% endfor %}
 {% endmacro %}
 
@@ -86,6 +92,7 @@
 
 
 {% macro show_references(references) %}
+    <dt class="hidden">{{ _('References') }}</dt>
   {% for reference in references %}
     <dd>{{ reference.reference + ' ( ' + reference.scheme + ' - ' +  reference.identifier + ' )'}}</dd>
   {% endfor %}
@@ -93,6 +100,7 @@
 
 
 {% macro _identifiers_for_group(related_identifiers) %}
+  <dt class="hidden">{{ _('Related identifiers') }}</dt>
   {% for identifier in related_identifiers %}
     <dd>
       {% if identifier.resource_type is defined %}

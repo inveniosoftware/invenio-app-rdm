@@ -1,37 +1,53 @@
-.ui.top.attached.menu {
+/*
+ *   Copyright (C) 2020 CERN.
+ *   Copyright (C) 2020 Northwestern University.
+ *   Copyright (C) 2021 Graz University of Technology.
+ *   Copyright (C) 2021 New York University.
+ *
+ * Invenio RDM Records is free software; you can redistribute it and/or modify
+ * it under the terms of the MIT License; see LICENSE file for more details.
+ */
 
-  @media screen and (max-width: @computerBreakpoint) {
-    flex-wrap: wrap;
-  }
+#additional-details {
+  .ui.top.attached.menu {
 
-  &:not(.tabular) {
     @media screen and (max-width: @computerBreakpoint) {
-      border-bottom: 0px;
+      flex-wrap: wrap;
+    }
+
+    &:not(.tabular) {
+      @media screen and (max-width: @computerBreakpoint) {
+        border-bottom: 0px;
+      }
+    }
+
+    .item {
+      flex: 1 0 auto;
+
+      @media screen and (max-width: @computerBreakpoint) {
+        border-bottom: 1px solid #D4D4D5;
+        font-weight: bold;
+      }
     }
   }
 
-  .item {
-    flex: 1 0 auto;
+  .ui.tab.segment {
+    padding: 1.5rem 1rem;
 
-    @media screen and (max-width: @computerBreakpoint) {
-      border-bottom: 1px solid #D4D4D5;
-      font-weight: bold;
+    h3.ui.tiny.header {
+      margin-bottom: 0.5rem;
+    }
+
+    dl.details-list {
+      margin-top: 0rem;
+
+      dt.hidden {
+        display: none;
+      }
     }
   }
-}
 
-.ui.tab.segment {
-  padding: 1.5rem 1rem;
-
-  h3.ui.tiny.header {
-    margin-bottom: 0.5rem;
+  .ui.segment[class*="bottom attached"]:last-child {
+    margin-bottom: 1rem;
   }
-
-  dl.details-list {
-    margin-top: 0rem;
-  }
-}
-
-.language {
-  font-weight: normal;
 }

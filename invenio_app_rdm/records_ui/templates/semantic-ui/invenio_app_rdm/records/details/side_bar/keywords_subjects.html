@@ -9,9 +9,8 @@
 #}
 
 {% if record.metadata.subjects %}
-<div class="ui segment rdm-sidebar">
-  <h2 class="ui small header">{{ _('Keywords') }} & {{ _('Subjects') }}</h2>
-  <hr class="thin-line"/>
+<section id="keywords-and-subjects" aria-label="{{ _('Keywords and subjects') }}" class="ui segment rdm-sidebar">
+  <h2 class="ui small header">{{ _('Keywords and subjects') }}</h2>
   {%- include "invenio_app_rdm/records/details/subjects.html" %}
-</div>
+</section>
 {% endif %}

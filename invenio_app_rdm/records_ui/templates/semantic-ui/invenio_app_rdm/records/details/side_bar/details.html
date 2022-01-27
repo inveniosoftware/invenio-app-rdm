@@ -13,9 +13,8 @@
 
   {%- set id_doi = record.pids.get('doi', {}).get('identifier') %}
 
-  <div class="ui segment rdm-sidebar">
+  <section id="record-details" aria-label="{{ _('Record details') }}" class="ui segment rdm-sidebar">
     <h2 class="ui small header">{{ _('Details')}}</h2>
-    <hr class="thin-line"/>
 
     {% if id_doi %}
       {%- include "invenio_app_rdm/records/details/doi.html" %}
@@ -29,4 +28,4 @@
       {{ show_detail(_('Formats'), list_formats(metadata.formats)) if metadata.formats }}
       {{ show_detail(_('Sizes'), list_sizes(metadata.sizes)) if metadata.sizes }}
     </dl>
-  </div>
+  </section>

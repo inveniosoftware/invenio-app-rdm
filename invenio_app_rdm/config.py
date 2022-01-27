@@ -43,8 +43,6 @@ from invenio_vocabularies.contrib.names.datastreams import \
 from invenio_vocabularies.contrib.names.datastreams import \
     VOCABULARIES_DATASTREAM_WRITERS as NAMES_WRITERS
 
-import glob, os
-
 # TODO: Remove when records-rest is out of communities and files
 RECORDS_REST_ENDPOINTS = {}
 RECORDS_UI_ENDPOINTS = {}
