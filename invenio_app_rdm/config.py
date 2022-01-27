@@ -481,6 +481,12 @@ ACCESS_CACHE = "invenio_cache:current_cache"
 SEARCH_ELASTIC_HOSTS = [{"host": "localhost", "port": 9200}]
 """Elasticsearch hosts."""
 
+# Invenio-Indexer
+# ===============
+# See https://invenio-indexer.readthedocs.io/en/latest/configuration.html
+
+INDEXER_DEFAULT_INDEX = "rdmrecords-records-record-v4.0.0"
+"""Default index to use if no schema is defined."""
 
 # Invenio-Base
 # ============
