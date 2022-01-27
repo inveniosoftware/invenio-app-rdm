@@ -119,7 +119,7 @@ msgid ""
 msgstr ""
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:83
-msgid "Reason:"
+msgid "Reason"
 msgstr ""
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:93

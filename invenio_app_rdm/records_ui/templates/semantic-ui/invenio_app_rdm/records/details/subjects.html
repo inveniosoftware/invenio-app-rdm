@@ -12,8 +12,8 @@
 {% if subjects %}
   {% set keywords = subjects|rejectattr("scheme")|list %}
   {% if keywords %}
-  <dl class="details-list">
-    <dt class="hidden">Keywords</dt>
+  <dl class="details-list" aria-label="{{ _('Keywords') }}">
+    <dt class="hidden">{{ _('Keywords') }}</dt>
     {%- for subject in keywords %}
       <dd class="subject">{{ subject.subject}}</dd>
     {%- endfor %}
@@ -21,7 +21,7 @@
   {% endif %}
 
   {%- for scheme, subjects in subjects|selectattr("scheme")|groupby('scheme')|sort(attribute='scheme') %}
-  <dl class="details-list">
+  <dl class="details-list" aria-label="{{ _('Subjects') }}">
     <dt class="ui tiny header">{{scheme}}</dt>
     {%- for subject in subjects %}
       <dd class="subject">{{ subject.subject}}</dd>

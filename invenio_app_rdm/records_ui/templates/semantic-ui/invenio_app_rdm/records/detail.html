@@ -17,7 +17,7 @@
 {%- set metadata = record.metadata %}
 
 {%- block page_body %}
-  <div class="banners">
+  <section id="banners" class="banners" aria-label="{{ _('Information banner') }}">
     {% if is_preview %}
       <div class="ui info flashed top-attached manage message">
         <div class="ui container">
@@ -25,7 +25,8 @@
             <div class="column">
               <div class="row">
                 <div class="header">
-                  <i class="eye icon"></i> {{_ ("Preview")}}
+                  <i class="eye icon"></i>
+                  <strong>{{_ ("Preview")}}</strong>
                 </div>
                 <p>
                   {% if not is_draft %}
@@ -70,7 +71,7 @@
       </div>
     </div>
     {% endif %}
-  </div>
+  </section>
 
 
   <div class="ui container">
@@ -80,13 +81,18 @@
         {# Main content #}
         <article class="sixteen wide tablet eleven wide computer column main-record-content">
           {% if record.access.record == 'restricted' %}
-            <div class="ui {{ record.ui.access_status.message_class }} message">
-              <strong><i class="{{ record.ui.access_status.icon }} icon"></i>{{ record.ui.access_status.title_l10n }}</strong> {{ record.ui.access_status.description_l10n }}
+            <section id="record-access-status"
+                     class="ui {{ record.ui.access_status.message_class }} message"
+                     aria-label="{{ _('Record access information') }}"
+            >
+              <i class="{{ record.ui.access_status.icon }} icon"></i>
+              <strong>{{ record.ui.access_status.title_l10n }}</strong>
+              {{ record.ui.access_status.description_l10n }}
 
               {% if record.access.embargo.reason %}
-                <p>{{ _("Reason:") }} {{ record.access.embargo.reason }}</p>
+                <p>{{ _("Reason") }}: {{ record.access.embargo.reason }}</p>
               {% endif %}
-            </div>
+            </section>
           {% endif %}
 
           {%- block record_body -%}
@@ -96,60 +102,73 @@
               {%- block record_header_button -%}
 
                 {% if is_preview and permissions.can_edit and is_draft %}
-                  <div style="margin-bottom: 12px;">
+                  <nav class="back-navigation" aria-label="{{ _('Back-navigation') }}">
                     {%- set back_page = url_for('invenio_app_rdm_records.deposit_edit', pid_value=record.id, preview=1) -%}
                     {%- set back_btn_label = _('Back to edit') -%}
                     <a class="ui button small compact" href="{{ back_page }}"><i class="ui icon angle left"></i> {{ back_btn_label }}</a>
-                  </div>
+                  </nav>
                 {% endif %}
 
               {%- endblock record_header_button -%}
 
-              <div class="ui grid middle aligned">
-                <div class="two column row">
-                  <div class="left floated left aligned column">
-                    <span class="ui" title="{{ _('Publication date') }}">
-                      {{ _('Published') }} {{ record.ui.publication_date_l10n_long }}
-                    </span>
-                    <span class="label text-muted"> | Version {{ record.ui.version }}</span>
-                  </div>
-                  <div class="right floated right aligned column">
-                    {% if record.ui.resource_type %}
-                      <span class="ui label small grey">{{ record.ui.resource_type.title_l10n }}</span>
-                    {% endif %}
-                    <span class="ui label small access-status {{ record.ui.access_status.id }}" data-tooltip="{{ record.ui.access_status.description_l10n }}" data-inverted="">
-                      {% if record.ui.access_status.icon %}
-                        <i class="icon {{ record.ui.access_status.icon }}"></i>
+              <section id="record-info" aria-label="{{ _('Publication date and version number') }}">
+                <div class="ui grid middle aligned">
+                  <div class="two column row">
+                    <div class="left floated left aligned column">
+                      <span class="ui" title="{{ _('Publication date') }}">
+                        {{ _('Published') }} {{ record.ui.publication_date_l10n_long }}
+                      </span>
+                      <span class="label text-muted"> | {{ _('Version') }} {{ record.ui.version }}</span>
+                    </div>
+                    <div class="right floated right aligned column">
+                      {% if record.ui.resource_type %}
+                        <span class="ui label small grey" title="{{ _('Resource type') }}">{{ record.ui.resource_type.title_l10n }}</span>
                       {% endif %}
-                      {{ record.ui.access_status.title_l10n }}
-                    </span>
+                      <span class="ui label small access-status {{ record.ui.access_status.id }}"
+                            title="{{ _('Access status') }}"
+                            data-tooltip="{{ record.ui.access_status.description_l10n }}"
+                            data-inverted=""
+                      >
+                        {% if record.ui.access_status.icon %}
+                          <i class="icon {{ record.ui.access_status.icon }}"></i>
+                        {% endif %}
+                        {{ record.ui.access_status.title_l10n }}
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </section>
             {%- endblock record_header -%}
 
             {# Title #}
             {%- block record_title -%}
-              <h1>{{ metadata.title }}</h1>
+              <section id="record-title-section" aria-label="{{ _('Record title and creators') }}">
+                <h1 id="record-title">{{ metadata.title }}</h1>
 
-              {% if record.ui.creators or record.ui.contributors %}
-                <section id="creatibutors">{%- include "invenio_app_rdm/records/details/creatibutors.html" %}</section>
-              {% endif %}
+                {% if record.ui.creators or record.ui.contributors %}
+                <section id="creatibutors" aria-label="{{ _('Creators and contributors') }}">
+                  {%- include "invenio_app_rdm/records/details/creatibutors.html" %}
+                </section>
+                {% endif %}
+              </section>
             {%- endblock record_title -%}
 
             {# Citation & Description #}
             {%- block record_content -%}
-              <section id="citation">{%- include "invenio_app_rdm/records/details/citation.html" %}</section>
-              <section id="description" class="section-spacing">{%- include "invenio_app_rdm/records/details/description.html" %}</section>
+              <section id="citation" aria-label="{{ _('Record citations') }}">
+                {%- include "invenio_app_rdm/records/details/citation.html" %}
+              </section>
+
+              {%- include "invenio_app_rdm/records/details/description.html" %}
             {%- endblock record_content -%}
 
             {# Files #}
             {%- block record_files -%}
-              <section id="record-files" class="section-spacing">
-                {%- if record.files.enabled -%}
+              {%- if record.files.enabled -%}
+                <section id="record-files" class="section-spacing" aria-label="{{ _('Files') }}">
                   {%- if permissions.can_read_files -%}
                     {# record has files AND user can see files #}
-                    <h2>{{ _('Files') }}</h2>
+                    <h2 id="files-heading">{{ _('Files') }}</h2>
                     {%- set files = files|order_entries %}
 
                     {%- if files|has_previewable_files -%}
@@ -179,13 +198,15 @@
                       </div>
                     </div>
                   {%- endif %}
-                {%- endif %}
-              </section>
+                </section>
+              {%- endif %}
             {%- endblock record_files -%}
 
             {# Additional data #}
             {%- block record_details -%}
-              <section id="record-details" class="section-spacing">{%- include "invenio_app_rdm/records/details/details.html" %}</section>
+              <section id="additional-details" class="section-spacing" aria-label="{{ _('Additional record details') }}">
+                {%- include "invenio_app_rdm/records/details/details.html" %}
+              </section>
             {%- endblock record_details -%}
 
             {# Record footer #}
@@ -196,11 +217,11 @@
         </article>
 
         {# Sidebar #}
-        <div class="sixteen wide tablet five wide computer column sidebar">
+        <aside class="sixteen wide tablet five wide computer column sidebar" aria-label="{{ _('Record details') }}">
           {% block record_sidebar %}
             {%- include "invenio_app_rdm/records/details/side_bar.html" %}
           {% endblock record_sidebar %}
-        </div>
+        </aside>
       </div>
     </div>
 
@@ -212,8 +233,10 @@
             <div class="ui grid">
               <div class="centered row" id="jump-btn">
                 <a style="cursor: pointer;">
-                  <span class="ui button">
-                    <i class="arrow alternate circle up outline icon"></i>{{_ ("Jump up")}}</span>
+                  <button class="ui button" aria-label="{{ _('Jump to top of page') }}">
+                    <i class="arrow alternate circle up outline icon"></i>
+                    {{ _("Jump up") }}
+                  </button>
                 </a>
               </div>
             </div>

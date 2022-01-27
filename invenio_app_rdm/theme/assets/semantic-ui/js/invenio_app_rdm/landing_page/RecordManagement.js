@@ -29,7 +29,7 @@ export const RecordManagement = (props) => {
       <Grid.Column>
         <Grid.Row>
           <Icon name="cogs" />
-          <span>{i18next.t('Manage')}</span>
+          <h2 id="record-management-header">{i18next.t('Manage')}</h2>
         </Grid.Row>
         <Grid.Row className="record-management-row">
           <EditButton recid={recid} onError={handleError} />

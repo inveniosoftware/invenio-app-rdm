@@ -138,8 +138,8 @@ msgstr ""
 "            Es ist eine %(link_start)s neuere Version %(link_end)s des Eintrags verfügbar."
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:83
-msgid "Reason:"
-msgstr "Grund:"
+msgid "Reason"
+msgstr "Grund"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:93
 msgid "Back to edit"
