@@ -3,3 +3,7 @@
 *******************************/
 
 @import "@less/invenio_theme/theme/globals/site.overrides";
+
+*:focus-visible {
+    outline: 3px solid @focusedFormBorderColor !important;
+}
