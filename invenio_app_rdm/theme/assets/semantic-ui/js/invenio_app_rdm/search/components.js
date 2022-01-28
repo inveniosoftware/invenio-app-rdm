@@ -194,10 +194,13 @@ export const RDMRecordFacetsValues = ({
           </Label>
         </List.Content>
         {hasChildren ? (
-          <i
-            className={`angle ${isActive ? "down" : "right"} icon`}
+          <button
+            className={`iconhold`}
             onClick={() => setisActive(!isActive)}
-          ></i>
+            aria-label={`${isActive ? i18next.t("hide subfacets") : i18next.t("show subfacets") }`}
+          >
+            <i className={`angle ${isActive ? "down" : "right"} icon`}></i>
+          </button>
         ) : null}
         <Checkbox
           label={bucket.label || keyField}
