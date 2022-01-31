@@ -195,7 +195,7 @@ export const RDMRecordFacetsValues = ({
         </List.Content>
         {hasChildren ? (
           <button
-            className={`iconhold`}
+            className="iconhold"
             onClick={() => setisActive(!isActive)}
             aria-label={`${isActive ? i18next.t("hide subfacets") : i18next.t("show subfacets") }`}
           >
