@@ -2,6 +2,7 @@
     Copyright (C) 2020 CERN.
     Copyright (C) 2020 Northwestern University.
     Copyright (C) 2021 Graz University of Technology.
+    Copyright (C) 2021-2022 New York University.
 
     Invenio RDM Records is free software; you can redistribute it and/or modify
     it under the terms of the MIT License; see LICENSE file for more details.
@@ -13,15 +14,15 @@
   <div class="title">
     {{ show_creatibutors(record.ui.creators.creators, show_affiliations=True) }}
     {% if record.ui.creators.affiliations %}
-    <a style="cursor: pointer;" class="dropdown">
+    <button type="button" class="dropdown button-affiliations" aria-controls="affiliations-creators">
       <span class="up ui label small">{{ _("Show affiliations") }}</span>
       <span class="down ui label small">{{ _("Hide affiliations") }}</span>
-    </a>
+    </button>
     {% endif %}
   </div>
 
   {% if record.ui.creators.affiliations %}
-  <div class="content">
+  <div id="affiliations-creators" class="content">
     <div class="transition hidden">
       {{ show_affiliations(record.ui.creators.affiliations) }}
     </div>
