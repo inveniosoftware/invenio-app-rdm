@@ -9,3 +9,15 @@
 .copy.button {
     margin-right: 0px;
 }
+
+button.iconhold  {
+    background-color: inherit;
+    border: none;
+    padding: 5px 5px 5px 0;
+    text-align: center;
+    width: 17px;
+    margin-right: 3px;
+    &:hover, &:focus {
+        background-color: inherit;
+    }
+}
