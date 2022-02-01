@@ -7,3 +7,8 @@
 button:focus-visible, a:focus-visible {
     outline: 3px solid @focusedFormBorderColor !important;
 }
+
+/* Overriding override in invenio_theme ... globals/site.overrides line 61 */
+.right.floated.right.aligned.column {
+    padding: 0 1rem;
+}

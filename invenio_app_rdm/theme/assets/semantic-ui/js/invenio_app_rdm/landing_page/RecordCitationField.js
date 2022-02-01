@@ -108,13 +108,13 @@ export class RecordCitationField extends Component {
     })
 
     return (
-      <Grid id="record-citation">
-        <Grid.Row verticalAlign="middle" className="relaxed">
-          <Grid.Column mobile={8} tablet={8} computer={12} className="no-padding">
+      <Grid>
+        <Grid.Row verticalAlign="middle" >
+          <Grid.Column mobile={8} tablet={8} computer={10}>
             <Header as="h2">{i18next.t("Citation")}</Header>
           </Grid.Column>
 
-          <Grid.Column mobile={8} tablet={8} computer={4} className="no-padding" textAlign="right">
+          <Grid.Column mobile={8} tablet={8} computer={6} textAlign="right">
             <div className="citation-style-selector">
               <label id="citation-style-label">{i18next.t("Style")}</label>
               <Dropdown
@@ -133,13 +133,13 @@ export class RecordCitationField extends Component {
         </Grid.Row>
 
         <Grid.Row verticalAlign="bottom">
-          <Grid.Column computer={12} className="no-padding">
+          <Grid.Column computer={12}>
             <div id="citation-text">
               {loading ? this.placeholderLoader() : citation}
             </div>
           </Grid.Column>
 
-          <Grid.Column computer={4} className="no-padding" textAlign="right">
+          <Grid.Column computer={4} textAlign="right">
             <CopyButton text={citation}/>
           </Grid.Column>
         </Grid.Row>
