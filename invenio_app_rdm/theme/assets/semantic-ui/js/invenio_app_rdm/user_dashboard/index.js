@@ -13,7 +13,7 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import { overrideStore } from "react-overridable";
 import { Container, Tab } from "semantic-ui-react";
-// import { defaultComponents as CommunitiesDefaultComponents } from "./components/communities";
+import { defaultComponents as CommunitiesDefaultComponents } from "./components/communities";
 import { defaultComponents as UploadsDefaultComponents } from "./components/uploads";
 // import { defaultComponents as RequestsDefaultComponents } from "./components/requests";
 
@@ -25,15 +25,16 @@ const TAB_PANES = [
     label: "Uploads",
     pathname: "uploads",
   },
-  // {
-  //   configDataAttribute: "invenio-search-user-communities-config",
-  //   label: "Communities",
-  //   pathname: "communities",
-  // },
+  {
+    configDataAttribute: "invenio-search-user-communities-config",
+    label: "Communities",
+    pathname: "communities",
+  },
   // {
   //   configDataAttribute: "invenio-search-user-requests-config",
   //   label: "Requests",
   //   pathname: "requests",
+  //   appName: "requests",
   // },
 ];
 
@@ -52,23 +53,21 @@ class DashboardTabs extends Component {
 
     for (const [componentId, component] of Object.entries({
       ...UploadsDefaultComponents,
-      // ...CommunitiesDefaultComponents,
+      ...CommunitiesDefaultComponents,
       // ...RequestsDefaultComponents,
     })) {
       overrideStore.add(componentId, component);
     }
 
     this.panes = TAB_PANES.map((pane, index) => {
+      const { appId, ...config } = JSON.parse(
+        rootElement.dataset[_camelCase(pane.configDataAttribute)]
+      );
       return {
         menuItem: pane.label,
         render: () => (
           <Tab.Pane>
-            <SearchApp
-              key={index}
-              config={JSON.parse(
-                rootElement.dataset[_camelCase(pane.configDataAttribute)]
-              )}
-            />
+            <SearchApp appName={appId} key={appId} config={config} />
           </Tab.Pane>
         ),
       };
