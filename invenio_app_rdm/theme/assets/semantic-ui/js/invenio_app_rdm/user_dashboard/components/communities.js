@@ -25,20 +25,13 @@ import {
   Segment,
 } from "semantic-ui-react";
 import _truncate from "lodash/truncate";
-import {
-  BucketAggregation,
-  SearchBar,
-  Count,
-  Sort,
-  ResultsList,
-  Pagination,
-  ResultsPerPage,
-} from "react-searchkit";
+import { BucketAggregation, SearchBar } from "react-searchkit";
 import {
   RDMBucketAggregationElement,
   RDMRecordFacetsValues,
   SearchHelpLinks,
 } from "../../search/components";
+import { DashboardResultView } from "./base";
 
 function ResultsGridItemTemplate({ result, index }) {
   return (
@@ -88,86 +81,6 @@ export function CommunitiesResultsItemTemplate({ result, index }) {
     </Item>
   );
 }
-
-export const CommunitiesResults = ({
-  sortOptions,
-  paginationOptions,
-  currentResultsState,
-}) => {
-  const { total } = currentResultsState.data;
-  return (
-    total && (
-      <Grid>
-        <Grid.Row>
-          <Grid.Column width={16}>
-            <Segment>
-              <Grid>
-                <Grid.Row
-                  verticalAlign="middle"
-                  className="small padding-tb-5 deposit-result-header"
-                >
-                  <Grid.Column width={4}>
-                    <Count
-                      label={() => (
-                        <>
-                          {total} {i18next.t("result(s) found")}
-                        </>
-                      )}
-                    />
-                  </Grid.Column>
-                  <Grid.Column
-                    width={12}
-                    textAlign="right"
-                    className="padding-r-5"
-                  >
-                    {sortOptions && (
-                      <Sort
-                        values={sortOptions}
-                        label={(cmp) => (
-                          <>
-                            {i18next.t("Sort by")} {cmp}
-                          </>
-                        )}
-                      />
-                    )}
-                  </Grid.Column>
-                </Grid.Row>
-                <Grid.Row>
-                  <Grid.Column>
-                    <ResultsList />
-                  </Grid.Column>
-                </Grid.Row>
-              </Grid>
-            </Segment>
-          </Grid.Column>
-        </Grid.Row>
-        <Grid.Row verticalAlign="middle">
-          <Grid.Column width={4}></Grid.Column>
-          <Grid.Column width={8} textAlign="center" floated="right">
-            <Pagination
-              options={{
-                size: "mini",
-                showFirst: false,
-                showLast: false,
-              }}
-            />
-          </Grid.Column>
-          <Grid.Column textAlign="right" width={4}>
-            <ResultsPerPage
-              values={paginationOptions.resultsPerPage}
-              label={(cmp) => (
-                <>
-                  {" "}
-                  {cmp} {i18next.t("results per page")}
-                </>
-              )}
-            />
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
-    )
-  );
-};
 
 export const CommunitiesSearchBarElement = ({
   placeholder: passedPlaceholder,
@@ -248,12 +161,14 @@ export const CommunitiesFacets = ({ aggs, currentResultsState }) => {
 };
 
 export const defaultComponents = {
-  "BucketAggregation.element": RDMBucketAggregationElement,
-  "BucketAggregationValues.element": RDMRecordFacetsValues,
-  "SearchApp.facets": CommunitiesFacets,
-  "ResultsList.item": CommunitiesResultsItemTemplate,
-  "ResultsGrid.item": ResultsGridItemTemplate,
-  "SearchApp.layout": CommunitiesSearchLayout,
-  "SearchBar.element": CommunitiesSearchBarElement,
-  "SearchApp.results": CommunitiesResults,
+  "user-communities-search.BucketAggregation.element":
+    RDMBucketAggregationElement,
+  "user-communities-search.BucketAggregationValues.element":
+    RDMRecordFacetsValues,
+  "user-communities-search.SearchApp.facets": CommunitiesFacets,
+  "user-communities-search.ResultsList.item": CommunitiesResultsItemTemplate,
+  "user-communities-search.ResultsGrid.item": ResultsGridItemTemplate,
+  "user-communities-search.SearchApp.layout": CommunitiesSearchLayout,
+  "user-communities-search.SearchBar.element": CommunitiesSearchBarElement,
+  "user-communities-search.SearchApp.results": DashboardResultView,
 };

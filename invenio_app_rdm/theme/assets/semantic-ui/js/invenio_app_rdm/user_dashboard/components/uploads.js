@@ -15,14 +15,7 @@ import { i18next } from "@translations/invenio_app_rdm/i18next";
 import _get from "lodash/get";
 import _truncate from "lodash/truncate";
 import React, { useState } from "react";
-import {
-  Count,
-  Pagination,
-  ResultsList,
-  ResultsPerPage,
-  SearchBar,
-  Sort,
-} from "react-searchkit";
+import { SearchBar } from "react-searchkit";
 import {
   Button,
   Card,
@@ -45,6 +38,7 @@ import {
   RDMRecordSearchBarElement,
   RDMToggleComponent,
 } from "../../search/components";
+import { DashboardResultView } from "./base";
 
 const DeleteDraftButton = (props) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -92,86 +86,6 @@ const DeleteDraftButton = (props) => {
         </Modal.Actions>
       </Modal>
     </>
-  );
-};
-
-export const RDMDepositResults = ({
-  sortOptions,
-  paginationOptions,
-  currentResultsState,
-}) => {
-  const { total } = currentResultsState.data;
-  return (
-    total && (
-      <Grid>
-        <Grid.Row>
-          <Grid.Column width={16}>
-            <Segment>
-              <Grid>
-                <Grid.Row
-                  verticalAlign="middle"
-                  className="small padding-tb-5 deposit-result-header"
-                >
-                  <Grid.Column width={4}>
-                    <Count
-                      label={() => (
-                        <>
-                          {total} {i18next.t("result(s) found")}
-                        </>
-                      )}
-                    />
-                  </Grid.Column>
-                  <Grid.Column
-                    width={12}
-                    textAlign="right"
-                    className="padding-r-5"
-                  >
-                    {sortOptions && (
-                      <Sort
-                        values={sortOptions}
-                        label={(cmp) => (
-                          <>
-                            {i18next.t("Sort by")} {cmp}
-                          </>
-                        )}
-                      />
-                    )}
-                  </Grid.Column>
-                </Grid.Row>
-                <Grid.Row>
-                  <Grid.Column>
-                    <ResultsList />
-                  </Grid.Column>
-                </Grid.Row>
-              </Grid>
-            </Segment>
-          </Grid.Column>
-        </Grid.Row>
-        <Grid.Row verticalAlign="middle">
-          <Grid.Column width={4}></Grid.Column>
-          <Grid.Column width={8} textAlign="center" floated="right">
-            <Pagination
-              options={{
-                size: "mini",
-                showFirst: false,
-                showLast: false,
-              }}
-            />
-          </Grid.Column>
-          <Grid.Column textAlign="right" width={4}>
-            <ResultsPerPage
-              values={paginationOptions.resultsPerPage}
-              label={(cmp) => (
-                <>
-                  {" "}
-                  {cmp} {i18next.t("results per page")}
-                </>
-              )}
-            />
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
-    )
   );
 };
 
@@ -392,17 +306,15 @@ export const RDMDashboardUploadsSearchLayout = (props) => (
 );
 
 export const defaultComponents = {
-  "BucketAggregation.element": RDMBucketAggregationElement,
-  "BucketAggregationValues.element": RDMRecordFacetsValues,
-  "Count.element": RDMCountComponent,
-  "EmptyResults.element": RDMEmptyResults,
-  "ResultsList.item": RDMRecordResultsListItem,
-  "ResultsGrid.item": RDMRecordResultsGridItem,
-  "SearchApp.facets": RDMRecordFacets,
-  "SearchApp.layout": RDMDashboardUploadsSearchLayout,
-  "SearchApp.results": RDMDepositResults,
-  "SearchBar.element": RDMRecordSearchBarElement,
-  "BucketAggregation.element": RDMBucketAggregationElement,
-  "BucketAggregationValues.element": RDMRecordFacetsValues,
-  "SearchFilters.ToggleComponent": RDMToggleComponent,
+  "user-uploads-search.BucketAggregation.element": RDMBucketAggregationElement,
+  "user-uploads-search.BucketAggregationValues.element": RDMRecordFacetsValues,
+  "user-uploads-search.Count.element": RDMCountComponent,
+  "user-uploads-search.EmptyResults.element": RDMEmptyResults,
+  "user-uploads-search.ResultsList.item": RDMRecordResultsListItem,
+  "user-uploads-search.ResultsGrid.item": RDMRecordResultsGridItem,
+  "user-uploads-search.SearchApp.facets": RDMRecordFacets,
+  "user-uploads-search.SearchApp.layout": RDMDashboardUploadsSearchLayout,
+  "user-uploads-search.SearchApp.results": DashboardResultView,
+  "user-uploads-search.SearchBar.element": RDMRecordSearchBarElement,
+  "user-uploads-search.SearchFilters.ToggleComponent": RDMToggleComponent,
 };
