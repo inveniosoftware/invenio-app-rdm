@@ -1,6 +1,7 @@
 {# -*- coding: utf-8 -*-
     Copyright (C) 2020 CERN.
     Copyright (C) 2020 Northwestern University.
+    Copyright (C) 2021 New York University.
 
     Invenio App RDM is free software; you can redistribute it and/or modify it
     under the terms of the MIT License; see LICENSE file for more details.
@@ -27,10 +28,10 @@
         {%- block frontpage_form %}
         <div class="ui center aligned grid">
           <div class="search-bar">
-            <form action="{{ url_for('invenio_search_ui.search') }}" class="ui form">
+            <form action="{{ url_for('invenio_search_ui.search') }}" class="ui form" role="search">
               <div class="ui fluid big action input">
                 <input type="text" name="q" class="form-control" placeholder="{{ _("Search") }}">
-                <button type="submit" class="ui icon search button"><i class="search icon"></i></button>
+                <button type="submit" class="ui icon search button" aria-label="Search"><i class="search icon"></i></button>
               </div>
             </form>
           </div>

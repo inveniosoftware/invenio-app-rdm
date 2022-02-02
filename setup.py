@@ -66,9 +66,8 @@ for name, reqs in extras_require.items():
 install_requires = [
     'CairoSVG>=2.5.2,<3.0.0',
     f'invenio[base,auth,metadata,files]{invenio_version}',
-    'invenio-communities>=2.6.0.dev1,<2.7.0',
     'invenio-logging[sentry-sdk]>=1.3.0,<1.4.0',
-    'invenio-rdm-records>=0.33.2,<0.34.0',
+    'invenio-rdm-records>=0.34.4,<0.35.0',
 ]
 
 packages = find_packages()

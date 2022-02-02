@@ -3,6 +3,7 @@
   Copyright (C) 2020-2021 Northwestern University.
   Copyright (C) 2021 TU Wien.
   Copyright (C) 2021 Graz University of Technology.
+  Copyright (C) 2021 New York University.
 
   Invenio RDM Records is free software; you can redistribute it and/or modify
   it under the terms of the MIT License; see LICENSE file for more details.
@@ -73,8 +74,8 @@
 
 <div class="ui container">
   <div class="ui relaxed grid">
-    <div class="two column row top-padded">
-      <div class="eleven wide column">
+    <div class="two column row">
+      <article class="eleven wide column">
         {% if record.access.record == 'restricted' %}
           <div class="ui {{ record.ui.access_status.message_class }} message">
             <strong><i class="{{ record.ui.access_status.icon }} icon"></i>{{ record.ui.access_status.title_l10n }}</strong> {{ record.ui.access_status.description_l10n }}
@@ -115,20 +116,16 @@
         {%- block record_title -%}
         <h1>{{ metadata.title }}</h1>
         {% if record.ui.creators %}
-        <p>{%- include "invenio_app_rdm/records/details/creators.html" %}</p>
+        <section id="creators">{%- include "invenio_app_rdm/records/details/creators.html" %}</section>
         {% endif %}
         {%- endblock record_title -%}
         {%- block record_content -%}
-        <p>{%- include "invenio_app_rdm/records/details/contributors.html" %}</p>
-        <p>{%- include "invenio_app_rdm/records/details/doi.html" %}</p>
-        <p>{%- include "invenio_app_rdm/records/details/citation.html" %}</p>
-        {%- include "invenio_app_rdm/records/details/subjects.html" %}
-        <div class="top-padded">
-        {%- include "invenio_app_rdm/records/details/description.html" %}
-        </div>
-        <div class="top-padded">
-        {%- include "invenio_app_rdm/records/details/licenses.html" %}
-        </div>
+        <section id="record-contributors" class="detail-section">{%- include "invenio_app_rdm/records/details/contributors.html" -%}</section>
+        <section id="record-doi" class="detail-section">{%- include "invenio_app_rdm/records/details/doi.html" -%}</section>
+        <section id="record-citation" class="detail-section">{%- include "invenio_app_rdm/records/details/citation.html" -%}</section>
+        <section id="record-subjects" class="detail-section">{%- include "invenio_app_rdm/records/details/subjects.html" -%}</section>
+        <section id="record-description" class="detail-section">{%- include "invenio_app_rdm/records/details/description.html" -%}</section>
+        <section id="record-licenses" class="detail-section">{%- include "invenio_app_rdm/records/details/licenses.html" -%}</section>
         {%- endblock record_content -%}
 
         {# files #}
@@ -167,9 +164,7 @@
 
         {%- block record_details -%}
         {# More details #}
-        <div class="top-padded">
-        {%- include "invenio_app_rdm/records/details/details.html" %}
-        </div>
+        <section id ="record-details" class="detail-section">{%- include "invenio_app_rdm/records/details/details.html" %}</section>
         {%- endblock record_details -%}
         {%- block record_footer -%}
         <div class="ui grid">
@@ -196,7 +191,7 @@
         </div>
         {%- endblock jump -%}
         {%- endblock record_body %}
-      </div>
+      </article>
       <div class="five wide column">
         {% block record_sidebar %}
         {%- include "invenio_app_rdm/records/details/side_bar.html" %}

@@ -78,13 +78,13 @@ def pass_record_from_pid(f):
     """Decorate a view to pass the record from a pid."""
     @wraps(f)
     def view(*args, **kwargs):
-        pid_type = kwargs.get('pid_scheme')
+        scheme = kwargs.get('pid_scheme')
         pid_value = kwargs.get('pid_value')
 
-        record = service().resolve_pid(
-            id_=pid_value,
-            pid_type=pid_type,
-            identity=g.identity
+        record = service().pids.resolve(
+            g.identity,
+            pid_value,
+            scheme,
         )
 
         kwargs['record'] = record
@@ -193,7 +193,6 @@ def pass_record_files(f):
             return files_service().list_files(
                 id_=pid_value, identity=g.identity
             )
-            return service().read(id_=pid_value, identity=g.identity)
 
         try:
             pid_value = kwargs.get('pid_value')

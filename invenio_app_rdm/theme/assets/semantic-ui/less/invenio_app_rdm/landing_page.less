@@ -2,11 +2,23 @@
  *   Copyright (C) 2020 CERN.
  *   Copyright (C) 2020 Northwestern University.
  *   Copyright (C) 2021 Graz University of Technology.
+ *   Copyright (C) 2021 New York University.
  *
  * Invenio RDM Records is free software; you can redistribute it and/or modify
  * it under the terms of the MIT License; see LICENSE file for more details.
  */
 
+ .detail-section:not(:empty) {
+   margin: 1rem auto;
+   border-bottom: 1px solid #e5e5e5;
+   padding-bottom: 1.5rem;
+   .ui.header {
+    font-size: 1.3rem;
+   }
+   &#record-citation{
+     padding-bottom: .5rem;
+   }
+ }
 .font-small {
   font-size: @font-size-small
  }
@@ -51,6 +63,9 @@ dd { // Start left aligned
 
 .version-active {
   background-color: @versionActive;
+  .text-muted {
+    color: #686868;
+  }
 }
 
 .ui.rdm-sidebar {
@@ -64,7 +79,7 @@ dd { // Start left aligned
   border-bottom: 1px solid rgba(0,0,0,0.1);
 }
 
- // Files toogles
+ // Files toggles
 
 .hide-on-collapsed {
   display: block;

@@ -49,7 +49,8 @@ def create_blueprint(app):
     )
 
     app_ext = app.extensions['invenio-rdm-records']
-    schemes = app_ext.records_service.config.pids_providers.keys()
+    with app.app_context():
+        schemes = app_ext.records_service.config.pids_providers.keys()
     schemes = ','.join(schemes)
 
     if schemes:

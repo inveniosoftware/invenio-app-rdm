@@ -2,6 +2,7 @@
   Copyright (C) 2020 CERN.
   Copyright (C) 2020 Northwestern University.
   Copyright (C) 2021 TU Wien.
+  Copyright (C) 2022 New York University.
 
   Invenio RDM Records is free software; you can redistribute it and/or modify
   it under the terms of the MIT License; see LICENSE file for more details.
@@ -9,10 +10,10 @@
 
 {%- if config.get("APP_RDM_RECORD_EXPORTERS") -%}
 {# if no export formats are specified, don't bother showing the box #}
-<div class="ui segment rdm-sidebar exports">
-  <dt><b>{{ _('Export')}}</b></dt>
-  <hr class="thin-line">
-  </hr>
+<dl class="ui segment rdm-sidebar exports">
+  <dt><b>{{ _('Export')}}</b>
+    <hr class="thin-line">
+  </dt>
   <dd class="top-bottom-padded">
     <div class="ui celled horizontal list separated-list">
       {# dynamically create the list of export formats #}
@@ -27,5 +28,5 @@
       {%- endfor -%}
     </div>
   </dd>
-</div>
+</dl>
 {%- endif -%}

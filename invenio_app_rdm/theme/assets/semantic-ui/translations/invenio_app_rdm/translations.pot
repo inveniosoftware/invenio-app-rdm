@@ -173,8 +173,8 @@ msgstr "Alternate identifier(s)"
 msgid "Related works"
 msgstr "Related works"
 
-msgid "An error ocurred while generating the citation."
-msgstr "An error ocurred while generating the citation."
+msgid "An error occurred while generating the citation."
+msgstr "An error occurred while generating the citation."
 
 msgid "Search"
 msgstr "Search"

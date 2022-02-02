@@ -89,7 +89,7 @@ export class RecordCitationField extends Component {
         this.setState({
           loading: false,
           citation: "",
-          error: i18next.t("An error ocurred while generating the citation."),
+          error: i18next.t("An error occurred while generating the citation."),
         });
       }
     }
@@ -116,9 +116,10 @@ export class RecordCitationField extends Component {
 
           <Grid.Column mobile={8} tablet={8} computer={4} className="no-padding" textAlign="right">
             <div className="citation-style-selector">
-              <label>{i18next.t("Style")}</label>
+              <label id="citation-style-label">{i18next.t("Style")}</label>
               <Dropdown
                 className="citation-dropdown"
+                aria-labelledby="citation-style-label"
                 defaultValue={defaultStyle}
                 options={citationOptions}
                 selection

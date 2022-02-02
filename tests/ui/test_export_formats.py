@@ -7,8 +7,21 @@
 
 """Test that all export formats are working."""
 
+import pytest
+from invenio_cache import current_cache
 
-def test_export_formats(client, running_app, record):
+
+@pytest.fixture(scope="function")
+def cache():
+    """Clean cache"""
+    try:
+        current_cache.clear()
+        yield current_cache
+    finally:
+        current_cache.clear()
+
+
+def test_export_formats(client, running_app, cache, record):
     """Test that all expected export formats are working."""
     # Expected export formats:
     formats = [

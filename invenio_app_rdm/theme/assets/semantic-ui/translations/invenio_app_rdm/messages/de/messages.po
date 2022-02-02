@@ -189,8 +189,8 @@ msgstr "Alternative Kennung(en)"
 msgid "Related works"
 msgstr "Verwandte Werke"
 
-msgid "An error ocurred while generating the citation."
-msgstr "Beim Erzeugen der Zitierung ist ein Fehler aufgetreten."
+msgid "An error occurred while generating the citation."
+msgstr "Beim Erzeugen des Zitierung ist ein Fehler aufgetreten."
 
 msgid "Search"
 msgstr "Suchen"

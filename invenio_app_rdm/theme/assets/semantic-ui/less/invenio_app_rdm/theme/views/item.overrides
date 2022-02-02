@@ -1,0 +1,24 @@
+/*
+ *   Copyright (C) 2019-2020 CERN.
+ *   Copyright (C) 2021 New York University.
+ *
+ * Invenio App RDM is free software; you can redistribute it and/or modify it
+ * under the terms of the MIT License; see LICENSE file for more details.
+ */
+ 
+.ui.items > .item > .content > .header {
+  display: block;
+  a {
+    display: inline-block;
+    padding: .5rem 0 .1rem;
+    &:hover, &:focus {
+        text-decoration: underline;
+    }
+  }
+}
+.ui.items > .item .extra {
+    color:#666666;
+}
+.ui.items > .item .meta * {
+    margin-right: 0.1em;
+}

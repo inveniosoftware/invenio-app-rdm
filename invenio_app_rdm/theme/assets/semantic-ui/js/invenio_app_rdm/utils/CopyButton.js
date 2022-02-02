@@ -20,7 +20,7 @@ class SimpleCopyButton extends React.Component {
           onCopy(text);
         }}
       >
-        <Button className="copy" basic icon="copy" />
+        <Button className="copy" basic icon="copy" aria-label={i18next.t('Copy to clipboard')} />
       </CopyToClipboard>
     );
   }

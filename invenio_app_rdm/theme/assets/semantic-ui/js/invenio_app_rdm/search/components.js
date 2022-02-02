@@ -2,6 +2,7 @@
 // Copyright (C) 2020-2021 CERN.
 // Copyright (C) 2020-2021 Northwestern University.
 // Copyright (C) 2021 Graz University of Technology.
+// Copyright (C) 2021 New York University.
 //
 // Invenio App RDM is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
@@ -65,7 +66,7 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
   // Derivatives
   const viewLink = `/records/${result.id}`;
   return (
-    <Item key={index} href={viewLink}>
+    <Item key={index}>
       <Item.Content>
         <Item.Extra className="labels-actions">
           <Label size="tiny" color="blue">
@@ -80,13 +81,9 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
             )}
             {access_status}
           </Label>
-          <Button compact size="small" floated="right">
-            <Icon name="eye" />
-            {i18next.t("View")}
-          </Button>
         </Item.Extra>
-        <Item.Header>{title}</Item.Header>
-        <Item.Meta>
+        <Item.Header as='h2'><a href={viewLink}>{title}</a></Item.Header>
+        <Item.Meta className="creatibutors">
           <SearchItemCreators creators={creators} />
         </Item.Meta>
         <Item.Description>
@@ -159,6 +156,7 @@ export const RDMRecordSearchBarElement = ({
         icon: "search",
         onClick: onBtnSearchClick,
         className: "search",
+        'aria-label': "Search"
       }}
       fluid
       placeholder={placeholder}
@@ -189,7 +187,11 @@ export const RDMRecordFacetsValues = ({
         } ${isActive ? "active" : ""}`}
       >
         <List.Content className="facet-count">
-          <Label circular>{bucket.doc_count}</Label>
+          <Label circular
+            id={`${keyField}-count`}
+          >
+            {bucket.doc_count}
+          </Label>
         </List.Content>
         {hasChildren ? (
           <i
@@ -199,6 +201,8 @@ export const RDMRecordFacetsValues = ({
         ) : null}
         <Checkbox
           label={bucket.label || keyField}
+          id={`${keyField}-facet-checkbox`}
+          aria-describedby={`${keyField}-count`}
           value={keyField}
           onClick={() => onFilterClicked(keyField)}
           checked={isSelected}
@@ -234,7 +238,7 @@ const SearchHelpLinks = () => {
 
 export const RDMRecordFacets = ({ aggs, currentResultsState }) => {
   return (
-    <>
+    <aside aria-label={i18next.t("filters")} id="search-filters">
       <Toggle
         title={i18next.t("Versions")}
         label={i18next.t("View all versions")}
@@ -248,7 +252,7 @@ export const RDMRecordFacets = ({ aggs, currentResultsState }) => {
         );
       })}
       <SearchHelpLinks />
-    </>
+    </aside>
   );
 };
 
@@ -292,6 +296,8 @@ export const RDMToggleComponent = ({
         <Checkbox
           toggle
           label={label}
+          name="versions-toggle"
+          id="versions-toggle"
           onClick={onToggleClicked}
           checked={isChecked}
         />

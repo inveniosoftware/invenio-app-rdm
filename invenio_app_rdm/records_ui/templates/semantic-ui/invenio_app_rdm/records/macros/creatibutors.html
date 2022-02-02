@@ -2,6 +2,7 @@
     Copyright (C) 2020 CERN.
     Copyright (C) 2020 Northwestern University.
     Copyright (C) 2021 Graz University of Technology.
+    Copyright (C) 2021 New York University.
 
     Invenio RDM Records is free software; you can redistribute it and/or modify
     it under the terms of the MIT License; see LICENSE file for more details.
@@ -12,13 +13,13 @@
 {% for scheme, identifier in creatibutor.person_or_org.identifiers|groupby("scheme") %}
 {%- if scheme == "orcid" %}
 {% set identifier_found.value = True %}
-<a href="{{ identifier[0]['identifier']|pid_url('orcid') }}">
-  <img class="inline-id-icon" src="{{ url_for('static', filename='images/orcid.svg') }}" />
+<a href="{{ identifier[0]['identifier']|pid_url('orcid') }}" aria-label="{{ creatibutor.person_or_org.name }}'s ORCID Profile" title="{{ creatibutor.person_or_org.name }}'s ORCID Profile">
+  <img alt="" class="inline-id-icon" src="{{ url_for('static', filename='images/orcid.svg') }}" />
 </a>
 {%- elif scheme == "ror" %}
 {% set identifier_found.value = True %}
-<a href="{{ identifier[0]['identifier']|pid_url('ror') }}">
-  <img class="inline-id-icon" src="{{ url_for('static', filename='images/ror-icon.svg') }}" />
+<a href="{{ identifier[0]['identifier']|pid_url('ror') }}" aria-label="{{ creatibutor.person_or_org.name }}'s ROR Profile" title="{{ creatibutor.person_or_org.name }}'s ROR Profile">
+  <img alt=""  class="inline-id-icon" src="{{ url_for('static', filename='images/ror-icon.svg') }}" />
 </a>
 {%- endif %}
 {% endfor %}

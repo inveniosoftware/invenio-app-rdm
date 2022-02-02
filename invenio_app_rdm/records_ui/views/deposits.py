@@ -32,49 +32,43 @@ from .filters import get_scheme_label
 # Helpers
 #
 def get_form_pids_config():
-    """Prepare configuration for the pids field."""
+    """Prepare configuration for the pids field.
+
+    Currently supporting only doi.
+    """
     service = current_rdm_records.records_service
     pids_providers = []
-    for scheme, providers in service.config.pids_providers.items():
-        can_be_managed = False
-        can_be_unmanaged = False
-        provider_enabled = False
-        for name, provider_attrs in providers.items():
-            is_enabled = provider_attrs.get("enabled", True)
-            if not provider_enabled and is_enabled:
-                provider_enabled = True
-
-            if provider_attrs["system_managed"]:
-                can_be_managed = True
-            else:
-                can_be_unmanaged = True
-
-        # all providers disabled for this scheme
-        if not provider_enabled:
+    # FIXME: User provider.is_managed() requires tiny fix in config
+    can_be_managed = True
+    can_be_unmanaged = True
+    for scheme in service.config.pids_providers.keys():
+        if not scheme == "doi":
             continue
-
-        record_pid_config = current_app.config[
-            "RDM_RECORDS_RECORD_PID_SCHEMES"]
+        record_pid_config = current_app.config["RDM_PERSISTENT_IDENTIFIERS"]
         scheme_label = record_pid_config.get(scheme, {}).get("label", scheme)
-
         pids_provider = {
             "scheme": scheme,
-            "pid_label": scheme_label,
-            "pid_placeholder": "10.1234/datacite.123456",
+            "field_label": "Digital Object Identifier",
+            "pid_label": "DOI",
+            "pid_placeholder": "Copy/paste your existing DOI here...",
             "can_be_managed": can_be_managed,
             "can_be_unmanaged": can_be_unmanaged,
             "btn_label_discard_pid": _("Discard the reserved {scheme_label}")
             .format(scheme_label=scheme_label),
             "btn_label_get_pid": _("Get a {scheme_label} now!")
             .format(scheme_label=scheme_label),
-            "managed_help_text": _("Reserve a {scheme_label} or leave this "
-                                   "field blank to have one automatically "
-                                   "assigned when publishing.")
-            .format(scheme_label=scheme_label),
-            "unmanaged_help_text": _("Copy and paste here your {scheme_label}.")  # noqa
-            .format(scheme_label=scheme_label),
+            "managed_help_text": _(
+                "Reserve a {scheme_label} by pressing the button (e.g to "
+                "include it in publications). The {scheme_label} is registered"
+                " when your upload is published."
+            ).format(scheme_label=scheme_label),
+            "unmanaged_help_text": _(
+                "A {scheme_label} allows your upload to be easily and "
+                "unambiguously cited. Example: 10.1234/foo.bar"
+            ).format(scheme_label=scheme_label),
         }
         pids_providers.append(pids_provider)
+
     return pids_providers
 
 
@@ -275,6 +269,10 @@ def new_record():
     """Create an empty record with default values."""
     record = dump_empty(RDMRecordSchema)
     record["files"] = {"enabled": True}
+    if "doi" in current_rdm_records.records_service.config.pids_providers:
+        record["pids"] = {"doi": {"provider": "external", "identifier": ""}}
+    else:
+        record["pids"] = {}
     defaults = current_app.config.get("APP_RDM_DEPOSIT_FORM_DEFAULTS") or {}
     for key, value in defaults.items():
         set_default_value(record, value, key)

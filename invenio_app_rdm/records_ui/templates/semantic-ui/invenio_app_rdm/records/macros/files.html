@@ -3,6 +3,7 @@
   Copyright (C) 2020 Northwestern University.
   Copyright (C) 2021 Graz University of Technology.
   Copyright (C) 2021 TU Wien.
+  Copyright (C) New York University.
 
   Invenio RDM Records is free software; you can redistribute it and/or modify
   it under the terms of the MIT License; see LICENSE file for more details.
@@ -15,6 +16,7 @@
     {%- set preview_url = url_for(preview_endpoint, pid_value=pid_value, filename=filename) -%}
   {% endif %}
   <iframe
+    title="{{_("Preview")}}" 
     class="preview-iframe"
     id="{{id}}"
     name="{{id}}"
