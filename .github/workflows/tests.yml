@@ -10,9 +10,13 @@ name: CI
 
 on:
   push:
-    branches: master
+    branches:
+      - master
+      - 'feature/*'
   pull_request:
-    branches: master
+    branches:
+      - master
+      - 'feature/*'
   schedule:
     # * is a special character in YAML so you have to quote this string
     - cron:  '0 3 * * 6'
@@ -84,7 +88,7 @@ jobs:
 
       - name: Generate dependencies
         run: |
-          pip install wheel requirements-builder
+          pip install "setuptools<=58" wheel requirements-builder
           requirements-builder -e "$EXTRAS" --level=${{ matrix.requirements-level }} setup.py > .${{ matrix.requirements-level }}-${{ matrix.python-version }}-requirements.txt
           cat .${{ matrix.requirements-level }}-${{ matrix.python-version }}-requirements.txt
 
