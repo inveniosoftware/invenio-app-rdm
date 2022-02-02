@@ -10,9 +10,9 @@ name: CI
 
 on:
   push:
-    branches: master
+    branches: feature/communities-ui
   pull_request:
-    branches: master
+    branches: feature/communities-ui
   schedule:
     # * is a special character in YAML so you have to quote this string
     - cron:  '0 3 * * 6'
