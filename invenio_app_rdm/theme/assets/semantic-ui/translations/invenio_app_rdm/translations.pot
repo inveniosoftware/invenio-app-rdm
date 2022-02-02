@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-11-15T09:05:01.088Z\n"
-"PO-Revision-Date: 2021-11-15T09:05:01.088Z\n"
+"POT-Creation-Date: 2022-02-02T09:57:55.760Z\n"
+"PO-Revision-Date: 2022-02-02T09:57:55.760Z\n"
 "Language: en\n"
 
 msgid "Basic information"
@@ -178,3 +178,12 @@ msgstr "An error occurred while generating the citation."
 
 msgid "Search"
 msgstr "Search"
+
+msgid "filters"
+msgstr "filters"
+
+msgid "ORCID profile"
+msgstr "ORCID profile"
+
+msgid "ROR profile"
+msgstr "ROR profile"

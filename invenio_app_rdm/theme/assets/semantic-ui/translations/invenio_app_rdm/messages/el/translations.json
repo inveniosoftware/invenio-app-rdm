@@ -1,8 +1,8 @@
 {
   "Basic information": "",
-  "Anyone with this link <1>can view all versions</1> of this record & files.": "",
-  "Anyone with this link <2>can view all published and unpublished versions</2> of this record & files.": "",
-  "Anyone with an account and this link <2>can edit all versions</2> of this record & files.": "",
+  "Anyone with this link <1>can view all versions</1> of this record & files.": "Anyone with this link <1>can view all versions</1> of this record & files.",
+  "Anyone with this link <2>can view all published and unpublished versions</2> of this record & files.": "Anyone with this link <2>can view all published and unpublished versions</2> of this record & files.",
+  "Anyone with an account and this link <2>can edit all versions</2> of this record & files.": "Anyone with an account and this link <2>can edit all versions</2> of this record & files.",
   "Get a link": "",
   "Copy link": "",
   "Delete link": "",
@@ -52,5 +52,8 @@
   "Related works": "",
   "An error occurred while generating the citation.": "",
   "Search": "",
-  "Search uploads...": ""
+  "Search uploads...": "",
+  "filters": "",
+  "ORCID profile": "",
+  "ROR profile": ""
 }

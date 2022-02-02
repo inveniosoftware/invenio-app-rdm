@@ -52,5 +52,8 @@
   "Alternate identifier(s)": "Alternate identifier(s)",
   "Related works": "Related works",
   "An error occurred while generating the citation.": "An error occurred while generating the citation.",
-  "Search": "Search"
+  "Search": "Search",
+  "filters": "filters",
+  "ORCID profile": "ORCID profile",
+  "ROR profile": "ROR profile"
 }
