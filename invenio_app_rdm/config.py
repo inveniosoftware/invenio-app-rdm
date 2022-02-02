@@ -430,6 +430,17 @@ OAISERVER_METADATA_FORMATS = {
         'schema': 'http://www.openarchives.org/OAI/2.0/oai_dc.xsd',
         'namespace': 'http://www.openarchives.org/OAI/2.0/oai_dc/',
     },
+    'datacite': {
+        'serializer': 'invenio_rdm_records.oai:datacite_etree',
+        'schema': 'http://schema.datacite.org/'
+                  'meta/nonexistant/nonexistant.xsd',
+        'namespace': 'http://datacite.org/schema/nonexistant',
+    },
+    'oai_datacite': {
+        'serializer': ('invenio_rdm_records.oai:oai_datacite_etree'),
+        'schema': 'http://schema.datacite.org/oai/oai-1.1/oai.xsd',
+        'namespace': 'http://schema.datacite.org/oai/oai-1.1/',
+    },
 }
 
 OAISERVER_LAST_UPDATE_KEY = 'updated'
