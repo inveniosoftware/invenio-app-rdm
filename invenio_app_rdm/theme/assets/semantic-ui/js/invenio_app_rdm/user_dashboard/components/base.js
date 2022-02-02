@@ -22,11 +22,8 @@ import { Grid, Segment } from "semantic-ui-react";
 
 import Overridable from "react-overridable";
 
-export function DashboardResultView({
-  sortOptions,
-  paginationOptions,
-  currentResultsState,
-}) {
+export function DashboardResultView(props) {
+  const { sortOptions, paginationOptions, currentResultsState } = props;
   const { total } = currentResultsState;
   return (
     <Grid>
@@ -34,10 +31,7 @@ export function DashboardResultView({
         <Grid.Column width={16}>
           <Segment>
             <Grid>
-              <Overridable
-                id="DashboardResultView.resultHeader"
-                {...this.props}
-              >
+              <Overridable id="DashboardResultView.resultHeader" {...props}>
                 <Grid.Row
                   verticalAlign="middle"
                   className="small padding-tb-5 deposit-result-header"
@@ -69,7 +63,7 @@ export function DashboardResultView({
                   </Grid.Column>
                 </Grid.Row>
               </Overridable>
-              <Overridable id="DashboardResultView.resultList" {...this.props}>
+              <Overridable id="DashboardResultView.resultList" {...props}>
                 <Grid.Row>
                   <Grid.Column>
                     <ResultsList />
@@ -80,7 +74,7 @@ export function DashboardResultView({
           </Segment>
         </Grid.Column>
       </Grid.Row>
-      <Overridable id="DashboardResultView.resultFooter" {...this.props}>
+      <Overridable id="DashboardResultView.resultFooter" {...props}>
         <Grid.Row verticalAlign="middle">
           <Grid.Column width={4}></Grid.Column>
           <Grid.Column width={8} textAlign="center" floated="right">
