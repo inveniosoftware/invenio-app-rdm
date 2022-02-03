@@ -15,7 +15,7 @@ from invenio_pidstore.errors import PIDDeletedError, PIDDoesNotExistError, \
 from invenio_records_resources.services.errors import PermissionDeniedError
 
 from ..searchapp import search_app_context
-from .deposits import deposit_create, deposit_edit, dashboard
+from .deposits import dashboard, deposit_create, deposit_edit
 from .filters import can_list_files, get_scheme_label, has_previewable_files, \
     make_files_preview_compatible, order_entries, pid_url, \
     select_preview_file, to_previewer_files

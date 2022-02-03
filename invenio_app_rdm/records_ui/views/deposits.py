@@ -287,8 +287,8 @@ def dashboard(dashboard_name=None):
     """Display user dashboard page."""
     return render_template(
         "invenio_app_rdm/records/dashboard.html",
-        dashboard_name=dashboard_name or \
-            current_app.config["_DASHBOARD_ROUTES"][0],
+        dashboard_name=dashboard_name or current_app.config[
+            "_DASHBOARD_ROUTES"][0],
         searchbar_config=dict(searchUrl=get_search_url()),
     )
 

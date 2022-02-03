@@ -542,8 +542,8 @@ APP_RDM_ROUTES = {
     "record_from_pid": "/<any({schemes}):pid_scheme>/<path:pid_value>",
     "record_latest": "/records/<pid_value>/latest",
     "dashboard_home": "/me",
-    "dashboard_item": "/me/<any({routes}):dashboard_name>"
-        .format(routes=",".join(_DASHBOARD_ROUTES)),
+    "dashboard_item": "/me/<any({routes}):dashboard_name>".format(
+        routes=",".join(_DASHBOARD_ROUTES)),
     "deposit_create": "/uploads/new",
     "deposit_edit": "/uploads/<pid_value>",
 }

@@ -141,7 +141,7 @@ export const DashboardCommunitiesSearchLayout = DashboardSearchLayoutHOC({
   searchBarPlaceholder: i18next.t("Search communities..."),
   newBtn: (
     <Button
-      color="green"
+      positive
       icon="upload"
       href="/communities/new"
       content={i18next.t("New community")}
