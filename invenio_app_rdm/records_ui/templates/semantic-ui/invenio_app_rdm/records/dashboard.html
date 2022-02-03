@@ -15,6 +15,21 @@
 {%- endblock javascript %}
 
 {%- block page_body %}
+<div class="ui container" style="margin-bottom: 20px;">
+  <div class="ui items">
+    <div class="item">
+      <div class="ui tiny circular image">
+        <img src="/static/images/placeholder.png" />
+      </div>
+      <div class="content">
+        <span class="header">{{current_user.email}}</span>
+        <div class="meta">
+          <span>European Organization of Nuclear Research (CERN)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <div
   id="invenio-user-dashboard"
   data-invenio-search-user-uploads-config='{{ search_app_user_uploads_config(app_id="user-uploads-search") | tojson }}'

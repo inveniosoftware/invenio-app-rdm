@@ -22,16 +22,18 @@ import {
   Label,
   Item,
   Button,
-  Segment,
+  Icon,
 } from "semantic-ui-react";
+import _get from "lodash/get";
 import _truncate from "lodash/truncate";
 import { BucketAggregation, SearchBar } from "react-searchkit";
 import {
+  RDMRecordSearchBarElement,
   RDMBucketAggregationElement,
   RDMRecordFacetsValues,
   SearchHelpLinks,
 } from "../../search/components";
-import { DashboardResultView } from "./base";
+import { DashboardResultView, DashboardSearchLayoutHOC } from "./base";
 
 function ResultsGridItemTemplate({ result, index }) {
   return (
@@ -49,28 +51,48 @@ function ResultsGridItemTemplate({ result, index }) {
 }
 
 export function CommunitiesResultsItemTemplate({ result, index }) {
+  const community_type = _get(
+    result,
+    "metadata.type",
+    i18next.t("No community type")
+  );
   return (
     <Item key={index}>
-      {index == 0 ? (
-        <Item.Image size="tiny" src={result.links.logo} />
-      ) : (
-        <Item.Image size="tiny" src="/static/images/placeholder.png" />
-      )}
+      <Item.Image size="tiny" src={result.links.logo} />
       <Item.Content>
+        <Item.Extra className="user-communities labels-actions">
+          {/* For reduced spacing between labels. */}
+          <span>
+            <Label size="tiny" color="grey">
+              {community_type}
+            </Label>
+          </span>
+          <Button
+            compact
+            size="small"
+            floated="right"
+            href={`/communities/${result.id}/settings`}
+          >
+            <Icon name="edit" />
+            {i18next.t("Edit")}
+          </Button>
+          <Button
+            compact
+            size="small"
+            floated="right"
+            href={`/communities/${result.id}`}
+          >
+            <Icon name="eye" />
+            {i18next.t("View")}
+          </Button>
+        </Item.Extra>
         <Item.Header href={`/communities/${result.id}`}>
           {result.metadata.title}
-          {result.metadata.type && (
-            <span style={{ marginLeft: "5px" }}>
-              <Label size="small">{result.metadata.type}</Label>
-            </span>
-          )}
         </Item.Header>
         {result.metadata.website && (
-          <Item.Content href={result.metadata.website} target="_blank">
-            <a href={result.metadata.website} target="_blank">
-              {result.metadata.website}
-            </a>
-          </Item.Content>
+          <a href={result.metadata.website} target="_blank">
+            {result.metadata.website}
+          </a>
         )}
         <Item.Meta>
           <div
@@ -115,35 +137,18 @@ export const CommunitiesSearchBarElement = ({
   );
 };
 
-export const CommunitiesSearchLayout = (props) => (
-  <Container>
-    <Grid>
-      <Grid.Row columns={3}>
-        <Grid.Column width={4} />
-        <Grid.Column width={8}>
-          <SearchBar placeholder="Search communities..." />
-        </Grid.Column>
-        <Grid.Column width={4}>
-          <Button
-            color="green"
-            icon="upload"
-            href="/communities/new"
-            content="New community"
-            floated="right"
-          />
-        </Grid.Column>
-      </Grid.Row>
-      <Grid.Row>
-        <Grid.Column width={4}>
-          <SearchAppFacets aggs={props.config.aggs} />
-        </Grid.Column>
-        <Grid.Column width={12}>
-          <SearchAppResultsPane layoutOptions={props.config.layoutOptions} />
-        </Grid.Column>
-      </Grid.Row>
-    </Grid>
-  </Container>
-);
+export const DashboardCommunitiesSearchLayout = DashboardSearchLayoutHOC({
+  searchBarPlaceholder: i18next.t("Search communities..."),
+  newBtn: (
+    <Button
+      color="green"
+      icon="upload"
+      href="/communities/new"
+      content={i18next.t("New community")}
+      floated="right"
+    />
+  ),
+});
 
 export const CommunitiesFacets = ({ aggs, currentResultsState }) => {
   return (
@@ -165,10 +170,10 @@ export const defaultComponents = {
     RDMBucketAggregationElement,
   "user-communities-search.BucketAggregationValues.element":
     RDMRecordFacetsValues,
-  "user-communities-search.SearchApp.facets": CommunitiesFacets,
   "user-communities-search.ResultsList.item": CommunitiesResultsItemTemplate,
   "user-communities-search.ResultsGrid.item": ResultsGridItemTemplate,
-  "user-communities-search.SearchApp.layout": CommunitiesSearchLayout,
-  "user-communities-search.SearchBar.element": CommunitiesSearchBarElement,
+  "user-communities-search.SearchApp.facets": CommunitiesFacets,
+  "user-communities-search.SearchApp.layout": DashboardCommunitiesSearchLayout,
   "user-communities-search.SearchApp.results": DashboardResultView,
+  "user-communities-search.SearchBar.element": RDMRecordSearchBarElement,
 };
