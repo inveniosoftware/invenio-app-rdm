@@ -38,7 +38,7 @@ import {
   RDMRecordSearchBarElement,
   RDMToggleComponent,
 } from "../../search/components";
-import { DashboardResultView } from "./base";
+import { DashboardResultView, DashboardSearchLayoutHOC } from "./base";
 
 const DeleteDraftButton = (props) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -96,27 +96,27 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
   const createdDate = _get(
     result,
     "ui.created_date_l10n_long",
-    "No creation date found."
+    i18next.t("No creation date found.")
   );
   const creators = _get(result, "ui.creators.creators", []).slice(0, 3);
 
   const description_stripped = _get(
     result,
     "ui.description_stripped",
-    "No description"
+    i18next.t("No description")
   );
 
   const publicationDate = _get(
     result,
     "ui.publication_date_l10n_long",
-    "No publication date found."
+    i18next.t("No publication date found.")
   );
   const resource_type = _get(
     result,
     "ui.resource_type.title_l10n",
-    "No resource type"
+    i18next.t("No resource type")
   );
-  const title = _get(result, "metadata.title", "No title");
+  const title = _get(result, "metadata.title", i18next.t("No title"));
   const subjects = _get(result, "ui.subjects", []);
   const version = _get(result, "ui.version", null);
   const is_published = result.is_published;
@@ -275,35 +275,18 @@ export const RDMEmptyResults = (props) => {
   );
 };
 
-export const RDMDashboardUploadsSearchLayout = (props) => (
-  <Container>
-    <Grid>
-      <Grid.Row columns={3}>
-        <Grid.Column width={4} />
-        <Grid.Column width={8}>
-          <SearchBar placeholder={i18next.t("Search uploads...")} />
-        </Grid.Column>
-        <Grid.Column width={4}>
-          <Button
-            color="green"
-            icon="upload"
-            href="/uploads/new"
-            content={i18next.t("New upload")}
-            floated="right"
-          />
-        </Grid.Column>
-      </Grid.Row>
-      <Grid.Row>
-        <Grid.Column width={4}>
-          <SearchAppFacets aggs={props.config.aggs} />
-        </Grid.Column>
-        <Grid.Column width={12}>
-          <SearchAppResultsPane layoutOptions={props.config.layoutOptions} />
-        </Grid.Column>
-      </Grid.Row>
-    </Grid>
-  </Container>
-);
+export const DashboardUploadsSearchLayout = DashboardSearchLayoutHOC({
+  searchBarPlaceholder: i18next.t("Search uploads..."),
+  newBtn: (
+    <Button
+      color="green"
+      icon="upload"
+      href="/uploads/new"
+      content={i18next.t("New upload")}
+      floated="right"
+    />
+  ),
+});
 
 export const defaultComponents = {
   "user-uploads-search.BucketAggregation.element": RDMBucketAggregationElement,
@@ -313,7 +296,7 @@ export const defaultComponents = {
   "user-uploads-search.ResultsList.item": RDMRecordResultsListItem,
   "user-uploads-search.ResultsGrid.item": RDMRecordResultsGridItem,
   "user-uploads-search.SearchApp.facets": RDMRecordFacets,
-  "user-uploads-search.SearchApp.layout": RDMDashboardUploadsSearchLayout,
+  "user-uploads-search.SearchApp.layout": DashboardUploadsSearchLayout,
   "user-uploads-search.SearchApp.results": DashboardResultView,
   "user-uploads-search.SearchBar.element": RDMRecordSearchBarElement,
   "user-uploads-search.SearchFilters.ToggleComponent": RDMToggleComponent,
