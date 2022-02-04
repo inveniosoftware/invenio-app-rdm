@@ -16,7 +16,7 @@ import { overrideStore } from "react-overridable";
 import { Container, Tab } from "semantic-ui-react";
 import { defaultComponents as CommunitiesDefaultComponents } from "./components/communities";
 import { defaultComponents as UploadsDefaultComponents } from "./components/uploads";
-// import { defaultComponents as RequestsDefaultComponents } from "./components/requests";
+import { defaultComponents as RequestsDefaultComponents } from "./components/requests";
 
 const rootElement = document.getElementById("invenio-user-dashboard");
 
@@ -31,12 +31,11 @@ const TAB_PANES = [
     label: i18next.t("Communities"),
     pathname: "communities",
   },
-  // {
-  //   configDataAttribute: "invenio-search-user-requests-config",
-  //   label: "Requests",
-  //   pathname: "requests",
-  //   appName: "requests",
-  // },
+  {
+    configDataAttribute: "invenio-search-user-requests-config",
+    label: "Requests",
+    pathname: "requests",
+  },
 ];
 
 const replaceURLPathname = (newPathname) =>
@@ -59,7 +58,7 @@ class DashboardTabs extends Component {
     for (const [componentId, component] of Object.entries({
       ...UploadsDefaultComponents,
       ...CommunitiesDefaultComponents,
-      // ...RequestsDefaultComponents,
+      ...RequestsDefaultComponents,
     })) {
       overrideStore.add(componentId, component);
     }
