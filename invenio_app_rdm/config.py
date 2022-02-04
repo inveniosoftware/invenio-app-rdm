@@ -640,7 +640,7 @@ RDM_SEARCH_USER_COMMUNITIES = {
 """User communities search configuration (i.e list of user communities)"""
 
 RDM_SEARCH_USER_REQUESTS = {
-    'facets': [],
+    'facets': ['type', 'status'],
     'sort': ['bestmatch', 'newest', 'oldest'],
 }
 """User requests search configuration (i.e list of user requests)"""
