@@ -7,6 +7,7 @@
 // under the terms of the MIT License; see LICENSE file for more details.
 
 import { createSearchAppInit } from "@js/invenio_search_ui";
+import { RequestToggleComponent } from "../user_dashboard/components/requests";
 import {
   RDMBucketAggregationElement,
   RDMRecordFacets,
@@ -15,7 +16,6 @@ import {
   RDMRecordResultsListItem,
   RDMRecordSearchBarContainer,
   RDMRecordSearchBarElement,
-  RDMToggleComponent,
   RDMCountComponent,
   RDMEmptyResults,
   RDMErrorComponent,
@@ -30,7 +30,6 @@ const initSearchApp = createSearchAppInit({
   "SearchApp.facets": RDMRecordFacets,
   "SearchApp.searchbarContainer": RDMRecordSearchBarContainer,
   "SearchBar.element": RDMRecordSearchBarElement,
-  "SearchFilters.ToggleComponent": RDMToggleComponent,
   "Count.element": RDMCountComponent,
   "Error.element": RDMErrorComponent,
 });
