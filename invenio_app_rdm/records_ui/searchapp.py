@@ -200,22 +200,24 @@ def sort_config(config_name):
     )
 
 
-def facets_config(config_name):
+def facets_config(config_name, available_facets):
     """Facets configuration."""
     return FacetsConfig(
-        current_app.config['RDM_FACETS'],
+        available_facets,
         current_app.config[config_name].get('facets', [])
     )
 
 
-def search_app_config(config_name, endpoint, overrides=None, **kwargs):
+def search_app_config(
+    config_name, available_facets, endpoint, overrides=None, **kwargs
+):
     """Search app config."""
     opts = dict(
         endpoint=endpoint,
         headers={"Accept": "application/vnd.inveniordm.v1+json"},
         grid_view=False,
         sort=sort_config(config_name),
-        facets=facets_config(config_name),
+        facets=facets_config(config_name, available_facets),
     )
     opts.update(kwargs)
     overrides = overrides or {}
@@ -226,13 +228,26 @@ def search_app_context():
     """Search app context processor."""
     return {
         'search_app_config': partial(
-            search_app_config, 'RDM_SEARCH', '/api/records'),
+            search_app_config,
+            'RDM_SEARCH',
+            current_app.config['RDM_FACETS'],
+            '/api/records'),
         'search_app_user_uploads_config': partial(
-            search_app_config, 'RDM_SEARCH_DRAFTS', '/api/user/records'),
+            search_app_config,
+            'RDM_SEARCH_DRAFTS',
+            current_app.config['RDM_FACETS'],
+            '/api/user/records'
+        ),
         'search_app_user_communities_config': partial(
-            search_app_config, 'RDM_SEARCH_USER_COMMUNITIES',
+            search_app_config,
+            'RDM_SEARCH_USER_COMMUNITIES',
+            current_app.config['RDM_FACETS'],
             '/api/user/communities', headers={"Accept": "application/json"}),
-        'search_drafts_user_requests_config': partial(
-            search_app_config, 'RDM_SEARCH_USER_REQUESTS', '/api/requests',
-            headers={"Accept": "application/json"})
+        'search_app_user_requests_config': partial(
+            search_app_config,
+            'RDM_SEARCH_USER_REQUESTS',
+            current_app.config['REQUESTS_FACETS'],
+            '/api/requests',
+            headers={"Accept": "application/json"}
+        )
     }

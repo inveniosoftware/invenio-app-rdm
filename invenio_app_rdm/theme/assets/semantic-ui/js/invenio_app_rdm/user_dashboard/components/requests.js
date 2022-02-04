@@ -14,7 +14,7 @@ import {
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import _get from "lodash/get";
 import _truncate from "lodash/truncate";
-import React from "react";
+import React, { useState } from "react";
 import {
   BucketAggregation,
   Count,
@@ -23,6 +23,7 @@ import {
   ResultsPerPage,
   SearchBar,
   Sort,
+  Toggle,
 } from "react-searchkit";
 import {
   Button,
@@ -42,6 +43,7 @@ import {
   RDMRecordSearchBarElement,
   SearchHelpLinks,
 } from "../../search/components";
+import { timestampToRelativeTime } from "../../utils";
 
 export const RequestsResults = ({
   sortOptions,
@@ -139,21 +141,39 @@ export function RequestsResultsGridItemTemplate({ result, index }) {
 }
 
 export function RequestsResultsItemTemplate({ result, index }) {
+  const createdDate = new Date(result.created);
+  const differenceInDays = timestampToRelativeTime(createdDate.toISOString());
   return (
     <Item key={index}>
       <Item.Content>
-        <Item.Header href={`/requests/${result.id}`}>
-          {result.metadata.title}
-          {result.metadata.type && (
-            <span style={{ marginLeft: "5px" }}>
-              <Label size="small">{result.metadata.type}</Label>
+        <Item.Header>
+          {result.type && (
+            <span className="mr-5">
+              <Label size="large">{result.type}</Label>
             </span>
           )}
+          <a href={`/requests/${result.id}`}>{result.title}</a>
         </Item.Header>
-        <Item.Meta>
-          <div
-            dangerouslySetInnerHTML={{ __html: result.metadata.description }}
-          />
+
+        <Item.Meta className="mt-10">
+          <span className="mr-15">
+            {/* TODO: Replace by resolved user */}
+            {/* {i18next.t(`opened {{difference}} by {{user}}`, {
+              difference: differenceInDays,
+              user: result.created_by.user,
+            })} */}
+            {`opened ${differenceInDays} by you`}
+          </span>
+          {result.receiver.community && (
+            <>
+              <Icon className="default-margin" name="users" />
+              <span className="ml-5">
+                {/* TODO: Replace by resolved receiver */}
+                {/* {result.receiver.community} */}
+                Biodiversity Literature Repository
+              </span>
+            </>
+          )}
         </Item.Meta>
       </Item.Content>
     </Item>
@@ -222,35 +242,75 @@ export const RDMEmptyResults = (props) => {
   );
 };
 
-export const RDMRequestsSearchLayout = (props) => (
-  <Container>
-    <Grid>
-      <Grid.Row columns={3}>
-        <Grid.Column width={4} />
-        <Grid.Column width={8}>
-          <SearchBar placeholder={i18next.t("Search requests...")} />
-        </Grid.Column>
-        <Grid.Column width={4}>
-          <Button
-            color="green"
-            icon="upload"
-            href="/requests/new"
-            content={i18next.t("New request")}
-            floated="right"
-          />
-        </Grid.Column>
-      </Grid.Row>
-      <Grid.Row>
-        <Grid.Column width={4}>
-          <SearchAppFacets aggs={props.config.aggs} />
-        </Grid.Column>
-        <Grid.Column width={12}>
-          <SearchAppResultsPane layoutOptions={props.config.layoutOptions} />
-        </Grid.Column>
-      </Grid.Row>
-    </Grid>
-  </Container>
-);
+export const RequestToggleComponent = ({
+  updateQueryFilters,
+  userSelectionFilters,
+}) => {
+  const [open, setOpen] = useState(true);
+
+  const retrieveOpenRequests = () => {
+    if (open) {
+      return;
+    }
+    setOpen(true);
+    const filterToRemove = userSelectionFilters.filter((obj1) => {
+      return obj1.includes("is_open");
+    });
+    const filters = filterToRemove ? filterToRemove : [];
+    filters.push(["is_open", "true"]);
+    updateQueryFilters(filters);
+  };
+
+  const retrieveClosedRequests = () => {
+    if (!open) {
+      return;
+    }
+    setOpen(false);
+    const filterToRemove = userSelectionFilters.filter((obj1) => {
+      return obj1.includes("is_open");
+    });
+    const filters = filterToRemove ? filterToRemove : [];
+    filters.push(["is_open", "false"]);
+    updateQueryFilters(filters);
+  };
+
+  return (
+    <Button.Group basic>
+      <Button onClick={retrieveOpenRequests} active={open}>
+        Open
+      </Button>
+      <Button onClick={retrieveClosedRequests} active={!open}>
+        Closed
+      </Button>
+    </Button.Group>
+  );
+};
+
+export const RDMRequestsSearchLayout = (props) => {
+  return (
+    <Container>
+      <Grid>
+        <Grid.Row columns={3}>
+          <Grid.Column width={4} />
+          <Grid.Column width={3}>
+            <Toggle filterValue={["is_open"]} />
+          </Grid.Column>
+          <Grid.Column width={9}>
+            <SearchBar placeholder={i18next.t("Search requests...")} />
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row>
+          <Grid.Column width={4}>
+            <SearchAppFacets aggs={props.config.aggs} />
+          </Grid.Column>
+          <Grid.Column width={12}>
+            <SearchAppResultsPane layoutOptions={props.config.layoutOptions} />
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
+    </Container>
+  );
+};
 
 export const RequestsFacets = ({ aggs, currentResultsState }) => {
   return (
@@ -268,12 +328,13 @@ export const RequestsFacets = ({ aggs, currentResultsState }) => {
 };
 
 export const defaultComponents = {
-  "BucketAggregation.element": RDMBucketAggregationElement,
-  "BucketAggregationValues.element": RDMRecordFacetsValues,
-  "SearchApp.facets": RequestsFacets,
-  "ResultsList.item": RequestsResultsItemTemplate,
-  "ResultsGrid.item": RequestsResultsGridItemTemplate,
-  "SearchApp.layout": RDMRequestsSearchLayout,
-  "SearchApp.results": RequestsResults,
-  "SearchBar.element": RDMRecordSearchBarElement,
+  "user-requests-search.BucketAggregation.element": RDMBucketAggregationElement,
+  "user-requests-search.BucketAggregationValues.element": RDMRecordFacetsValues,
+  "user-requests-search.SearchApp.facets": RequestsFacets,
+  "user-requests-search.ResultsList.item": RequestsResultsItemTemplate,
+  "user-requests-search.ResultsGrid.item": RequestsResultsGridItemTemplate,
+  "user-requests-search.SearchApp.layout": RDMRequestsSearchLayout,
+  "user-requests-search.SearchApp.results": RequestsResults,
+  "user-requests-search.SearchBar.element": RDMRecordSearchBarElement,
+  "user-requests-search.SearchFilters.ToggleComponent": RequestToggleComponent,
 };
