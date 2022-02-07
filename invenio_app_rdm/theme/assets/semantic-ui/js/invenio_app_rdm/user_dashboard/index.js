@@ -8,6 +8,7 @@
  */
 
 import { SearchApp } from "@js/invenio_search_ui/components";
+import { i18next } from "@translations/invenio_app_rdm/i18next";
 import _camelCase from "lodash/camelCase";
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
@@ -22,12 +23,12 @@ const rootElement = document.getElementById("invenio-user-dashboard");
 const TAB_PANES = [
   {
     configDataAttribute: "invenio-search-user-uploads-config",
-    label: "Uploads",
+    label: i18next.t("Uploads"),
     pathname: "uploads",
   },
   {
     configDataAttribute: "invenio-search-user-communities-config",
-    label: "Communities",
+    label: i18next.t("Communities"),
     pathname: "communities",
   },
   // {
@@ -44,9 +45,13 @@ const replaceURLPathname = (newPathname) =>
 class DashboardTabs extends Component {
   constructor(props) {
     super(props);
+    const activeTabName = rootElement.dataset[_camelCase("active-tab-name")];
+    const routes = TAB_PANES.map((pane) => pane.pathname);
+    this.state = {
+      defaultActiveTab: routes.indexOf(activeTabName),
+    };
 
     // replace URL with the first pathname when not defined
-    const activeTabName = rootElement.dataset[_camelCase("active-tab-name")];
     if (window.location.pathname.endsWith("/" + activeTabName) === false) {
       replaceURLPathname(window.location.pathname + "/" + activeTabName);
     }
@@ -83,6 +88,7 @@ class DashboardTabs extends Component {
     return (
       <Container>
         <Tab
+          defaultActiveIndex={this.state.defaultActiveTab}
           panes={this.panes}
           onTabChange={this.onTabChange}
           renderActiveOnly={true}
