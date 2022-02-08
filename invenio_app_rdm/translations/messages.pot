@@ -1,7 +1,5 @@
 # Translations template for invenio-app-rdm.
-# Copyright (C) 2021 CERN
-# Copyright (C) 2020 TUBITAK
-# Copyright (C) 2021-2022 Graz University of Technology
+# Copyright (C) 2022 CERN
 # This file is distributed under the same license as the invenio-app-rdm
 # project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
@@ -11,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: invenio-app-rdm 8.0.0.dev3\n"
 "Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
-"POT-Creation-Date: 2022-02-02 10:50+0100\n"
+"POT-Creation-Date: 2022-02-08 10:03+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -326,35 +324,6 @@ msgstr ""
 msgid ""
 "A {scheme_label} allows your upload to be easily and unambiguously cited."
 " Example: 10.1234/foo.bar"
-msgstr ""
-
-#: invenio_app_rdm/theme/assets/semantic-ui/translations/invenio_app_rdm/node_modules/node-gettext/test/gettext-test.js:168
-#: invenio_app_rdm/theme/assets/semantic-ui/translations/invenio_app_rdm/node_modules/node-gettext/test/gettext-test.js:174
-#: invenio_app_rdm/theme/assets/semantic-ui/translations/invenio_app_rdm/node_modules/node-gettext/test/gettext-test.js:180
-#: invenio_app_rdm/theme/assets/semantic-ui/translations/invenio_app_rdm/node_modules/node-gettext/test/gettext-test.js:186
-#: invenio_app_rdm/theme/assets/semantic-ui/translations/invenio_app_rdm/node_modules/node-gettext/test/gettext-test.js:270
-#: invenio_app_rdm/theme/assets/semantic-ui/translations/invenio_app_rdm/node_modules/node-gettext/test/gettext-test.js:273
-#: invenio_app_rdm/theme/assets/semantic-ui/translations/invenio_app_rdm/node_modules/node-gettext/test/gettext-test.js:287
-msgid "o2-1"
-msgid_plural "o2-2"
-msgstr[0] ""
-msgstr[1] ""
-
-#: invenio_app_rdm/theme/assets/semantic-ui/translations/invenio_app_rdm/node_modules/node-gettext/test/gettext-test.js:192
-#: invenio_app_rdm/theme/assets/semantic-ui/translations/invenio_app_rdm/node_modules/node-gettext/test/gettext-test.js:204
-msgctxt "c2"
-msgid "co2-1"
-msgid_plural "co2-2"
-msgstr[0] ""
-msgstr[1] ""
-
-#: invenio_app_rdm/theme/assets/semantic-ui/translations/invenio_app_rdm/node_modules/node-gettext/test/gettext-test.js:227
-msgid "unknown phrase"
-msgstr ""
-
-#: invenio_app_rdm/theme/assets/semantic-ui/translations/invenio_app_rdm/node_modules/node-gettext/test/gettext-test.js:280
-#: invenio_app_rdm/theme/assets/semantic-ui/translations/invenio_app_rdm/node_modules/node-gettext/test/gettext-test.js:296
-msgid "This message is not translated"
 msgstr ""
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:21
