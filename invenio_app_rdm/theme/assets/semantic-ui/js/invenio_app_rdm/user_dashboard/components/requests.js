@@ -14,7 +14,8 @@ import {
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import _get from "lodash/get";
 import _truncate from "lodash/truncate";
-import React, { useState } from "react";
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 import {
   BucketAggregation,
   Count,
@@ -23,7 +24,6 @@ import {
   ResultsPerPage,
   SearchBar,
   Sort,
-  Toggle,
   withState,
 } from "react-searchkit";
 import {
@@ -243,45 +243,84 @@ export const RDMEmptyResults = (props) => {
   );
 };
 
-export const RequestToggleComponent = ({
-  updateQueryFilters,
-  userSelectionFilters,
-}) => {
-  const [open, setOpen] = useState(true);
+export class RequestStatusFilterComponent extends Component {
+  constructor(props) {
+    super(props);
 
-  const retrieveOpenRequests = () => {
-    if (open) {
+    this.state = {
+      open: undefined,
+    };
+  }
+
+  componentDidMount() {
+    const { currentQueryState } = this.props;
+    const userSelectionFilters = currentQueryState.filters;
+    const openFilter = userSelectionFilters.find((obj) =>
+      obj.includes("is_open")
+    );
+    if (openFilter) {
+      this.setState({
+        open: openFilter.includes("true"),
+      });
+    }
+  }
+
+  /**
+   * Updates queryFilters based on selection and removing previous filters
+   * @param {string} OpenStatus true if open requests and false if closed requests
+   */
+  retrieveRequests = (OpenStatus) => {
+    const { currentQueryState, updateQueryState } = this.props;
+    const { open } = this.state;
+
+    if (open === OpenStatus) {
       return;
     }
-    setOpen(true);
-    // We add the selected filters by the user to remove them
-    const filters = [...userSelectionFilters];
-    filters.push(["is_open", "true"]);
-    updateQueryFilters(filters);
+    this.setState({
+      open: OpenStatus,
+    });
+    currentQueryState.filters = [];
+    currentQueryState.filters.push(["is_open", OpenStatus]);
+    updateQueryState(currentQueryState);
   };
 
-  const retrieveClosedRequests = () => {
-    if (!open) {
-      return;
-    }
-    setOpen(false);
-    // We add the selected filters by the user to remove them
-    const filters = [...userSelectionFilters];
-    filters.push(["is_open", "false"]);
-    updateQueryFilters(filters);
+  retrieveOpenRequests = () => {
+    this.retrieveRequests(true);
   };
 
-  return (
-    <Button.Group basic>
-      <Button onClick={retrieveOpenRequests} active={open}>
-        Open
-      </Button>
-      <Button onClick={retrieveClosedRequests} active={!open}>
-        Closed
-      </Button>
-    </Button.Group>
-  );
+  retrieveClosedRequests = () => {
+    this.retrieveRequests(false);
+  };
+
+  render() {
+    const { open } = this.state;
+    return (
+      <Button.Group basic>
+        <Button
+          className="request-search-filter"
+          onClick={this.retrieveOpenRequests}
+          active={open === true}
+        >
+          {i18next.t("Open")}
+        </Button>
+        <Button
+          className="request-search-filter"
+          onClick={this.retrieveClosedRequests}
+          active={open === false}
+        >
+          {i18next.t("Closed")}
+        </Button>
+      </Button.Group>
+    );
+  }
+}
+
+RequestStatusFilterComponent.propTypes = {
+  updateQueryState: PropTypes.func.isRequired,
+  currentQueryState: PropTypes.object.isRequired,
 };
+
+export const RequestStatusFilter = withState(RequestStatusFilterComponent);
 
 export const RDMRequestsSearchLayout = (props) => {
   return (
@@ -290,7 +329,7 @@ export const RDMRequestsSearchLayout = (props) => {
         <Grid.Row columns={3}>
           <Grid.Column width={4} />
           <Grid.Column width={3}>
-            <Toggle filterValue={["is_open"]} />
+            <RequestStatusFilter />
           </Grid.Column>
           <Grid.Column width={9}>
             <SearchBar placeholder={i18next.t("Search requests...")} />
@@ -389,6 +428,5 @@ export const defaultComponents = {
   "user-requests-search.SearchApp.layout": RDMRequestsSearchLayout,
   "user-requests-search.SearchApp.results": RequestsResults,
   "user-requests-search.SearchBar.element": RDMRecordSearchBarElement,
-  "user-requests-search.SearchFilters.ToggleComponent": RequestToggleComponent,
   "user-requests-search.EmptyResults.element": RDMRequestsEmptyResultsWithState,
 };
