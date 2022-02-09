@@ -14,7 +14,7 @@ import {
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import _get from "lodash/get";
 import _truncate from "lodash/truncate";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   BucketAggregation,
   Count,
@@ -246,7 +246,14 @@ export const RequestToggleComponent = ({
   updateQueryFilters,
   userSelectionFilters,
 }) => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(undefined);
+
+  useEffect(() => {
+    const openFilter = userSelectionFilters.find((obj) =>
+      obj.includes("is_open")
+    );
+    openFilter && setOpen(openFilter.includes("true"));
+  }, []);
 
   const retrieveOpenRequests = () => {
     if (open) {
@@ -272,10 +279,10 @@ export const RequestToggleComponent = ({
 
   return (
     <Button.Group basic>
-      <Button onClick={retrieveOpenRequests} active={open}>
+      <Button className="request-search-button" onClick={retrieveOpenRequests} active={open === true}>
         Open
       </Button>
-      <Button onClick={retrieveClosedRequests} active={!open}>
+      <Button className="request-search-button" onClick={retrieveClosedRequests} active={open === false} >
         Closed
       </Button>
     </Button.Group>
