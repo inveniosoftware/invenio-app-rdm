@@ -24,6 +24,7 @@ import {
   SearchBar,
   Sort,
   Toggle,
+  withState,
 } from "react-searchkit";
 import {
   Button,
@@ -323,6 +324,62 @@ export const RequestsFacets = ({ aggs, currentResultsState }) => {
   );
 };
 
+export const RDMRequestsEmptyResults = (props) => {
+  const { queryString, userSelectionFilters } = props;
+  const is_open = userSelectionFilters.some(
+    (obj) => obj.includes("is_open") && obj.includes("true")
+  );
+  const filtersToNotReset = userSelectionFilters.find((obj) =>
+    obj.includes("is_open")
+  );
+  const elementsToReset = {
+    queryString: "",
+    page: 1,
+    filters: [filtersToNotReset],
+  };
+
+  const AllDone = () => {
+    return (
+      <>
+        <Header as="h2" icon>
+          {i18next.t("All done!")}
+          <Header.Subheader>
+            {i18next.t("You've caught up with all open requests.")}
+          </Header.Subheader>
+        </Header>
+      </>
+    );
+  };
+
+  const NoResults = () => {
+    return (
+      <>
+        <Header as="h6" icon>
+          <Icon name="search">
+            <span className="ml-10">{i18next.t("No requests found")}</span>
+          </Icon>
+        </Header>
+        <Button primary onClick={() => props.updateQueryState(elementsToReset)}>
+          {i18next.t("Clear query")}
+        </Button>
+      </>
+    );
+  };
+
+  const allRequestsDone = is_open && !queryString;
+  return (
+    <>
+      <Segment placeholder textAlign="center">
+        {allRequestsDone ? <AllDone /> : <NoResults />}
+      </Segment>
+    </>
+  );
+};
+
+export const RDMRequestsEmptyResultsWithState = withState(
+  RDMRequestsEmptyResults
+);
+
 export const defaultComponents = {
   "user-requests-search.BucketAggregation.element": RDMBucketAggregationElement,
   "user-requests-search.BucketAggregationValues.element": RDMRecordFacetsValues,
@@ -333,4 +390,5 @@ export const defaultComponents = {
   "user-requests-search.SearchApp.results": RequestsResults,
   "user-requests-search.SearchBar.element": RDMRecordSearchBarElement,
   "user-requests-search.SearchFilters.ToggleComponent": RequestToggleComponent,
+  "user-requests-search.EmptyResults.element": RDMRequestsEmptyResultsWithState,
 };
