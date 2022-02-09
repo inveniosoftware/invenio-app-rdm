@@ -253,10 +253,8 @@ export const RequestToggleComponent = ({
       return;
     }
     setOpen(true);
-    const filterToRemove = userSelectionFilters.filter((obj1) => {
-      return obj1.includes("is_open");
-    });
-    const filters = filterToRemove ? filterToRemove : [];
+    // We add the selected filters by the user to remove them
+    const filters = [...userSelectionFilters];
     filters.push(["is_open", "true"]);
     updateQueryFilters(filters);
   };
@@ -266,10 +264,8 @@ export const RequestToggleComponent = ({
       return;
     }
     setOpen(false);
-    const filterToRemove = userSelectionFilters.filter((obj1) => {
-      return obj1.includes("is_open");
-    });
-    const filters = filterToRemove ? filterToRemove : [];
+    // We add the selected filters by the user to remove them
+    const filters = [...userSelectionFilters];
     filters.push(["is_open", "false"]);
     updateQueryFilters(filters);
   };
