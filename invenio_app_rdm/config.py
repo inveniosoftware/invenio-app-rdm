@@ -640,7 +640,7 @@ APP_RDM_DETAIL_SIDE_BAR_TEMPLATES = [
 """Template names for detail view sidebar components"""
 
 RDM_SEARCH_USER_COMMUNITIES = {
-    'facets': [],
+    'facets': ['visibility', 'type'],
     'sort': ['bestmatch', 'newest', 'oldest'],
 }
 """User communities search configuration (i.e list of user communities)"""

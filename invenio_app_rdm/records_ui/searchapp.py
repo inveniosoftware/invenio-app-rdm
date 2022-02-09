@@ -243,7 +243,7 @@ def search_app_context():
         'search_app_user_communities_config': partial(
             search_app_config,
             'RDM_SEARCH_USER_COMMUNITIES',
-            current_app.config['RDM_FACETS'],
+            current_app.config['COMMUNITIES_FACETS'],
             '/api/user/communities', headers={"Accept": "application/json"}),
         'search_app_user_requests_config': partial(
             search_app_config,
