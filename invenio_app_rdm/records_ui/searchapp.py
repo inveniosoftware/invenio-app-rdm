@@ -62,6 +62,7 @@ class SearchAppConfig:
         default_page=1,
         facets=None,
         sort=None,
+        initial_filters=[],
     )
 
     def __init__(self, configuration_options):
@@ -100,6 +101,7 @@ class SearchAppConfig:
             "size": self.default_size,
             "sortBy": self.sort.default,
             "page": self.default_page,
+            "filters": self.initial_filters,
         }
 
     @property
@@ -248,6 +250,7 @@ def search_app_context():
             'RDM_SEARCH_USER_REQUESTS',
             current_app.config['REQUESTS_FACETS'],
             '/api/requests',
-            headers={"Accept": "application/json"}
+            headers={"Accept": "application/json"},
+            initial_filters=[["is_open", "true"]]
         )
     }
