@@ -7,18 +7,12 @@
 // Invenio App RDM is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
 
-import {
-  SearchAppFacets,
-  SearchAppResultsPane,
-} from "@js/invenio_search_ui/components";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import React from "react";
 import {
   Accordion,
   Input,
   Card,
-  Container,
-  Grid,
   Label,
   Item,
   Button,
@@ -33,6 +27,7 @@ import {
   RDMRecordFacetsValues,
   SearchHelpLinks,
 } from "../../search/components";
+import { Image } from "../../components/Image"; // common components
 import { DashboardResultView, DashboardSearchLayoutHOC } from "./base";
 
 function ResultsGridItemTemplate({ result, index }) {
@@ -58,7 +53,11 @@ export function CommunitiesResultsItemTemplate({ result, index }) {
   );
   return (
     <Item key={index}>
-      <Item.Image size="tiny" src={result.links.logo} />
+      <Image
+        src={result.links.logo}
+        fallbackSrc="/static/images/placeholder.png"
+        className="ui tiny image"
+      />
       <Item.Content>
         <Item.Extra className="user-communities labels-actions">
           {/* For reduced spacing between labels. */}

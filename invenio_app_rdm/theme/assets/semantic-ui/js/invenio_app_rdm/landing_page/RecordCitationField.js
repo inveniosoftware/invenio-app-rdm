@@ -12,7 +12,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Header, Placeholder, Grid, Dropdown } from "semantic-ui-react";
 import { withCancel } from "../utils";
-import { CopyButton } from "../utils/CopyButton";
+import { CopyButton } from "../components/CopyButton";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 
 export class RecordCitationField extends Component {
@@ -22,7 +22,7 @@ export class RecordCitationField extends Component {
     this.state = {
       loading: true,
       citation: "",
-      error: null
+      error: null,
     };
   }
 
@@ -38,11 +38,11 @@ export class RecordCitationField extends Component {
   placeholderLoader = () => {
     return (
       <Placeholder>
-          <Placeholder.Paragraph>
-            <Placeholder.Line />
-            <Placeholder.Line />
-            <Placeholder.Line />
-          </Placeholder.Paragraph>
+        <Placeholder.Paragraph>
+          <Placeholder.Line />
+          <Placeholder.Line />
+          <Placeholder.Line />
+        </Placeholder.Paragraph>
       </Placeholder>
     );
   };
@@ -70,7 +70,7 @@ export class RecordCitationField extends Component {
     this.setState({
       loading: true,
       citation: "",
-      error: ""
+      error: "",
     });
 
     this.cancellableFetchCitation = withCancel(
@@ -81,10 +81,9 @@ export class RecordCitationField extends Component {
       const response = await this.cancellableFetchCitation.promise;
       this.setState({
         loading: false,
-        citation: response.data
+        citation: response.data,
       });
-    }
-    catch (error) {
+    } catch (error) {
       if (error !== "UNMOUNTED") {
         this.setState({
           loading: false,
@@ -103,18 +102,29 @@ export class RecordCitationField extends Component {
       return {
         key: style[0],
         value: style[0],
-        text: style[1]
-      }
-    })
+        text: style[1],
+      };
+    });
 
     return (
       <Grid className="record-citation">
         <Grid.Row verticalAlign="middle" className="relaxed">
-          <Grid.Column mobile={8} tablet={8} computer={12} className="no-padding">
+          <Grid.Column
+            mobile={8}
+            tablet={8}
+            computer={12}
+            className="no-padding"
+          >
             <h2 id="citation-heading">{i18next.t("Citation")}</h2>
           </Grid.Column>
 
-          <Grid.Column mobile={8} tablet={8} computer={4} className="no-padding" textAlign="right">
+          <Grid.Column
+            mobile={8}
+            tablet={8}
+            computer={4}
+            className="no-padding"
+            textAlign="right"
+          >
             <div className="citation-style-selector">
               <label id="citation-style-label">{i18next.t("Style")}</label>
               <Dropdown
@@ -140,7 +150,7 @@ export class RecordCitationField extends Component {
           </Grid.Column>
 
           <Grid.Column computer={4} className="no-padding" textAlign="right">
-            <CopyButton text={citation}/>
+            <CopyButton text={citation} />
           </Grid.Column>
         </Grid.Row>
 
