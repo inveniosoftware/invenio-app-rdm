@@ -634,7 +634,6 @@ APP_RDM_DETAIL_SIDE_BAR_TEMPLATES = [
     "invenio_app_rdm/records/details/side_bar/versions.html",
     "invenio_app_rdm/records/details/side_bar/keywords_subjects.html",
     "invenio_app_rdm/records/details/side_bar/details.html",
-    "invenio_app_rdm/records/details/side_bar/upload_info.html",
     "invenio_app_rdm/records/details/side_bar/export.html",
 ]
 """Template names for detail view sidebar components"""

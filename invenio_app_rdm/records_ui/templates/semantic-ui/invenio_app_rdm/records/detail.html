@@ -202,7 +202,7 @@
               {%- endif %}
             {%- endblock record_files -%}
 
-            {# Additional data #}
+            {# Additional details #}
             {%- block record_details -%}
               <section id="additional-details" class="section-spacing" aria-label="{{ _('Additional record details') }}">
                 {%- include "invenio_app_rdm/records/details/details.html" %}
@@ -225,22 +225,45 @@
       </div>
     </div>
 
-    {# Jump up button #}
     <div class="ui relaxed grid">
-      <div class="two column row top-padded">
+      <div class="two column row">
         <div class="sixteen wide tablet eleven wide computer column">
+
+          {# Upload info #}
+          <section id="upload-info" aria-label="{{ _('Upload information') }}">
+            <dl>
+              <div class="table-row">
+                <dt>{{ _("Created") }}:</dt>
+                <dd>
+                  {{ record.ui.created_date_l10n_long }}
+                </dd>
+              </div>
+              <div class="table-row">
+                <dt>{{ _("Modified") }}:</dt>
+                <dd>
+                  {{ record.ui.updated_date_l10n_long }}
+                </dd>
+              </div>
+            </dl>
+          </section>
+        </div>
+      </div>
+
+      <div class="two column row">
+        <div class="sixteen wide tablet eleven wide computer column">
+          {# Jump up button #}
           {%- block jump -%}
             <div class="ui grid">
               <div class="centered row" id="jump-btn">
-                <a style="cursor: pointer;">
-                  <button class="ui button" aria-label="{{ _('Jump to top of page') }}">
-                    <i class="arrow alternate circle up outline icon"></i>
-                    {{ _("Jump up") }}
-                  </button>
-                </a>
+                  <a style="cursor: pointer;">
+                    <button class="ui button" aria-label="{{ _('Jump to top of page') }}">
+                      <i class="arrow alternate circle up outline icon"></i>
+                      {{ _("Jump up") }}
+                    </button>
+                  </a>
               </div>
             </div>
-            {%- endblock jump -%}
+          {%- endblock jump -%}
         </div>
       </div>
     </div>
