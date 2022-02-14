@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-02-08T09:05:45.270Z\n"
-"PO-Revision-Date: 2022-02-08T09:05:45.270Z\n"
+"POT-Creation-Date: 2022-02-14T09:40:46.397Z\n"
+"PO-Revision-Date: 2022-02-14T09:40:46.397Z\n"
 "Language: en\n"
 
 msgid "Basic information"
@@ -187,3 +187,66 @@ msgstr "ORCID profile"
 
 msgid "ROR profile"
 msgstr "ROR profile"
+
+msgid "hide subfacets"
+msgstr "hide subfacets"
+
+msgid "show subfacets"
+msgstr "show subfacets"
+
+msgid "No community type"
+msgstr "No community type"
+
+msgid "Search communities..."
+msgstr "Search communities..."
+
+msgid "New community"
+msgstr "New community"
+
+msgid "opened {{difference}} by {{user}}"
+msgstr "opened {{difference}} by {{user}}"
+
+msgid "Create your first request!"
+msgstr "Create your first request!"
+
+msgid "New request"
+msgstr "New request"
+
+msgid "Open"
+msgstr "Open"
+
+msgid "Closed"
+msgstr "Closed"
+
+msgid "Search requests..."
+msgstr "Search requests..."
+
+msgid "All done!"
+msgstr "All done!"
+
+msgid "You've caught up with all open requests."
+msgstr "You've caught up with all open requests."
+
+msgid "No requests found"
+msgstr "No requests found"
+
+msgid "No creation date found."
+msgstr "No creation date found."
+
+msgid "No description"
+msgstr "No description"
+
+msgid "No publication date found."
+msgstr "No publication date found."
+
+msgid "No resource type"
+msgstr "No resource type"
+
+msgid "No title"
+msgstr "No title"
+
+msgid "Uploads"
+msgstr "Uploads"
+
+msgid "Communities"
+msgstr "Communities"
