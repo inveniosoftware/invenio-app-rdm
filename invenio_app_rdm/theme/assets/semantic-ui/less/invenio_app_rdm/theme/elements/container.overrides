@@ -3,3 +3,18 @@
 *******************************/
 
 @import "@less/invenio_theme/theme/elements/container.overrides";
+
+// Dashboard user information header
+// TODO refactor
+@highlightBackgroundColor: #f8f8f9;
+
+.ui.container {
+  &#dashboard-user-header-container {
+    padding-bottom: @defaultPadding;
+    padding-top: @defaultPadding;
+    background-color: @highlightBackgroundColor;
+  }
+  &#dashboard-tab-menu-container {
+    background-color: @highlightBackgroundColor;
+  }
+}

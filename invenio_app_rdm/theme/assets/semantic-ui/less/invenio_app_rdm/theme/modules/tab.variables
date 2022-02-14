@@ -1,0 +1,8 @@
+/*******************************
+    User Variable Overrides
+*******************************/
+
+@import "@less/invenio_theme/theme/modules/tab.variables";
+@greyBackground : #F8F8F9;
+@orangeBorder: #fb8273;
+@greyBorder : rgba(34, 36, 38, 0.15);

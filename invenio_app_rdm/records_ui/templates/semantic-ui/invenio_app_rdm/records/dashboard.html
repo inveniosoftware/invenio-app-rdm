@@ -15,16 +15,22 @@
 {%- endblock javascript %}
 
 {%- block page_body %}
-<div class="ui container dashboard-user-header-container">
-  <div class="ui items">
-    <div class="item">
-      <div class="ui tiny circular image">
-        <img src="/static/images/square-placeholder.png" />
-      </div>
-      <div class="content">
-        <span class="header">{{current_user.email}}</span>
-        <div class="meta">
-          <span>European Organization of Nuclear Research (CERN)</span>
+<div class="ui container fluid" id="dashboard-user-header-container">
+  <div class="ui container">
+    <div class="ui items">
+      <div class="item">
+<!--        TODO comment out when avatars ready-->
+<!--        <div class="ui mini image">-->
+<!--          <img src="/static/images/square-placeholder.png"/>-->
+<!--        </div>-->
+<!--        <div class="content">-->
+<!--          <span class="header">{{ username }}</span>-->
+<!--          <div class="meta">-->
+<!--          </div>-->
+        <div class="content">
+          <span class="header">My dashboard</span>
+          <div class="meta">
+          </div>
         </div>
       </div>
     </div>
