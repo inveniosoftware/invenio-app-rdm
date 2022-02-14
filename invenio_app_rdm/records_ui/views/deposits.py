@@ -8,8 +8,9 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """Routes for record-related pages provided by Invenio-App-RDM."""
+
 from elasticsearch_dsl import Q
-from flask import current_app, render_template
+from flask import current_app, g, render_template
 from flask_babelex import lazy_gettext as _
 from flask_login import login_required
 from invenio_access.permissions import system_identity
@@ -24,7 +25,7 @@ from marshmallow_utils.fields.babel import gettext_from_dict
 from sqlalchemy.orm import load_only
 
 from ..utils import set_default_value
-from .decorators import pass_draft, pass_draft_files
+from .decorators import pass_draft, pass_draft_community, pass_draft_files
 from .filters import get_scheme_label
 
 
@@ -294,7 +295,8 @@ def dashboard(dashboard_name=None):
 
 
 @login_required
-def deposit_create():
+@pass_draft_community
+def deposit_create(community=None):
     """Create a new deposit."""
     return render_template(
         "invenio_app_rdm/records/deposit.html",
@@ -304,6 +306,7 @@ def deposit_create():
         files=dict(
             default_preview=None, entries=[], links={}
         ),
+        community=community
     )
 
 

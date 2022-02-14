@@ -18,6 +18,9 @@
   {%- if record %}
   <input id="deposits-record" type="hidden" name="deposits-record" value='{{record | tojson }}'></input>
   {%- endif %}
+  {%- if community %}
+  <input id="deposits-draft-community" type="hidden" name="deposits-draft-community" value='{{community | tojson }}'></input>
+  {%- endif %}
   {%- if files %}
   <input id="deposits-record-files" type="hidden" name="deposits-record-files" value='{{files | tojson }}'></input>
   {%- endif %}
