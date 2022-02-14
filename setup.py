@@ -68,6 +68,18 @@ install_requires = [
     f'invenio[base,auth,metadata,files]{invenio_version}',
     'invenio-logging[sentry-sdk]>=1.3.0,<1.4.0',
     'invenio-rdm-records>=0.34.4,<0.35.0',
+    # REMOVE setuptools dependency once celery v5.2.4 has been released.
+    # 1) virtualenv v20.13.1 ships with embedded setuptools 60.x, which means
+    # that "invenio-cli install" will by default create a new virtual
+    # environment with setuptools 60.x installed.
+    # 2) celery v5.2.3 ships with a dependency on setuptools>=59.1.1,<59.7.0
+    # due to breaking changes introduced in setuptools 60.x
+    # 3) pipenv or pip resolver does not properly respect the dependency below
+    # and thus does not install a compatible setuptools version leading to a
+    # ContextualVersionConflict once running any command. Hence, we have
+    # to force the setuptools version here.
+    # Once celery v5.2.4 is out, we can remove the pin again. Sigh.
+    'setuptools>=59.1.1,<59.7.0',
 ]
 
 packages = find_packages()
