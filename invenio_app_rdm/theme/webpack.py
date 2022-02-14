@@ -27,7 +27,9 @@ theme = WebpackThemeBundle(
                 'invenio-app-rdm-user-dashboard':
                 './js/invenio_app_rdm/user_dashboard/index.js',
                 'invenio-app-rdm-requests':
-                './js/invenio_app_rdm_requests/menuTabInit.js'
+                './js/invenio_app_rdm_requests/menuTabInit.js',
+                'invenio-app-rdm-requests-theme':
+                    './less/invenio_app_rdm_requests/theme.less'
             },
             dependencies={
                 '@babel/runtime': '^7.9.0',

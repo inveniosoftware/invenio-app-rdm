@@ -9,6 +9,11 @@
 
 {% extends "invenio_requests/details/index.html" %}
 
+{% block css %}
+{{ super() }}
+{{ webpack['invenio-app-rdm-requests-theme.css']}}
+{% endblock %}
+
 {% block javascript %}
   {{ super() }}
 {{ webpack['invenio-app-rdm-requests.js']}}
@@ -31,7 +36,7 @@
 {% block conversation %}
   <div class="ui divider hidden"></div>
   <div class="ui container" id="request-community-submission-tab-container">
-  <div class="ui top attached tabular menu" id="request-community-submission-tab">
+  <div class="ui secondary pointing menu" id="request-community-submission-tab">
     <a class="active item" data-tab="conversation" role="tab"
        aria-selected="true" aria-controls="conversation"
        id="conversation-tab-menu">
