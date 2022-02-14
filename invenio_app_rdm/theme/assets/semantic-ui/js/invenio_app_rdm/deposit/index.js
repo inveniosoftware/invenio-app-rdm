@@ -15,6 +15,7 @@ import { RDMDepositForm } from "./RDMDepositForm";
 ReactDOM.render(
   <RDMDepositForm
     record={getInputFromDOM("deposits-record")}
+    community={getInputFromDOM("deposits-draft-community")}
     files={getInputFromDOM("deposits-record-files")}
     config={getInputFromDOM("deposits-config")}
     permissions={getInputFromDOM("deposits-record-permissions")}

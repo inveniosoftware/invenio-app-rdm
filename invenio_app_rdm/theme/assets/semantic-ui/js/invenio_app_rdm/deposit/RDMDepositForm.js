@@ -139,6 +139,7 @@ export class RDMDepositForm extends Component {
       <DepositFormApp
         config={this.config}
         record={this.props.record}
+        community={this.props.community}
         files={this.props.files}
         permissions={this.props.permissions}
       >
