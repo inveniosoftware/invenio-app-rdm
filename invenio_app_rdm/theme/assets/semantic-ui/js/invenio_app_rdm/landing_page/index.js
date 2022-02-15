@@ -51,32 +51,30 @@ if (recordCitationAppDiv) {
 
 $(".ui.accordion").accordion({
   selector: {
-    trigger: '.title'
-  }
+    trigger: ".title",
+  },
 });
 
-$('.ui.accordion .title')
-  .on('keydown', function(event) {
-    if($(event.target).is('.title') && event.key === "Enter") {
-      let classList = Array.from(event.target.classList);
+$(".ui.accordion .title").on("keydown", function (event) {
+  const $target = $(event.target);
+  if ($target.is(".title") && event.key === "Enter") {
+    let classList = Array.from(event.target.classList);
 
-      if(classList.indexOf('active') > -1) {
-        $(event.target).accordion('close');
-      }
-      else {
-        $(event.target).accordion('open');
-      }
+    if (classList.indexOf("active") > -1) {
+      $target.accordion("close");
+    } else {
+      $target.accordion("open");
     }
-  });
+  }
+});
 
 $(".ui.accordion.affiliations-accordion").accordion({
   selector: {
-    trigger: '.title .affiliations-button'
-  }
+    trigger: ".title .affiliations-button",
+  },
 });
 
-
-$("#record-doi-badge").on('click', function () {
+$("#record-doi-badge").on("click", function () {
   $("#doi-modal").modal("show");
 });
 
@@ -91,33 +89,34 @@ $("#jump-btn").on("click", function (event) {
 });
 
 // func to toggle the icon class
-$(".panel-heading").on('click', function () {
+$(".panel-heading").on("click", function () {
   $("i", this).toggleClass("down right");
 });
 
-
 // Export dropdown on landing page
 $(".dropdown.export").dropdown({
-  action: 'activate',
-  onChange: function(value, text, $selectedItem) {
+  action: "activate",
+  onChange: function (value, text, $selectedItem) {
     $(".export.button").attr("href", value);
 
-    $("#export-select-box").attr("aria-activedescendant", $selectedItem.attr('id'));
-    $('.dropdown.export .menu .item').attr("aria-selected", false);
+    $("#export-select-box").attr(
+      "aria-activedescendant",
+      $selectedItem.attr("id")
+    );
+    $(".dropdown.export .menu .item").attr("aria-selected", false);
     $($selectedItem).attr("aria-selected", true);
-  }
-})
-
+  },
+});
 
 // Tab menu
-$('.menu .item').tab({
-  'onVisible': function(tab){
-    $('.menu .item').attr("aria-selected", false);
+$(".menu .item").tab({
+  onVisible: function (tab) {
+    $(".menu .item").attr("aria-selected", false);
     $(`#${tab}-tab`).attr("aria-selected", true);
 
-    $('.tab.segment').attr("hidden", true);
+    $(".tab.segment").attr("hidden", true);
     $(`#${tab}`).attr("hidden", false);
-  }
+  },
 });
 
 $('.menu .item')

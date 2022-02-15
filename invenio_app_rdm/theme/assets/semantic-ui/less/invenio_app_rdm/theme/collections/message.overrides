@@ -6,11 +6,8 @@
 
 .ui.flashed.message,
 .ui.form .flashed.message {
-   &.top-attached {
-       margin-top: -20px;
-   }
    &.manage {
-        padding: 0 0 15px 0;
-        margin-bottom: 15px;
+        padding: 1em 0 1em 0;
+        margin-bottom: 1em;
    }
 }

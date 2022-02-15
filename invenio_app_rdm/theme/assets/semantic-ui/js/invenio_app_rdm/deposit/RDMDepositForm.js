@@ -32,6 +32,7 @@ import {
   SaveButton,
   TitlesField,
   VersionField,
+  CommunityHeader,
 } from "react-invenio-deposit";
 import { AccordionField } from "react-invenio-forms";
 import { Card, Container, Divider, Grid, Ref, Sticky } from "semantic-ui-react";
@@ -135,14 +136,19 @@ export class RDMDepositForm extends Component {
   };
 
   render() {
+    const { record, files, permissions, community } = this.props;
     return (
       <DepositFormApp
         config={this.config}
-        record={this.props.record}
-        community={this.props.community}
-        files={this.props.files}
-        permissions={this.props.permissions}
+        record={record}
+        community={community}
+        files={files}
+        permissions={permissions}
       >
+        <CommunityHeader
+          community={community}
+          imagePlaceholderLink="/static/images/square-placeholder.png"
+        />
         <FormFeedback fieldPath="message" />
         <Container style={{ marginTop: "10px" }}>
           <DepositFormTitle />
@@ -155,7 +161,7 @@ export class RDMDepositForm extends Component {
                   label={i18next.t("Files")}
                   ui={this.accordionStyle}
                 >
-                  {this.noFiles && this.props.record.is_published && (
+                  {this.noFiles && record.is_published && (
                     <p
                       style={{
                         textAlign: "center",
@@ -167,7 +173,7 @@ export class RDMDepositForm extends Component {
                     </p>
                   )}
                   <FileUploader
-                    isDraftRecord={!this.props.record.is_published}
+                    isDraftRecord={!record.is_published}
                     quota={{
                       maxFiles: 100,
                       maxStorage: 10 ** 10,
@@ -191,7 +197,7 @@ export class RDMDepositForm extends Component {
                         fieldPath={`pids.${pid.scheme}`}
                         fieldLabel={pid.field_label}
                         isEditingPublishedRecord={
-                          this.props.record.is_published === true // is_published is `null` at first upload
+                          record.is_published === true // is_published is `null` at first upload
                         }
                         managedHelpText={pid.managed_help_text}
                         pidLabel={pid.pid_label}
@@ -210,7 +216,7 @@ export class RDMDepositForm extends Component {
                   />
                   <TitlesField
                     options={this.vocabularies.metadata.titles}
-                    recordUI={this.props.record.ui}
+                    recordUI={record.ui}
                     required
                   />
                   <PublicationDateField required />
@@ -224,7 +230,7 @@ export class RDMDepositForm extends Component {
                   />
                   <DescriptionsField
                     options={this.vocabularies.metadata.descriptions}
-                    recordUI={_get(this.props.record, "ui", null)}
+                    recordUI={_get(record, "ui", null)}
                     editorConfig={{
                       removePlugins: [
                         "Image",
@@ -285,22 +291,16 @@ export class RDMDepositForm extends Component {
                     }}
                   />
                   <SubjectsField
-                    initialOptions={_get(
-                      this.props.record,
-                      "ui.subjects",
-                      null
-                    )}
+                    initialOptions={_get(record, "ui.subjects", null)}
                     limitToOptions={
                       this.vocabularies.metadata.subjects.limit_to
                     }
                   />
 
                   <LanguagesField
-                    initialOptions={_get(
-                      this.props.record,
-                      "ui.languages",
-                      []
-                    ).filter((lang) => lang !== null)} // needed because dumped empty record from backend gives [null]
+                    initialOptions={_get(record, "ui.languages", []).filter(
+                      (lang) => lang !== null
+                    )} // needed because dumped empty record from backend gives [null]
                     serializeSuggestions={(suggestions) =>
                       suggestions.map((item) => ({
                         text: item.title_l10n,
@@ -378,7 +378,7 @@ export class RDMDepositForm extends Component {
                           fluid
                           // TODO: make is_published part of the API response
                           //       so we don't have to do this
-                          isPublished={this.props.record.is_published}
+                          isPublished={record.is_published}
                         />
                       </Card.Content>
                     </Card>

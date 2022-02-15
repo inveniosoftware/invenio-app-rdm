@@ -10,7 +10,6 @@
 /** Deposit page styles */
 
 #deposit-form {
-
   .field label.title {
     background-color: #5aaad9;
     color: white;
@@ -35,7 +34,7 @@
   label.field-level-class {
     font-size: 15px;
     &.small {
-      font-size: 13px
+      font-size: 13px;
     }
   }
   /**/
@@ -48,13 +47,13 @@
     margin-bottom: 0.5em;
   }
 
-  i.icon.loading{
-    background-color: rgba(0,0,0,0);
+  i.icon.loading {
+    background-color: rgba(0, 0, 0, 0);
   }
 
   .access-right {
     .inline.fields {
-      margin-bottom: .75em;
+      margin-bottom: 0.75em;
 
       &:first-of-type {
         margin-top: 1em;
@@ -66,7 +65,7 @@
     min-height: 8.5em;
   }
 
-  .ui.form label.helptext{
+  .ui.form label.helptext {
     margin-top: -8px;
     margin-bottom: 15px;
     display: block;
@@ -79,7 +78,7 @@
   }
 
   .deposit-sidebar .ui.card {
-    width: unset;  // Allows the sidebar cards to take the full space of their column
+    width: unset; // Allows the sidebar cards to take the full space of their column
   }
   /**Protection Widget*/
   .ui.card.access-right {
@@ -128,4 +127,32 @@
 /*Description*/
 .item div.description:not(.license-item-description) {
   display: initial !important;
+}
+
+.deposits-community-header {
+  background-color: @communityHeaderColor;
+  height: 4.5em;
+  .community-header-info {
+    margin-top: 0.5em;
+  }
+}
+
+.record-community-header {
+  background-color: @communityHeaderColor;
+  height: 4.5em;
+  .community-header-info {
+    margin-top: 0.7em;
+  }
+}
+
+.ui.container.community-header {
+  padding-top: 0.7em;
+  display: flex;
+}
+
+.community-logo-header {
+  width: 3em;
+  height: 3em;
+  display: inline-block;
+  margin-right: 0.5em;
 }

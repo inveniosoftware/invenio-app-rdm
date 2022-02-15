@@ -183,7 +183,7 @@ body {
   }
 }
 
-.get-started-section>.section-title {
+.get-started-section > .section-title {
   font-size: 2.65em;
 }
 
@@ -254,7 +254,6 @@ body {
   color: #000000;
 }
 
-
 .panel-free-title {
   color: #0377cd;
 }
@@ -274,10 +273,10 @@ body {
 
 .ui.container {
   &.dashboard-user-header-container {
-    margin-bottom: 20px;
+    margin-bottom: @defaultMargin;
+    margin-top: @defaultMargin;
   }
 }
-
 
 // Dashboard uploads page
 
@@ -296,13 +295,13 @@ body {
     margin-right: 10px;
   }
 
-  .actions>a,
-  .stats>span {
+  .actions > a,
+  .stats > span {
     padding-right: 0.5em;
   }
 }
 
-.ui.items>.item .extra.labels-actions {
+.ui.items > .item .extra.labels-actions {
   margin-bottom: 0.75em;
 
   &.user-communities {
@@ -356,8 +355,8 @@ body {
 
 .result-options {
   height: 66px;
+  margin-top: @defaultMargin;
 }
-
 
 .inline-id-icon {
   height: @font-size-base;
@@ -365,7 +364,6 @@ body {
   margin-bottom: 3px;
   padding-right: 2px;
 }
-
 
 .ui.grid {
   .row.file-upload-area-row {
@@ -396,10 +394,8 @@ body {
 
 .ui.table {
   .ui.blue.medium.file-upload-progress {
-
     &.progress,
     &.success {
-
       &.active,
       &.disabled {
         margin-bottom: 0px;
@@ -492,7 +488,6 @@ a.subject:hover {
 }
 
 .ui.segment.rdm-sidebar dl {
-
   dt.hidden {
     display: none;
   }

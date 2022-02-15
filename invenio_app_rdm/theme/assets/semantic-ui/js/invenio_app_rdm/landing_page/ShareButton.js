@@ -22,17 +22,16 @@ export const ShareButton = (props) => {
         content={i18next.t("You don't have permissions to share this record.")}
         disabled={!props.disabled}
         trigger={
-          <div className={props.divClassName}>
-            <Button
-              onClick={handleOpen}
-              disabled={props.disabled}
-              primary
-              size="mini"
-            >
-              <Icon name="share square" />
-              {i18next.t('Share')}
-            </Button>
-          </div>
+          <Button
+            fluid
+            onClick={handleOpen}
+            disabled={props.disabled}
+            primary
+            size="mini"
+          >
+            <Icon name="share square" />
+            {i18next.t("Share")}
+          </Button>
         }
       />
       <ShareModal
