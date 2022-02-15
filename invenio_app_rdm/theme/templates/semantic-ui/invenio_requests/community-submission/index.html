@@ -1,0 +1,58 @@
+{# -*- coding: utf-8 -*-
+
+  This file is part of Invenio.
+  Copyright (C) 2016-2020 CERN.
+
+  Invenio is free software; you can redistribute it and/or modify it
+  under the terms of the MIT License; see LICENSE file for more details.
+#}
+
+{% extends "invenio_requests/details/index.html" %}
+
+{% block javascript %}
+  {{ super() }}
+  <script>
+    $('.menu .item').tab();
+  </script>
+{% endblock %}
+
+{% block request_topic %}
+  <h1 class="ui header">
+    <div class="ui label green">New submission</div>
+    {{ request.topic.metadata.title }}</h1><br/>
+  <div class="ui horizontal list">
+    {% for item in request.topic.metadata.creators %}
+      <div class="item">
+        <div class="content"><i class="user icon"></i>
+          {{ item.person_or_org.name }}</div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock request_topic %}
+
+{% block conversation %}
+  <div class="ui divider hidden"></div>
+  <div class="ui container">
+  <div class="ui top attached tabular menu">
+    <a class="active item" data-tab="conversation">
+      Conversation
+    </a>
+    <a class="item" data-tab="record">
+      Record
+    </a>
+  </div>
+
+  <div class="ui bottom attached tab segment active" data-tab="conversation">
+    <div class="ui divider hidden"></div>
+    {{ super() }}
+  </div>
+  <div class="ui bottom attached tab segment" data-tab="record">
+  <div class="ui divider hidden"></div>
+    {% if record %}
+      {% set standalone = true %}
+      {% include "invenio_app_rdm/records/detail.html" %}
+    {% endif %}
+  </div>
+</div>
+
+{% endblock conversation %}
