@@ -128,3 +128,38 @@ $('.menu .item')
       $(event.target).tab('change tab', tabName);
     }
   });
+
+
+// Licenses description popup
+$('#licenses li.has-popup .license.clickable')
+  .popup({
+    on: 'click',
+    popup: '.licenses-description',
+    position: 'top right',
+    onVisible: function($module) {
+      $($module).attr('aria-expanded', true);
+    },
+    onHidden: function($module) {
+      $($module).attr('aria-expanded', false);
+    }
+  });
+
+$('#licenses li.has-popup .license.clickable')
+  .on('keydown', function(event) {
+    if(event.key === "Enter") {
+      $('#licenses li.has-popup .license.clickable').popup('hide');
+      $(event.target).popup('show');
+    }
+  });
+
+$('#licenses .licenses-description .close.icon')
+  .on({
+    'click': function(event) {
+      $('#licenses li.has-popup .license.clickable').popup('hide');
+    },
+    'keydown': function(event) {
+      if(event.key === "Enter") {
+        $('#licenses li.has-popup .license.clickable').popup('hide');
+      }
+    }
+  });

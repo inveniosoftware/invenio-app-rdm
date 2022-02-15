@@ -1,0 +1,76 @@
+{#
+  Copyright (C) 2020 CERN.
+  Copyright (C) 2020 Northwestern University.
+  Copyright (C) 2021 Graz University of Technology.
+  Copyright (C) 2021 New York University.
+
+  Invenio RDM Records is free software; you can redistribute it and/or modify
+  it under the terms of the MIT License; see LICENSE file for more details.
+#}
+
+{% macro license_link(license) %}
+  {% if license.link %}
+      <a class="license-link" href="{{ license.link }}" target="_blank" title="{{ _('Opens in new tab') }}">Read more</a>
+  {% elif license.props and license.props.url %}
+      <a class="license-link" href="{{ license.props.url }}" target="_blank" title="{{ _('Opens in new tab') }}">Read more</a>
+  {% endif %}
+{% endmacro %}
+
+
+{% set rights = record.ui.get('rights') %}
+{% if rights %}
+<section id="licenses" aria-label="{{ _('Licenses') }}" class="ui segment rdm-sidebar">
+  <h2 class="ui small header">{{ _('Licenses') }}</h2>
+  <ul class="details-list">
+
+    {%- for license in rights%}
+      <li id="license-{{license.id}}-{{loop.index}}"
+          class="{{ 'has-popup' if license.description_l10n }}"
+      >
+        <div id="title-{{license.id}}-{{loop.index}}"
+             class="license {{ 'clickable' if license.description_l10n }}"
+
+             {% if license.description_l10n %}
+               tabindex="0"
+               aria-haspopup="dialog"
+               aria-expanded="false"
+               role="button"
+               aria-label="{{ license.title_l10n }}"
+             {% endif %}
+        >
+          {% if license.icon %}
+            {% set iconFile = 'icons/licenses/{}.svg'.format(license.icon) %}
+            <span class="icon-wrap">
+              <img class="icon" src="{{ url_for('static', filename=iconFile) }}" alt="{{ license.id }} icon"/>
+            </span>
+          {% endif %}
+
+          <span class="title-text">
+            {{ license.title_l10n }}
+
+            {% if not license.description_l10n %}
+              {{ license_link(license) }}
+            {% endif %}
+          </span>
+        </div>
+        {% if license.description_l10n %}
+          <div id="description-{{license.id}}-{{loop.index}}"
+               class="licenses-description ui flowing popup transition hidden"
+               role="dialog"
+               aria-labelledby="title-{{license.id}}-{{loop.index}}"
+          >
+            <i role="button" tabindex="0" class="close icon text-muted" aria-label="{{ _('Close') }}"></i>
+            <div id="license-description-{{loop.index}}" class="description">
+              <span class="text-muted">
+                {{ license.description_l10n }}
+              </span>
+
+              {{ license_link(license)}}
+            </div>
+          </div>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}

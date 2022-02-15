@@ -61,20 +61,6 @@ show_alternate_identifiers, show_related_identifiers, show_funding, show_dates %
     {% set active = false %}
   {% endif %}
 
-  {% if rights %}
-    <a role="tab"
-       aria-selected="{{ active }}"
-       aria-controls="licences"
-       data-tab="licences"
-       tabindex="0"
-       class="{{ 'active' if active }} item"
-       id="licences-tab"
-    >
-      {{ _('Licences') }}
-    </a>
-    {% set active = false %}
-  {% endif %}
-
   {% if metadata.funding %}
     <a role="tab"
        aria-selected="{{ active }}"
@@ -161,21 +147,6 @@ show_alternate_identifiers, show_related_identifiers, show_funding, show_dates %
   >
     <dl class="details-list">
       {{ show_related_identifiers(record.ui.related_identifiers) }}
-    </dl>
-  </div>
-  {% set active = false %}
-{% endif %}
-
-{% if rights %}
-  <div role="tabpanel"
-       class="ui bottom attached {{ 'active' if active }} tab segment"
-       data-tab="licences"
-       aria-labelledby="licences-tab"
-       id="licences"
-       hidden="{{ not active }}"
-  >
-    <dl class="details-list">
-    {%- include "invenio_app_rdm/records/details/licenses.html" %}
     </dl>
   </div>
   {% set active = false %}
