@@ -9,7 +9,9 @@
   it under the terms of the MIT License; see LICENSE file for more details.
 #}
 
+{% if not standalone %}
 {%- extends config.BASE_TEMPLATE %}
+{% endif %}
 
 {%- from "invenio_app_rdm/records/macros/files.html" import file_list_box, preview_file_box %}
 
@@ -273,7 +275,11 @@
 {%- endblock page_body %}
 
 {%- block javascript %}
+{% if not standalone %}
 {{ super() }}
+{% else %}
+{% include config.THEME_JAVASCRIPT_TEMPLATE %}
+{% endif %}
 {{ webpack['invenio-app-rdm-landing-page.js'] }}
 {# Communities management -- TODO include again when communities are ready #}
 {# {{ webpack['invenio-communities-records.js'] }} #}
