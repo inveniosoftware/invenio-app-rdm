@@ -7,12 +7,11 @@
 // under the terms of the MIT License; see LICENSE file for more details.
 
 import React, { useState } from "react";
-import { Grid, Icon } from "semantic-ui-react";
+import { Grid, Message, Divider } from "semantic-ui-react";
 
 import { EditButton } from "./EditButton";
 import { ShareButton } from "./ShareButton";
 import { NewVersionButton } from "react-invenio-deposit";
-import { i18next } from "@translations/invenio_app_rdm/i18next";
 
 export const RecordManagement = (props) => {
   const record = props.record;
@@ -27,20 +26,21 @@ export const RecordManagement = (props) => {
   return (
     <Grid relaxed>
       <Grid.Column>
-        <Grid.Row>
-          <Icon name="cogs" />
-          <h2 id="record-management-header">{i18next.t('Manage')}</h2>
-        </Grid.Row>
         <Grid.Row className="record-management-row">
           <EditButton recid={recid} onError={handleError} />
+        </Grid.Row>
+        <Grid.Row className="record-management-row">
           <NewVersionButton
+            style={{ display: "block" }}
+            fluid
             record={record}
             onError={handleError}
             disabled={!permissions.can_new_version}
           />
+        </Grid.Row>
+        <Grid.Row className="record-management-row">
           {permissions.can_manage && (
             <ShareButton
-              divClassName="share-button"
               disabled={!permissions.can_update_draft}
               recid={recid}
             />
@@ -48,7 +48,7 @@ export const RecordManagement = (props) => {
         </Grid.Row>
         {error && (
           <Grid.Row className="record-management-row">
-            <p>{error}</p>
+            <Message negative>{error}</Message>
           </Grid.Row>
         )}
       </Grid.Column>

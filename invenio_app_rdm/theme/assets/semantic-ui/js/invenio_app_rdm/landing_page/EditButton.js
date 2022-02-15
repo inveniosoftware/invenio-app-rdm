@@ -28,7 +28,13 @@ export const EditButton = (props) => {
   };
 
   return (
-    <Button color="orange" size="mini" onClick={handleClick} loading={loading}>
+    <Button
+      fluid
+      color="orange"
+      size="mini"
+      onClick={handleClick}
+      loading={loading}
+    >
       <Icon name="edit" />
       {i18next.t("Edit")}
     </Button>

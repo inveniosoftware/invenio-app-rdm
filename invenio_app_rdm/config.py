@@ -641,6 +641,7 @@ RDM_CITATION_STYLES_DEFAULT = 'apa'
 """Default citation style"""
 
 APP_RDM_DETAIL_SIDE_BAR_TEMPLATES = [
+    "invenio_app_rdm/records/details/side_bar/manage_menu.html",
     "invenio_app_rdm/records/details/side_bar/metrics.html",
     "invenio_app_rdm/records/details/side_bar/versions.html",
     "invenio_app_rdm/records/details/side_bar/keywords_subjects.html",

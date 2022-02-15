@@ -1,0 +1,15 @@
+{#
+Copyright (C) 2022 CERN.
+
+Invenio RDM Records is free software; you can redistribute it and/or modify
+it under the terms of the MIT License; see LICENSE file for more details.
+#}
+
+{% if permissions is defined and permissions.can_edit and not is_preview %}
+<section id="record-manage-menu" aria-label="{{ _('Record versions') }}" class="ui segment rdm-sidebar">
+    <div class="ui container">
+        <div id="recordManagement" data-record='{{ record | tojson }}' data-permissions='{{ permissions | tojson }}'>
+        </div>
+    </div>
+</section>
+{% endif %}
