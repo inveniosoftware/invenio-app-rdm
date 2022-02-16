@@ -8,13 +8,7 @@
 
 {% macro show_detail(title, value) %}
   <dt class="ui tiny header">{{ title }}</dt>
-  <dd>
-    {% if title == 'URL' %}
-      <a href="{{value}}" target="_blank" title="{{ _('Opens in new tab') }}">{{value}}</a>
-    {% else %}
-      {{ value }}
-    {% endif %}
-  </dd>
+  <dd>{{ value }}</dd>
 {%- endmacro %}
 
 {% macro show_title_detail(title, language, value) %}
@@ -100,14 +94,22 @@
 
 
 {% macro _identifiers_for_group(related_identifiers) %}
-  <dt class="hidden">{{ _('Related identifiers') }}</dt>
   {% for identifier in related_identifiers %}
     <dd>
       {% if identifier.resource_type is defined %}
-      {{ identifier.resource_type.title_l10n }}:
+        {{ identifier.resource_type.title_l10n }}:
       {% endif %}
 
-      {{ identifier.identifier + ' ( ' + identifier.scheme | get_scheme_label + ' )' }}
+      {% set url = identifier.identifier|pid_url %}
+      {% if url %}
+        <a href="{{ url }}" target="_blank" title="{{ _('Opens in new tab') }}">
+          {{ identifier.identifier }}
+        </a>
+      {% else %}
+        {{ identifier.identifier }}
+      {% endif %}
+
+      {{ ' (' + identifier.scheme | get_scheme_label + ')' }}
     </dd>
   {% endfor %}
 {% endmacro %}
@@ -123,8 +125,17 @@
 
 {% macro show_alternate_identifiers(identifiers) %}
   {% for alt_id in identifiers %}
-    {# upper() is in keeping with the displayed schemes in RDMDEpositForm.js #}
-   {{ show_detail(alt_id.scheme | get_scheme_label, alt_id.identifier) }}
+  <dt class="ui tiny header">{{ alt_id.scheme | get_scheme_label }}</dt>
+  <dd>
+    {% set url = alt_id.identifier|pid_url(scheme=alt_id.scheme) %}
+    {% if url %}
+      <a href="{{ url }}" target="_blank" title="{{ _('Opens in new tab') }}">
+        {{ alt_id.identifier }}
+      </a>
+    {% else %}
+      {{ alt_id.identifier }}
+    {% endif %}
+  </dd>
   {% endfor %}
 {% endmacro %}
 
