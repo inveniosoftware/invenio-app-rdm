@@ -83,7 +83,7 @@ $("#record-doi-badge").on('click', function () {
 $(".ui.tooltip-popup").popup();
 
 $(".preview-link").on("click", function (event) {
-  $("#preview").find(".title").html(event.target.dataset.fileKey);
+  $("#preview").find("#preview-file-title").html(event.target.dataset.fileKey);
 });
 
 $("#jump-btn").on("click", function (event) {
