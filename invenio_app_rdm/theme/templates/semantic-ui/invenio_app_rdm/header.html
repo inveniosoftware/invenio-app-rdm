@@ -79,9 +79,11 @@
                             <a href="{{ item.url }}">{{ item.text|safe }}</a>
                           </li>
                       {% endfor %}
-                      <li class="navbar-item navbar-button request-button">
-                        <i class="fitted inbox icon inverted"></i>
-                      </li>
+                      {% for item in current_menu.submenu('requests').children|sort(attribute='order') if item.visible recursive %}
+                          <li class="navbar-item dashboard-button">
+                            <a href="{{ item.url }}"><i class="fitted inbox icon inverted"></i></a>
+                          </li>
+                      {% endfor %}
                     {% endif %}
                     <li class="navbar-item navbar-button">
                       {%- include config.THEME_HEADER_LOGIN_TEMPLATE %}
