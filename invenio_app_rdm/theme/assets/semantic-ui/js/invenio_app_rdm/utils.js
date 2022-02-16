@@ -53,6 +53,7 @@ export function SearchItemCreators({ creators }) {
       case "orcid":
         icon = (
           <a
+            className="identifier-link"
             href={"https://orcid.org/" + `${firstId.identifier}`}
             aria-label={`${creatorName}: ${i18next.t("ORCID profile")}`}
             title={`${creatorName}: ${i18next.t("ORCID profile")}`}
@@ -90,18 +91,19 @@ export function SearchItemCreators({ creators }) {
     let creatorName = _get(creator, "person_or_org.name", "No name");
     let link = (
       <a
+        class="creatibutor-link"
         href={`/search?q=metadata.creators.person_or_org.name:"${creatorName}"`}
         title={`${creatorName}: ${i18next.t("Search")}`}
       >
-        {creatorName}
+        <span class="creatibutor-name">{creatorName}</span>
       </a>
     );
     return link;
   }
   return creators.map((creator, index) => (
-    <span key={index}>
-      {getIcon(creator)}
+    <span class="creatibutor-wrap" key={index}>
       {getLink(creator)}
+      {getIcon(creator)}
       {index < creators.length - 1 && ";"}
     </span>
   ));

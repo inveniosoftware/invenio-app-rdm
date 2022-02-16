@@ -2,7 +2,7 @@
     Copyright (C) 2020 CERN.
     Copyright (C) 2020 Northwestern University.
     Copyright (C) 2021 Graz University of Technology.
-    Copyright (C) 2021 New York University.
+    Copyright (C) 2021-2022 New York University.
 
     Invenio RDM Records is free software; you can redistribute it and/or modify
     it under the terms of the MIT License; see LICENSE file for more details.
@@ -35,8 +35,7 @@
 {% macro show_creatibutors(creatibutors, show_affiliations=False) %}
   {% for creatibutor in creatibutors %}
   <dd class="creatibutor-wrap">
-    {{ creatibutor_icon(creatibutor) }}
-    <a class="ui tooltip-popup text-muted creatibutor-link"
+    <a class="ui tooltip-popup creatibutor-link"
       {% if show_affiliations and creatibutor.affiliations %}
         data-content="{{ creatibutor.affiliations|join('; ', attribute='1') }}"
       {% endif %}
@@ -44,15 +43,20 @@
     >
 
       <span class="creatibutor-name">
-        {{ creatibutor.person_or_org.name }}
+        {{- creatibutor.person_or_org.name -}}
       </span>
-
-      <sup class="font-tiny text-muted">
-        {% for affiliation in creatibutor.affiliations %}
+      {%- if creatibutor.affiliations -%}
+      <sup class="font-tiny">
+        {%- for affiliation in creatibutor.affiliations -%}
           {{ affiliation[0] }}{{ ", " if not loop.last }}
-        {% endfor %}
+        {%- endfor -%}
       </sup>
+      {%- endif -%}
     </a>
+    {{- creatibutor_icon(creatibutor) -}}
+    {%- if not loop.last -%}
+       <span class="separator">;</span>
+    {%- endif -%}
   </dd>
   {% endfor %}
 {%- endmacro %}
@@ -66,13 +70,13 @@
   </div>
 </div>
 
-<section class="ui sixteen wide column content" id="{{ group }}-affiliations" aria-label="{{ _('Affiliations for') }} {{ group }}">
+<section class="ui sixteen wide column content affiliations-list" id="{{ group }}-affiliations" aria-label="{{ _('Affiliations for') }} {{ group }}">
   <dl>
   {% for affiliation in affiliations %}
-      <dd class="text-muted">
+      <dd>
           {{ affiliation[0] }}.
 
-          {%- if affiliation[2] %}
+          {% if affiliation[2] %}
           <a class="identifier-link"
              href="https://ror.org/{{affiliation[2]}}"
              aria-label="{{ affiliation[1] }}'s ROR {{ _('profile') }}"
