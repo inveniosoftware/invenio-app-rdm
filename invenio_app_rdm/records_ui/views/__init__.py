@@ -79,6 +79,7 @@ def create_blueprint(app):
         routes["dashboard_home"],
         view_func=dashboard,
     )
+
     blueprint.add_url_rule(
         routes["dashboard_item"],
         view_func=dashboard,
