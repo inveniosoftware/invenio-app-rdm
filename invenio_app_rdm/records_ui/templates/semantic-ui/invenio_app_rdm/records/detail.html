@@ -118,7 +118,7 @@
                       <span class="ui" title="{{ _('Publication date') }}">
                         {{ _('Published') }} {{ record.ui.publication_date_l10n_long }}
                       </span>
-                      <span class="label text-muted"> | {{ _('Version') }} {{ record.ui.version }}</span>
+                      <span class="label text-muted"> | {{ _('Version {version_number}').format(version_number=record.ui.version) }}</span>
                     </div>
                     <div class="right floated right aligned column">
                       {% if record.ui.resource_type %}
