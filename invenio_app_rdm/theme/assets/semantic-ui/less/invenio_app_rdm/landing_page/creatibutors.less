@@ -2,12 +2,61 @@
  *   Copyright (C) 2020 CERN.
  *   Copyright (C) 2020 Northwestern University.
  *   Copyright (C) 2021 Graz University of Technology.
- *   Copyright (C) 2021 New York University.
+ *   Copyright (C) 2021-2022 New York University.
  *
  * Invenio RDM Records is free software; you can redistribute it and/or modify
  * it under the terms of the MIT License; see LICENSE file for more details.
  */
 
+.creatibutors {
+  margin: 0rem 0rem 0.5rem 0rem;
+  display: flex;
+  flex-wrap: wrap;
+  &:last-child {
+    margin-bottom: 0rem;
+  }
+
+  dt {
+    font-weight: bold;
+    margin: 0rem 0.25rem 0rem 0rem;
+
+    &.hidden {
+      display: none;
+    }
+  }
+
+  .creatibutor-wrap {
+    color: @mutedTextColor;
+    display: flex;
+    flex-wrap: wrap;
+    &:nth-child(n):not(:last-child) {
+      margin-right: 1rem;
+    }
+    .identifier-link, .group.icon {
+      margin: 0 .1rem 0 .2rem;
+    }
+  }
+}
+.creatibutor-link {
+  color: @mutedTextColor;
+  &:hover {
+    text-decoration: none;
+    span {
+      color: @mutedTextColor;
+      text-decoration: underline;
+    }
+    sup {
+      color: @mutedTextColor;
+    }
+  }
+  sup {
+    color: @mutedTextColor;
+    padding-left: .1rem;
+  }
+}
+.affiliations-list {
+  color: @mutedTextColor;
+}
 .row.ui.accordion.affiliations-accordion {
   padding-bottom: 1.5rem;
 
@@ -38,37 +87,10 @@
       min-width: max-content;
     }
   }
-
-  dl.creatibutors {
-    margin: 0rem 0rem 0.5rem 0rem;
-
-    &:last-child {
-      margin-bottom: 0rem;
-    }
-
-    dt {
-      display: inline;
-      font-weight: bold;
-      margin: 0rem 0.25rem 0rem 0rem;
-
-      &.hidden {
-        display: none;
-      }
-    }
-
-    dd.creatibutor-wrap {
-      display: inline;
-
-      &:nth-child(n):not(:last-child) {
-        margin-right: 0.5rem;
-      }
-    }
-  }
-
   .content {
     dl {
       font-size: @font-size-small;
-      background-color: #F9FAFB;
+      background-color: #f9fafb;
       padding: 1rem;
       margin: 1.2rem 0rem 0rem 0rem;
     }

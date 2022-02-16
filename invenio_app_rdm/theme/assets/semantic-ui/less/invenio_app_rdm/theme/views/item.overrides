@@ -17,8 +17,5 @@
   }
 }
 .ui.items > .item .extra {
-    color:#666666;
-}
-.ui.items > .item .meta * {
-    margin-right: 0.1em;
+    color: @mutedTextColor;
 }
