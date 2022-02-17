@@ -6,20 +6,20 @@
 # 
 # Translators:
 # chriz_uniba <christina.zeller@uni-bamberg.de>, 2021
-# Alizee Pace <alizee.pace@gmail.com>, 2022
 # Alexander Gruber <alexander.gruber@tugraz.at>, 2022
 # Tibor Simko <tibor.simko@cern.ch>, 2022
-# Mojib Wali <mojib.wali@tugraz.at>, 2022
 # David Eckhard <dabombeeer@gmail.com>, 2022
+# Alizee Pace <alizee.pace@gmail.com>, 2022
+# Mojib Wali <mojib.wali@tugraz.at>, 2022
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: invenio-app-rdm 8.0.0.dev4\n"
 "Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
-"POT-Creation-Date: 2022-02-16 10:28+0100\n"
+"POT-Creation-Date: 2022-02-17 11:05+0100\n"
 "PO-Revision-Date: 2020-07-07 14:12+0000\n"
-"Last-Translator: David Eckhard <dabombeeer@gmail.com>, 2022\n"
+"Last-Translator: Mojib Wali <mojib.wali@tugraz.at>, 2022\n"
 "Language-Team: German (https://www.transifex.com/inveniosoftware/teams/23537/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -176,8 +176,8 @@ msgid "Published"
 msgstr "Veröffentlicht"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:121
-msgid "Version"
-msgstr "Version"
+msgid "Version {version_number}"
+msgstr "Version {version_number}"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:125
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:24
@@ -305,19 +305,15 @@ msgid "Related works"
 msgstr "Verwandte Werke"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:73
-msgid "Licences"
-msgstr "Lizenzen"
-
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:87
 msgid "Funding"
 msgstr "Förderung"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:101
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:87
 msgid "Dates"
 msgstr "Daten"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:115
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:95
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:101
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:89
 msgid "References"
 msgstr "Referenzen"
 
@@ -339,7 +335,12 @@ msgstr "DOI-Abzeichen"
 msgid "Keywords"
 msgstr "Schlagwörter"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/subjects.html:24
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/subjects.html:21
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/subjects.html:37
+msgid "Search results for "
+msgstr "Suchergebnis für "
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/subjects.html:31
 msgid "Subjects"
 msgstr "Themen"
 
@@ -382,6 +383,22 @@ msgstr "Datei herunterladen"
 msgid "Keywords and subjects"
 msgstr "Stichworte und Themen"
 
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/licenses.html:13
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/licenses.html:15
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:105
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:132
+msgid "Opens in new tab"
+msgstr "Öffnet in neuem Tab"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/licenses.html:22
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/licenses.html:23
+msgid "Licenses"
+msgstr "Lizenzen"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/licenses.html:62
+msgid "Close"
+msgstr "Schließen"
+
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/versions.html:11
 msgid "Record versions"
 msgstr "Versionen des Eintrags"
@@ -408,14 +425,6 @@ msgstr "Zugehörigkeit verbergen"
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:69
 msgid "Affiliations for"
 msgstr "Zugehörigkeiten für"
-
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:13
-msgid "Opens in new tab"
-msgstr "Öffnet in neuem Tab"
-
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:103
-msgid "Related identifiers"
-msgstr "Verbundene Kennungen"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:34
 msgid "File preview"
