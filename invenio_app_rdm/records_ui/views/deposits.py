@@ -14,8 +14,11 @@ from flask import current_app, g, render_template
 from flask_babelex import lazy_gettext as _
 from flask_login import login_required
 from invenio_access.permissions import system_identity
+from invenio_communities.communities.resolver import CommunityResolver
 from invenio_i18n.ext import current_i18n
 from invenio_rdm_records.proxies import current_rdm_records
+from invenio_rdm_records.requests.community_submission import \
+    CommunitySubmission
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
 from invenio_rdm_records.services.schemas import RDMRecordSchema
 from invenio_rdm_records.services.schemas.utils import dump_empty
@@ -316,12 +319,22 @@ def deposit_create(community=None):
 def deposit_edit(draft=None, draft_files=None, pid_value=None):
     """Edit an existing deposit."""
     serializer = UIJSONSerializer()
+    community_uuid = None
     record = serializer.serialize_object_to_dict(draft.to_dict())
+
+    parent = record['parent']
+    if parent.get('communities'):
+        community_uuid = parent['communities']['default']
+    elif parent.get('review'):
+        review = parent['review']
+        if review['type'] == CommunitySubmission.type_id:
+            community_uuid = review['receiver'][CommunityResolver.type_id]
 
     return render_template(
         "invenio_app_rdm/records/deposit.html",
         forms_config=get_form_config(apiUrl=f"/api/records/{pid_value}/draft"),
         record=record,
+        community=community_uuid,
         files=draft_files.to_dict(),
         searchbar_config=dict(searchUrl=get_search_url()),
         permissions=draft.has_permissions_to(['new_version'])
