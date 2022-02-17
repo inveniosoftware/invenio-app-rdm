@@ -9,7 +9,7 @@
   it under the terms of the MIT License; see LICENSE file for more details.
 #}
 
-{% if not standalone %}
+{% if use_theme_basic_template|default(true) %}
 {%- extends config.BASE_TEMPLATE %}
 {% endif %}
 
@@ -275,7 +275,7 @@
 {%- endblock page_body %}
 
 {%- block javascript %}
-{% if not standalone %}
+{% if use_theme_basic_template|default(true) %}
 {{ super() }}
 {% else %}
 {% include config.THEME_JAVASCRIPT_TEMPLATE %}
