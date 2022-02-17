@@ -94,9 +94,9 @@ setup(
     platforms='any',
     entry_points={
         'invenio_base.blueprints': [
-            'invenio_app_rdm_records = ' \
-                'invenio_app_rdm.records_ui.views:create_blueprint',
+            'invenio_app_rdm_records = invenio_app_rdm.records_ui.views:create_blueprint',
             'invenio_app_rdm = invenio_app_rdm.theme.views:create_blueprint',
+            'invenio_app_rdm_requests = invenio_app_rdm.requests_ui.views:create_ui_blueprint',
         ],
         'invenio_assets.webpack': [
             'invenio_app_rdm_theme = invenio_app_rdm.theme.webpack:theme',

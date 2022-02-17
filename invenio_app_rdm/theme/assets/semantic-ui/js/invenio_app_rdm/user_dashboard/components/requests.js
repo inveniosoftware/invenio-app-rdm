@@ -128,7 +128,7 @@ export const RequestsResults = ({
 
 export function RequestsResultsGridItemTemplate({ result, index }) {
   return (
-    <Card fluid key={index} href={`/requests/${result.metadata.id}`}>
+    <Card fluid key={index} href={`/me/requests/${result.metadata.id}`}>
       <Card.Content>
         <Card.Header>{result.metadata.title}</Card.Header>
         <Card.Description>
@@ -153,7 +153,7 @@ export function RequestsResultsItemTemplate({ result, index }) {
               <Label size="large">{result.type}</Label>
             </span>
           )}
-          <a href={`/requests/${result.id}`}>{result.title}</a>
+          <a href={`/me/requests/${result.id}`}>{result.title}</a>
         </Item.Header>
 
         <Item.Meta className="mt-10">
@@ -190,7 +190,7 @@ export const RDMRecordResultsGridItem = ({ result, index }) => {
     "No description"
   );
   return (
-    <Card fluid key={index} href={`/requests/${result.id}`}>
+    <Card fluid key={index} href={`/me/requests/${result.id}`}>
       <Card.Content>
         <Card.Header>{result.metadata.title}</Card.Header>
         <Card.Description>

@@ -661,3 +661,7 @@ RDM_SEARCH_USER_REQUESTS = {
     'sort': ['bestmatch', 'newest', 'oldest'],
 }
 """User requests search configuration (i.e list of user requests)"""
+
+RDM_REQUESTS_ROUTES = {
+    'user-dashboard-community-submission': '/me/requests/<pid_value>',
+}
