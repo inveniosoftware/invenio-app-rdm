@@ -19,6 +19,7 @@ ReactDOM.render(
     files={getInputFromDOM("deposits-record-files")}
     config={getInputFromDOM("deposits-config")}
     permissions={getInputFromDOM("deposits-record-permissions")}
+    communitiesEnabled={getInputFromDOM("communities-enabled")}
   />,
   document.getElementById("deposit-form")
 );

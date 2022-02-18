@@ -41,19 +41,20 @@ def create_blueprint(app):
             order=1
         )
 
-        current_menu.submenu('requests.deposit').register(
-            'invenio_app_rdm_records.dashboard',
-            endpoint_arguments_constructor=lambda: {
-                           'dashboard_name': 'requests',
-            },
-            order=1
-        )
-
         current_menu.submenu('plus.deposit').register(
             'invenio_app_rdm_records.deposit_create',
             _('New upload'),
             order=1,
         )
+
+        if app.config.get("COMMUNITIES_ENABLED", False):
+            current_menu.submenu("notifications.requests").register(
+                "invenio_app_rdm_records.dashboard",
+                endpoint_arguments_constructor=lambda: {
+                    "dashboard_name": "requests",
+                },
+                order=1,
+            )
 
     return blueprint
 

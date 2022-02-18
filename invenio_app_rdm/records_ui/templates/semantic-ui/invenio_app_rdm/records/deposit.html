@@ -27,6 +27,7 @@
   {%- if forms_config %}
   <input type="hidden" name="deposits-config" value='{{forms_config | tojson }}'></input>
   {%- endif %}
+  <input type="hidden" name="communities-enabled" value='{{communities_enabled | tojson }}'></input>
   {%- if permissions %}
   <input id="deposits-record-permissions" type="hidden" name="deposits-record-permissions" value='{{permissions | tojson }}'></input>
   {%- endif %}
