@@ -10,6 +10,7 @@ import _get from "lodash/get";
 import React, { Component, createRef, Fragment } from "react";
 import {
   AccessRightField,
+  CommunityHeader,
   CreatibutorsField,
   DatesField,
   DeleteButton,
@@ -25,10 +26,10 @@ import {
   PIDField,
   PreviewButton,
   PublicationDateField,
-  PublishButton,
   PublisherField,
   RelatedWorksField,
   ResourceTypeField,
+  RequestOrPublish,
   SaveButton,
   TitlesField,
   VersionField,
@@ -144,6 +145,7 @@ export class RDMDepositForm extends Component {
         permissions={this.props.permissions}
       >
         <FormFeedback fieldPath="message" />
+        <CommunityHeader imagePlaceholderLink="/static/images/square-placeholder.png" />
         <Container style={{ marginTop: "10px" }}>
           <DepositFormTitle />
           <Grid>
@@ -368,7 +370,7 @@ export class RDMDepositForm extends Component {
                           <SaveButton fluid className="save-button" />
                           <PreviewButton fluid className="preview-button" />
                         </div>
-                        <PublishButton fluid />
+                        <RequestOrPublish fluid />
                       </Card.Content>
                     </Card>
 

@@ -250,6 +250,6 @@ def pass_draft_community(f):
             community = current_communities.service.read(
                 id_=comid, identity=g.identity
             )
-            kwargs['community'] = community.to_dict()
+            kwargs['community_uuid'] = community.to_dict()['uuid']
         return f(**kwargs)
     return view

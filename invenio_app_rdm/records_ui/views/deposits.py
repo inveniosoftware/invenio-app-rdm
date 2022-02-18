@@ -299,7 +299,7 @@ def dashboard(dashboard_name=None):
 
 @login_required
 @pass_draft_community
-def deposit_create(community=None):
+def deposit_create(community_uuid=None):
     """Create a new deposit."""
     return render_template(
         "invenio_app_rdm/records/deposit.html",
@@ -309,7 +309,7 @@ def deposit_create(community=None):
         files=dict(
             default_preview=None, entries=[], links={}
         ),
-        community=community
+        community=community_uuid
     )
 
 
