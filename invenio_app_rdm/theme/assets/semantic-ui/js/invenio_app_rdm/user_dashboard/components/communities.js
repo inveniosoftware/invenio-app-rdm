@@ -39,7 +39,10 @@ function ResultsGridItemTemplate({ result, index }) {
         <Card.Header>{result.metadata.title}</Card.Header>
         <Card.Description>
           <div
-            dangerouslySetInnerHTML={{ __html: result.metadata.description }}
+            className="truncate-lines-2"
+            dangerouslySetInnerHTML={{
+              __html: result.metadata.description,
+            }}
           />
         </Card.Description>
       </Card.Content>
@@ -97,7 +100,10 @@ export function CommunitiesResultsItemTemplate({ result, index }) {
         )}
         <Item.Meta>
           <div
-            dangerouslySetInnerHTML={{ __html: result.metadata.description }}
+            className="truncate-lines-2"
+            dangerouslySetInnerHTML={{
+              __html: result.metadata.description,
+            }}
           />
         </Item.Meta>
       </Item.Content>

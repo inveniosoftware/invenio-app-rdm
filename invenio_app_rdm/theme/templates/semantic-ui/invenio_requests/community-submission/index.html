@@ -23,13 +23,17 @@
   <h1 class="ui header">
     <div class="ui label green">New submission</div>
     {{ request.topic.metadata.title }}</h1><br/>
-  <div class="ui horizontal list" role="list">
-    {% for item in request.topic.metadata.creators %}
-      <div class="item" role="listitem">
-        <div class="content"><i class="user icon"></i>
-          {{ item.person_or_org.name }}</div>
-      </div>
-    {% endfor %}
+  <div class="truncate-container">
+    <div id="request-details-contributors" class="ui horizontal list truncate-text truncate-lines-2" role="list">
+      {% for item in request.topic.metadata.creators %}
+        <div class="item" role="listitem">
+          <div class="content"><i class="user icon"></i>
+            {{ item.person_or_org.name }}</div>
+        </div>
+      {% endfor %}
+    </div>
+    <a href="javascript:void(0)" class="truncate-toggler truncate-show-more" hidden>Show more</a>
+    <a href="javascript:void(0)" class="truncate-toggler truncate-show-less" hidden>Show less</a>
   </div>
 {% endblock request_topic %}
 

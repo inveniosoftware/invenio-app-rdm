@@ -16,6 +16,12 @@
     }
   }
 }
+
 .ui.items > .item .extra {
     color: @mutedTextColor;
 }
+
+#request-details-contributors{
+  .item{
+    margin: 0 1em 0 0;
+  }
