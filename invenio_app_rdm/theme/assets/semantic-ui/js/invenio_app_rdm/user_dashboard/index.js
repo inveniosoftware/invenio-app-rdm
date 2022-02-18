@@ -19,6 +19,10 @@ import { defaultComponents as UploadsDefaultComponents } from "./components/uplo
 import { defaultComponents as RequestsDefaultComponents } from "./components/requests";
 
 const rootElement = document.getElementById("invenio-user-dashboard");
+const getConfigFromDataAttribute = (element, attr) => {
+  const dataValue = rootElement.dataset[attr];
+  return JSON.parse(dataValue);
+};
 
 const TAB_PANES = [
   {
@@ -44,15 +48,25 @@ const replaceURLPathname = (newPathname) =>
 class DashboardTabs extends Component {
   constructor(props) {
     super(props);
-    const activeTabName = rootElement.dataset[_camelCase("active-tab-name")];
-    const routes = TAB_PANES.map((pane) => pane.pathname);
+    const activeTabName = getConfigFromDataAttribute(
+      rootElement,
+      _camelCase("active-tab-name")
+    );
+    const communitiesEnabled = getConfigFromDataAttribute(
+      rootElement,
+      _camelCase("communities-enabled")
+    );
+
+    let ACTIVE_TAB_PANES = communitiesEnabled ? TAB_PANES : [TAB_PANES[0]];
+
+    const routes = ACTIVE_TAB_PANES.map((pane) => pane.pathname);
     this.state = {
       defaultActiveTab: routes.indexOf(activeTabName),
     };
 
     // replace URL with the first pathname when not defined
     if (window.location.pathname.endsWith("/" + activeTabName) === false) {
-      replaceURLPathname(window.location.pathname + "/" + activeTabName);
+      replaceURLPathname(activeTabName);
     }
 
     for (const [componentId, component] of Object.entries({
@@ -63,9 +77,10 @@ class DashboardTabs extends Component {
       overrideStore.add(componentId, component);
     }
 
-    this.panes = TAB_PANES.map((pane, index) => {
-      const { appId, ...config } = JSON.parse(
-        rootElement.dataset[_camelCase(pane.configDataAttribute)]
+    this.panes = ACTIVE_TAB_PANES.map((pane, index) => {
+      const { appId, ...config } = getConfigFromDataAttribute(
+        rootElement,
+        _camelCase(pane.configDataAttribute)
       );
       return {
         menuItem: pane.label,
@@ -79,7 +94,7 @@ class DashboardTabs extends Component {
   }
 
   onTabChange = (e, data) => {
-    const activePane = TAB_PANES[data.activeIndex];
+    const activePane = ACTIVE_TAB_PANES[data.activeIndex];
     replaceURLPathname(activePane.pathname);
   };
 

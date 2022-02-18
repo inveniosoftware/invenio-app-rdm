@@ -136,7 +136,8 @@ export class RDMDepositForm extends Component {
   };
 
   render() {
-    const { record, files, permissions, community } = this.props;
+    const { record, files, permissions, community, communitiesEnabled } =
+      this.props;
     return (
       <DepositFormApp
         config={this.config}
@@ -145,10 +146,10 @@ export class RDMDepositForm extends Component {
         files={files}
         permissions={permissions}
       >
-        <CommunityHeader
+        {communitiesEnabled && <CommunityHeader
           community={community}
           imagePlaceholderLink="/static/images/square-placeholder.png"
-        />
+        />}
         <FormFeedback fieldPath="message" />
         <Container style={{ marginTop: "10px" }}>
           <DepositFormTitle />

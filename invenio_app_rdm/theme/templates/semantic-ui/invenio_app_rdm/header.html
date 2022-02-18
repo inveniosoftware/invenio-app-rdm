@@ -75,7 +75,7 @@
                     </li>
                 {% endfor %}
                 {%- if config.ACCOUNTS and current_user.is_authenticated %}
-                  {% for item in current_menu.submenu('requests').children|sort(attribute='order') if item.visible recursive %}
+                  {% for item in current_menu.submenu('notifications').children|sort(attribute='order') if item.visible recursive %}
                       <li class="navbar-item">
                         <a href="{{ item.url }}"><i class="fitted inbox icon inverted"></i></a>
                       </li>
