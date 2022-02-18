@@ -55,7 +55,7 @@ export function CommunitiesResultsItemTemplate({ result, index }) {
     <Item key={index}>
       <Image
         src={result.links.logo}
-        fallbackSrc="/static/images/placeholder.png"
+        fallbackSrc="/static/images/square-placeholder.png"
         className="ui tiny image"
       />
       <Item.Content>
