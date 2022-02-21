@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: invenio-app-rdm 8.0.0.dev4\n"
 "Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
-"POT-Creation-Date: 2022-02-17 11:05+0100\n"
+"POT-Creation-Date: 2022-02-21 09:00+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -83,7 +83,7 @@ msgid "New version"
 msgstr ""
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/deposit.html:11
-#: invenio_app_rdm/theme/views.py:46
+#: invenio_app_rdm/theme/views.py:54
 msgid "New upload"
 msgstr ""
 
@@ -432,22 +432,22 @@ msgstr ""
 msgid "Download"
 msgstr ""
 
-#: invenio_app_rdm/records_ui/views/deposits.py:57
+#: invenio_app_rdm/records_ui/views/deposits.py:60
 msgid "Discard the reserved {scheme_label}"
 msgstr ""
 
-#: invenio_app_rdm/records_ui/views/deposits.py:59
+#: invenio_app_rdm/records_ui/views/deposits.py:62
 msgid "Get a {scheme_label} now!"
 msgstr ""
 
-#: invenio_app_rdm/records_ui/views/deposits.py:61
+#: invenio_app_rdm/records_ui/views/deposits.py:64
 msgid ""
 "Reserve a {scheme_label} by pressing the button (e.g to include it in "
 "publications). The {scheme_label} is registered when your upload is "
 "published."
 msgstr ""
 
-#: invenio_app_rdm/records_ui/views/deposits.py:66
+#: invenio_app_rdm/records_ui/views/deposits.py:69
 msgid ""
 "A {scheme_label} allows your upload to be easily and unambiguously cited."
 " Example: 10.1234/foo.bar"
