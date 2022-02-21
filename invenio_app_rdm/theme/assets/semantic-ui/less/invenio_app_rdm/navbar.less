@@ -19,12 +19,17 @@ nav {
   padding: 10px;
 }
 
+.navbar-menu-separator {
+  flex: auto;
+  text-align: right;
+}
+
 .navbar-item:not(.navbar-button) a:hover,
 .navbar-item a:hover::after {
   color: #ccc;
 }
 
-.navbar-item:hover:not(.navbar-button):not(.navbar-search-bar) {
+.navbar-item:hover:not(.navbar-button):not(.navbar-search-bar):not(.navbar-menu-separator) {
   background-color: rgba(255, 255, 255, 0.2);
 
   a:hover {
@@ -105,14 +110,10 @@ nav {
   display: block;
   order: 3;
 
-  .dashboard-button {
-    order: 1;
-  }
-
   .request-button {
     order: 2;
   }
- }
+}
 
 #header-search-bar {
   width: auto;
@@ -129,7 +130,6 @@ nav {
     justify-content: flex-start;
   }
 
-
   .navbar-item.navbar-button {
     width: auto;
     order: 1;
@@ -144,7 +144,6 @@ nav {
 
     .rdm-sign-buttons {
       align-items: center;
-      justify-content: end;
       margin-left: auto;
       flex-wrap: nowrap;
 
@@ -167,14 +166,8 @@ nav {
           margin-right: 5px;
         }
       }
-
     }
-
-
-
   }
-
-
 
   .toggle {
     flex: 1;
