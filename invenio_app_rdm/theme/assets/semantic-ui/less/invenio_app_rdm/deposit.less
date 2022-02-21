@@ -148,6 +148,7 @@
 .ui.container.community-header {
   padding-top: 0.7em;
   display: flex;
+  align-items: center;
 }
 
 .community-logo-header {
@@ -155,4 +156,73 @@
   height: 3em;
   display: inline-block;
   margin-right: 0.5em;
+}
+
+/* Styling for the community selection modal */
+
+#community-selection-modal {
+  margin: 0;
+
+  .community-list-results.content {
+    height: calc(55vh - 10em);
+  }
+
+  .community-list-result-item {
+    .header {
+      white-space: normal;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+  }
+
+  .segment {
+    box-shadow: none;
+  }
+
+  .community-selected-item-container {
+    height: 8rem;
+    min-height: 6rem;
+    overflow-y: hidden;
+    margin: 0;
+    padding: 0.5em 1em;
+
+    .community-list-result-item {
+      height: 7rem;
+    }
+
+    .header {
+      margin: 0;
+    }
+  }
+
+  .community-list-result-item-button-container {
+    margin-top: auto;
+    margin-bottom: auto;
+    width: auto;
+  }
+
+  .community-selection-footer {
+    margin-top: 1.5rem;
+  }
+}
+
+
+@media screen and (max-width: 850px) {
+  #community-selection-modal {
+
+    .community-selected-item-container {
+      overflow-y: auto;
+    }
+
+    .community-list-result-item {
+      margin: 0;
+      flex-direction: row;
+    }
+
+    .community-list-result-item {
+      overflow-y: auto;
+    }
+
+  }
+
 }
