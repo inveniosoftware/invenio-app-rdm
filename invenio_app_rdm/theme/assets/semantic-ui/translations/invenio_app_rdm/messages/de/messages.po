@@ -1,19 +1,19 @@
 # 
 # Translators:
 # Alizee Pace <alizee.pace@gmail.com>, 2021
-# Hermann Schranzhofer <hermann.schranzhofer@tugraz.at>, 2021
 # Mojib Wali <mojib.wali@tugraz.at>, 2021
 # Tibor Simko <tibor.simko@cern.ch>, 2022
 # Alexander Gruber <alexander.gruber@tugraz.at>, 2022
 # chriz_uniba <christina.zeller@uni-bamberg.de>, 2022
 # David Eckhard <dabombeeer@gmail.com>, 2022
+# Hermann Schranzhofer <hermann.schranzhofer@tugraz.at>, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2022-02-15T10:20:42.750Z\n"
 "PO-Revision-Date: 2021-07-14 16:07+0000\n"
-"Last-Translator: David Eckhard <dabombeeer@gmail.com>, 2022\n"
+"Last-Translator: Hermann Schranzhofer <hermann.schranzhofer@tugraz.at>, 2022\n"
 "Language-Team: German (https://www.transifex.com/inveniosoftware/teams/23537/de/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -206,10 +206,10 @@ msgid "ROR profile"
 msgstr "ROR Profil"
 
 msgid "hide subfacets"
-msgstr "Subfacetten verstecken"
+msgstr "Teilaspekte verstecken"
 
 msgid "show subfacets"
-msgstr "Subfacetten anzeigen"
+msgstr "Teilaspekte anzeigen"
 
 msgid "No community type"
 msgstr "Kein Community Typ"
