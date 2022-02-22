@@ -19,6 +19,7 @@ import {
   RDMCountComponent,
   RDMEmptyResults,
   RDMErrorComponent,
+  RDMToggleComponent,
 } from "./components";
 
 const initSearchApp = createSearchAppInit({
@@ -32,4 +33,5 @@ const initSearchApp = createSearchAppInit({
   "SearchBar.element": RDMRecordSearchBarElement,
   "Count.element": RDMCountComponent,
   "Error.element": RDMErrorComponent,
+  "SearchFilters.ToggleComponent": RDMToggleComponent,
 });
