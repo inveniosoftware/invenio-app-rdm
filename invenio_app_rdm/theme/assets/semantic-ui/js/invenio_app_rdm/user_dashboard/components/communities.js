@@ -17,6 +17,8 @@ import {
   Item,
   Button,
   Icon,
+  Segment,
+  Header,
 } from "semantic-ui-react";
 import _get from "lodash/get";
 import _truncate from "lodash/truncate";
@@ -164,11 +166,31 @@ export const CommunitiesFacets = ({ aggs, currentResultsState }) => {
   );
 };
 
+export const RDMCommunitiesEmptyResults = (props) => {
+  const queryString = props.queryString;
+  return (
+    <>
+      <Segment placeholder textAlign="center">
+        <Header icon>
+          <Icon name="search" />
+          {i18next.t("No communities found!")}
+        </Header>
+        {queryString && (
+          <Button primary onClick={() => props.resetQuery()}>
+            {i18next.t("Reset search")}
+          </Button>
+        )}
+      </Segment>
+    </>
+  );
+};
+
 export const defaultComponents = {
   "user-communities-search.BucketAggregation.element":
     RDMBucketAggregationElement,
   "user-communities-search.BucketAggregationValues.element":
     RDMRecordFacetsValues,
+  "user-communities-search.EmptyResults.element": RDMCommunitiesEmptyResults,
   "user-communities-search.ResultsList.item": CommunitiesResultsItemTemplate,
   "user-communities-search.ResultsGrid.item": ResultsGridItemTemplate,
   "user-communities-search.SearchApp.facets": CommunitiesFacets,

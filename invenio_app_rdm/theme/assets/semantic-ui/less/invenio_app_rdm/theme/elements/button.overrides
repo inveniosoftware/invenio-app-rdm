@@ -10,7 +10,7 @@
     margin-right: 0px;
 }
 
-button.iconhold  {
+.ui.icon.button.iconhold  {
     background-color: inherit;
     border: none;
     padding: 5px 5px 5px 0;

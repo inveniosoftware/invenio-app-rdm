@@ -255,16 +255,10 @@ export const RDMEmptyResults = (props) => {
     <Segment placeholder textAlign="center">
       <Header icon>
         <Icon name="search" />
-        {i18next.t("No results found!")}
+        {i18next.t("No uploads found!")}
       </Header>
-      {queryString && (
-        <em>
-          {i18next.t("Current search")} "{queryString}"
-        </em>
-      )}
-      <br />
       <Button primary onClick={() => props.resetQuery()}>
-        {i18next.t("Clear query")}
+        {i18next.t("Reset search")}
       </Button>
     </Segment>
   );
