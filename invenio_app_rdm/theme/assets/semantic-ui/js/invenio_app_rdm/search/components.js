@@ -223,20 +223,11 @@ export const RDMRecordFacetsValues = ({
 export const SearchHelpLinks = () => {
   return (
     <Overridable id={"RdmSearch.SearchHelpLinks"}>
-      <Grid className="padded-small">
-        <Grid.Row className="no-padded">
-          <Grid.Column></Grid.Column>
-        </Grid.Row>
-        <Grid.Row className="no-padded">
-          <Grid.Column>
-            <Card className="borderless-facet">
-              <Card.Content>
-                <a href="/help/search">{i18next.t("Search guide")}</a>
-              </Card.Content>
-            </Card>
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
+      <List>
+        <List.Item>
+          <a href="/help/search">{i18next.t("Search guide")}</a>
+        </List.Item>
+      </List>
     </Overridable>
   );
 };
@@ -256,16 +247,42 @@ export const RDMRecordFacets = ({ aggs, currentResultsState }) => {
           </div>
         );
       })}
-      <SearchHelpLinks />
+      <Card className="borderless-facet">
+        <Card.Content>
+          <Card.Header>{ i18next.t('Help') }</Card.Header>
+          <SearchHelpLinks />
+        </Card.Content>
+      </Card>
     </aside>
   );
 };
 
-export const RDMBucketAggregationElement = ({ title, containerCmp }) => {
+export const RDMBucketAggregationElement = ({agg, title, containerCmp, updateQueryFilters}) => {
+
+  const clearFacets = () => {
+    if (containerCmp.props.selectedFilters.length) {
+      updateQueryFilters(
+        [agg.aggName, ''],
+        containerCmp.props.selectedFilters
+      );
+    }
+  }
+
   return (
     <Card className="borderless-facet">
       <Card.Content>
-        <Card.Header>{title}</Card.Header>
+        <Card.Header>
+          {title}
+          <Button basic icon
+                  size="mini"
+                  floated="right"
+                  onClick={clearFacets}
+                  aria-label={ i18next.t('Clear selection') }
+                  title={ i18next.t('Clear selection') }
+          >
+            { i18next.t('Clear') }
+          </Button>
+        </Card.Header>
       </Card.Content>
       <Card.Content>{containerCmp}</Card.Content>
     </Card>
@@ -317,20 +334,46 @@ export const RDMCountComponent = ({ totalResults }) => {
 
 export const RDMEmptyResults = (props) => {
   const queryString = props.queryString;
+  const searchPath = props.searchPath || '/search';
+
   return (
-    <>
-      <Segment placeholder textAlign="center">
-        <Header icon>
-          <Icon name="search" />
-          {i18next.t("No results found!")}
-        </Header>
-        {queryString && (
-          <Button primary onClick={() => props.resetQuery()}>
-            {i18next.t("Reset search")}
-          </Button>
-        )}
-      </Segment>
-    </>
+      <Grid>
+        <Grid.Row centered>
+          <Grid.Column width={12} textAlign="center">
+            <Header as="h2">
+              {i18next.t("We couldn't find any matches for ")}
+              {queryString && (`'${queryString}'`) || i18next.t('your search')}
+            </Header>
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row centered>
+          <Grid.Column width={8} textAlign="center">
+            <Button primary onClick={props.resetQuery}>
+              <Icon name="search"/>
+              { i18next.t('Start over') }
+              </Button>
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row centered>
+          <Grid.Column width={12}>
+            <Segment secondary padded size="large">
+              <Header as="h3" size="small">{i18next.t('ProTip')}!</Header>
+              <p>
+                <a href={`${searchPath}?q=metadata.publication_date:[2017-01-01 TO *]`}>
+                  metadata.publication_date:[2017-01-01 TO *]
+                </a> { i18next.t('will give you all the publications from 2017 until today') }.
+              </p>
+              <p>
+              {i18next.t('For more tips, check out our ')}
+              <a href="/help/search" title={i18next.t('Search guide')}>
+                {i18next.t('search guide')}
+              </a>
+              {i18next.t(' for defining advanced search queries')}.
+              </p>
+            </Segment>
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
   );
 };
 
