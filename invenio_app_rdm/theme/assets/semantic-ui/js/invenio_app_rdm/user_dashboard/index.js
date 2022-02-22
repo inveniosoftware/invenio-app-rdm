@@ -33,7 +33,7 @@ const TAB_PANES = [
   },
   {
     configDataAttribute: "invenio-search-user-requests-config",
-    label: "Requests",
+    label: i18next.t("Requests"),
     pathname: "requests",
   },
 ];
