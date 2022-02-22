@@ -32,6 +32,7 @@ import {
   RDMRecordFacetsValues,
   RDMRecordSearchBarElement,
   RDMToggleComponent,
+  RDMEmptyResults as RDMNoSearchResults
 } from "../../search/components";
 import { DashboardResultView, DashboardSearchLayoutHOC } from "./base";
 
@@ -252,14 +253,8 @@ export const RDMEmptyResults = (props) => {
       </Segment>
     </Segment.Group>
   ) : (
-    <Segment placeholder textAlign="center">
-      <Header icon>
-        <Icon name="search" />
-        {i18next.t("No uploads found!")}
-      </Header>
-      <Button primary onClick={() => props.resetQuery()}>
-        {i18next.t("Reset search")}
-      </Button>
+    <Segment padded="very">
+      <RDMNoSearchResults {...props} searchPath='/me/uploads' />
     </Segment>
   );
 };
