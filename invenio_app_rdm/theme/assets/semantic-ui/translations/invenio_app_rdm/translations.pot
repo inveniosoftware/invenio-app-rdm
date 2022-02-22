@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-02-23T10:39:48.364Z\n"
-"PO-Revision-Date: 2022-02-23T10:39:48.364Z\n"
+"POT-Creation-Date: 2022-02-23T15:22:53.241Z\n"
+"PO-Revision-Date: 2022-02-23T15:22:53.241Z\n"
 "Language: en\n"
 
 msgid "Basic information"
@@ -68,9 +68,6 @@ msgstr "Citation"
 
 msgid "Style"
 msgstr "Style"
-
-msgid "Manage"
-msgstr "Manage"
 
 msgid "Version"
 msgstr "Version"
@@ -158,12 +155,6 @@ msgstr "View all versions"
 msgid "No results found!"
 msgstr "No results found!"
 
-msgid "Current search"
-msgstr "Current search"
-
-msgid "Clear query"
-msgstr "Clear query"
-
 msgid "result(s) found"
 msgstr "result(s) found"
 
@@ -191,12 +182,6 @@ msgstr "opened {{difference}} by {{user}}"
 msgid "Get started!"
 msgstr "Get started!"
 
-msgid "Create your first request!"
-msgstr "Create your first request!"
-
-msgid "New request"
-msgstr "New request"
-
 msgid "Open"
 msgstr "Open"
 
@@ -211,9 +196,6 @@ msgstr "All done!"
 
 msgid "You've caught up with all open requests."
 msgstr "You've caught up with all open requests."
-
-msgid "No requests found"
-msgstr "No requests found"
 
 msgid "Delete"
 msgstr "Delete"
@@ -253,3 +235,15 @@ msgstr "ORCID profile"
 
 msgid "ROR profile"
 msgstr "ROR profile"
+
+msgid "Reset query"
+msgstr "Reset query"
+
+msgid "No communities found!"
+msgstr "No communities found!"
+
+msgid "No requests found!"
+msgstr "No requests found!"
+
+msgid "No uploads found!"
+msgstr "No uploads found!"

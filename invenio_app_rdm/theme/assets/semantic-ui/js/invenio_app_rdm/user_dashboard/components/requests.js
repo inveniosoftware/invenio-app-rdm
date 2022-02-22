@@ -201,48 +201,6 @@ export const RDMRecordResultsGridItem = ({ result, index }) => {
   );
 };
 
-export const RDMEmptyResults = (props) => {
-  const queryString = props.queryString;
-  return queryString === "" ? (
-    <Segment.Group>
-      <Segment placeholder textAlign="center" padded="very">
-        <Header as="h1" align="center">
-          <Header.Content>
-            {i18next.t("Get started!")}
-            <Header.Subheader>
-              {i18next.t("Create your first request!")}
-            </Header.Subheader>
-          </Header.Content>
-        </Header>
-        <Divider hidden />
-        <Button
-          color="green"
-          icon="upload"
-          floated="right"
-          href="/requests/new"
-          content={i18next.t("New request")}
-        />
-      </Segment>
-    </Segment.Group>
-  ) : (
-    <Segment placeholder textAlign="center">
-      <Header icon>
-        <Icon name="search" />
-        {i18next.t("No results found!")}
-      </Header>
-      {queryString && (
-        <em>
-          {i18next.t("Current search")} "{queryString}"
-        </em>
-      )}
-      <br />
-      <Button primary onClick={() => props.resetQuery()}>
-        {i18next.t("Clear query")}
-      </Button>
-    </Segment>
-  );
-};
-
 export class RequestStatusFilterComponent extends Component {
   constructor(props) {
     super(props);
@@ -380,7 +338,7 @@ export const RDMRequestsEmptyResults = (props) => {
   const AllDone = () => {
     return (
       <>
-        <Header as="h2" icon>
+        <Header as="h1" icon>
           {i18next.t("All done!")}
           <Header.Subheader>
             {i18next.t("You've caught up with all open requests.")}
@@ -393,14 +351,18 @@ export const RDMRequestsEmptyResults = (props) => {
   const NoResults = () => {
     return (
       <>
-        <Header as="h6" icon>
-          <Icon name="search">
-            <span className="ml-10">{i18next.t("No requests found")}</span>
-          </Icon>
-        </Header>
-        <Button primary onClick={() => props.updateQueryState(elementsToReset)}>
-          {i18next.t("Clear query")}
-        </Button>
+          <Header icon>
+            <Icon name="search" />
+            {i18next.t("No requests found!")}
+          </Header>
+          {queryString && (
+            <Button
+              primary
+              onClick={() => props.updateQueryState(elementsToReset)}
+            >
+              {i18next.t("Reset search")}
+            </Button>
+          )}
       </>
     );
   };

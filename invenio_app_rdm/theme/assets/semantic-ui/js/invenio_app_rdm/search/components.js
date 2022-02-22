@@ -193,12 +193,16 @@ export const RDMRecordFacetsValues = ({
           </Label>
         </List.Content>
         {hasChildren ? (
-          <button className="iconhold"
-                  onClick={() => setisActive(!isActive)}
-                  aria-label={`${isActive ? i18next.t("hide subfacets") : i18next.t("show subfacets") }`}
-            >
-              <i className={`angle ${isActive ? "down" : "right"} icon`}></i>
-          </button>
+          <Button
+            className="iconhold"
+            icon={`angle ${isActive ? "down" : "right"} icon`}
+            onClick={() => setisActive(!isActive)}
+            aria-label={`${
+              isActive
+                ? i18next.t("hide subfacets")
+                : i18next.t("show subfacets")
+            }`}
+          ></Button>
         ) : null}
         <Checkbox
           label={bucket.label || keyField}
@@ -321,14 +325,10 @@ export const RDMEmptyResults = (props) => {
           {i18next.t("No results found!")}
         </Header>
         {queryString && (
-          <em>
-            {i18next.t("Current search")} "{queryString}"
-          </em>
+          <Button primary onClick={() => props.resetQuery()}>
+            {i18next.t("Reset search")}
+          </Button>
         )}
-        <br />
-        <Button primary onClick={() => props.resetQuery()}>
-          {i18next.t("Clear query")}
-        </Button>
       </Segment>
     </>
   );
