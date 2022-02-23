@@ -12,7 +12,8 @@ import { i18next } from "@translations/invenio_app_rdm/i18next";
 
 class SimpleCopyButton extends React.Component {
   render() {
-    const { text, onCopy } = this.props;
+    const { text, onCopy, hoverState } = this.props;
+
     return (
       <CopyToClipboard
         text={text}
@@ -20,7 +21,13 @@ class SimpleCopyButton extends React.Component {
           onCopy(text);
         }}
       >
-        <Button className="copy" basic icon="copy" aria-label={i18next.t('Copy to clipboard')} />
+        <Button className="copy"
+                basic
+                icon="copy"
+                aria-label={i18next.t('Copy to clipboard')}
+                onMouseEnter={hoverState}
+                onMouseLeave={hoverState}
+        />
       </CopyToClipboard>
     );
   }
@@ -29,7 +36,13 @@ class SimpleCopyButton extends React.Component {
 SimpleCopyButton.propTypes = {
   text: PropTypes.string.isRequired,
   onCopy: PropTypes.func.isRequired,
+  hoverState: PropTypes.func
 };
+
+SimpleCopyButton.defaultProps = {
+  hoverState: null
+};
+
 
 export class CopyButton extends Component {
   constructor(props) {
@@ -37,9 +50,10 @@ export class CopyButton extends Component {
     this.INITIAL_STATE = {
       confirmationPopupIsOpen: false,
       confirmationPopupMsg: "",
+      hoverPopupIsOpen: false,
+      stateReset: null
     };
     this.state = this.INITIAL_STATE;
-    this.contextRef = React.createRef();
   }
 
   onCopy = () => {
@@ -47,46 +61,57 @@ export class CopyButton extends Component {
       confirmationPopupIsOpen: true,
       confirmationPopupMsg: i18next.t('Copied!'),
     }));
+
     this.delayClosePopup();
   };
 
   delayClosePopup = () => {
-    setTimeout(() => {
+    let stateReset = setTimeout(() => {
       this.setState(this.INITIAL_STATE);
     }, 1500);
+
+    this.setState({ stateReset });
   };
+
+  hoverStateHandler = (event) => {
+    event.persist();
+    if(event.type == 'mouseenter') this.setState({ hoverPopupIsOpen: true });
+    if(event.type == 'mouseleave') this.setState({ hoverPopupIsOpen: false });
+  }
 
   render() {
     const { text, popUpPosition } = this.props;
-    const { confirmationPopupMsg, confirmationPopupIsOpen } = this.state;
-    return text ? (
+    const { confirmationPopupMsg, confirmationPopupIsOpen, hoverPopupIsOpen } = this.state;
+
+    return text && (
       <>
         <Popup
-          content={confirmationPopupMsg}
-          context={this.contextRef}
-          inverted
-          open={confirmationPopupIsOpen}
-          position={popUpPosition}
-          size="mini"
-        />
-        <Popup
-          content={i18next.t('Copy to clipboard')}
+          role="alert"
+          open={hoverPopupIsOpen || confirmationPopupIsOpen}
+          content={confirmationPopupMsg || i18next.t('Copy to clipboard')}
+          inverted={!!confirmationPopupMsg}
           position={popUpPosition}
           size="mini"
           trigger={
-            <span ref={this.contextRef}>
-              <SimpleCopyButton text={text} onCopy={this.onCopy} />
-            </span>
+            <SimpleCopyButton text={text}
+                              onCopy={this.onCopy}
+                              hoverState={this.hoverStateHandler}
+            />
           }
         />
       </>
-    ) : null;
+    );
+  }
+
+  componentWillUnmount(){
+    // Avoid state update after component is unmounted:
+    if(this.state.stateReset) clearTimeout(this.state.stateReset);
   }
 }
 
 CopyButton.propTypes = {
   popUpPosition: PropTypes.string,
-  text: PropTypes.string,
+  text: PropTypes.string
 };
 
 CopyButton.defaultProps = {
