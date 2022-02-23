@@ -28,6 +28,7 @@ export const ShareButton = (props) => {
             disabled={props.disabled}
             primary
             size="mini"
+            aria-haspopup="dialog"
           >
             <Icon name="share square" />
             {i18next.t("Share")}
