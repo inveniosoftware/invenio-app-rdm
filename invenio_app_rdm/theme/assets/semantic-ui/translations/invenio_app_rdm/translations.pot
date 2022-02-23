@@ -5,95 +5,72 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-02-15T10:20:42.750Z\n"
-"PO-Revision-Date: 2022-02-15T10:20:42.750Z\n"
+"POT-Creation-Date: 2022-02-23T10:39:48.364Z\n"
+"PO-Revision-Date: 2022-02-23T10:39:48.364Z\n"
 "Language: en\n"
 
 msgid "Basic information"
 msgstr "Basic information"
 
-msgid "Anyone with this link <1>can view all versions</1> of this record & files."
-msgstr "Anyone with this link <1>can view all versions</1> of this record & files."
+msgid "Requests"
+msgstr "Requests"
 
-msgid ""
-"Anyone with this link <2>can view all published and unpublished "
-"versions</2> of this record & files."
-msgstr ""
-"Anyone with this link <2>can view all published and unpublished "
-"versions</2> of this record & files."
+msgid "Communities"
+msgstr "Communities"
 
-msgid ""
-"Anyone with an account and this link <2>can edit all versions</2> of this "
-"record & files."
-msgstr ""
-"Anyone with an account and this link <2>can edit all versions</2> of this "
-"record & files."
+msgid "Uploads"
+msgstr "Uploads"
 
-msgid "Get a link"
-msgstr "Get a link"
-
-msgid "Copy link"
-msgstr "Copy link"
-
-msgid "Delete link"
-msgstr "Delete link"
-
-msgid "Done"
-msgstr "Done"
-
-msgid "No link has been created. Click on 'Get a Link' to make a new link"
-msgstr "No link has been created. Click on 'Get a Link' to make a new link"
-
-msgid "Delete"
-msgstr "Delete"
-
-msgid "Are you sure you want to delete this draft?"
-msgstr "Are you sure you want to delete this draft?"
-
-msgid "Cancel"
-msgstr "Cancel"
-
-msgid "result(s) found"
-msgstr "result(s) found"
-
-msgid "Sort by"
-msgstr "Sort by"
-
-msgid "results per page"
-msgstr "results per page"
-
-msgid "Edit"
-msgstr "Edit"
-
-msgid "View"
-msgstr "View"
-
-msgid "Uploaded on"
-msgstr "Uploaded on"
-
-msgid "Get started!"
-msgstr "Get started!"
-
-msgid "Make your first upload!"
-msgstr "Make your first upload!"
-
-msgid "New upload"
-msgstr "New upload"
-
-msgid "No results found!"
-msgstr "No results found!"
-
-msgid "Current search"
-msgstr "Current search"
-
-msgid "Clear query"
-msgstr "Clear query"
+msgid "Copy to clipboard"
+msgstr "Copy to clipboard"
 
 msgid "Copied!"
 msgstr "Copied!"
 
-msgid "Copy to clipboard"
-msgstr "Copy to clipboard"
+msgid "Files"
+msgstr "Files"
+
+msgid "The record has no files."
+msgstr "The record has no files."
+
+msgid "Creators"
+msgstr "Creators"
+
+msgid "Recommended information"
+msgstr "Recommended information"
+
+msgid "Add contributor"
+msgstr "Add contributor"
+
+msgid "Contributors"
+msgstr "Contributors"
+
+msgid "Alternate identifiers"
+msgstr "Alternate identifiers"
+
+msgid "Alternate identifier(s)"
+msgstr "Alternate identifier(s)"
+
+msgid "Related works"
+msgstr "Related works"
+
+msgid "Visibility"
+msgstr "Visibility"
+
+msgid "Edit"
+msgstr "Edit"
+
+msgid "An error occurred while generating the citation."
+msgstr "An error occurred while generating the citation."
+
+msgid "Citation"
+msgstr "Citation"
+
+msgid "Style"
+msgstr "Style"
+
+msgid "Manage"
+msgstr "Manage"
 
 msgid "Version"
 msgstr "Version"
@@ -122,71 +99,43 @@ msgstr "Can preview"
 msgid "Can edit"
 msgstr "Can edit"
 
-msgid "Search guide"
-msgstr "Search guide"
+msgid "Get a link"
+msgstr "Get a link"
 
-msgid "Versions"
-msgstr "Versions"
+msgid "Copy link"
+msgstr "Copy link"
 
-msgid "View all versions"
-msgstr "View all versions"
+msgid "No link has been created. Click on 'Get a Link' to make a new link"
+msgstr "No link has been created. Click on 'Get a Link' to make a new link"
 
-msgid "Files"
-msgstr "Files"
+msgid "Delete link"
+msgstr "Delete link"
 
-msgid "The record has no files."
-msgstr "The record has no files."
+msgid "Done"
+msgstr "Done"
 
-msgid "Recommended information"
-msgstr "Recommended information"
+msgid "Anyone with this link <1>can view all versions</1> of this record & files."
+msgstr "Anyone with this link <1>can view all versions</1> of this record & files."
 
-msgid "Add contributor"
-msgstr "Add contributor"
+msgid ""
+"Anyone with this link <2>can view all published and unpublished "
+"versions</2> of this record & files."
+msgstr ""
+"Anyone with this link <2>can view all published and unpublished "
+"versions</2> of this record & files."
 
-msgid "Contributors"
-msgstr "Contributors"
+msgid ""
+"Anyone with an account and this link <2>can edit all versions</2> of this "
+"record & files."
+msgstr ""
+"Anyone with an account and this link <2>can edit all versions</2> of this "
+"record & files."
 
-msgid "Visibility"
-msgstr "Visibility"
-
-msgid "Citation"
-msgstr "Citation"
-
-msgid "Style"
-msgstr "Style"
-
-msgid "Manage"
-msgstr "Manage"
-
-msgid "Search uploads..."
-msgstr "Search uploads..."
-
-msgid "Creators"
-msgstr "Creators"
-
-msgid "Alternate identifiers"
-msgstr "Alternate identifiers"
-
-msgid "Alternate identifier(s)"
-msgstr "Alternate identifier(s)"
-
-msgid "Related works"
-msgstr "Related works"
-
-msgid "An error occurred while generating the citation."
-msgstr "An error occurred while generating the citation."
+msgid "Uploaded on"
+msgstr "Uploaded on"
 
 msgid "Search"
 msgstr "Search"
-
-msgid "filters"
-msgstr "filters"
-
-msgid "ORCID profile"
-msgstr "ORCID profile"
-
-msgid "ROR profile"
-msgstr "ROR profile"
 
 msgid "hide subfacets"
 msgstr "hide subfacets"
@@ -194,8 +143,41 @@ msgstr "hide subfacets"
 msgid "show subfacets"
 msgstr "show subfacets"
 
+msgid "Search guide"
+msgstr "Search guide"
+
+msgid "filters"
+msgstr "filters"
+
+msgid "Versions"
+msgstr "Versions"
+
+msgid "View all versions"
+msgstr "View all versions"
+
+msgid "No results found!"
+msgstr "No results found!"
+
+msgid "Current search"
+msgstr "Current search"
+
+msgid "Clear query"
+msgstr "Clear query"
+
+msgid "result(s) found"
+msgstr "result(s) found"
+
+msgid "Sort by"
+msgstr "Sort by"
+
+msgid "results per page"
+msgstr "results per page"
+
 msgid "No community type"
 msgstr "No community type"
+
+msgid "View"
+msgstr "View"
 
 msgid "Search communities..."
 msgstr "Search communities..."
@@ -205,6 +187,9 @@ msgstr "New community"
 
 msgid "opened {{difference}} by {{user}}"
 msgstr "opened {{difference}} by {{user}}"
+
+msgid "Get started!"
+msgstr "Get started!"
 
 msgid "Create your first request!"
 msgstr "Create your first request!"
@@ -230,6 +215,15 @@ msgstr "You've caught up with all open requests."
 msgid "No requests found"
 msgstr "No requests found"
 
+msgid "Delete"
+msgstr "Delete"
+
+msgid "Are you sure you want to delete this draft?"
+msgstr "Are you sure you want to delete this draft?"
+
+msgid "Cancel"
+msgstr "Cancel"
+
 msgid "No creation date found."
 msgstr "No creation date found."
 
@@ -245,8 +239,17 @@ msgstr "No resource type"
 msgid "No title"
 msgstr "No title"
 
-msgid "Uploads"
-msgstr "Uploads"
+msgid "Make your first upload!"
+msgstr "Make your first upload!"
 
-msgid "Communities"
-msgstr "Communities"
+msgid "New upload"
+msgstr "New upload"
+
+msgid "Search uploads..."
+msgstr "Search uploads..."
+
+msgid "ORCID profile"
+msgstr "ORCID profile"
+
+msgid "ROR profile"
+msgstr "ROR profile"

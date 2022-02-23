@@ -1,19 +1,19 @@
 # 
 # Translators:
 # Alizee Pace <alizee.pace@gmail.com>, 2021
-# Mojib Wali <mojib.wali@tugraz.at>, 2021
+# Hermann Schranzhofer <hermann.schranzhofer@tugraz.at>, 2021
 # Tibor Simko <tibor.simko@cern.ch>, 2022
 # Alexander Gruber <alexander.gruber@tugraz.at>, 2022
 # chriz_uniba <christina.zeller@uni-bamberg.de>, 2022
 # David Eckhard <dabombeeer@gmail.com>, 2022
-# Hermann Schranzhofer <hermann.schranzhofer@tugraz.at>, 2022
+# Mojib Wali <mojib.wali@tugraz.at>, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-02-15T10:20:42.750Z\n"
+"POT-Creation-Date: 2022-02-23T10:31:09.472Z\n"
 "PO-Revision-Date: 2021-07-14 16:07+0000\n"
-"Last-Translator: Hermann Schranzhofer <hermann.schranzhofer@tugraz.at>, 2022\n"
+"Last-Translator: Mojib Wali <mojib.wali@tugraz.at>, 2022\n"
 "Language-Team: German (https://www.transifex.com/inveniosoftware/teams/23537/de/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -24,93 +24,65 @@ msgstr ""
 msgid "Basic information"
 msgstr "Allgemeine Informationen"
 
-msgid ""
-"Anyone with this link <1>can view all versions</1> of this record & files."
-msgstr ""
-"Jeder, der diesen Link hat, <1>kann alle Versionen</1> dieses Eintrags und "
-"der Dateien einsehen."
+msgid "Requests"
+msgstr "Anfragen"
 
-msgid ""
-"Anyone with this link <2>can view all published and unpublished versions</2>"
-" of this record & files."
-msgstr ""
-"Jeder mit diesem Link <2>kann alle veröffentlichten und unveröffentlichten "
-"Versionen</2> dieses Eintrags und der Dateien einsehen."
+msgid "Communities"
+msgstr "Communities"
 
-msgid ""
-"Anyone with an account and this link <2>can edit all versions</2> of this "
-"record & files."
-msgstr ""
-"Jeder mit einem Konto und diesem Link <2>kann alle Versionen</2> dieses "
-"Eintrags und der Dateien bearbeiten."
+msgid "Uploads"
+msgstr "Einträge"
 
-msgid "Get a link"
-msgstr "Einen Link erhalten"
-
-msgid "Copy link"
-msgstr "Link kopieren"
-
-msgid "Delete link"
-msgstr "Link löschen"
-
-msgid "Done"
-msgstr "Erledigt"
-
-msgid "No link has been created. Click on 'Get a Link' to make a new link"
-msgstr ""
-"Es wurde noch kein Link erstellt. Klicken Sie auf 'Einen Link erhalten', um "
-"einen neuen Link zu erstellen"
-
-msgid "Delete"
-msgstr "Löschen"
-
-msgid "Are you sure you want to delete this draft?"
-msgstr "Sind Sie sicher, dass Sie diesen Entwurf löschen möchten?"
-
-msgid "Cancel"
-msgstr "Abbrechen"
-
-msgid "result(s) found"
-msgstr "Ergebnis(e) gefunden"
-
-msgid "Sort by"
-msgstr "Sortieren nach"
-
-msgid "results per page"
-msgstr "Ergebnisse pro Seite"
-
-msgid "Edit"
-msgstr "Editieren"
-
-msgid "View"
-msgstr "Ansicht"
-
-msgid "Uploaded on"
-msgstr "Hochgeladen am"
-
-msgid "Get started!"
-msgstr "Los geht's!"
-
-msgid "Make your first upload!"
-msgstr "Machen Sie Ihren ersten Eintrag!"
-
-msgid "New upload"
-msgstr "Neuer Eintrag"
-
-msgid "No results found!"
-msgstr "Keine Ergebnisse gefunden!"
-
-msgid "Current search"
-msgstr "Aktuelle Suche"
-
-msgid "Clear query"
-msgstr "Abfrage löschen"
+msgid "Copy to clipboard"
+msgstr "In die Zwischenablage kopieren"
 
 msgid "Copied!"
 msgstr "Kopiert!"
 
-msgid "Copy to clipboard"
-msgstr "In die Zwischenablage kopieren"
+msgid "Files"
+msgstr "Dateien"
+
+msgid "The record has no files."
+msgstr "Der Eintrag hat keine Dateien."
+
+msgid "Creators"
+msgstr "Erstellerinnen"
+
+msgid "Recommended information"
+msgstr "Empfohlene Informationen"
+
+msgid "Add contributor"
+msgstr "Mitwirkende hinzufügen"
+
+msgid "Contributors"
+msgstr "Mitwirkende"
+
+msgid "Alternate identifiers"
+msgstr "Alternative Kennungen"
+
+msgid "Alternate identifier(s)"
+msgstr "Alternative Kennung(en)"
+
+msgid "Related works"
+msgstr "Verwandte Werke"
+
+msgid "Visibility"
+msgstr "Sichtbarkeit"
+
+msgid "Edit"
+msgstr "Editieren"
+
+msgid "An error occurred while generating the citation."
+msgstr "Beim Erzeugen der Zitierung ist ein Fehler aufgetreten."
+
+msgid "Citation"
+msgstr "Zitierung"
+
+msgid "Style"
+msgstr "Stil"
+
+msgid "Manage"
+msgstr "Verwalten"
 
 msgid "Version"
 msgstr "Version"
@@ -139,71 +111,48 @@ msgstr "Kann vorschauen"
 msgid "Can edit"
 msgstr "Kann bearbeiten"
 
-msgid "Search guide"
-msgstr "Suchanleitung"
+msgid "Get a link"
+msgstr "Einen Link erhalten"
 
-msgid "Versions"
-msgstr "Versionen"
+msgid "Copy link"
+msgstr "Link kopieren"
 
-msgid "View all versions"
-msgstr "Alle Versionen ansehen"
+msgid "No link has been created. Click on 'Get a Link' to make a new link"
+msgstr ""
+"Es wurde noch kein Link erstellt. Klicken Sie auf 'Einen Link erhalten', um "
+"einen neuen Link zu erstellen"
 
-msgid "Files"
-msgstr "Dateien"
+msgid "Delete link"
+msgstr "Link löschen"
 
-msgid "The record has no files."
-msgstr "Der Eintrag hat keine Dateien."
+msgid "Done"
+msgstr "Erledigt"
 
-msgid "Recommended information"
-msgstr "Empfohlene Informationen"
+msgid ""
+"Anyone with this link <1>can view all versions</1> of this record & files."
+msgstr ""
+"Jeder, der diesen Link hat, <1>kann alle Versionen</1> dieses Eintrags und "
+"der Dateien einsehen."
 
-msgid "Add contributor"
-msgstr "Mitwirkende hinzufügen"
+msgid ""
+"Anyone with this link <2>can view all published and unpublished versions</2>"
+" of this record & files."
+msgstr ""
+"Jeder mit diesem Link <2>kann alle veröffentlichten und unveröffentlichten "
+"Versionen</2> dieses Eintrags und der Dateien einsehen."
 
-msgid "Contributors"
-msgstr "Mitwirkende"
+msgid ""
+"Anyone with an account and this link <2>can edit all versions</2> of this "
+"record & files."
+msgstr ""
+"Jeder mit einem Konto und diesem Link <2>kann alle Versionen</2> dieses "
+"Eintrags und der Dateien bearbeiten."
 
-msgid "Visibility"
-msgstr "Sichtbarkeit"
-
-msgid "Citation"
-msgstr "Zitierung"
-
-msgid "Style"
-msgstr "Stil"
-
-msgid "Manage"
-msgstr "Verwalten"
-
-msgid "Search uploads..."
-msgstr "Einträge suchen..."
-
-msgid "Creators"
-msgstr "Erstellerinnen"
-
-msgid "Alternate identifiers"
-msgstr "Alternative Kennungen"
-
-msgid "Alternate identifier(s)"
-msgstr "Alternative Kennung(en)"
-
-msgid "Related works"
-msgstr "Verwandte Werke"
-
-msgid "An error occurred while generating the citation."
-msgstr "Beim Erzeugen der Zitierung ist ein Fehler aufgetreten."
+msgid "Uploaded on"
+msgstr "Hochgeladen am"
 
 msgid "Search"
 msgstr "Suchen"
-
-msgid "filters"
-msgstr "Filter"
-
-msgid "ORCID profile"
-msgstr "ORCID Profil"
-
-msgid "ROR profile"
-msgstr "ROR Profil"
 
 msgid "hide subfacets"
 msgstr "Teilaspekte verstecken"
@@ -211,8 +160,41 @@ msgstr "Teilaspekte verstecken"
 msgid "show subfacets"
 msgstr "Teilaspekte anzeigen"
 
+msgid "Search guide"
+msgstr "Suchanleitung"
+
+msgid "filters"
+msgstr "Filter"
+
+msgid "Versions"
+msgstr "Versionen"
+
+msgid "View all versions"
+msgstr "Alle Versionen ansehen"
+
+msgid "No results found!"
+msgstr "Keine Ergebnisse gefunden!"
+
+msgid "Current search"
+msgstr "Aktuelle Suche"
+
+msgid "Clear query"
+msgstr "Abfrage löschen"
+
+msgid "result(s) found"
+msgstr "Ergebnis(e) gefunden"
+
+msgid "Sort by"
+msgstr "Sortieren nach"
+
+msgid "results per page"
+msgstr "Ergebnisse pro Seite"
+
 msgid "No community type"
 msgstr "Kein Community Typ"
+
+msgid "View"
+msgstr "Ansicht"
 
 msgid "Search communities..."
 msgstr "Communities durchsuchen..."
@@ -222,6 +204,9 @@ msgstr "Neue Community"
 
 msgid "opened {{difference}} by {{user}}"
 msgstr "{{difference}} geöffnet von {{user}}"
+
+msgid "Get started!"
+msgstr "Los geht's!"
 
 msgid "Create your first request!"
 msgstr "Erstellen Sie Ihre erste Anfrage!"
@@ -247,6 +232,15 @@ msgstr "Sie haben alle offenen Anfragen gesehen."
 msgid "No requests found"
 msgstr "Keine Anfragen gefunden"
 
+msgid "Delete"
+msgstr "Löschen"
+
+msgid "Are you sure you want to delete this draft?"
+msgstr "Sind Sie sicher, dass Sie diesen Entwurf löschen möchten?"
+
+msgid "Cancel"
+msgstr "Abbrechen"
+
 msgid "No creation date found."
 msgstr "Kein Erstellungsdatum gefunden."
 
@@ -262,8 +256,17 @@ msgstr "Kein Ressource-Typ"
 msgid "No title"
 msgstr "Ohne Titel"
 
-msgid "Uploads"
-msgstr "Einträge"
+msgid "Make your first upload!"
+msgstr "Machen Sie Ihren ersten Eintrag!"
 
-msgid "Communities"
-msgstr "Communities"
+msgid "New upload"
+msgstr "Neuer Eintrag"
+
+msgid "Search uploads..."
+msgstr "Einträge suchen..."
+
+msgid "ORCID profile"
+msgstr "ORCID Profil"
+
+msgid "ROR profile"
+msgstr "ROR Profil"
