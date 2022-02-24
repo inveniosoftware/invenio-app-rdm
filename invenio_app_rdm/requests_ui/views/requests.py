@@ -44,22 +44,19 @@ def requests_detail(request=None, pid_value=None):
 
     if is_topic_record_type:
         try:
-            request_dict["topic"] = request._request.topic.resolve()
-            draft = request_dict["topic"]
-
             topic_record = current_rdm_records_service.read_draft(
-                id_=draft["id"], identity=g.identity)
+                id_=request_dict["topic"]["record"], identity=g.identity)
 
         except NoResultFound:
             topic_record = current_rdm_records_service.read(
                 id_=request_dict["topic"]["record"], identity=g.identity)
 
-        is_draft = topic_record._record.is_draft
         permissions = topic_record.has_permissions_to(
             ['edit', 'new_version', 'manage',
              'update_draft', 'read_files'])
         topic_record = UIJSONSerializer().serialize_object_to_dict(
             topic_record.data)
+        is_draft = topic_record["is_draft"]
         request_dict["topic"] = topic_record
 
     # end temporary block

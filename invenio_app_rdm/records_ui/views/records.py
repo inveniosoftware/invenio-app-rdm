@@ -74,7 +74,7 @@ def record_detail(record=None, files=None, pid_value=None, is_preview=False):
     """Record detail page (aka landing page)."""
     files_dict = None if files is None else files.to_dict()
     record_ui = UIJSONSerializer().serialize_object_to_dict(record.to_dict())
-    is_draft = record._record.is_draft
+    is_draft = record_ui["is_draft"]
     if is_preview and is_draft:
         try:
             current_rdm_records.records_service.validate_draft(
