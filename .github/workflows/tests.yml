@@ -32,16 +32,13 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-          python-version: [3.6, 3.7, 3.8, 3.9]
+          python-version: [3.7, 3.8, 3.9]
           requirements-level: [min, pypi]
-          db-service: [postgresql9, postgresql12]
+          db-service: [postgresql10, postgresql13]
           search-service: [elasticsearch6, elasticsearch7]
           exclude:
-          - python-version: 3.6
-            requirements-level: pypi
-
           - python-version: 3.7
-            requirements-level: min
+            requirements-level: pypi
 
           - python-version: 3.8
             requirements-level: min
@@ -49,22 +46,22 @@ jobs:
           - python-version: 3.9
             requirements-level: min
 
-          - db-service: postgresql12
+          - db-service: postgresql13
             requirements-level: min
 
           - search-service: elasticsearch7
             requirements-level: min
 
-          - db-service: postgresql9
+          - db-service: postgresql10
             requirements-level: pypi
 
           - search-service: elasticsearch6
             requirements-level: pypi
           include:
-          - db-service: postgresql9
+          - db-service: postgresql10
             DB_EXTRAS: "postgresql"
 
-          - db-service: postgresql12
+          - db-service: postgresql13
             DB_EXTRAS: "postgresql"
 
           - search-service: elasticsearch6
