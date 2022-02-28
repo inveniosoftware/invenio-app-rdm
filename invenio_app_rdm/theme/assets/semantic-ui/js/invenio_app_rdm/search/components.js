@@ -1,5 +1,5 @@
 // This file is part of InvenioRDM
-// Copyright (C) 2020-2021 CERN.
+// Copyright (C) 2020-2022 CERN.
 // Copyright (C) 2020-2021 Northwestern University.
 // Copyright (C) 2021 Graz University of Technology.
 // Copyright (C) 2021-2022 New York University.
@@ -22,7 +22,7 @@ import {
   Segment,
   Header,
 } from "semantic-ui-react";
-import { BucketAggregation, Toggle } from "react-searchkit";
+import { BucketAggregation, Toggle, withState } from "react-searchkit";
 import _find from "lodash/find";
 import _get from "lodash/get";
 import _truncate from "lodash/truncate";
@@ -136,18 +136,21 @@ export const RDMRecordSearchBarContainer = () => {
   );
 };
 
-export const RDMRecordSearchBarElement = ({
+export const RDMRecordSearchBarElement = withState(({
   placeholder: passedPlaceholder,
   queryString,
   onInputChange,
   executeSearch,
+  updateQueryState
 }) => {
   const placeholder = passedPlaceholder || i18next.t("Search");
   const onBtnSearchClick = () => {
+    updateQueryState({ filters: [] });
     executeSearch();
   };
   const onKeyPress = (event) => {
     if (event.key === "Enter") {
+      updateQueryState({ filters: [] });
       executeSearch();
     }
   };
@@ -168,7 +171,7 @@ export const RDMRecordSearchBarElement = ({
       onKeyPress={onKeyPress}
     />
   );
-};
+});
 
 export const RDMRecordFacetsValues = ({
   bucket,
