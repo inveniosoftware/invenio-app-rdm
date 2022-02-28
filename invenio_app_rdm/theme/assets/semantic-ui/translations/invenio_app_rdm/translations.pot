@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-02-23T15:22:53.241Z\n"
-"PO-Revision-Date: 2022-02-23T15:22:53.241Z\n"
+"POT-Creation-Date: 2022-02-28T14:51:17.984Z\n"
+"PO-Revision-Date: 2022-02-28T14:51:17.984Z\n"
 "Language: en\n"
 
 msgid "Basic information"
@@ -236,9 +236,6 @@ msgstr "ORCID profile"
 msgid "ROR profile"
 msgstr "ROR profile"
 
-msgid "Reset query"
-msgstr "Reset query"
-
 msgid "No communities found!"
 msgstr "No communities found!"
 
@@ -247,3 +244,9 @@ msgstr "No requests found!"
 
 msgid "No uploads found!"
 msgstr "No uploads found!"
+
+msgid "Copied"
+msgstr "Copied"
+
+msgid "Reset search"
+msgstr "Reset search"
