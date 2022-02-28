@@ -1,17 +1,17 @@
 # 
 # Translators:
 # Alizee Pace <alizee.pace@gmail.com>, 2021
-# Hermann Schranzhofer <hermann.schranzhofer@tugraz.at>, 2021
-# Tibor Simko <tibor.simko@cern.ch>, 2022
+# Tibor Simko <tibor.simko@cern.ch>, 2021
 # Alexander Gruber <alexander.gruber@tugraz.at>, 2022
 # chriz_uniba <christina.zeller@uni-bamberg.de>, 2022
 # David Eckhard <dabombeeer@gmail.com>, 2022
+# Hermann Schranzhofer <hermann.schranzhofer@tugraz.at>, 2022
 # Mojib Wali <mojib.wali@tugraz.at>, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-02-23T10:31:09.472Z\n"
+"POT-Creation-Date: 2022-02-28T14:51:17.984Z\n"
 "PO-Revision-Date: 2021-07-14 16:07+0000\n"
 "Last-Translator: Mojib Wali <mojib.wali@tugraz.at>, 2022\n"
 "Language-Team: German (https://www.transifex.com/inveniosoftware/teams/23537/de/)\n"
@@ -80,9 +80,6 @@ msgstr "Zitierung"
 
 msgid "Style"
 msgstr "Stil"
-
-msgid "Manage"
-msgstr "Verwalten"
 
 msgid "Version"
 msgstr "Version"
@@ -175,12 +172,6 @@ msgstr "Alle Versionen ansehen"
 msgid "No results found!"
 msgstr "Keine Ergebnisse gefunden!"
 
-msgid "Current search"
-msgstr "Aktuelle Suche"
-
-msgid "Clear query"
-msgstr "Abfrage löschen"
-
 msgid "result(s) found"
 msgstr "Ergebnis(e) gefunden"
 
@@ -208,12 +199,6 @@ msgstr "{{difference}} geöffnet von {{user}}"
 msgid "Get started!"
 msgstr "Los geht's!"
 
-msgid "Create your first request!"
-msgstr "Erstellen Sie Ihre erste Anfrage!"
-
-msgid "New request"
-msgstr "Neue Anfrage"
-
 msgid "Open"
 msgstr "Offen"
 
@@ -228,9 +213,6 @@ msgstr "Komplett fertig!"
 
 msgid "You've caught up with all open requests."
 msgstr "Sie haben alle offenen Anfragen gesehen."
-
-msgid "No requests found"
-msgstr "Keine Anfragen gefunden"
 
 msgid "Delete"
 msgstr "Löschen"
@@ -270,3 +252,18 @@ msgstr "ORCID Profil"
 
 msgid "ROR profile"
 msgstr "ROR Profil"
+
+msgid "No communities found!"
+msgstr "Keine Communities gefunden!"
+
+msgid "No requests found!"
+msgstr "Keine Anfragen gefunden!"
+
+msgid "No uploads found!"
+msgstr "Keine Einträge gefunden!"
+
+msgid "Copied"
+msgstr "Kopiert"
+
+msgid "Reset search"
+msgstr "Suche zurücksetzen"
