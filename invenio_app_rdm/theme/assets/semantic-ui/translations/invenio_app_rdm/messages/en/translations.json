@@ -44,7 +44,6 @@
   "filters": "filters",
   "Versions": "Versions",
   "View all versions": "View all versions",
-  "No results found!": "No results found!",
   "result(s) found": "result(s) found",
   "Sort by": "Sort by",
   "results per page": "results per page",
@@ -74,7 +73,17 @@
   "ROR profile": "ROR profile",
   "No communities found!": "No communities found!",
   "No requests found!": "No requests found!",
-  "No uploads found!": "No uploads found!",
   "Copied": "Copied",
-  "Reset search": "Reset search"
+  "Reset search": "Reset search",
+  "Help": "Help",
+  "Clear selection": "Clear selection",
+  "Clear": "Clear",
+  "We couldn't find any matches for ": "We couldn't find any matches for ",
+  "your search": "your search",
+  "Start over": "Start over",
+  "ProTip": "ProTip",
+  "will give you all the publications from 2017 until today": "will give you all the publications from 2017 until today",
+  "For more tips, check out our ": "For more tips, check out our ",
+  "search guide": "search guide",
+  " for defining advanced search queries": " for defining advanced search queries"
 }
