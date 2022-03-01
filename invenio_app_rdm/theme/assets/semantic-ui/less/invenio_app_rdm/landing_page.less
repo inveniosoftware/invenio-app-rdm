@@ -106,8 +106,36 @@ dd {
   margin-inline-start: 0px;
 }
 
-.version-active {
-  background-color: @versionActive;
+.text-muted-on-bg {
+  color: #4A4A4A;
+}
+
+.versions {
+  .ui.grid.preview-message {
+    margin: -0.5rem 0;
+
+    & + .ui.grid.dots .centered.row {
+      padding-top: 0;
+    }
+  }
+
+  .ui.divided.list .item {
+    padding: 1rem;
+
+    .doi {
+      display: block;
+      margin-top: .5rem;
+      word-wrap: break-word;
+    }
+  }
+
+  .version-active {
+    background-color: @versionActive;
+  }
+
+  .ui.grid.all-versions-link {
+    margin-top: 0;
+  }
 }
 
 .thin-line {
