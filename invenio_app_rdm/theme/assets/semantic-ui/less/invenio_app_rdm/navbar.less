@@ -40,22 +40,27 @@ nav {
 
 .logo-link {
   width: 100%;
-  padding: 0px !important;
+  padding: 0 !important;
 }
 
 .rdm-sign-buttons {
   padding-inline-start: 0;
-  display: flex;
-  flex-wrap: wrap;
 }
 
 .navbar-actions-container {
   display: none;
+  float: right;
 }
 
 .rdm-plus-menu {
   padding-right: 10px;
   padding-bottom: 8px;
+}
+
+@media only screen and (max-width: 745px) {
+  .navbar-item.navbar-button{
+    padding: 10px;
+  }
 }
 
 @media only screen and (min-width: 745px) and (max-width: 1200px) {
@@ -148,11 +153,9 @@ nav {
       flex-wrap: nowrap;
 
       .navbar-item {
-        padding-right: 5px;
-        padding-left: 5px;
         order: 3;
 
-        .navbar-button {
+        &.navbar-button {
           padding: 10px 5px;
         }
       }
@@ -225,7 +228,7 @@ nav {
   }
 }
 
-/* menu icon (Hamburguer icon) */
+/* menu icon (Hamburger icon) */
 .menu-icon {
   cursor: pointer;
   display: inline-block;

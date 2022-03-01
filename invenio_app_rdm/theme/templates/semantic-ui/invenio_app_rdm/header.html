@@ -68,7 +68,6 @@
                       <a href="{{ item.url }}">{{ item.text|safe }}</a></li>
                   {%- endif %}
                 {%- endfor %}
-                <li class="navbar-item navbar-menu-separator" />
                 {% for item in current_menu.submenu('actions').children|sort(attribute='order') if item.visible recursive %}
                     <li class="navbar-item">
                       <a href="{{ item.url }}">{{ item.text|safe }}</a>

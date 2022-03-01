@@ -3,3 +3,12 @@
 *******************************/
 
 @import "@less/invenio_theme/theme/elements/segment.overrides";
+
+
+#dashboard-tab{
+  .ui.attached.segment{
+    border: 0;
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
