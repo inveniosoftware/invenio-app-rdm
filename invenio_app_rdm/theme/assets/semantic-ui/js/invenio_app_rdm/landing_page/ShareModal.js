@@ -13,6 +13,7 @@ import { axiosWithconfig } from "../utils";
 
 export const ShareModal = (props) => {
   const [accessLinkObj, setAccessLinkObj] = useState();
+  const [linkCreated, setLinkCreated] = useState(false);
   const [shareMode, setShareMode] = useState("view");
   const [copied, setCopied] = useState(false);
 
@@ -75,17 +76,15 @@ export const ShareModal = (props) => {
       )
       .then((resp) => {
         setAccessLinkObj(resp.data);
-      })
-      .then(() => {
-        copyAccessLink()
+        setLinkCreated(true);
       });
   };
 
   const copyAccessLink = () => {
     const copyText = document.querySelector("#input");
     copyText.select();
-    document.execCommand("copy");
-    setCopied(true);
+    let copySuccess = document.execCommand("copy");
+    setCopied(copySuccess);
   };
 
   const handleChangeMode = (e, { value }) => setShareMode(value);
@@ -100,9 +99,13 @@ export const ShareModal = (props) => {
       })
       .then(() => {
         setAccessLinkObj();
+        setLinkCreated(false);
       });
   };
 
+  useEffect(() => {
+    linkCreated && copyAccessLink();
+  }, [linkCreated])
 
   useEffect(() => {
     // Update access link according to share mode
