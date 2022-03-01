@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-02-28T14:51:17.984Z\n"
-"PO-Revision-Date: 2022-02-28T14:51:17.984Z\n"
+"POT-Creation-Date: 2022-03-01T08:18:33.908Z\n"
+"PO-Revision-Date: 2022-03-01T08:18:33.908Z\n"
 "Language: en\n"
 
 msgid "Basic information"
@@ -152,9 +152,6 @@ msgstr "Versions"
 msgid "View all versions"
 msgstr "View all versions"
 
-msgid "No results found!"
-msgstr "No results found!"
-
 msgid "result(s) found"
 msgstr "result(s) found"
 
@@ -242,11 +239,41 @@ msgstr "No communities found!"
 msgid "No requests found!"
 msgstr "No requests found!"
 
-msgid "No uploads found!"
-msgstr "No uploads found!"
-
 msgid "Copied"
 msgstr "Copied"
 
 msgid "Reset search"
 msgstr "Reset search"
+
+msgid "Help"
+msgstr "Help"
+
+msgid "Clear selection"
+msgstr "Clear selection"
+
+msgid "Clear"
+msgstr "Clear"
+
+msgid "We couldn't find any matches for "
+msgstr "We couldn't find any matches for "
+
+msgid "your search"
+msgstr "your search"
+
+msgid "Start over"
+msgstr "Start over"
+
+msgid "ProTip"
+msgstr "ProTip"
+
+msgid "will give you all the publications from 2017 until today"
+msgstr "will give you all the publications from 2017 until today"
+
+msgid "For more tips, check out our "
+msgstr "For more tips, check out our "
+
+msgid "search guide"
+msgstr "search guide"
+
+msgid " for defining advanced search queries"
+msgstr " for defining advanced search queries"
