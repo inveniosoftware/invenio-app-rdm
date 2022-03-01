@@ -252,7 +252,7 @@ export const RDMRecordFacets = ({ aggs, currentResultsState }) => {
       })}
       <Card className="borderless-facet">
         <Card.Content>
-          <Card.Header>{ i18next.t('Help') }</Card.Header>
+          <Card.Header as="h2">{ i18next.t('Help') }</Card.Header>
           <SearchHelpLinks />
         </Card.Content>
       </Card>
@@ -271,10 +271,14 @@ export const RDMBucketAggregationElement = ({agg, title, containerCmp, updateQue
     }
   }
 
+  const hasSelections = () => {
+    return !!containerCmp.props.selectedFilters.length;
+  }
+
   return (
     <Card className="borderless-facet">
       <Card.Content>
-        <Card.Header>
+        <Card.Header as="h2">
           {title}
           <Button basic icon
                   size="mini"
@@ -282,6 +286,7 @@ export const RDMBucketAggregationElement = ({agg, title, containerCmp, updateQue
                   onClick={clearFacets}
                   aria-label={ i18next.t('Clear selection') }
                   title={ i18next.t('Clear selection') }
+                  disabled={!hasSelections()}
           >
             { i18next.t('Clear') }
           </Button>
@@ -315,7 +320,7 @@ export const RDMToggleComponent = ({
   return (
     <Card className="borderless-facet">
       <Card.Content>
-        <Card.Header>{title}</Card.Header>
+        <Card.Header as="h2">{title}</Card.Header>
       </Card.Content>
       <Card.Content>
         <Checkbox
