@@ -130,7 +130,6 @@ export const RecordVersionsList = (props) => {
       <Grid.Row centered>
         <a
           href={`/search?q=parent.id:${record.parent_id}&sort=version&f=allversions:true`}
-          target="_blank"
           className="font-small"
         >
           {i18next.t(`View all {{total}} versions`,{total:recordVersions.total})}
