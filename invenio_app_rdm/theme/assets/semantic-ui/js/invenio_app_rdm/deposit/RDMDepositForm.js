@@ -146,10 +146,12 @@ export class RDMDepositForm extends Component {
         files={files}
         permissions={permissions}
       >
-        {communitiesEnabled && <CommunityHeader
-          community={community}
-          imagePlaceholderLink="/static/images/square-placeholder.png"
-        />}
+        {communitiesEnabled && (
+          <CommunityHeader
+            community={community}
+            imagePlaceholderLink="/static/images/square-placeholder.png"
+          />
+        )}
         <FormFeedback fieldPath="message" />
         <Container style={{ marginTop: "10px" }}>
           <DepositFormTitle />
