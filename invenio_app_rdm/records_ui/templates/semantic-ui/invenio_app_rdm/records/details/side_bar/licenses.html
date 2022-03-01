@@ -19,24 +19,19 @@
 
 {% set rights = record.ui.get('rights') %}
 {% if rights %}
-<section id="licenses" aria-label="{{ _('Licenses') }}" class="ui segment rdm-sidebar">
-  <h2 class="ui small header">{{ _('Licenses') }}</h2>
+<section id="licenses" aria-label="{{ _('Rights') }}" class="ui segment rdm-sidebar">
+  <h2 class="ui small header">{{ _('Rights') }}</h2>
   <ul class="details-list">
 
     {%- for license in rights%}
-      <li id="license-{{license.id}}-{{loop.index}}"
-          class="{{ 'has-popup' if license.description_l10n }}"
-      >
+      <li id="license-{{license.id}}-{{loop.index}}" class="has-popup">
         <div id="title-{{license.id}}-{{loop.index}}"
-             class="license {{ 'clickable' if license.description_l10n }}"
-
-             {% if license.description_l10n %}
-               tabindex="0"
-               aria-haspopup="dialog"
-               aria-expanded="false"
-               role="button"
-               aria-label="{{ license.title_l10n }}"
-             {% endif %}
+             class="license clickable"
+             tabindex="0"
+             aria-haspopup="dialog"
+             aria-expanded="false"
+             role="button"
+             aria-label="{{ license.title_l10n }}"
         >
           {% if license.icon %}
             {% set iconFile = 'icons/licenses/{}.svg'.format(license.icon) %}
@@ -47,28 +42,22 @@
 
           <span class="title-text">
             {{ license.title_l10n }}
-
-            {% if not license.description_l10n %}
-              {{ license_link(license) }}
-            {% endif %}
           </span>
         </div>
-        {% if license.description_l10n %}
-          <div id="description-{{license.id}}-{{loop.index}}"
-               class="licenses-description ui flowing popup transition hidden"
-               role="dialog"
-               aria-labelledby="title-{{license.id}}-{{loop.index}}"
-          >
-            <i role="button" tabindex="0" class="close icon text-muted" aria-label="{{ _('Close') }}"></i>
-            <div id="license-description-{{loop.index}}" class="description">
-              <span class="text-muted">
-                {{ license.description_l10n }}
-              </span>
+        <div id="description-{{license.id}}-{{loop.index}}"
+              class="licenses-description ui flowing popup transition hidden"
+              role="dialog"
+              aria-labelledby="title-{{license.id}}-{{loop.index}}"
+        >
+          <i role="button" tabindex="0" class="close icon text-muted" aria-label="{{ _('Close') }}"></i>
 
-              {{ license_link(license)}}
-            </div>
+          <div id="license-description-{{loop.index}}" class="description">
+            <span class="text-muted">
+              {{ license.description_l10n or _('No further description.')}}
+            </span>
+            {{ license_link(license)}}
           </div>
-        {% endif %}
+        </div>
       </li>
     {% endfor %}
   </ul>
