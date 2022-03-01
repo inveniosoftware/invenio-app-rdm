@@ -1,19 +1,19 @@
 # 
 # Translators:
 # Alizee Pace <alizee.pace@gmail.com>, 2021
-# Tibor Simko <tibor.simko@cern.ch>, 2021
 # Alexander Gruber <alexander.gruber@tugraz.at>, 2022
 # chriz_uniba <christina.zeller@uni-bamberg.de>, 2022
 # David Eckhard <dabombeeer@gmail.com>, 2022
-# Hermann Schranzhofer <hermann.schranzhofer@tugraz.at>, 2022
 # Mojib Wali <mojib.wali@tugraz.at>, 2022
+# Tibor Simko <tibor.simko@cern.ch>, 2022
+# Hermann Schranzhofer <hermann.schranzhofer@tugraz.at>, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-02-28T14:51:17.984Z\n"
+"POT-Creation-Date: 2022-03-01T08:18:33.908Z\n"
 "PO-Revision-Date: 2021-07-14 16:07+0000\n"
-"Last-Translator: Mojib Wali <mojib.wali@tugraz.at>, 2022\n"
+"Last-Translator: Hermann Schranzhofer <hermann.schranzhofer@tugraz.at>, 2022\n"
 "Language-Team: German (https://www.transifex.com/inveniosoftware/teams/23537/de/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -169,9 +169,6 @@ msgstr "Versionen"
 msgid "View all versions"
 msgstr "Alle Versionen ansehen"
 
-msgid "No results found!"
-msgstr "Keine Ergebnisse gefunden!"
-
 msgid "result(s) found"
 msgstr "Ergebnis(e) gefunden"
 
@@ -259,11 +256,41 @@ msgstr "Keine Communities gefunden!"
 msgid "No requests found!"
 msgstr "Keine Anfragen gefunden!"
 
-msgid "No uploads found!"
-msgstr "Keine Einträge gefunden!"
-
 msgid "Copied"
 msgstr "Kopiert"
 
 msgid "Reset search"
 msgstr "Suche zurücksetzen"
+
+msgid "Help"
+msgstr "Hilfe"
+
+msgid "Clear selection"
+msgstr "Auswahl löschen"
+
+msgid "Clear"
+msgstr "Löschen"
+
+msgid "We couldn't find any matches for "
+msgstr "Wir konnten keine Treffer finden für"
+
+msgid "your search"
+msgstr "Ihre Suche"
+
+msgid "Start over"
+msgstr "Neu beginnen"
+
+msgid "ProTip"
+msgstr "ProTip"
+
+msgid "will give you all the publications from 2017 until today"
+msgstr "findet alle Veröffentlichungen von 2017 bis heute"
+
+msgid "For more tips, check out our "
+msgstr "Weitere Tipps finden Sie in unserem "
+
+msgid "search guide"
+msgstr "Suchanleitung"
+
+msgid " for defining advanced search queries"
+msgstr "zur Definition erweiterter Suchanfragen"
