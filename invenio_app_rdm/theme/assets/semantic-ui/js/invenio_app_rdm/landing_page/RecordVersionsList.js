@@ -9,7 +9,7 @@
 import axios from "axios";
 import _get from "lodash/get";
 import React, { useEffect, useState } from "react";
-import { Divider, Grid, Icon, Message, Placeholder } from "semantic-ui-react";
+import { Grid, Icon, Message, Placeholder, List } from "semantic-ui-react";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 
 const deserializeRecord = (record) => ({
@@ -26,27 +26,30 @@ const NUMBER_OF_VERSIONS = 5;
 const RecordVersionItem = ({ item, activeVersion }) => {
   const doi = _get(item.pids, "doi.identifier", "");
   return (
-    <>
-      <Grid.Row
+      <List.Item
         key={item.id}
-        columns={1}
         {...(activeVersion && { className: "version-active" })}
       >
-        <Grid.Column>
-          <small className="text-muted" style={{ float: "right" }}>
-            {item.publication_date}
-          </small>
-          <a href={`/records/${item.id}`}>{i18next.t('Version')} {item.version}</a>
-          {<br />}
+        <List.Content floated="left">
+          { activeVersion ?
+            <span>{i18next.t('Version')} {item.version}</span>
+            :
+            <a href={`/records/${item.id}`}>{i18next.t('Version')} {item.version}</a>
+          }
+
           {doi && (
-            <small className="text-muted" style={{ wordWrap: "break-word" }}>
+            <small className={'doi' + (activeVersion ? ' text-muted-on-bg' : ' text-muted')}>
               {doi}
             </small>
           )}
-        </Grid.Column>
-      </Grid.Row>
-      <Divider fitted style={{ margin: "0" }} />
-    </>
+        </List.Content>
+
+        <List.Content floated="right">
+          <small className={activeVersion ? 'text-muted-on-bg' : 'text-muted'}>
+            {item.publication_date}
+          </small>
+        </List.Content>
+      </List.Item>
   );
 };
 
@@ -67,17 +70,19 @@ const PlaceholderLoader = ({ size = NUMBER_OF_VERSIONS }) => {
 
 const PreviewMessage = () => {
   return (
-    <Grid.Row>
-      <Grid.Column className="versions-preview-info">
-        <Message info>
-          <Message.Header>
-            <Icon name="eye" />
-            {i18next.t('Preview')}
-          </Message.Header>
-          <p>{i18next.t('Only published versions are displayed.')}</p>
-        </Message>
-      </Grid.Column>
-    </Grid.Row>
+    <Grid className="preview-message">
+      <Grid.Row>
+        <Grid.Column className="versions-preview-info">
+          <Message info>
+            <Message.Header>
+              <Icon name="eye" />
+              {i18next.t('Preview')}
+            </Message.Header>
+            <p>{i18next.t('Only published versions are displayed.')}</p>
+          </Message>
+        </Grid.Column>
+      </Grid.Row>
+    </Grid>
   );
 };
 
@@ -112,7 +117,7 @@ export const RecordVersionsList = (props) => {
   return loading ? (
     <>{isPreview ? <PreviewMessage /> : <PlaceholderLoader />}</>
   ) : (
-    <Grid padded>
+    <List divided>
       {isPreview ? <PreviewMessage /> : null}
       {recordVersions.hits.map((item) => (
         <RecordVersionItem
@@ -123,18 +128,24 @@ export const RecordVersionsList = (props) => {
       ))}
       {!currentRecordInResults && (
         <>
-          <Grid.Row centered>...</Grid.Row>
+          <Grid padded className="dots">
+            <Grid.Row centered>...</Grid.Row>
+          </Grid>
           <RecordVersionItem item={record} activeVersion={true} />
         </>
       )}
-      <Grid.Row centered>
-        <a
-          href={`/search?q=parent.id:${record.parent_id}&sort=version&f=allversions:true`}
-          className="font-small"
-        >
-          {i18next.t(`View all {{total}} versions`,{total:recordVersions.total})}
-        </a>
-      </Grid.Row>
-    </Grid>
+      { recordVersions.total > 1 &&
+        <Grid className="all-versions-link">
+          <Grid.Row centered>
+            <a
+              href={`/search?q=parent.id:${record.parent_id}&sort=version&f=allversions:true`}
+              className="font-small"
+            >
+              {i18next.t(`View all {{total}} versions`,{total:recordVersions.total})}
+            </a>
+          </Grid.Row>
+        </Grid>
+      }
+    </List>
   );
 };
