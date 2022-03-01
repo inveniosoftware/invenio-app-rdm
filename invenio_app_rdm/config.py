@@ -627,6 +627,9 @@ If the value is callable, its return value will be used for the field
 (e.g. lambda/function for dynamic calculation of values).
 """
 
+APP_RDM_DEPOSIT_FORM_AUTOCOMPLETE_NAMES = False
+"""Enable autocompleting names search field for creators/contributors."""
+
 RDM_CITATION_STYLES = [
     ('apa', _('APA')),
     ('harvard-cite-them-right', _('Harvard')),

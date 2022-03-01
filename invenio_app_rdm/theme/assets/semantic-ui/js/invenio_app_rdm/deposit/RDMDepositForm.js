@@ -227,6 +227,7 @@ export class RDMDepositForm extends Component {
                     fieldPath={"metadata.creators"}
                     roleOptions={this.vocabularies.metadata.creators.role}
                     schema="creators"
+                    autocompleteNames={this.config.autocomplete_names}
                     required
                   />
                   <DescriptionsField
@@ -286,6 +287,7 @@ export class RDMDepositForm extends Component {
                     fieldPath={"metadata.contributors"}
                     roleOptions={this.vocabularies.metadata.contributors.role}
                     schema="contributors"
+                    autocompleteNames={this.config.autocomplete_names}
                     modal={{
                       addLabel: "Add contributor",
                       editLabel: "Edit contributor",
