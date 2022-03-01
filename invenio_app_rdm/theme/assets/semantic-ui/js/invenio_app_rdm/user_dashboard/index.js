@@ -43,7 +43,7 @@ const TAB_PANES = [
 ];
 
 const replaceURLPathname = (newPathname) =>
-  window.history.replaceState({}, "", newPathname);
+  window.history.replaceState({}, "", `/me/${newPathname}`);
 
 class DashboardTabs extends Component {
   constructor(props) {
