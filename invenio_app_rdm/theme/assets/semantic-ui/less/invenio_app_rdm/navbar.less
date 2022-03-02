@@ -55,6 +55,7 @@ nav {
 .rdm-plus-menu {
   padding-right: 10px;
   padding-bottom: 8px;
+  vertical-align: text-bottom;
 }
 
 @media only screen and (max-width: 745px) {
@@ -73,6 +74,15 @@ nav {
     margin-left: 3rem !important;
   }
 }
+
+.user-profile {
+    a.ui.button {
+      width: 13em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
 
 .logo {
   width: 200px;
@@ -121,11 +131,12 @@ nav {
 }
 
 #header-search-bar {
-  width: auto;
+  width: 100%;
   text-align: center;
 
   .ui.action.input {
     margin-right: 40px;
+    width: 100% !important;
   }
 }
 
@@ -215,8 +226,8 @@ nav {
     display: none;
   }
 
-  #header-search-bar {
-    width: 250px;
+  #header-search-bar-rdm, #header-search-bar{
+    width: auto;
     text-align: left;
   }
 }

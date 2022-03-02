@@ -23,7 +23,6 @@ import {
   Header,
 } from "semantic-ui-react";
 import { BucketAggregation, Toggle, withState } from "react-searchkit";
-import _find from "lodash/find";
 import _get from "lodash/get";
 import _truncate from "lodash/truncate";
 import Overridable from "react-overridable";
@@ -76,7 +75,7 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
           </Label>
           <Label size="tiny" className={`access-status ${access_status_id}`}>
             {access_status_icon && (
-              <i className={`icon ${access_status_icon}`}></i>
+              <i className={`icon ${access_status_icon}`}/>
             )}
             {access_status}
           </Label>
@@ -205,7 +204,7 @@ export const RDMRecordFacetsValues = ({
                 ? i18next.t("hide subfacets")
                 : i18next.t("show subfacets")
             }`}
-          ></Button>
+          />
         ) : null}
         <Checkbox
           label={bucket.label || keyField}
