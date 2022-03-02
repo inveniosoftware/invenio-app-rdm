@@ -15,7 +15,7 @@ from setuptools import find_packages, setup
 
 readme = open('README.rst').read()
 
-invenio_version = '~=3.5.0a3'
+invenio_version = '~=3.5.0a4'
 invenio_search_version = '>=1.4.2,<1.5.0'
 invenio_db_version = '>=1.0.11,<1.1.0'
 
