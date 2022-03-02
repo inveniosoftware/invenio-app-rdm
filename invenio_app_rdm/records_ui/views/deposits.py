@@ -256,7 +256,7 @@ def get_form_config(**kwargs):
     return dict(
         vocabularies=VocabulariesOptions().dump(),
         autocomplete_names=current_app.config.get(
-            'APP_RDM_DEPOSIT_FORM_AUTOCOMPLETE_NAMES', False),
+            'APP_RDM_DEPOSIT_FORM_AUTOCOMPLETE_NAMES', 'search'),
         current_locale=str(current_i18n.locale),
         default_locale=current_app.config.get('BABEL_DEFAULT_LOCALE', 'en'),
         pids=get_form_pids_config(),
