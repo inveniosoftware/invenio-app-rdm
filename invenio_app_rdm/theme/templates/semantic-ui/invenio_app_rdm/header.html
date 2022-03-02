@@ -34,10 +34,10 @@
               <li class="navbar-item navbar-search-bar">
                 {%- if config.THEME_SEARCHBAR %}
                   {%- block navbar_search %}
-                    <div class="navbar-item navbar-search-bar" id="header-search-bar">
+                    <div id="header-search-bar">
                       <form class="form" action="{{ config.THEME_SEARCH_ENDPOINT }}"
                             role="search">
-                        <div class="ui action icon input">
+                        <div class="ui action icon input" id="header-search-bar-input">
                           <input type="text" name="q" placeholder="{{ _('Search') }}">
                           <button type="submit" class="ui icon search button" aria-label="{{ _('Search') }}">
                             <i class="icon search"></i>
@@ -81,15 +81,11 @@
                   {% endfor %}
                 {% endif %}
               {%- endblock navbar_nav %}
-              <li class="navbar-item navbar-button navbar-actions-container">
-                <ul class="rdm-sign-buttons">
-                  {%- block navbar_right %}
-                    <li class="navbar-item navbar-button">
-                      {%- include config.THEME_HEADER_LOGIN_TEMPLATE %}
-                    </li>
-                  {%- endblock navbar_right %}
-                </ul>
-              </li>
+              {%- block navbar_right %}
+                <li class="navbar-item navbar-button">
+                  {%- include config.THEME_HEADER_LOGIN_TEMPLATE %}
+                </li>
+              {%- endblock navbar_right %}
 
               <li class="toggle">
                 <input class="menu-btn" type="checkbox" id="menu-btn"/>
