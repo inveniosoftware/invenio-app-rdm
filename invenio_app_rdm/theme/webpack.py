@@ -46,8 +46,8 @@ theme = WebpackThemeBundle(
                 'react-dnd-html5-backend': '^11.1.0',
                 'react-dropzone': "^11.0.0",
                 "react-i18next": "^11.11.0",
-                'react-invenio-deposit': '^0.17.0',
-                'react-invenio-forms': '^0.9.0',
+                'react-invenio-deposit': '^0.18.0',
+                'react-invenio-forms': '^0.10.0',
                 'yup': '^0.32.0',
             },
             aliases={
