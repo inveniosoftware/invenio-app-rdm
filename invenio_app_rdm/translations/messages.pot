@@ -7,9 +7,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: invenio-app-rdm 8.0.0.dev7\n"
+"Project-Id-Version: invenio-app-rdm 8.0.0\n"
 "Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
-"POT-Creation-Date: 2022-03-02 13:00+0100\n"
+"POT-Creation-Date: 2022-03-03 10:26+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -50,32 +50,37 @@ msgstr ""
 msgid "Dublin Core XML"
 msgstr ""
 
-#: invenio_app_rdm/config.py:634
+#: invenio_app_rdm/config.py:642
 msgid "APA"
 msgstr ""
 
-#: invenio_app_rdm/config.py:635
+#: invenio_app_rdm/config.py:643
 msgid "Harvard"
 msgstr ""
 
-#: invenio_app_rdm/config.py:636
+#: invenio_app_rdm/config.py:644
 msgid "MLA"
 msgstr ""
 
-#: invenio_app_rdm/config.py:637
+#: invenio_app_rdm/config.py:645
 msgid "Vancouver"
 msgstr ""
 
-#: invenio_app_rdm/config.py:638
+#: invenio_app_rdm/config.py:646
 msgid "Chicago"
 msgstr ""
 
-#: invenio_app_rdm/config.py:639
+#: invenio_app_rdm/config.py:647
 msgid "IEEE"
 msgstr ""
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/dashboard.html:8
 msgid "Uploads"
+msgstr ""
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/dashboard.html:31
+#: invenio_app_rdm/theme/views.py:40
+msgid "My dashboard"
 msgstr ""
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/deposit.html:9
@@ -456,10 +461,6 @@ msgstr ""
 msgid ""
 "A {scheme_label} allows your upload to be easily and unambiguously cited."
 " Example: 10.1234/foo.bar"
-msgstr ""
-
-#: invenio_app_rdm/theme/views.py:40
-msgid "My dashboard"
 msgstr ""
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:21
