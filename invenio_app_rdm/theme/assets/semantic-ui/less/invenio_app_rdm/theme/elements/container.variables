@@ -1,5 +1,6 @@
-/*******************************
-    User Variable Overrides
-*******************************/
+/***********************************************
+         Invenio App RDM Container Variables
+***********************************************/
 
-@import "@less/invenio_theme/theme/elements/container.variables";
+@highlightBackgroundColor: #f8f8f9;
+

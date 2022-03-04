@@ -1,8 +1,7 @@
-/*******************************
-         Site Overrides
-*******************************/
+/***********************************************
+         Invenio App RDM Message Overrides
+***********************************************/
 
-@import "@less/invenio_theme/theme/collections/message.overrides";
 
 .ui.flashed.message,
 .ui.form .flashed.message {

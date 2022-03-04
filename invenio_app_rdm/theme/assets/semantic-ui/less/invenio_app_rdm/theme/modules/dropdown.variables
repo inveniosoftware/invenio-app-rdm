@@ -1,8 +1,6 @@
-/*******************************
-    User Variable Overrides
-*******************************/
-
-@import "@less/invenio_theme/theme/modules/dropdown.variables";
+/***********************************************
+    Invenio App RDM Dropdown Variables
+***********************************************/
 
 
 // This height displays at most 15 items or so

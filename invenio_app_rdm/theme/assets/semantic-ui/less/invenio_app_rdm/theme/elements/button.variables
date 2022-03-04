@@ -1,5 +1,5 @@
-/*******************************
-    User Variable Overrides
-*******************************/
+/***********************************************
+         Invenio App RDM Button Variables
+***********************************************/
 
-@import "@less/invenio_theme/theme/elements/button.variables";
+@searchButtonColor: #fb8273;

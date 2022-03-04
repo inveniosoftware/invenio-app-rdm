@@ -50,24 +50,32 @@
           </div>
           <h3 class="section-title">{{ _("Run it!") }}</h3>
           <div class="command-line">
-            {% trans deployment_link="https://inveniordm.docs.cern.ch/install/build-setup-run/#run_1" %}
-              <a href="{{ deployment_link }}" target="_blank">Run</a> your InvenioRDM instance locally or in containers.
+            {% trans
+            deployment_link="https://inveniordm.docs.cern.ch/install/build-setup-run/#run_1"
+            %}
+            <a href="{{ deployment_link }}" target="_blank">Run</a> your
+            InvenioRDM instance locally or in containers.
             {% endtrans %}
+          </div>
+        </div>
+      </div>
+      <div class="row inline-row">
+        <div class="inline-row-pane">
+          <div class="ui primary button labeled icon big goto-button">
+            <i class="file alternate outline icon"></i>
+            <a href="https://inveniordm.docs.cern.ch"
+               target="_blank">{{ _("Docs") }}</a>
+          </div>
+          <div class="ui primary button labeled icon big goto-button">
+            <i class="github icon"></i>
+            <a href="https://github.com/inveniosoftware"
+               target="_blank">{{ _("Code") }}</a>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="row inline-row">
-    <div class="inline-row-pane">
-      <div class="goto-button">
-        <a href="https://inveniordm.docs.cern.ch" target="_blank"><i class="file alternate outline icon"></i>{{ _("Docs") }}</a>
-      </div>
-      <div class="goto-button">
-        <a href="https://github.com/inveniosoftware" target="_blank"><i class="github icon"></i>{{ _("Code") }}</a>
-      </div>
-    </div>
-  </div>
+
 </div>
 {%- endblock first_section%}
 {%- endblock page_body%}

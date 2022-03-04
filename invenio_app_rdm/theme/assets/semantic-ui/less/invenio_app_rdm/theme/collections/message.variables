@@ -1,10 +1,5 @@
-/*
- *   Copyright (C) 2019-2020 CERN.
- *   Copyright (C) 2021 New York University.
- *
- * Invenio App RDM is free software; you can redistribute it and/or modify it
- * under the terms of the MIT License; see LICENSE file for more details.
- */
+/***********************************************
+         Invenio App RDM Message Variables
+***********************************************/
 
-@import "@less/invenio_theme/theme/collections/message.variables";
 @infoTextColor: #0e576c;

@@ -1,5 +1,60 @@
-/*******************************
-     User Global Variables
-*******************************/
+/***********************************************
+    Invenio App RDM Site Variables
+***********************************************/
 
-@import "@less/invenio_theme/theme/globals/site.variables";
+@secondaryColor: #fb8273;
+@numberedListBackgroundColor: #4899DB;
+
+@fontSizeBase: 14px;
+
+@linkColor: #005b9e;
+@linkUnderline: none;
+@linkHoverColor: darken(saturate(@linkColor, 20), 15, relative);
+@linkHoverUnderline: underline;
+
+@focusedFormBorderColor: #2185d0;
+@focusedFormMutedBorderColor: #2185d0;
+
+@errorText: #9f3a38;
+
+@navbar_background_image: linear-gradient(
+  12deg,
+  rgba(3, 119, 205, 1),
+  rgba(3, 119, 205, 1) 15%,
+  rgba(251, 130, 115, 0.69)
+);
+@navbar_background_color: rgba(3, 119, 205, 1);
+@brand-primary: #0377cd;
+@versionActive: #d9edf7;
+
+@green: #048622;
+@signupColor: @green;
+@searchButtonColor: #fb8273;
+
+@coverPageDefaultMargin: 0;
+
+@accessRightOpen: @green;
+@accessRightRestricted: @red;
+@accessRightEmbargoed: @yellow;
+@accessRightMetadataOnly: @red;
+
+@restricted-components-background-color: #f502020f;
+@restricted-components-border-color: #e0b4b4;
+@embargoed-components-background-color: #c7a00014;
+@embargoed-components-border-color: #c9ba9b;
+
+@footerLightColor: #0377cd;
+@footerDarkColor: #0047a8;
+@footerTextLightColor: #ffffff;
+@footerTextDarkColor: #ffffff;
+
+@font-size-base: 14px;
+@font-size-small: 12px;
+@font-size-tiny: 10px;
+@font-size-massive: 36px;
+
+/* Main colors */
+
+@brandColor: @primaryColor;
+@communityHeaderColor: #ededed;
+

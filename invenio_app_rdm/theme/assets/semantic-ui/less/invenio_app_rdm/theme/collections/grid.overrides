@@ -1,13 +1,11 @@
-/*******************************
-         Site Overrides
-*******************************/
-
-@import "@less/invenio_theme/theme/collections/grid.overrides";
+/***********************************************
+         Invenio App RDM Grid Overrides
+***********************************************/
 
 /** General util classes */
 
 .row.no-padding-t {
-    padding-top: 0px !important;
+    padding-top: 0 !important;
 }
 
 /** Deposit search page */

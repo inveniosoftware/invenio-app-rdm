@@ -1,13 +1,12 @@
-/*******************************
-         Site Overrides
-*******************************/
+/***********************************************
+         Invenio App RDM Button Overrides
+***********************************************/
 
-@import "@less/invenio_theme/theme/elements/button.overrides";
 
 /** Citation landing page */
 
 .copy.button {
-    margin-right: 0px;
+    margin-right: 0;
 }
 
 .ui.icon.button.iconhold  {
@@ -17,9 +16,14 @@
     text-align: center;
     width: 17px;
     margin-right: 3px;
-    cursor: pointer;
 
     &:hover, &:focus {
         background-color: inherit;
     }
+}
+
+.ui.active.button {
+  &.request-search-filter {
+    cursor: default;
+  }
 }

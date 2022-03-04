@@ -1,9 +1,6 @@
-/*******************************
-         Site Overrides
-*******************************/
-
-@import "@less/invenio_theme/theme/elements/segment.overrides";
-
+/***********************************************
+         Invenio App RDM Segment Overrides
+***********************************************/
 
 #dashboard-tab{
   .ui.attached.segment{

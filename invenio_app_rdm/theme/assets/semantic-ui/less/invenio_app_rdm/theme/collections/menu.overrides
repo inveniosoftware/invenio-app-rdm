@@ -1,5 +1,3 @@
-/*******************************
-         Site Overrides
-*******************************/
-
-@import "@less/invenio_theme/theme/collections/menu.overrides";
+/***********************************************
+         Invenio App RDM Menu Overrides
+***********************************************/

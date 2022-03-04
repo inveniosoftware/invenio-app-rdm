@@ -1,5 +1,10 @@
-/*******************************
-         Site Overrides
-*******************************/
+/***********************************************
+         Invenio App RDM Icon Overrides
+***********************************************/
 
-@import "@less/invenio_theme/theme/elements/icon.overrides";
+.inline-id-icon {
+  height: @fontSizeBase;
+  vertical-align: middle;
+  margin-bottom: 3px;
+  padding-right: 2px;
+}
