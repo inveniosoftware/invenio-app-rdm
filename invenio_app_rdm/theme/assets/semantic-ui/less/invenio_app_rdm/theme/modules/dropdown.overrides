@@ -1,8 +1,6 @@
-/*******************************
-         Site Overrides
-*******************************/
-
-@import "@less/invenio_theme/theme/modules/dropdown.overrides";
+/***********************************************
+    Invenio App RDM Dropdown Overrides
+***********************************************/
 
 /* Dropdown Carets */
 @font-face {

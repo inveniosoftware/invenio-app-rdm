@@ -1,5 +1,3 @@
-/*******************************
-         Site Overrides
-*******************************/
-
-@import "@less/invenio_theme/theme/modules/checkbox.overrides";
+/***********************************************
+    Invenio App RDM Checkbox Overrides
+***********************************************/

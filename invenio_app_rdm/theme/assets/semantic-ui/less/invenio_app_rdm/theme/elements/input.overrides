@@ -1,5 +1,3 @@
-/*******************************
-         Site Overrides
-*******************************/
-
-@import "@less/invenio_theme/theme/elements/input.overrides";
+/***********************************************
+         Invenio App RDM Input Overrides
+***********************************************/

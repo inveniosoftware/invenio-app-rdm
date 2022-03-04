@@ -1,12 +1,7 @@
-/*******************************
-         Site Overrides
-*******************************/
+/***********************************************
+         Invenio App RDM Container Overrides
+***********************************************/
 
-@import "@less/invenio_theme/theme/elements/container.overrides";
-
-// Dashboard user information header
-// TODO refactor
-@highlightBackgroundColor: #f8f8f9;
 
 .ui.container {
   &#dashboard-user-header-container {

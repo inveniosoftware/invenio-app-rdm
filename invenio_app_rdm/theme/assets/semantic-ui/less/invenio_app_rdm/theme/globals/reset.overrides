@@ -1,5 +1,3 @@
-/*******************************
-         Site Overrides
-*******************************/
-
-@import "@less/invenio_theme/theme/globals/reset.overrides";
+/***********************************************
+         Invenio App RDM Reset Overrides
+***********************************************/

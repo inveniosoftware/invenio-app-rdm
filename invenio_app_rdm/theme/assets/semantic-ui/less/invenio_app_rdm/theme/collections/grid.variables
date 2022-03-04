@@ -1,5 +1,3 @@
-/*******************************
-    User Variable Overrides
-*******************************/
-
-@import "@less/invenio_theme/theme/collections/grid.variables";
+/***********************************************
+         Invenio App RDM Grid Variables
+***********************************************/

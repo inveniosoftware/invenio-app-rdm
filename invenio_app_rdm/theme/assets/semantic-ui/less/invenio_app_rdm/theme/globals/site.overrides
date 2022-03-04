@@ -1,8 +1,15 @@
-/*******************************
-         Site Overrides
-*******************************/
+/***********************************************
+         Invenio App RDM Site Overrides
+***********************************************/
 
-@import "@less/invenio_theme/theme/globals/site.overrides";
+@import "../../frontpage.less";
+@import "../../footer.less";
+@import "../../landing_page.less";
+@import "../../deposit.less";
+@import "../../navbar.less";
+@import "../../search.less";
+@import "../../export_page.less";
+@import "../../theme.less";
 
 button:focus-visible, a:focus-visible {
     outline: 3px solid @focusedFormBorderColor !important;

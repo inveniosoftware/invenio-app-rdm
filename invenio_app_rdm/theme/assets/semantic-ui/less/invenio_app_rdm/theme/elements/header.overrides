@@ -1,5 +1,3 @@
-/*******************************
-         Site Overrides
-*******************************/
-
-@import "@less/invenio_theme/theme/elements/header.overrides";
+/***********************************************
+         Invenio App RDM Header Overrides
+***********************************************/

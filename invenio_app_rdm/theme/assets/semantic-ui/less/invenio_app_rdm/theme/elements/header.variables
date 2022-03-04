@@ -1,5 +1,3 @@
-/*******************************
-    User Variable Overrides
-*******************************/
-
-@import "@less/invenio_theme/theme/elements/header.variables";
+/***********************************************
+         Invenio App RDM Header Variables
+***********************************************/

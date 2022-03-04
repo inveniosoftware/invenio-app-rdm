@@ -1,5 +1,3 @@
-/*******************************
-     User Global Variables
-*******************************/
-
-@import "@less/invenio_theme/theme/globals/reset.variables";
+/***********************************************
+         Invenio App RDM Reset Variables
+***********************************************/

@@ -28,8 +28,6 @@ theme = WebpackThemeBundle(
                 './js/invenio_app_rdm/user_dashboard/index.js',
                 'invenio-app-rdm-requests':
                 './js/invenio_app_rdm_requests/menuTabInit.js',
-                'invenio-app-rdm-requests-theme':
-                    './less/invenio_app_rdm_requests/theme.less'
             },
             dependencies={
                 '@babel/runtime': '^7.9.0',
@@ -56,9 +54,10 @@ theme = WebpackThemeBundle(
                 # entry point). theme.config itself is provided by
                 # cookiecutter-invenio-rdm.
                 '../../theme.config$': 'less/theme.config',
+                '../../less/site': 'less/site',
                 'themes/rdm': 'less/invenio_app_rdm/theme',
                 '@less/invenio_app_rdm': 'less/invenio_app_rdm',
-                '@translations/invenio_app_rdm': 'translations/invenio_app_rdm'
+                '@translations/invenio_app_rdm': 'translations/invenio_app_rdm',
             }
         ),
     }

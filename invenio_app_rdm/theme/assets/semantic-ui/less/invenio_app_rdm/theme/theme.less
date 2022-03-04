@@ -1,0 +1,74 @@
+/*******************************
+        Import Directives
+*******************************/
+
+/*------------------
+       Theme
+-------------------*/
+
+@theme: @@element;
+
+/*--------------------
+   Site Variables
+---------------------*/
+
+/* Default site.variables */
+@import '@{themesFolder}/default/globals/site.variables';
+
+/* Packaged site.variables */
+@import '@{themesFolder}/@{siteFolder}/globals/site.variables';
+
+/* Component's site.variables */
+@import (optional) '@{themesFolder}/@{theme}/globals/site.variables';
+
+/* invenio-theme site.variables */
+@import (optional) 'themes/invenio/globals/site.variables';
+
+/* invenio-app-rdm site.variables */
+@import (optional) 'themes/rdm/globals/site.variables';
+
+/* Site theme site.variables */
+@import (optional) '@{siteFolder}/globals/site.variables';
+
+/*-------------------
+ Component Variables
+---------------------*/
+
+/* Default */
+@import '@{themesFolder}/default/@{type}s/@{element}.variables';
+
+/* Packaged Theme */
+@import (optional, multiple) '@{themesFolder}/@{theme}/@{type}s/@{element}.variables';
+
+/* Invenio-theme Theme */
+@import (optional, multiple) 'themes/invenio/@{type}s/@{element}.variables';
+
+/* Invenio-App-rdm Theme */
+@import (optional, multiple) 'themes/rdm/@{type}s/@{element}.variables';
+
+/* Site Theme */
+@import (optional, multiple) '@{siteFolder}/@{type}s/@{element}.variables';
+
+/*******************************
+             Mix-ins
+*******************************/
+
+/*------------------
+       Fonts
+-------------------*/
+
+.loadFonts() when (@importGoogleFonts) {
+  @import (css)
+    url('@{googleProtocol}fonts.googleapis.com/css?family=@{googleFontRequest}');
+}
+
+/*------------------
+     Overrides
+-------------------*/
+
+.loadUIOverrides() {
+  @import (optional, multiple) '@{themesFolder}/@{theme}/@{type}s/@{element}.overrides';
+  @import (optional, multiple) 'themes/invenio/@{type}s/@{element}.overrides';
+  @import (optional, multiple) 'themes/rdm/@{type}s/@{element}.overrides';
+  @import (optional, multiple) '@{siteFolder}/@{type}s/@{element}.overrides';
+}

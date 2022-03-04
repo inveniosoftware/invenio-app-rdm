@@ -1,22 +1,11 @@
-/*******************************
-         TAB Overrides
-*******************************/
+/***********************************************
+    Invenio App RDM Tab Overrides
+***********************************************/
 
-@import "@less/invenio_theme/theme/modules/tab.overrides";
 
-// TODO: refactor theming
-@secondaryColor: #fb8273;
-
-#dashboard-tab{
-
-  &.ui.menu:last-child {
-    margin-bottom: 0;
-  }
-
-  .ui.menu.secondary {
-    .item.active {
-      border-color: @secondaryColor;
-    }
+.ui.menu.secondary.pointing {
+  .item.active {
+    border-color: @secondaryColor;
   }
 }
 

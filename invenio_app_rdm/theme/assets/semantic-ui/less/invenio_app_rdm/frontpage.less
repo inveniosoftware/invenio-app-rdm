@@ -7,12 +7,11 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-
 .numbering {
     font-weight: 200;
     font-size: 4em;
     color: white;
-    background-color: #4899DB;
+    background-color: @numberedListBackgroundColor;
     box-sizing: border-box;
     width: 100px;
     height: 100px;
@@ -22,6 +21,8 @@
     justify-content: center;
     align-items: center;
 }
+
+
 .flex-center-vertically {
     display: flex;
     justify-content: center;
@@ -72,26 +73,189 @@ only screen and (max-width: 993px) {
     flex-direction: row;
 }
 
-.goto-button {
-    text-align: center;
-    padding: 20px 10px;
-    white-space: nowrap;
-}
-
 .goto-button a {
     text-decoration: none;
-    border-radius: 4px;
-    line-height: 25px;
-    padding: 15px 30px;
-    background-color: #0377cd;
-    color:  white !important;
-    height: 50px;
+    color:  white;
     font-size: 1em;
-    font-weight: 200;
+    font-weight: 600;
 }
 
 .goto-button a:hover,
 .goto-button a:active {
-    color: white !important;
-    background-color: #01599c;
+    color: white;
+}
+
+.section-content-dark-bg,
+.section-content-white-bg,
+.section-content-light-bg {
+  padding-top: calc(30px);
+  padding-bottom: calc(2 * 30px);
+
+  &:first-of-type {
+    padding-top: 10px;
+  }
+}
+
+.section-content-dark-bg {
+  padding-top: calc(30px) !important;
+  padding-bottom: calc(2 * 30px);
+}
+
+.section-content-white-bg {
+  padding-top: calc(40px) !important;
+  padding-bottom: calc(2 * 30px);
+}
+
+.section-content-light-bg {
+  padding-top: calc(60px) !important;
+  padding-bottom: calc(2 * 30px);
+
+  &:last-of-type {
+    // NOTE: Fixes spacing between content and footer in the frontpage
+    // TODO: Fix body content padding/margins in general
+    margin-bottom: -1rem;
+  }
+}
+
+.command-line a,
+.hp-blog-section a {
+  text-decoration: none;
+  color: #0267b2;
+  font-weight: 600;
+}
+
+.command-line a:hover,
+.command-line a:focus,
+.hp-blog-section a:hover,
+.hp-blog-section a:focus {
+  color: #0377cd;
+}
+
+.section-content-white-bg,
+.section-content-light-bg {
+  color: #333;
+  width: 100%;
+  text-align: justify;
+  font-size: 1.2em;
+  font-weight: 300;
+}
+
+.section-content-light-bg {
+  background-color: rgba(173, 206, 224, 0.52);
+}
+
+.section-content-white-bg {
+  background-color: #fff;
+}
+
+.section-content-white-bg h6,
+.section-content-light-bg h6 {
+  font-weight: 300;
+  font-size: 1.4em;
+  padding-bottom: 10px;
+  color: #0377cd;
+}
+
+.section-title {
+  -webkit-font-smoothing: antialiased;
+  font-size: 2.5em;
+  width: 100%;
+  text-align: center;
+  display: block;
+  color: #0377cd;
+  margin-bottom: 45px;
+  font-weight: 500;
+}
+
+.section-subtitle {
+  color: #0377cd !important;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.invenio-rdm-project-goals {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  height: auto;
+
+  .rdm-goal {
+    width: 33.33333333%;
+    padding: 1em;
+  }
+}
+
+.invenio-rdm-project-collaborators {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  height: auto;
+  width: 100%;
+
+  .rdm-collaborators {
+    width: 25%;
+    padding: 1em;
+  }
+}
+
+.get-started-section > .section-title {
+  font-size: 2.65em;
+}
+
+.collaborators-logo {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  display: block;
+  max-width: 100% !important;
+}
+
+@media only screen and (max-width: 767px) {
+  .invenio-rdm-project-goals {
+    flex-direction: column !important;
+    align-items: center !important;
+    padding-top: 1em;
+
+    .rdm-goal {
+      width: 100%;
+    }
+  }
+
+  .outer-navbar {
+    #frontpage-search-bar {
+      .ui.container.grid {
+        width: 100% !important;
+      }
+
+      .search-bar {
+        width: 90%;
+      }
+    }
+  }
+
+  .invenio-rdm-project-collaborators {
+    flex-direction: column !important;
+    align-items: center !important;
+    padding-top: 1em;
+
+    .rdm-collaborators {
+      width: 100%;
+    }
+  }
+}
+
+.features-section img {
+  max-height: 60px;
+  max-width: 100%;
+}
+
+.features-section-row {
+  padding-bottom: 30px;
+}
+
+.brought-to-you-section img,
+.trusted-by-section img {
+  max-height: 150px;
+  max-width: 250px;
+  margin: 20px;
+  padding: 20px;
 }
