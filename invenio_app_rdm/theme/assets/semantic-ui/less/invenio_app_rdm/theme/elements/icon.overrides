@@ -4,7 +4,6 @@
 
 .inline-id-icon {
   height: @fontSizeBase;
-  vertical-align: middle;
-  margin-bottom: 3px;
-  padding-right: 2px;
+  width: auto;
+  vertical-align: text-bottom;
 }

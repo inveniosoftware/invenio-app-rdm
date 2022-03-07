@@ -7,10 +7,69 @@
 @import "../../landing_page.less";
 @import "../../deposit.less";
 @import "../../navbar.less";
-@import "../../search.less";
 @import "../../export_page.less";
-@import "../../theme.less";
 
 button:focus-visible, a:focus-visible {
     outline: 3px solid @focusedFormBorderColor !important;
+}
+
+html,
+body {
+  color: #000;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.outer-navbar {
+  background-image: @navbarBackgroundImage;
+  background-color: @navbarBackgroundColor;
+  border-color: transparent;
+
+  #invenio-nav {
+    background: transparent;
+  }
+
+  a {
+    color: #f0f6ff;
+  }
+}
+
+.centered {
+  text-align: center;
+}
+
+.titlecase {
+  text-transform: capitalize;
+}
+
+.theme.header {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+// Log-in and sign-up
+.cover-page {
+  background-image: @navbarBackgroundImage;
+  background-color: @navbarBackgroundColor;
+  border-color: transparent;
+}
+
+.no-dots-list {
+  list-style-type: none;
+  margin-block-start: unset;
+  margin-block-end: unset;
+}
+
+.no-padded {
+  padding: 0 !important;
+}
+
+.no-padding-t {
+    padding-top: 0 !important;
+}
+
+
+.padded-small {
+  padding: 1rem 0 !important;
 }

@@ -1,0 +1,15 @@
+.ui.card.borderless.facet {
+  box-shadow: none;
+
+  .content {
+    border-top: none;
+
+    h2.header:not(.ui) {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 1rem;
+      font-size: 1.1em;
+    }
+  }
+}

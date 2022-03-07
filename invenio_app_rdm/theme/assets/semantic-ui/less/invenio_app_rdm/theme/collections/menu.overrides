@@ -1,3 +1,16 @@
 /***********************************************
          Invenio App RDM Menu Overrides
 ***********************************************/
+.ui.menu {
+  .active.item.license-menu-item-active {
+    border-color: #2185d0;
+    background-color: #2185d0;
+    color: white;
+
+    &:hover {
+      border-color: #0d71bb;
+      background-color: #0d71bb;
+      color: white;
+    }
+  }
+}

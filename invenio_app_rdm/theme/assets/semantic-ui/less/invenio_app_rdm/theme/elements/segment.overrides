@@ -9,3 +9,13 @@
     padding-left: 0;
   }
 }
+
+.ui.segment.rdm-sidebar dl {
+  dt.hidden {
+    display: none;
+  }
+
+  dd.subject {
+    margin-bottom: 3px;
+  }
+}

@@ -244,12 +244,12 @@ export const RDMRecordFacets = ({ aggs, currentResultsState }) => {
       />
       {aggs.map((agg) => {
         return (
-          <div className="ui accordion" key={agg.title}>
+          <div className="ui accordion rdm-facet-container" key={agg.title}>
             <BucketAggregation title={agg.title} agg={agg} />
           </div>
         );
       })}
-      <Card className="borderless-facet">
+      <Card className="borderless facet">
         <Card.Content>
           <Card.Header as="h2">{ i18next.t('Help') }</Card.Header>
           <SearchHelpLinks />
@@ -275,7 +275,7 @@ export const RDMBucketAggregationElement = ({agg, title, containerCmp, updateQue
   }
 
   return (
-    <Card className="borderless-facet">
+    <Card className="borderless facet">
       <Card.Content>
         <Card.Header as="h2">
           {title}
@@ -317,7 +317,7 @@ export const RDMToggleComponent = ({
 
   var isChecked = _isChecked(userSelectionFilters);
   return (
-    <Card className="borderless-facet">
+    <Card className="borderless facet">
       <Card.Content>
         <Card.Header as="h2">{title}</Card.Header>
       </Card.Content>

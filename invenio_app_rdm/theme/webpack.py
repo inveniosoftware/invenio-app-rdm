@@ -57,7 +57,8 @@ theme = WebpackThemeBundle(
                 '../../less/site': 'less/site',
                 'themes/rdm': 'less/invenio_app_rdm/theme',
                 '@less/invenio_app_rdm': 'less/invenio_app_rdm',
-                '@translations/invenio_app_rdm': 'translations/invenio_app_rdm',
+                '@translations/invenio_app_rdm':
+                    'translations/invenio_app_rdm',
             }
         ),
     }
