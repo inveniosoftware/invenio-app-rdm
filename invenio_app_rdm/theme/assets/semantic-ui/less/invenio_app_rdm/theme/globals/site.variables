@@ -17,13 +17,13 @@
 
 @errorText: #9f3a38;
 
-@navbar_background_image: linear-gradient(
+@navbarBackgroundImage: linear-gradient(
   12deg,
   rgba(3, 119, 205, 1),
   rgba(3, 119, 205, 1) 15%,
   rgba(251, 130, 115, 0.69)
 );
-@navbar_background_color: rgba(3, 119, 205, 1);
+@navbarBackgroundColor: rgba(3, 119, 205, 1);
 @brand-primary: #0377cd;
 @versionActive: #d9edf7;
 

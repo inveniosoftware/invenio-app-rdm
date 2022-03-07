@@ -1,0 +1,36 @@
+.ui.accordion.rdm-facet-container {
+  .content.facet-content.active {
+    padding-left: 21px;
+  }
+
+  .title:not(.ui).facet-subtitle {
+    padding-left: 20px;
+  }
+  .facet-wrapper {
+    display: flex;
+    align-items: baseline;
+    padding: 0.3em 0;
+
+    .facet-count {
+      order: 1;
+      margin-left: auto;
+    }
+  }
+  .ui.card > .content {
+    padding: 0.5rem 0.5rem !important;
+  }
+
+
+  .facet-content > .ui.list {
+    padding: 0 0 0.25em 0.5em !important;
+  }
+
+  .facet-content > .ui.list > .item > .facet-subtitle {
+    padding: 0.2em 0 !important;
+  }
+
+  .title > .right.floated {
+    margin-top: -0.2rem !important;
+  }
+
+}

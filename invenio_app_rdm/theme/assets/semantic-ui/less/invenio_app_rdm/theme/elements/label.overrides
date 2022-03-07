@@ -1,0 +1,36 @@
+.ui.label.access-status {
+  color: #ffffff;
+
+  &.open {
+    background-color: @accessRightOpen;
+  }
+
+  &.restricted {
+    background-color: @accessRightRestricted;
+  }
+
+  &.embargoed {
+    background-color: @accessRightEmbargoed;
+  }
+
+  &.metadata-only {
+    background-color: @accessRightMetadataOnly;
+  }
+}
+
+.subject {
+  display: inline-block;
+  padding: .18rem .6rem;
+  box-sizing: border-box;
+  color: #757575;
+  border: 2px solid rgba(119, 119, 119, 0.56);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+a.subject:hover {
+  background-color: rgba(119, 119, 119, 0.07);
+  color: darken(#757575, 15%);
+  text-decoration: none;
+}
+

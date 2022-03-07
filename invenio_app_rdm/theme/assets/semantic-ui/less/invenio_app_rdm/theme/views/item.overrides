@@ -25,3 +25,12 @@
 .ui.items > .item .meta * {
     margin-right: 0.1em;
 }
+
+.item.right-menu {
+  line-height: 44px !important;
+}
+
+.ui.items.link > .item:hover {
+  cursor: auto !important;
+}
+

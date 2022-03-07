@@ -1,0 +1,32 @@
+.item.deposits-list-item {
+  .ui.grid .checkbox-column {
+    display: flex;
+    align-items: center;
+
+    .icon {
+      padding-left: 0.5em;
+      padding-bottom: 20px;
+    }
+  }
+
+  div.status-icon {
+    margin-right: 10px;
+  }
+
+  .actions > a,
+  .stats > span {
+    padding-right: 0.5em;
+  }
+}
+
+.ui.items > .item .extra.labels-actions {
+  margin-bottom: 0.75em;
+
+  &.user-communities {
+    margin-top: 0.25em;
+
+    [class*="right floated"] {
+      margin-top: 0;
+    }
+  }
+}

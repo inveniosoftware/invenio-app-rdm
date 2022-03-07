@@ -1,0 +1,7 @@
+
+.ui.modal {
+  .header.deposit-modal-header {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+}
