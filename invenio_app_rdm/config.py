@@ -590,7 +590,7 @@ APP_RDM_RECORD_EXPORTERS = {
         "name": _("DataCite XML"),
         "serializer": ("invenio_rdm_records.resources.serializers:"
                        "DataCite43XMLSerializer"),
-        "content-type": "application/vnd.datacite.datacite+json",
+        "content-type": "application/vnd.datacite.datacite+xml",
         "filename": "{id}.xml"
     },
     "dublincore": {
