@@ -1,0 +1,280 @@
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2021-07-15T07:37:20.488Z\n"
+"PO-Revision-Date: 2021-07-15T07:37:20.488Z\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"mime-version: 1.0\n"
+
+msgid "Basic information"
+msgstr "Basic information"
+
+msgid "Requests"
+msgstr "Requests"
+
+msgid "Communities"
+msgstr "Communities"
+
+msgid "Uploads"
+msgstr "Uploads"
+
+msgid "Copy to clipboard"
+msgstr "Copy to clipboard"
+
+msgid "Copied!"
+msgstr "Copied!"
+
+msgid "Files"
+msgstr "Files"
+
+msgid "The record has no files."
+msgstr "The record has no files."
+
+msgid "Creators"
+msgstr "Creators"
+
+msgid "Recommended information"
+msgstr "Recommended information"
+
+msgid "Add contributor"
+msgstr "Add contributor"
+
+msgid "Contributors"
+msgstr "Contributors"
+
+msgid "Alternate identifiers"
+msgstr "Alternate identifiers"
+
+msgid "Alternate identifier(s)"
+msgstr "Alternate identifier(s)"
+
+msgid "Related works"
+msgstr "Related works"
+
+msgid "Visibility"
+msgstr "Visibility"
+
+msgid "Edit"
+msgstr "Edit"
+
+msgid "An error occurred while generating the citation."
+msgstr "An error occurred while generating the citation."
+
+msgid "Citation"
+msgstr "Citation"
+
+msgid "Style"
+msgstr "Style"
+
+msgid "Version"
+msgstr "Version"
+
+msgid "Preview"
+msgstr "Preview"
+
+msgid "Only published versions are displayed."
+msgstr "Only published versions are displayed."
+
+msgid "View all {{total}} versions"
+msgstr "View all {{total}} versions"
+
+msgid "You don't have permissions to share this record."
+msgstr "You don't have permissions to share this record."
+
+msgid "Share"
+msgstr "Share"
+
+msgid "Can view"
+msgstr "Can view"
+
+msgid "Can preview"
+msgstr "Can preview"
+
+msgid "Can edit"
+msgstr "Can edit"
+
+msgid "Get a link"
+msgstr "Get a link"
+
+msgid "Copy link"
+msgstr "Copy link"
+
+msgid "No link has been created. Click on 'Get a Link' to make a new link"
+msgstr "No link has been created. Click on 'Get a Link' to make a new link"
+
+msgid "Delete link"
+msgstr "Delete link"
+
+msgid "Done"
+msgstr "Done"
+
+msgid "Anyone with this link <1>can view all versions</1> of this record & files."
+msgstr "Anyone with this link <1>can view all versions</1> of this record & files."
+
+msgid ""
+"Anyone with this link <2>can view all published and unpublished "
+"versions</2> of this record & files."
+msgstr ""
+"Anyone with this link <2>can view all published and unpublished "
+"versions</2> of this record & files."
+
+msgid ""
+"Anyone with an account and this link <2>can edit all versions</2> of this "
+"record & files."
+msgstr ""
+"Anyone with an account and this link <2>can edit all versions</2> of this "
+"record & files."
+
+msgid "Uploaded on"
+msgstr "Uploaded on"
+
+msgid "Search"
+msgstr "Search"
+
+msgid "hide subfacets"
+msgstr "hide subfacets"
+
+msgid "show subfacets"
+msgstr "show subfacets"
+
+msgid "Search guide"
+msgstr "Search guide"
+
+msgid "filters"
+msgstr "filters"
+
+msgid "Versions"
+msgstr "Versiones"
+
+msgid "View all versions"
+msgstr "Ver todas las versiones"
+
+msgid "result(s) found"
+msgstr "resultado(s) encontrados"
+
+msgid "Sort by"
+msgstr "Sort by"
+
+msgid "results per page"
+msgstr "results per page"
+
+msgid "No community type"
+msgstr "No community type"
+
+msgid "View"
+msgstr "View"
+
+msgid "Search communities..."
+msgstr "Search communities..."
+
+msgid "New community"
+msgstr "New community"
+
+msgid "opened {{difference}} by {{user}}"
+msgstr "opened {{difference}} by {{user}}"
+
+msgid "Get started!"
+msgstr "Get started!"
+
+msgid "Open"
+msgstr "Open"
+
+msgid "Closed"
+msgstr "Closed"
+
+msgid "Search requests..."
+msgstr "Search requests..."
+
+msgid "All done!"
+msgstr "All done!"
+
+msgid "You've caught up with all open requests."
+msgstr "You've caught up with all open requests."
+
+msgid "Delete"
+msgstr "Delete"
+
+msgid "Are you sure you want to delete this draft?"
+msgstr "Are you sure you want to delete this draft?"
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "No creation date found."
+msgstr "No creation date found."
+
+msgid "No description"
+msgstr "No description"
+
+msgid "No publication date found."
+msgstr "No publication date found."
+
+msgid "No resource type"
+msgstr "No resource type"
+
+msgid "No title"
+msgstr "No title"
+
+msgid "Make your first upload!"
+msgstr "Make your first upload!"
+
+msgid "New upload"
+msgstr "New upload"
+
+msgid "Search uploads..."
+msgstr "Search uploads..."
+
+msgid "ORCID profile"
+msgstr "ORCID profile"
+
+msgid "ROR profile"
+msgstr "ROR profile"
+
+msgid "No communities found!"
+msgstr "No communities found!"
+
+msgid "No requests found!"
+msgstr "No requests found!"
+
+msgid "Copied"
+msgstr "Copied"
+
+msgid "Reset search"
+msgstr "Reset search"
+
+msgid "Help"
+msgstr "Help"
+
+msgid "Clear selection"
+msgstr "Clear selection"
+
+msgid "Clear"
+msgstr "Clear"
+
+msgid "We couldn't find any matches for "
+msgstr "We couldn't find any matches for "
+
+msgid "your search"
+msgstr "your search"
+
+msgid "Start over"
+msgstr "Start over"
+
+msgid "ProTip"
+msgstr "ProTip"
+
+msgid "will give you all the publications from 2017 until today"
+msgstr "will give you all the publications from 2017 until today"
+
+msgid "For more tips, check out our "
+msgstr "For more tips, check out our "
+
+msgid "search guide"
+msgstr "search guide"
+
+msgid " for defining advanced search queries"
+msgstr " for defining advanced search queries"
