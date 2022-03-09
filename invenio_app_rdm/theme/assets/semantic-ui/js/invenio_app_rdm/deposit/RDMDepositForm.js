@@ -149,248 +149,248 @@ export class RDMDepositForm extends Component {
         <Container id="rdm-deposit-form" className="rel-mt-1">
           <DepositFormTitle />
           <Grid>
-            <Grid.Row>
-              <Grid.Column width={11}>
-                <AccordionField
-                  fieldPath=""
-                  active={true}
-                  label={i18next.t("Files")}
-                >
-                  {this.noFiles && record.is_published && (
-                    <div className="text-align-center">
-                      <em>{i18next.t("The record has no files.")}</em>
-                    </div>
-                  )}
-                  <FileUploader
-                    isDraftRecord={!record.is_published}
-                    quota={this.config.quota}
-                  />
-                </AccordionField>
-
-                <AccordionField
-                  fieldPath=""
-                  active={true}
-                  label={i18next.t("Basic information")}
-                >
-                  {this.config.pids.map((pid) => (
-                    <Fragment key={pid.scheme}>
-                      <PIDField
-                        btnLabelDiscardPID={pid.btn_label_discard_pid}
-                        btnLabelGetPID={pid.btn_label_get_pid}
-                        canBeManaged={pid.can_be_managed}
-                        canBeUnmanaged={pid.can_be_unmanaged}
-                        fieldPath={`pids.${pid.scheme}`}
-                        fieldLabel={pid.field_label}
-                        isEditingPublishedRecord={
-                          record.is_published === true // is_published is `null` at first upload
-                        }
-                        managedHelpText={pid.managed_help_text}
-                        pidLabel={pid.pid_label}
-                        pidPlaceholder={pid.pid_placeholder}
-                        pidType={pid.scheme}
-                        unmanagedHelpText={pid.unmanaged_help_text}
-                        required
-                      />
-                      <Divider />
-                    </Fragment>
-                  ))}
-
-                  <ResourceTypeField
-                    options={this.vocabularies.metadata.resource_type}
-                    required
-                  />
-                  <TitlesField
-                    options={this.vocabularies.metadata.titles}
-                    recordUI={record.ui}
-                    required
-                  />
-                  <PublicationDateField required />
-                  <CreatibutorsField
-                    label={i18next.t("Creators")}
-                    labelIcon={"user"}
-                    fieldPath={"metadata.creators"}
-                    roleOptions={this.vocabularies.metadata.creators.role}
-                    schema="creators"
-                    autocompleteNames={this.config.autocomplete_names}
-                    required
-                  />
-                  <DescriptionsField
-                    options={this.vocabularies.metadata.descriptions}
-                    recordUI={_get(record, "ui", null)}
-                    editorConfig={{
-                      removePlugins: [
-                        "Image",
-                        "ImageCaption",
-                        "ImageStyle",
-                        "ImageToolbar",
-                        "ImageUpload",
-                        "MediaEmbed",
-                        "Table",
-                        "TableToolbar",
-                        "TableProperties",
-                        "TableCellProperties",
-                      ],
-                    }}
-                  />
-                  <LicenseField
-                    fieldPath="metadata.rights"
-                    searchConfig={{
-                      searchApi: {
-                        axios: {
-                          headers: {
-                            Accept: "application/vnd.inveniordm.v1+json",
-                          },
-                          url: "/api/vocabularies/licenses",
-                          withCredentials: false,
-                        },
-                      },
-                      initialQueryState: {
-                        filters: [["tags", "recommended"]],
-                      },
-                    }}
-                    serializeLicenses={(result) => ({
-                      title: result.title_l10n,
-                      description: result.description_l10n,
-                      id: result.id,
-                      link: result.props.url,
-                    })}
-                  />
-                  <br />
-                </AccordionField>
-
-                <AccordionField
-                  fieldPath=""
-                  active={true}
-                  label={i18next.t("Recommended information")}
-                >
-                  <CreatibutorsField
-                    addButtonLabel={i18next.t("Add contributor")}
-                    label={i18next.t("Contributors")}
-                    labelIcon={"user plus"}
-                    fieldPath={"metadata.contributors"}
-                    roleOptions={this.vocabularies.metadata.contributors.role}
-                    schema="contributors"
-                    autocompleteNames={this.config.autocomplete_names}
-                    modal={{
-                      addLabel: "Add contributor",
-                      editLabel: "Edit contributor",
-                    }}
-                  />
-                  <SubjectsField
-                    initialOptions={_get(record, "ui.subjects", null)}
-                    limitToOptions={
-                      this.vocabularies.metadata.subjects.limit_to
-                    }
-                  />
-
-                  <LanguagesField
-                    initialOptions={_get(record, "ui.languages", []).filter(
-                      (lang) => lang !== null
-                    )} // needed because dumped empty record from backend gives [null]
-                    serializeSuggestions={(suggestions) =>
-                      suggestions.map((item) => ({
-                        text: item.title_l10n,
-                        value: item.id,
-                        key: item.id,
-                      }))
-                    }
-                  />
-                  <DatesField options={this.vocabularies.metadata.dates} />
-                  <VersionField />
-                  <PublisherField />
-                  <br />
-                </AccordionField>
-                {/**TODO: uncomment to use FundingField*/}
-                {/* <AccordionField
+            <Grid.Column mobile={16} tablet={16} computer={11}>
+              <AccordionField
                 fieldPath=""
                 active={true}
-                label={"Funding"}
-                >
-                <FundingField options={this.vocabularies.metadata.funding} />
-                <ComingSoonField
-                  fieldPath="metadata.funding"
-                  label="Awards"
-                  labelIcon="money bill alternate outline"
+                label={i18next.t("Files")}
+              >
+                {this.noFiles && record.is_published && (
+                  <div className="text-align-center">
+                    <em>{i18next.t("The record has no files.")}</em>
+                  </div>
+                )}
+                <FileUploader
+                  isDraftRecord={!record.is_published}
+                  quota={this.config.quota}
+                />
+              </AccordionField>
+
+              <AccordionField
+                fieldPath=""
+                active={true}
+                label={i18next.t("Basic information")}
+              >
+                {this.config.pids.map((pid) => (
+                  <Fragment key={pid.scheme}>
+                    <PIDField
+                      btnLabelDiscardPID={pid.btn_label_discard_pid}
+                      btnLabelGetPID={pid.btn_label_get_pid}
+                      canBeManaged={pid.can_be_managed}
+                      canBeUnmanaged={pid.can_be_unmanaged}
+                      fieldPath={`pids.${pid.scheme}`}
+                      fieldLabel={pid.field_label}
+                      isEditingPublishedRecord={
+                        record.is_published === true // is_published is `null` at first upload
+                      }
+                      managedHelpText={pid.managed_help_text}
+                      pidLabel={pid.pid_label}
+                      pidPlaceholder={pid.pid_placeholder}
+                      pidType={pid.scheme}
+                      unmanagedHelpText={pid.unmanaged_help_text}
+                      required
+                    />
+                    <Divider />
+                  </Fragment>
+                ))}
+
+                <ResourceTypeField
+                  options={this.vocabularies.metadata.resource_type}
+                  required
+                />
+                <TitlesField
+                  options={this.vocabularies.metadata.titles}
+                  recordUI={record.ui}
+                  required
+                />
+                <PublicationDateField required />
+                <CreatibutorsField
+                  label={i18next.t("Creators")}
+                  labelIcon={"user"}
+                  fieldPath={"metadata.creators"}
+                  roleOptions={this.vocabularies.metadata.creators.role}
+                  schema="creators"
+                  autocompleteNames={this.config.autocomplete_names}
+                  required
+                />
+                <DescriptionsField
+                  options={this.vocabularies.metadata.descriptions}
+                  recordUI={_get(record, "ui", null)}
+                  editorConfig={{
+                    removePlugins: [
+                      "Image",
+                      "ImageCaption",
+                      "ImageStyle",
+                      "ImageToolbar",
+                      "ImageUpload",
+                      "MediaEmbed",
+                      "Table",
+                      "TableToolbar",
+                      "TableProperties",
+                      "TableCellProperties",
+                    ],
+                  }}
+                />
+                <LicenseField
+                  fieldPath="metadata.rights"
+                  searchConfig={{
+                    searchApi: {
+                      axios: {
+                        headers: {
+                          Accept: "application/vnd.inveniordm.v1+json",
+                        },
+                        url: "/api/vocabularies/licenses",
+                        withCredentials: false,
+                      },
+                    },
+                    initialQueryState: {
+                      filters: [["tags", "recommended"]],
+                    },
+                  }}
+                  serializeLicenses={(result) => ({
+                    title: result.title_l10n,
+                    description: result.description_l10n,
+                    id: result.id,
+                    link: result.props.url,
+                  })}
+                />
+                <Divider />
+              </AccordionField>
+
+              <AccordionField
+                fieldPath=""
+                active={true}
+                label={i18next.t("Recommended information")}
+              >
+                <CreatibutorsField
+                  addButtonLabel={i18next.t("Add contributor")}
+                  label={i18next.t("Contributors")}
+                  labelIcon={"user plus"}
+                  fieldPath={"metadata.contributors"}
+                  roleOptions={this.vocabularies.metadata.contributors.role}
+                  schema="contributors"
+                  autocompleteNames={this.config.autocomplete_names}
+                  modal={{
+                    addLabel: "Add contributor",
+                    editLabel: "Edit contributor",
+                  }}
+                />
+                <SubjectsField
+                  initialOptions={_get(record, "ui.subjects", null)}
+                  limitToOptions={
+                    this.vocabularies.metadata.subjects.limit_to
+                  }
                 />
 
-                <br />
-                </AccordionField> */}
+                <LanguagesField
+                  initialOptions={_get(record, "ui.languages", []).filter(
+                    (lang) => lang !== null
+                  )} // needed because dumped empty record from backend gives [null]
+                  serializeSuggestions={(suggestions) =>
+                    suggestions.map((item) => ({
+                      text: item.title_l10n,
+                      value: item.id,
+                      key: item.id,
+                    }))
+                  }
+                />
+                <DatesField options={this.vocabularies.metadata.dates} />
+                <VersionField />
+                <PublisherField />
+                <Divider />
+              </AccordionField>
+              {/**TODO: uncomment to use FundingField*/}
+              {/* <AccordionField
+              fieldPath=""
+              active={true}
+              label={"Funding"}
+              >
+              <FundingField options={this.vocabularies.metadata.funding} />
+              <ComingSoonField
+                fieldPath="metadata.funding"
+                label="Awards"
+                labelIcon="money bill alternate outline"
+              />
+              <Divider />
+              </AccordionField> */}
 
-                <AccordionField
-                  fieldPath=""
-                  active={true}
-                  label={i18next.t("Alternate identifiers")}
-                >
-                  <IdentifiersField
-                    fieldPath="metadata.identifiers"
-                    label={i18next.t("Alternate identifier(s)")}
-                    labelIcon="barcode"
-                    schemeOptions={
-                      this.vocabularies.metadata.identifiers.scheme
-                    }
-                  />
-                </AccordionField>
+              <AccordionField
+                fieldPath=""
+                active={true}
+                label={i18next.t("Alternate identifiers")}
+              >
+                <IdentifiersField
+                  fieldPath="metadata.identifiers"
+                  label={i18next.t("Alternate identifier(s)")}
+                  labelIcon="barcode"
+                  schemeOptions={
+                    this.vocabularies.metadata.identifiers.scheme
+                  }
+                />
+              </AccordionField>
 
-                <AccordionField
-                  fieldPath=""
-                  active={true}
-                  label={i18next.t("Related works")}
-                >
-                  <RelatedWorksField
-                    options={this.vocabularies.metadata.identifiers}
+              <AccordionField
+                fieldPath=""
+                active={true}
+                label={i18next.t("Related works")}
+              >
+                <RelatedWorksField
+                  options={this.vocabularies.metadata.identifiers}
+                />
+                <Divider />
+              </AccordionField>
+            </Grid.Column>
+
+            <Ref innerRef={this.sidebarRef}>
+              <Grid.Column mobile={16} tablet={16} computer={5} className="deposit-sidebar">
+                <Sticky context={this.sidebarRef} offset={20}>
+                  <Card>
+                    <Card.Content>
+                      <DepositStatusBox />
+                    </Card.Content>
+                    <Card.Content>
+                      <Grid relaxed>
+                        <Grid.Column
+                          computer={8}
+                          mobile={16}
+                          className="pb-0"
+                        >
+                          <SaveButton fluid />
+                        </Grid.Column>
+
+                        <Grid.Column
+                          computer={8}
+                          mobile={16}
+                          className="pb-0"
+                        >
+                          <PreviewButton fluid />
+                        </Grid.Column>
+
+                        <Grid.Column width={16}>
+                          <PublishButton fluid />
+                        </Grid.Column>
+                      </Grid>
+                    </Card.Content>
+                  </Card>
+
+                  <AccessRightField
+                    label={i18next.t("Visibility")}
+                    labelIcon={"shield"}
                   />
-                  <br />
-                </AccordionField>
+
+                  <Card>
+                    <Card.Content>
+                      <DeleteButton
+                        fluid
+                        // TODO: make is_published part of the API response
+                        //       so we don't have to do this
+                        isPublished={record.is_published}
+                      />
+                    </Card.Content>
+                  </Card>
+                </Sticky>
               </Grid.Column>
-              <Ref innerRef={this.sidebarRef}>
-                <Grid.Column width={5} className="deposit-sidebar">
-                  <Sticky context={this.sidebarRef} offset={20}>
-                    <Card>
-                      <Card.Content>
-                        <DepositStatusBox />
-                      </Card.Content>
-                      <Card.Content>
-                        <Grid relaxed>
-                          <Grid.Column
-                            computer={8}
-                            mobile={16}
-                            className="pb-0"
-                          >
-                            <SaveButton fluid />
-                          </Grid.Column>
-                          <Grid.Column
-                            computer={8}
-                            mobile={16}
-                            className="pb-0"
-                          >
-                            <PreviewButton fluid />
-                          </Grid.Column>
-                          <Grid.Column width={16}>
-                            <PublishButton fluid />
-                          </Grid.Column>
-                        </Grid>
-                      </Card.Content>
-                    </Card>
-
-                    <AccessRightField
-                      label={i18next.t("Visibility")}
-                      labelIcon={"shield"}
-                    />
-
-                    <Card>
-                      <Card.Content>
-                        <DeleteButton
-                          fluid
-                          // TODO: make is_published part of the API response
-                          //       so we don't have to do this
-                          isPublished={record.is_published}
-                        />
-                      </Card.Content>
-                    </Card>
-                  </Sticky>
-                </Grid.Column>
-              </Ref>
-            </Grid.Row>
+            </Ref>
           </Grid>
         </Container>
       </DepositFormApp>
