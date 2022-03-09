@@ -46,6 +46,7 @@ jobs:
 
           - search-service: elasticsearch7
             SEARCH_EXTRAS: "elasticsearch7"
+          node-version: [14.x]
     env:
       DB: ${{ matrix.db-service }}
       SEARCH: ${{ matrix.search-service }}
@@ -53,6 +54,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Run eslint test
+        run: ./run-js-linter.sh -i
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
