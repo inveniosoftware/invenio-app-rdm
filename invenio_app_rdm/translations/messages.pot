@@ -653,3 +653,11 @@ msgstr ""
 msgid "Search guide"
 msgstr ""
 
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_requests/community-submission/index.html:35
+msgid "Show more"
+msgstr ""
+
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_requests/community-submission/index.html:36
+msgid "Show less"
+msgstr ""
+
