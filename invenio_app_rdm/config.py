@@ -2,7 +2,7 @@
 #
 # Copyright (C) 2019-2020 CERN.
 # Copyright (C) 2019-2020 Northwestern University.
-# Copyright (C) 2021 Graz University of Technology.
+# Copyright (C) 2021-2022 Graz University of Technology.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -261,8 +261,8 @@ SECURITY_EMAIL_SUBJECT_REGISTER = _("Welcome to Invenio App RDM!")
 # See docs.celeryproject.org/en/latest/userguide/configuration.html
 # See https://flask-celeryext.readthedocs.io/en/latest/
 
-BROKER_URL = "amqp://guest:guest@localhost:5672/"
-"""URL of message broker for Celery 3 (default is RabbitMQ)."""
+broker_url = "amqp://guest:guest@localhost:5672/"
+"""URL of message broker for Celery (default is RabbitMQ)."""
 
 CELERY_BEAT_SCHEDULE = {
     # 'indexer': {
@@ -290,10 +290,7 @@ CELERY_BEAT_SCHEDULE = {
 }
 """Scheduled tasks configuration (aka cronjobs)."""
 
-CELERY_BROKER_URL = BROKER_URL
-"""Same as BROKER_URL to support Celery 4."""
-
-CELERY_RESULT_BACKEND = "redis://localhost:6379/2"
+result_backend = "redis://localhost:6379/2"
 """URL of backend for result storage (default is Redis)."""
 
 
