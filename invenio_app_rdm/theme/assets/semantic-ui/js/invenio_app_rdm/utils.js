@@ -116,4 +116,4 @@ export function SearchItemCreators({ creators }) {
  * @returns string
  */
 export const timestampToRelativeTime = (timestamp) =>
-  DateTime.fromISO(timestamp).toRelative();
+  DateTime.fromISO(timestamp).setLocale(i18next.language).toRelative();
