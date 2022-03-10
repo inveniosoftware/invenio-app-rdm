@@ -121,7 +121,7 @@ class DashboardMenu extends Component {
           </Container>
         </Container>
         <Container>
-          <Segment className="borderless shadowless">
+          <Segment className="borderless shadowless p-0">
             <div className="rel-pt-2">
               <SearchApp
                 appName={activeContent.appId}
