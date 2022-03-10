@@ -314,7 +314,7 @@ def deposit_create(community=None):
             default_preview=None, entries=[], links={}
         ),
         communities_enabled=current_app.config["COMMUNITIES_ENABLED"],
-        community=community
+        preselectedCommunity=community
     )
 
 
@@ -326,12 +326,10 @@ def deposit_edit(draft=None, draft_files=None, pid_value=None):
     serializer = UIJSONSerializer()
     record = serializer.serialize_object_to_dict(draft.to_dict())
 
-    community_uuid = get_community_uuid(record)
     return render_template(
         "invenio_app_rdm/records/deposit.html",
         forms_config=get_form_config(apiUrl=f"/api/records/{pid_value}/draft"),
         record=record,
-        community=community_uuid,
         communities_enabled=current_app.config["COMMUNITIES_ENABLED"],
         files=draft_files.to_dict(),
         searchbar_config=dict(searchUrl=get_search_url()),

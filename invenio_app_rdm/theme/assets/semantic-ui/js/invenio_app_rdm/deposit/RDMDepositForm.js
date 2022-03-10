@@ -1,15 +1,17 @@
 // This file is part of InvenioRDM
-// Copyright (C) 2020 CERN.
-// Copyright (C) 2020 Northwestern University.
-// Copyright (C) 2021 Graz University of Technology.
+// Copyright (C) 2020-2022 CERN.
+// Copyright (C) 2020-2022 Northwestern University.
+// Copyright (C) 2021-2022 Graz University of Technology.
 //
 // Invenio App RDM is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
 
+import { i18next } from "@translations/invenio_app_rdm/i18next";
 import _get from "lodash/get";
 import React, { Component, createRef, Fragment } from "react";
 import {
   AccessRightField,
+  CommunityHeader,
   CreatibutorsField,
   DatesField,
   DeleteButton,
@@ -20,23 +22,21 @@ import {
   FormFeedback,
   IdentifiersField,
   LanguagesField,
-  SubjectsField,
   LicenseField,
   PIDField,
   PreviewButton,
   PublicationDateField,
-  PublishButton,
   PublisherField,
   RelatedWorksField,
+  RequestOrPublish,
   ResourceTypeField,
   SaveButton,
+  SubjectsField,
   TitlesField,
   VersionField,
-  CommunityHeader,
 } from "react-invenio-deposit";
 import { AccordionField } from "react-invenio-forms";
 import { Card, Container, Divider, Grid, Ref, Sticky } from "semantic-ui-react";
-import { i18next } from "@translations/invenio_app_rdm/i18next";
 
 export class RDMDepositForm extends Component {
   constructor(props) {
@@ -136,13 +136,18 @@ export class RDMDepositForm extends Component {
   };
 
   render() {
-    const { record, files, permissions, community, communitiesEnabled } =
-      this.props;
+    const {
+      record,
+      files,
+      permissions,
+      preselectedCommunity,
+      communitiesEnabled,
+    } = this.props;
     return (
       <DepositFormApp
         config={this.config}
         record={record}
-        community={community}
+        preselectedCommunity={preselectedCommunity}
         files={files}
         permissions={permissions}
       >
@@ -370,7 +375,7 @@ export class RDMDepositForm extends Component {
                           <SaveButton fluid className="save-button" />
                           <PreviewButton fluid className="preview-button" />
                         </div>
-                        <PublishButton fluid />
+                        <RequestOrPublish fluid />
                       </Card.Content>
                     </Card>
 
