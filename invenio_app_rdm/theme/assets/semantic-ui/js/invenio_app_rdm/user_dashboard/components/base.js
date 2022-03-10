@@ -23,7 +23,8 @@ import {
   SearchBar,
   Sort,
 } from "react-searchkit";
-import { Container, Grid, Segment } from "semantic-ui-react";
+import { GridResponsiveSidebarColumn } from "react-invenio-forms";
+import { Grid, Segment, Button } from "semantic-ui-react";
 
 import Overridable from "react-overridable";
 
@@ -115,26 +116,43 @@ export const DashboardSearchLayoutHOC = ({
   newBtn = () => null,
   ...props
 }) => {
-  const DashboardUploadsSearchLayout = (props) => (
-    <Container>
+
+  const DashboardUploadsSearchLayout = (props) => {
+    const [sidebarVisible, setSidebarVisible] = React.useState(false);
+
+    return (
       <Grid>
-        <Grid.Row columns={3}>
-          <Grid.Column width={4} />
-          <Grid.Column width={8}>
-            <SearchBar placeholder={searchBarPlaceholder} />
-          </Grid.Column>
-          <Grid.Column width={4}>{newBtn}</Grid.Column>
-        </Grid.Row>
+        <Grid.Column only="mobile tablet" mobile={2} tablet={1}>
+          <Button
+            basic
+            icon="sliders"
+            onClick={() => setSidebarVisible(true)}
+            aria-label={i18next.t("Filter results")}
+          />
+        </Grid.Column>
+
+        <Grid.Column mobile={14} tablet={11} computer={8} floated="right">
+          <SearchBar placeholder={searchBarPlaceholder} />
+        </Grid.Column>
+
+        <Grid.Column mobile={16} tablet={4} computer={4} align="right">
+          {newBtn}
+        </Grid.Column>
+
         <Grid.Row>
-          <Grid.Column width={4}>
-            <SearchAppFacets aggs={props.config.aggs} />
-          </Grid.Column>
-          <Grid.Column width={12}>
+          <GridResponsiveSidebarColumn
+            width={4}
+            open={sidebarVisible}
+            onHideClick={() => setSidebarVisible(false)}
+            children={
+              <SearchAppFacets aggs={props.config.aggs} />
+            }
+          />
+          <Grid.Column mobile={16} tablet={16} computer={12}>
             <SearchAppResultsPane layoutOptions={props.config.layoutOptions} />
           </Grid.Column>
         </Grid.Row>
       </Grid>
-    </Container>
-  );
+  )}
   return DashboardUploadsSearchLayout;
 };

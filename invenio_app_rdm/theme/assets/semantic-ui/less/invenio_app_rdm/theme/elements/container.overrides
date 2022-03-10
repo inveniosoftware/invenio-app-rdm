@@ -8,6 +8,11 @@
   padding-bottom: @celledPadding;
   margin-bottom: @defaultMargin;
 
+  @media screen and (max-width: @largestMobileScreen) {
+    margin-left: 0 !important; // Overwriting semantic-ui's !important. Please don't remove.
+    margin-right: 0 !important;
+  }
+
   &.with-submenu {
     padding-bottom: 0;
     margin-bottom: 0;
