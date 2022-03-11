@@ -21,6 +21,7 @@
   .item{
     margin: 0 1em 0 0;
   }
+}
 
 .ui.items > .item .meta * {
     margin-right: 0.1em;
