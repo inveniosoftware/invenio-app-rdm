@@ -9,11 +9,6 @@
 
 {% extends "invenio_requests/details/index.html" %}
 
-{% block css %}
-{{ super() }}
-{{ webpack['invenio-app-rdm-requests-theme.css']}}
-{% endblock %}
-
 {% block javascript %}
   {{ super() }}
 {{ webpack['invenio-app-rdm-requests.js']}}
