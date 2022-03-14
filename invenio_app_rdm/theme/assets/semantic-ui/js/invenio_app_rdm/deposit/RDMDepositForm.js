@@ -26,9 +26,9 @@ import {
   PIDField,
   PreviewButton,
   PublicationDateField,
+  PublishButton,
   PublisherField,
   RelatedWorksField,
-  RequestOrPublish,
   ResourceTypeField,
   SaveButton,
   SubjectsField,
@@ -375,7 +375,7 @@ export class RDMDepositForm extends Component {
                           <SaveButton fluid className="save-button" />
                           <PreviewButton fluid className="preview-button" />
                         </div>
-                        <RequestOrPublish fluid />
+                        <PublishButton fluid />
                       </Card.Content>
                     </Card>
 
