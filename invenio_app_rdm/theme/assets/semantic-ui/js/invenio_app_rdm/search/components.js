@@ -188,6 +188,7 @@ export const RDMRecordFacetsValues = ({
         className={`facet-wrapper title ${
           hasChildren ? "" : "facet-subtitle"
         } ${isActive ? "active" : ""}`}
+        onClick={() => onFilterClicked(keyField)}
       >
         <List.Content className="facet-count">
           <Label circular id={`${keyField}-count`}>
@@ -211,7 +212,6 @@ export const RDMRecordFacetsValues = ({
           id={`${keyField}-facet-checkbox`}
           aria-describedby={`${keyField}-count`}
           value={keyField}
-          onClick={() => onFilterClicked(keyField)}
           checked={isSelected}
         />
       </div>
