@@ -105,7 +105,6 @@ BABEL_DEFAULT_LOCALE = 'en'
 BABEL_DEFAULT_TIMEZONE = 'Europe/Zurich'
 """Default time zone."""
 
-
 # Invenio-I18N
 # ============
 # See https://invenio-i18n.readthedocs.io/en/latest/configuration.html
@@ -169,7 +168,6 @@ def files_rest_permission_factory(obj, action):
 FILES_REST_PERMISSION_FACTORY = files_rest_permission_factory
 """Set default files permission factory."""
 
-
 # Invenio-IIIF
 # =================
 # See https://invenio-iiif.readthedocs.io/en/latest/configuration.html
@@ -215,14 +213,12 @@ FORMATTER_BADGES_TITLE_MAPPING = {'doi': 'DOI'}
 MAIL_SUPPRESS_SEND = True
 """Disable email sending by default."""
 
-
 # Flask-Collect
 # =============
 # See https://github.com/klen/Flask-Collect#setup
 
 COLLECT_STORAGE = 'flask_collect.storage.file'
 """Static files collection method (defaults to copying files)."""
-
 
 # Invenio-Accounts
 # ================
@@ -246,7 +242,6 @@ SECURITY_EMAIL_SENDER = "info@inveniosoftware.org"
 
 SECURITY_EMAIL_SUBJECT_REGISTER = _("Welcome to Invenio App RDM!")
 """Email subject for account registration emails."""
-
 
 # Invenio-Celery / Celery / Flask-Celeryext
 # =========================================
@@ -289,7 +284,6 @@ CELERY_BROKER_URL = BROKER_URL
 CELERY_RESULT_BACKEND = "redis://localhost:6379/2"
 """URL of backend for result storage (default is Redis)."""
 
-
 # Flask-SQLAlchemy
 # ================
 # See https://flask-sqlalchemy.palletsprojects.com/en/2.x/config/
@@ -304,7 +298,6 @@ Default value is provided to make module testing easier.
 
 SQLALCHEMY_ECHO = False
 """Enable to see all SQL queries."""
-
 
 SQLALCHEMY_ENGINE_OPTIONS = {
     "pool_pre_ping": False,
@@ -368,7 +361,6 @@ See https://docs.sqlalchemy.org/en/latest/core/engines.html.
 # documented on purpose, since we don't want administrators to be aware of the
 # setting.
 DB_VERSIONING_USER_MODEL = None
-
 
 # Invenio-JSONSchemas/Invenio-Records
 # ===================================
@@ -454,7 +446,6 @@ OAISERVER_RECORD_INDEX = 'rdmrecords-records'
 OAISERVER_GETRECORD_FETCHER = 'invenio_rdm_records.oai:getrecord_fetcher'
 """Record data fetcher for serialization."""
 
-
 # Flask-DebugToolbar
 # ==================
 # See https://flask-debugtoolbar.readthedocs.io/en/latest/#configuration
@@ -463,7 +454,6 @@ OAISERVER_GETRECORD_FETCHER = 'invenio_rdm_records.oai:getrecord_fetcher'
 
 DEBUG_TB_INTERCEPT_REDIRECTS = False
 """Switches off incept of redirects by Flask-DebugToolbar."""
-
 
 # Flask-Caching
 # =============

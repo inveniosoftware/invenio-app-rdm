@@ -8,7 +8,7 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 """Request views module."""
 
-from flask import g, render_template
+from flask import current_app, g, render_template
 from flask_login import login_required
 from invenio_rdm_records.proxies import current_rdm_records_service
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
@@ -20,8 +20,12 @@ from sqlalchemy.orm.exc import NoResultFound
 @login_required
 @pass_request
 def requests_detail(request=None, pid_value=None):
-    """Community detail page."""
+    """Requests detail page."""
     request_dict = request.to_dict()
+
+    default_query_config = dict(
+        size=current_app.config['REQUESTS_TIMELINE_PAGE_SIZE']
+    )
 
     # temporarily, until serializers and avatars implemented
     try:
@@ -70,7 +74,8 @@ def requests_detail(request=None, pid_value=None):
             is_preview=True,
             is_draft=is_draft,
             permissions=permissions,
-            files=[]
+            files=[],
+            default_query_config=default_query_config
         )
 
     except TemplateNotFound:
@@ -79,4 +84,5 @@ def requests_detail(request=None, pid_value=None):
             # TODO: implement and use request UI serializer
             request=request_dict,
             record=topic_record,
+            default_query_config=default_query_config
         )
