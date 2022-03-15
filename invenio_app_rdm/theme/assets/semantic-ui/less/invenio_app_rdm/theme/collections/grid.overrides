@@ -5,18 +5,20 @@
 /** Deposit search page */
 
 .row.deposit-result-header {
-    background-color: #d7d7d7;
+  background-color: #d7d7d7;
 
-    &.padding-tb-5 {
-        padding-top: 5px;
-        padding-bottom: 5px;
-    }
-    &.small {
-        font-size: small;
-    }
-    .padding-r-5.column {
-        padding-right: 5px;
-    }
+  &.padding-tb-5 {
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+
+  &.small {
+    font-size: small;
+  }
+
+  .padding-r-5.column {
+    padding-right: 5px;
+  }
 }
 
 .row.result-options {
@@ -73,5 +75,22 @@
 
   .citation-error-message {
     color: @errorTextColor;
+  }
+}
+
+#rdm-footer-element {
+
+  .ui.grid {
+    //margin: 0;
+
+    .row.footer-top {
+      background-color: @footerLightColor;
+      padding: 2rem 0 4rem;
+    }
+
+    .row.footer-bottom, .sub-footer {
+      background-color: @footerDarkColor;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, .2) inset;
+    }
   }
 }

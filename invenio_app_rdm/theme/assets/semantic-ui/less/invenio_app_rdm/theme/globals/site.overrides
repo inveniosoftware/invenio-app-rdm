@@ -2,8 +2,6 @@
          Invenio App RDM Site Overrides
 ***********************************************/
 
-@import "../../frontpage.less";
-@import "../../footer.less";
 @import "../../landing_page.less";
 @import "../../deposit.less";
 
@@ -92,6 +90,143 @@ pre.export.result {
 .borderless{
   border: 0 !important;
 }
+
+
+#lang-code {
+  min-width: 14em;
+}
+
+.invenio-page-body{
+ padding-bottom: @defaultPadding;
+}
+
+
+/* footer */
+
+#rdm-footer-element {
+  color: @footerTextDarkColor;
+  font-weight: 300;
+  margin-top: auto;
+  font-size: @fontSizeBase;
+  padding-top: 0;
+
+  a {
+    color: @footerTextLightColor;
+
+    &:hover, &:focus {
+      color: @footerTextDarkColor;
+    }
+  }
+
+  p{
+    margin-bottom: 0.5em;
+  }
+}
+
+.footer-top {
+      background-color: @footerLightColor;
+      padding: 2rem 0 4rem;
+    }
+
+.footer-bottom, .sub-footer {
+      background-color: @footerDarkColor;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, .2) inset;
+}
+
+.featured-list {
+    font-weight: 200;
+    font-size: 4em;
+    color: white;
+    background-color: @featuredListBackgroundColor;
+    box-sizing: border-box;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.standard-line-height {
+  line-height: normal;
+}
+
+/* frontpage */
+
+.section-content{
+  padding-top: 5em;
+  padding-bottom: 5em;
+  text-align: justify;
+  font-size: 1.2em;
+  font-weight: 300;
+  width: 100%;
+
+  h6 {
+  font-weight: 300;
+  font-size: 1.4em;
+  padding-bottom: 10px;
+  color: @primaryColor;
+}
+}
+
+.command-line a,
+.hp-blog-section a {
+  text-decoration: none;
+  color: @primaryDarkenColor;
+  font-weight: 600;
+}
+
+.command-line a:hover,
+.command-line a:focus,
+.hp-blog-section a:hover,
+.hp-blog-section a:focus {
+  color: @primaryColor;
+}
+
+.light-bg {
+  background-color: @highlightBackgroundColor;
+}
+
+.white-bg {
+  background-color: @white;
+}
+
+.section-title {
+  -webkit-font-smoothing: antialiased;
+  font-size: 2.5em;
+  width: 100%;
+  text-align: center;
+  display: block;
+  color: @primaryColor;
+  margin-bottom: 45px;
+  font-weight: 500;
+  line-height: normal;
+
+}
+
+.section-subtitle {
+  color: @primaryColor;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.brought-to-you-section img,
+.trusted-by-section img {
+  max-height: 150px;
+  max-width: 250px;
+  margin: 20px;
+  padding: 20px;
+}
+
+.collaborators-logo {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  display: block;
+  max-width: 100% !important;
+}
+
+
 //.record-elem .record-title {
 //  color: #0377cd;
 //}

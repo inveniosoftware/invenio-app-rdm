@@ -1,3 +1,9 @@
 /***********************************************
          Invenio App RDM Header Overrides
 ***********************************************/
+
+#rdm-footer-element {
+  .ui.header {
+    color: @footerTextLightColor;
+  }
+}

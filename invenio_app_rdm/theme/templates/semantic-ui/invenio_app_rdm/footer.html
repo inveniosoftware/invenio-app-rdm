@@ -8,57 +8,53 @@
   under the terms of the MIT License; see LICENSE file for more details.
 #}
 
-<footer class="footer-global">
-  <div class="ui grid">
-    {%- block footer_top %}
-    <div class="row footer-top">
+<footer id="rdm-footer-element">
+  {%- block footer_top %}
+    <div class="footer-top">
       <div class="ui container">
-        <div class="ui grid">
-          <div class="invenio-rdm-footer">
-            {%- block footer_top_left %}
-            <div class="ui row grid">
-              <div class="rdm-footer">
-                <h2 class="ui small header">{{_ ("About InvenioRDM")}}</h2>
-                {% trans invenio_rdm="http://inveniosoftware.org/products/rdm" %}
-                <p class="margin-small"><a href="{{invenio_rdm}}">Product page</a></p>
-                {% endtrans %}
-                {% trans invenio_rdm_features="https://inveniosoftware.org/products/rdm/#features" %}
-                <p class="margin-small"><a href="{{invenio_rdm_features}}">Features</a></p>
-                {% endtrans %}
-                {% trans invenio_rdm_roadmap="https://inveniosoftware.org/products/rdm/roadmap/" %}
-                <p class="margin-small"><a href="{{invenio_rdm_roadmap}}">Roadmap</a></p>
-                {% endtrans %}
-                {% trans invenio_rdm_demo_site="http://inveniordm.web.cern.ch" %}
-                <p class="margin-small"><a href="{{invenio_rdm_demo_site}}">Demo site</a></p>
-                {% endtrans %}
-              </div>
-              <div class="rdm-footer">
-                <h2 class="ui small header">{{_ ("Get involved")}}</h2>
-                {% trans invenio_rdm_gh="https://github.com/inveniosoftware/invenio-app-rdm" %}
-                <p class="margin-small"><a href="{{invenio_rdm_gh}}">GitHub</a></p>
-                {% endtrans %}
-                {% trans invenio_rdm_milestones="https://github.com/inveniosoftware/product-rdm" %}
-                <p class="margin-small"><a href="{{invenio_rdm_milestones}}">Project Milestones</a></p>
-                {% endtrans %}
-                {% trans invenio_rdm_docs_site="http://inveniordm.docs.cern.ch" %}
-                <p class="margin-small"><a href="{{invenio_rdm_docs_site}}">Documentation</a></p>
-                {% endtrans %}
-              </div>
-              <div class="rdm-footer">
-                <h2 class="ui small header">{{_ ("Community")}}</h2>
-                {% trans invenio_rdm_chatroom="https://discord.gg/8qatqBC" %}
-                <p class="margin-small"><a href="{{invenio_rdm_chatroom}}">Chatroom</a></p>
-                {% endtrans %}
-                {% trans invenio_rdm_talk="https://invenio-talk.web.cern.ch/c/projects/invenio-rdm" %}
-                <p class="margin-small"><a href="{{invenio_rdm_talk}}">Forum</a></p>
-                {% endtrans %}
-                {% trans invenio_events="https://inveniosoftware.org/events/" %}
-                <p class="margin-small"><a href="{{invenio_events}}">Events & training</a></p>
-                {% endtrans %}
-              </div>
+        {%- block footer_top_left %}
+          <div class="ui grid">
+            <div class="rdm-footer five wide tablet two wide computer column">
+              <h2 class="ui small header">{{_("About InvenioRDM")}}</h2>
+              {% trans invenio_rdm="http://inveniosoftware.org/products/rdm" %}
+              <p><a href="{{invenio_rdm}}">Product page</a></p>
+              {% endtrans %}
+              {% trans invenio_rdm_features="https://inveniosoftware.org/products/rdm/#features" %}
+              <p><a href="{{invenio_rdm_features}}">Features</a></p>
+              {% endtrans %}
+              {% trans invenio_rdm_roadmap="https://inveniosoftware.org/products/rdm/roadmap/" %}
+              <p><a href="{{invenio_rdm_roadmap}}">Roadmap</a></p>
+              {% endtrans %}
+              {% trans invenio_rdm_demo_site="http://inveniordm.web.cern.ch" %}
+              <p><a href="{{invenio_rdm_demo_site}}">Demo site</a></p>
+              {% endtrans %}
             </div>
-            {%- endblock footer_top_left %}
-          </div>
+            <div class="rdm-footer five wide tablet two wide computer column">
+              <h2 class="ui small header">{{_ ("Get involved")}}</h2>
+              {% trans invenio_rdm_gh="https://github.com/inveniosoftware/invenio-app-rdm" %}
+              <p><a href="{{invenio_rdm_gh}}">GitHub</a></p>
+              {% endtrans %}
+              {% trans invenio_rdm_milestones="https://github.com/inveniosoftware/product-rdm" %}
+              <p><a href="{{invenio_rdm_milestones}}">Project Milestones</a></p>
+              {% endtrans %}
+              {% trans invenio_rdm_docs_site="http://inveniordm.docs.cern.ch" %}
+              <p><a href="{{invenio_rdm_docs_site}}">Documentation</a></p>
+              {% endtrans %}
+            </div>
+            <div class="rdm-footer five wide tablet two wide computer column">
+              <h2 class="ui small header">{{_ ("Community")}}</h2>
+              {% trans invenio_rdm_chatroom="https://discord.gg/8qatqBC" %}
+              <p><a href="{{invenio_rdm_chatroom}}">Chatroom</a></p>
+              {% endtrans %}
+              {% trans invenio_rdm_talk="https://invenio-talk.web.cern.ch/c/projects/invenio-rdm" %}
+              <p><a href="{{invenio_rdm_talk}}">Forum</a></p>
+              {% endtrans %}
+              {% trans invenio_events="https://inveniosoftware.org/events/" %}
+              <p><a href="{{invenio_events}}">Events & training</a></p>
+              {% endtrans %}
+            </div>
+
+          {%- endblock footer_top_left %}
           <div class="six wide column right aligned">
             {%- block footer_top_right %}
             {%- endblock footer_top_right %}
@@ -68,7 +64,7 @@
     </div>
     {%- endblock footer_top %}
     {%- block footer_bottom %}
-    <div class="row footer-bottom">
+    <div class="footer-bottom sub-footer">
       <div class="ui container">
         <div class="ui grid">
           <div class="eight wide column left middle aligned">
@@ -89,5 +85,4 @@
       </div>
     </div>
     {%- endblock footer_bottom %}
-  </div>
 </footer>

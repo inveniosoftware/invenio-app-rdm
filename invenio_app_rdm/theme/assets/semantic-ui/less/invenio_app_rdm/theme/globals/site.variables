@@ -6,9 +6,16 @@
     Brand Colors
 --------------------*/
 
+
+@primaryColor: #0377cd;
 @secondaryColor: #fb8273;
-@numberedListBackgroundColor: #4899DB;
+@featuredListBackgroundColor: #4899DB;
+@primaryDarkenColor: #0267b2;
+
+// backwards compatibility
 @brandColor: @primaryColor;
+@brand-primary:@primaryColor;
+
 
 /*-------------------
       Site Colors
@@ -16,7 +23,7 @@
 
 @green: #048622;
 @signupColor: @green;
-@searchButtonColor: #fb8273;
+@searchButtonColor: @secondaryColor;
 
 @accessRightOpen: @green;
 @accessRightRestricted: @red;
@@ -30,6 +37,7 @@
 
 @footerLightColor: #0377cd;
 @footerDarkColor: #0047a8;
+@subFooterColor: @footerDarkColor;
 @footerTextLightColor: #ffffff;
 @footerTextDarkColor: #ffffff;
 
@@ -38,7 +46,7 @@
 @focusedFormMutedBorderColor: #2185d0;
 
 @communityHeaderColor: #ededed;
-
+@highlightBackgroundColor: rgba(173, 206, 224, 0.52);
 
 @navbarBackgroundImage: linear-gradient(
   12deg,
@@ -47,7 +55,6 @@
   rgba(251, 130, 115, 0.69)
 );
 @navbarBackgroundColor: rgba(3, 119, 205, 1);
-@brand-primary: #0377cd;
 @versionActive: #d9edf7;
 
 
@@ -87,8 +94,6 @@
 
 @75px : unit( (75 / @emSize), rem);
 @relative75px : unit( (75 / @emSize), em);
-@250px : unit( (250 / @emSize), rem);
-@relative250px : unit( (250 / @emSize), em);
 
 
 /*-------------------
