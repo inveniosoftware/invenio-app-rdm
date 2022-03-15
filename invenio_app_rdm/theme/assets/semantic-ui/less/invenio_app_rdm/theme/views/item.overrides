@@ -67,3 +67,9 @@
     }
   }
 }
+
+.ui.relaxed.divided.items {
+  .item.community-member-item {
+    padding: 1em 0em;
+  }
+} 
