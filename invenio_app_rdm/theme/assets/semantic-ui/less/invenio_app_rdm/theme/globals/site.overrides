@@ -433,3 +433,6 @@ dl.details-list {
   margin-left: auto;
 }
 
+.shadowless {
+  box-shadow: none !important;
+}
