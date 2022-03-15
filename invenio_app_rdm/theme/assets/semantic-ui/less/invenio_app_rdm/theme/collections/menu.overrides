@@ -14,3 +14,180 @@
     }
   }
 }
+
+#invenio-nav {
+
+  &:not(.active) {
+    height: @relative75px;
+  }
+
+  .item:hover:not(.button):not(.search-bar):not(.logo) {
+    background-color: rgba(255, 255, 255, 0.2);
+
+    a:hover {
+      background-color: transparent;
+      color: white;
+      text-decoration: none;
+    }
+  }
+
+  .item.logo {
+    padding-right: 15px;
+  }
+
+  .item.search-bar {
+    padding-right: 15px;
+  }
+
+  .item:first-of-type {
+    padding-left: 0;
+  }
+
+  .item:last-of-type {
+    padding-left: 0;
+  }
+
+  .right.item {
+    padding-right: 0;
+  }
+
+  .rdm-plus-menu {
+    padding-right: 15px;
+  }
+
+  .user-profile {
+    a.ui.button {
+      width: 13em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+#header-search-bar {
+  width: 100%;
+
+  .ui.input {
+    width: 90% !important;
+
+    & > input {
+      width: 90% !important;
+    }
+
+  }
+}
+
+@media all and (max-width: @largestTabletScreen) {
+  #invenio-nav {
+    height: unset;
+    .item.logo {
+      order: -1;
+      width: 100% !important;
+    }
+
+    .item.button {
+      order: 2;
+    }
+
+    .item.search-bar {
+      order: 3;
+      width: 100%;
+      .ui.input{
+        width: 99% !important;
+      }
+    }
+
+    .item{
+      order: 4;
+    }
+
+    .item {
+      align-self: center;
+      width: unset !important;
+    }
+
+    .toggle {
+      font-size: 20px;
+    }
+
+    &:not(.active){
+      .mobile-hidden{
+        display: none;
+      }
+    }
+  }
+}
+
+@media all and (min-width: @computerBreakpoint) {
+  #invenio-nav {
+    .toggle {
+      display: none;
+    }
+  }
+}
+
+/* menu icon (Hamburger icon) */
+.menu-icon {
+  cursor: pointer;
+  display: inline-block;
+  float: right;
+  padding: 28px 20px;
+  position: relative;
+  user-select: none;
+}
+
+.menu-icon .navicon {
+  background: #333;
+  display: block;
+  height: 2px;
+  position: relative;
+  transition: background 0.2s ease-out;
+  width: 18px;
+}
+
+.menu-icon .navicon:before,
+.menu-icon .navicon:after {
+  background: #333;
+  content: "";
+  display: block;
+  height: 100%;
+  position: absolute;
+  transition: all 0.2s ease-out;
+  width: 100%;
+}
+
+.menu-icon .navicon:before {
+  top: 5px;
+}
+
+.menu-icon .navicon:after {
+  top: -5px;
+}
+
+/* menu btn */
+
+.menu-btn {
+  display: none;
+}
+
+.menu-btn:checked ~ .menu {
+  max-height: 240px;
+}
+
+.menu-btn:checked ~ .menu-icon .navicon {
+  background: transparent;
+}
+
+.menu-btn:checked ~ .menu-icon .navicon:before {
+  transform: rotate(-45deg);
+}
+
+.menu-btn:checked ~ .menu-icon .navicon:after {
+  transform: rotate(45deg);
+}
+
+.menu-btn:checked ~ .menu-icon:not(.steps) .navicon:before,
+.menu-btn:checked ~ .menu-icon:not(.steps) .navicon:after {
+  top: 0;
+}

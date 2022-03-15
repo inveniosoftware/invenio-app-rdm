@@ -2,36 +2,21 @@
     Invenio App RDM Site Variables
 ***********************************************/
 
+/*-------------------
+    Brand Colors
+--------------------*/
+
 @secondaryColor: #fb8273;
 @numberedListBackgroundColor: #4899DB;
+@brandColor: @primaryColor;
 
-@fontSizeBase: 14px;
-
-@linkColor: #005b9e;
-@linkUnderline: none;
-@linkHoverColor: darken(saturate(@linkColor, 20), 15, relative);
-@linkHoverUnderline: underline;
-
-@focusedFormBorderColor: #2185d0;
-@focusedFormMutedBorderColor: #2185d0;
-
-@errorText: #9f3a38;
-
-@navbarBackgroundImage: linear-gradient(
-  12deg,
-  rgba(3, 119, 205, 1),
-  rgba(3, 119, 205, 1) 15%,
-  rgba(251, 130, 115, 0.69)
-);
-@navbarBackgroundColor: rgba(3, 119, 205, 1);
-@brand-primary: #0377cd;
-@versionActive: #d9edf7;
+/*-------------------
+      Site Colors
+--------------------*/
 
 @green: #048622;
 @signupColor: @green;
 @searchButtonColor: #fb8273;
-
-@coverPageDefaultMargin: 0;
 
 @accessRightOpen: @green;
 @accessRightRestricted: @red;
@@ -48,13 +33,65 @@
 @footerTextLightColor: #ffffff;
 @footerTextDarkColor: #ffffff;
 
-@font-size-base: 14px;
+@errorTextColor: #9f3a38;
+@focusedFormBorderColor: #2185d0;
+@focusedFormMutedBorderColor: #2185d0;
+
+@communityHeaderColor: #ededed;
+
+
+@navbarBackgroundImage: linear-gradient(
+  12deg,
+  rgba(3, 119, 205, 1),
+  rgba(3, 119, 205, 1) 15%,
+  rgba(251, 130, 115, 0.69)
+);
+@navbarBackgroundColor: rgba(3, 119, 205, 1);
+@brand-primary: #0377cd;
+@versionActive: #d9edf7;
+
+
+/*-------------------
+      Links
+--------------------*/
+
+@linkColor: #005b9e;
+@linkUnderline: none;
+@linkHoverColor: darken(saturate(@linkColor, 20), 15, relative);
+@linkHoverUnderline: underline;
+
+
+/*-------------------
+    Breakpoints
+--------------------*/
+@mobileBreakpoint            : 320px;
+@tabletBreakpoint            : 768px;
+@computerBreakpoint          : 1300px;
+@largeMonitorBreakpoint      : 1680px;
+@widescreenMonitorBreakpoint : 1920px;
+
+/*-------------------
+      Fonts
+--------------------*/
+
+
+@fontSizeBase: 14px;
 @font-size-small: 12px;
 @font-size-tiny: 10px;
 @font-size-massive: 36px;
 
-/* Main colors */
 
-@brandColor: @primaryColor;
-@communityHeaderColor: #ededed;
+/*-------------------
+     Em Sizes
+--------------------*/
 
+@75px : unit( (75 / @emSize), rem);
+@relative75px : unit( (75 / @emSize), em);
+@250px : unit( (250 / @emSize), rem);
+@relative250px : unit( (250 / @emSize), em);
+
+
+/*-------------------
+  negative spacing
+--------------------*/
+@coverPageDefaultMargin: 0;
