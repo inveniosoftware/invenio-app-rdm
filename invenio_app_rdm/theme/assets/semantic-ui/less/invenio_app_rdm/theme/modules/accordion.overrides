@@ -1,3 +1,7 @@
+.facet-subtitle {
+  padding-left: 20px !important;
+}
+
 .ui.accordion.rdm-facet-container {
   .content.facet-content.active {
     padding-left: 21px;

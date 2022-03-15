@@ -12,15 +12,15 @@
   <header class="theme header">
     <div class="outer-navbar">
       {%- block navbar %}
-        <nav id="invenio-nav" class="ui inverted menu borderless">
-          <div class="ui grid container">
-            <ul class="navbar-menu">
-              <li class="logo">
-                {%- block navbar_header %}
+      <div class="ui container">
+        <nav id="invenio-nav" class="ui inverted menu borderless stackable no-padding">
+            <div class="item logo no-padding">
+
+              {%- block navbar_header %}
                   {%- block brand %}
                     {%- if config.THEME_LOGO %}
                       <a class="logo-link" href="/">
-                        <img class="ui medium image rdm-logo"
+                        <img class="ui image rdm-logo"
                              src="{{ url_for('static', filename=config.THEME_LOGO) }}"
                              alt="{{ _(config.THEME_SITENAME) }}"/>
                       </a>
@@ -30,8 +30,13 @@
                   {%- endblock brand %}
                 {%- endblock navbar_header %}
 
-              </li>
-              <li class="navbar-item navbar-search-bar">
+              <div class="toggle">
+                <input class="menu-btn" type="checkbox" id="menu-btn"/>
+                <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
+              </div>
+            </div>
+
+            <div class="item no-padding search-bar mobile-hidden">
                 {%- if config.THEME_SEARCHBAR %}
                   {%- block navbar_search %}
                     <div id="header-search-bar">
@@ -45,15 +50,14 @@
                         </div>
                       </form>
                     </div>
-
                   {%- endblock navbar_search %}
                 {%- endif %}
+            </div>
+            {%- block navbar_nav %}
 
-              </li>
-              {%- block navbar_nav %}
                 {%- for item in current_menu.submenu('main').children|sort(attribute='order') if item.visible recursive %}
                   {%- if item.children %}
-                    <li class="navbar-item navbar-options">
+                    <div class="item mobile-hidden">
                       <div class="dropdown{{ ' active' if item.active else '' }}">
                         <a class="dropdown-toggle" data-toggle="dropdown" role="button"
                            aria-haspopup="true"
@@ -61,40 +65,36 @@
                           class="caret"></b></a>
                         <ul class="dropdown-menu">{{ loop(item.children|sort(attribute='order')) }}</ul>
                       </div>
-                    </li>
+                    </div>
                   {%- else %}
-                    <li
-                      class={{ "navbar-item navbar-options active" if item.active and loop.depth == 0 else "navbar-item" }}>
-                      <a href="{{ item.url }}">{{ item.text|safe }}</a></li>
+                    <div class="{{ 'item active' if item.active and loop.depth == 0 else 'item mobile-hidden' }}">
+                      <a href="{{ item.url }}">{{ item.text|safe }}</a>
+                    </div>
                   {%- endif %}
                 {%- endfor %}
+
                 {% for item in current_menu.submenu('actions').children|sort(attribute='order') if item.visible recursive %}
-                    <li class="navbar-item">
+                    <div class="item mobile-hidden">
                       <a href="{{ item.url }}">{{ item.text|safe }}</a>
-                    </li>
+                    </div>
                 {% endfor %}
+
                 {%- if config.ACCOUNTS and current_user.is_authenticated %}
                   {% for item in current_menu.submenu('notifications').children|sort(attribute='order') if item.visible recursive %}
-                      <li class="navbar-item">
+                      <div class="item mobile-hidden">
                         <a href="{{ item.url }}"><i class="fitted inbox icon inverted"></i></a>
-                      </li>
+                      </div>
                   {% endfor %}
                 {% endif %}
               {%- endblock navbar_nav %}
+
               {%- block navbar_right %}
-                <li class="navbar-item navbar-button">
+                <div class="right item button mobile-hidden">
                   {%- include config.THEME_HEADER_LOGIN_TEMPLATE %}
-                </li>
+                </div>
               {%- endblock navbar_right %}
 
-              <li class="toggle">
-                <input class="menu-btn" type="checkbox" id="menu-btn"/>
-                <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
-              </li>
-            </ul>
-          </div>
-        </nav>
-
+            </nav>
       {%- endblock navbar %}
     </div>
     {%- block flashmessages %}

@@ -72,6 +72,6 @@
   }
 
   .citation-error-message {
-    color: @errorText;
+    color: @errorTextColor;
   }
 }

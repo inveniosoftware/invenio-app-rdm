@@ -28,6 +28,7 @@ theme = WebpackThemeBundle(
                 './js/invenio_app_rdm/user_dashboard/index.js',
                 'invenio-app-rdm-requests':
                 './js/invenio_app_rdm_requests/menuTabInit.js',
+                'base-rdm': './js/invenio_app_rdm/theme.js',
             },
             dependencies={
                 '@babel/runtime': '^7.9.0',
@@ -44,7 +45,7 @@ theme = WebpackThemeBundle(
                 'react-dnd-html5-backend': '^11.1.0',
                 'react-dropzone': "^11.0.0",
                 "react-i18next": "^11.11.0",
-                'react-invenio-deposit': '^0.18.0',
+                'react-invenio-deposit': '^0.18.1',
                 'react-invenio-forms': '^0.10.0',
                 'yup': '^0.32.0',
             },
