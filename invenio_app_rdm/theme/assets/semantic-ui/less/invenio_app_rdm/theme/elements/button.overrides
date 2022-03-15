@@ -27,3 +27,15 @@
     cursor: default;
   }
 }
+
+.goto-button a {
+    text-decoration: none;
+    color:  white;
+    font-size: 1em;
+    font-weight: 600;
+}
+
+.goto-button a:hover,
+.goto-button a:active {
+    color: white;
+}

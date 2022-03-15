@@ -56,6 +56,7 @@ theme = WebpackThemeBundle(
                 # cookiecutter-invenio-rdm.
                 '../../theme.config$': 'less/theme.config',
                 '../../less/site': 'less/site',
+                '../../less': 'less',
                 'themes/rdm': 'less/invenio_app_rdm/theme',
                 '@less/invenio_app_rdm': 'less/invenio_app_rdm',
                 '@translations/invenio_app_rdm':
