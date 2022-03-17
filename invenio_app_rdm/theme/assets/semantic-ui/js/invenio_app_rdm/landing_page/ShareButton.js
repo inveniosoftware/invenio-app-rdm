@@ -11,7 +11,8 @@ import { Icon, Button, Popup } from "semantic-ui-react";
 import { ShareModal } from "./ShareModal";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 
-export const ShareButton = (props) => {
+export const ShareButton = ({disabled, recid}) => {
+
   const [modalOpen, setModalOpen] = useState(false);
   const handleOpen = () => setModalOpen(true);
   const handleClose = () => setModalOpen(false);
@@ -20,15 +21,17 @@ export const ShareButton = (props) => {
     <>
       <Popup
         content={i18next.t("You don't have permissions to share this record.")}
-        disabled={!props.disabled}
+        disabled={!disabled}
         trigger={
           <Button
             fluid
             onClick={handleOpen}
-            disabled={props.disabled}
+            disabled={disabled}
             primary
-            size="mini"
+            size="medium"
             aria-haspopup="dialog"
+            icon
+            labelPosition="left"
           >
             <Icon name="share square" />
             {i18next.t("Share")}
@@ -38,7 +41,7 @@ export const ShareButton = (props) => {
       <ShareModal
         open={modalOpen}
         handleClose={handleClose}
-        recid={props.recid}
+        recid={recid}
       />
     </>
   );

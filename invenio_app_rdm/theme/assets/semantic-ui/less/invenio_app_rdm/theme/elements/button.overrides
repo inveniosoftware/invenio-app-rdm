@@ -39,3 +39,8 @@
 .goto-button a:active {
     color: white;
 }
+
+.ui.button.affiliations-button {
+  min-width: max-content;
+  margin-right: 0 !important;
+}

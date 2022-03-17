@@ -78,18 +78,17 @@
                       <a href="{{ item.url }}">{{ item.text|safe }}</a>
                     </div>
                 {% endfor %}
-
-                {%- if config.ACCOUNTS and current_user.is_authenticated %}
-                  {% for item in current_menu.submenu('notifications').children|sort(attribute='order') if item.visible recursive %}
-                      <div class="item mobile-hidden">
-                        <a href="{{ item.url }}"><i class="fitted inbox icon inverted"></i></a>
-                      </div>
-                  {% endfor %}
-                {% endif %}
               {%- endblock navbar_nav %}
 
               {%- block navbar_right %}
-                <div class="right item button mobile-hidden">
+                <div class="right item button mobile-hidden right-navbar">
+                  {%- if config.ACCOUNTS and current_user.is_authenticated %}
+                  {% for item in current_menu.submenu('notifications').children|sort(attribute='order') if item.visible recursive %}
+                  <div class="item">
+                    <a href="{{ item.url }}"><i class="fitted inbox icon inverted"></i></a>
+                  </div>
+                  {% endfor %}
+                {% endif %}
                   {%- include config.THEME_HEADER_LOGIN_TEMPLATE %}
                 </div>
               {%- endblock navbar_right %}

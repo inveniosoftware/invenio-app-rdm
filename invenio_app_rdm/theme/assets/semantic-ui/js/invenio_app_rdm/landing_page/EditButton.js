@@ -10,30 +10,29 @@ import { Icon, Button } from "semantic-ui-react";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import { axiosWithconfig } from "../utils";
 
-export const EditButton = (props) => {
+export const EditButton = ({ recid, onError }) => {
   const [loading, setLoading] = useState(false);
-  const recid = props.recid;
-  const handleError = props.onError;
-  const handleClick = () => {
+
+  const handleClick = async () => {
     setLoading(true);
-    axiosWithconfig
-      .post(`/api/records/${recid}/draft`)
-      .then((response) => {
-        window.location = `/uploads/${recid}`;
-      })
-      .catch((error) => {
-        setLoading(false);
-        handleError(error.response.data.message);
-      });
+    try {
+      await axiosWithconfig.post(`/api/records/${recid}/draft`);
+      window.location = `/uploads/${recid}`;
+    } catch (error) {
+      setLoading(false);
+      onError(error.response.data.message);
+    }
   };
 
   return (
     <Button
       fluid
       color="orange"
-      size="mini"
+      size="medium"
       onClick={handleClick}
       loading={loading}
+      icon
+      labelPosition="left"
     >
       <Icon name="edit" />
       {i18next.t("Edit")}

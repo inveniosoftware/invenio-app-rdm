@@ -55,8 +55,9 @@
   rgba(251, 130, 115, 0.69)
 );
 @navbarBackgroundColor: rgba(3, 119, 205, 1);
-@versionActive: #d9edf7;
+@versionActiveColor: #d9edf7;
 
+@mutedAccordionHeaderColor: #f5f5f5;
 
 /*-------------------
       Links

@@ -26,6 +26,41 @@
 }
 
 .ui.grid {
+  .column.community-header{
+    align-items: center;
+    display: flex;
+  }
+  &.record-management{
+    .column:not(.row):not(:last-of-type):not(:first-of-type){
+      padding-top: 0.25em !important;
+      padding-bottom: 0.25em !important;
+    }
+  }
+  &.record-citation {
+    margin: 0 0 0 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 0.5rem 0;
+
+    label {
+      font-weight: 700;
+    }
+
+    .citation-style-selector {
+      display: inline-block;
+      width: 157px;
+
+      .ui.selection.dropdown {
+        min-width: 112px;
+        max-width: 112px;
+        margin-left: 10px;
+      }
+    }
+
+    .citation-error-message {
+      color: @errorTextColor;
+    }
+  }
   .row.file-upload-area-row {
     padding-top: 0;
     padding-bottom: 0;
@@ -52,34 +87,7 @@
   }
 }
 
-.ui.grid.record-citation {
-  margin: 0 0 0 0;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  padding: 0.5rem 0;
-
-  label {
-    font-weight: 700;
-  }
-
-  .citation-style-selector {
-    display: inline-block;
-    width: 157px;
-
-    .ui.selection.dropdown {
-      min-width: 112px;
-      max-width: 112px;
-      margin-left: 10px;
-    }
-  }
-
-  .citation-error-message {
-    color: @errorTextColor;
-  }
-}
-
 #rdm-footer-element {
-
   .ui.grid {
     //margin: 0;
 
@@ -94,3 +102,14 @@
     }
   }
 }
+
+.sixteen.wide.tablet.five.wide.computer.column.sidebar {
+  padding-top: 1rem;
+
+  @media screen and (max-width: @computerBreakpoint) {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+}
+

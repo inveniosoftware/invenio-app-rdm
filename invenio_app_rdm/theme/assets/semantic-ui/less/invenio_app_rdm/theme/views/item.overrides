@@ -72,4 +72,11 @@
   .item.community-member-item {
     padding: 1em 0em;
   }
-} 
+}
+
+
+/*Description*/
+.item div.description:not(.license-item-description) {
+  display: initial !important;
+}
+
