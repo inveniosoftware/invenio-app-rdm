@@ -82,7 +82,7 @@ export function DashboardResultView(props) {
         </Grid.Row>
         <Overridable id="DashboardResultView.resultFooter" {...props}>
           <Grid.Row verticalAlign="middle">
-            <Grid.Column width={4}></Grid.Column>
+            <Grid.Column width={4}/>
             <Grid.Column width={8} textAlign="center" floated="right">
               <Pagination
                 options={{
