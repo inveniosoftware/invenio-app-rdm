@@ -11,63 +11,54 @@ import _map from "lodash/map";
 import { SearchApp } from "@js/invenio_search_ui/components";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import _camelCase from "lodash/camelCase";
+import _lowerCase from "lodash/lowerCase";
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import { overrideStore } from "react-overridable";
-import { Container, Tab, Menu } from "semantic-ui-react";
+import { Container, Segment, Menu } from "semantic-ui-react";
 import { defaultComponents as CommunitiesDefaultComponents } from "./components/communities";
 import { defaultComponents as UploadsDefaultComponents } from "./components/uploads";
 import { defaultComponents as RequestsDefaultComponents } from "./components/requests";
 
 const rootElement = document.getElementById("invenio-user-dashboard");
-const getConfigFromDataAttribute = (element, attr) => {
+const getConfigFromDataAttribute = (_, attr) => {
   const dataValue = rootElement.dataset[attr];
   return JSON.parse(dataValue);
 };
 
-const TAB_PANES = [
-  {
-    configDataAttribute: "invenio-search-user-uploads-config",
-    label: i18next.t("Uploads"),
-    pathname: "uploads",
-  },
-  {
-    configDataAttribute: "invenio-search-user-communities-config",
-    label: i18next.t("Communities"),
-    pathname: "communities",
-  },
-  {
-    configDataAttribute: "invenio-search-user-requests-config",
-    label: i18next.t("Requests"),
-    pathname: "requests",
-  },
-];
-
 const replaceURLPathname = (newPathname) =>
   window.history.replaceState({}, "", `/me/${newPathname}`);
 
-class DashboardTabs extends Component {
+const MENU_ITEMS = {
+  uploads: {
+    configDataAttribute: "invenio-search-user-uploads-config",
+    label: i18next.t("Uploads"),
+  },
+  communities: {
+    configDataAttribute: "invenio-search-user-communities-config",
+    label: i18next.t("Communities"),
+  },
+  requests: {
+    configDataAttribute: "invenio-search-user-requests-config",
+    label: i18next.t("Requests"),
+  },
+};
+
+class DashboardMenu extends Component {
   constructor(props) {
     super(props);
-    const activeTabName = getConfigFromDataAttribute(
+    const activeMenuName = getConfigFromDataAttribute(
       rootElement,
-      _camelCase("active-tab-name")
-    );
-    const communitiesEnabled = getConfigFromDataAttribute(
-      rootElement,
-      _camelCase("communities-enabled")
+      _camelCase("active-menu-element")
     );
 
-    this.ACTIVE_TAB_PANES = communitiesEnabled ? TAB_PANES : [TAB_PANES[0]];
-
-    const routes = this.ACTIVE_TAB_PANES.map((pane) => pane.pathname);
+    const activeMenuElement = activeMenuName;
     this.state = {
-      defaultActiveTab: routes.indexOf(activeTabName),
+      currentActiveMenuElement: activeMenuElement,
     };
-
     // replace URL with the first pathname when not defined
-    if (window.location.pathname.endsWith("/" + activeTabName) === false) {
-      replaceURLPathname(activeTabName);
+    if (window.location.pathname.endsWith(`/${activeMenuName}`) === false) {
+      replaceURLPathname(activeMenuName);
     }
 
     for (const [componentId, component] of Object.entries({
@@ -78,78 +69,66 @@ class DashboardTabs extends Component {
       overrideStore.add(componentId, component);
     }
 
-    this.panes = this.ACTIVE_TAB_PANES.map((pane, index) => {
+    this.menuItems = {};
+    for (const [key, menuItem] of Object.entries(MENU_ITEMS)) {
       const { appId, ...config } = getConfigFromDataAttribute(
         rootElement,
-        _camelCase(pane.configDataAttribute)
+        _camelCase(menuItem.configDataAttribute)
       );
-      return {
-        menuItem: (
-          <Menu.Item key={index} className="selected-menu-tab">
-            {pane.label}
-          </Menu.Item>
-        ),
-        render: () => (
-          <Container>
-            <Tab.Pane>
-              <SearchApp appName={appId} key={appId} config={config} />
-            </Tab.Pane>
-          </Container>
-        ),
+      this.menuItems[key] = {
+        menuLabel: menuItem.label,
+        appId: appId,
+        config: config,
       };
-    });
+    }
   }
 
-  onTabChange = (e, data) => {
-    const activePane = this.ACTIVE_TAB_PANES[data.activeIndex];
-    replaceURLPathname(activePane.pathname);
+  handleItemClick = (e, { name }) => {
+    const activeMenuElement = _lowerCase(name);
+    this.setState({
+      currentActiveMenuElement: activeMenuElement,
+    });
+    replaceURLPathname(_lowerCase(name));
   };
 
-
-
   render() {
-    const Element = Tab;
-    // apply custom menu rendering
-    Element.prototype.renderMenu = renderMenuCustom;
+    const { currentActiveMenuElement } = this.state;
+    const items = this.menuItems;
+
+    const activeContent = items[currentActiveMenuElement];
+    const menus = Object.entries(items).map(([key, value]) => {
+      const { menuLabel } = value;
+      return (
+        <Menu.Item
+          name={menuLabel}
+          key={key}
+          active={key == currentActiveMenuElement}
+          onClick={this.handleItemClick}
+        />
+      );
+    });
 
     return (
-      <Container fluid>
-        <Element
-          id="dashboard-tab"
-          defaultActiveIndex={this.state.defaultActiveTab}
-          panes={this.panes}
-          menu={{ secondary: true, pointing: true }}
-          onTabChange={this.onTabChange}
-          renderActiveOnly={true}
-        />
+      <Container id="dashboard-menu" fluid>
+        <Container id="dashboard-menu-container" fluid>
+          <Container>
+            <Menu pointing secondary>
+              {menus}
+            </Menu>
+          </Container>
+        </Container>
+        <Container>
+          <Segment attached="bottom">
+            <SearchApp
+              appName={activeContent.appId}
+              key={activeContent.appId}
+              config={activeContent.config}
+            />
+          </Segment>
+        </Container>
       </Container>
     );
   }
 }
 
-ReactDOM.render(<DashboardTabs />, rootElement);
-
-// custom menu component for Tab rendering
-function renderMenuCustom() {
-    const { menu, panes, menuPosition } = this.props;
-    const { activeIndex } = this.state;
-
-    if (menu.tabular === true && menuPosition === "right") {
-      menu.tabular = "right";
-    }
-
-    return (
-      <Container fluid id="dashboard-tab-menu-container">
-        <Container>
-          {Menu.create(menu, {
-            autoGenerateKey: false,
-            overrideProps: {
-              items: _map(panes, "menuItem"),
-              onItemClick: this.handleItemClick,
-              activeIndex,
-            },
-          })}
-        </Container>
-      </Container>
-    );
-  }
+ReactDOM.render(<DashboardMenu />, rootElement);

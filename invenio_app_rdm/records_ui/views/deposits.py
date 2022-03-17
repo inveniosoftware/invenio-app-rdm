@@ -296,7 +296,6 @@ def dashboard(dashboard_name=None):
         "invenio_app_rdm/records/dashboard.html",
         dashboard_name=dashboard_name,
         searchbar_config=dict(searchUrl=get_search_url()),
-        communities_enabled=current_app.config["COMMUNITIES_ENABLED"],
         username=current_userprofile.full_name
     )
 
