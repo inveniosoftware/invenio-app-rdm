@@ -49,3 +49,22 @@
         margin: 3px;
     }
 }
+
+.ui.list{
+    .version.active {
+    background-color: @versionActiveColor;
+  }
+}
+
+.versions {
+  .ui.divided.list .item {
+    padding: 1rem;
+
+    .doi {
+      display: block;
+      margin-top: .5rem;
+      word-wrap: break-word;
+    }
+  }
+}
+

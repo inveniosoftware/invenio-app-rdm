@@ -68,7 +68,7 @@ $(".ui.accordion .title").on("keydown", function (event) {
   }
 });
 
-$(".ui.accordion.affiliations-accordion").accordion({
+$(".ui.accordion.affiliations").accordion({
   selector: {
     trigger: ".title .affiliations-button",
   },

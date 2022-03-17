@@ -10,3 +10,10 @@
         margin-bottom: 1em;
    }
 }
+
+.ui.message.file-box-message {
+  box-shadow: none !important;
+  border-bottom-right-radius: 10px !important;
+  border-bottom-left-radius: 10px !important;
+  margin: 0 !important;
+}

@@ -31,24 +31,26 @@
     }
   }
 
-  .item.logo {
-    padding-right: 15px;
-  }
-
-  .item.search-bar {
-    padding-right: 15px;
-  }
-
-  .item:first-of-type {
-    padding-left: 0;
-  }
-
-  .item:last-of-type {
-    padding-left: 0;
-  }
-
-  .right.item {
-    padding-right: 0;
+  .item {
+    &.logo {
+      padding-right: 15px;
+    }
+    &.search-bar {
+      padding-right: 15px;
+    }
+    &:first-of-type {
+       padding-left: 0;
+    }
+    &:last-of-type {
+       padding-left: 0;
+    }
+    &.right.right-navbar {
+       padding-right: 0;
+      .item {
+        padding-left: 15px;
+        margin-right: 15px;
+      }
+    }
   }
 
   .rdm-plus-menu {
@@ -81,30 +83,28 @@
 @media all and (max-width: @largestTabletScreen) {
   #invenio-nav {
     height: unset;
-    .item.logo {
-      order: -1;
-      width: 100% !important;
-    }
-
-    .item.button {
-      order: 2;
-    }
-
-    .item.search-bar {
-      order: 3;
-      width: 100%;
-      .ui.input{
-        width: 99% !important;
-      }
-    }
-
-    .item{
-      order: 4;
-    }
-
+    flex-direction: column;
     .item {
       align-self: center;
+      order: 4;
       width: unset !important;
+      &.logo {
+        order: -1;
+        width: 100% !important;
+      }
+      &.button {
+       order: 2;
+      }
+      &.search-bar {
+        order: 3;
+        width: 100%;
+        .ui.input{
+          width: 99% !important;
+        }
+      }
+      &.right{
+        margin-left: unset !important;
+      }
     }
 
     .toggle {
@@ -114,6 +114,30 @@
     &:not(.active){
       .mobile-hidden{
         display: none;
+      }
+    }
+  }
+}
+
+#additional-details {
+  .ui.top.attached.menu {
+
+    @media screen and (max-width: @computerBreakpoint) {
+      flex-wrap: wrap;
+    }
+
+    &:not(.tabular) {
+      @media screen and (max-width: @computerBreakpoint) {
+        border-bottom: 0;
+      }
+    }
+
+    .item {
+      flex: 1 0 auto;
+
+      @media screen and (max-width: @computerBreakpoint) {
+        border-bottom: 1px solid #D4D4D5;
+        font-weight: bold;
       }
     }
   }
@@ -191,3 +215,4 @@
 .menu-btn:checked ~ .menu-icon:not(.steps) .navicon:after {
   top: 0;
 }
+

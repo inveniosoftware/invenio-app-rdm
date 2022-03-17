@@ -14,13 +14,13 @@
   {% for scheme, identifier in creatibutor.person_or_org.identifiers|groupby("scheme") %}
     {%- if scheme == "orcid" %}
       {% set identifier_found.value = True %}
-      <a class="identifier-link" href="{{ identifier[0]['identifier']|pid_url('orcid') }}" aria-label="{{ creatibutor.person_or_org.name }}'s ORCID {{ _('profile') }}" title="{{ creatibutor.person_or_org.name }}'s ORCID {{ _('profile') }}">
-        <img class="inline-id-icon" src="{{ url_for('static', filename='images/orcid.svg') }}" alt="ORCID icon"/>
+      <a class="no-text-decoration" href="{{ identifier[0]['identifier']|pid_url('orcid') }}" aria-label="{{ creatibutor.person_or_org.name }}'s ORCID {{ _('profile') }}" title="{{ creatibutor.person_or_org.name }}'s ORCID {{ _('profile') }}">
+        <img class="ml-5 inline-id-icon" src="{{ url_for('static', filename='images/orcid.svg') }}" alt="ORCID icon"/>
       </a>
     {%- elif scheme == "ror" %}
       {% set identifier_found.value = True %}
       <a href="{{ identifier[0]['identifier']|pid_url('ror') }}" aria-label="{{ creatibutor.person_or_org.name }}'s ROR {{ _('profile') }}" title="{{ creatibutor.person_or_org.name }}'s ROR {{ _('profile') }}">
-        <img class="inline-id-icon" src="{{ url_for('static', filename='images/ror-icon.svg') }}" alt="ROR icon"/>
+        <img class="ml-5 inline-id-icon" src="{{ url_for('static', filename='images/ror-icon.svg') }}" alt="ROR icon"/>
       </a>
     {%- endif %}
   {% endfor %}
@@ -63,26 +63,24 @@
 
 
 {% macro affiliations_accordion(group, affiliations) %}
-<div class="ui sixteen wide tablet three wide computer column title">
-  <div class="dropdown button-wrapper">
-      <button class="ui affiliations-button button mini up" aria-controls="{{ group }}-affiliations">{{ _("Show affiliations") }}</button>
-      <button class="ui affiliations-button button mini down" aria-controls="{{ group }}-affiliations">{{ _("Hide affiliations") }}</button>
-  </div>
+<div class="ui sixteen wide tablet three wide computer column title right aligned">
+    <button class="ui affiliations-button button mini up" aria-controls="{{ group }}-affiliations">{{ _("Show affiliations") }}</button>
+    <button class="ui affiliations-button button mini down" aria-controls="{{ group }}-affiliations">{{ _("Hide affiliations") }}</button>
 </div>
 
-<section class="ui sixteen wide column content affiliations-list" id="{{ group }}-affiliations" aria-label="{{ _('Affiliations for') }} {{ group }}">
+<section class="ui sixteen wide column content text-muted" id="{{ group }}-affiliations" aria-label="{{ _('Affiliations for') }} {{ group }}">
   <dl>
   {% for affiliation in affiliations %}
       <dd>
           {{ affiliation[0] }}.
 
           {% if affiliation[2] %}
-          <a class="identifier-link"
+          <a class="no-text-decoration"
              href="https://ror.org/{{affiliation[2]}}"
              aria-label="{{ affiliation[1] }}'s ROR {{ _('profile') }}"
              title="{{ affiliation[1] }}'s ROR {{ _('profile') }}"
           >
-              <img class="inline-id-icon" src="{{ url_for('static', filename='images/ror-icon.svg') }}" alt="ROR icon"/>
+              <img class="ml-5 inline-id-icon" src="{{ url_for('static', filename='images/ror-icon.svg') }}" alt="ROR icon"/>
           </a>
           {%- endif %}
           {{affiliation[1]}}

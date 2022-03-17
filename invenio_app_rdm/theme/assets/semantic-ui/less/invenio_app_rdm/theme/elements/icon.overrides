@@ -7,3 +7,8 @@
   width: auto;
   vertical-align: text-bottom;
 }
+
+.ui.label > .icon {
+  //Overwrite default icon
+  margin: 0 0.25rem 0 0;
+}

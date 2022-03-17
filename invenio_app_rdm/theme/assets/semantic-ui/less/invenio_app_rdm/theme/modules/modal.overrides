@@ -1,7 +1,68 @@
 
-.ui.modal {
-  .header.deposit-modal-header {
-    padding-top: 10px;
-    padding-bottom: 10px;
+.share-modal {
+  .share-content {
+    display: flex;
+
+    .input {
+      flex-grow: 1;
+      padding-right: 0.5em;
+    }
   }
+
+  .share-description {
+    margin: 1em auto;
+  }
+}
+
+/* Styling for the community selection modal */
+
+#community-selection-modal {
+  margin: 0;
+
+  .community-list-results.content {
+    height: calc(55vh - 10em);
+  }
+
+  .community-list-result-item {
+    .header {
+      white-space: normal;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+  }
+
+  .ui.segment {
+    box-shadow: none;
+  }
+
+  .community-selected-item-container {
+    min-height: 6rem;
+    overflow-y: hidden;
+    margin: 0;
+
+    .header {
+      margin: 0;
+    }
+  }
+}
+
+
+@media screen and (max-width: 850px) {
+  #community-selection-modal {
+
+    .community-selected-item-container {
+      overflow-y: auto;
+    }
+
+    .community-list-result-item {
+      margin: 0;
+      flex-direction: row;
+    }
+
+    .community-list-result-item {
+      overflow-y: auto;
+    }
+
+  }
+
 }

@@ -132,7 +132,7 @@ export class RDMDepositForm extends Component {
   sidebarRef = createRef();
 
   accordionStyle = {
-    header: { className: "inverted brand", style: { cursor: "pointer" } },
+    header: { className: "deposit-form-accordion inverted", style: { cursor: "pointer" } },
   };
 
   render() {
@@ -155,7 +155,7 @@ export class RDMDepositForm extends Component {
         {communitiesEnabled && (
           <CommunityHeader imagePlaceholderLink="/static/images/square-placeholder.png" />
         )}
-        <Container style={{ marginTop: "10px" }}>
+        <Container id="rdm-deposit-form" className="rel-mt-1">
           <DepositFormTitle />
           <Grid>
             <Grid.Row>
@@ -167,15 +167,9 @@ export class RDMDepositForm extends Component {
                   ui={this.accordionStyle}
                 >
                   {this.noFiles && record.is_published && (
-                    <p
-                      style={{
-                        textAlign: "center",
-                        opacity: "0.5",
-                        cursor: "default !important",
-                      }}
-                    >
+                    <div className="text-align-center">
                       <em>{i18next.t("The record has no files.")}</em>
-                    </p>
+                    </div>
                   )}
                   <FileUploader
                     isDraftRecord={!record.is_published}

@@ -57,15 +57,17 @@
       {%- set logoLink = "/static/images/square-placeholder.png" %}
       {%- set communityTitle = community %}
     {% endif %}
-      <div class="ui fluid container record-community-header">
+      <div class="ui fluid container community-header-outer">
         <div class="ui fluid container">
           <div class="ui container community-header">
-            <img
-              class="community-logo-header"
-              src="{{logoLink}}"
-              onerror="this.onerror=null;this.src='/static/images/square-placeholder.png';" />
-            <div class="community-header-info">
-              {{communityTitle}}
+            <div class="community-header-element">
+              <img
+                class="community-logo-header"
+                src="{{logoLink}}"
+                onerror="this.onerror=null;this.src='/static/images/square-placeholder.png';" />
+            </div>
+            <div class="community-header-element">
+                {{ communityTitle }}
             </div>
           </div>
         </div>
@@ -123,7 +125,8 @@
                   <nav class="back-navigation" aria-label="{{ _('Back-navigation') }}">
                     {%- set back_page = url_for('invenio_app_rdm_records.deposit_edit', pid_value=record.id, preview=1) -%}
                     {%- set back_btn_label = _('Back to edit') -%}
-                    <a class="ui button small compact" href="{{ back_page }}"><i class="ui icon angle left"></i> {{ back_btn_label }}</a>
+                    <a class="ui button labeled icon small compact" href="{{ back_page }}">
+                      <i class="ui icon angle left"></i> {{ back_btn_label }}</a>
                   </nav>
                 {% endif %}
 
@@ -156,6 +159,8 @@
                   </div>
                 </div>
               </section>
+            <div class="ui divider hidden"></div>
+
             {%- endblock record_header -%}
 
             {# Title #}
@@ -183,7 +188,7 @@
             {# Files #}
             {%- block record_files -%}
               {%- if record.files.enabled -%}
-                <section id="record-files" class="section-spacing" aria-label="{{ _('Files') }}">
+                <section id="record-files" class="rel-mt-2 aria-label="{{ _('Files') }}">
                   {%- if permissions.can_read_files -%}
                     {# record has files AND user can see files #}
                     <h2 id="files-heading">{{ _('Files') }}</h2>
@@ -196,13 +201,13 @@
                     {{ file_list_box(files, pid, is_preview, record) }}
                   {% else %}
                     {# record has files BUT user cannot see files #}
-                    <div class="panel-spacing">
-                      <div class="ui accordion panel {{ record.ui.access_status.id }}" id="preview" href="#collapsablePreview">
-                        <div class="active title panel-heading {{ record.ui.access_status.id }}">
+                    <div class="pt-0 pb-20">
+                      <div class="ui accordion panel mb-10 {{ record.ui.access_status.id }}" id="preview" href="#collapsablePreview">
+                        <div class="active title panel-heading pt-10 {{ record.ui.access_status.id }}">
                           {{ _("Files") }}
                           <i class="angle down icon"></i>
                         </div>
-                        <div id="collapsablePreview" class="active content">
+                        <div id="collapsablePreview" class="active content rm-pt">
                           <div class="ui {{ record.ui.access_status.message_class }} message file-box-message">
                             <i class="ui {{ record.ui.access_status.icon }} icon"></i><b>{{ record.ui.access_status.title_l10n }}</b>
                             <p>{{ record.ui.access_status.description_l10n }}</p>
@@ -222,7 +227,7 @@
 
             {# Additional details #}
             {%- block record_details -%}
-              <section id="additional-details" class="section-spacing" aria-label="{{ _('Additional record details') }}">
+              <section id="additional-details" class="rel-mt-2" aria-label="{{ _('Additional record details') }}">
                 {%- include "invenio_app_rdm/records/details/details.html" %}
               </section>
             {%- endblock record_details -%}
@@ -272,9 +277,9 @@
           {# Jump up button #}
           {%- block jump -%}
             <div class="ui grid">
-              <div class="centered row" id="jump-btn">
+              <div class="centered row rel-mt-1" id="jump-btn">
                   <a style="cursor: pointer;">
-                    <button class="ui button" aria-label="{{ _('Jump to top of page') }}">
+                    <button class="ui button labeled icon" aria-label="{{ _('Jump to top of page') }}">
                       <i class="arrow alternate circle up outline icon"></i>
                       {{ _("Jump up") }}
                     </button>
