@@ -2,7 +2,7 @@
          Invenio App RDM Segment Overrides
 ***********************************************/
 
-#dashboard-tab{
+#dashboard-menu{
   .ui.attached.segment{
     border: 0;
     padding-right: 0;

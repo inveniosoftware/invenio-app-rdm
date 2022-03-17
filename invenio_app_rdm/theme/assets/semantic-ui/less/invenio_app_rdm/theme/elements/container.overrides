@@ -9,7 +9,7 @@
     padding-top: @defaultPadding;
     background-color: @highlightBackgroundColor;
   }
-  &#dashboard-tab-menu-container {
+  &#dashboard-menu-container {
     background-color: @highlightBackgroundColor;
   }
 }

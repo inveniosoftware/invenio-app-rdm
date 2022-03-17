@@ -41,7 +41,6 @@
   data-invenio-search-user-uploads-config='{{ search_app_rdm_user_uploads_config(app_id="user-uploads-search") | tojson }}'
   data-invenio-search-user-communities-config='{{ search_app_rdm_user_communities_config(app_id="user-communities-search") | tojson }}'
   data-invenio-search-user-requests-config='{{ search_app_rdm_user_requests_config(app_id="user-requests-search") | tojson }}'
-  data-active-tab-name='{{dashboard_name | tojson }}'
-  data-communities-enabled ='{{communities_enabled | tojson}}'>
+  data-active-menu-element='{{dashboard_name | tojson }}'>
 </div>
 {%- endblock page_body %}

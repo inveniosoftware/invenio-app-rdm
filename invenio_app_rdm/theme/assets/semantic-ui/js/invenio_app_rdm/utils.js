@@ -91,17 +91,17 @@ export function SearchItemCreators({ creators }) {
     let creatorName = _get(creator, "person_or_org.name", "No name");
     let link = (
       <a
-        class="creatibutor-link"
+        className="creatibutor-link"
         href={`/search?q=metadata.creators.person_or_org.name:"${creatorName}"`}
         title={`${creatorName}: ${i18next.t("Search")}`}
       >
-        <span class="creatibutor-name">{creatorName}</span>
+        <span className="creatibutor-name">{creatorName}</span>
       </a>
     );
     return link;
   }
   return creators.map((creator, index) => (
-    <span class="creatibutor-wrap" key={index}>
+    <span className="creatibutor-wrap" key={index}>
       {getLink(creator)}
       {getIcon(creator)}
       {index < creators.length - 1 && ";"}
