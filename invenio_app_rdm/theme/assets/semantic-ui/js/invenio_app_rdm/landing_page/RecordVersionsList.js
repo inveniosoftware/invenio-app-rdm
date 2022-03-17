@@ -9,7 +9,14 @@
 import axios from "axios";
 import _get from "lodash/get";
 import React, { useEffect, useState } from "react";
-import { Grid, Icon, Message, Placeholder, List } from "semantic-ui-react";
+import {
+  Grid,
+  Icon,
+  Message,
+  Placeholder,
+  List,
+  Divider,
+} from 'semantic-ui-react';
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 
 const deserializeRecord = (record) => ({
@@ -28,7 +35,7 @@ const RecordVersionItem = ({ item, activeVersion }) => {
   return (
       <List.Item
         key={item.id}
-        {...(activeVersion && { className: "version-active" })}
+        {...(activeVersion && { className: "version active" })}
       >
         <List.Content floated="left">
           { activeVersion ?
@@ -38,14 +45,14 @@ const RecordVersionItem = ({ item, activeVersion }) => {
           }
 
           {doi && (
-            <small className={'doi' + (activeVersion ? ' text-muted-on-bg' : ' text-muted')}>
+            <small className={'doi' + (activeVersion ? ' .text-muted-darken' : ' text-muted')}>
               {doi}
             </small>
           )}
         </List.Content>
 
         <List.Content floated="right">
-          <small className={activeVersion ? 'text-muted-on-bg' : 'text-muted'}>
+          <small className={activeVersion ? '.text-muted-darken' : 'text-muted'}>
             {item.publication_date}
           </small>
         </List.Content>
@@ -70,9 +77,9 @@ const PlaceholderLoader = ({ size = NUMBER_OF_VERSIONS }) => {
 
 const PreviewMessage = () => {
   return (
-    <Grid className="preview-message">
+    <Grid className="container">
       <Grid.Row>
-        <Grid.Column className="versions-preview-info">
+        <Grid.Column className="p-0">
           <Message info>
             <Message.Header>
               <Icon name="eye" />
@@ -128,14 +135,12 @@ export const RecordVersionsList = (props) => {
       ))}
       {!currentRecordInResults && (
         <>
-          <Grid padded className="dots">
-            <Grid.Row centered>...</Grid.Row>
-          </Grid>
+          <Divider horizontal>...</Divider>
           <RecordVersionItem item={record} activeVersion={true} />
         </>
       )}
       { recordVersions.total > 1 &&
-        <Grid className="all-versions-link">
+        <Grid className="mt-0">
           <Grid.Row centered>
             <a
               href={`/search?q=parent.id:${record.parent_id}&sort=version&f=allversions:true`}

@@ -1,0 +1,16 @@
+/***********************************************
+         Invenio App RDM Table Overrides
+***********************************************/
+
+.ui.table.files-table {
+  border: 0;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  table-layout: fixed;
+  width: 100%;
+
+  th.hidden {
+    color: transparent;
+    user-select: none;
+  }
+}

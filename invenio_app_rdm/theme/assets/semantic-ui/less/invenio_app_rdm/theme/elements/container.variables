@@ -3,4 +3,4 @@
 ***********************************************/
 
 @highlightBackgroundColor: #f8f8f9;
-
+@celledPadding: 1em;

@@ -13,3 +13,28 @@
     background-color: @highlightBackgroundColor;
   }
 }
+
+.ui.container.community-header-outer {
+  background-color: @communityHeaderColor;
+  padding-top: @celledPadding;
+  padding-bottom: @celledPadding;
+  height: 5em;
+}
+
+.ui.container.community-header{
+  height: 3em;
+  align-items: center;
+  display: flex;
+
+
+  .community-header-element{
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    &:first-of-type {
+      padding-left: 0;
+    }
+    &:last-of-type {
+      padding-right: 0;
+    }
+  }
+}

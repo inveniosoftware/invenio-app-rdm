@@ -2,11 +2,11 @@
          Invenio App RDM Site Overrides
 ***********************************************/
 
-@import "../../landing_page.less";
-@import "../../deposit.less";
+@import "../../landing_page/creatibutors.less";
+@import "../../landing_page/licenses.less";
 
 button:focus-visible, a:focus-visible {
-    outline: 3px solid @focusedFormBorderColor !important;
+  outline: 3px solid @focusedFormBorderColor !important;
 }
 
 html,
@@ -60,7 +60,7 @@ body {
 }
 
 .no-padding-t {
-    padding-top: 0 !important;
+  padding-top: 0 !important;
 }
 
 
@@ -70,24 +70,24 @@ body {
 
 // Export page
 pre.export.result {
-    display:block;
-    white-space: pre-wrap;
-    padding:9.5px;
-    margin:0 0 10px;
-    font-size:13px;
-    line-height:1.42857;
-    word-break:break-all;
-    word-wrap:break-word;
-    background-color:#f5f5f5;
-    border:1px solid #ccc;
-    border-radius:4px;
+  display: block;
+  white-space: pre-wrap;
+  padding: 9.5px;
+  margin: 0 0 10px;
+  font-size: 13px;
+  line-height: 1.42857;
+  word-break: break-all;
+  word-wrap: break-word;
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
-.rdm-logo{
+.rdm-logo {
   width: 250px;
 }
 
-.borderless{
+.borderless {
   border: 0 !important;
 }
 
@@ -96,8 +96,8 @@ pre.export.result {
   min-width: 14em;
 }
 
-.invenio-page-body{
- padding-bottom: @defaultPadding;
+.invenio-page-body {
+  padding-bottom: @defaultPadding;
 }
 
 
@@ -118,34 +118,34 @@ pre.export.result {
     }
   }
 
-  p{
+  p {
     margin-bottom: 0.5em;
   }
 }
 
 .footer-top {
-      background-color: @footerLightColor;
-      padding: 2rem 0 4rem;
-    }
+  background-color: @footerLightColor;
+  padding: 2rem 0 4rem;
+}
 
 .footer-bottom, .sub-footer {
-      background-color: @footerDarkColor;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, .2) inset;
+  background-color: @footerDarkColor;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, .2) inset;
 }
 
 .featured-list {
-    font-weight: 200;
-    font-size: 4em;
-    color: white;
-    background-color: @featuredListBackgroundColor;
-    box-sizing: border-box;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  font-weight: 200;
+  font-size: 4em;
+  color: white;
+  background-color: @featuredListBackgroundColor;
+  box-sizing: border-box;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .standard-line-height {
@@ -154,7 +154,7 @@ pre.export.result {
 
 /* frontpage */
 
-.section-content{
+.section-content {
   padding-top: 5em;
   padding-bottom: 5em;
   text-align: justify;
@@ -163,11 +163,11 @@ pre.export.result {
   width: 100%;
 
   h6 {
-  font-weight: 300;
-  font-size: 1.4em;
-  padding-bottom: 10px;
-  color: @primaryColor;
-}
+    font-weight: 300;
+    font-size: 1.4em;
+    padding-bottom: 10px;
+    color: @primaryColor;
+  }
 }
 
 .command-line a,
@@ -227,14 +227,181 @@ pre.export.result {
 }
 
 
-//.record-elem .record-title {
-//  color: #0377cd;
-//}
-//
-//.record-elem .record-description {
-//  color: #000000;
-//}
-//
-//.panel-free-title {
-//  color: #0377cd;
-//}
+/* record details */
+
+.main-record-content {
+  nav.back-navigation {
+    padding-bottom: 1rem;
+  }
+}
+
+.font-small {
+  font-size: @font-size-small
+}
+
+.font-tiny {
+  font-size: @font-size-tiny
+}
+
+a.no-text-decoration:hover {
+  text-decoration: none;
+}
+
+// Preview
+.iiif-preview-img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.preview-iframe {
+  display: block;
+  border-style: none;
+}
+
+dd {
+  // Start left aligned
+  margin-inline-start: 0;
+}
+
+dl.details-list {
+  margin: 1.5rem 0;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  dt.ui.tiny.header {
+    margin-bottom: 0.5rem;
+  }
+
+  dd {
+    &:not(:last-child) {
+      margin-bottom: 0.5rem;
+    }
+
+    div:not(:last-child) {
+      margin-bottom: 0.25rem;
+    }
+  }
+
+  &.subjects dd {
+    display: inline-block;
+    margin-bottom: .4rem;
+    margin-right: .1rem;
+
+    &:last-child {
+      margin-bottom: 0;
+      margin-right: 0;
+    }
+  }
+}
+
+#upload-info {
+  width: 100%;
+  position: relative;
+
+  &::before {
+    content: '';
+    display: block;
+    width: 100%;
+    border-bottom: 1px solid @borderColor;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    z-index: -1;
+
+    @media screen and (max-width: @mobileBreakpoint) {
+      display: none;
+    }
+  }
+
+  dl {
+    width: max-content;
+    max-width: 100%;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 0 1.5rem;
+
+    @media screen and (max-width: @mobileBreakpoint) {
+      margin: -1.5rem;
+    }
+
+    div.table-row {
+      display: inline-block;
+      width: max-content;
+
+      @media screen and (max-width: @mobileBreakpoint) {
+        display: block;
+      }
+
+      &:first-child {
+        padding-right: 1.5rem;
+      }
+
+      dt, dd {
+        display: inline-block;
+        color: #777;
+      }
+
+      dt {
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+.language {
+  font-size: @fontSizeBase;
+  font-weight: normal;
+}
+
+
+.truncated {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+.creatibutor-link {
+  color: @mutedTextColor;
+
+  &:hover {
+    text-decoration: none;
+
+    span {
+      color: @mutedTextColor;
+      text-decoration: underline;
+    }
+
+    sup {
+      color: @mutedTextColor;
+    }
+  }
+
+  sup {
+    color: @mutedTextColor;
+    padding-left: .1rem;
+  }
+}
+
+
+.text-align-center {
+  text-align: center;
+}
+
+.flex {
+  display: flex;
+}
+
+
+.align-self-center {
+  align-self: center;
+}
+
+.align-self-end {
+  align-self: end;
+}

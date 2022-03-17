@@ -38,3 +38,98 @@
   }
 
 }
+
+/* use these classes to change accordion title when up/down */
+div.affiliations.accordion div.title.active span.up,
+div.affiliations.accordion div.title.active button.up {
+  display: none;
+}
+
+div.affiliations.accordion div.title.active span.down,
+div.affiliations.accordion div.title.active button.down {
+  display: inline-grid;
+}
+
+div.affiliations.accordion div.title span.up,
+div.affiliations.accordion div.title button.up {
+  display: inline-grid;
+}
+
+div.affiliations.accordion div.title span.down,
+div.affiliations.accordion div.title button.down {
+  display: none;
+}
+
+
+.ui.accordion {
+
+  &.creatibutors {
+    .title {
+      cursor: default;
+    }
+  }
+
+  &.panel {
+    border-radius: 10px;
+    border: 1px solid @borderColor;
+
+    &.restricted {
+      border-color: @restricted-components-border-color !important;
+    }
+
+    &.embargoed {
+      border-color: @embargoed-components-border-color !important;
+    }
+  }
+
+  .panel-heading {
+    border-radius: 10px;
+    background-color: @mutedAccordionHeaderColor;
+    color: @primaryColor !important;
+
+    &.active {
+      border-radius: 10px 10px 0 0;
+      border-bottom: 1px solid @borderColor;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    i {
+      &.angle {
+        float: right !important;
+      }
+    }
+
+    &.restricted {
+      background-color: @restricted-components-background-color;
+    }
+
+    &.embargoed {
+      background-color: @embargoed-components-background-color;
+    }
+  }
+
+  &.affiliations{
+  padding-bottom: 1.5rem;
+
+  &:last-child {
+    padding-bottom: 3rem;
+  }
+
+  .title {
+    cursor: default;
+  }
+
+  .content {
+    dl {
+      font-size: @font-size-small;
+      background-color: #F9FAFB;
+      padding: 1rem;
+      margin: 1.2rem 0 0 0;
+    }
+  }
+}
+
+}

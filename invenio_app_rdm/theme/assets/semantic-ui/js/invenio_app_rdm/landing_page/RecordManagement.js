@@ -7,16 +7,14 @@
 // under the terms of the MIT License; see LICENSE file for more details.
 
 import React, { useState } from "react";
-import { Grid, Message, Divider } from "semantic-ui-react";
+import { Grid, Message } from "semantic-ui-react";
 
 import { EditButton } from "./EditButton";
 import { ShareButton } from "./ShareButton";
 import { NewVersionButton } from "react-invenio-deposit";
 
-export const RecordManagement = (props) => {
-  const record = props.record;
-  const recid = record.id;
-  const permissions = props.permissions;
+export const RecordManagement = ({ record, permissions }) => {
+  const { id: recid } = record;
   const [error, setError] = useState("");
   const handleError = (errorMessage) => {
     console.log(errorMessage);
@@ -24,34 +22,31 @@ export const RecordManagement = (props) => {
   };
 
   return (
-    <Grid relaxed>
+    <Grid columns={1} className="record-management">
       <Grid.Column>
-        <Grid.Row className="record-management-row">
-          <EditButton recid={recid} onError={handleError} />
-        </Grid.Row>
-        <Grid.Row className="record-management-row">
-          <NewVersionButton
-            style={{ display: "block" }}
-            fluid
-            record={record}
-            onError={handleError}
-            disabled={!permissions.can_new_version}
-          />
-        </Grid.Row>
-        <Grid.Row className="record-management-row">
-          {permissions.can_manage && (
-            <ShareButton
-              disabled={!permissions.can_update_draft}
-              recid={recid}
-            />
-          )}
-        </Grid.Row>
-        {error && (
-          <Grid.Row className="record-management-row">
-            <Message negative>{error}</Message>
-          </Grid.Row>
+        <EditButton recid={recid} onError={handleError} />
+      </Grid.Column>
+      <Grid.Column>
+        <NewVersionButton
+          fluid
+          size="medium"
+          record={record}
+          onError={handleError}
+          disabled={!permissions.can_new_version}
+        />
+      </Grid.Column>
+      <Grid.Column>
+        {permissions.can_manage && (
+          <ShareButton disabled={!permissions.can_update_draft} recid={recid} />
         )}
       </Grid.Column>
+      {error && (
+        <Grid.Row className="record-management">
+          <Grid.Column>
+            <Message negative>{error}</Message>
+          </Grid.Column>
+        </Grid.Row>
+      )}
     </Grid>
   );
 };

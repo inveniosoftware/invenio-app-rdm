@@ -53,7 +53,7 @@ export function SearchItemCreators({ creators }) {
       case "orcid":
         icon = (
           <a
-            className="identifier-link"
+            className="no-text-decoration"
             href={"https://orcid.org/" + `${firstId.identifier}`}
             aria-label={`${creatorName}: ${i18next.t("ORCID profile")}`}
             title={`${creatorName}: ${i18next.t("ORCID profile")}`}

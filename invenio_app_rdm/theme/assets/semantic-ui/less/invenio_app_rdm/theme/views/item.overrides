@@ -67,3 +67,10 @@
     }
   }
 }
+
+
+/*Description*/
+.item div.description:not(.license-item-description) {
+  display: initial !important;
+}
+
