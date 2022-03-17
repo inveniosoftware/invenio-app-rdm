@@ -21,6 +21,7 @@ import {
   Message,
   Segment,
   Header,
+  Accordion,
 } from "semantic-ui-react";
 import { BucketAggregation, Toggle, withState } from "react-searchkit";
 import _get from "lodash/get";
@@ -75,7 +76,7 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
           </Label>
           <Label size="tiny" className={`access-status ${access_status_id}`}>
             {access_status_icon && (
-              <i className={`icon ${access_status_icon}`}/>
+              <i className={`icon ${access_status_icon}`} />
             )}
             {access_status}
           </Label>
@@ -135,42 +136,104 @@ export const RDMRecordSearchBarContainer = () => {
   );
 };
 
-export const RDMRecordSearchBarElement = withState(({
-  placeholder: passedPlaceholder,
-  queryString,
-  onInputChange,
-  executeSearch,
-  updateQueryState
-}) => {
-  const placeholder = passedPlaceholder || i18next.t("Search");
-  const onBtnSearchClick = () => {
-    updateQueryState({ filters: [] });
-    executeSearch();
-  };
-  const onKeyPress = (event) => {
-    if (event.key === "Enter") {
+export const RDMRecordSearchBarElement = withState(
+  ({
+    placeholder: passedPlaceholder,
+    queryString,
+    onInputChange,
+    executeSearch,
+    updateQueryState,
+  }) => {
+    const placeholder = passedPlaceholder || i18next.t("Search");
+    const onBtnSearchClick = () => {
       updateQueryState({ filters: [] });
       executeSearch();
-    }
-  };
+    };
+    const onKeyPress = (event) => {
+      if (event.key === "Enter") {
+        updateQueryState({ filters: [] });
+        executeSearch();
+      }
+    };
+    return (
+      <Input
+        action={{
+          icon: "search",
+          onClick: onBtnSearchClick,
+          className: "search",
+          "aria-label": "Search",
+        }}
+        fluid
+        placeholder={placeholder}
+        onChange={(event, { value }) => {
+          onInputChange(value);
+        }}
+        value={queryString}
+        onKeyPress={onKeyPress}
+      />
+    );
+  }
+);
+
+export const RDMParentFacetValue = ({
+  bucket,
+  keyField,
+  isSelected,
+  childAggCmps,
+  onFilterClicked,
+}) => {
+  const [isActive, setIsActive] = useState(false);
+
   return (
-    <Input
-      action={{
-        icon: "search",
-        onClick: onBtnSearchClick,
-        className: "search",
-        "aria-label": "Search",
-      }}
-      fluid
-      placeholder={placeholder}
-      onChange={(event, { value }) => {
-        onInputChange(value);
-      }}
-      value={queryString}
-      onKeyPress={onKeyPress}
-    />
+    <Accordion className="rdm-multi-facet">
+      <Accordion.Title onClick={() => {}} key={`panel-${bucket.label}`}
+      active={isActive}
+      className="facet-wrapper parent"
+      >
+        <List.Content className="facet-wrapper">
+        <Icon name="angle right" onClick={() => setIsActive(!isActive)}/>
+        <Checkbox
+            label={bucket.label || keyField}
+            id={`${keyField}-facet-checkbox`}
+            aria-describedby={`${keyField}-count`}
+            value={keyField}
+            checked={isSelected}
+            onClick={() => onFilterClicked(keyField)}
+          />
+          <Label circular id={`${keyField}-count`} className="facet-count">
+            {bucket.doc_count}
+          </Label>
+        </List.Content>
+      </Accordion.Title>
+      <Accordion.Content active={isActive}>{childAggCmps}</Accordion.Content>
+    </Accordion>
   );
-});
+};
+
+export const RDMFacetValue = ({
+  bucket,
+  keyField,
+  isSelected,
+  onFilterClicked,
+}) => {
+  return (
+    <>
+      <List.Content className="facet-wrapper">
+        <Checkbox
+          onClick={() => onFilterClicked(keyField)}
+          label={bucket.label || keyField}
+          id={`${keyField}-facet-checkbox`}
+          aria-describedby={`${keyField}-count`}
+          value={keyField}
+          checked={isSelected}
+        />
+        <Label circular id={`${keyField}-count`} className="facet-count">
+          {bucket.doc_count}
+        </Label>
+      </List.Content>
+    </>
+  );
+};
 
 export const RDMRecordFacetsValues = ({
   bucket,
@@ -179,45 +242,26 @@ export const RDMRecordFacetsValues = ({
   getChildAggCmps,
 }) => {
   const childAggCmps = getChildAggCmps(bucket);
-  const [isActive, setisActive] = useState(false);
   const hasChildren = childAggCmps && childAggCmps.props.buckets.length > 0;
   const keyField = bucket.key_as_string ? bucket.key_as_string : bucket.key;
   return (
     <List.Item key={bucket.key}>
-      <div
-        className={`facet-wrapper title ${
-          hasChildren ? "" : "facet-subtitle"
-        } ${isActive ? "active" : ""}`}
-        onClick={() => onFilterClicked(keyField)}
-      >
-        <List.Content className="facet-count">
-          <Label circular id={`${keyField}-count`}>
-            {bucket.doc_count}
-          </Label>
-        </List.Content>
-        {hasChildren ? (
-          <Button
-            className="iconhold"
-            icon={`angle ${isActive ? "down" : "right"} icon`}
-            onClick={() => setisActive(!isActive)}
-            aria-label={`${
-              isActive
-                ? i18next.t("hide subfacets")
-                : i18next.t("show subfacets")
-            }`}
-          />
-        ) : null}
-        <Checkbox
-          label={bucket.label || keyField}
-          id={`${keyField}-facet-checkbox`}
-          aria-describedby={`${keyField}-count`}
-          value={keyField}
-          checked={isSelected}
+      {hasChildren ? (
+        <RDMParentFacetValue
+          bucket={bucket}
+          keyField={keyField}
+          isSelected={isSelected}
+          childAggCmps={childAggCmps}
+          onFilterClicked={onFilterClicked}
         />
-      </div>
-      <div className={`content facet-content ${isActive ? "active" : ""}`}>
-        {childAggCmps}
-      </div>
+      ) : (
+        <RDMFacetValue
+          bucket={bucket}
+          keyField={keyField}
+          isSelected={isSelected}
+          onFilterClicked={onFilterClicked}
+        />
+      )}
     </List.Item>
   );
 };
@@ -244,14 +288,14 @@ export const RDMRecordFacets = ({ aggs, currentResultsState }) => {
       />
       {aggs.map((agg) => {
         return (
-          <div className="ui accordion rdm-facet-container" key={agg.title}>
+          <div className="rdm-facet-container" key={agg.title}>
             <BucketAggregation title={agg.title} agg={agg} />
           </div>
         );
       })}
       <Card className="borderless facet">
         <Card.Content>
-          <Card.Header as="h2">{ i18next.t('Help') }</Card.Header>
+          <Card.Header as="h2">{i18next.t("Help")}</Card.Header>
           <SearchHelpLinks />
         </Card.Content>
       </Card>
@@ -259,35 +303,38 @@ export const RDMRecordFacets = ({ aggs, currentResultsState }) => {
   );
 };
 
-export const RDMBucketAggregationElement = ({agg, title, containerCmp, updateQueryFilters}) => {
-
+export const RDMBucketAggregationElement = ({
+  agg,
+  title,
+  containerCmp,
+  updateQueryFilters,
+}) => {
   const clearFacets = () => {
     if (containerCmp.props.selectedFilters.length) {
-      updateQueryFilters(
-        [agg.aggName, ''],
-        containerCmp.props.selectedFilters
-      );
+      updateQueryFilters([agg.aggName, ""], containerCmp.props.selectedFilters);
     }
-  }
+  };
 
   const hasSelections = () => {
     return !!containerCmp.props.selectedFilters.length;
-  }
+  };
 
   return (
     <Card className="borderless facet">
       <Card.Content>
         <Card.Header as="h2">
           {title}
-          <Button basic icon
-                  size="mini"
-                  floated="right"
-                  onClick={clearFacets}
-                  aria-label={ i18next.t('Clear selection') }
-                  title={ i18next.t('Clear selection') }
-                  disabled={!hasSelections()}
+          <Button
+            basic
+            icon
+            size="mini"
+            floated="right"
+            onClick={clearFacets}
+            aria-label={i18next.t("Clear selection")}
+            title={i18next.t("Clear selection")}
+            disabled={!hasSelections()}
           >
-            { i18next.t('Clear') }
+            {i18next.t("Clear")}
           </Button>
         </Card.Header>
       </Card.Content>
@@ -341,46 +388,54 @@ export const RDMCountComponent = ({ totalResults }) => {
 
 export const RDMEmptyResults = (props) => {
   const queryString = props.queryString;
-  const searchPath = props.searchPath || '/search';
+  const searchPath = props.searchPath || "/search";
 
   return (
-      <Grid>
-        <Grid.Row centered>
-          <Grid.Column width={12} textAlign="center">
-            <Header as="h2">
-              {i18next.t("We couldn't find any matches for ")}
-              {queryString && (`'${queryString}'`) || i18next.t('your search')}
+    <Grid>
+      <Grid.Row centered>
+        <Grid.Column width={12} textAlign="center">
+          <Header as="h2">
+            {i18next.t("We couldn't find any matches for ")}
+            {(queryString && `'${queryString}'`) || i18next.t("your search")}
+          </Header>
+        </Grid.Column>
+      </Grid.Row>
+      <Grid.Row centered>
+        <Grid.Column width={8} textAlign="center">
+          <Button primary onClick={props.resetQuery}>
+            <Icon name="search" />
+            {i18next.t("Start over")}
+          </Button>
+        </Grid.Column>
+      </Grid.Row>
+      <Grid.Row centered>
+        <Grid.Column width={12}>
+          <Segment secondary padded size="large">
+            <Header as="h3" size="small">
+              {i18next.t("ProTip")}!
             </Header>
-          </Grid.Column>
-        </Grid.Row>
-        <Grid.Row centered>
-          <Grid.Column width={8} textAlign="center">
-            <Button primary onClick={props.resetQuery}>
-              <Icon name="search"/>
-              { i18next.t('Start over') }
-              </Button>
-          </Grid.Column>
-        </Grid.Row>
-        <Grid.Row centered>
-          <Grid.Column width={12}>
-            <Segment secondary padded size="large">
-              <Header as="h3" size="small">{i18next.t('ProTip')}!</Header>
-              <p>
-                <a href={`${searchPath}?q=metadata.publication_date:[2017-01-01 TO *]`}>
-                  metadata.publication_date:[2017-01-01 TO *]
-                </a> { i18next.t('will give you all the publications from 2017 until today') }.
-              </p>
-              <p>
-              {i18next.t('For more tips, check out our ')}
-              <a href="/help/search" title={i18next.t('Search guide')}>
-                {i18next.t('search guide')}
+            <p>
+              <a
+                href={`${searchPath}?q=metadata.publication_date:[2017-01-01 TO *]`}
+              >
+                metadata.publication_date:[2017-01-01 TO *]
+              </a>{" "}
+              {i18next.t(
+                "will give you all the publications from 2017 until today"
+              )}
+              .
+            </p>
+            <p>
+              {i18next.t("For more tips, check out our ")}
+              <a href="/help/search" title={i18next.t("Search guide")}>
+                {i18next.t("search guide")}
               </a>
-              {i18next.t(' for defining advanced search queries')}.
-              </p>
-            </Segment>
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
+              {i18next.t(" for defining advanced search queries")}.
+            </p>
+          </Segment>
+        </Grid.Column>
+      </Grid.Row>
+    </Grid>
   );
 };
 

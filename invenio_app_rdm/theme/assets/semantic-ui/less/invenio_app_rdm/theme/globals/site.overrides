@@ -405,3 +405,28 @@ dl.details-list {
 .align-self-end {
   align-self: end;
 }
+
+/* FACETS */
+.facet-wrapper.content:not(.parent) {
+  padding: .5em 0;
+  padding-left: 20px !important;
+}
+
+.facet-wrapper.title.parent {
+  .facet-wrapper.content:not(.parent) {
+    padding-left: 0 !important;
+  }
+
+}
+
+.rdm-facet-container {
+  .facet-wrapper{
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+}
+
+.ui.circular.label.facet-count{
+  margin-left: auto;
+}
