@@ -33,4 +33,3 @@ a.subject:hover {
   color: darken(#757575, 15%);
   text-decoration: none;
 }
-

@@ -68,3 +68,8 @@
   }
 }
 
+.rdm-multi-facet {
+  .ui.list {
+    padding-top: 0;
+  }
+}
