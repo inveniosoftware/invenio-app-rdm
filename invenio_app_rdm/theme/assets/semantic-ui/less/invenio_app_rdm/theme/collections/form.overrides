@@ -70,3 +70,12 @@
     display: flex;
   }
 }
+
+label.helptext {
+  display: block;
+  color: @mutedTextColor;
+  font-weight: normal;
+  font-size: 0.9em;
+  margin-top: -0.8em; // counterweight Form field bottom margin
+  margin-bottom: @defaultMargin;
+}

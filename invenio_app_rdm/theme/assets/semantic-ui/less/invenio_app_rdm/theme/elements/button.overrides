@@ -44,3 +44,9 @@
   min-width: max-content;
   margin-right: 0 !important;
 }
+
+.right.aligned.column{
+  .ui.button:last-of-type{
+    margin-right: 0 !important;
+  }
+}

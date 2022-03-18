@@ -107,7 +107,7 @@
       }
     }
 
-    .toggle {
+    .rdm-burger-toggle {
       font-size: 20px;
     }
 
@@ -145,7 +145,7 @@
 
 @media all and (min-width: @computerBreakpoint) {
   #invenio-nav {
-    .toggle {
+    .rdm-burger-toggle {
       display: none;
     }
   }
