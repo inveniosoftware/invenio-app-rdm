@@ -14,16 +14,23 @@ import { RecordVersionsList } from "./RecordVersionsList";
 import { RecordCitationField } from "./RecordCitationField";
 
 const recordManagementAppDiv = document.getElementById("recordManagement");
+const recordManagementMobile = document.getElementById("recordManagementMobile");
+
 const recordVersionsAppDiv = document.getElementById("recordVersions");
 const recordCitationAppDiv = document.getElementById("recordCitation");
 
 if (recordManagementAppDiv) {
+  renderRecordManagement(recordManagementAppDiv);
+  recordManagementMobile && renderRecordManagement(recordManagementMobile);
+}
+
+function renderRecordManagement(element) {
   ReactDOM.render(
     <RecordManagement
       record={JSON.parse(recordManagementAppDiv.dataset.record)}
       permissions={JSON.parse(recordManagementAppDiv.dataset.permissions)}
     />,
-    recordManagementAppDiv
+    element
   );
 }
 

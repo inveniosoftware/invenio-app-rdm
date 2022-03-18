@@ -130,6 +130,26 @@
 
               {%- endblock record_header_button -%}
 
+              {% if permissions is defined and permissions.can_edit and not is_preview %}
+                <section id="mobile-record-management" class="ui grid tablet only mobile only">
+                  <div class="sixteen wide column right aligned">
+                    <button id="manage-record-btn"
+                            class="ui small basic icon button m-0"
+                            aria-haspopup="dialog"
+                            aria-expanded="false"
+                    >
+                      <i class="cog icon"></i> {{ _('Manage record') }}
+                    </button>
+                  </div>
+
+                  <div id="recordManagementMobile"
+                       role="dialog"
+                       class="ui flowing popup transition hidden"
+                  >
+                  </div>
+                </section>
+              {% endif %}
+
               <section id="record-info" aria-label="{{ _('Publication date and version number') }}">
                 <div class="ui grid middle aligned">
                   <div class="two column row">

@@ -69,3 +69,18 @@ $('#licenses .licenses-description .close.icon')
       }
     }
   });
+
+
+// Record management popup (mobile)
+$('#manage-record-btn')
+.popup({
+  popup: $('#recordManagementMobile'),
+  on: 'click',
+  position: 'bottom right',
+  onVisible: function($module) {
+    $($module).attr('aria-expanded', true);
+  },
+  onHidden: function($module) {
+    $($module).attr('aria-expanded', false);
+  }
+})
