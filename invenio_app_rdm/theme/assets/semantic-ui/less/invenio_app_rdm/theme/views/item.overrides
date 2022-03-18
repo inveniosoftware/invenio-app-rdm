@@ -68,15 +68,14 @@
   }
 }
 
-.ui.relaxed.divided.items {
-  .item.community-member-item {
-    padding: 1em 0em;
-  }
-}
-
-
 /*Description*/
 .item div.description:not(.license-item-description) {
   display: initial !important;
 }
 
+.ui.items {
+  .item.members-dopdown-option {
+    white-space: initial;
+    min-width: 25em;
+  }
+}

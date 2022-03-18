@@ -436,3 +436,11 @@ dl.details-list {
 .shadowless {
   box-shadow: none !important;
 }
+
+.flex-container {
+  display: flex !important;
+}
+
+.contents-container {
+  display: contents !important;
+}
