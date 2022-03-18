@@ -15,13 +15,6 @@
     display: flex;
   }
 
-  &.record-management{
-    .column:not(.row):not(:last-of-type):not(:first-of-type){
-      padding-top: 0.25em !important;
-      padding-bottom: 0.25em !important;
-    }
-  }
-
   &.record-citation {
     label {
       font-weight: 700;
@@ -112,3 +105,6 @@
   }
 }
 
+#mobile-record-management.ui.grid .column {
+  border-bottom: 1px solid @borderColor;
+}

@@ -5,6 +5,7 @@
 //
 // Invenio RDM Records is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
+import { i18next } from "@translations/invenio_app_rdm/i18next";
 
 import React, { useState } from "react";
 import { Grid, Message } from "semantic-ui-react";
@@ -23,10 +24,10 @@ export const RecordManagement = ({ record, permissions }) => {
 
   return (
     <Grid columns={1} className="record-management">
-      <Grid.Column>
+      <Grid.Column className="pb-5">
         <EditButton recid={recid} onError={handleError} />
       </Grid.Column>
-      <Grid.Column>
+      <Grid.Column className="pt-5 pb-5">
         <NewVersionButton
           fluid
           size="medium"
@@ -35,7 +36,7 @@ export const RecordManagement = ({ record, permissions }) => {
           disabled={!permissions.can_new_version}
         />
       </Grid.Column>
-      <Grid.Column>
+      <Grid.Column className="pt-5">
         {permissions.can_manage && (
           <ShareButton disabled={!permissions.can_update_draft} recid={recid} />
         )}
