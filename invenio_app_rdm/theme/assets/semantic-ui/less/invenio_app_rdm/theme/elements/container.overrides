@@ -18,11 +18,24 @@
   background-color: @communityHeaderColor;
   padding-top: @celledPadding;
   padding-bottom: @celledPadding;
-  height: 5em;
+  margin-bottom: @defaultMargin;
+
+  &:not(.compact):not(.with-submenu){
+    box-shadow: 0 0 0 1px rgba(34, 36, 38, 0.22) inset;
+  }
+
+  &.compact {
+    height: 5em;
+    .ui.container.community-header {
+      height: 3em;
+    }
+  }
 }
 
 .ui.container.community-header{
-  height: 3em;
+  &.compact {
+    height: 3em;
+  }
   align-items: center;
   display: flex;
 

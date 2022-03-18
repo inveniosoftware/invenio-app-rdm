@@ -57,18 +57,16 @@
       {%- set logoLink = "/static/images/square-placeholder.png" %}
       {%- set communityTitle = community %}
     {% endif %}
-      <div class="ui fluid container community-header-outer">
-        <div class="ui fluid container">
-          <div class="ui container community-header">
-            <div class="community-header-element">
-              <img
-                class="community-logo-header"
-                src="{{logoLink}}"
-                onerror="this.onerror=null;this.src='/static/images/square-placeholder.png';" />
-            </div>
-            <div class="community-header-element">
-                {{ communityTitle }}
-            </div>
+      <div class="ui fluid container community-header-outer compact">
+        <div class="ui container community-header">
+          <div class="community-header-element">
+            <img
+              class="community-logo-header"
+              src="{{logoLink}}"
+              onerror="this.onerror=null;this.src='/static/images/square-placeholder.png';"/>
+          </div>
+          <div class="community-header-element">
+              {{ communityTitle }}
           </div>
         </div>
       </div>

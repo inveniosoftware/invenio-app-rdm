@@ -14,6 +14,8 @@ body {
   color: #000;
   width: 100%;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .outer-navbar {
@@ -419,7 +421,7 @@ dl.details-list {
 
 }
 
-.rdm-facet-container {
+.rdm-facet-container, .facet-container {
   .facet-wrapper{
     display: flex;
     align-items: center;
@@ -430,3 +432,4 @@ dl.details-list {
 .ui.circular.label.facet-count{
   margin-left: auto;
 }
+

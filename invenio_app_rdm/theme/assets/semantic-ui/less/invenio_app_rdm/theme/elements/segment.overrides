@@ -75,3 +75,7 @@
   background-color: @brandColor !important;
   color: @white !important;
 }
+
+.ui.segment.loader-container {
+  height: 10em;
+}
