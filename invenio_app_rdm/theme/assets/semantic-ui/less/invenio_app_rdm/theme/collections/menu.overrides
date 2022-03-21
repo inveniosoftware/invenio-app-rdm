@@ -57,22 +57,32 @@
     }
 
     &.right.right-navbar {
-      padding-right: 0;
-      display: flex;
+        display: flex;
+        padding-right: 0;
 
-      .item {
+      > .item {
         padding-left: 15px;
         margin-right: 15px;
       }
     }
   }
 
-  .user-profile {
-    a.ui.button {
-      width: 13em;
+  .rdm-plus-menu {
+    padding-right: 15px;
+  }
+
+  #user-profile-dropdown {
+    width: 13em;
+
+    #user-profile-dropdown-btn {
+      width: inherit;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+    }
+
+    #user-profile-menu.ui.menu {
+      width: inherit;
     }
   }
 }

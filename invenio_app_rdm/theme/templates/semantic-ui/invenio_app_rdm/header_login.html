@@ -42,34 +42,45 @@
         {% endif %}
 
         {%- if config.USERPROFILES %}
-            <div class="ui buttons user-profile">
-                <a class="ui button"
-                   href="{{ url_for('invenio_userprofiles.profile') }}">
-                    <i class="user icon"></i> {{ current_user.email|truncate(31,true) }}
+          <div id="user-profile-dropdown" class="ui floating dropdown">
+            <button id="user-profile-dropdown-btn"
+                    class="ui right labeled right floated icon button text"
+                    aria-controls="user-profile-menu"
+                    aria-expanded="false"
+                    aria-haspopup="menu"
+                    aria-label="{{ _('My account') }}"
+            >
+              <span>
+                <i class="user icon"></i>
+                {{ current_user.email|truncate(31,true) }}
+              </span>
+              <i class="dropdown icon"></i>
+            </button>
+
+            <div id="user-profile-menu"
+                 class="ui menu"
+                 role="menu"
+                 aria-labelledby="user-profile-dropdown-btn"
+            >
+              {%- for item in current_menu.submenu('settings').children if item.visible %}
+                <a role="menuitem" class="item" href="{{ item.url }}" tabindex="-1">
+                  {{ item.text|safe }}
                 </a>
+              {%- endfor %}
 
-                <div class="ui dropdown icon button floating">
-                    <i class="dropdown icon"></i>
-                    <div class="menu">
-                        {%- for item in current_menu.submenu('settings').children if item.visible %}
-                            <a class="item"
-                               style="color:black;"
-                               href="{{ item.url }}">{{ item.text|safe }}
-                            </a>
-
-                        {%- endfor %}
-                        <div class="divider"></div>
-                        <a class="item" style="color:black;" href="{{ url_for_security('logout') }}">
-                            <i class="sign-out icon"></i>
-                            {{ _('Log out') }}
-                        </a>
-                    </div>
-                </div>
+              <div class="divider"></div>
+              <a role="menuitem" class="item" href="{{ url_for_security('logout') }}" tabindex="-1">
+                <i class="sign-out icon"></i>
+                {{ _('Log out') }}
+              </a>
             </div>
+          </div>
 
         {%- else %}
-            <a href=" {{ url_for_security('logout') }}" class="ui button"><i
-                    class="sign-out icon"></i> {{ _('Log out') }}</a>
+          <a role="button" href="{{ url_for_security('logout') }}" class="ui button">
+            <i class="sign-out icon"></i>
+            {{ _('Log out') }}
+          </a>
         {%- endif %}
     {%- endif %}
 {%- endif %}
