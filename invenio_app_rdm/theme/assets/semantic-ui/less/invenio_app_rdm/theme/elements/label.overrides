@@ -18,6 +18,13 @@
   }
 }
 
+.ui.label {
+  &.error {
+    border-color: @errorTextColor;
+    color: @errorTextColor;
+  }
+}
+
 .subject {
   display: inline-block;
   padding: .18rem .6rem;
