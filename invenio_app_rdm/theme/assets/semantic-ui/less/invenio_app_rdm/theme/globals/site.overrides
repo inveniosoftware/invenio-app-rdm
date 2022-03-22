@@ -5,6 +5,7 @@
 @import "../../landing_page/creatibutors.less";
 @import "../../landing_page/licenses.less";
 
+
 button:focus-visible, a:focus-visible {
   outline: 3px solid @focusedFormBorderColor !important;
 }
@@ -422,20 +423,21 @@ dl.details-list {
 }
 
 .rdm-facet-container, .facet-container {
-  .facet-wrapper{
+  .facet-wrapper {
     display: flex;
     align-items: center;
     width: 100%;
   }
 }
 
-.ui.circular.label.facet-count{
+.ui.circular.label.facet-count {
   margin-left: auto;
 }
 
 .shadowless {
   box-shadow: none !important;
 }
+
 
 .flex-container {
   display: flex !important;
