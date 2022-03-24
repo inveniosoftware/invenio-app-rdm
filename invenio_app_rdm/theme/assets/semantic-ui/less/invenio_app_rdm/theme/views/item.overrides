@@ -17,12 +17,6 @@
     color: @mutedTextColor;
 }
 
-#request-details-contributors{
-  .item{
-    margin: 0 1em 0 0;
-  }
-}
-
 .ui.items > .item .meta * {
     margin-right: 0.1em;
 }
@@ -42,12 +36,7 @@
 
     .icon {
       padding-left: 0.5em;
-      padding-bottom: 20px;
     }
-  }
-
-  div.status-icon {
-    margin-right: 10px;
   }
 
   .actions > a,
@@ -61,16 +50,28 @@
 
   &.user-communities {
     margin-top: 0.25em;
-
-    [class*="right floated"] {
-      margin-top: 0;
-    }
   }
 }
 
-/*Description*/
+
 .item div.description:not(.license-item-description) {
   display: initial !important;
+}
+
+.ui.items > .item.license-item {
+  cursor: pointer;
+
+  .radio {
+    margin-right: 0.5em;
+  }
+
+  .content.license-item-content {
+
+    .description.license-item-description {
+      font-size: smaller;
+      color: rgba(0, 0, 0, 0.6);
+    }
+  }
 }
 
 .ui.items {

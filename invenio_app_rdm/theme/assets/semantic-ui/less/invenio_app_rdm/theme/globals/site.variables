@@ -6,7 +6,6 @@
     Brand Colors
 --------------------*/
 
-
 @primaryColor: #0377cd;
 @secondaryColor: #fb8273;
 @featuredListBackgroundColor: #4899DB;
@@ -45,8 +44,11 @@
 @focusedFormBorderColor: #2185d0;
 @focusedFormMutedBorderColor: #2185d0;
 
-@communityHeaderColor: #ededed;
-@highlightBackgroundColor: rgba(173, 206, 224, 0.52);
+@highlightHeaderColor: #ededed;
+@highlightBackgroundColor: @highlightHeaderColor;
+@highlightBackgroundColorHover:  darken(saturate(@highlightHeaderColor, 20), 15, relative);
+@highlightLandingPageBackgroundColor: rgba(173, 206, 224, 0.52);
+
 
 @navbarBackgroundImage: linear-gradient(
   12deg,
@@ -101,3 +103,9 @@
   negative spacing
 --------------------*/
 @coverPageDefaultMargin: 0;
+
+
+/* borders */
+
+@dashedBorder: 2px dashed @borderColor;
+

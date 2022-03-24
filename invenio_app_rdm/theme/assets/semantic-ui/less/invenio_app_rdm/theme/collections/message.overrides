@@ -5,10 +5,10 @@
 
 .ui.flashed.message,
 .ui.form .flashed.message {
-   &.manage {
-        padding: 1em 0 1em 0;
-        margin-bottom: 1em;
-   }
+  &.manage {
+    padding: 1em 0 1em 0;
+    margin-bottom: 1em;
+  }
 }
 
 .ui.message.file-box-message {

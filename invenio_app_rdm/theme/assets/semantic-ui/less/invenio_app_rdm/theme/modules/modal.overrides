@@ -17,7 +17,6 @@
 /* Styling for the community selection modal */
 
 #community-selection-modal {
-  margin: 0;
 
   .community-list-results.content {
     height: calc(55vh - 10em);
@@ -38,11 +37,6 @@
   .community-selected-item-container {
     min-height: 6rem;
     overflow-y: hidden;
-    margin: 0;
-
-    .header {
-      margin: 0;
-    }
   }
 }
 

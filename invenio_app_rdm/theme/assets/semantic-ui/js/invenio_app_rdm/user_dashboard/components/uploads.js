@@ -133,8 +133,8 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
     ? `/records/${result.id}`
     : `/uploads/${result.id}`;
   return (
-    <Item key={index} className="deposits-list-item">
-      <div className="status-icon">
+    <Item key={index} className="deposits-list-item mb-20">
+      <div className="status-icon mr-10">
         <Item.Content verticalAlign="top">
           <Item.Extra>
             {is_published ? (

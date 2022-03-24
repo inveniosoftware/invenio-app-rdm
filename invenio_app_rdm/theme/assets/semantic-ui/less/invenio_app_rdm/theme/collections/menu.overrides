@@ -1,22 +1,27 @@
 /***********************************************
          Invenio App RDM Menu Overrides
 ***********************************************/
-.ui.menu {
-  .active.item.license-menu-item-active {
-    border-color: #2185d0;
-    background-color: #2185d0;
-    color: white;
+
+.ui.menu.compact {
+  .item.active {
+    background-color: @primaryColor;
+    color: @white;
+    border-color: @primaryDarkenColor;
 
     &:hover {
-      border-color: #0d71bb;
-      background-color: #0d71bb;
-      color: white;
+      background-color: @primaryColorHover;
     }
   }
 }
 
-#invenio-nav {
+.ui.menu.secondary.pointing {
+  .item.active {
+    border-color: @secondaryColor;
+  }
+}
 
+
+#invenio-nav {
   &:not(.active) {
     height: @relative75px;
   }
@@ -26,35 +31,40 @@
 
     a:hover {
       background-color: transparent;
-      color: white;
+      color: @white;
       text-decoration: none;
     }
   }
 
   .item {
+    padding-top: 2em;
+    padding-bottom: 2em;
+
     &.logo {
       padding-right: 15px;
     }
+
     &.search-bar {
       padding-right: 15px;
     }
+
     &:first-of-type {
-       padding-left: 0;
+      padding-left: 0;
     }
+
     &:last-of-type {
-       padding-left: 0;
+      padding-left: 0;
     }
+
     &.right.right-navbar {
-       padding-right: 0;
+      padding-right: 0;
+      display: flex;
+
       .item {
         padding-left: 15px;
         margin-right: 15px;
       }
     }
-  }
-
-  .rdm-plus-menu {
-    padding-right: 15px;
   }
 
   .user-profile {
@@ -84,35 +94,54 @@
   #invenio-nav {
     height: unset;
     flex-direction: column;
+
     .item {
       align-self: center;
       order: 4;
       width: unset !important;
+
+      .user-profile {
+        a.ui.button {
+          width: 9.5em;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+
+      &.inbox {
+        order: -1;
+      }
+
       &.logo {
         order: -1;
         width: 100% !important;
       }
+
       &.button {
-       order: 2;
+        order: 2;
       }
+
       &.search-bar {
         order: 3;
         width: 100%;
-        .ui.input{
+
+        .ui.input {
           width: 99% !important;
         }
       }
-      &.right{
+
+      &.right {
         margin-left: unset !important;
       }
     }
 
-    .rdm-burger-toggle {
+    #rdm-burger-toggle {
       font-size: 20px;
     }
 
-    &:not(.active){
-      .mobile-hidden{
+    &:not(.active) {
+      .mobile-hidden {
         display: none;
       }
     }
@@ -145,14 +174,14 @@
 
 @media all and (min-width: @computerBreakpoint) {
   #invenio-nav {
-    .rdm-burger-toggle {
+    #rdm-burger-toggle {
       display: none;
     }
   }
 }
 
 /* menu icon (Hamburger icon) */
-.menu-icon {
+.rdm-menu-icon {
   cursor: pointer;
   display: inline-block;
   float: right;
@@ -161,7 +190,7 @@
   user-select: none;
 }
 
-.menu-icon .navicon {
+.rdm-menu-icon .navicon {
   background: #333;
   display: block;
   height: 2px;
@@ -170,8 +199,8 @@
   width: 18px;
 }
 
-.menu-icon .navicon:before,
-.menu-icon .navicon:after {
+.rdm-menu-icon .navicon:before,
+.rdm-menu-icon .navicon:after {
   background: #333;
   content: "";
   display: block;
@@ -181,38 +210,38 @@
   width: 100%;
 }
 
-.menu-icon .navicon:before {
+.rdm-menu-icon .navicon:before {
   top: 5px;
 }
 
-.menu-icon .navicon:after {
+.rdm-menu-icon .navicon:after {
   top: -5px;
 }
 
 /* menu btn */
 
-.menu-btn {
+.rdm-menu-btn {
   display: none;
 }
 
-.menu-btn:checked ~ .menu {
+.rdm-menu-btn:checked ~ .menu {
   max-height: 240px;
 }
 
-.menu-btn:checked ~ .menu-icon .navicon {
+.rdm-menu-btn:checked ~ .rdm-menu-icon .navicon {
   background: transparent;
 }
 
-.menu-btn:checked ~ .menu-icon .navicon:before {
+.rdm-menu-btn:checked ~ .rdm-menu-icon .navicon:before {
   transform: rotate(-45deg);
 }
 
-.menu-btn:checked ~ .menu-icon .navicon:after {
+.rdm-menu-btn:checked ~ .rdm-menu-icon .navicon:after {
   transform: rotate(45deg);
 }
 
-.menu-btn:checked ~ .menu-icon:not(.steps) .navicon:before,
-.menu-btn:checked ~ .menu-icon:not(.steps) .navicon:after {
+.rdm-menu-btn:checked ~ .rdm-menu-icon:not(.steps) .navicon:before,
+.rdm-menu-btn:checked ~ .rdm-menu-icon:not(.steps) .navicon:after {
   top: 0;
 }
 

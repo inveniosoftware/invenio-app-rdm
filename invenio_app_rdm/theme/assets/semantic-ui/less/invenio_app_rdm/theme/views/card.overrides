@@ -40,7 +40,7 @@
         margin-top: 2px;
 
         & b {
-          margin: 0em 0em 0.5em;
+          margin: 0 0 0.5em;
           font-size: 15px;
         }
 
@@ -60,7 +60,7 @@
     }
 
     .ui.divider {
-      margin: 0.3rem 0rem;
+      margin: 0.3rem 0;
     }
   }
 }

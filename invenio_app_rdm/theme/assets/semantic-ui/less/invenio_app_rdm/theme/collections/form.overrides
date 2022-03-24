@@ -3,61 +3,12 @@
 ***********************************************/
 
 
-
 #deposit-form {
-  /*Field Label
-
-    Ideally we eventually converge on a design system to differentiate between
-    top-level fields/labels and subfields/labels
-  */
-  .ui.form .field .form-group label,
-  .ui.form .field.additional-descriptions label {
-    font-size: 13px;
-    font-weight: normal;
-  }
-
-  label.field-level-class {
-    font-size: 15px;
-    &.small {
-      font-size: 13px;
-    }
-  }
-  /**/
-
-  .save-button {
-    margin-bottom: 0.5em;
-  }
-
-  .preview-button {
-    margin-bottom: 0.5em;
-  }
-
-  i.icon.loading {
-    background-color: rgba(0, 0, 0, 0);
-  }
-
-  .access-right {
-    .inline.fields {
-      margin-bottom: 0.75em;
-
-      &:first-of-type {
-        margin-top: 1em;
-      }
-    }
-  }
 
   .ck-editor__editable {
     min-height: 8.5em;
   }
 
-  .ui.form label.helptext {
-    margin-top: -8px;
-    margin-bottom: 15px;
-    display: block;
-    color: #737373;
-    font-weight: normal;
-    font-size: 0.9em;
-  }
   .ui.form .field .ui.list {
     margin-top: 0;
   }
@@ -69,6 +20,7 @@
   .sidebar-buttons {
     display: flex;
   }
+
 }
 
 label.helptext {
@@ -79,3 +31,4 @@ label.helptext {
   margin-top: -0.8em; // counterweight Form field bottom margin
   margin-bottom: @defaultMargin;
 }
+

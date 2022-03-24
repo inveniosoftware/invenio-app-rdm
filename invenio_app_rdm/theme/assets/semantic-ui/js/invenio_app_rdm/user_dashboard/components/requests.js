@@ -61,7 +61,7 @@ export const RequestsResults = ({
               <Grid>
                 <Grid.Row
                   verticalAlign="middle"
-                  className="small padding-tb-5 deposit-result-header"
+                  className="small pt-5 pb-5 highlight-background"
                 >
                   <Grid.Column width={4}>
                     <Count
@@ -99,7 +99,7 @@ export const RequestsResults = ({
           </Grid.Column>
         </Grid.Row>
         <Grid.Row verticalAlign="middle">
-          <Grid.Column width={4}></Grid.Column>
+          <Grid.Column width={4}/>
           <Grid.Column width={8} textAlign="center">
             <Pagination
               options={{
@@ -311,7 +311,7 @@ export const RequestsFacets = ({ aggs, currentResultsState }) => {
     <aside aria-label={i18next.t("filters")} id="search-filters">
       {aggs.map((agg) => {
         return (
-          <div className="ui accordion" key={agg.title}>
+          <div className="rdm-facet-container" key={agg.title}>
             <BucketAggregation title={agg.title} agg={agg} />
           </div>
         );

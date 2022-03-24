@@ -4,25 +4,8 @@
 
 /** Deposit search page */
 
-.row.deposit-result-header {
-  background-color: #d7d7d7;
-
-  &.padding-tb-5 {
-    padding-top: 5px;
-    padding-bottom: 5px;
-  }
-
-  &.small {
-    font-size: small;
-  }
-
-  .padding-r-5.column {
-    padding-right: 5px;
-  }
-}
-
-.row.result-options {
-  margin-top: @defaultMargin;
+.row.highlight-background{
+  background-color: @highlightHeaderColor;
 }
 
 .ui.grid {
@@ -30,60 +13,18 @@
     align-items: center;
     display: flex;
   }
+
   &.record-management{
     .column:not(.row):not(:last-of-type):not(:first-of-type){
       padding-top: 0.25em !important;
       padding-bottom: 0.25em !important;
     }
   }
-  &.record-citation {
-    margin: 0 0 0 0;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    padding: 0.5rem 0;
 
+  &.record-citation {
     label {
       font-weight: 700;
     }
-
-    .citation-style-selector {
-      display: inline-block;
-      width: 157px;
-
-      .ui.selection.dropdown {
-        min-width: 112px;
-        max-width: 112px;
-        margin-left: 10px;
-      }
-    }
-
-    .citation-error-message {
-      color: @errorTextColor;
-    }
-  }
-  .row.file-upload-area-row {
-    padding-top: 0;
-    padding-bottom: 0;
-
-    .ui.basic.very.padded.segment.file-upload-area {
-      border: 2px dashed #999999;
-      border-radius: 5px;
-      background: #eeeeee none;
-      margin-top: 20px;
-
-      &.no-files {
-        margin: 0;
-      }
-    }
-  }
-
-  .row.file-upload-note-row {
-    padding-top: 5px;
-  }
-
-  .row.file-import-note-row {
-    padding-top: 5px;
-    padding-bottom: 5px;
   }
 
 }
@@ -91,7 +32,6 @@
 #rdm-footer-element {
   .ui.grid {
     //margin: 0;
-
     .row.footer-top {
       background-color: @footerLightColor;
       padding: 2rem 0 4rem;

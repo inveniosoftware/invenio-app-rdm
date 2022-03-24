@@ -21,7 +21,7 @@
 {% if rights %}
 <section id="licenses" aria-label="{{ _('Rights') }}" class="ui segment rdm-sidebar">
   <h2 class="ui small header">{{ _('Rights') }}</h2>
-  <ul class="details-list">
+  <ul class="details-list m-0 p-0">
 
     {%- for license in rights%}
       <li id="license-{{license.id}}-{{loop.index}}" class="has-popup">

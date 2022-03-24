@@ -131,10 +131,6 @@ export class RDMDepositForm extends Component {
   formFeedbackRef = createRef();
   sidebarRef = createRef();
 
-  accordionStyle = {
-    header: { className: "deposit-form-accordion inverted", style: { cursor: "pointer" } },
-  };
-
   render() {
     const {
       record,
@@ -164,7 +160,6 @@ export class RDMDepositForm extends Component {
                   fieldPath=""
                   active={true}
                   label={i18next.t("Files")}
-                  ui={this.accordionStyle}
                 >
                   {this.noFiles && record.is_published && (
                     <div className="text-align-center">
@@ -184,7 +179,6 @@ export class RDMDepositForm extends Component {
                   fieldPath=""
                   active={true}
                   label={i18next.t("Basic information")}
-                  ui={this.accordionStyle}
                 >
                   {this.config.pids.map((pid) => (
                     <Fragment key={pid.scheme}>
@@ -276,7 +270,6 @@ export class RDMDepositForm extends Component {
                   fieldPath=""
                   active={true}
                   label={i18next.t("Recommended information")}
-                  ui={this.accordionStyle}
                 >
                   <CreatibutorsField
                     addButtonLabel={i18next.t("Add contributor")}
@@ -320,7 +313,6 @@ export class RDMDepositForm extends Component {
                 fieldPath=""
                 active={true}
                 label={"Funding"}
-                ui={this.accordionStyle}
                 >
                 <FundingField options={this.vocabularies.metadata.funding} />
                 <ComingSoonField
@@ -336,7 +328,6 @@ export class RDMDepositForm extends Component {
                   fieldPath=""
                   active={true}
                   label={i18next.t("Alternate identifiers")}
-                  ui={this.accordionStyle}
                 >
                   <IdentifiersField
                     fieldPath="metadata.identifiers"
@@ -352,7 +343,6 @@ export class RDMDepositForm extends Component {
                   fieldPath=""
                   active={true}
                   label={i18next.t("Related works")}
-                  ui={this.accordionStyle}
                 >
                   <RelatedWorksField
                     options={this.vocabularies.metadata.identifiers}
@@ -365,11 +355,25 @@ export class RDMDepositForm extends Component {
                   <Sticky context={this.sidebarRef} offset={20}>
                     <Card className="actions">
                       <Card.Content>
-                        <div className="sidebar-buttons">
-                          <SaveButton fluid className="save-button" />
-                          <PreviewButton fluid className="preview-button" />
-                        </div>
-                        <PublishButton fluid />
+                        <Grid>
+                          <Grid.Column
+                            computer={8}
+                            mobile={16}
+                            className="pr-5"
+                          >
+                            <SaveButton fluid className="save-button" />
+                          </Grid.Column>
+                          <Grid.Column
+                            computer={8}
+                            mobile={16}
+                            className="pl-5"
+                          >
+                            <PreviewButton fluid className="preview-button" />
+                          </Grid.Column>
+                          <Grid.Column width={16} className="pt-0">
+                            <PublishButton fluid />
+                          </Grid.Column>
+                        </Grid>
                       </Card.Content>
                     </Card>
 

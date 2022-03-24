@@ -25,6 +25,34 @@ div.affiliations.accordion div.title button.down {
 
 
 .ui.accordion {
+  &.invenio-accordion-field {
+    .title {
+      background-color: @brandColor;
+      color: @white;
+      padding: 1em;
+      font-size: 1rem;
+      border-radius: @defaultBorderRadius;
+      margin-bottom: @defaultMargin;
+      .icon {
+        float: right;
+        font-size: 1.5em;
+      }
+    }
+
+    &.error {
+      .title {
+        background-color: @red;
+      }
+
+      &.secondary.inverted {
+        .title {
+          background: @secondaryInvertedRedBackground;
+          color: @secondaryInvertedColor;
+        }
+
+      }
+    }
+  }
 
   &.creatibutors {
     .title {
@@ -33,7 +61,7 @@ div.affiliations.accordion div.title button.down {
   }
 
   &.panel {
-    border-radius: 10px;
+    border-radius: @defaultBorderRadius;
     border: 1px solid @borderColor;
 
     &.restricted {
@@ -51,7 +79,7 @@ div.affiliations.accordion div.title button.down {
     color: @primaryColor !important;
 
     &.active {
-      border-radius: 10px 10px 0 0;
+      border-radius: @defaultBorderRadius @defaultBorderRadius 0 0;
       border-bottom: 1px solid @borderColor;
     }
 
@@ -74,25 +102,25 @@ div.affiliations.accordion div.title button.down {
     }
   }
 
-  &.affiliations{
-  padding-bottom: 1.5rem;
+  &.affiliations {
+    padding-bottom: 1.5rem;
 
-  &:last-child {
-    padding-bottom: 3rem;
-  }
+    &:last-child {
+      padding-bottom: 3rem;
+    }
 
-  .title {
-    cursor: default;
-  }
+    .title {
+      cursor: default;
+    }
 
-  .content {
-    dl {
-      font-size: @font-size-small;
-      background-color: #F9FAFB;
-      padding: 1rem;
-      margin: 1.2rem 0 0 0;
+    .content {
+      dl {
+        font-size: @font-size-small;
+        background-color: @white;
+        padding: 1rem;
+        margin: 1.2rem 0 0 0;
+      }
     }
   }
-}
 
 }

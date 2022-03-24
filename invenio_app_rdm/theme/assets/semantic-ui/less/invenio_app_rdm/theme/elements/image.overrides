@@ -2,7 +2,6 @@
          Invenio app RDM Image Overrides
 ***********************************************/
 
-
 .community-logo-header {
   width: 3em;
   height: 3em;
