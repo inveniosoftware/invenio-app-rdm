@@ -35,9 +35,9 @@
 {% macro show_creatibutors(creatibutors, show_affiliations=False) %}
   {% for creatibutor in creatibutors %}
   <dd class="creatibutor-wrap">
-    <a class="ui tooltip-popup creatibutor-link"
+    <a class="ui creatibutor-link"
       {% if show_affiliations and creatibutor.affiliations %}
-        data-content="{{ creatibutor.affiliations|join('; ', attribute='1') }}"
+        data-tooltip="{{ creatibutor.affiliations|join('; ', attribute='1') }}"
       {% endif %}
       href="{{url_for('invenio_search_ui.search', q='metadata.creators.person_or_org.name:"' + creatibutor.person_or_org.name + '"')}}"
     >
@@ -64,8 +64,8 @@
 
 {% macro affiliations_accordion(group, affiliations) %}
 <div class="ui sixteen wide tablet three wide computer column title right aligned">
-    <button class="ui affiliations-button button mini up" aria-controls="{{ group }}-affiliations">{{ _("Show affiliations") }}</button>
-    <button class="ui affiliations-button button mini down" aria-controls="{{ group }}-affiliations">{{ _("Hide affiliations") }}</button>
+    <button class="ui affiliations-button button mini up mr-0" aria-controls="{{ group }}-affiliations">{{ _("Show affiliations") }}</button>
+    <button class="ui affiliations-button button mini down mr-0" aria-controls="{{ group }}-affiliations">{{ _("Hide affiliations") }}</button>
 </div>
 
 <section class="ui sixteen wide column content text-muted" id="{{ group }}-affiliations" aria-label="{{ _('Affiliations for') }} {{ group }}">

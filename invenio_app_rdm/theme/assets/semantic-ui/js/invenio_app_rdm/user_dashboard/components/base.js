@@ -40,7 +40,7 @@ export function DashboardResultView(props) {
                 <Overridable id="DashboardResultView.resultHeader" {...props}>
                   <Grid.Row
                     verticalAlign="middle"
-                    className="small padding-tb-5 deposit-result-header"
+                    className="small pt-5 pb-5 highlight-background"
                   >
                     <Grid.Column width={4}>
                       <Count

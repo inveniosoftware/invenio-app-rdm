@@ -6,20 +6,7 @@
 /** Citation landing page */
 
 .copy.button {
-    margin-right: 0;
-}
-
-.ui.icon.button.iconhold  {
-    background-color: inherit;
-    border: none;
-    padding: 5px 5px 5px 0;
-    text-align: center;
-    width: 17px;
-    margin-right: 3px;
-
-    &:hover, &:focus {
-        background-color: inherit;
-    }
+  margin-right: 0;
 }
 
 .ui.active.button {
@@ -29,24 +16,23 @@
 }
 
 .goto-button a {
-    text-decoration: none;
-    color:  white;
-    font-size: 1em;
-    font-weight: 600;
+  text-decoration: none;
+  color: white;
+  font-size: 1em;
+  font-weight: 600;
 }
 
 .goto-button a:hover,
 .goto-button a:active {
-    color: white;
+  color: white;
 }
 
 .ui.button.affiliations-button {
   min-width: max-content;
-  margin-right: 0 !important;
 }
 
-.right.aligned.column{
-  .ui.button:last-of-type{
+.right.aligned.column {
+  .ui.button:last-of-type {
     margin-right: 0 !important;
   }
 }

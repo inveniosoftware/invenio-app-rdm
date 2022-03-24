@@ -98,7 +98,7 @@
 
 {% macro file_list_box(files, pid, is_preview, record) %}
 <div class="">
-  <div class="ui accordion panel mb-10{{record.ui.access_status.id}}" id="preview" href="#collapsablePreview">
+  <div class="ui accordion panel mb-10 {{record.ui.access_status.id}}" id="preview" href="#collapsablePreview">
     <div class="active title panel-heading pt-10 {{record.ui.access_status.id}}" tabindex="0">
       {{ _("Files") }}
       <small class="text-muted">{% if files %} ({{files|sum(attribute='size')|filesizeformat}}){% endif %}</small>

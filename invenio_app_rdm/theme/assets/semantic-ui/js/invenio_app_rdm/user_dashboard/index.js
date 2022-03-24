@@ -6,7 +6,6 @@
  * Invenio is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
  */
-import _map from "lodash/map";
 
 import { SearchApp } from "@js/invenio_search_ui/components";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
@@ -102,31 +101,37 @@ class DashboardMenu extends Component {
         <Menu.Item
           name={menuLabel}
           key={key}
-          active={key == currentActiveMenuElement}
+          active={key === currentActiveMenuElement}
           onClick={this.handleItemClick}
         />
       );
     });
 
     return (
-      <Container id="dashboard-menu" fluid>
-        <Container id="dashboard-menu-container" fluid>
-          <Container>
-            <Menu pointing secondary>
+      <>
+        <Container
+          id="dashboard-menu-container"
+          fluid
+          className="page-subheader-outer with-submenu rel-pt-2"
+        >
+          <Container id="dashboard-menu">
+            <Menu pointing secondary className="page-subheader">
               {menus}
             </Menu>
           </Container>
         </Container>
         <Container>
-          <Segment attached="bottom">
-            <SearchApp
-              appName={activeContent.appId}
-              key={activeContent.appId}
-              config={activeContent.config}
-            />
+          <Segment className="borderless shadowless">
+            <div className="rel-pt-2">
+              <SearchApp
+                appName={activeContent.appId}
+                key={activeContent.appId}
+                config={activeContent.config}
+              />
+            </div>
           </Segment>
         </Container>
-      </Container>
+      </>
     );
   }
 }

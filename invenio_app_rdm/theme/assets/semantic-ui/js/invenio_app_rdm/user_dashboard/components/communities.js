@@ -76,6 +76,7 @@ export function CommunitiesResultsItemTemplate({ result, index }) {
             size="small"
             floated="right"
             href={`/communities/${result.id}/settings`}
+            className="mt-0"
           >
             <Icon name="edit" />
             {i18next.t("Edit")}
@@ -84,6 +85,7 @@ export function CommunitiesResultsItemTemplate({ result, index }) {
             compact
             size="small"
             floated="right"
+            className="mt-0"
             href={`/communities/${result.id}`}
           >
             <Icon name="eye" />
@@ -162,9 +164,9 @@ export const CommunitiesFacets = ({ aggs, currentResultsState }) => {
     <aside aria-label={i18next.t("filters")} id="search-filters">
       {aggs.map((agg) => {
         return (
-          <Accordion key={agg.title}>
+          <div className="rdm-facet-container">
             <BucketAggregation title={agg.title} agg={agg} />
-          </Accordion>
+          </div>
         );
       })}
       <SearchHelpLinks />

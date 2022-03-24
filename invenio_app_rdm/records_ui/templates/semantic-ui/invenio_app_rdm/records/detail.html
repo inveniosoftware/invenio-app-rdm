@@ -21,7 +21,7 @@
 {%- block page_body %}
   <section id="banners" class="banners" aria-label="{{ _('Information banner') }}">
     {% if is_preview %}
-      <div class="ui info flashed top-attached manage message">
+      <div class="ui info flashed top attached manage message">
         <div class="ui container">
           <div class="ui relaxed grid">
             <div class="column">
@@ -57,15 +57,15 @@
       {%- set logoLink = "/static/images/square-placeholder.png" %}
       {%- set communityTitle = community %}
     {% endif %}
-      <div class="ui fluid container community-header-outer compact">
-        <div class="ui container community-header">
-          <div class="community-header-element">
+      <div class="ui fluid container page-subheader-outer compact">
+        <div class="ui container page-subheader">
+          <div class="page-subheader-element">
             <img
               class="community-logo-header"
               src="{{logoLink}}"
               onerror="this.onerror=null;this.src='/static/images/square-placeholder.png';"/>
           </div>
-          <div class="community-header-element">
+          <div class="page-subheader-element">
               {{ communityTitle }}
           </div>
         </div>
@@ -73,7 +73,7 @@
     {% endif %}
 
     {% if record.is_published and not record.versions.is_latest %}
-    <div class="ui warning flashed top-attached manage message">
+    <div class="ui warning flashed top attached manage message">
       <div class="ui container">
         <div class="ui relaxed grid">
           <div class="column">
@@ -275,7 +275,7 @@
           {# Jump up button #}
           {%- block jump -%}
             <div class="ui grid">
-              <div class="centered row rel-mt-1" id="jump-btn">
+              <div class="jump-to-top centered row rel-mt-1" id="jump-btn">
                   <a style="cursor: pointer;">
                     <button class="ui button labeled icon" aria-label="{{ _('Jump to top of page') }}">
                       <i class="arrow alternate circle up outline icon"></i>
@@ -299,6 +299,7 @@
 {% else %}
 {% include config.THEME_JAVASCRIPT_TEMPLATE %}
 {% endif %}
+{{ webpack['invenio-app-rdm-landing-page-theme.js'] }}
 {{ webpack['invenio-app-rdm-landing-page.js'] }}
 {# Communities management -- TODO include again when communities are ready #}
 {# {{ webpack['invenio-communities-records.js'] }} #}

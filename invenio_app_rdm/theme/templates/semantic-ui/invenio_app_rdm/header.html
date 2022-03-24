@@ -12,9 +12,9 @@
   <header class="theme header">
     <div class="outer-navbar">
       {%- block navbar %}
-      <div class="ui container">
-        <nav id="invenio-nav" class="ui inverted menu borderless stackable no-padding">
-            <div class="item logo no-padding">
+      <div class="ui container invenio-header-container">
+        <nav id="invenio-nav" class="ui inverted menu borderless stackable p-0">
+            <div class="item logo p-0">
 
               {%- block navbar_header %}
                   {%- block brand %}
@@ -30,13 +30,14 @@
                   {%- endblock brand %}
                 {%- endblock navbar_header %}
 
-              <div class="rdm-burger-toggle">
-                <input class="menu-btn" type="checkbox" id="menu-btn"/>
-                <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
+              <div id="rdm-burger-toggle">
+                <input class="rdm-menu-btn" type="checkbox" id="rdm-menu-btn"/>
+                <label id="rdm-burger-menu-icon" class="rdm-menu-icon"
+                       for="rdm-menu-btn"><span class="navicon"></span></label>
               </div>
             </div>
 
-            <div class="item no-padding search-bar mobile-hidden">
+            <div class="item p-0 search-bar mobile-hidden">
                 {%- if config.THEME_SEARCHBAR %}
                   {%- block navbar_search %}
                     <div id="header-search-bar">
@@ -83,12 +84,12 @@
               {%- block navbar_right %}
                 <div class="right item button mobile-hidden right-navbar">
                   {%- if config.ACCOUNTS and current_user.is_authenticated %}
-                  {% for item in current_menu.submenu('notifications').children|sort(attribute='order') if item.visible recursive %}
-                  <div class="item">
-                    <a href="{{ item.url }}"><i class="fitted inbox icon inverted"></i></a>
-                  </div>
-                  {% endfor %}
-                {% endif %}
+                    {% for item in current_menu.submenu('notifications').children|sort(attribute='order') if item.visible recursive %}
+                    <div class="item inbox">
+                      <a href="{{ item.url }}"><i class="fitted inbox icon inverted"></i></a>
+                    </div>
+                    {% endfor %}
+                  {% endif %}
                   {%- include config.THEME_HEADER_LOGIN_TEMPLATE %}
                 </div>
               {%- endblock navbar_right %}

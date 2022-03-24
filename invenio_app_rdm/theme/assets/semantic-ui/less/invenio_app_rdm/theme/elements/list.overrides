@@ -5,53 +5,41 @@
 /* Deposit license field */
 
 .item.deposit-drag-listitem {
-    margin-bottom: 5px;
-    &.hidden {
-      opacity: 0;
-    }
-    .drag-anchor {
-        cursor: move;
-    }
+  margin-bottom: 5px;
+
+  &.hidden {
+    opacity: 0;
+  }
+
+  .drag-anchor {
+    cursor: move;
+  }
 }
 
-.ui.items > .item.license-item {
-    cursor: pointer;
-    .image.license-radiobox {
-        padding-left: 5px;
-        padding-top: 2em;
-        width: 4%;
-    }
-    .content.license-item-content {
-        padding-left: 10px;
-        .description.license-item-description {
-            font-size: smaller;
-            color: rgba(0, 0, 0, 0.6);
-        }
-    }
-}
 
 .ui.list .disabled {
-    opacity: 0.5;
-    cursor: default;
+  opacity: 0.5;
+  cursor: default;
 }
 
 .ui.celled.list.separated-list {
-    >.item:first-child {
-        padding-left: 0;
-        border-left: none;
-    }
-    >.item:last-child {
-        padding-right: 0;
-        border-right: none;
-    }
+  > .item:first-child {
+    padding-left: 0;
+    border-left: none;
+  }
 
-    .item > a {
-        margin: 3px;
-    }
+  > .item:last-child {
+    padding-right: 0;
+    border-right: none;
+  }
+
+  .item > a {
+    margin: 3px;
+  }
 }
 
-.ui.list{
-    .version.active {
+.ui.list {
+  .version.active {
     background-color: @versionActiveColor;
   }
 }
@@ -65,11 +53,5 @@
       margin-top: .5rem;
       word-wrap: break-word;
     }
-  }
-}
-
-.rdm-multi-facet {
-  .ui.list {
-    padding-top: 0;
   }
 }

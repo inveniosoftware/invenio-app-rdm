@@ -224,7 +224,7 @@ export const ShareModal = (props) => {
 
         </div>
         <Modal.Description>
-          <p className="share-description">
+          <p className="share-description rel-m-1">
             <Icon name="warning circle" />
             {!!!accessLinkObj
               ? i18next.t(

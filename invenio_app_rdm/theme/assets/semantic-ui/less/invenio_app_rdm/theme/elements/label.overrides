@@ -1,5 +1,5 @@
 .ui.label.access-status {
-  color: #ffffff;
+  color: @white;
 
   &.open {
     background-color: @accessRightOpen;
@@ -29,14 +29,37 @@
   display: inline-block;
   padding: .18rem .6rem;
   box-sizing: border-box;
-  color: #757575;
-  border: 2px solid rgba(119, 119, 119, 0.56);
-  border-radius: 4px;
+  color: @highlightBackgroundColor;
+  border: 1px solid @borderColor;
+  border-radius: @defaultBorderRadius;
   cursor: pointer;
 }
 
 a.subject:hover {
-  background-color: rgba(119, 119, 119, 0.07);
-  color: darken(#757575, 15%);
+  background-color: @highlightBackgroundColorHover;
+  color: darken(@white, 15%);
   text-decoration: none;
+}
+
+label.helptext {
+  display: block;
+  color: @mutedTextColor;
+  font-weight: normal;
+  font-size: 0.9em;
+  margin-top: -0.8em; // counterweight Form field bottom margin
+  margin-bottom: @defaultMargin;
+}
+
+.ui.form {
+  .field {
+
+    label.helptext {
+      display: block;
+      color: @mutedTextColor;
+      font-weight: normal;
+      font-size: 0.9em;
+      margin-top: -0.8em; // counterweight Form field bottom margin
+      margin-bottom: @defaultMargin;
+    }
+  }
 }

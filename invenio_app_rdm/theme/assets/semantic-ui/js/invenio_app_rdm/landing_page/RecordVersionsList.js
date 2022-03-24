@@ -45,14 +45,14 @@ const RecordVersionItem = ({ item, activeVersion }) => {
           }
 
           {doi && (
-            <small className={'doi' + (activeVersion ? ' .text-muted-darken' : ' text-muted')}>
+            <small className={'doi' + (activeVersion ? ' text-muted-darken' : ' text-muted')}>
               {doi}
             </small>
           )}
         </List.Content>
 
         <List.Content floated="right">
-          <small className={activeVersion ? '.text-muted-darken' : 'text-muted'}>
+          <small className={activeVersion ? 'text-muted-darken' : 'text-muted'}>
             {item.publication_date}
           </small>
         </List.Content>

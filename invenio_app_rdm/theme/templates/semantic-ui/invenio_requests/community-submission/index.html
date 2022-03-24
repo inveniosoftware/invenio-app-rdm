@@ -9,43 +9,56 @@
 
 {% extends "invenio_requests/details/index.html" %}
 
-{% block javascript %}
-  {{ super() }}
-{{ webpack['invenio-app-rdm-requests.js']}}
-{% endblock %}
-
-{% block request_topic %}
-  <h1 class="ui header">
-    <div class="ui label green">New submission</div>
-    {{ request.topic.metadata.title }}</h1><br/>
-  <div class="truncate-container">
-    <div id="request-details-contributors" class="ui horizontal list truncate-text truncate-lines-2" role="list">
-      {% for item in request.topic.metadata.creators %}
-        <div class="item" role="listitem">
-          <div class="content"><i class="user icon"></i>
-            {{ item.person_or_org.name }}</div>
+{% block request_header %}
+    <div class="ui container fluid page-subheader-outer with-submenu rel-pt-2">
+      <div class="ui grid container">
+        <div class="two column row page-header">
+          <div class="column ten wide">
+            <div class="ui container">
+              <h1 class="ui header">
+                <span class="ui label green">New submission</span>
+                {{ request.topic.metadata.title }}</h1><br/>
+              <div class="truncate-container">
+                <div id="request-details-contributors" class="ui horizontal list truncate-text truncate-lines-2 m-0 rel-ml-1" role="list">
+                  {% for item in request.topic.metadata.creators %}
+                    <div class="item" role="listitem">
+                      <div class="content"><i class="user icon"></i>
+                        {{ item.person_or_org.name }}</div>
+                    </div>
+                  {% endfor %}
+                </div>
+                <a href="javascript:void(0)" class="truncate-toggler truncate-show-more" hidden>{{_('Show more')}}</a>
+                <a href="javascript:void(0)" class="truncate-toggler truncate-show-less" hidden>{{_('Show less')}}</a>
+              </div>
+            </div>
+          </div>
+          <div class="column six wide right aligned">
+            {% block request_actions %}
+              <div id="request-actions"></div>
+            {% endblock request_actions %}
+          </div>
         </div>
-      {% endfor %}
+      </div>
     </div>
-    <a href="javascript:void(0)" class="truncate-toggler truncate-show-more" hidden>{{_('Show more')}}</a>
-    <a href="javascript:void(0)" class="truncate-toggler truncate-show-less" hidden>{{_('Show less')}}</a>
-  </div>
-{% endblock request_topic %}
+{% endblock request_header %}
 
 {% block conversation %}
-  <div class="ui divider hidden"></div>
-  <div class="ui container" id="request-community-submission-tab-container">
-  <div class="ui secondary pointing menu" id="request-community-submission-tab">
-    <a class="active item" data-tab="conversation" role="tab"
-       aria-selected="true" aria-controls="conversation"
-       id="conversation-tab-menu">
-      Conversation
-    </a>
-    <a class="item" data-tab="record" id="record-tab-menu"
-       aria-controls="record">
-      Record
-    </a>
-  </div>
+  <div class="ui container invenio-tab-container fluid" id="request-community-submission-tab-container">
+    <div class="ui container fluid page-subheader-outer with-submenu rel-pt-3">
+      <div class="ui container">
+        <div class="ui secondary pointing menu invenio-tab-menu page-subheader" id="request-community-submission-tab">
+          <a class="active item" data-tab="conversation" role="tab"
+             aria-selected="true" aria-controls="conversation"
+             id="conversation-tab-menu">
+            Conversation
+          </a>
+          <a class="item" data-tab="record" id="record-tab-menu"
+             aria-controls="record">
+            Record
+          </a>
+        </div>
+      </div>
+    </div>
 
   <div class="ui bottom attached tab segment active borderless" data-tab="conversation"
        role="tabpanel" aria-labelledby="conversation" id="conversation-tab">

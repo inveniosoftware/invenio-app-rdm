@@ -16,18 +16,21 @@
 {{ super() }}
 
 {%- block frontpage_search %}
-<div id="frontpage-search-bar" class="ui container fluid cover-page">
-  <div class="ui container two column centered middle aligned grid">
-    <div class="row middle aligned">
-      <div class="sixteen wide column frontpage-search">
+<div id="frontpage-search-bar" class="ui container fluid frontpage-header">
+  <div class="ui container grid rel-mt-2">
+    <div class="row">
+      <div class="sixteen wide column center aligned">
         {%- block frontpage_title %}
-        <h1 class="ui center aligned header">
+        <h1 class="ui center aligned header inverted">
           {{ _(config.THEME_FRONTPAGE_TITLE) }}
         </h1>
-        {%- endblock frontpage_title %}
-        {%- block frontpage_form %}
-        <div class="ui center aligned grid">
-          <div class="search-bar">
+      </div>
+    </div>
+      {%- endblock frontpage_title %}
+      {%- block frontpage_form %}
+      <div class="row">
+          <div class="sixteen wide mobile four wide computer column"></div>
+          <div class="sixteen wide mobile eight wide computer column center aligned">
             <form action="{{ url_for('invenio_search_ui.search') }}" class="ui form" role="search">
               <div class="ui fluid big action input">
                 <input type="text" name="q" class="form-control" placeholder="{{ _('Search') }}">
@@ -38,8 +41,6 @@
         </div>
         <div class="ui divider hidden"></div>
         {%- endblock frontpage_form %}
-      </div>
-    </div>
   </div>
 </div>
 {%- endblock frontpage_search %}

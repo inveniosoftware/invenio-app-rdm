@@ -20,15 +20,15 @@ theme = WebpackThemeBundle(
             entry={
                 'invenio-app-rdm-landing-page':
                     './js/invenio_app_rdm/landing_page/index.js',
+                'invenio-app-rdm-landing-page-theme':
+                    './js/invenio_app_rdm/landing_page/theme.js',
                 'invenio-app-rdm-deposit':
                     './js/invenio_app_rdm/deposit/index.js',
                 'invenio-app-rdm-search':
                     './js/invenio_app_rdm/search/index.js',
                 'invenio-app-rdm-user-dashboard':
                 './js/invenio_app_rdm/user_dashboard/index.js',
-                'invenio-app-rdm-requests':
-                './js/invenio_app_rdm_requests/menuTabInit.js',
-                'base-rdm': './js/invenio_app_rdm/theme.js',
+                'base-theme-rdm': './js/invenio_app_rdm/theme.js',
             },
             dependencies={
                 '@babel/runtime': '^7.9.0',

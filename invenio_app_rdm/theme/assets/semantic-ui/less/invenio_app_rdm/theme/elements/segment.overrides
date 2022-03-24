@@ -41,7 +41,7 @@
   h2.ui.small.header {
     margin-bottom: 0.5rem;
     padding-bottom: 0.5rem;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid @borderColor;
   }
 }
 
@@ -67,15 +67,12 @@
   }
 }
 
-/* Brand */
-.ui.segment.deposit-form-accordion:not(.inverted) {
-  border-top: @coloredBorderSize solid @brandColor !important;
-}
-.ui.segment.deposit-form-accordion {
-  background-color: @brandColor !important;
-  color: @white !important;
-}
-
 .ui.segment.loader-container {
   height: 10em;
+}
+
+.ui.segment.file-upload-area {
+  border: @dashedBorder;
+  border-radius: @defaultBorderRadius;
+  background: @highlightHeaderColor none;
 }

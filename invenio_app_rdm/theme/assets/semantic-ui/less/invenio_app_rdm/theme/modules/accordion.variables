@@ -1,0 +1,9 @@
+@secondaryInvertedRedLightness: 0.1;
+@secondaryInvertedRedBackground:
+  lighten(@red, (@secondaryInvertedRedLightness * 100))
+  linear-gradient(
+    rgba(255, 255, 255, @secondaryInvertedRedLightness) 0%,
+    rgba(255, 255, 255, @secondaryInvertedRedLightness) 100%
+  )
+;
+@secondaryInvertedColor: @invertedMutedTextColor;
