@@ -12,10 +12,12 @@ import ReactDOM from "react-dom";
 import { RecordManagement } from "./RecordManagement";
 import { RecordVersionsList } from "./RecordVersionsList";
 import { RecordCitationField } from "./RecordCitationField";
+import { ExportDropdown } from "./ExportDropdown";
 
 const recordManagementAppDiv = document.getElementById("recordManagement");
 const recordVersionsAppDiv = document.getElementById("recordVersions");
 const recordCitationAppDiv = document.getElementById("recordCitation");
+const recordExportDownloadDiv = document.getElementById("recordExportDownload");
 
 if (recordManagementAppDiv) {
   ReactDOM.render(
@@ -45,5 +47,14 @@ if (recordCitationAppDiv) {
       defaultStyle={JSON.parse(recordCitationAppDiv.dataset.defaultstyle)}
     />,
     recordCitationAppDiv
+  );
+}
+
+if(recordExportDownloadDiv) {
+  ReactDOM.render(
+    <ExportDropdown
+      formats={JSON.parse(recordExportDownloadDiv.dataset.formats)}
+    />,
+    recordExportDownloadDiv
   );
 }
