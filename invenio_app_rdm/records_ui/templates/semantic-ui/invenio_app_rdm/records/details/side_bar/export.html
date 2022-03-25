@@ -12,54 +12,20 @@
 {# if no export formats are specified, don't bother showing the box #}
 <section id="export-record" aria-label="{{ _('Export') }}" class="ui segment rdm-sidebar exports">
   <h2 class="ui small header">{{ _('Export')}}</h2>
-  <div class="ui grid container mt-5">
-    <div class="twelve wide column">
-      <div role="combobox"
-           aria-controls="export-formats"
-           aria-haspopup="listbox"
-           aria-expanded="true"
-           aria-label="{{ _('Export formats list') }}"
-           class="ui selection dropdown export fluid"
-           id="export-select-box"
-      >
-        <input type="hidden" name="export">
-        <i class="dropdown icon"></i>
-        {% set firstValue = config.get("APP_RDM_RECORD_EXPORTERS", {}).items()|first %}
-        <div class="text">{{ firstValue[1].get("name") }}</div>
+  {# dynamically create the list of export formats #}
+  {% set formats = [] %}
 
-        <div class="menu" role="listbox" id="export-formats" tabindex="0">
-          {# dynamically create the list of export formats #}
-          {%- set ns = namespace(initial_val="") %}
-          {%- for fmt, val in config.get("APP_RDM_RECORD_EXPORTERS", {}).items() -%}
-            {%- set name = val.get("name", fmt) -%}
-            {% if is_preview %}
-              {%- set export_url = url_for('invenio_app_rdm_records.record_export', pid_value=record.id, export_format=fmt, preview=1) -%}
-            {% else %}
-              {%- set export_url = url_for('invenio_app_rdm_records.record_export', pid_value=record.id, export_format=fmt) -%}
-            {% endif %}
+  {%- for fmt, val in config.get("APP_RDM_RECORD_EXPORTERS", {}).items() -%}
+    {%- set name = val.get("name", fmt) -%}
+    {% if is_preview %}
+      {%- set export_url = url_for('invenio_app_rdm_records.record_export', pid_value=record.id, export_format=fmt, preview=1) -%}
+    {% else %}
+      {%- set export_url = url_for('invenio_app_rdm_records.record_export', pid_value=record.id, export_format=fmt) -%}
+    {% endif %}
 
-            {% if loop.first %}
-              {%- set ns.initial_val = export_url %}
-            {% endif %}
-            <div role="option"
-                 class="item {{ 'active selected' if loop.first }}"
-                 data-value="{{ export_url }}"
-                 id="option-{{loop.index}}"
-                 tabindex="-1"
-            >
-              {{ name }}
-            </div>
-          {%- endfor -%}
-        </div>
-      </div>
-    </div>
-    <div class="four wide column">
-      <a role="button"
-         class="ui export button"
-         href="{{ ns.initial_val }}" title="{{ _('Download file') }}">
-        {{ _('Export')}}
-      </a>
-    </div>
-  </div>
+    {% set formats = formats.append({ 'name': name, 'export_url': export_url }) %}
+  {%- endfor -%}
+
+  <div id="recordExportDownload" data-formats='{{ formats | tojson }}'></div>
 </section>
 {%- endif -%}
