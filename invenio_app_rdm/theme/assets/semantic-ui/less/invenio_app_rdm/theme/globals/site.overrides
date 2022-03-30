@@ -430,7 +430,9 @@ dl.details-list {
   box-shadow: none !important;
 }
 
-
-.contents-container {
-  display: contents !important;
+.auto-column-grid {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: auto max-content;
+  align-items: center;
 }
