@@ -14,8 +14,8 @@ import {
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import _get from "lodash/get";
 import _truncate from "lodash/truncate";
-import React, { Component } from "react";
 import PropTypes from "prop-types";
+import React, { Component } from "react";
 import {
   BucketAggregation,
   Count,
@@ -30,7 +30,6 @@ import {
   Button,
   Card,
   Container,
-  Divider,
   Grid,
   Header,
   Icon,
@@ -99,7 +98,7 @@ export const RequestsResults = ({
           </Grid.Column>
         </Grid.Row>
         <Grid.Row verticalAlign="middle">
-          <Grid.Column width={4}/>
+          <Grid.Column width={4} />
           <Grid.Column width={8} textAlign="center">
             <Pagination
               options={{
@@ -306,7 +305,7 @@ export const RDMRequestsSearchLayout = (props) => {
   );
 };
 
-export const RequestsFacets = ({ aggs, currentResultsState }) => {
+export const RequestsFacets = ({ aggs }) => {
   return (
     <aside aria-label={i18next.t("filters")} id="search-filters">
       {aggs.map((agg) => {
@@ -351,18 +350,18 @@ export const RDMRequestsEmptyResults = (props) => {
   const NoResults = () => {
     return (
       <>
-          <Header icon>
-            <Icon name="search" />
-            {i18next.t("No requests found!")}
-          </Header>
-          {queryString && (
-            <Button
-              primary
-              onClick={() => props.updateQueryState(elementsToReset)}
-            >
-              {i18next.t("Reset search")}
-            </Button>
-          )}
+        <Header icon>
+          <Icon name="search" />
+          {i18next.t("No requests found!")}
+        </Header>
+        {queryString && (
+          <Button
+            primary
+            onClick={() => props.updateQueryState(elementsToReset)}
+          >
+            {i18next.t("Reset search")}
+          </Button>
+        )}
       </>
     );
   };
