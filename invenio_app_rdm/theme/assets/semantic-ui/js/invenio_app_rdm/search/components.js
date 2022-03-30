@@ -7,12 +7,20 @@
 // Invenio App RDM is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
 
+import { SearchBar } from "@js/invenio_search_ui/components";
+import { i18next } from "@translations/invenio_app_rdm/i18next";
+import _get from "lodash/get";
+import _truncate from "lodash/truncate";
 import React, { useState } from "react";
+import Overridable from "react-overridable";
+import { BucketAggregation, Toggle, withState } from "react-searchkit";
 import {
+  Accordion,
   Button,
   Card,
   Checkbox,
   Grid,
+  Header,
   Icon,
   Input,
   Item,
@@ -20,18 +28,10 @@ import {
   List,
   Message,
   Segment,
-  Header,
-  Accordion,
 } from "semantic-ui-react";
-import { BucketAggregation, Toggle, withState } from "react-searchkit";
-import _get from "lodash/get";
-import _truncate from "lodash/truncate";
-import Overridable from "react-overridable";
-import { SearchBar } from "@js/invenio_search_ui/components";
-import { i18next } from "@translations/invenio_app_rdm/i18next";
 import { SearchItemCreators } from "../utils";
 
-export const RDMRecordResultsListItem = ({ result, index }) => {
+export const RDMRecordResultsListItem = ({ result }) => {
   const access_status_id = _get(result, "ui.access_status.id", "open");
   const access_status = _get(result, "ui.access_status.title_l10n", "Open");
   const access_status_icon = _get(result, "ui.access_status.icon", "unlock");
@@ -65,7 +65,7 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
   // Derivatives
   const viewLink = `/records/${result.id}`;
   return (
-    <Item key={index}>
+    <Item>
       <Item.Content>
         <Item.Extra className="labels-actions">
           <Label size="tiny" color="blue">
@@ -91,8 +91,8 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
           {_truncate(description_stripped, { length: 350 })}
         </Item.Description>
         <Item.Extra>
-          {subjects.map((subject, index) => (
-            <Label key={index} size="tiny">
+          {subjects.map((subject) => (
+            <Label key={subject.title_l10n} size="tiny">
               {subject.title_l10n}
             </Label>
           ))}
@@ -110,14 +110,14 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
 };
 
 // TODO: Update this according to the full List item template?
-export const RDMRecordResultsGridItem = ({ result, index }) => {
+export const RDMRecordResultsGridItem = ({ result }) => {
   const description_stripped = _get(
     result,
     "ui.description_stripped",
     "No description"
   );
   return (
-    <Card fluid key={index} href={`/records/${result.pid}`}>
+    <Card fluid href={`/records/${result.pid}`}>
       <Card.Content>
         <Card.Header>{result.metadata.title}</Card.Header>
         <Card.Description>
@@ -186,13 +186,15 @@ export const RDMParentFacetValue = ({
 
   return (
     <Accordion className="rdm-multi-facet">
-      <Accordion.Title onClick={() => {}} key={`panel-${bucket.label}`}
-      active={isActive}
-      className="facet-wrapper parent"
+      <Accordion.Title
+        onClick={() => {}}
+        key={`panel-${bucket.label}`}
+        active={isActive}
+        className="facet-wrapper parent"
       >
         <List.Content className="facet-wrapper">
-        <Icon name="angle right" onClick={() => setIsActive(!isActive)}/>
-        <Checkbox
+          <Icon name="angle right" onClick={() => setIsActive(!isActive)} />
+          <Checkbox
             label={bucket.label || keyField}
             id={`${keyField}-facet-checkbox`}
             aria-describedby={`${keyField}-count`}
@@ -239,9 +241,8 @@ export const RDMRecordFacetsValues = ({
   bucket,
   isSelected,
   onFilterClicked,
-  getChildAggCmps,
+  childAggCmps,
 }) => {
-  const childAggCmps = getChildAggCmps(bucket);
   const hasChildren = childAggCmps && childAggCmps.props.buckets.length > 0;
   const keyField = bucket.key_as_string ? bucket.key_as_string : bucket.key;
   return (

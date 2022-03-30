@@ -14,9 +14,7 @@ import React, { useState } from "react";
 import {
   Button,
   Card,
-  Container,
   Divider,
-  Grid,
   Header,
   Icon,
   Item,
@@ -24,16 +22,16 @@ import {
   Modal,
   Segment,
 } from "semantic-ui-react";
-import { axiosWithconfig, SearchItemCreators } from "../../utils";
 import {
   RDMBucketAggregationElement,
   RDMCountComponent,
+  RDMEmptyResults as RDMNoSearchResults,
   RDMRecordFacets,
   RDMRecordFacetsValues,
   RDMRecordSearchBarElement,
   RDMToggleComponent,
-  RDMEmptyResults as RDMNoSearchResults
 } from "../../search/components";
+import { axiosWithconfig, SearchItemCreators } from "../../utils";
 import { DashboardResultView, DashboardSearchLayoutHOC } from "./base";
 
 const DeleteDraftButton = (props) => {
@@ -254,7 +252,7 @@ export const RDMEmptyResults = (props) => {
     </Segment.Group>
   ) : (
     <Segment padded="very">
-      <RDMNoSearchResults {...props} searchPath='/me/uploads' />
+      <RDMNoSearchResults {...props} searchPath="/me/uploads" />
     </Segment>
   );
 };
@@ -283,5 +281,5 @@ export const defaultComponents = {
   "user-uploads-search.SearchApp.layout": DashboardUploadsSearchLayout,
   "user-uploads-search.SearchApp.results": DashboardResultView,
   "user-uploads-search.SearchBar.element": RDMRecordSearchBarElement,
-  "user-uploads-search.SearchFilters.ToggleComponent": RDMToggleComponent,
+  "user-uploads-search.SearchFilters.Toggle.element": RDMToggleComponent,
 };
