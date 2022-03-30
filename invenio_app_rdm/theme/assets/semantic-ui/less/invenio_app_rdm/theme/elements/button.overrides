@@ -36,3 +36,11 @@
     margin-right: 0 !important;
   }
 }
+
+.auto-column-grid {
+  .ui.button {
+    &:last-of-type {
+      margin-right: 0;
+    }
+  }
+}
