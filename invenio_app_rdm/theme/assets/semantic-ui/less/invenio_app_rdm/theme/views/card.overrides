@@ -63,4 +63,21 @@
       margin: 0.3rem 0;
     }
   }
+
+  .ui.card {
+    .content.background {
+      &.red {
+        background-color: @red;
+      }
+      &.green {
+        background-color: @green;
+      }
+      &.yellow {
+        background-color: @yellow;
+      }
+     .header {
+        color: @white;
+      }
+    }
+  }
 }

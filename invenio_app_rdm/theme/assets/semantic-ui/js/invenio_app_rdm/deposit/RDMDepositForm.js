@@ -30,6 +30,7 @@ import {
   PublisherField,
   RelatedWorksField,
   ResourceTypeField,
+  DepositStatusBox,
   SaveButton,
   SubjectsField,
   TitlesField,
@@ -134,6 +135,7 @@ export class RDMDepositForm extends Component {
   render() {
     const {
       record,
+      review,
       files,
       permissions,
       preselectedCommunity,
@@ -143,14 +145,13 @@ export class RDMDepositForm extends Component {
       <DepositFormApp
         config={this.config}
         record={record}
+        review={review}
         preselectedCommunity={preselectedCommunity}
         files={files}
         permissions={permissions}
       >
         <FormFeedback fieldPath="message" />
-        {communitiesEnabled && (
-          <CommunityHeader imagePlaceholderLink="/static/images/square-placeholder.png" />
-        )}
+        <CommunityHeader imagePlaceholderLink="/static/images/square-placeholder.png" />
         <Container id="rdm-deposit-form" className="rel-mt-1">
           <DepositFormTitle />
           <Grid>
@@ -350,7 +351,8 @@ export class RDMDepositForm extends Component {
               <Ref innerRef={this.sidebarRef}>
                 <Grid.Column width={5} className="deposit-sidebar">
                   <Sticky context={this.sidebarRef} offset={20}>
-                    <Card className="actions">
+                    <Card>
+                      <DepositStatusBox />
                       <Card.Content>
                         <Grid>
                           <Grid.Column
@@ -373,8 +375,7 @@ export class RDMDepositForm extends Component {
                         </Grid>
                       </Card.Content>
                     </Card>
-
-                    <Card className="actions">
+                    <Card>
                       <Card.Content>
                         <DeleteButton
                           fluid
