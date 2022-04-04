@@ -28,7 +28,6 @@ from sqlalchemy.orm import load_only
 from ..utils import set_default_value
 from .decorators import pass_draft, pass_draft_community, pass_draft_files
 from .filters import get_scheme_label
-from .utils import get_community_uuid
 
 
 #
@@ -279,6 +278,7 @@ def new_record():
         record["pids"] = {"doi": {"provider": "external", "identifier": ""}}
     else:
         record["pids"] = {}
+    record["status"] = "draft"
     defaults = current_app.config.get("APP_RDM_DEPOSIT_FORM_DEFAULTS") or {}
     for key, value in defaults.items():
         set_default_value(record, value, key)
@@ -323,8 +323,8 @@ def deposit_create(community=None):
 @pass_draft_files
 def deposit_edit(draft=None, draft_files=None, pid_value=None):
     """Edit an existing deposit."""
-    serializer = UIJSONSerializer()
-    record = serializer.serialize_object_to_dict(draft.to_dict())
+    ui_serializer = UIJSONSerializer()
+    record = ui_serializer.serialize_object_to_dict(draft.to_dict())
 
     return render_template(
         "invenio_app_rdm/records/deposit.html",
