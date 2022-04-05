@@ -8,6 +8,6 @@
 
 """Invenio App RDM."""
 
-from .version import __version__
+__version__ = '9.0.0.dev5'
 
 __all__ = ('__version__', )
