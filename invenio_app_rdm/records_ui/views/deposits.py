@@ -260,6 +260,7 @@ def get_form_config(**kwargs):
         current_locale=str(current_i18n.locale),
         default_locale=current_app.config.get('BABEL_DEFAULT_LOCALE', 'en'),
         pids=get_form_pids_config(),
+        quota=current_app.config.get('APP_RDM_DEPOSIT_FORM_QUOTA'),
         **kwargs
     )
 
