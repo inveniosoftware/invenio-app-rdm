@@ -168,10 +168,7 @@ export class RDMDepositForm extends Component {
                   )}
                   <FileUploader
                     isDraftRecord={!record.is_published}
-                    quota={{
-                      maxFiles: 100,
-                      maxStorage: 10 ** 10,
-                    }}
+                    quota={this.config.quota}
                   />
                 </AccordionField>
 

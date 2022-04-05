@@ -621,6 +621,12 @@ Available options:
 - ``off``: Only show person form (no search field).
 """
 
+APP_RDM_DEPOSIT_FORM_QUOTA = {
+    "maxFiles": 100,
+    "maxStorage": 10 ** 10,
+}
+"""Deposit file upload quota """
+
 RDM_CITATION_STYLES = [
     ('apa', _('APA')),
     ('harvard-cite-them-right', _('Harvard')),
