@@ -17,6 +17,7 @@ import {
   DeleteButton,
   DepositFormApp,
   DepositFormTitle,
+  DepositStatusBox,
   DescriptionsField,
   FileUploader,
   FormFeedback,
@@ -30,7 +31,6 @@ import {
   PublisherField,
   RelatedWorksField,
   ResourceTypeField,
-  DepositStatusBox,
   SaveButton,
   SubjectsField,
   TitlesField,
@@ -133,14 +133,8 @@ export class RDMDepositForm extends Component {
   sidebarRef = createRef();
 
   render() {
-    const {
-      record,
-      review,
-      files,
-      permissions,
-      preselectedCommunity,
-      communitiesEnabled,
-    } = this.props;
+    const { record, review, files, permissions, preselectedCommunity } =
+      this.props;
     return (
       <DepositFormApp
         config={this.config}
@@ -352,29 +346,37 @@ export class RDMDepositForm extends Component {
                 <Grid.Column width={5} className="deposit-sidebar">
                   <Sticky context={this.sidebarRef} offset={20}>
                     <Card>
-                      <DepositStatusBox />
                       <Card.Content>
-                        <Grid>
+                        <DepositStatusBox />
+                      </Card.Content>
+                      <Card.Content>
+                        <Grid relaxed>
                           <Grid.Column
                             computer={8}
                             mobile={16}
-                            className="pr-5"
+                            className="pb-0"
                           >
-                            <SaveButton fluid className="save-button" />
+                            <SaveButton fluid />
                           </Grid.Column>
                           <Grid.Column
                             computer={8}
                             mobile={16}
-                            className="pl-5"
+                            className="pb-0"
                           >
-                            <PreviewButton fluid className="preview-button" />
+                            <PreviewButton fluid />
                           </Grid.Column>
-                          <Grid.Column width={16} className="pt-0">
+                          <Grid.Column width={16}>
                             <PublishButton fluid />
                           </Grid.Column>
                         </Grid>
                       </Card.Content>
                     </Card>
+
+                    <AccessRightField
+                      label={i18next.t("Visibility")}
+                      labelIcon={"shield"}
+                    />
+
                     <Card>
                       <Card.Content>
                         <DeleteButton
@@ -385,11 +387,6 @@ export class RDMDepositForm extends Component {
                         />
                       </Card.Content>
                     </Card>
-
-                    <AccessRightField
-                      label={i18next.t("Visibility")}
-                      labelIcon={"shield"}
-                    />
                   </Sticky>
                 </Grid.Column>
               </Ref>
