@@ -34,6 +34,7 @@ import {
   SubjectsField,
   TitlesField,
   VersionField,
+  FundingField
 } from "react-invenio-deposit";
 import { AccordionField } from "react-invenio-forms";
 import { Card, Container, Divider, Grid, Ref, Sticky } from "semantic-ui-react";
@@ -75,12 +76,12 @@ export class RDMDepositForm extends Component {
           funder: [
             {
               name: "National Institutes of Health (US)",
-              identifier: "funder1",
+              id: "funder1",
               scheme: "funderScheme1",
             },
             {
               name: "European Commission (EU)",
-              identifier: "funder2",
+              id: "funder2",
               scheme: "funderScheme2",
             },
           ],
@@ -88,7 +89,7 @@ export class RDMDepositForm extends Component {
             {
               title: "CANCER &AIDS DRUGS--PRECLIN PHARMACOL/TOXICOLOGY",
               number: "N01CM037835-016",
-              identifier: "awardA",
+              id: "awardA",
               scheme: "awardSchemeA",
               parentScheme: "funderScheme1",
               parentIdentifier: "funder1",
@@ -97,7 +98,7 @@ export class RDMDepositForm extends Component {
               title:
                 "Beyond the Standard Model at the LHC and with Atom Interferometers.",
               number: "228169",
-              identifier: "awardB1",
+              id: "awardB1",
               scheme: "awardSchemeB",
               parentScheme: "funderScheme2",
               parentIdentifier: "funder2",
@@ -105,7 +106,7 @@ export class RDMDepositForm extends Component {
             {
               title: "ENvironmental COnditions in GLAucoma Patients",
               number: "747441",
-              identifier: "awardB2",
+              id: "awardB2",
               scheme: "awardSchemeB",
               parentScheme: "funderScheme2",
               parentIdentifier: "funder2",
@@ -126,6 +127,10 @@ export class RDMDepositForm extends Component {
     ) {
       this.noFiles = true;
     }
+    // TODO this must  be hooked one of:
+    // TODO - dumper
+    // TODO - nothing or saved changes
+    this.props.record.metadata.funding = [];
   }
 
   formFeedbackRef = createRef();
@@ -306,20 +311,81 @@ export class RDMDepositForm extends Component {
                   <br />
                 </AccordionField>
                 {/**TODO: uncomment to use FundingField*/}
-                {/* <AccordionField
-                fieldPath=""
-                active={true}
-                label={"Funding"}
-                >
-                <FundingField options={this.vocabularies.metadata.funding} />
-                <ComingSoonField
-                  fieldPath="metadata.funding"
-                  label="Awards"
-                  labelIcon="money bill alternate outline"
-                />
+                <AccordionField
+                   fieldPath=""
+                   active={true}
+                   label={"Funding"}
+                   ui={this.accordionStyle}
+                 >
+                   <FundingField
+                     // TODO is this relevant? How?
+                     // TODO it seems that this key is used to index an object
+                     // TODO containing default data. I don't know where this default data comes from
+                     // TODO It should come from the APIs
+                     fieldPath="metadata.funding"
+                     // TODO for now this seems to be used only fort the modal.
+                     searchConfig={{
+                       searchApi: {
+                         axios: {
+                           headers: {
+                            //  FIXME use for internationalisation
+                            //  Accept: "application/vnd.inveniordm.v1+json"
+                            Accept: "application/json",
+                           },
+                           // FIXME: Remove mocked host part
+                           url: "https://127.0.0.1:5000/api/awards",
+                           withCredentials: false,
+                         },
+                       },
+                       initialQueryState: {
+                         sortBy: "bestmatch",
+                         sortOrder: "asc",
+                         layout: "list",
+                         page: 1,
+                         size: 3,
+                       },
+                    }}
+                    label="Awards"
+                    labelIcon="money bill alternate outline"
+                    deserializeAward={(award) => {
+                      return {
+                        title: award.title.en ?? award.title,
+                        pid: award.pid,
+                        number: award.number,
+                        funder: award.funder ?? '',
+                        id: award.id
+                      }
+                    }}
+                    deserializeFunder={(funder) => {
+                      return {
+                        id: funder.id,
+                        pid: funder.pid,
+                        name: funder.name
+                      }
+                    }
+                    }
+                    computeFundingContents={(funding) => {
+                      let headerContent, descriptionContent = '';
+                      let awardOrFunder = 'award';
+                      if (funding.award) {
+                        headerContent = funding.award.title;
+                      }
 
-                <br />
-                </AccordionField> */}
+                      if (funding.funder) {
+                        const funderName = funding.funder?.name ?? funding.funder?.title?.en ?? funding.funder?.id ?? '';
+                        descriptionContent = funderName;
+                        if (!headerContent) {
+                          awardOrFunder = 'funder';
+                          headerContent = funderName;
+                          descriptionContent = '';
+                        }
+                      }
+
+                      return { headerContent, descriptionContent, awardOrFunder };
+                    }}
+                  />
+                   <br />
+                 </AccordionField>
 
                 <AccordionField
                   fieldPath=""
