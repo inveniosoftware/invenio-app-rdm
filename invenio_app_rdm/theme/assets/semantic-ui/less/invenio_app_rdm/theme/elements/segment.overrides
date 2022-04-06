@@ -76,3 +76,9 @@
   border-radius: @defaultBorderRadius;
   background: @highlightHeaderColor none;
 }
+
+.ui.segment {
+  &.empty-members {
+    min-height: 12em;
+  }
+}

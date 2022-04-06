@@ -40,6 +40,12 @@
   }
 }
 
+.ui.modal {
+  &.invite-members-modal {
+    max-width: 50em;
+  }
+}
+
 
 @media screen and (max-width: 850px) {
   #community-selection-modal {
