@@ -318,10 +318,6 @@ export class RDMDepositForm extends Component {
                    ui={this.accordionStyle}
                  >
                    <FundingField
-                     // TODO is this relevant? How?
-                     // TODO it seems that this key is used to index an object
-                     // TODO containing default data. I don't know where this default data comes from
-                     // TODO It should come from the APIs
                      fieldPath="metadata.funding"
                      // TODO for now this seems to be used only fort the modal.
                      searchConfig={{
@@ -332,7 +328,6 @@ export class RDMDepositForm extends Component {
                             //  Accept: "application/vnd.inveniordm.v1+json"
                             Accept: "application/json",
                            },
-                           // FIXME: Remove mocked host part
                            url: "https://127.0.0.1:5000/api/awards",
                            withCredentials: false,
                          },
