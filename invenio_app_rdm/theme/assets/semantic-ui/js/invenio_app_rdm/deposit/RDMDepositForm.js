@@ -71,7 +71,7 @@ export class RDMDepositForm extends Component {
           ],
         },
 
-        // TODO: Replace with an API backend
+        // TODO perhaps can be discarded
         funding: {
           funder: [
             {
@@ -127,9 +127,6 @@ export class RDMDepositForm extends Component {
     ) {
       this.noFiles = true;
     }
-    // TODO this must  be hooked one of:
-    // TODO - dumper
-    // TODO - nothing or saved changes
     this.props.record.metadata.funding = [];
   }
 
@@ -310,7 +307,6 @@ export class RDMDepositForm extends Component {
                   <PublisherField />
                   <br />
                 </AccordionField>
-                {/**TODO: uncomment to use FundingField*/}
                 <AccordionField
                    fieldPath=""
                    active={true}
@@ -319,7 +315,6 @@ export class RDMDepositForm extends Component {
                  >
                    <FundingField
                      fieldPath="metadata.funding"
-                     // TODO for now this seems to be used only fort the modal.
                      searchConfig={{
                        searchApi: {
                          axios: {
