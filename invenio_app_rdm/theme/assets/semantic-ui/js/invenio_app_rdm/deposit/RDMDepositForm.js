@@ -34,6 +34,7 @@ import {
   SubjectsField,
   TitlesField,
   VersionField,
+  FundingField,
 } from "react-invenio-deposit";
 import { AccordionField } from "react-invenio-forms";
 import { Card, Container, Divider, Grid, Ref, Sticky } from "semantic-ui-react";
@@ -67,49 +68,6 @@ export class RDMDepositForm extends Component {
           type: [
             { text: "Person", value: "personal" },
             { text: "Organization", value: "organizational" },
-          ],
-        },
-
-        // TODO: Replace with an API backend
-        funding: {
-          funder: [
-            {
-              name: "National Institutes of Health (US)",
-              identifier: "funder1",
-              scheme: "funderScheme1",
-            },
-            {
-              name: "European Commission (EU)",
-              identifier: "funder2",
-              scheme: "funderScheme2",
-            },
-          ],
-          award: [
-            {
-              title: "CANCER &AIDS DRUGS--PRECLIN PHARMACOL/TOXICOLOGY",
-              number: "N01CM037835-016",
-              identifier: "awardA",
-              scheme: "awardSchemeA",
-              parentScheme: "funderScheme1",
-              parentIdentifier: "funder1",
-            },
-            {
-              title:
-                "Beyond the Standard Model at the LHC and with Atom Interferometers.",
-              number: "228169",
-              identifier: "awardB1",
-              scheme: "awardSchemeB",
-              parentScheme: "funderScheme2",
-              parentIdentifier: "funder2",
-            },
-            {
-              title: "ENvironmental COnditions in GLAucoma Patients",
-              number: "747441",
-              identifier: "awardB2",
-              scheme: "awardSchemeB",
-              parentScheme: "funderScheme2",
-              parentIdentifier: "funder2",
-            },
           ],
         },
         identifiers: {
@@ -174,7 +132,7 @@ export class RDMDepositForm extends Component {
                   "metadata.creators",
                   "metadata.description",
                   "metadata.additional_descriptions",
-                  "metadata.rights"
+                  "metadata.rights",
                 ]}
                 active={true}
                 label={i18next.t("Basic information")}
@@ -270,7 +228,7 @@ export class RDMDepositForm extends Component {
                   "metadata.languages",
                   "metadata.dates",
                   "metadata.version",
-                  "metadata.publisher"
+                  "metadata.publisher",
                 ]}
                 active={true}
                 label={i18next.t("Recommended information")}
@@ -290,9 +248,7 @@ export class RDMDepositForm extends Component {
                 />
                 <SubjectsField
                   initialOptions={_get(record, "ui.subjects", null)}
-                  limitToOptions={
-                    this.vocabularies.metadata.subjects.limit_to
-                  }
+                  limitToOptions={this.vocabularies.metadata.subjects.limit_to}
                 />
 
                 <LanguagesField
@@ -311,18 +267,89 @@ export class RDMDepositForm extends Component {
                 <VersionField />
                 <PublisherField />
               </AccordionField>
-              {/**TODO: uncomment to use FundingField*/}
-              {/* <AccordionField
-              active={true}
-              label={"Funding"}
+
+              <AccordionField
+                includesPaths={["metadata.funding"]}
+                active={true}
+                label={"Funding"}
+                ui={this.accordionStyle}
               >
-              <FundingField options={this.vocabularies.metadata.funding} />
-              <ComingSoonField
-                fieldPath="metadata.funding"
-                label="Awards"
-                labelIcon="money bill alternate outline"
-              />
-              </AccordionField> */}
+                <FundingField
+                  fieldPath="metadata.funding"
+                  searchConfig={{
+                    searchApi: {
+                      axios: {
+                        headers: {
+                          //  FIXME use for internationalisation
+                          //  Accept: "application/vnd.inveniordm.v1+json"
+                          Accept: "application/json",
+                        },
+                        url: "/api/awards",
+                        withCredentials: false,
+                      },
+                    },
+                    initialQueryState: {
+                      sortBy: "bestmatch",
+                      sortOrder: "asc",
+                      layout: "list",
+                      page: 1,
+                      size: 5,
+                    },
+                  }}
+                  label="Awards"
+                  labelIcon="money bill alternate outline"
+                  deserializeAward={(award) => {
+                    return {
+                      title: award.title.en ?? award.title,
+                      pid: award.pid,
+                      number: award.number,
+                      funder: award.funder ?? "",
+                      id: award.id,
+                      ...(award.identifiers && {
+                        identifiers: award.identifiers,
+                      }),
+                      ...(award.acronym && { acronym: award.acronym }),
+                    };
+                  }}
+                  deserializeFunder={(funder) => {
+                    return {
+                      id: funder.id,
+                      name: funder.name,
+                      ...(funder.pid && { pid: funder.pid }),
+                      ...(funder.country && { country: funder.country }),
+                      ...(funder.identifiers && {
+                        identifiers: funder.identifiers,
+                      }),
+                    };
+                  }}
+                  computeFundingContents={(funding) => {
+                    let headerContent,
+                      descriptionContent,
+                      awardOrFunder = "";
+
+                    if (funding.funder) {
+                      const funderName =
+                        funding.funder?.name ??
+                        funding.funder?.title?.en ??
+                        funding.funder?.id ??
+                        "";
+                      awardOrFunder = "funder";
+                      headerContent = funderName;
+                      descriptionContent = "";
+
+                      // there cannot be an award without a funder
+                      if (funding.award) {
+                        awardOrFunder = "award";
+                        descriptionContent = funderName;
+                        headerContent = funding.award.title;
+                      }
+                    }
+
+                    return { headerContent, descriptionContent, awardOrFunder };
+                  }}
+                />
+                <Divider />
+              </AccordionField>
 
               <AccordionField
                 includesPaths={["metadata.identifiers"]}
@@ -333,9 +360,7 @@ export class RDMDepositForm extends Component {
                   fieldPath="metadata.identifiers"
                   label={i18next.t("Alternate identifier(s)")}
                   labelIcon="barcode"
-                  schemeOptions={
-                    this.vocabularies.metadata.identifiers.scheme
-                  }
+                  schemeOptions={this.vocabularies.metadata.identifiers.scheme}
                 />
               </AccordionField>
 
@@ -349,9 +374,13 @@ export class RDMDepositForm extends Component {
                 />
               </AccordionField>
             </Grid.Column>
-
             <Ref innerRef={this.sidebarRef}>
-              <Grid.Column mobile={16} tablet={16} computer={5} className="deposit-sidebar">
+              <Grid.Column
+                mobile={16}
+                tablet={16}
+                computer={5}
+                className="deposit-sidebar"
+              >
                 <Sticky context={this.sidebarRef} offset={20}>
                   <Card>
                     <Card.Content>
@@ -386,7 +415,7 @@ export class RDMDepositForm extends Component {
                     label={i18next.t("Visibility")}
                     labelIcon={"shield"}
                   />
-                  {permissions?.can_delete_draft &&
+                  {permissions?.can_delete_draft && (
                     <Card>
                       <Card.Content>
                         <DeleteButton
@@ -397,7 +426,7 @@ export class RDMDepositForm extends Component {
                         />
                       </Card.Content>
                     </Card>
-                  }
+                  )}
                 </Sticky>
               </Grid.Column>
             </Ref>
