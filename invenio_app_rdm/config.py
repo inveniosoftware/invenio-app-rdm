@@ -36,6 +36,14 @@ from flask_principal import Denial
 from invenio_access.permissions import any_user
 from invenio_vocabularies.config import VOCABULARIES_DATASTREAM_READERS, \
     VOCABULARIES_DATASTREAM_TRANSFORMERS, VOCABULARIES_DATASTREAM_WRITERS
+from invenio_vocabularies.contrib.awards.datastreams import \
+    VOCABULARIES_DATASTREAM_TRANSFORMERS as AWARDS_TRANSFORMERS
+from invenio_vocabularies.contrib.awards.datastreams import \
+    VOCABULARIES_DATASTREAM_WRITERS as AWARDS_WRITERS
+from invenio_vocabularies.contrib.funders.datastreams import \
+    VOCABULARIES_DATASTREAM_TRANSFORMERS as FUNDERS_TRANSFORMERS
+from invenio_vocabularies.contrib.funders.datastreams import \
+    VOCABULARIES_DATASTREAM_WRITERS as FUNDERS_WRITERS
 from invenio_vocabularies.contrib.names.datastreams import \
     VOCABULARIES_DATASTREAM_READERS as NAMES_READERS
 from invenio_vocabularies.contrib.names.datastreams import \
@@ -519,12 +527,16 @@ VOCABULARIES_DATASTREAM_READERS = {
 VOCABULARIES_DATASTREAM_TRANSFORMERS = {
     **VOCABULARIES_DATASTREAM_TRANSFORMERS,
     **NAMES_TRANSFORMERS,
+    **FUNDERS_TRANSFORMERS,
+    **AWARDS_TRANSFORMERS,
 }
 """Data Streams transformers."""
 
 VOCABULARIES_DATASTREAM_WRITERS = {
     **VOCABULARIES_DATASTREAM_WRITERS,
     **NAMES_WRITERS,
+    **FUNDERS_WRITERS,
+    **AWARDS_WRITERS,
 }
 """Data Streams writers."""
 

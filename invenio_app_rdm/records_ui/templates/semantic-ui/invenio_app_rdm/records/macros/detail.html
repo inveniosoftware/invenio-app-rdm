@@ -78,10 +78,44 @@
 
 
 {% macro show_funding(funding) %}
-  {% for fund in funding %}
-    {{ show_detail('Award', fund.award.title + ' ( ' + fund.award.number + ' )' ) if fund.award }}
-    {{ show_detail('Funder', fund.funder.name) if fund.funder }}
-  {% endfor %}
+  <div class="ui middle divided aligned relaxed list" role="list">
+    {% for fund in funding %}
+      {{ _show_funding_item(fund, loop.index0) }}
+    {% endfor %}
+  </div>
+{% endmacro %}
+
+{% macro _show_funding_item(item, index) %}
+<div class="item" role="listitem" id="funding-item-{{ index }}">
+  <div class="content">
+    {%- if item.award -%}
+      {%- if item.award.title.en -%}
+        <div class="header">
+          {{ item.award.title.en }}
+
+          {%- if item.award.number -%}
+            <div class="ui mini basic label" id="number-label-{{ index }}">
+              {{ item.award.number }}
+            </div>
+          {%- endif -%}
+
+          {%- if item.award.identifiers -%}
+            {% for identifier in item.award.identifiers if 'url' == identifier.scheme %}
+              <a href="{{ identifier.identifier }}" target="_blank" rel="noopener noreferrer" aria-label="{{_(Open external link)}}">
+                <i class="external alternate icon spaced-left"></i>
+              </a>
+            {%- endfor -%}
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+      <div class="description">{{ item.funder.name if item.funder }}</div>
+    {%- else -%}
+      <div class="header">{{ item.funder.name if item.funder }}</div>
+      {# Newline is added to force a consistent height for list entries #}
+      <br>
+    {%- endif -%}
+  </div>
+</div>
 {% endmacro %}
 
 
