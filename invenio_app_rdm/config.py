@@ -632,6 +632,18 @@ APP_RDM_DEPOSIT_FORM_QUOTA = {
 }
 """Deposit file upload quota """
 
+APP_RDM_DEPOSIT_FORM_PUBLISH_WARNING = (
+    "<p><b>"
+    "Once the record is published you will no longer be able to change "
+    "the files in the upload!"
+    "</b></p><p>"
+    "This is because a Digital Object Identifier (DOI) will be registered "
+    "immediately after publishing. "
+    "However, you will still be able to update the record's metadata later."
+    "</p>"
+)
+"""The warning text to be displayed in the publish modal."""
+
 RDM_CITATION_STYLES = [
     ('apa', _('APA')),
     ('harvard-cite-them-right', _('Harvard')),

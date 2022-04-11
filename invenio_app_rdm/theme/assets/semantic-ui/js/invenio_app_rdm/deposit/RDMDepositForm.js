@@ -360,7 +360,10 @@ export class RDMDepositForm extends Component {
                         </Grid.Column>
 
                         <Grid.Column width={16} className="pt-10">
-                          <PublishButton fluid />
+                          <PublishButton
+                            fluid
+                            publishWarning={this.config.publish_warning}
+                          />
                         </Grid.Column>
                       </Grid>
                     </Card.Content>
