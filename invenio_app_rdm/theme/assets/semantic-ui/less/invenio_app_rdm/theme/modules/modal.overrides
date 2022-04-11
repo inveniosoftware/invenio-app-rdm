@@ -60,3 +60,18 @@
   }
 
 }
+
+// overrides default immediate parent rules
+.ui.modal {
+  .actions {
+    background: @actionBackground;
+    padding: @actionPadding;
+    border-top: @actionBorder;
+    text-align: @actionAlign;
+  }
+}
+.ui.modal .actions {
+  .button {
+    margin-left: @buttonDistance;
+  }
+}
