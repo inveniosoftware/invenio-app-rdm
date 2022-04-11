@@ -261,6 +261,8 @@ def get_form_config(**kwargs):
         default_locale=current_app.config.get('BABEL_DEFAULT_LOCALE', 'en'),
         pids=get_form_pids_config(),
         quota=current_app.config.get('APP_RDM_DEPOSIT_FORM_QUOTA'),
+        decimal_size_display=current_app.config.get(
+            'APP_RDM_DISPLAY_DECIMAL_FILE_SIZES', True),
         **kwargs
     )
 

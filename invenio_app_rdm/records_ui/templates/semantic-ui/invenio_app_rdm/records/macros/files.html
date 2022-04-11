@@ -55,6 +55,7 @@
       </tr>
     </thead>
     <tbody>
+    {%- set binary_sizes = not config.APP_RDM_DISPLAY_DECIMAL_FILE_SIZES %}
     {% for file in files %}
       {% if is_preview %}
         {%- set file_url_download = url_for(download_endpoint, pid_value=pid, filename=file.key, download=1, preview=1) %}
@@ -75,7 +76,7 @@
           </div>
           </small>
         </td>
-        <td>{{ file.size|filesizeformat }}</td>
+        <td>{{ file.size|filesizeformat(binary=binary_sizes) }}</td>
         <td class="right aligned">
           <span>
             {% if with_preview and file_type|lower is previewable %}
@@ -97,11 +98,12 @@
 
 
 {% macro file_list_box(files, pid, is_preview, record) %}
+{%- set binary_sizes = not config.APP_RDM_DISPLAY_DECIMAL_FILE_SIZES %}
 <div class="">
   <div class="ui accordion panel mb-10 {{record.ui.access_status.id}}" id="preview" href="#collapsablePreview">
     <div class="active title panel-heading pt-10 {{record.ui.access_status.id}}" tabindex="0">
       {{ _("Files") }}
-      <small class="text-muted">{% if files %} ({{files|sum(attribute='size')|filesizeformat}}){% endif %}</small>
+      <small class="text-muted">{% if files %} ({{files|sum(attribute='size')|filesizeformat(binary=binary_sizes)}}){% endif %}</small>
       <i class="angle down icon"></i>
     </div>
     <div class="active content rm-pt">

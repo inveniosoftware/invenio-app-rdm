@@ -161,6 +161,7 @@ export class RDMDepositForm extends Component {
                 <FileUploader
                   isDraftRecord={!record.is_published}
                   quota={this.config.quota}
+                  decimalSizeDisplay={this.config.decimal_size_display}
                 />
               </AccordionField>
 
