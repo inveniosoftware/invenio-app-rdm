@@ -431,6 +431,10 @@ dl.details-list {
 }
 
 .auto-column-grid {
+  // used on a container with two children <div>
+  // provides auto adjustment to the content of the left column
+  // and auto fills the width on the right
+  // [   COL1 (auto fill remaining space)  ] [  COL2 (max-content width)   ]
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: auto max-content;
