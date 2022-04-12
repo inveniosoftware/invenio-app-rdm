@@ -113,10 +113,10 @@ export class RecordCitationField extends Component {
     });
 
     return (
-      <Grid className="record-citation m-0">
+      <Grid className="record-citation pt-10 pb-10 m-0">
         <Grid.Row verticalAlign="middle" className="relaxed">
           <Grid.Column mobile={8} tablet={8} computer={12} className="p-0">
-            <h2 id="citation-heading">{i18next.t("Citation")}</h2>
+            <Header as="h2" id="citation-heading">{i18next.t("Citation")}</Header>
           </Grid.Column>
 
           <Grid.Column
