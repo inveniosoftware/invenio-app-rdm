@@ -632,6 +632,14 @@ APP_RDM_DEPOSIT_FORM_QUOTA = {
 }
 """Deposit file upload quota """
 
+APP_RDM_DEPOSIT_FORM_FILE_AREA_WARNING = (
+    "Note: File addition, removal, or modification are not allowed after you "
+    "have published your upload. "
+    "This is because a Digital Object Identifier (DOI) is registered with "
+    "<a href=\"https://datacite.org/\">DataCite</a> for each upload."
+)
+"""The warning text to be displayed in the file uploader area."""
+
 APP_RDM_DEPOSIT_FORM_PUBLISH_WARNING = (
     "<p><b>"
     "Once the record is published you will no longer be able to change "

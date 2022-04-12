@@ -263,6 +263,8 @@ def get_form_config(**kwargs):
         quota=current_app.config.get('APP_RDM_DEPOSIT_FORM_QUOTA'),
         publish_warning=current_app.config.get(
             'APP_RDM_DEPOSIT_FORM_PUBLISH_WARNING'),
+        file_area_warning=current_app.config.get(
+            'APP_RDM_DEPOSIT_FORM_FILE_AREA_WARNING'),
         **kwargs
     )
 

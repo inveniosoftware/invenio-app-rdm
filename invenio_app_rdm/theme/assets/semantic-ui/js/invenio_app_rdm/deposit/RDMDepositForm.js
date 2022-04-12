@@ -161,6 +161,7 @@ export class RDMDepositForm extends Component {
                 <FileUploader
                   isDraftRecord={!record.is_published}
                   quota={this.config.quota}
+                  fileAreaWarning={this.config.file_area_warning}
                 />
               </AccordionField>
 
