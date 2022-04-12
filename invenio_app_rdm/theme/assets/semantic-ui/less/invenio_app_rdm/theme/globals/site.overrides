@@ -440,3 +440,22 @@ dl.details-list {
   grid-auto-columns: auto max-content;
   align-items: center;
 }
+
+#requests-timeline {
+
+  .requests-feed-container {
+    padding-left: 4rem;
+    position: relative;
+
+
+    @media screen and (max-width: @tabletBreakpoint) {
+      padding-left: 2rem;
+    }
+
+    @media screen and (max-width: @mobileBreakpoint) {
+      padding-left: 0;
+    }
+
+
+  }
+}
