@@ -95,16 +95,25 @@
   }
 }
 
+#record-info .ui.grid.middle.aligned,
 .sixteen.wide.tablet.five.wide.computer.column.sidebar {
   padding-top: 1rem;
+}
+
+.sixteen.wide.tablet.five.wide.computer.column.sidebar {
 
   @media screen and (max-width: @computerBreakpoint) {
     display: inline-flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    padding-top: 0;
+  }
+
+  .ui.segment.rdm-sidebar:first-child {
+    margin-top: 0;
   }
 }
 
-#mobile-record-management.ui.grid .column {
+#mobile-record-management.ui.grid > .column {
   border-bottom: 1px solid @borderColor;
 }
