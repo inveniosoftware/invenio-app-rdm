@@ -20,32 +20,41 @@
   }
 }
 
+#invenio-nav.ui.menu {
+  height: @relative75px;
+  position: relative;
 
-#invenio-nav {
-  &:not(.active) {
-    height: @relative75px;
-  }
+  .ui.menu {
+    background-color: transparent;
+    box-shadow: none;
 
-  .item:hover:not(.button):not(.search-bar):not(.logo) {
-    background-color: rgba(255, 255, 255, 0.2);
+    .ui.dropdown.rdm-plus-menu {
+      padding: 1rem;
+    }
 
-    a:hover {
-      background-color: transparent;
-      color: @white;
-      text-decoration: none;
+    .item {
+      padding: 0;
+
+      a:not(.ui.button){
+        padding: 2rem 1rem;
+
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.2);
+          color: @white;
+          text-decoration: none;
+        }
+      }
     }
   }
 
   .item {
-    padding-top: 2em;
-    padding-bottom: 2em;
 
     &.logo {
-      padding-right: 15px;
+      padding-right: 1rem;
     }
 
     &.search-bar {
-      padding-right: 15px;
+      padding-right: 1rem;
     }
 
     &:first-of-type {
@@ -56,14 +65,9 @@
       padding-left: 0;
     }
 
-    &.right.right-navbar {
-        display: flex;
-        padding-right: 0;
-
-      > .item {
-        padding-left: 15px;
-        margin-right: 15px;
-      }
+    &.right.menu {
+      padding-right: 0;
+      display: flex;
     }
   }
 
@@ -83,6 +87,7 @@
 
     #user-profile-menu.ui.menu {
       width: inherit;
+      background-color: rgb(255,255,255);
     }
   }
 }
@@ -101,53 +106,85 @@
 }
 
 @media all and (max-width: @largestTabletScreen) {
-  #invenio-nav {
-    height: unset;
-    flex-direction: column;
+  #invenio-nav.ui.menu {
 
-    .item {
-      align-self: center;
-      order: 4;
-      width: unset !important;
+    &.active .ui.menu {
+      flex-direction: column;
+      position: fixed;
+      right: 0;
+      max-width: 25rem;
+      box-shadow: 0px 0px 7px rgba(0,0,0,0.2);
+      background-color: rgb(255,255,255);
+      height: 100vh;
+      z-index: 3;
+      padding: 5rem 1.5rem 1.5rem 1.5rem;
+      overflow-y: scroll;
 
-      .user-profile {
-        a.ui.button {
-          width: 9.5em;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
-      }
-
-      &.inbox {
-        order: -1;
-      }
-
-      &.logo {
-        order: -1;
-        width: 100% !important;
-      }
-
-      &.button {
-        order: 2;
-      }
-
-      &.search-bar {
-        order: 3;
+      .item {
         width: 100%;
+        padding: .5rem 0;
 
-        .ui.input {
-          width: 99% !important;
+        &.search-bar {
+          margin-bottom: 1.5rem;
         }
-      }
 
-      &.right {
-        margin-left: unset !important;
+        a:not(.ui.button) {
+          color: @textColor;
+          padding: 0;
+        }
+
+        &.search-bar {
+          width: 100%;
+
+          .ui.input {
+            width: 99% !important;
+          }
+        }
+
+        .icon.inverted {
+          color: @textColor;
+        }
+
+        &.right.menu {
+          padding: 0;
+          margin-left: unset !important;
+          flex-direction: column;
+          align-items: flex-start;
+
+          .sub-menu {
+            width: 100%;
+            margin: 2rem 0 0 0;
+
+            .ui.heading {
+              color: @textColor;
+            }
+
+            .item {
+              padding: .5rem 1rem;
+            }
+          }
+
+          form {
+            margin-top: 1rem;
+          }
+        }
       }
     }
 
+
     #rdm-burger-toggle {
       font-size: 20px;
+      z-index: 4;
+      position: absolute;
+      right: -1rem;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    &.active #rdm-burger-toggle {
+      position: fixed;
+      top: 2rem;
+      right: 0;
     }
 
     &:not(.active) {
@@ -195,7 +232,7 @@
   cursor: pointer;
   display: inline-block;
   float: right;
-  padding: 28px 20px;
+  padding: 2rem 1.5rem;
   position: relative;
   user-select: none;
 }
