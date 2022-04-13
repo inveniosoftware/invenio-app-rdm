@@ -14,89 +14,95 @@
       {%- block navbar %}
       <div class="ui container invenio-header-container">
         <nav id="invenio-nav" class="ui inverted menu borderless stackable p-0">
-            <div class="item logo p-0">
-
-              {%- block navbar_header %}
-                  {%- block brand %}
-                    {%- if config.THEME_LOGO %}
-                      <a class="logo-link" href="/">
-                        <img class="ui image rdm-logo"
-                             src="{{ url_for('static', filename=config.THEME_LOGO) }}"
-                             alt="{{ _(config.THEME_SITENAME) }}"/>
-                      </a>
-                    {%- else %}
-                      <a class="logo" href="/">{{ _(config.THEME_SITENAME) }}</a>
-                    {%- endif %}
-                  {%- endblock brand %}
-                {%- endblock navbar_header %}
-
-              <div id="rdm-burger-toggle">
-                <input class="rdm-menu-btn" type="checkbox" id="rdm-menu-btn"/>
-                <label id="rdm-burger-menu-icon" class="rdm-menu-icon"
-                       for="rdm-menu-btn"><span class="navicon"></span></label>
-              </div>
-            </div>
-
-            <div class="item p-0 search-bar mobile-hidden">
-                {%- if config.THEME_SEARCHBAR %}
-                  {%- block navbar_search %}
-                    <div id="header-search-bar">
-                      <form class="form" action="{{ config.THEME_SEARCH_ENDPOINT }}"
-                            role="search">
-                        <div class="ui action icon input">
-                          <input type="text" name="q" placeholder="{{ _('Search') }}">
-                          <button type="submit" class="ui icon search button" aria-label="{{ _('Search') }}">
-                            <i class="icon search"></i>
-                          </button>
-                        </div>
-                      </form>
-                    </div>
-                  {%- endblock navbar_search %}
-                {%- endif %}
-            </div>
-            {%- block navbar_nav %}
-
-                {%- for item in current_menu.submenu('main').children|sort(attribute='order') if item.visible recursive %}
-                  {%- if item.children %}
-                    <div class="item mobile-hidden">
-                      <div class="dropdown{{ ' active' if item.active else '' }}">
-                        <a class="dropdown-toggle" data-toggle="dropdown" role="button"
-                           aria-haspopup="true"
-                           aria-expanded="false" href="{{ item.url }}">{{ item.text|safe }} <b
-                          class="caret"></b></a>
-                        <ul class="dropdown-menu">{{ loop(item.children|sort(attribute='order')) }}</ul>
-                      </div>
-                    </div>
+          <div class="item logo p-0">
+            {%- block navbar_header %}
+                {%- block brand %}
+                  {%- if config.THEME_LOGO %}
+                    <a class="logo-link" href="/">
+                      <img class="ui image rdm-logo"
+                            src="{{ url_for('static', filename=config.THEME_LOGO) }}"
+                            alt="{{ _(config.THEME_SITENAME) }}"/>
+                    </a>
                   {%- else %}
-                    <div class="{{ 'item active' if item.active and loop.depth == 0 else 'item mobile-hidden' }}">
-                      <a href="{{ item.url }}">{{ item.text|safe }}</a>
-                    </div>
+                    <a class="logo" href="/">{{ _(config.THEME_SITENAME) }}</a>
                   {%- endif %}
-                {%- endfor %}
+                {%- endblock brand %}
+              {%- endblock navbar_header %}
+          </div>
 
-                {% for item in current_menu.submenu('actions').children|sort(attribute='order') if item.visible recursive %}
-                    <div class="item mobile-hidden">
-                      <a href="{{ item.url }}">{{ item.text|safe }}</a>
-                    </div>
-                {% endfor %}
-              {%- endblock navbar_nav %}
+          <div id="rdm-burger-toggle">
+            <input class="rdm-menu-btn" type="checkbox" id="rdm-menu-btn"/>
+            <label id="rdm-burger-menu-icon" class="rdm-menu-icon" for="rdm-menu-btn">
+              <span class="navicon"></span>
+            </label>
+          </div>
 
-              {%- block navbar_right %}
-                <div class="right item button mobile-hidden right-navbar">
-                  {%- if config.ACCOUNTS and current_user.is_authenticated %}
-                    {% for item in current_menu.submenu('notifications').children|sort(attribute='order') if item.visible recursive %}
-                    <div class="item inbox">
-                      <a href="{{ item.url }}"><i class="fitted inbox icon inverted"></i></a>
-                    </div>
-                    {% endfor %}
-                  {% endif %}
-                  {%- include config.THEME_HEADER_LOGIN_TEMPLATE %}
+          <div class="ui fluid menu borderless mobile-hidden">
+            {%- if config.THEME_SEARCHBAR %}
+              {%- block navbar_search %}
+                <div class="item p-0 search-bar">
+                  <div id="header-search-bar">
+                    <form class="form" action="{{ config.THEME_SEARCH_ENDPOINT }}"
+                          role="search">
+                      <div class="ui action icon input">
+                        <input type="text" name="q" placeholder="{{ _('Search') }}">
+                        <button type="submit" class="ui icon search button" aria-label="{{ _('Search') }}">
+                          <i class="icon search"></i>
+                        </button>
+                      </div>
+                    </form>
+                  </div>
                 </div>
-              {%- endblock navbar_right %}
+              {%- endblock navbar_search %}
+            {%- endif %}
 
-            </nav>
+            {%- block navbar_nav %}
+              {%- for item in current_menu.submenu('main').children|sort(attribute='order') if item.visible recursive %}
+                {%- if item.children %}
+                  <div class="item">
+                    <div class="dropdown {{ ' active' if item.active else '' }}">
+                      <a class="dropdown-toggle" data-toggle="dropdown" role="button"
+                         aria-haspopup="true"
+                         aria-expanded="false" href="{{ item.url }}">{{ item.text|safe }}
+                         <b class="caret"></b>
+                      </a>
+                      <ul class="dropdown-menu">{{ loop(item.children|sort(attribute='order')) }}</ul>
+                    </div>
+                  </div>
+                {%- else %}
+                  <div class="{{' item active' if item.active and loop.depth == 0 else ' item' }}">
+                    <a href="{{ item.url }}">{{ item.text|safe }}</a>
+                  </div>
+                {%- endif %}
+              {%- endfor %}
+
+              {% for item in current_menu.submenu('actions').children|sort(attribute='order') if item.visible recursive %}
+                <div class="item">
+                  <a href="{{ item.url }}">{{ item.text|safe }}</a>
+                </div>
+              {% endfor %}
+            {%- endblock navbar_nav %}
+
+            {%- block navbar_right %}
+              <div class="right menu item">
+                {%- if config.ACCOUNTS and current_user.is_authenticated %}
+                  {% for item in current_menu.submenu('notifications').children|sort(attribute='order') if item.visible recursive %}
+                    <div class="item inbox">
+                      <a href="{{ item.url }}">
+                        <i class="fitted inbox icon inverted"></i>
+                        <span class="mobile only tablet only">{{ _("Inbox") }}</span>
+                      </a>
+                    </div>
+                  {% endfor %}
+                {% endif %}
+                {%- include config.THEME_HEADER_LOGIN_TEMPLATE %}
+              </div>
+            {%- endblock navbar_right %}
+          </div>
+        </nav>
       {%- endblock navbar %}
     </div>
+
     {%- block flashmessages %}
       {%- from "invenio_theme/macros/messages.html" import flashed_messages with context -%}
       {{ flashed_messages() }}
