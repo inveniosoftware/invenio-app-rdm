@@ -108,3 +108,13 @@
 #mobile-record-management.ui.grid .column {
   border-bottom: 1px solid @borderColor;
 }
+
+.ui.grid .rdm-goal.column {
+  max-width: 30rem;
+}
+
+#frontpage-search-bar .ui.container.grid {
+  @media screen and (max-width: @largestMobileScreen) {
+    width: 100% !important; // overriding semantic ui !important
+  }
+}
