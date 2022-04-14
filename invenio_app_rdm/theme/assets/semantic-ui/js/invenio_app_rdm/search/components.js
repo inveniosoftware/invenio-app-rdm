@@ -325,18 +325,20 @@ export const RDMBucketAggregationElement = ({
       <Card.Content>
         <Card.Header as="h2">
           {title}
-          <Button
-            basic
-            icon
-            size="mini"
-            floated="right"
-            onClick={clearFacets}
-            aria-label={i18next.t("Clear selection")}
-            title={i18next.t("Clear selection")}
-            disabled={!hasSelections()}
-          >
-            {i18next.t("Clear")}
-          </Button>
+
+          { hasSelections() &&
+            <Button
+              basic
+              icon
+              size="mini"
+              floated="right"
+              onClick={clearFacets}
+              aria-label={i18next.t("Clear selection")}
+              title={i18next.t("Clear selection")}
+            >
+              {i18next.t("Clear")}
+            </Button>
+          }
         </Card.Header>
       </Card.Content>
       <Card.Content>{containerCmp}</Card.Content>
