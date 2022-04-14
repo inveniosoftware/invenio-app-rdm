@@ -8,6 +8,11 @@
   padding-bottom: @celledPadding;
   margin-bottom: @defaultMargin;
 
+  @media all and (max-width: @largestTabletScreen) {
+    margin-left: 0 !important; // Overriding semantic ui's important statement
+    margin-right: 0 !important;
+  }
+
   &.with-submenu {
     padding-bottom: 0;
     margin-bottom: 0;
