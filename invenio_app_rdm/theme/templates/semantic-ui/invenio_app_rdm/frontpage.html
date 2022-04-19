@@ -15,57 +15,61 @@
 {%- block page_body %}
 {%- block first_section %}
 <div class="get-started-section section-content white-bg">
-  <h2 class="section-title standard-line-height">{{ _("You've successfully installed InvenioRDM! What is ahead?") }}</h2>
-    <div class="ui container three column grid center aligned vertically padded relaxed">
-        <div class="rdm-goal column">
-          <div class="featured-list">1</div>
-          <h3 class="section-title">{{ _("Configure") }}</h3>
-          <div class="command-line">
-            {% trans configuration_link="https://inveniordm.docs.cern.ch/install/configuration/" %}
-              Configure the datamodel, resource types, permissions and much more to make it suit your needs! For more
-              information on how to do it visit the <a href="{{ configuration_link }}" target="_blank">configuration
-              section in the docs</a>.
-            {% endtrans %}
-          </div>
-        </div>
-        <div class="rdm-goal column">
-          <div class="featured-list">2</div>
-          <h3 class="section-title">{{ _("Customize") }}</h3>
-            <div class="command-line">
-              {% trans configuration_link="https://inveniordm.docs.cern.ch/customize/styling/" %}
-                Customize the layout and adapt the styling to match your institution's. See how to do so <a
-                href="{{ configuration_link }}" target="_blank">here</a>.
-              {% endtrans %}
-          </div>
-        </div>
-        <div class="rdm-goal column">
-          <div class="featured-list">3</div>
-          <h3 class="section-title">{{ _("Run it!") }}</h3>
-          <div class="command-line">
-            {% trans
-            deployment_link="https://inveniordm.docs.cern.ch/install/build-setup-run/#run_1"
-            %}
-            <a href="{{ deployment_link }}" target="_blank">Run</a> your
-            InvenioRDM instance locally or in containers.
-            {% endtrans %}
-          </div>
-        </div>
-      <div class="row one column center aligned">
-        <div class="sixteen wide column">
-            <div class="ui primary button labeled icon big goto-button">
-              <i class="file alternate outline icon"></i>
-              <a href="https://inveniordm.docs.cern.ch"
-                 target="_blank">{{ _("Docs") }}</a>
-            </div>
-            <div class="ui primary button labeled icon big goto-button">
-              <i class="github icon"></i>
-              <a href="https://github.com/inveniosoftware"
-                 target="_blank">{{ _("Code") }}</a>
-            </div>
-          </div>
-      </div>
-    </div>
+  <h2 class="section-title">
+    {{ _("You've successfully installed InvenioRDM!") }}
+    <br/>
+    {{ _("What is ahead?") }}
+  </h2>
 
+  <div class="ui container three column stackable grid center aligned vertically padded relaxed">
+      <div class="rdm-goal column">
+        <div class="featured-list">1</div>
+        <h3 class="section-title">{{ _("Configure") }}</h3>
+        <div class="command-line">
+          {% trans configuration_link="https://inveniordm.docs.cern.ch/install/configuration/" %}
+            Configure the datamodel, resource types, permissions and much more to make it suit your needs! For more
+            information on how to do it visit the <a href="{{ configuration_link }}" target="_blank">configuration
+            section in the docs</a>.
+          {% endtrans %}
+        </div>
+      </div>
+      <div class="rdm-goal column">
+        <div class="featured-list">2</div>
+        <h3 class="section-title">{{ _("Customize") }}</h3>
+          <div class="command-line">
+            {% trans configuration_link="https://inveniordm.docs.cern.ch/customize/styling/" %}
+              Customize the layout and adapt the styling to match your institution's. See how to do so <a
+              href="{{ configuration_link }}" target="_blank">here</a>.
+            {% endtrans %}
+        </div>
+      </div>
+      <div class="rdm-goal column">
+        <div class="featured-list">3</div>
+        <h3 class="section-title">{{ _("Run it!") }}</h3>
+        <div class="command-line">
+          {% trans
+          deployment_link="https://inveniordm.docs.cern.ch/install/build-setup-run/#run_1"
+          %}
+          <a href="{{ deployment_link }}" target="_blank">Run</a> your
+          InvenioRDM instance locally or in containers.
+          {% endtrans %}
+        </div>
+      </div>
+    <div class="row one column center aligned">
+      <div class="sixteen wide column">
+          <div class="ui primary button labeled icon big goto-button">
+            <i class="file alternate outline icon"></i>
+            <a href="https://inveniordm.docs.cern.ch"
+                target="_blank">{{ _("Docs") }}</a>
+          </div>
+          <div class="ui primary button labeled icon big goto-button">
+            <i class="github icon"></i>
+            <a href="https://github.com/inveniosoftware"
+                target="_blank">{{ _("Code") }}</a>
+          </div>
+        </div>
+    </div>
+  </div>
 </div>
 {%- endblock first_section %}
 {%- endblock page_body %}

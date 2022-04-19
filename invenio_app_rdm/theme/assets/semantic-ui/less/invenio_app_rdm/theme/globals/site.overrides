@@ -189,21 +189,28 @@ pre.export.result {
 
 .section-title {
   -webkit-font-smoothing: antialiased;
-  font-size: 2.5em;
   width: 100%;
   text-align: center;
   display: block;
   color: @primaryColor;
-  margin-bottom: 45px;
   font-weight: 500;
-  line-height: normal;
 
-}
+  h2& {
+    font-size: 2em;
+    margin-bottom: 3rem;
 
-.section-subtitle {
-  color: @primaryColor;
-  text-align: center;
-  margin-bottom: 40px;
+    @media screen and (max-width: @largestMobileScreen) {
+      font-size: 1.7em;
+    }
+  }
+
+  h3& {
+    font-size: 1.5em;
+
+    @media screen and (max-width: @largestMobileScreen) {
+      font-size: 1.3em;
+    }
+  }
 }
 
 .brought-to-you-section img,
