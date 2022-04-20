@@ -677,6 +677,9 @@ RDM_SEARCH_USER_REQUESTS = {
 
 RDM_REQUESTS_ROUTES = {
     'user-dashboard-community-submission': '/me/requests/<pid_value>',
+    'invitation_details':
+        '/communities/<community_pid_value>/invitations/<pid_value>',
+    'request_details': '/requests/<pid_value>'
 }
 
 RDM_COMMUNITIES_ROUTES = {
