@@ -657,6 +657,12 @@ APP_RDM_DETAIL_SIDE_BAR_TEMPLATES = [
 ]
 """Template names for detail view sidebar components"""
 
+COMMUNITIES_RECORDS_SEARCH = {
+    'facets': ['access_status', 'resource_type', 'language'],
+    'sort': ['bestmatch', 'newest', 'oldest', 'version'],
+}
+"""Community requests search configuration (i.e list of community requests)"""
+
 RDM_SEARCH_USER_COMMUNITIES = {
     'facets': ['visibility', 'type'],
     'sort': ['bestmatch', 'newest', 'oldest'],
@@ -671,6 +677,10 @@ RDM_SEARCH_USER_REQUESTS = {
 
 RDM_REQUESTS_ROUTES = {
     'user-dashboard-community-submission': '/me/requests/<pid_value>',
+}
+
+RDM_COMMUNITIES_ROUTES = {
+    'community-detail': '/communities/<pid_value>',
 }
 
 THEME_JAVASCRIPT_TEMPLATE = 'invenio_app_rdm/javascript.html'
