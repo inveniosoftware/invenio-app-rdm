@@ -31,17 +31,36 @@
           </div>
 
           <div id="rdm-burger-toggle">
-            <input class="rdm-menu-btn" type="checkbox" id="rdm-menu-btn"/>
-            <label id="rdm-burger-menu-icon" class="rdm-menu-icon" for="rdm-menu-btn">
+            <button
+              id="rdm-burger-menu-icon"
+              class="ui button transparent"
+              aria-label="{{ _('Menu') }}"
+              aria-haspopup="menu"
+              aria-expanded="false"
+              aria-controls="invenio-menu"
+            >
               <span class="navicon"></span>
-            </label>
+            </button>
           </div>
 
-          <div class="ui fluid menu borderless mobile-hidden">
+          <div
+            role="menu"
+            id="invenio-menu"
+            aria-labelledby="rdm-burger-menu-icon"
+            class="ui fluid menu borderless mobile-hidden"
+          >
+            <button
+              id="rdm-close-burger-menu-icon"
+              class="ui button transparent"
+              aria-label="{{ _('Close menu') }}"
+            >
+              <span class="navicon"></span>
+            </button>
+
             {%- if config.THEME_SEARCHBAR %}
               {%- block navbar_search %}
                 <div class="item p-0 search-bar">
-                  <div id="header-search-bar">
+                  <div role="menuitem" id="header-search-bar">
                     <form class="form" action="{{ config.THEME_SEARCH_ENDPOINT }}"
                           role="search">
                       <div class="ui action icon input">
@@ -61,24 +80,29 @@
                 {%- if item.children %}
                   <div class="item">
                     <div class="dropdown {{ ' active' if item.active else '' }}">
-                      <a class="dropdown-toggle" data-toggle="dropdown" role="button"
+                      <a role="menuitem"
+                         class="dropdown-toggle"
+                         data-toggle="dropdown"
                          aria-haspopup="true"
-                         aria-expanded="false" href="{{ item.url }}">{{ item.text|safe }}
-                         <b class="caret"></b>
+                         aria-expanded="false"
+                         href="{{ item.url }}"
+                      >
+                        {{ item.text|safe }}
+                        <b class="caret"></b>
                       </a>
                       <ul class="dropdown-menu">{{ loop(item.children|sort(attribute='order')) }}</ul>
                     </div>
                   </div>
                 {%- else %}
                   <div class="{{' item active' if item.active and loop.depth == 0 else ' item' }}">
-                    <a href="{{ item.url }}">{{ item.text|safe }}</a>
+                    <a role="menuitem" href="{{ item.url }}">{{ item.text|safe }}</a>
                   </div>
                 {%- endif %}
               {%- endfor %}
 
               {% for item in current_menu.submenu('actions').children|sort(attribute='order') if item.visible recursive %}
                 <div class="item">
-                  <a href="{{ item.url }}">{{ item.text|safe }}</a>
+                  <a role="menuitem" href="{{ item.url }}">{{ item.text|safe }}</a>
                 </div>
               {% endfor %}
             {%- endblock navbar_nav %}
@@ -88,7 +112,7 @@
                 {%- if config.ACCOUNTS and current_user.is_authenticated %}
                   {% for item in current_menu.submenu('notifications').children|sort(attribute='order') if item.visible recursive %}
                     <div class="item inbox">
-                      <a href="{{ item.url }}">
+                      <a role="menuitem" href="{{ item.url }}">
                         <i class="fitted inbox icon inverted"></i>
                         <span class="mobile only tablet only">{{ _("Inbox") }}</span>
                       </a>

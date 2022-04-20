@@ -108,7 +108,7 @@
 @media all and (max-width: @largestTabletScreen) {
   #invenio-nav.ui.menu {
 
-    &.active .ui.menu {
+    &.active #invenio-menu.ui.menu {
       flex-direction: column;
       position: fixed;
       right: 0;
@@ -169,23 +169,27 @@
           }
         }
       }
+
+      #rdm-close-burger-menu-icon {
+        position: absolute;
+        top: 2rem;
+        right: 0;
+        font-size: 20px;
+
+        .navicon {
+          background: transparent;
+
+          &:before {
+            transform: rotate(-45deg);
+          }
+
+          &:after {
+            transform: rotate(45deg);
+          }
+        }
+      }
     }
 
-
-    #rdm-burger-toggle {
-      font-size: 20px;
-      z-index: 4;
-      position: absolute;
-      right: -1rem;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-
-    &.active #rdm-burger-toggle {
-      position: fixed;
-      top: 2rem;
-      right: 0;
-    }
 
     &:not(.active) {
       .mobile-hidden {
@@ -220,75 +224,62 @@
 }
 
 @media all and (min-width: @computerBreakpoint) {
-  #invenio-nav {
-    #rdm-burger-toggle {
-      display: none;
-    }
+  #invenio-nav #rdm-burger-toggle,
+  #invenio-menu #rdm-close-burger-menu-icon {
+    display: none;
   }
 }
 
 /* menu icon (Hamburger icon) */
-.rdm-menu-icon {
-  cursor: pointer;
-  display: inline-block;
-  float: right;
-  padding: 2rem 1.5rem;
-  position: relative;
-  user-select: none;
+
+#rdm-burger-menu-icon,
+#rdm-close-burger-menu-icon {
+  .navicon {
+    background: @darkGray;
+    display: block;
+    height: 2px;
+    position: relative;
+    transition: background 0.2s ease-out;
+    width: 18px;
+
+    &:before,
+    &:after {
+      display: block;
+      background: @darkGray;
+      content: "";
+      height: 100%;
+      position: absolute;
+      transition: all 0.2s ease-out;
+      width: 100%;
+    }
+  }
 }
 
-.rdm-menu-icon .navicon {
-  background: #333;
-  display: block;
-  height: 2px;
-  position: relative;
-  transition: background 0.2s ease-out;
-  width: 18px;
-}
-
-.rdm-menu-icon .navicon:before,
-.rdm-menu-icon .navicon:after {
-  background: #333;
-  content: "";
-  display: block;
-  height: 100%;
+#rdm-burger-toggle {
+  font-size: 20px;
   position: absolute;
-  transition: all 0.2s ease-out;
-  width: 100%;
-}
+  right: -1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
 
-.rdm-menu-icon .navicon:before {
-  top: 5px;
-}
+  #rdm-burger-menu-icon {
+    cursor: pointer;
+    display: inline-block;
+    float: right;
+    padding: 2rem 1.5rem;
+    position: relative;
+    user-select: none;
 
-.rdm-menu-icon .navicon:after {
-  top: -5px;
-}
+    .navicon {
 
-/* menu btn */
+      &::before {
+        top: 5px;
+      }
 
-.rdm-menu-btn {
-  display: none;
-}
-
-.rdm-menu-btn:checked ~ .menu {
-  max-height: 240px;
-}
-
-.rdm-menu-btn:checked ~ .rdm-menu-icon .navicon {
-  background: transparent;
-}
-
-.rdm-menu-btn:checked ~ .rdm-menu-icon .navicon:before {
-  transform: rotate(-45deg);
-}
-
-.rdm-menu-btn:checked ~ .rdm-menu-icon .navicon:after {
-  transform: rotate(45deg);
-}
-
-.rdm-menu-btn:checked ~ .rdm-menu-icon:not(.steps) .navicon:before,
-.rdm-menu-btn:checked ~ .rdm-menu-icon:not(.steps) .navicon:after {
-  top: 0;
+      &:after {
+        top: -5px;
+      }
+    }
+  }
 }
 

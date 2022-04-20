@@ -20,6 +20,7 @@
       Site Colors
 --------------------*/
 
+@darkGray: #333;
 @green: #048622;
 @signupColor: @green;
 @searchButtonColor: @secondaryColor;
