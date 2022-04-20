@@ -27,7 +27,7 @@
         {# Quick-create ("plus") menu #}
         {%- set plus_menu_items = current_menu.submenu('plus').children %}
         {%- if plus_menu_items %}
-          <div class="rdm-plus-menu rdm-plus-menu-responsive ui dropdown floating pr-15 computer only">
+          <div role="menuitem" class="rdm-plus-menu rdm-plus-menu-responsive ui dropdown floating pr-15 computer only">
               <i class="fitted plus icon inverted"></i>
               <i class="fitted dropdown icon inverted"></i>
               <div class="menu">
@@ -44,7 +44,7 @@
             <h2 class="ui small header">{{ _("Actions") }}</h2>
 
             {%- for item in plus_menu_items if item.visible %}
-              <a class="item" href="{{ item.url }}">
+              <a role="menuitem" class="item" href="{{ item.url }}">
                 <i class="plus icon"></i>
                 {{ item.text|safe }}
               </a>
@@ -53,7 +53,7 @@
         {% endif %}
 
         {%- if config.USERPROFILES %}
-          <div id="user-profile-dropdown" class="ui floating dropdown computer only">
+          <div role="menuitem" id="user-profile-dropdown" class="ui floating dropdown computer only">
             <button id="user-profile-dropdown-btn"
                     class="ui right labeled right floated icon button text"
                     aria-controls="user-profile-menu"
@@ -91,14 +91,14 @@
             <h2 class="ui small header">{{ _("My account") }}</h2>
 
             {%- for item in current_menu.submenu('settings').children if item.visible %}
-              <a class="item" href="{{ item.url }}">
+              <a role="menuitem" class="item" href="{{ item.url }}">
                 {{ item.text|safe }}
               </a>
             {%- endfor %}
 
             <div class="ui divider"></div>
 
-            <a class="item" style="color:black;" href="{{ url_for_security('logout') }}">
+            <a role="menuitem" class="item" style="color:black;" href="{{ url_for_security('logout') }}">
                 <i class="sign-out icon"></i>
                 {{ _('Log out') }}
             </a>
