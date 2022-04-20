@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019-2021 CERN.
-# Copyright (C) 2019-2021 Northwestern University.
+# Copyright (C) 2019-2022 Northwestern University.
 # Copyright (C)      2021 TU Wien.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
@@ -48,11 +48,9 @@ def create_blueprint(app):
         view_func=record_latest,
     )
 
-    app_ext = app.extensions['invenio-rdm-records']
-    with app.app_context():
-        schemes = app_ext.records_service.config.pids_providers.keys()
+    rdm_records_ext = app.extensions['invenio-rdm-records']
+    schemes = rdm_records_ext.records_service.config.pids_providers.keys()
     schemes = ','.join(schemes)
-
     if schemes:
         blueprint.add_url_rule(
             routes["record_from_pid"].format(schemes=schemes),
