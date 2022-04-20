@@ -1,0 +1,47 @@
+{# -*- coding: utf-8 -*-
+
+  This file is part of Invenio.
+  Copyright (C) 2022 CERN.
+
+  Invenio is free software; you can redistribute it and/or modify it
+  under the terms of the MIT License; see LICENSE file for more details.
+#}
+{% extends "invenio_requests/details/index.html" %}
+
+{% set custom_base_template="invenio_communities/details/members/base.html" %}
+
+{% set title = _("Invitation details") %}
+
+{% set active_menu_item = 'invitations' %}
+
+{% block page_body %}
+  {# we want to display the page_body block of the communities base template which is the grandparent template #}
+  {{ super.super() }}
+{% endblock %}
+
+{% block request_topic %}
+  <a href="{{ url_for("invenio_communities.invitations", pid_value=community['id']) }}">
+    <button class="ui left floated labeled icon button">
+      <i class="left chevron icon"></i>
+      {{ _("Back to invitations") }}
+    </button>
+  </a>
+{% endblock %}
+
+{% block settings_body %}
+  <div class="thirteen wide column">
+    {% block request_header %}
+      {{ super() }}
+    {% endblock request_header %}
+    {% block conversation %}
+      {{ super() }}
+    {% endblock %}
+  </div>
+{% endblock %}
+
+
+
+
+
+
+

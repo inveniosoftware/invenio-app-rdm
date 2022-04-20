@@ -14,7 +14,8 @@ from invenio_records_resources.services.errors import PermissionDeniedError
 from invenio_requests.views.ui import not_found_error, \
     record_permission_denied_error, record_tombstone_error
 
-from invenio_app_rdm.requests_ui.views.requests import requests_detail
+from invenio_app_rdm.requests_ui.views.requests import invitation_details, \
+    requests_detail, requests_view
 
 
 def create_ui_blueprint(app):
@@ -30,7 +31,17 @@ def create_ui_blueprint(app):
 
     blueprint.add_url_rule(
         routes["user-dashboard-community-submission"],
-        view_func=requests_detail,
+        view_func=requests_view,
+    )
+
+    blueprint.add_url_rule(
+        routes['invitation_details'],
+        view_func=requests_view
+    )
+
+    blueprint.add_url_rule(
+        routes['request_details'],
+        view_func=requests_view
     )
 
     # Register error handlers
