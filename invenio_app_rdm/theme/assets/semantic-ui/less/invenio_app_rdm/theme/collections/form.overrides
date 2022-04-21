@@ -21,14 +21,94 @@
     display: flex;
   }
 
-}
+  .ui.form .invenio-accordion-field {
 
-label.helptext {
-  display: block;
-  color: @mutedTextColor;
-  font-weight: normal;
-  font-size: 0.9em;
-  margin-top: -0.8em; // counterweight Form field bottom margin
-  margin-bottom: @defaultMargin;
-}
+    label.helptext {
+      margin-top: .5rem;
+      margin-bottom: 1rem;
+    }
 
+    .additional-descriptions {
+      margin-top: -1rem;
+
+      .ui.grid {
+        margin: 1rem 0 0 0;
+      }
+    }
+
+    .invenio-group-field.fields {
+      margin: 1rem 0 2rem 0;
+    }
+
+    .additional-descriptions .ui.grid .row,
+    .invenio-group-field.fields {
+      background-color: lighten(@borderColor, 60%);
+      padding: 1rem;
+      border-radius: .5rem;
+
+      .invenio-group-field.fields {
+        margin-bottom: 0;
+      }
+
+      @media all and (max-width: @tabletBreakpoint - 1px) {
+        .column {
+          position: static;
+          padding-right: .3rem;
+          padding-left: .3rem;
+        }
+
+        position: relative;
+        padding-top: 3.5rem;
+
+        .ui.icon.button {
+          position: absolute;
+          top: 1rem;
+          right: 1.3rem;
+        }
+      }
+    }
+
+    .field,
+    .invenio-group-field.fields {
+      margin-bottom: 2rem;
+
+      .field {
+        margin-bottom: 1rem;
+
+        &:last-child,
+        &.subjects-field {
+          margin-bottom: 0;
+        }
+
+        .ui.icon.button {
+          margin-right: 0;
+        }
+      }
+
+      & ~ label.helptext {
+        margin-top: -1.5rem; // counterweight Form field bottom margin
+        margin-bottom: 2rem;
+      }
+
+      .invenio-group-field.fields {
+        margin-bottom: 0;
+      }
+    }
+
+    .main-group-field > .invenio-group-field.fields,
+    .invenio-group-field .invenio-group-field {
+      padding: 0;
+      background-color: transparent;
+    }
+
+    .main-group-field > .invenio-group-field.fields {
+      margin: 1rem -0.5rem 2rem -0.5rem;
+
+      @media all and (min-width: @tabletBreakpoint) {
+        .subjects-field .invenio-group-field.fields {
+          margin-top: 0;
+        }
+      }
+    }
+  }
+}
