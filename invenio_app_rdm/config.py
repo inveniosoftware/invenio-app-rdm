@@ -243,6 +243,12 @@ SECURITY_EMAIL_SENDER = "info@inveniosoftware.org"
 SECURITY_EMAIL_SUBJECT_REGISTER = _("Welcome to Invenio App RDM!")
 """Email subject for account registration emails."""
 
+# Invenio-UserProfiles
+# ================
+
+USERPROFILES_EXTEND_SECURITY_FORMS = True
+"""Extend the registration form with profile fields (name, affiliations)."""
+
 # Invenio-Celery / Celery / Flask-Celeryext
 # =========================================
 # See https://invenio-celery.readthedocs.io/en/latest/configuration.html
