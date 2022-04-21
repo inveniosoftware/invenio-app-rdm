@@ -114,11 +114,15 @@ div.affiliations.accordion div.title button.down {
     }
 
     .content {
-      dl {
+      margin-top: 1rem;
+
+      ul {
+        list-style-type: none;
+        background-color: lighten(@borderColor, 72%);
+        color: @textMutedColorDarken;
         font-size: @font-size-small;
-        background-color: @white;
-        padding: 1rem;
-        margin: 1.2rem 0 0 0;
+        padding: 1rem 1.5rem;
+        margin: 0;
       }
     }
   }
