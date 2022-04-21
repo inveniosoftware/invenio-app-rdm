@@ -141,18 +141,15 @@ export const RDMRecordSearchBarElement = withState(
     placeholder: passedPlaceholder,
     queryString,
     onInputChange,
-    executeSearch,
     updateQueryState,
   }) => {
     const placeholder = passedPlaceholder || i18next.t("Search");
     const onBtnSearchClick = () => {
-      updateQueryState({ filters: [] });
-      executeSearch();
+      updateQueryState({ filters: [], queryString });
     };
     const onKeyPress = (event) => {
       if (event.key === "Enter") {
-        updateQueryState({ filters: [] });
-        executeSearch();
+        updateQueryState({ filters: [], queryString });
       }
     };
     return (
