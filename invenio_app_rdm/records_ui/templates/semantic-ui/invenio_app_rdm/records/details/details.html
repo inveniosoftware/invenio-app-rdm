@@ -25,7 +25,7 @@ show_alternate_identifiers, show_related_identifiers, show_funding, show_dates %
   <h2 id="record-details-heading">{{ _('Additional details') }}</h2>
 
   {# Tabs #}
-  <div role="tablist" class="ui top attached tabs menu">
+  <div role="tablist" class="ui top attached tabs menu invenio-tab-menu">
     {% if record.ui.additional_titles %}
       <a role="tab"
         aria-selected="{{ active }}"
