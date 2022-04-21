@@ -16,7 +16,7 @@
 .tablet.only {
   display: none;
 
-  @media all and (max-width: @largestTabletScreen) {
+  @media all and (max-width: @computerBreakpoint) {
     display: inline-block;
   }
 }
@@ -24,7 +24,7 @@
 .computer.only {
   display: inline-block;
 
-  @media all and (max-width: @largestTabletScreen) {
+  @media all and (max-width: @computerBreakpoint) {
     display: none !important;
   }
 }

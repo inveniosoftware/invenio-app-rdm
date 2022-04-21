@@ -16,7 +16,6 @@ import {
   DatesField,
   DeleteButton,
   DepositFormApp,
-  DepositFormTitle,
   DepositStatusBox,
   DescriptionsField,
   FileUploader,
@@ -147,8 +146,7 @@ export class RDMDepositForm extends Component {
         <FormFeedback fieldPath="message" />
         <CommunityHeader imagePlaceholderLink="/static/images/square-placeholder.png" />
         <Container id="rdm-deposit-form" className="rel-mt-1">
-          <DepositFormTitle />
-          <Grid>
+          <Grid className="mt-25">
             <Grid.Column mobile={16} tablet={16} computer={11}>
               <AccordionField
                 fieldPath=""
@@ -156,7 +154,7 @@ export class RDMDepositForm extends Component {
                 label={i18next.t("Files")}
               >
                 {this.noFiles && record.is_published && (
-                  <div className="text-align-center">
+                  <div className="text-align-center pb-10">
                     <em>{i18next.t("The record has no files.")}</em>
                   </div>
                 )}
@@ -190,7 +188,6 @@ export class RDMDepositForm extends Component {
                       unmanagedHelpText={pid.unmanaged_help_text}
                       required
                     />
-                    <Divider />
                   </Fragment>
                 ))}
 
@@ -254,7 +251,6 @@ export class RDMDepositForm extends Component {
                     link: result.props.url,
                   })}
                 />
-                <Divider />
               </AccordionField>
 
               <AccordionField
@@ -297,7 +293,6 @@ export class RDMDepositForm extends Component {
                 <DatesField options={this.vocabularies.metadata.dates} />
                 <VersionField />
                 <PublisherField />
-                <Divider />
               </AccordionField>
               {/**TODO: uncomment to use FundingField*/}
               {/* <AccordionField
@@ -311,7 +306,6 @@ export class RDMDepositForm extends Component {
                 label="Awards"
                 labelIcon="money bill alternate outline"
               />
-              <Divider />
               </AccordionField> */}
 
               <AccordionField
@@ -337,7 +331,6 @@ export class RDMDepositForm extends Component {
                 <RelatedWorksField
                   options={this.vocabularies.metadata.identifiers}
                 />
-                <Divider />
               </AccordionField>
             </Grid.Column>
 
@@ -353,7 +346,7 @@ export class RDMDepositForm extends Component {
                         <Grid.Column
                           computer={8}
                           mobile={16}
-                          className="pb-0"
+                          className="pb-0 left-btn-col"
                         >
                           <SaveButton fluid />
                         </Grid.Column>
@@ -361,12 +354,12 @@ export class RDMDepositForm extends Component {
                         <Grid.Column
                           computer={8}
                           mobile={16}
-                          className="pb-0"
+                          className="pb-0 right-btn-col"
                         >
                           <PreviewButton fluid />
                         </Grid.Column>
 
-                        <Grid.Column width={16}>
+                        <Grid.Column width={16} className="pt-10">
                           <PublishButton fluid />
                         </Grid.Column>
                       </Grid>

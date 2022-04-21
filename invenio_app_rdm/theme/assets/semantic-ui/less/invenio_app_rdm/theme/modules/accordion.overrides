@@ -26,13 +26,16 @@ div.affiliations.accordion div.title button.down {
 
 .ui.accordion {
   &.invenio-accordion-field {
+    margin-bottom: 2rem;
+
     .title {
       background-color: @brandColor;
       color: @white;
       padding: 1em;
       font-size: 1rem;
       border-radius: @defaultBorderRadius;
-      margin-bottom: @defaultMargin;
+      margin-bottom: 1rem;
+
       .icon {
         float: right;
         font-size: 1.5em;
