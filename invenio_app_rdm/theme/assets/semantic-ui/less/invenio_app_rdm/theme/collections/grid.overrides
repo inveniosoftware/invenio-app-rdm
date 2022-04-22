@@ -52,6 +52,15 @@
     background-color: @warningBackgroundColor !important;
     color: @warningTextColor;
     border-radius: @defaultBorderRadius @defaultBorderRadius 0em 0em !important;
+
+    .ui.button.transparent {
+      color: @warningTextColor;
+      border-color: @warningTextColor;
+
+      &:hover {
+        color: darken(@warningTextColor, 5%);
+      }
+    }
   }
 
   /* Negative */
