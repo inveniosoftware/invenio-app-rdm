@@ -11,6 +11,7 @@
 from flask import Blueprint, current_app, render_template
 from flask_babelex import lazy_gettext as _
 from flask_login import current_user
+from flask_menu import current_menu
 from invenio_pidstore.errors import PIDDeletedError, PIDDoesNotExistError
 from invenio_records_resources.services.errors import PermissionDeniedError
 
@@ -55,6 +56,18 @@ def create_ui_blueprint(app):
         routes["community-detail"],
         view_func=communities_detail,
     )
+
+    @blueprint.before_app_first_request
+    def register_menus():
+        """Register community menu items."""
+        communities = current_menu.submenu('communities')
+        communities.submenu('search').register(
+            'invenio_app_rdm_communities.communities_detail',
+            text=_('Search'),
+            order=1,
+            expected_args=["pid_value"],
+            **dict(icon="search", permissions=True)
+        )
 
     # Register error handlers
     blueprint.register_error_handler(
