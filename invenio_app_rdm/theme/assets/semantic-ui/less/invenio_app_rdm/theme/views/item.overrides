@@ -79,4 +79,8 @@
     white-space: initial;
     min-width: 25em;
   }
+
+  &.link > .item:hover .content .header {
+    color: @darkTextColor;
+  }
 }

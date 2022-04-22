@@ -20,6 +20,41 @@
 
   .community-list-results.content {
     height: calc(55vh - 10em);
+
+    .item {
+      padding: @defaultPadding;
+
+      &:first-child {
+        padding-top: @defaultPadding !important; //overriding semantic ui's !important
+      }
+
+      &.selected {
+        background-color: lighten(@borderColor, 65%);
+      }
+
+      .header {
+        a.ui.button.transparent {
+          color: @linkColor;
+        }
+      }
+
+      .extra {
+
+        &.flex {
+          display: flex;
+        }
+
+        &.width.auto {
+          width: auto;
+        }
+
+        &.mt-0 {
+          @media all and (max-width: @largestMobileScreen) {
+            margin-top: .5 * @defaultMargin !important;
+          }
+        }
+      }
+    }
   }
 
   .community-list-result-item {
