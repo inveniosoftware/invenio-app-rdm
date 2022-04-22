@@ -55,3 +55,20 @@
     }
   }
 }
+
+.ui.list.no-bullets li::before {
+  display: none;
+}
+
+.ui.horizontal.list.subjects {
+  margin: 0;
+
+  li.item {
+    padding: 0;
+    margin: 0 .3rem .3rem 0;
+
+    & ~ li.item {
+      padding: 0 !important; // overriding semantic ui !important
+    }
+  }
+}
