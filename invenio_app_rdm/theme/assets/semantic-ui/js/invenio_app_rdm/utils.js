@@ -46,7 +46,7 @@ export function SearchItemCreators({ creators }) {
   function getIcon(creator) {
     let ids = _get(creator, "person_or_org.identifiers", []);
     let creatorName = _get(creator, "person_or_org.name", "No name");
-    let firstId = ids.filter((id) => ["orcid", "ror"].includes(id.scheme))[0];
+    let firstId = ids.filter((id) => ["orcid", "ror", "gnd"].includes(id.scheme))[0];
     firstId = firstId || { scheme: "" };
     let icon = null;
     switch (firstId.scheme) {
@@ -76,6 +76,21 @@ export function SearchItemCreators({ creators }) {
             <img
               className="inline-id-icon"
               src="/static/images/ror-icon.svg"
+              alt=""
+            />
+          </a>
+        );
+        break;
+      case "gnd":
+        icon = (
+          <a
+            href={"https://d-nb.info/gnd/" + `${firstId.identifier}`}
+            aria-label={`${creatorName}: ${i18next.t("GND profile")}`}
+            title={`${creatorName}: ${i18next.t("GND profile")}`}
+          >
+            <img
+              className="inline-id-icon"
+              src="/static/images/gnd-icon.svg"
               alt=""
             />
           </a>

@@ -22,6 +22,11 @@
       <a href="{{ identifier[0]['identifier']|pid_url('ror') }}" aria-label="{{ creatibutor.person_or_org.name }}'s ROR {{ _('profile') }}" title="{{ creatibutor.person_or_org.name }}'s ROR {{ _('profile') }}">
         <img class="ml-5 inline-id-icon" src="{{ url_for('static', filename='images/ror-icon.svg') }}" alt="ROR icon"/>
       </a>
+    {%- elif scheme == "gnd" %}
+      {% set identifier_found.value = True %}
+      <a href="{{ identifier[0]['identifier']|pid_url('gnd') }}" aria-label="{{ creatibutor.person_or_org.name }}'s GND {{ _('profile') }}" title="{{ creatibutor.person_or_org.name }}'s GND {{ _('profile') }}">
+        <img class="ml-5 inline-id-icon" src="{{ url_for('static', filename='images/gnd-icon.svg') }}" alt="GND icon"/>
+      </a>
     {%- endif %}
   {% endfor %}
 
