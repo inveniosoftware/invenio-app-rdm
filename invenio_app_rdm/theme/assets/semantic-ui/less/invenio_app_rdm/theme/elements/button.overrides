@@ -44,3 +44,9 @@
     }
   }
 }
+
+.ui.button.transparent {
+  background-color: transparent;
+  color: black;
+  padding: 0;
+}
