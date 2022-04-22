@@ -233,6 +233,9 @@ msgstr "ORCID profile"
 msgid "ROR profile"
 msgstr "ROR profile"
 
+msgid "GND profile"
+msgstr "GND profile"
+
 msgid "No communities found!"
 msgstr "No communities found!"
 
