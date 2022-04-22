@@ -27,17 +27,17 @@
 
 .subject {
   display: inline-block;
-  padding: .18rem .6rem;
+  padding: .2rem .6rem;
   box-sizing: border-box;
-  color: @highlightBackgroundColor;
+  color: @mutedTextColor;
   border: 1px solid @borderColor;
   border-radius: @defaultBorderRadius;
   cursor: pointer;
 }
 
 a.subject:hover {
-  background-color: @highlightBackgroundColorHover;
-  color: darken(@white, 15%);
+  background-color: lighten(@borderColor, 65%);
+  color: darken(@mutedTextColor, 15%);
   text-decoration: none;
 }
 

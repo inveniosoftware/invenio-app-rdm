@@ -12,34 +12,34 @@
 {% if subjects %}
   {% set keywords = subjects|rejectattr("scheme")|list %}
   {% if keywords %}
-  <dl class="details-list subjects" aria-label="{{ _('Keywords') }}">
-    <dt class="hidden">{{ _('Keywords') }}</dt>
+  <h3 class="hidden">{{ _('Keywords') }}</h3>
+  <ul class="ui horizontal list no-bullets subjects">
     {%- for subject in keywords %}
-      <dd>
+      <li class="item">
         <a href='/search?q=metadata.subjects.subject:"{{ subject.subject }}"'
            class="subject"
            title="{{ _('Search results for ') + subject.subject }}"
         >
           {{ subject.subject }}
         </a>
-      </dd>
+      </li>
     {%- endfor %}
-  </dl>
+  </ul>
   {% endif %}
 
   {%- for scheme, subjects in subjects|selectattr("scheme")|groupby('scheme')|sort(attribute='scheme') %}
-  <dl class="details-list subjects" aria-label="{{ _('Subjects') }}">
-    <dt class="ui tiny header">{{scheme}}</dt>
+  <h3 class="ui tiny header">{{scheme}}</h3>
+  <ul class="ui horizontal list no-bullets subjects">
     {%- for subject in subjects %}
-    <dd>
+    <li class="item">
       <a href='/search?q=metadata.subjects.subject:"{{ subject.subject }}"'
          class="subject"
          title="{{ _('Search results for ') + subject.subject }}"
       >
         {{ subject.subject }}
       </a>
-    </dd>
+    </li>
     {%- endfor %}
-  </dl>
+  </ul>
   {%- endfor %}
 {% endif %}
