@@ -1,105 +1,214 @@
-#requests-timeline {
+.ui.feed {
 
-  .ui.feed {
+  .requests-event-item {
+    box-sizing: border-box;
+  }
 
-    .requests-event-item {
-      box-sizing: border-box;
-    }
+  .requests-event-container {
+    position: relative;
+    display: flex;
+    padding: @defaultPadding 0;
 
-    .requests-event-container {
-      position: relative;
-      display: flex;
-      padding: 16px 0;
-      margin-left: 16px;
-
-      &::before {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        display: block;
-        width: 2px;
-        content: "";
-        background-color: @borderColor;
-      }
-
-      &:first-child {
-        padding-top: 0;
-      }
-      
-    }
-
-    .requests-avatar-container {
+    &::before {
       position: absolute;
-      left: -70px;
-      z-index: 1;
+      top: 0;
+      bottom: 0;
+      left: 4.5em;
       display: block;
-
-      img {
-        max-height: 40px;
-        width: auto;
-      }
+      width: 2px;
+      content: "";
+      background-color: @borderColor;
     }
 
-    .requests-event-inner-container {
-      min-width: 0;
-      max-width: 100%;
-      flex: auto;
-      margin: 0
+    &:first-child {
+      padding-top: 0;
     }
-
-    .event {
-      border: 1px solid @borderColor;
-      border-radius: 0.2rem;
-      padding: 1rem;
-      margin-left: -16px;
-      background-color: #ffffff;
-      position: relative;
-      display: block;
-
-      .text {
-        width: auto;
-      }
-    }
-
-
-    .requests-action-event-icon {
-      position: relative;
-      display: flex;
-      margin-left: -11px;
-      align-items: center;
-      justify-content: center;
-      margin-right: 15px;
-      padding: 1rem 0;
-
-      .icon {
-        background-color: #ffffff;
-      }
-    }
-
-
-    .event.requests-action-event {
-      border: none;
-      border-radius: 0;
-      display: flex;
-
-      .avatar {
-        display: flex;
-        align-items: center;
-      }
-
-      .content {
-        display: flex;
-        align-items: center;
-      }
-
-    }
-
 
   }
 
+  .requests-avatar-container {
+    margin-right: 0.5em;
+
+    img {
+      max-height: 40px;
+      width: auto;
+    }
+  }
+
+  .requests-event-inner-container {
+    display: flex;
+    width: 100%;
+
+    &.thread {
+      margin-left: 3.75em;
+      align-items: center;
+    }
+  }
+
+  .event {
+    width: 100%;
+    border: @defaultBorder;
+    border-radius: @defaultBorderRadius;
+    padding: 0.5 * @defaultPadding;
+    background-color: @white;
+    position: relative;
+
+    .text {
+      width: auto;
+    }
+
+    &.requests-action-event {
+      border: 0;
+      display: flex;
+      align-items: center;
+
+      .label{
+        margin-right: 0.5 * @defaultMargin;
+      }
+    }
+  }
+
+  .requests-action-event-icon {
+    position: relative;
+    padding: 1rem 0;
+
+    .icon {
+      background-color: @white;
+    }
+  }
 }
 
+.ui.feed {
+  // override SUI defaults  to bypass immediate parent rule for feed
+  .event > .content .user {
+    display: inline-block;
+    font-weight: @userFontWeight;
+    margin-right: @userDistance;
+    vertical-align: baseline;
+  }
 
+  .event > .content .user img {
+    margin: @userImageMargin;
+    width: @userImageWidth;
+    height: @userImageHeight;
+    vertical-align: @userImageVerticalAlign;
+  }
+
+  /*--------------
+     Inline Date
+  ---------------*/
+
+  /* Date inside Summary */
+
+  .event > .content .summary > .date {
+    display: @summaryDateDisplay;
+    float: @summaryDateFloat;
+    font-weight: @summaryDateFontWeight;
+    font-size: @summaryDateFontSize;
+    font-style: @summaryDateFontStyle;
+    margin: @summaryDateMargin;
+    padding: @summaryDatePadding;
+    color: @summaryDateColor;
+  }
+
+  /*--------------
+    Extra Summary
+  ---------------*/
+
+  .event > .content .extra {
+    margin: @extraMargin;
+    background: @extraBackground;
+    padding: @extraPadding;
+    color: @extraColor;
+  }
+
+  /* Images */
+
+  .event > .content .extra.images img {
+    display: inline-block;
+    margin: @extraImageMargin;
+    width: @extraImageWidth;
+  }
+
+  /* Text */
+
+  .event > .content .extra.text {
+    padding: @extraTextPadding;
+    border-left: @extraTextPointer;
+    font-size: @extraTextFontSize;
+    max-width: @extraTextMaxWidth;
+    line-height: @extraTextLineHeight;
+  }
+
+  /*--------------
+        Meta
+  ---------------*/
+
+  .event > .content .meta {
+    display: @metadataDisplay;
+    font-size: @metadataFontSize;
+    margin: @metadataMargin;
+    background: @metadataBackground;
+    border: @metadataBorder;
+    border-radius: @metadataBorderRadius;
+    box-shadow: @metadataBoxShadow;
+    padding: @metadataPadding;
+    color: @metadataColor;
+  }
+
+  .event > .content .meta > * {
+    position: relative;
+    margin-left: @metadataElementSpacing;
+  }
+
+  .event > .content .meta > *:after {
+    content: @metadataDivider;
+    color: @metadataDividerColor;
+    top: 0;
+    left: @metadataDividerOffset;
+    opacity: 1;
+    position: absolute;
+    vertical-align: top;
+  }
+
+  .event > .content .meta .like {
+    color: @likeColor;
+    transition: @likeTransition;
+  }
+
+  .event > .content .meta .like:hover .icon {
+    color: @likeHoverColor;
+  }
+
+  .event > .content .meta .active.like .icon {
+    color: @likeActiveColor;
+  }
+
+  /* First element */
+
+  .event > .content .meta > :first-child {
+    margin-left: 0em;
+  }
+
+  .event > .content .meta > :first-child::after {
+    display: none;
+  }
+
+  /* Action */
+
+  .event > .content .meta a,
+  .event > .content .meta > .icon {
+    cursor: @metadataActionCursor;
+    opacity: @metadataActionOpacity;
+    color: @metadataActionColor;
+    transition: @metadataActionTransition;
+  }
+
+  .event > .content .meta a:hover,
+  .event > .content .meta a:hover .icon,
+  .event > .content .meta > .icon:hover {
+    color: @metadataActionHoverColor;
+  }
+}
 
 
