@@ -9,6 +9,7 @@
 """Request views module."""
 
 from flask import current_app, g, render_template
+from flask_babelex import lazy_gettext as _
 from flask_login import login_required
 from invenio_communities.members.services.request import CommunityInvitation
 from invenio_communities.proxies import current_communities
@@ -92,10 +93,10 @@ def invitation_details(community_pid_value=None,
         f"invenio_requests/community-invitation/index.html",
         community=community.to_dict(),
         types={
-            "organization": "Organization",
-            "event": "Event",
-            "topic": "Topic",
-            "project": "Project"
+            "organization": _("Organization"),
+            "event": _("Event"),
+            "topic": _("Topic"),
+            "project": _("Project")
         },
         permissions=permissions,
         request=request,
