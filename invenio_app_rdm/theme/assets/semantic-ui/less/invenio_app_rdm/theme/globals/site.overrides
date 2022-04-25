@@ -254,12 +254,6 @@ pre.export.result {
 
 /* record details */
 
-.main-record-content {
-  nav.back-navigation {
-    padding-bottom: 1rem;
-  }
-}
-
 .font-small {
   font-size: @font-size-small
 }

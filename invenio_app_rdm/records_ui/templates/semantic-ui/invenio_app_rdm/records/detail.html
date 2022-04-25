@@ -21,43 +21,17 @@
 
 {%- block page_body %}
   <section id="banners" class="banners" aria-label="{{ _('Information banner') }}">
-    {% if is_preview %}
-      <div class="ui info flashed top attached manage message">
-        <div class="ui container">
-          <div class="ui relaxed grid">
-            <div class="column">
-              <div class="row">
-                <div class="header">
-                  <i class="eye icon"></i>
-                  <strong>{{_ ("Preview")}}</strong>
-                </div>
-                <p>
-                  {% if not is_draft %}
-                    {{ _("You are previewing a published record.") }}
-                  {% elif record.is_published %}
-                    {{ _("You are previewing changes that have not yet been published.") }}
-                  {% elif not record.is_published and record.versions.index == 1 %}
-                    {{ _("You are previewing a new record that has not yet been published.") }}
-                  {% elif not record.is_published and record.versions.index > 1 %}
-                    {{ _("You are previewing a new record version that has not yet been published.") }}
-                  {% endif %}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    {% endif %}
 
     {% if community %}
-    <!-- TODO: Checks below must be deleted once community is resolved -->
-    {% if community.links is defined %}
-      {%- set logoLink = community.links.logo %}
-      {%- set communityTitle = community.metadata.title %}
-    {% else %}
-      {%- set logoLink = "/static/images/square-placeholder.png" %}
-      {%- set communityTitle = community %}
-    {% endif %}
+      <!-- TODO: Checks below must be deleted once community is resolved -->
+      {% if community.links is defined %}
+        {%- set logoLink = community.links.logo %}
+        {%- set communityTitle = community.metadata.title %}
+      {% else %}
+        {%- set logoLink = "/static/images/square-placeholder.png" %}
+        {%- set communityTitle = community %}
+      {% endif %}
+
       <div class="ui fluid container page-subheader-outer compact">
         <div class="ui container page-subheader">
           <div class="page-subheader-element">
@@ -72,6 +46,28 @@
         </div>
       </div>
     {% endif %}
+
+    {% if is_preview %}
+    <div class="ui info flashed top attached manage message">
+      <div class="ui container">
+        <div class="header">
+          <i class="eye icon"></i>
+          <strong>{{_ ("Preview")}}</strong>
+        </div>
+        <p>
+          {% if not is_draft %}
+            {{ _("You are previewing a published record.") }}
+          {% elif record.is_published %}
+            {{ _("You are previewing changes that have not yet been published.") }}
+          {% elif not record.is_published and record.versions.index == 1 %}
+            {{ _("You are previewing a new record that has not yet been published.") }}
+          {% elif not record.is_published and record.versions.index > 1 %}
+            {{ _("You are previewing a new record version that has not yet been published.") }}
+          {% endif %}
+        </p>
+      </div>
+    </div>
+  {% endif %}
 
     {% if record.is_published and not record.versions.is_latest %}
     <div class="ui warning flashed top attached manage message">
@@ -121,7 +117,7 @@
               {%- block record_header_button -%}
 
                 {% if is_preview and permissions.can_edit and is_draft %}
-                  <nav class="back-navigation" aria-label="{{ _('Back-navigation') }}">
+                  <nav class="back-navigation rel-pb-2 pl-0" aria-label="{{ _('Back-navigation') }}">
                     {%- set back_page = url_for('invenio_app_rdm_records.deposit_edit', pid_value=record.id, preview=1) -%}
                     {%- set back_btn_label = _('Back to edit') -%}
                     <a class="ui button labeled icon small compact" href="{{ back_page }}">

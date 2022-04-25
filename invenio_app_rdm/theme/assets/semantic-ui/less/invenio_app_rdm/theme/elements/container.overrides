@@ -13,6 +13,12 @@
     margin-right: 0 !important;
   }
 
+  & ~ .ui.info.flashed.message.manage {
+    margin-top: -@defaultMargin;
+    /*  Using negative margin to not complicate the
+        spacing of .page-subheader-outer */
+  }
+
   &.with-submenu {
     padding-bottom: 0;
     margin-bottom: 0;
