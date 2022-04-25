@@ -60,3 +60,19 @@
     height: 20em;
   }
 }
+
+
+.ui.container.requests-feed-container {
+  position: relative;
+
+
+  @media screen and (max-width: @tabletBreakpoint) {
+    padding-left: 2rem;
+  }
+
+  @media screen and (max-width: @mobileBreakpoint) {
+    padding-left: 0;
+  }
+
+
+}

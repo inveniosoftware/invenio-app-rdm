@@ -108,4 +108,4 @@
 /* borders */
 
 @dashedBorder: 2px dashed @borderColor;
-
+@defaultBorder: 1px solid @solidBorderColor;
