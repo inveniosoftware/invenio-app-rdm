@@ -176,7 +176,6 @@ IIIF_PREVIEW_TEMPLATE = "invenio_app_rdm/records/iiif_preview.html"
 """Template for IIIF image preview."""
 
 IIIF_API_DECORATOR_HANDLER = None
-IIIF_IMAGE_OPENER_HANDLER = "invenio_rdm_records.resources.iiif:image_opener"
 
 # Invenio-Previewer
 # =================
