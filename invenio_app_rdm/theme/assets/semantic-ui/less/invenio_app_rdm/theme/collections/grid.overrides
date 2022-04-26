@@ -114,7 +114,7 @@
 
 .sixteen.wide.tablet.five.wide.computer.column.sidebar {
 
-  @media screen and (max-width: @computerBreakpoint) {
+  @media screen and (max-width: @largestTabletScreen) {
     display: inline-flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -144,7 +144,7 @@
   &.left-btn-col {
     padding-right: .25rem !important; // overriding semantic ui !important
 
-    @media all and (max-width: @computerBreakpoint - 1px) {
+    @media all and (max-width: @largestTabletScreen) {
       padding-right: 1.5rem !important;
     }
   }
@@ -152,7 +152,7 @@
   &.right-btn-col {
     padding-left: .25rem !important; // overriding semantic ui !important
 
-    @media all and (max-width: @computerBreakpoint - 1px) {
+    @media all and (max-width: @largestTabletScreen) {
       padding-left: 1.5rem !important;
     }
   }
@@ -163,7 +163,7 @@
   justify-content: flex-end;
   align-items: center;
 
-  @media all and (max-width: @tabletBreakpoint - 1px) {
+  @media all and (max-width: @largestMobileScreen) {
     justify-content: flex-start;
     margin-top: 1rem;
     flex-direction: column;
@@ -176,7 +176,7 @@
     font-weight: 400;
     margin-bottom: 0;
 
-    @media all and (max-width: @tabletBreakpoint - 1px) {
+    @media all and (max-width: @largestMobileScreen) {
       margin-bottom: .5rem;
     }
   }

@@ -65,7 +65,7 @@ label.helptext {
 }
 
 label.mobile-hidden {
-  @media all and (max-width: @tabletBreakpoint - 1px) {
+  @media all and (max-width: @largestMobileScreen) {
     display: none;
   }
 }

@@ -25,7 +25,7 @@ body {
 .tablet.only {
   display: none;
 
-  @media all and (max-width: @computerBreakpoint) {
+  @media all and (max-width: @largestTabletScreen) {
     display: inline-block;
   }
 }
@@ -33,7 +33,7 @@ body {
 .computer.only {
   display: inline-block;
 
-  @media all and (max-width: @computerBreakpoint) {
+  @media all and (max-width: @largestTabletScreen) {
     display: none !important;
   }
 }
