@@ -105,7 +105,7 @@
   }
 }
 
-@media all and (max-width: @computerBreakpoint) {
+@media all and (max-width: @largestTabletScreen) {
   #invenio-nav.ui.menu {
 
     &.active .ui.menu {
@@ -198,12 +198,12 @@
 #additional-details {
   .ui.top.attached.menu {
 
-    @media screen and (max-width: @computerBreakpoint) {
+    @media screen and (max-width: @largestTabletScreen) {
       flex-wrap: wrap;
     }
 
     &:not(.tabular) {
-      @media screen and (max-width: @computerBreakpoint) {
+      @media screen and (max-width: @largestTabletScreen) {
         border-bottom: 0;
       }
     }
@@ -211,7 +211,7 @@
     .item {
       flex: 1 0 auto;
 
-      @media screen and (max-width: @computerBreakpoint) {
+      @media screen and (max-width: @largestTabletScreen) {
         border-bottom: 1px solid #D4D4D5;
         font-weight: bold;
       }

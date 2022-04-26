@@ -46,7 +46,7 @@
         margin-bottom: 0;
       }
 
-      @media all and (max-width: @tabletBreakpoint - 1px) {
+      @media all and (max-width: @largestMobileScreen) {
         .column {
           position: static;
           padding-right: .3rem;

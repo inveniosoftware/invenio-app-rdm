@@ -21,7 +21,7 @@
 }
 
 .ui.segment.rdm-sidebar {
-  @media screen and (max-width: @computerBreakpoint) {
+  @media screen and (max-width: @largestTabletScreen) {
     box-shadow: none;
     flex-basis: calc(50% - 0.5rem);
     margin-top: 0;
@@ -34,7 +34,7 @@
     }
   }
 
-  @media screen and (max-width: @tabletBreakpoint) {
+  @media screen and (max-width: @largestMobileScreen) {
     flex-basis: 100%;
   }
 
