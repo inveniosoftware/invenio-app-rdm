@@ -112,7 +112,7 @@ class DashboardMenu extends Component {
         <Container
           id="dashboard-menu-container"
           fluid
-          className="page-subheader-outer with-submenu rel-pt-2"
+          className="page-subheader-outer with-submenu rel-pt-1"
         >
           <Container id="dashboard-menu">
             <Menu pointing secondary className="page-subheader">

@@ -13,17 +13,19 @@ from os.path import splitext
 
 from flask import abort, current_app, g, redirect, render_template, request, \
     url_for
-from flask_login import current_user
+from flask_login import current_user, login_required
 from invenio_base.utils import obj_or_import_string
 from invenio_previewer.extensions import default
 from invenio_previewer.proxies import current_previewer
 from invenio_rdm_records.proxies import current_rdm_records
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
+from invenio_users_resources.proxies import current_user_resources
 from marshmallow import ValidationError
 
 from .decorators import pass_file_item, pass_file_metadata, pass_is_preview, \
     pass_record_files, pass_record_from_pid, pass_record_latest, \
     pass_record_or_draft
+from .deposits import get_search_url
 from .utils import get_community_uuid
 
 
@@ -67,6 +69,22 @@ class PreviewFile:
 #
 # Views
 #
+@login_required
+def dashboard(dashboard_name=None):
+    """Display user dashboard page."""
+    if not current_app.config["COMMUNITIES_ENABLED"] or not dashboard_name:
+        dashboard_name = current_app.config["_DASHBOARD_ROUTES"][0]
+    url = current_user_resources.users_service.links_item_tpl.expand(
+        current_user
+    )['avatar']
+    return render_template(
+        "invenio_app_rdm/records/dashboard.html",
+        dashboard_name=dashboard_name,
+        searchbar_config=dict(searchUrl=get_search_url()),
+        user_avatar_url=url
+    )
+
+
 @pass_is_preview
 @pass_record_or_draft
 @pass_record_files

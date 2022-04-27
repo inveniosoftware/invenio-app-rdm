@@ -19,18 +19,12 @@
   <div class="ui container page-subheader">
     <div class="ui items">
       <div class="item">
-<!--        TODO comment out when avatars ready-->
-<!--        <div class="ui mini image">-->
-<!--          <img src="/static/images/square-placeholder.png"/>-->
-<!--        </div>-->
-<!--        <div class="content">-->
-<!--          <span class="header">{{ username }}</span>-->
-<!--          <div class="meta">-->
-<!--          </div>-->
+        <div class="ui mini image">
+          <img src="{{user_avatar_url}}"/>
+        </div>
         <div class="content">
-          <span class="header">{{ _("My dashboard") }}</span>
-          <div class="meta">
-          </div>
+          <span class="header">{{ current_userprofile.full_name }}</span>
+          <div>{{ current_userprofile.affiliations }}</div>
         </div>
       </div>
     </div>
