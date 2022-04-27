@@ -92,12 +92,6 @@ def invitation_details(community_pid_value=None,
     return render_template(
         f"invenio_requests/community-invitation/index.html",
         community=community.to_dict(),
-        types={
-            "organization": _("Organization"),
-            "event": _("Event"),
-            "topic": _("Topic"),
-            "project": _("Project")
-        },
         permissions=permissions,
         request=request,
         default_query_config=default_query_config,

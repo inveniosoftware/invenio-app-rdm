@@ -26,13 +26,6 @@ def communities_detail(community=None, logo=None, pid_value=None):
         "invenio_communities/details/index.html",
         community=community.to_dict(),  # TODO: use serializer
         logo=logo.to_dict() if logo else None,
-        # TODO: inject this from a vocabulary in the community
-        types={
-            "organization": _("Organization"),
-            "event": _("Event"),
-            "topic": _("Topic"),
-            "project": _("Project")
-        },
         # Pass permissions so we can disable partially UI components
         # e.g Settings tab
         permissions=permissions,
