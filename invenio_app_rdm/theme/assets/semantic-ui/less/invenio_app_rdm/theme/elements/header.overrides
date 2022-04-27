@@ -33,3 +33,9 @@
     font-size: 1rem;
   }
 }
+
+aside.sidebar {
+  h3.hidden {
+    display: none;
+  }
+}
