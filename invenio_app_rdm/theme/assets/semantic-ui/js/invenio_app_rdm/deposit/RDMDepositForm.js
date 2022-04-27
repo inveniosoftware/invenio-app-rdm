@@ -149,7 +149,7 @@ export class RDMDepositForm extends Component {
           <Grid className="mt-25">
             <Grid.Column mobile={16} tablet={16} computer={11}>
               <AccordionField
-                fieldPath=""
+                includesPaths={["files.enabled"]}
                 active={true}
                 label={i18next.t("Files")}
               >
@@ -165,7 +165,16 @@ export class RDMDepositForm extends Component {
               </AccordionField>
 
               <AccordionField
-                fieldPath=""
+                includesPaths={[
+                  "metadata.resource_type",
+                  "metadata.title",
+                  "metadata.additional_titles",
+                  "metadata.publication_date",
+                  "metadata.creators",
+                  "metadata.description",
+                  "metadata.additional_descriptions",
+                  "metadata.rights"
+                ]}
                 active={true}
                 label={i18next.t("Basic information")}
               >
@@ -254,7 +263,14 @@ export class RDMDepositForm extends Component {
               </AccordionField>
 
               <AccordionField
-                fieldPath=""
+                includesPaths={[
+                  "metadata.contributors",
+                  "metadata.subjects",
+                  "metadata.languages",
+                  "metadata.dates",
+                  "metadata.version",
+                  "metadata.publisher"
+                ]}
                 active={true}
                 label={i18next.t("Recommended information")}
               >
@@ -296,7 +312,6 @@ export class RDMDepositForm extends Component {
               </AccordionField>
               {/**TODO: uncomment to use FundingField*/}
               {/* <AccordionField
-              fieldPath=""
               active={true}
               label={"Funding"}
               >
@@ -309,7 +324,7 @@ export class RDMDepositForm extends Component {
               </AccordionField> */}
 
               <AccordionField
-                fieldPath=""
+                includesPaths={["metadata.identifiers"]}
                 active={true}
                 label={i18next.t("Alternate identifiers")}
               >
@@ -324,7 +339,7 @@ export class RDMDepositForm extends Component {
               </AccordionField>
 
               <AccordionField
-                fieldPath=""
+                includesPaths={["metadata.related_identifiers"]}
                 active={true}
                 label={i18next.t("Related works")}
               >
