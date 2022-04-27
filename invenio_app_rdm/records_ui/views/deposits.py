@@ -9,8 +9,10 @@
 
 """Routes for record-related pages provided by Invenio-App-RDM."""
 
+import re
+
 from elasticsearch_dsl import Q
-from flask import current_app, g, render_template
+from flask import current_app, render_template
 from flask_babelex import lazy_gettext as _
 from flask_login import login_required
 from invenio_access.permissions import system_identity
@@ -19,7 +21,6 @@ from invenio_rdm_records.proxies import current_rdm_records
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
 from invenio_rdm_records.services.schemas import RDMRecordSchema
 from invenio_rdm_records.services.schemas.utils import dump_empty
-from invenio_userprofiles import current_userprofile
 from invenio_vocabularies.proxies import current_service as vocabulary_service
 from invenio_vocabularies.records.models import VocabularyScheme
 from marshmallow_utils.fields.babel import gettext_from_dict
@@ -288,19 +289,6 @@ def new_record():
 #
 # Views
 #
-@login_required
-def dashboard(dashboard_name=None):
-    """Display user dashboard page."""
-    if not current_app.config["COMMUNITIES_ENABLED"] or not dashboard_name:
-        dashboard_name = current_app.config["_DASHBOARD_ROUTES"][0]
-    return render_template(
-        "invenio_app_rdm/records/dashboard.html",
-        dashboard_name=dashboard_name,
-        searchbar_config=dict(searchUrl=get_search_url()),
-        username=current_userprofile.full_name
-    )
-
-
 @login_required
 @pass_draft_community
 def deposit_create(community=None):
