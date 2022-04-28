@@ -34,53 +34,13 @@ import {
 import { axiosWithconfig, SearchItemCreators } from "../../utils";
 import { DashboardResultView, DashboardSearchLayoutHOC } from "./base";
 
-const DeleteDraftButton = (props) => {
-  const [modalOpen, setModalOpen] = useState(false);
-
-  const handleOpen = () => setModalOpen(true);
-
-  const handleClose = () => setModalOpen(false);
-
-  const handleDelete = async () => {
-    const resp = await axiosWithconfig.delete(
-      `/api/records/${props.record.id}/draft`,
-      {},
-      {
-        headers: { "Content-Type": "application/json" },
-      }
-    );
-    handleClose();
-    window.location.reload();
-  };
-
-  return (
-    <>
-      <Button
-        compact
-        size="small"
-        floated="right"
-        color="red"
-        onClick={handleOpen}
-      >
-        <Icon name="trash alternate outline" />
-        {i18next.t("Delete")}
-      </Button>
-
-      <Modal open={modalOpen} onClose={handleClose} size="tiny">
-        <Modal.Content>
-          <h3>{i18next.t("Are you sure you want to delete this draft?")}</h3>
-        </Modal.Content>
-        <Modal.Actions>
-          <Button onClick={handleClose} floated="left">
-            {i18next.t("Cancel")}
-          </Button>
-          <Button color="red" onClick={handleDelete}>
-            {i18next.t("Delete")}
-          </Button>
-        </Modal.Actions>
-      </Modal>
-    </>
-  );
+const statuses = {
+  in_review: { color: "yellow", title: i18next.t("In review") },
+  declined: { color: "red", title: i18next.t("Declined") },
+  expired: { color: "orange", title: i18next.t("Expired") },
+  draft_with_review: { color: "grey", title: i18next.t("Draft") },
+  draft: { color: "grey", title: i18next.t("Draft") },
+  new_version_draft: { color: "grey", title: i18next.t("New version draft") },
 };
 
 export const RDMRecordResultsListItem = ({ result, index }) => {
@@ -146,6 +106,11 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
       <Item.Content style={{ cursor: "default" }}>
         <Item.Extra className="labels-actions">
           {/* For reduced spacing between labels. */}
+          {result.status in statuses && result.status !== "published" && (
+            <Label size="tiny" color={statuses[result.status].color}>
+              {statuses[result.status].title}
+            </Label>
+          )}
           <Label size="tiny" color="blue">
             {publicationDate} ({version})
           </Label>
@@ -167,13 +132,11 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
             <Icon name="edit" />
             {i18next.t("Edit")}
           </Button>
-          {is_published ? (
+          {is_published && (
             <Button compact size="small" floated="right" href={viewLink}>
               <Icon name="eye" />
               {i18next.t("View")}
             </Button>
-          ) : (
-            <DeleteDraftButton record={result} />
           )}
         </Item.Extra>
         <Item.Header as="h2">

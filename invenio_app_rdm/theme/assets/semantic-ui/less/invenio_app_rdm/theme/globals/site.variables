@@ -27,7 +27,7 @@
 @accessRightOpen: @green;
 @accessRightRestricted: @red;
 @accessRightEmbargoed: @yellow;
-@accessRightMetadataOnly: @red;
+@accessRightMetadataOnly: @teal;
 
 @restricted-components-background-color: #f502020f;
 @restricted-components-border-color: #e0b4b4;

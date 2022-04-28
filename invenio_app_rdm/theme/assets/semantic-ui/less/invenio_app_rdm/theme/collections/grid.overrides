@@ -40,7 +40,7 @@
   .ui.grid > .light.grey.row,
   .ui.grid > .light.grey.column,
   .ui.grid > .row > .light.grey.column {
-    background-color: #F8F8F9 !important;  // ui.message @background
+    background-color: @gridLightGreyBackgroundColor !important;
     color: @textColor;
     border-radius: @defaultBorderRadius @defaultBorderRadius 0em 0em !important;
   }
