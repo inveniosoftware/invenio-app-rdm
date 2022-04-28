@@ -8,13 +8,13 @@
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 
 import React, { useState } from "react";
-import { Grid, Message } from "semantic-ui-react";
+import { Button, Grid, Icon, Message } from 'semantic-ui-react';
 
 import { EditButton } from "./EditButton";
 import { ShareButton } from "./ShareButton";
 import { NewVersionButton } from "react-invenio-deposit";
 
-export const RecordManagement = ({ record, permissions }) => {
+export const RecordManagement = ({ record, permissions, isDraft }) => {
   const { id: recid } = record;
   const [error, setError] = useState("");
   const handleError = (errorMessage) => {
@@ -25,7 +25,22 @@ export const RecordManagement = ({ record, permissions }) => {
   return (
     <Grid columns={1} className="record-management">
       <Grid.Column className="pb-5">
-        <EditButton recid={recid} onError={handleError} />
+        {permissions.can_edit && !isDraft && (
+          <EditButton recid={recid} onError={handleError} />
+        )}
+        {permissions.can_update_draft && isDraft && (
+          <Button
+            fluid
+            color="orange"
+            size="medium"
+            onClick={() => window.location = `/uploads/${recid}`}
+            icon
+            labelPosition="left"
+          >
+            <Icon name="edit" />
+            {i18next.t("Edit submission")}
+          </Button>
+        )}
       </Grid.Column>
       <Grid.Column className="pt-5 pb-5">
         <NewVersionButton

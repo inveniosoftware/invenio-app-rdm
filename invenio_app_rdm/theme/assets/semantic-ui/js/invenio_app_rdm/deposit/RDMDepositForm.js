@@ -370,17 +370,18 @@ export class RDMDepositForm extends Component {
                     label={i18next.t("Visibility")}
                     labelIcon={"shield"}
                   />
-
-                  <Card>
-                    <Card.Content>
-                      <DeleteButton
-                        fluid
-                        // TODO: make is_published part of the API response
-                        //       so we don't have to do this
-                        isPublished={record.is_published}
-                      />
-                    </Card.Content>
-                  </Card>
+                  {permissions.can_delete_draft &&
+                    <Card>
+                      <Card.Content>
+                        <DeleteButton
+                          fluid
+                          // TODO: make is_published part of the API response
+                          //       so we don't have to do this
+                          isPublished={record.is_published}
+                        />
+                      </Card.Content>
+                    </Card>
+                  }
                 </Sticky>
               </Grid.Column>
             </Ref>
