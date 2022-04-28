@@ -31,6 +31,7 @@ function renderRecordManagement(element) {
     <RecordManagement
       record={JSON.parse(recordManagementAppDiv.dataset.record)}
       permissions={JSON.parse(recordManagementAppDiv.dataset.permissions)}
+      isDraft={JSON.parse(recordManagementAppDiv.dataset.isDraft)}
     />,
     element
   );

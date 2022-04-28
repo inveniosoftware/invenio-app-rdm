@@ -15,8 +15,9 @@
 
 {%- from "invenio_app_rdm/records/macros/files.html" import file_list_box, preview_file_box %}
 
-{%- set title = record.metadata.title -%}
+{%- set title = record.metadata.title %}
 {%- set metadata = record.metadata %}
+{%- set can_manage_record = permissions is defined and ((permissions.can_edit and not is_preview) or (is_draft and permissions.can_update_draft) ) %}
 
 {%- block page_body %}
   <section id="banners" class="banners" aria-label="{{ _('Information banner') }}">
@@ -128,9 +129,9 @@
                   </nav>
                 {% endif %}
 
-              {%- endblock record_header_button -%}
+              {% endblock record_header_button %}
 
-              {% if permissions is defined and permissions.can_edit and not is_preview %}
+              {% if can_manage_record is sameas true %}
                 <section id="mobile-record-management" class="ui grid tablet only mobile only">
                   <div class="sixteen wide column right aligned">
                     <button id="manage-record-btn"
@@ -145,6 +146,9 @@
                   <div id="recordManagementMobile"
                        role="dialog"
                        class="ui flowing popup transition hidden"
+                       data-record='{{ record | tojson }}'
+                       data-permissions='{{ permissions | tojson }}'
+                       data-is-draft="{{ is_draft | tojson }}"
                   >
                   </div>
                 </section>

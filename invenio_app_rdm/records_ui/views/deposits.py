@@ -333,5 +333,5 @@ def deposit_edit(draft=None, draft_files=None, pid_value=None):
         communities_enabled=current_app.config["COMMUNITIES_ENABLED"],
         files=draft_files.to_dict(),
         searchbar_config=dict(searchUrl=get_search_url()),
-        permissions=draft.has_permissions_to(['new_version'])
+        permissions=draft.has_permissions_to(['new_version', 'delete_draft'])
     )
