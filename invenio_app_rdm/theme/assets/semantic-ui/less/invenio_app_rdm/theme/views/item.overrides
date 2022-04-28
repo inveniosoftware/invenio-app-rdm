@@ -83,4 +83,25 @@
   &.link > .item:hover .content .header {
     color: @darkTextColor;
   }
+
+  .item.community-item {
+
+    .header .header-link {
+      @media all and (max-width: @largestMobileScreen) {
+        display: block;
+        margin-top: 1rem;
+      }
+    }
+
+    .meta {
+
+      .inline-computer {
+        display: inline-block;
+
+        @media all and (max-width: @largestMobileScreen) {
+          display: block;
+        }
+      }
+    }
+  }
 }

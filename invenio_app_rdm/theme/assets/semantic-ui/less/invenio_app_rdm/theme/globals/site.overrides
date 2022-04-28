@@ -418,6 +418,29 @@ dl.details-list {
   text-align: center;
 }
 
+.text-align-right {
+  text-align: right;
+
+  &-mobile {
+    @media all and (max-width: @largestMobileScreen) {
+      text-align: right;
+    }
+  }
+
+  &-tablet {
+    @media all and (min-width: @tabletBreakpoint) and (max-width: @largestTabletScreen) {
+      text-align: right;
+    }
+  }
+
+  &-computer {
+    @media all and (min-width: @computerBreakpoint) {
+      text-align: right;
+    }
+  }
+}
+
+
 .flex {
   display: flex;
 }
