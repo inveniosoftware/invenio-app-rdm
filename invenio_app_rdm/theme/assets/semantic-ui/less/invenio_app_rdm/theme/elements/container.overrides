@@ -39,6 +39,12 @@
     height: 3em;
   }
 
+  &.stackable.menu {
+    @media all and (max-width: @largestMobileScreen) {
+      width: 100% !important; // Overwriting semantic-ui's `auto !important` for same breakpoint on .ui.container
+    }
+  }
+
   .page-subheader-element{
     padding-left: 0.5em;
     padding-right: 0.5em;
