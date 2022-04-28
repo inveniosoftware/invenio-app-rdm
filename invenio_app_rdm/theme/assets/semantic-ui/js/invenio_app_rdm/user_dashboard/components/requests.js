@@ -37,6 +37,7 @@ import {
   Label,
   Segment,
 } from "semantic-ui-react";
+import { GridResponsiveSidebarColumn } from "react-invenio-forms";
 import {
   RDMBucketAggregationElement,
   RDMRecordFacetsValues,
@@ -62,7 +63,7 @@ export const RequestsResults = ({
                   verticalAlign="middle"
                   className="small pt-5 pb-5 highlight-background"
                 >
-                  <Grid.Column width={4}>
+                  <Grid.Column mobile={16} tablet={4} computer={4} className="mt-5 mb-5">
                     <Count
                       label={() => (
                         <>
@@ -72,9 +73,8 @@ export const RequestsResults = ({
                     />
                   </Grid.Column>
                   <Grid.Column
-                    width={12}
-                    textAlign="right"
-                    className="padding-r-5"
+                    mobile={16} tablet={12} computer={12}
+                    className="text-align-right-tablet text-align-right-computer"
                   >
                     {sortOptions && (
                       <Sort
@@ -88,6 +88,7 @@ export const RequestsResults = ({
                     )}
                   </Grid.Column>
                 </Grid.Row>
+
                 <Grid.Row>
                   <Grid.Column>
                     <ResultsList />
@@ -144,35 +145,34 @@ export function RequestsResultsItemTemplate({ result, index }) {
   const createdDate = new Date(result.created);
   const differenceInDays = timestampToRelativeTime(createdDate.toISOString());
   return (
-    <Item key={index}>
+    <Item key={index} className="community-item">
       <Item.Content>
         <Item.Header>
           {result.type && (
-            <span className="mr-5">
-              <Label size="large">{result.type}</Label>
-            </span>
+            <Label size="large" className="rel-mr-1">{result.type}</Label>
           )}
-          <a href={`/me/requests/${result.id}`}>{result.title}</a>
+          <a className="header-link" href={`/me/requests/${result.id}`}>{result.title}</a>
         </Item.Header>
 
-        <Item.Meta className="mt-10">
-          <span className="mr-15">
+        <Item.Meta>
+          <div className="inline-computer rel-mr-1 rel-mt-1 rel-mb-1">
             {/* TODO: Replace by resolved user */}
             {/* {i18next.t(`opened {{difference}} by {{user}}`, {
               difference: differenceInDays,
               user: result.created_by.user,
             })} */}
-            {`opened ${differenceInDays} by you`}
-          </span>
+            {i18next.t('Opened ') + differenceInDays + i18next.t(' by you')}
+          </div>
+
           {result.receiver.community && (
-            <>
+            <div className="inline-computer">
               <Icon className="default-margin" name="users" />
               <span className="ml-5">
                 {/* TODO: Replace by resolved receiver */}
                 {/* {result.receiver.community} */}
                 Biodiversity Literature Repository
               </span>
-            </>
+            </div>
           )}
         </Item.Meta>
       </Item.Content>
@@ -280,23 +280,42 @@ RequestStatusFilterComponent.propTypes = {
 export const RequestStatusFilter = withState(RequestStatusFilterComponent);
 
 export const RDMRequestsSearchLayout = (props) => {
+  const [sidebarVisible, setSidebarVisible] = React.useState(false);
+
   return (
     <Container>
       <Grid>
-        <Grid.Row columns={3}>
-          <Grid.Column width={4} />
-          <Grid.Column width={3}>
-            <RequestStatusFilter />
+        <Grid.Row>
+          <Grid.Column only="mobile tablet" mobile={3} tablet={1}>
+            <Button
+              basic
+              size="medium"
+              icon="sliders"
+              onClick={() => setSidebarVisible(true)}
+              aria-label={i18next.t("Filter results")}
+              className="rel-mb-1"
+            />
           </Grid.Column>
-          <Grid.Column width={9}>
+
+          <Grid.Column mobile={13} tablet={4} computer={3} floated="right" className="text-align-right-mobile">
+            <RequestStatusFilter className="rel-mb-1"/>
+          </Grid.Column>
+
+          <Grid.Column mobile={16} tablet={11} computer={9}>
             <SearchBar placeholder={i18next.t("Search requests...")} />
           </Grid.Column>
         </Grid.Row>
+
         <Grid.Row>
-          <Grid.Column width={4}>
-            <SearchAppFacets aggs={props.config.aggs} />
-          </Grid.Column>
-          <Grid.Column width={12}>
+          <GridResponsiveSidebarColumn
+            width={4}
+            open={sidebarVisible}
+            onHideClick={() => setSidebarVisible(false)}
+            children={
+              <SearchAppFacets aggs={props.config.aggs} />
+            }
+          />
+          <Grid.Column mobile={16} tablet={16} computer={12}>
             <SearchAppResultsPane layoutOptions={props.config.layoutOptions} />
           </Grid.Column>
         </Grid.Row>
