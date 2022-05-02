@@ -39,8 +39,12 @@
 
 .auto-column-grid {
   .ui.button {
-    &:last-of-type {
+    &:last-child {
       margin-right: 0;
+    }
+
+    @media all and (max-width: @largestMobileScreen) {
+      margin-bottom: .5rem;
     }
   }
 }
@@ -49,4 +53,12 @@
   background-color: transparent;
   color: black;
   padding: 0;
+}
+
+.ui.button.fluid-mobile {
+  @media all and (max-width: @largestMobileScreen) {
+    width: 100%;
+    min-width: 0em;
+    display: block;
+  }
 }

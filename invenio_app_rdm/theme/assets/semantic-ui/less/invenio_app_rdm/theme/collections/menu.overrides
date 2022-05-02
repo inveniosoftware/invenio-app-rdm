@@ -2,14 +2,91 @@
          Invenio App RDM Menu Overrides
 ***********************************************/
 
-.ui.menu.compact {
-  .item.active {
-    background-color: @primaryColor;
-    color: @white;
-    border-color: @primaryDarkenColor;
+.ui.menu {
 
-    &:hover {
-      background-color: @primaryColorHover;
+  &.compact {
+    .item.active {
+      background-color: @primaryColor;
+      color: @white;
+      border-color: @primaryDarkenColor;
+
+      &:hover {
+        background-color: @primaryColorHover;
+      }
+    }
+  }
+
+  &.vertical {
+    &.computer {
+      @media screen and (min-width: @computerBreakpoint) {
+        display: flex;
+        flex-direction: column;
+
+        > .item {
+
+          &:first-child {
+            border-radius: @borderRadius @borderRadius 0px 0px;
+          }
+
+          &:last-child {
+            border-radius: 0px 0px @borderRadius @borderRadius;
+          }
+
+          &:only-child {
+            border-radius: @borderRadius;
+          }
+
+        }
+      }
+    }
+  }
+
+  &.horizontal {
+    &.mobile {
+      @media screen and (max-width: @largestMobileScreen) {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+
+        > .item {
+          flex: 1 0 0;
+
+          &:first-child {
+            border-radius: @borderRadius 0px 0px @borderRadius;
+          }
+
+          &:last-child {
+            border-radius: 0px @borderRadius @borderRadius 0px;
+          }
+
+          &:only-child {
+            border-radius: @borderRadius;
+          }
+        }
+      }
+    }
+
+    &.tablet {
+      @media screen and (max-width: @largestTabletScreen) {
+        display: flex;
+        flex-direction: row;
+
+        > .item {
+          flex: 1 0 0;
+
+          &:first-child {
+            border-radius: @borderRadius 0px 0px @borderRadius;
+          }
+
+          &:last-child {
+            border-radius: 0px @borderRadius @borderRadius 0px;
+          }
+
+          &:only-child {
+            border-radius: @borderRadius;
+          }
+        }
+      }
     }
   }
 }
