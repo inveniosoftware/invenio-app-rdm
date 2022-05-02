@@ -534,7 +534,11 @@ VOCABULARIES_DATASTREAM_WRITERS = {
 SEARCH_UI_SEARCH_TEMPLATE = 'invenio_app_rdm/records/search.html'
 """Search page's base template."""
 
-_DASHBOARD_ROUTES = ["uploads", "communities", "requests"]
+APP_RDM_USER_DASHBOARD_ROUTES = {
+    "uploads": "/me/uploads",
+    "communities": "/me/communities",
+    "requests": "/me/requests",
+}
 
 APP_RDM_ROUTES = {
     "index": "/",
@@ -547,8 +551,6 @@ APP_RDM_ROUTES = {
     "record_from_pid": "/<any({schemes}):pid_scheme>/<path:pid_value>",
     "record_latest": "/records/<pid_value>/latest",
     "dashboard_home": "/me",
-    "dashboard_item": "/me/<any({routes}):dashboard_name>".format(
-        routes=",".join(_DASHBOARD_ROUTES)),
     "deposit_create": "/uploads/new",
     "deposit_edit": "/uploads/<pid_value>",
 }
@@ -675,10 +677,12 @@ RDM_SEARCH_USER_REQUESTS = {
 """User requests search configuration (i.e list of user requests)"""
 
 RDM_REQUESTS_ROUTES = {
-    'user-dashboard-community-submission': '/me/requests/<pid_value>',
-    'invitation_details':
-        '/communities/<community_pid_value>/invitations/<pid_value>',
-    'request_details': '/requests/<pid_value>'
+    'user-dashboard-request': '/me/requests/<request_pid_value>',
+    'community-dashboard-community-submission':
+        '/communities/<pid_value>/requests/<request_pid_value>',
+    'community-invitation-details':
+        '/communities/<pid_value>/invitations/<request_pid_value>',
+    'request-details': '/requests/<request_pid_value>'
 }
 
 RDM_COMMUNITIES_ROUTES = {

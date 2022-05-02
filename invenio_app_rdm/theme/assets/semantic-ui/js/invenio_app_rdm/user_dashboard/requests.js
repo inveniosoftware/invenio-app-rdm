@@ -43,8 +43,9 @@ import {
   RDMRecordFacetsValues,
   RDMRecordSearchBarElement,
   SearchHelpLinks,
-} from "../../search/components";
-import { timestampToRelativeTime } from "../../utils";
+} from "../search/components";
+import { timestampToRelativeTime } from "../utils";
+import { createSearchAppInit } from "@js/invenio_search_ui";
 
 export const RequestsResults = ({
   sortOptions,
@@ -400,13 +401,15 @@ export const RDMRequestsEmptyResultsWithState = withState(
 );
 
 export const defaultComponents = {
-  "user-requests-search.BucketAggregation.element": RDMBucketAggregationElement,
-  "user-requests-search.BucketAggregationValues.element": RDMRecordFacetsValues,
-  "user-requests-search.SearchApp.facets": RequestsFacets,
-  "user-requests-search.ResultsList.item": RequestsResultsItemTemplate,
-  "user-requests-search.ResultsGrid.item": RequestsResultsGridItemTemplate,
-  "user-requests-search.SearchApp.layout": RDMRequestsSearchLayout,
-  "user-requests-search.SearchApp.results": RequestsResults,
-  "user-requests-search.SearchBar.element": RDMRecordSearchBarElement,
-  "user-requests-search.EmptyResults.element": RDMRequestsEmptyResultsWithState,
+  "BucketAggregation.element": RDMBucketAggregationElement,
+  "BucketAggregationValues.element": RDMRecordFacetsValues,
+  "SearchApp.facets": RequestsFacets,
+  "ResultsList.item": RequestsResultsItemTemplate,
+  "ResultsGrid.item": RequestsResultsGridItemTemplate,
+  "SearchApp.layout": RDMRequestsSearchLayout,
+  "SearchApp.results": RequestsResults,
+  "SearchBar.element": RDMRecordSearchBarElement,
+  "EmptyResults.element": RDMRequestsEmptyResultsWithState,
 };
+
+createSearchAppInit(defaultComponents);

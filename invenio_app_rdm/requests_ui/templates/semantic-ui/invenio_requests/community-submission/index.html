@@ -1,0 +1,70 @@
+{# -*- coding: utf-8 -*-
+
+  This file is part of Invenio.
+  Copyright (C) 2016-2022 CERN.
+
+  Invenio is free software; you can redistribute it and/or modify it
+  under the terms of the MIT License; see LICENSE file for more details.
+#}
+
+{% extends "invenio_requests/details/index.html" %}
+
+{% set active_dashboard_menu_item = 'requests' %}
+{% set active_community_header_menu_item = 'requests' %}
+
+{%- block request_header %}
+    <div class="ui grid">
+    {% block request_actions %}
+      {{ super() }}
+    {% endblock request_actions %}
+    </div>
+
+    <h2 class="ui header">
+        <div class="ui label green ml-0">{{_("New submission")}}</div>
+        {{ request.title }}
+    </h2>
+    <div class="ui horizontal list" role="list">
+        {% for item in record.metadata.creators %}
+          <div class="item" role="listitem">
+            <div class="content"><i class="user icon"></i>
+              {{ item.person_or_org.name }}</div>
+          </div>
+        {% endfor %}
+    </div>
+{%- endblock request_header %}
+
+{% block request_timeline %}
+  <div class="ui container invenio-tab-container fluid" id="request-community-submission-tab-container">
+    <div class="ui container fluid rel-pt-3">
+      <div class="ui container">
+        <div class="ui secondary pointing menu invenio-tab-menu" id="request-community-submission-tab">
+          <a class="active item" data-tab="conversation" role="tab"
+             aria-selected="true" aria-controls="conversation"
+             id="conversation-tab-menu">
+            {{_("Conversation")}}
+          </a>
+          <a class="item" data-tab="record" id="record-tab-menu"
+             aria-controls="record">
+            {{_("Record")}}
+          </a>
+        </div>
+      </div>
+    </div>
+
+  <div class="ui bottom attached tab segment active borderless" data-tab="conversation"
+       role="tabpanel" aria-labelledby="conversation" id="conversation-tab">
+    <div class="ui divider hidden"></div>
+    {{ super() }}
+  </div>
+  <div class="ui bottom attached tab segment borderless" data-tab="record"
+       role="tabpanel" aria-labelledby="record" id="record-tab"
+       hidden="hidden">
+  <div class="ui divider hidden"></div>
+    {% if record %}
+      {% set use_theme_basic_template = false %}
+      {% include "invenio_app_rdm/records/detail.html" %}
+    {% endif %}
+  </div>
+</div>
+
+{% endblock request_timeline %}

@@ -19,10 +19,9 @@ from .deposits import deposit_create, deposit_edit
 from .filters import can_list_files, get_scheme_label, has_previewable_files, \
     make_files_preview_compatible, order_entries, pid_url, \
     select_preview_file, to_previewer_files
-from .records import dashboard, not_found_error, record_detail, \
-    record_export, record_file_download, record_file_preview, \
-    record_from_pid, record_latest, record_permission_denied_error, \
-    record_tombstone_error
+from .records import not_found_error, record_detail, record_export, \
+    record_file_download, record_file_preview, record_from_pid, \
+    record_latest, record_permission_denied_error, record_tombstone_error
 
 
 #
@@ -71,17 +70,6 @@ def create_blueprint(app):
     blueprint.add_url_rule(
         routes["record_file_download"],
         view_func=record_file_download,
-    )
-
-    # Deposit URL rules
-    blueprint.add_url_rule(
-        routes["dashboard_home"],
-        view_func=dashboard,
-    )
-
-    blueprint.add_url_rule(
-        routes["dashboard_item"],
-        view_func=dashboard,
     )
 
     blueprint.add_url_rule(

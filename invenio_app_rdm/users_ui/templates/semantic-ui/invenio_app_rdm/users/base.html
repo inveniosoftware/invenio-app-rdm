@@ -1,0 +1,23 @@
+{#
+  Copyright (C) 2020 CERN.
+  Copyright (C) 2020 Northwestern University.
+
+  Invenio App RDM is free software; you can redistribute it and/or modify it
+  under the terms of the MIT License; see LICENSE file for more details.
+#}
+{%- set title = _("Uploads") %}
+{%- extends config.BASE_TEMPLATE %}
+
+
+{%- block page_body %}
+
+{%- block user_dashboard_header %}
+{% include "invenio_app_rdm/users/header.html" %}
+{%- endblock user_dashboard_header %}
+
+  <div class="ui container rel-mt-2">
+    {%- block user_dashboard_body %}
+    {%- endblock user_dashboard_body %}
+  </div>
+
+{%- endblock page_body %}
