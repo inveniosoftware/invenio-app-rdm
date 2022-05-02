@@ -65,3 +65,15 @@
 .ui.dropdown.citation-dropdown {
   min-width: 10em;
 }
+
+.ui.dropdown.fluid-mobile {
+  @media all and (max-width: @largestMobileScreen) {
+    width: 100%;
+    min-width: 0em;
+    display: block;
+
+    & > .dropdown.icon {
+      float: right;
+    }
+  }
+}

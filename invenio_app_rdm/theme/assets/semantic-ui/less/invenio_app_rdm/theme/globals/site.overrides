@@ -486,6 +486,14 @@ dl.details-list {
   grid-auto-flow: column;
   grid-auto-columns: auto max-content;
   align-items: center;
+  column-gap: 2rem;
+
+  @media all and (max-width: @largestMobileScreen) {
+    grid-auto-flow: row;
+    grid-auto-columns: 100%;
+    align-items: flex-start;
+    row-gap: 1rem;
+  }
 }
 
 .right-floated {
