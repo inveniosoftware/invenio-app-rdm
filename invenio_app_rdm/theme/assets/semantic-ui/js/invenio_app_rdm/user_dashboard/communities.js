@@ -10,7 +10,6 @@
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import React from "react";
 import {
-  Accordion,
   Input,
   Card,
   Label,
@@ -21,16 +20,16 @@ import {
   Header,
 } from "semantic-ui-react";
 import _get from "lodash/get";
-import _truncate from "lodash/truncate";
 import { BucketAggregation, SearchBar } from "react-searchkit";
 import {
   RDMRecordSearchBarElement,
   RDMBucketAggregationElement,
   RDMRecordFacetsValues,
   SearchHelpLinks,
-} from "../../search/components";
+} from "../search/components";
 import { Image } from "react-invenio-forms";
 import { DashboardResultView, DashboardSearchLayoutHOC } from "./base";
+import { createSearchAppInit } from "@js/invenio_search_ui";
 
 function ResultsGridItemTemplate({ result, index }) {
   return (
@@ -165,7 +164,7 @@ export const CommunitiesFacets = ({ aggs, currentResultsState }) => {
       {aggs.map((agg) => {
         return (
           <div className="rdm-facet-container">
-            <BucketAggregation title={agg.title} agg={agg} />
+            <BucketAggregation title={agg.title} agg={agg} key={agg.title}/>
           </div>
         );
       })}
@@ -194,15 +193,17 @@ export const RDMCommunitiesEmptyResults = (props) => {
 };
 
 export const defaultComponents = {
-  "user-communities-search.BucketAggregation.element":
+  "BucketAggregation.element":
     RDMBucketAggregationElement,
-  "user-communities-search.BucketAggregationValues.element":
+  "BucketAggregationValues.element":
     RDMRecordFacetsValues,
-  "user-communities-search.EmptyResults.element": RDMCommunitiesEmptyResults,
-  "user-communities-search.ResultsList.item": CommunitiesResultsItemTemplate,
-  "user-communities-search.ResultsGrid.item": ResultsGridItemTemplate,
-  "user-communities-search.SearchApp.facets": CommunitiesFacets,
-  "user-communities-search.SearchApp.layout": DashboardCommunitiesSearchLayout,
-  "user-communities-search.SearchApp.results": DashboardResultView,
-  "user-communities-search.SearchBar.element": RDMRecordSearchBarElement,
+  "EmptyResults.element": RDMCommunitiesEmptyResults,
+  "ResultsList.item": CommunitiesResultsItemTemplate,
+  "ResultsGrid.item": ResultsGridItemTemplate,
+  "SearchApp.facets": CommunitiesFacets,
+  "SearchApp.layout": DashboardCommunitiesSearchLayout,
+  "SearchApp.results": DashboardResultView,
+  "SearchBar.element": RDMRecordSearchBarElement,
 };
+
+createSearchAppInit(defaultComponents);

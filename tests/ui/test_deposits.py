@@ -111,17 +111,3 @@ def test_dump_subjects_vocabulary(running_app):
     result = options.subjects()
 
     assert expected == result
-
-
-def test_dashboard_routes(app, client_with_login):
-    """Test dashboard routes to be only the configured ones."""
-    client = client_with_login
-    response = client.get("/me")
-    assert response.status_code == 200
-
-    for r in app.config["_DASHBOARD_ROUTES"]:
-        response = client.get("/me/{0}".format(r))
-        assert response.status_code == 200
-
-    response = client.get("/me/not-existing")
-    assert response.status_code == 404

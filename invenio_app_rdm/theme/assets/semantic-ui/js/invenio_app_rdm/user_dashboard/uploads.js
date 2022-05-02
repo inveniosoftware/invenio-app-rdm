@@ -30,9 +30,10 @@ import {
   RDMRecordFacetsValues,
   RDMRecordSearchBarElement,
   RDMToggleComponent,
-} from "../../search/components";
-import { axiosWithconfig, SearchItemCreators } from "../../utils";
+} from "../search/components";
+import { axiosWithconfig, SearchItemCreators } from "../utils";
 import { DashboardResultView, DashboardSearchLayoutHOC } from "./base";
+import { createSearchAppInit } from "@js/invenio_search_ui";
 
 const statuses = {
   in_review: { color: "yellow", title: i18next.t("In review") },
@@ -234,15 +235,18 @@ export const DashboardUploadsSearchLayout = DashboardSearchLayoutHOC({
 });
 
 export const defaultComponents = {
-  "user-uploads-search.BucketAggregation.element": RDMBucketAggregationElement,
-  "user-uploads-search.BucketAggregationValues.element": RDMRecordFacetsValues,
-  "user-uploads-search.Count.element": RDMCountComponent,
-  "user-uploads-search.EmptyResults.element": RDMEmptyResults,
-  "user-uploads-search.ResultsList.item": RDMRecordResultsListItem,
-  "user-uploads-search.ResultsGrid.item": RDMRecordResultsGridItem,
-  "user-uploads-search.SearchApp.facets": RDMRecordFacets,
-  "user-uploads-search.SearchApp.layout": DashboardUploadsSearchLayout,
-  "user-uploads-search.SearchApp.results": DashboardResultView,
-  "user-uploads-search.SearchBar.element": RDMRecordSearchBarElement,
-  "user-uploads-search.SearchFilters.Toggle.element": RDMToggleComponent,
+  "BucketAggregation.element": RDMBucketAggregationElement,
+  "BucketAggregationValues.element": RDMRecordFacetsValues,
+  "Count.element": RDMCountComponent,
+  "EmptyResults.element": RDMEmptyResults,
+  "ResultsList.item": RDMRecordResultsListItem,
+  "ResultsGrid.item": RDMRecordResultsGridItem,
+  "SearchApp.facets": RDMRecordFacets,
+  "SearchApp.layout": DashboardUploadsSearchLayout,
+  "SearchApp.results": DashboardResultView,
+  "SearchBar.element": RDMRecordSearchBarElement,
+  "SearchFilters.Toggle.element": RDMToggleComponent,
 };
+
+
+createSearchAppInit(defaultComponents);

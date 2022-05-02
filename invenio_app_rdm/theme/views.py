@@ -36,7 +36,7 @@ def create_blueprint(app):
     def init_menu():
         """Initialize menu before first request."""
         current_menu.submenu('actions.deposit').register(
-            'invenio_app_rdm_records.dashboard',
+            'invenio_app_rdm_users.uploads',
             _('My dashboard'),
             order=1
         )
@@ -47,14 +47,10 @@ def create_blueprint(app):
             order=1,
         )
 
-        if app.config.get("COMMUNITIES_ENABLED", False):
-            current_menu.submenu("notifications.requests").register(
-                "invenio_app_rdm_records.dashboard",
-                endpoint_arguments_constructor=lambda: {
-                    "dashboard_name": "requests",
-                },
-                order=1,
-            )
+        current_menu.submenu("notifications.requests").register(
+            "invenio_app_rdm_users.requests",
+            order=1,
+        )
 
     return blueprint
 

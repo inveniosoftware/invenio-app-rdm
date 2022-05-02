@@ -1,0 +1,23 @@
+<div class="ui container fluid page-subheader-outer shadowless with-submenu mb-0 rel-pt-2" id="dashboard-user-header-container">
+  <div class="ui container page-subheader">
+    <div class="ui items">
+      <div class="item">
+        <div class="ui mini image">
+          <img src="{{ user_avatar_url }}"/>
+        </div>
+        <div class="content">
+          <span class="header">{{ current_userprofile.full_name or current_user.username }}</span>
+          <div>{{ current_userprofile.affiliations }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ui container secondary pointing menu page-subheader pl-0">
+  {% for item in current_menu.submenu('dashboard').children %}
+  <a
+    class="item {{ 'active' if active_dashboard_menu_item == item.name }} {{ 'disabled' if not item.url }}"
+    href="{{ item.url }}">{{ item.text }}</a>
+  {% endfor %}
+</div>
+</div>
+
