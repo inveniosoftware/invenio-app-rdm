@@ -370,7 +370,7 @@ export class RDMDepositForm extends Component {
                     label={i18next.t("Visibility")}
                     labelIcon={"shield"}
                   />
-                  {permissions.can_delete_draft &&
+                  {permissions?.can_delete_draft &&
                     <Card>
                       <Card.Content>
                         <DeleteButton
