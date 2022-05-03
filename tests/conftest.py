@@ -35,7 +35,7 @@ from invenio_access.proxies import current_access
 from invenio_accounts.proxies import current_datastore
 from invenio_accounts.testutils import login_user_via_session
 from invenio_db import db
-from invenio_rdm_records.proxies import current_rdm_records
+from invenio_records_resources.proxies import current_service_registry
 from invenio_vocabularies.contrib.subjects.api import Subject
 from invenio_vocabularies.proxies import current_service as vocabulary_service
 from invenio_vocabularies.records.api import Vocabulary
@@ -54,7 +54,7 @@ def app_config(app_config):
 @pytest.fixture(scope="module")
 def subjects_service(app):
     """Subjects service."""
-    return getattr(current_rdm_records, "subjects_service")
+    return current_service_registry.get("subjects")
 
 
 pytest_plugins = ("celery.contrib.pytest", )
