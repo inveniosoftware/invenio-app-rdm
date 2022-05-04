@@ -19,7 +19,7 @@ from invenio_previewer.extensions import default
 from invenio_previewer.proxies import current_previewer
 from invenio_rdm_records.proxies import current_rdm_records
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
-from invenio_users_resources.proxies import current_user_resources
+from invenio_users_resources.proxies import current_users_service
 from marshmallow import ValidationError
 
 from .decorators import pass_file_item, pass_file_metadata, pass_is_preview, \
@@ -74,7 +74,7 @@ def dashboard(dashboard_name=None):
     """Display user dashboard page."""
     if not current_app.config["COMMUNITIES_ENABLED"] or not dashboard_name:
         dashboard_name = current_app.config["_DASHBOARD_ROUTES"][0]
-    url = current_user_resources.users_service.links_item_tpl.expand(
+    url = current_users_service.links_item_tpl.expand(
         current_user
     )['avatar']
     return render_template(
