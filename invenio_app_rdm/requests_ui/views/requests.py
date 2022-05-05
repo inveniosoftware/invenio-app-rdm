@@ -122,8 +122,8 @@ def invitation_details(request=None, default_query_config=None, community=None,
     )
 
 
-def requests_view(request=None, community=None, custom_base_template=None,
-                  avatar_url=None, **kwargs):
+def _requests_view(request, community=None, custom_base_template=None,
+                   avatar_url=None, **kwargs):
     """General view for requests."""
     request_dict = request.to_dict()
     request_type = request_dict.get('type')
@@ -169,7 +169,7 @@ def user_requests_view(request=None, **kwargs):
     avatar_url = current_user_resources.users_service.links_item_tpl.expand(
         current_user
     )['avatar']
-    return requests_view(
+    return _requests_view(
         request=request,
         avatar_url=avatar_url,
         custom_base_template="invenio_app_rdm/users/base.html",
@@ -181,7 +181,7 @@ def user_requests_view(request=None, **kwargs):
 @pass_community
 def community_requests_view(request=None, community=None, **kwargs):
     """Community requests view."""
-    return requests_view(
+    return _requests_view(
         request=request,
         community=community,
         custom_base_template="invenio_communities/details/base.html")

@@ -684,8 +684,7 @@ RDM_REQUESTS_ROUTES = {
     'community-dashboard-community-submission':
         '/communities/<pid_value>/requests/<request_pid_value>',
     'community-invitation-details':
-        '/communities/<pid_value>/invitations/<request_pid_value>',
-    'request-details': '/requests/<request_pid_value>'
+        '/communities/<pid_value>/invitations/<request_pid_value>'
 }
 
 RDM_COMMUNITIES_ROUTES = {
