@@ -83,7 +83,7 @@ export function DashboardResultView(props) {
         </Grid.Row>
         <Overridable id="DashboardResultView.resultFooter" {...props}>
           <Grid.Row verticalAlign="middle">
-            <Grid.Column width={4}/>
+            <Grid.Column width={4} />
             <Grid.Column width={8} textAlign="center" floated="right">
               <Pagination
                 options={{
@@ -116,7 +116,6 @@ export const DashboardSearchLayoutHOC = ({
   newBtn = () => null,
   ...props
 }) => {
-
   const DashboardUploadsSearchLayout = (props) => {
     const [sidebarVisible, setSidebarVisible] = React.useState(false);
 
@@ -144,15 +143,14 @@ export const DashboardSearchLayoutHOC = ({
             width={4}
             open={sidebarVisible}
             onHideClick={() => setSidebarVisible(false)}
-            children={
-              <SearchAppFacets aggs={props.config.aggs} />
-            }
+            children={<SearchAppFacets aggs={props.config.aggs} />}
           />
           <Grid.Column mobile={16} tablet={16} computer={12}>
             <SearchAppResultsPane layoutOptions={props.config.layoutOptions} />
           </Grid.Column>
         </Grid.Row>
       </Grid>
-  )}
+    );
+  };
   return DashboardUploadsSearchLayout;
 };

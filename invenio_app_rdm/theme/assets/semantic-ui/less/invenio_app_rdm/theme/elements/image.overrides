@@ -9,3 +9,37 @@
   margin-right: 0.5em;
 }
 
+.ui.placeholder.image {
+  &.mini {
+    height: @miniWidth;
+    width: @miniWidth;
+  }
+  &.tiny {
+    height: @tinyWidth;
+    width: @tinyWidth;
+  }
+  &.small {
+    height: @smallWidth;
+    width: @smallWidth;
+  }
+  &.medium {
+    height: @mediumWidth;
+    width: @mediumWidth;
+  }
+  &.large {
+    height: @largeWidth;
+    width: @largeWidth;
+  }
+  &.big {
+    height: @bigWidth;
+    width: @bigWidth;
+  }
+  &.huge {
+    height: @hugeWidth;
+    width: @hugeWidth;
+  }
+  &.massive {
+    height: @massiveWidth;
+    width: @massiveWidth;
+  }
+}
