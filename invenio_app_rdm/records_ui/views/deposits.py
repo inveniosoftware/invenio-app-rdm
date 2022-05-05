@@ -252,16 +252,21 @@ class VocabulariesOptions:
 
 def get_form_config(**kwargs):
     """Get the react form configuration."""
+    conf = current_app.config
     return dict(
         vocabularies=VocabulariesOptions().dump(),
-        autocomplete_names=current_app.config.get(
+        autocomplete_names=conf.get(
             'APP_RDM_DEPOSIT_FORM_AUTOCOMPLETE_NAMES', 'search'),
         current_locale=str(current_i18n.locale),
-        default_locale=current_app.config.get('BABEL_DEFAULT_LOCALE', 'en'),
+        default_locale=conf.get('BABEL_DEFAULT_LOCALE', 'en'),
         pids=get_form_pids_config(),
-        quota=current_app.config.get('APP_RDM_DEPOSIT_FORM_QUOTA'),
-        decimal_size_display=current_app.config.get(
+        quota=conf.get('APP_RDM_DEPOSIT_FORM_QUOTA'),
+        decimal_size_display=conf.get(
             'APP_RDM_DISPLAY_DECIMAL_FILE_SIZES', True),
+        links=dict(
+            user_dashboard_request=conf[
+                "RDM_REQUESTS_ROUTES"]["user-dashboard-request"]
+        ),
         **kwargs
     )
 

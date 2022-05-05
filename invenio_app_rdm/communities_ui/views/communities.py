@@ -22,6 +22,7 @@ def communities_detail(community=None, logo=None, pid_value=None):
         ['update', 'read', 'search_requests', 'search_invites']
     )
     endpoint = '/api/communities/{pid_value}/records'
+
     return render_template(
         "invenio_communities/details/index.html",
         community=community.to_dict(),  # TODO: use serializer
@@ -29,6 +30,6 @@ def communities_detail(community=None, logo=None, pid_value=None):
         # Pass permissions so we can disable partially UI components
         # e.g Settings tab
         permissions=permissions,
-        active_menu_tab="search",
-        endpoint=endpoint.format(pid_value=community.to_dict()["uuid"])
+        active_community_header_menu_item="search",
+        endpoint=endpoint.format(pid_value=community.to_dict()["id"])
     )
