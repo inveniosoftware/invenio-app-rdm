@@ -14,15 +14,18 @@
 
 {%- block request_header %}
     <div class="ui grid">
+      <div class="column eight wide left floated left aligned">
+        <h2 class="ui header">
+          <div class="ui label green ml-0">{{_("New submission")}}</div>
+          {{ request.title }}
+        </h2>
+      </div>
     {% block request_actions %}
       {{ super() }}
     {% endblock request_actions %}
     </div>
 
-    <h2 class="ui header">
-        <div class="ui label green ml-0">{{_("New submission")}}</div>
-        {{ request.title }}
-    </h2>
+
     <div class="ui horizontal list" role="list">
         {% for item in record.metadata.creators %}
           <div class="item" role="listitem">
