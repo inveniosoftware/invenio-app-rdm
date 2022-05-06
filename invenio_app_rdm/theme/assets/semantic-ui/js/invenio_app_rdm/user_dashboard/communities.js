@@ -116,15 +116,15 @@ export const CommunitiesSearchBarElement = ({
   placeholder: passedPlaceholder,
   queryString,
   onInputChange,
-  executeSearch,
+  updateQueryState,
 }) => {
   const placeholder = passedPlaceholder || "Search";
   const onBtnSearchClick = () => {
-    executeSearch();
+    updateQueryState();
   };
   const onKeyPress = (event) => {
     if (event.key === "Enter") {
-      executeSearch();
+      updateQueryState();
     }
   };
   return (
@@ -164,7 +164,7 @@ export const CommunitiesFacets = ({ aggs, currentResultsState }) => {
       {aggs.map((agg) => {
         return (
           <div className="rdm-facet-container">
-            <BucketAggregation title={agg.title} agg={agg} key={agg.title}/>
+            <BucketAggregation title={agg.title} agg={agg} key={agg.title} />
           </div>
         );
       })}
@@ -193,10 +193,8 @@ export const RDMCommunitiesEmptyResults = (props) => {
 };
 
 export const defaultComponents = {
-  "BucketAggregation.element":
-    RDMBucketAggregationElement,
-  "BucketAggregationValues.element":
-    RDMRecordFacetsValues,
+  "BucketAggregation.element": RDMBucketAggregationElement,
+  "BucketAggregationValues.element": RDMRecordFacetsValues,
   "EmptyResults.element": RDMCommunitiesEmptyResults,
   "ResultsList.item": CommunitiesResultsItemTemplate,
   "ResultsGrid.item": ResultsGridItemTemplate,
