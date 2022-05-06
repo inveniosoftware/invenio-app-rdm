@@ -181,3 +181,10 @@
     }
   }
 }
+
+#request-detail .ui.stackable.grid > .column:not(.row){
+  @media all and (max-width: @largestMobileScreen) {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}

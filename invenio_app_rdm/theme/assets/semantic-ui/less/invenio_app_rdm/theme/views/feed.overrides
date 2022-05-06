@@ -6,7 +6,6 @@
 
   .requests-event-container {
     position: relative;
-    display: flex;
     padding: @defaultPadding 0;
 
     &::before {
@@ -18,6 +17,10 @@
       width: 2px;
       content: "";
       background-color: @borderColor;
+
+      @media screen and (max-width: @largestMobileScreen) {
+        left: 1.4rem;
+      }
     }
 
     &:first-child {
@@ -27,7 +30,7 @@
   }
 
   .requests-avatar-container {
-    margin-right: 0.5em;
+    padding-right: 0.5em;
 
     img {
       max-height: 40px;
@@ -39,6 +42,10 @@
     display: flex;
     width: 100%;
 
+    @media screen and (max-width: @largestMobileScreen) {
+      display: block;
+    }
+
     &.thread {
       margin-left: 3.75em;
       align-items: center;
@@ -46,12 +53,18 @@
   }
 
   .event {
+    min-width: 0;
     width: 100%;
+    flex: 1;
     border: @defaultBorder;
     border-radius: @defaultBorderRadius;
     padding: 0.5 * @defaultPadding;
     background-color: @white;
     position: relative;
+
+    @media screen and (max-width: @largestMobileScreen) {
+      margin-top: .5rem;
+    }
 
     .text {
       width: auto;
