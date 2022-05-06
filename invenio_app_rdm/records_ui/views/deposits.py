@@ -12,10 +12,9 @@
 import re
 
 from elasticsearch_dsl import Q
-from flask import current_app, render_template
+from flask import current_app, g, render_template
 from flask_babelex import lazy_gettext as _
 from flask_login import login_required
-from invenio_access.permissions import system_identity
 from invenio_i18n.ext import current_i18n
 from invenio_rdm_records.proxies import current_rdm_records
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
@@ -109,7 +108,7 @@ class VocabulariesOptions:
         """Dump resource type vocabulary."""
         type_ = 'resourcetypes'
         all_resource_types = vocabulary_service.read_all(
-            system_identity,
+            g.identity,
             fields=["id", "props", "title", "icon"],
             type=type_,
             # Sorry, we have over 100+ resource types entry at NU actually
@@ -120,7 +119,7 @@ class VocabulariesOptions:
             for hit in all_resource_types.to_dict()["hits"]["hits"]
         }
         subset_resource_types = vocabulary_service.read_all(
-            system_identity,
+            g.identity,
             fields=["id", "props", "title", "icon"],
             type=type_,
             extra_filter=extra_filter,
@@ -140,7 +139,7 @@ class VocabulariesOptions:
     def _dump_vocabulary_w_basic_fields(self, vocabulary_type):
         """Dump vocabulary with id and title field."""
         results = vocabulary_service.read_all(
-            system_identity, fields=["id", "title"], type=vocabulary_type)
+            g.identity, fields=["id", "title"], type=vocabulary_type)
         return [
             {
                 "text": self._get_label(hit),

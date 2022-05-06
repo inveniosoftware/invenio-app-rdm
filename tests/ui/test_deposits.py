@@ -63,7 +63,7 @@ def additional_resource_types(running_app):
     Vocabulary.index.refresh()
 
 
-def test_resource_types(additional_resource_types):
+def test_resource_types(app, client_with_login, additional_resource_types):
     options = VocabulariesOptions()
     expected = [
         # If no corresponding parent type entry (e.g. image-photo), type_name
