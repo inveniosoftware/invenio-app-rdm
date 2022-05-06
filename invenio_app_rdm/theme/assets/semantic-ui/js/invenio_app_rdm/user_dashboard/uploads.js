@@ -143,9 +143,9 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
         <Item.Header as="h2">
           <a href={viewLink}>{title}</a>
         </Item.Header>
-        <Item.Meta className="creatibutors">
+        <Item className="creatibutors">
           <SearchItemCreators creators={creators} />
-        </Item.Meta>
+        </Item>
         <Item.Description>
           {_truncate(description_stripped, {
             length: 350,

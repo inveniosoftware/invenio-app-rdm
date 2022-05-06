@@ -59,7 +59,7 @@ export function SearchItemCreators({ creators }) {
             title={`${creatorName}: ${i18next.t("ORCID profile")}`}
           >
             <img
-              className="inline-id-icon"
+              className="ml-5 inline-id-icon"
               src="/static/images/orcid.svg"
               alt=""
             />
@@ -74,7 +74,7 @@ export function SearchItemCreators({ creators }) {
             title={`${creatorName}: ${i18next.t("ROR profile")}`}
           >
             <img
-              className="inline-id-icon"
+              className="ml-5 inline-id-icon"
               src="/static/images/ror-icon.svg"
               alt=""
             />
@@ -89,7 +89,7 @@ export function SearchItemCreators({ creators }) {
             title={`${creatorName}: ${i18next.t("GND profile")}`}
           >
             <img
-              className="inline-id-icon"
+              className="ml-5 inline-id-icon"
               src="/static/images/gnd-icon.svg"
               alt=""
             />
