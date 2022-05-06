@@ -73,18 +73,17 @@
   }
 }
 
-
+.ui.container {
+  &#requests-timeline,
+  &.requests-feed-container,
+  &.invenio-tab-container {
+    @media screen and (max-width: @largestMobileScreen) {
+      // overriding the !important for margins on .ui.container for the same breakpoint
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+    }
+  }
+}
 .ui.container.requests-feed-container {
   position: relative;
-
-
-  @media screen and (max-width: @largestMobileScreen) {
-    padding-left: 2rem;
-  }
-
-  @media screen and (max-width: @mobileBreakpoint) {
-    padding-left: 0;
-  }
-
-
 }
