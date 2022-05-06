@@ -3,7 +3,8 @@
 ***********************************************/
 
 .inline-id-icon {
-  height: @fontSizeBase;
+  height: 1rem;
+  min-height: 16px;
   width: auto;
   vertical-align: text-bottom;
 }

@@ -143,8 +143,10 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
         <Item.Header as="h2">
           <a href={viewLink}>{title}</a>
         </Item.Header>
-        <Item.Meta className="creatibutors">
-          <SearchItemCreators creators={creators} />
+        <Item.Meta>
+          <div className="creatibutors">
+            <SearchItemCreators creators={creators} />
+          </div>
         </Item.Meta>
         <Item.Description>
           {_truncate(description_stripped, {
@@ -247,6 +249,5 @@ export const defaultComponents = {
   "SearchBar.element": RDMRecordSearchBarElement,
   "SearchFilters.Toggle.element": RDMToggleComponent,
 };
-
 
 createSearchAppInit(defaultComponents);
