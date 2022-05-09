@@ -6,13 +6,15 @@
   Invenio is free software; you can redistribute it and/or modify it
   under the terms of the MIT License; see LICENSE file for more details.
 #}
+{% set title = request.title %}
 {% extends "invenio_requests/details/index.html" %}
 
-{% set title = _("Invitation details") %}
-
-{% set active_members_menu_item = 'invitations' %}
 {% set active_community_header_menu_item = 'members' %}
-{% set active_dashboard_menu_item = 'requests' %}
+{% set active_members_menu_item = 'invitations' %}
+
+{% block request_header_title %}
+  {{ request.title }}
+{% endblock request_header_title %}
 
 {% block settings_body %}
   <div class="thirteen wide column right floated">
