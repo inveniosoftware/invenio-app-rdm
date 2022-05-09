@@ -110,3 +110,13 @@
     margin-left: @buttonDistance;
   }
 }
+
+.ui.dimmer .ui.modal .ui.loader {
+  &:before {
+    border-color: @borderColor;
+  }
+
+  &:after {
+    border-color: @mutedTextColor transparent transparent;
+  }
+}
