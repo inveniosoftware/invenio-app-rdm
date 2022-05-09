@@ -20,14 +20,16 @@
         {{ request.title }}
       </h2>
 
+      {% if record %}
       <div class="ui horizontal list" role="list">
-        {% for item in record.metadata.creators %}
-          <div class="item" role="listitem">
-            <div class="content"><i class="user icon"></i>
-              {{ item.person_or_org.name }}</div>
-          </div>
-        {% endfor %}
+      {% for item in record.metadata.creators %}
+        <div class="item" role="listitem">
+          <div class="content"><i class="user icon"></i>
+            {{ item.person_or_org.name }}</div>
+        </div>
+      {% endfor %}
       </div>
+    {% endif %}
     </div>
 
     {% block request_actions %}
@@ -56,6 +58,7 @@
       {{_("Conversation")}}
     </a>
 
+    {% if record %}
     <a
       class="item"
       data-tab="record"
@@ -64,6 +67,7 @@
     >
       {{_("Record")}}
     </a>
+    {% endif %}
   </div>
 
   <div
@@ -77,22 +81,16 @@
     {{ super() }}
   </div>
 
-  <div
-    class="ui bottom attached tab segment borderless p-0"
-    data-tab="record"
-    role="tabpanel"
-    aria-labelledby="record"
-    id="record-tab"
-    hidden="hidden"
-  >
+  {% if record %}
+  <div class="ui bottom attached tab segment borderless" data-tab="record"
+       role="tabpanel" aria-labelledby="record" id="record-tab"
+       hidden="hidden">
     <div class="ui divider hidden"></div>
-
-    {% if record %}
-      {% set use_theme_basic_template = false %}
-      {%- set preview_submission_request = true %}
-      {% include "invenio_app_rdm/records/detail.html" %}
-    {% endif %}
+    {% set use_theme_basic_template = false %}
+    {%- set preview_submission_request = true %}
+    {% include "invenio_app_rdm/records/detail.html" %}
   </div>
+  {% endif %}
 </div>
 
 {% endblock request_timeline %}

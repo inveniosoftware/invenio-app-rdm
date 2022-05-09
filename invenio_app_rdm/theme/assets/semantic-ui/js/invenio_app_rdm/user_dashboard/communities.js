@@ -7,29 +7,29 @@
 // Invenio App RDM is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
 
+import { createSearchAppInit } from "@js/invenio_search_ui";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
-import React from "react";
-import {
-  Input,
-  Card,
-  Label,
-  Item,
-  Button,
-  Icon,
-  Segment,
-  Header,
-} from "semantic-ui-react";
 import _get from "lodash/get";
-import { BucketAggregation, SearchBar } from "react-searchkit";
+import React from "react";
+import { Image } from "react-invenio-forms";
+import { BucketAggregation } from "react-searchkit";
 import {
-  RDMRecordSearchBarElement,
+  Button,
+  Card,
+  Header,
+  Icon,
+  Input,
+  Item,
+  Label,
+  Segment,
+} from "semantic-ui-react";
+import {
   RDMBucketAggregationElement,
   RDMRecordFacetsValues,
+  RDMRecordSearchBarElement,
   SearchHelpLinks,
 } from "../search/components";
-import { Image } from "react-invenio-forms";
 import { DashboardResultView, DashboardSearchLayoutHOC } from "./base";
-import { createSearchAppInit } from "@js/invenio_search_ui";
 
 function ResultsGridItemTemplate({ result, index }) {
   return (
@@ -52,7 +52,7 @@ function ResultsGridItemTemplate({ result, index }) {
 export function CommunitiesResultsItemTemplate({ result, index }) {
   const community_type = _get(
     result,
-    "metadata.type",
+    "metadata.type.title.en",
     i18next.t("No community type")
   );
   return (

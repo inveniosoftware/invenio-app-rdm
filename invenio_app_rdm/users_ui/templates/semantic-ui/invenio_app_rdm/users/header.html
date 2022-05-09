@@ -1,9 +1,18 @@
+{# -*- coding: utf-8 -*-
+
+  This file is part of Invenio.
+  Copyright (C) 2022 CERN.
+
+  Invenio is free software; you can redistribute it and/or modify it
+  under the terms of the MIT License; see LICENSE file for more details.
+#}
+
 <div class="ui container fluid page-subheader-outer shadowless with-submenu mb-0 rel-pt-2" id="dashboard-user-header-container">
   <div class="ui container page-subheader">
     <div class="ui items">
       <div class="item">
         <div class="ui mini image">
-          <img src="{{ user_avatar_url }}"/>
+          <img src="{{ user_avatar }}"/>
         </div>
         <div class="content">
           <span class="header">{{ current_userprofile.full_name or current_user.username }}</span>

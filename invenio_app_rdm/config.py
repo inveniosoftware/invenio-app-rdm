@@ -680,10 +680,10 @@ RDM_SEARCH_USER_REQUESTS = {
 """User requests search configuration (i.e list of user requests)"""
 
 RDM_REQUESTS_ROUTES = {
-    'user-dashboard-request': '/me/requests/<request_pid_value>',
-    'community-dashboard-community-submission':
+    'user-dashboard-request-details': '/me/requests/<request_pid_value>',
+    'community-dashboard-request-details':
         '/communities/<pid_value>/requests/<request_pid_value>',
-    'community-invitation-details':
+    'community-dashboard-invitation-details':
         '/communities/<pid_value>/invitations/<request_pid_value>'
 }
 

@@ -11,17 +11,17 @@ from invenio_communities.communities.resolver import CommunityResolver
 from invenio_rdm_records.requests import CommunitySubmission
 
 
-def get_community_uuid(record):
+def get_community_id(record):
     """Retrieves community UUID.
 
     WARNING: This should be replaced by the resolvers.
     """
-    community_uuid = None
+    community_id = None
     parent = record['parent']
     if parent.get('communities'):
-        community_uuid = parent['communities']['default']
+        community_id = parent['communities']['default']
     elif parent.get('review'):
         review = parent['review']
         if review['type'] == CommunitySubmission.type_id:
-            community_uuid = review['receiver'][CommunityResolver.type_id]
-    return community_uuid
+            community_id = review['receiver'][CommunityResolver.type_id]
+    return community_id

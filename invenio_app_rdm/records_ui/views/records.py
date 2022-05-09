@@ -24,7 +24,7 @@ from marshmallow import ValidationError
 from .decorators import pass_file_item, pass_file_metadata, pass_is_preview, \
     pass_record_files, pass_record_from_pid, pass_record_latest, \
     pass_record_or_draft
-from .utils import get_community_uuid
+from .utils import get_community_id
 
 
 class PreviewFile:
@@ -82,7 +82,7 @@ def record_detail(record=None, files=None, pid_value=None, is_preview=False):
             )
         except ValidationError:
             abort(404)
-    community_uuid = get_community_uuid(record_ui)
+    community_id = get_community_id(record_ui)
 
     return render_template(
         "invenio_app_rdm/records/detail.html",
@@ -95,7 +95,7 @@ def record_detail(record=None, files=None, pid_value=None, is_preview=False):
         ]),
         is_preview=is_preview,
         is_draft=is_draft,
-        community=community_uuid,
+        community=community_id,
     )
 
 

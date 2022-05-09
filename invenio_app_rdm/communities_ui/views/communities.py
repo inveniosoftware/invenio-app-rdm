@@ -9,12 +9,11 @@
 """Request views module."""
 
 from flask import render_template
-from flask_babelex import lazy_gettext as _
 from invenio_communities.views.decorators import pass_community
 
 
 @pass_community
-def communities_detail(community=None, logo=None, pid_value=None):
+def communities_detail(pid_value, community):
     """Community detail page."""
     permissions = community.has_permissions_to(
         ['update', 'read', 'search_requests', 'search_invites']

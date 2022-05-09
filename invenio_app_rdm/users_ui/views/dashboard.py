@@ -24,7 +24,7 @@ def uploads():
     return render_template(
         "invenio_app_rdm/users/uploads.html",
         searchbar_config=dict(searchUrl=get_search_url()),
-        user_avatar_url=url
+        user_avatar=url
     )
 
 
@@ -37,7 +37,7 @@ def requests():
     return render_template(
         "invenio_app_rdm/users/requests.html",
         searchbar_config=dict(searchUrl=get_search_url()),
-        user_avatar_url=url
+        user_avatar=url
     )
 
 
@@ -51,5 +51,5 @@ def communities():
     return render_template(
         "invenio_app_rdm/users/communities.html",
         searchbar_config=dict(searchUrl=get_search_url()),
-        user_avatar_url=url
+        user_avatar=url
     )

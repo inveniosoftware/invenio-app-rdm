@@ -265,7 +265,7 @@ def get_form_config(**kwargs):
             'APP_RDM_DISPLAY_DECIMAL_FILE_SIZES', True),
         links=dict(
             user_dashboard_request=conf[
-                "RDM_REQUESTS_ROUTES"]["user-dashboard-request"]
+                "RDM_REQUESTS_ROUTES"]["user-dashboard-request-details"]
         ),
         **kwargs
     )
