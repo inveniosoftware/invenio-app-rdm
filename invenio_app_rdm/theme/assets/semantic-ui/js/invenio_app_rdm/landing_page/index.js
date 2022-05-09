@@ -15,7 +15,9 @@ import { RecordCitationField } from "./RecordCitationField";
 import { ExportDropdown } from "./ExportDropdown";
 
 const recordManagementAppDiv = document.getElementById("recordManagement");
-const recordManagementMobile = document.getElementById("recordManagementMobile");
+const recordManagementMobile = document.getElementById(
+  "recordManagementMobile"
+);
 
 const recordVersionsAppDiv = document.getElementById("recordVersions");
 const recordCitationAppDiv = document.getElementById("recordCitation");
@@ -32,6 +34,9 @@ function renderRecordManagement(element) {
       record={JSON.parse(recordManagementAppDiv.dataset.record)}
       permissions={JSON.parse(recordManagementAppDiv.dataset.permissions)}
       isDraft={JSON.parse(recordManagementAppDiv.dataset.isDraft)}
+      isPreviewSubmissionRequest={JSON.parse(
+        recordManagementAppDiv.dataset.isPreviewSubmissionRequest
+      )}
     />,
     element
   );
@@ -58,7 +63,7 @@ if (recordCitationAppDiv) {
   );
 }
 
-if(recordExportDownloadDiv) {
+if (recordExportDownloadDiv) {
   ReactDOM.render(
     <ExportDropdown
       formats={JSON.parse(recordExportDownloadDiv.dataset.formats)}

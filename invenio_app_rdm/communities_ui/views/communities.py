@@ -10,12 +10,10 @@
 
 from flask import render_template
 from flask_babelex import lazy_gettext as _
-from invenio_communities.views.decorators import pass_community, \
-    pass_community_logo
+from invenio_communities.views.decorators import pass_community
 
 
 @pass_community
-@pass_community_logo
 def communities_detail(community=None, logo=None, pid_value=None):
     """Community detail page."""
     permissions = community.has_permissions_to(
@@ -26,7 +24,6 @@ def communities_detail(community=None, logo=None, pid_value=None):
     return render_template(
         "invenio_communities/details/index.html",
         community=community.to_dict(),  # TODO: use serializer
-        logo=logo.to_dict() if logo else None,
         # Pass permissions so we can disable partially UI components
         # e.g Settings tab
         permissions=permissions,

@@ -17,7 +17,12 @@
 
 {%- set title = record.metadata.title %}
 {%- set metadata = record.metadata %}
-{%- set can_manage_record = permissions is defined and ((permissions.can_edit and not is_preview) or (is_draft and permissions.can_update_draft) ) %}
+
+{%- set can_manage_record = permissions is defined and (permissions.can_edit or permissions.can_review) %}
+
+<!-- preview_submission_request is set to true when coming from a community submission request -->
+{%- set is_preview_submission_request = preview_submission_request or false %}
+{%- set show_record_management_menu = can_manage_record and (not is_preview or is_preview_submission_request) %}
 
 {%- block page_body %}
   <section id="banners" class="banners" aria-label="{{ _('Information banner') }}">
@@ -116,9 +121,9 @@
 
               {%- block record_header_button -%}
 
-                {% if is_preview and permissions.can_edit and is_draft %}
+                {% if is_preview and not is_preview_submission_request and can_manage_record and is_draft %}
                   <nav class="back-navigation rel-pb-2 pl-0" aria-label="{{ _('Back-navigation') }}">
-                    {%- set back_page = url_for('invenio_app_rdm_records.deposit_edit', pid_value=record.id, preview=1) -%}
+                    {%- set back_page = url_for('invenio_app_rdm_records.deposit_edit', pid_value=record.id) -%}
                     {%- set back_btn_label = _('Back to edit') -%}
                     <a class="ui button labeled icon small compact" href="{{ back_page }}">
                       <i class="ui icon angle left"></i> {{ back_btn_label }}</a>
@@ -127,7 +132,7 @@
 
               {% endblock record_header_button %}
 
-              {% if can_manage_record is sameas true %}
+              {% if show_record_management_menu %}
                 <section id="mobile-record-management" class="ui grid tablet only mobile only">
                   <div class="sixteen wide column right aligned">
                     <button id="manage-record-btn"
