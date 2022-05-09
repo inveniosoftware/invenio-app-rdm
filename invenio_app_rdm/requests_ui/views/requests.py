@@ -12,7 +12,6 @@ from flask import current_app, g, render_template
 from flask_babelex import lazy_gettext as _
 from flask_login import current_user, login_required
 from invenio_communities.members.services.request import CommunityInvitation
-from invenio_communities.proxies import current_communities
 from invenio_communities.views.decorators import pass_community
 from invenio_rdm_records.proxies import current_rdm_records_service
 from invenio_rdm_records.requests import CommunitySubmission
@@ -52,7 +51,6 @@ def requests_detail(request=None, default_query_config=None, community=None,
         )
         permissions.update(community_permissions)
         community = community.to_dict()
-
     try:
         topic_record = current_rdm_records_service.read_draft(
             id_=request["topic"]["record"], identity=g.identity)
@@ -63,7 +61,7 @@ def requests_detail(request=None, default_query_config=None, community=None,
 
     permissions.update(topic_record.has_permissions_to(
         ['edit', 'new_version', 'manage',
-         'update_draft', 'read_files'])
+         'update_draft', 'read_files', 'review'])
     )
     topic_record = UIJSONSerializer() \
         .serialize_object_to_dict(topic_record.data)
@@ -85,12 +83,6 @@ def requests_detail(request=None, default_query_config=None, community=None,
         custom_base_template=custom_base_template,
         community=community,
         user_avatar_url=avatar_url,
-        types={
-            "organization": _("Organization"),
-            "event": _("Event"),
-            "topic": _("Topic"),
-            "project": _("Project")
-        },
         current_userprofile=current_userprofile,
     )
 

@@ -25,7 +25,6 @@
     {% endblock request_actions %}
     </div>
 
-
     <div class="ui horizontal list" role="list">
         {% for item in record.metadata.creators %}
           <div class="item" role="listitem">
@@ -65,6 +64,7 @@
   <div class="ui divider hidden"></div>
     {% if record %}
       {% set use_theme_basic_template = false %}
+      {%- set preview_submission_request = true %}
       {% include "invenio_app_rdm/records/detail.html" %}
     {% endif %}
   </div>

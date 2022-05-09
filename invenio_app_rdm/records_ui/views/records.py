@@ -89,8 +89,10 @@ def record_detail(record=None, files=None, pid_value=None, is_preview=False):
         record=record_ui,
         pid=pid_value,
         files=files_dict,
-        permissions=record.has_permissions_to(['edit', 'new_version', 'manage',
-                                               'update_draft', 'read_files']),
+        permissions=record.has_permissions_to([
+            'edit', 'new_version', 'manage', 'update_draft', 'read_files',
+            'review'
+        ]),
         is_preview=is_preview,
         is_draft=is_draft,
         community=community_uuid,
