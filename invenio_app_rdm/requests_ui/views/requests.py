@@ -9,7 +9,7 @@
 
 """Request views module."""
 
-from flask import g, render_template
+from flask import g, render_template, url_for
 from flask_login import current_user, login_required
 from invenio_communities.members.services.request import CommunityInvitation
 from invenio_communities.views.decorators import pass_community
@@ -17,6 +17,7 @@ from invenio_rdm_records.proxies import current_rdm_records_service
 from invenio_rdm_records.requests import CommunitySubmission
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
 from invenio_records_resources.services.errors import PermissionDeniedError
+from invenio_requests.customizations import AcceptAction
 from invenio_requests.resolvers.registry import ResolverRegistry
 from invenio_requests.views.decorators import pass_request
 from invenio_users_resources.proxies import current_user_resources
@@ -71,6 +72,8 @@ def user_dashboard_request_view(request, **kwargs):
 
     is_draft_submission = request_type == CommunitySubmission.type_id
     is_invitation = request_type == CommunityInvitation.type_id
+    request_is_accepted = request['status'] == AcceptAction.status_to
+
     if is_draft_submission:
         topic = _resolve_topic_draft(request)
         return render_template(
@@ -82,6 +85,7 @@ def user_dashboard_request_view(request, **kwargs):
             permissions=topic["permissions"],
             is_preview=True,
             is_draft=topic["is_draft"],
+            draft_is_accepted=request_is_accepted,
             files=[],
         )
 
@@ -91,6 +95,7 @@ def user_dashboard_request_view(request, **kwargs):
             base_template="invenio_app_rdm/users/base.html",
             user_avatar=avatar,
             request=request.to_dict(),
+            invitation_accepted=request_is_accepted
         )
 
 
@@ -103,6 +108,7 @@ def community_dashboard_request_view(request, community, **kwargs):
 
     is_draft_submission = request_type == CommunitySubmission.type_id
     is_invitation = request_type == CommunityInvitation.type_id
+    request_is_accepted = request['status'] == AcceptAction.status_to
     if is_draft_submission:
         permissions = community.has_permissions_to(
             ["update", "read", "search_requests", "search_invites"]
@@ -120,6 +126,7 @@ def community_dashboard_request_view(request, community, **kwargs):
             permissions=permissions,
             is_preview=True,
             is_draft=topic["is_draft"],
+            draft_is_accepted=request_is_accepted,
             files=[],
         )
 
@@ -136,4 +143,5 @@ def community_dashboard_request_view(request, community, **kwargs):
             request=request.to_dict(),
             community=community.to_dict(),
             permissions=permissions,
+            invitation_accepted=request_is_accepted
         )

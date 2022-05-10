@@ -11,6 +11,12 @@
 
 {% block request_header_title %}
   {{ request.title }}
+  {% if invitation_accepted %}
+    <a href="{{ url_for("invenio_app_rdm_communities.communities_detail", pid_value=request.topic.community) }}"
+       class="rel-ml-1">
+      <button class="ui button tiny"> {{ _("View Community") }}</button>
+    </a>
+  {% endif %}
 {% endblock request_header_title %}
 
 {% set active_dashboard_menu_item = 'requests' %}
