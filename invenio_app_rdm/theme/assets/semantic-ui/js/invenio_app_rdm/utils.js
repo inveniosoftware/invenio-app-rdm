@@ -80,7 +80,7 @@ export function SearchItemCreators({ creators }) {
         <img
           className="inline-id-icon ml-5"
           src= { icon }
-          alt={`scheme logo`}
+          alt=""
         />
       </a>
     )
