@@ -46,18 +46,21 @@ def pass_record_latest(f):
     return view
 
 
-def pass_draft(f):
+def pass_draft(expand=False):
     """Decorator to retrieve the draft using the record service."""
-    @wraps(f)
-    def view(**kwargs):
-        pid_value = kwargs.get('pid_value')
-        draft = service().read_draft(
-            id_=pid_value,
-            identity=g.identity
-        )
-        kwargs['draft'] = draft
-        return f(**kwargs)
-    return view
+    def decorator(f):
+        @wraps(f)
+        def view(**kwargs):
+            pid_value = kwargs.get('pid_value')
+            draft = service().read_draft(
+                id_=pid_value,
+                identity=g.identity,
+                expand=expand,
+            )
+            kwargs['draft'] = draft
+            return f(**kwargs)
+        return view
+    return decorator
 
 
 def pass_is_preview(f):
@@ -91,30 +94,34 @@ def pass_record_from_pid(f):
     return view
 
 
-def pass_record_or_draft(f):
+def pass_record_or_draft(expand=False):
     """Decorate to retrieve the record or draft using the record service."""
-    @wraps(f)
-    def view(**kwargs):
-        pid_value = kwargs.get('pid_value')
-        is_preview = kwargs.get('is_preview')
+    def decorator(f):
+        @wraps(f)
+        def view(**kwargs):
+            pid_value = kwargs.get('pid_value')
+            is_preview = kwargs.get('is_preview')
 
-        def get_record():
-            """Retrieve record."""
-            return service().read(id_=pid_value, identity=g.identity)
+            def get_record():
+                """Retrieve record."""
+                return service().read(id_=pid_value, identity=g.identity,
+                                      expand=expand)
 
-        if is_preview:
-            try:
-                record = service().read_draft(
-                    id_=pid_value,
-                    identity=g.identity
-                )
-            except NoResultFound:
+            if is_preview:
+                try:
+                    record = service().read_draft(
+                        id_=pid_value,
+                        identity=g.identity,
+                        expand=expand
+                    )
+                except NoResultFound:
+                    record = get_record()
+            else:
                 record = get_record()
-        else:
-            record = get_record()
-        kwargs['record'] = record
-        return f(**kwargs)
-    return view
+            kwargs['record'] = record
+            return f(**kwargs)
+        return view
+    return decorator
 
 
 def pass_file_item(f):

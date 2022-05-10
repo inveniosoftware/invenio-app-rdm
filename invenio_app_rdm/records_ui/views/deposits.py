@@ -301,7 +301,7 @@ def deposit_create(community=None):
     """Create a new deposit."""
     return render_template(
         "invenio_app_rdm/records/deposit.html",
-        forms_config=get_form_config(createUrl=("/api/records")),
+        forms_config=get_form_config(createUrl="/api/records"),
         searchbar_config=dict(searchUrl=get_search_url()),
         record=new_record(),
         files=dict(
@@ -313,9 +313,9 @@ def deposit_create(community=None):
 
 
 @login_required
-@pass_draft
+@pass_draft(expand=True)
 @pass_draft_files
-def deposit_edit(draft=None, draft_files=None, pid_value=None):
+def deposit_edit(pid_value, draft=None, draft_files=None):
     """Edit an existing deposit."""
     ui_serializer = UIJSONSerializer()
     record = ui_serializer.serialize_object_to_dict(draft.to_dict())

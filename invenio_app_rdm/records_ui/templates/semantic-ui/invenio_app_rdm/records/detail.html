@@ -27,31 +27,35 @@
 {%- block page_body %}
   <section id="banners" class="banners" aria-label="{{ _('Information banner') }}">
 
-    {% if community %}
-      <!-- TODO: Checks below must be deleted once community is resolved -->
-      {% if community.links is defined %}
-        {%- set logoLink = community.links.logo %}
-        {%- set communityTitle = community.metadata.title %}
-      {% else %}
-        {%- set logoLink = "/static/images/square-placeholder.png" %}
-        {%- set communityTitle = community %}
-      {% endif %}
+  <!-- COMMUNITY HEADER: hide it when displaying the submission request -->
+  {% if not is_preview_submission_request %}
 
+    {%- set parent = record.get("parent", {}) %}
+    {%- set community_review = parent.get("review", {}).get("receiver", {}).get("community") %}
+    {%- set community_default = parent.get("communities", {}).get("default") %}
+    {%- set has_community = community_review or community_default %}
+
+    {% if has_community %}
+      {%- set expanded_parent = record.get("expanded", {}).get("parent", {}) %}
+      {%- set community = expanded_parent.get("review", {}).get("receiver") or expanded_parent.get("communities", {}).get("default") %}
       <div class="ui fluid container page-subheader-outer compact">
         <div class="ui container page-subheader">
           <div class="page-subheader-element">
             <img
               class="community-logo-header"
-              src="{{logoLink}}"
+              src="{{ community.links.logo }}"
               onerror="this.onerror=null;this.src='/static/images/square-placeholder.png';"/>
           </div>
           <div class="page-subheader-element">
-              {{ communityTitle }}
+              {{ community.metadata.title }}
           </div>
         </div>
       </div>
     {% endif %}
+  {% endif %}
+  <!-- /COMMUNITY HEADER -->
 
+    <!-- PREVIEW HEADER -->
     {% if is_preview %}
     <div class="ui info flashed top attached manage message">
       <div class="ui container">
@@ -72,7 +76,8 @@
         </p>
       </div>
     </div>
-  {% endif %}
+    {% endif %}
+    <!-- /PREVIEW HEADER -->
 
     {% if record.is_published and not record.versions.is_latest %}
     <div class="ui warning flashed top attached manage message">

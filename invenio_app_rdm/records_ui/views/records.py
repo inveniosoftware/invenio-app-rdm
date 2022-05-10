@@ -24,7 +24,6 @@ from marshmallow import ValidationError
 from .decorators import pass_file_item, pass_file_metadata, pass_is_preview, \
     pass_record_files, pass_record_from_pid, pass_record_latest, \
     pass_record_or_draft
-from .utils import get_community_id
 
 
 class PreviewFile:
@@ -67,10 +66,10 @@ class PreviewFile:
 #
 # Views
 #
+@pass_record_or_draft(expand=True)
 @pass_is_preview
-@pass_record_or_draft
 @pass_record_files
-def record_detail(record=None, files=None, pid_value=None, is_preview=False):
+def record_detail(pid_value, record, files=None, is_preview=False):
     """Record detail page (aka landing page)."""
     files_dict = None if files is None else files.to_dict()
     record_ui = UIJSONSerializer().serialize_object_to_dict(record.to_dict())
@@ -82,7 +81,6 @@ def record_detail(record=None, files=None, pid_value=None, is_preview=False):
             )
         except ValidationError:
             abort(404)
-    community_id = get_community_id(record_ui)
 
     return render_template(
         "invenio_app_rdm/records/detail.html",
@@ -95,16 +93,15 @@ def record_detail(record=None, files=None, pid_value=None, is_preview=False):
         ]),
         is_preview=is_preview,
         is_draft=is_draft,
-        community=community_id,
     )
 
 
 @pass_is_preview
-@pass_record_or_draft
+@pass_record_or_draft(expand=False)
 def record_export(
-    record=None,
+    pid_value,
+    record,
     export_format=None,
-    pid_value=None,
     permissions=None,
     is_preview=False
 ):
@@ -133,11 +130,11 @@ def record_export(
 
 
 @pass_is_preview
-@pass_record_or_draft
+@pass_record_or_draft(expand=False)
 @pass_file_metadata
 def record_file_preview(
+    pid_value,
     record=None,
-    pid_value=None,
     pid_type="recid",
     file_metadata=None,
     is_preview=False,
@@ -168,8 +165,8 @@ def record_file_preview(
 @pass_is_preview
 @pass_file_item
 def record_file_download(
+    pid_value,
     file_item=None,
-    pid_value=None,
     is_preview=False,
     **kwargs
 ):

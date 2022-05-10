@@ -26,38 +26,36 @@ from sqlalchemy.orm.exc import NoResultFound
 
 def _resolve_topic_draft(request):
     """Resolve the record in the topic when it is a draft."""
-    permissions = {}
+    if request["is_closed"]:
+        return dict(permissions={}, record_ui=None)
 
     recid = ResolverRegistry.resolve_entity_proxy(
         request["topic"]
     )._parse_ref_dict_id()
     try:
-        record = current_rdm_records_service.read_draft(g.identity, recid)
-        permissions.update(
-            record.has_permissions_to(
-                [
-                    "edit",
-                    "new_version",
-                    "manage",
-                    "update_draft",
-                    "read_files",
-                    "review",
-                ]
-            )
+        record = current_rdm_records_service.read_draft(
+            g.identity, recid, expand=True
         )
         record_ui = UIJSONSerializer().serialize_object_to_dict(
             record.to_dict()
         )
-        is_draft = True
+        permissions = record.has_permissions_to(
+            [
+                "edit",
+                "new_version",
+                "manage",
+                "update_draft",
+                "read_files",
+                "review",
+            ]
+        )
+        return dict(permissions=permissions, record_ui=record_ui)
     except NoResultFound:
         # record tab not displayed when the record is not found
         # the request is probably not open anymore
-        record_ui = None
-        is_draft = False
+        pass
 
-    return dict(
-        permissions=permissions, record_ui=record_ui, is_draft=is_draft
-    )
+    return dict(permissions={}, record_ui=None)
 
 
 @login_required
@@ -72,7 +70,7 @@ def user_dashboard_request_view(request, **kwargs):
 
     is_draft_submission = request_type == CommunitySubmission.type_id
     is_invitation = request_type == CommunityInvitation.type_id
-    request_is_accepted = request['status'] == AcceptAction.status_to
+    request_is_accepted = request["status"] == AcceptAction.status_to
 
     if is_draft_submission:
         topic = _resolve_topic_draft(request)
@@ -84,7 +82,6 @@ def user_dashboard_request_view(request, **kwargs):
             record=topic["record_ui"],
             permissions=topic["permissions"],
             is_preview=True,
-            is_draft=topic["is_draft"],
             draft_is_accepted=request_is_accepted,
             files=[],
         )
@@ -95,7 +92,7 @@ def user_dashboard_request_view(request, **kwargs):
             base_template="invenio_app_rdm/users/base.html",
             user_avatar=avatar,
             request=request.to_dict(),
-            invitation_accepted=request_is_accepted
+            invitation_accepted=request_is_accepted,
         )
 
 
@@ -108,7 +105,7 @@ def community_dashboard_request_view(request, community, **kwargs):
 
     is_draft_submission = request_type == CommunitySubmission.type_id
     is_invitation = request_type == CommunityInvitation.type_id
-    request_is_accepted = request['status'] == AcceptAction.status_to
+    request_is_accepted = request["status"] == AcceptAction.status_to
     if is_draft_submission:
         permissions = community.has_permissions_to(
             ["update", "read", "search_requests", "search_invites"]
@@ -125,7 +122,6 @@ def community_dashboard_request_view(request, community, **kwargs):
             community=community.to_dict(),
             permissions=permissions,
             is_preview=True,
-            is_draft=topic["is_draft"],
             draft_is_accepted=request_is_accepted,
             files=[],
         )
@@ -143,5 +139,5 @@ def community_dashboard_request_view(request, community, **kwargs):
             request=request.to_dict(),
             community=community.to_dict(),
             permissions=permissions,
-            invitation_accepted=request_is_accepted
+            invitation_accepted=request_is_accepted,
         )
