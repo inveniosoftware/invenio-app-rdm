@@ -101,7 +101,7 @@
 
           {%- if item.award.identifiers -%}
             {% for identifier in item.award.identifiers if 'url' == identifier.scheme %}
-              <a href="{{ identifier.identifier }}" target="_blank" rel="noopener noreferrer" aria-label="{{_(Open external link)}}">
+              <a href="{{ identifier.identifier }}" target="_blank" rel="noopener noreferrer" aria-label="{{_('Open external link')}}">
                 <i class="external alternate icon spaced-left"></i>
               </a>
             {%- endfor -%}
