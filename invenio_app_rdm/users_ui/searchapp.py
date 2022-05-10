@@ -37,7 +37,7 @@ def search_app_context():
             'RDM_SEARCH_USER_REQUESTS',
             current_app.config['REQUESTS_FACETS'],
             current_app.config['RDM_SORT_OPTIONS'],
-            '/api/requests',
+            '/api/user/requests',
             {"Accept": "application/json"},
             initial_filters=[["is_open", "true"]]
         )

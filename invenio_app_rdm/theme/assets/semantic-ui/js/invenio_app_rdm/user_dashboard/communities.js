@@ -112,39 +112,6 @@ export function CommunitiesResultsItemTemplate({ result, index }) {
   );
 }
 
-export const CommunitiesSearchBarElement = ({
-  placeholder: passedPlaceholder,
-  queryString,
-  onInputChange,
-  updateQueryState,
-}) => {
-  const placeholder = passedPlaceholder || "Search";
-  const onBtnSearchClick = () => {
-    updateQueryState();
-  };
-  const onKeyPress = (event) => {
-    if (event.key === "Enter") {
-      updateQueryState();
-    }
-  };
-  return (
-    <Input
-      action={{
-        icon: "search",
-        onClick: onBtnSearchClick,
-        className: "search",
-      }}
-      fluid
-      placeholder={placeholder}
-      onChange={(event, { value }) => {
-        onInputChange(value);
-      }}
-      value={queryString}
-      onKeyPress={onKeyPress}
-    />
-  );
-};
-
 export const DashboardCommunitiesSearchLayout = DashboardSearchLayoutHOC({
   searchBarPlaceholder: i18next.t("Search communities..."),
   newBtn: (
