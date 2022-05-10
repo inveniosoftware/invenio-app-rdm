@@ -1,6 +1,7 @@
 // This file is part of InvenioRDM
 // Copyright (C) 2021 CERN.
 // Copyright (C) 2021 New York University.
+// Copyright (C) 2022 data-futures.
 //
 // Invenio RDM Records is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
@@ -43,63 +44,54 @@ const apiConfig = {
 export const axiosWithconfig = axios.create(apiConfig);
 
 export function SearchItemCreators({ creators }) {
-  function getIcon(creator) {
-    let ids = _get(creator, "person_or_org.identifiers", []);
-    let creatorName = _get(creator, "person_or_org.name", "No name");
-    let firstId = ids.filter((id) => ["orcid", "ror", "gnd"].includes(id.scheme))[0];
-    firstId = firstId || { scheme: "" };
+  function makeIcon(scheme, identifier, name) {
+    let link = null;
+    let linkTitle = null;
     let icon = null;
-    switch (firstId.scheme) {
+
+    switch (scheme) {
       case "orcid":
-        icon = (
-          <a
-            className="no-text-decoration"
-            href={"https://orcid.org/" + `${firstId.identifier}`}
-            aria-label={`${creatorName}: ${i18next.t("ORCID profile")}`}
-            title={`${creatorName}: ${i18next.t("ORCID profile")}`}
-          >
-            <img
-              className="inline-id-icon"
-              src="/static/images/orcid.svg"
-              alt=""
-            />
-          </a>
-        );
+        link = "https://orcid.org/" + identifier;
+        linkTitle = i18next.t("ORCID profile");
+        icon = "/static/images/orcid.svg";
         break;
       case "ror":
-        icon = (
-          <a
-            href={"https://ror.org/" + `${firstId.identifier}`}
-            aria-label={`${creatorName}: ${i18next.t("ROR profile")}`}
-            title={`${creatorName}: ${i18next.t("ROR profile")}`}
-          >
-            <img
-              className="inline-id-icon"
-              src="/static/images/ror-icon.svg"
-              alt=""
-            />
-          </a>
-        );
+        link = "https://ror.org/"+identifier;
+        linkTitle = i18next.t("ROR profile");
+        icon = "/static/images/ror-icon.svg";
         break;
       case "gnd":
-        icon = (
-          <a
-            href={"https://d-nb.info/gnd/" + `${firstId.identifier}`}
-            aria-label={`${creatorName}: ${i18next.t("GND profile")}`}
-            title={`${creatorName}: ${i18next.t("GND profile")}`}
-          >
-            <img
-              className="inline-id-icon"
-              src="/static/images/gnd-icon.svg"
-              alt=""
-            />
-          </a>
-        );
+        link = "https://d-nb.info/gnd/"+identifier;
+        linkTitle = i18next.t("GND profile");
+        icon = "/static/images/gnd-icon.svg";
         break;
       default:
-        break;
+        return null;
     }
-    return icon;
+
+    icon = (
+      <a
+         className="no-text-decoration"
+         href={ link }
+         aria-label={`${name}: ${linkTitle}`}
+         title={`${name}: ${linkTitle}`}
+         key={scheme}
+      >
+        <img
+          className="inline-id-icon ml-5"
+          src= { icon }
+          alt={`scheme logo`}
+        />
+      </a>
+    )
+    return (icon);
+  }
+
+  function getIcons(creator) {
+    let ids = _get(creator, "person_or_org.identifiers", []);
+    let creatorName = _get(creator, "person_or_org.name", "No name");
+    let icons = ids.map(c => makeIcon(c.scheme, c.identifier, creatorName));
+    return icons;
   }
 
   function getLink(creator) {
@@ -118,7 +110,7 @@ export function SearchItemCreators({ creators }) {
   return creators.map((creator, index) => (
     <span className="creatibutor-wrap" key={index}>
       {getLink(creator)}
-      {getIcon(creator)}
+      {getIcons(creator)}
       {index < creators.length - 1 && ";"}
     </span>
   ));
