@@ -15,21 +15,33 @@
 {%- block request_header %}
   <div class="ui grid">
     <div class="sixteen wide mobile eight wide tablet eight wide computer column left floated left aligned">
-      <h2 class="ui header">
-        <div class="ui label green ml-0">{{_("New submission")}}</div>
-        {{ request.title }}
+      <h2 class="ui header flex align-items-centerr">
+        {% if not draft_is_accepted %}
+          <div class="ui label green ml-0">{{ _("New submission") }}</div>
+        {% endif %}
+
+        <span>{{ request.title }}</span>
+
+        {% if draft_is_accepted %}
+          <a href="{{ url_for("invenio_app_rdm_records.record_detail", pid_value=request.topic.record) }}" class="rel-ml-1"
+             rel="noopener noreferrer" target="_blank">
+            <button class="ui button tiny"> {{ _("View Record") }}</button>
+          </a>
+        {% endif %}
+
       </h2>
+    {{ record }}
 
       {% if record %}
-      <div class="ui horizontal list" role="list">
-      {% for item in record.metadata.creators %}
-        <div class="item" role="listitem">
-          <div class="content"><i class="user icon"></i>
-            {{ item.person_or_org.name }}</div>
+        <div class="ui horizontal list" role="list">
+          {% for item in record.metadata.creators %}
+            <div class="item" role="listitem">
+              <div class="content"><i class="user icon"></i>
+                {{ item.person_or_org.name }}</div>
+            </div>
+          {% endfor %}
         </div>
-      {% endfor %}
-      </div>
-    {% endif %}
+      {% endif %}
     </div>
 
     {% block request_actions %}
@@ -39,58 +51,58 @@
 {%- endblock request_header %}
 
 {% block request_timeline %}
-<div
-  class="ui container invenio-tab-container fluid rel-pt-3"
-  id="request-community-submission-tab-container"
->
   <div
-    class="ui secondary pointing menu invenio-tab-menu"
-    id="request-community-submission-tab"
+    class="ui container invenio-tab-container fluid rel-pt-3"
+    id="request-community-submission-tab-container"
   >
-    <a
-      class="active item"
-      data-tab="conversation"
-      role="tab"
-      aria-selected="true"
-      aria-controls="conversation"
-      id="conversation-tab-menu"
+    <div
+      class="ui secondary pointing menu invenio-tab-menu"
+      id="request-community-submission-tab"
     >
-      {{_("Conversation")}}
-    </a>
+      <a
+        class="active item"
+        data-tab="conversation"
+        role="tab"
+        aria-selected="true"
+        aria-controls="conversation"
+        id="conversation-tab-menu"
+      >
+        {{ _("Conversation") }}
+      </a>
+
+      {% if record %}
+        <a
+          class="item"
+          data-tab="record"
+          id="record-tab-menu"
+          aria-controls="record"
+        >
+          {{ _("Record") }}
+        </a>
+      {% endif %}
+    </div>
+
+    <div
+      class="ui bottom attached tab segment active borderless p-0"
+      data-tab="conversation"
+      role="tabpanel"
+      aria-labelledby="conversation"
+      id="conversation-tab"
+    >
+      <div class="ui divider hidden"></div>
+      {{ super() }}
+    </div>
 
     {% if record %}
-    <a
-      class="item"
-      data-tab="record"
-      id="record-tab-menu"
-      aria-controls="record"
-    >
-      {{_("Record")}}
-    </a>
+      <div class="ui bottom attached tab segment borderless" data-tab="record"
+           role="tabpanel" aria-labelledby="record" id="record-tab"
+           hidden="hidden">
+        <div class="ui divider hidden"></div>
+        {% set use_theme_basic_template = false %}
+        {%- set preview_submission_request = true %}
+        {% include "invenio_app_rdm/records/detail.html" %}
+      </div>
     {% endif %}
   </div>
-
-  <div
-    class="ui bottom attached tab segment active borderless p-0"
-    data-tab="conversation"
-    role="tabpanel"
-    aria-labelledby="conversation"
-    id="conversation-tab"
-  >
-    <div class="ui divider hidden"></div>
-    {{ super() }}
-  </div>
-
-  {% if record %}
-  <div class="ui bottom attached tab segment borderless" data-tab="record"
-       role="tabpanel" aria-labelledby="record" id="record-tab"
-       hidden="hidden">
-    <div class="ui divider hidden"></div>
-    {% set use_theme_basic_template = false %}
-    {%- set preview_submission_request = true %}
-    {% include "invenio_app_rdm/records/detail.html" %}
-  </div>
-  {% endif %}
-</div>
 
 {% endblock request_timeline %}
