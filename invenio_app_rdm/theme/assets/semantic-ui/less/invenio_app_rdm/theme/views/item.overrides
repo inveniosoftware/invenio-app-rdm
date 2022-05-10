@@ -105,3 +105,17 @@
     }
   }
 }
+
+.item {
+
+  &.align-no-checkbox{
+    padding-left: @defaultPadding / 2 + @checkboxSize;
+  }
+
+  .ui.fitted.checkbox{
+    margin-right: @defaultMargin / 2;
+    margin-top: @defaultMargin / 2;
+  }
+}
+
+

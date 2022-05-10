@@ -110,3 +110,9 @@
 
 @dashedBorder: 2px dashed @borderColor;
 @defaultBorder: 1px solid @solidBorderColor;
+
+/*------------------
+  checkboxes
+------------------*/
+
+@checkboxSize: @relative17px;
