@@ -8,6 +8,6 @@
 
 """Invenio App RDM."""
 
-__version__ = '9.0.0.dev16'
+__version__ = '9.0.0.dev17'
 
 __all__ = ('__version__', )
