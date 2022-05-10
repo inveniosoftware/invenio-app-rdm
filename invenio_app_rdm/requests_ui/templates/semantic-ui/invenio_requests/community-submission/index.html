@@ -52,7 +52,7 @@
 
 {% block request_timeline %}
   <div
-    class="ui container invenio-tab-container fluid rel-pt-3"
+    class="ui container invenio-tab-container fluid rel-pt-2"
     id="request-community-submission-tab-container"
   >
     <div
@@ -89,7 +89,6 @@
       aria-labelledby="conversation"
       id="conversation-tab"
     >
-      <div class="ui divider hidden"></div>
       {{ super() }}
     </div>
 
@@ -97,12 +96,11 @@
       <div class="ui bottom attached tab segment borderless" data-tab="record"
            role="tabpanel" aria-labelledby="record" id="record-tab"
            hidden="hidden">
-        <div class="ui divider hidden"></div>
         {% set use_theme_basic_template = false %}
-        {%- set preview_submission_request = true %}
+        {% set preview_submission_request = true %}
+        {% set is_draft = true %}
         {% include "invenio_app_rdm/records/detail.html" %}
       </div>
     {% endif %}
   </div>
-
 {% endblock request_timeline %}

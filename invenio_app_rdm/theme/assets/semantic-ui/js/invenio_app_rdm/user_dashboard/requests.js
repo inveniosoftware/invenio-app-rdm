@@ -7,6 +7,7 @@
 // Invenio App RDM is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
 
+import { createSearchAppInit } from "@js/invenio_search_ui";
 import {
   SearchAppFacets,
   SearchAppResultsPane,
@@ -16,6 +17,7 @@ import _get from "lodash/get";
 import _truncate from "lodash/truncate";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
+import { GridResponsiveSidebarColumn } from "react-invenio-forms";
 import {
   BucketAggregation,
   Count,
@@ -37,7 +39,6 @@ import {
   Label,
   Segment,
 } from "semantic-ui-react";
-import { GridResponsiveSidebarColumn } from "react-invenio-forms";
 import {
   RDMBucketAggregationElement,
   RDMRecordFacetsValues,
@@ -45,7 +46,6 @@ import {
   SearchHelpLinks,
 } from "../search/components";
 import { timestampToRelativeTime } from "../utils";
-import { createSearchAppInit } from "@js/invenio_search_ui";
 
 export const RequestsResults = ({
   sortOptions,
@@ -64,7 +64,12 @@ export const RequestsResults = ({
                   verticalAlign="middle"
                   className="small pt-5 pb-5 highlight-background"
                 >
-                  <Grid.Column mobile={16} tablet={4} computer={4} className="mt-5 mb-5">
+                  <Grid.Column
+                    mobile={16}
+                    tablet={4}
+                    computer={4}
+                    className="mt-5 mb-5"
+                  >
                     <Count
                       label={() => (
                         <>
@@ -74,7 +79,9 @@ export const RequestsResults = ({
                     />
                   </Grid.Column>
                   <Grid.Column
-                    mobile={16} tablet={12} computer={12}
+                    mobile={16}
+                    tablet={12}
+                    computer={12}
                     className="text-align-right-tablet text-align-right-computer"
                   >
                     {sortOptions && (
@@ -145,36 +152,49 @@ export function RequestsResultsGridItemTemplate({ result, index }) {
 export function RequestsResultsItemTemplate({ result, index }) {
   const createdDate = new Date(result.created);
   const differenceInDays = timestampToRelativeTime(createdDate.toISOString());
+
+  const createdBy = result.created_by;
+  const isCreatorUser = "user" in createdBy;
+  const isCreatorCommunity = "community" in createdBy;
+  let creatorName = "";
+  if (isCreatorUser) {
+    creatorName =
+      result.expanded?.created_by.profile?.full_name || createdBy.user;
+  } else if (isCreatorCommunity) {
+    creatorName =
+      result.expanded?.created_by.metadata?.title || createdBy.community;
+  }
   return (
     <Item key={index} className="community-item">
       <Item.Content>
         <Item.Header>
           {result.type && (
-            <Label size="large" className="rel-mr-1">{result.type}</Label>
+            <Label size="large" className="rel-mr-1">
+              {result.type}
+            </Label>
           )}
-          <a className="header-link" href={`/me/requests/${result.id}`}>{result.title}</a>
+          <a className="header-link" href={`/me/requests/${result.id}`}>
+            {result.title}
+          </a>
         </Item.Header>
 
         <Item.Meta>
           <div className="inline-computer rel-mr-1 rel-mt-1 rel-mb-1">
-            {/* TODO: Replace by resolved user */}
-            {/* {i18next.t(`opened {{difference}} by {{user}}`, {
+            {i18next.t(`opened {{difference}} by {{creator}}`, {
               difference: differenceInDays,
-              user: result.created_by.user,
-            })} */}
-            {i18next.t('Opened ') + differenceInDays + i18next.t(' by you')}
+              creator: creatorName,
+            })}
           </div>
 
-          {result.receiver.community && (
-            <div className="inline-computer">
-              <Icon className="default-margin" name="users" />
-              <span className="ml-5">
-                {/* TODO: Replace by resolved receiver */}
-                {/* {result.receiver.community} */}
-                Biodiversity Literature Repository
-              </span>
-            </div>
-          )}
+          {result.receiver.community &&
+            result.expanded?.receiver.metadata.title && (
+              <div className="inline-computer">
+                <Icon className="default-margin" name="users" />
+                <span className="ml-5">
+                  {result.expanded?.receiver.metadata.title}
+                </span>
+              </div>
+            )}
         </Item.Meta>
       </Item.Content>
     </Item>
@@ -298,8 +318,14 @@ export const RDMRequestsSearchLayout = (props) => {
             />
           </Grid.Column>
 
-          <Grid.Column mobile={13} tablet={4} computer={3} floated="right" className="text-align-right-mobile">
-            <RequestStatusFilter className="rel-mb-1"/>
+          <Grid.Column
+            mobile={13}
+            tablet={4}
+            computer={3}
+            floated="right"
+            className="text-align-right-mobile"
+          >
+            <RequestStatusFilter className="rel-mb-1" />
           </Grid.Column>
 
           <Grid.Column mobile={16} tablet={11} computer={9}>
@@ -312,9 +338,7 @@ export const RDMRequestsSearchLayout = (props) => {
             width={4}
             open={sidebarVisible}
             onHideClick={() => setSidebarVisible(false)}
-            children={
-              <SearchAppFacets aggs={props.config.aggs} />
-            }
+            children={<SearchAppFacets aggs={props.config.aggs} />}
           />
           <Grid.Column mobile={16} tablet={16} computer={12}>
             <SearchAppResultsPane layoutOptions={props.config.layoutOptions} />
