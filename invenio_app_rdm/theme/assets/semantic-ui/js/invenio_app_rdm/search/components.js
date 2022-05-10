@@ -142,14 +142,15 @@ export const RDMRecordSearchBarElement = withState(
     queryString,
     onInputChange,
     updateQueryState,
+    currentQueryState,
   }) => {
     const placeholder = passedPlaceholder || i18next.t("Search");
     const onBtnSearchClick = () => {
-      updateQueryState({ filters: [], queryString });
+      updateQueryState({ ...currentQueryState, filters: [], queryString });
     };
     const onKeyPress = (event) => {
       if (event.key === "Enter") {
-        updateQueryState({ filters: [], queryString });
+        updateQueryState({ ...currentQueryState, filters: [], queryString });
       }
     };
     return (
@@ -323,7 +324,7 @@ export const RDMBucketAggregationElement = ({
         <Card.Header as="h2">
           {title}
 
-          { hasSelections() &&
+          {hasSelections() && (
             <Button
               basic
               icon
@@ -335,7 +336,7 @@ export const RDMBucketAggregationElement = ({
             >
               {i18next.t("Clear")}
             </Button>
-          }
+          )}
         </Card.Header>
       </Card.Content>
       <Card.Content>{containerCmp}</Card.Content>
