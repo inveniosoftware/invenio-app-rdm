@@ -64,3 +64,20 @@
     }
   }
 }
+
+.community-frontpage-cards .ui.card {
+
+  .image {
+    min-height: 12rem;
+    max-width: 12rem;
+    margin: auto;
+    background: transparent;
+    position: relative;
+
+    img {
+      min-height: inherit;
+      object-fit: contain;
+      padding: .5rem;
+    }
+  }
+}
