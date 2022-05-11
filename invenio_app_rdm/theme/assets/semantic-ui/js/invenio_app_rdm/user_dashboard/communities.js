@@ -131,12 +131,18 @@ export const CommunitiesFacets = ({ aggs, currentResultsState }) => {
     <aside aria-label={i18next.t("filters")} id="search-filters">
       {aggs.map((agg) => {
         return (
-          <div className="rdm-facet-container">
-            <BucketAggregation title={agg.title} agg={agg} key={agg.title} />
+          <div className="rdm-facet-container" key={agg.title}>
+            <BucketAggregation title={agg.title} agg={agg} />
           </div>
         );
       })}
-      <SearchHelpLinks />
+
+      <Card className="borderless facet mt-0">
+        <Card.Content>
+          <Card.Header as="h2">{i18next.t("Help")}</Card.Header>
+          <SearchHelpLinks />
+        </Card.Content>
+      </Card>
     </aside>
   );
 };
