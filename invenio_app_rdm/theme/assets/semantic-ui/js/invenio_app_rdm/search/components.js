@@ -291,7 +291,7 @@ export const RDMRecordFacets = ({ aggs, currentResultsState }) => {
           </div>
         );
       })}
-      <Card className="borderless facet">
+      <Card className="borderless facet mt-0">
         <Card.Content>
           <Card.Header as="h2">{i18next.t("Help")}</Card.Header>
           <SearchHelpLinks />
@@ -337,8 +337,8 @@ export const RDMBucketAggregationElement = ({
             </Button>
           }
         </Card.Header>
+        {containerCmp}
       </Card.Content>
-      <Card.Content>{containerCmp}</Card.Content>
     </Card>
   );
 };

@@ -335,7 +335,13 @@ export const RequestsFacets = ({ aggs }) => {
           </div>
         );
       })}
-      <SearchHelpLinks />
+
+      <Card className="borderless facet mt-0">
+        <Card.Content>
+          <Card.Header as="h2">{i18next.t("Help")}</Card.Header>
+          <SearchHelpLinks />
+        </Card.Content>
+      </Card>
     </aside>
   );
 };
