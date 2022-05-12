@@ -9,8 +9,6 @@
 
 """Routes for record-related pages provided by Invenio-App-RDM."""
 
-import re
-
 from elasticsearch_dsl import Q
 from flask import current_app, g, render_template
 from flask_babelex import lazy_gettext as _
@@ -307,7 +305,6 @@ def deposit_create(community=None):
         files=dict(
             default_preview=None, entries=[], links={}
         ),
-        communities_enabled=current_app.config["COMMUNITIES_ENABLED"],
         preselectedCommunity=community
     )
 
@@ -325,7 +322,6 @@ def deposit_edit(pid_value, draft=None, draft_files=None):
         "invenio_app_rdm/records/deposit.html",
         forms_config=get_form_config(apiUrl=f"/api/records/{pid_value}/draft"),
         record=record,
-        communities_enabled=current_app.config["COMMUNITIES_ENABLED"],
         files=files_dict,
         searchbar_config=dict(searchUrl=get_search_url()),
         permissions=draft.has_permissions_to(['new_version', 'delete_draft'])
