@@ -13,7 +13,7 @@
 {% set active_community_header_menu_item = 'requests' %}
 
 {%- block request_header %}
-  <div class="ui grid">
+  <div class="ui grid rel-mt-2">
     <div class="sixteen wide mobile eight wide tablet eight wide computer column left floated left aligned">
       <h2 class="ui header">
         {% if not draft_is_accepted %}
@@ -46,9 +46,11 @@
       {% endif %}
     </div>
 
-    {% block request_actions %}
-      {{ super() }}
-    {% endblock request_actions %}
+    <div class="sixteen wide mobile eight wide tablet eight wide computer column right floated right aligned">
+      {% block request_actions %}
+        {{ super() }}
+      {% endblock request_actions %}
+    </div>
   </div>
 {%- endblock request_header %}
 
