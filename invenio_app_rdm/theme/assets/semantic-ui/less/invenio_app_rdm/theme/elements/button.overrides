@@ -62,3 +62,10 @@
     display: block;
   }
 }
+
+.ui.button.non-fluid-mobile {
+  @media all and (max-width: @largestMobileScreen) {
+    width: auto;
+    display: inline;
+  }
+}
