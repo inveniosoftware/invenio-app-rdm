@@ -83,7 +83,7 @@ def user_dashboard_request_view(request, **kwargs):
             permissions=topic["permissions"],
             is_preview=True,
             draft_is_accepted=request_is_accepted,
-            files=[],
+            files={},
         )
 
     elif is_invitation:
@@ -123,7 +123,7 @@ def community_dashboard_request_view(request, community, **kwargs):
             permissions=permissions,
             is_preview=True,
             draft_is_accepted=request_is_accepted,
-            files=[],
+            files={},
         )
 
     elif is_invitation:
