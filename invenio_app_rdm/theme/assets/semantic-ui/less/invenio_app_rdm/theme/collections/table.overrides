@@ -43,4 +43,16 @@
       }
     }
   }
+
+  tbody tr td {
+    &.mobile-table-cell {
+      @media all and (max-width: @largestMobileScreen) {
+        display: inline-grid !important;
+        grid-template-columns: min-content auto;
+        grid-column-gap: 0.5em;
+        align-items: center;
+        width: 100% !important;
+      }
+    }
+  }
 }
