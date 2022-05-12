@@ -22,6 +22,7 @@ from invenio_requests.resolvers.registry import ResolverRegistry
 from invenio_requests.views.decorators import pass_request
 from invenio_users_resources.proxies import current_user_resources
 from sqlalchemy.orm.exc import NoResultFound
+from invenio_app_rdm.records_ui.views.decorators import draft_files_service
 
 
 def _resolve_topic_draft(request):
@@ -74,6 +75,11 @@ def user_dashboard_request_view(request, **kwargs):
 
     if is_draft_submission:
         topic = _resolve_topic_draft(request)
+        record_pid = topic['record_ui']["id"]
+        files = draft_files_service().list_files(
+            id_=record_pid, identity=g.identity
+        )
+
         return render_template(
             "invenio_requests/community-submission/index.html",
             base_template="invenio_app_rdm/users/base.html",
@@ -83,7 +89,7 @@ def user_dashboard_request_view(request, **kwargs):
             permissions=topic["permissions"],
             is_preview=True,
             draft_is_accepted=request_is_accepted,
-            files={},
+            files=None if not files else files.to_dict()
         )
 
     elif is_invitation:
@@ -113,6 +119,10 @@ def community_dashboard_request_view(request, community, **kwargs):
 
         topic = _resolve_topic_draft(request)
         permissions.update(topic["permissions"])
+        record_pid = topic['record_ui']["id"]
+        files = draft_files_service().list_files(
+            id_=record_pid, identity=g.identity
+        )
 
         return render_template(
             "invenio_requests/community-submission/index.html",
@@ -123,7 +133,7 @@ def community_dashboard_request_view(request, community, **kwargs):
             permissions=permissions,
             is_preview=True,
             draft_is_accepted=request_is_accepted,
-            files={},
+            files=None if not files else files.to_dict()
         )
 
     elif is_invitation:
