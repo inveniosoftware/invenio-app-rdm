@@ -17,7 +17,7 @@
     <div class="sixteen wide mobile eight wide tablet eight wide computer column left floated left aligned">
       <h2 class="ui header flex align-items-centerr">
         {% if not draft_is_accepted %}
-          <div class="ui label green ml-0">{{ _("New submission") }}</div>
+          <div class="ui label green ml-0 mr-5">{{ _("New submission") }}</div>
         {% endif %}
 
         <span>{{ request.title }}</span>
@@ -30,7 +30,6 @@
         {% endif %}
 
       </h2>
-    {{ record }}
 
       {% if record %}
         <div class="ui horizontal list" role="list">
