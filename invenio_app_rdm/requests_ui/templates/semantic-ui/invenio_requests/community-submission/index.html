@@ -15,7 +15,7 @@
 {%- block request_header %}
   <div class="ui grid">
     <div class="sixteen wide mobile eight wide tablet eight wide computer column left floated left aligned">
-      <h2 class="ui header flex align-items-centerr">
+      <h2 class="ui header">
         {% if not draft_is_accepted %}
           <div class="ui label green ml-0 mr-5">{{ _("New submission") }}</div>
         {% endif %}
@@ -23,9 +23,12 @@
         <span>{{ request.title }}</span>
 
         {% if draft_is_accepted %}
-          <a href="{{ url_for("invenio_app_rdm_records.record_detail", pid_value=request.topic.record) }}" class="rel-ml-1"
-             rel="noopener noreferrer" target="_blank">
-            <button class="ui button tiny"> {{ _("View Record") }}</button>
+          <a href="{{ url_for('invenio_app_rdm_records.record_detail', pid_value=request.topic.record) }}"
+             class="ui tiny button  ml-10"
+             rel="noopener noreferrer" target="_blank"
+             title="{{ _('Opens in new tab') }}"
+          >
+            {{ _("View record") }}
           </a>
         {% endif %}
 
