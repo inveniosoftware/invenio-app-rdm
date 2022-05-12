@@ -317,6 +317,7 @@ def deposit_create(community=None):
 @pass_draft_files
 def deposit_edit(pid_value, draft=None, draft_files=None):
     """Edit an existing deposit."""
+    files_dict = None if draft_files is None else draft_files.to_dict()
     ui_serializer = UIJSONSerializer()
     record = ui_serializer.serialize_object_to_dict(draft.to_dict())
 
@@ -325,7 +326,7 @@ def deposit_edit(pid_value, draft=None, draft_files=None):
         forms_config=get_form_config(apiUrl=f"/api/records/{pid_value}/draft"),
         record=record,
         communities_enabled=current_app.config["COMMUNITIES_ENABLED"],
-        files=draft_files.to_dict(),
+        files=files_dict,
         searchbar_config=dict(searchUrl=get_search_url()),
         permissions=draft.has_permissions_to(['new_version', 'delete_draft'])
     )

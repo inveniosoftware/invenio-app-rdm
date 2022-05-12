@@ -69,7 +69,7 @@ class PreviewFile:
 @pass_is_preview
 @pass_record_or_draft(expand=True)
 @pass_record_files
-def record_detail(pid_value, record, files=None, is_preview=False):
+def record_detail(pid_value, record, files, is_preview=False):
     """Record detail page (aka landing page)."""
     files_dict = None if files is None else files.to_dict()
     record_ui = UIJSONSerializer().serialize_object_to_dict(record.to_dict())

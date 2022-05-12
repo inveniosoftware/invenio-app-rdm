@@ -23,6 +23,9 @@ from invenio_requests.views.decorators import pass_request
 from invenio_users_resources.proxies import current_user_resources
 from sqlalchemy.orm.exc import NoResultFound
 
+from invenio_app_rdm.records_ui.views.decorators import draft_files_service, \
+    files_service
+
 
 def _resolve_topic_draft(request):
     """Resolve the record in the topic when it is a draft."""
@@ -61,6 +64,22 @@ def _resolve_topic_draft(request):
     return dict(permissions={}, record_ui=None)
 
 
+def _resolve_record_or_draft_files(record):
+    """Resolve the record's or draft's files."""
+    if record and record["files"]["enabled"]:
+        record_pid = record["id"]
+        try:
+            files = draft_files_service().list_files(
+                id_=record_pid, identity=g.identity
+            )
+        except NoResultFound:
+            files = files_service().list_files(
+                id_=record_pid, identity=g.identity
+            )
+        return files.to_dict()
+    return None
+
+
 @login_required
 @pass_request(expand=True)
 def user_dashboard_request_view(request, **kwargs):
@@ -77,16 +96,18 @@ def user_dashboard_request_view(request, **kwargs):
 
     if is_draft_submission:
         topic = _resolve_topic_draft(request)
+        record = topic['record_ui']
+        files = _resolve_record_or_draft_files(record)
         return render_template(
             "invenio_requests/community-submission/index.html",
             base_template="invenio_app_rdm/users/base.html",
             user_avatar=avatar,
             request=request.to_dict(),
-            record=topic["record_ui"],
+            record=record,
             permissions=topic["permissions"],
             is_preview=True,
             draft_is_accepted=request_is_accepted,
-            files={},
+            files=files,
         )
 
     elif is_invitation:
@@ -116,17 +137,18 @@ def community_dashboard_request_view(request, community, **kwargs):
 
         topic = _resolve_topic_draft(request)
         permissions.update(topic["permissions"])
-
+        record = topic['record_ui']
+        files = _resolve_record_or_draft_files(record)
         return render_template(
             "invenio_requests/community-submission/index.html",
             base_template="invenio_communities/details/base.html",
             request=request.to_dict(),
-            record=topic["record_ui"],
+            record=record,
             community=community.to_dict(),
             permissions=permissions,
             is_preview=True,
             draft_is_accepted=request_is_accepted,
-            files={},
+            files=files,
         )
 
     elif is_invitation:
