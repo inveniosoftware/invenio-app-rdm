@@ -76,10 +76,11 @@ div.affiliations.accordion div.title button.down {
     }
   }
 
-  .panel-heading {
-    border-radius: 10px;
+  .title:not(.ui).panel-heading {
+    border-radius: @defaultBorderRadius;
     background-color: @mutedAccordionHeaderColor;
     color: @primaryColor !important;
+    padding: @cellVerticalPadding @cellHorizontalPadding; // matching SUI's padding on <td> elements
 
     &.active {
       border-radius: @defaultBorderRadius @defaultBorderRadius 0 0;
