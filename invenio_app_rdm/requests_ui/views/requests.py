@@ -26,7 +26,10 @@ from sqlalchemy.orm.exc import NoResultFound
 
 def _resolve_topic_draft(request):
     """Resolve the record in the topic when it is a draft."""
-    if request["is_closed"]:
+    user_owns_request = \
+        str(request["expanded"]["created_by"]["id"]) == str(current_user.id)
+
+    if request["is_closed"] and not user_owns_request:
         return dict(permissions={}, record_ui=None)
 
     recid = ResolverRegistry.resolve_entity_proxy(
