@@ -66,8 +66,8 @@ class PreviewFile:
 #
 # Views
 #
-@pass_record_or_draft(expand=True)
 @pass_is_preview
+@pass_record_or_draft(expand=True)
 @pass_record_files
 def record_detail(pid_value, record, files=None, is_preview=False):
     """Record detail page (aka landing page)."""
