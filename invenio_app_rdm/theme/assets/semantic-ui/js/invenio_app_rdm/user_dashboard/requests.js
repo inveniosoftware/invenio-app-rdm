@@ -159,7 +159,9 @@ export function RequestsResultsItemTemplate({ result, index }) {
   let creatorName = "";
   if (isCreatorUser) {
     creatorName =
-      result.expanded?.created_by.profile?.full_name || createdBy.user;
+      result.expanded?.created_by.profile?.full_name ||
+      result.expanded?.created_by.username ||
+      createdBy.user;
   } else if (isCreatorCommunity) {
     creatorName =
       result.expanded?.created_by.metadata?.title || createdBy.community;
