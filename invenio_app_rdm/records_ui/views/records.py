@@ -85,7 +85,6 @@ def record_detail(pid_value, record, files, is_preview=False):
     return render_template(
         "invenio_app_rdm/records/detail.html",
         record=record_ui,
-        pid=pid_value,
         files=files_dict,
         permissions=record.has_permissions_to([
             'edit', 'new_version', 'manage', 'update_draft', 'read_files',
