@@ -194,7 +194,7 @@
             {# Title #}
             {%- block record_title -%}
               <section id="record-title-section" aria-label="{{ _('Record title and creators') }}">
-                <h1 id="record-title">{{ metadata.title }}</h1>
+                <h1 id="record-title" class="wrap-overflowing-text">{{ metadata.title }}</h1>
 
                 {% if record.ui.creators or record.ui.contributors %}
                 <section id="creatibutors" aria-label="{{ _('Creators and contributors') }}">
