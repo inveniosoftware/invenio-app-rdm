@@ -37,11 +37,21 @@ $tabElement.on("keydown", function (event) {
   }
 });
 
-
+const affiliationsButton = $('.title .affiliations-button');
 $(".ui.accordion.affiliations").accordion({
   selector: {
     trigger: ".title .affiliations-button",
   },
+  onOpening: () => {
+    const closeText = affiliationsButton.attr('data-close-text');
+    affiliationsButton.attr('aria-expanded', true);
+    affiliationsButton.html(closeText);
+  },
+  onClosing: () => {
+    const openText = affiliationsButton.attr('data-open-text');
+    affiliationsButton.attr('aria-expanded', false);
+    affiliationsButton.html(openText);
+  }
 });
 
 

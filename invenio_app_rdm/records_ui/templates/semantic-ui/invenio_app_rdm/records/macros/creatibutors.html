@@ -69,8 +69,14 @@
 
 {% macro affiliations_accordion(group, affiliations) %}
 <div class="ui sixteen wide tablet three wide computer column title right aligned bottom aligned">
-    <button class="ui affiliations-button button mini up mr-0" aria-controls="{{ group }}-affiliations">{{ _("Show affiliations") }}</button>
-    <button class="ui affiliations-button button mini down mr-0" aria-controls="{{ group }}-affiliations">{{ _("Hide affiliations") }}</button>
+    <button class="ui affiliations-button button mini mr-0"
+            aria-controls="{{ group }}-affiliations"
+            aria-expanded="false"
+            data-open-text="{{ _('Show affiliations') }}"
+            data-close-text="{{ _('Hide affiliations') }}"
+    >
+      {{ _("Show affiliations") }}
+    </button>
 </div>
 
 <section class="ui sixteen wide column content" id="{{ group }}-affiliations" aria-label="{{ _('Affiliations for') }} {{ group }}">
