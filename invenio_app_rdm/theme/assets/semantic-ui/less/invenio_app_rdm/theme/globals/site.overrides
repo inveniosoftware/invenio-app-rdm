@@ -434,6 +434,13 @@ dl.details-list {
   }
 }
 
+.inline-computer {
+  display: inline-block;
+
+  @media all and (max-width: @largestMobileScreen) {
+    display: block;
+  }
+}
 
 .flex {
   display: flex;
