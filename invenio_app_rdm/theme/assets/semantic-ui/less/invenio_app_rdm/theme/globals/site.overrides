@@ -68,6 +68,10 @@ button:focus-visible, a:focus-visible {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
+.wrap-overflowing-text {
+  word-wrap: break-word;
+}
+
 // Log-in and sign-up
 .cover-page {
   background-image: @navbarBackgroundImage;

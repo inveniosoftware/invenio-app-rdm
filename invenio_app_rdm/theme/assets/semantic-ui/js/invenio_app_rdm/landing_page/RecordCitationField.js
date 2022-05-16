@@ -145,7 +145,7 @@ export class RecordCitationField extends Component {
 
         <Grid.Row verticalAlign="bottom">
           <Grid.Column computer={12} className="p-0">
-            <div id="citation-text">
+            <div id="citation-text" className="wrap-overflowing-text">
               {loading ? this.placeholderLoader() : citation}
             </div>
           </Grid.Column>
