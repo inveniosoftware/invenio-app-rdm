@@ -92,17 +92,6 @@
         margin-top: 1rem;
       }
     }
-
-    .meta {
-
-      .inline-computer {
-        display: inline-block;
-
-        @media all and (max-width: @largestMobileScreen) {
-          display: block;
-        }
-      }
-    }
   }
 }
 
