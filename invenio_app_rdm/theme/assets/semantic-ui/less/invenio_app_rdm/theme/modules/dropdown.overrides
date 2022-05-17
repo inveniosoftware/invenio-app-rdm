@@ -67,13 +67,25 @@
 }
 
 .ui.dropdown.fluid-mobile {
-  @media all and (max-width: @largestMobileScreen) {
+  @media all and (max-width: @largestTabletScreen) {
     width: 100%;
     min-width: 0em;
     display: block;
 
     & > .dropdown.icon {
       float: right;
+    }
+  }
+}
+
+.mobile-table-cell .ui.dropdown{
+  @media all and (max-width: @largestMobileScreen) {
+    min-width: 7em !important;
+
+    & > .menu {
+      min-width: 14em !important;
+      border-top-width: 1px !important;
+      border-radius: @defaultBorderRadius 0em @defaultBorderRadius @defaultBorderRadius;
     }
   }
 }

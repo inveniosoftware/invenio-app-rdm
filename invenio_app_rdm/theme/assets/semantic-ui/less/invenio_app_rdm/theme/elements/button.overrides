@@ -43,7 +43,7 @@
       margin-right: 0;
     }
 
-    @media all and (max-width: @largestMobileScreen) {
+    @media all and (max-width: @largestTabletScreen) {
       margin-bottom: .5rem;
     }
   }
@@ -60,12 +60,5 @@
     width: 100%;
     min-width: 0em;
     display: block;
-  }
-}
-
-.ui.button.non-fluid-mobile {
-  @media all and (max-width: @largestMobileScreen) {
-    width: auto;
-    display: inline;
   }
 }

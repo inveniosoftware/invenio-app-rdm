@@ -492,7 +492,7 @@ dl.details-list {
   align-items: center;
   column-gap: 2rem;
 
-  @media all and (max-width: @largestMobileScreen) {
+  @media all and (max-width: @largestTabletScreen) {
     grid-auto-flow: row;
     grid-auto-columns: 100%;
     align-items: flex-start;
