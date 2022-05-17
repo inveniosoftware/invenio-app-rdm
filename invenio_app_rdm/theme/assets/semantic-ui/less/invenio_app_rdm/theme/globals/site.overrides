@@ -507,3 +507,7 @@ dl.details-list {
 .right-floated {
   float: right;
 }
+
+.left-floated {
+  float: left;
+}
