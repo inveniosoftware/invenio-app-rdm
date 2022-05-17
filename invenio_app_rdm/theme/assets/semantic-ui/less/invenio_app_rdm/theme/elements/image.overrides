@@ -41,3 +41,7 @@
   max-height: @tinyWidth;
   object-fit: contain;
 }
+
+.image.avatar.tiny {
+  height: @lineHeight;
+}
