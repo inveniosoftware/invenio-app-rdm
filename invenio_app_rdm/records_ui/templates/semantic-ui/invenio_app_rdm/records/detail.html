@@ -38,7 +38,7 @@
     {% if has_community %}
       {%- set expanded_parent = record.get("expanded", {}).get("parent", {}) %}
       {%- set community = expanded_parent.get("review", {}).get("receiver") or expanded_parent.get("communities", {}).get("default") %}
-      <div class="ui fluid container page-subheader-outer compact">
+      <div class="ui fluid container page-subheader-outer with-submenu compact">
         <div class="ui container page-subheader">
           <div class="page-subheader-element">
             <img
