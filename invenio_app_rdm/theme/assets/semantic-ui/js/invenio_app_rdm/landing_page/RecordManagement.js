@@ -45,7 +45,7 @@ export const RecordManagement = ({
             labelPosition="left"
           >
             <Icon name="edit" />
-            {i18next.t("Edit submission")}
+            {i18next.t("Edit")}
           </Button>
         </Grid.Column>
       )}

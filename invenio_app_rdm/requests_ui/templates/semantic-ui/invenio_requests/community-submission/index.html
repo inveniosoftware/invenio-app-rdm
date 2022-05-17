@@ -8,7 +8,7 @@
 #}
 
 {% extends "invenio_requests/details/index.html" %}
-
+{%- from "invenio_app_rdm/records/macros/creatibutors.html" import show_creatibutors %}
 {% set active_dashboard_menu_item = 'requests' %}
 {% set active_community_header_menu_item = 'requests' %}
 
@@ -16,10 +16,6 @@
   <div class="ui grid rel-mt-2">
     <div class="sixteen wide mobile eight wide tablet eight wide computer column left floated left aligned">
       <h2 class="ui header">
-        {% if not draft_is_accepted %}
-          <div class="ui label green ml-0 mr-5">{{ _("New submission") }}</div>
-        {% endif %}
-
         <span>{{ request.title }}</span>
 
         {% if draft_is_accepted %}
@@ -35,14 +31,9 @@
       </h2>
 
       {% if record %}
-        <div class="ui horizontal list" role="list">
-          {% for item in record.metadata.creators %}
-            <div class="item" role="listitem">
-              <div class="content"><i class="user icon"></i>
-                {{ item.person_or_org.name }}</div>
-            </div>
-          {% endfor %}
-        </div>
+        <dl class="creatibutors" aria-label="{{ _('Creators list') }}">
+          {{ show_creatibutors(record.metadata.creators) }}
+        </dl>
       {% endif %}
     </div>
 
