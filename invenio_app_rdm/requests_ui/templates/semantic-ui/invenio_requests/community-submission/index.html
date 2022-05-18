@@ -23,6 +23,8 @@
         <span>{{ request.title }}</span>
 
         {% if draft_is_accepted %}
+        {{requet_action_names}}
+
           <a href="{{ url_for('invenio_app_rdm_records.record_detail', pid_value=request.topic.record) }}"
              class="ui tiny button  ml-10"
              rel="noopener noreferrer" target="_blank"

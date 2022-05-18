@@ -93,7 +93,8 @@ def user_dashboard_request_view(request, **kwargs):
     is_draft_submission = request_type == CommunitySubmission.type_id
     is_invitation = request_type == CommunityInvitation.type_id
     request_is_accepted = request["status"] == AcceptAction.status_to
-
+    # TODO: fix the access to `_request`
+    request_action_names = [action.name for action in request._request.type.available_actions.values()]
     if is_draft_submission:
         topic = _resolve_topic_draft(request)
         record = topic['record_ui']
@@ -108,6 +109,7 @@ def user_dashboard_request_view(request, **kwargs):
             is_preview=True,
             draft_is_accepted=request_is_accepted,
             files=files,
+            request_action_names=request_action_names
         )
 
     elif is_invitation:
@@ -134,7 +136,7 @@ def community_dashboard_request_view(request, community, **kwargs):
         permissions = community.has_permissions_to(
             ["update", "read", "search_requests", "search_invites"]
         )
-
+        request_action_names = [action.name for action in request.values()]
         topic = _resolve_topic_draft(request)
         permissions.update(topic["permissions"])
         record = topic['record_ui']
@@ -149,6 +151,7 @@ def community_dashboard_request_view(request, community, **kwargs):
             is_preview=True,
             draft_is_accepted=request_is_accepted,
             files=files,
+            request_action_names=request_action_names
         )
 
     elif is_invitation:
