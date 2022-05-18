@@ -21,6 +21,15 @@
     margin-right: 0.1em;
 }
 
+.ui.unstackable.items > .item > .image.dashboard-header-avatar,
+.ui.unstackable.items > .item > .image.dashboard-header-avatar > img{
+// override default SUI for dashboard avatar
+    width: @userDashboardAvatarSize !important;
+    height: @userDashboardAvatarSize !important;
+    object-fit: contain;
+}
+
+
 .item.right-menu {
   line-height: 44px !important;
 }

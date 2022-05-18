@@ -123,3 +123,10 @@
 
 @cellVerticalPadding: @relativeMini;
 @cellHorizontalPadding: @relativeMini;
+
+
+/*------------------
+  Images
+------------------*/
+
+@userDashboardAvatarSize: 40px;
