@@ -4,21 +4,23 @@
 
 .ui.items > .item > .content > .header {
   display: block;
+
   a {
     display: inline-block;
     padding: .5rem 0 .1rem;
+
     &:hover, &:focus {
-        text-decoration: underline;
+      text-decoration: underline;
     }
   }
 }
 
 .ui.items > .item .extra {
-    color: @mutedTextColor;
+  color: @mutedTextColor;
 }
 
 .ui.items > .item .meta * {
-    margin-right: 0.1em;
+  margin-right: 0.1em;
 }
 
 .item.right-menu {
@@ -42,6 +44,10 @@
   .actions > a,
   .stats > span {
     padding-right: 0.5em;
+  }
+
+  .content {
+    word-wrap: anywhere;
   }
 }
 
@@ -97,11 +103,11 @@
 
 .item {
 
-  &.align-no-checkbox{
+  &.align-no-checkbox {
     padding-left: @defaultPadding / 2 + @checkboxSize;
   }
 
-  .ui.fitted.checkbox{
+  .ui.fitted.checkbox {
     margin-right: @defaultMargin / 2;
     margin-top: @defaultMargin / 2;
   }
