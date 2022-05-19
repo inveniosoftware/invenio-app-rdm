@@ -91,10 +91,12 @@
     {%- if item.award -%}
       {%- if item.award.title.en -%}
         <div class="header">
-          {{ item.award.title.en }}
+          <span class="mr-5">
+            {{ item.award.title.en }}
+          </span>
 
           {%- if item.award.number -%}
-            <div class="ui mini basic label" id="number-label-{{ index }}">
+            <div class="ui mini basic label ml-0 mr-5" id="number-label-{{ index }}">
               {{ item.award.number }}
             </div>
           {%- endif -%}
@@ -102,7 +104,7 @@
           {%- if item.award.identifiers -%}
             {% for identifier in item.award.identifiers if 'url' == identifier.scheme %}
               <a href="{{ identifier.identifier }}" target="_blank" rel="noopener noreferrer" aria-label="{{_('Open external link')}}">
-                <i class="external alternate icon spaced-left"></i>
+                <i class="external alternate icon"></i>
               </a>
             {%- endfor -%}
           {%- endif -%}
