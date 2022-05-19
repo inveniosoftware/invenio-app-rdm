@@ -67,6 +67,10 @@
 .ui.items > .item.license-item {
   cursor: pointer;
 
+  @media screen and (max-width: @largestMobileScreen) {
+    flex-direction: row;
+  }
+
   .radio {
     margin-right: 0.5em;
   }
