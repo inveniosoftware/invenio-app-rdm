@@ -8,41 +8,16 @@
 #}
 
 {% extends "invenio_requests/details/index.html" %}
-{%- from "invenio_app_rdm/records/macros/creatibutors.html" import show_creatibutors %}
+{% from "invenio_requests/macros/request_header.html" import submission_request_header %}
 {% set active_dashboard_menu_item = 'requests' %}
 {% set active_community_header_menu_item = 'requests' %}
 
 {%- block request_header %}
-  <div class="ui grid rel-mt-2">
-    <div class="sixteen wide mobile eight wide tablet eight wide computer column left floated left aligned">
-      <h2 class="ui header">
-        <span>{{ request.title }}</span>
-
-        {% if draft_is_accepted %}
-          <a href="{{ url_for('invenio_app_rdm_records.record_detail', pid_value=request.topic.record) }}"
-             class="ui tiny button  ml-10"
-             rel="noopener noreferrer" target="_blank"
-             title="{{ _('Opens in new tab') }}"
-          >
-            {{ _("View record") }}
-          </a>
-        {% endif %}
-
-      </h2>
-
-      {% if record %}
-        <dl class="creatibutors" aria-label="{{ _('Creators list') }}">
-          {{ show_creatibutors(record.metadata.creators) }}
-        </dl>
-      {% endif %}
-    </div>
-
-    <div class="sixteen wide mobile eight wide tablet eight wide computer column right floated right aligned">
-      {% block request_actions %}
-        {{ super() }}
-      {% endblock request_actions %}
-    </div>
-  </div>
+  {% if is_user_dashboard %}
+    {% set back_button_url = url_for("invenio_app_rdm_users.requests") %}
+  {% endif %}
+  {{ submission_request_header(
+    request=request, record=record, draft_is_accepted=draft_is_accepted, back_button_url=back_button_url) }}
 {%- endblock request_header %}
 
 {% block request_timeline %}

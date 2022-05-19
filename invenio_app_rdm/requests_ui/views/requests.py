@@ -108,6 +108,7 @@ def user_dashboard_request_view(request, **kwargs):
             is_preview=True,
             draft_is_accepted=request_is_accepted,
             files=files,
+            is_user_dashboard=True
         )
 
     elif is_invitation:
