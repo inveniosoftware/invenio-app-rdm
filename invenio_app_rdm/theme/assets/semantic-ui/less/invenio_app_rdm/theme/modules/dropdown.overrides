@@ -66,14 +66,15 @@
   min-width: 10em;
 }
 
-.ui.dropdown.fluid-mobile {
-  @media all and (max-width: @largestTabletScreen) {
-    width: 100%;
-    min-width: 0em;
-    display: block;
+.ui.dropdown {
+  &.fluid-responsive {
+    @media all and (max-width: @largestTabletScreen) {
+      width: 100%;
+      display: block;
 
-    & > .dropdown.icon {
-      float: right;
+      & > .dropdown.icon {
+        float: right;
+      }
     }
   }
 }

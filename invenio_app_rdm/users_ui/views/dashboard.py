@@ -47,7 +47,6 @@ def communities():
     url = current_user_resources.users_service.links_item_tpl.expand(
         current_user
     )['avatar']
-    print("HERE")
     return render_template(
         "invenio_app_rdm/users/communities.html",
         searchbar_config=dict(searchUrl=get_search_url()),
