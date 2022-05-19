@@ -1,0 +1,74 @@
+{%- from "invenio_app_rdm/records/macros/creatibutors.html" import show_creatibutors %}
+
+{% macro invitation_request_header(back_button_url=None, back_button_text=None, request=None, accepted=False) %}
+  <div class="flex wrap space-between">
+    <div class="flex wrap rel-mt-1 rel-mb-1">
+      {% if back_button_url and back_button_text %}
+        <div class="rel-mt-1 rel-mb-1">
+          <a href="{{ back_button_url }}"
+             class="ui button labeled icon  rel-mr-1">
+            <i class="ui icon left arrow" aria-hidden="true"></i>
+            {{ back_button_text }}
+          </a>
+        </div>
+      {% endif %}
+      <div class="flex align-items-center rel-mt-1 rel-mb-1">
+        <h2 class="ui header">{{ request.title }}</h2>
+      </div>
+    </div>
+    <div id="request-actions" class="flex align-items-center ml-auto">
+      {% if accepted %}
+        <a href="{{ url_for("invenio_app_rdm_communities.communities_detail", pid_value=request.topic.community) }}"
+           class="ui button">
+          {{ _("View Community") }}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="ui divider"></div>
+{% endmacro %}
+
+
+
+
+
+{% macro submission_request_header(back_button_url=None, request=None, record=None, draft_is_accepted=False) %}
+  <div class="flex wrap space-between rel-mt-2">
+    <div class="flex wrap">
+      {% if back_button_url %}
+        <div class="rel-mt-1 rel-mb-1">
+          <a href="{{ back_button_url }}"
+             class="ui button labeled icon  rel-mr-1">
+            <i class="ui icon left arrow" aria-hidden="true"></i>
+            {{ _("Back to requests") }}
+          </a>
+        </div>
+      {% endif %}
+      <div class="flex align-items-center rel-mt-1 rel-mb-1">
+        <div>
+          <h2 class="ui header request-header">{{ request.title }}
+          </h2>
+          {% if record %}
+            <dl class="creatibutors" aria-label="{{ _('Creators list') }}">
+              {{ show_creatibutors(record.metadata.creators) }}
+            </dl>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <div id="request-actions" class="flex align-items-start ml-auto rel-mt-1 ">
+      {% if draft_is_accepted %}
+        <a href="{{ url_for('invenio_app_rdm_records.record_detail', pid_value=request.topic.record) }}"
+           class="ui button"
+           rel="noopener noreferrer" target="_blank"
+           title="{{ _('Opens in new tab') }}"
+        >
+          {{ _("View record") }}
+        </a>
+      {% endif %}
+    </div>
+
+  </div>
+{% endmacro %}
