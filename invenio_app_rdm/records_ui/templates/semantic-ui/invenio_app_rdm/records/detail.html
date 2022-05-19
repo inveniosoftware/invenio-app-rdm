@@ -38,6 +38,7 @@
       {% if has_community %}
         {%- set expanded_parent = record.get("expanded", {}).get("parent", {}) %}
         {%- set community = expanded_parent.get("review", {}).get("receiver") or expanded_parent.get("communities", {}).get("default") %}
+        {% set is_community_restricted = community.access.visibility == 'restricted' %}
         <div class="ui fluid container page-subheader-outer with-submenu compact">
           <div class="ui container page-subheader">
             <div class="page-subheader-element">
@@ -48,8 +49,15 @@
             </div>
             <div class="page-subheader-element">
               <a
-                href="{{ url_for("invenio_app_rdm_communities.communities_detail", pid_value=community.slug) }}"> {{ community.metadata.title }}</a>
-              <div class="ui basic label">{{ community.access.visibility }}</div>
+                href="{{ url_for('invenio_app_rdm_communities.communities_detail', pid_value=community.slug) }}"> {{ community.metadata.title }}</a>
+              {% if is_community_restricted %}
+                <span class="ui label small access-status restricted rel-ml-1"
+                      title="{{ _('Community visibility') }}"
+                      data-tooltip="{{ _('The community is restricted to users with access.') }}"
+                      data-inverted="">
+                  <i class="icon ban" aria-hidden="true"></i> {{ _("Restricted") }}
+                </span>
+              {% endif %}
             </div>
           </div>
         </div>
