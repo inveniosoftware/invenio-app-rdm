@@ -477,6 +477,11 @@ dl.details-list {
 }
 
 .rdm-facet-container, .facet-container {
+
+  .header {
+    min-height: 1.85em;
+  }
+
   .facet-wrapper {
     display: flex;
     align-items: center;
