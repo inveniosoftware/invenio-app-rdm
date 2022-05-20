@@ -28,6 +28,12 @@ import {
   Sort,
   withState,
 } from "react-searchkit";
+import RequestTypeLabel from "@js/invenio_requests/request/RequestTypeLabel";
+import {
+  LabelTypeInvitation,
+  LabelTypeSubmission,
+} from "@js/invenio_requests/request";
+
 import {
   Button,
   Card,
@@ -36,7 +42,6 @@ import {
   Header,
   Icon,
   Item,
-  Label,
   Segment,
 } from "semantic-ui-react";
 import {
@@ -170,11 +175,7 @@ export function RequestsResultsItemTemplate({ result, index }) {
     <Item key={index} className="community-item">
       <Item.Content>
         <Item.Header>
-          {result.type && (
-            <Label size="large" className="rel-mr-1">
-              {result.type}
-            </Label>
-          )}
+          {result.type && <RequestTypeLabel type={result.type} />}
           <a className="header-link" href={`/me/requests/${result.id}`}>
             {result.title}
           </a>
@@ -442,6 +443,12 @@ export const defaultComponents = {
   "SearchApp.results": RequestsResults,
   "SearchBar.element": RDMRecordSearchBarElement,
   "EmptyResults.element": RDMRequestsEmptyResultsWithState,
+  "RequestTypeLabel.layout.community-submission": () => (
+    <LabelTypeSubmission className="rel-mr-1" size="large" />
+  ),
+  "RequestTypeLabel.layout.community-invitation": () => (
+    <LabelTypeInvitation className="rel-mr-1" size="large" />
+  ),
 };
 
 createSearchAppInit(defaultComponents);
