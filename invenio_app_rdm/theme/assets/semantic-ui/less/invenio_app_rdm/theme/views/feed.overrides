@@ -154,7 +154,6 @@
     padding: @extraTextPadding;
     border-left: @extraTextPointer;
     font-size: @extraTextFontSize;
-    max-width: @extraTextMaxWidth;
     line-height: @extraTextLineHeight;
   }
 
