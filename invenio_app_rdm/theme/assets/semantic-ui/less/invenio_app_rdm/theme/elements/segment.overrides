@@ -79,5 +79,5 @@
 }
 
 .ui.segment.selected-members-header {
-    min-height: 10em;
+    min-height: 4.7rem;
 }
