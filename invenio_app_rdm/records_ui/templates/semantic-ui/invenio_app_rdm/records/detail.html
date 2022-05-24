@@ -254,6 +254,12 @@
               {%- endif %}
             {%- endblock record_files -%}
 
+            {%- block record_map -%}
+              <section id="leaflet-map" class="rel-mt-2" aria-label="{{ _('Record map') }}">
+                {%- include "invenio_app_rdm/records/details/map.html" %}
+              </section>
+            {%- endblock record_map -%}
+
             {# Additional details #}
             {%- block record_details -%}
               <section id="additional-details" class="rel-mt-2" aria-label="{{ _('Additional record details') }}">
