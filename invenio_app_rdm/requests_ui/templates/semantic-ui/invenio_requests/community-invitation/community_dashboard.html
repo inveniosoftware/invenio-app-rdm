@@ -8,13 +8,16 @@
 #}
 {% set title = request.title %}
 {% extends "invenio_requests/details/index.html" %}
+{% from "invenio_requests/macros/request_header.html" import invitation_request_header %}
 
 {% set active_community_header_menu_item = 'members' %}
 {% set active_members_menu_item = 'invitations' %}
 
-{% block request_header_title %}
-  {{ request.title }}
-{% endblock request_header_title %}
+{% block request_header %}
+  {% set back_button_url = url_for("invenio_communities.invitations", pid_value=request.created_by.community) %}
+  {{ invitation_request_header(back_button_url, _("Back to invitations"), request=request) }}
+{% endblock %}
+
 
 {% block settings_body %}
   <div class="sixteen wide mobile sixteen wide tablet thirteen wide computer column right floated">
@@ -25,5 +28,5 @@
 {% endblock %}
 
 {% block page_body %}
-{{ super.super() }}
+  {{ super.super() }}
 {% endblock page_body %}

@@ -43,7 +43,7 @@
       margin-right: 0;
     }
 
-    @media all and (max-width: @largestMobileScreen) {
+    @media all and (max-width: @largestTabletScreen) {
       margin-bottom: .5rem;
     }
   }

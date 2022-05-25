@@ -8,15 +8,12 @@
 #}
 {% set title = request.title %}
 {% extends "invenio_requests/details/index.html" %}
+{% from "invenio_requests/macros/request_header.html" import invitation_request_header %}
 
-{% block request_header_title %}
-  {{ request.title }}
-  {% if invitation_accepted %}
-    <a href="{{ url_for("invenio_app_rdm_communities.communities_detail", pid_value=request.topic.community) }}"
-       class="rel-ml-1">
-      <button class="ui button tiny"> {{ _("View Community") }}</button>
-    </a>
-  {% endif %}
-{% endblock request_header_title %}
+
+{% block request_header %}
+  {% set back_button_url = url_for("invenio_app_rdm_users.requests") %}
+  {{ invitation_request_header(back_button_url, _("Back to requests"), request=request, accepted=invitation_accepted) }}
+{% endblock %}
 
 {% set active_dashboard_menu_item = 'requests' %}

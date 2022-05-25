@@ -68,6 +68,10 @@ button:focus-visible, a:focus-visible {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
+.wrap-overflowing-text {
+  word-wrap: break-word;
+}
+
 // Log-in and sign-up
 .cover-page {
   background-image: @navbarBackgroundImage;
@@ -434,9 +438,29 @@ dl.details-list {
   }
 }
 
+.inline-computer {
+  display: inline-block;
+
+  @media all and (max-width: @largestMobileScreen) {
+    display: block;
+  }
+}
+
 
 .flex {
   display: flex;
+
+  &.wrap {
+    flex-wrap: wrap;
+  }
+}
+
+.justify-space-between {
+  justify-content: space-between;
+}
+
+.align-items-start {
+  align-items: start;
 }
 
 .align-items-center {
@@ -466,6 +490,11 @@ dl.details-list {
 }
 
 .rdm-facet-container, .facet-container {
+
+  .header {
+    min-height: 1.85em;
+  }
+
   .facet-wrapper {
     display: flex;
     align-items: center;
@@ -492,7 +521,7 @@ dl.details-list {
   align-items: center;
   column-gap: 2rem;
 
-  @media all and (max-width: @largestMobileScreen) {
+  @media all and (max-width: @largestTabletScreen) {
     grid-auto-flow: row;
     grid-auto-columns: 100%;
     align-items: flex-start;
@@ -502,4 +531,8 @@ dl.details-list {
 
 .right-floated {
   float: right;
+}
+
+.left-floated {
+  float: left;
 }

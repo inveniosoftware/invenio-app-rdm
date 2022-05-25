@@ -10,7 +10,7 @@
 #}
 
 {% if use_theme_basic_template|default(true) %}
-{%- extends config.BASE_TEMPLATE %}
+  {%- extends config.BASE_TEMPLATE %}
 {% endif %}
 
 {%- from "invenio_app_rdm/records/macros/files.html" import file_list_box, preview_file_box %}
@@ -27,74 +27,84 @@
 {%- block page_body %}
   <section id="banners" class="banners" aria-label="{{ _('Information banner') }}">
 
-  <!-- COMMUNITY HEADER: hide it when displaying the submission request -->
-  {% if not is_preview_submission_request %}
+    <!-- COMMUNITY HEADER: hide it when displaying the submission request -->
+    {% if not is_preview_submission_request %}
 
-    {%- set parent = record.get("parent", {}) %}
-    {%- set community_review = parent.get("review", {}).get("receiver", {}).get("community") %}
-    {%- set community_default = parent.get("communities", {}).get("default") %}
-    {%- set has_community = community_review or community_default %}
+      {%- set parent = record.get("parent", {}) %}
+      {%- set community_review = parent.get("review", {}).get("receiver", {}).get("community") %}
+      {%- set community_default = parent.get("communities", {}).get("default") %}
+      {%- set has_community = community_review or community_default %}
 
-    {% if has_community %}
-      {%- set expanded_parent = record.get("expanded", {}).get("parent", {}) %}
-      {%- set community = expanded_parent.get("review", {}).get("receiver") or expanded_parent.get("communities", {}).get("default") %}
-      <div class="ui fluid container page-subheader-outer compact">
-        <div class="ui container page-subheader">
-          <div class="page-subheader-element">
-            <img
-              class="ui mini image"
-              src="{{ community.links.logo }}"
-              onerror="this.onerror=null;this.src='/static/images/square-placeholder.png';"/>
-          </div>
-          <div class="page-subheader-element">
-              {{ community.metadata.title }}
+      {% if has_community %}
+        {%- set expanded_parent = record.get("expanded", {}).get("parent", {}) %}
+        {%- set community = expanded_parent.get("review", {}).get("receiver") or expanded_parent.get("communities", {}).get("default") %}
+        {% set is_community_restricted = community.access.visibility == 'restricted' %}
+        <div class="ui fluid container page-subheader-outer with-submenu compact">
+          <div class="ui container page-subheader">
+            <div class="page-subheader-element">
+              <img
+                class="ui mini image"
+                src="{{ community.links.logo }}"
+                onerror="this.onerror=null;this.src='/static/images/square-placeholder.png';"/>
+            </div>
+            <div class="page-subheader-element">
+              <a
+                href="{{ url_for('invenio_app_rdm_communities.communities_detail', pid_value=community.slug) }}"> {{ community.metadata.title }}</a>
+              {% if is_community_restricted %}
+                <span class="ui label small access-status restricted rel-ml-1"
+                      title="{{ _('Community visibility') }}"
+                      data-tooltip="{{ _('The community is restricted to users with access.') }}"
+                      data-inverted="">
+                  <i class="icon ban" aria-hidden="true"></i> {{ _("Restricted") }}
+                </span>
+              {% endif %}
+            </div>
           </div>
         </div>
-      </div>
+      {% endif %}
     {% endif %}
-  {% endif %}
-  <!-- /COMMUNITY HEADER -->
+    <!-- /COMMUNITY HEADER -->
 
     <!-- PREVIEW HEADER -->
     {% if is_preview %}
-    <div class="ui info flashed top attached manage message">
-      <div class="ui container">
-        <div class="header">
-          <i class="eye icon"></i>
-          <strong>{{_ ("Preview")}}</strong>
+      <div class="ui info flashed top attached manage message">
+        <div class="ui container">
+          <div class="header">
+            <i class="eye icon"></i>
+            <strong>{{ _ ("Preview") }}</strong>
+          </div>
+          <p>
+            {% if not is_draft %}
+              {{ _("You are previewing a published record.") }}
+            {% elif record.is_published %}
+              {{ _("You are previewing changes that have not yet been published.") }}
+            {% elif not record.is_published and record.versions.index == 1 %}
+              {{ _("You are previewing a new record that has not yet been published.") }}
+            {% elif not record.is_published and record.versions.index > 1 %}
+              {{ _("You are previewing a new record version that has not yet been published.") }}
+            {% endif %}
+          </p>
         </div>
-        <p>
-          {% if not is_draft %}
-            {{ _("You are previewing a published record.") }}
-          {% elif record.is_published %}
-            {{ _("You are previewing changes that have not yet been published.") }}
-          {% elif not record.is_published and record.versions.index == 1 %}
-            {{ _("You are previewing a new record that has not yet been published.") }}
-          {% elif not record.is_published and record.versions.index > 1 %}
-            {{ _("You are previewing a new record version that has not yet been published.") }}
-          {% endif %}
-        </p>
       </div>
-    </div>
     {% endif %}
     <!-- /PREVIEW HEADER -->
 
     {% if record.is_published and not record.versions.is_latest %}
-    <div class="ui warning flashed top attached manage message">
-      <div class="ui container">
-        <div class="ui relaxed grid">
-          <div class="column">
-            <div class="row">
-              <p>
-              {% trans link_start=('<a href="' + record.links.latest_html + '"><b>')|safe, link_end='</b></a>'|safe %}
-                There is a {{ link_start }}newer version{{ link_end }} of the record available.
-              {% endtrans %}
-              </p>
+      <div class="ui warning flashed top attached manage message">
+        <div class="ui container">
+          <div class="ui relaxed grid">
+            <div class="column">
+              <div class="row">
+                <p>
+                  {% trans link_start=('<a href="' + record.links.latest_html + '"><b>')|safe, link_end='</b></a>'|safe %}
+                    There is a {{ link_start }}newer version{{ link_end }} of the record available.
+                  {% endtrans %}
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
     {% endif %}
   </section>
 
@@ -167,11 +177,13 @@
                       <span class="ui" title="{{ _('Publication date') }}">
                         {{ _('Published') }} {{ record.ui.publication_date_l10n_long }}
                       </span>
-                      <span class="label text-muted"> | {{ _('Version {version_number}').format(version_number=record.ui.version) }}</span>
+                      <span
+                        class="label text-muted"> | {{ _('Version {version_number}').format(version_number=record.ui.version) }}</span>
                     </div>
                     <div class="right floated right aligned column">
                       {% if record.ui.resource_type %}
-                        <span class="ui label small grey" title="{{ _('Resource type') }}">{{ record.ui.resource_type.title_l10n }}</span>
+                        <span class="ui label small grey"
+                              title="{{ _('Resource type') }}">{{ record.ui.resource_type.title_l10n }}</span>
                       {% endif %}
                       <span class="ui label small access-status {{ record.ui.access_status.id }}"
                             title="{{ _('Access status') }}"
@@ -187,19 +199,19 @@
                   </div>
                 </div>
               </section>
-            <div class="ui divider hidden"></div>
+              <div class="ui divider hidden"></div>
 
             {%- endblock record_header -%}
 
             {# Title #}
             {%- block record_title -%}
               <section id="record-title-section" aria-label="{{ _('Record title and creators') }}">
-                <h1 id="record-title">{{ metadata.title }}</h1>
+                <h1 id="record-title" class="wrap-overflowing-text">{{ metadata.title }}</h1>
 
                 {% if record.ui.creators or record.ui.contributors %}
-                <section id="creatibutors" aria-label="{{ _('Creators and contributors') }}">
-                  {%- include "invenio_app_rdm/records/details/creatibutors.html" %}
-                </section>
+                  <section id="creatibutors" aria-label="{{ _('Creators and contributors') }}">
+                    {%- include "invenio_app_rdm/records/details/creatibutors.html" %}
+                  </section>
                 {% endif %}
               </section>
             {%- endblock record_title -%}
@@ -217,7 +229,7 @@
             {%- block record_files -%}
               {# record has files BUT passed files are empty. This happens when we display are request. #}
               {%- if record.files.enabled -%}
-                <section id="record-files" class="rel-mt-2 aria-label="{{ _('Files') }}">
+                <section id="record-files" class="rel-mt-2" aria-label="{{ _('Files') }}">
                   {%- if permissions.can_read_files -%}
                     {# record has files AND user can see files #}
                     <h2 id="files-heading">{{ _('Files') }}</h2>
@@ -231,19 +243,21 @@
                   {% else %}
                     {# record has files BUT user cannot see files #}
                     <div class="pt-0 pb-20">
-                      <div class="ui accordion panel mb-10 {{ record.ui.access_status.id }}" id="preview" href="#collapsablePreview">
-                        <div class="active title panel-heading {{ record.ui.access_status.id }}">
+                      <div class="ui accordion panel mb-10 {{ record.ui.access_status.id }}" id="preview"
+                           href="#collapsablePreview">
+                        <div class="active title trigger panel-heading {{ record.ui.access_status.id }}">
                           {{ _("Files") }}
                           <i class="angle down icon"></i>
                         </div>
                         <div id="collapsablePreview" class="active content rm-pt">
                           <div class="ui {{ record.ui.access_status.message_class }} message file-box-message">
-                            <i class="ui {{ record.ui.access_status.icon }} icon"></i><b>{{ record.ui.access_status.title_l10n }}</b>
+                            <i
+                              class="ui {{ record.ui.access_status.icon }} icon"></i><b>{{ record.ui.access_status.title_l10n }}</b>
                             <p>{{ record.ui.access_status.description_l10n }}</p>
 
                             {% if record.access.embargo.reason %}
-                              <p>{{_("Reason")}}: {{record.access.embargo.reason}}</p>
-                            {% endif%}
+                              <p>{{ _("Reason") }}: {{ record.access.embargo.reason }}</p>
+                            {% endif %}
 
                           </div>
                         </div>
@@ -313,12 +327,12 @@
           {%- block jump -%}
             <div class="ui grid">
               <div class="jump-to-top centered row rel-mt-1" id="jump-btn">
-                  <a style="cursor: pointer;">
-                    <button class="ui button labeled icon" aria-label="{{ _('Jump to top of page') }}">
-                      <i class="arrow alternate circle up outline icon"></i>
-                      {{ _("Jump up") }}
-                    </button>
-                  </a>
+                <a style="cursor: pointer;">
+                  <button class="ui button labeled icon" aria-label="{{ _('Jump to top of page') }}">
+                    <i class="arrow alternate circle up outline icon"></i>
+                    {{ _("Jump up") }}
+                  </button>
+                </a>
               </div>
             </div>
           {%- endblock jump -%}
@@ -331,14 +345,14 @@
 {%- endblock page_body %}
 
 {%- block javascript %}
-{% if use_theme_basic_template|default(true) %}
-{{ super() }}
-{% else %}
-{% include config.THEME_JAVASCRIPT_TEMPLATE %}
-{% endif %}
-{{ webpack['invenio-app-rdm-landing-page-theme.js'] }}
-{{ webpack['invenio-app-rdm-landing-page.js'] }}
-{# Communities management -- TODO include again when communities are ready #}
-{# {{ webpack['invenio-communities-records.js'] }} #}
-{{ webpack['previewer_theme.js'] }}
+  {% if use_theme_basic_template|default(true) %}
+    {{ super() }}
+  {% else %}
+    {% include config.THEME_JAVASCRIPT_TEMPLATE %}
+  {% endif %}
+  {{ webpack['invenio-app-rdm-landing-page-theme.js'] }}
+  {{ webpack['invenio-app-rdm-landing-page.js'] }}
+  {# Communities management -- TODO include again when communities are ready #}
+  {# {{ webpack['invenio-communities-records.js'] }} #}
+  {{ webpack['previewer_theme.js'] }}
 {%- endblock javascript %}

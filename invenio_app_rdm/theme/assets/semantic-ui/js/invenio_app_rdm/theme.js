@@ -37,28 +37,6 @@ $tabElement.on("keydown", function (event) {
   }
 });
 
-
-$(".ui.accordion.affiliations").accordion({
-  selector: {
-    trigger: ".title .affiliations-button",
-  },
-});
-
-
-$(".ui.accordion .title").on("keydown", function (event) {
-  const $target = $(event.target);
-  if ($target.is(".title") && event.key === "Enter") {
-    let classList = Array.from(event.target.classList);
-
-    if (classList.indexOf("active") > -1) {
-      $target.accordion("close");
-    } else {
-      $target.accordion("open");
-    }
-  }
-});
-
-
 /* User profile dropdown */
 $('#user-profile-dropdown.ui.dropdown')
   .dropdown({

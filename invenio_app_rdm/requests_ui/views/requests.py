@@ -108,6 +108,7 @@ def user_dashboard_request_view(request, **kwargs):
             is_preview=True,
             draft_is_accepted=request_is_accepted,
             files=files,
+            is_user_dashboard=True
         )
 
     elif is_invitation:
@@ -126,6 +127,10 @@ def user_dashboard_request_view(request, **kwargs):
 def community_dashboard_request_view(request, community, **kwargs):
     """Community dashboard requests details view."""
     request_type = request["type"]
+
+    avatar = current_user_resources.users_service.links_item_tpl.expand(
+        current_user
+    )["avatar"]
 
     is_draft_submission = request_type == CommunitySubmission.type_id
     is_invitation = request_type == CommunityInvitation.type_id
@@ -149,6 +154,7 @@ def community_dashboard_request_view(request, community, **kwargs):
             is_preview=True,
             draft_is_accepted=request_is_accepted,
             files=files,
+            user_avatar=avatar,
         )
 
     elif is_invitation:
@@ -165,4 +171,5 @@ def community_dashboard_request_view(request, community, **kwargs):
             community=community.to_dict(),
             permissions=permissions,
             invitation_accepted=request_is_accepted,
+            user_avatar=avatar,
         )

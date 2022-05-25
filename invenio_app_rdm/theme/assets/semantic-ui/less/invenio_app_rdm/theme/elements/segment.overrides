@@ -77,3 +77,7 @@
   border-radius: @defaultBorderRadius;
   background: @highlightHeaderColor none;
 }
+
+.ui.segment.selected-members-header {
+    min-height: 4.7rem;
+}

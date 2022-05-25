@@ -17,9 +17,14 @@
 
 .ui.table {
 
-  @media all and (max-width: @largestMobileScreen) {
+  @media all and (max-width: @largestTabletScreen) {
     &:not(.unstackable) tbody tr {
       padding-top: 0;
+    }
+
+    &:not(.unstackable) tbody, tr, tr > th, tr > td {
+      width: auto !important;
+      display: block !important;
     }
 
     &:not(.unstackable) tr > td.selected-member {
@@ -40,6 +45,27 @@
         font-weight: bold;
         margin-right: 1rem;
         margin-left: 2rem;
+      }
+    }
+  }
+
+  tbody tr td {
+    &.mobile-table-cell {
+      @media all and (max-width: @largestTabletScreen) {
+        display: inline-grid !important;
+        grid-template-columns: min-content auto;
+        grid-column-gap: 0.5em;
+        align-items: center;
+        width: 50% !important;
+        border-top: 0px;
+      }
+    }
+  }
+
+  tbody tr td {
+    &.mobile-table-cell {
+      @media all and (max-width: @largestMobileScreen) {
+        width: 100% !important;
       }
     }
   }

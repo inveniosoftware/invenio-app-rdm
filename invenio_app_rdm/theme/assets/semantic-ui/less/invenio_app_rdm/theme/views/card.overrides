@@ -65,18 +65,27 @@
 }
 
 .community-frontpage-cards .ui.card {
-
   .image {
-    min-height: 12rem;
-    max-width: 12rem;
-    margin: auto;
+    height: 16rem;
+    display: flex;
+    align-items: center;
     background: transparent;
-    position: relative;
-
-    img {
-      min-height: inherit;
-      object-fit: contain;
-      padding: .5rem;
-    }
+    overflow: hidden;
   }
 }
+
+@media only screen and (max-width: @largestMobileScreen) {
+  .ui.community-frontpage-cards.cards .ui.card {
+    margin-top: 2rem;
+    width: calc(100% - 4em) !important;
+    margin-left: auto;
+    margin-right: auto;
+
+    .image {
+      height: 20rem;
+    }
+  }
+
+
+}
+

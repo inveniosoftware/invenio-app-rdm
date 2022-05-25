@@ -4,22 +4,33 @@
 
 .ui.items > .item > .content > .header {
   display: block;
+
   a {
     display: inline-block;
     padding: .5rem 0 .1rem;
+
     &:hover, &:focus {
-        text-decoration: underline;
+      text-decoration: underline;
     }
   }
 }
 
 .ui.items > .item .extra {
-    color: @mutedTextColor;
+  color: @mutedTextColor;
 }
 
 .ui.items > .item .meta * {
-    margin-right: 0.1em;
+  margin-right: 0.1em;
 }
+
+.ui.unstackable.items > .item > .image.dashboard-header-avatar,
+.ui.unstackable.items > .item > .image.dashboard-header-avatar > img{
+// override default SUI for dashboard avatar
+    width: @userDashboardAvatarSize !important;
+    height: @userDashboardAvatarSize !important;
+    object-fit: contain;
+}
+
 
 .item.right-menu {
   line-height: 44px !important;
@@ -43,6 +54,10 @@
   .stats > span {
     padding-right: 0.5em;
   }
+
+  .content {
+    word-wrap: anywhere;
+  }
 }
 
 .ui.items > .item .extra.labels-actions {
@@ -60,6 +75,10 @@
 
 .ui.items > .item.license-item {
   cursor: pointer;
+
+  @media screen and (max-width: @largestMobileScreen) {
+    flex-direction: row;
+  }
 
   .radio {
     margin-right: 0.5em;
@@ -92,27 +111,16 @@
         margin-top: 1rem;
       }
     }
-
-    .meta {
-
-      .inline-computer {
-        display: inline-block;
-
-        @media all and (max-width: @largestMobileScreen) {
-          display: block;
-        }
-      }
-    }
   }
 }
 
 .item {
 
-  &.align-no-checkbox{
+  &.align-no-checkbox {
     padding-left: @defaultPadding / 2 + @checkboxSize;
   }
 
-  .ui.fitted.checkbox{
+  .ui.fitted.checkbox {
     margin-right: @defaultMargin / 2;
     margin-top: @defaultMargin / 2;
   }

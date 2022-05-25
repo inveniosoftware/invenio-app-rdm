@@ -2,3 +2,6 @@
          Invenio App RDM Input Overrides
 ***********************************************/
 
+.input.invitation-searchbar {
+    width: 100%;
+}
