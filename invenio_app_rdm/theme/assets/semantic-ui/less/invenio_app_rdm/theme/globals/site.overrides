@@ -107,6 +107,7 @@ pre.export.result {
 
 .rdm-logo {
   width: 250px;
+  max-height: @75px;
 }
 
 .borderless {
