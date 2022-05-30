@@ -94,11 +94,6 @@
 }
 
 .ui.items {
-  .item.members-dopdown-option {
-    white-space: initial;
-    min-width: 25em;
-  }
-
   &.link > .item:hover .content .header {
     color: @darkTextColor;
   }
