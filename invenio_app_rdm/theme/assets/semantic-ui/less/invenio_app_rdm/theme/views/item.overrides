@@ -122,7 +122,11 @@
 
   .ui.fitted.checkbox {
     margin-right: @defaultMargin / 2;
-    margin-top: @defaultMargin / 2;
+    margin-top: @defaultMargin / 2.5;
+  }
+
+  .ui.avatar.image {
+    align-self: center;
   }
 }
 
