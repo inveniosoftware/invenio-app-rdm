@@ -66,26 +66,42 @@
 
 .community-frontpage-cards .ui.card {
   .image {
-    height: 16rem;
+    height: @normalDesktopScreenCardHeight;
     display: flex;
-    align-items: center;
     background: transparent;
-    overflow: hidden;
+
+    img {
+      object-fit: scale-down;
+    }
+
+    &.fallback_image, &.placeholder {
+      img {
+        object-fit: cover;
+      }
+    }
   }
+}
+
+@media only screen and (min-width: @largestSmallMonitor) {
+  .ui.community-frontpage-cards.cards .ui.card {
+    .image {
+      height: @largeDesktopScreenCardHeight;
+    }
+  }
+
 }
 
 @media only screen and (max-width: @largestMobileScreen) {
   .ui.community-frontpage-cards.cards .ui.card {
     margin-top: 2rem;
-    width: calc(100% - 4em) !important;
+    width: 70vw !important;
     margin-left: auto;
     margin-right: auto;
 
     .image {
-      height: 20rem;
+      height: 70vw;
     }
   }
-
 
 }
 
