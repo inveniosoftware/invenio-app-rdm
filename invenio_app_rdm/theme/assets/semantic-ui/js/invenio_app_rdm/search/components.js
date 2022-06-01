@@ -145,12 +145,17 @@ export const RDMRecordSearchBarElement = withState(
     currentQueryState,
   }) => {
     const placeholder = passedPlaceholder || i18next.t("Search");
+
+    const onSearch = () => {
+      updateQueryState({ ...currentQueryState, queryString });
+    };
+
     const onBtnSearchClick = () => {
-      updateQueryState({ ...currentQueryState, filters: [], queryString });
+      onSearch();
     };
     const onKeyPress = (event) => {
       if (event.key === "Enter") {
-        updateQueryState({ ...currentQueryState, filters: [], queryString });
+        onSearch();
       }
     };
     return (
@@ -195,7 +200,9 @@ export const RDMParentFacetValue = ({
             icon="angle right"
             className="transparent"
             onClick={() => setIsActive(!isActive)}
-            aria-label={i18next.t("Show all sub facets of ") + bucket.label || keyField}
+            aria-label={
+              i18next.t("Show all sub facets of ") + bucket.label || keyField
+            }
           />
           <Checkbox
             label={bucket.label || keyField}
