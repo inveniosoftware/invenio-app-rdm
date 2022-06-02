@@ -89,3 +89,13 @@
     }
   }
 }
+
+
+.ui.dropdown{
+  height: 14px; 
+  & > .divider.text{
+    & > .icon:before{
+      font-size: 0.95em;
+    }
+  } 
+}
