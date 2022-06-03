@@ -5,93 +5,98 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
 # 
 # Translators:
-# chriz_uniba <christina.zeller@uni-bamberg.de>, 2021
 # Alexander Gruber <alexander.gruber@tugraz.at>, 2022
-# Tibor Simko <tibor.simko@cern.ch>, 2022
 # David Eckhard <dabombeeer@gmail.com>, 2022
 # Alizee Pace <alizee.pace@gmail.com>, 2022
 # Mojib Wali <mojib.wali@tugraz.at>, 2022
+# Zacharias Zacharodimos <zacharias.zacharodimos@cern.ch>, 2022
+# Tibor Simko <tibor.simko@cern.ch>, 2022
+# Hermann Schranzhofer <hermann.schranzhofer@tugraz.at>, 2022
+# chriz_uniba <christina.zeller@uni-bamberg.de>, 2022
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: invenio-app-rdm 8.0.0\n"
+"Project-Id-Version: invenio-app-rdm 9.0.1\n"
 "Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
-"POT-Creation-Date: 2022-03-03 10:26+0100\n"
+"POT-Creation-Date: 2022-05-27 10:24+0200\n"
 "PO-Revision-Date: 2020-07-07 14:12+0000\n"
-"Last-Translator: Mojib Wali <mojib.wali@tugraz.at>, 2022\n"
+"Last-Translator: chriz_uniba <christina.zeller@uni-bamberg.de>, 2022\n"
 "Language-Team: German (https://www.transifex.com/inveniosoftware/teams/23537/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.9.1\n"
+"Generated-By: Babel 2.10.1\n"
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: invenio_app_rdm/config.py:141
+#: invenio_app_rdm/config.py:148
 msgid "The turn-key research data management repository"
 msgstr "Das betriebsbereite Forschungsdatenmanagement-Repositorium"
 
-#: invenio_app_rdm/config.py:156
+#: invenio_app_rdm/config.py:163
 msgid "InvenioRDM"
 msgstr "InvenioRDM"
 
-#: invenio_app_rdm/config.py:254
+#: invenio_app_rdm/config.py:250
 msgid "Welcome to Invenio App RDM!"
 msgstr "Willkommen bei der Invenio App RDM!"
 
-#: invenio_app_rdm/config.py:570
+#: invenio_app_rdm/config.py:572
 msgid "JSON"
 msgstr "JSON"
 
-#: invenio_app_rdm/config.py:576
+#: invenio_app_rdm/config.py:578
 msgid "CSL"
 msgstr "CSL"
 
-#: invenio_app_rdm/config.py:583
+#: invenio_app_rdm/config.py:585
 msgid "DataCite JSON"
 msgstr "DataCite JSON"
 
-#: invenio_app_rdm/config.py:590
+#: invenio_app_rdm/config.py:592
 msgid "DataCite XML"
 msgstr "DataCite XML"
 
-#: invenio_app_rdm/config.py:597
+#: invenio_app_rdm/config.py:599
 msgid "Dublin Core XML"
 msgstr "Dublin Core XML"
 
-#: invenio_app_rdm/config.py:642
+#: invenio_app_rdm/config.py:653
 msgid "APA"
 msgstr "APA"
 
-#: invenio_app_rdm/config.py:643
+#: invenio_app_rdm/config.py:654
 msgid "Harvard"
 msgstr "Harvard"
 
-#: invenio_app_rdm/config.py:644
+#: invenio_app_rdm/config.py:655
 msgid "MLA"
 msgstr "MLA"
 
-#: invenio_app_rdm/config.py:645
+#: invenio_app_rdm/config.py:656
 msgid "Vancouver"
 msgstr "Vancouver"
 
-#: invenio_app_rdm/config.py:646
+#: invenio_app_rdm/config.py:657
 msgid "Chicago"
 msgstr "Chicago"
 
-#: invenio_app_rdm/config.py:647
+#: invenio_app_rdm/config.py:658
 msgid "IEEE"
 msgstr "IEEE"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/dashboard.html:8
-msgid "Uploads"
-msgstr "Einträge"
+#: invenio_app_rdm/communities_ui/templates/semantic-ui/invenio_communities/details/index.html:12
+msgid "Search "
+msgstr "Suchen"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/dashboard.html:31
-#: invenio_app_rdm/theme/views.py:40
-msgid "My dashboard"
-msgstr "Meine Übersicht"
+#: invenio_app_rdm/communities_ui/views/ui.py:66
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header.html:67
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header.html:68
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_frontpage.html:36
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_frontpage.html:37
+msgid "Search"
+msgstr "Suchen"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/deposit.html:9
 msgid "New version"
@@ -106,138 +111,155 @@ msgstr "Neuer Eintrag"
 msgid "Edit upload"
 msgstr "Eintrag bearbeiten"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:22
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:28
 msgid "Information banner"
 msgstr "Informationsbanner"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:31
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:55
+msgid "Community visibility"
+msgstr "Sichtbarkeit der Community"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:56
+msgid "The community is restricted to users with access."
+msgstr "Die Community ist auf BenutzerInnen mit Zugang beschränkt."
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:58
+msgid "Restricted"
+msgstr "Eingeschränkt"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:74
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:19
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:83
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:84
 msgid "Preview"
 msgstr "Vorschau"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:35
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:78
 msgid "You are previewing a published record."
 msgstr "Sie befinden sich in der Vorschau eines veröffentlichten Eintrags."
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:37
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:80
 msgid "You are previewing changes that have not yet been published."
 msgstr ""
 "Sie befinden sich in der Vorschau von Änderungen, die noch nicht "
 "veröffentlicht wurden."
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:39
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:82
 msgid "You are previewing a new record that has not yet been published."
 msgstr ""
 "Sie befinden sich in der Vorschau eines neuen Eintrags, der noch nicht "
 "veröffentlicht wurde."
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:41
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:84
 msgid ""
 "You are previewing a new record version that has not yet been published."
 msgstr ""
 "Sie befinden sich in der Vorschau einer neuen Version des Eintrags, die noch"
 " nicht veröffentlicht wurde."
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:82
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:99
 #, python-format
 msgid ""
 "\n"
-"                There is a %(link_start)snewer version%(link_end)s of the record available.\n"
-"              "
+"                    There is a %(link_start)snewer version%(link_end)s of the record available.\n"
+"                  "
 msgstr ""
 "\n"
-"            Es ist eine %(link_start)s neuere Version %(link_end)s des Eintrags verfügbar."
+"                    Es ist eine %(link_start)sneuere Version%(link_end)s des Eintrags verfügbar.\n"
+"                  "
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:104
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:121
 msgid "Record access information"
 msgstr "Zugangsinformationen des Eintrags"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:111
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:211
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:113
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:128
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:259
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:115
 msgid "Reason"
 msgstr "Grund"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:123
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:140
 msgid "Back-navigation"
-msgstr "Zurück Navigation"
+msgstr "Zurücknavigation"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:125
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:142
 msgid "Back to edit"
 msgstr "Zurück zum Bearbeiten"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:132
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:158
+msgid "Manage record"
+msgstr "Eintrag verwalten"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:173
 msgid "Publication date and version number"
 msgstr "Veröffentlichungsdatum und Versionsnummer"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:136
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:177
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:25
 msgid "Publication date"
 msgstr "Veröffentlichungsdatum"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:137
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:178
 msgid "Published"
 msgstr "Veröffentlicht"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:139
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:181
 msgid "Version {version_number}"
 msgstr "Version {version_number}"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:143
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:186
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:24
 msgid "Resource type"
 msgstr "Art der Ressource"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:146
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:189
 msgid "Access status"
 msgstr "Zugriffsstatus"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:163
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:208
 msgid "Record title and creators"
-msgstr "Titel des Eintrags und Erstellende"
+msgstr "Titel des Eintrags und ErstellerInnen"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:167
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:212
 msgid "Creators and contributors"
-msgstr "Erstellende und Beitragende"
+msgstr "ErstellerInnen und Mitwirkende"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:176
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:221
 msgid "Record citations"
 msgstr "Zitierungen des Eintrags"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:186
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:189
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:202
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:103
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:232
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:235
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:249
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:105
 msgid "Files"
 msgstr "Dateien"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:225
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:273
 msgid "Additional record details"
-msgstr "Zusätzliche Details des Eintrags"
+msgstr "Weitere Eintragsdetails"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:238
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:286
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:16
 msgid "Record details"
-msgstr "Details des Eintrags"
+msgstr "Eintragsdetails"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:251
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:299
 msgid "Upload information"
 msgstr "Informationen zum Eintrag"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:254
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:302
 msgid "Created"
 msgstr "Erstellt"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:260
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:308
 msgid "Modified"
 msgstr "Geändert"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:277
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:325
 msgid "Jump to top of page"
 msgstr "Zum Anfang der Seite springen"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:279
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:327
 msgid "Jump up"
 msgstr "Zum Seitenbeginn"
 
@@ -274,12 +296,13 @@ msgid "Reason for removal:"
 msgstr "Grund für die Entfernung:"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/creatibutors.html:16
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/macros/request_header.html:53
 msgid "Creators list"
-msgstr "Liste der Erstellenden"
+msgstr "Liste der ErstellerInnen"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/creatibutors.html:17
 msgid "Creators"
-msgstr "Erstellerinnen"
+msgstr "ErstellerInnen"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/creatibutors.html:36
 msgid "Contributors list"
@@ -293,32 +316,32 @@ msgstr "Beschreibung des Eintrags"
 msgid "Description"
 msgstr "Beschreibung"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:25
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:26
 msgid "Additional details"
-msgstr "Mehr Details"
+msgstr "Weitere Details"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:38
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:39
 msgid "Additional titles"
 msgstr "Zusätzliche Titel"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:53
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:54
 msgid "Identifiers"
 msgstr "Kennungen"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:67
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:68
 msgid "Related works"
-msgstr "Verwandte Werke"
+msgstr "Verwandte Arbeiten"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:81
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:82
 msgid "Funding"
 msgstr "Förderung"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:95
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:96
 msgid "Dates"
 msgstr "Daten"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:109
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:89
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:110
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:125
 msgid "References"
 msgstr "Referenzen"
 
@@ -336,7 +359,6 @@ msgid "DOI Badge"
 msgstr "DOI-Abzeichen"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/subjects.html:15
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/subjects.html:16
 msgid "Keywords"
 msgstr "Schlagwörter"
 
@@ -345,17 +367,13 @@ msgstr "Schlagwörter"
 msgid "Search results for "
 msgstr "Suchergebnis für "
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/subjects.html:31
-msgid "Subjects"
-msgstr "Themen"
-
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:17
 msgid "Details"
 msgstr "Details"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:26
 msgid "Publisher"
-msgstr "Verlag"
+msgstr "HerausgeberIn"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:27
 msgid "Languages"
@@ -371,27 +389,19 @@ msgstr "Größen"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/export.html:13
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/export.html:14
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/export.html:54
 msgid "Export"
 msgstr "Exportieren"
-
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/export.html:20
-msgid "Export formats list"
-msgstr "Liste der Exportformate"
-
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/export.html:54
-msgid "Download file"
-msgstr "Datei herunterladen"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/keywords_subjects.html:12
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/keywords_subjects.html:13
 msgid "Keywords and subjects"
-msgstr "Stichworte und Themen"
+msgstr "Klassifikationen und Schlagworte"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/licenses.html:13
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/licenses.html:15
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:105
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:132
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:141
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:168
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/macros/request_header.html:66
 msgid "Opens in new tab"
 msgstr "Öffnet in neuem Tab"
 
@@ -408,7 +418,10 @@ msgstr "Schließen"
 msgid "No further description."
 msgstr "Keine weitere Beschreibung."
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/manage_menu.html:9
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/manage_menu.html:10
+msgid "Record management"
+msgstr "Eintragsverwaltung"
+
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/versions.html:11
 msgid "Record versions"
 msgstr "Versionen des Eintrags"
@@ -419,26 +432,32 @@ msgstr "Versionen"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:17
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:22
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:82
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:83
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:27
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:91
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:92
 msgid "profile"
 msgstr "Profil"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:68
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:74
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:78
 msgid "Show affiliations"
 msgstr "Zugehörigkeit anzeigen"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:69
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:75
 msgid "Hide affiliations"
 msgstr "Zugehörigkeit verbergen"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:73
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:82
 msgid "Affiliations for"
 msgstr "Zugehörigkeiten für"
 
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:106
+msgid "Open external link"
+msgstr "Externen Link öffnen"
+
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:34
 msgid "File preview"
-msgstr "Datei Vorschau"
+msgstr "Dateivorschau"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:52
 msgid "Name"
@@ -449,10 +468,11 @@ msgid "Size"
 msgstr "Größe"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:54
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:44
 msgid "Actions"
 msgstr "Aktionen"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:73
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:74
 msgid ""
 "This is the file fingerprint (checksum), which can be used to verify the "
 "file integrity."
@@ -460,29 +480,29 @@ msgstr ""
 "Dies ist der Datei-Fingerabdruck (Prüfsumme), der zur Überprüfung der "
 "Dateiintegrität verwendet werden kann."
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:88
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:89
 msgid "Download"
 msgstr "Herunterladen"
 
-#: invenio_app_rdm/records_ui/views/deposits.py:59
+#: invenio_app_rdm/records_ui/views/deposits.py:56
 msgid "Discard the reserved {scheme_label}"
-msgstr "Verwerfen des reservierten {scheme_label}"
+msgstr "Den reservierten {scheme_label} verwerfen."
 
-#: invenio_app_rdm/records_ui/views/deposits.py:61
+#: invenio_app_rdm/records_ui/views/deposits.py:58
 msgid "Get a {scheme_label} now!"
 msgstr "Holen Sie sich jetzt einen {scheme_label}!"
 
-#: invenio_app_rdm/records_ui/views/deposits.py:63
+#: invenio_app_rdm/records_ui/views/deposits.py:60
 msgid ""
 "Reserve a {scheme_label} by pressing the button (e.g to include it in "
 "publications). The {scheme_label} is registered when your upload is "
 "published."
 msgstr ""
-"Zum Reservieren eines {scheme_label} den Knopf drücken (z.B. um ihn in einer"
-" Publikation zu verwenden). Der {scheme_labe} wird beim Veröffentlichen des "
-"Uploads registriert."
+"Durch Knopfdruck wird ein {scheme_label} reserviert, welcher z.B. in einem "
+"Publikationsentwurf verwendet werden kann. Der {scheme_label} wird erst beim"
+" Veröffentlichen des Uploads registriert."
 
-#: invenio_app_rdm/records_ui/views/deposits.py:68
+#: invenio_app_rdm/records_ui/views/deposits.py:65
 msgid ""
 "A {scheme_label} allows your upload to be easily and unambiguously cited. "
 "Example: 10.1234/foo.bar"
@@ -490,194 +510,245 @@ msgstr ""
 "Ein {scheme_label} erlaubt es den Upload einfach und eindeutig zu zitieren. "
 "Zum Beispiel: 10.1234/foo.bar"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:21
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/community-invitation/community_dashboard.html:18
+msgid "Back to invitations"
+msgstr "Zurück zu den Einladungen"
+
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/community-invitation/user_dashboard.html:16
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/macros/request_header.html:44
+msgid "Back to requests"
+msgstr "Zurück zu den Anfragen"
+
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/community-submission/index.html:40
+msgid "Conversation"
+msgstr "Gesprächsverlauf"
+
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/community-submission/index.html:50
+msgid "Record"
+msgstr "Eintrag"
+
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/macros/request_header.html:23
+msgid "View Community"
+msgstr "Community ansehen"
+
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/macros/request_header.html:68
+msgid "View record"
+msgstr "Eintrag ansehen"
+
+#: invenio_app_rdm/theme/views.py:40
+msgid "My dashboard"
+msgstr "Meine Übersicht"
+
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:18
 msgid "About InvenioRDM"
 msgstr "Über InvenioRDM"
+
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:19
+#, python-format
+msgid ""
+"\n"
+"              <p><a href=\"%(invenio_rdm)s\">Product page</a></p>\n"
+"              "
+msgstr ""
+"\n"
+"              <p><a href=\"%(invenio_rdm)s\">Produktseite</a></p>\n"
+"              "
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:22
 #, python-format
 msgid ""
 "\n"
-"                <p class=\"margin-small\"><a href=\"%(invenio_rdm)s\">Product page</a></p>\n"
-"                "
+"              <p><a href=\"%(invenio_rdm_features)s\">Features</a></p>\n"
+"              "
 msgstr ""
 "\n"
-"              <p class=\"margin-small\"><a href=\"%(invenio_rdm)s\"> Produktseite </a></p>"
+"              <p><a href=\"%(invenio_rdm_features)s\">Funktionen</a></p>\n"
+"              "
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:25
 #, python-format
 msgid ""
 "\n"
-"                <p class=\"margin-small\"><a href=\"%(invenio_rdm_features)s\">Features</a></p>\n"
-"                "
+"              <p><a href=\"%(invenio_rdm_roadmap)s\">Roadmap</a></p>\n"
+"              "
 msgstr ""
 "\n"
-"               <p class=\"margin-small\"><a href=\"%(invenio_rdm_features)s\">Merkmale </a> </p>"
+"              <p><a href=\"%(invenio_rdm_roadmap)s\">Roadmap</a></p>\n"
+"              "
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:28
 #, python-format
 msgid ""
 "\n"
-"                <p class=\"margin-small\"><a href=\"%(invenio_rdm_roadmap)s\">Roadmap</a></p>\n"
-"                "
+"              <p><a href=\"%(invenio_rdm_demo_site)s\">Demo site</a></p>\n"
+"              "
 msgstr ""
 "\n"
-"                 <p class=\"margin-small\"><a href=\"%(invenio_rdm_roadmap)s\"> Roadmap </a></p>"
+"              <p><a href=\"%(invenio_rdm_demo_site)s\">Demoseite</a></p>\n"
+"              "
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:31
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:33
+msgid "Get involved"
+msgstr "Mitmachen"
+
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:34
 #, python-format
 msgid ""
 "\n"
-"                <p class=\"margin-small\"><a href=\"%(invenio_rdm_demo_site)s\">Demo site</a></p>\n"
-"                "
+"              <p><a href=\"%(invenio_rdm_gh)s\">GitHub</a></p>\n"
+"              "
 msgstr ""
 "\n"
-"                <p class=\"margin-small\"><a href=\"%(invenio_rdm_demo_site)s\"> Demo-Seite </a></p>"
-
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:36
-msgid "Get involved"
-msgstr "Engagieren Sie sich"
+"              <p><a href=\"%(invenio_rdm_gh)s\">GitHub</a></p>\n"
+"              "
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:37
 #, python-format
 msgid ""
 "\n"
-"                <p class=\"margin-small\"><a href=\"%(invenio_rdm_gh)s\">GitHub</a></p>\n"
-"                "
+"              <p><a href=\"%(invenio_rdm_milestones)s\">Project Milestones</a></p>\n"
+"              "
 msgstr ""
 "\n"
-"                <p class=\"margin-small\"><a href=\"%(invenio_rdm_gh)s\"> GitHub </a></p>"
+"              <p><a href=\"%(invenio_rdm_milestones)s\">Projektmeilensteine</a></p>\n"
+"              "
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:40
 #, python-format
 msgid ""
 "\n"
-"                <p class=\"margin-small\"><a href=\"%(invenio_rdm_milestones)s\">Project Milestones</a></p>\n"
-"                "
+"              <p><a href=\"%(invenio_rdm_docs_site)s\">Documentation</a></p>\n"
+"              "
 msgstr ""
 "\n"
-"                 <p class=\"margin-small\"><a href=\"%(invenio_rdm_milestones)s\"> Projektmeilensteine </a></p>"
+"              <p><a href=\"%(invenio_rdm_docs_site)s\">Dokumentation</a></p>\n"
+"              "
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:43
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:45
+msgid "Community"
+msgstr "Gemeinschaft"
+
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:46
 #, python-format
 msgid ""
 "\n"
-"                <p class=\"margin-small\"><a href=\"%(invenio_rdm_docs_site)s\">Documentation</a></p>\n"
-"                "
+"              <p><a href=\"%(invenio_rdm_chatroom)s\">Chatroom</a></p>\n"
+"              "
 msgstr ""
 "\n"
-"                 <p class=\"margin-small\"><a href=\"%(invenio_rdm_docs_site)s\"> Dokumentation </a></p>"
-
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:48
-msgid "Community"
-msgstr "Gemeinschaft"
+"              <p><a href=\"%(invenio_rdm_chatroom)s\">Chat</a></p>\n"
+"              "
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:49
 #, python-format
 msgid ""
 "\n"
-"                <p class=\"margin-small\"><a href=\"%(invenio_rdm_chatroom)s\">Chatroom</a></p>\n"
-"                "
+"              <p><a href=\"%(invenio_rdm_talk)s\">Forum</a></p>\n"
+"              "
 msgstr ""
 "\n"
-"               <p class=\"margin-small\"><a href=\"%(invenio_rdm_chatroom)s\"> Chatroom </a></p>"
+"              <p><a href=\"%(invenio_rdm_talk)s\">Forum</a></p>\n"
+"              "
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:52
 #, python-format
 msgid ""
 "\n"
-"                <p class=\"margin-small\"><a href=\"%(invenio_rdm_talk)s\">Forum</a></p>\n"
-"                "
+"              <p><a href=\"%(invenio_events)s\">Events & training</a></p>\n"
+"              "
 msgstr ""
 "\n"
-"                <p class=\"margin-small\"><a href=\"%(invenio_rdm_talk)s\"> Forum </a></p>"
+"              <p><a href=\"%(invenio_events)s\">Veranstaltungen & Schulungen</a></p>\n"
+"              "
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:55
-#, python-format
-msgid ""
-"\n"
-"                <p class=\"margin-small\"><a href=\"%(invenio_events)s\">Events & training</a></p>\n"
-"                "
-msgstr ""
-"\n"
-"                 <p class=\"margin-small\"><a href=\"%(invenio_events)s\"> Veranstaltungen & Schulungen </a></p>"
-
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:76
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:72
 #, python-format
 msgid ""
 "Powered by <a\n"
 "              href=\"%(invenio_rdm)s\">InvenioRDM</a>"
 msgstr ""
 "Betrieben von <a\n"
-"              href=\"%(invenio_rdm)s\"> InvenioRDM </a> "
+"              href=\"%(invenio_rdm)s\">InvenioRDM</a>"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/frontpage.html:18
-msgid "You've successfully installed InvenioRDM! What is ahead?"
-msgstr ""
-"Sie haben InvenioRDM erfolgreich installiert! Was liegt nun vor Ihnen?"
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/frontpage.html:19
+msgid "You've successfully installed InvenioRDM!"
+msgstr "Sie haben InvenioRDM erfolgreich installiert!"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/frontpage.html:26
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/frontpage.html:21
+msgid "What is ahead?"
+msgstr "Was liegt nun vor Ihnen?"
+
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/frontpage.html:27
 msgid "Configure"
 msgstr "Konfigurieren"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/frontpage.html:28
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/frontpage.html:29
 #, python-format
 msgid ""
 "\n"
-"              Configure the datamodel, resource types, permissions and much more to make it suit your needs! For more\n"
-"              information on how to do it visit the <a href=\"%(configuration_link)s\" target=\"_blank\">configuration\n"
-"              section in the docs</a>.\n"
-"            "
+"            Configure the datamodel, resource types, permissions and much more to make it suit your needs! For more\n"
+"            information on how to do it visit the <a href=\"%(configuration_link)s\" target=\"_blank\">configuration\n"
+"            section in the docs</a>.\n"
+"          "
 msgstr ""
 "\n"
-"Konfigurieren Sie das Datenmodell, die Art der Ressourcen, die Berechtigungen und vieles mehr.\n"
-"Weitere Informationen zur Vorgehensweise finden Sie<a href=\"%(configuration_link)s\" target=\"_blank\">in der Dokumentation im Abschnitt Configuration</a>."
+"            Konfigurieren Sie das Datenmodell, die Art der Ressourcen, die Berechtigungen und vieles mehr!\n"
+"            Weitere Informationen zur Vorgehensweise finden Sie <a href=\"%(configuration_link)s\" target=\"_blank\">in der Dokumentation im Abschnitt Configuration</a>.\n"
+"          "
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/frontpage.html:39
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/frontpage.html:38
 msgid "Customize"
 msgstr "Anpassen"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/frontpage.html:41
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/frontpage.html:40
 #, python-format
 msgid ""
 "\n"
-"                Customize the layout and adapt the styling to match your institution's. See how to do so <a\n"
-"                href=\"%(configuration_link)s\" target=\"_blank\">here</a>.\n"
-"              "
+"              Customize the layout and adapt the styling to match your institution's. See how to do so <a\n"
+"              href=\"%(configuration_link)s\" target=\"_blank\">here</a>.\n"
+"            "
 msgstr ""
 "\n"
-"Sie können das Layout anpassen und das Styling auf das Ihrer Einrichtung abstimmen. Sehen Sie <a\n"
-"                href=\"%(configuration_link)s\" target=\"_blank\">hier</a>, wie Sie das machen."
+"              Passen Sie das Layout und Styling an das Cooperate Design Ihrer Einrichtung an. Wie das geht sehen Sie <a\n"
+"              href=\"%(configuration_link)s\" target=\"_blank\">hier</a>.\n"
+"            "
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/frontpage.html:51
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/frontpage.html:48
 msgid "Run it!"
 msgstr "Einsetzen!"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/frontpage.html:53
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/frontpage.html:50
 #, python-format
 msgid ""
 "\n"
-"              <a href=\"%(deployment_link)s\" target=\"_blank\">Run</a> your InvenioRDM instance locally or in containers.\n"
-"            "
+"          <a href=\"%(deployment_link)s\" target=\"_blank\">Run</a> your\n"
+"          InvenioRDM instance locally or in containers.\n"
+"          "
 msgstr ""
 "\n"
-"              <a href=\"%(deployment_link)s\" target=\"_blank\">Verwenden</a> Sie Ihre InvenioRDM Instanz lokal oder in Containern.\n"
-"            "
+"          <a href=\"%(deployment_link)s\" target=\"_blank\">Setzen</a> Sie\n"
+"          Ihre InvenioRDM Instanz lokal oder in Containern auf.\n"
+"          "
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/frontpage.html:64
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/frontpage.html:63
 msgid "Docs"
 msgstr "Docs"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/frontpage.html:67
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/frontpage.html:68
 msgid "Code"
 msgstr "Code"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header.html:41
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header.html:42
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_frontpage.html:33
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_frontpage.html:34
-msgid "Search"
-msgstr "Suchen"
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header.html:37
+msgid "Menu"
+msgstr "Menü"
+
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header.html:55
+msgid "Close menu"
+msgstr "Menü schließen"
+
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header.html:117
+msgid "Inbox"
+msgstr "Inbox"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:17
 msgid "Log in"
@@ -687,8 +758,14 @@ msgstr "Einloggen"
 msgid "Sign up"
 msgstr "Registrieren"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:64
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:72
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:62
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:91
+msgid "My account"
+msgstr "Mein Konto"
+
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:85
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:103
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:110
 msgid "Log out"
 msgstr "Ausloggen"
 
@@ -696,3 +773,18 @@ msgstr "Ausloggen"
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/help/search.en.html:8
 msgid "Search guide"
 msgstr "Suchanleitung"
+
+#: invenio_app_rdm/users_ui/templates/semantic-ui/invenio_app_rdm/users/communities.html:8
+#: invenio_app_rdm/users_ui/views/ui.py:79
+msgid "Communities"
+msgstr "Communitys"
+
+#: invenio_app_rdm/users_ui/templates/semantic-ui/invenio_app_rdm/users/requests.html:8
+#: invenio_app_rdm/users_ui/views/ui.py:84
+msgid "Requests"
+msgstr "Anfragen"
+
+#: invenio_app_rdm/users_ui/templates/semantic-ui/invenio_app_rdm/users/uploads.html:8
+#: invenio_app_rdm/users_ui/views/ui.py:74
+msgid "Uploads"
+msgstr "Einträge"
