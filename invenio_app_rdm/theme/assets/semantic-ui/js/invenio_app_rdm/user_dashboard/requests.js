@@ -33,6 +33,7 @@ import {
   LabelTypeInvitation,
   LabelTypeSubmission,
 } from "@js/invenio_requests/request";
+import { RequestActionController } from "@js/invenio_requests/request/actions/RequestActionController";
 
 import {
   Button,
@@ -200,6 +201,9 @@ export function RequestsResultsItemTemplate({ result, index }) {
             )}
         </Item.Meta>
       </Item.Content>
+      <div>
+        <RequestActionController request={result} />
+      </div>
     </Item>
   );
 }
@@ -429,6 +433,153 @@ export const RDMRequestsEmptyResults = (props) => {
   );
 };
 
+export const RequestAcceptButton = ({
+  onClick,
+  requestType,
+  loading,
+  ariaAttributes,
+}) => {
+  const requestIsCommunitySubmission = requestType === "community-submission";
+  const buttonText = requestIsCommunitySubmission
+    ? i18next.t("Accept and publish")
+    : i18next.t("Accept");
+  return (
+    <Button
+      icon="checkmark"
+      content={buttonText}
+      onClick={onClick}
+      color="green"
+      loading={loading}
+      disabled={loading}
+      {...ariaAttributes}
+    />
+  );
+};
+
+export const RequestCancelButton = ({
+  onClick,
+  loading,
+  ariaAttributes,
+}) => {
+  return (
+    <Button
+      icon="cancel"
+      content={i18next.t("Cancel")}
+      onClick={onClick}
+      loading={loading}
+      disabled={loading}
+      {...ariaAttributes}
+    />
+  );
+};
+
+export const RequestDeclineButton = ({
+  onClick,
+  loading,
+  ariaAttributes,
+}) => {
+  return (
+    <Button
+      icon="cancel"
+      content={i18next.t("Decline")}
+      onClick={onClick}
+      loading={loading}
+      disabled={loading}
+      color="red"
+      {...ariaAttributes}
+    />
+  );
+};
+
+export const RequestCancelButtonModalCmp = ({
+  onClick,
+  loading,
+  updateQueryState,
+  currentQueryState,
+}) => {
+  return (
+    <Button
+      icon="cancel"
+      content={i18next.t("Cancel request")}
+      onClick={() => {
+        onClick().then(() => updateQueryState(currentQueryState));
+      }}
+      loading={loading}
+      disabled={loading}
+      color="red"
+    />
+  );
+};
+
+RequestCancelButtonModalCmp.propTypes = {
+  updateQueryState: PropTypes.func.isRequired,
+  currentQueryState: PropTypes.object.isRequired,
+};
+export const RequestCancelButtonModal = withState(RequestCancelButtonModalCmp);
+
+export const RequestDeclineButtonCmp = ({
+  onClick,
+  loading,
+  ariaAttributes,
+  updateQueryState,
+  currentQueryState,
+}) => {
+  return (
+    <Button
+      icon="cancel"
+      content={i18next.t("Decline")}
+      onClick={() => {
+        onClick().then(() => updateQueryState(currentQueryState));
+      }}
+      loading={loading}
+      disabled={loading}
+      color="red"
+      {...ariaAttributes}
+    />
+  );
+};
+
+RequestDeclineButtonCmp.propTypes = {
+  updateQueryState: PropTypes.func.isRequired,
+  currentQueryState: PropTypes.object.isRequired,
+};
+
+export const RequestDeclineButtonModal = withState(RequestDeclineButtonCmp);
+
+export const RequestAcceptButtonCmp = ({
+  onClick,
+  requestType,
+  loading,
+  ariaAttributes,
+  updateQueryState,
+  currentQueryState,
+}) => {
+  const requestIsCommunitySubmission = requestType === "community-submission";
+  const buttonText = requestIsCommunitySubmission
+    ? i18next.t("Accept and publish")
+    : i18next.t("Accept");
+  return (
+    <Button
+      icon="checkmark"
+      content={buttonText}
+      onClick={() => {
+        onClick().then(() => updateQueryState(currentQueryState));
+      }}
+      loading={loading}
+      disabled={loading}
+      color="green"
+      {...ariaAttributes}
+    />
+  );
+};
+
+RequestAcceptButtonCmp.propTypes = {
+  updateQueryState: PropTypes.func.isRequired,
+  currentQueryState: PropTypes.object.isRequired,
+};
+
+export const RequestAcceptButtonModal = withState(RequestAcceptButtonCmp);
+
 export const RDMRequestsEmptyResultsWithState = withState(
   RDMRequestsEmptyResults
 );
@@ -441,6 +592,12 @@ export const defaultComponents = {
   "ResultsGrid.item": RequestsResultsGridItemTemplate,
   "SearchApp.layout": RDMRequestsSearchLayout,
   "SearchApp.results": RequestsResults,
+  "RequestAction.button.accept": RequestAcceptButton,
+  "RequestAction.button.decline": RequestDeclineButton,
+  "RequestAction.button.cancel": RequestCancelButton,
+  "RequestActionModal.button.cancel": RequestCancelButtonModal,
+  "RequestActionModal.button.decline": RequestDeclineButtonModal,
+  "RequestActionModal.button.accept": RequestAcceptButtonModal,
   "SearchBar.element": RDMRecordSearchBarElement,
   "EmptyResults.element": RDMRequestsEmptyResultsWithState,
   "RequestTypeLabel.layout.community-submission": () => (
