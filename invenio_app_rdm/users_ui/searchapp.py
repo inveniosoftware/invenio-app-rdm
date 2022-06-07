@@ -30,7 +30,7 @@ def search_app_context():
             current_app.config["COMMUNITIES_FACETS"],
             current_app.config["RDM_SORT_OPTIONS"],
             "/api/user/communities",
-            {"Accept": "application/json"},
+            {"Accept": "application/vnd.inveniordm.v1+json"},
         ),
         "search_app_rdm_user_requests_config": partial(
             search_app_config,

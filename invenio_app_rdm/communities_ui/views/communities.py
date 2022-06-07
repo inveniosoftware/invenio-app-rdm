@@ -12,8 +12,8 @@ from flask import render_template
 from invenio_communities.views.decorators import pass_community
 
 
-@pass_community
-def communities_detail(pid_value, community):
+@pass_community(serialize=True)
+def communities_detail(pid_value, community, community_ui):
     """Community detail page."""
     permissions = community.has_permissions_to(
         ["update", "read", "search_requests", "search_invites"]
@@ -22,7 +22,7 @@ def communities_detail(pid_value, community):
 
     return render_template(
         "invenio_communities/details/index.html",
-        community=community.to_dict(),  # TODO: use serializer
+        community=community_ui,
         # Pass permissions so we can disable partially UI components
         # e.g Settings tab
         permissions=permissions,

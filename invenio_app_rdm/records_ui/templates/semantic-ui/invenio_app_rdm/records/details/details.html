@@ -19,6 +19,7 @@ show_alternate_identifiers, show_related_identifiers, show_funding, show_dates %
                     metadata.references
 %}
 {% set rights = record.ui.get('rights') %}
+{% set funding = record.ui.get('funding') %}
 {% set active = true %}
 
 {% if hasContent %}
@@ -172,7 +173,7 @@ show_alternate_identifiers, show_related_identifiers, show_funding, show_dates %
       {% set active = false %}
     {% endif %}
 
-    {% if metadata.funding %}
+    {% if funding %}
       <div
           role="tabpanel"
           class="ui bottom attached {{ 'active' if active }} tab segment"
@@ -182,7 +183,7 @@ show_alternate_identifiers, show_related_identifiers, show_funding, show_dates %
           hidden="{{ not active }}"
       >
         <dl class="details-list">
-          {{ show_funding(metadata.funding) }}
+          {{ show_funding(funding) }}
         </dl>
       </div>
       {% set active = false %}
