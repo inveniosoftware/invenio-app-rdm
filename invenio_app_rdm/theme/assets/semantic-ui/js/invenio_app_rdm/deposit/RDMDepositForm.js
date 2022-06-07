@@ -280,9 +280,7 @@ export class RDMDepositForm extends Component {
                     searchApi: {
                       axios: {
                         headers: {
-                          //  FIXME use for internationalisation
-                          //  Accept: "application/vnd.inveniordm.v1+json"
-                          Accept: "application/json",
+                          Accept: "application/vnd.inveniordm.v1+json",
                         },
                         url: "/api/awards",
                         withCredentials: false,
@@ -300,8 +298,7 @@ export class RDMDepositForm extends Component {
                   labelIcon="money bill alternate outline"
                   deserializeAward={(award) => {
                     return {
-                      title: award.title.en ?? award.title,
-                      pid: award.pid,
+                      title: award.title_l10n,
                       number: award.number,
                       funder: award.funder ?? "",
                       id: award.id,
@@ -315,6 +312,7 @@ export class RDMDepositForm extends Component {
                     return {
                       id: funder.id,
                       name: funder.name,
+                      ...(funder.title_l10n && { title: funder.title_l10n }),
                       ...(funder.pid && { pid: funder.pid }),
                       ...(funder.country && { country: funder.country }),
                       ...(funder.identifiers && {
@@ -330,7 +328,7 @@ export class RDMDepositForm extends Component {
                     if (funding.funder) {
                       const funderName =
                         funding.funder?.name ??
-                        funding.funder?.title?.en ??
+                        funding.funder?.title ??
                         funding.funder?.id ??
                         "";
                       awardOrFunder = "funder";

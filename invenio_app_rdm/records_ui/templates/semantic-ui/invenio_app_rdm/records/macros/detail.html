@@ -85,10 +85,10 @@
 
 {% macro _show_funding_item(item, index) %}
   {%- if item.award -%}
-    {%- if item.award.title.en -%}
+    {%- if item.award.title_l10n -%}
       <dt class="ui tiny header">
         <span class="mr-5">
-          {{ item.award.title.en }}
+          {{ item.award.title_l10n }}
         </span>
 
         {%- if item.award.number -%}

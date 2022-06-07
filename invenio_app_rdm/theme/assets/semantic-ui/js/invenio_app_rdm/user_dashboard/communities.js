@@ -52,7 +52,7 @@ function ResultsGridItemTemplate({ result, index }) {
 export function CommunitiesResultsItemTemplate({ result, index }) {
   const community_type = _get(
     result,
-    "metadata.type.title.en",
+    "ui.type.title_l10n",
     i18next.t("No community type")
   );
   return (
