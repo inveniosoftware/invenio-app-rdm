@@ -55,7 +55,7 @@ theme = WebpackThemeBundle(
                 'yup': '^0.32.0',
                 'leaflet': '^1.8.0',
                 'react-leaflet': '^4.0.0',
-                '@react-leaflet/core': '^2.0.0', #'>=1.0.0 <1.1.0 || ^1.1.1',
+                '@react-leaflet/core': '^2.0.0',
                 'plotly.js': '^2.12.1',
                 'react-plotly.js': '^2.5.1',
             },

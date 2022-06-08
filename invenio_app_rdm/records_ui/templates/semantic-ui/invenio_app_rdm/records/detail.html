@@ -269,9 +269,11 @@
             {%- endblock record_files -%}
 
             {%- block record_map -%}
+              {% if record.metadata.wms_resource %}
               <section id="leaflet-map" class="rel-mt-2" aria-label="{{ _('Record map') }}">
                 {%- include "invenio_app_rdm/records/details/map.html" %}
               </section>
+              {% endif %}
             {%- endblock record_map -%}
 
             {# Additional details #}

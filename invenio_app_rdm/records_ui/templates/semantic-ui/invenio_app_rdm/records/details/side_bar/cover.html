@@ -1,0 +1,9 @@
+{% if record.metadata.cover %}
+{% set src = record.metadata.cover %}
+<section id="record-cover" aria-label="Record cover" class="ui segment rdm-sidebar">
+  <h2 class="ui small header"><i aria-hidden="true" class="picture mini icon"></i>Cover</h2>
+  <div class="cover">
+    <img src="{{ src }}" alt="No picture" class="ui medium centered image cover"/>
+  </div>
+</section>
+{% endif %}
