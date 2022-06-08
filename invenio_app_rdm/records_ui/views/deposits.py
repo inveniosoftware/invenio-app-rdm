@@ -53,7 +53,7 @@ def get_form_pids_config():
             "pid_placeholder": "Copy/paste your existing DOI here...",
             "can_be_managed": can_be_managed,
             "can_be_unmanaged": can_be_unmanaged,
-            "btn_label_discard_pid": _("Discard the reserved {scheme_label}").format(
+            "btn_label_discard_pid": _("Discard the reserved {scheme_label}.").format(
                 scheme_label=scheme_label
             ),
             "btn_label_get_pid": _("Get a {scheme_label} now!").format(

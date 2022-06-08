@@ -228,7 +228,7 @@ export const ShareModal = (props) => {
             <Icon name="warning circle" />
             {!!!accessLinkObj
               ? i18next.t(
-                  "No link has been created. Click on 'Get a Link' to make a new link"
+                  "No link has been created. Click on 'Get a Link' to make a new link."
                 )
               : message[shareMode]}
           </p>

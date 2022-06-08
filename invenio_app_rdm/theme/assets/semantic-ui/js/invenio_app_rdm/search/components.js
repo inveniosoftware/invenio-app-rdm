@@ -434,16 +434,15 @@ export const RDMEmptyResults = (props) => {
                 metadata.publication_date:[2017-01-01 TO *]
               </a>{" "}
               {i18next.t(
-                "will give you all the publications from 2017 until today"
+                "will give you all the publications from 2017 until today."
               )}
-              .
             </p>
             <p>
               {i18next.t("For more tips, check out our ")}
               <a href="/help/search" title={i18next.t("Search guide")}>
                 {i18next.t("search guide")}
               </a>
-              {i18next.t(" for defining advanced search queries")}.
+              {i18next.t(" for defining advanced search queries.")}
             </p>
           </Segment>
         </Grid.Column>
