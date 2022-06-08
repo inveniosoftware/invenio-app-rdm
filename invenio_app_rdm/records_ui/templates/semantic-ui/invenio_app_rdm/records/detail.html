@@ -41,11 +41,11 @@
         {% set is_community_restricted = community.access.visibility == 'restricted' %}
         <div class="ui fluid container page-subheader-outer with-submenu compact">
           <div class="ui container page-subheader">
-            <div class="page-subheader-element">
+            <div class="ui mini image community-logo page-subheader-element ">
               <img
-                class="ui mini image"
+                class=""
                 src="{{ community.links.logo }}"
-                onerror="this.onerror=null;this.src='/static/images/square-placeholder.png';"/>
+                onerror="this.onerror=null;this.src='/static/images/square-placeholder.png';" alt=""/>
             </div>
             <div class="page-subheader-element">
               <a

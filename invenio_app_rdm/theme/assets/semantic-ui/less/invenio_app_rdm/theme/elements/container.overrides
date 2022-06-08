@@ -34,7 +34,6 @@
   align-items: center;
   display: flex;
 
-
   &.compact {
     height: 3em;
   }
@@ -46,6 +45,7 @@
   }
 
   .page-subheader-element{
+    height: inherit;
     padding-left: 0.5em;
     padding-right: 0.5em;
 

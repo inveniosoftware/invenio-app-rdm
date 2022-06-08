@@ -62,6 +62,7 @@ export function CommunitiesResultsItemTemplate({ result, index }) {
         src={result.links.logo}
         fallbackSrc="/static/images/square-placeholder.png"
         size="tiny"
+        className="community-logo"
       />
       <Item.Content>
         <Item.Extra className="user-communities labels-actions">
