@@ -18,7 +18,6 @@ import {
   Card,
   Header,
   Icon,
-  Input,
   Item,
   Label,
   Segment,

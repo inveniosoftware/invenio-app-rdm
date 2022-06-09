@@ -28,13 +28,23 @@ import {
   Sort,
   withState,
 } from "react-searchkit";
-import RequestTypeLabel from "@js/invenio_requests/request/RequestTypeLabel";
+import { parametrize } from "react-overridable";
 import {
   LabelTypeInvitation,
   LabelTypeSubmission,
+  LabelStatusSubmit,
+  LabelStatusDelete,
+  LabelStatusAccept,
+  LabelStatusDecline,
+  LabelStatusCancel,
+  LabelStatusExpire,
 } from "@js/invenio_requests/request";
-import { RequestActionController } from "@js/invenio_requests/request/actions/RequestActionController";
-
+import {
+  RequestAcceptButton,
+  RequestCancelButton,
+  RequestDeclineButton,
+  RequestCancelButtonModal,
+} from "@js/invenio_requests/components/Buttons";
 import {
   Button,
   Card,
@@ -42,7 +52,6 @@ import {
   Grid,
   Header,
   Icon,
-  Item,
   Segment,
 } from "semantic-ui-react";
 import {
@@ -52,6 +61,8 @@ import {
   SearchHelpLinks,
 } from "../search/components";
 import { timestampToRelativeTime } from "../utils";
+import { ComputerTabletRequestsItems } from "./requests_items/ComputerTabletRequestsItems";
+import { MobileRequestsItems } from "./requests_items/MobileRequestsItems";
 
 export const RequestsResults = ({
   sortOptions,
@@ -155,10 +166,9 @@ export function RequestsResultsGridItemTemplate({ result, index }) {
   );
 }
 
-export function RequestsResultsItemTemplate({ result, index }) {
+export function RequestsResultsItemTemplateDashboard({ result, index }) {
   const createdDate = new Date(result.created);
   const differenceInDays = timestampToRelativeTime(createdDate.toISOString());
-
   const createdBy = result.created_by;
   const isCreatorUser = "user" in createdBy;
   const isCreatorCommunity = "community" in createdBy;
@@ -172,39 +182,27 @@ export function RequestsResultsItemTemplate({ result, index }) {
     creatorName =
       result.expanded?.created_by.metadata?.title || createdBy.community;
   }
+  const ComputerTabletRequestsItemsWithState = withState(
+    ComputerTabletRequestsItems
+  );
+  const MobileRequestsItemsWithState = withState(MobileRequestsItems);
   return (
-    <Item key={index} className="community-item">
-      <Item.Content>
-        <Item.Header>
-          {result.type && <RequestTypeLabel type={result.type} />}
-          <a className="header-link" href={`/me/requests/${result.id}`}>
-            {result.title}
-          </a>
-        </Item.Header>
-
-        <Item.Meta>
-          <div className="inline-computer rel-mr-1 rel-mt-1 rel-mb-1">
-            {i18next.t(`opened {{difference}} by {{creator}}`, {
-              difference: differenceInDays,
-              creator: creatorName,
-            })}
-          </div>
-
-          {result.receiver.community &&
-            result.expanded?.receiver.metadata.title && (
-              <div className="inline-computer">
-                <Icon className="default-margin" name="users" />
-                <span className="ml-5">
-                  {result.expanded?.receiver.metadata.title}
-                </span>
-              </div>
-            )}
-        </Item.Meta>
-      </Item.Content>
-      <div>
-        <RequestActionController request={result} />
-      </div>
-    </Item>
+    <>
+      <ComputerTabletRequestsItemsWithState
+        result={result}
+        index={index}
+        differenceInDays={differenceInDays}
+        isCreatorCommunity={isCreatorCommunity}
+        creatorName={creatorName}
+      />
+      <MobileRequestsItemsWithState
+        result={result}
+        index={index}
+        differenceInDays={differenceInDays}
+        isCreatorCommunity={isCreatorCommunity}
+        creatorName={creatorName}
+      />
+    </>
   );
 }
 // FIXME: Keeping ResultsGrid.item and SearchBar.element because otherwise
@@ -433,179 +431,105 @@ export const RDMRequestsEmptyResults = (props) => {
   );
 };
 
-export const RequestAcceptButton = ({
-  onClick,
-  requestType,
-  loading,
-  ariaAttributes,
-}) => {
-  const requestIsCommunitySubmission = requestType === "community-submission";
-  const buttonText = requestIsCommunitySubmission
-    ? i18next.t("Accept and publish")
-    : i18next.t("Accept");
-  return (
-    <Button
-      icon="checkmark"
-      content={buttonText}
-      onClick={onClick}
-      color="green"
-      loading={loading}
-      disabled={loading}
-      {...ariaAttributes}
-    />
-  );
-};
-
-export const RequestCancelButton = ({
-  onClick,
-  loading,
-  ariaAttributes,
-}) => {
-  return (
-    <Button
-      icon="cancel"
-      content={i18next.t("Cancel")}
-      onClick={onClick}
-      loading={loading}
-      disabled={loading}
-      {...ariaAttributes}
-    />
-  );
-};
-
-export const RequestDeclineButton = ({
-  onClick,
-  loading,
-  ariaAttributes,
-}) => {
-  return (
-    <Button
-      icon="cancel"
-      content={i18next.t("Decline")}
-      onClick={onClick}
-      loading={loading}
-      disabled={loading}
-      color="red"
-      {...ariaAttributes}
-    />
-  );
-};
-
-export const RequestCancelButtonModalCmp = ({
-  onClick,
-  loading,
-  updateQueryState,
-  currentQueryState,
-}) => {
-  return (
-    <Button
-      icon="cancel"
-      content={i18next.t("Cancel request")}
-      onClick={() => {
-        onClick().then(() => updateQueryState(currentQueryState));
-      }}
-      loading={loading}
-      disabled={loading}
-      color="red"
-    />
-  );
-};
-
-RequestCancelButtonModalCmp.propTypes = {
-  updateQueryState: PropTypes.func.isRequired,
-  currentQueryState: PropTypes.object.isRequired,
-};
-export const RequestCancelButtonModal = withState(RequestCancelButtonModalCmp);
-
-export const RequestDeclineButtonCmp = ({
-  onClick,
-  loading,
-  ariaAttributes,
-  updateQueryState,
-  currentQueryState,
-}) => {
-  return (
-    <Button
-      icon="cancel"
-      content={i18next.t("Decline")}
-      onClick={() => {
-        onClick().then(() => updateQueryState(currentQueryState));
-      }}
-      loading={loading}
-      disabled={loading}
-      color="red"
-      {...ariaAttributes}
-    />
-  );
-};
-
-RequestDeclineButtonCmp.propTypes = {
-  updateQueryState: PropTypes.func.isRequired,
-  currentQueryState: PropTypes.object.isRequired,
-};
-
-export const RequestDeclineButtonModal = withState(RequestDeclineButtonCmp);
-
-export const RequestAcceptButtonCmp = ({
-  onClick,
-  requestType,
-  loading,
-  ariaAttributes,
-  updateQueryState,
-  currentQueryState,
-}) => {
-  const requestIsCommunitySubmission = requestType === "community-submission";
-  const buttonText = requestIsCommunitySubmission
-    ? i18next.t("Accept and publish")
-    : i18next.t("Accept");
-  return (
-    <Button
-      icon="checkmark"
-      content={buttonText}
-      onClick={() => {
-        onClick().then(() => updateQueryState(currentQueryState));
-      }}
-      loading={loading}
-      disabled={loading}
-      color="green"
-      {...ariaAttributes}
-    />
-  );
-};
-
-RequestAcceptButtonCmp.propTypes = {
-  updateQueryState: PropTypes.func.isRequired,
-  currentQueryState: PropTypes.object.isRequired,
-};
-
-export const RequestAcceptButtonModal = withState(RequestAcceptButtonCmp);
-
 export const RDMRequestsEmptyResultsWithState = withState(
   RDMRequestsEmptyResults
 );
+
+const RequestAcceptButtonWithConfig = parametrize(RequestAcceptButton, {
+  size: "mini",
+  className: "ml-5",
+});
+
+const RequestDeclineButtonWithConfig = parametrize(RequestDeclineButton, {
+  size: "mini",
+  className: "ml-5",
+});
+
+const RequestCancelButtonWithConfig = parametrize(RequestCancelButton, {
+  size: "mini",
+  className: "ml-5",
+});
+
+const RequestAcceptButtonMobileWithConfig = parametrize(RequestAcceptButton, {
+  size: "mini",
+  className: "mt-10 fluid-responsive",
+});
+
+const RequestDeclineButtonMobileWithConfig = parametrize(RequestDeclineButton, {
+  size: "mini",
+  className: "mt-10 fluid-responsive",
+});
+
+const RequestCancelButtonMobileWithConfig = parametrize(RequestCancelButton, {
+  size: "mini",
+  className: "mt-10 fluid-responsive",
+});
+
+const CommunitySubmission = () => (
+  <LabelTypeSubmission className="rel-mr-1" size="small" color="blue" />
+)
+
+const CommunityInvitation = () => (
+  <LabelTypeInvitation className="rel-mr-1" size="small" color="blue" />
+)
+
+const Submitted = () => (
+  <LabelStatusSubmit className="rel-mr-1" size="small" color="blue" />
+)
+
+const Deleted = () => (
+  <LabelStatusDelete className="rel-mr-1" size="small" color="red" />
+)
+
+const Accepted = () => (
+  <LabelStatusAccept className="rel-mr-1" size="small" color="green" />
+)
+
+const Declined = () => (
+  <LabelStatusDecline className="rel-mr-1" size="small" color="red" />
+)
+
+const Cancelled = () => (
+  <LabelStatusCancel className="rel-mr-1" size="small" color="grey" />
+)
+
+const Expired = () => (
+  <LabelStatusExpire className="rel-mr-1" size="small" color="grey" />
+)
 
 export const defaultComponents = {
   "BucketAggregation.element": RDMBucketAggregationElement,
   "BucketAggregationValues.element": RDMRecordFacetsValues,
   "SearchApp.facets": RequestsFacets,
-  "ResultsList.item": RequestsResultsItemTemplate,
+  "ResultsList.item": RequestsResultsItemTemplateDashboard,
   "ResultsGrid.item": RequestsResultsGridItemTemplate,
   "SearchApp.layout": RDMRequestsSearchLayout,
   "SearchApp.results": RequestsResults,
-  "RequestAction.button.accept": RequestAcceptButton,
-  "RequestAction.button.decline": RequestDeclineButton,
-  "RequestAction.button.cancel": RequestCancelButton,
-  "RequestActionModal.button.cancel": RequestCancelButtonModal,
-  "RequestActionModal.button.decline": RequestDeclineButtonModal,
-  "RequestActionModal.button.accept": RequestAcceptButtonModal,
   "SearchBar.element": RDMRecordSearchBarElement,
   "EmptyResults.element": RDMRequestsEmptyResultsWithState,
-  "RequestTypeLabel.layout.community-submission": () => (
-    <LabelTypeSubmission className="rel-mr-1" size="large" />
-  ),
-  "RequestTypeLabel.layout.community-invitation": () => (
-    <LabelTypeInvitation className="rel-mr-1" size="large" />
-  ),
+  "RequestTypeLabel.layout.community-submission": CommunitySubmission,
+  "RequestTypeLabel.layout.community-invitation": CommunityInvitation,
+  "RequestStatusLabel.layout.submitted": Submitted,
+  "RequestStatusLabel.layout.deleted": Deleted,
+  "RequestStatusLabel.layout.accepted": Accepted,
+  "RequestStatusLabel.layout.declined": Declined,
+  "RequestStatusLabel.layout.cancelled": Cancelled,
+  "RequestStatusLabel.layout.expired": Expired,
+  "RequestActionModalTrigger.accept.computer-tablet":
+    RequestAcceptButtonWithConfig,
+  "RequestActionModalTrigger.decline.computer-tablet":
+    RequestDeclineButtonWithConfig,
+  "RequestActionModalTrigger.cancel.computer-tablet":
+    RequestCancelButtonWithConfig,
+  "RequestActionModalTrigger.accept.mobile":
+    RequestAcceptButtonMobileWithConfig,
+  "RequestActionModalTrigger.decline.mobile":
+    RequestDeclineButtonMobileWithConfig,
+  "RequestActionModalTrigger.cancel.mobile":
+    RequestCancelButtonMobileWithConfig,
+  "RequestActionButton.cancel": RequestCancelButtonModal,
+  "RequestActionButton.decline": RequestDeclineButton,
+  "RequestActionButton.accept": RequestAcceptButton,
 };
 
 createSearchAppInit(defaultComponents);
