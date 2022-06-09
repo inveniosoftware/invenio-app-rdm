@@ -50,3 +50,4 @@ recursive-include invenio_app_rdm *.png *.svg
 recursive-include invenio_app_rdm *.po *.pot *.mo
 recursive-include docker *.cfg *.conf *.crt *.ini *.key *.pem *.sh
 recursive-include tests *.py
+include .git-blame-ignore-revs
