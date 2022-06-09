@@ -9,8 +9,11 @@
 """Pytest fixtures and plugins for the UI application."""
 
 import pytest
-from flask_webpackext.manifest import JinjaManifest, JinjaManifestEntry, \
-    JinjaManifestLoader
+from flask_webpackext.manifest import (
+    JinjaManifest,
+    JinjaManifestEntry,
+    JinjaManifestLoader,
+)
 from invenio_access.permissions import system_identity
 from invenio_app.factory import create_ui
 from invenio_rdm_records.proxies import current_rdm_records
@@ -39,14 +42,14 @@ class MockManifestLoader(JinjaManifestLoader):
         return MockJinjaManifest()
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope="module")
 def app_config(app_config):
     """Create test app."""
-    app_config['WEBPACKEXT_MANIFEST_LOADER'] = MockManifestLoader
+    app_config["WEBPACKEXT_MANIFEST_LOADER"] = MockManifestLoader
     return app_config
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope="module")
 def create_app():
     """Create test app."""
     return create_ui

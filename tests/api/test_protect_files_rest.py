@@ -15,15 +15,13 @@ def create_draft(client, record, headers):
     """Create draft and return its id."""
     response = client.post("/records", json=record, headers=headers)
     assert response.status_code == 201
-    return response.json['id']
+    return response.json["id"]
 
 
 def init_file(client, recid, headers):
     """Init a file for draft with given recid."""
     return client.post(
-        f'/records/{recid}/draft/files',
-        headers=headers,
-        json=[{'key': 'test.pdf'}]
+        f"/records/{recid}/draft/files", headers=headers, json=[{"key": "test.pdf"}]
     )
 
 
@@ -32,25 +30,23 @@ def upload_file(client, recid):
     return client.put(
         f"/records/{recid}/draft/files/test.pdf/content",
         headers={
-            'content-type': 'application/octet-stream',
-            'accept': 'application/json',
+            "content-type": "application/octet-stream",
+            "accept": "application/json",
         },
-        data=BytesIO(b'testfile'),
+        data=BytesIO(b"testfile"),
     )
 
 
 def commit_file(client, recid, headers):
     """Create draft and return its id."""
-    return client.post(
-        f"/records/{recid}/draft/files/test.pdf/commit",
-        headers=headers
-    )
+    return client.post(f"/records/{recid}/draft/files/test.pdf/commit", headers=headers)
 
 
 # NOTE: It seems like it was already the case that a logged in user wouldn't be
 #       able to access files-rest. We are just making doubly-clear.
 def test_files_rest_endpoint_is_protected(
-        running_app, client_with_login, headers, es_clear, minimal_record):
+    running_app, client_with_login, headers, es_clear, minimal_record
+):
     client = client_with_login
 
     # Create draft with file

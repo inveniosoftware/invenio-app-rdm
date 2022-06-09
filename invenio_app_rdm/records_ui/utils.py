@@ -23,7 +23,7 @@ def previewer_record_file_factory(pid, record, filename):
     :returns: Previewer compatible File object or ``None`` if not found.
     """
     try:
-        if not (hasattr(record, 'files') and record.files):
+        if not (hasattr(record, "files") and record.files):
             return None
     except MissingModelError:
         return None

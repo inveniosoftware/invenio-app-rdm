@@ -16,9 +16,9 @@ from invenio_communities.views.decorators import pass_community
 def communities_detail(pid_value, community):
     """Community detail page."""
     permissions = community.has_permissions_to(
-        ['update', 'read', 'search_requests', 'search_invites']
+        ["update", "read", "search_requests", "search_invites"]
     )
-    endpoint = '/api/communities/{pid_value}/records'
+    endpoint = "/api/communities/{pid_value}/records"
 
     return render_template(
         "invenio_communities/details/index.html",
@@ -27,5 +27,5 @@ def communities_detail(pid_value, community):
         # e.g Settings tab
         permissions=permissions,
         active_community_header_menu_item="search",
-        endpoint=endpoint.format(pid_value=community.to_dict()["id"])
+        endpoint=endpoint.format(pid_value=community.to_dict()["id"]),
     )

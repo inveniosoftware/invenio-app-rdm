@@ -19,8 +19,10 @@ import invenio_rdm_records.fixtures as fixtures
 from click import echo, secho
 from invenio_access.permissions import system_identity
 from invenio_db import db
-from invenio_rdm_records.fixtures import PrioritizedVocabulariesFixtures, \
-    VocabulariesFixture
+from invenio_rdm_records.fixtures import (
+    PrioritizedVocabulariesFixtures,
+    VocabulariesFixture,
+)
 from invenio_vocabularies.proxies import current_service as vocabulary_svc
 
 
@@ -88,9 +90,7 @@ def execute_upgrade():
     # 1: check the app_data directory for the invenio instance
     app_data_yaml_file = pf._app_data_folder / pf._filename
     if app_data_yaml_file.exists():
-        app_data_fixture = VocabulariesFixture(
-            system_identity, app_data_yaml_file
-        )
+        app_data_fixture = VocabulariesFixture(system_identity, app_data_yaml_file)
         licenses_loaded, errs = update_licenses_from_fixture(app_data_fixture)
         errors.extend(errs)
 
@@ -104,17 +104,13 @@ def execute_upgrade():
         # check if the entry points define something for licenses
         if not licenses_loaded and "licenses" in vocab_list:
             extension_fixture = VocabulariesFixture(system_identity, filepath)
-            licenses_loaded, errs = update_licenses_from_fixture(
-                extension_fixture
-            )
+            licenses_loaded, errs = update_licenses_from_fixture(extension_fixture)
             errors.extend(errs)
 
     # 3: check the default vocabularies from rdm-records
     pkg_data_yaml_file = pf._pkg_data_folder / pf._filename
     if not licenses_loaded and pkg_data_yaml_file.exists():
-        pkg_data_fixture = VocabulariesFixture(
-            system_identity, pkg_data_yaml_file
-        )
+        pkg_data_fixture = VocabulariesFixture(system_identity, pkg_data_yaml_file)
         licenses_loaded, errs = update_licenses_from_fixture(pkg_data_fixture)
         errors.extend(errs)
 

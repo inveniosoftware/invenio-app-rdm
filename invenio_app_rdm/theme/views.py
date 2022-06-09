@@ -35,15 +35,13 @@ def create_blueprint(app):
     @blueprint.before_app_first_request
     def init_menu():
         """Initialize menu before first request."""
-        current_menu.submenu('actions.deposit').register(
-            'invenio_app_rdm_users.uploads',
-            _('My dashboard'),
-            order=1
+        current_menu.submenu("actions.deposit").register(
+            "invenio_app_rdm_users.uploads", _("My dashboard"), order=1
         )
 
-        current_menu.submenu('plus.deposit').register(
-            'invenio_app_rdm_records.deposit_create',
-            _('New upload'),
+        current_menu.submenu("plus.deposit").register(
+            "invenio_app_rdm_records.deposit_create",
+            _("New upload"),
             order=1,
         )
 
@@ -61,7 +59,7 @@ def create_blueprint(app):
 def index():
     """Frontpage."""
     return render_template(
-        current_app.config['THEME_FRONTPAGE_TEMPLATE'],
+        current_app.config["THEME_FRONTPAGE_TEMPLATE"],
     )
 
 
@@ -69,7 +67,9 @@ def help_search():
     """Search help guide."""
     # Default to rendering english page if locale page not found.
     locale = get_locale()
-    return render_template([
-        f"invenio_app_rdm/help/search.{locale}.html",
-        "invenio_app_rdm/help/search.en.html",
-    ])
+    return render_template(
+        [
+            f"invenio_app_rdm/help/search.{locale}.html",
+            "invenio_app_rdm/help/search.en.html",
+        ]
+    )
