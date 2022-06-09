@@ -15,6 +15,7 @@ def execute_upgrade_fix():
 
     def update_siblings_versions(records_list):
         """Update records to assign a correct index."""
+
         def get_created_date(record):
             """Returns created date of the record."""
             return record.created

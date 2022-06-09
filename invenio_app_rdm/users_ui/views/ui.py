@@ -16,15 +16,14 @@ from flask_menu import current_menu
 #
 # Error handlers
 #
-from invenio_app_rdm.users_ui.views.dashboard import communities, requests, \
-    uploads
+from invenio_app_rdm.users_ui.views.dashboard import communities, requests, uploads
 
 from ..searchapp import search_app_context
 
 
 def not_found_error(error):
     """Handler for 'Not Found' errors."""
-    return render_template(current_app.config['THEME_404_TEMPLATE']), 404
+    return render_template(current_app.config["THEME_404_TEMPLATE"]), 404
 
 
 def record_permission_denied_error(error):
@@ -32,7 +31,7 @@ def record_permission_denied_error(error):
     if not current_user.is_authenticated:
         # trigger the flask-login unauthorized handler
         return current_app.login_manager.unauthorized()
-    return render_template(current_app.config['THEME_403_TEMPLATE']), 403
+    return render_template(current_app.config["THEME_403_TEMPLATE"]), 403
 
 
 #
@@ -46,7 +45,7 @@ def create_ui_blueprint(app):
         "invenio_app_rdm_users",
         __name__,
         template_folder="../templates",
-        static_folder='../static'
+        static_folder="../static",
     )
 
     blueprint.add_url_rule(
@@ -68,20 +67,20 @@ def create_ui_blueprint(app):
     @blueprint.before_app_first_request
     def register_menus():
         """Register community menu items."""
-        user_dashboard = current_menu.submenu('dashboard')
-        user_dashboard.submenu('uploads').register(
-            'invenio_app_rdm_users.uploads',
-            text=_('Uploads'),
+        user_dashboard = current_menu.submenu("dashboard")
+        user_dashboard.submenu("uploads").register(
+            "invenio_app_rdm_users.uploads",
+            text=_("Uploads"),
             order=1,
         )
-        user_dashboard.submenu('communities').register(
-            'invenio_app_rdm_users.communities',
-            text=_('Communities'),
+        user_dashboard.submenu("communities").register(
+            "invenio_app_rdm_users.communities",
+            text=_("Communities"),
             order=2,
         )
-        user_dashboard.submenu('requests').register(
-            'invenio_app_rdm_users.requests',
-            text=_('Requests'),
+        user_dashboard.submenu("requests").register(
+            "invenio_app_rdm_users.requests",
+            text=_("Requests"),
             order=3,
         )
 

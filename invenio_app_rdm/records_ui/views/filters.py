@@ -25,9 +25,7 @@ def make_files_preview_compatible(files):
     """
     file_objects = []
     for file in files:
-        file_objects.append(
-            FileObject(obj=files[file].object_version, data={}).dumps()
-        )
+        file_objects.append(FileObject(obj=files[file].object_version, data={}).dumps())
     return file_objects
 
 
@@ -73,9 +71,7 @@ def pid_url(identifier, scheme=None, url_scheme="https"):
             scheme = None
     try:
         if scheme and identifier:
-            return idutils.to_url(
-                identifier, scheme, url_scheme=url_scheme
-            )
+            return idutils.to_url(identifier, scheme, url_scheme=url_scheme)
     except Exception:
         current_app.logger.warning(
             f"URL generation for identifier {identifier} failed.",
@@ -112,8 +108,6 @@ def order_entries(files):
 
 def get_scheme_label(scheme):
     """Convert backend scheme to frontend label."""
-    scheme_to_label = current_app.config.get(
-        "RDM_RECORDS_IDENTIFIERS_SCHEMES", {}
-    )
+    scheme_to_label = current_app.config.get("RDM_RECORDS_IDENTIFIERS_SCHEMES", {})
 
     return scheme_to_label.get(scheme, {}).get("label", scheme)

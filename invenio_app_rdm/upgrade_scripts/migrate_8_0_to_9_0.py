@@ -28,29 +28,29 @@ def execute_upgrade():
     def update_funding_field(record):
         try:
             echo(f"Updating record: {record['id']}... ", nl=False)
-            for funding in record.metadata.get('funding', []):
-                award = funding.get('award', {})
-                funder = funding.get('funder', {})
-                if award.get('identifier') and award.get('scheme'):
-                    award_identifier = award.pop('identifier')
-                    award_scheme = award.pop('scheme')
-                    funding['award']['identifiers'] = [{
-                        'identifier': award_identifier,
-                        'scheme': award_scheme
-                    }]
-                if funder.get('identifier') and funder.get('scheme'):
-                    funder.pop('identifier')
-                    funder.pop('scheme')
-                if award.get('title', ''):
-                    award_title = award.pop('title')
-                    funding['award']['title'] = {'en': award_title}
-                if funder.get('title', ''):
-                    funder.pop('title')
+            for funding in record.metadata.get("funding", []):
+                award = funding.get("award", {})
+                funder = funding.get("funder", {})
+                if award.get("identifier") and award.get("scheme"):
+                    award_identifier = award.pop("identifier")
+                    award_scheme = award.pop("scheme")
+                    funding["award"]["identifiers"] = [
+                        {"identifier": award_identifier, "scheme": award_scheme}
+                    ]
+                if funder.get("identifier") and funder.get("scheme"):
+                    funder.pop("identifier")
+                    funder.pop("scheme")
+                if award.get("title", ""):
+                    award_title = award.pop("title")
+                    funding["award"]["title"] = {"en": award_title}
+                if funder.get("title", ""):
+                    funder.pop("title")
             secho("OK", fg="green")
             return record
         except Exception as e:
             secho("Error {}".format(repr(e)), fg="red")
             return None
+
     errors = []
 
     records = RDMRecord.model_cls.query.all()

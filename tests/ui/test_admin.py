@@ -12,4 +12,4 @@ from invenio_accounts.testutils import login_user_via_session
 
 def test_admin_deny_access_admin(running_app, client, admin_user):
     login_user_via_session(client, email=admin_user.email)
-    assert client.get('/admin/').status_code == 403
+    assert client.get("/admin/").status_code == 403
