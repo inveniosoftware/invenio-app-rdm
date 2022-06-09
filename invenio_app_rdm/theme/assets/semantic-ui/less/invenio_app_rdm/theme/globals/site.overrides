@@ -15,55 +15,36 @@ body {
 }
 
 :not(.ui.grid).only {
-  display: none !important;
 
-  &.mobile {
-    @media all and (max-width: @largestMobileScreen) {
-      display: block !important;
-
-      &.inline {
-        display: inline-block !important;
-      }
-    }
-  }
-
-  &.mobile.tablet {
-    @media all and (max-width: @largestTabletScreen) {
-      display: block !important;
-
-      &.inline {
-        display: inline-block !important;
-      }
+  &.mobile:not(.tablet) {
+    @media all and (min-width: @largestMobileScreen) {
+      display: none !important;
     }
   }
 
   &.tablet {
-    @media all and (min-width: @tabletBreakpoint) and (max-width: @largestTabletScreen) {
-      display: block !important;
+    &.mobile {
+      @media all and (min-width: @largestTabletScreen) {
+        display: none !important;
+      }
+    }
 
-      &.inline {
-        display: inline-block !important;
+    &.computer {
+      @media all and (max-width: @tabletBreakpoint) {
+        display: none !important;
+      }
+    }
+
+    &:not(.computer):not(.mobile){
+      @media not all and (min-width: @largestMobileScreen) and (max-width: @computerBreakpoint) {
+        display: none !important;
       }
     }
   }
 
-  &.tablet.computer {
-    @media all and (min-width: @tabletBreakpoint) {
-      display: block !important;
-
-      &.inline {
-        display: inline-block !important;
-      }
-    }
-  }
-
-  &.computer {
-    @media all and (min-width: @computerBreakpoint) {
-      display: block !important;
-
-      &.inline {
-        display: inline-block !important;
-      }
+  &.computer:not(.tablet) {
+    @media all and (max-width: @computerBreakpoint) {
+      display: none !important;
     }
   }
 }
@@ -481,6 +462,13 @@ dl.details-list {
   }
 }
 
+.block {
+  display: block;
+}
+
+.inline{
+  display: inline;
+}
 
 .flex {
   display: flex;

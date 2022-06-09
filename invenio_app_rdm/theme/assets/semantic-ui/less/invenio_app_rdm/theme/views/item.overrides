@@ -102,7 +102,6 @@
 
     .header .header-link {
       @media all and (max-width: @largestMobileScreen) {
-        display: block;
         margin-top: 1rem;
       }
     }
@@ -124,5 +123,3 @@
     align-self: center;
   }
 }
-
-
