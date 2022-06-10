@@ -5,6 +5,14 @@
 
 #deposit-form {
 
+  .ui.form .required.fields:not(.grouped) > .field > .content > .header > label::after,
+  .ui.form .required.fields.grouped > .content > .header > label::after,
+  .ui.form .required.field > .content > .header > label::after  {
+    margin: -0.2em 0 0 0.2em;
+    content: '*';
+    color: @red;
+  }
+
   .ck-editor__editable {
     min-height: 8.5em;
   }
