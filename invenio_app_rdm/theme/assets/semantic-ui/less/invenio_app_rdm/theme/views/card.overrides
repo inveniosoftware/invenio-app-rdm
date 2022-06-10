@@ -106,3 +106,56 @@
 
 }
 
+/*---------------------------------------------------------
+     Content - overrides immediate child from semantic
+     https://github.com/Semantic-Org/Semantic-UI/blob/master/src/definitions/views/card.less
+---------------------------------------------------------*/
+
+.ui.cards > .card > .field > .content,
+.ui.card > .field > .content {
+  flex-grow: 1;
+  border: @contentBorder;
+  border-top: @contentDivider;
+  background: @contentBackground;
+  margin: @contentMargin;
+  padding: @contentPadding;
+  box-shadow: @contentBoxShadow;
+  font-size: @contentFontSize;
+  border-radius: @contentBorderRadius;
+}
+
+.ui.cards > .card > .field > .content:after,
+.ui.card > .field > .content:after {
+  display: block;
+  content: ' ';
+  height: 0;
+  clear: both;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+.ui.cards > .card > .field > .content > .header,
+.ui.card > .field > .content > .header {
+  display: block;
+  margin: @headerMargin;
+  font-family: @headerFont;
+  color: @headerColor;
+}
+
+/* Default Header Size */
+.ui.cards > .card > .field > .content > .header:not(.ui),
+.ui.card > .field > .content > .header:not(.ui) {
+  font-weight: @headerFontWeight;
+  font-size: @headerFontSize;
+  margin-top: @headerLineHeightOffset;
+  line-height: @headerLineHeight;
+}
+
+.ui.cards > .card > .field > .content > .meta + .description,
+.ui.cards > .card > .field > .content > .header + .description,
+.ui.card > .field > .content > .meta + .description,
+.ui.card > .field > .content > .header + .description  {
+  margin-top: @descriptionDistance;
+}
+
+

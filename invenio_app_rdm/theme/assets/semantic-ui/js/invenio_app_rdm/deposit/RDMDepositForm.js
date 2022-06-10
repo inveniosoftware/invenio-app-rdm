@@ -413,7 +413,7 @@ export class RDMDepositForm extends Component {
 
                   <AccessRightField
                     label={i18next.t("Visibility")}
-                    labelIcon={"shield"}
+                    labelIcon="shield"
                   />
                   {permissions?.can_delete_draft && (
                     <Card>

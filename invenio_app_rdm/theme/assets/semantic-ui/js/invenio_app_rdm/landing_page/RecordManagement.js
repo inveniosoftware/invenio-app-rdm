@@ -23,7 +23,7 @@ export const RecordManagement = ({
   const { id: recid } = record;
   const [error, setError] = useState("");
   const handleError = (errorMessage) => {
-    console.log(errorMessage);
+    console.error(errorMessage);
     setError(errorMessage);
   };
 
