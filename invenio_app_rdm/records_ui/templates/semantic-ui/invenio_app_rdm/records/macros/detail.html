@@ -44,6 +44,11 @@
   {% endfor %}
 {% endmacro %}
 
+{% macro list_keywords(keywords) %}
+  {% for keyword in keywords %}
+    <span class="ui label small orange" title="{{ keyword }}">{{ keyword }}</span>
+  {% endfor %}
+{% endmacro %}
 
 {% macro show_add_titles(add_titles) %}
   {% for add_title in add_titles %}

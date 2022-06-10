@@ -8,8 +8,8 @@
   it under the terms of the MIT License; see LICENSE file for more details.
 #}
 
-{%- from "invenio_app_rdm/records/macros/detail.html" import list_formats, list_languages,
-  list_sizes, show_dates, show_detail %}
+{%- from "invenio_app_rdm/records/macros/detail.html" import list_formats, list_keywords,
+  list_languages, list_sizes, show_dates, show_detail %}
 
   {%- set id_doi = record.pids.get('doi', {}).get('identifier') %}
 
@@ -22,6 +22,7 @@
 
     <dl class="details-list">
       {{ show_detail(_('Resource type'), record.ui.resource_type.title_l10n) if record.ui.resource_type }}
+      {{ show_detail(_('Keywords'), list_keywords(metadata.keywords)) if metadata.keywords }}
       {{ show_detail(_('Publication date'), record.ui.publication_date_l10n) if record.ui.publication_date_l10n }}
       {{ show_detail(_('Publisher'), metadata.publisher) if metadata.publisher }}
       {{ show_detail(_('Languages'), list_languages(record.ui.languages)) if record.ui.languages }}
