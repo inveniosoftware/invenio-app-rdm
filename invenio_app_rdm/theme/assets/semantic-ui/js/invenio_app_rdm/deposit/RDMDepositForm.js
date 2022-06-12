@@ -64,7 +64,7 @@ export class RDMDepositForm extends Component {
         },
 
         contributors: {
-          ...this.config.vocabularies.creators,
+          ...this.config.vocabularies.contributors,
           type: [
             { text: "Person", value: "personal" },
             { text: "Organization", value: "organizational" },
