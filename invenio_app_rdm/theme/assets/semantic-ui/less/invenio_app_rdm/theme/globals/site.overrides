@@ -14,27 +14,37 @@ body {
   flex-direction: column;
 }
 
-.mobile.only {
-  display: none;
+:not(.ui.grid).only{
+  display: none !important;
 
-  @media all and (max-width: @largestMobileScreen) {
-    display: inline-block;
+  &.mobile{
+    @media all and (max-width: @largestMobileScreen) {
+      display: inline-block !important;
+    }
   }
-}
 
-.tablet.only {
-  display: none;
-
-  @media all and (max-width: @largestTabletScreen) {
-    display: inline-block;
+  &.mobile.tablet{
+    @media all and (max-width: @largestTabletScreen) {
+      display: inline-block !important;
+    }
   }
-}
 
-.computer.only {
-  display: inline-block;
+  &.tablet{
+    @media all and (min-width: @tabletBreakpoint) and (max-width: @largestTabletScreen) {
+      display: inline-block !important;
+    }
+  }
 
-  @media all and (max-width: @largestTabletScreen) {
-    display: none !important;
+  &.tablet.computer{
+    @media all and (min-width: @tabletBreakpoint) {
+      display: inline-block !important;
+    }
+  }
+
+  &.computer{
+    @media all and (min-width: @computerBreakpoint) {
+      display: inline-block !important;
+    }
   }
 }
 
