@@ -97,7 +97,7 @@ def user_dashboard_request_view(request, **kwargs):
             "invenio_requests/community-submission/index.html",
             base_template="invenio_app_rdm/users/base.html",
             user_avatar=avatar,
-            request=request.to_dict(),
+            invenio_request=request.to_dict(),
             record=record,
             permissions=topic["permissions"],
             is_preview=True,
@@ -111,7 +111,7 @@ def user_dashboard_request_view(request, **kwargs):
             "invenio_requests/community-invitation/user_dashboard.html",
             base_template="invenio_app_rdm/users/base.html",
             user_avatar=avatar,
-            request=request.to_dict(),
+            invenio_request=request.to_dict(),
             invitation_accepted=request_is_accepted,
         )
 
@@ -142,7 +142,7 @@ def community_dashboard_request_view(request, community, **kwargs):
         return render_template(
             "invenio_requests/community-submission/index.html",
             base_template="invenio_communities/details/base.html",
-            request=request.to_dict(),
+            invenio_request=request.to_dict(),
             record=record,
             community=community.to_dict(),
             permissions=permissions,
@@ -162,7 +162,7 @@ def community_dashboard_request_view(request, community, **kwargs):
         return render_template(
             "invenio_requests/community-invitation/community_dashboard.html",
             base_template="invenio_communities/details/members/base.html",
-            request=request.to_dict(),
+            invenio_request=request.to_dict(),
             community=community.to_dict(),
             permissions=permissions,
             invitation_accepted=request_is_accepted,
