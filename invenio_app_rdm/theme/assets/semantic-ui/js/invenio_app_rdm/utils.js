@@ -71,7 +71,7 @@ export function SearchItemCreators({ creators }) {
 
     icon = (
       <a
-         className="no-text-decoration"
+         className="no-text-decoration mr-0"
          href={ link }
          aria-label={`${name}: ${linkTitle}`}
          title={`${name}: ${linkTitle}`}
@@ -108,10 +108,9 @@ export function SearchItemCreators({ creators }) {
     return link;
   }
   return creators.map((creator, index) => (
-    <span className="creatibutor-wrap" key={index}>
+    <span className="creatibutor-wrap separated" key={index}>
       {getLink(creator)}
       {getIcons(creator)}
-      {index < creators.length - 1 && ";"}
     </span>
   ));
 }
