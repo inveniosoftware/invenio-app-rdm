@@ -2,21 +2,7 @@
          Invenio App RDM Table Overrides
 ***********************************************/
 
-.ui.table.files-table {
-  border: 0;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-  table-layout: fixed;
-  width: 100%;
-
-  th.hidden {
-    color: transparent;
-    user-select: none;
-  }
-}
-
 .ui.table {
-
   @media all and (max-width: @largestTabletScreen) {
     &:not(.unstackable) tbody tr {
       padding-top: 0;
@@ -27,17 +13,17 @@
       display: block !important;
     }
 
-    &:not(.unstackable) tr > td.selected-member {
+    &:not(.unstackable) tr > th {
+        display: none !important; // Responsive: header is hidden and data-label is aligned with the table data.
+    }
+
+    &:not(.unstackable) tr > td.responsive-main-cell {
       background-color: lighten(@borderColor, 65%);
       margin-bottom: 1rem;
       padding: 1rem !important; //overriding !important on .ui.table:not(.unstackable) tr > td
     }
 
-    &:not(.unstackable) tr > th:not(.selected-member) {
-      display: none !important;
-    }
-
-    td:not(.selected-member) {
+    td[data-label]  {
       margin-top: .75rem;
 
       &:before {
@@ -59,14 +45,26 @@
         width: 50% !important;
         border-top: 0px;
       }
-    }
-  }
-
-  tbody tr td {
-    &.mobile-table-cell {
       @media all and (max-width: @largestMobileScreen) {
         width: 100% !important;
       }
     }
   }
 }
+
+.ui.table.files {
+  border: 0;
+
+  th.hidden {
+    color: transparent;
+    user-select: none;
+  }
+
+  @media all and (max-width: @largestTabletScreen) {
+    td {
+      text-align: left
+    }
+  }
+}
+
+
