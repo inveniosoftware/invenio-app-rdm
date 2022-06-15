@@ -13,18 +13,18 @@ $(".jump-to-top").on("click", function (event) {
   document.documentElement.scrollTop = 0;
 });
 
-const tabElementSelector = ".invenio-tab-menu .item";
+const tabElementSelector = ".rdm-tab-menu .item";
 const $tabElement = $(tabElementSelector);
 
 
 $tabElement.tab({
   onVisible: function (tab) {
     $(tabElementSelector).attr("aria-selected", false);
-    $(`#${tab}-tab-menu`).attr("aria-selected", true);
+    $(`#${tab}-tab`).attr("aria-selected", true);
 
-    $('.invenio-tab-container .tab.segment')
+    $('.rdm-tab-container .tab.segment')
       .attr("hidden", true);
-    $(`#${tab}-tab`).attr("hidden", false);
+    $(`#${tab}-tab-panel`).attr("hidden", false);
   },
 });
 
