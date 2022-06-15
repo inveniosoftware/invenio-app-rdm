@@ -12,22 +12,22 @@
   <header class="theme header">
     <div class="outer-navbar">
       {%- block navbar %}
-      <div class="ui container invenio-header-container">
+        <div class="ui container invenio-header-container">
         <nav id="invenio-nav" class="ui inverted menu borderless stackable p-0">
           <div class="item logo p-0">
             {%- block navbar_header %}
-                {%- block brand %}
-                  {%- if config.THEME_LOGO %}
-                    <a class="logo-link" href="/">
-                      <img class="ui image rdm-logo"
-                            src="{{ url_for('static', filename=config.THEME_LOGO) }}"
-                            alt="{{ _(config.THEME_SITENAME) }}"/>
-                    </a>
-                  {%- else %}
-                    <a class="logo" href="/">{{ _(config.THEME_SITENAME) }}</a>
-                  {%- endif %}
-                {%- endblock brand %}
-              {%- endblock navbar_header %}
+              {%- block brand %}
+                {%- if config.THEME_LOGO %}
+                  <a class="logo-link" href="/">
+                    <img class="ui image rdm-logo"
+                         src="{{ url_for('static', filename=config.THEME_LOGO) }}"
+                         alt="{{ _(config.THEME_SITENAME) }}"/>
+                  </a>
+                {%- else %}
+                  <a class="logo" href="/">{{ _(config.THEME_SITENAME) }}</a>
+                {%- endif %}
+              {%- endblock brand %}
+            {%- endblock navbar_header %}
           </div>
 
           <div id="rdm-burger-toggle">
@@ -94,7 +94,7 @@
                     </div>
                   </div>
                 {%- else %}
-                  <div class="{{' item active' if item.active and loop.depth == 0 else ' item' }}">
+                  <div class="{{ ' item active' if item.active and loop.depth == 0 else ' item' }}">
                     <a role="menuitem" href="{{ item.url }}">{{ item.text|safe }}</a>
                   </div>
                 {%- endif %}
@@ -125,12 +125,12 @@
           </div>
         </nav>
       {%- endblock navbar %}
-    </div>
+      </div>
 
-    {%- block flashmessages %}
-      {%- from "invenio_theme/macros/messages.html" import flashed_messages with context -%}
-      {{ flashed_messages() }}
-    {%- endblock %}
+      {%- block flashmessages %}
+        {%- from "invenio_theme/macros/messages.html" import flashed_messages with context -%}
+        {{ flashed_messages() }}
+      {%- endblock %}
   </header>
 
   {%- block breadcrumbs %}
