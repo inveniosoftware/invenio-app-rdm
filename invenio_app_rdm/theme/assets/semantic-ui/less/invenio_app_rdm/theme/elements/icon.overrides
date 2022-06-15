@@ -20,8 +20,3 @@
     color: @errorTextColor;
   }
 }
-
-.members-icon-container {
-  width: 1em;
-  height: 1em;
-}

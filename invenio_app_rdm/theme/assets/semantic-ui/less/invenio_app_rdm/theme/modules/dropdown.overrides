@@ -80,12 +80,10 @@
 }
 
 @minWidthSmallerScreens: calc(100% + 5rem);
-
 .members-dropdown-container {
   .ui.dropdown {
     border: @selectionBorder;
-    padding: @selectionPadding;
-    padding-right: @defaultPadding;
+    padding: @selectionVerticalPadding @selectionHorizontalPadding;
     border-radius: @selectionBorderRadius;
 
     .menu {
@@ -97,7 +95,17 @@
       font-weight: normal;
 
     }
+
+    .dropdown.icon {
+      padding-top: 0.25em;
+    }
   }
+
+.action-status-container {
+  width: 1em;
+  padding: @selectionVerticalPadding @selectionHorizontalPadding;
+  border-radius: @selectionBorderRadius;
+}
 
   @media screen and (max-width: @largestTabletScreen) {
     .ui.dropdown {
