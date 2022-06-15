@@ -571,3 +571,10 @@ dl.details-list {
 .left-floated {
   float: left;
 }
+
+.separated:not(:last-child)::after {
+  content: @listSeparator;
+  display: inline-block;
+  font-size: 1em;
+  margin-left: .1rem;
+}
