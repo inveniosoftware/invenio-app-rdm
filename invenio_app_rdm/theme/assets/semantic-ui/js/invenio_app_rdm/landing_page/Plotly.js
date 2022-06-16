@@ -18,11 +18,11 @@ export class Plotly extends Component {
     axios({
       url: chartresource.chart_url,
       method: 'get',
-      params: chartresource.chartprops
+      params: chartresource.chart_props
     })
     .then(response => {
       const datas = response.data;
-      this.setState({ 
+      this.setState({
         dt: datas.data.Datetime.map(x => x * 1000),
         v: datas.data.Value
        });

@@ -11,7 +11,7 @@ show_alternate_identifiers, show_related_identifiers, show_funding, show_dates %
 
   <section id="recordLeafletSection" class="rel-mt-2" aria-label="{{ _('Record map') }}">
     <h2 id="record-map-heading">{{ _('Map') }}</h2>
-    
-    {% set wmsresource = config.get('WMS_RESOURCE') | tojson %}
-    <div id="recordLeaflet" data-wmsresource='{{ wmsresource }}'></div>
+
+    {% set wmsresource = record.metadata.wms_resource %}
+    <div id="recordLeaflet" data-wmsresource='{{ wmsresource | tojson }}'></div>
   </section>
