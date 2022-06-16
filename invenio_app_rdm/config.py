@@ -34,6 +34,7 @@ from datetime import datetime, timedelta
 from celery.schedules import crontab
 from flask_principal import Denial
 from invenio_access.permissions import any_user
+from invenio_rdm_records.records.api import RDMRecord
 from invenio_vocabularies.config import (
     VOCABULARIES_DATASTREAM_READERS,
     VOCABULARIES_DATASTREAM_TRANSFORMERS,
@@ -457,7 +458,7 @@ OAISERVER_RECORD_CLS = "invenio_rdm_records.records.api:RDMRecord"
 OAISERVER_RECORD_SETS_FETCHER = "invenio_oaiserver.utils:record_sets_fetcher"
 """Record's OAI sets function."""
 
-OAISERVER_RECORD_INDEX = "rdmrecords-records"
+OAISERVER_RECORD_INDEX = RDMRecord.index._name
 """Specify an Elastic index with records that should be exposed via OAI-PMH."""
 
 OAISERVER_GETRECORD_FETCHER = "invenio_rdm_records.oai:getrecord_fetcher"
