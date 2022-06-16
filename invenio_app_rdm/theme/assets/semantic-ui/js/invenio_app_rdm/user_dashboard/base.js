@@ -128,11 +128,11 @@ export const DashboardSearchLayoutHOC = ({
           />
         </Grid.Column>
 
-        <Grid.Column mobile={14} tablet={11} computer={8} floated="right">
+        <Grid.Column mobile={14} tablet={10} computer={8} floated="right">
           <SearchBar placeholder={searchBarPlaceholder} />
         </Grid.Column>
 
-        <Grid.Column mobile={16} tablet={4} computer={4} align="right">
+        <Grid.Column mobile={16} tablet={5} computer={4} align="right">
           {newBtn}
         </Grid.Column>
 

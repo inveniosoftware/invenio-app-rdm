@@ -11,17 +11,8 @@ import { createSearchAppInit } from "@js/invenio_search_ui";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import _get from "lodash/get";
 import React from "react";
-import { Image } from "react-invenio-forms";
 import { BucketAggregation } from "react-searchkit";
-import {
-  Button,
-  Card,
-  Header,
-  Icon,
-  Item,
-  Label,
-  Segment,
-} from "semantic-ui-react";
+import { Button, Card, Header, Icon, Segment } from "semantic-ui-react";
 import {
   RDMBucketAggregationElement,
   RDMRecordFacetsValues,
@@ -29,6 +20,8 @@ import {
   SearchHelpLinks,
 } from "../search/components";
 import { DashboardResultView, DashboardSearchLayoutHOC } from "./base";
+import { ComputerTabletCommunitiesItem } from "./communities_items/ComputerTabletCommunitiesItem";
+import { MobileCommunitiesItem } from "./communities_items/MobileCommunitiesItem";
 
 function ResultsGridItemTemplate({ result, index }) {
   return (
@@ -49,67 +42,11 @@ function ResultsGridItemTemplate({ result, index }) {
 }
 
 export function CommunitiesResultsItemTemplate({ result, index }) {
-  const community_type = _get(
-    result,
-    "ui.type.title_l10n",
-    i18next.t("No community type")
-  );
   return (
-    <Item key={index}>
-      <Image
-        wrapped
-        src={result.links.logo}
-        fallbackSrc="/static/images/square-placeholder.png"
-        size="tiny"
-        className="community-logo"
-      />
-      <Item.Content>
-        <Item.Extra className="user-communities labels-actions">
-          {/* For reduced spacing between labels. */}
-          <span>
-            <Label size="tiny" color="grey">
-              {community_type}
-            </Label>
-          </span>
-          <Button
-            compact
-            size="small"
-            floated="right"
-            href={`/communities/${result.id}/settings`}
-            className="mt-0"
-          >
-            <Icon name="edit" />
-            {i18next.t("Edit")}
-          </Button>
-          <Button
-            compact
-            size="small"
-            floated="right"
-            className="mt-0"
-            href={`/communities/${result.id}`}
-          >
-            <Icon name="eye" />
-            {i18next.t("View")}
-          </Button>
-        </Item.Extra>
-        <Item.Header href={`/communities/${result.id}`}>
-          {result.metadata.title}
-        </Item.Header>
-        {result.metadata.website && (
-          <a href={result.metadata.website} target="_blank">
-            {result.metadata.website}
-          </a>
-        )}
-        <Item.Meta>
-          <div
-            className="truncate-lines-2"
-            dangerouslySetInnerHTML={{
-              __html: result.metadata.description,
-            }}
-          />
-        </Item.Meta>
-      </Item.Content>
-    </Item>
+    <>
+      <ComputerTabletCommunitiesItem result={result} index={index} />
+      <MobileCommunitiesItem result={result} index={index} />
+    </>
   );
 }
 
