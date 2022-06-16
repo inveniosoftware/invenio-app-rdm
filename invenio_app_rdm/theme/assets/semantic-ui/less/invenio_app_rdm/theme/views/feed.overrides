@@ -19,7 +19,7 @@
       background-color: @borderColor;
 
       @media screen and (max-width: @largestMobileScreen) {
-        left: 1.4rem;
+        left: .9rem;
       }
     }
 
@@ -31,6 +31,11 @@
 
   .requests-avatar-container {
     padding-right: 0.5em;
+    margin-top: 1rem;
+
+    @media screen and (max-width: @largestMobileScreen) {
+      margin-top: 0;
+    }
 
     img {
       max-height: 40px;
