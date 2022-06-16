@@ -269,12 +269,20 @@
             {%- endblock record_files -%}
 
             {%- block record_map -%}
-              {% if record.metadata.wms_resource %}
+              {# {% if record.metadata.wms_resource %} #}
               <section id="leaflet-map" class="rel-mt-2" aria-label="{{ _('Record map') }}">
                 {%- include "invenio_app_rdm/records/details/map.html" %}
               </section>
-              {% endif %}
+              {# {% endif %} #}
             {%- endblock record_map -%}
+
+            {%- block record_chart -%}
+              {# {% if record.metadata.chart_resource %} #}
+                <section id="plotly-chart" class="rel-mt-2" aria-label="{{ _('Record chart') }}">
+                  {%- include "invenio_app_rdm/records/details/chart.html" %}
+                </section>
+              {# {% endif %} #}
+            {%- endblock record_chart -%}
 
             {# Additional details #}
             {%- block record_details -%}

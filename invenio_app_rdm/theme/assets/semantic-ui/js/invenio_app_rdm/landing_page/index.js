@@ -79,7 +79,7 @@ if (recordExportDownloadDiv) {
 if (recordPlotlyDiv) {
   ReactDOM.render(
     <Plotly
-      /*formats={JSON.parse(recordPlotlyDiv.dataset.formats)}*/
+      chartresource={JSON.parse(recordPlotlyDiv.dataset.chartresource)}
     />,
     recordPlotlyDiv
   );

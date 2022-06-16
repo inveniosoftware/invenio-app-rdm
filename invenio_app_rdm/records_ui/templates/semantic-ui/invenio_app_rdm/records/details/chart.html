@@ -1,0 +1,17 @@
+{#
+    Copyright (C) 2022 INGV OE - Osservatorio Etneo.
+  
+    Invenio RDM Records is free software; you can redistribute it and/or modify
+    it under the terms of the MIT License; see LICENSE file for more details.
+  #}
+  
+  
+  {%- from "invenio_app_rdm/records/macros/detail.html" import show_references, show_add_titles,
+  show_alternate_identifiers, show_related_identifiers, show_funding, show_dates %}
+  
+    <section id="recordPlotlySection" class="rel-mt-2" aria-label="{{ _('Record chart') }}">
+      <h2 id="record-chart-heading">{{ _('Chart') }}</h2>
+      {% set chartresource = config.get('CHART_RESOURCE') | tojson %}
+      <div id="recordPlotly" data-chartresource='{{ chartresource }}'></div>
+    </section>
+  
