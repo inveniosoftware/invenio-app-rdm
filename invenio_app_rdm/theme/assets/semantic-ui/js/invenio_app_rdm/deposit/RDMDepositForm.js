@@ -356,7 +356,7 @@ export class RDMDepositForm extends Component {
               >
                 <IdentifiersField
                   fieldPath="metadata.identifiers"
-                  label={i18next.t("Alternate identifier(s)")}
+                  label={i18next.t("Alternate identifiers")}
                   labelIcon="barcode"
                   schemeOptions={this.vocabularies.metadata.identifiers.scheme}
                 />
