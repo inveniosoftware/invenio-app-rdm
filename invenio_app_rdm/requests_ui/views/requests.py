@@ -41,7 +41,7 @@ def _resolve_topic_draft(request):
     recid = ResolverRegistry.resolve_entity_proxy(request["topic"])._parse_ref_dict_id()
     try:
         record = current_rdm_records_service.read_draft(g.identity, recid, expand=True)
-        record_ui = UIJSONSerializer().serialize_object_to_dict(record.to_dict())
+        record_ui = UIJSONSerializer().dump_obj(record.to_dict())
         permissions = record.has_permissions_to(
             [
                 "edit",
@@ -118,8 +118,8 @@ def user_dashboard_request_view(request, **kwargs):
 
 @login_required
 @pass_request(expand=True)
-@pass_community
-def community_dashboard_request_view(request, community, **kwargs):
+@pass_community(serialize=True)
+def community_dashboard_request_view(request, community, community_ui, **kwargs):
     """Community dashboard requests details view."""
     request_type = request["type"]
 
@@ -144,7 +144,7 @@ def community_dashboard_request_view(request, community, **kwargs):
             base_template="invenio_communities/details/base.html",
             invenio_request=request.to_dict(),
             record=record,
-            community=community.to_dict(),
+            community=community_ui,
             permissions=permissions,
             is_preview=True,
             draft_is_accepted=request_is_accepted,

@@ -77,7 +77,7 @@ class PreviewFile:
 def record_detail(pid_value, record, files, is_preview=False):
     """Record detail page (aka landing page)."""
     files_dict = None if files is None else files.to_dict()
-    record_ui = UIJSONSerializer().serialize_object_to_dict(record.to_dict())
+    record_ui = UIJSONSerializer().dump_obj(record.to_dict())
     is_draft = record_ui["is_draft"]
     if is_preview and is_draft:
         try:

@@ -318,7 +318,7 @@ def deposit_edit(pid_value, draft=None, draft_files=None):
     """Edit an existing deposit."""
     files_dict = None if draft_files is None else draft_files.to_dict()
     ui_serializer = UIJSONSerializer()
-    record = ui_serializer.serialize_object_to_dict(draft.to_dict())
+    record = ui_serializer.dump_obj(draft.to_dict())
 
     return render_template(
         "invenio_app_rdm/records/deposit.html",
