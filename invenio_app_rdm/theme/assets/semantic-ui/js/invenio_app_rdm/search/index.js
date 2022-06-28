@@ -17,7 +17,7 @@ import {
   RDMRecordResultsGridItem,
   RDMRecordResultsListItem,
   RDMRecordSearchBarContainer,
-  RDMRecordSearchBarElement,
+  RDMRecordMultipleSearchBarElement,
   RDMToggleComponent,
 } from "./components";
 
@@ -29,7 +29,7 @@ createSearchAppInit({
   "ResultsList.item": RDMRecordResultsListItem,
   "SearchApp.facets": RDMRecordFacets,
   "SearchApp.searchbarContainer": RDMRecordSearchBarContainer,
-  "SearchBar.element": RDMRecordSearchBarElement,
+  "SearchBar.element": RDMRecordMultipleSearchBarElement,
   "Count.element": RDMCountComponent,
   "Error.element": RDMErrorComponent,
   "SearchFilters.Toggle.element": RDMToggleComponent,
