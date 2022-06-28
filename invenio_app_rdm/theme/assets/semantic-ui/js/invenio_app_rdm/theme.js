@@ -1,4 +1,8 @@
 import $ from "jquery";
+import { MultipleOptionsSearchBar } from "@js/invenio_search_ui/components";
+import { i18next } from "@translations/invenio_app_rdm/i18next";
+import ReactDOM from "react-dom";
+import React from "react";
 
 /* Expand and collapse navbar  */
 const toggleIcon = $("#rdm-burger-menu-icon");
@@ -79,3 +83,14 @@ $invenioMenu.on("keydown", (event) => {
     handleBurgerCloseClick();
   }
 });
+
+const headerSearchbar = document.getElementById("header-search-bar");
+const searchBarOptions = JSON.parse(headerSearchbar.dataset.options);
+
+ReactDOM.render(
+  <MultipleOptionsSearchBar
+    options={searchBarOptions}
+    placeholder={i18next.t("Search records...")}
+  />,
+  headerSearchbar
+);

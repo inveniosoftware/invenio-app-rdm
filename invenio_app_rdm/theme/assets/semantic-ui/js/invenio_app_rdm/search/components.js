@@ -7,7 +7,10 @@
 // Invenio App RDM is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
 
-import { SearchBar } from "@js/invenio_search_ui/components";
+import {
+  SearchBar,
+  MultipleOptionsSearchBarRSK,
+} from "@js/invenio_search_ui/components";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import _get from "lodash/get";
 import _truncate from "lodash/truncate";
@@ -128,6 +131,24 @@ export const RDMRecordSearchBarContainer = () => {
     <Overridable id="SearchApp.searchbar">
       <SearchBar />
     </Overridable>
+  );
+};
+
+
+export const RDMRecordMultipleSearchBarElement = ({
+  queryString,
+  onInputChange,
+}) => {
+  const headerSearchbar = document.getElementById("header-search-bar");
+  const searchbarOptions = JSON.parse(headerSearchbar.dataset.options);
+
+  return (
+    <MultipleOptionsSearchBarRSK
+      options={searchbarOptions}
+      onInputChange={onInputChange}
+      queryString={queryString}
+      placeholder={i18next.t("Search records...")}
+    />
   );
 };
 

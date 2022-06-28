@@ -8,6 +8,8 @@
     under the terms of the MIT License; see LICENSE file for more details.
 #}
 
+{%- from "invenio_app_rdm/records/macros/header.html" import nav_searchbar %}
+
 <div>
   <header class="theme header">
     <div class="outer-navbar">
@@ -59,19 +61,16 @@
 
             {%- if config.THEME_SEARCHBAR %}
               {%- block navbar_search %}
-                <div class="item p-0 search-bar rel-mr-1">
-                  <div role="menuitem" id="header-search-bar">
-                    <form class="form" action="{{ config.THEME_SEARCH_ENDPOINT }}"
-                          role="search">
-                      <div class="ui action icon input">
-                        <input type="text" name="q" placeholder="{{ _('Search') }}">
-                        <button type="submit" class="ui icon search button" aria-label="{{ _('Search') }}">
-                          <i class="icon search"></i>
-                        </button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
+                {% set options = 
+                  [
+                    {
+                      "key": "records",
+                      "text": _("All") + " " + config.THEME_SITENAME,
+                      "value": config.APP_RDM_ROUTES.record_search,
+                    }
+                  ]
+                 %}
+                {{ nav_searchbar(options) }}
               {%- endblock navbar_search %}
             {%- endif %}
 
