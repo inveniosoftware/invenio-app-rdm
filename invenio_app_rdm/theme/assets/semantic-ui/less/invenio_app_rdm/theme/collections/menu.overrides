@@ -173,7 +173,12 @@
   width: 100%;
 
   .ui.input {
-    width: 100% !important;
+    width: auto !important;
+
+    & > input {
+      width: auto !important;
+    }
+
   }
 }
 

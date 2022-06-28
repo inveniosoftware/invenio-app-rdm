@@ -227,7 +227,7 @@ RDMEmptyResults.propTypes = {
 };
 
 export const DashboardUploadsSearchLayout = DashboardSearchLayoutHOC({
-  searchBarPlaceholder: i18next.t("Search uploads..."),
+  searchBarPlaceholder: i18next.t("Search in my uploads..."),
   newBtn: (
     <Button
       positive

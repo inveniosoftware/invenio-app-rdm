@@ -559,7 +559,7 @@ APP_RDM_USER_DASHBOARD_ROUTES = {
 APP_RDM_ROUTES = {
     "index": "/",
     "help_search": "/help/search",
-    "record_search": "/search2",
+    "record_search": "/search",
     "record_detail": "/records/<pid_value>",
     "record_export": "/records/<pid_value>/export/<export_format>",
     "record_file_preview": "/records/<pid_value>/preview/<path:filename>",

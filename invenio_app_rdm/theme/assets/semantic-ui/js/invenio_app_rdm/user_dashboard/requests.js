@@ -341,7 +341,7 @@ export const RDMRequestsSearchLayout = (props) => {
           </Grid.Column>
 
           <Grid.Column mobile={16} tablet={11} computer={9}>
-            <SearchBar placeholder={i18next.t("Search requests...")} />
+            <SearchBar placeholder={i18next.t("Search in my requests...")} />
           </Grid.Column>
         </Grid.Row>
 
