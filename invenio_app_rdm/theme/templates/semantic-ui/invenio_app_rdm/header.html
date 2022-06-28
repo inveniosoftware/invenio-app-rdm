@@ -112,7 +112,7 @@
                 {%- if config.ACCOUNTS and current_user.is_authenticated %}
                   {% for item in current_menu.submenu('notifications').children|sort(attribute='order') if item.visible recursive %}
                     <div class="item inbox">
-                      <a role="menuitem" href="{{ item.url }}">
+                      <a role="menuitem" href="{{ item.url }}" aria-label="{{ _("Requests") }}">
                         <i class="fitted inbox icon inverted"></i>
                         <span class="mobile tablet only inline">{{ _("Inbox") }}</span>
                       </a>
