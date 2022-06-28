@@ -65,7 +65,7 @@ CommunitiesResultsItemTemplate.defaultProps = {
 };
 
 export const DashboardCommunitiesSearchLayout = DashboardSearchLayoutHOC({
-  searchBarPlaceholder: i18next.t("Search communities..."),
+  searchBarPlaceholder: i18next.t("Search in my communities..."),
   newBtn: (
     <Button
       positive

@@ -1,3 +1,6 @@
 /***********************************************
          Invenio App RDM Input Variables
 ***********************************************/
+
+@searchWidth: 20rem;
+@activeSearchWidth: 30rem;
