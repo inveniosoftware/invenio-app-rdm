@@ -656,6 +656,12 @@ APP_RDM_DEPOSIT_FORM_QUOTA = {
 }
 """Deposit file upload quota """
 
+
+APP_RDM_COMMUNITY_LOGO_QUOTA = {
+    "maxStorage": 10**6,
+}
+"""Community logo size quota, in bytes."""
+
 APP_RDM_DISPLAY_DECIMAL_FILE_SIZES = True
 """Display the file sizes in powers of 1000 (KB, ...) or 1024 (KiB, ...)."""
 
