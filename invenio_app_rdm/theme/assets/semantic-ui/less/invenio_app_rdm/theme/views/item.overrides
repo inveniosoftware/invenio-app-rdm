@@ -112,7 +112,7 @@
 .item {
 
   &.align-no-checkbox {
-    padding-left: @defaultPadding / 2 + @checkboxSize;
+    margin-left: @defaultMargin / 2 + @checkboxSize;
   }
 
   .ui.fitted.checkbox {
