@@ -1,5 +1,6 @@
 .ui.label.access-status {
   color: @white;
+  width: max-content;
 
   &.open {
     background-color: @accessRightOpen;

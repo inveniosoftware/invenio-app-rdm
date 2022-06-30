@@ -499,6 +499,10 @@ dl.details-list {
   align-self: end;
 }
 
+.align-self-baseline {
+  align-self: baseline;
+}
+
 /* FACETS */
 .facet-wrapper.content:not(.parent) {
   padding: .5em 0;
