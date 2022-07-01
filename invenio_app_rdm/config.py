@@ -712,3 +712,14 @@ RDM_COMMUNITIES_ROUTES = {
 }
 
 THEME_JAVASCRIPT_TEMPLATE = "invenio_app_rdm/javascript.html"
+
+# iiif-simple previewer settings
+# ==============================
+
+"""List of extension types to preview with IIIF."""
+
+IIIF_SIMPLE_PREVIEWER_NATIVE_EXTENSIONS = ["gif", "png"]
+"""Images are converted to JPEG for preview, unless listed here."""
+
+IIIF_SIMPLE_PREVIEWER_SIZE = "800,"
+"""Size of image in IIIF preview window. Must be a valid IIIF Image API size parameter."""
