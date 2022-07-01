@@ -49,12 +49,6 @@
   }
 }
 
-.ui.button.transparent {
-  background-color: transparent;
-  color: black;
-  padding: 0;
-}
-
 .ui.button{
   &.fluid-responsive {
     @media all and (max-width: @largestTabletScreen) {
