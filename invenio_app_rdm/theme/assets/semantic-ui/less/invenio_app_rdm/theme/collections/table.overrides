@@ -17,7 +17,7 @@
     text-align: center;
   }
 
-  .ui.blue.medium.file-upload-progress {
+  .ui.primary.medium.file-upload-progress {
     &.progress,
     &.success {
       &.active,

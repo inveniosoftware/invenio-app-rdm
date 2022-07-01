@@ -14,7 +14,7 @@ export const MobileCommunitiesItem = ({ result, index }) => {
   const communityType = result.ui?.type?.title_l10n;
   const visibility = result.access.visibility;
   const isPublic = visibility === "public";
-  const visibilityColor = isPublic ? "green" : "red";
+  const visibilityColor = isPublic ? "positive" : "negative";
   const visibilityText = isPublic ? i18next.t("Public") : i18next.t("Restricted");
   const visibilityIcon = isPublic ? undefined : "ban";
   return (
@@ -22,12 +22,12 @@ export const MobileCommunitiesItem = ({ result, index }) => {
       <Item.Content className="centered">
         <Item.Extra className="user-communities">
           {communityType && (
-            <Label size="tiny" color="blue">
+            <Label size="tiny" className="primary">
               <Icon name="tag" />
               {communityType}
             </Label>
           )}
-          <Label size="tiny" color={visibilityColor}>
+          <Label size="tiny" className={visibilityColor}>
             {visibilityIcon && <Icon name={visibilityIcon} />}
             {visibilityText}
           </Label>

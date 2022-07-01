@@ -39,7 +39,7 @@ export const RecordManagement = ({
         <Grid.Column>
           <Button
             fluid
-            color="orange"
+            className="warning"
             size="medium"
             onClick={() => (window.location = `/uploads/${recid}`)}
             icon

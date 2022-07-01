@@ -131,7 +131,11 @@ export const RecordVersionsList = ({ record, isPreview }) => {
   }, []);
 
   return loading ? (
-    <>{isPreview ? <PreviewMessage /> : <PlaceholderLoader />}</>
+    isPreview ? (
+      <PreviewMessage />
+    ) : (
+      <PlaceholderLoader />
+    )
   ) : (
     <List divided>
       {isPreview ? <PreviewMessage /> : null}

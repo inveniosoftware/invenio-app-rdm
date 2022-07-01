@@ -28,7 +28,7 @@ export const EditButton = ({ recid, onError }) => {
   return (
     <Button
       fluid
-      color="orange"
+      className="warning"
       size="medium"
       onClick={handleClick}
       loading={loading}
