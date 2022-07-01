@@ -282,13 +282,6 @@ a.no-text-decoration:hover {
   text-decoration: none;
 }
 
-// Preview
-.iiif-preview-img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
 #collapsablePreview {
   border: 1px solid transparent; // Prevents iframe from overflowing accordion border
 }
