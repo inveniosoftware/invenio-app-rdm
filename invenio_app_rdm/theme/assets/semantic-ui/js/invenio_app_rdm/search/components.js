@@ -64,10 +64,10 @@ export const RDMRecordResultsListItem = ({ result }) => {
     <Item>
       <Item.Content>
         <Item.Extra className="labels-actions">
-          <Label size="tiny" color="blue">
+          <Label size="tiny" className="primary">
             {publicationDate} ({version})
           </Label>
-          <Label size="tiny" color="grey">
+          <Label size="tiny" className="neutral">
             {resourceType}
           </Label>
           <Label size="tiny" className={`access-status ${accessStatusId}`}>

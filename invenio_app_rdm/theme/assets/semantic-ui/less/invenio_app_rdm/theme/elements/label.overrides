@@ -3,15 +3,15 @@
   width: max-content;
 
   &.open {
-    background-color: @accessRightOpen;
+    background-color: @positiveColor;
   }
 
   &.restricted {
-    background-color: @accessRightRestricted;
+    background-color: @negativeColor;
   }
 
   &.embargoed {
-    background-color: @accessRightEmbargoed;
+    background-color: @warningColor;
   }
 
   &.metadata-only {
