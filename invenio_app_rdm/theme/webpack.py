@@ -26,6 +26,7 @@ theme = WebpackThemeBundle(
                 "invenio-app-rdm-user-communities": "./js/invenio_app_rdm/user_dashboard/communities.js",
                 "invenio-app-rdm-user-requests": "./js/invenio_app_rdm/user_dashboard/requests.js",
                 "base-theme-rdm": "./js/invenio_app_rdm/theme.js",
+                "iiif-simple-previewer": "./less/invenio_app_rdm/previewer/iiif_simple.less",
             },
             dependencies={
                 "@babel/runtime": "^7.9.0",
