@@ -103,8 +103,8 @@ export function SearchItemCreators({ creators }) {
     );
     return link;
   }
-  return creators.map((creator, index) => (
-    <span className="creatibutor-wrap separated" key={index}>
+  return creators.map((creator) => (
+    <span className="creatibutor-wrap separated" key={creator.person_or_org.name}>
       {getLink(creator)}
       {getIcons(creator)}
     </span>

@@ -36,12 +36,12 @@ import { createSearchAppInit } from "@js/invenio_search_ui";
 import PropTypes from "prop-types";
 
 const statuses = {
-  in_review: { color: "yellow", title: i18next.t("In review") },
-  declined: { color: "red", title: i18next.t("Declined") },
-  expired: { color: "orange", title: i18next.t("Expired") },
-  draft_with_review: { color: "grey", title: i18next.t("Draft") },
-  draft: { color: "grey", title: i18next.t("Draft") },
-  new_version_draft: { color: "grey", title: i18next.t("New version draft") },
+  in_review: { color: "warning", title: i18next.t("In review") },
+  declined: { color: "negative", title: i18next.t("Declined") },
+  expired: { color: "expired", title: i18next.t("Expired") },
+  draft_with_review: { color: "neutral", title: i18next.t("Draft") },
+  draft: { color: "neutral", title: i18next.t("Draft") },
+  new_version_draft: { color: "neutral", title: i18next.t("New version draft") },
 };
 
 export const RDMRecordResultsListItem = ({ result, index }) => {
@@ -95,9 +95,9 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
         <Item.Content verticalAlign="top">
           <Item.Extra>
             {isPublished ? (
-              <Icon name="check" color="green" />
+              <Icon name="check" className="positive" />
             ) : (
-              <Icon name="upload" color="red" />
+              <Icon name="upload" className="negative" />
             )}
           </Item.Extra>
         </Item.Content>
@@ -106,14 +106,14 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
         <Item.Extra className="labels-actions">
           {/* For reduced spacing between labels. */}
           {result.status in statuses && result.status !== "published" && (
-            <Label size="tiny" color={statuses[result.status].color}>
+            <Label size="tiny" className={statuses[result.status].color}>
               {statuses[result.status].title}
             </Label>
           )}
-          <Label size="tiny" color="blue">
+          <Label size="tiny" className="primary">
             {publicationDate} ({version})
           </Label>
-          <Label size="tiny" color="grey">
+          <Label size="tiny" className="neutral">
             {resourceType}
           </Label>
           <Label size="tiny" className={`access-status ${accessStatusId}`}>
@@ -145,8 +145,8 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
           })}
         </Item.Description>
         <Item.Extra>
-          {subjects.map((subject, index) => (
-            <Label key={index} size="tiny">
+          {subjects.map((subject) => (
+            <Label key={subject.title_l10n} size="tiny">
               {subject.title_l10n}
             </Label>
           ))}
@@ -207,7 +207,7 @@ export const RDMEmptyResults = (props) => {
         </Header>
         <Divider hidden />
         <Button
-          color="green"
+          positive
           icon="upload"
           floated="right"
           href="/uploads/new"

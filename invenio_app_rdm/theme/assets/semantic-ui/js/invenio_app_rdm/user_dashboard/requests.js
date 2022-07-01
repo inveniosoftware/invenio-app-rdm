@@ -477,36 +477,26 @@ const RequestCancelButtonMobileWithConfig = parametrize(RequestCancelButton, {
 });
 
 const CommunitySubmission = () => (
-  <LabelTypeSubmission className="rel-mr-1" size="small" color="blue" />
+  <LabelTypeSubmission className="rel-mr-1 primary" size="small" />
 );
 
 const CommunityInvitation = () => (
-  <LabelTypeInvitation className="rel-mr-1" size="small" color="blue" />
+  <LabelTypeInvitation className="rel-mr-1 primary" size="small" />
 );
 
-const Submitted = () => (
-  <LabelStatusSubmit className="rel-mr-1" size="small" color="blue" />
-);
+const Submitted = () => <LabelStatusSubmit className="rel-mr-1 primary" size="small" />;
 
-const Deleted = () => (
-  <LabelStatusDelete className="rel-mr-1" size="small" color="red" />
-);
+const Deleted = () => <LabelStatusDelete className="rel-mr-1 negative" size="small" />;
 
-const Accepted = () => (
-  <LabelStatusAccept className="rel-mr-1" size="small" color="green" />
-);
+const Accepted = () => <LabelStatusAccept className="rel-mr-1 positive" size="small" />;
 
 const Declined = () => (
-  <LabelStatusDecline className="rel-mr-1" size="small" color="red" />
+  <LabelStatusDecline className="rel-mr-1 negative" size="small" />
 );
 
-const Cancelled = () => (
-  <LabelStatusCancel className="rel-mr-1" size="small" color="grey" />
-);
+const Cancelled = () => <LabelStatusCancel className="rel-mr-1 neutral" size="small" />;
 
-const Expired = () => (
-  <LabelStatusExpire className="rel-mr-1" size="small" color="grey" />
-);
+const Expired = () => <LabelStatusExpire className="rel-mr-1 expired" size="small" />;
 
 export const defaultComponents = {
   "BucketAggregation.element": RDMBucketAggregationElement,

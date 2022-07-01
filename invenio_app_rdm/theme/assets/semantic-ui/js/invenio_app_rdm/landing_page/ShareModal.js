@@ -241,7 +241,7 @@ export const ShareModal = ({ recid, open, handleClose }) => {
 
       <Modal.Actions>
         {!!accessLinkObj && (
-          <Button size="small" color="red" floated="left" onClick={handleDelete} icon>
+          <Button size="small" negative floated="left" onClick={handleDelete} icon>
             <Icon name="trash alternate outline" />
             {i18next.t("Delete link")}
           </Button>
