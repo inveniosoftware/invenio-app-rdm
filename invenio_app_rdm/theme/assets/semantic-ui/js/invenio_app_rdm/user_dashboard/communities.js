@@ -9,7 +9,6 @@
 
 import { createSearchAppInit } from "@js/invenio_search_ui";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
-import _get from "lodash/get";
 import React from "react";
 import { BucketAggregation } from "react-searchkit";
 import { Button, Card, Header, Icon, Segment } from "semantic-ui-react";
@@ -22,6 +21,7 @@ import {
 import { DashboardResultView, DashboardSearchLayoutHOC } from "./base";
 import { ComputerTabletCommunitiesItem } from "./communities_items/ComputerTabletCommunitiesItem";
 import { MobileCommunitiesItem } from "./communities_items/MobileCommunitiesItem";
+import PropTypes from "prop-types";
 
 function ResultsGridItemTemplate({ result, index }) {
   return (
@@ -41,6 +41,11 @@ function ResultsGridItemTemplate({ result, index }) {
   );
 }
 
+ResultsGridItemTemplate.propTypes = {
+  result: PropTypes.object.isRequired,
+  index: PropTypes.string.isRequired,
+};
+
 export function CommunitiesResultsItemTemplate({ result, index }) {
   return (
     <>
@@ -49,6 +54,15 @@ export function CommunitiesResultsItemTemplate({ result, index }) {
     </>
   );
 }
+
+CommunitiesResultsItemTemplate.propTypes = {
+  result: PropTypes.object.isRequired,
+  index: PropTypes.string,
+};
+
+CommunitiesResultsItemTemplate.defaultProps = {
+  index: null,
+};
 
 export const DashboardCommunitiesSearchLayout = DashboardSearchLayoutHOC({
   searchBarPlaceholder: i18next.t("Search communities..."),
@@ -63,7 +77,7 @@ export const DashboardCommunitiesSearchLayout = DashboardSearchLayoutHOC({
   ),
 });
 
-export const CommunitiesFacets = ({ aggs, currentResultsState }) => {
+export const CommunitiesFacets = ({ aggs }) => {
   return (
     <aside aria-label={i18next.t("filters")} id="search-filters">
       {aggs.map((agg) => {
@@ -84,23 +98,30 @@ export const CommunitiesFacets = ({ aggs, currentResultsState }) => {
   );
 };
 
+CommunitiesFacets.propTypes = {
+  aggs: PropTypes.array.isRequired,
+};
+
 export const RDMCommunitiesEmptyResults = (props) => {
-  const queryString = props.queryString;
+  const { queryString, resetQuery } = props;
   return (
-    <>
-      <Segment placeholder textAlign="center">
-        <Header icon>
-          <Icon name="search" />
-          {i18next.t("No communities found!")}
-        </Header>
-        {queryString && (
-          <Button primary onClick={() => props.resetQuery()}>
-            {i18next.t("Reset search")}
-          </Button>
-        )}
-      </Segment>
-    </>
+    <Segment placeholder textAlign="center">
+      <Header icon>
+        <Icon name="search" />
+        {i18next.t("No communities found!")}
+      </Header>
+      {queryString && (
+        <Button primary onClick={() => resetQuery()}>
+          {i18next.t("Reset search")}
+        </Button>
+      )}
+    </Segment>
   );
+};
+
+RDMCommunitiesEmptyResults.propTypes = {
+  queryString: PropTypes.string.isRequired,
+  resetQuery: PropTypes.func.isRequired,
 };
 
 export const defaultComponents = {

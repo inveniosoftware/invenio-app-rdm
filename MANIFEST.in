@@ -17,6 +17,7 @@
 
 include .dockerignore
 include .editorconfig
+include .prettierrc
 include .tx/config
 include *.rst
 include *.sh
