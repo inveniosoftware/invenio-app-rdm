@@ -61,8 +61,8 @@ import {
   SearchHelpLinks,
 } from "../search/components";
 import { timestampToRelativeTime } from "../utils";
-import { ComputerTabletRequestsItems } from "./requests_items/ComputerTabletRequestsItems";
-import { MobileRequestsItems } from "./requests_items/MobileRequestsItems";
+import { ComputerTabletRequestsItem } from "./requests_items/ComputerTabletRequestsItem";
+import { MobileRequestsItem } from "./requests_items/MobileRequestsItem";
 
 export const RequestsResults = ({
   sortOptions,
@@ -190,18 +190,18 @@ export function RequestsResultsItemTemplateDashboard({ result, index }) {
   } else if (isCreatorCommunity) {
     creatorName = result.expanded?.created_by.metadata?.title || createdBy.community;
   }
-  const ComputerTabletRequestsItemsWithState = withState(ComputerTabletRequestsItems);
-  const MobileRequestsItemsWithState = withState(MobileRequestsItems);
+  const ComputerTabletRequestsItemWithState = withState(ComputerTabletRequestsItem);
+  const MobileRequestsItemWithState = withState(MobileRequestsItem);
   return (
     <>
-      <ComputerTabletRequestsItemsWithState
+      <ComputerTabletRequestsItemWithState
         result={result}
         index={index}
         differenceInDays={differenceInDays}
         isCreatorCommunity={isCreatorCommunity}
         creatorName={creatorName}
       />
-      <MobileRequestsItemsWithState
+      <MobileRequestsItemWithState
         result={result}
         index={index}
         differenceInDays={differenceInDays}
