@@ -43,7 +43,10 @@ const apiConfig = {
 
 export const axiosWithconfig = axios.create(apiConfig);
 
-export function SearchItemCreators({ creators }) {
+export function SearchItemCreators({ creators, className }) {
+  let spanClass = "creatibutor-wrap separated";
+  className && (spanClass += ` ${className}`);
+
   function makeIcon(scheme, identifier, name) {
     let link = null;
     let linkTitle = null;
@@ -51,17 +54,17 @@ export function SearchItemCreators({ creators }) {
 
     switch (scheme) {
       case "orcid":
-        link = "https://orcid.org/" + identifier;
+        link = `https://orcid.org/${identifier}`;
         linkTitle = i18next.t("ORCID profile");
         icon = "/static/images/orcid.svg";
         break;
       case "ror":
-        link = "https://ror.org/" + identifier;
+        link = `https://ror.org/${identifier}`;
         linkTitle = i18next.t("ROR profile");
         icon = "/static/images/ror-icon.svg";
         break;
       case "gnd":
-        link = "https://d-nb.info/gnd/" + identifier;
+        link = `https://d-nb.info/gnd/${identifier}`;
         linkTitle = i18next.t("GND profile");
         icon = "/static/images/gnd-icon.svg";
         break;
@@ -104,7 +107,7 @@ export function SearchItemCreators({ creators }) {
     return link;
   }
   return creators.map((creator) => (
-    <span className="creatibutor-wrap separated" key={creator.person_or_org.name}>
+    <span className={spanClass} key={creator.person_or_org.name}>
       {getLink(creator)}
       {getIcons(creator)}
     </span>
