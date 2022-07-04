@@ -151,20 +151,29 @@ export const RequestsResults = ({
   );
 };
 
+RequestsResults.propTypes = {
+  sortOptions: PropTypes.array.isRequired,
+  paginationOptions: PropTypes.object.isRequired,
+  currentResultsState: PropTypes.object.isRequired,
+};
+
 export function RequestsResultsGridItemTemplate({ result, index }) {
   return (
     <Card fluid key={index} href={`/me/requests/${result.metadata.id}`}>
       <Card.Content>
         <Card.Header>{result.metadata.title}</Card.Header>
         <Card.Description>
-          <div
-            dangerouslySetInnerHTML={{ __html: result.metadata.description }}
-          />
+          <div dangerouslySetInnerHTML={{ __html: result.metadata.description }} />
         </Card.Description>
       </Card.Content>
     </Card>
   );
 }
+
+RequestsResultsGridItemTemplate.propTypes = {
+  result: PropTypes.object.isRequired,
+  index: PropTypes.string.isRequired,
+};
 
 export function RequestsResultsItemTemplateDashboard({ result, index }) {
   const createdDate = new Date(result.created);
@@ -179,12 +188,9 @@ export function RequestsResultsItemTemplateDashboard({ result, index }) {
       result.expanded?.created_by.username ||
       createdBy.user;
   } else if (isCreatorCommunity) {
-    creatorName =
-      result.expanded?.created_by.metadata?.title || createdBy.community;
+    creatorName = result.expanded?.created_by.metadata?.title || createdBy.community;
   }
-  const ComputerTabletRequestsItemsWithState = withState(
-    ComputerTabletRequestsItems
-  );
+  const ComputerTabletRequestsItemsWithState = withState(ComputerTabletRequestsItems);
   const MobileRequestsItemsWithState = withState(MobileRequestsItems);
   return (
     <>
@@ -205,47 +211,47 @@ export function RequestsResultsItemTemplateDashboard({ result, index }) {
     </>
   );
 }
+
+RequestsResultsItemTemplateDashboard.propTypes = {
+  result: PropTypes.object.isRequired,
+  index: PropTypes.string,
+};
+
+RequestsResultsItemTemplateDashboard.defaultProps = {
+  index: null,
+};
+
 // FIXME: Keeping ResultsGrid.item and SearchBar.element because otherwise
 // these components in RDM result broken.
 
 export const RDMRecordResultsGridItem = ({ result, index }) => {
-  const description_stripped = _get(
-    result,
-    "ui.description_stripped",
-    "No description"
-  );
+  const descriptionStripped = _get(result, "ui.description_stripped", "No description");
   return (
     <Card fluid key={index} href={`/me/requests/${result.id}`}>
       <Card.Content>
         <Card.Header>{result.metadata.title}</Card.Header>
         <Card.Description>
-          {_truncate(description_stripped, { length: 200 })}
+          {_truncate(descriptionStripped, { length: 200 })}
         </Card.Description>
       </Card.Content>
     </Card>
   );
 };
 
+RDMRecordResultsGridItem.propTypes = {
+  result: PropTypes.object.isRequired,
+  index: PropTypes.string.isRequired,
+};
+
 export class RequestStatusFilterComponent extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      open: undefined,
-    };
-  }
-
-  componentDidMount() {
     const { currentQueryState } = this.props;
     const userSelectionFilters = currentQueryState.filters;
-    const openFilter = userSelectionFilters.find((obj) =>
-      obj.includes("is_open")
-    );
-    if (openFilter) {
-      this.setState({
-        open: openFilter.includes("true"),
-      });
-    }
+    const openFilter = userSelectionFilters.find((obj) => obj.includes("is_open"));
+    this.state = {
+      open: openFilter ? openFilter.includes("true") : undefined,
+    };
   }
 
   /**
@@ -307,7 +313,8 @@ export const RequestStatusFilter = withState(RequestStatusFilterComponent);
 
 export const RDMRequestsSearchLayout = (props) => {
   const [sidebarVisible, setSidebarVisible] = React.useState(false);
-
+  const { config } = props;
+  console.log("HEY");
   return (
     <Container>
       <Grid>
@@ -343,15 +350,20 @@ export const RDMRequestsSearchLayout = (props) => {
             width={4}
             open={sidebarVisible}
             onHideClick={() => setSidebarVisible(false)}
-            children={<SearchAppFacets aggs={props.config.aggs} />}
-          />
+          >
+            <SearchAppFacets aggs={config.aggs} />
+          </GridResponsiveSidebarColumn>
           <Grid.Column mobile={16} tablet={16} computer={12}>
-            <SearchAppResultsPane layoutOptions={props.config.layoutOptions} />
+            <SearchAppResultsPane layoutOptions={config.layoutOptions} />
           </Grid.Column>
         </Grid.Row>
       </Grid>
     </Container>
   );
+};
+
+RDMRequestsSearchLayout.propTypes = {
+  config: PropTypes.object.isRequired,
 };
 
 export const RequestsFacets = ({ aggs }) => {
@@ -375,14 +387,16 @@ export const RequestsFacets = ({ aggs }) => {
   );
 };
 
+RequestsFacets.propTypes = {
+  aggs: PropTypes.array.isRequired,
+};
+
 export const RDMRequestsEmptyResults = (props) => {
-  const { queryString, userSelectionFilters } = props;
-  const is_open = userSelectionFilters.some(
+  const { queryString, userSelectionFilters, updateQueryState } = props;
+  const isOpen = userSelectionFilters.some(
     (obj) => obj.includes("is_open") && obj.includes("true")
   );
-  const filtersToNotReset = userSelectionFilters.find((obj) =>
-    obj.includes("is_open")
-  );
+  const filtersToNotReset = userSelectionFilters.find((obj) => obj.includes("is_open"));
   const elementsToReset = {
     queryString: "",
     page: 1,
@@ -391,14 +405,12 @@ export const RDMRequestsEmptyResults = (props) => {
 
   const AllDone = () => {
     return (
-      <>
-        <Header as="h1" icon>
-          {i18next.t("All done!")}
-          <Header.Subheader>
-            {i18next.t("You've caught up with all open requests.")}
-          </Header.Subheader>
-        </Header>
-      </>
+      <Header as="h1" icon>
+        {i18next.t("All done!")}
+        <Header.Subheader>
+          {i18next.t("You've caught up with all open requests.")}
+        </Header.Subheader>
+      </Header>
     );
   };
 
@@ -410,10 +422,7 @@ export const RDMRequestsEmptyResults = (props) => {
           {i18next.t("No requests found!")}
         </Header>
         {queryString && (
-          <Button
-            primary
-            onClick={() => props.updateQueryState(elementsToReset)}
-          >
+          <Button primary onClick={() => updateQueryState(elementsToReset)}>
             {i18next.t("Reset search")}
           </Button>
         )}
@@ -421,19 +430,21 @@ export const RDMRequestsEmptyResults = (props) => {
     );
   };
 
-  const allRequestsDone = is_open && !queryString;
+  const allRequestsDone = isOpen && !queryString;
   return (
-    <>
-      <Segment placeholder textAlign="center">
-        {allRequestsDone ? <AllDone /> : <NoResults />}
-      </Segment>
-    </>
+    <Segment placeholder textAlign="center">
+      {allRequestsDone ? <AllDone /> : <NoResults />}
+    </Segment>
   );
 };
 
-export const RDMRequestsEmptyResultsWithState = withState(
-  RDMRequestsEmptyResults
-);
+RDMRequestsEmptyResults.propTypes = {
+  queryString: PropTypes.string.isRequired,
+  updateQueryState: PropTypes.func.isRequired,
+  userSelectionFilters: PropTypes.array.isRequired,
+};
+
+export const RDMRequestsEmptyResultsWithState = withState(RDMRequestsEmptyResults);
 
 const RequestAcceptButtonWithConfig = parametrize(RequestAcceptButton, {
   size: "mini",
@@ -467,35 +478,35 @@ const RequestCancelButtonMobileWithConfig = parametrize(RequestCancelButton, {
 
 const CommunitySubmission = () => (
   <LabelTypeSubmission className="rel-mr-1" size="small" color="blue" />
-)
+);
 
 const CommunityInvitation = () => (
   <LabelTypeInvitation className="rel-mr-1" size="small" color="blue" />
-)
+);
 
 const Submitted = () => (
   <LabelStatusSubmit className="rel-mr-1" size="small" color="blue" />
-)
+);
 
 const Deleted = () => (
   <LabelStatusDelete className="rel-mr-1" size="small" color="red" />
-)
+);
 
 const Accepted = () => (
   <LabelStatusAccept className="rel-mr-1" size="small" color="green" />
-)
+);
 
 const Declined = () => (
   <LabelStatusDecline className="rel-mr-1" size="small" color="red" />
-)
+);
 
 const Cancelled = () => (
   <LabelStatusCancel className="rel-mr-1" size="small" color="grey" />
-)
+);
 
 const Expired = () => (
   <LabelStatusExpire className="rel-mr-1" size="small" color="grey" />
-)
+);
 
 export const defaultComponents = {
   "BucketAggregation.element": RDMBucketAggregationElement,
@@ -515,18 +526,12 @@ export const defaultComponents = {
   "RequestStatusLabel.layout.declined": Declined,
   "RequestStatusLabel.layout.cancelled": Cancelled,
   "RequestStatusLabel.layout.expired": Expired,
-  "RequestActionModalTrigger.accept.computer-tablet":
-    RequestAcceptButtonWithConfig,
-  "RequestActionModalTrigger.decline.computer-tablet":
-    RequestDeclineButtonWithConfig,
-  "RequestActionModalTrigger.cancel.computer-tablet":
-    RequestCancelButtonWithConfig,
-  "RequestActionModalTrigger.accept.mobile":
-    RequestAcceptButtonMobileWithConfig,
-  "RequestActionModalTrigger.decline.mobile":
-    RequestDeclineButtonMobileWithConfig,
-  "RequestActionModalTrigger.cancel.mobile":
-    RequestCancelButtonMobileWithConfig,
+  "RequestActionModalTrigger.accept.computer-tablet": RequestAcceptButtonWithConfig,
+  "RequestActionModalTrigger.decline.computer-tablet": RequestDeclineButtonWithConfig,
+  "RequestActionModalTrigger.cancel.computer-tablet": RequestCancelButtonWithConfig,
+  "RequestActionModalTrigger.accept.mobile": RequestAcceptButtonMobileWithConfig,
+  "RequestActionModalTrigger.decline.mobile": RequestDeclineButtonMobileWithConfig,
+  "RequestActionModalTrigger.cancel.mobile": RequestCancelButtonMobileWithConfig,
   "RequestActionButton.cancel": RequestCancelButtonModal,
   "RequestActionButton.decline": RequestDeclineButton,
   "RequestActionButton.accept": RequestAcceptButton,

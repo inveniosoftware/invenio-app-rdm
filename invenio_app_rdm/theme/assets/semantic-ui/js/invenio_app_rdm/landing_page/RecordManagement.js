@@ -13,6 +13,7 @@ import { Button, Grid, Icon, Message } from "semantic-ui-react";
 import { EditButton } from "./EditButton";
 import { ShareButton } from "./ShareButton";
 import { NewVersionButton } from "react-invenio-deposit";
+import PropTypes from "prop-types";
 
 export const RecordManagement = ({
   record,
@@ -63,10 +64,7 @@ export const RecordManagement = ({
 
           <Grid.Column className="pt-5">
             {permissions.can_manage && (
-              <ShareButton
-                disabled={!permissions.can_update_draft}
-                recid={recid}
-              />
+              <ShareButton disabled={!permissions.can_update_draft} recid={recid} />
             )}
           </Grid.Column>
         </>
@@ -80,4 +78,11 @@ export const RecordManagement = ({
       )}
     </Grid>
   );
+};
+
+RecordManagement.propTypes = {
+  record: PropTypes.object.isRequired,
+  permissions: PropTypes.object.isRequired,
+  isDraft: PropTypes.bool.isRequired,
+  isPreviewSubmissionRequest: PropTypes.bool.isRequired,
 };

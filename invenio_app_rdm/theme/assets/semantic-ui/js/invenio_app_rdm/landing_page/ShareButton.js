@@ -10,9 +10,9 @@ import React, { useState } from "react";
 import { Icon, Button, Popup } from "semantic-ui-react";
 import { ShareModal } from "./ShareModal";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
+import PropTypes from "prop-types";
 
-export const ShareButton = ({disabled, recid}) => {
-
+export const ShareButton = ({ disabled, recid }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const handleOpen = () => setModalOpen(true);
   const handleClose = () => setModalOpen(false);
@@ -38,11 +38,16 @@ export const ShareButton = ({disabled, recid}) => {
           </Button>
         }
       />
-      <ShareModal
-        open={modalOpen}
-        handleClose={handleClose}
-        recid={recid}
-      />
+      <ShareModal open={modalOpen} handleClose={handleClose} recid={recid} />
     </>
   );
+};
+
+ShareButton.propTypes = {
+  disabled: PropTypes.bool,
+  recid: PropTypes.string.isRequired,
+};
+
+ShareButton.defaultProps = {
+  disabled: false,
 };
