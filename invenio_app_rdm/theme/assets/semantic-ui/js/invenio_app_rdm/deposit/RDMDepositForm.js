@@ -8,6 +8,7 @@
 
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import _get from "lodash/get";
+import _isEmpty from "lodash/isEmpty";
 import React, { Component, createRef, Fragment } from "react";
 import {
   AccessRightField,
@@ -39,6 +40,9 @@ import {
 import { AccordionField } from "react-invenio-forms";
 import { Card, Container, Divider, Grid, Ref, Sticky } from "semantic-ui-react";
 import PropTypes from "prop-types";
+
+// Custom fields
+import { CustomFields } from "./custom_fields";
 
 export class RDMDepositForm extends Component {
   constructor(props) {
@@ -196,7 +200,7 @@ export class RDMDepositForm extends Component {
                     ],
                   }}
                 />
-                <LicenseField
+                {/* <LicenseField
                   fieldPath="metadata.rights"
                   searchConfig={{
                     searchApi: {
@@ -218,7 +222,7 @@ export class RDMDepositForm extends Component {
                     id: result.id,
                     link: result.props.url,
                   })}
-                />
+                /> */}
               </AccordionField>
 
               <AccordionField
@@ -369,6 +373,9 @@ export class RDMDepositForm extends Component {
               >
                 <RelatedWorksField options={this.vocabularies.metadata.identifiers} />
               </AccordionField>
+              {!_isEmpty(this.config.custom_fields.ui) && (
+                <CustomFields config={this.config.custom_fields.ui} />
+              )}
             </Grid.Column>
             <Ref innerRef={this.sidebarRef}>
               <Grid.Column

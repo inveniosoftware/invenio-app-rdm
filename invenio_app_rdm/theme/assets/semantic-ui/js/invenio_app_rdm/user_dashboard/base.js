@@ -119,7 +119,6 @@ export const DashboardSearchLayoutHOC = ({
   const DashboardUploadsSearchLayout = (props) => {
     const [sidebarVisible, setSidebarVisible] = React.useState(false);
     const { config } = props;
-    console.log("inner props", props);
 
     return (
       <Grid>
