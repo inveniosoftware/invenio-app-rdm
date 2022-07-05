@@ -25,6 +25,7 @@
 {%- set show_record_management_menu = can_manage_record and (not is_preview or is_preview_submission_request) %}
 
 {%- block page_body %}
+
   <section id="banners" class="banners" aria-label="{{ _('Information banner') }}">
 
     <!-- COMMUNITY HEADER: hide it when displaying the submission request -->
@@ -43,9 +44,10 @@
           <div class="ui container page-subheader">
             <div class="page-subheader-element ">
               <img
-                class="ui tiny image community-header-logo"
+                class="ui tiny image community-header-logo has-placeholder"
                 src="{{ community.links.logo }}"
-                onerror="this.onerror=null;this.src='/static/images/square-placeholder.png';" alt=""/>
+                alt=""
+              />
             </div>
             <div class="page-subheader-element">
               <a
