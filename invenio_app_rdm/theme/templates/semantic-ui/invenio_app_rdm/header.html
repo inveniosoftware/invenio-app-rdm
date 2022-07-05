@@ -8,7 +8,7 @@
     under the terms of the MIT License; see LICENSE file for more details.
 #}
 
-{%- from "invenio_app_rdm/records/macros/header.html" import nav_searchbar %}
+<!--{%- from "invenio_app_rdm/records/macros/header.html" import nav_searchbar %}-->
 
 <div>
   <header class="theme header">
@@ -60,18 +60,7 @@
             </button>
 
             {%- if config.THEME_SEARCHBAR %}
-              {%- block navbar_search %}
-                {% set options = 
-                  [
-                    {
-                      "key": "records",
-                      "text": _("All") + " " + config.THEME_SITENAME,
-                      "value": config.APP_RDM_ROUTES.record_search,
-                    }
-                  ]
-                 %}
-                {{ nav_searchbar(options) }}
-              {%- endblock navbar_search %}
+              {%- include "invenio_app_rdm/searchbar.html" %}
             {%- endif %}
 
             {%- block navbar_nav %}
