@@ -128,6 +128,7 @@ export const RecordVersionsList = ({ record, isPreview }) => {
       setLoading(false);
     }
     fetchVersions();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return loading ? (

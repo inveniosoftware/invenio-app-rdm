@@ -292,7 +292,7 @@ export const RequestStatusFilter = withState(RequestStatusFilterComponent);
 export const RDMRequestsSearchLayout = (props) => {
   const [sidebarVisible, setSidebarVisible] = React.useState(false);
   const { config } = props;
-  console.log("HEY");
+
   return (
     <Container>
       <Grid>

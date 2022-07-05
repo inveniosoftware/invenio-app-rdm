@@ -20,6 +20,7 @@ from invenio_rdm_records.services.schemas import RDMRecordSchema
 from invenio_rdm_records.services.schemas.utils import dump_empty
 from invenio_vocabularies.proxies import current_service as vocabulary_service
 from invenio_vocabularies.records.models import VocabularyScheme
+from invenio_vocabularies.services.custom_fields import VocabularyCF
 from marshmallow_utils.fields.babel import gettext_from_dict
 from sqlalchemy.orm import load_only
 
@@ -251,6 +252,34 @@ class VocabulariesOptions:
         return self._vocabularies
 
 
+def load_custom_fields(conf_ui, conf_backend):
+    """Load custom fields configuration."""
+    vocabulary_fields = []
+    error_labels = {}
+    conf_backend = {cf.name: cf for cf in conf_backend}
+    for section_cfg in conf_ui:
+        fields = section_cfg["fields"]
+        for field in fields:
+            field_instance = conf_backend.get(field["field"])
+            # Compute the dictionary to map field path to error labels
+            # for each custom field. This is the label shown at the top of the upload
+            # form
+            field_error_label = field.get("error_label") or field.get("props", {}).get(
+                "label"
+            )
+            if field_error_label:
+                error_labels[f"custom_fields.{field['field']}"] = field_error_label
+            if getattr(field_instance, "relation_cls", None):
+                # add vocabulary options to field's properties
+                field["props"]["options"] = field_instance.options(g.identity)
+                vocabulary_fields.append(field["field"])
+    return {
+        "ui": conf_ui,
+        "vocabularies": vocabulary_fields,
+        "error_labels": error_labels,
+    }
+
+
 def get_form_config(**kwargs):
     """Get the react form configuration."""
     conf = current_app.config
@@ -268,6 +297,10 @@ def get_form_config(**kwargs):
             user_dashboard_request=conf["RDM_REQUESTS_ROUTES"][
                 "user-dashboard-request-details"
             ]
+        ),
+        custom_fields=load_custom_fields(
+            conf.get("RDM_CUSTOM_FIELDS_UI", []),
+            conf.get("RDM_CUSTOM_FIELDS", []),
         ),
         **kwargs,
     )
