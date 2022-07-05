@@ -134,11 +134,7 @@ export const RDMRecordSearchBarContainer = () => {
   );
 };
 
-
-export const RDMRecordMultipleSearchBarElement = ({
-  queryString,
-  onInputChange,
-}) => {
+export const RDMRecordMultipleSearchBarElement = ({ queryString, onInputChange }) => {
   const headerSearchbar = document.getElementById("header-search-bar");
   const searchbarOptions = JSON.parse(headerSearchbar.dataset.options);
 
@@ -150,6 +146,11 @@ export const RDMRecordMultipleSearchBarElement = ({
       placeholder={i18next.t("Search records...")}
     />
   );
+};
+
+RDMRecordMultipleSearchBarElement.propTypes = {
+  queryString: PropTypes.string.isRequired,
+  onInputChange: PropTypes.func.isRequired,
 };
 
 export const RDMRecordSearchBarElement = withState(
