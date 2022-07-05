@@ -269,6 +269,7 @@ def get_form_config(**kwargs):
                 "user-dashboard-request-details"
             ]
         ),
+        custom_fields=conf.get("RDM_RECORDS_CUSTOM_FIELDS_UI", {}),
         **kwargs,
     )
 
