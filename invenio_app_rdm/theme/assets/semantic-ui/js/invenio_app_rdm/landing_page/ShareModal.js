@@ -127,6 +127,7 @@ export const ShareModal = ({ recid, open, handleClose }) => {
     return () => {
       source.cancel();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shareMode]);
 
   useEffect(() => {
@@ -157,6 +158,7 @@ export const ShareModal = ({ recid, open, handleClose }) => {
     return () => {
       source.cancel();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

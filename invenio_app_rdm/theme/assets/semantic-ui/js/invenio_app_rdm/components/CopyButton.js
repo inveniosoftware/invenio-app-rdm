@@ -81,8 +81,8 @@ export class CopyButton extends Component {
 
   hoverStateHandler = (event) => {
     event.persist();
-    if (event.type == "mouseenter") this.setState({ hoverPopupIsOpen: true });
-    if (event.type == "mouseleave") this.setState({ hoverPopupIsOpen: false });
+    if (event.type === "mouseenter") this.setState({ hoverPopupIsOpen: true });
+    if (event.type === "mouseleave") this.setState({ hoverPopupIsOpen: false });
   };
 
   render() {
