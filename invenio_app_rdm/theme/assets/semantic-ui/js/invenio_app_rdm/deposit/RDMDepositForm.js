@@ -35,7 +35,7 @@ import {
   TitlesField,
   VersionField,
   FundingField,
-} from "react-invenio-deposit";
+} from "./components/react-invenio-deposit/src/lib/index";
 import { AccordionField } from "react-invenio-forms";
 import { Card, Container, Divider, Grid, Ref, Sticky } from "semantic-ui-react";
 

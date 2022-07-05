@@ -4,11 +4,13 @@
 // Invenio-app-rdm is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
 
+import React from "react";
 import i18n from "i18next";
 
 import LanguageDetector from "i18next-browser-languagedetector";
 import { translations } from "./messages";
 import { initReactI18next } from "react-i18next";
+import { Trans as ReactTrans } from "react-i18next";
 
 const options = {
   fallbackLng: "en", // fallback keys
@@ -33,5 +35,7 @@ const options = {
 
 const i18next = i18n.createInstance();
 i18next.use(LanguageDetector).use(initReactI18next).init(options);
+
+export const Trans = (props) => <ReactTrans i18n={i18next} {...props} />;
 
 export { i18next };
