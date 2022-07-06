@@ -17,6 +17,10 @@ from invenio_previewer.views import is_previewable
 from invenio_records_files.api import FileObject
 from invenio_records_permissions.policies import get_record_permission_policy
 
+from invenio_app_rdm.records_ui.previewer.iiif_simple import (
+    previewable_extensions as image_extensions,
+)
+
 
 def make_files_preview_compatible(files):
     """Processes a list of RecordFiles to a list of FileObjects.
@@ -86,6 +90,12 @@ def has_previewable_files(files):
     # extension, we have to get rid of that
     extensions = [splitext(f["key"])[-1].strip(".").lower() for f in files]
     return any([is_previewable(ext) for ext in extensions])
+
+
+def has_images(files):
+    """Check if any of the files are images (previewable by iiif_simple)."""
+    extensions = [splitext(f["key"])[-1].strip(".").lower() for f in files]
+    return any(ext in image_extensions for ext in extensions)
 
 
 def order_entries(files):

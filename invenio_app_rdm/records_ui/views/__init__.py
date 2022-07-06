@@ -22,6 +22,7 @@ from .deposits import deposit_create, deposit_edit
 from .filters import (
     can_list_files,
     get_scheme_label,
+    has_images,
     has_previewable_files,
     make_files_preview_compatible,
     order_entries,
@@ -118,6 +119,7 @@ def create_blueprint(app):
     blueprint.add_app_template_filter(has_previewable_files)
     blueprint.add_app_template_filter(order_entries)
     blueprint.add_app_template_filter(get_scheme_label)
+    blueprint.add_app_template_filter(has_images)
 
     # Register context processor
     blueprint.app_context_processor(search_app_context)
