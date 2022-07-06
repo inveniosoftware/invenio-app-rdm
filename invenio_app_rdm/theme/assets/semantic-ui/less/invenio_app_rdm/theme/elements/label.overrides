@@ -23,6 +23,12 @@
     border-color: @errorTextColor;
     color: @errorTextColor;
   }
+
+  &.warning {
+    border-color: @warningBackgroundColor !important;
+    background-color: @warningBackgroundColor !important;
+    color: @warningTextColor;
+  }
 }
 
 .subject {
