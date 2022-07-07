@@ -435,7 +435,7 @@ OAISERVER_RECORD_SETS_FETCHER = "invenio_oaiserver.utils:record_sets_fetcher"
 """Record's OAI sets function."""
 
 OAISERVER_RECORD_INDEX = "rdmrecords-records"
-"""Specify an Elastic index with records that should be exposed via OAI-PMH."""
+"""Specify a search index with records that should be exposed via OAI-PMH."""
 
 OAISERVER_GETRECORD_FETCHER = "invenio_rdm_records.oai:getrecord_fetcher"
 """Record data fetcher for serialization."""
@@ -466,8 +466,8 @@ ACCESS_CACHE = "invenio_cache:current_cache"
 # ==============
 # See https://invenio-search.readthedocs.io/en/latest/configuration.html
 
-SEARCH_ELASTIC_HOSTS = [{"host": "localhost", "port": 9200}]
-"""Elasticsearch hosts."""
+SEARCH_HOSTS = [{"host": "localhost", "port": 9200}]
+"""Search hosts."""
 
 # Invenio-Indexer
 # ===============

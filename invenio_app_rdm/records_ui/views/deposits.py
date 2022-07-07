@@ -9,7 +9,6 @@
 
 """Routes for record-related pages provided by Invenio-App-RDM."""
 
-from elasticsearch_dsl import Q
 from flask import current_app, g, render_template
 from flask_babelex import lazy_gettext as _
 from flask_login import login_required
@@ -18,6 +17,7 @@ from invenio_rdm_records.proxies import current_rdm_records
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
 from invenio_rdm_records.services.schemas import RDMRecordSchema
 from invenio_rdm_records.services.schemas.utils import dump_empty
+from invenio_search.engine import dsl
 from invenio_vocabularies.proxies import current_service as vocabulary_service
 from invenio_vocabularies.records.models import VocabularyScheme
 from invenio_vocabularies.services.custom_fields import VocabularyCF
@@ -157,7 +157,7 @@ class VocabulariesOptions:
     def depositable_resource_types(self):
         """Return depositable resource type options (value, label) pairs."""
         self._vocabularies["resource_type"] = self._resource_types(
-            Q("term", tags="depositable")
+            dsl.Q("term", tags="depositable")
         )
         return self._vocabularies["resource_type"]
 
@@ -216,7 +216,7 @@ class VocabulariesOptions:
 
     def linkable_resource_types(self):
         """Dump linkable resource type vocabulary."""
-        return self._resource_types(Q("term", tags="linkable"))
+        return self._resource_types(dsl.Q("term", tags="linkable"))
 
     def identifier_schemes(self):
         """Dump identifiers scheme (fake) vocabulary.
