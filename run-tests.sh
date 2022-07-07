@@ -14,7 +14,7 @@
 #
 # Note: the DB, SEARCH and CACHE services to use are determined by corresponding environment
 #       variables if they are set -- otherwise, the following defaults are used:
-#       DB=postgresql, SEARCH=elasticsearch and CACHE=redis
+#       DB=postgresql, SEARCH=opensearch and CACHE=redis
 #
 # Example for using mysql instead of postgresql:
 #    DB=mysql ./run-tests.sh
@@ -54,7 +54,7 @@ fi
 
 python -m check_manifest
 python -m sphinx.cmd.build -qnN docs docs/_build/html
-eval "$(docker-services-cli up --db ${DB:-postgresql} --search ${SEARCH:-elasticsearch} --cache ${CACHE:-redis} --env)"
+eval "$(docker-services-cli up --db ${DB:-postgresql} --search ${SEARCH:-opensearch} --cache ${CACHE:-redis} --env)"
 # Note: expansion of pytest_args looks like below to not cause an unbound
 # variable error when 1) "nounset" and 2) the array is empty.
 python -m pytest ${pytest_args[@]+"${pytest_args[@]}"}

@@ -8,8 +8,8 @@
 """Test deposit views."""
 
 import pytest
-from elasticsearch_dsl import Q
 from invenio_access.permissions import system_identity
+from invenio_search.engine import dsl
 from invenio_vocabularies.proxies import current_service as vocabulary_service
 from invenio_vocabularies.records.api import Vocabulary
 
@@ -95,7 +95,7 @@ def test_resource_types(app, client_with_login, additional_resource_types):
     ]
 
     # the choice of this filter isn't important for the test
-    result = options._resource_types(Q("term", tags="depositable"))
+    result = options._resource_types(dsl.Q("term", tags="depositable"))
 
     sorted_result = sorted(result, key=lambda e: e["id"])
     assert expected == sorted_result
