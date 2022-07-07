@@ -202,8 +202,7 @@ IIIF_API_DECORATOR_HANDLER = None
 
 PREVIEWER_PREFERENCE = [
     "csv_dthreejs",
-    # TODO: IIIF checks bucket-level permissions, and thus won't work
-    # 'iiif_image',
+    "iiif_simple",
     "simple_image",
     "json_prismjs",
     "xml_prismjs",
@@ -721,5 +720,5 @@ THEME_JAVASCRIPT_TEMPLATE = "invenio_app_rdm/javascript.html"
 IIIF_SIMPLE_PREVIEWER_NATIVE_EXTENSIONS = ["gif", "png"]
 """Images are converted to JPEG for preview, unless listed here."""
 
-IIIF_SIMPLE_PREVIEWER_SIZE = "800,"
+IIIF_SIMPLE_PREVIEWER_SIZE = "!800,800"
 """Size of image in IIIF preview window. Must be a valid IIIF Image API size parameter."""
