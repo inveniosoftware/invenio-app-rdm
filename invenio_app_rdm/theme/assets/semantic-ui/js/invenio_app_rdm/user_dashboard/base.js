@@ -52,16 +52,7 @@ export function DashboardResultView(props) {
                       />
                     </Grid.Column>
                     <Grid.Column width={12} textAlign="right" className="padding-r-5">
-                      {sortOptions && (
-                        <Sort
-                          values={sortOptions}
-                          label={(cmp) => (
-                            <>
-                              {i18next.t("Sort by")} {cmp}
-                            </>
-                          )}
-                        />
-                      )}
+                      {sortOptions && <Sort values={sortOptions} />}
                     </Grid.Column>
                   </Grid.Row>
                 </Overridable>

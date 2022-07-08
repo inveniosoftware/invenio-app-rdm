@@ -101,16 +101,7 @@ export const RequestsResults = ({
                     computer={12}
                     className="text-align-right-tablet text-align-right-computer"
                   >
-                    {sortOptions && (
-                      <Sort
-                        values={sortOptions}
-                        label={(cmp) => (
-                          <>
-                            {i18next.t("Sort by")} {cmp}
-                          </>
-                        )}
-                      />
-                    )}
+                    {sortOptions && <Sort values={sortOptions} />}
                   </Grid.Column>
                 </Grid.Row>
 

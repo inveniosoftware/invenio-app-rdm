@@ -455,6 +455,10 @@ dl.details-list {
   }
 }
 
+.min-width-max-content {
+  min-width: max-content;
+}
+
 .block {
   display: block;
 }
@@ -546,6 +550,10 @@ dl.details-list {
     grid-auto-columns: 100%;
     align-items: flex-start;
     row-gap: 1rem;
+  }
+
+  &.three-columns {
+    grid-auto-columns: auto max-content max-content;
   }
 }
 
