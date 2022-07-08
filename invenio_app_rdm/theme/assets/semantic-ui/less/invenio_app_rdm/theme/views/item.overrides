@@ -99,12 +99,15 @@
   }
 
   .item.community-item {
-
-    .header .header-link {
-      @media all and (max-width: @largestMobileScreen) {
-        margin-top: 1rem;
+    .header {
+      word-break: break-word;
+      .header-link {
+        @media all and (max-width: @largestMobileScreen) {
+          margin-top: 1rem;
+        }
       }
     }
+
   }
 }
 

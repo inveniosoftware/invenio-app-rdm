@@ -39,3 +39,7 @@ aside.sidebar {
     display: none;
   }
 }
+
+.ui.header  {
+  word-break: break-word;
+}
