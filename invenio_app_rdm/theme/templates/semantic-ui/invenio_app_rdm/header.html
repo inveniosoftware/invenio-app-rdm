@@ -58,7 +58,9 @@
             </button>
 
             {%- if config.THEME_SEARCHBAR %}
-              {%- include "invenio_app_rdm/searchbar.html" %}
+              {%- block navbar_search %}
+                {%- include "invenio_app_rdm/searchbar.html" %}
+              {%- endblock navbar_search %}
             {%- endif %}
 
             {%- block navbar_nav %}
