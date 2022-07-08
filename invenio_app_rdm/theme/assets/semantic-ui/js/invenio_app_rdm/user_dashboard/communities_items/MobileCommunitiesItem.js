@@ -18,7 +18,7 @@ export const MobileCommunitiesItem = ({ result, index }) => {
   const visibilityText = isPublic ? i18next.t("Public") : i18next.t("Restricted");
   const visibilityIcon = isPublic ? undefined : "ban";
   return (
-    <Item key={index} className="mobile only">
+    <Item key={index} className="mobile only community-item">
       <Item.Content className="centered">
         <Item.Extra className="user-communities">
           {communityType && (
