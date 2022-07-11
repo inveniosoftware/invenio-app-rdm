@@ -67,10 +67,6 @@ button:focus-visible, a:focus-visible {
   }
 }
 
-.centered {
-  text-align: center;
-}
-
 .titlecase {
   text-transform: capitalize;
 }

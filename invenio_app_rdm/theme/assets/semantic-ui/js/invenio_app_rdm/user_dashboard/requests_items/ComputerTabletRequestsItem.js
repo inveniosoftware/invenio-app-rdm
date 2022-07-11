@@ -15,18 +15,17 @@ import PropTypes from "prop-types";
 
 export const ComputerTabletRequestsItem = ({
   result,
-  index,
-  differenceInDays,
-  isCreatorCommunity,
-  creatorName,
   updateQueryState,
   currentQueryState,
+  extraData,
 }) => {
   const refreshAfterAction = () => {
     updateQueryState(currentQueryState);
   };
+  const { differenceInDays, isCreatorCommunity, creatorName } = extraData;
+
   return (
-    <Item key={index} className="community-item computer tablet only flex">
+    <Item key={result.id} className="community-item computer tablet only flex">
       <div className="status-icon mr-10">
         <Item.Content verticalAlign="top">
           <Item.Extra>
@@ -69,14 +68,7 @@ export const ComputerTabletRequestsItem = ({
 
 ComputerTabletRequestsItem.propTypes = {
   result: PropTypes.object.isRequired,
-  index: PropTypes.string,
-  differenceInDays: PropTypes.string.isRequired,
-  isCreatorCommunity: PropTypes.bool.isRequired,
-  creatorName: PropTypes.string.isRequired,
   updateQueryState: PropTypes.func.isRequired,
   currentQueryState: PropTypes.object.isRequired,
-};
-
-ComputerTabletRequestsItem.defaultProps = {
-  index: undefined,
+  extraData: PropTypes.object.isRequired,
 };
