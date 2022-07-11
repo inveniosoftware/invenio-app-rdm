@@ -35,8 +35,12 @@ import {
   RequestAcceptButton,
   RequestCancelButton,
   RequestDeclineButton,
-  RequestCancelButtonModal,
 } from "@js/invenio_requests/components/Buttons";
+import {
+  RequestAcceptModalTrigger,
+  RequestCancelModalTrigger,
+  RequestDeclineModalTrigger,
+} from "@js/invenio_requests/components/ModalTriggers";
 import {
   Button,
   Card,
@@ -46,10 +50,10 @@ import {
   Icon,
   Segment,
 } from "semantic-ui-react";
-import { RDMRecordSearchBarElement } from "../search/components";
 import { timestampToRelativeTime } from "../utils";
 import { ComputerTabletRequestsItem } from "./requests_items/ComputerTabletRequestsItem";
 import { MobileRequestsItem } from "./requests_items/MobileRequestsItem";
+import { RDMRecordSearchBarElement } from "../search/components";
 import {
   ContribSearchAppFacets,
   ContribBucketAggregationElement,
@@ -146,13 +150,14 @@ RequestsResultsGridItemTemplate.propTypes = {
   index: PropTypes.string.isRequired,
 };
 
-export function RequestsResultsItemTemplateDashboard({ result, index }) {
+export function RequestsResultsItemTemplateDashboard({ result }) {
+  const ComputerTabletRequestsItemWithState = withState(ComputerTabletRequestsItem);
+  const MobileRequestsItemWithState = withState(MobileRequestsItem);
   const createdDate = new Date(result.created);
-  const differenceInDays = timestampToRelativeTime(createdDate.toISOString());
   const createdBy = result.created_by;
+  let creatorName = "";
   const isCreatorUser = "user" in createdBy;
   const isCreatorCommunity = "community" in createdBy;
-  let creatorName = "";
   if (isCreatorUser) {
     creatorName =
       result.expanded?.created_by.profile?.full_name ||
@@ -161,35 +166,22 @@ export function RequestsResultsItemTemplateDashboard({ result, index }) {
   } else if (isCreatorCommunity) {
     creatorName = result.expanded?.created_by.metadata?.title || createdBy.community;
   }
-  const ComputerTabletRequestsItemWithState = withState(ComputerTabletRequestsItem);
-  const MobileRequestsItemWithState = withState(MobileRequestsItem);
+  const extraData = {
+    differenceInDays: timestampToRelativeTime(createdDate.toISOString()),
+    isCreatorCommunity: isCreatorCommunity,
+    creatorName: creatorName,
+  };
+
   return (
     <>
-      <ComputerTabletRequestsItemWithState
-        result={result}
-        index={index}
-        differenceInDays={differenceInDays}
-        isCreatorCommunity={isCreatorCommunity}
-        creatorName={creatorName}
-      />
-      <MobileRequestsItemWithState
-        result={result}
-        index={index}
-        differenceInDays={differenceInDays}
-        isCreatorCommunity={isCreatorCommunity}
-        creatorName={creatorName}
-      />
+      <ComputerTabletRequestsItemWithState result={result} extraData={extraData} />
+      <MobileRequestsItemWithState result={result} extraData={extraData} />
     </>
   );
 }
 
 RequestsResultsItemTemplateDashboard.propTypes = {
   result: PropTypes.object.isRequired,
-  index: PropTypes.string,
-};
-
-RequestsResultsItemTemplateDashboard.defaultProps = {
-  index: null,
 };
 
 // FIXME: Keeping ResultsGrid.item and SearchBar.element because otherwise
@@ -285,7 +277,6 @@ export const RequestStatusFilter = withState(RequestStatusFilterComponent);
 export const RDMRequestsSearchLayout = (props) => {
   const [sidebarVisible, setSidebarVisible] = React.useState(false);
   const { config } = props;
-
   return (
     <Container>
       <Grid>
@@ -392,57 +383,40 @@ RDMRequestsEmptyResults.propTypes = {
 
 export const RDMRequestsEmptyResultsWithState = withState(RDMRequestsEmptyResults);
 
-const RequestAcceptButtonWithConfig = parametrize(RequestAcceptButton, {
+const RequestAcceptModalTriggerWithConfig = parametrize(RequestAcceptModalTrigger, {
   size: "mini",
   className: "ml-5",
 });
 
-const RequestDeclineButtonWithConfig = parametrize(RequestDeclineButton, {
+const RequestDeclineModalTriggerWithConfig = parametrize(RequestDeclineModalTrigger, {
   size: "mini",
   className: "ml-5",
 });
 
-const RequestCancelButtonWithConfig = parametrize(RequestCancelButton, {
+const RequestCancelModalTriggerWithConfig = parametrize(RequestCancelModalTrigger, {
   size: "mini",
   className: "ml-5",
-});
-
-const RequestAcceptButtonMobileWithConfig = parametrize(RequestAcceptButton, {
-  size: "mini",
-  className: "mt-10 fluid-responsive",
-});
-
-const RequestDeclineButtonMobileWithConfig = parametrize(RequestDeclineButton, {
-  size: "mini",
-  className: "mt-10 fluid-responsive",
-});
-
-const RequestCancelButtonMobileWithConfig = parametrize(RequestCancelButton, {
-  size: "mini",
-  className: "mt-10 fluid-responsive",
 });
 
 const CommunitySubmission = () => (
-  <LabelTypeSubmission className="rel-mr-1 primary" size="small" />
+  <LabelTypeSubmission className="primary" size="small" />
 );
 
 const CommunityInvitation = () => (
-  <LabelTypeInvitation className="rel-mr-1 primary" size="small" />
+  <LabelTypeInvitation className="primary" size="small" />
 );
 
-const Submitted = () => <LabelStatusSubmit className="rel-mr-1 primary" size="small" />;
+const Submitted = () => <LabelStatusSubmit className="primary" size="small" />;
 
-const Deleted = () => <LabelStatusDelete className="rel-mr-1 negative" size="small" />;
+const Deleted = () => <LabelStatusDelete className="negative" size="small" />;
 
-const Accepted = () => <LabelStatusAccept className="rel-mr-1 positive" size="small" />;
+const Accepted = () => <LabelStatusAccept className="positive" size="small" />;
 
-const Declined = () => (
-  <LabelStatusDecline className="rel-mr-1 negative" size="small" />
-);
+const Declined = () => <LabelStatusDecline className="negative" size="small" />;
 
-const Cancelled = () => <LabelStatusCancel className="rel-mr-1 neutral" size="small" />;
+const Cancelled = () => <LabelStatusCancel className="neutral" size="small" />;
 
-const Expired = () => <LabelStatusExpire className="rel-mr-1 expired" size="small" />;
+const Expired = () => <LabelStatusExpire className="expired" size="small" />;
 
 export const defaultComponents = {
   "BucketAggregation.element": ContribBucketAggregationElement,
@@ -462,13 +436,10 @@ export const defaultComponents = {
   "RequestStatusLabel.layout.declined": Declined,
   "RequestStatusLabel.layout.cancelled": Cancelled,
   "RequestStatusLabel.layout.expired": Expired,
-  "RequestActionModalTrigger.accept.computer-tablet": RequestAcceptButtonWithConfig,
-  "RequestActionModalTrigger.decline.computer-tablet": RequestDeclineButtonWithConfig,
-  "RequestActionModalTrigger.cancel.computer-tablet": RequestCancelButtonWithConfig,
-  "RequestActionModalTrigger.accept.mobile": RequestAcceptButtonMobileWithConfig,
-  "RequestActionModalTrigger.decline.mobile": RequestDeclineButtonMobileWithConfig,
-  "RequestActionModalTrigger.cancel.mobile": RequestCancelButtonMobileWithConfig,
-  "RequestActionButton.cancel": RequestCancelButtonModal,
+  "RequestActionModalTrigger.accept": RequestAcceptModalTriggerWithConfig,
+  "RequestActionModalTrigger.decline": RequestDeclineModalTriggerWithConfig,
+  "RequestActionModalTrigger.cancel": RequestCancelModalTriggerWithConfig,
+  "RequestActionButton.cancel": RequestCancelButton,
   "RequestActionButton.decline": RequestDeclineButton,
   "RequestActionButton.accept": RequestAcceptButton,
 };

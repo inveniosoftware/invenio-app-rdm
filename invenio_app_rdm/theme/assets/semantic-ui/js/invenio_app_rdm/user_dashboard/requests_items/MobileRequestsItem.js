@@ -15,20 +15,18 @@ import PropTypes from "prop-types";
 
 export const MobileRequestsItem = ({
   result,
-  index,
-  differenceInDays,
-  isCreatorCommunity,
-  creatorName,
   updateQueryState,
   currentQueryState,
+  extraData,
 }) => {
   const refreshAfterAction = () => {
     updateQueryState(currentQueryState);
   };
+  const { differenceInDays, isCreatorCommunity, creatorName } = extraData;
 
   return (
-    <Item key={index} className="community-item mobile only flex">
-      <Item.Content>
+    <Item key={result.id} className="community-item mobile only flex">
+      <Item.Content className="centered">
         <Item.Extra>
           {result.type && <RequestTypeLabel type={result.type} />}
           {result.status && result.is_closed && (
@@ -50,12 +48,14 @@ export const MobileRequestsItem = ({
             {creatorName}
           </small>
           <RightBottomLabel className="mb-5 block" result={result} />
-          <div className="block">
-            <RequestActionController
-              request={result}
-              actionSuccessCallback={refreshAfterAction}
-            />
-          </div>
+          {!result.is_closed && (
+            <div className="block">
+              <RequestActionController
+                request={result}
+                actionSuccessCallback={refreshAfterAction}
+              />
+            </div>
+          )}
         </Item.Meta>
       </Item.Content>
     </Item>
@@ -64,14 +64,7 @@ export const MobileRequestsItem = ({
 
 MobileRequestsItem.propTypes = {
   result: PropTypes.object.isRequired,
-  index: PropTypes.string,
-  differenceInDays: PropTypes.string.isRequired,
-  isCreatorCommunity: PropTypes.bool.isRequired,
-  creatorName: PropTypes.string.isRequired,
   updateQueryState: PropTypes.func.isRequired,
   currentQueryState: PropTypes.object.isRequired,
-};
-
-MobileRequestsItem.defaultProps = {
-  index: undefined,
+  extraData: PropTypes.object.isRequired,
 };
