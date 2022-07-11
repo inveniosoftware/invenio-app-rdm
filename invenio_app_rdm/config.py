@@ -187,33 +187,6 @@ def files_rest_permission_factory(obj, action):
 FILES_REST_PERMISSION_FACTORY = files_rest_permission_factory
 """Set default files permission factory."""
 
-# Invenio-IIIF
-# =================
-# See https://invenio-iiif.readthedocs.io/en/latest/configuration.html
-
-IIIF_PREVIEW_TEMPLATE = "invenio_app_rdm/records/iiif_preview.html"
-"""Template for IIIF image preview."""
-
-IIIF_API_DECORATOR_HANDLER = None
-
-# Invenio-Previewer
-# =================
-# See https://github.com/inveniosoftware/invenio-previewer/blob/master/invenio_previewer/config.py  # noqa
-
-PREVIEWER_PREFERENCE = [
-    "csv_dthreejs",
-    "iiif_simple",
-    "simple_image",
-    "json_prismjs",
-    "xml_prismjs",
-    "mistune",
-    "pdfjs",
-    "ipynb",
-    "zip",
-    "txt",
-]
-"""Preferred previewers."""
-
 # Invenio-Formatter
 # =================
 
@@ -712,13 +685,56 @@ RDM_COMMUNITIES_ROUTES = {
 
 THEME_JAVASCRIPT_TEMPLATE = "invenio_app_rdm/javascript.html"
 
-# iiif-simple previewer settings
-# ==============================
+# Invenio-IIIF
+# =================
+# See https://invenio-iiif.readthedocs.io/en/latest/configuration.html
 
-"""List of extension types to preview with IIIF."""
+IIIF_PREVIEW_TEMPLATE = "invenio_app_rdm/records/iiif_preview.html"
+"""Template for IIIF image preview."""
+
+IIIF_API_DECORATOR_HANDLER = None
+
+# Invenio-Previewer
+# =================
+# See https://github.com/inveniosoftware/invenio-previewer/blob/master/invenio_previewer/config.py  # noqa
+
+PREVIEWER_PREFERENCE = [
+    "csv_dthreejs",
+    "iiif_simple",
+    "simple_image",
+    "json_prismjs",
+    "xml_prismjs",
+    "mistune",
+    "pdfjs",
+    "ipynb",
+    "zip",
+    "txt",
+]
+"""Preferred previewers."""
+
 
 IIIF_SIMPLE_PREVIEWER_NATIVE_EXTENSIONS = ["gif", "png"]
 """Images are converted to JPEG for preview, unless listed here."""
 
 IIIF_SIMPLE_PREVIEWER_SIZE = "!800,800"
 """Size of image in IIIF preview window. Must be a valid IIIF Image API size parameter."""
+
+IIIF_FORMATS = {
+    "gif": "image/gif",
+    "jp2": "image/jp2",
+    "jpeg": "image/jpeg",
+    "jpg": "image/jpeg",
+    "png": "image/png",
+    "tif": "image/tiff",
+    "tiff": "image/tiff",
+}
+IIIF_FORMATS_PIL_MAP = {
+    "gif": "gif",
+    "jp2": "jpeg2000",
+    "jpeg": "jpeg",
+    "jpg": "jpeg",
+    "pdf": "pdf",
+    "png": "png",
+    "tif": "tiff",
+    "tiff": "tiff",
+}
