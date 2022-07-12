@@ -251,6 +251,21 @@ class VocabulariesOptions:
         return self._vocabularies
 
 
+def load_custom_fields(conf_ui, conf_backend):
+    """Load custom fields configuration."""
+    from invenio_vocabularies.custom_fields import VocabularyCF
+
+    for section_cfg in conf_ui:
+        vocabulary_fields = []
+        fields = section_cfg["fields"]
+        for field in fields:
+            field_type = conf_backend.get(field["field"])
+            if isinstance(field_type, VocabularyCF):
+                field["options"] = field_type.options()
+                vocabulary_fields.append(field["field"])
+    return {"ui": conf_ui, "vocabularies": vocabulary_fields}
+
+
 def get_form_config(**kwargs):
     """Get the react form configuration."""
     conf = current_app.config
@@ -269,7 +284,10 @@ def get_form_config(**kwargs):
                 "user-dashboard-request-details"
             ]
         ),
-        custom_fields=conf.get("RDM_RECORDS_CUSTOM_FIELDS_UI", {}),
+        custom_fields=load_custom_fields(
+            conf.get("RDM_RECORDS_CUSTOM_FIELDS_UI", {}),
+            conf.get("RDM_RECORDS_CUSTOM_FIELDS", {}),
+        ),
         **kwargs,
     )
 

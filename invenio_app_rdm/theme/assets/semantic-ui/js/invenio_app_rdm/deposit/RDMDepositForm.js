@@ -97,6 +97,7 @@ export class RDMDepositForm extends Component {
 
   render() {
     const { record, files, permissions, preselectedCommunity } = this.props;
+    console.log(record);
     return (
       <DepositFormApp
         config={this.config}
@@ -373,8 +374,8 @@ export class RDMDepositForm extends Component {
               >
                 <RelatedWorksField options={this.vocabularies.metadata.identifiers} />
               </AccordionField>
-              {!_isEmpty(this.config.custom_fields) && (
-                <CustomFields config={this.config.custom_fields} />
+              {!_isEmpty(this.config.custom_fields.ui) && (
+                <CustomFields config={this.config.custom_fields.ui} />
               )}
             </Grid.Column>
             <Ref innerRef={this.sidebarRef}>

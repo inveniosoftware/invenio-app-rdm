@@ -4,6 +4,7 @@ import { AccordionField } from "react-invenio-forms";
 
 export class CustomFields extends Component {
   state = { sections: [] };
+
   async componentDidMount() {
     // Custom fields
     loadCustomFields(this.props.config).then((sections) => {
@@ -17,10 +18,9 @@ export class CustomFields extends Component {
       <>
         {sections.map(({section, fields}) => (<AccordionField
             key={section}
-            // FIXME
-            // includesPaths={["files.enabled"]}
-            active={true}
+            includesPaths={[fields.map(field => `custom.${field.key}`)]}
             label={section}
+            active
           >
             {fields}
           </AccordionField>
