@@ -4,6 +4,13 @@ import { i18next } from "@translations/invenio_app_rdm/i18next";
 import ReactDOM from "react-dom";
 import React from "react";
 
+// Backoffice menu dropdown
+const $backofficeCategoryDropdowns = $(
+  ".backoffice-category-dropdown.ui.accordion"
+).accordion();
+
+$backofficeCategoryDropdowns.accordion("open", 0);
+
 /* Expand and collapse navbar  */
 const toggleIcon = $("#rdm-burger-menu-icon");
 const menu = $("#invenio-nav");

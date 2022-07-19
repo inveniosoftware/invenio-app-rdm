@@ -156,6 +156,7 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
         permissions = community.has_permissions_to(
             ["update", "read", "search_requests", "search_invites"]
         )
+
         if not permissions["can_search_invites"]:
             raise PermissionDeniedError()
 

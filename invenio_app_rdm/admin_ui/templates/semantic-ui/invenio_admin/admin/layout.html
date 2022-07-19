@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+{%- extends config.BASE_TEMPLATE %}
+
+{% block bypasslinks %}
+{% endblock %}
+
+{% block body_inner %}
+  <div class="ui grid rel-pl-1 rel-pr-1">
+    {% block admin_side_column %}
+      <div class="three wide column" style="border: 1px solid grey; min-height: 100vh;">
+        {% block admin_sidenav %}
+          {% block admin_sidenav_title %}
+            <h2 class="ui center aligned header rel-mt-1">
+              Invenio-RDM Backoffice
+            </h2>
+            <div class="ui divider hidden"></div>
+          {% endblock %}
+
+          {% block admin_sidenav_menu %}
+            {% set menu_items = current_menu.submenu('backoffice_navigation').children %}
+            <div class="ui secondary vertical menu fluid rel-mt-3">
+              {% for item in menu_items|sort(attribute='order') if item.visible recursive %}
+                {% if item.children %}
+                  {% block admin_sidenav_menu_dropdown %}
+                    <div class="ui accordion backoffice-category-dropdown fluid item">
+                      <div class="{{ ' active' if item.active else '' }} title">
+                        <i class="caret right icon" style="float: right"></i>
+                        {{ item.text|safe }}
+                      </div>
+
+                      <div class="content {{ ' active' if item.active else '' }}">
+                        <div class="transition visible">
+                          {{ loop(item.children) }}
+                        </div>
+                      </div>
+
+                    </div>
+                  {% endblock %}
+
+                {% else %}
+                  {% block admin_sidenav_menu_item %}
+                    <a class="{{ ' active' if item.active else '' }} item " href="{{ item.url }}">
+                      {{ item.text }}
+                    </a>
+                  {% endblock %}
+
+                {% endif %}
+              {% endfor %}
+
+            </div>
+          {% endblock %}
+
+        {% endblock %}
+
+      </div>
+    {% endblock %}
+
+    {% block admin_main_column %}
+      <div class="thirteen wide column">
+        {% block admin_topnav %}
+          <div class="ui borderless menu fluid rel-pt-1 rel-pb-1 rel-pr-3 rel-pl-1 ">
+
+            {% block admin_topnav_right %}
+              <div class="right menu">
+                {%- include config.THEME_HEADER_LOGIN_TEMPLATE %}
+              </div>
+            {% endblock %}
+
+          </div>
+        {% endblock %}
+
+        <div class="pl-10 pr-10 pt-10 pb-10">
+        </div>
+      </div>
+    {% endblock %}
+
+  </div>
+  {% block javascript %}
+    {{ super() }}
+    {{ webpack['base-theme-rdm.js'] }}
+  {% endblock %}
+
+{% endblock %}
+
+
+
+

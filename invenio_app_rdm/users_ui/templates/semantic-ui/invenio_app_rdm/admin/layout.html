@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+{%- extends config.BASE_TEMPLATE %}
+
+{% block bypasslinks %}
+{% endblock %}
+{% block body_inner %}
+  <div class="ui grid rel-pl-1 rel-pr-1">
+    <div class="three wide column" style="border: 1px solid grey; min-height: 100vh;">
+      <h2 class="ui center aligned header rel-mt-1">
+        Invenio-RDM Backoffice
+      </h2>
+      <div class="ui divider hidden"></div>
+
+      {% set menu_items = current_menu.submenu('backoffice_navigation').children %}
+
+      <div class="ui secondary vertical menu fluid rel-mt-3">
+        {% for item in menu_items|sort(attribute='order') if item.visible recursive %}
+          {% if item.children %}
+            <div class="ui dropdown {{ ' active' if item.active else '' }} item">
+              <i class="dropdown icon"></i>
+              {{ item.text|safe }}
+
+              <div class="menu">
+                {{ loop(item.children) }}
+              </div>
+
+            </div>
+          {% else %}
+            <a class="{{ ' active' if item.active else '' }} item " href="{{ item.endpoint }}">
+              {{ item.text }}
+            </a>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+    </div>
+    <div class="thirteen wide column">
+      <div class="ui borderless menu fluid rel-pt-1 rel-pb-1 rel-pr-3 rel-pl-1 ">
+        <div class="right menu">
+          {%- include config.THEME_HEADER_LOGIN_TEMPLATE %}
+        </div>
+      </div>
+      <div class="pl-10 pr-10 pt-10 pb-10">
+      </div>
+    </div>
+  </div>
+  {% block javascript %}
+    {{ super() }}
+  {% endblock %}
+
+{% endblock %}
+
+
+
+

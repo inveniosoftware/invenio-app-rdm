@@ -158,7 +158,6 @@ export class RDMDepositForm extends Component {
                     />
                   </Fragment>
                 ))}
-
                 <ResourceTypeField
                   options={this.vocabularies.metadata.resource_type}
                   required
