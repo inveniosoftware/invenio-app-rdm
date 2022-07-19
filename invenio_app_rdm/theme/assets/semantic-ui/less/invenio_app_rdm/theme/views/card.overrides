@@ -1,14 +1,15 @@
 .ui.card.borderless.facet {
   box-shadow: none;
 
-  .content {
+  & > .content {
     border-top: none;
+    padding: 0;
+    margin-bottom: @defaultMargin;
 
     h2.header:not(.ui) {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-top: 1rem;
       font-size: 1.1em;
     }
   }
@@ -66,26 +67,95 @@
 
 .community-frontpage-cards .ui.card {
   .image {
-    height: 16rem;
+    height: @normalDesktopScreenCardHeight;
     display: flex;
-    align-items: center;
     background: transparent;
-    overflow: hidden;
+
+    img {
+      object-fit: scale-down;
+    }
+
+    &.fallback_image, &.placeholder {
+      img {
+        object-fit: cover;
+      }
+    }
   }
+}
+
+@media only screen and (min-width: @largestSmallMonitor) {
+  .ui.community-frontpage-cards.cards .ui.card {
+    .image {
+      height: @largeDesktopScreenCardHeight;
+    }
+  }
+
 }
 
 @media only screen and (max-width: @largestMobileScreen) {
   .ui.community-frontpage-cards.cards .ui.card {
     margin-top: 2rem;
-    width: calc(100% - 4em) !important;
+    width: 70vw !important;
     margin-left: auto;
     margin-right: auto;
 
     .image {
-      height: 20rem;
+      height: 70vw;
     }
   }
 
-
 }
+
+/*---------------------------------------------------------
+     Content - overrides immediate child from semantic
+     https://github.com/Semantic-Org/Semantic-UI/blob/master/src/definitions/views/card.less
+---------------------------------------------------------*/
+
+.ui.cards > .card > .field > .content,
+.ui.card > .field > .content {
+  flex-grow: 1;
+  border: @contentBorder;
+  border-top: @contentDivider;
+  background: @contentBackground;
+  margin: @contentMargin;
+  padding: @contentPadding;
+  box-shadow: @contentBoxShadow;
+  font-size: @contentFontSize;
+  border-radius: @contentBorderRadius;
+}
+
+.ui.cards > .card > .field > .content:after,
+.ui.card > .field > .content:after {
+  display: block;
+  content: ' ';
+  height: 0;
+  clear: both;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+.ui.cards > .card > .field > .content > .header,
+.ui.card > .field > .content > .header {
+  display: block;
+  margin: @headerMargin;
+  font-family: @headerFont;
+  color: @headerColor;
+}
+
+/* Default Header Size */
+.ui.cards > .card > .field > .content > .header:not(.ui),
+.ui.card > .field > .content > .header:not(.ui) {
+  font-weight: @headerFontWeight;
+  font-size: @headerFontSize;
+  margin-top: @headerLineHeightOffset;
+  line-height: @headerLineHeight;
+}
+
+.ui.cards > .card > .field > .content > .meta + .description,
+.ui.cards > .card > .field > .content > .header + .description,
+.ui.card > .field > .content > .meta + .description,
+.ui.card > .field > .content > .header + .description  {
+  margin-top: @descriptionDistance;
+}
+
 

@@ -17,16 +17,16 @@
     {% set back_button_url = url_for("invenio_app_rdm_users.requests") %}
   {% endif %}
   {{ submission_request_header(
-    request=request, record=record, draft_is_accepted=draft_is_accepted, back_button_url=back_button_url) }}
+    request=invenio_request, record=record, draft_is_accepted=draft_is_accepted, back_button_url=back_button_url) }}
 {%- endblock request_header %}
 
 {% block request_timeline %}
   <div
-    class="ui container invenio-tab-container fluid rel-pt-2"
+    class="ui container rdm-tab-container fluid rel-pt-2 ml-0-mobile mr-0-mobile"
     id="request-community-submission-tab-container"
   >
     <div
-      class="ui secondary pointing menu invenio-tab-menu"
+      class="ui secondary pointing menu rdm-tab-menu"
       id="request-community-submission-tab"
     >
       <a
@@ -34,18 +34,20 @@
         data-tab="conversation"
         role="tab"
         aria-selected="true"
-        aria-controls="conversation"
-        id="conversation-tab-menu"
+        aria-controls="conversation-tab-panel"
+        id="conversation-tab"
       >
         {{ _("Conversation") }}
       </a>
 
       {% if record %}
         <a
+          role="tab"
           class="item"
           data-tab="record"
-          id="record-tab-menu"
-          aria-controls="record"
+          aria-selected="false"
+          aria-controls="record-tab-panel"
+          id="record-tab"
         >
           {{ _("Record") }}
         </a>
@@ -56,16 +58,21 @@
       class="ui bottom attached tab segment active borderless p-0"
       data-tab="conversation"
       role="tabpanel"
-      aria-labelledby="conversation"
-      id="conversation-tab"
+      aria-labelledby="conversation-tab"
+      id="conversation-tab-panel"
     >
       {{ super() }}
     </div>
 
     {% if record %}
-      <div class="ui bottom attached tab segment borderless" data-tab="record"
-           role="tabpanel" aria-labelledby="record" id="record-tab"
-           hidden="hidden">
+      <div
+        class="ui bottom attached tab segment borderless"
+        data-tab="record"
+        role="tabpanel"
+        aria-labelledby="record-tab"
+        id="record-tab-panel"
+        hidden="hidden"
+      >
         {% set use_theme_basic_template = false %}
         {% set preview_submission_request = true %}
         {% set is_draft = true %}

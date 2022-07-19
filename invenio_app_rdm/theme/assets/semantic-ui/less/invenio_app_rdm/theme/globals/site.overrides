@@ -14,27 +14,38 @@ body {
   flex-direction: column;
 }
 
-.mobile.only {
-  display: none;
+:not(.ui.grid).only {
 
-  @media all and (max-width: @largestMobileScreen) {
-    display: inline-block;
+  &.mobile:not(.tablet) {
+    @media all and (min-width: @largestMobileScreen) {
+      display: none !important;
+    }
   }
-}
 
-.tablet.only {
-  display: none;
+  &.tablet {
+    &.mobile {
+      @media all and (min-width: @largestTabletScreen) {
+        display: none !important;
+      }
+    }
 
-  @media all and (max-width: @largestTabletScreen) {
-    display: inline-block;
+    &.computer {
+      @media all and (max-width: @tabletBreakpoint) {
+        display: none !important;
+      }
+    }
+
+    &:not(.computer):not(.mobile){
+      @media not all and (min-width: @largestMobileScreen) and (max-width: @computerBreakpoint) {
+        display: none !important;
+      }
+    }
   }
-}
 
-.computer.only {
-  display: inline-block;
-
-  @media all and (max-width: @largestTabletScreen) {
-    display: none !important;
+  &.computer:not(.tablet) {
+    @media all and (max-width: @computerBreakpoint) {
+      display: none !important;
+    }
   }
 }
 
@@ -107,6 +118,7 @@ pre.export.result {
 
 .rdm-logo {
   width: 250px;
+  max-height: @75px;
 }
 
 .borderless {
@@ -270,11 +282,8 @@ a.no-text-decoration:hover {
   text-decoration: none;
 }
 
-// Preview
-.iiif-preview-img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+#collapsablePreview {
+  border: 1px solid transparent; // Prevents iframe from overflowing accordion border
 }
 
 .preview-iframe {
@@ -446,6 +455,13 @@ dl.details-list {
   }
 }
 
+.block {
+  display: block;
+}
+
+.inline{
+  display: inline;
+}
 
 .flex {
   display: flex;
@@ -474,6 +490,10 @@ dl.details-list {
 
 .align-self-end {
   align-self: end;
+}
+
+.align-self-baseline {
+  align-self: baseline;
 }
 
 /* FACETS */
@@ -535,4 +555,11 @@ dl.details-list {
 
 .left-floated {
   float: left;
+}
+
+.separated:not(:last-child)::after {
+  content: @listSeparator;
+  display: inline-block;
+  font-size: 1em;
+  margin-left: .1rem;
 }

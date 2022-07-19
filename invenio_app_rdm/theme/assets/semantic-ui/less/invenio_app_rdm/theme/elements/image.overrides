@@ -7,30 +7,37 @@
     height: @miniWidth;
     width: @miniWidth;
   }
+
   &.tiny {
     height: @tinyWidth;
     width: @tinyWidth;
   }
+
   &.small {
     height: @smallWidth;
     width: @smallWidth;
   }
+
   &.medium {
     height: @mediumWidth;
     width: @mediumWidth;
   }
+
   &.large {
     height: @largeWidth;
     width: @largeWidth;
   }
+
   &.big {
     height: @bigWidth;
     width: @bigWidth;
   }
+
   &.huge {
     height: @hugeWidth;
     width: @hugeWidth;
   }
+
   &.massive {
     height: @massiveWidth;
     width: @massiveWidth;
@@ -39,6 +46,26 @@
 
 .ui.image.community-image img {
   max-height: @tinyWidth;
+  object-fit: contain;
+}
+
+.ui.image.community-logo {
+
+  img {
+    height: @tinyWidth !important; // needs to override height set for images in items by SUI
+    object-fit: contain;
+  }
+
+  &.settings {
+    img {
+      height: @mediumWidth !important;
+    }
+  }
+
+}
+
+.ui.image.community-header-logo {
+  height: inherit;
   object-fit: contain;
 }
 

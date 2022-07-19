@@ -62,10 +62,6 @@
 
 .ui.items > .item .extra.labels-actions {
   margin-bottom: 0.75em;
-
-  &.user-communities {
-    margin-top: 0.25em;
-  }
 }
 
 
@@ -94,11 +90,6 @@
 }
 
 .ui.items {
-  .item.members-dopdown-option {
-    white-space: initial;
-    min-width: 25em;
-  }
-
   &.link > .item:hover .content .header {
     color: @darkTextColor;
   }
@@ -107,7 +98,6 @@
 
     .header .header-link {
       @media all and (max-width: @largestMobileScreen) {
-        display: block;
         margin-top: 1rem;
       }
     }
@@ -117,13 +107,15 @@
 .item {
 
   &.align-no-checkbox {
-    padding-left: @defaultPadding / 2 + @checkboxSize;
+    margin-left: @defaultMargin / 2 + @checkboxSize;
   }
 
   .ui.fitted.checkbox {
     margin-right: @defaultMargin / 2;
-    margin-top: @defaultMargin / 2;
+    margin-top: @defaultMargin / 2.5;
+  }
+
+  .ui.avatar.image {
+    align-self: center;
   }
 }
-
-

@@ -19,46 +19,48 @@ from invenio_app_rdm.records_ui.views.deposits import VocabulariesOptions
 @pytest.fixture()
 def additional_resource_types(running_app):
     """Resource type vocabulary record."""
-    vocabulary_service.create(system_identity, {
-        "id": "publication",
-        "icon": "file alternate",
-        "props": {
-            "csl": "report",
-            "datacite_general": "Text",
-            "datacite_type": "",
-            "eurepo": "info:eu-repo/semantics/other",
-            "openaire_resourceType": "17",
-            "openaire_type": "publication",
-            "schema.org": "https://schema.org/CreativeWork",
-            "subtype": "",
-            "type": "publication",
+    vocabulary_service.create(
+        system_identity,
+        {
+            "id": "publication",
+            "icon": "file alternate",
+            "props": {
+                "csl": "report",
+                "datacite_general": "Text",
+                "datacite_type": "",
+                "eurepo": "info:eu-repo/semantics/other",
+                "openaire_resourceType": "17",
+                "openaire_type": "publication",
+                "schema.org": "https://schema.org/CreativeWork",
+                "subtype": "",
+                "type": "publication",
+            },
+            "title": {"en": "Publication"},
+            "tags": ["depositable", "linkable"],
+            "type": "resourcetypes",
         },
-        "title": {
-            "en": "Publication"
+    )
+    vocabulary_service.create(
+        system_identity,
+        {
+            "id": "publication-annotationcollection",
+            "icon": "file alternate",
+            "props": {
+                "csl": "report",
+                "datacite_general": "Collection",
+                "datacite_type": "",
+                "eurepo": "info:eu-repo/semantics/technicalDocumentation",
+                "openaire_resourceType": "9",
+                "openaire_type": "publication",
+                "schema.org": "https://schema.org/Collection",
+                "subtype": "publication-annotationcollection",
+                "type": "publication",
+            },
+            "title": {"en": "Annotation collection"},
+            "tags": ["depositable", "linkable"],
+            "type": "resourcetypes",
         },
-        "tags": ["depositable", "linkable"],
-        "type": "resourcetypes"
-    })
-    vocabulary_service.create(system_identity, {
-        "id": "publication-annotationcollection",
-        "icon": "file alternate",
-        "props": {
-            "csl": "report",
-            "datacite_general": "Collection",
-            "datacite_type": "",
-            "eurepo": "info:eu-repo/semantics/technicalDocumentation",
-            "openaire_resourceType": "9",
-            "openaire_type": "publication",
-            "schema.org": "https://schema.org/Collection",
-            "subtype": "publication-annotationcollection",
-            "type": "publication",
-        },
-        "title": {
-            "en": "Annotation collection"
-        },
-        "tags": ["depositable", "linkable"],
-        "type": "resourcetypes"
-    })
+    )
 
     Vocabulary.index.refresh()
 
@@ -89,11 +91,11 @@ def test_resource_types(app, client_with_login, additional_resource_types):
             "id": "publication-annotationcollection",
             "subtype_name": "Annotation collection",
             "type_name": "Publication",
-        }
+        },
     ]
 
     # the choice of this filter isn't important for the test
-    result = options._resource_types(Q('term', tags="depositable"))
+    result = options._resource_types(Q("term", tags="depositable"))
 
     sorted_result = sorted(result, key=lambda e: e["id"])
     assert expected == sorted_result

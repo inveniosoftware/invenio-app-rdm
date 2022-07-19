@@ -53,10 +53,12 @@ def get_form_pids_config():
             "pid_placeholder": "Copy/paste your existing DOI here...",
             "can_be_managed": can_be_managed,
             "can_be_unmanaged": can_be_unmanaged,
-            "btn_label_discard_pid": _("Discard the reserved {scheme_label}")
-            .format(scheme_label=scheme_label),
-            "btn_label_get_pid": _("Get a {scheme_label} now!")
-            .format(scheme_label=scheme_label),
+            "btn_label_discard_pid": _("Discard the reserved {scheme_label}.").format(
+                scheme_label=scheme_label
+            ),
+            "btn_label_get_pid": _("Get a {scheme_label} now!").format(
+                scheme_label=scheme_label
+            ),
             "managed_help_text": _(
                 "Reserve a {scheme_label} by pressing the button (e.g to "
                 "include it in publications). The {scheme_label} is registered"
@@ -85,7 +87,7 @@ class VocabulariesOptions:
         return gettext_from_dict(
             hit["title"],
             current_i18n.locale,
-            current_app.config.get('BABEL_DEFAULT_LOCALE', 'en')
+            current_app.config.get("BABEL_DEFAULT_LOCALE", "en"),
         )
 
     def _get_type_subtype_label(self, hit, type_labels):
@@ -104,13 +106,13 @@ class VocabulariesOptions:
 
     def _resource_types(self, extra_filter):
         """Dump resource type vocabulary."""
-        type_ = 'resourcetypes'
+        type_ = "resourcetypes"
         all_resource_types = vocabulary_service.read_all(
             g.identity,
             fields=["id", "props", "title", "icon"],
             type=type_,
             # Sorry, we have over 100+ resource types entry at NU actually
-            max_records=150
+            max_records=150,
         )
         type_labels = {
             hit["id"]: self._get_label(hit)
@@ -122,42 +124,46 @@ class VocabulariesOptions:
             type=type_,
             extra_filter=extra_filter,
             # Sorry, we have over 100+ resource types entry at NU actually
-            max_records=150
+            max_records=150,
         )
 
         return [
             {
                 "icon": hit.get("icon", ""),
                 "id": hit["id"],
-                "subtype_name": self._get_type_subtype_label(hit, type_labels)[1],  # noqa
+                "subtype_name": self._get_type_subtype_label(hit, type_labels)[
+                    1
+                ],  # noqa
                 "type_name": self._get_type_subtype_label(hit, type_labels)[0],
-            } for hit in subset_resource_types.to_dict()["hits"]["hits"]
+            }
+            for hit in subset_resource_types.to_dict()["hits"]["hits"]
         ]
 
     def _dump_vocabulary_w_basic_fields(self, vocabulary_type):
         """Dump vocabulary with id and title field."""
         results = vocabulary_service.read_all(
-            g.identity, fields=["id", "title"], type=vocabulary_type)
+            g.identity, fields=["id", "title"], type=vocabulary_type
+        )
         return [
             {
                 "text": self._get_label(hit),
                 "value": hit["id"],
-            } for hit in results.to_dict()["hits"]["hits"]
+            }
+            for hit in results.to_dict()["hits"]["hits"]
         ]
 
     # Vocabularies
     def depositable_resource_types(self):
         """Return depositable resource type options (value, label) pairs."""
-        self._vocabularies["resource_type"] = (
-            self._resource_types(Q('term', tags="depositable"))
+        self._vocabularies["resource_type"] = self._resource_types(
+            Q("term", tags="depositable")
         )
         return self._vocabularies["resource_type"]
 
     def subjects(self):
         """Dump subjects vocabulary (limitTo really)."""
         subjects = (
-            VocabularyScheme.query
-            .filter_by(parent_id="subjects")
+            VocabularyScheme.query.filter_by(parent_id="subjects")
             .options(load_only("id"))
             .all()
         )
@@ -171,45 +177,45 @@ class VocabulariesOptions:
     def title_types(self):
         """Dump title type vocabulary."""
         self._vocabularies["titles"] = dict(
-            type=self._dump_vocabulary_w_basic_fields('titletypes')
+            type=self._dump_vocabulary_w_basic_fields("titletypes")
         )
         return self._vocabularies["titles"]
 
     def creator_roles(self):
         """Dump creators role vocabulary."""
         self._vocabularies["creators"] = dict(
-            role=self._dump_vocabulary_w_basic_fields('creatorsroles')
+            role=self._dump_vocabulary_w_basic_fields("creatorsroles")
         )
         return self._vocabularies["creators"]
 
     def contributor_roles(self):
         """Dump contributors role vocabulary."""
         self._vocabularies["contributors"] = dict(
-            role=self._dump_vocabulary_w_basic_fields('contributorsroles')
+            role=self._dump_vocabulary_w_basic_fields("contributorsroles")
         )
         return self._vocabularies["contributors"]
 
     def description_types(self):
         """Dump description type vocabulary."""
         self._vocabularies["descriptions"] = dict(
-            type=self._dump_vocabulary_w_basic_fields('descriptiontypes')
+            type=self._dump_vocabulary_w_basic_fields("descriptiontypes")
         )
         return self._vocabularies["descriptions"]
 
     def date_types(self):
         """Dump date type vocabulary."""
         self._vocabularies["dates"] = dict(
-            type=self._dump_vocabulary_w_basic_fields('datetypes')
+            type=self._dump_vocabulary_w_basic_fields("datetypes")
         )
         return self._vocabularies["dates"]
 
     def relation_types(self):
         """Dump relation type vocabulary."""
-        return self._dump_vocabulary_w_basic_fields('relationtypes')
+        return self._dump_vocabulary_w_basic_fields("relationtypes")
 
     def linkable_resource_types(self):
         """Dump linkable resource type vocabulary."""
-        return self._resource_types(Q('term', tags="linkable"))
+        return self._resource_types(Q("term", tags="linkable"))
 
     def identifier_schemes(self):
         """Dump identifiers scheme (fake) vocabulary.
@@ -217,11 +223,8 @@ class VocabulariesOptions:
         "Fake" because identifiers scheme is not a vocabulary.
         """
         return [
-            {
-                "text": get_scheme_label(scheme),
-                "value": scheme
-            } for scheme in current_app.config.get(
-                "RDM_RECORDS_IDENTIFIERS_SCHEMES", {})
+            {"text": get_scheme_label(scheme), "value": scheme}
+            for scheme in current_app.config.get("RDM_RECORDS_IDENTIFIERS_SCHEMES", {})
         ]
 
     def identifiers(self):
@@ -229,7 +232,7 @@ class VocabulariesOptions:
         self._vocabularies["identifiers"] = {
             "relations": self.relation_types(),
             "resource_type": self.linkable_resource_types(),
-            "scheme": self.identifier_schemes()
+            "scheme": self.identifier_schemes(),
         }
 
     def dump(self):
@@ -254,18 +257,19 @@ def get_form_config(**kwargs):
     return dict(
         vocabularies=VocabulariesOptions().dump(),
         autocomplete_names=conf.get(
-            'APP_RDM_DEPOSIT_FORM_AUTOCOMPLETE_NAMES', 'search'),
-        current_locale=str(current_i18n.locale),
-        default_locale=conf.get('BABEL_DEFAULT_LOCALE', 'en'),
-        pids=get_form_pids_config(),
-        quota=conf.get('APP_RDM_DEPOSIT_FORM_QUOTA'),
-        decimal_size_display=conf.get(
-            'APP_RDM_DISPLAY_DECIMAL_FILE_SIZES', True),
-        links=dict(
-            user_dashboard_request=conf[
-                "RDM_REQUESTS_ROUTES"]["user-dashboard-request-details"]
+            "APP_RDM_DEPOSIT_FORM_AUTOCOMPLETE_NAMES", "search"
         ),
-        **kwargs
+        current_locale=str(current_i18n.locale),
+        default_locale=conf.get("BABEL_DEFAULT_LOCALE", "en"),
+        pids=get_form_pids_config(),
+        quota=conf.get("APP_RDM_DEPOSIT_FORM_QUOTA"),
+        decimal_size_display=conf.get("APP_RDM_DISPLAY_DECIMAL_FILE_SIZES", True),
+        links=dict(
+            user_dashboard_request=conf["RDM_REQUESTS_ROUTES"][
+                "user-dashboard-request-details"
+            ]
+        ),
+        **kwargs,
     )
 
 
@@ -302,10 +306,8 @@ def deposit_create(community=None):
         forms_config=get_form_config(createUrl="/api/records"),
         searchbar_config=dict(searchUrl=get_search_url()),
         record=new_record(),
-        files=dict(
-            default_preview=None, entries=[], links={}
-        ),
-        preselectedCommunity=community
+        files=dict(default_preview=None, entries=[], links={}),
+        preselectedCommunity=community,
     )
 
 
@@ -316,7 +318,7 @@ def deposit_edit(pid_value, draft=None, draft_files=None):
     """Edit an existing deposit."""
     files_dict = None if draft_files is None else draft_files.to_dict()
     ui_serializer = UIJSONSerializer()
-    record = ui_serializer.serialize_object_to_dict(draft.to_dict())
+    record = ui_serializer.dump_obj(draft.to_dict())
 
     return render_template(
         "invenio_app_rdm/records/deposit.html",
@@ -324,5 +326,5 @@ def deposit_edit(pid_value, draft=None, draft_files=None):
         record=record,
         files=files_dict,
         searchbar_config=dict(searchUrl=get_search_url()),
-        permissions=draft.has_permissions_to(['new_version', 'delete_draft'])
+        permissions=draft.has_permissions_to(["new_version", "delete_draft"]),
     )

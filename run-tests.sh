@@ -4,6 +4,7 @@
 # Copyright (C) 2020-2021 CERN.
 # Copyright (C) 2020 Northwestern University.
 # Copyright (C) 2021 TU Wien.
+# Copyright (C) 2022 Graz University of Technology.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -51,7 +52,7 @@ if [[ ${keep_services} -eq 0 ]]; then
 	trap cleanup EXIT
 fi
 
-python -m check_manifest --ignore ".*-requirements.txt"
+python -m check_manifest
 python -m sphinx.cmd.build -qnN docs docs/_build/html
 eval "$(docker-services-cli up --db ${DB:-postgresql} --search ${SEARCH:-elasticsearch} --cache ${CACHE:-redis} --env)"
 # Note: expansion of pytest_args looks like below to not cause an unbound

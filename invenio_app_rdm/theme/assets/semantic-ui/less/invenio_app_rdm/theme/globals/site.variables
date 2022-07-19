@@ -130,3 +130,9 @@
 ------------------*/
 
 @userDashboardAvatarSize: 40px;
+
+
+/*------------------
+  Separators
+------------------*/
+@listSeparator: ";";

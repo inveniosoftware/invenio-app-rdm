@@ -9,15 +9,9 @@
 import axios from "axios";
 import _get from "lodash/get";
 import React, { useEffect, useState } from "react";
-import {
-  Grid,
-  Icon,
-  Message,
-  Placeholder,
-  List,
-  Divider,
-} from 'semantic-ui-react';
+import { Grid, Icon, Message, Placeholder, List, Divider } from "semantic-ui-react";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
+import PropTypes from "prop-types";
 
 const deserializeRecord = (record) => ({
   id: record.id,
@@ -33,34 +27,42 @@ const NUMBER_OF_VERSIONS = 5;
 const RecordVersionItem = ({ item, activeVersion }) => {
   const doi = _get(item.pids, "doi.identifier", "");
   return (
-      <List.Item
-        key={item.id}
-        {...(activeVersion && { className: "version active" })}
-      >
-        <List.Content floated="left">
-          { activeVersion ?
-            <span>{i18next.t('Version')} {item.version}</span>
-            :
-            <a href={`/records/${item.id}`}>{i18next.t('Version')} {item.version}</a>
-          }
+    <List.Item key={item.id} {...(activeVersion && { className: "version active" })}>
+      <List.Content floated="left">
+        {activeVersion ? (
+          <span>
+            {i18next.t("Version")} {item.version}
+          </span>
+        ) : (
+          <a href={`/records/${item.id}`}>
+            {i18next.t("Version")} {item.version}
+          </a>
+        )}
 
-          {doi && (
-            <small className={'doi' + (activeVersion ? ' text-muted-darken' : ' text-muted')}>
-              {doi}
-            </small>
-          )}
-        </List.Content>
-
-        <List.Content floated="right">
-          <small className={activeVersion ? 'text-muted-darken' : 'text-muted'}>
-            {item.publication_date}
+        {doi && (
+          <small
+            className={"doi" + (activeVersion ? " text-muted-darken" : " text-muted")}
+          >
+            {doi}
           </small>
-        </List.Content>
-      </List.Item>
+        )}
+      </List.Content>
+
+      <List.Content floated="right">
+        <small className={activeVersion ? "text-muted-darken" : "text-muted"}>
+          {item.publication_date}
+        </small>
+      </List.Content>
+    </List.Item>
   );
 };
 
-const PlaceholderLoader = ({ size = NUMBER_OF_VERSIONS }) => {
+RecordVersionItem.propTypes = {
+  item: PropTypes.object.isRequired,
+  activeVersion: PropTypes.bool.isRequired,
+};
+
+const PlaceholderLoader = ({ size }) => {
   const PlaceholderItem = () => (
     <Placeholder.Header>
       <Placeholder.Line />
@@ -75,6 +77,14 @@ const PlaceholderLoader = ({ size = NUMBER_OF_VERSIONS }) => {
   return <Placeholder>{numberOfHeader}</Placeholder>;
 };
 
+PlaceholderLoader.propTypes = {
+  size: PropTypes.number,
+};
+
+PlaceholderLoader.defaultProps = {
+  size: NUMBER_OF_VERSIONS,
+};
+
 const PreviewMessage = () => {
   return (
     <Grid className="container">
@@ -83,9 +93,9 @@ const PreviewMessage = () => {
           <Message info>
             <Message.Header>
               <Icon name="eye" />
-              {i18next.t('Preview')}
+              {i18next.t("Preview")}
             </Message.Header>
-            <p>{i18next.t('Only published versions are displayed.')}</p>
+            <p>{i18next.t("Only published versions are displayed.")}</p>
           </Message>
         </Grid.Column>
       </Grid.Row>
@@ -93,10 +103,9 @@ const PreviewMessage = () => {
   );
 };
 
-export const RecordVersionsList = (props) => {
-  const record = deserializeRecord(props.record);
-  const { isPreview } = props;
-  const recid = record.id;
+export const RecordVersionsList = ({ record, isPreview }) => {
+  const recordDeserialized = deserializeRecord(record);
+  const recid = recordDeserialized.id;
   const [loading, setLoading] = useState(true);
   const [currentRecordInResults, setCurrentRecordInResults] = useState(false);
   const [recordVersions, setRecordVersions] = useState({});
@@ -104,7 +113,7 @@ export const RecordVersionsList = (props) => {
   useEffect(() => {
     async function fetchVersions() {
       const result = await axios(
-        `${record.links.versions}?size=${NUMBER_OF_VERSIONS}&sort=version&allversions=true`,
+        `${recordDeserialized.links.versions}?size=${NUMBER_OF_VERSIONS}&sort=version&allversions=true`,
         {
           headers: {
             Accept: "application/vnd.inveniordm.v1+json",
@@ -122,7 +131,11 @@ export const RecordVersionsList = (props) => {
   }, []);
 
   return loading ? (
-    <>{isPreview ? <PreviewMessage /> : <PlaceholderLoader />}</>
+    isPreview ? (
+      <PreviewMessage />
+    ) : (
+      <PlaceholderLoader />
+    )
   ) : (
     <List divided>
       {isPreview ? <PreviewMessage /> : null}
@@ -136,21 +149,28 @@ export const RecordVersionsList = (props) => {
       {!currentRecordInResults && (
         <>
           <Divider horizontal>...</Divider>
-          <RecordVersionItem item={record} activeVersion={true} />
+          <RecordVersionItem item={recordDeserialized} activeVersion />
         </>
       )}
-      { recordVersions.total > 1 &&
+      {recordVersions.total > 1 && (
         <Grid className="mt-0">
           <Grid.Row centered>
             <a
-              href={`/search?q=parent.id:${record.parent_id}&sort=version&f=allversions:true`}
+              href={`/search?q=parent.id:${recordDeserialized.parent_id}&sort=version&f=allversions:true`}
               className="font-small"
             >
-              {i18next.t(`View all {{total}} versions`,{total:recordVersions.total})}
+              {i18next.t(`View all {{total}} versions`, {
+                total: recordVersions.total,
+              })}
             </a>
           </Grid.Row>
         </Grid>
-      }
+      )}
     </List>
   );
+};
+
+RecordVersionsList.propTypes = {
+  record: PropTypes.object.isRequired,
+  isPreview: PropTypes.bool.isRequired,
 };

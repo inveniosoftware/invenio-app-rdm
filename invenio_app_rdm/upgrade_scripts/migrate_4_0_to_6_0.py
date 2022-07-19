@@ -20,8 +20,7 @@ from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier
 from invenio_rdm_records.records.api import RDMDraft, RDMRecord
 from invenio_vocabularies.records.api import Vocabulary
-from invenio_vocabularies.records.models import VocabularyScheme, \
-    VocabularyType
+from invenio_vocabularies.records.models import VocabularyScheme, VocabularyType
 from sqlalchemy.orm.exc import NoResultFound
 
 
@@ -49,8 +48,7 @@ def migrate_vocabularies():
 
     # remove old affiliations
     try:
-        schemes = VocabularyScheme.query.filter_by(
-            parent_id="affiliations").all()
+        schemes = VocabularyScheme.query.filter_by(parent_id="affiliations").all()
         for scheme in schemes:
             db.session.delete(scheme)
         db.session.commit()
@@ -58,8 +56,7 @@ def migrate_vocabularies():
     except NoResultFound:
         print("No affiliations scheme not found: OK.")
     try:
-        db.session.delete(VocabularyType.query.filter_by(
-            id="affiliations").one())
+        db.session.delete(VocabularyType.query.filter_by(id="affiliations").one())
         db.session.commit()
         print("Affiliations vocabulary type removed: OK.")
     except NoResultFound:
@@ -110,7 +107,7 @@ def check_affiliations():
         if inv_affs_creators or inv_affs_contributors:
             invalid_affiliations_rec[record["id"]] = {
                 "creators": inv_affs_creators,
-                "contributors": inv_affs_contributors
+                "contributors": inv_affs_contributors,
             }
 
     invalid_affiliations_draft = {}
@@ -130,7 +127,7 @@ def check_affiliations():
             invalid_affiliations_draft[draft["id"]] = {
                 "type": "draft",
                 "creators": inv_affs_creators,
-                "contributors": inv_affs_contributors
+                "contributors": inv_affs_contributors,
             }
 
     invalid_affiliations = {}
@@ -141,17 +138,17 @@ def check_affiliations():
 
     if invalid_affiliations:
         print(
-            f"Your instance has {total} affiliations that need to be " +
-            "fixed. Check the invalid_affiliation.yaml file for more details."
+            f"Your instance has {total} affiliations that need to be "
+            + "fixed. Check the invalid_affiliation.yaml file for more details."
         )
-        with open('invalid_affiliations.yaml', 'w') as f:
+        with open("invalid_affiliations.yaml", "w") as f:
             yaml.dump(list(invalid_affiliations), f)
     else:
         print(f"All your instance's affiliations are valid.")
     if needs_ror:
         print(
-            "You have affiliations with ROR identifiers, you need to " +
-            "add its vocabulary. Instructions to do so are available in "
+            "You have affiliations with ROR identifiers, you need to "
+            + "add its vocabulary. Instructions to do so are available in "
             "https://inveniordm.docs.cern.ch/customize/vocabularies/affiliations/"  # noqa
         )
 
@@ -170,7 +167,7 @@ def check_subjects():
                 vocab_subjects[id_] = {
                     "id": id_,
                     "scheme": subject["scheme"],
-                    "subject": subject["subject"]
+                    "subject": subject["subject"],
                 }
 
         return vocab_subjects
@@ -189,18 +186,15 @@ def check_subjects():
         record = RDMRecord(record_metadata.data, model=record_metadata)
         # publish record subjects take presedence if id is repeated
         # | operator is only available from py 3.9 on
-        subjects_to_dump = {
-            **subjects_to_dump,
-            **_should_be_vocabulary(record)
-        }
+        subjects_to_dump = {**subjects_to_dump, **_should_be_vocabulary(record)}
 
     total = len(subjects_to_dump)
     if subjects_to_dump:
         print(
-            f"Your instance has {total} subjects that " +
-            "should be custom vocabularies."
+            f"Your instance has {total} subjects that "
+            + "should be custom vocabularies."
         )
-        with open('custom_subjects.yaml', 'w') as f:
+        with open("custom_subjects.yaml", "w") as f:
             yaml.dump(list(subjects_to_dump.values()), f)
     else:
         print(f"All your instance's subjects are valid.")
@@ -212,6 +206,7 @@ def execute_upgrade():
     Please read the disclaimer on this module before thinking about executing
     this function!
     """
+
     def update_roles(creatibutors):
         """Update roles."""
         for creatibutor in creatibutors:
@@ -328,20 +323,15 @@ def execute_upgrade():
         """Update contributors roles."""
         contributors = record.get("metadata").get("contributors", [])
         if contributors:
-            record["metadata"]["contributors"] = \
-                update_affiliations(contributors)
+            record["metadata"]["contributors"] = update_affiliations(contributors)
 
     def update_rights(record):
         """Update record rights."""
         rights = record.get("metadata").get("rights", [])
         for right in rights:
-            locale = current_app.config.get('BABEL_DEFAULT_LOCALE', 'en')
-            right["title"] = {
-                locale: right["title"]
-            }
-            right["description"] = {
-                locale: right["description"]
-            }
+            locale = current_app.config.get("BABEL_DEFAULT_LOCALE", "en")
+            right["title"] = {locale: right["title"]}
+            right["description"] = {locale: right["description"]}
 
     def migrate_record(record):
         """Migrates a record/draft to the new schema's values."""
@@ -351,9 +341,7 @@ def execute_upgrade():
         update_contributors_roles(record)
         update_additional_titles(record)
         update_additional_descriptions(record)
-        update_list_field_vocabulary(
-            record, "related_identifiers", "relation_type"
-        )
+        update_list_field_vocabulary(record, "related_identifiers", "relation_type")
         update_list_field_vocabulary(record, "dates", "type")
         update_subjects(record)
         update_creators_affiliations(record)
@@ -384,13 +372,13 @@ def execute_upgrade():
 
 if __name__ == "__main__":
     print(
-        "Choose a step:\n" +
-        "[1] Migrate old vocabularies\n" +
-        "[2] Check record's subjects\n" +
-        "[3] Check creators/contributors affiliations\n" +
-        "[4] Migrate records\n" +
-        ">> ",
-        end=""
+        "Choose a step:\n"
+        + "[1] Migrate old vocabularies\n"
+        + "[2] Check record's subjects\n"
+        + "[3] Check creators/contributors affiliations\n"
+        + "[4] Migrate records\n"
+        + ">> ",
+        end="",
     )
     try:
         choice = int(input())

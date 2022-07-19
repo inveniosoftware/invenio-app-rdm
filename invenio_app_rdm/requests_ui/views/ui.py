@@ -11,11 +11,16 @@
 from flask import Blueprint
 from invenio_pidstore.errors import PIDDeletedError, PIDDoesNotExistError
 from invenio_records_resources.services.errors import PermissionDeniedError
-from invenio_requests.views.ui import not_found_error, \
-    record_permission_denied_error, record_tombstone_error
+from invenio_requests.views.ui import (
+    not_found_error,
+    record_permission_denied_error,
+    record_tombstone_error,
+)
 
-from invenio_app_rdm.requests_ui.views.requests import \
-    community_dashboard_request_view, user_dashboard_request_view
+from invenio_app_rdm.requests_ui.views.requests import (
+    community_dashboard_request_view,
+    user_dashboard_request_view,
+)
 
 
 def create_ui_blueprint(app):
@@ -26,7 +31,7 @@ def create_ui_blueprint(app):
         "invenio_app_rdm_requests",
         __name__,
         template_folder="../templates",
-        static_folder='../static'
+        static_folder="../static",
     )
 
     blueprint.add_url_rule(
@@ -40,15 +45,15 @@ def create_ui_blueprint(app):
     )
 
     blueprint.add_url_rule(
-        routes['community-dashboard-invitation-details'],
+        routes["community-dashboard-invitation-details"],
         view_func=community_dashboard_request_view,
     )
 
     # Register error handlers
     blueprint.register_error_handler(
-        PermissionDeniedError, record_permission_denied_error)
-    blueprint.register_error_handler(PIDDeletedError,
-                                     record_tombstone_error)
+        PermissionDeniedError, record_permission_denied_error
+    )
+    blueprint.register_error_handler(PIDDeletedError, record_tombstone_error)
     blueprint.register_error_handler(PIDDoesNotExistError, not_found_error)
 
     return blueprint

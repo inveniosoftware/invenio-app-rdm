@@ -38,11 +38,13 @@ import {
 } from "react-invenio-deposit";
 import { AccordionField } from "react-invenio-forms";
 import { Card, Container, Divider, Grid, Ref, Sticky } from "semantic-ui-react";
+import PropTypes from "prop-types";
 
 export class RDMDepositForm extends Component {
   constructor(props) {
     super(props);
     this.config = props.config || {};
+    const { files, record } = this.props;
     // TODO: retrieve from backend
     this.config["canHaveMetadataOnlyRecords"] = true;
 
@@ -64,7 +66,7 @@ export class RDMDepositForm extends Component {
         },
 
         contributors: {
-          ...this.config.vocabularies.creators,
+          ...this.config.vocabularies.contributors,
           type: [
             { text: "Person", value: "personal" },
             { text: "Organization", value: "organizational" },
@@ -79,8 +81,8 @@ export class RDMDepositForm extends Component {
     // check if files are present
     this.noFiles = false;
     if (
-      !Array.isArray(this.props.files.entries) ||
-      (!this.props.files.entries.length && this.props.record.is_published)
+      !Array.isArray(files.entries) ||
+      (!files.entries.length && record.is_published)
     ) {
       this.noFiles = true;
     }
@@ -90,13 +92,11 @@ export class RDMDepositForm extends Component {
   sidebarRef = createRef();
 
   render() {
-    const { record, review, files, permissions, preselectedCommunity } =
-      this.props;
+    const { record, files, permissions, preselectedCommunity } = this.props;
     return (
       <DepositFormApp
         config={this.config}
         record={record}
-        review={review}
         preselectedCommunity={preselectedCommunity}
         files={files}
         permissions={permissions}
@@ -108,7 +108,7 @@ export class RDMDepositForm extends Component {
             <Grid.Column mobile={16} tablet={16} computer={11}>
               <AccordionField
                 includesPaths={["files.enabled"]}
-                active={true}
+                active
                 label={i18next.t("Files")}
               >
                 {this.noFiles && record.is_published && (
@@ -134,7 +134,7 @@ export class RDMDepositForm extends Component {
                   "metadata.additional_descriptions",
                   "metadata.rights",
                 ]}
-                active={true}
+                active
                 label={i18next.t("Basic information")}
               >
                 {this.config.pids.map((pid) => (
@@ -171,8 +171,8 @@ export class RDMDepositForm extends Component {
                 <PublicationDateField required />
                 <CreatibutorsField
                   label={i18next.t("Creators")}
-                  labelIcon={"user"}
-                  fieldPath={"metadata.creators"}
+                  labelIcon="user"
+                  fieldPath="metadata.creators"
                   roleOptions={this.vocabularies.metadata.creators.role}
                   schema="creators"
                   autocompleteNames={this.config.autocomplete_names}
@@ -230,14 +230,14 @@ export class RDMDepositForm extends Component {
                   "metadata.version",
                   "metadata.publisher",
                 ]}
-                active={true}
+                active
                 label={i18next.t("Recommended information")}
               >
                 <CreatibutorsField
                   addButtonLabel={i18next.t("Add contributor")}
                   label={i18next.t("Contributors")}
-                  labelIcon={"user plus"}
-                  fieldPath={"metadata.contributors"}
+                  labelIcon="user plus"
+                  fieldPath="metadata.contributors"
                   roleOptions={this.vocabularies.metadata.contributors.role}
                   schema="contributors"
                   autocompleteNames={this.config.autocomplete_names}
@@ -270,8 +270,8 @@ export class RDMDepositForm extends Component {
 
               <AccordionField
                 includesPaths={["metadata.funding"]}
-                active={true}
-                label={"Funding"}
+                active
+                label="Funding"
                 ui={this.accordionStyle}
               >
                 <FundingField
@@ -280,9 +280,7 @@ export class RDMDepositForm extends Component {
                     searchApi: {
                       axios: {
                         headers: {
-                          //  FIXME use for internationalisation
-                          //  Accept: "application/vnd.inveniordm.v1+json"
-                          Accept: "application/json",
+                          Accept: "application/vnd.inveniordm.v1+json",
                         },
                         url: "/api/awards",
                         withCredentials: false,
@@ -300,8 +298,7 @@ export class RDMDepositForm extends Component {
                   labelIcon="money bill alternate outline"
                   deserializeAward={(award) => {
                     return {
-                      title: award.title.en ?? award.title,
-                      pid: award.pid,
+                      title: award.title_l10n,
                       number: award.number,
                       funder: award.funder ?? "",
                       id: award.id,
@@ -315,6 +312,7 @@ export class RDMDepositForm extends Component {
                     return {
                       id: funder.id,
                       name: funder.name,
+                      ...(funder.title_l10n && { title: funder.title_l10n }),
                       ...(funder.pid && { pid: funder.pid }),
                       ...(funder.country && { country: funder.country }),
                       ...(funder.identifiers && {
@@ -330,7 +328,7 @@ export class RDMDepositForm extends Component {
                     if (funding.funder) {
                       const funderName =
                         funding.funder?.name ??
-                        funding.funder?.title?.en ??
+                        funding.funder?.title ??
                         funding.funder?.id ??
                         "";
                       awardOrFunder = "funder";
@@ -353,12 +351,12 @@ export class RDMDepositForm extends Component {
 
               <AccordionField
                 includesPaths={["metadata.identifiers"]}
-                active={true}
+                active
                 label={i18next.t("Alternate identifiers")}
               >
                 <IdentifiersField
                   fieldPath="metadata.identifiers"
-                  label={i18next.t("Alternate identifier(s)")}
+                  label={i18next.t("Alternate identifiers")}
                   labelIcon="barcode"
                   schemeOptions={this.vocabularies.metadata.identifiers.scheme}
                 />
@@ -366,12 +364,10 @@ export class RDMDepositForm extends Component {
 
               <AccordionField
                 includesPaths={["metadata.related_identifiers"]}
-                active={true}
+                active
                 label={i18next.t("Related works")}
               >
-                <RelatedWorksField
-                  options={this.vocabularies.metadata.identifiers}
-                />
+                <RelatedWorksField options={this.vocabularies.metadata.identifiers} />
               </AccordionField>
             </Grid.Column>
             <Ref innerRef={this.sidebarRef}>
@@ -413,7 +409,7 @@ export class RDMDepositForm extends Component {
 
                   <AccessRightField
                     label={i18next.t("Visibility")}
-                    labelIcon={"shield"}
+                    labelIcon="shield"
                   />
                   {permissions?.can_delete_draft && (
                     <Card>
@@ -436,3 +432,17 @@ export class RDMDepositForm extends Component {
     );
   }
 }
+
+RDMDepositForm.propTypes = {
+  config: PropTypes.object.isRequired,
+  record: PropTypes.object.isRequired,
+  preselectedCommunity: PropTypes.object,
+  files: PropTypes.object,
+  permissions: PropTypes.object,
+};
+
+RDMDepositForm.defaultProps = {
+  preselectedCommunity: undefined,
+  permissions: null,
+  files: null,
+};

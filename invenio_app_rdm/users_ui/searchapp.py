@@ -16,30 +16,30 @@ from invenio_search_ui.searchconfig import search_app_config
 def search_app_context():
     """Search app context processor."""
     return {
-        'search_app_rdm_user_uploads_config': partial(
+        "search_app_rdm_user_uploads_config": partial(
             search_app_config,
-            'RDM_SEARCH_DRAFTS',
-            current_app.config['RDM_FACETS'],
-            current_app.config['RDM_SORT_OPTIONS'],
-            '/api/user/records',
+            "RDM_SEARCH_DRAFTS",
+            current_app.config["RDM_FACETS"],
+            current_app.config["RDM_SORT_OPTIONS"],
+            "/api/user/records",
             {"Accept": "application/vnd.inveniordm.v1+json"},
         ),
-        'search_app_rdm_user_communities_config': partial(
+        "search_app_rdm_user_communities_config": partial(
             search_app_config,
-            'RDM_SEARCH_USER_COMMUNITIES',
-            current_app.config['COMMUNITIES_FACETS'],
-            current_app.config['RDM_SORT_OPTIONS'],
-            '/api/user/communities',
-            {"Accept": "application/json"}
+            "RDM_SEARCH_USER_COMMUNITIES",
+            current_app.config["COMMUNITIES_FACETS"],
+            current_app.config["RDM_SORT_OPTIONS"],
+            "/api/user/communities",
+            {"Accept": "application/vnd.inveniordm.v1+json"},
         ),
-        'search_app_rdm_user_requests_config': partial(
+        "search_app_rdm_user_requests_config": partial(
             search_app_config,
-            'RDM_SEARCH_USER_REQUESTS',
-            current_app.config['REQUESTS_FACETS'],
-            current_app.config['RDM_SORT_OPTIONS'],
-            '/api/user/requests',
+            "RDM_SEARCH_USER_REQUESTS",
+            current_app.config["REQUESTS_FACETS"],
+            current_app.config["RDM_SORT_OPTIONS"],
+            "/api/user/requests",
             {"Accept": "application/json"},
             initial_filters=[["is_open", "true"]],
-            hidden_params=[["expand", "1"]]
-        )
+            hidden_params=[["expand", "1"]],
+        ),
     }

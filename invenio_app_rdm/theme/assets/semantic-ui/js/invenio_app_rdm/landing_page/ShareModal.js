@@ -10,8 +10,9 @@ import axios from "axios";
 import { Trans } from "react-i18next";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import { axiosWithconfig } from "../utils";
+import PropTypes from "prop-types";
 
-export const ShareModal = (props) => {
+export const ShareModal = ({ recid, open, handleClose }) => {
   const [accessLinkObj, setAccessLinkObj] = useState();
   const [linkCreated, setLinkCreated] = useState(false);
   const [shareMode, setShareMode] = useState("view");
@@ -27,8 +28,8 @@ export const ShareModal = (props) => {
     view: (
       <span>
         <Trans>
-          Anyone with this link <strong>can view all versions</strong> of this
-          record & files.
+          Anyone with this link <strong>can view all versions</strong> of this record &
+          files.
         </Trans>
       </span>
     ),
@@ -36,16 +37,16 @@ export const ShareModal = (props) => {
       <span>
         <Trans>
           Anyone with this link{" "}
-          <strong>can view all published and unpublished versions</strong> of
-          this record & files.
+          <strong>can view all published and unpublished versions</strong> of this
+          record & files.
         </Trans>
       </span>
     ),
     edit: (
       <span>
         <Trans>
-          Anyone with an account and this link{" "}
-          <strong>can edit all versions</strong> of this record & files.
+          Anyone with an account and this link <strong>can edit all versions</strong> of
+          this record & files.
         </Trans>
       </span>
     ),
@@ -55,20 +56,17 @@ export const ShareModal = (props) => {
 
   const getAccessLink = (linkObj) => {
     const extraParam = shareMode === "preview" ? "preview=1&" : "";
-    return linkObj
-      ? `${window.location}?${extraParam}token=${linkObj.token}`
-      : "";
+    return linkObj ? `${window.location}?${extraParam}token=${linkObj.token}` : "";
   };
-
 
   const createAccessLink = async () => {
     await axiosWithconfig
       .post(
-        `/api/records/${props.recid}/access/links`,
+        `/api/records/${recid}/access/links`,
         { permission: shareMode },
         {
           headers: {
-            Accept: "application/json",
+            "Accept": "application/json",
             "Content-Type": "application/json",
           },
           withCredentials: true,
@@ -91,7 +89,7 @@ export const ShareModal = (props) => {
 
   const handleDelete = async () => {
     await axiosWithconfig
-      .delete(`/api/records/${props.recid}/access/links/${accessLinkObj.id}`, {
+      .delete(`/api/records/${recid}/access/links/${accessLinkObj.id}`, {
         headers: {
           Accept: "application/json",
         },
@@ -105,81 +103,84 @@ export const ShareModal = (props) => {
 
   useEffect(() => {
     linkCreated && copyAccessLink();
-  }, [linkCreated])
+  }, [linkCreated]);
 
   useEffect(() => {
     // Update access link according to share mode
     let source = axios.CancelToken.source();
 
-    if (!!accessLinkObj) {
+    if (accessLinkObj) {
       (async () => {
         await axiosWithconfig.patch(
-          `/api/records/${props.recid}/access/links/${accessLinkObj.id}`,
+          `/api/records/${recid}/access/links/${accessLinkObj.id}`,
           { permission: shareMode },
           {
             headers: {
               "Content-Type": "application/json",
             },
             withCredentials: true,
-            cancelToken: source.token
+            cancelToken: source.token,
           }
         );
-      }
-    )()
+      })();
     }
-    return () => { source.cancel() }
+    return () => {
+      source.cancel();
+    };
   }, [shareMode]);
 
-
   useEffect(() => {
-    if (!!accessLinkObj) {
+    if (accessLinkObj) {
       setShareMode(accessLinkObj.permission);
     }
   }, [accessLinkObj]);
 
-
   useEffect(() => {
-     // Fetch existing access link
+    // Fetch existing access link
     let source = axios.CancelToken.source();
 
     (async () => {
-        const result = await axios(`/api/records/${props.recid}/access/links`, {
-          headers: {
-            Accept: "application/json",
-          },
-          withCredentials: true,
-          cancelToken: source.token
-        });
-        const { hits, total } = result.data.hits;
-        if (total > 0) {
-          // Only accessing first access link for MVP.
-          setAccessLinkObj(hits[0]);
-        }
-    })()
+      const result = await axios(`/api/records/${recid}/access/links`, {
+        headers: {
+          Accept: "application/json",
+        },
+        withCredentials: true,
+        cancelToken: source.token,
+      });
+      const { hits, total } = result.data.hits;
+      if (total > 0) {
+        // Only accessing first access link for MVP.
+        setAccessLinkObj(hits[0]);
+      }
+    })();
 
-    return () => { source.cancel() }
+    return () => {
+      source.cancel();
+    };
   }, []);
 
   useEffect(() => {
     copyButtonRef.current?.focus(); // Accessiblity: focus the copy-button when modal opens
-  },[copyButtonRef])
+  }, [copyButtonRef]);
 
   useEffect(() => {
     let popupTimeout = setTimeout(() => {
       setCopied(false);
-    }, 1500)
+    }, 1500);
 
-    return () => { clearTimeout(popupTimeout) }
-  },[copied])
+    return () => {
+      clearTimeout(popupTimeout);
+    };
+  }, [copied]);
 
   return (
     <Modal
-      open={props.open}
-      onClose={props.handleClose}
+      open={open}
+      onClose={handleClose}
       className="share-modal"
       role="dialog"
       aria-labelledby="access-link-modal-header"
-      aria-expanded={props.open}
+      aria-expanded={open}
       aria-modal="true"
       tab-index="-1"
     >
@@ -200,35 +201,38 @@ export const ShareModal = (props) => {
             defaultValue={shareMode}
             onChange={handleChangeMode}
           />
-          <Popup position="top center"
-                 content={i18next.t("Copied!")}
-                 inverted
-                 open={copied}
-                 on="click"
-                 size="mini"
-                 trigger={
-                  <Button ref={copyButtonRef}
-                          size="small"
-                          onClick={ accessLinkObj && copyAccessLink || createAccessLink }
-                          aria-label={ accessLinkObj ? i18next.t("Copy link") : i18next.t("Get a link") }
-                  >
-                    <Icon name="copy outline"/>
-                    { accessLinkObj ? i18next.t("Copy link") : i18next.t("Get a link") }
-                  </Button>
-                 }
+          <Popup
+            position="top center"
+            content={i18next.t("Copied!")}
+            inverted
+            open={copied}
+            on="click"
+            size="mini"
+            trigger={
+              <Button
+                ref={copyButtonRef}
+                size="small"
+                onClick={(accessLinkObj && copyAccessLink) || createAccessLink}
+                aria-label={
+                  accessLinkObj ? i18next.t("Copy link") : i18next.t("Get a link")
+                }
+              >
+                <Icon name="copy outline" />
+                {accessLinkObj ? i18next.t("Copy link") : i18next.t("Get a link")}
+              </Button>
+            }
           />
 
-          <div role="alert" style={{ position: 'absolute', opacity: 0 }}>
-            <p>{ copied && i18next.t("Copied") }</p>
+          <div role="alert" style={{ position: "absolute", opacity: 0 }}>
+            <p>{copied && i18next.t("Copied")}</p>
           </div>
-
         </div>
         <Modal.Description>
           <p className="share-description rel-m-1">
             <Icon name="warning circle" />
-            {!!!accessLinkObj
+            {!accessLinkObj
               ? i18next.t(
-                  "No link has been created. Click on 'Get a Link' to make a new link"
+                  "No link has been created. Click on 'Get a Link' to make a new link."
                 )
               : message[shareMode]}
           </p>
@@ -237,21 +241,21 @@ export const ShareModal = (props) => {
 
       <Modal.Actions>
         {!!accessLinkObj && (
-          <Button
-            size="small"
-            color="red"
-            floated="left"
-            onClick={handleDelete}
-            icon
-          >
+          <Button size="small" negative floated="left" onClick={handleDelete} icon>
             <Icon name="trash alternate outline" />
             {i18next.t("Delete link")}
           </Button>
         )}
-        <Button size="small" onClick={props.handleClose}>
+        <Button size="small" onClick={handleClose}>
           {i18next.t("Done")}
         </Button>
       </Modal.Actions>
     </Modal>
   );
+};
+
+ShareModal.propTypes = {
+  recid: PropTypes.string.isRequired,
+  open: PropTypes.bool.isRequired,
+  handleClose: PropTypes.func.isRequired,
 };

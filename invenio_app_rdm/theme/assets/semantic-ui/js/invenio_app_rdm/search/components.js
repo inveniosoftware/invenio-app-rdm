@@ -7,7 +7,10 @@
 // Invenio App RDM is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
 
-import { SearchBar } from "@js/invenio_search_ui/components";
+import {
+  SearchBar,
+  MultipleOptionsSearchBarRSK,
+} from "@js/invenio_search_ui/components";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import _get from "lodash/get";
 import _truncate from "lodash/truncate";
@@ -30,11 +33,12 @@ import {
   Segment,
 } from "semantic-ui-react";
 import { SearchItemCreators } from "../utils";
+import PropTypes from "prop-types";
 
 export const RDMRecordResultsListItem = ({ result }) => {
-  const access_status_id = _get(result, "ui.access_status.id", "open");
-  const access_status = _get(result, "ui.access_status.title_l10n", "Open");
-  const access_status_icon = _get(result, "ui.access_status.icon", "unlock");
+  const accessStatusId = _get(result, "ui.access_status.id", "open");
+  const accessStatus = _get(result, "ui.access_status.title_l10n", "Open");
+  const accessStatusIcon = _get(result, "ui.access_status.icon", "unlock");
   const createdDate = _get(
     result,
     "ui.created_date_l10n_long",
@@ -42,22 +46,14 @@ export const RDMRecordResultsListItem = ({ result }) => {
   );
   const creators = result.ui.creators.creators.slice(0, 3);
 
-  const description_stripped = _get(
-    result,
-    "ui.description_stripped",
-    "No description"
-  );
+  const descriptionStripped = _get(result, "ui.description_stripped", "No description");
 
   const publicationDate = _get(
     result,
     "ui.publication_date_l10n_long",
     "No publication date found."
   );
-  const resource_type = _get(
-    result,
-    "ui.resource_type.title_l10n",
-    "No resource type"
-  );
+  const resourceType = _get(result, "ui.resource_type.title_l10n", "No resource type");
   const subjects = _get(result, "ui.subjects", []);
   const title = _get(result, "metadata.title", "No title");
   const version = _get(result, "ui.version", null);
@@ -68,17 +64,15 @@ export const RDMRecordResultsListItem = ({ result }) => {
     <Item>
       <Item.Content>
         <Item.Extra className="labels-actions">
-          <Label size="tiny" color="blue">
+          <Label size="tiny" className="primary">
             {publicationDate} ({version})
           </Label>
-          <Label size="tiny" color="grey">
-            {resource_type}
+          <Label size="tiny" className="neutral">
+            {resourceType}
           </Label>
-          <Label size="tiny" className={`access-status ${access_status_id}`}>
-            {access_status_icon && (
-              <i className={`icon ${access_status_icon}`} />
-            )}
-            {access_status}
+          <Label size="tiny" className={`access-status ${accessStatusId}`}>
+            {accessStatusIcon && <i className={`icon ${accessStatusIcon}`} />}
+            {accessStatus}
           </Label>
         </Item.Extra>
         <Item.Header as="h2">
@@ -88,7 +82,7 @@ export const RDMRecordResultsListItem = ({ result }) => {
           <SearchItemCreators creators={creators} />
         </Item>
         <Item.Description>
-          {_truncate(description_stripped, { length: 350 })}
+          {_truncate(descriptionStripped, { length: 350 })}
         </Item.Description>
         <Item.Extra>
           {subjects.map((subject) => (
@@ -109,31 +103,54 @@ export const RDMRecordResultsListItem = ({ result }) => {
   );
 };
 
+RDMRecordResultsListItem.propTypes = {
+  result: PropTypes.object.isRequired,
+};
+
 // TODO: Update this according to the full List item template?
 export const RDMRecordResultsGridItem = ({ result }) => {
-  const description_stripped = _get(
-    result,
-    "ui.description_stripped",
-    "No description"
-  );
+  const descriptionStripped = _get(result, "ui.description_stripped", "No description");
   return (
     <Card fluid href={`/records/${result.pid}`}>
       <Card.Content>
         <Card.Header>{result.metadata.title}</Card.Header>
         <Card.Description>
-          {_truncate(description_stripped, { length: 200 })}
+          {_truncate(descriptionStripped, { length: 200 })}
         </Card.Description>
       </Card.Content>
     </Card>
   );
 };
 
+RDMRecordResultsGridItem.propTypes = {
+  result: PropTypes.object.isRequired,
+};
+
 export const RDMRecordSearchBarContainer = () => {
   return (
-    <Overridable id={"SearchApp.searchbar"}>
+    <Overridable id="SearchApp.searchbar">
       <SearchBar />
     </Overridable>
   );
+};
+
+export const RDMRecordMultipleSearchBarElement = ({ queryString, onInputChange }) => {
+  const headerSearchbar = document.getElementById("header-search-bar");
+  const searchbarOptions = JSON.parse(headerSearchbar.dataset.options);
+
+  return (
+    <MultipleOptionsSearchBarRSK
+      options={searchbarOptions}
+      onInputChange={onInputChange}
+      queryString={queryString}
+      placeholder={i18next.t("Search records...")}
+    />
+  );
+};
+
+RDMRecordMultipleSearchBarElement.propTypes = {
+  queryString: PropTypes.string.isRequired,
+  onInputChange: PropTypes.func.isRequired,
 };
 
 export const RDMRecordSearchBarElement = withState(
@@ -145,20 +162,25 @@ export const RDMRecordSearchBarElement = withState(
     currentQueryState,
   }) => {
     const placeholder = passedPlaceholder || i18next.t("Search");
+
+    const onSearch = () => {
+      updateQueryState({ ...currentQueryState, queryString });
+    };
+
     const onBtnSearchClick = () => {
-      updateQueryState({ ...currentQueryState, filters: [], queryString });
+      onSearch();
     };
     const onKeyPress = (event) => {
       if (event.key === "Enter") {
-        updateQueryState({ ...currentQueryState, filters: [], queryString });
+        onSearch();
       }
     };
     return (
       <Input
         action={{
-          icon: "search",
-          onClick: onBtnSearchClick,
-          className: "search",
+          "icon": "search",
+          "onClick": onBtnSearchClick,
+          "className": "search",
           "aria-label": "Search",
         }}
         fluid
@@ -215,29 +237,37 @@ export const RDMParentFacetValue = ({
   );
 };
 
-export const RDMFacetValue = ({
-  bucket,
-  keyField,
-  isSelected,
-  onFilterClicked,
-}) => {
+RDMParentFacetValue.propTypes = {
+  bucket: PropTypes.object.isRequired,
+  keyField: PropTypes.string.isRequired,
+  isSelected: PropTypes.bool.isRequired,
+  childAggCmps: PropTypes.node.isRequired,
+  onFilterClicked: PropTypes.func.isRequired,
+};
+
+export const RDMFacetValue = ({ bucket, keyField, isSelected, onFilterClicked }) => {
   return (
-    <>
-      <List.Content className="facet-wrapper">
-        <Checkbox
-          onClick={() => onFilterClicked(keyField)}
-          label={bucket.label || keyField}
-          id={`${keyField}-facet-checkbox`}
-          aria-describedby={`${keyField}-count`}
-          value={keyField}
-          checked={isSelected}
-        />
-        <Label circular id={`${keyField}-count`} className="facet-count">
-          {bucket.doc_count}
-        </Label>
-      </List.Content>
-    </>
+    <List.Content className="facet-wrapper">
+      <Checkbox
+        onClick={() => onFilterClicked(keyField)}
+        label={bucket.label || keyField}
+        id={`${keyField}-facet-checkbox`}
+        aria-describedby={`${keyField}-count`}
+        value={keyField}
+        checked={isSelected}
+      />
+      <Label circular id={`${keyField}-count`} className="facet-count">
+        {bucket.doc_count}
+      </Label>
+    </List.Content>
   );
+};
+
+RDMFacetValue.propTypes = {
+  bucket: PropTypes.object.isRequired,
+  keyField: PropTypes.string.isRequired,
+  isSelected: PropTypes.bool.isRequired,
+  onFilterClicked: PropTypes.func.isRequired,
 };
 
 export const RDMRecordFacetsValues = ({
@@ -270,9 +300,20 @@ export const RDMRecordFacetsValues = ({
   );
 };
 
+RDMRecordFacetsValues.propTypes = {
+  bucket: PropTypes.object.isRequired,
+  childAggCmps: PropTypes.node,
+  isSelected: PropTypes.bool.isRequired,
+  onFilterClicked: PropTypes.func.isRequired,
+};
+
+RDMRecordFacetsValues.defaultProps = {
+  childAggCmps: null,
+};
+
 export const SearchHelpLinks = () => {
   return (
-    <Overridable id={"RdmSearch.SearchHelpLinks"}>
+    <Overridable id="RdmSearch.SearchHelpLinks">
       <List>
         <List.Item>
           <a href="/help/search">{i18next.t("Search guide")}</a>
@@ -282,7 +323,7 @@ export const SearchHelpLinks = () => {
   );
 };
 
-export const RDMRecordFacets = ({ aggs, currentResultsState }) => {
+export const RDMRecordFacets = ({ aggs }) => {
   return (
     <aside aria-label={i18next.t("filters")} id="search-filters">
       <Toggle
@@ -305,6 +346,10 @@ export const RDMRecordFacets = ({ aggs, currentResultsState }) => {
       </Card>
     </aside>
   );
+};
+
+RDMRecordFacets.propTypes = {
+  aggs: PropTypes.array.isRequired,
 };
 
 export const RDMBucketAggregationElement = ({
@@ -349,18 +394,27 @@ export const RDMBucketAggregationElement = ({
   );
 };
 
+RDMBucketAggregationElement.propTypes = {
+  agg: PropTypes.object.isRequired,
+  title: PropTypes.string.isRequired,
+  containerCmp: PropTypes.node,
+  updateQueryFilters: PropTypes.func.isRequired,
+};
+
+RDMBucketAggregationElement.defaultProps = {
+  containerCmp: null,
+};
+
 export const RDMToggleComponent = ({
   updateQueryFilters,
   userSelectionFilters,
   filterValue,
   label,
   title,
-  isChecked,
 }) => {
   const _isChecked = (userSelectionFilters) => {
     const isFilterActive =
-      userSelectionFilters.filter((filter) => filter[0] === filterValue[0])
-        .length > 0;
+      userSelectionFilters.filter((filter) => filter[0] === filterValue[0]).length > 0;
     return isFilterActive;
   };
 
@@ -388,14 +442,23 @@ export const RDMToggleComponent = ({
   );
 };
 
+RDMToggleComponent.propTypes = {
+  title: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  filterValue: PropTypes.array.isRequired,
+  userSelectionFilters: PropTypes.array.isRequired,
+  updateQueryFilters: PropTypes.func.isRequired,
+};
+
 export const RDMCountComponent = ({ totalResults }) => {
   return <Label>{totalResults.toLocaleString("en-US")}</Label>;
 };
 
-export const RDMEmptyResults = (props) => {
-  const queryString = props.queryString;
-  const searchPath = props.searchPath || "/search";
+RDMCountComponent.propTypes = {
+  totalResults: PropTypes.number.isRequired,
+};
 
+export const RDMEmptyResults = ({ queryString, searchPath, resetQuery }) => {
   return (
     <Grid>
       <Grid.Row centered>
@@ -408,7 +471,7 @@ export const RDMEmptyResults = (props) => {
       </Grid.Row>
       <Grid.Row centered>
         <Grid.Column width={8} textAlign="center">
-          <Button primary onClick={props.resetQuery}>
+          <Button primary onClick={resetQuery}>
             <Icon name="search" />
             {i18next.t("Start over")}
           </Button>
@@ -421,28 +484,33 @@ export const RDMEmptyResults = (props) => {
               {i18next.t("ProTip")}!
             </Header>
             <p>
-              <a
-                href={`${searchPath}?q=metadata.publication_date:[2017-01-01 TO *]`}
-              >
+              <a href={`${searchPath}?q=metadata.publication_date:[2017-01-01 TO *]`}>
                 metadata.publication_date:[2017-01-01 TO *]
               </a>{" "}
-              {i18next.t(
-                "will give you all the publications from 2017 until today"
-              )}
-              .
+              {i18next.t("will give you all the publications from 2017 until today.")}
             </p>
             <p>
               {i18next.t("For more tips, check out our ")}
               <a href="/help/search" title={i18next.t("Search guide")}>
                 {i18next.t("search guide")}
               </a>
-              {i18next.t(" for defining advanced search queries")}.
+              {i18next.t(" for defining advanced search queries.")}
             </p>
           </Segment>
         </Grid.Column>
       </Grid.Row>
     </Grid>
   );
+};
+
+RDMEmptyResults.propTypes = {
+  queryString: PropTypes.string.isRequired,
+  resetQuery: PropTypes.func.isRequired,
+  searchPath: PropTypes.string,
+};
+
+RDMEmptyResults.defaultProps = {
+  searchPath: "/search",
 };
 
 export const RDMErrorComponent = ({ error }) => {
@@ -454,4 +522,8 @@ export const RDMErrorComponent = ({ error }) => {
       </Message.Header>
     </Message>
   );
+};
+
+RDMErrorComponent.propTypes = {
+  error: PropTypes.object.isRequired,
 };

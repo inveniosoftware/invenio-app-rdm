@@ -10,18 +10,37 @@
 """Views related to records and deposits."""
 
 from flask import Blueprint
-from invenio_pidstore.errors import PIDDeletedError, PIDDoesNotExistError, \
-    PIDUnregistered
+from invenio_pidstore.errors import (
+    PIDDeletedError,
+    PIDDoesNotExistError,
+    PIDUnregistered,
+)
 from invenio_records_resources.services.errors import PermissionDeniedError
 
 from ..searchapp import search_app_context
 from .deposits import deposit_create, deposit_edit
-from .filters import can_list_files, get_scheme_label, has_previewable_files, \
-    make_files_preview_compatible, order_entries, pid_url, \
-    select_preview_file, to_previewer_files
-from .records import not_found_error, record_detail, record_export, \
-    record_file_download, record_file_preview, record_from_pid, \
-    record_latest, record_permission_denied_error, record_tombstone_error
+from .filters import (
+    can_list_files,
+    get_scheme_label,
+    has_images,
+    has_previewable_files,
+    make_files_preview_compatible,
+    order_entries,
+    pid_url,
+    select_preview_file,
+    to_previewer_files,
+)
+from .records import (
+    not_found_error,
+    record_detail,
+    record_export,
+    record_file_download,
+    record_file_preview,
+    record_from_pid,
+    record_latest,
+    record_permission_denied_error,
+    record_tombstone_error,
+)
 
 
 #
@@ -48,9 +67,9 @@ def create_blueprint(app):
         view_func=record_latest,
     )
 
-    rdm_records_ext = app.extensions['invenio-rdm-records']
+    rdm_records_ext = app.extensions["invenio-rdm-records"]
     schemes = rdm_records_ext.records_service.config.pids_providers.keys()
-    schemes = ','.join(schemes)
+    schemes = ",".join(schemes)
     if schemes:
         blueprint.add_url_rule(
             routes["record_from_pid"].format(schemes=schemes),
@@ -88,7 +107,8 @@ def create_blueprint(app):
     blueprint.register_error_handler(PIDUnregistered, not_found_error)
     blueprint.register_error_handler(KeyError, not_found_error)
     blueprint.register_error_handler(
-        PermissionDeniedError, record_permission_denied_error)
+        PermissionDeniedError, record_permission_denied_error
+    )
 
     # Register template filters
     blueprint.add_app_template_filter(can_list_files)
@@ -99,6 +119,7 @@ def create_blueprint(app):
     blueprint.add_app_template_filter(has_previewable_files)
     blueprint.add_app_template_filter(order_entries)
     blueprint.add_app_template_filter(get_scheme_label)
+    blueprint.add_app_template_filter(has_images)
 
     # Register context processor
     blueprint.app_context_processor(search_app_context)

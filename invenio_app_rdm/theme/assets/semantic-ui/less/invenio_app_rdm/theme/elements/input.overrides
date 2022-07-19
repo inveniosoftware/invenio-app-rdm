@@ -5,3 +5,45 @@
 .input.invitation-searchbar {
     width: 100%;
 }
+
+#header-search-bar {
+    .ui.fluid.search {
+        transition:all 0.3s;
+        width: @searchWidth;
+
+        &.active.visible, &.focus{
+            @media screen and (min-width: @largestTabletScreen) {
+                width: @activeSearchWidth;
+            }
+        }
+
+        .ui.input{
+            display: flex;
+
+            .prompt {
+                border-radius: @defaultBorderRadius;
+            }
+            .search.icon {
+                background-color: @searchButtonColor;
+                opacity: 1;
+            }
+        }
+
+        .results {
+            box-shadow: none !important;
+            margin-top: 0 !important;
+            width: @searchWidth;
+
+            &.visible {
+                @media screen and (min-width: @largestTabletScreen) {
+                    width: @activeSearchWidth;
+                }
+            }
+        }
+
+        .search.icon {
+            color: white;
+        }
+    }
+}
+

@@ -173,10 +173,10 @@
   width: 100%;
 
   .ui.input {
-    width: 90% !important;
+    width: auto !important;
 
     & > input {
-      width: 90% !important;
+      width: auto !important;
     }
 
   }
@@ -194,7 +194,7 @@
       background-color: rgb(255,255,255);
       height: 100vh;
       z-index: 3;
-      padding: 5rem 1.5rem 1.5rem 1.5rem;
+      padding: 2rem 1.5rem 1.5rem 1.5rem;
       overflow-y: scroll;
 
       .item {
@@ -248,10 +248,8 @@
       }
 
       #rdm-close-burger-menu-icon {
-        position: absolute;
-        top: 2rem;
-        right: 0;
-        font-size: 20px;
+        margin-left: auto;
+        margin-bottom: 2rem;
 
         .navicon {
           background: transparent;

@@ -6,14 +6,14 @@
   Invenio is free software; you can redistribute it and/or modify it
   under the terms of the MIT License; see LICENSE file for more details.
 #}
-{% set title = request.title %}
+{% set title = invenio_request.title %}
 {% extends "invenio_requests/details/index.html" %}
 {% from "invenio_requests/macros/request_header.html" import invitation_request_header %}
 
 
 {% block request_header %}
   {% set back_button_url = url_for("invenio_app_rdm_users.requests") %}
-  {{ invitation_request_header(back_button_url, _("Back to requests"), request=request, accepted=invitation_accepted) }}
+  {{ invitation_request_header(back_button_url, _("Back to requests"), request=invenio_request, accepted=invitation_accepted) }}
 {% endblock %}
 
 {% set active_dashboard_menu_item = 'requests' %}

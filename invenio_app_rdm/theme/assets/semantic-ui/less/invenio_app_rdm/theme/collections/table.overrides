@@ -2,70 +2,94 @@
          Invenio App RDM Table Overrides
 ***********************************************/
 
-.ui.table.files-table {
-  border: 0;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-  table-layout: fixed;
-  width: 100%;
-
-  th.hidden {
-    color: transparent;
-    user-select: none;
-  }
-}
-
 .ui.table {
 
+  &.files {
+    border: 0;
+
+    th.hidden {
+      color: transparent;
+      user-select: none;
+    }
+  }
+
+  td.file-upload-pending {
+    text-align: center;
+  }
+
+  .ui.primary.medium.file-upload-progress {
+    &.progress,
+    &.success {
+      &.active,
+      &.disabled {
+        margin-bottom: 0;
+
+        &.error {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
   @media all and (max-width: @largestTabletScreen) {
-    &:not(.unstackable) tbody tr {
-      padding-top: 0;
-    }
+    &:not(.unstackable) {
 
-    &:not(.unstackable) tbody, tr, tr > th, tr > td {
-      width: auto !important;
-      display: block !important;
-    }
-
-    &:not(.unstackable) tr > td.selected-member {
-      background-color: lighten(@borderColor, 65%);
-      margin-bottom: 1rem;
-      padding: 1rem !important; //overriding !important on .ui.table:not(.unstackable) tr > td
-    }
-
-    &:not(.unstackable) tr > th:not(.selected-member) {
-      display: none !important;
-    }
-
-    td:not(.selected-member) {
-      margin-top: .75rem;
-
-      &:before {
-        content: attr(data-label);
-        font-weight: bold;
-        margin-right: 1rem;
-        margin-left: 2rem;
+      thead {
+        display: none !important; // Responsive: header is hidden and data-label is aligned with the table data.
       }
-    }
-  }
 
-  tbody tr td {
-    &.mobile-table-cell {
-      @media all and (max-width: @largestTabletScreen) {
-        display: inline-grid !important;
-        grid-template-columns: min-content auto;
-        grid-column-gap: 0.5em;
-        align-items: center;
-        width: 50% !important;
-        border-top: 0px;
+      tbody {
+
+        tr {
+          padding-top: 0;
+          padding-bottom: 0;
+          box-shadow: none !important; // overriding !important on .ui.table:not(.unstackable) tr
+
+          &:not(:first-child) {
+            border-top: 1px solid @borderColor;
+          }
+
+          td {
+            border-top: 0px;
+            width: 100% !important;
+            padding: 1rem !important; // overriding !important on .ui.table:not(.unstackable) tr > td
+
+            &:nth-child(2n+1) {
+              background-color: lighten(@borderColor, 75%);
+            }
+
+            &:not(.right.aligned) {
+              text-align: left;
+            }
+
+            &[data-label]  {
+              display: inline-grid !important;
+              grid-template-columns: [col1-start] 30% [col2-start] 70% [end];
+
+              &:before {
+                content: attr(data-label);
+                font-weight: bold;
+                margin-right: 1rem;
+              }
+
+              .ui.fitted.checkbox {
+                padding-top: .2rem;
+              }
+            }
+
+            &.file-upload-pending {
+              width: 100%;
+            }
+          }
+        }
       }
-    }
-  }
 
-  tbody tr td {
-    &.mobile-table-cell {
-      @media all and (max-width: @largestMobileScreen) {
-        width: 100% !important;
+      tbody,
+      tr,
+      tr > th,
+      tr > td {
+        width: auto;
+        display: block;
       }
     }
   }

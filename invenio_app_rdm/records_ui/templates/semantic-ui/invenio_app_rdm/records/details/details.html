@@ -19,189 +19,205 @@ show_alternate_identifiers, show_related_identifiers, show_funding, show_dates %
                     metadata.references
 %}
 {% set rights = record.ui.get('rights') %}
+{% set funding = record.ui.get('funding') %}
 {% set active = true %}
 
 {% if hasContent %}
-<div class="ui divider"></div>
+  <div class="ui divider"></div>
+
   <h2 id="record-details-heading">{{ _('Additional details') }}</h2>
 
-  {# Tabs #}
-  <div role="tablist" class="ui top attached tabs menu invenio-tab-menu">
+  <div class="rdm-tab-container ml-0-mobile mr-0-mobile">
+    {# Tabs #}
+    <div role="tablist" class="ui top attached tabs menu rdm-tab-menu">
+      {% if record.ui.additional_titles %}
+        <a
+          role="tab"
+          aria-selected="{{ active }}"
+          aria-controls="additional-titles-tab-panel"
+          data-tab="additional-titles"
+          tabindex="0"
+          class="{{ 'active' if active }} item"
+          id="additional-titles-tab"
+        >
+          {{ _('Additional titles') }}
+        </a>
+        {% set active = false %}
+      {% endif %}
+
+
+      {% if metadata.identifiers %}
+        <a
+          role="tab"
+          aria-selected="{{ active }}"
+          aria-controls="identifiers-tab-panel"
+          data-tab="identifiers"
+          tabindex="0"
+          class="{{ 'active' if active }} item"
+          id="identifiers-tab"
+        >
+          {{ _('Identifiers') }}
+        </a>
+        {% set active = false %}
+      {% endif %}
+
+      {% if record.ui.related_identifiers %}
+        <a
+          role="tab"
+          aria-selected="{{ active }}"
+          aria-controls="related-works-tab-panel"
+          data-tab="related-works"
+          tabindex="0"
+          class="{{ 'active' if active }} item"
+          id="related-works-tab"
+        >
+          {{ _('Related works') }}
+        </a>
+        {% set active = false %}
+      {% endif %}
+
+      {% if metadata.funding %}
+        <a
+          role="tab"
+          aria-selected="{{ active }}"
+          aria-controls="funding-tab-panel"
+          data-tab="funding"
+          tabindex="0"
+          class="{{ 'active' if active }} item"
+          id="funding-tab"
+        >
+          {{ _('Funding') }}
+        </a>
+        {% set active = false %}
+      {% endif %}
+
+      {% if record.ui.dates %}
+        <a
+          role="tab"
+          aria-selected="{{ active }}"
+          aria-controls="dates-tab-panel"
+          data-tab="dates"
+          tabindex="0"
+          class="{{ 'active' if active }} item"
+          id="dates-tab"
+        >
+          {{ _('Dates') }}
+        </a>
+        {% set active = false %}
+      {% endif %}
+
+      {% if metadata.references %}
+        <a
+          role="tab"
+          aria-selected="{{ active }}"
+          aria-controls="references-tab-panel"
+          data-tab="references"
+          tabindex="0"
+          class="{{ 'active' if active }} item"
+          id="references-tab"
+        >
+          {{ _('References') }}
+        </a>
+      {% endif %}
+    </div>
+
+    {# Content #}
+    {% set active = true %}
+
     {% if record.ui.additional_titles %}
-      <a role="tab"
-        aria-selected="{{ active }}"
-        aria-controls="additional-titles"
-        data-tab="additional-titles"
-        tabindex="0"
-        class="{{ 'active' if active }} item"
-        id="additional-titles-tab"
+      <div
+          role="tabpanel"
+          class="ui bottom attached {{ 'active' if active }} tab segment"
+          data-tab="additional-titles"
+          aria-labelledby="additional-titles-tab"
+          id="additional-titles-tab-panel"
+          hidden="{{ not active }}"
+
       >
-        {{ _('Additional titles') }}
-      </a>
+        <dl class="details-list">
+          {{ show_add_titles(record.ui.additional_titles) }}
+        </dl>
+      </div>
       {% set active = false %}
     {% endif %}
 
-
     {% if metadata.identifiers %}
-      <a role="tab"
-        aria-selected="{{ active }}"
-        aria-controls="identifiers"
-        data-tab="identifiers"
-        tabindex="0"
-        class="{{ 'active' if active }} item"
-        id="identifiers-tab"
+      <div
+          role="tabpanel"
+          class="ui bottom attached {{ 'active' if active }} tab segment"
+          data-tab="identifiers"
+          aria-labelledby="identifiers-tab"
+          id="identifiers-tab-panel"
+          hidden="{{ not active }}"
       >
-        {{ _('Identifiers') }}
-      </a>
+        <dl class="details-list">
+          {{ show_alternate_identifiers(metadata.identifiers) }}
+        </dl>
+      </div>
       {% set active = false %}
     {% endif %}
 
     {% if record.ui.related_identifiers %}
-      <a role="tab"
-        aria-selected="{{ active }}"
-        aria-controls="related-works"
-        data-tab="related-works"
-        tabindex="0"
-        class="{{ 'active' if active }} item"
-        id="related-works-tab"
+      <div
+          role="tabpanel"
+          class="ui bottom attached {{ 'active' if active }} tab segment"
+          data-tab="related-works"
+          aria-labelledby="related-works-tab"
+          id="related-works-tab-panel"
+          hidden="{{ not active }}"
       >
-        {{ _('Related works') }}
-      </a>
+        <dl class="details-list">
+          {{ show_related_identifiers(record.ui.related_identifiers) }}
+        </dl>
+      </div>
       {% set active = false %}
     {% endif %}
 
-    {% if metadata.funding %}
-      <a role="tab"
-        aria-selected="{{ active }}"
-        aria-controls="funding"
-        data-tab="funding"
-        tabindex="0"
-        class="{{ 'active' if active }} item"
-        id="funding-tab"
+    {% if funding %}
+      <div
+          role="tabpanel"
+          class="ui bottom attached {{ 'active' if active }} tab segment"
+          data-tab="funding"
+          aria-labelledby="funding-tab"
+          id="funding-tab-panel"
+          hidden="{{ not active }}"
       >
-        {{ _('Funding') }}
-      </a>
+        <dl class="details-list">
+          {{ show_funding(funding) }}
+        </dl>
+      </div>
       {% set active = false %}
     {% endif %}
 
     {% if record.ui.dates %}
-      <a role="tab"
-        aria-selected="{{ active }}"
-        aria-controls="dates"
-        data-tab="dates"
-        tabindex="0"
-        class="{{ 'active' if active }} item"
-        id="dates-tab"
+      <div
+          role="tabpanel"
+          class="ui bottom attached {{ 'active' if active }} tab segment"
+          data-tab="dates"
+          aria-labelledby="dates-tab"
+          id="dates-tab-panel"
+          hidden="{{ not active }}"
       >
-        {{ _('Dates') }}
-      </a>
+        <dl class="details-list">
+          {{ show_dates(record.ui.dates) }}
+        </dl>
+      </div>
       {% set active = false %}
     {% endif %}
 
     {% if metadata.references %}
-      <a role="tab"
-        aria-selected="{{ active }}"
-        aria-controls="references"
-        data-tab="references"
-        tabindex="0"
-        class="{{ 'active' if active }} item"
-        id="references-tab"
+      <div
+          role="tabpanel"
+          class="ui bottom attached {{ 'active' if active }} tab segment"
+          data-tab="references"
+          aria-labelledby="references-tab"
+          id="references-tab-panel"
+          hidden="{{ not active }}"
       >
-        {{ _('References') }}
-      </a>
+        <dl class="details-list">
+          {{ show_references(metadata.references) }}
+        </dl>
+      </div>
     {% endif %}
   </div>
-
-  {# Content #}
-  {% set active = true %}
-
-  {% if record.ui.additional_titles %}
-    <div role="tabpanel"
-        class="ui bottom attached {{ 'active' if active }} tab segment"
-        data-tab="additional-titles"
-        aria-labelledby="additional-titles-tab"
-        id="additional-titles"
-        hidden="{{ not active }}"
-
-    >
-      <dl class="details-list">
-        {{ show_add_titles(record.ui.additional_titles) }}
-      </dl>
-    </div>
-    {% set active = false %}
-  {% endif %}
-
-  {% if metadata.identifiers %}
-    <div role="tabpanel"
-        class="ui bottom attached {{ 'active' if active }} tab segment"
-        data-tab="identifiers"
-        aria-labelledby="identifiers-tab"
-        id="identifiers"
-        hidden="{{ not active }}"
-    >
-      <dl class="details-list">
-        {{ show_alternate_identifiers(metadata.identifiers) }}
-      </dl>
-    </div>
-    {% set active = false %}
-  {% endif %}
-
-  {% if record.ui.related_identifiers %}
-    <div role="tabpanel"
-        class="ui bottom attached {{ 'active' if active }} tab segment"
-        data-tab="related-works"
-        aria-labelledby="related-works-tab"
-        id="related-works"
-        hidden="{{ not active }}"
-    >
-      <dl class="details-list">
-        {{ show_related_identifiers(record.ui.related_identifiers) }}
-      </dl>
-    </div>
-    {% set active = false %}
-  {% endif %}
-
-  {% if metadata.funding %}
-    <div role="tabpanel"
-        class="ui bottom attached {{ 'active' if active }} tab segment"
-        data-tab="funding"
-        aria-labelledby="funding-tab"
-        id="funding"
-        hidden="{{ not active }}"
-    >
-      <dl class="details-list">
-        {{ show_funding(metadata.funding) }}
-      </dl>
-    </div>
-    {% set active = false %}
-  {% endif %}
-
-  {% if record.ui.dates %}
-    <div role="tabpanel"
-        class="ui bottom attached {{ 'active' if active }} tab segment"
-        data-tab="dates"
-        aria-labelledby="dates-tab"
-        id="dates"
-        hidden="{{ not active }}"
-    >
-      <dl class="details-list">
-        {{ show_dates(record.ui.dates) }}
-      </dl>
-    </div>
-    {% set active = false %}
-  {% endif %}
-
-  {% if metadata.references %}
-    <div role="tabpanel"
-        class="ui bottom attached {{ 'active' if active }} tab segment"
-        data-tab="references"
-        aria-labelledby="references-tab"
-        id="references"
-        hidden="{{ not active }}"
-    >
-      <dl class="details-list">
-        {{ show_references(metadata.references) }}
-      </dl>
-    </div>
-  {% endif %}
 {% endif %}

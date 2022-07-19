@@ -25,7 +25,7 @@ from ..searchapp import search_app_context
 #
 def not_found_error(error):
     """Handler for 'Not Found' errors."""
-    return render_template(current_app.config['THEME_404_TEMPLATE']), 404
+    return render_template(current_app.config["THEME_404_TEMPLATE"]), 404
 
 
 def record_tombstone_error(error):
@@ -38,7 +38,7 @@ def record_permission_denied_error(error):
     if not current_user.is_authenticated:
         # trigger the flask-login unauthorized handler
         return current_app.login_manager.unauthorized()
-    return render_template(current_app.config['THEME_403_TEMPLATE']), 403
+    return render_template(current_app.config["THEME_403_TEMPLATE"]), 403
 
 
 def create_ui_blueprint(app):
@@ -49,7 +49,7 @@ def create_ui_blueprint(app):
         "invenio_app_rdm_communities",
         __name__,
         template_folder="../templates",
-        static_folder='../static'
+        static_folder="../static",
     )
 
     blueprint.add_url_rule(
@@ -60,10 +60,10 @@ def create_ui_blueprint(app):
     @blueprint.before_app_first_request
     def register_menus():
         """Register community menu items."""
-        communities = current_menu.submenu('communities')
-        communities.submenu('search').register(
-            'invenio_app_rdm_communities.communities_detail',
-            text=_('Search'),
+        communities = current_menu.submenu("communities")
+        communities.submenu("search").register(
+            "invenio_app_rdm_communities.communities_detail",
+            text=_("Search"),
             order=1,
             expected_args=["pid_value"],
             **dict(icon="search", permissions=True)
@@ -71,9 +71,9 @@ def create_ui_blueprint(app):
 
     # Register error handlers
     blueprint.register_error_handler(
-        PermissionDeniedError, record_permission_denied_error)
-    blueprint.register_error_handler(PIDDeletedError,
-                                     record_tombstone_error)
+        PermissionDeniedError, record_permission_denied_error
+    )
+    blueprint.register_error_handler(PIDDeletedError, record_tombstone_error)
     blueprint.register_error_handler(PIDDoesNotExistError, not_found_error)
 
     # Register context processor

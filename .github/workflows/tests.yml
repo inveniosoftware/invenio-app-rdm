@@ -2,6 +2,7 @@
 #
 # Copyright (C) 2020 CERN.
 # Copyright (C) 2020 Northwestern University.
+# Copyright (C) 2022 Graz University of Technology.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -45,6 +46,7 @@ jobs:
 
           - search-service: elasticsearch7
             SEARCH_EXTRAS: "elasticsearch7"
+          node-version: [14.x]
     env:
       DB: ${{ matrix.db-service }}
       SEARCH: ${{ matrix.search-service }}
@@ -53,6 +55,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Run eslint test
+        run: ./run-js-linter.sh -i
+
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
@@ -60,7 +70,7 @@ jobs:
 
       - name: Generate dependencies
         run: |
-          pip install "setuptools<=58" wheel requirements-builder
+          pip install wheel requirements-builder
           requirements-builder -e "$EXTRAS" --level=${{ matrix.requirements-level }} setup.py > .${{ matrix.requirements-level }}-${{ matrix.python-version }}-requirements.txt
           cat .${{ matrix.requirements-level }}-${{ matrix.python-version }}-requirements.txt
 
