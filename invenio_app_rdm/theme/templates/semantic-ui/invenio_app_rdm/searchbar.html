@@ -1,0 +1,35 @@
+
+    {% if community %}
+    {% set options = [
+        {
+            "key": "communities",
+            "text": _("In this community"),
+            "value": url_for("invenio_app_rdm_communities.communities_detail", pid_value=community.slug),
+        },
+        {
+            "key": "records",
+            "text": _("All") + " " + config.THEME_SITENAME,
+            "value": url_for("invenio_search_ui.search"),
+        }]
+     %}
+    {% else %}
+    {% set options = [
+              {
+                "key": "records",
+                "text": _("All") + " " + config.THEME_SITENAME,
+                "value": url_for("invenio_search_ui.search")
+              }]
+      %}
+    {% endif %}
+      <div class="item p-0 search-bar rel-mr-1">
+        <div id="header-search-bar" data-options='{{ options | tojson }}'>
+          <div class="ui fluid search">
+            <div class="ui icon input">
+              <input autocomplete="off" placeholder="Search records..."
+                     type="text" tabindex="0" class="prompt" value="">
+              <i aria-hidden="true" class="search icon"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+

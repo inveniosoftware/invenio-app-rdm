@@ -5,21 +5,12 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-03-01T08:18:33.908Z\n"
-"PO-Revision-Date: 2022-03-01T08:18:33.908Z\n"
+"POT-Creation-Date: 2022-05-27T08:25:23.674Z\n"
+"PO-Revision-Date: 2022-05-27T08:25:23.674Z\n"
 "Language: en\n"
 
 msgid "Basic information"
 msgstr "Basic information"
-
-msgid "Requests"
-msgstr "Requests"
-
-msgid "Communities"
-msgstr "Communities"
-
-msgid "Uploads"
-msgstr "Uploads"
 
 msgid "Copy to clipboard"
 msgstr "Copy to clipboard"
@@ -134,12 +125,6 @@ msgstr "Uploaded on"
 msgid "Search"
 msgstr "Search"
 
-msgid "hide subfacets"
-msgstr "hide subfacets"
-
-msgid "show subfacets"
-msgstr "show subfacets"
-
 msgid "Search guide"
 msgstr "Search guide"
 
@@ -173,9 +158,6 @@ msgstr "Search communities..."
 msgid "New community"
 msgstr "New community"
 
-msgid "opened {{difference}} by {{user}}"
-msgstr "opened {{difference}} by {{user}}"
-
 msgid "Get started!"
 msgstr "Get started!"
 
@@ -193,15 +175,6 @@ msgstr "All done!"
 
 msgid "You've caught up with all open requests."
 msgstr "You've caught up with all open requests."
-
-msgid "Delete"
-msgstr "Delete"
-
-msgid "Are you sure you want to delete this draft?"
-msgstr "Are you sure you want to delete this draft?"
-
-msgid "Cancel"
-msgstr "Cancel"
 
 msgid "No creation date found."
 msgstr "No creation date found."
@@ -280,3 +253,30 @@ msgstr "search guide"
 
 msgid " for defining advanced search queries"
 msgstr " for defining advanced search queries"
+
+msgid "Export"
+msgstr "Export"
+
+msgid "Show all sub facets of "
+msgstr "Show all sub facets of "
+
+msgid "Filter results"
+msgstr "Filter results"
+
+msgid "opened {{difference}} by {{creator}}"
+msgstr "opened {{difference}} by {{creator}}"
+
+msgid "In review"
+msgstr "In review"
+
+msgid "Declined"
+msgstr "Declined"
+
+msgid "Expired"
+msgstr "Expired"
+
+msgid "Draft"
+msgstr "Draft"
+
+msgid "New version draft"
+msgstr "New version draft"

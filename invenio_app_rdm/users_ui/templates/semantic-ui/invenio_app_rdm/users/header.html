@@ -7,12 +7,12 @@
   under the terms of the MIT License; see LICENSE file for more details.
 #}
 
-<div class="ui container fluid page-subheader-outer shadowless with-submenu mb-0 rel-pt-2" id="dashboard-user-header-container">
+<div class="ui container fluid page-subheader-outer shadowless with-submenu ml-0-mobile mr-0-mobile mb-0 rel-pt-2" id="dashboard-user-header-container">
   <div class="ui container page-subheader">
     <div class="ui items unstackable">
       <div class="item">
         <div class="ui image dashboard-header-avatar">
-          <img src="{{ user_avatar }}"/>
+          <img src="{{ user_avatar }}" alt="" />
         </div>
         <div class="content rel-pl-1">
           <h4 class="header">{{ current_userprofile.full_name or current_user.username }}</h4>

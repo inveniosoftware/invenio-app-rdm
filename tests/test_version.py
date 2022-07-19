@@ -12,4 +12,5 @@
 def test_version():
     """Test version import."""
     from invenio_app_rdm import __version__
+
     assert __version__

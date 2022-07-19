@@ -1,19 +1,18 @@
 # 
 # Translators:
-# Alizee Pace <alizee.pace@gmail.com>, 2021
-# Alexander Gruber <alexander.gruber@tugraz.at>, 2022
-# chriz_uniba <christina.zeller@uni-bamberg.de>, 2022
 # David Eckhard <dabombeeer@gmail.com>, 2022
-# Mojib Wali <mojib.wali@tugraz.at>, 2022
 # Tibor Simko <tibor.simko@cern.ch>, 2022
+# Zacharias Zacharodimos <zacharias.zacharodimos@cern.ch>, 2022
+# Mojib Wali <mojib.wali@tugraz.at>, 2022
 # Hermann Schranzhofer <hermann.schranzhofer@tugraz.at>, 2022
+# chriz_uniba <christina.zeller@uni-bamberg.de>, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-03-01T08:18:33.908Z\n"
+"POT-Creation-Date: 2022-05-27T08:25:23.674Z\n"
 "PO-Revision-Date: 2021-07-14 16:07+0000\n"
-"Last-Translator: Hermann Schranzhofer <hermann.schranzhofer@tugraz.at>, 2022\n"
+"Last-Translator: chriz_uniba <christina.zeller@uni-bamberg.de>, 2022\n"
 "Language-Team: German (https://www.transifex.com/inveniosoftware/teams/23537/de/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -23,15 +22,6 @@ msgstr ""
 
 msgid "Basic information"
 msgstr "Allgemeine Informationen"
-
-msgid "Requests"
-msgstr "Anfragen"
-
-msgid "Communities"
-msgstr "Communities"
-
-msgid "Uploads"
-msgstr "Einträge"
 
 msgid "Copy to clipboard"
 msgstr "In die Zwischenablage kopieren"
@@ -46,7 +36,7 @@ msgid "The record has no files."
 msgstr "Der Eintrag hat keine Dateien."
 
 msgid "Creators"
-msgstr "Erstellerinnen"
+msgstr "ErstellerInnen"
 
 msgid "Recommended information"
 msgstr "Empfohlene Informationen"
@@ -61,10 +51,10 @@ msgid "Alternate identifiers"
 msgstr "Alternative Kennungen"
 
 msgid "Alternate identifier(s)"
-msgstr "Alternative Kennung(en)"
+msgstr "Alternative Kennungen"
 
 msgid "Related works"
-msgstr "Verwandte Werke"
+msgstr "Verwandte Arbeiten"
 
 msgid "Visibility"
 msgstr "Sichtbarkeit"
@@ -94,30 +84,30 @@ msgid "View all {{total}} versions"
 msgstr "Alle {{total}}  Versionen anzeigen"
 
 msgid "You don't have permissions to share this record."
-msgstr "Sie haben nicht die Berechtigung, diesen Eintrag freizugeben."
+msgstr "Sie haben nicht die Berechtigung diesen Eintrag zu teilen."
 
 msgid "Share"
 msgstr "Teilen"
 
 msgid "Can view"
-msgstr "Kann ansehen"
+msgstr "Sichtrechte"
 
 msgid "Can preview"
-msgstr "Kann vorschauen"
+msgstr "Vorschaurechte"
 
 msgid "Can edit"
-msgstr "Kann bearbeiten"
+msgstr "Bearbeitungsrechte"
 
 msgid "Get a link"
-msgstr "Einen Link erhalten"
+msgstr "Link erstellen"
 
 msgid "Copy link"
 msgstr "Link kopieren"
 
 msgid "No link has been created. Click on 'Get a Link' to make a new link"
 msgstr ""
-"Es wurde noch kein Link erstellt. Klicken Sie auf 'Einen Link erhalten', um "
-"einen neuen Link zu erstellen"
+"Es wurde noch kein Link erstellt. Klicken Sie auf \"Link erstellen\", um "
+"einen neuen Link zu erstellen."
 
 msgid "Delete link"
 msgstr "Link löschen"
@@ -128,34 +118,29 @@ msgstr "Erledigt"
 msgid ""
 "Anyone with this link <1>can view all versions</1> of this record & files."
 msgstr ""
-"Jeder, der diesen Link hat, <1>kann alle Versionen</1> dieses Eintrags und "
-"der Dateien einsehen."
+"Alle, die diesen Link haben, können <1>alle Versionen</1> dieses Eintrags "
+"und der Dateien <1>einsehen</1>."
 
 msgid ""
 "Anyone with this link <2>can view all published and unpublished versions</2>"
 " of this record & files."
 msgstr ""
-"Jeder mit diesem Link <2>kann alle veröffentlichten und unveröffentlichten "
-"Versionen</2> dieses Eintrags und der Dateien einsehen."
+"Alle, die diesen Link haben, können <2>alle veröffentlichten und "
+"unveröffentlichten Versionen</2> dieses Eintrags und der Dateien "
+"<2>einsehen</2>."
 
 msgid ""
 "Anyone with an account and this link <2>can edit all versions</2> of this "
 "record & files."
 msgstr ""
-"Jeder mit einem Konto und diesem Link <2>kann alle Versionen</2> dieses "
-"Eintrags und der Dateien bearbeiten."
+"Alle, die ein Konto und diesem Link haben, können<2>alle Versionen</2> "
+"dieses Eintrags und der Dateien <2>bearbeiten</2>."
 
 msgid "Uploaded on"
 msgstr "Hochgeladen am"
 
 msgid "Search"
 msgstr "Suchen"
-
-msgid "hide subfacets"
-msgstr "Teilaspekte verstecken"
-
-msgid "show subfacets"
-msgstr "Teilaspekte anzeigen"
 
 msgid "Search guide"
 msgstr "Suchanleitung"
@@ -170,7 +155,7 @@ msgid "View all versions"
 msgstr "Alle Versionen ansehen"
 
 msgid "result(s) found"
-msgstr "Ergebnis(e) gefunden"
+msgstr "Gefundene Ergebnisse"
 
 msgid "Sort by"
 msgstr "Sortieren nach"
@@ -185,13 +170,10 @@ msgid "View"
 msgstr "Ansicht"
 
 msgid "Search communities..."
-msgstr "Communities durchsuchen..."
+msgstr "Communitys suchen..."
 
 msgid "New community"
 msgstr "Neue Community"
-
-msgid "opened {{difference}} by {{user}}"
-msgstr "{{difference}} geöffnet von {{user}}"
 
 msgid "Get started!"
 msgstr "Los geht's!"
@@ -206,19 +188,10 @@ msgid "Search requests..."
 msgstr "Anfragen durchsuchen..."
 
 msgid "All done!"
-msgstr "Komplett fertig!"
+msgstr "Alles erledigt!"
 
 msgid "You've caught up with all open requests."
 msgstr "Sie haben alle offenen Anfragen gesehen."
-
-msgid "Delete"
-msgstr "Löschen"
-
-msgid "Are you sure you want to delete this draft?"
-msgstr "Sind Sie sicher, dass Sie diesen Entwurf löschen möchten?"
-
-msgid "Cancel"
-msgstr "Abbrechen"
 
 msgid "No creation date found."
 msgstr "Kein Erstellungsdatum gefunden."
@@ -254,7 +227,7 @@ msgid "GND profile"
 msgstr "GND Profil"
 
 msgid "No communities found!"
-msgstr "Keine Communities gefunden!"
+msgstr "Keine Communitys gefunden!"
 
 msgid "No requests found!"
 msgstr "Keine Anfragen gefunden!"
@@ -275,7 +248,7 @@ msgid "Clear"
 msgstr "Löschen"
 
 msgid "We couldn't find any matches for "
-msgstr "Wir konnten keine Treffer finden für"
+msgstr "Wir konnten keine Treffer finden für "
 
 msgid "your search"
 msgstr "Ihre Suche"
@@ -284,16 +257,43 @@ msgid "Start over"
 msgstr "Neu beginnen"
 
 msgid "ProTip"
-msgstr "ProTip"
+msgstr "ProTipp"
 
 msgid "will give you all the publications from 2017 until today"
 msgstr "findet alle Veröffentlichungen von 2017 bis heute"
 
 msgid "For more tips, check out our "
-msgstr "Weitere Tipps finden Sie in unserem "
+msgstr "Weitere Tipps finden Sie in unserer "
 
 msgid "search guide"
 msgstr "Suchanleitung"
 
 msgid " for defining advanced search queries"
-msgstr "zur Definition erweiterter Suchanfragen"
+msgstr " zur Definition erweiterter Suchanfragen."
+
+msgid "Export"
+msgstr "Exportieren"
+
+msgid "Show all sub facets of "
+msgstr "Zeige alle Unterfacetten von"
+
+msgid "Filter results"
+msgstr "Ergebnisse filtern"
+
+msgid "opened {{difference}} by {{creator}}"
+msgstr "{{difference}} geöffnet von {{creator}}"
+
+msgid "In review"
+msgstr "In Begutachtung"
+
+msgid "Declined"
+msgstr "Abgelehnt"
+
+msgid "Expired"
+msgstr "Abgelaufen"
+
+msgid "Draft"
+msgstr "Entwurf"
+
+msgid "New version draft"
+msgstr "Entwurf einer neuen Version"

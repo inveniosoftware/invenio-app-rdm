@@ -56,12 +56,12 @@ export function SearchItemCreators({ creators }) {
         icon = "/static/images/orcid.svg";
         break;
       case "ror":
-        link = "https://ror.org/"+identifier;
+        link = "https://ror.org/" + identifier;
         linkTitle = i18next.t("ROR profile");
         icon = "/static/images/ror-icon.svg";
         break;
       case "gnd":
-        link = "https://d-nb.info/gnd/"+identifier;
+        link = "https://d-nb.info/gnd/" + identifier;
         linkTitle = i18next.t("GND profile");
         icon = "/static/images/gnd-icon.svg";
         break;
@@ -71,26 +71,22 @@ export function SearchItemCreators({ creators }) {
 
     icon = (
       <a
-         className="no-text-decoration"
-         href={ link }
-         aria-label={`${name}: ${linkTitle}`}
-         title={`${name}: ${linkTitle}`}
-         key={scheme}
+        className="no-text-decoration mr-0"
+        href={link}
+        aria-label={`${name}: ${linkTitle}`}
+        title={`${name}: ${linkTitle}`}
+        key={scheme}
       >
-        <img
-          className="inline-id-icon ml-5"
-          src= { icon }
-          alt=""
-        />
+        <img className="inline-id-icon ml-5" src={icon} alt="" />
       </a>
-    )
-    return (icon);
+    );
+    return icon;
   }
 
   function getIcons(creator) {
     let ids = _get(creator, "person_or_org.identifiers", []);
     let creatorName = _get(creator, "person_or_org.name", "No name");
-    let icons = ids.map(c => makeIcon(c.scheme, c.identifier, creatorName));
+    let icons = ids.map((c) => makeIcon(c.scheme, c.identifier, creatorName));
     return icons;
   }
 
@@ -107,11 +103,10 @@ export function SearchItemCreators({ creators }) {
     );
     return link;
   }
-  return creators.map((creator, index) => (
-    <span className="creatibutor-wrap" key={index}>
+  return creators.map((creator) => (
+    <span className="creatibutor-wrap separated" key={creator.person_or_org.name}>
       {getLink(creator)}
       {getIcons(creator)}
-      {index < creators.length - 1 && ";"}
     </span>
   ));
 }

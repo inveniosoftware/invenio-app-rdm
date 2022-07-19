@@ -11,8 +11,7 @@
 
 from os.path import splitext
 
-from flask import abort, current_app, g, redirect, render_template, request, \
-    url_for
+from flask import abort, current_app, g, redirect, render_template, request, url_for
 from flask_login import current_user
 from invenio_base.utils import obj_or_import_string
 from invenio_previewer.extensions import default
@@ -21,9 +20,15 @@ from invenio_rdm_records.proxies import current_rdm_records
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
 from marshmallow import ValidationError
 
-from .decorators import pass_file_item, pass_file_metadata, pass_is_preview, \
-    pass_record_files, pass_record_from_pid, pass_record_latest, \
-    pass_record_or_draft
+from .decorators import (
+    pass_file_item,
+    pass_file_metadata,
+    pass_is_preview,
+    pass_record_files,
+    pass_record_from_pid,
+    pass_record_latest,
+    pass_record_or_draft,
+)
 
 
 class PreviewFile:
@@ -43,7 +48,7 @@ class PreviewFile:
         self.uri = url or url_for(
             "invenio_app_rdm_records.record_file_download",
             pid_value=record_pid_value,
-            filename=self.filename
+            filename=self.filename,
         )
 
     def is_local(self):
@@ -72,13 +77,11 @@ class PreviewFile:
 def record_detail(pid_value, record, files, is_preview=False):
     """Record detail page (aka landing page)."""
     files_dict = None if files is None else files.to_dict()
-    record_ui = UIJSONSerializer().serialize_object_to_dict(record.to_dict())
+    record_ui = UIJSONSerializer().dump_obj(record.to_dict())
     is_draft = record_ui["is_draft"]
     if is_preview and is_draft:
         try:
-            current_rdm_records.records_service.validate_draft(
-                g.identity, record.id
-            )
+            current_rdm_records.records_service.validate_draft(g.identity, record.id)
         except ValidationError:
             abort(404)
 
@@ -86,10 +89,9 @@ def record_detail(pid_value, record, files, is_preview=False):
         "invenio_app_rdm/records/detail.html",
         record=record_ui,
         files=files_dict,
-        permissions=record.has_permissions_to([
-            'edit', 'new_version', 'manage', 'update_draft', 'read_files',
-            'review'
-        ]),
+        permissions=record.has_permissions_to(
+            ["edit", "new_version", "manage", "update_draft", "read_files", "review"]
+        ),
         is_preview=is_preview,
         is_draft=is_draft,
     )
@@ -98,17 +100,11 @@ def record_detail(pid_value, record, files, is_preview=False):
 @pass_is_preview
 @pass_record_or_draft(expand=False)
 def record_export(
-    pid_value,
-    record,
-    export_format=None,
-    permissions=None,
-    is_preview=False
+    pid_value, record, export_format=None, permissions=None, is_preview=False
 ):
     """Export page view."""
     # Get the configured serializer
-    exporter = current_app.config.get("APP_RDM_RECORD_EXPORTERS", {}).get(
-        export_format
-    )
+    exporter = current_app.config.get("APP_RDM_RECORD_EXPORTERS", {}).get(export_format)
     if exporter is None:
         abort(404)
 
@@ -122,8 +118,8 @@ def record_export(
     contentType = exporter.get("content-type", export_format)
     filename = exporter.get("filename", export_format).format(id=pid_value)
     headers = {
-        'Content-Type': contentType,
-        'Content-Disposition': f'attachment; filename={filename}'
+        "Content-Type": contentType,
+        "Content-Disposition": f"attachment; filename={filename}",
     }
     return (exported_record, 200, headers)
 
@@ -137,7 +133,7 @@ def record_file_preview(
     pid_type="recid",
     file_metadata=None,
     is_preview=False,
-    **kwargs
+    **kwargs,
 ):
     """Render a preview of the specified file."""
     # Try to see if specific previewer is set
@@ -148,7 +144,7 @@ def record_file_preview(
         "invenio_app_rdm_records.record_file_download",
         pid_value=pid_value,
         filename=file_metadata.data["key"],
-        preview=1 if is_preview else 0
+        preview=1 if is_preview else 0,
     )
     # Find a suitable previewer
     fileobj = PreviewFile(file_metadata, pid_value, url)
@@ -163,12 +159,7 @@ def record_file_preview(
 
 @pass_is_preview
 @pass_file_item
-def record_file_download(
-    pid_value,
-    file_item=None,
-    is_preview=False,
-    **kwargs
-):
+def record_file_download(pid_value, file_item=None, is_preview=False, **kwargs):
     """Download a file from a record."""
     download = bool(request.args.get("download"))
     return file_item.send_file(as_attachment=download)
@@ -191,7 +182,7 @@ def record_from_pid(record=None, **kwargs):
 #
 def not_found_error(error):
     """Handler for 'Not Found' errors."""
-    return render_template(current_app.config['THEME_404_TEMPLATE']), 404
+    return render_template(current_app.config["THEME_404_TEMPLATE"]), 404
 
 
 def record_tombstone_error(error):
@@ -204,4 +195,4 @@ def record_permission_denied_error(error):
     if not current_user.is_authenticated:
         # trigger the flask-login unauthorized handler
         return current_app.login_manager.unauthorized()
-    return render_template(current_app.config['THEME_403_TEMPLATE']), 403
+    return render_template(current_app.config["THEME_403_TEMPLATE"]), 403

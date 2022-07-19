@@ -6,12 +6,12 @@
 .ui.flashed.message,
 .ui.form .flashed.message {
   &.manage {
-    padding: 1em 0 1em 0;
+    padding: 1em 0;
     margin-bottom: 1em;
   }
 }
 
-#record-tab > .banners .ui.flashed.message.manage {
+#record-tab-panel > .banners .ui.flashed.message.manage {
   padding: 1rem;
 }
 

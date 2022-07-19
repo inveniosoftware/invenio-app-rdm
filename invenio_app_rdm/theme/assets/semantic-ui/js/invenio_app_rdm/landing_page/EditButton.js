@@ -9,6 +9,7 @@ import React, { useState } from "react";
 import { Icon, Button } from "semantic-ui-react";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import { axiosWithconfig } from "../utils";
+import PropTypes from "prop-types";
 
 export const EditButton = ({ recid, onError }) => {
   const [loading, setLoading] = useState(false);
@@ -27,7 +28,7 @@ export const EditButton = ({ recid, onError }) => {
   return (
     <Button
       fluid
-      color="orange"
+      className="warning"
       size="medium"
       onClick={handleClick}
       loading={loading}
@@ -38,4 +39,9 @@ export const EditButton = ({ recid, onError }) => {
       {i18next.t("Edit")}
     </Button>
   );
+};
+
+EditButton.propTypes = {
+  recid: PropTypes.string.isRequired,
+  onError: PropTypes.func.isRequired,
 };

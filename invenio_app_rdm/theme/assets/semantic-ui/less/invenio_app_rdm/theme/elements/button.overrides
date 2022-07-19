@@ -38,7 +38,7 @@
 }
 
 .auto-column-grid {
-  .ui.button {
+  .ui.button.dropdown {
     &:last-child {
       margin-right: 0;
     }
@@ -49,16 +49,12 @@
   }
 }
 
-.ui.button.transparent {
-  background-color: transparent;
-  color: black;
-  padding: 0;
-}
-
-.ui.button.fluid-mobile {
-  @media all and (max-width: @largestMobileScreen) {
-    width: 100%;
-    min-width: 0em;
-    display: block;
+.ui.button{
+  &.fluid-responsive {
+    @media all and (max-width: @largestTabletScreen) {
+      width: 100%;
+      min-width: 7em;
+      display: block;
+    }
   }
 }

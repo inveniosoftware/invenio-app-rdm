@@ -62,14 +62,12 @@ def execute_upgrade():
             record["metadata"]["resource_type"] = dict(id=res_type_vocab)
 
         # Migrate resource_type of related_identifiers
-        for idx, val in enumerate(
-            record["metadata"].get("related_identifiers", [])
-        ):
+        for idx, val in enumerate(record["metadata"].get("related_identifiers", [])):
             if "resource_type" in val:
                 res_type_vocab = get_res_type_vocabulary(val)
-                record["metadata"]["related_identifiers"][idx][
-                    "resource_type"
-                ] = dict(id=res_type_vocab)
+                record["metadata"]["related_identifiers"][idx]["resource_type"] = dict(
+                    id=res_type_vocab
+                )
 
         # Migrate languages from additional_descriptions
         migrate_language("additional_descriptions")

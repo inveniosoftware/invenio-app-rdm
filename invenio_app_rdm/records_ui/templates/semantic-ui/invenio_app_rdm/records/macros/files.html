@@ -35,7 +35,7 @@
       <span id="preview-file-title">{{file.key}}</span>
       <i class="ui angle right icon"></i>
     </div>
-    <div id="collapsablePreview" class="active content rm-pt">
+    <div id="collapsablePreview" class="active content pt-0">
       <div>
         {{ preview_file('invenio_app_rdm_records.record_file_preview', pid_value=pid, filename=file.key, is_preview=is_preview) }}
       </div>
@@ -46,7 +46,7 @@
 
 
 {%- macro file_list(files, pid, is_preview, with_preview=true, download_endpoint='invenio_app_rdm_records.record_file_download', preview_endpoint='invenio_app_rdm_records.record_file_preview') %}
-  <table class="ui striped table files-table">
+  <table class="ui striped table files fluid">
     <thead>
       <tr>
         <th>{{_('Name')}}</th>
@@ -106,7 +106,7 @@
       <small class="text-muted">{% if files %} ({{files|sum(attribute='size')|filesizeformat(binary=binary_sizes)}}){% endif %}</small>
       <i class="angle right icon"></i>
     </div>
-    <div class="active content rm-pt">
+    <div class="active content pt-0">
       {% if record.access.files == 'restricted' %}
       <div class="ui {{ record.ui.access_status.message_class }} message file-box-message">
         <i class="ui {{ record.ui.access_status.icon }} icon"></i><b>{{ record.ui.access_status.title_l10n }}</b>

@@ -16,12 +16,12 @@ from invenio_search_ui.searchconfig import search_app_config
 def search_app_context():
     """Search app context processor."""
     return {
-        'search_app_rdm_config': partial(
+        "search_app_rdm_config": partial(
             search_app_config,
-            'RDM_SEARCH',
-            current_app.config['RDM_FACETS'],
-            current_app.config['RDM_SORT_OPTIONS'],
-            '/api/records',
-            {"Accept": "application/vnd.inveniordm.v1+json"}
+            "RDM_SEARCH",
+            current_app.config["RDM_FACETS"],
+            current_app.config["RDM_SORT_OPTIONS"],
+            "/api/records",
+            {"Accept": "application/vnd.inveniordm.v1+json"},
         ),
     }

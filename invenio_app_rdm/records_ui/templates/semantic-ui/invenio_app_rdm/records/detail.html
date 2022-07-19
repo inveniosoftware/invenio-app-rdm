@@ -25,6 +25,7 @@
 {%- set show_record_management_menu = can_manage_record and (not is_preview or is_preview_submission_request) %}
 
 {%- block page_body %}
+
   <section id="banners" class="banners" aria-label="{{ _('Information banner') }}">
 
     <!-- COMMUNITY HEADER: hide it when displaying the submission request -->
@@ -39,13 +40,15 @@
         {%- set expanded_parent = record.get("expanded", {}).get("parent", {}) %}
         {%- set community = expanded_parent.get("review", {}).get("receiver") or expanded_parent.get("communities", {}).get("default") %}
         {% set is_community_restricted = community.access.visibility == 'restricted' %}
-        <div class="ui fluid container page-subheader-outer with-submenu compact">
+        <div class="ui fluid container page-subheader-outer with-submenu compact ml-0-mobile mr-0-mobile">
           <div class="ui container page-subheader">
-            <div class="page-subheader-element">
+            <div class="page-subheader-element ">
               <img
-                class="ui mini image"
+                class="ui tiny image community-header-logo"
                 src="{{ community.links.logo }}"
-                onerror="this.onerror=null;this.src='/static/images/square-placeholder.png';"/>
+                alt=""
+                onerror="this.onerror=null;this.src='/static/images/square-placeholder.png'"
+              />
             </div>
             <div class="page-subheader-element">
               <a
@@ -182,7 +185,7 @@
                     </div>
                     <div class="right floated right aligned column">
                       {% if record.ui.resource_type %}
-                        <span class="ui label small grey"
+                        <span class="ui label small neutral"
                               title="{{ _('Resource type') }}">{{ record.ui.resource_type.title_l10n }}</span>
                       {% endif %}
                       <span class="ui label small access-status {{ record.ui.access_status.id }}"

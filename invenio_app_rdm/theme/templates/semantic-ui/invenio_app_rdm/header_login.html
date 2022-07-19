@@ -40,7 +40,7 @@
               </div>
           </div>
 
-          <div class="sub-menu mobile only tablet only">
+          <div class="sub-menu mobile tablet only">
             <h2 class="ui small header">{{ _("Actions") }}</h2>
 
             {%- for item in plus_menu_items if item.visible %}
@@ -87,7 +87,7 @@
             </div>
           </div>
 
-          <div class="sub-menu mobile only tablet only">
+          <div class="sub-menu mobile tablet only">
             <h2 class="ui small header">{{ _("My account") }}</h2>
 
             {%- for item in current_menu.submenu('settings').children if item.visible %}

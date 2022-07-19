@@ -34,22 +34,32 @@ from datetime import datetime, timedelta
 from celery.schedules import crontab
 from flask_principal import Denial
 from invenio_access.permissions import any_user
-from invenio_vocabularies.config import VOCABULARIES_DATASTREAM_READERS, \
-    VOCABULARIES_DATASTREAM_TRANSFORMERS, VOCABULARIES_DATASTREAM_WRITERS
-from invenio_vocabularies.contrib.awards.datastreams import \
-    VOCABULARIES_DATASTREAM_TRANSFORMERS as AWARDS_TRANSFORMERS
-from invenio_vocabularies.contrib.awards.datastreams import \
-    VOCABULARIES_DATASTREAM_WRITERS as AWARDS_WRITERS
-from invenio_vocabularies.contrib.funders.datastreams import \
-    VOCABULARIES_DATASTREAM_TRANSFORMERS as FUNDERS_TRANSFORMERS
-from invenio_vocabularies.contrib.funders.datastreams import \
-    VOCABULARIES_DATASTREAM_WRITERS as FUNDERS_WRITERS
-from invenio_vocabularies.contrib.names.datastreams import \
-    VOCABULARIES_DATASTREAM_READERS as NAMES_READERS
-from invenio_vocabularies.contrib.names.datastreams import \
-    VOCABULARIES_DATASTREAM_TRANSFORMERS as NAMES_TRANSFORMERS
-from invenio_vocabularies.contrib.names.datastreams import \
-    VOCABULARIES_DATASTREAM_WRITERS as NAMES_WRITERS
+from invenio_vocabularies.config import (
+    VOCABULARIES_DATASTREAM_READERS,
+    VOCABULARIES_DATASTREAM_TRANSFORMERS,
+    VOCABULARIES_DATASTREAM_WRITERS,
+)
+from invenio_vocabularies.contrib.awards.datastreams import (
+    VOCABULARIES_DATASTREAM_TRANSFORMERS as AWARDS_TRANSFORMERS,
+)
+from invenio_vocabularies.contrib.awards.datastreams import (
+    VOCABULARIES_DATASTREAM_WRITERS as AWARDS_WRITERS,
+)
+from invenio_vocabularies.contrib.funders.datastreams import (
+    VOCABULARIES_DATASTREAM_TRANSFORMERS as FUNDERS_TRANSFORMERS,
+)
+from invenio_vocabularies.contrib.funders.datastreams import (
+    VOCABULARIES_DATASTREAM_WRITERS as FUNDERS_WRITERS,
+)
+from invenio_vocabularies.contrib.names.datastreams import (
+    VOCABULARIES_DATASTREAM_READERS as NAMES_READERS,
+)
+from invenio_vocabularies.contrib.names.datastreams import (
+    VOCABULARIES_DATASTREAM_TRANSFORMERS as NAMES_TRANSFORMERS,
+)
+from invenio_vocabularies.contrib.names.datastreams import (
+    VOCABULARIES_DATASTREAM_WRITERS as NAMES_WRITERS,
+)
 
 # TODO: Remove when records-rest is out of communities and files
 RECORDS_REST_ENDPOINTS = {}
@@ -65,7 +75,7 @@ def _(x):
 # =====
 # See https://flask.palletsprojects.com/en/1.1.x/config/
 
-APP_ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1']
+APP_ALLOWED_HOSTS = ["0.0.0.0", "localhost", "127.0.0.1"]
 """Allowed hosts.
 
 Since HAProxy and Nginx route all requests no matter the host header
@@ -107,10 +117,10 @@ RATELIMIT_GUEST_USER = "5000 per hour;500 per minute"
 # ===========
 # See https://pythonhosted.org/Flask-Babel/#configuration
 
-BABEL_DEFAULT_LOCALE = 'en'
+BABEL_DEFAULT_LOCALE = "en"
 """Default locale (language)."""
 
-BABEL_DEFAULT_TIMEZONE = 'Europe/Zurich'
+BABEL_DEFAULT_TIMEZONE = "Europe/Zurich"
 """Default time zone."""
 
 # Invenio-I18N
@@ -127,46 +137,47 @@ BABEL_DEFAULT_TIMEZONE = 'Europe/Zurich'
 # =============
 # See https://invenio-theme.readthedocs.io/en/latest/configuration.html
 
-APP_THEME = ['semantic-ui']
+APP_THEME = ["semantic-ui"]
 """Application theme."""
 
-BASE_TEMPLATE = 'invenio_theme/page.html'
+BASE_TEMPLATE = "invenio_theme/page.html"
 """Global base template."""
 
-COVER_TEMPLATE = 'invenio_theme/page_cover.html'
+COVER_TEMPLATE = "invenio_theme/page_cover.html"
 """Cover page base template (used for e.g. login/sign-up)."""
 
-SETTINGS_TEMPLATE = 'invenio_theme/page_settings.html'
+SETTINGS_TEMPLATE = "invenio_theme/page_settings.html"
 """Settings base template."""
 
-THEME_FOOTER_TEMPLATE = 'invenio_app_rdm/footer.html'
+THEME_FOOTER_TEMPLATE = "invenio_app_rdm/footer.html"
 """Footer base template."""
 
 THEME_FRONTPAGE = False
 """Use default frontpage."""
 
-THEME_FRONTPAGE_TITLE = _('The turn-key research data management repository')
+THEME_FRONTPAGE_TITLE = _("The turn-key research data management repository")
 """Frontpage title."""
 
-THEME_HEADER_TEMPLATE = 'invenio_app_rdm/header.html'
+THEME_HEADER_TEMPLATE = "invenio_app_rdm/header.html"
 """Header base template."""
 
-THEME_FRONTPAGE_TEMPLATE = 'invenio_app_rdm/frontpage.html'
+THEME_FRONTPAGE_TEMPLATE = "invenio_app_rdm/frontpage.html"
 """Frontpage template."""
 
-THEME_HEADER_LOGIN_TEMPLATE = 'invenio_app_rdm/header_login.html'
+THEME_HEADER_LOGIN_TEMPLATE = "invenio_app_rdm/header_login.html"
 """Header login base template."""
 
-THEME_LOGO = 'images/invenio-rdm.svg'
+THEME_LOGO = "images/invenio-rdm.svg"
 """Theme logo."""
 
-THEME_SITENAME = _('InvenioRDM')
+THEME_SITENAME = _("InvenioRDM")
 """Site name."""
 
 
 # Invenio-Files-REST
 # ==================
 # See https://invenio-files-rest.readthedocs.io/en/latest/configuration.html
+
 
 def files_rest_permission_factory(obj, action):
     """Generate a denying permission."""
@@ -176,41 +187,13 @@ def files_rest_permission_factory(obj, action):
 FILES_REST_PERMISSION_FACTORY = files_rest_permission_factory
 """Set default files permission factory."""
 
-# Invenio-IIIF
-# =================
-# See https://invenio-iiif.readthedocs.io/en/latest/configuration.html
-
-IIIF_PREVIEW_TEMPLATE = "invenio_app_rdm/records/iiif_preview.html"
-"""Template for IIIF image preview."""
-
-IIIF_API_DECORATOR_HANDLER = None
-
-# Invenio-Previewer
-# =================
-# See https://github.com/inveniosoftware/invenio-previewer/blob/master/invenio_previewer/config.py  # noqa
-
-PREVIEWER_PREFERENCE = [
-    'csv_dthreejs',
-    # TODO: IIIF checks bucket-level permissions, and thus won't work
-    # 'iiif_image',
-    'simple_image',
-    'json_prismjs',
-    'xml_prismjs',
-    'mistune',
-    'pdfjs',
-    'ipynb',
-    'zip',
-    'txt',
-]
-"""Preferred previewers."""
-
 # Invenio-Formatter
 # =================
 
-FORMATTER_BADGES_ALLOWED_TITLES = ['DOI', 'doi']
+FORMATTER_BADGES_ALLOWED_TITLES = ["DOI", "doi"]
 """List of allowed titles in badges."""
 
-FORMATTER_BADGES_TITLE_MAPPING = {'doi': 'DOI'}
+FORMATTER_BADGES_TITLE_MAPPING = {"doi": "DOI"}
 """Mapping of titles."""
 
 # Invenio-Mail / Flask-Mail
@@ -224,7 +207,7 @@ MAIL_SUPPRESS_SEND = True
 # =============
 # See https://github.com/klen/Flask-Collect#setup
 
-COLLECT_STORAGE = 'flask_collect.storage.file'
+COLLECT_STORAGE = "flask_collect.storage.file"
 """Static files collection method (defaults to copying files)."""
 
 # Invenio-Accounts
@@ -233,7 +216,7 @@ COLLECT_STORAGE = 'flask_collect.storage.file'
 # See https://invenio-accounts.readthedocs.io/en/latest/configuration.html
 # See https://flask-security.readthedocs.io/en/3.0.0/configuration.html
 
-ACCOUNTS_SESSION_REDIS_URL = 'redis://localhost:6379/1'
+ACCOUNTS_SESSION_REDIS_URL = "redis://localhost:6379/1"
 """Redis session storage URL."""
 
 ACCOUNTS_USERINFO_HEADERS = True
@@ -266,28 +249,26 @@ BROKER_URL = "amqp://guest:guest@localhost:5672/"
 """URL of message broker for Celery 3 (default is RabbitMQ)."""
 
 CELERY_BEAT_SCHEDULE = {
-    'indexer': {
-        'task': 'invenio_records_resources.tasks.manage_indexer_queues',
-        'schedule': timedelta(seconds=10),
+    "indexer": {
+        "task": "invenio_records_resources.tasks.manage_indexer_queues",
+        "schedule": timedelta(seconds=10),
     },
-    'accounts_sessions': {
-        'task': 'invenio_accounts.tasks.clean_session_table',
-        'schedule': timedelta(minutes=60),
+    "accounts_sessions": {
+        "task": "invenio_accounts.tasks.clean_session_table",
+        "schedule": timedelta(minutes=60),
     },
-    'accounts_ips': {
-        'task': 'invenio_accounts.tasks.delete_ips',
-        'schedule': timedelta(hours=6),
+    "accounts_ips": {
+        "task": "invenio_accounts.tasks.delete_ips",
+        "schedule": timedelta(hours=6),
     },
-    'draft_resources': {
-        'task': (
-            'invenio_drafts_resources.services.records.tasks.cleanup_drafts'
-        ),
-        'schedule': timedelta(minutes=60),
+    "draft_resources": {
+        "task": ("invenio_drafts_resources.services.records.tasks.cleanup_drafts"),
+        "schedule": timedelta(minutes=60),
     },
-    'rdm_records': {
-        'task': 'invenio_rdm_records.services.tasks.update_expired_embargos',
-        'schedule': crontab(minute=2, hour=0),
-    }
+    "rdm_records": {
+        "task": "invenio_rdm_records.services.tasks.update_expired_embargos",
+        "schedule": crontab(minute=2, hour=0),
+    },
 }
 """Scheduled tasks configuration (aka cronjobs)."""
 
@@ -301,9 +282,9 @@ CELERY_RESULT_BACKEND = "redis://localhost:6379/2"
 # ================
 # See https://flask-sqlalchemy.palletsprojects.com/en/2.x/config/
 
-SQLALCHEMY_DATABASE_URI = \
-    'postgresql+psycopg2://invenio-app-rdm:invenio-app-rdm@localhost/' \
-    'invenio-app-rdm'
+SQLALCHEMY_DATABASE_URI = (
+    "postgresql+psycopg2://invenio-app-rdm:invenio-app-rdm@localhost/" "invenio-app-rdm"
+)
 """Database URI including user and password.
 
 Default value is provided to make module testing easier.
@@ -385,7 +366,7 @@ JSONSCHEMAS_REGISTER_ENDPOINTS_API = False
 JSONSCHEMAS_REGISTER_ENDPOINTS_UI = False
 """Don't' register schema endpoints."""
 
-JSONSCHEMAS_HOST = 'unused'
+JSONSCHEMAS_HOST = "unused"
 # This variable is set to something different than localhost to avoid a warning
 # being issued. The value is however not used, because of the two variables
 # set below.
@@ -397,9 +378,7 @@ Note that when using a custom ref resolver class you should also set
 ``RECORDS_REFRESOLVER_STORE`` to point to a JSONSchema ref resolver store.
 """
 
-RECORDS_REFRESOLVER_STORE = (
-    "invenio_jsonschemas.proxies.current_refresolver_store"
-)
+RECORDS_REFRESOLVER_STORE = "invenio_jsonschemas.proxies.current_refresolver_store"
 """JSONSchemas ref resolver store.
 
 Used together with ``RECORDS_REFRESOLVER_CLS`` to provide a specific
@@ -411,52 +390,49 @@ ref resolver store.
 # See https://github.com/inveniosoftware/invenio-oaiserver/blob/master/invenio_oaiserver/config.py  # noqa
 # (Using GitHub because documentation site out-of-sync at time of writing)
 
-OAISERVER_ID_PREFIX = 'oai:invenio-app-rdm.org:'
+OAISERVER_ID_PREFIX = "oai:invenio-app-rdm.org:"
 """The prefix that will be applied to the generated OAI-PMH ids."""
 
-OAISERVER_SEARCH_CLS = 'invenio_rdm_records.oai:OAIRecordSearch'
+OAISERVER_SEARCH_CLS = "invenio_rdm_records.oai:OAIRecordSearch"
 """Class for record search."""
 
-OAISERVER_ID_FETCHER = 'invenio_rdm_records.oai:oaiid_fetcher'
+OAISERVER_ID_FETCHER = "invenio_rdm_records.oai:oaiid_fetcher"
 """OAI ID fetcher function."""
 
 OAISERVER_METADATA_FORMATS = {
-    'oai_dc': {
-        'serializer': (
-            'invenio_rdm_records.oai:dublincore_etree'
-        ),
-        'schema': 'http://www.openarchives.org/OAI/2.0/oai_dc.xsd',
-        'namespace': 'http://www.openarchives.org/OAI/2.0/oai_dc/',
+    "oai_dc": {
+        "serializer": ("invenio_rdm_records.oai:dublincore_etree"),
+        "schema": "http://www.openarchives.org/OAI/2.0/oai_dc.xsd",
+        "namespace": "http://www.openarchives.org/OAI/2.0/oai_dc/",
     },
-    'datacite': {
-        'serializer': 'invenio_rdm_records.oai:datacite_etree',
-        'schema': 'http://schema.datacite.org/'
-                  'meta/nonexistant/nonexistant.xsd',
-        'namespace': 'http://datacite.org/schema/nonexistant',
+    "datacite": {
+        "serializer": "invenio_rdm_records.oai:datacite_etree",
+        "schema": "http://schema.datacite.org/" "meta/nonexistant/nonexistant.xsd",
+        "namespace": "http://datacite.org/schema/nonexistant",
     },
-    'oai_datacite': {
-        'serializer': ('invenio_rdm_records.oai:oai_datacite_etree'),
-        'schema': 'http://schema.datacite.org/oai/oai-1.1/oai.xsd',
-        'namespace': 'http://schema.datacite.org/oai/oai-1.1/',
+    "oai_datacite": {
+        "serializer": ("invenio_rdm_records.oai:oai_datacite_etree"),
+        "schema": "http://schema.datacite.org/oai/oai-1.1/oai.xsd",
+        "namespace": "http://schema.datacite.org/oai/oai-1.1/",
     },
 }
 
-OAISERVER_LAST_UPDATE_KEY = 'updated'
+OAISERVER_LAST_UPDATE_KEY = "updated"
 """Record update key."""
 
 OAISERVER_CREATED_KEY = "created"
 """Record created key."""
 
-OAISERVER_RECORD_CLS = 'invenio_rdm_records.records.api:RDMRecord'
+OAISERVER_RECORD_CLS = "invenio_rdm_records.records.api:RDMRecord"
 """Record retrieval class."""
 
-OAISERVER_RECORD_SETS_FETCHER = 'invenio_oaiserver.utils:record_sets_fetcher'
+OAISERVER_RECORD_SETS_FETCHER = "invenio_oaiserver.utils:record_sets_fetcher"
 """Record's OAI sets function."""
 
-OAISERVER_RECORD_INDEX = 'rdmrecords-records'
+OAISERVER_RECORD_INDEX = "rdmrecords-records"
 """Specify an Elastic index with records that should be exposed via OAI-PMH."""
 
-OAISERVER_GETRECORD_FETCHER = 'invenio_rdm_records.oai:getrecord_fetcher'
+OAISERVER_GETRECORD_FETCHER = "invenio_rdm_records.oai:getrecord_fetcher"
 """Record data fetcher for serialization."""
 
 # Flask-DebugToolbar
@@ -506,7 +482,7 @@ WSGI_PROXIES = 2
 # =============
 
 # Admin interface is deprecated and should not be used.
-ADMIN_PERMISSION_FACTORY = 'invenio_app_rdm.admin.permission_factory'
+ADMIN_PERMISSION_FACTORY = "invenio_app_rdm.admin.permission_factory"
 
 # Invenio-REST
 # ------------
@@ -543,7 +519,7 @@ VOCABULARIES_DATASTREAM_WRITERS = {
 # Invenio-APP-RDM
 # ===============
 
-SEARCH_UI_SEARCH_TEMPLATE = 'invenio_app_rdm/records/search.html'
+SEARCH_UI_SEARCH_TEMPLATE = "invenio_app_rdm/records/search.html"
 """Search page's base template."""
 
 APP_RDM_USER_DASHBOARD_ROUTES = {
@@ -555,7 +531,7 @@ APP_RDM_USER_DASHBOARD_ROUTES = {
 APP_RDM_ROUTES = {
     "index": "/",
     "help_search": "/help/search",
-    "record_search": "/search2",
+    "record_search": "/search",
     "record_detail": "/records/<pid_value>",
     "record_export": "/records/<pid_value>/export/<export_format>",
     "record_file_preview": "/records/<pid_value>/preview/<path:filename>",
@@ -572,35 +548,39 @@ APP_RDM_RECORD_EXPORTERS = {
         "name": _("JSON"),
         "serializer": ("flask_resources.serializers:JSONSerializer"),
         "content-type": "application/json",
-        "filename": "{id}.json"
+        "filename": "{id}.json",
     },
     "csl": {
         "name": _("CSL"),
-        "serializer": ("invenio_rdm_records.resources.serializers:"
-                       "CSLJSONSerializer"),
+        "serializer": (
+            "invenio_rdm_records.resources.serializers:" "CSLJSONSerializer"
+        ),
         "content-type": "application/vnd.citationstyles.csl+json",
-        "filename": "{id}.json"
+        "filename": "{id}.json",
     },
     "datacite-json": {
         "name": _("DataCite JSON"),
-        "serializer": ("invenio_rdm_records.resources.serializers:"
-                       "DataCite43JSONSerializer"),
+        "serializer": (
+            "invenio_rdm_records.resources.serializers:" "DataCite43JSONSerializer"
+        ),
         "content-type": "application/vnd.datacite.datacite+json",
-        "filename": "{id}.json"
+        "filename": "{id}.json",
     },
     "datacite-xml": {
         "name": _("DataCite XML"),
-        "serializer": ("invenio_rdm_records.resources.serializers:"
-                       "DataCite43XMLSerializer"),
+        "serializer": (
+            "invenio_rdm_records.resources.serializers:" "DataCite43XMLSerializer"
+        ),
         "content-type": "application/vnd.datacite.datacite+xml",
-        "filename": "{id}.xml"
+        "filename": "{id}.xml",
     },
     "dublincore": {
         "name": _("Dublin Core XML"),
-        "serializer": ("invenio_rdm_records.resources.serializers:"
-                       "DublinCoreXMLSerializer"),
+        "serializer": (
+            "invenio_rdm_records.resources.serializers:" "DublinCoreXMLSerializer"
+        ),
         "content-type": "application/x-dc+xml",
-        "filename": "{id}.xml"
+        "filename": "{id}.xml",
     },
 }
 
@@ -612,10 +592,12 @@ APP_RDM_DEPOSIT_FORM_DEFAULTS = {
         {
             "id": "cc-by-4.0",
             "title": "Creative Commons Attribution 4.0 International",
-            "description": ("The Creative Commons Attribution license allows "
-                            "re-distribution and re-use of a licensed work "
-                            "on the condition that the creator is "
-                            "appropriately credited."),
+            "description": (
+                "The Creative Commons Attribution license allows "
+                "re-distribution and re-use of a licensed work "
+                "on the condition that the creator is "
+                "appropriately credited."
+            ),
             "link": "https://creativecommons.org/licenses/by/4.0/legalcode",
         }
     ],
@@ -629,7 +611,7 @@ If the value is callable, its return value will be used for the field
 (e.g. lambda/function for dynamic calculation of values).
 """
 
-APP_RDM_DEPOSIT_FORM_AUTOCOMPLETE_NAMES = 'search'
+APP_RDM_DEPOSIT_FORM_AUTOCOMPLETE_NAMES = "search"
 """Behavior for autocomplete names search field for creators/contributors.
 
 Available options:
@@ -642,7 +624,7 @@ Available options:
 
 APP_RDM_DEPOSIT_FORM_QUOTA = {
     "maxFiles": 100,
-    "maxStorage": 10 ** 10,
+    "maxStorage": 10**10,
 }
 """Deposit file upload quota """
 
@@ -650,16 +632,16 @@ APP_RDM_DISPLAY_DECIMAL_FILE_SIZES = True
 """Display the file sizes in powers of 1000 (KB, ...) or 1024 (KiB, ...)."""
 
 RDM_CITATION_STYLES = [
-    ('apa', _('APA')),
-    ('harvard-cite-them-right', _('Harvard')),
-    ('modern-language-association', _('MLA')),
-    ('vancouver', _('Vancouver')),
-    ('chicago-fullnote-bibliography', _('Chicago')),
-    ('ieee', _('IEEE')),
+    ("apa", _("APA")),
+    ("harvard-cite-them-right", _("Harvard")),
+    ("modern-language-association", _("MLA")),
+    ("vancouver", _("Vancouver")),
+    ("chicago-fullnote-bibliography", _("Chicago")),
+    ("ieee", _("IEEE")),
 ]
 """List of citation style """
 
-RDM_CITATION_STYLES_DEFAULT = 'apa'
+RDM_CITATION_STYLES_DEFAULT = "apa"
 """Default citation style"""
 
 APP_RDM_DETAIL_SIDE_BAR_TEMPLATES = [
@@ -675,33 +657,85 @@ APP_RDM_DETAIL_SIDE_BAR_TEMPLATES = [
 """Template names for detail view sidebar components"""
 
 COMMUNITIES_RECORDS_SEARCH = {
-    'facets': ['access_status', 'resource_type', 'language'],
-    'sort': ['bestmatch', 'newest', 'oldest', 'version'],
+    "facets": ["access_status", "resource_type", "language"],
+    "sort": ["bestmatch", "newest", "oldest", "version"],
 }
 """Community requests search configuration (i.e list of community requests)"""
 
 RDM_SEARCH_USER_COMMUNITIES = {
-    'facets': ['visibility', 'type'],
-    'sort': ['bestmatch', 'newest', 'oldest'],
+    "facets": ["visibility", "type"],
+    "sort": ["bestmatch", "newest", "oldest"],
 }
 """User communities search configuration (i.e list of user communities)"""
 
 RDM_SEARCH_USER_REQUESTS = {
-    'facets': ['type', 'status'],
-    'sort': ['bestmatch', 'newest', 'oldest'],
+    "facets": ["type", "status"],
+    "sort": ["bestmatch", "newest", "oldest"],
 }
 """User requests search configuration (i.e list of user requests)"""
 
 RDM_REQUESTS_ROUTES = {
-    'user-dashboard-request-details': '/me/requests/<request_pid_value>',
-    'community-dashboard-request-details':
-        '/communities/<pid_value>/requests/<request_pid_value>',
-    'community-dashboard-invitation-details':
-        '/communities/<pid_value>/invitations/<request_pid_value>'
+    "user-dashboard-request-details": "/me/requests/<request_pid_value>",
+    "community-dashboard-request-details": "/communities/<pid_value>/requests/<request_pid_value>",
+    "community-dashboard-invitation-details": "/communities/<pid_value>/invitations/<request_pid_value>",
 }
 
 RDM_COMMUNITIES_ROUTES = {
-    'community-detail': '/communities/<pid_value>',
+    "community-detail": "/communities/<pid_value>",
 }
 
-THEME_JAVASCRIPT_TEMPLATE = 'invenio_app_rdm/javascript.html'
+THEME_JAVASCRIPT_TEMPLATE = "invenio_app_rdm/javascript.html"
+
+# Invenio-IIIF
+# =================
+# See https://invenio-iiif.readthedocs.io/en/latest/configuration.html
+
+IIIF_PREVIEW_TEMPLATE = "invenio_app_rdm/records/iiif_preview.html"
+"""Template for IIIF image preview."""
+
+IIIF_API_DECORATOR_HANDLER = None
+
+# Invenio-Previewer
+# =================
+# See https://github.com/inveniosoftware/invenio-previewer/blob/master/invenio_previewer/config.py  # noqa
+
+PREVIEWER_PREFERENCE = [
+    "csv_dthreejs",
+    "iiif_simple",
+    "simple_image",
+    "json_prismjs",
+    "xml_prismjs",
+    "mistune",
+    "pdfjs",
+    "ipynb",
+    "zip",
+    "txt",
+]
+"""Preferred previewers."""
+
+
+IIIF_SIMPLE_PREVIEWER_NATIVE_EXTENSIONS = ["gif", "png"]
+"""Images are converted to JPEG for preview, unless listed here."""
+
+IIIF_SIMPLE_PREVIEWER_SIZE = "!800,800"
+"""Size of image in IIIF preview window. Must be a valid IIIF Image API size parameter."""
+
+IIIF_FORMATS = {
+    "gif": "image/gif",
+    "jp2": "image/jp2",
+    "jpeg": "image/jpeg",
+    "jpg": "image/jpeg",
+    "png": "image/png",
+    "tif": "image/tiff",
+    "tiff": "image/tiff",
+}
+IIIF_FORMATS_PIL_MAP = {
+    "gif": "gif",
+    "jp2": "jpeg2000",
+    "jpeg": "jpeg",
+    "jpg": "jpeg",
+    "pdf": "pdf",
+    "png": "png",
+    "tif": "tiff",
+    "tiff": "tiff",
+}

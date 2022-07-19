@@ -146,9 +146,7 @@ def execute_upgrade():
 
         except Exception as exc:
             success = False
-            secho(
-                f"Error while generating OAI PIDs: {exc}\n", fg="red", err=True
-            )
+            secho(f"Error while generating OAI PIDs: {exc}\n", fg="red", err=True)
 
     if not success:
         secho(

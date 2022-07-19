@@ -1,0 +1,16 @@
+extends:
+  - '@inveniosoftware/invenio'
+  - '@inveniosoftware/invenio/prettier'
+
+parser: babel-eslint
+
+parserOptions:
+  sourceType: module
+  allowImportExportEverywhere: true
+
+env:
+  browser: true
+  es6: true
+  jest: true
+  node: true
+  

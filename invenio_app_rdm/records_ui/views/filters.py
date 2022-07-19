@@ -17,6 +17,10 @@ from invenio_previewer.views import is_previewable
 from invenio_records_files.api import FileObject
 from invenio_records_permissions.policies import get_record_permission_policy
 
+from invenio_app_rdm.records_ui.previewer.iiif_simple import (
+    previewable_extensions as image_extensions,
+)
+
 
 def make_files_preview_compatible(files):
     """Processes a list of RecordFiles to a list of FileObjects.
@@ -25,9 +29,7 @@ def make_files_preview_compatible(files):
     """
     file_objects = []
     for file in files:
-        file_objects.append(
-            FileObject(obj=files[file].object_version, data={}).dumps()
-        )
+        file_objects.append(FileObject(obj=files[file].object_version, data={}).dumps())
     return file_objects
 
 
@@ -73,9 +75,7 @@ def pid_url(identifier, scheme=None, url_scheme="https"):
             scheme = None
     try:
         if scheme and identifier:
-            return idutils.to_url(
-                identifier, scheme, url_scheme=url_scheme
-            )
+            return idutils.to_url(identifier, scheme, url_scheme=url_scheme)
     except Exception:
         current_app.logger.warning(
             f"URL generation for identifier {identifier} failed.",
@@ -90,6 +90,12 @@ def has_previewable_files(files):
     # extension, we have to get rid of that
     extensions = [splitext(f["key"])[-1].strip(".").lower() for f in files]
     return any([is_previewable(ext) for ext in extensions])
+
+
+def has_images(files):
+    """Check if any of the files are images (previewable by iiif_simple)."""
+    extensions = [splitext(f["key"])[-1].strip(".").lower() for f in files]
+    return any(ext in image_extensions for ext in extensions)
 
 
 def order_entries(files):
@@ -112,8 +118,6 @@ def order_entries(files):
 
 def get_scheme_label(scheme):
     """Convert backend scheme to frontend label."""
-    scheme_to_label = current_app.config.get(
-        "RDM_RECORDS_IDENTIFIERS_SCHEMES", {}
-    )
+    scheme_to_label = current_app.config.get("RDM_RECORDS_IDENTIFIERS_SCHEMES", {})
 
     return scheme_to_label.get(scheme, {}).get("label", scheme)

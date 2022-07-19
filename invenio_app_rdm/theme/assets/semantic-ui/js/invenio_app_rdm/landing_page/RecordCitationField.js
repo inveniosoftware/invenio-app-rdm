@@ -10,13 +10,7 @@ import axios from "axios";
 import _debounce from "lodash/debounce";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import {
-  Header,
-  Placeholder,
-  Grid,
-  Dropdown,
-  Message,
-} from 'semantic-ui-react';
+import { Header, Placeholder, Grid, Dropdown, Message } from "semantic-ui-react";
 import { withCancel } from "../utils";
 import { CopyButton } from "../components/CopyButton";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
@@ -54,11 +48,7 @@ export class RecordCitationField extends Component {
   };
 
   errorMessage = (message) => {
-    return (
-      <Message negative>
-        {message}
-      </Message>
-    );
+    return <Message negative>{message}</Message>;
   };
 
   fetchCitation = async (record, style) => {
@@ -79,9 +69,7 @@ export class RecordCitationField extends Component {
       error: "",
     });
 
-    this.cancellableFetchCitation = withCancel(
-      this.fetchCitation(record, style)
-    );
+    this.cancellableFetchCitation = withCancel(this.fetchCitation(record, style));
 
     try {
       const response = await this.cancellableFetchCitation.promise;
@@ -116,7 +104,9 @@ export class RecordCitationField extends Component {
       <Grid className="record-citation pt-10 pb-10 m-0">
         <Grid.Row verticalAlign="middle" className="relaxed">
           <Grid.Column mobile={8} tablet={8} computer={12} className="p-0">
-            <Header as="h2" id="citation-heading">{i18next.t("Citation")}</Header>
+            <Header as="h2" id="citation-heading">
+              {i18next.t("Citation")}
+            </Header>
           </Grid.Column>
 
           <Grid.Column

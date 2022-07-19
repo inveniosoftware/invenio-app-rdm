@@ -39,7 +39,7 @@
 
 {% macro show_creatibutors(creatibutors, show_affiliations=False) %}
   {% for creatibutor in creatibutors %}
-  <dd class="creatibutor-wrap">
+  <dd class="creatibutor-wrap separated">
     <a class="ui creatibutor-link"
       {% if show_affiliations and creatibutor.affiliations %}
         data-tooltip="{{ creatibutor.affiliations|join('; ', attribute='1') }}"
@@ -59,9 +59,6 @@
       {%- endif -%}
     </a>
     {{- creatibutor_icon(creatibutor) -}}
-    {%- if not loop.last -%}
-       <span class="separator">;</span>
-    {%- endif -%}
   </dd>
   {% endfor %}
 {%- endmacro %}

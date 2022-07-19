@@ -17,15 +17,13 @@ DRAFT_API_URL = "/records/{}/draft"
 DRAFT_ACTION_API_URL = "/records/{}/draft/actions/{}"
 
 
-def test_record_read_non_existing_pid(client, location, minimal_record,
-                                      es_clear):
+def test_record_read_non_existing_pid(client, location, minimal_record, es_clear):
     """Retrieve a non existing record."""
     # retrieve unknown record
     response = client.get(SINGLE_RECORD_API_URL.format("notfound"))
     assert response.status_code == 404
     assert response.json["status"] == 404
-    assert response.json["message"] == \
-        "The persistent identifier does not exist."
+    assert response.json["message"] == "The persistent identifier does not exist."
 
 
 def test_record_draft_create_and_read(
@@ -39,8 +37,7 @@ def test_record_draft_create_and_read(
     assert response.status_code == 201
 
     response_fields = response.json.keys()
-    fields_to_check = ["id", "metadata", "revision_id",
-                       "created", "updated", "links"]
+    fields_to_check = ["id", "metadata", "revision_id", "created", "updated", "links"]
 
     for field in fields_to_check:
         assert field in response_fields
@@ -62,9 +59,7 @@ def test_record_draft_publish(
     """
     # Create the draft
     client = client_with_login
-    response = client.post(
-        LIST_RECORDS_API_URL, json=minimal_record, headers=headers
-    )
+    response = client.post(LIST_RECORDS_API_URL, json=minimal_record, headers=headers)
 
     assert response.status_code == 201
     recid = response.json["id"]
@@ -76,29 +71,21 @@ def test_record_draft_publish(
 
     assert response.status_code == 202
     response_fields = response.json.keys()
-    fields_to_check = ["id", "metadata", "revision_id",
-                       "created", "updated", "links"]
+    fields_to_check = ["id", "metadata", "revision_id", "created", "updated", "links"]
 
     for field in fields_to_check:
         assert field in response_fields
 
-    response = client.get(
-        DRAFT_API_URL.format(recid),
-        headers=headers
-    )
+    response = client.get(DRAFT_API_URL.format(recid), headers=headers)
     assert response.status_code == 404
 
     # Test record exists
-    response = client.get(
-        SINGLE_RECORD_API_URL.format(recid),
-        headers=headers
-    )
+    response = client.get(SINGLE_RECORD_API_URL.format(recid), headers=headers)
 
     assert response.status_code == 200
 
     response_fields = response.json.keys()
-    fields_to_check = ["id", "metadata", "revision_id",
-                       "created", "updated", "links"]
+    fields_to_check = ["id", "metadata", "revision_id", "created", "updated", "links"]
 
     for field in fields_to_check:
         assert field in response_fields
@@ -110,9 +97,7 @@ def test_read_record_with_redirected_pid(
     """Test read a record with a redirected pid."""
     # Create dummy record
     client = client_with_login
-    response = client.post(
-        LIST_RECORDS_API_URL, headers=headers, json=minimal_record
-    )
+    response = client.post(LIST_RECORDS_API_URL, headers=headers, json=minimal_record)
     assert response.status_code == 201
     # Publish it
     pid1_value = response.json["id"]
@@ -122,9 +107,7 @@ def test_read_record_with_redirected_pid(
     assert response.status_code == 202
 
     # Create another dummy record
-    response = client.post(
-        LIST_RECORDS_API_URL, headers=headers, json=minimal_record
-    )
+    response = client.post(LIST_RECORDS_API_URL, headers=headers, json=minimal_record)
     assert response.status_code == 201
     pid2_value = response.json["id"]
     # Publish it
@@ -138,8 +121,7 @@ def test_read_record_with_redirected_pid(
     pid2 = PersistentIdentifier.get("recid", pid2_value)
     pid1.redirect(pid2)
 
-    response = client.get(SINGLE_RECORD_API_URL.format(pid1.pid_value),
-                          headers=headers)
+    response = client.get(SINGLE_RECORD_API_URL.format(pid1.pid_value), headers=headers)
     assert response.status_code == 301
 
     assert response.json["status"] == 301
@@ -154,9 +136,7 @@ def test_read_deleted_record(
     client = client_with_login
 
     # Create dummy record to test delete
-    response = client.post(
-        LIST_RECORDS_API_URL, headers=headers, json=minimal_record
-    )
+    response = client.post(LIST_RECORDS_API_URL, headers=headers, json=minimal_record)
     assert response.status_code == 201
     recid = response.json["id"]
     # Publish it
@@ -166,8 +146,7 @@ def test_read_deleted_record(
     assert response.status_code == 202
 
     # Delete the record
-    response = client.delete(SINGLE_RECORD_API_URL.format(recid),
-                             headers=headers)
+    response = client.delete(SINGLE_RECORD_API_URL.format(recid), headers=headers)
     assert response.status_code == 204
 
     # Read the deleted record
@@ -179,9 +158,7 @@ def test_read_deleted_record(
 def test_record_search(client, headers, running_app, es_clear):
     """Test record search."""
     expected_response_keys = set(["hits", "links", "aggregations"])
-    expected_metadata_keys = set([
-        "resource_type", "creators", "titles"
-    ])
+    expected_metadata_keys = set(["resource_type", "creators", "titles"])
 
     # Get published bibliographic records
     response = client.get(LIST_RECORDS_API_URL, headers=headers)

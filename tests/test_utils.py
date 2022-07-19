@@ -62,7 +62,6 @@ def test_set_default_value__explicit_and_automatic_prefix():
     set_default_value(dict2, value, path2)
 
     assert (
-        dict1["metadata"]["publication_date"]
-        == dict2["metadata"]["publication_date"]
+        dict1["metadata"]["publication_date"] == dict2["metadata"]["publication_date"]
     )
     assert dict1["metadata"]["publication_date"] == value

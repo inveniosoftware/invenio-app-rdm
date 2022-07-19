@@ -36,15 +36,13 @@ def create_blueprint(app):
     @blueprint.before_app_first_request
     def init_menu():
         """Initialize menu before first request."""
-        current_menu.submenu('actions.deposit').register(
-            'invenio_app_rdm_users.uploads',
-            _('My dashboard'),
-            order=1
+        current_menu.submenu("actions.deposit").register(
+            "invenio_app_rdm_users.uploads", _("My dashboard"), order=1
         )
 
-        current_menu.submenu('plus.deposit').register(
-            'invenio_app_rdm_records.deposit_create',
-            _('New upload'),
+        current_menu.submenu("plus.deposit").register(
+            "invenio_app_rdm_records.deposit_create",
+            _("New upload"),
             order=1,
         )
 
@@ -63,7 +61,7 @@ def index():
     """Frontpage."""
     records = FrontpageRecordsSearch()[:10].sort("-created").execute()
     return render_template(
-        current_app.config['THEME_FRONTPAGE_TEMPLATE'],
+        current_app.config["THEME_FRONTPAGE_TEMPLATE"],
         records=records_serializer(records),
     )
 

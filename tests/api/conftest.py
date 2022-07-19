@@ -12,16 +12,13 @@ import pytest
 from invenio_app.factory import create_api
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope="module")
 def create_app():
     """Create test app."""
     return create_api
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope="module")
 def headers():
     """Return typical API headers."""
-    return {
-        "content-type": "application/json",
-        "accept": "application/json"
-    }
+    return {"content-type": "application/json", "accept": "application/json"}

@@ -17,9 +17,7 @@ import { Plotly } from "./Plotly";
 import { LeafletMap } from "./LeafletMap";
 
 const recordManagementAppDiv = document.getElementById("recordManagement");
-const recordManagementMobile = document.getElementById(
-  "recordManagementMobile"
-);
+const recordManagementMobile = document.getElementById("recordManagementMobile");
 
 const recordVersionsAppDiv = document.getElementById("recordVersions");
 const recordCitationAppDiv = document.getElementById("recordCitation");
@@ -69,9 +67,7 @@ if (recordCitationAppDiv) {
 
 if (recordExportDownloadDiv) {
   ReactDOM.render(
-    <ExportDropdown
-      formats={JSON.parse(recordExportDownloadDiv.dataset.formats)}
-    />,
+    <ExportDropdown formats={JSON.parse(recordExportDownloadDiv.dataset.formats)} />,
     recordExportDownloadDiv
   );
 }

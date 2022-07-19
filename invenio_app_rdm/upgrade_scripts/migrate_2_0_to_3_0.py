@@ -16,8 +16,11 @@ is that nothing happens!
 
 from invenio_db import db
 from invenio_rdm_records.records.api import RDMDraft, RDMParent, RDMRecord
-from invenio_rdm_records.records.models import RDMDraftMetadata, \
-    RDMFileDraftMetadata, RDMRecordMetadata
+from invenio_rdm_records.records.models import (
+    RDMDraftMetadata,
+    RDMFileDraftMetadata,
+    RDMRecordMetadata,
+)
 
 
 def execute_upgrade():
@@ -65,7 +68,8 @@ def execute_upgrade():
     # Cleanup associated deleted drafts.
 
     drafts = RDMDraftMetadata.query.filter(
-        RDMDraftMetadata.is_deleted == True).all()  # noqa
+        RDMDraftMetadata.is_deleted == True
+    ).all()  # noqa
     for d in drafts:
         # Delete all file draft records
         RDMFileDraftMetadata.query.filter_by(record_id=d.id).delete()

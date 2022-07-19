@@ -59,19 +59,7 @@
 
             {%- if config.THEME_SEARCHBAR %}
               {%- block navbar_search %}
-                <div class="item p-0 search-bar">
-                  <div role="menuitem" id="header-search-bar">
-                    <form class="form" action="{{ config.THEME_SEARCH_ENDPOINT }}"
-                          role="search">
-                      <div class="ui action icon input">
-                        <input type="text" name="q" placeholder="{{ _('Search') }}">
-                        <button type="submit" class="ui icon search button" aria-label="{{ _('Search') }}">
-                          <i class="icon search"></i>
-                        </button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
+                {%- include "invenio_app_rdm/searchbar.html" %}
               {%- endblock navbar_search %}
             {%- endif %}
 
@@ -112,9 +100,9 @@
                 {%- if config.ACCOUNTS and current_user.is_authenticated %}
                   {% for item in current_menu.submenu('notifications').children|sort(attribute='order') if item.visible recursive %}
                     <div class="item inbox">
-                      <a role="menuitem" href="{{ item.url }}">
+                      <a role="menuitem" href="{{ item.url }}" aria-label="{{ _("Requests") }}">
                         <i class="fitted inbox icon inverted"></i>
-                        <span class="mobile only tablet only">{{ _("Inbox") }}</span>
+                        <span class="mobile tablet only inline">{{ _("Inbox") }}</span>
                       </a>
                     </div>
                   {% endfor %}
