@@ -161,14 +161,16 @@ export class RDMDepositForm extends Component {
 
                 <ResourceTypeField
                   options={this.vocabularies.metadata.resource_type}
+                  fieldPath="metadata.resource_type"
                   required
                 />
                 <TitlesField
                   options={this.vocabularies.metadata.titles}
+                  fieldPath="metadata.title"
                   recordUI={record.ui}
                   required
                 />
-                <PublicationDateField required />
+                <PublicationDateField required fieldPath="metadata.publication_date" />
                 <CreatibutorsField
                   label={i18next.t("Creators")}
                   labelIcon="user"
@@ -179,6 +181,7 @@ export class RDMDepositForm extends Component {
                   required
                 />
                 <DescriptionsField
+                  fieldPath="metadata.description"
                   options={this.vocabularies.metadata.descriptions}
                   recordUI={_get(record, "ui", null)}
                   editorConfig={{
@@ -247,11 +250,13 @@ export class RDMDepositForm extends Component {
                   }}
                 />
                 <SubjectsField
+                  fieldPath="metadata.subjects"
                   initialOptions={_get(record, "ui.subjects", null)}
                   limitToOptions={this.vocabularies.metadata.subjects.limit_to}
                 />
 
                 <LanguagesField
+                  fieldPath="metadata.languages"
                   initialOptions={_get(record, "ui.languages", []).filter(
                     (lang) => lang !== null
                   )} // needed because dumped empty record from backend gives [null]
@@ -263,9 +268,12 @@ export class RDMDepositForm extends Component {
                     }))
                   }
                 />
-                <DatesField options={this.vocabularies.metadata.dates} />
-                <VersionField />
-                <PublisherField />
+                <DatesField
+                  fieldPath="metadata.dates"
+                  options={this.vocabularies.metadata.dates}
+                />
+                <VersionField fieldPath="metadata.version" />
+                <PublisherField fieldPath="metadata.publisher" />
               </AccordionField>
 
               <AccordionField
@@ -367,7 +375,10 @@ export class RDMDepositForm extends Component {
                 active
                 label={i18next.t("Related works")}
               >
-                <RelatedWorksField options={this.vocabularies.metadata.identifiers} />
+                <RelatedWorksField
+                  fieldPath="metadata.related_identifiers"
+                  options={this.vocabularies.metadata.identifiers}
+                />
               </AccordionField>
             </Grid.Column>
             <Ref innerRef={this.sidebarRef}>
@@ -410,6 +421,7 @@ export class RDMDepositForm extends Component {
                   <AccessRightField
                     label={i18next.t("Visibility")}
                     labelIcon="shield"
+                    fieldPath="access"
                   />
                   {permissions?.can_delete_draft && (
                     <Card>
