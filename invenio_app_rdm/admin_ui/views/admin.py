@@ -7,12 +7,32 @@
 
 """RDM Admin views."""
 
-from flask import render_template
-from flask_login import current_user, login_required
+from flask import render_template, g
+from flask_login import login_required
+from invenio_access.permissions import Permission
+from invenio_records_resources.services.errors import PermissionDeniedError
+
+from flask_principal import RoleNeed
+from functools import wraps
 
 
-# TODO implement check for admin/manager user!
+def admin_only(function):
+    @wraps(function)
+    def decorated_view(*args, **kwargs):
+        current_user_identity = g.identity
+
+        permissions = Permission(RoleNeed("admin"))
+
+        if not permissions.allows(current_user_identity):
+            raise PermissionDeniedError()
+
+        return function(*args, **kwargs)
+
+    return decorated_view
+
+
 @login_required
+@admin_only
 def admin():
     return render_template("invenio_admin/admin/layout.html")
 

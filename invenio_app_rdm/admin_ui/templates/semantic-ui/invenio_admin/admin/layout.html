@@ -21,36 +21,32 @@
             <div class="ui secondary vertical menu fluid rel-mt-3">
               {% for item in menu_items|sort(attribute='order') if item.visible recursive %}
                 {% if item.children %}
-                  {% block admin_sidenav_menu_dropdown %}
-                    <div class="ui accordion backoffice-category-dropdown fluid item">
-                      <div class="{{ ' active' if item.active else '' }} title">
-                        <i class="caret right icon" style="float: right"></i>
-                        {{ item.text|safe }}
-                      </div>
-
-                      <div class="content {{ ' active' if item.active else '' }}">
-                        <div class="transition visible">
-                          {{ loop(item.children) }}
-                        </div>
-                      </div>
-
+                  <div class="ui accordion backoffice-category-dropdown fluid item">
+                    <div class="{{ ' active' if item.active else '' }} title">
+                      <i class="caret right icon" style="float: right"></i>
+                      {{ item.text|safe }}
                     </div>
-                  {% endblock %}
+
+                    <div class="content {{ ' active' if item.active else '' }}">
+                      <div class="transition visible">
+                        {{ loop(item.children) }}
+                      </div>
+                    </div>
+                  </div>
 
                 {% else %}
-                  {% block admin_sidenav_menu_item %}
-                    <a class="{{ ' active' if item.active else '' }} item " href="{{ item.url }}">
-                      {{ item.text }}
-                    </a>
-                  {% endblock %}
+                  <a class="{{ ' active' if item.active else '' }} item " href="{{ item.url }}">
+                    {{ item.text }}
+                  </a>
 
                 {% endif %}
+
               {% endfor %}
-
             </div>
-          {% endblock %}
 
-        {% endblock %}
+          {% endblock admin_sidenav_menu %}
+
+        {% endblock admin_sidenav %}
 
       </div>
     {% endblock %}
