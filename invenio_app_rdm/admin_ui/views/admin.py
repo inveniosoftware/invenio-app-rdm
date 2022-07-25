@@ -16,7 +16,7 @@ from flask_principal import RoleNeed
 from functools import wraps
 
 
-def admin_only(function):
+def back_office_user(function):
     @wraps(function)
     def decorated_view(*args, **kwargs):
         current_user_identity = g.identity
@@ -32,16 +32,18 @@ def admin_only(function):
 
 
 @login_required
-@admin_only
+@back_office_user
 def admin():
     return render_template("invenio_admin/admin/layout.html")
 
 
 @login_required
+@back_office_user
 def oai_pmh():
     return render_template("invenio_admin/admin/layout.html")
 
 
 @login_required
+@back_office_user
 def featured():
     return render_template("invenio_admin/admin/layout.html")
