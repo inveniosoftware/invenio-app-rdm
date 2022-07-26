@@ -69,18 +69,18 @@ def create_ui_blueprint(app):
     menu_entry3 = {
         "text": "Featured",
         "category": "Communities",
-        "order": 3,
+        "order": 2,
         "endpoint": "invenio_app_rdm_admin.featured"
     }
 
     menu_entry4 = {
         "text": "All",
         "category": "Communities",
-        "order": 3,
+        "order": 1,
         "endpoint": "invenio_app_rdm_admin.admin"
     }
 
-    menus = [menu_entry1, menu_entry2, menu_entry3]
+    menus = [menu_entry1, menu_entry2, menu_entry3, menu_entry4]
 
     @blueprint.before_app_first_request
     def register_menus():
@@ -100,6 +100,7 @@ def create_ui_blueprint(app):
                     endpoint=endpoint,
                     text=text,
                     order=order,
+                    active_when=active_when
                 )
             else:
                 backoffice_menu.submenu(text).register(
