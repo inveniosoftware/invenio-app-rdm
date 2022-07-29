@@ -39,10 +39,7 @@ export const ComputerTabletUploadsItem = ({
   );
 
   return (
-    <Item
-      key={result.id}
-      className="deposits-list-item mb-20 computer tablet only flex"
-    >
+    <Item key={result.id} className="deposits-list-item computer tablet only flex">
       <div className="status-icon mr-10">
         <Item.Content verticalAlign="top">
           <Item.Extra>{icon}</Item.Extra>
@@ -65,15 +62,25 @@ export const ComputerTabletUploadsItem = ({
             <i className={`icon ${accessStatusIcon}`} />
             {accessStatus}
           </Label>
-          <Button compact size="small" floated="right" onClick={() => editRecord()}>
-            <Icon name="edit" />
-            {i18next.t("Edit")}
-          </Button>
+          <Button
+            compact
+            size="small"
+            floated="right"
+            onClick={() => editRecord()}
+            labelPosition="left"
+            icon="edit"
+            content={i18next.t("Edit")}
+          />
           {isPublished && (
-            <Button compact size="small" floated="right" href={viewLink}>
-              <Icon name="eye" />
-              {i18next.t("View")}
-            </Button>
+            <Button
+              compact
+              size="small"
+              floated="right"
+              href={viewLink}
+              labelPosition="left"
+              icon="eye"
+              content={i18next.t("View")}
+            />
           )}
         </Item.Extra>
         <Item.Header as="h2">

@@ -11,8 +11,7 @@
 .creatibutors,
 .ui.items > .item .meta .creatibutors {
   margin: 0 0 0.5rem 0;
-  display: flex;
-  flex-wrap: wrap;
+  display: block;
 
   &:last-child {
     margin-bottom: 0;
@@ -29,8 +28,8 @@
 
   .creatibutor-wrap {
     color: @mutedTextColor;
-    display: flex;
-    flex-wrap: wrap;
+    display: inline-flex;
+    margin-bottom: .5rem;
 
     &:nth-child(n):not(:last-child) {
       margin-right: 1rem;
