@@ -53,18 +53,18 @@ export const MobileCommunitiesItem = ({ result, index }) => {
             </a>
           )}
         </Item>
-        <Item.Meta>
+        <Item.Extra>
           <Button
             compact
             size="small"
             floated="right"
             href={`/communities/${result.id}/settings`}
-            className="mt-0 fluid-responsive"
+            className="fluid-responsive"
           >
             <Icon name="edit" />
             {i18next.t("Edit")}
           </Button>
-        </Item.Meta>
+        </Item.Extra>
       </Item.Content>
     </Item>
   );

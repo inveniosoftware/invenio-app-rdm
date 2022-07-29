@@ -11,6 +11,7 @@ import { createSearchAppInit } from "@js/invenio_search_ui";
 import {
   SearchAppFacets,
   SearchAppResultsPane,
+  InvenioSearchPagination,
 } from "@js/invenio_search_ui/components";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import _get from "lodash/get";
@@ -21,9 +22,7 @@ import { GridResponsiveSidebarColumn } from "react-invenio-forms";
 import {
   BucketAggregation,
   Count,
-  Pagination,
   ResultsList,
-  ResultsPerPage,
   SearchBar,
   Sort,
   withState,
@@ -61,8 +60,8 @@ import {
   SearchHelpLinks,
 } from "../search/components";
 import { timestampToRelativeTime } from "../utils";
-import { ComputerTabletRequestsItems } from "./requests_items/ComputerTabletRequestsItems";
-import { MobileRequestsItems } from "./requests_items/MobileRequestsItems";
+import { ComputerTabletRequestsItem } from "./requests_items/ComputerTabletRequestsItem";
+import { MobileRequestsItem } from "./requests_items/MobileRequestsItem";
 
 export const RequestsResults = ({
   sortOptions,
@@ -123,29 +122,7 @@ export const RequestsResults = ({
             </Segment>
           </Grid.Column>
         </Grid.Row>
-        <Grid.Row verticalAlign="middle">
-          <Grid.Column width={4} />
-          <Grid.Column width={8} textAlign="center">
-            <Pagination
-              options={{
-                size: "mini",
-                showFirst: false,
-                showLast: false,
-              }}
-            />
-          </Grid.Column>
-          <Grid.Column textAlign="right" width={4}>
-            <ResultsPerPage
-              values={paginationOptions.resultsPerPage}
-              label={(cmp) => (
-                <>
-                  {" "}
-                  {cmp} {i18next.t("results per page")}
-                </>
-              )}
-            />
-          </Grid.Column>
-        </Grid.Row>
+        <InvenioSearchPagination paginationOptions={paginationOptions} />
       </Grid>
     )
   );
@@ -190,18 +167,18 @@ export function RequestsResultsItemTemplateDashboard({ result, index }) {
   } else if (isCreatorCommunity) {
     creatorName = result.expanded?.created_by.metadata?.title || createdBy.community;
   }
-  const ComputerTabletRequestsItemsWithState = withState(ComputerTabletRequestsItems);
-  const MobileRequestsItemsWithState = withState(MobileRequestsItems);
+  const ComputerTabletRequestsItemWithState = withState(ComputerTabletRequestsItem);
+  const MobileRequestsItemWithState = withState(MobileRequestsItem);
   return (
     <>
-      <ComputerTabletRequestsItemsWithState
+      <ComputerTabletRequestsItemWithState
         result={result}
         index={index}
         differenceInDays={differenceInDays}
         isCreatorCommunity={isCreatorCommunity}
         creatorName={creatorName}
       />
-      <MobileRequestsItemsWithState
+      <MobileRequestsItemWithState
         result={result}
         index={index}
         differenceInDays={differenceInDays}

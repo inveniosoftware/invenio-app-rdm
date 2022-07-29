@@ -13,7 +13,7 @@ import { Icon, Item } from "semantic-ui-react";
 import { RightBottomLabel } from "@js/invenio_communities/requests/requests_items/RightBottomLabel";
 import PropTypes from "prop-types";
 
-export const MobileRequestsItems = ({
+export const ComputerTabletRequestsItem = ({
   result,
   index,
   differenceInDays,
@@ -25,19 +25,30 @@ export const MobileRequestsItems = ({
   const refreshAfterAction = () => {
     updateQueryState(currentQueryState);
   };
-
   return (
-    <Item key={index} className="community-item mobile only flex">
+    <Item key={index} className="community-item computer tablet only flex">
+      <div className="status-icon mr-10">
+        <Item.Content verticalAlign="top">
+          <Item.Extra>
+            <Icon color="black" name="conversation" />
+          </Item.Extra>
+        </Item.Content>
+      </div>
       <Item.Content>
         <Item.Extra>
           {result.type && <RequestTypeLabel type={result.type} />}
           {result.status && result.is_closed && (
             <RequestStatusLabel status={result.status} />
           )}
+          <div className="right floated">
+            <RequestActionController
+              request={result}
+              actionSuccessCallback={refreshAfterAction}
+            />
+          </div>
         </Item.Extra>
         <Item.Header className="truncate-lines-2">
           <a className="header-link" href={`/me/requests/${result.id}`}>
-            <Icon size="small" name="conversation" color="black" />
             {result.title}
           </a>
         </Item.Header>
@@ -49,20 +60,14 @@ export const MobileRequestsItems = ({
             {isCreatorCommunity && <Icon className="default-margin" name="users" />}{" "}
             {creatorName}
           </small>
-          <RightBottomLabel className="mb-5 block" result={result} />
-          <div className="block">
-            <RequestActionController
-              request={result}
-              actionSuccessCallback={refreshAfterAction}
-            />
-          </div>
+          <RightBottomLabel className="right floated" result={result} />
         </Item.Meta>
       </Item.Content>
     </Item>
   );
 };
 
-MobileRequestsItems.propTypes = {
+ComputerTabletRequestsItem.propTypes = {
   result: PropTypes.object.isRequired,
   index: PropTypes.string,
   differenceInDays: PropTypes.string.isRequired,
@@ -72,6 +77,6 @@ MobileRequestsItems.propTypes = {
   currentQueryState: PropTypes.object.isRequired,
 };
 
-MobileRequestsItems.defaultProps = {
-  index: null,
+ComputerTabletRequestsItem.defaultProps = {
+  index: undefined,
 };

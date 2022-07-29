@@ -11,16 +11,7 @@ import { i18next } from "@translations/invenio_app_rdm/i18next";
 import _get from "lodash/get";
 import _truncate from "lodash/truncate";
 import React from "react";
-import {
-  Button,
-  Card,
-  Divider,
-  Header,
-  Icon,
-  Item,
-  Label,
-  Segment,
-} from "semantic-ui-react";
+import { Button, Card, Divider, Header, Segment } from "semantic-ui-react";
 import {
   RDMBucketAggregationElement,
   RDMCountComponent,
@@ -30,9 +21,11 @@ import {
   RDMRecordSearchBarElement,
   RDMToggleComponent,
 } from "../search/components";
-import { axiosWithconfig, SearchItemCreators } from "../utils";
+import { axiosWithconfig } from "../utils";
 import { DashboardResultView, DashboardSearchLayoutHOC } from "./base";
 import { createSearchAppInit } from "@js/invenio_search_ui";
+import { ComputerTabletUploadsItem } from "./uploads_items/ComputerTabletUploadsItem";
+import { MobileUploadsItem } from "./uploads_items/MobileUploadsItem";
 import PropTypes from "prop-types";
 
 const statuses = {
@@ -44,39 +37,7 @@ const statuses = {
   new_version_draft: { color: "neutral", title: i18next.t("New version draft") },
 };
 
-export const RDMRecordResultsListItem = ({ result, index }) => {
-  const accessStatusId = _get(result, "ui.access_status.id", "open");
-  const accessStatus = _get(result, "ui.access_status.title_l10n", "Open");
-  const accessStatusIcon = _get(result, "ui.access_status.icon", "unlock");
-  const createdDate = _get(
-    result,
-    "ui.created_date_l10n_long",
-    i18next.t("No creation date found.")
-  );
-  const creators = _get(result, "ui.creators.creators", []).slice(0, 3);
-
-  const descriptionStripped = _get(
-    result,
-    "ui.description_stripped",
-    i18next.t("No description")
-  );
-
-  const publicationDate = _get(
-    result,
-    "ui.publication_date_l10n_long",
-    i18next.t("No publication date found.")
-  );
-  const resourceType = _get(
-    result,
-    "ui.resource_type.title_l10n",
-    i18next.t("No resource type")
-  );
-  const title = _get(result, "metadata.title", i18next.t("No title"));
-  const subjects = _get(result, "ui.subjects", []);
-  const version = _get(result, "ui.version", null);
-  const isPublished = result.is_published;
-
-  // Derivatives
+export const RDMRecordResultsListItem = ({ result }) => {
   const editRecord = () => {
     axiosWithconfig
       .post(`/api/records/${result.id}/draft`)
@@ -88,88 +49,59 @@ export const RDMRecordResultsListItem = ({ result, index }) => {
       });
   };
 
-  const viewLink = isPublished ? `/records/${result.id}` : `/uploads/${result.id}`;
+  const isPublished = result.is_published;
+  const access = {
+    accessStatusId: _get(result, "ui.access_status.id", i18next.t("open")),
+    accessStatus: _get(result, "ui.access_status.title_l10n", i18next.t("Open")),
+    accessStatusIcon: _get(result, "ui.access_status.icon", i18next.t("unlock")),
+  };
+  const uiMetadata = {
+    descriptionStripped: _get(
+      result,
+      "ui.description_stripped",
+      i18next.t("No description")
+    ),
+    title: _get(result, "metadata.title", i18next.t("No title")),
+    creators: _get(result, "ui.creators.creators", []).slice(0, 3),
+    subjects: _get(result, "ui.subjects", []),
+    publicationDate: _get(
+      result,
+      "ui.publication_date_l10n_long",
+      i18next.t("No publication date found.")
+    ),
+    resourceType: _get(
+      result,
+      "ui.resource_type.title_l10n",
+      i18next.t("No resource type")
+    ),
+    createdDate: result.ui?.created_date_l10n_long,
+    version: result.ui?.version ?? "",
+    isPublished: isPublished,
+    viewLink: isPublished ? `/records/${result.id}` : `/uploads/${result.id}`,
+  };
+
   return (
-    <Item key={index} className="deposits-list-item mb-20">
-      <div className="status-icon mr-10">
-        <Item.Content verticalAlign="top">
-          <Item.Extra>
-            {isPublished ? (
-              <Icon name="check" className="positive" />
-            ) : (
-              <Icon name="upload" className="negative" />
-            )}
-          </Item.Extra>
-        </Item.Content>
-      </div>
-      <Item.Content style={{ cursor: "default" }}>
-        <Item.Extra className="labels-actions">
-          {/* For reduced spacing between labels. */}
-          {result.status in statuses && result.status !== "published" && (
-            <Label size="tiny" className={statuses[result.status].color}>
-              {statuses[result.status].title}
-            </Label>
-          )}
-          <Label size="tiny" className="primary">
-            {publicationDate} ({version})
-          </Label>
-          <Label size="tiny" className="neutral">
-            {resourceType}
-          </Label>
-          <Label size="tiny" className={`access-status ${accessStatusId}`}>
-            {accessStatusIcon && <i className={`icon ${accessStatusIcon}`} />}
-            {accessStatus}
-          </Label>
-          <Button compact size="small" floated="right" onClick={() => editRecord()}>
-            <Icon name="edit" />
-            {i18next.t("Edit")}
-          </Button>
-          {isPublished && (
-            <Button compact size="small" floated="right" href={viewLink}>
-              <Icon name="eye" />
-              {i18next.t("View")}
-            </Button>
-          )}
-        </Item.Extra>
-        <Item.Header as="h2">
-          <a href={viewLink}>{title}</a>
-        </Item.Header>
-        <Item.Meta>
-          <div className="creatibutors">
-            <SearchItemCreators creators={creators} />
-          </div>
-        </Item.Meta>
-        <Item.Description>
-          {_truncate(descriptionStripped, {
-            length: 350,
-          })}
-        </Item.Description>
-        <Item.Extra>
-          {subjects.map((subject) => (
-            <Label key={subject.title_l10n} size="tiny">
-              {subject.title_l10n}
-            </Label>
-          ))}
-          {createdDate && (
-            <div>
-              <small>
-                {i18next.t("Uploaded on")} <span>{createdDate}</span>
-              </small>
-            </div>
-          )}
-        </Item.Extra>
-      </Item.Content>
-    </Item>
+    <>
+      <ComputerTabletUploadsItem
+        result={result}
+        editRecord={editRecord}
+        statuses={statuses}
+        access={access}
+        uiMetadata={uiMetadata}
+      />
+      <MobileUploadsItem
+        result={result}
+        editRecord={editRecord}
+        statuses={statuses}
+        access={access}
+        uiMetadata={uiMetadata}
+      />
+    </>
   );
 };
 
 RDMRecordResultsListItem.propTypes = {
   result: PropTypes.object.isRequired,
-  index: PropTypes.string,
-};
-
-RDMRecordResultsListItem.defaultProps = {
-  index: null,
 };
 
 // FIXME: Keeping ResultsGrid.item and SearchBar.element because otherwise
