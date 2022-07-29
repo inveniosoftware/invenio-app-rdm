@@ -7,7 +7,7 @@
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import _truncate from "lodash/truncate";
 import React from "react";
-import { Button, Icon, Item, Label } from "semantic-ui-react";
+import { Dropdown, Icon, Item, Label } from "semantic-ui-react";
 import { SearchItemCreators } from "../../utils";
 import PropTypes from "prop-types";
 
@@ -33,13 +33,13 @@ export const MobileUploadsItem = ({
   } = uiMetadata;
 
   const icon = isPublished ? (
-    <Icon name="check" className="positive" />
+    <Icon name="check" className="positive mr-10" />
   ) : (
-    <Icon name="upload" className="negative" />
+    <Icon name="upload" className="negative mr-10" />
   );
 
   return (
-    <Item key={result.id} className="deposits-list-item mb-20 mobile only flex">
+    <Item key={result.id} className="deposits-list-item mobile only flex">
       <Item.Content className="centered">
         <Item.Extra className="labels-actions">
           {result.status in statuses && result.status !== "published" && (
@@ -66,7 +66,7 @@ export const MobileUploadsItem = ({
         </Item.Header>
         <Item.Meta>
           <div className="creatibutors">
-            <SearchItemCreators creators={creators} className="ml-auto mr-auto" />
+            <SearchItemCreators creators={creators} />
           </div>
         </Item.Meta>
         <Item.Description>
@@ -96,28 +96,25 @@ export const MobileUploadsItem = ({
           </Item.Extra>
         </Item.Extra>
         <Item.Extra>
-          <Button
-            compact
-            size="small"
-            floated="right"
-            onClick={() => editRecord()}
-            className="fluid-responsive"
-          >
-            <Icon name="edit" />
-            {i18next.t("Edit")}
-          </Button>
-          {isPublished && (
-            <Button
-              compact
-              size="small"
-              floated="right"
-              href={viewLink}
-              className="fluid-responsive"
-            >
-              <Icon name="eye" />
-              {i18next.t("View")}
-            </Button>
-          )}
+          <Dropdown button text={i18next.t("Actions")} labeled className="icon">
+            <Dropdown.Menu>
+              <Dropdown.Item
+                onClick={() => editRecord()}
+                labelPosition="left"
+                icon="edit"
+                content={i18next.t("Edit")}
+              />
+
+              {isPublished && (
+                <Dropdown.Item
+                  labelPosition="left"
+                  href={viewLink}
+                  icon="eye"
+                  content={i18next.t("View")}
+                />
+              )}
+            </Dropdown.Menu>
+          </Dropdown>
         </Item.Extra>
       </Item.Content>
     </Item>
