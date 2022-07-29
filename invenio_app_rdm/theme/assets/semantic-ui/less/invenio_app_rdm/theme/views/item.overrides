@@ -19,6 +19,10 @@
   color: @mutedTextColor;
 }
 
+.ui.items > .item .content.centered .extra > *:last-child {
+  margin-right: 0;
+}
+
 .ui.items > .item .meta * {
   margin-right: 0.1em;
 }
