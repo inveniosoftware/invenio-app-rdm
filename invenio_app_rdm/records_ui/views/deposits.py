@@ -60,9 +60,9 @@ def get_form_pids_config():
                 scheme_label=scheme_label
             ),
             "managed_help_text": _(
-                "Reserve a {scheme_label} by pressing the button (e.g to "
-                "include it in publications). The {scheme_label} is registered"
-                " when your upload is published."
+                "Reserve a {scheme_label} by pressing the button "
+                "(so it can be included in files prior to upload). "
+                "The {scheme_label} is registered when your upload is published."
             ).format(scheme_label=scheme_label),
             "unmanaged_help_text": _(
                 "A {scheme_label} allows your upload to be easily and "
