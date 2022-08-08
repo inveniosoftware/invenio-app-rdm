@@ -20,6 +20,7 @@ from invenio_rdm_records.services.schemas import RDMRecordSchema
 from invenio_rdm_records.services.schemas.utils import dump_empty
 from invenio_vocabularies.proxies import current_service as vocabulary_service
 from invenio_vocabularies.records.models import VocabularyScheme
+from invenio_vocabularies.services.custom_fields import VocabularyCF
 from marshmallow_utils.fields.babel import gettext_from_dict
 from sqlalchemy.orm import load_only
 
@@ -253,15 +254,14 @@ class VocabulariesOptions:
 
 def load_custom_fields(conf_ui, conf_backend):
     """Load custom fields configuration."""
-    from invenio_vocabularies.custom_fields import VocabularyCF
 
+    vocabulary_fields = []
     for section_cfg in conf_ui:
-        vocabulary_fields = []
         fields = section_cfg["fields"]
         for field in fields:
-            field_type = conf_backend.get(field["field"])
-            if isinstance(field_type, VocabularyCF):
-                field["options"] = field_type.options()
+            field_instance = conf_backend.get(field["field"])
+            if getattr(field, "relation_cls", None):
+                field["options"] = field_instance.options()
                 vocabulary_fields.append(field["field"])
     return {"ui": conf_ui, "vocabularies": vocabulary_fields}
 
@@ -285,8 +285,8 @@ def get_form_config(**kwargs):
             ]
         ),
         custom_fields=load_custom_fields(
-            conf.get("RDM_RECORDS_CUSTOM_FIELDS_UI", {}),
-            conf.get("RDM_RECORDS_CUSTOM_FIELDS", {}),
+            conf.get("RDM_CUSTOM_FIELDS_UI", {}),
+            conf.get("RDM_CUSTOM_FIELDS", {}),
         ),
         **kwargs,
     )
