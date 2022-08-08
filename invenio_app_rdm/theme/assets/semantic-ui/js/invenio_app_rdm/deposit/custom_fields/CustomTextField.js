@@ -20,3 +20,19 @@ export default class CustomTextField extends Component {
     );
   }
 }
+
+
+CustomTextField.propTypes = {
+  fieldPath: PropTypes.string.isRequired,
+  label: PropTypes.string,
+  icon: PropTypes.string,
+  placeholder: PropTypes.string,
+  description: PropTypes.string,
+};
+
+CustomTextField.defaultProps = {
+  label: '',
+  icon: undefined,
+  placeholder: '',
+  description: ''
+};
