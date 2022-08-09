@@ -563,3 +563,7 @@ dl.details-list {
   font-size: 1em;
   margin-left: .1rem;
 }
+
+.capitalize {
+  text-transform: capitalize;
+}

@@ -105,7 +105,8 @@ export const RequestsResults = ({
                         values={sortOptions}
                         label={(cmp) => (
                           <>
-                            {i18next.t("Sort by")} {cmp}
+                            <label className="mr-10">{i18next.t("Sort by")}</label>
+                            {cmp}
                           </>
                         )}
                       />
