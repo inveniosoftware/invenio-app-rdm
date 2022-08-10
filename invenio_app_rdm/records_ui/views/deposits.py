@@ -260,7 +260,7 @@ def load_custom_fields(conf_ui, conf_backend):
         fields = section_cfg["fields"]
         for field in fields:
             field_instance = conf_backend.get(field["field"])
-            if getattr(field, "relation_cls", None):
+            if getattr(field_instance, "relation_cls", None):
                 field["options"] = field_instance.options()
                 vocabulary_fields.append(field["field"])
     return {"ui": conf_ui, "vocabularies": vocabulary_fields}

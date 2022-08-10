@@ -16,9 +16,10 @@ export class CustomFields extends Component {
     const { sections } = this.state;
     return (
       <>
-        {sections.map(({section, fields}) => (<AccordionField
+        {sections.map(({ section, fields }) => (
+          <AccordionField
             key={section}
-            includesPaths={[fields.map(field => `custom_fields.${field.key}`)]}
+            includesPaths={[fields.map((field) => `custom_fields.${field.key}`)]}
             label={section}
             active
           >
