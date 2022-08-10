@@ -6,8 +6,7 @@ import { i18next } from "@translations/invenio_app_rdm/i18next";
 
 export default class CustomTextField extends Component {
   render() {
-    const { key, fieldPath, label, icon, placeholder, description } =
-      this.props;
+    const { key, fieldPath, label, icon, placeholder, description } = this.props;
 
     return (
       <TextField
@@ -21,7 +20,6 @@ export default class CustomTextField extends Component {
   }
 }
 
-
 CustomTextField.propTypes = {
   fieldPath: PropTypes.string.isRequired,
   label: PropTypes.string,
@@ -31,8 +29,8 @@ CustomTextField.propTypes = {
 };
 
 CustomTextField.defaultProps = {
-  label: '',
+  label: "",
   icon: undefined,
-  placeholder: '',
-  description: ''
+  placeholder: "",
+  description: "",
 };

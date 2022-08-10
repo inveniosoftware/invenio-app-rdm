@@ -19,8 +19,11 @@ export async function loadComponent(prefix, { ui_widget: UIWidget, field, ...pro
     }
   } finally {
     if (component) {
-      return React.createElement(component,
-        { ...props, key: field, fieldPath: `custom_fields.${field}` });
+      return React.createElement(component, {
+        ...props,
+        key: field,
+        fieldPath: `custom_fields.${field}`,
+      });
     }
   }
 }
@@ -37,7 +40,7 @@ export async function loadCustomFields(config) {
   const sections = [];
   for (const sectionCfg of config) {
     let fields = await importCustomFields(sectionCfg.fields);
-    sections.push({...sectionCfg, fields })
+    sections.push({ ...sectionCfg, fields });
   }
   return sections;
 }
