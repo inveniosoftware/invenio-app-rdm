@@ -129,6 +129,7 @@ export class RDMDepositForm extends Component {
                   "metadata.title",
                   "metadata.additional_titles",
                   "metadata.publication_date",
+                  "metadata.publisher",
                   "metadata.creators",
                   "metadata.description",
                   "metadata.additional_descriptions",
@@ -180,6 +181,7 @@ export class RDMDepositForm extends Component {
                   autocompleteNames={this.config.autocomplete_names}
                   required
                 />
+                <PublisherField required fieldPath="metadata.publisher" />
                 <DescriptionsField
                   fieldPath="metadata.description"
                   options={this.vocabularies.metadata.descriptions}
@@ -231,7 +233,6 @@ export class RDMDepositForm extends Component {
                   "metadata.languages",
                   "metadata.dates",
                   "metadata.version",
-                  "metadata.publisher",
                 ]}
                 active
                 label={i18next.t("Recommended information")}
@@ -273,7 +274,6 @@ export class RDMDepositForm extends Component {
                   options={this.vocabularies.metadata.dates}
                 />
                 <VersionField fieldPath="metadata.version" />
-                <PublisherField fieldPath="metadata.publisher" />
               </AccordionField>
 
               <AccordionField
