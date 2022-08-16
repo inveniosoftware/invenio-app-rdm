@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { FieldLabel, SelectField } from "react-invenio-forms";
 import _get from "lodash/get";
 
-export default class CustomDropdownField extends Component {
+export default class CustomDropdown extends Component {
   serializeOptions = (options) =>
     options?.map((option) => ({
       text: option.title_l10n,
@@ -22,21 +22,50 @@ export default class CustomDropdownField extends Component {
       options,
       search,
       multiple,
+      clearable,
+      required,
     } = this.props;
     return (
       <>
         <SelectField
           fieldPath={fieldPath}
           label={<FieldLabel htmlFor={fieldPath} icon={icon} label={label} />}
-          clearable
           options={this.serializeOptions(options)}
           search={search}
           multiple={multiple}
-          optimized
           placeholder={placeholder}
+          clearable={clearable}
+          required={required}
+          optimized
         />
         {description && <label className="helptext">{description}</label>}
       </>
     );
   }
 }
+
+CustomDropdown.propTypes = {
+  fieldPath: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  placeholder: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      title_l10n: PropTypes.string.isRequired,
+    })
+  ),
+  icon: PropTypes.string,
+  search: PropTypes.bool,
+  multiple: PropTypes.bool,
+  clearable: PropTypes.bool,
+  required: PropTypes.bool,
+};
+
+CustomDropdown.defaultProps = {
+  icon: undefined,
+  search: false,
+  multiple: false,
+  clearable: true,
+  required: false,
+};

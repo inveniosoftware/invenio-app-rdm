@@ -256,15 +256,24 @@ def load_custom_fields(conf_ui, conf_backend):
     """Load custom fields configuration."""
 
     vocabulary_fields = []
+    error_labels = {}
     conf_backend = {cf.name: cf for cf in conf_backend}
     for section_cfg in conf_ui:
         fields = section_cfg["fields"]
         for field in fields:
             field_instance = conf_backend.get(field["field"])
+            # Compute the dictionary to map field path to error labels
+            # for each custom field
+            error_labels[f"custom_fields.{field['field']}"] = field["props"]["label"]
             if getattr(field_instance, "relation_cls", None):
+                # add vocabulary options to field's properties
                 field["props"]["options"] = field_instance.options(g.identity)
                 vocabulary_fields.append(field["field"])
-    return {"ui": conf_ui, "vocabularies": vocabulary_fields}
+    return {
+        "ui": conf_ui,
+        "vocabularies": vocabulary_fields,
+        "error_labels": error_labels,
+    }
 
 
 def get_form_config(**kwargs):
