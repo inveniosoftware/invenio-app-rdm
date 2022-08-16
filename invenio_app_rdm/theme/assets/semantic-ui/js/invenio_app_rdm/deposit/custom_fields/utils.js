@@ -3,7 +3,7 @@ import React from "react";
 // Path to end user's folder defining custom fields ui widgets
 const USER_CUSTOM_FIELDS_FOLDER = "deposit/custom_fields";
 
-export async function loadComponent(prefix, { ui_widget: UIWidget, field, ...props }) {
+export async function loadComponent(prefix, { ui_widget: UIWidget, field, props }) {
   let component = null;
   try {
     // First look into the prefixed path for the component i.e check if user defined them
