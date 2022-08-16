@@ -11,6 +11,7 @@ export default class CustomAutocompleteDropdown extends Component {
     const {
       description,
       fieldPath,
+      required,
       label,
       icon,
       clearable,
@@ -26,6 +27,7 @@ export default class CustomAutocompleteDropdown extends Component {
             return (
               <RemoteSelectField
                 clearable={clearable}
+                required={required}
                 fieldPath={fieldPath}
                 multiple={multiple}
                 noQueryMessage={placeholder}
@@ -59,3 +61,22 @@ export default class CustomAutocompleteDropdown extends Component {
     );
   }
 }
+
+CustomAutocompleteDropdown.propTypes = {
+  fieldPath: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  placeholder: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  autocomleteFrom: PropTypes.string.isRequired,
+  icon: PropTypes.string,
+  clearable: PropTypes.bool,
+  multiple: PropTypes.bool,
+  required: PropTypes.bool,
+};
+
+CustomAutocompleteDropdown.defaultProps = {
+  icon: undefined,
+  clearable: false,
+  multiple: false,
+  required: false,
+};

@@ -1,6 +1,6 @@
 extends:
-  - '@inveniosoftware/invenio'
-  - '@inveniosoftware/invenio/prettier'
+  - "@inveniosoftware/invenio"
+  - "@inveniosoftware/invenio/prettier"
 
 parser: babel-eslint
 
@@ -13,4 +13,3 @@ env:
   es6: true
   jest: true
   node: true
-  

@@ -2,16 +2,18 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 import { FieldLabel, TextField } from "react-invenio-forms";
-import { i18next } from "@translations/invenio_app_rdm/i18next";
 
-export default class CustomTextField extends Component {
+export default class CustomInput extends Component {
+
   render() {
-    const { key, fieldPath, label, icon, placeholder, description } = this.props;
+    const { fieldPath, required, label, icon, placeholder, description } =
+      this.props;
 
     return (
       <TextField
-        key={key}
+        key={fieldPath}
         fieldPath={fieldPath}
+        required={required}
         helpText={description}
         label={<FieldLabel htmlFor={fieldPath} icon={icon} label={label} />}
         placeholder={placeholder}
@@ -20,17 +22,16 @@ export default class CustomTextField extends Component {
   }
 }
 
-CustomTextField.propTypes = {
+CustomInput.propTypes = {
   fieldPath: PropTypes.string.isRequired,
-  label: PropTypes.string,
+  label: PropTypes.string.isRequired,
+  placeholder: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
   icon: PropTypes.string,
-  placeholder: PropTypes.string,
-  description: PropTypes.string,
+  required: PropTypes.bool,
 };
 
-CustomTextField.defaultProps = {
-  label: "",
+CustomInput.defaultProps = {
   icon: undefined,
-  placeholder: "",
-  description: "",
+  required: false,
 };

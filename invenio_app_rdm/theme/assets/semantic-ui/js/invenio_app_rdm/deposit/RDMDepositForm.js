@@ -42,7 +42,7 @@ import { Card, Container, Divider, Grid, Ref, Sticky } from "semantic-ui-react";
 import PropTypes from "prop-types";
 
 // Custom fields
-import { CustomFields } from "./custom_fields";
+import { CustomFields } from "../custom_fields";
 
 export class RDMDepositForm extends Component {
   constructor(props) {
@@ -105,7 +105,10 @@ export class RDMDepositForm extends Component {
         files={files}
         permissions={permissions}
       >
-        <FormFeedback fieldPath="message" />
+        <FormFeedback
+          fieldPath="message"
+          labels={this.config.custom_fields.error_labels}
+        />
         <CommunityHeader imagePlaceholderLink="/static/images/square-placeholder.png" />
         <Container id="rdm-deposit-form" className="rel-mt-1">
           <Grid className="mt-25">
@@ -174,7 +177,10 @@ export class RDMDepositForm extends Component {
                   recordUI={record.ui}
                   required
                 />
-                <PublicationDateField required fieldPath="metadata.publication_date" />
+                <PublicationDateField
+                  required
+                  fieldPath="metadata.publication_date"
+                />
                 <CreatibutorsField
                   label={i18next.t("Creators")}
                   labelIcon="user"

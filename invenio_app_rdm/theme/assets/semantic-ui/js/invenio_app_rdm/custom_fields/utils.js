@@ -1,19 +1,22 @@
 import React from "react";
 
 // Path to end user's folder defining custom fields ui widgets
-const USER_CUSTOM_FIELDS_FOLDER = "deposit/custom_fields";
+const USER_CUSTOM_FIELDS_FOLDER = "custom_fields";
 
-export async function loadComponent(prefix, { ui_widget: UIWidget, field, props }) {
+export async function loadComponent(
+  prefix,
+  { ui_widget: UIWidget, field, props }
+) {
   let component = null;
   try {
     // First look into the prefixed path for the component i.e check if user defined them
     const module = await import(`@templates/${prefix}/${UIWidget}.js`);
-    component = module.default;
+    component = module.default ?? module[UIWidget];
   } catch (error) {
     try {
       // If not then look into the local path for the component
-      const module = await import(`./${UIWidget}.js`);
-      component = module.default;
+      const module = await import(`./index.js`);
+      component = module[`Custom${UIWidget}`];
     } catch (error) {
       console.error(`Failed to import default component ${UIWidget}.js`);
     }
