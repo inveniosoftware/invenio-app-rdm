@@ -256,6 +256,7 @@ def load_custom_fields(conf_ui, conf_backend):
     """Load custom fields configuration."""
 
     vocabulary_fields = []
+    conf_backend = {cf.name: cf for cf in conf_backend}
     for section_cfg in conf_ui:
         fields = section_cfg["fields"]
         for field in fields:
