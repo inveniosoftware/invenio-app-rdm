@@ -269,6 +269,10 @@ CELERY_BEAT_SCHEDULE = {
         "task": "invenio_rdm_records.services.tasks.update_expired_embargos",
         "schedule": crontab(minute=2, hour=0),
     },
+    "expire_requests": {
+        "task": "invenio_requests.tasks.check_expired_requests",
+        "schedule": crontab(minute=3, hour=0),
+    },
 }
 """Scheduled tasks configuration (aka cronjobs)."""
 
