@@ -19,17 +19,18 @@
   /**Protection Widget*/
 
   .ui.card.access-right {
+
     .field-label-class {
       font-size: 15px;
-      margin-bottom: 1px;
-    }
-
-    label {
-      margin: 0 !important;
+      margin-bottom: .5rem;
     }
 
     label[for="access.embargo.until"] {
       font-size: 13px;
+    }
+
+    .ui.fitted.checkbox {
+      margin-top: .5rem;
     }
 
     .content {
