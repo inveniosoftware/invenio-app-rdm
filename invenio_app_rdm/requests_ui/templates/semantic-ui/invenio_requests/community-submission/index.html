@@ -15,6 +15,8 @@
 {%- block request_header %}
   {% if is_user_dashboard %}
     {% set back_button_url = url_for("invenio_app_rdm_users.requests") %}
+  {% else %}
+    {% set back_button_url = url_for("invenio_communities.communities_requests", pid_value=community.id) %}
   {% endif %}
   {{ submission_request_header(
     request=invenio_request, record=record, draft_is_accepted=draft_is_accepted, back_button_url=back_button_url) }}
