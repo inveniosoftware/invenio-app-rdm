@@ -1,5 +1,5 @@
 extends:
-  - '@inveniosoftware/invenio'
-  - '@inveniosoftware/invenio/prettier'
+  - '@inveniosoftware/eslint-config-invenio'
+  - '@inveniosoftware/eslint-config-invenio/prettier'
 
 parser: '@babel/eslint-parser'
