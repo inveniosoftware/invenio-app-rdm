@@ -180,7 +180,6 @@ export const ShareModal = ({ recid, open, handleClose }) => {
       className="share-modal"
       role="dialog"
       aria-labelledby="access-link-modal-header"
-      aria-expanded={open}
       aria-modal="true"
       tab-index="-1"
     >
