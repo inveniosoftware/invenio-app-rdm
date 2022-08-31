@@ -37,10 +37,9 @@ import {
   VersionField,
   FundingField,
 } from "react-invenio-deposit";
-import { AccordionField } from "react-invenio-forms";
+import { AccordionField, CustomFields } from "react-invenio-forms";
 import { Card, Container, Divider, Grid, Ref, Sticky } from "semantic-ui-react";
 import PropTypes from "prop-types";
-import { CustomFields } from "../custom_fields";
 
 export class RDMDepositForm extends Component {
   constructor(props) {
@@ -386,7 +385,11 @@ export class RDMDepositForm extends Component {
                 />
               </AccordionField>
               {!_isEmpty(this.config.custom_fields.ui) && (
-                <CustomFields config={this.config.custom_fields.ui} />
+                <CustomFields
+                  config={this.config.custom_fields.ui}
+                  templatePath="custom_fields"
+                  fieldPathPrefix="custom_fields"
+                />
               )}
             </Grid.Column>
             <Ref innerRef={this.sidebarRef}>
