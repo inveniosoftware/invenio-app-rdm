@@ -38,6 +38,7 @@ def execute_upgrade_fix():
 
             secho(f"> Updated parent: {record.parent.pid.pid_value}", fg="green")
             secho(f"> Updated record: {record.pid.pid_value}\n", fg="green")
+            return None
         except Exception as e:
             secho("> Error {}".format(repr(e)), fg="red")
             error = "Record {} failed to update".format(record.pid.pid_value)
