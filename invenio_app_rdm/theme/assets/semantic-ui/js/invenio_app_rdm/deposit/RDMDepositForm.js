@@ -387,7 +387,9 @@ export class RDMDepositForm extends Component {
               {!_isEmpty(this.config.custom_fields.ui) && (
                 <CustomFields
                   config={this.config.custom_fields.ui}
-                  templatePath="custom_fields"
+                  templateLoader={(widget) =>
+                    import(`@templates/custom_fields/${widget}.js`)
+                  }
                   fieldPathPrefix="custom_fields"
                 />
               )}
