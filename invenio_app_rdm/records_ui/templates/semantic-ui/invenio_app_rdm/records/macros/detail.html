@@ -173,3 +173,33 @@
     {{ lang.title_l10n }}{{ ", " if not loop.last }}
   {% endfor %}
 {% endmacro %}
+
+{% macro list_vocabulary_values(values) %}
+  {% if values.title_l10n is defined %}
+    {{ values.title_l10n }}
+  {% else %}
+    {% for value in values %}
+      {{ value.title_l10n }}{{ ", " if not loop.last }}
+    {% endfor %}
+  {% endif %}
+{% endmacro %}
+
+{% macro show_section_custom_fields(custom_fields, section_fields) %}
+  {% for field in section_fields %}
+    {% set field_value = custom_fields.get(field.field) %}
+    {% if field_value %}
+      {% if field.template %}
+        {% include field.template %}
+      {% else %}
+        <dt class="ui tiny header">{{ field.props.label }}</dt>
+        {% if field_value is string %}
+          <dd>{{ field_value | safe }}</dd>
+        {% elif field.is_vocabulary %}
+          <dd>{{ list_vocabulary_values(field_value) }}</dd>
+        {% else %}
+          <dd>{{ field_value }}</dd>
+        {% endif %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+{% endmacro %}

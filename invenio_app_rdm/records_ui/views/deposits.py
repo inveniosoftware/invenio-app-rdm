@@ -252,11 +252,14 @@ class VocabulariesOptions:
         return self._vocabularies
 
 
-def load_custom_fields(conf_ui, conf_backend):
+def load_custom_fields():
     """Load custom fields configuration."""
-    vocabulary_fields = []
+    conf = current_app.config
+    conf_ui = conf.get("RDM_CUSTOM_FIELDS_UI", [])
+    conf_backend = {cf.name: cf for cf in conf.get("RDM_CUSTOM_FIELDS", [])}
+    _vocabulary_fields = []
     error_labels = {}
-    conf_backend = {cf.name: cf for cf in conf_backend}
+
     for section_cfg in conf_ui:
         fields = section_cfg["fields"]
         for field in fields:
@@ -264,18 +267,18 @@ def load_custom_fields(conf_ui, conf_backend):
             # Compute the dictionary to map field path to error labels
             # for each custom field. This is the label shown at the top of the upload
             # form
-            field_error_label = field.get("error_label") or field.get("props", {}).get(
-                "label"
-            )
+            field_error_label = field.get("props", {}).get("label")
             if field_error_label:
                 error_labels[f"custom_fields.{field['field']}"] = field_error_label
             if getattr(field_instance, "relation_cls", None):
                 # add vocabulary options to field's properties
                 field["props"]["options"] = field_instance.options(g.identity)
-                vocabulary_fields.append(field["field"])
+                # mark field as vocabulary
+                field["is_vocabulary"] = True
+                _vocabulary_fields.append(field["field"])
     return {
         "ui": conf_ui,
-        "vocabularies": vocabulary_fields,
+        "vocabularies": _vocabulary_fields,
         "error_labels": error_labels,
     }
 
@@ -298,10 +301,7 @@ def get_form_config(**kwargs):
                 "user-dashboard-request-details"
             ]
         ),
-        custom_fields=load_custom_fields(
-            conf.get("RDM_CUSTOM_FIELDS_UI", []),
-            conf.get("RDM_CUSTOM_FIELDS", []),
-        ),
+        custom_fields=load_custom_fields(),
         **kwargs,
     )
 

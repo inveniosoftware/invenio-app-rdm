@@ -20,6 +20,8 @@ from invenio_rdm_records.proxies import current_rdm_records
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
 from marshmallow import ValidationError
 
+from invenio_app_rdm.records_ui.views.deposits import load_custom_fields
+
 from .decorators import (
     pass_file_item,
     pass_file_metadata,
@@ -71,6 +73,8 @@ class PreviewFile:
 #
 # Views
 #
+
+
 @pass_is_preview
 @pass_record_or_draft(expand=True)
 @pass_record_files
@@ -78,6 +82,7 @@ def record_detail(pid_value, record, files, is_preview=False):
     """Record detail page (aka landing page)."""
     files_dict = None if files is None else files.to_dict()
     record_ui = UIJSONSerializer().dump_obj(record.to_dict())
+
     is_draft = record_ui["is_draft"]
     if is_preview and is_draft:
         try:
@@ -92,6 +97,7 @@ def record_detail(pid_value, record, files, is_preview=False):
         permissions=record.has_permissions_to(
             ["edit", "new_version", "manage", "update_draft", "read_files", "review"]
         ),
+        custom_fields_ui=load_custom_fields()["ui"],
         is_preview=is_preview,
         is_draft=is_draft,
     )
