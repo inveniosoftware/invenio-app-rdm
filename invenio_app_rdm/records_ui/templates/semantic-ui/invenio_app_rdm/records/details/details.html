@@ -8,7 +8,7 @@
 #}
 
 
-{%- from "invenio_app_rdm/records/macros/detail.html" import show_references, show_add_titles,
+{%- from "invenio_app_rdm/records/macros/detail.html" import show_section_custom_fields, show_references, show_add_titles,
 show_alternate_identifiers, show_related_identifiers, show_funding, show_dates %}
 
 {% set hasContent = record.ui.additional_titles or
@@ -16,10 +16,12 @@ show_alternate_identifiers, show_related_identifiers, show_funding, show_dates %
                     record.ui.related_identifiers or
                     metadata.funding or
                     record.ui.dates or
-                    metadata.references
+                    metadata.references or
+                    record.custom_fields
 %}
 {% set rights = record.ui.get('rights') %}
 {% set funding = record.ui.get('funding') %}
+{% set custom_fields_per_section = custom_fields_ui | groupby('section') %}
 {% set active = true %}
 
 {% if hasContent %}
@@ -118,6 +120,22 @@ show_alternate_identifiers, show_related_identifiers, show_funding, show_dates %
         >
           {{ _('References') }}
         </a>
+      {% endif %}
+      {% if record.custom_fields %}
+        {%- for section, fields in custom_fields_per_section %}
+          {% set section_format = section | replace(" ", "-") %}
+          <a
+            role="tab"
+            aria-selected="{{ active }}"
+            aria-controls="{{section_format}}-tab-panel"
+            data-tab="{{section_format}}"
+            tabindex="0"
+            class="{{ 'active' if active }} item"
+            id="{{section_format}}-tab"
+          >
+          {{ section }}
+          </a>
+        {%- endfor %}
       {% endif %}
     </div>
 
@@ -218,6 +236,24 @@ show_alternate_identifiers, show_related_identifiers, show_funding, show_dates %
           {{ show_references(metadata.references) }}
         </dl>
       </div>
+    {% endif %}
+
+    {% if record.custom_fields %}
+        {%- for section_cfg in custom_fields_ui %}
+          {% set section_format = section_cfg.section | replace(" ", "-") %}
+          <div
+            role="tabpanel"
+            class="ui bottom attached {{ 'active' if active }} tab segment"
+            data-tab="{{section_format}}"
+            aria-labelledby="{{section_format}}-tab"
+            id="{{section_format}}-tab-panel"
+            hidden="{{ not active }}"
+          >
+            <dl class="details-list">
+              {{ show_section_custom_fields(record.ui.custom_fields, section_cfg.fields) }}
+            </dl>
+          </div>
+        {%- endfor %}
     {% endif %}
   </div>
 {% endif %}
