@@ -19,14 +19,7 @@ import _truncate from "lodash/truncate";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { GridResponsiveSidebarColumn } from "react-invenio-forms";
-import {
-  BucketAggregation,
-  Count,
-  ResultsList,
-  SearchBar,
-  Sort,
-  withState,
-} from "react-searchkit";
+import { Count, ResultsList, SearchBar, Sort, withState } from "react-searchkit";
 import { parametrize } from "react-overridable";
 import {
   LabelTypeInvitation,
@@ -53,15 +46,15 @@ import {
   Icon,
   Segment,
 } from "semantic-ui-react";
-import {
-  RDMBucketAggregationElement,
-  RDMRecordFacetsValues,
-  RDMRecordSearchBarElement,
-  SearchHelpLinks,
-} from "../search/components";
+import { RDMRecordSearchBarElement } from "../search/components";
 import { timestampToRelativeTime } from "../utils";
 import { ComputerTabletRequestsItem } from "./requests_items/ComputerTabletRequestsItem";
 import { MobileRequestsItem } from "./requests_items/MobileRequestsItem";
+import {
+  ContribSearchAppFacets,
+  ContribBucketAggregationElement,
+  ContribBucketAggregationValuesElement,
+} from "@js/invenio_search_ui/components";
 
 export const RequestsResults = ({
   sortOptions,
@@ -344,31 +337,6 @@ RDMRequestsSearchLayout.propTypes = {
   config: PropTypes.object.isRequired,
 };
 
-export const RequestsFacets = ({ aggs }) => {
-  return (
-    <aside aria-label={i18next.t("filters")} id="search-filters">
-      {aggs.map((agg) => {
-        return (
-          <div className="rdm-facet-container" key={agg.title}>
-            <BucketAggregation title={agg.title} agg={agg} />
-          </div>
-        );
-      })}
-
-      <Card className="borderless facet mt-0">
-        <Card.Content>
-          <Card.Header as="h2">{i18next.t("Help")}</Card.Header>
-          <SearchHelpLinks />
-        </Card.Content>
-      </Card>
-    </aside>
-  );
-};
-
-RequestsFacets.propTypes = {
-  aggs: PropTypes.array.isRequired,
-};
-
 export const RDMRequestsEmptyResults = (props) => {
   const { queryString, userSelectionFilters, updateQueryState } = props;
   const isOpen = userSelectionFilters.some(
@@ -477,9 +445,9 @@ const Cancelled = () => <LabelStatusCancel className="rel-mr-1 neutral" size="sm
 const Expired = () => <LabelStatusExpire className="rel-mr-1 expired" size="small" />;
 
 export const defaultComponents = {
-  "BucketAggregation.element": RDMBucketAggregationElement,
-  "BucketAggregationValues.element": RDMRecordFacetsValues,
-  "SearchApp.facets": RequestsFacets,
+  "BucketAggregation.element": ContribBucketAggregationElement,
+  "BucketAggregationValues.element": ContribBucketAggregationValuesElement,
+  "SearchApp.facets": ContribSearchAppFacets,
   "ResultsList.item": RequestsResultsItemTemplateDashboard,
   "ResultsGrid.item": RequestsResultsGridItemTemplate,
   "SearchApp.layout": RDMRequestsSearchLayout,
