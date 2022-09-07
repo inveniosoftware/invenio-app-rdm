@@ -14,11 +14,10 @@ import {
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import _get from "lodash/get";
 import _truncate from "lodash/truncate";
-import React, { useState } from "react";
+import React from "react";
 import Overridable from "react-overridable";
-import { BucketAggregation, Toggle, withState } from "react-searchkit";
+import { withState } from "react-searchkit";
 import {
-  Accordion,
   Button,
   Card,
   Checkbox,
@@ -28,7 +27,6 @@ import {
   Input,
   Item,
   Label,
-  List,
   Message,
   Segment,
 } from "semantic-ui-react";
@@ -194,216 +192,6 @@ export const RDMRecordSearchBarElement = withState(
     );
   }
 );
-
-export const RDMParentFacetValue = ({
-  bucket,
-  keyField,
-  isSelected,
-  childAggCmps,
-  onFilterClicked,
-}) => {
-  const [isActive, setIsActive] = useState(false);
-
-  return (
-    <Accordion className="rdm-multi-facet">
-      <Accordion.Title
-        onClick={() => {}}
-        key={`panel-${bucket.label}`}
-        active={isActive}
-        className="facet-wrapper parent"
-      >
-        <List.Content className="facet-wrapper">
-          <Button
-            icon="angle right"
-            className="transparent"
-            onClick={() => setIsActive(!isActive)}
-            aria-label={i18next.t("Show all sub facets of ") + bucket.label || keyField}
-          />
-          <Checkbox
-            label={bucket.label || keyField}
-            id={`${keyField}-facet-checkbox`}
-            aria-describedby={`${keyField}-count`}
-            value={keyField}
-            checked={isSelected}
-            onClick={() => onFilterClicked(keyField)}
-          />
-          <Label circular id={`${keyField}-count`} className="facet-count">
-            {bucket.doc_count}
-          </Label>
-        </List.Content>
-      </Accordion.Title>
-      <Accordion.Content active={isActive}>{childAggCmps}</Accordion.Content>
-    </Accordion>
-  );
-};
-
-RDMParentFacetValue.propTypes = {
-  bucket: PropTypes.object.isRequired,
-  keyField: PropTypes.string.isRequired,
-  isSelected: PropTypes.bool.isRequired,
-  childAggCmps: PropTypes.node.isRequired,
-  onFilterClicked: PropTypes.func.isRequired,
-};
-
-export const RDMFacetValue = ({ bucket, keyField, isSelected, onFilterClicked }) => {
-  return (
-    <List.Content className="facet-wrapper">
-      <Checkbox
-        onClick={() => onFilterClicked(keyField)}
-        label={bucket.label || keyField}
-        id={`${keyField}-facet-checkbox`}
-        aria-describedby={`${keyField}-count`}
-        value={keyField}
-        checked={isSelected}
-      />
-      <Label circular id={`${keyField}-count`} className="facet-count">
-        {bucket.doc_count}
-      </Label>
-    </List.Content>
-  );
-};
-
-RDMFacetValue.propTypes = {
-  bucket: PropTypes.object.isRequired,
-  keyField: PropTypes.string.isRequired,
-  isSelected: PropTypes.bool.isRequired,
-  onFilterClicked: PropTypes.func.isRequired,
-};
-
-export const RDMRecordFacetsValues = ({
-  bucket,
-  isSelected,
-  onFilterClicked,
-  childAggCmps,
-}) => {
-  const hasChildren = childAggCmps && childAggCmps.props.buckets.length > 0;
-  const keyField = bucket.key_as_string ? bucket.key_as_string : bucket.key;
-  return (
-    <List.Item key={bucket.key}>
-      {hasChildren ? (
-        <RDMParentFacetValue
-          bucket={bucket}
-          keyField={keyField}
-          isSelected={isSelected}
-          childAggCmps={childAggCmps}
-          onFilterClicked={onFilterClicked}
-        />
-      ) : (
-        <RDMFacetValue
-          bucket={bucket}
-          keyField={keyField}
-          isSelected={isSelected}
-          onFilterClicked={onFilterClicked}
-        />
-      )}
-    </List.Item>
-  );
-};
-
-RDMRecordFacetsValues.propTypes = {
-  bucket: PropTypes.object.isRequired,
-  childAggCmps: PropTypes.node,
-  isSelected: PropTypes.bool.isRequired,
-  onFilterClicked: PropTypes.func.isRequired,
-};
-
-RDMRecordFacetsValues.defaultProps = {
-  childAggCmps: null,
-};
-
-export const SearchHelpLinks = () => {
-  return (
-    <Overridable id="RdmSearch.SearchHelpLinks">
-      <List>
-        <List.Item>
-          <a href="/help/search">{i18next.t("Search guide")}</a>
-        </List.Item>
-      </List>
-    </Overridable>
-  );
-};
-
-export const RDMRecordFacets = ({ aggs }) => {
-  return (
-    <aside aria-label={i18next.t("filters")} id="search-filters">
-      <Toggle
-        title={i18next.t("Versions")}
-        label={i18next.t("View all versions")}
-        filterValue={["allversions", "true"]}
-      />
-      {aggs.map((agg) => {
-        return (
-          <div className="rdm-facet-container" key={agg.title}>
-            <BucketAggregation title={agg.title} agg={agg} />
-          </div>
-        );
-      })}
-      <Card className="borderless facet mt-0">
-        <Card.Content>
-          <Card.Header as="h2">{i18next.t("Help")}</Card.Header>
-          <SearchHelpLinks />
-        </Card.Content>
-      </Card>
-    </aside>
-  );
-};
-
-RDMRecordFacets.propTypes = {
-  aggs: PropTypes.array.isRequired,
-};
-
-export const RDMBucketAggregationElement = ({
-  agg,
-  title,
-  containerCmp,
-  updateQueryFilters,
-}) => {
-  const clearFacets = () => {
-    if (containerCmp.props.selectedFilters.length) {
-      updateQueryFilters([agg.aggName, ""], containerCmp.props.selectedFilters);
-    }
-  };
-
-  const hasSelections = () => {
-    return !!containerCmp.props.selectedFilters.length;
-  };
-
-  return (
-    <Card className="borderless facet">
-      <Card.Content>
-        <Card.Header as="h2">
-          {title}
-
-          {hasSelections() && (
-            <Button
-              basic
-              icon
-              size="mini"
-              floated="right"
-              onClick={clearFacets}
-              aria-label={i18next.t("Clear selection")}
-              title={i18next.t("Clear selection")}
-            >
-              {i18next.t("Clear")}
-            </Button>
-          )}
-        </Card.Header>
-        {containerCmp}
-      </Card.Content>
-    </Card>
-  );
-};
-
-RDMBucketAggregationElement.propTypes = {
-  agg: PropTypes.object.isRequired,
-  title: PropTypes.string.isRequired,
-  containerCmp: PropTypes.node,
-  updateQueryFilters: PropTypes.func.isRequired,
-};
-
-RDMBucketAggregationElement.defaultProps = {
-  containerCmp: null,
-};
 
 export const RDMToggleComponent = ({
   updateQueryFilters,

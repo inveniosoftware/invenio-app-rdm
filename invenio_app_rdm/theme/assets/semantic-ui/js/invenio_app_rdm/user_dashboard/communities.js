@@ -10,18 +10,17 @@
 import { createSearchAppInit } from "@js/invenio_search_ui";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import React from "react";
-import { BucketAggregation } from "react-searchkit";
 import { Button, Card, Header, Icon, Segment } from "semantic-ui-react";
-import {
-  RDMBucketAggregationElement,
-  RDMRecordFacetsValues,
-  RDMRecordSearchBarElement,
-  SearchHelpLinks,
-} from "../search/components";
+import { RDMRecordSearchBarElement } from "../search/components";
 import { DashboardResultView, DashboardSearchLayoutHOC } from "./base";
 import { ComputerTabletCommunitiesItem } from "./communities_items/ComputerTabletCommunitiesItem";
 import { MobileCommunitiesItem } from "./communities_items/MobileCommunitiesItem";
 import PropTypes from "prop-types";
+import {
+  ContribSearchAppFacets,
+  ContribBucketAggregationElement,
+  ContribBucketAggregationValuesElement,
+} from "@js/invenio_search_ui/components";
 
 function ResultsGridItemTemplate({ result, index }) {
   return (
@@ -77,31 +76,6 @@ export const DashboardCommunitiesSearchLayout = DashboardSearchLayoutHOC({
   ),
 });
 
-export const CommunitiesFacets = ({ aggs }) => {
-  return (
-    <aside aria-label={i18next.t("filters")} id="search-filters">
-      {aggs.map((agg) => {
-        return (
-          <div className="rdm-facet-container" key={agg.title}>
-            <BucketAggregation title={agg.title} agg={agg} />
-          </div>
-        );
-      })}
-
-      <Card className="borderless facet mt-0">
-        <Card.Content>
-          <Card.Header as="h2">{i18next.t("Help")}</Card.Header>
-          <SearchHelpLinks />
-        </Card.Content>
-      </Card>
-    </aside>
-  );
-};
-
-CommunitiesFacets.propTypes = {
-  aggs: PropTypes.array.isRequired,
-};
-
 export const RDMCommunitiesEmptyResults = (props) => {
   const { queryString, resetQuery } = props;
   return (
@@ -125,12 +99,12 @@ RDMCommunitiesEmptyResults.propTypes = {
 };
 
 export const defaultComponents = {
-  "BucketAggregation.element": RDMBucketAggregationElement,
-  "BucketAggregationValues.element": RDMRecordFacetsValues,
+  "BucketAggregation.element": ContribBucketAggregationElement,
+  "BucketAggregationValues.element": ContribBucketAggregationValuesElement,
   "EmptyResults.element": RDMCommunitiesEmptyResults,
   "ResultsList.item": CommunitiesResultsItemTemplate,
   "ResultsGrid.item": ResultsGridItemTemplate,
-  "SearchApp.facets": CommunitiesFacets,
+  "SearchApp.facets": ContribSearchAppFacets,
   "SearchApp.layout": DashboardCommunitiesSearchLayout,
   "SearchApp.results": DashboardResultView,
   "SearchBar.element": RDMRecordSearchBarElement,
