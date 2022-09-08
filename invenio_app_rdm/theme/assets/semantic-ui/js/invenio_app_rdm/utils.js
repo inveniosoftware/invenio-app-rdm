@@ -51,22 +51,26 @@ export function SearchItemCreators({ creators, className }) {
     let link = null;
     let linkTitle = null;
     let icon = null;
+    let alt = "";
 
     switch (scheme) {
       case "orcid":
         link = `https://orcid.org/${identifier}`;
         linkTitle = i18next.t("ORCID profile");
         icon = "/static/images/orcid.svg";
+        alt = "ORCID logo";
         break;
       case "ror":
         link = `https://ror.org/${identifier}`;
         linkTitle = i18next.t("ROR profile");
         icon = "/static/images/ror-icon.svg";
+        alt = "ROR logo";
         break;
       case "gnd":
         link = `https://d-nb.info/gnd/${identifier}`;
         linkTitle = i18next.t("GND profile");
         icon = "/static/images/gnd-icon.svg";
+        alt = "GND logo";
         break;
       default:
         return null;
@@ -80,7 +84,7 @@ export function SearchItemCreators({ creators, className }) {
         title={`${name}: ${linkTitle}`}
         key={scheme}
       >
-        <img className="inline-id-icon ml-5" src={icon} alt="" />
+        <img className="inline-id-icon ml-5" src={icon} alt={alt} />
       </a>
     );
     return icon;
