@@ -633,6 +633,16 @@ APP_RDM_DEPOSIT_FORM_QUOTA = {
 }
 """Deposit file upload quota """
 
+APP_RDM_DEPOSIT_API_HEADERS = {
+    "json": {"Content-Type": "application/json"},
+    "vnd+json": {
+        "Content-Type": "application/json",
+        "Accept": "application/vnd.inveniordm.v1+json",
+    },
+    "octet-stream": {"Content-Type": "application/octet-stream"},
+}
+"""Deposit api headers """
+
 APP_RDM_DISPLAY_DECIMAL_FILE_SIZES = True
 """Display the file sizes in powers of 1000 (KB, ...) or 1024 (KiB, ...)."""
 
