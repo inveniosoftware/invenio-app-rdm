@@ -34,6 +34,7 @@ from datetime import datetime, timedelta
 from celery.schedules import crontab
 from flask_principal import Denial
 from invenio_access.permissions import any_user
+from invenio_rdm_records.config import RDM_NAMESPACES
 from invenio_vocabularies.config import (
     VOCABULARIES_DATASTREAM_READERS,
     VOCABULARIES_DATASTREAM_TRANSFORMERS,
@@ -664,6 +665,9 @@ COMMUNITIES_RECORDS_SEARCH = {
     "sort": ["bestmatch", "newest", "oldest", "version"],
 }
 """Community requests search configuration (i.e list of community requests)"""
+
+COMMUNITIES_NAMESPACES = RDM_NAMESPACES
+"""Make the namespaces generic for the whole application."""
 
 RDM_SEARCH_USER_COMMUNITIES = {
     "facets": ["visibility", "type"],
