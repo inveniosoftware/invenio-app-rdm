@@ -31,9 +31,9 @@
 {%- endmacro %}
 
 
-{% macro list_sizes(sizes) %}
-  {% for size in sizes %}
-    {{ size }}{{ ", " if not loop.last }}
+{% macro list_string_values(values) %}
+  {% for value in values %}
+    {{ value }}{{ ", " if not loop.last }}
   {% endfor %}
 {% endmacro %}
 
@@ -187,7 +187,7 @@
 {% macro show_section_custom_fields(custom_fields, section_fields) %}
   {% for field in section_fields %}
     {% set field_value = custom_fields.get(field.field) %}
-    {% if field_value %}
+    {% if field_value is defined %}
       {% if field.template %}
         {% include field.template %}
       {% else %}
@@ -196,6 +196,8 @@
           <dd>{{ field_value | safe }}</dd>
         {% elif field.is_vocabulary %}
           <dd>{{ list_vocabulary_values(field_value) }}</dd>
+        {% elif field_value|length > 0 and field_value[0] is string %}
+            <dd>{{ list_string_values(field_value) }}</dd>
         {% else %}
           <dd>{{ field_value }}</dd>
         {% endif %}
