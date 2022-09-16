@@ -76,7 +76,19 @@
                 </a>
               {%- endfor %}
 
-              <div class="divider"></div>
+              <div class="ui divider"></div>
+
+              {% set ns = namespace(admin_menu=False) %} 
+              {%- for item in current_menu.submenu('profile-admin').children if item.visible %}
+                {% set ns.admin_menu = True %}
+                <a role="menuitem" class="item" href="{{ item.url }}" tabindex="-1">
+                  {{ item.text|safe }}
+                </a>
+              {%- endfor %} 
+              {% if ns.admin_menu %}
+                <div class="ui divider"></div>
+              {% endif %}  
+
               <a role="menuitem" class="item" href="{{ url_for_security('logout') }}" tabindex="-1">
                 <i class="sign-out icon"></i>
                 {{ _('Log out') }}
@@ -94,6 +106,17 @@
             {%- endfor %}
 
             <div class="ui divider"></div>
+
+            {% set ns = namespace(admin_menu=False) %} 
+            {%- for item in current_menu.submenu('profile-admin').children if item.visible %}
+              {% set ns.admin_menu = True %}
+              <a role="menuitem" class="item" href="{{ item.url }}">
+                {{ item.text|safe }}
+              </a>
+            {%- endfor %}
+            {% if ns.admin_menu %}
+              <div class="ui divider"></div>
+            {% endif %}  
 
             <a role="menuitem" class="item" href="{{ url_for_security('logout') }}">
                 <i class="sign-out icon"></i>
