@@ -32,7 +32,7 @@
 }
 
 .right.aligned.column {
-  .ui.button:last-of-type {
+  .ui.button:last-child {
     margin-right: 0 !important;
   }
 }
