@@ -95,10 +95,10 @@
 
     .field,
     .invenio-group-field.fields {
-      margin-bottom: 2rem;
+      margin-bottom: 0.5rem;
 
       .field {
-        margin-bottom: 1rem;
+        margin-bottom: 0.5rem;
 
         &:last-child,
         &.subjects-field {
@@ -111,7 +111,7 @@
       }
 
       & ~ label.helptext {
-        margin-top: -1.5rem; // counterweight Form field bottom margin
+        margin-top: 0;
         margin-bottom: 2rem;
       }
 
