@@ -32,10 +32,7 @@
               <i class="fitted dropdown icon inverted"></i>
               <div class="menu">
                   {%- for item in plus_menu_items if item.visible %}
-                      <a class="item"
-                          style="color:black;"
-                          href="{{ item.url }}">{{ item.text|safe }}
-                      </a>
+                    <a class="item" href="{{ item.url }}">{{ item.text|safe }} </a>
                   {%- endfor %}
               </div>
           </div>
@@ -98,7 +95,7 @@
 
             <div class="ui divider"></div>
 
-            <a role="menuitem" class="item" style="color:black;" href="{{ url_for_security('logout') }}">
+            <a role="menuitem" class="item" href="{{ url_for_security('logout') }}">
                 <i class="sign-out icon"></i>
                 {{ _('Log out') }}
             </a>
