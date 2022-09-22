@@ -38,7 +38,7 @@ import {
   FundingField,
 } from "react-invenio-deposit";
 import { AccordionField, CustomFields } from "react-invenio-forms";
-import { Card, Container, Divider, Grid, Ref, Sticky } from "semantic-ui-react";
+import { Card, Container, Grid, Ref, Sticky } from "semantic-ui-react";
 import PropTypes from "prop-types";
 
 export class RDMDepositForm extends Component {
@@ -358,7 +358,6 @@ export class RDMDepositForm extends Component {
                     return { headerContent, descriptionContent, awardOrFunder };
                   }}
                 />
-                <Divider />
               </AccordionField>
 
               <AccordionField
