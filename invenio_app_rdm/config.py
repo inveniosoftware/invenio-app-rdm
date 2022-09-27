@@ -666,9 +666,6 @@ COMMUNITIES_RECORDS_SEARCH = {
 }
 """Community requests search configuration (i.e list of community requests)"""
 
-COMMUNITIES_NAMESPACES = RDM_NAMESPACES
-"""Make the namespaces generic for the whole application."""
-
 RDM_SEARCH_USER_COMMUNITIES = {
     "facets": ["visibility", "type"],
     "sort": ["bestmatch", "newest", "oldest"],
