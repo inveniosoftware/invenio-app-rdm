@@ -185,13 +185,13 @@
 {% endmacro %}
 
 {% macro show_section_custom_fields(custom_fields, section_fields) %}
-  {% for field in section_fields %}
-    {% set field_value = custom_fields.get(field.field) %}
+  {% for field_cfg in section_fields %}
+    {% set field_value = custom_fields.get(field_cfg.field) %}
     {% if field_value %}
-      {% if field.template %}
-        {% include field.template %}
+      {% if field_cfg.template %}
+        {% include field_cfg.template %}
       {% else %}
-        <dt class="ui tiny header">{{ field.props.label }}</dt>
+        <dt class="ui tiny header">{{ field_cfg.props.label }}</dt>
         {% if field_value is string %}
           <dd>{{ field_value | safe }}</dd>
         {% elif field.is_vocabulary %}
