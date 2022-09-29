@@ -120,22 +120,27 @@ show_alternate_identifiers, show_related_identifiers, show_funding, show_dates %
         >
           {{ _('References') }}
         </a>
+        {% set active = false %}
       {% endif %}
       {% if record.custom_fields %}
+        {# Needed to use namespace as variable assignments are cleared in the end of
+           for loops i.e cannot set active = false #}
+        {% set active_cf = namespace(value=active) %}
         {%- for section, fields in custom_fields_per_section %}
           {% set section_format = section | replace(" ", "-") %}
           <a
             role="tab"
-            aria-selected="{{ active }}"
+            aria-selected="{{ active_cf.value }}"
             aria-controls="{{section_format}}-tab-panel"
             data-tab="{{section_format}}"
             tabindex="0"
-            class="{{ 'active' if active }} item"
+            class="{{ 'active' if active_cf.value }} item"
             id="{{section_format}}-tab"
           >
           {{ section }}
           </a>
-        {%- endfor %}
+          {% set active_cf.value = false %}
+          {%- endfor %}
       {% endif %}
     </div>
 
@@ -239,21 +244,25 @@ show_alternate_identifiers, show_related_identifiers, show_funding, show_dates %
     {% endif %}
 
     {% if record.custom_fields %}
-        {%- for section_cfg in custom_fields_ui %}
-          {% set section_format = section_cfg.section | replace(" ", "-") %}
-          <div
-            role="tabpanel"
-            class="ui bottom attached {{ 'active' if active }} tab segment"
-            data-tab="{{section_format}}"
-            aria-labelledby="{{section_format}}-tab"
-            id="{{section_format}}-tab-panel"
-            hidden="{{ not active }}"
-          >
-            <dl class="details-list">
-              {{ show_section_custom_fields(record.ui.custom_fields, section_cfg.fields) }}
-            </dl>
-          </div>
-        {%- endfor %}
+      {# Needed to use namespace as variable assignments are cleared in the end of for
+         loops i.e cannot set active = false #}
+      {% set active_cf = namespace(value=active) %}
+      {%- for section_cfg in custom_fields_ui %}
+        {% set section_format = section_cfg.section | replace(" ", "-") %}
+        <div
+          role="tabpanel"
+          class="ui bottom attached {{ 'active' if active_cf.value }} tab segment"
+          data-tab="{{section_format}}"
+          aria-labelledby="{{section_format}}-tab"
+          id="{{section_format}}-tab-panel"
+          hidden="{{ not active_cf.value }}"
+        >
+          <dl class="details-list">
+            {{ show_section_custom_fields(record.ui.custom_fields, section_cfg.fields) }}
+          </dl>
+        </div>
+        {% set active_cf.value = false %}
+      {%- endfor %}
     {% endif %}
   </div>
 {% endif %}
