@@ -194,7 +194,7 @@
         <dt class="ui tiny header">{{ field_cfg.props.label }}</dt>
         {% if field_value is string %}
           <dd>{{ field_value | safe }}</dd>
-        {% elif field.is_vocabulary %}
+        {% elif field_cfg.is_vocabulary %}
           <dd>{{ list_vocabulary_values(field_value) }}</dd>
         {% elif field_value|length > 0 and field_value[0] is string %}
             <dd>{{ list_string_values(field_value) }}</dd>
