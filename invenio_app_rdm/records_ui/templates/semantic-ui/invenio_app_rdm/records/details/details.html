@@ -22,10 +22,9 @@ show_alternate_identifiers, show_related_identifiers, show_funding, show_dates %
 {% set rights = record.ui.get('rights') %}
 {% set funding = record.ui.get('funding') %}
 {% set active = true %}
+{% set active_cf_sections = namespace(items=[]) %}
 
 {% if hasContent %}
-  <div class="ui divider"></div>
-
   <h2 id="record-details-heading">{{ _('Additional details') }}</h2>
 
   <div class="rdm-tab-container ml-0-mobile mr-0-mobile">
@@ -135,6 +134,7 @@ show_alternate_identifiers, show_related_identifiers, show_funding, show_dates %
             {% endif %}
           {% endfor %}
           {% if section_has_fields.value %}
+            {% set active_cf_sections.items = active_cf_sections.items + [section_cfg.section] %}
             <a
             role="tab"
             aria-selected="{{ active_cf.value }}"
@@ -255,7 +255,7 @@ show_alternate_identifiers, show_related_identifiers, show_funding, show_dates %
       {# Needed to use namespace as variable assignments are cleared in the end of for
          loops i.e cannot set active = false #}
       {% set active_cf = namespace(value=active) %}
-      {%- for section_cfg in custom_fields_ui %}
+      {%- for section_cfg in custom_fields_ui if section_cfg.section in active_cf_sections.items %}
         {% set section_format = section_cfg.section | replace(" ", "-") %}
         <div
           role="tabpanel"
