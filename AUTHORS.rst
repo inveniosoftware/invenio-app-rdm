@@ -9,3 +9,4 @@ Authors
 =======
 
 - CERN
+- KTH
