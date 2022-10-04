@@ -27,6 +27,7 @@ from invenio_app_rdm.records_ui.views.decorators import (
     draft_files_service,
     files_service,
 )
+from invenio_app_rdm.records_ui.views.deposits import load_custom_fields
 
 
 def _resolve_topic_draft(request):
@@ -104,6 +105,7 @@ def user_dashboard_request_view(request, **kwargs):
             draft_is_accepted=request_is_accepted,
             files=files,
             is_user_dashboard=True,
+            custom_fields_ui=load_custom_fields()["ui"],
         )
 
     elif is_invitation:
@@ -150,6 +152,7 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
             draft_is_accepted=request_is_accepted,
             files=files,
             user_avatar=avatar,
+            custom_fields_ui=load_custom_fields()["ui"],
         )
 
     elif is_invitation:

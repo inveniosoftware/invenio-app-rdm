@@ -303,6 +303,9 @@ def get_form_config(**kwargs):
         ),
         custom_fields=load_custom_fields(),
         apiHeaders=conf.get("APP_RDM_DEPOSIT_API_HEADERS"),
+        publish_modal_extra=current_app.config.get(
+            "APP_RDM_DEPOSIT_FORM_PUBLISH_MODAL_EXTRA"
+        ),
         **kwargs,
     )
 

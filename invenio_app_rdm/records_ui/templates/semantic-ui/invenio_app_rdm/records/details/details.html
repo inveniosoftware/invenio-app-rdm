@@ -21,12 +21,10 @@ show_alternate_identifiers, show_related_identifiers, show_funding, show_dates %
 %}
 {% set rights = record.ui.get('rights') %}
 {% set funding = record.ui.get('funding') %}
-{% set custom_fields_per_section = custom_fields_ui | groupby('section') %}
 {% set active = true %}
+{% set active_cf_sections = namespace(items=[]) %}
 
 {% if hasContent %}
-  <div class="ui divider"></div>
-
   <h2 id="record-details-heading">{{ _('Additional details') }}</h2>
 
   <div class="rdm-tab-container ml-0-mobile mr-0-mobile">
@@ -126,9 +124,18 @@ show_alternate_identifiers, show_related_identifiers, show_funding, show_dates %
         {# Needed to use namespace as variable assignments are cleared in the end of
            for loops i.e cannot set active = false #}
         {% set active_cf = namespace(value=active) %}
-        {%- for section, fields in custom_fields_per_section %}
-          {% set section_format = section | replace(" ", "-") %}
-          <a
+        {%- for section_cfg in custom_fields_ui %}
+          {% set section_has_fields = namespace(value=false) %}
+          {% set section_format = section_cfg.section | replace(" ", "-") %}
+          {# Show the section if at least one of its fields is in record #}
+          {% for field_cfg in section_cfg.fields %}
+            {% if record.custom_fields.get(field_cfg.field) %}
+              {% set section_has_fields.value = true %}
+            {% endif %}
+          {% endfor %}
+          {% if section_has_fields.value %}
+            {% set active_cf_sections.items = active_cf_sections.items + [section_cfg.section] %}
+            <a
             role="tab"
             aria-selected="{{ active_cf.value }}"
             aria-controls="{{section_format}}-tab-panel"
@@ -136,11 +143,12 @@ show_alternate_identifiers, show_related_identifiers, show_funding, show_dates %
             tabindex="0"
             class="{{ 'active' if active_cf.value }} item"
             id="{{section_format}}-tab"
-          >
-          {{ section }}
-          </a>
-          {% set active_cf.value = false %}
-          {%- endfor %}
+            >
+            {{ section_cfg.section }}
+            </a>
+            {% set active_cf.value = false %}
+          {% endif %}
+        {%- endfor %}
       {% endif %}
     </div>
 
@@ -247,7 +255,7 @@ show_alternate_identifiers, show_related_identifiers, show_funding, show_dates %
       {# Needed to use namespace as variable assignments are cleared in the end of for
          loops i.e cannot set active = false #}
       {% set active_cf = namespace(value=active) %}
-      {%- for section_cfg in custom_fields_ui %}
+      {%- for section_cfg in custom_fields_ui if section_cfg.section in active_cf_sections.items %}
         {% set section_format = section_cfg.section | replace(" ", "-") %}
         <div
           role="tabpanel"
