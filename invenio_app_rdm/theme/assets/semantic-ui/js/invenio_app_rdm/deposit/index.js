@@ -8,7 +8,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { getInputFromDOM } from "react-invenio-deposit";
-import "semantic-ui-css/semantic.min.css";
+import "semantic-ui-less/semantic.less";
 import { RDMDepositForm } from "./RDMDepositForm";
 
 ReactDOM.render(
