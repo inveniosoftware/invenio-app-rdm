@@ -14,11 +14,13 @@ on:
     branches:
       - master
       - 'feature/*'
+      -  maint-*
   pull_request:
     branches:
       - master
       - 'maint-**'
       - 'feature/**'
+      -  maint-*
   schedule:
     # * is a special character in YAML so you have to quote this string
     - cron:  '0 3 * * 6'
