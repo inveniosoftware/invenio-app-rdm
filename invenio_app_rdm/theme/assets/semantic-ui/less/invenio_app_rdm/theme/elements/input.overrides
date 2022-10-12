@@ -23,10 +23,6 @@
             .prompt {
                 border-radius: @defaultBorderRadius;
             }
-            .search.icon {
-                background-color: @searchButtonColor;
-                opacity: 1;
-            }
         }
 
         .results {
@@ -39,10 +35,6 @@
                     width: @activeSearchWidth;
                 }
             }
-        }
-
-        .search.icon {
-            color: white;
         }
     }
 }
