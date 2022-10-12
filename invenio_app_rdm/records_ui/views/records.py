@@ -85,8 +85,14 @@ def record_detail(pid_value, record, files, is_preview=False):
 
     is_draft = record_ui["is_draft"]
     if is_preview and is_draft:
+        # it is possible to save incomplete drafts that break the normal
+        # (preview) landing page rendering
+        # to prevent this from happening, we validate the draft's structure
+        # see: https://github.com/inveniosoftware/invenio-app-rdm/issues/1051
         try:
-            current_rdm_records.records_service.validate_draft(g.identity, record.id)
+            current_rdm_records.records_service.validate_draft(
+                g.identity, record.id, ignore_field_permissions=True
+            )
         except ValidationError:
             abort(404)
 
