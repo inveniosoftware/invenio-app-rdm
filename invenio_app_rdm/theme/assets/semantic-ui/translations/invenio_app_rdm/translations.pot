@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-05-27T08:25:23.674Z\n"
-"PO-Revision-Date: 2022-05-27T08:25:23.674Z\n"
+"POT-Creation-Date: 2022-10-12T06:58:21.832Z\n"
+"PO-Revision-Date: 2022-10-12T06:58:21.832Z\n"
 "Language: en\n"
 
 msgid "Basic information"
@@ -38,9 +38,6 @@ msgstr "Contributors"
 
 msgid "Alternate identifiers"
 msgstr "Alternate identifiers"
-
-msgid "Alternate identifier(s)"
-msgstr "Alternate identifier(s)"
 
 msgid "Related works"
 msgstr "Related works"
@@ -93,9 +90,6 @@ msgstr "Get a link"
 msgid "Copy link"
 msgstr "Copy link"
 
-msgid "No link has been created. Click on 'Get a Link' to make a new link"
-msgstr "No link has been created. Click on 'Get a Link' to make a new link"
-
 msgid "Delete link"
 msgstr "Delete link"
 
@@ -112,13 +106,6 @@ msgstr ""
 "Anyone with this link <2>can view all published and unpublished "
 "versions</2> of this record & files."
 
-msgid ""
-"Anyone with an account and this link <2>can edit all versions</2> of this "
-"record & files."
-msgstr ""
-"Anyone with an account and this link <2>can edit all versions</2> of this "
-"record & files."
-
 msgid "Uploaded on"
 msgstr "Uploaded on"
 
@@ -128,32 +115,14 @@ msgstr "Search"
 msgid "Search guide"
 msgstr "Search guide"
 
-msgid "filters"
-msgstr "filters"
-
-msgid "Versions"
-msgstr "Versions"
-
-msgid "View all versions"
-msgstr "View all versions"
-
 msgid "result(s) found"
 msgstr "result(s) found"
 
 msgid "Sort by"
 msgstr "Sort by"
 
-msgid "results per page"
-msgstr "results per page"
-
-msgid "No community type"
-msgstr "No community type"
-
 msgid "View"
 msgstr "View"
-
-msgid "Search communities..."
-msgstr "Search communities..."
 
 msgid "New community"
 msgstr "New community"
@@ -166,9 +135,6 @@ msgstr "Open"
 
 msgid "Closed"
 msgstr "Closed"
-
-msgid "Search requests..."
-msgstr "Search requests..."
 
 msgid "All done!"
 msgstr "All done!"
@@ -197,9 +163,6 @@ msgstr "Make your first upload!"
 msgid "New upload"
 msgstr "New upload"
 
-msgid "Search uploads..."
-msgstr "Search uploads..."
-
 msgid "ORCID profile"
 msgstr "ORCID profile"
 
@@ -221,15 +184,6 @@ msgstr "Copied"
 msgid "Reset search"
 msgstr "Reset search"
 
-msgid "Help"
-msgstr "Help"
-
-msgid "Clear selection"
-msgstr "Clear selection"
-
-msgid "Clear"
-msgstr "Clear"
-
 msgid "We couldn't find any matches for "
 msgstr "We couldn't find any matches for "
 
@@ -242,29 +196,17 @@ msgstr "Start over"
 msgid "ProTip"
 msgstr "ProTip"
 
-msgid "will give you all the publications from 2017 until today"
-msgstr "will give you all the publications from 2017 until today"
-
 msgid "For more tips, check out our "
 msgstr "For more tips, check out our "
 
 msgid "search guide"
 msgstr "search guide"
 
-msgid " for defining advanced search queries"
-msgstr " for defining advanced search queries"
-
 msgid "Export"
 msgstr "Export"
 
-msgid "Show all sub facets of "
-msgstr "Show all sub facets of "
-
 msgid "Filter results"
 msgstr "Filter results"
-
-msgid "opened {{difference}} by {{creator}}"
-msgstr "opened {{difference}} by {{creator}}"
 
 msgid "In review"
 msgstr "In review"
@@ -280,3 +222,52 @@ msgstr "Draft"
 
 msgid "New version draft"
 msgstr "New version draft"
+
+msgid "Download file"
+msgstr "Download file"
+
+msgid "No link has been created. Click on 'Get a Link' to make a new link."
+msgstr "No link has been created. Click on 'Get a Link' to make a new link."
+
+msgid ""
+"Anyone with an account and this link <1>can edit all versions</1> of this "
+"record & files."
+msgstr ""
+"Anyone with an account and this link <1>can edit all versions</1> of this "
+"record & files."
+
+msgid "Search records..."
+msgstr "Search records..."
+
+msgid "will give you all the publications from 2017 until today."
+msgstr "will give you all the publications from 2017 until today."
+
+msgid " for defining advanced search queries."
+msgstr " for defining advanced search queries."
+
+msgid "Public"
+msgstr "Public"
+
+msgid "Restricted"
+msgstr "Restricted"
+
+msgid "Search in my communities..."
+msgstr "Search in my communities..."
+
+msgid "Opened {{difference}} by"
+msgstr "Opened {{difference}} by"
+
+msgid "Search in my requests..."
+msgstr "Search in my requests..."
+
+msgid "Actions"
+msgstr "Actions"
+
+msgid "open"
+msgstr "open"
+
+msgid "unlock"
+msgstr "unlock"
+
+msgid "Search in my uploads..."
+msgstr "Search in my uploads..."
