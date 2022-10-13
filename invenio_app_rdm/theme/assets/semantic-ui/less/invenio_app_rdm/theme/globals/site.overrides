@@ -89,6 +89,10 @@ button:focus-visible, a:focus-visible {
   background-color: @navbarBackgroundColor;
   border-color: transparent;
   color: @white;
+
+  .ui.segment:not(.basic) {
+    color: @mutedTextColor;
+  }
 }
 
 .no-dots-list {
