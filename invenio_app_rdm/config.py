@@ -538,6 +538,7 @@ APP_RDM_USER_DASHBOARD_ROUTES = {
 
 APP_RDM_ROUTES = {
     "index": "/",
+    "robots": "/robots.txt",
     "help_search": "/help/search",
     "record_search": "/search",
     "record_detail": "/records/<pid_value>",
