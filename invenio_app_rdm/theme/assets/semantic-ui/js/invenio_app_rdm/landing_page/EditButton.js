@@ -8,7 +8,7 @@
 import React, { useState } from "react";
 import { Icon, Button } from "semantic-ui-react";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
-import { axiosWithconfig } from "../utils";
+import { http } from "react-invenio-forms";
 import PropTypes from "prop-types";
 
 export const EditButton = ({ recid, onError }) => {
@@ -17,7 +17,7 @@ export const EditButton = ({ recid, onError }) => {
   const handleClick = async () => {
     setLoading(true);
     try {
-      await axiosWithconfig.post(`/api/records/${recid}/draft`);
+      await http.post(`/api/records/${recid}/draft`);
       window.location = `/uploads/${recid}`;
     } catch (error) {
       setLoading(false);

@@ -19,7 +19,7 @@ import {
   RDMRecordSearchBarElement,
   RDMToggleComponent,
 } from "../search/components";
-import { axiosWithconfig } from "../utils";
+import { http } from "react-invenio-forms";
 import { DashboardResultView, DashboardSearchLayoutHOC } from "./base";
 import { createSearchAppInit } from "@js/invenio_search_ui";
 import { ComputerTabletUploadsItem } from "./uploads_items/ComputerTabletUploadsItem";
@@ -42,7 +42,7 @@ const statuses = {
 
 export const RDMRecordResultsListItem = ({ result }) => {
   const editRecord = () => {
-    axiosWithconfig
+    http
       .post(`/api/records/${result.id}/draft`)
       .then(() => {
         window.location = `/uploads/${result.id}`;
