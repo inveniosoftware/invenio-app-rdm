@@ -42,4 +42,8 @@ aside.sidebar {
 
 .ui.header  {
   word-break: break-word;
+
+  &.text-muted {
+    color: @mutedTextColor;
+  }
 }
