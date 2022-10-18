@@ -11,7 +11,7 @@ import _debounce from "lodash/debounce";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Header, Placeholder, Grid, Dropdown, Message } from "semantic-ui-react";
-import { withCancel } from "../utils";
+import { withCancel } from "react-invenio-forms";
 import { CopyButton } from "../components/CopyButton";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 

@@ -9,7 +9,7 @@ import { Dropdown, Icon, Input, Button, Modal, Popup } from "semantic-ui-react";
 import axios from "axios";
 import { Trans } from "react-i18next";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
-import { axiosWithconfig } from "../utils";
+import { http } from "react-invenio-forms";
 import PropTypes from "prop-types";
 
 export const ShareModal = ({ recid, open, handleClose }) => {
@@ -60,7 +60,7 @@ export const ShareModal = ({ recid, open, handleClose }) => {
   };
 
   const createAccessLink = async () => {
-    await axiosWithconfig
+    await http
       .post(
         `/api/records/${recid}/access/links`,
         { permission: shareMode },
@@ -88,7 +88,7 @@ export const ShareModal = ({ recid, open, handleClose }) => {
   const handleChangeMode = (e, { value }) => setShareMode(value);
 
   const handleDelete = async () => {
-    await axiosWithconfig
+    await http
       .delete(`/api/records/${recid}/access/links/${accessLinkObj.id}`, {
         headers: {
           Accept: "application/json",
@@ -111,7 +111,7 @@ export const ShareModal = ({ recid, open, handleClose }) => {
 
     if (accessLinkObj) {
       (async () => {
-        await axiosWithconfig.patch(
+        await http.patch(
           `/api/records/${recid}/access/links/${accessLinkObj.id}`,
           { permission: shareMode },
           {
