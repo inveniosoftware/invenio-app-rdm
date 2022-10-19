@@ -746,3 +746,11 @@ IIIF_FORMATS_PIL_MAP = {
     "tif": "tiff",
     "tiff": "tiff",
 }
+
+PAGES_DEFAULT_TEMPLATE = "invenio_app_rdm/default_static_page.html"
+"""Default template to render."""
+
+PAGES_TEMPLATES = [
+    ("invenio_app_rdm/default_static_page.html", "Default"),
+]
+"""List of available templates for pages."""
