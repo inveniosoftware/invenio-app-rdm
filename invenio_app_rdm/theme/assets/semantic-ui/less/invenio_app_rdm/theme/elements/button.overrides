@@ -58,3 +58,17 @@
     }
   }
 }
+
+
+.ui.items {
+  & > .item.carousel {
+    & > .content {
+      & > .header {
+        a.ui.button {
+          padding: @verticalPadding @horizontalPadding (@verticalPadding + @shadowOffset);
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}

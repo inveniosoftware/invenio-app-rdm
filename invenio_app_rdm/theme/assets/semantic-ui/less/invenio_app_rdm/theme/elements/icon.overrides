@@ -19,4 +19,10 @@
     border-color: @errorTextColor ;
     color: @errorTextColor;
   }
+
+  &.carousel-arrow {
+    text-shadow: 0 1px 2px rgba(0,0,0,.4);
+    cursor: pointer;
+    width: auto;
+  }
 }
