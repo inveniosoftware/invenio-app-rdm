@@ -23,6 +23,10 @@
       height: 3em;
     }
   }
+
+  & + #communities-carousel {
+    margin-top: -@defaultMargin;
+  }
 }
 
 .ui.container.page-subheader {
@@ -55,16 +59,25 @@
   }
 }
 
+.ui.container.carousel {
+  background-color: rgba(@brandColor, 0.1);
 
-.ui.container{
-  .frontpage-header{
-    display: flex;
-    align-items: center;
-    height: 20em;
+  & > .ui.grid.container {
+    max-width: @computerBreakpoint !important;
   }
 }
 
 .ui.container {
+  .frontpage-header {
+    display: flex;
+    align-items: center;
+    height: 20em;
+  }
+
+  &.flex {
+    display: flex !important;
+  }
+
   &.fluid-mobile {
     @media screen and (max-width: @largestMobileScreen) {
       width: 100% !important; // Overwriting semantic-ui's !important. Please don't remove.
@@ -82,6 +95,7 @@
     }
   }
 }
+
 .ui.container.requests-feed-container {
   position: relative;
 }
