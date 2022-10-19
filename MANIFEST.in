@@ -44,7 +44,7 @@ recursive-include docs *.rst
 recursive-include docs *.txt
 recursive-include docs Makefile
 recursive-include invenio_app_rdm *.gitkeep
-recursive-include invenio_app_rdm *.html *.js *.less *.json
+recursive-include invenio_app_rdm *.html *.js *.less *.json *.yaml
 recursive-include invenio_app_rdm *.overrides
 recursive-include invenio_app_rdm *.variables
 recursive-include invenio_app_rdm *.png *.svg
