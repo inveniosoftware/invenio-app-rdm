@@ -174,6 +174,9 @@ THEME_LOGO = "images/invenio-rdm.svg"
 THEME_SITENAME = _("InvenioRDM")
 """Site name."""
 
+THEME_SHOW_FRONTPAGE_INTRO_SECTION = True
+"""Front page intro section visibility"""
+
 
 # Invenio-Files-REST
 # ==================
