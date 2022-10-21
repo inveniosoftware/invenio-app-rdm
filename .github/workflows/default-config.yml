@@ -1,0 +1,14 @@
+default_context:
+  project_name: InvenioRDM Site
+  project_shortname: invenio-rdm
+  project_site: inveniordm.web.cern.ch
+  github_repo: inveniosoftware/invenio-app-rdm
+  description: InvenioRDM Instance
+  author_name: CERN
+  author_email: info@inveniosoftware.org
+  year: 2022
+  python_version: "3.9"
+  database: postgresql
+  search: opensearch2
+  file_storage: S3
+  development_tools: no
