@@ -6,70 +6,51 @@
   Invenio App RDM is free software; you can redistribute it and/or modify it
   under the terms of the MIT License; see LICENSE file for more details.
 #}
+{% from "invenio_app_rdm/macros/records_list.html" import records_list %}
+{% from "invenio_communities/macros/communities_carousel.html" import communities_carousel %}
+
 {%- extends "invenio_theme/frontpage.html" %}
 
 {%- block page_header %}
-{%- include "invenio_app_rdm/header_frontpage.html" %}
+  {%- include "invenio_app_rdm/header_frontpage.html" %}
 {%- endblock page_header %}
 
 {%- block page_body %}
-{%- block first_section %}
-<div class="get-started-section section-content white-bg">
-  <h2 class="section-title">
-    {{ _("You've successfully installed InvenioRDM!") }}
-    <br/>
-    {{ _("What is ahead?") }}
-  </h2>
 
-  <div class="ui container three column stackable grid center aligned vertically padded relaxed">
-      <div class="rdm-goal column">
-        <div class="featured-list">1</div>
-        <h3 class="section-title">{{ _("Configure") }}</h3>
-        <div class="command-line">
-          {% trans configuration_link="https://inveniordm.docs.cern.ch/install/configuration/" %}
-            Configure the datamodel, resource types, permissions and much more to make it suit your needs! For more
-            information on how to do it visit the <a href="{{ configuration_link }}" target="_blank">configuration
-            section in the docs</a>.
-          {% endtrans %}
+  {%- block intro_section %}
+    {% if show_intro_section %}
+      {% include "invenio_app_rdm/intro_section.html" %}
+    {% endif %}
+  {%- endblock intro_section %}
+
+  {%- block top_banner %}
+    {{ communities_carousel() }}
+  {%- endblock top_banner %}
+
+  {%- block grid_section %}
+    <div class="ui stackable grid container rel-mt-2">
+
+      {% block main_column %}
+        <div class="eleven wide computer sixteen wide tablet column">
+
+          {% block main_column_content %}
+            {{ records_list() }}
+          {% endblock main_column_content %}
+
         </div>
-      </div>
-      <div class="rdm-goal column">
-        <div class="featured-list">2</div>
-        <h3 class="section-title">{{ _("Customize") }}</h3>
-          <div class="command-line">
-            {% trans configuration_link="https://inveniordm.docs.cern.ch/customize/" %}
-              Customize the layout and adapt the styling to match your institution's. See how to do so <a
-              href="{{ configuration_link }}" target="_blank">here</a>.
-            {% endtrans %}
-        </div>
-      </div>
-      <div class="rdm-goal column">
-        <div class="featured-list">3</div>
-        <h3 class="section-title">{{ _("Run it!") }}</h3>
-        <div class="command-line">
-          {% trans
-          deployment_link="https://inveniordm.docs.cern.ch/install/build-setup-run/#run_1"
-          %}
-          <a href="{{ deployment_link }}" target="_blank">Run</a> your
-          InvenioRDM instance locally or in containers.
-          {% endtrans %}
-        </div>
-      </div>
-    <div class="row one column center aligned">
-      <div class="sixteen wide column">
-          <div class="ui primary button labeled icon big goto-button">
-            <i class="file alternate outline icon"></i>
-            <a href="https://inveniordm.docs.cern.ch"
-                target="_blank">{{ _("Docs") }}</a>
-          </div>
-          <div class="ui primary button labeled icon big goto-button">
-            <i class="github icon"></i>
-            <a href="https://github.com/inveniosoftware"
-                target="_blank">{{ _("Code") }}</a>
-          </div>
-        </div>
+      {% endblock main_column %}
+
+      {% block side_column %}
+        <aside class="five wide computer sixteen wide tablet column">
+
+          {% block side_column_content %}{% endblock side_column_content %}
+
+        </aside>
+      {% endblock side_column %}
     </div>
-  </div>
-</div>
-{%- endblock first_section %}
+  {%- endblock grid_section %}
+
+  {%- block bottom_section %}
+  {%- endblock bottom_section %}
+
 {%- endblock page_body %}

@@ -60,6 +60,7 @@ def index():
     """Frontpage."""
     return render_template(
         current_app.config["THEME_FRONTPAGE_TEMPLATE"],
+        show_intro_section=current_app.config["THEME_SHOW_FRONTPAGE_INTRO_SECTION"],
     )
 
 
