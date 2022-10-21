@@ -24,8 +24,10 @@ jobs:
           python-version: '3.9' 
       - name: Setup files and folders using cookiecutter
         run: |
-          pip install cookiecutter
+          python -m pip install --upgrade pipenv cookiecutter
           cookiecutter gh:front-matter/cookiecutter-invenio-rdm --no-input --config-file ./.github/default-config.yml
+          cd invenio-rdm
+          pipenv lock
       - name: Generate Docker metadata
         id: meta
         uses: docker/metadata-action@v4
