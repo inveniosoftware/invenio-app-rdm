@@ -191,6 +191,15 @@ def files_rest_permission_factory(obj, action):
 FILES_REST_PERMISSION_FACTORY = files_rest_permission_factory
 """Set default files permission factory."""
 
+# Storage classes
+FILES_REST_STORAGE_CLASS_LIST = {
+    "L": "Local",
+    "F": "Fetch",
+    "R": "Remote",
+}
+
+FILES_REST_DEFAULT_STORAGE_CLASS = "L"
+
 # Invenio-Formatter
 # =================
 
