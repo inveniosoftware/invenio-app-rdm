@@ -42,11 +42,10 @@ export const ComputerTabletCommunitiesItem = ({ result, index }) => {
             size="small"
             floated="right"
             href={`/communities/${result.id}/settings`}
-            className="mt-0"
-          >
-            <Icon name="edit" />
-            {i18next.t("Edit")}
-          </Button>
+            labelPosition="left"
+            icon="edit"
+            content={i18next.t("Edit")}
+          />
         </Item.Extra>
         <Item.Header as="h2">
           <a href={`/communities/${result.id}`}>{result.metadata.title}</a>
