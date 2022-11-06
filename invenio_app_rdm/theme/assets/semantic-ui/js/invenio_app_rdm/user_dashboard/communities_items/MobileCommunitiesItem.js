@@ -59,11 +59,10 @@ export const MobileCommunitiesItem = ({ result, index }) => {
             size="small"
             floated="right"
             href={`/communities/${result.id}/settings`}
-            className="fluid-responsive"
-          >
-            <Icon name="edit" />
-            {i18next.t("Edit")}
-          </Button>
+            labelPosition="left"
+            icon="edit"
+            content={i18next.t("Edit")}
+          />
         </Item.Extra>
       </Item.Content>
     </Item>
