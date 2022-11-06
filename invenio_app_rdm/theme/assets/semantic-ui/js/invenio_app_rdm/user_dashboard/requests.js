@@ -35,7 +35,6 @@ import {
   RequestAcceptButton,
   RequestCancelButton,
   RequestDeclineButton,
-  RequestCancelButtonModal,
 } from "@js/invenio_requests/components/Buttons";
 import {
   Button,
@@ -468,7 +467,7 @@ export const defaultComponents = {
   "RequestActionModalTrigger.accept.mobile": RequestAcceptButtonMobileWithConfig,
   "RequestActionModalTrigger.decline.mobile": RequestDeclineButtonMobileWithConfig,
   "RequestActionModalTrigger.cancel.mobile": RequestCancelButtonMobileWithConfig,
-  "RequestActionButton.cancel": RequestCancelButtonModal,
+  "RequestActionButton.cancel": RequestCancelButton,
   "RequestActionButton.decline": RequestDeclineButton,
   "RequestActionButton.accept": RequestAcceptButton,
 };
