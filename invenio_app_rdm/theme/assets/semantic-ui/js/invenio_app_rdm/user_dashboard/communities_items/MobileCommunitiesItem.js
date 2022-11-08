@@ -9,6 +9,7 @@ import React from "react";
 import { Image } from "react-invenio-forms";
 import { Button, Icon, Item, Label } from "semantic-ui-react";
 import PropTypes from "prop-types";
+import { DateTime } from "luxon";
 
 export const MobileCommunitiesItem = ({ result, index }) => {
   const communityType = result.ui?.type?.title_l10n;
@@ -35,7 +36,7 @@ export const MobileCommunitiesItem = ({ result, index }) => {
         <Item.Extra>
           <Image wrapped src={result.links.logo} size="small" />
         </Item.Extra>
-        <Item.Header as="h2">
+        <Item.Header as="h2" className="rel-mt-1">
           <a href={`/communities/${result.id}`}>{result.metadata.title}</a>
         </Item.Header>
         <Item.Meta>
@@ -53,6 +54,10 @@ export const MobileCommunitiesItem = ({ result, index }) => {
             </a>
           )}
         </Item>
+        <Item.Extra>
+          {i18next.t("Created: ")}
+          {DateTime.fromISO(result.created).toLocaleString(i18next.language)}
+        </Item.Extra>
         <Item.Extra>
           <Button
             compact
