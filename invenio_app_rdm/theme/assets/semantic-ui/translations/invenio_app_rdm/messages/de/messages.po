@@ -1,18 +1,18 @@
 # 
 # Translators:
-# David Eckhard <dabombeeer@gmail.com>, 2022
-# Tibor Simko <tibor.simko@cern.ch>, 2022
-# Zacharias Zacharodimos <zacharias.zacharodimos@cern.ch>, 2022
-# Mojib Wali <mojib.wali@tugraz.at>, 2022
 # Hermann Schranzhofer <hermann.schranzhofer@tugraz.at>, 2022
 # chriz_uniba <christina.zeller@uni-bamberg.de>, 2022
+# Tibor Simko <tibor.simko@cern.ch>, 2022
+# Zacharias Zacharodimos <zacharias.zacharodimos@cern.ch>, 2022
+# David Eckhard <dabombeeer@gmail.com>, 2022
+# Mojib Wali <mojib.wali@tugraz.at>, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-05-27T08:25:23.674Z\n"
+"POT-Creation-Date: 2022-10-12T06:58:21.832Z\n"
 "PO-Revision-Date: 2021-07-14 16:07+0000\n"
-"Last-Translator: chriz_uniba <christina.zeller@uni-bamberg.de>, 2022\n"
+"Last-Translator: Mojib Wali <mojib.wali@tugraz.at>, 2022\n"
 "Language-Team: German (https://www.transifex.com/inveniosoftware/teams/23537/de/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -48,9 +48,6 @@ msgid "Contributors"
 msgstr "Mitwirkende"
 
 msgid "Alternate identifiers"
-msgstr "Alternative Kennungen"
-
-msgid "Alternate identifier(s)"
 msgstr "Alternative Kennungen"
 
 msgid "Related works"
@@ -104,11 +101,6 @@ msgstr "Link erstellen"
 msgid "Copy link"
 msgstr "Link kopieren"
 
-msgid "No link has been created. Click on 'Get a Link' to make a new link"
-msgstr ""
-"Es wurde noch kein Link erstellt. Klicken Sie auf \"Link erstellen\", um "
-"einen neuen Link zu erstellen."
-
 msgid "Delete link"
 msgstr "Link löschen"
 
@@ -129,13 +121,6 @@ msgstr ""
 "unveröffentlichten Versionen</2> dieses Eintrags und der Dateien "
 "<2>einsehen</2>."
 
-msgid ""
-"Anyone with an account and this link <2>can edit all versions</2> of this "
-"record & files."
-msgstr ""
-"Alle, die ein Konto und diesem Link haben, können<2>alle Versionen</2> "
-"dieses Eintrags und der Dateien <2>bearbeiten</2>."
-
 msgid "Uploaded on"
 msgstr "Hochgeladen am"
 
@@ -145,32 +130,14 @@ msgstr "Suchen"
 msgid "Search guide"
 msgstr "Suchanleitung"
 
-msgid "filters"
-msgstr "Filter"
-
-msgid "Versions"
-msgstr "Versionen"
-
-msgid "View all versions"
-msgstr "Alle Versionen ansehen"
-
 msgid "result(s) found"
 msgstr "Gefundene Ergebnisse"
 
 msgid "Sort by"
 msgstr "Sortieren nach"
 
-msgid "results per page"
-msgstr "Ergebnisse pro Seite"
-
-msgid "No community type"
-msgstr "Kein Community Typ"
-
 msgid "View"
 msgstr "Ansicht"
-
-msgid "Search communities..."
-msgstr "Communitys suchen..."
 
 msgid "New community"
 msgstr "Neue Community"
@@ -183,9 +150,6 @@ msgstr "Offen"
 
 msgid "Closed"
 msgstr "Geschlossen"
-
-msgid "Search requests..."
-msgstr "Anfragen durchsuchen..."
 
 msgid "All done!"
 msgstr "Alles erledigt!"
@@ -214,9 +178,6 @@ msgstr "Machen Sie Ihren ersten Eintrag!"
 msgid "New upload"
 msgstr "Neuer Eintrag"
 
-msgid "Search uploads..."
-msgstr "Einträge suchen..."
-
 msgid "ORCID profile"
 msgstr "ORCID Profil"
 
@@ -238,15 +199,6 @@ msgstr "Kopiert"
 msgid "Reset search"
 msgstr "Suche zurücksetzen"
 
-msgid "Help"
-msgstr "Hilfe"
-
-msgid "Clear selection"
-msgstr "Auswahl löschen"
-
-msgid "Clear"
-msgstr "Löschen"
-
 msgid "We couldn't find any matches for "
 msgstr "Wir konnten keine Treffer finden für "
 
@@ -259,29 +211,17 @@ msgstr "Neu beginnen"
 msgid "ProTip"
 msgstr "ProTipp"
 
-msgid "will give you all the publications from 2017 until today"
-msgstr "findet alle Veröffentlichungen von 2017 bis heute"
-
 msgid "For more tips, check out our "
 msgstr "Weitere Tipps finden Sie in unserer "
 
 msgid "search guide"
 msgstr "Suchanleitung"
 
-msgid " for defining advanced search queries"
-msgstr " zur Definition erweiterter Suchanfragen."
-
 msgid "Export"
 msgstr "Exportieren"
 
-msgid "Show all sub facets of "
-msgstr "Zeige alle Unterfacetten von"
-
 msgid "Filter results"
 msgstr "Ergebnisse filtern"
-
-msgid "opened {{difference}} by {{creator}}"
-msgstr "{{difference}} geöffnet von {{creator}}"
 
 msgid "In review"
 msgstr "In Begutachtung"
@@ -297,3 +237,50 @@ msgstr "Entwurf"
 
 msgid "New version draft"
 msgstr "Entwurf einer neuen Version"
+
+msgid "Download file"
+msgstr "Datei herunterladen"
+
+msgid "No link has been created. Click on 'Get a Link' to make a new link."
+msgstr ""
+
+msgid ""
+"Anyone with an account and this link <1>can edit all versions</1> of this "
+"record & files."
+msgstr ""
+
+msgid "Search records..."
+msgstr ""
+
+msgid "will give you all the publications from 2017 until today."
+msgstr ""
+
+msgid " for defining advanced search queries."
+msgstr ""
+
+msgid "Public"
+msgstr "Öffentlich"
+
+msgid "Restricted"
+msgstr "Eingeschränkt"
+
+msgid "Search in my communities..."
+msgstr ""
+
+msgid "Opened {{difference}} by"
+msgstr ""
+
+msgid "Search in my requests..."
+msgstr ""
+
+msgid "Actions"
+msgstr "Aktionen"
+
+msgid "open"
+msgstr ""
+
+msgid "unlock"
+msgstr ""
+
+msgid "Search in my uploads..."
+msgstr ""
