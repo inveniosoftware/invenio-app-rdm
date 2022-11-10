@@ -531,3 +531,7 @@ dl.details-list {
 .capitalize {
   text-transform: capitalize;
 }
+
+.highlight-background {
+    background-color: @highlightHeaderColor;
+  }
