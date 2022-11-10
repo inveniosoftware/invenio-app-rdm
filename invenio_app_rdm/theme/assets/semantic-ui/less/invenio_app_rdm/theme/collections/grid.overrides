@@ -4,13 +4,13 @@
 
 /** Deposit search page */
 
-.row.highlight-background{
-  background-color: @highlightHeaderColor;
-}
-
 .ui.grid {
 
-  .column.community-header{
+  .row.highlight-background {
+    background-color: @highlightHeaderColor;
+  }
+
+  .column.community-header {
     align-items: center;
     display: flex;
   }
@@ -115,7 +115,7 @@
   }
 }
 
-#request-detail .ui.stackable.grid > .column:not(.row){
+#request-detail .ui.stackable.grid > .column:not(.row) {
   @media all and (max-width: @largestMobileScreen) {
     padding-left: 0 !important;
     padding-right: 0 !important;

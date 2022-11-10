@@ -6,7 +6,7 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
-import RecordsList from "./records-list";
+import RecordsList from "./RecordsList";
 
 const recordsListContainer = document.getElementById("records-list");
 const title = recordsListContainer.dataset.title;
