@@ -652,6 +652,12 @@ APP_RDM_DISPLAY_DECIMAL_FILE_SIZES = True
 APP_RDM_DEPOSIT_FORM_PUBLISH_MODAL_EXTRA = ""
 """Additional text/html to be displayed in the publish and submit for review modal."""
 
+APP_RDM_DEPOSIT_REQUIRE_FILES = False
+"""Enable/disable metadata-only records"""
+
+APP_RDM_DEPOSIT_FULL_RECORD_VISIBILITY = True
+"""Enable/disable full record visibility section in the upload form."""
+
 RDM_CITATION_STYLES = [
     ("apa", _("APA")),
     ("harvard-cite-them-right", _("Harvard")),

@@ -16,19 +16,19 @@
 
 {%- block page_body %}
   {%- if record %}
-  <input id="deposits-record" type="hidden" name="deposits-record" value='{{record | tojson }}'></input>
+  <input id="deposits-record" type="hidden" name="deposits-record" value='{{record | tojson }}'/>
   {%- endif %}
   {%- if preselectedCommunity %}
-  <input id="deposits-draft-community" type="hidden" name="deposits-draft-community" value='{{preselectedCommunity | tojson }}'></input>
+  <input id="deposits-draft-community" type="hidden" name="deposits-draft-community" value='{{preselectedCommunity | tojson }}'/>
   {%- endif %}
   {%- if files %}
-  <input id="deposits-record-files" type="hidden" name="deposits-record-files" value='{{files | tojson }}'></input>
+  <input id="deposits-record-files" type="hidden" name="deposits-record-files" value='{{files | tojson }}'/>
   {%- endif %}
   {%- if forms_config %}
-  <input type="hidden" name="deposits-config" value='{{forms_config | tojson }}'></input>
+  <input type="hidden" name="deposits-config" value='{{forms_config | tojson }}'/>
   {%- endif %}
   {%- if permissions %}
-  <input id="deposits-record-permissions" type="hidden" name="deposits-record-permissions" value='{{permissions | tojson }}'></input>
+  <input id="deposits-record-permissions" type="hidden" name="deposits-record-permissions" value='{{permissions | tojson }}'/>
   {%- endif %}
   <div id="deposit-form"></div>
 {%- endblock page_body %}

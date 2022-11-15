@@ -305,6 +305,12 @@ def get_form_config(**kwargs):
         publish_modal_extra=current_app.config.get(
             "APP_RDM_DEPOSIT_FORM_PUBLISH_MODAL_EXTRA"
         ),
+        can_edit_full_record_visibility=conf.get(
+            "APP_RDM_DEPOSIT_FULL_RECORD_VISIBILITY"
+        ),
+        require_files=conf.get(
+            "APP_RDM_DEPOSIT_REQUIRE_FILES"
+        ),
         **kwargs,
     )
 
