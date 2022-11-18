@@ -9,14 +9,18 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { getInputFromDOM } from "react-invenio-deposit";
 import { RDMDepositForm } from "./RDMDepositForm";
+import { OverridableContext } from "react-overridable";
+import { overriddenComponents } from "./override";
 
 ReactDOM.render(
-  <RDMDepositForm
-    record={getInputFromDOM("deposits-record")}
-    preselectedCommunity={getInputFromDOM("deposits-draft-community")}
-    files={getInputFromDOM("deposits-record-files")}
-    config={getInputFromDOM("deposits-config")}
-    permissions={getInputFromDOM("deposits-record-permissions")}
-  />,
+  <OverridableContext.Provider value={overriddenComponents}>
+    <RDMDepositForm
+      record={getInputFromDOM("deposits-record")}
+      preselectedCommunity={getInputFromDOM("deposits-draft-community")}
+      files={getInputFromDOM("deposits-record-files")}
+      config={getInputFromDOM("deposits-config")}
+      permissions={getInputFromDOM("deposits-record-permissions")}
+    />
+  </OverridableContext.Provider>,
   document.getElementById("deposit-form")
 );
