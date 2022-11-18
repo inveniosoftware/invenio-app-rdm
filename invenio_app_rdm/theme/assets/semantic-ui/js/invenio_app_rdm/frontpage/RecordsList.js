@@ -9,9 +9,10 @@ import PropTypes from "prop-types";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import { withCancel, http } from "react-invenio-forms";
 import { Loader, Container, Header, Item, Button, Message } from "semantic-ui-react";
-import { RDMRecordResultsListItem } from "../search/components";
+import Overridable from "react-overridable";
+import RecordsResultsListItem from "@js/invenio_app_rdm/components/RecordsResultsListItem";
 
-export default class RecordsList extends Component {
+class RecordsList extends Component {
   constructor(props) {
     super(props);
 
@@ -56,27 +57,29 @@ export default class RecordsList extends Component {
     const { title } = this.props;
 
     const listItems = data.hits?.map((record) => {
-      return <RDMRecordResultsListItem result={record} key={record.id} />;
+      return <RecordsResultsListItem result={record} key={record.id} />;
     });
 
     return (
-      <Container>
-        {isLoading && <Loader active inline="centered" />}
+      <Overridable id="RecordsList.layout" {...this.props}>
+        <Container>
+          {isLoading && <Loader active inline="centered" />}
 
-        {!isLoading && !error && (
-          <>
-            <Header as="h2">{title}</Header>
-            <Item.Group relaxed link divided>
-              {listItems}
-            </Item.Group>
-            <Container textAlign="center">
-              <Button href="/search">{i18next.t("More")}</Button>
-            </Container>
-          </>
-        )}
+          {!isLoading && !error && (
+            <>
+              <Header as="h2">{title}</Header>
+              <Item.Group relaxed link divided>
+                {listItems}
+              </Item.Group>
+              <Container textAlign="center">
+                <Button href="/search">{i18next.t("More")}</Button>
+              </Container>
+            </>
+          )}
 
-        {error && <Message content={error} error icon="info" />}
-      </Container>
+          {error && <Message content={error} error icon="info" />}
+        </Container>
+      </Overridable>
     );
   }
 }
@@ -85,3 +88,5 @@ RecordsList.propTypes = {
   title: PropTypes.string.isRequired,
   fetchUrl: PropTypes.string.isRequired,
 };
+
+export default Overridable.component("RecordsList", RecordsList);
