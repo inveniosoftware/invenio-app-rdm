@@ -33,7 +33,7 @@ import {
 import { SearchItemCreators } from "../utils";
 import PropTypes from "prop-types";
 
-export const RDMRecordResultsListItem = ({ result }) => {
+export const RDMRecordResultsListItem = ({ currentQueryState, result }) => {
   const accessStatusId = _get(result, "ui.access_status.id", "open");
   const accessStatus = _get(result, "ui.access_status.title_l10n", "Open");
   const accessStatusIcon = _get(result, "ui.access_status.icon", "unlock");
@@ -55,7 +55,11 @@ export const RDMRecordResultsListItem = ({ result }) => {
   const subjects = _get(result, "ui.subjects", []);
   const title = _get(result, "metadata.title", "No title");
   const version = _get(result, "ui.version", null);
+  const versions = _get(result, "versions");
 
+  const filters = currentQueryState && Object.fromEntries(currentQueryState.filters);
+  const allVersionsVisible = filters?.allversions;
+  const numOtherVersions = versions.index - 1;
   // Derivatives
   const viewLink = `/records/${result.id}`;
   return (
@@ -89,11 +93,21 @@ export const RDMRecordResultsListItem = ({ result }) => {
             </Label>
           ))}
           {createdDate && (
-            <div>
+            <p>
               <small>
                 {i18next.t("Uploaded on")} <span>{createdDate}</span>
               </small>
-            </div>
+            </p>
+          )}
+          {!allVersionsVisible && versions.index > 1 && (
+            <p>
+              <small>
+                <b>
+                  {numOtherVersions} more{" "}
+                  {numOtherVersions > 1 ? "versions" : "version"} exist for this record
+                </b>
+              </small>
+            </p>
           )}
         </Item.Extra>
       </Item.Content>
@@ -102,7 +116,27 @@ export const RDMRecordResultsListItem = ({ result }) => {
 };
 
 RDMRecordResultsListItem.propTypes = {
+  currentQueryState: PropTypes.object,
   result: PropTypes.object.isRequired,
+};
+
+RDMRecordResultsListItem.defaultProps = {
+  currentQueryState: null,
+};
+
+export const RDMRecordResultsListItemWithState = withState(
+  ({ currentQueryState, result }) => (
+    <RDMRecordResultsListItem currentQueryState={currentQueryState} result={result} />
+  )
+);
+
+RDMRecordResultsListItemWithState.propTypes = {
+  currentQueryState: PropTypes.object,
+  result: PropTypes.object.isRequired,
+};
+
+RDMRecordResultsListItem.defaultProps = {
+  currentQueryState: null,
 };
 
 // TODO: Update this according to the full List item template?
