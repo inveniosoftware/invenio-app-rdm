@@ -288,6 +288,22 @@ CELERY_BEAT_SCHEDULE = {
         "task": "invenio_requests.tasks.check_expired_requests",
         "schedule": crontab(minute=3, hour=0),
     },
+    "file-checks": {
+        "task": "invenio_files_rest.tasks.schedule_checksum_verification",
+        "schedule": timedelta(hours=1),
+        "kwargs": {
+            "batch_interval": {"hours": 1},
+            "frequency": {"days": 14},
+            "max_count": 0,
+            # Query taking into account only files with URI prefixes defined by
+            # the FILES_REST_CHECKSUM_VERIFICATION_URI_PREFIXES config variable
+            "files_query": "invenio_app_rdm.utils.files.checksum_verification_files_query",
+        },
+    },
+    "file-integrity-report": {
+        "task": "invenio_app_rdm.tasks.file_integrity_report",
+        "schedule": crontab(minute=0, hour=7),  # Every day at 07:00 UTC
+    },
 }
 """Scheduled tasks configuration (aka cronjobs)."""
 
@@ -772,3 +788,20 @@ PAGES_TEMPLATES = [
     ("invenio_app_rdm/default_static_page.html", "Default"),
 ]
 """List of available templates for pages."""
+
+FILES_REST_CHECKSUM_VERIFICATION_URI_PREFIXES = []
+"""URI prefixes of files their checksums should be verified"""
+
+FILES_INTEGRITY_REPORT_TEMPLATE = (
+    "invenio_app_rdm/files_integrity_report/email/files_integrity_report.html"
+)
+"""Files integrity report template"""
+
+FILES_INTEGRITY_REPORT_SUBJECT = "Files integrity report"
+"""Files integrity report subject"""
+
+ADMIN_EMAIL_RECIPIENT = "info@inveniosoftware.org"
+"""Admin e-mail"""
+
+MAIL_DEFAULT_SENDER = "info@inveniosoftware.org"
+"""Default e-mail address sender."""
