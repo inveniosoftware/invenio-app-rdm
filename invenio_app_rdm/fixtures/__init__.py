@@ -9,6 +9,7 @@
 
 from pathlib import Path
 
+from invenio_app_rdm.fixtures.oai_sets import OAICustomSets
 from invenio_app_rdm.fixtures.pages import StaticPages
 
 
@@ -24,4 +25,17 @@ class Pages:
             "pages.yaml",
             [Path("./app_data/pages"), dir_ / "pages"],
             force,
+        ).load()
+
+
+class FixturesEngine:
+    """Basic fixtures engine."""
+
+    def run(self):
+        """Run the fixtures loading."""
+        dir_ = Path(__file__).parent
+
+        OAICustomSets(
+            [Path("./app_data"), dir_ / "data"],
+            "oai_sets.yaml",
         ).load()

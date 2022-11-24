@@ -9,7 +9,7 @@
 import click
 from flask.cli import with_appcontext
 
-from invenio_app_rdm.fixtures import Pages
+from invenio_app_rdm.fixtures import FixturesEngine, Pages
 
 
 @click.group()
@@ -40,3 +40,14 @@ def create_static_pages(force):
     Pages().run(force=force)
 
     click.secho("Created static pages!", fg="green")
+
+
+@rdm.command("fixtures")
+@with_appcontext
+def create_fixtures():
+    """Create the fixtures."""
+    click.secho("Creating required fixtures...", fg="green")
+
+    FixturesEngine().run()
+
+    click.secho("Created required fixtures!", fg="green")
