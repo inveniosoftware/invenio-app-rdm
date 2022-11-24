@@ -7,10 +7,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
-import { withCancel } from "react-invenio-forms";
+import { withCancel, http } from "react-invenio-forms";
 import { Loader, Container, Header, Item, Button, Message } from "semantic-ui-react";
 import { RDMRecordResultsListItem } from "../search/components";
-import axios from "axios";
 
 export default class RecordsList extends Component {
   constructor(props) {
@@ -36,11 +35,10 @@ export default class RecordsList extends Component {
     this.setState({ isLoading: true });
 
     this.cancellableFetch = withCancel(
-      axios.get(fetchUrl, {
+      http.get(fetchUrl, {
         headers: {
           Accept: "application/vnd.inveniordm.v1+json",
         },
-        withCredentials: true,
       })
     );
 
