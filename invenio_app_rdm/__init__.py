@@ -16,6 +16,6 @@
 #
 # See PEP 0440 for details - https://www.python.org/dev/peps/pep-0440
 
-__version__ = "11.0.0.dev4"
+__version__ = "11.0.0.dev5"
 
 __all__ = ("__version__",)
