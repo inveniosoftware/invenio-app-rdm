@@ -80,9 +80,9 @@ def _resolve_record_or_draft_files(record):
 @pass_request(expand=True)
 def user_dashboard_request_view(request, **kwargs):
     """User dashboard request details view."""
-    avatar = current_user_resources.users_service.links_item_tpl.expand(current_user)[
-        "avatar"
-    ]
+    avatar = current_user_resources.users_service.links_item_tpl.expand(
+        g.identity, current_user
+    )["avatar"]
 
     request_type = request["type"]
 
@@ -125,9 +125,9 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
     """Community dashboard requests details view."""
     request_type = request["type"]
 
-    avatar = current_user_resources.users_service.links_item_tpl.expand(current_user)[
-        "avatar"
-    ]
+    avatar = current_user_resources.users_service.links_item_tpl.expand(
+        g.identity, current_user
+    )["avatar"]
 
     is_draft_submission = request_type == CommunitySubmission.type_id
     is_invitation = request_type == CommunityInvitation.type_id
