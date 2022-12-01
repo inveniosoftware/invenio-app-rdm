@@ -3,6 +3,7 @@
 # Copyright (C) 2019-2020 CERN.
 # Copyright (C) 2019-2020 Northwestern University.
 # Copyright (C) 2021 Graz University of Technology.
+# Copyright (C) 2022 KTH Royal Institute of Technology
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -538,6 +539,9 @@ VOCABULARIES_DATASTREAM_WRITERS = {
 
 SEARCH_UI_SEARCH_TEMPLATE = "invenio_app_rdm/records/search.html"
 """Search page's base template."""
+
+APP_RDM_DEPOSIT_FORM_TEMPLATE = "invenio_app_rdm/records/deposit.html"
+"""Deposit page's form template."""
 
 APP_RDM_USER_DASHBOARD_ROUTES = {
     "uploads": "/me/uploads",
