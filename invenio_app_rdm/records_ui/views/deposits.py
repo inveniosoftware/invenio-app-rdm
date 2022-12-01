@@ -3,6 +3,7 @@
 # Copyright (C) 2019-2021 CERN.
 # Copyright (C) 2019-2021 Northwestern University.
 # Copyright (C)      2021 TU Wien.
+# Copyright (C) 2022 KTH Royal Institute of Technology
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -338,7 +339,7 @@ def new_record():
 def deposit_create(community=None):
     """Create a new deposit."""
     return render_template(
-        "invenio_app_rdm/records/deposit.html",
+        current_app.config["APP_RDM_DEPOSIT_FORM_TEMPLATE"],
         forms_config=get_form_config(createUrl="/api/records"),
         searchbar_config=dict(searchUrl=get_search_url()),
         record=new_record(),
@@ -357,7 +358,7 @@ def deposit_edit(pid_value, draft=None, draft_files=None):
     record = ui_serializer.dump_obj(draft.to_dict())
 
     return render_template(
-        "invenio_app_rdm/records/deposit.html",
+        current_app.config["APP_RDM_DEPOSIT_FORM_TEMPLATE"],
         forms_config=get_form_config(apiUrl=f"/api/records/{pid_value}/draft"),
         record=record,
         files=files_dict,
