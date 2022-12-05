@@ -49,6 +49,12 @@ from invenio_vocabularies.records.models import VocabularyScheme
 
 
 @pytest.fixture(scope="module")
+def create_app(entry_points):
+    """Creates a test app."""
+    return _create_app
+
+
+@pytest.fixture(scope="module")
 def app_config(app_config):
     """Override pytest-invenio app_config fixture to disable CSRF check."""
     # Variable not used. We set it to silent warnings
@@ -276,12 +282,6 @@ def dummy_location(db):
     yield loc
 
     shutil.rmtree(tmppath)
-
-
-@pytest.fixture(scope="module")
-def create_app(entry_points):
-    """Create test app."""
-    return _create_app
 
 
 @pytest.fixture
