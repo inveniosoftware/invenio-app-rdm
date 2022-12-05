@@ -91,7 +91,7 @@ def record_detail(pid_value, record, files, is_preview=False):
             abort(404)
 
     return render_template(
-        "invenio_app_rdm/records/detail.html",
+        current_app.config.get("APP_RDM_RECORD_LANDING_PAGE_TEMPLATE"),
         record=record_ui,
         files=files_dict,
         permissions=record.has_permissions_to(
