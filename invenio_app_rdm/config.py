@@ -178,6 +178,7 @@ THEME_SITENAME = _("InvenioRDM")
 THEME_SHOW_FRONTPAGE_INTRO_SECTION = True
 """Front page intro section visibility"""
 
+THEME_JAVASCRIPT_TEMPLATE = "invenio_app_rdm/javascript.html"
 
 # Invenio-Files-REST
 # ==================
@@ -656,6 +657,8 @@ APP_RDM_DISPLAY_DECIMAL_FILE_SIZES = True
 APP_RDM_DEPOSIT_FORM_PUBLISH_MODAL_EXTRA = ""
 """Additional text/html to be displayed in the publish and submit for review modal."""
 
+APP_RDM_RECORD_LANDING_PAGE_TEMPLATE = "invenio_app_rdm/records/detail.html"
+
 RDM_CITATION_STYLES = [
     ("apa", _("APA")),
     ("harvard-cite-them-right", _("Harvard")),
@@ -707,8 +710,6 @@ RDM_REQUESTS_ROUTES = {
 RDM_COMMUNITIES_ROUTES = {
     "community-detail": "/communities/<pid_value>",
 }
-
-THEME_JAVASCRIPT_TEMPLATE = "invenio_app_rdm/javascript.html"
 
 # Invenio-IIIF
 # =================
