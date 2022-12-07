@@ -95,6 +95,8 @@ export class RDMDepositForm extends Component {
 
   render() {
     const { record, files, permissions, preselectedCommunity } = this.props;
+    const customFieldsUI = this.config.custom_fields.ui;
+
     return (
       <DepositFormApp
         config={this.config}
@@ -103,14 +105,17 @@ export class RDMDepositForm extends Component {
         files={files}
         permissions={permissions}
       >
-        <Overridable id="InvenioAppRdm.deposit.FormFeedback.layout" {...this.props}>
+        <Overridable
+          id="InvenioAppRdm.deposit.FormFeedback.layout"
+          labels={this.config.custom_fields.error_labels}
+        >
           <FormFeedback
             fieldPath="message"
             labels={this.config.custom_fields.error_labels}
           />
         </Overridable>
 
-        <Overridable id="InvenioAppRdm.deposit.CommunityHeader.layout" {...this.props}>
+        <Overridable id="InvenioAppRdm.deposit.CommunityHeader.layout">
           <CommunityHeader imagePlaceholderLink="/static/images/square-placeholder.png" />
         </Overridable>
         <Container id="rdm-deposit-form" className="rel-mt-1">
@@ -128,7 +133,8 @@ export class RDMDepositForm extends Component {
                 )}
                 <Overridable
                   id="InvenioAppRdm.deposit.FileUploader.layout"
-                  {...this.props}
+                  record={record}
+                  config={this.config}
                 >
                   <FileUploader
                     isDraftRecord={!record.is_published}
@@ -156,7 +162,8 @@ export class RDMDepositForm extends Component {
                   <Fragment key={pid.scheme}>
                     <Overridable
                       id="InvenioAppRdm.deposit.PIDField.layout"
-                      {...this.props}
+                      pid={pid}
+                      record={record}
                     >
                       <PIDField
                         btnLabelDiscardPID={pid.btn_label_discard_pid}
@@ -181,7 +188,7 @@ export class RDMDepositForm extends Component {
 
                 <Overridable
                   id="InvenioAppRdm.deposit.ResourceTypeField.layout"
-                  {...this.props}
+                  vocabularies={this.vocabularies}
                 >
                   <ResourceTypeField
                     options={this.vocabularies.metadata.resource_type}
@@ -192,7 +199,7 @@ export class RDMDepositForm extends Component {
 
                 <Overridable
                   id="InvenioAppRdm.deposit.TitlesField.layout"
-                  {...this.props}
+                  vocabularies={this.vocabularies}
                 >
                   <TitlesField
                     options={this.vocabularies.metadata.titles}
@@ -202,10 +209,7 @@ export class RDMDepositForm extends Component {
                   />
                 </Overridable>
 
-                <Overridable
-                  id="InvenioAppRdm.deposit.PublicationDateField.layout"
-                  {...this.props}
-                >
+                <Overridable id="InvenioAppRdm.deposit.PublicationDateField.layout">
                   <PublicationDateField
                     required
                     fieldPath="metadata.publication_date"
@@ -214,7 +218,8 @@ export class RDMDepositForm extends Component {
 
                 <Overridable
                   id="InvenioAppRdm.deposit.CreatorsField.layout"
-                  {...this.props}
+                  vocabularies={this.vocabularies}
+                  config={this.config}
                 >
                   <CreatibutorsField
                     label={i18next.t("Creators")}
@@ -229,7 +234,8 @@ export class RDMDepositForm extends Component {
 
                 <Overridable
                   id="InvenioAppRdm.deposit.DescriptionsField.layout"
-                  {...this.props}
+                  record={record}
+                  vocabularies={this.vocabularies}
                 >
                   <DescriptionsField
                     fieldPath="metadata.description"
@@ -252,10 +258,7 @@ export class RDMDepositForm extends Component {
                   />
                 </Overridable>
 
-                <Overridable
-                  id="InvenioAppRdm.deposit.LicenseField.layout"
-                  {...this.props}
-                >
+                <Overridable id="InvenioAppRdm.deposit.LicenseField.layout">
                   <LicenseField
                     fieldPath="metadata.rights"
                     searchConfig={{
@@ -296,7 +299,8 @@ export class RDMDepositForm extends Component {
               >
                 <Overridable
                   id="InvenioAppRdm.deposit.ContributorsField.layout"
-                  {...this.props}
+                  vocabularies={this.vocabularies}
+                  config={this.config}
                 >
                   <CreatibutorsField
                     addButtonLabel={i18next.t("Add contributor")}
@@ -315,7 +319,8 @@ export class RDMDepositForm extends Component {
 
                 <Overridable
                   id="InvenioAppRdm.deposit.SubjectsField.layout"
-                  {...this.props}
+                  record={record}
+                  vocabularies={this.vocabularies}
                 >
                   <SubjectsField
                     fieldPath="metadata.subjects"
@@ -326,7 +331,7 @@ export class RDMDepositForm extends Component {
 
                 <Overridable
                   id="InvenioAppRdm.deposit.LanguagesField.layout"
-                  {...this.props}
+                  record={record}
                 >
                   <LanguagesField
                     fieldPath="metadata.languages"
@@ -345,8 +350,7 @@ export class RDMDepositForm extends Component {
 
                 <Overridable
                   id="InvenioAppRdm.deposit.DateField.layout"
-                  vocabularies={{ ...this.vocabularies }}
-                  {...this.props}
+                  vocabularies={this.vocabularies}
                 >
                   <DatesField
                     fieldPath="metadata.dates"
@@ -355,17 +359,11 @@ export class RDMDepositForm extends Component {
                   />
                 </Overridable>
 
-                <Overridable
-                  id="InvenioAppRdm.deposit.VersionField.layout"
-                  {...this.props}
-                >
+                <Overridable id="InvenioAppRdm.deposit.VersionField.layout">
                   <VersionField fieldPath="metadata.version" />
                 </Overridable>
 
-                <Overridable
-                  id="InvenioAppRdm.deposit.PublisherField.layout"
-                  {...this.props}
-                >
+                <Overridable id="InvenioAppRdm.deposit.PublisherField.layout">
                   <PublisherField fieldPath="metadata.publisher" />
                 </Overridable>
               </AccordionField>
@@ -376,10 +374,7 @@ export class RDMDepositForm extends Component {
                 label="Funding"
                 ui={this.accordionStyle}
               >
-                <Overridable
-                  id="InvenioAppRdm.deposit.FundingField.layout"
-                  {...this.props}
-                >
+                <Overridable id="InvenioAppRdm.deposit.FundingField.layout">
                   <FundingField
                     fieldPath="metadata.funding"
                     searchConfig={{
@@ -462,7 +457,7 @@ export class RDMDepositForm extends Component {
               >
                 <Overridable
                   id="InvenioAppRdm.deposit.IdentifiersField.layout"
-                  {...this.props}
+                  vocabularies={this.vocabularies}
                 >
                   <IdentifiersField
                     fieldPath="metadata.identifiers"
@@ -481,7 +476,7 @@ export class RDMDepositForm extends Component {
               >
                 <Overridable
                   id="InvenioAppRdm.deposit.RelatedWorksField.layout"
-                  {...this.props}
+                  vocabularies={this.vocabularies}
                 >
                   <RelatedWorksField
                     fieldPath="metadata.related_identifiers"
@@ -490,13 +485,13 @@ export class RDMDepositForm extends Component {
                   />
                 </Overridable>
               </AccordionField>
-              {!_isEmpty(this.config.custom_fields.ui) && (
+              {!_isEmpty(customFieldsUI) && (
                 <Overridable
                   id="InvenioAppRdm.deposit.CustomFields.layout"
-                  {...this.props}
+                  customFieldsUI={customFieldsUI}
                 >
                   <CustomFields
-                    config={this.config.custom_fields.ui}
+                    config={customFieldsUI}
                     templateLoader={(widget) =>
                       import(`@templates/custom_fields/${widget}.js`)
                     }
@@ -541,10 +536,7 @@ export class RDMDepositForm extends Component {
                       </Grid>
                     </Card.Content>
                   </Card>
-                  <Overridable
-                    id="InvenioAppRdm.deposit.AccessRightField.layout"
-                    {...this.props}
-                  >
+                  <Overridable id="InvenioAppRdm.deposit.AccessRightField.layout">
                     <AccessRightField
                       label={i18next.t("Visibility")}
                       labelIcon="shield"
