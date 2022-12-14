@@ -11,37 +11,12 @@ from flask.cli import with_appcontext
 from invenio_access.permissions import system_identity
 from invenio_records_resources.proxies import current_service_registry
 
-from invenio_app_rdm.fixtures import FixturesEngine, Pages
+from invenio_app_rdm.fixtures import FixturesEngine
 
 
 @click.group()
 def rdm():
     """Invenio app rdm commands."""
-
-
-@rdm.group()
-def pages():
-    """Static pages."""
-
-
-@pages.command("create")
-@click.option(
-    "-f",
-    "--force",
-    "force",
-    default=False,
-    is_flag=True,
-    show_default=True,
-    help="Creates static pages.",
-)
-@with_appcontext
-def create_static_pages(force):
-    """Create static pages."""
-    click.secho("Creating static pages...", fg="green")
-
-    Pages().run(force=force)
-
-    click.secho("Created static pages!", fg="green")
 
 
 @rdm.command("fixtures")
