@@ -218,6 +218,12 @@ FORMATTER_BADGES_TITLE_MAPPING = {"doi": "DOI"}
 MAIL_SUPPRESS_SEND = True
 """Disable email sending by default."""
 
+MAIL_DEFAULT_SENDER = "info@inveniosoftware.org"
+"""Email address used as sender of account registration emails.
+
+`SECURITY_EMAIL_SENDER` will default to this value.
+"""
+
 # Flask-Collect
 # =============
 # See https://github.com/klen/Flask-Collect#setup
@@ -241,9 +247,6 @@ This feature will add X-Session-ID and X-User-ID headers to HTTP response. You
 MUST ensure that NGINX (or other proxies) removes these headers again before
 sending the response to the client. Set to False, in case of doubt.
 """
-
-SECURITY_EMAIL_SENDER = "info@inveniosoftware.org"
-"""Email address used as sender of account registration emails."""
 
 SECURITY_EMAIL_SUBJECT_REGISTER = _("Welcome to Invenio App RDM!")
 """Email subject for account registration emails."""
@@ -802,6 +805,3 @@ FILES_INTEGRITY_REPORT_SUBJECT = "Files integrity report"
 
 ADMIN_EMAIL_RECIPIENT = "info@inveniosoftware.org"
 """Admin e-mail"""
-
-MAIL_DEFAULT_SENDER = "info@inveniosoftware.org"
-"""Default e-mail address sender."""
