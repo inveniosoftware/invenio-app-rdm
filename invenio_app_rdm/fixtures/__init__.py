@@ -39,3 +39,10 @@ class FixturesEngine:
             [Path("./app_data"), dir_ / "data"],
             "oai_sets.yaml",
         ).load()
+
+        StaticPages(
+            [Path("./app_data"), dir_ / "data"],
+            "pages.yaml",
+            [Path("./app_data/pages"), dir_ / "pages"],
+            force=True,
+        ).load()

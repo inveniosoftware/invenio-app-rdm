@@ -8,8 +8,10 @@
 from pathlib import Path
 
 from invenio_access.permissions import system_identity
+from invenio_pages import Page
 from invenio_rdm_records.proxies import current_oaipmh_server_service
 
+from invenio_app_rdm.fixtures import StaticPages
 from invenio_app_rdm.fixtures.oai_sets import OAICustomSets
 
 
@@ -26,3 +28,19 @@ def test_load_oai_sets(app):
     res_set = service.search(system_identity, params={"q": f"set1"})
 
     assert res_set.total == 1
+
+
+def test_load_pages(app):
+    dir_ = Path(__file__).parent
+    StaticPages(
+        [dir_ / "app_data", dir_.parent.parent / "invenio_app_rdm/fixtures/data"],
+        "pages.yaml",
+        [dir_ / "app_data/pages", dir_ / "pages"],
+        force=True,
+    ).load()
+
+    pages = Page.query.all()
+
+    assert len(pages) == 1
+
+    assert pages[0].title == "About"
