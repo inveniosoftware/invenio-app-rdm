@@ -193,6 +193,9 @@ def files_rest_permission_factory(obj, action):
 FILES_REST_PERMISSION_FACTORY = files_rest_permission_factory
 """Set default files permission factory."""
 
+FILES_REST_CHECKSUM_VERIFICATION_URI_PREFIXES = []
+"""URI prefixes of files their checksums should be verified"""
+
 # Storage classes
 FILES_REST_STORAGE_CLASS_LIST = {
     "L": "Local",
@@ -247,6 +250,9 @@ This feature will add X-Session-ID and X-User-ID headers to HTTP response. You
 MUST ensure that NGINX (or other proxies) removes these headers again before
 sending the response to the client. Set to False, in case of doubt.
 """
+
+# Invenio-Security-Invenio
+# ========================
 
 SECURITY_EMAIL_SUBJECT_REGISTER = _("Welcome to Invenio App RDM!")
 """Email subject for account registration emails."""
@@ -492,6 +498,10 @@ CACHE_REDIS_URL = "redis://localhost:6379/0"
 CACHE_TYPE = "flask_caching.backends.redis"
 """Use Redis caching object."""
 
+# Invenio-Access
+# ==============
+# See https://invenio-access.readthedocs.io/en/latest/configuration.html
+
 ACCESS_CACHE = "invenio_cache:current_cache"
 """Use the cache for permmissions caching."""
 
@@ -523,14 +533,12 @@ WSGI_PROXIES = 2
 ADMIN_PERMISSION_FACTORY = "invenio_app_rdm.admin.permission_factory"
 
 # Invenio-REST
-# ------------
+# ============
+
 REST_CSRF_ENABLED = True
-# TODO: remove when https://github.com/inveniosoftware/invenio-rest/issues/125
-# is solved
-CSRF_HEADER = "X-CSRFToken"
 
 # Invenio-Vocabularies
-# =============
+# ====================
 
 VOCABULARIES_DATASTREAM_READERS = {
     **VOCABULARIES_DATASTREAM_READERS,
@@ -558,7 +566,10 @@ VOCABULARIES_DATASTREAM_WRITERS = {
 # ===============
 
 SEARCH_UI_SEARCH_TEMPLATE = "invenio_app_rdm/records/search.html"
-"""Search page's base template."""
+"""Search page's base template.
+
+Previous invenio-search-ui, now is picked by the instance records/ext.py.
+"""
 
 APP_RDM_DEPOSIT_FORM_TEMPLATE = "invenio_app_rdm/records/deposit.html"
 """Deposit page's form template."""
@@ -678,19 +689,6 @@ APP_RDM_DEPOSIT_FORM_PUBLISH_MODAL_EXTRA = ""
 
 APP_RDM_RECORD_LANDING_PAGE_TEMPLATE = "invenio_app_rdm/records/detail.html"
 
-RDM_CITATION_STYLES = [
-    ("apa", _("APA")),
-    ("harvard-cite-them-right", _("Harvard")),
-    ("modern-language-association", _("MLA")),
-    ("vancouver", _("Vancouver")),
-    ("chicago-fullnote-bibliography", _("Chicago")),
-    ("ieee", _("IEEE")),
-]
-"""List of citation style """
-
-RDM_CITATION_STYLES_DEFAULT = "apa"
-"""Default citation style"""
-
 APP_RDM_DETAIL_SIDE_BAR_TEMPLATES = [
     "invenio_app_rdm/records/details/side_bar/manage_menu.html",
     "invenio_app_rdm/records/details/side_bar/metrics.html",
@@ -702,6 +700,29 @@ APP_RDM_DETAIL_SIDE_BAR_TEMPLATES = [
 ]
 """Template names for detail view sidebar components"""
 
+FILES_INTEGRITY_REPORT_TEMPLATE = (
+    "invenio_app_rdm/files_integrity_report/email/files_integrity_report.html"
+)
+"""Files integrity report template"""
+
+FILES_INTEGRITY_REPORT_SUBJECT = "Files integrity report"
+"""Files integrity report subject"""
+
+ADMIN_EMAIL_RECIPIENT = "info@inveniosoftware.org"
+"""Admin e-mail"""
+
+# Invenio-RDM-Records
+# ===================
+
+RDM_REQUESTS_ROUTES = {
+    "user-dashboard-request-details": "/me/requests/<request_pid_value>",
+    "community-dashboard-request-details": "/communities/<pid_value>/requests/<request_pid_value>",
+    "community-dashboard-invitation-details": "/communities/<pid_value>/invitations/<request_pid_value>",
+}
+
+RDM_COMMUNITIES_ROUTES = {
+    "community-detail": "/communities/<pid_value>",
+}
 COMMUNITIES_RECORDS_SEARCH = {
     "facets": ["access_status", "resource_type", "language"],
     "sort": ["bestmatch", "newest", "oldest", "version"],
@@ -720,18 +741,23 @@ RDM_SEARCH_USER_REQUESTS = {
 }
 """User requests search configuration (i.e list of user requests)"""
 
-RDM_REQUESTS_ROUTES = {
-    "user-dashboard-request-details": "/me/requests/<request_pid_value>",
-    "community-dashboard-request-details": "/communities/<pid_value>/requests/<request_pid_value>",
-    "community-dashboard-invitation-details": "/communities/<pid_value>/invitations/<request_pid_value>",
-}
+# citation
 
-RDM_COMMUNITIES_ROUTES = {
-    "community-detail": "/communities/<pid_value>",
-}
+RDM_CITATION_STYLES = [
+    ("apa", _("APA")),
+    ("harvard-cite-them-right", _("Harvard")),
+    ("modern-language-association", _("MLA")),
+    ("vancouver", _("Vancouver")),
+    ("chicago-fullnote-bibliography", _("Chicago")),
+    ("ieee", _("IEEE")),
+]
+"""List of citation style """
+
+RDM_CITATION_STYLES_DEFAULT = "apa"
+"""Default citation style"""
 
 # Invenio-IIIF
-# =================
+# ============
 # See https://invenio-iiif.readthedocs.io/en/latest/configuration.html
 
 IIIF_PREVIEW_TEMPLATE = "invenio_app_rdm/records/iiif_preview.html"
@@ -784,6 +810,10 @@ IIIF_FORMATS_PIL_MAP = {
     "tiff": "tiff",
 }
 
+# Invenio-Pages
+# =============
+# See https://invenio-pages.readthedocs.io/en/latest/configuration.html
+
 PAGES_DEFAULT_TEMPLATE = "invenio_app_rdm/default_static_page.html"
 """Default template to render."""
 
@@ -791,17 +821,3 @@ PAGES_TEMPLATES = [
     ("invenio_app_rdm/default_static_page.html", "Default"),
 ]
 """List of available templates for pages."""
-
-FILES_REST_CHECKSUM_VERIFICATION_URI_PREFIXES = []
-"""URI prefixes of files their checksums should be verified"""
-
-FILES_INTEGRITY_REPORT_TEMPLATE = (
-    "invenio_app_rdm/files_integrity_report/email/files_integrity_report.html"
-)
-"""Files integrity report template"""
-
-FILES_INTEGRITY_REPORT_SUBJECT = "Files integrity report"
-"""Files integrity report subject"""
-
-ADMIN_EMAIL_RECIPIENT = "info@inveniosoftware.org"
-"""Admin e-mail"""
