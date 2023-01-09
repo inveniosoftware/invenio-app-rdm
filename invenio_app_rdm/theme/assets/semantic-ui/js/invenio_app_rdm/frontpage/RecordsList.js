@@ -48,7 +48,7 @@ class RecordsList extends Component {
       this.setState({ data: response.data.hits, isLoading: false });
     } catch (error) {
       console.error(error);
-      this.setState({ error: i18next.t("Unable to load records"), isLoading: false });
+      this.setState({ error: error.response.data.message, isLoading: false });
     }
   };
 
@@ -77,7 +77,7 @@ class RecordsList extends Component {
             </>
           )}
 
-          {error && <Message content={error} error icon="info" />}
+          {error && <Message content={error} error icon="warning sign" />}
         </Container>
       </Overridable>
     );

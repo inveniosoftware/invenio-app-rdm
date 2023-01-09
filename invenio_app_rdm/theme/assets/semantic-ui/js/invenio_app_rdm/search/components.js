@@ -244,14 +244,7 @@ RDMEmptyResults.defaultProps = {
 };
 
 export const RDMErrorComponent = ({ error }) => {
-  return (
-    <Message warning>
-      <Message.Header>
-        <Icon name="warning sign" />
-        {error.response.data.message}
-      </Message.Header>
-    </Message>
-  );
+  return <Message error content={error.response.data.message} icon="warning sign" />;
 };
 
 RDMErrorComponent.propTypes = {
