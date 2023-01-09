@@ -11,6 +11,7 @@ import { withCancel, http } from "react-invenio-forms";
 import { Loader, Container, Header, Item, Button, Message } from "semantic-ui-react";
 import Overridable from "react-overridable";
 import RecordsResultsListItem from "@js/invenio_app_rdm/components/RecordsResultsListItem";
+import isEmpty from "lodash/isEmpty";
 
 class RecordsList extends Component {
   constructor(props) {
@@ -61,24 +62,32 @@ class RecordsList extends Component {
     });
 
     return (
-      <Overridable id="RecordsList.layout" {...this.props}>
-        <Container>
-          {isLoading && <Loader active inline="centered" />}
+      <Overridable
+        id="InvenioAppRdm.RecordsList.layout"
+        isLoading={isLoading}
+        error={error}
+        title={title}
+        listItems={listItems}
+      >
+        {!isEmpty(listItems) && (
+          <Container>
+            {isLoading && <Loader active inline="centered" />}
 
-          {!isLoading && !error && (
-            <>
-              <Header as="h2">{title}</Header>
-              <Item.Group relaxed link divided>
-                {listItems}
-              </Item.Group>
-              <Container textAlign="center">
-                <Button href="/search">{i18next.t("More")}</Button>
-              </Container>
-            </>
-          )}
+            {!isLoading && !error && (
+              <>
+                <Header as="h2">{title}</Header>
+                <Item.Group relaxed link divided>
+                  {listItems}
+                </Item.Group>
+                <Container textAlign="center">
+                  <Button href="/search">{i18next.t("More")}</Button>
+                </Container>
+              </>
+            )}
 
-          {error && <Message content={error} error icon="warning sign" />}
-        </Container>
+            {error && <Message content={error} error icon="warning sign" />}
+          </Container>
+        )}
       </Overridable>
     );
   }
