@@ -55,7 +55,25 @@ class RecordsResultsListItem extends Component {
     // Derivatives
     const viewLink = `/records/${result.id}`;
     return (
-      <Overridable id="RecordsResultsListItem.layout" {...this.props}>
+      <Overridable
+        id="InvenioAppRdm.RecordsResultsListItem.layout"
+        result={result}
+        key={key}
+        accessStatusId={accessStatusId}
+        accessStatus={accessStatus}
+        accessStatusIcon={accessStatusIcon}
+        createdDate={createdDate}
+        creators={creators}
+        descriptionStripped={descriptionStripped}
+        publicationDate={publicationDate}
+        resourceType={resourceType}
+        subjects={subjects}
+        title={title}
+        version={version}
+        versions={versions}
+        allVersionsVisible={allVersionsVisible}
+        numOtherVersions={numOtherVersions}
+      >
         <Item key={key ?? result.id}>
           <Item.Content>
             <Item.Extra className="labels-actions">
