@@ -77,7 +77,7 @@ def get_draft_from_bucket(bucket_id):
 def get_report_subject():
     """Retrieves the integrity report e-mail's subject."""
     subject = current_app.config.get(
-        "FILES_INTEGRITY_REPORT_SUBJECT", "Files integrity report"
+        "APP_RDM_FILES_INTEGRITY_REPORT_SUBJECT", "Files integrity report"
     )
     now = datetime.now(tz=utc).strftime("%Y-%m-%d %H:%M:%S")
     subject += f" [{now}]"
@@ -86,7 +86,7 @@ def get_report_subject():
 
 def get_report_template():
     """Retrieves the template name to be used in the files integrity report."""
-    tpl = current_app.config["FILES_INTEGRITY_REPORT_TEMPLATE"]
+    tpl = current_app.config["APP_RDM_FILES_INTEGRITY_REPORT_TEMPLATE"]
     return tpl
 
 
@@ -101,7 +101,7 @@ def render_report_email(files):
 def send_integrity_report_email(files):
     """Sends an e-mail with a report on the provided files.
 
-    APP configs ('MAIL_DEFAULT_SENDER', 'ADMIN_EMAIL_RECIPIENT') must be set.
+    APP configs ('MAIL_DEFAULT_SENDER', 'APP_RDM_ADMIN_EMAIL_RECIPIENT') must be set.
     Oherwise a warning is logged.
     """
     try:
@@ -109,7 +109,7 @@ def send_integrity_report_email(files):
             subject = get_report_subject()
             body = render_report_email(files)
             sender = current_app.config["MAIL_DEFAULT_SENDER"]
-            admin_email = current_app.config["ADMIN_EMAIL_RECIPIENT"]
+            admin_email = current_app.config["APP_RDM_ADMIN_EMAIL_RECIPIENT"]
             recipients = admin_email
             if not type(admin_email) == list:
                 recipients = [admin_email]

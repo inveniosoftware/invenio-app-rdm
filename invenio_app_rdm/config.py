@@ -700,15 +700,15 @@ APP_RDM_DETAIL_SIDE_BAR_TEMPLATES = [
 ]
 """Template names for detail view sidebar components"""
 
-FILES_INTEGRITY_REPORT_TEMPLATE = (
+APP_RDM_FILES_INTEGRITY_REPORT_TEMPLATE = (
     "invenio_app_rdm/files_integrity_report/email/files_integrity_report.html"
 )
 """Files integrity report template"""
 
-FILES_INTEGRITY_REPORT_SUBJECT = "Files integrity report"
+APP_RDM_FILES_INTEGRITY_REPORT_SUBJECT = "Files integrity report"
 """Files integrity report subject"""
 
-ADMIN_EMAIL_RECIPIENT = "info@inveniosoftware.org"
+APP_RDM_ADMIN_EMAIL_RECIPIENT = "info@inveniosoftware.org"
 """Admin e-mail"""
 
 # Invenio-RDM-Records

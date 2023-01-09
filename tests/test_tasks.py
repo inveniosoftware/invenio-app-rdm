@@ -29,8 +29,8 @@ def test_task_file_integrity_report(app, invalid_file_instance):
 
     with mail.record_messages() as outbox:
         # Configure email and validate that email was sent
-        app.config["FILES_INTEGRITY_REPORT_TEMPLATE"] = "mock_mail.html"
-        app.config["ADMIN_EMAIL_RECIPIENT"] = recipients
+        app.config["APP_RDM_FILES_INTEGRITY_REPORT_TEMPLATE"] = "mock_mail.html"
+        app.config["APP_RDM_ADMIN_EMAIL_RECIPIENT"] = recipients
         app.config["MAIL_DEFAULT_SENDER"] = sender
 
         file_integrity_report()
@@ -53,7 +53,7 @@ def test_integrity_report_invalid_template(app, invalid_file_instance):
 
     with mail.record_messages() as outbox:
         # Remove the template, no e-mail is sent
-        app.config["FILES_INTEGRITY_REPORT_TEMPLATE"] = None
+        app.config["APP_RDM_FILES_INTEGRITY_REPORT_TEMPLATE"] = None
         file_integrity_report()
         assert len(outbox) == 0
 
@@ -67,10 +67,10 @@ def test_integrity_report_invalid_addresses(app, invalid_file_instance):
 
     with mail.record_messages() as outbox:
         # Use mock template
-        app.config["FILES_INTEGRITY_REPORT_TEMPLATE"] = "mock_mail.html"
+        app.config["APP_RDM_FILES_INTEGRITY_REPORT_TEMPLATE"] = "mock_mail.html"
 
         # Recipient is not set, mail is not sent.
-        app.config["ADMIN_EMAIL_RECIPIENT"] = None
+        app.config["APP_RDM_ADMIN_EMAIL_RECIPIENT"] = None
         file_integrity_report()
         assert len(outbox) == 0
 
@@ -92,7 +92,7 @@ def test_integrity_report_default_template(app, invalid_file_instance):
 
     with mail.record_messages() as outbox:
         # Use default template
-        app.config["ADMIN_EMAIL_RECIPIENT"] = recipients
+        app.config["APP_RDM_ADMIN_EMAIL_RECIPIENT"] = recipients
         app.config["MAIL_DEFAULT_SENDER"] = sender
         file_integrity_report()
         assert len(outbox) == 1
