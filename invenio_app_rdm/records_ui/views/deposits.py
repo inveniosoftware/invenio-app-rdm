@@ -4,6 +4,7 @@
 # Copyright (C) 2019-2021 Northwestern University.
 # Copyright (C)      2021 TU Wien.
 # Copyright (C) 2022 KTH Royal Institute of Technology
+# Copyright (C) 2023 Graz University of Technology.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -11,9 +12,9 @@
 """Routes for record-related pages provided by Invenio-App-RDM."""
 
 from flask import current_app, g, render_template
-from flask_babelex import lazy_gettext as _
 from flask_login import login_required
 from invenio_communities.proxies import current_communities
+from invenio_i18n import lazy_gettext as _
 from invenio_i18n.ext import current_i18n
 from invenio_rdm_records.proxies import current_rdm_records
 from invenio_rdm_records.resources.serializers import UIJSONSerializer

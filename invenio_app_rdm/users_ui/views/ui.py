@@ -2,6 +2,7 @@
 #
 # This file is part of Invenio.
 # Copyright (C) 2016-2021 CERN.
+# Copyright (C) 2023 Graz University of Technology.
 #
 # Invenio is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -9,9 +10,9 @@
 """Communities UI views."""
 
 from flask import Blueprint, current_app, render_template
-from flask_babelex import lazy_gettext as _
 from flask_login import current_user
 from flask_menu import current_menu
+from invenio_i18n import lazy_gettext as _
 
 #
 # Error handlers

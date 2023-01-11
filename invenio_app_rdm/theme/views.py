@@ -3,6 +3,7 @@
 # Copyright (C) 2019-2020 CERN.
 # Copyright (C) 2019-2020 Northwestern University.
 # Copyright (C)      2021 TU Wien.
+# Copyright (C) 2023 Graz University of Technology.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -10,9 +11,9 @@
 """Routes for general pages provided by Invenio-App-RDM."""
 
 from flask import Blueprint, current_app, render_template
-from flask_babelex import get_locale
-from flask_babelex import lazy_gettext as _
 from flask_menu import current_menu
+from invenio_i18n import get_locale
+from invenio_i18n import lazy_gettext as _
 
 
 #
