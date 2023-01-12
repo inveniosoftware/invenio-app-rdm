@@ -9,6 +9,8 @@
 
 from pathlib import Path
 
+from flask import current_app
+
 from invenio_app_rdm.fixtures.oai_sets import OAICustomSets
 from invenio_app_rdm.fixtures.pages import StaticPages
 
@@ -19,11 +21,14 @@ class Pages:
     def run(self, force=False):
         """Run the pages loading."""
         dir_ = Path(__file__).parent
-
+        app_data_folder = Path(current_app.instance_path) / "app_data"
+        app_pages_folder = app_data_folder / "pages"
+        data_folder = dir_ / "data"
+        pages_folder = dir_ / "pages"
         StaticPages(
-            [Path("./app_data"), dir_ / "data"],
+            [app_data_folder, data_folder],
             "pages.yaml",
-            [Path("./app_data/pages"), dir_ / "pages"],
+            [app_pages_folder, pages_folder],
             force,
         ).load()
 
@@ -34,15 +39,18 @@ class FixturesEngine:
     def run(self):
         """Run the fixtures loading."""
         dir_ = Path(__file__).parent
-
+        app_data_folder = Path(current_app.instance_path) / "app_data"
+        app_pages_folder = app_data_folder / "pages"
+        data_folder = dir_ / "data"
+        pages_folder = dir_ / "pages"
         OAICustomSets(
-            [Path("./app_data"), dir_ / "data"],
+            [app_data_folder, data_folder],
             "oai_sets.yaml",
         ).load()
 
         StaticPages(
-            [Path("./app_data"), dir_ / "data"],
+            [app_data_folder, data_folder],
             "pages.yaml",
-            [Path("./app_data/pages"), dir_ / "pages"],
+            [app_pages_folder, pages_folder],
             force=True,
         ).load()
