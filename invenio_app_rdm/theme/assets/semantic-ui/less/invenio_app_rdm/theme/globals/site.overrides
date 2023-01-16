@@ -518,4 +518,4 @@ dl.details-list {
 
 .highlight-background {
     background-color: @highlightHeaderColor;
-  }
+}

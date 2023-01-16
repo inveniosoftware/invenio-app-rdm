@@ -119,7 +119,7 @@
         <article class="sixteen wide tablet eleven wide computer column main-record-content">
           {% if record.access.record == 'restricted' %}
             <section id="record-access-status"
-                     class="ui {{ record.ui.access_status.message_class }} message"
+                     class="ui {{ record.ui.access_status.message_class }} message rel-mt-1"
                      aria-label="{{ _('Record access information') }}"
             >
               <i class="{{ record.ui.access_status.icon }} icon"></i>
