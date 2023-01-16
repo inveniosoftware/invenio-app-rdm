@@ -399,24 +399,24 @@ const RequestCancelModalTriggerWithConfig = parametrize(RequestCancelModalTrigge
 });
 
 const CommunitySubmission = () => (
-  <LabelTypeSubmission className="primary" size="small" />
+  <LabelTypeSubmission className="primary" size="tiny" />
 );
 
 const CommunityInvitation = () => (
-  <LabelTypeInvitation className="primary" size="small" />
+  <LabelTypeInvitation className="primary" size="tiny" />
 );
 
-const Submitted = () => <LabelStatusSubmit className="primary" size="small" />;
+const Submitted = () => <LabelStatusSubmit className="primary" size="tiny" />;
 
-const Deleted = () => <LabelStatusDelete className="negative" size="small" />;
+const Deleted = () => <LabelStatusDelete className="negative" size="tiny" />;
 
-const Accepted = () => <LabelStatusAccept className="positive" size="small" />;
+const Accepted = () => <LabelStatusAccept className="positive" size="tiny" />;
 
-const Declined = () => <LabelStatusDecline className="negative" size="small" />;
+const Declined = () => <LabelStatusDecline className="negative" size="tiny" />;
 
-const Cancelled = () => <LabelStatusCancel className="neutral" size="small" />;
+const Cancelled = () => <LabelStatusCancel className="neutral" size="tiny" />;
 
-const Expired = () => <LabelStatusExpire className="expired" size="small" />;
+const Expired = () => <LabelStatusExpire className="expired" size="tiny" />;
 
 export const defaultComponents = {
   "BucketAggregation.element": ContribBucketAggregationElement,
