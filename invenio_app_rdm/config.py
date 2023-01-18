@@ -33,6 +33,7 @@ WARNING: An instance should NOT install multiple flavour extensions since
 from datetime import datetime, timedelta
 
 from celery.schedules import crontab
+from flask import url_for
 from flask_principal import Denial
 from invenio_access.permissions import any_user
 from invenio_rdm_records.config import RDM_NAMESPACES
@@ -701,6 +702,7 @@ APP_RDM_DETAIL_SIDE_BAR_TEMPLATES = [
     "invenio_app_rdm/records/details/side_bar/manage_menu.html",
     "invenio_app_rdm/records/details/side_bar/metrics.html",
     "invenio_app_rdm/records/details/side_bar/versions.html",
+    "invenio_app_rdm/records/details/side_bar/external_resources.html",
     "invenio_app_rdm/records/details/side_bar/keywords_subjects.html",
     "invenio_app_rdm/records/details/side_bar/details.html",
     "invenio_app_rdm/records/details/side_bar/licenses.html",
@@ -829,3 +831,60 @@ PAGES_TEMPLATES = [
     ("invenio_app_rdm/default_static_page.html", "Default"),
 ]
 """List of available templates for pages."""
+
+def external_resource_obj(identifiers, badge, icon, title=lambda x: x, subtitle=lambda x: None):
+    for identifier in identifiers:
+        if identifier["scheme"] == "url" and  badge in identifier.get("identifier", []):
+            return {
+                "url": identifier.get("identifier"),
+                "title": title(identifier.get("identifier")),
+                "subtitle": subtitle(identifier.get("identifier")),
+                "icon": icon,
+            }
+    return None
+
+def dryad_link_render(identifiers):
+    return external_resource_obj(identifiers, "datadryad", "dryad.png", lambda x: "Dryad")
+
+def github_link_render(identifiers):
+    return external_resource_obj(identifiers, "github", "github.png", lambda x: x.replace("https://github.com/", ""))
+
+def openaire_link_render(identifiers):
+    return external_resource_obj(identifiers, "openaire", "openaire.png", lambda x: "OpenAIRE EXPLORE")
+
+def inspire_link_render(identifiers):
+    return external_resource_obj(identifiers, "inspirehep", "inspire.png", lambda x: "INSPIRE")
+
+def f1000_link_render(identifiers):
+    return external_resource_obj(identifiers, "f1000research", "f1000.png", lambda x: "F1000")
+
+def reana_link_render(identifiers):
+    return external_resource_obj(identifiers, "reanahub", "reana.png", lambda x: "Reana")
+
+
+APP_RDM_RECORD_LANDING_PAGE_EXTERNAL_LINKS = [
+    {
+        "id": "dryad",
+        "render": dryad_link_render, 
+    },
+    {
+        "id": "github",
+        "render": github_link_render, 
+    },
+    {
+        "id": "openaire",
+        "render": openaire_link_render, 
+    },
+    {
+        "id": "inspire",
+        "render": inspire_link_render, 
+    },
+    {
+        "id": "f1000",
+        "render": f1000_link_render, 
+    },
+    {
+        "id": "reana",
+        "render": reana_link_render, 
+    },
+]

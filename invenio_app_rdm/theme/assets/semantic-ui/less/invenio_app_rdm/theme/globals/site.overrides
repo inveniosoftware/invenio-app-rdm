@@ -500,3 +500,16 @@ dl.details-list {
 .highlight-background {
     background-color: @highlightHeaderColor;
 }
+
+#external-resources .content {
+  display: flex;
+  align-items: center;
+}
+
+#external-resources .resource-logo {
+  flex-shrink: 0;
+  margin-right: 5px;
+  align-self: stretch;
+  aspect-ratio: 1;
+  height: 20px;
+}
