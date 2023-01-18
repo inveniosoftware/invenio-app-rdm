@@ -10,7 +10,7 @@ from pathlib import Path
 
 from flask import current_app
 from invenio_db import db
-from invenio_pages import Page
+from invenio_pages import PageModel as Page
 from invenio_rdm_records.fixtures.fixture import FixtureMixin
 
 

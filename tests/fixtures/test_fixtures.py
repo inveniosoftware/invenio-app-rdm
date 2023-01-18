@@ -8,7 +8,7 @@
 from pathlib import Path
 
 from invenio_access.permissions import system_identity
-from invenio_pages import Page
+from invenio_pages import PageModel as Page
 from invenio_rdm_records.proxies import current_oaipmh_server_service
 
 from invenio_app_rdm.fixtures import StaticPages
