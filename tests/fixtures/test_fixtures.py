@@ -8,7 +8,7 @@
 from pathlib import Path
 
 from invenio_access.permissions import system_identity
-from invenio_pages import Page
+from invenio_pages.proxies import current_pages_service
 from invenio_rdm_records.proxies import current_oaipmh_server_service
 
 from invenio_app_rdm.fixtures import StaticPages
@@ -39,8 +39,8 @@ def test_load_pages(app):
         force=True,
     ).load()
 
-    pages = Page.query.all()
+    pages = current_pages_service.search(system_identity)
 
-    assert len(pages) == 1
+    assert pages.total == 1
 
-    assert pages[0].title == "About"
+    assert pages.to_dict()["hits"]["hits"][0]["title"] == "About"

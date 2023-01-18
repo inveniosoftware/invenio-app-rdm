@@ -9,8 +9,9 @@
 from pathlib import Path
 
 from flask import current_app
+from invenio_access.permissions import system_identity
 from invenio_db import db
-from invenio_pages import Page
+from invenio_pages.proxies import current_pages_service
 from invenio_rdm_records.fixtures.fixture import FixtureMixin
 
 
@@ -26,7 +27,7 @@ class StaticPages(FixtureMixin):
     def load(self):
         """Load the static pages."""
         if self._force:
-            Page.query.delete()
+            current_pages_service.delete_all(system_identity)
 
         super().load()
         db.session.commit()
@@ -43,12 +44,11 @@ class StaticPages(FixtureMixin):
 
     def create(self, entry):
         """Load a single page."""
-        db.session.add(
-            Page(
-                url=entry.pop("url"),
-                title=entry.get("title"),
-                description=entry.get("description"),
-                content=self.page_data(entry.get("template")),
-                template_name=current_app.config["PAGES_DEFAULT_TEMPLATE"],
-            )
-        )
+        data = {
+            "url": entry.pop("url"),
+            "title": entry.get("title"),
+            "content": self.page_data(entry.get("template")),
+            "description": entry.get("description"),
+            "template_name": current_app.config["PAGES_DEFAULT_TEMPLATE"],
+        }
+        current_pages_service.create(system_identity, data)
