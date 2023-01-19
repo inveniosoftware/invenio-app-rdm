@@ -52,6 +52,7 @@
       display: block;
       margin-top: .5rem;
       word-wrap: break-word;
+      font-size: 80%;
     }
   }
 }
