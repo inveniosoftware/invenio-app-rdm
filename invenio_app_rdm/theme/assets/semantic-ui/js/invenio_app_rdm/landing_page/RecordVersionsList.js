@@ -38,11 +38,12 @@ const RecordVersionItem = ({ item, activeVersion }) => {
         )}
 
         {doi && (
-          <small
+          <a
+            href={`https://doi.org/${doi}`}
             className={"doi" + (activeVersion ? " text-muted-darken" : " text-muted")}
           >
             {doi}
-          </small>
+          </a>
         )}
       </List.Content>
 
