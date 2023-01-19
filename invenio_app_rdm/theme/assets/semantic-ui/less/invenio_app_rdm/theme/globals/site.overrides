@@ -495,6 +495,12 @@ dl.details-list {
     align-items: flex-start;
     row-gap: 1rem;
   }
+
+  > *:nth-child(2) {
+    @media all and (min-width: @computerBreakpoint) {
+      width: max-content; // Needed for Safari
+    }
+  }
 }
 
 .right-floated {
