@@ -9,8 +9,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { getInputFromDOM } from "react-invenio-deposit";
 import { RDMDepositForm } from "./RDMDepositForm";
-import { OverridableContext } from "react-overridable";
-import { overriddenComponents } from "./override";
+import { OverridableContext, overrideStore } from "react-overridable";
+
+const overriddenComponents = overrideStore.getAll();
 
 ReactDOM.render(
   <OverridableContext.Provider value={overriddenComponents}>

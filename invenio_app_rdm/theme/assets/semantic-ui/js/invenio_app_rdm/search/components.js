@@ -16,7 +16,7 @@ import _get from "lodash/get";
 import _truncate from "lodash/truncate";
 import React from "react";
 import Overridable from "react-overridable";
-import { withState } from "react-searchkit";
+import { withState, buildUID } from "react-searchkit";
 import {
   Button,
   Card,
@@ -33,8 +33,12 @@ import RecordsResultsListItem from "../components/RecordsResultsListItem";
 import PropTypes from "prop-types";
 
 export const RDMRecordResultsListItemWithState = withState(
-  ({ currentQueryState, result }) => (
-    <RecordsResultsListItem currentQueryState={currentQueryState} result={result} />
+  ({ currentQueryState, result, appName }) => (
+    <RecordsResultsListItem
+      currentQueryState={currentQueryState}
+      result={result}
+      appName={appName}
+    />
   )
 );
 
@@ -66,12 +70,16 @@ RDMRecordResultsGridItem.propTypes = {
   result: PropTypes.object.isRequired,
 };
 
-export const RDMRecordSearchBarContainer = () => {
+export const RDMRecordSearchBarContainer = ({ appName }) => {
   return (
-    <Overridable id="SearchApp.searchbar">
+    <Overridable id={buildUID("SearchApp.searchbar", "", appName)}>
       <SearchBar />
     </Overridable>
   );
+};
+
+RDMRecordSearchBarContainer.propTypes = {
+  appName: PropTypes.string.isRequired,
 };
 
 export const RDMRecordMultipleSearchBarElement = ({ queryString, onInputChange }) => {

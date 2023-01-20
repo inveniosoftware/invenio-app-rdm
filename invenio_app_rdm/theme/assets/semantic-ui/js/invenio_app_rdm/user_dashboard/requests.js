@@ -20,7 +20,7 @@ import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { GridResponsiveSidebarColumn } from "react-invenio-forms";
 import { Count, ResultsList, SearchBar, Sort, withState } from "react-searchkit";
-import { parametrize } from "react-overridable";
+import { parametrize, overrideStore } from "react-overridable";
 import {
   LabelTypeInvitation,
   LabelTypeSubmission,
@@ -59,6 +59,8 @@ import {
   ContribBucketAggregationElement,
   ContribBucketAggregationValuesElement,
 } from "@js/invenio_search_ui/components";
+
+const appName = "InvenioAppRdm.DashboardRequests";
 
 export const RequestsResults = ({
   sortOptions,
@@ -313,10 +315,13 @@ export const RDMRequestsSearchLayout = (props) => {
             open={sidebarVisible}
             onHideClick={() => setSidebarVisible(false)}
           >
-            <SearchAppFacets aggs={config.aggs} />
+            <SearchAppFacets aggs={config.aggs} appName={appName} />
           </GridResponsiveSidebarColumn>
           <Grid.Column mobile={16} tablet={16} computer={12}>
-            <SearchAppResultsPane layoutOptions={config.layoutOptions} />
+            <SearchAppResultsPane
+              layoutOptions={config.layoutOptions}
+              appName={appName}
+            />
           </Grid.Column>
         </Grid.Row>
       </Grid>
@@ -419,29 +424,37 @@ const Cancelled = () => <LabelStatusCancel className="neutral" size="small" />;
 const Expired = () => <LabelStatusExpire className="expired" size="small" />;
 
 export const defaultComponents = {
-  "BucketAggregation.element": ContribBucketAggregationElement,
-  "BucketAggregationValues.element": ContribBucketAggregationValuesElement,
-  "SearchApp.facets": ContribSearchAppFacets,
-  "ResultsList.item": RequestsResultsItemTemplateDashboard,
-  "ResultsGrid.item": RequestsResultsGridItemTemplate,
-  "SearchApp.layout": RDMRequestsSearchLayout,
-  "SearchApp.results": RequestsResults,
-  "SearchBar.element": RDMRecordSearchBarElement,
-  "EmptyResults.element": RDMRequestsEmptyResultsWithState,
-  "RequestTypeLabel.layout.community-submission": CommunitySubmission,
-  "RequestTypeLabel.layout.community-invitation": CommunityInvitation,
-  "RequestStatusLabel.layout.submitted": Submitted,
-  "RequestStatusLabel.layout.deleted": Deleted,
-  "RequestStatusLabel.layout.accepted": Accepted,
-  "RequestStatusLabel.layout.declined": Declined,
-  "RequestStatusLabel.layout.cancelled": Cancelled,
-  "RequestStatusLabel.layout.expired": Expired,
-  "RequestActionModalTrigger.accept": RequestAcceptModalTriggerWithConfig,
-  "RequestActionModalTrigger.decline": RequestDeclineModalTriggerWithConfig,
-  "RequestActionModalTrigger.cancel": RequestCancelModalTriggerWithConfig,
-  "RequestActionButton.cancel": RequestCancelButton,
-  "RequestActionButton.decline": RequestDeclineButton,
-  "RequestActionButton.accept": RequestAcceptButton,
+  [`${appName}.BucketAggregation.element`]: ContribBucketAggregationElement,
+  [`${appName}.BucketAggregationValues.element`]: ContribBucketAggregationValuesElement,
+  [`${appName}.SearchApp.facets`]: ContribSearchAppFacets,
+  [`${appName}.ResultsList.item`]: RequestsResultsItemTemplateDashboard,
+  [`${appName}.ResultsGrid.item`]: RequestsResultsGridItemTemplate,
+  [`${appName}.SearchApp.layout`]: RDMRequestsSearchLayout,
+  [`${appName}.SearchApp.results`]: RequestsResults,
+  [`${appName}.SearchBar.element`]: RDMRecordSearchBarElement,
+  [`${appName}.EmptyResults.element`]: RDMRequestsEmptyResultsWithState,
+  [`${appName}.RequestTypeLabel.layout.community-submission`]: CommunitySubmission,
+  [`${appName}.RequestTypeLabel.layout.community-invitation`]: CommunityInvitation,
+  [`${appName}.RequestStatusLabel.layout.submitted`]: Submitted,
+  [`${appName}.RequestStatusLabel.layout.deleted`]: Deleted,
+  [`${appName}.RequestStatusLabel.layout.accepted`]: Accepted,
+  [`${appName}.RequestStatusLabel.layout.declined`]: Declined,
+  [`${appName}.RequestStatusLabel.layout.cancelled`]: Cancelled,
+  [`${appName}.RequestStatusLabel.layout.expired`]: Expired,
+  [`${appName}.RequestActionModalTrigger.accept`]: RequestAcceptModalTriggerWithConfig,
+  [`${appName}.RequestActionModalTrigger.decline`]:
+    RequestDeclineModalTriggerWithConfig,
+  [`${appName}.RequestActionModalTrigger.cancel`]: RequestCancelModalTriggerWithConfig,
+  [`${appName}.RequestActionButton.cancel`]: RequestCancelButton,
+  [`${appName}.RequestActionButton.decline`]: RequestDeclineButton,
+  [`${appName}.RequestActionButton.accept`]: RequestAcceptButton,
 };
 
-createSearchAppInit(defaultComponents);
+const overriddenComponents = overrideStore.getAll();
+
+createSearchAppInit(
+  { ...defaultComponents, ...overriddenComponents },
+  true,
+  "invenio-search-config",
+  true
+);

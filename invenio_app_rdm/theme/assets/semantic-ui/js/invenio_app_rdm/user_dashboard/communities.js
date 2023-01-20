@@ -21,6 +21,9 @@ import {
   ContribBucketAggregationElement,
   ContribBucketAggregationValuesElement,
 } from "@js/invenio_search_ui/components";
+import { overrideStore, parametrize } from "react-overridable";
+
+export const appName = "InvenioAppRdm.DashboardCommunities";
 
 function ResultsGridItemTemplate({ result, index }) {
   return (
@@ -74,6 +77,7 @@ export const DashboardCommunitiesSearchLayout = DashboardSearchLayoutHOC({
       floated="right"
     />
   ),
+  appName: appName,
 });
 
 export const RDMCommunitiesEmptyResults = (props) => {
@@ -98,16 +102,26 @@ RDMCommunitiesEmptyResults.propTypes = {
   resetQuery: PropTypes.func.isRequired,
 };
 
-export const defaultComponents = {
-  "BucketAggregation.element": ContribBucketAggregationElement,
-  "BucketAggregationValues.element": ContribBucketAggregationValuesElement,
-  "EmptyResults.element": RDMCommunitiesEmptyResults,
-  "ResultsList.item": CommunitiesResultsItemTemplate,
-  "ResultsGrid.item": ResultsGridItemTemplate,
-  "SearchApp.facets": ContribSearchAppFacets,
-  "SearchApp.layout": DashboardCommunitiesSearchLayout,
-  "SearchApp.results": DashboardResultView,
-  "SearchBar.element": RDMRecordSearchBarElement,
-};
+const DashboardResultViewWAppName = parametrize(DashboardResultView, {
+  appName: appName,
+});
 
-createSearchAppInit(defaultComponents);
+export const defaultComponents = {
+  [`${appName}.BucketAggregation.element`]: ContribBucketAggregationElement,
+  [`${appName}.BucketAggregationValues.element`]: ContribBucketAggregationValuesElement,
+  [`${appName}.EmptyResults.element`]: RDMCommunitiesEmptyResults,
+  [`${appName}.ResultsList.item`]: CommunitiesResultsItemTemplate,
+  [`${appName}.ResultsGrid.item`]: ResultsGridItemTemplate,
+  [`${appName}.SearchApp.facets`]: ContribSearchAppFacets,
+  [`${appName}.SearchApp.layout`]: DashboardCommunitiesSearchLayout,
+  [`${appName}.SearchApp.results`]: DashboardResultViewWAppName,
+  [`${appName}.SearchBar.element`]: RDMRecordSearchBarElement,
+};
+const overriddenComponents = overrideStore.getAll();
+
+createSearchAppInit(
+  { ...defaultComponents, ...overriddenComponents },
+  true,
+  "invenio-search-config",
+  true
+);

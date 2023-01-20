@@ -106,7 +106,7 @@ export class RDMDepositForm extends Component {
         permissions={permissions}
       >
         <Overridable
-          id="InvenioAppRdm.deposit.FormFeedback.layout"
+          id="InvenioAppRdm.Deposit.FormFeedback.layout"
           labels={this.config.custom_fields.error_labels}
         >
           <FormFeedback
@@ -115,7 +115,7 @@ export class RDMDepositForm extends Component {
           />
         </Overridable>
 
-        <Overridable id="InvenioAppRdm.deposit.CommunityHeader.layout">
+        <Overridable id="InvenioAppRdm.Deposit.CommunityHeader.layout">
           <CommunityHeader imagePlaceholderLink="/static/images/square-placeholder.png" />
         </Overridable>
         <Container id="rdm-deposit-form" className="rel-mt-1">
@@ -132,7 +132,7 @@ export class RDMDepositForm extends Component {
                   </div>
                 )}
                 <Overridable
-                  id="InvenioAppRdm.deposit.FileUploader.layout"
+                  id="InvenioAppRdm.Deposit.FileUploader.layout"
                   record={record}
                   config={this.config}
                 >
@@ -161,7 +161,7 @@ export class RDMDepositForm extends Component {
                 {this.config.pids.map((pid) => (
                   <Fragment key={pid.scheme}>
                     <Overridable
-                      id="InvenioAppRdm.deposit.PIDField.layout"
+                      id="InvenioAppRdm.Deposit.PIDField.layout"
                       pid={pid}
                       record={record}
                     >
@@ -187,7 +187,7 @@ export class RDMDepositForm extends Component {
                 ))}
 
                 <Overridable
-                  id="InvenioAppRdm.deposit.ResourceTypeField.layout"
+                  id="InvenioAppRdm.Deposit.ResourceTypeField.layout"
                   vocabularies={this.vocabularies}
                 >
                   <ResourceTypeField
@@ -198,7 +198,7 @@ export class RDMDepositForm extends Component {
                 </Overridable>
 
                 <Overridable
-                  id="InvenioAppRdm.deposit.TitlesField.layout"
+                  id="InvenioAppRdm.Deposit.TitlesField.layout"
                   vocabularies={this.vocabularies}
                 >
                   <TitlesField
@@ -209,7 +209,7 @@ export class RDMDepositForm extends Component {
                   />
                 </Overridable>
 
-                <Overridable id="InvenioAppRdm.deposit.PublicationDateField.layout">
+                <Overridable id="InvenioAppRdm.Deposit.PublicationDateField.layout">
                   <PublicationDateField
                     required
                     fieldPath="metadata.publication_date"
@@ -217,7 +217,7 @@ export class RDMDepositForm extends Component {
                 </Overridable>
 
                 <Overridable
-                  id="InvenioAppRdm.deposit.CreatorsField.layout"
+                  id="InvenioAppRdm.Deposit.CreatorsField.layout"
                   vocabularies={this.vocabularies}
                   config={this.config}
                 >
@@ -233,7 +233,7 @@ export class RDMDepositForm extends Component {
                 </Overridable>
 
                 <Overridable
-                  id="InvenioAppRdm.deposit.DescriptionsField.layout"
+                  id="InvenioAppRdm.Deposit.DescriptionsField.layout"
                   record={record}
                   vocabularies={this.vocabularies}
                 >
@@ -258,7 +258,7 @@ export class RDMDepositForm extends Component {
                   />
                 </Overridable>
 
-                <Overridable id="InvenioAppRdm.deposit.LicenseField.layout">
+                <Overridable id="InvenioAppRdm.Deposit.LicenseField.layout">
                   <LicenseField
                     fieldPath="metadata.rights"
                     searchConfig={{
@@ -298,7 +298,7 @@ export class RDMDepositForm extends Component {
                 label={i18next.t("Recommended information")}
               >
                 <Overridable
-                  id="InvenioAppRdm.deposit.ContributorsField.layout"
+                  id="InvenioAppRdm.Deposit.ContributorsField.layout"
                   vocabularies={this.vocabularies}
                   config={this.config}
                 >
@@ -318,7 +318,7 @@ export class RDMDepositForm extends Component {
                 </Overridable>
 
                 <Overridable
-                  id="InvenioAppRdm.deposit.SubjectsField.layout"
+                  id="InvenioAppRdm.Deposit.SubjectsField.layout"
                   record={record}
                   vocabularies={this.vocabularies}
                 >
@@ -330,7 +330,7 @@ export class RDMDepositForm extends Component {
                 </Overridable>
 
                 <Overridable
-                  id="InvenioAppRdm.deposit.LanguagesField.layout"
+                  id="InvenioAppRdm.Deposit.LanguagesField.layout"
                   record={record}
                 >
                   <LanguagesField
@@ -349,7 +349,7 @@ export class RDMDepositForm extends Component {
                 </Overridable>
 
                 <Overridable
-                  id="InvenioAppRdm.deposit.DateField.layout"
+                  id="InvenioAppRdm.Deposit.DateField.layout"
                   vocabularies={this.vocabularies}
                 >
                   <DatesField
@@ -359,11 +359,11 @@ export class RDMDepositForm extends Component {
                   />
                 </Overridable>
 
-                <Overridable id="InvenioAppRdm.deposit.VersionField.layout">
+                <Overridable id="InvenioAppRdm.Deposit.VersionField.layout">
                   <VersionField fieldPath="metadata.version" />
                 </Overridable>
 
-                <Overridable id="InvenioAppRdm.deposit.PublisherField.layout">
+                <Overridable id="InvenioAppRdm.Deposit.PublisherField.layout">
                   <PublisherField fieldPath="metadata.publisher" />
                 </Overridable>
               </AccordionField>
@@ -374,7 +374,7 @@ export class RDMDepositForm extends Component {
                 label="Funding"
                 ui={this.accordionStyle}
               >
-                <Overridable id="InvenioAppRdm.deposit.FundingField.layout">
+                <Overridable id="InvenioAppRdm.Deposit.FundingField.layout">
                   <FundingField
                     fieldPath="metadata.funding"
                     searchConfig={{
@@ -456,7 +456,7 @@ export class RDMDepositForm extends Component {
                 label={i18next.t("Alternate identifiers")}
               >
                 <Overridable
-                  id="InvenioAppRdm.deposit.IdentifiersField.layout"
+                  id="InvenioAppRdm.Deposit.IdentifiersField.layout"
                   vocabularies={this.vocabularies}
                 >
                   <IdentifiersField
@@ -475,7 +475,7 @@ export class RDMDepositForm extends Component {
                 label={i18next.t("Related works")}
               >
                 <Overridable
-                  id="InvenioAppRdm.deposit.RelatedWorksField.layout"
+                  id="InvenioAppRdm.Deposit.RelatedWorksField.layout"
                   vocabularies={this.vocabularies}
                 >
                   <RelatedWorksField
@@ -487,7 +487,7 @@ export class RDMDepositForm extends Component {
               </AccordionField>
               {!_isEmpty(customFieldsUI) && (
                 <Overridable
-                  id="InvenioAppRdm.deposit.CustomFields.layout"
+                  id="InvenioAppRdm.Deposit.CustomFields.layout"
                   customFieldsUI={customFieldsUI}
                 >
                   <CustomFields
@@ -536,7 +536,7 @@ export class RDMDepositForm extends Component {
                       </Grid>
                     </Card.Content>
                   </Card>
-                  <Overridable id="InvenioAppRdm.deposit.AccessRightField.layout">
+                  <Overridable id="InvenioAppRdm.Deposit.AccessRightField.layout">
                     <AccessRightField
                       label={i18next.t("Visibility")}
                       labelIcon="shield"

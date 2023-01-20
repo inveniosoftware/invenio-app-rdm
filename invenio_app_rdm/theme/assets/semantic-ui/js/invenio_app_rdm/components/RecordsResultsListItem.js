@@ -12,10 +12,11 @@ import Overridable from "react-overridable";
 import { SearchItemCreators } from "../utils";
 import PropTypes from "prop-types";
 import { Item, Label, Icon } from "semantic-ui-react";
+import { buildUID } from "react-searchkit";
 
 class RecordsResultsListItem extends Component {
   render() {
-    const { currentQueryState, result, key } = this.props;
+    const { currentQueryState, result, key, appName } = this.props;
 
     const accessStatusId = _get(result, "ui.access_status.id", "open");
     const accessStatus = _get(result, "ui.access_status.title_l10n", "Open");
@@ -56,7 +57,7 @@ class RecordsResultsListItem extends Component {
     const viewLink = `/records/${result.id}`;
     return (
       <Overridable
-        id="InvenioAppRdm.RecordsResultsListItem.layout"
+        id={buildUID("RecordsResultsListItem.layout", "", appName)}
         result={result}
         key={key}
         accessStatusId={accessStatusId}
@@ -133,11 +134,13 @@ RecordsResultsListItem.propTypes = {
   currentQueryState: PropTypes.object,
   result: PropTypes.object.isRequired,
   key: PropTypes.string,
+  appName: PropTypes.string,
 };
 
 RecordsResultsListItem.defaultProps = {
   key: null,
   currentQueryState: null,
+  appName: "",
 };
 
 export default Overridable.component("RecordsResultsListItem", RecordsResultsListItem);
