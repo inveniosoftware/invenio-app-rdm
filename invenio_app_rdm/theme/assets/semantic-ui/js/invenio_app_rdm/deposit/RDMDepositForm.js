@@ -355,7 +355,7 @@ export class RDMDepositForm extends Component {
                   <DatesField
                     fieldPath="metadata.dates"
                     options={this.vocabularies.metadata.dates}
-                    showEmptyValue
+                    showEmptyValue={false}
                   />
                 </Overridable>
 
