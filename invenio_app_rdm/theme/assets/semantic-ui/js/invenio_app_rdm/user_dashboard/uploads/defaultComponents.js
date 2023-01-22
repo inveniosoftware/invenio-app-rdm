@@ -1,8 +1,5 @@
 // This file is part of InvenioRDM
-// Copyright (C) 2020-2022 CERN.
-// Copyright (C) 2020-2021 Northwestern University.
-// Copyright (C) 2021 Graz University of Technology.
-// Copyright (C) 2021 New York University.
+// Copyright (C) 2022 CERN.
 //
 // Invenio App RDM is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
@@ -18,12 +15,11 @@ import {
   RDMEmptyResults as RDMNoSearchResults,
   RDMRecordSearchBarElement,
   RDMToggleComponent,
-} from "../search/components";
+} from "../../search/components";
 import { http } from "react-invenio-forms";
-import { DashboardResultView, DashboardSearchLayoutHOC } from "./base";
-import { createSearchAppInit } from "@js/invenio_search_ui";
-import { ComputerTabletUploadsItem } from "./uploads_items/ComputerTabletUploadsItem";
-import { MobileUploadsItem } from "./uploads_items/MobileUploadsItem";
+import { DashboardResultView, DashboardSearchLayoutHOC } from "../base";
+import { ComputerTabletUploadsItem } from "../uploads_items/ComputerTabletUploadsItem";
+import { MobileUploadsItem } from "../uploads_items/MobileUploadsItem";
 import PropTypes from "prop-types";
 import {
   ContribSearchAppFacets,
@@ -174,7 +170,7 @@ export const DashboardUploadsSearchLayout = DashboardSearchLayoutHOC({
   ),
 });
 
-const ContribSearchAppFacetsWithConfig = parametrize(ContribSearchAppFacets, {
+export const ContribSearchAppFacetsWithConfig = parametrize(ContribSearchAppFacets, {
   toogle: true,
 });
 
@@ -191,5 +187,3 @@ export const defaultComponents = {
   "SearchBar.element": RDMRecordSearchBarElement,
   "SearchFilters.Toggle.element": RDMToggleComponent,
 };
-
-createSearchAppInit(defaultComponents);
