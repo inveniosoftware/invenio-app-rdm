@@ -45,13 +45,26 @@
 {%- endmacro %}
 
 
-{%- macro file_list(files, pid, is_preview, with_preview=true, download_endpoint='invenio_app_rdm_records.record_file_download', preview_endpoint='invenio_app_rdm_records.record_file_preview') %}
+{%- macro file_list(
+    files, pid, is_preview, 
+    record=None, 
+    with_preview=true, 
+    download_endpoint='invenio_app_rdm_records.record_file_download', 
+    preview_endpoint='invenio_app_rdm_records.record_file_preview'
+) %}
   <table class="ui striped table files fluid">
     <thead>
       <tr>
         <th>{{_('Name')}}</th>
         <th>{{_('Size')}}</th>
-        <th class="hidden">{{_('Actions')}}</th>
+        <th class>
+          {%- if config.RDM_ARCHIVE_DOWNLOAD_ENABLED %}
+          {% set archive_download_url = record.links.archive %}
+          <a role="button" class="ui compact mini button right floated archive-link" href="{{ archive_download_url }}">
+            <i class="file archive icon button"></i> {{_("Download all")}}
+          </a>
+          {%- endif %}
+        </th>
       </tr>
     </thead>
     <tbody>
@@ -117,7 +130,7 @@
       </div>
       {% endif %}
       <div id="collapsableFiles">
-        {{ file_list(files, pid, is_preview) }}
+        {{ file_list(files, pid, is_preview, record=record) }}
       </div>
     </div>
   </div>
