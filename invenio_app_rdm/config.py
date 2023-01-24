@@ -635,6 +635,14 @@ APP_RDM_RECORD_EXPORTERS = {
         "content-type": "application/x-dc+xml",
         "filename": "{id}.xml",
     },
+    "GeoJSON": {
+        "name": _("GeoJSON"),
+        "serializer": (
+            "invenio_rdm_records.resources.serializers:" "GeoJSONSerializer"
+        ),
+        "content-type": "application/vnd.geojson+json",
+        "filename": "{id}.geojson",
+    },
 }
 
 APP_RDM_RECORDS_EXPORT_URL = "/records/<pid_value>/export/<export_format>"
