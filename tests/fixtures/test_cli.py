@@ -22,4 +22,4 @@ def test_create_fixtures(app, db, cli_runner):
     res_set = service.search(system_identity, params={"q": f"%"})
 
     # oai_sets.yaml file left empty
-    assert res_set.total == 0
+    assert res_set.total == 2
