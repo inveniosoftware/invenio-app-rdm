@@ -635,6 +635,14 @@ APP_RDM_RECORD_EXPORTERS = {
         "content-type": "application/x-dc+xml",
         "filename": "{id}.xml",
     },
+    "marcxml": {
+        "name": _("MARCXML"),
+        "serializer": (
+            "invenio_rdm_records.resources.serializers:" "MARCXMLSerializer"
+        ),
+        "content-type": "application/marcxml+xml",
+        "filename": "{id}.xml",
+    },
     "GeoJSON": {
         "name": _("GeoJSON"),
         "serializer": (
