@@ -13,6 +13,7 @@
 from flask import current_app, g, render_template
 from flask_babelex import lazy_gettext as _
 from flask_login import login_required
+from invenio_communities.proxies import current_communities
 from invenio_i18n.ext import current_i18n
 from invenio_rdm_records.proxies import current_rdm_records
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
@@ -284,6 +285,12 @@ def load_custom_fields():
     }
 
 
+def get_user_communities_memberships():
+    """Return current identity communities memberships."""
+    memberships = current_communities.service.members.read_memberships(g.identity)
+    return {id: role for (id, role) in memberships["memberships"]}
+
+
 def get_form_config(**kwargs):
     """Get the react form configuration."""
     conf = current_app.config
@@ -302,6 +309,7 @@ def get_form_config(**kwargs):
                 "user-dashboard-request-details"
             ]
         ),
+        user_communities_memberships=get_user_communities_memberships(),
         custom_fields=load_custom_fields(),
         publish_modal_extra=current_app.config.get(
             "APP_RDM_DEPOSIT_FORM_PUBLISH_MODAL_EXTRA"
