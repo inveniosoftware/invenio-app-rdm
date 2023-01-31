@@ -478,31 +478,6 @@ dl.details-list {
   box-shadow: none !important;
 }
 
-.auto-column-grid {
-  // used on a container with two children <div>
-  // provides auto adjustment to the content of the left column
-  // and auto fills the width on the right
-  // [   COL1 (auto fill remaining space)  ] [  COL2 (max-content width)   ]
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: auto max-content;
-  align-items: center;
-  column-gap: 2rem;
-
-  @media all and (max-width: @largestTabletScreen) {
-    grid-auto-flow: row;
-    grid-auto-columns: 100%;
-    align-items: flex-start;
-    row-gap: 1rem;
-  }
-
-  > *:nth-child(2) {
-    @media all and (min-width: @computerBreakpoint) {
-      width: max-content; // Needed for Safari
-    }
-  }
-}
-
 .right-floated {
   float: right;
 }
