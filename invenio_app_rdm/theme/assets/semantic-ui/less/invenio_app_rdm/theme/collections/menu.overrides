@@ -50,6 +50,16 @@
 
         > .item {
           flex: 1 0 0;
+          min-width: 0;
+          text-align: center;
+
+          &::before {
+            content: none;
+          }
+
+          &:not(:first-child) {
+            border-left: 1px solid @borderColor;
+          }
 
           &:first-child {
             border-radius: @borderRadius 0px 0px @borderRadius;
@@ -67,12 +77,23 @@
     }
 
     &.tablet {
-      @media screen and (max-width: @largestTabletScreen) {
+      @media screen and (min-width: @tabletBreakpoint) and (max-width: @largestTabletScreen) {
         display: flex;
         flex-direction: row;
+        width: max-content;
 
         > .item {
           flex: 1 0 0;
+          min-width: 9rem;
+          text-align: center;
+
+          &::before {
+            content: none;
+          }
+
+          &:not(:first-child) {
+            border-left: 1px solid @borderColor;
+          }
 
           &:first-child {
             border-radius: @borderRadius 0px 0px @borderRadius;
