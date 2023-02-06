@@ -37,7 +37,7 @@ export const MobileCommunitiesItem = ({ result, index }) => {
           <Image wrapped src={result.links.logo} size="small" />
         </Item.Extra>
         <Item.Header as="h2" className="rel-mt-1">
-          <a href={`/communities/${result.id}`}>{result.metadata.title}</a>
+          <a href={`/communities/${result.slug}`}>{result.metadata.title}</a>
         </Item.Header>
         <Item.Meta>
           <div

@@ -43,7 +43,7 @@ export const ComputerTabletCommunitiesItem = ({ result, index }) => {
                 </Label>
               </Item.Extra>
               <Item.Header as="h2">
-                <a href={`/communities/${result.id}`}>{result.metadata.title}</a>
+                <a href={`/communities/${result.slug}`}>{result.metadata.title}</a>
               </Item.Header>
               <Item.Meta>
                 <div
