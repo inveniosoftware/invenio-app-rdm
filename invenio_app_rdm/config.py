@@ -4,6 +4,7 @@
 # Copyright (C) 2019-2020 Northwestern University.
 # Copyright (C) 2021 Graz University of Technology.
 # Copyright (C) 2022 KTH Royal Institute of Technology
+# Copyright (C) 2023 TU Wien
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -36,6 +37,10 @@ from celery.schedules import crontab
 from flask_principal import Denial
 from invenio_access.permissions import any_user
 from invenio_rdm_records.config import RDM_NAMESPACES
+from invenio_stats.aggregations import StatAggregator
+from invenio_stats.contrib.event_builders import build_file_unique_id
+from invenio_stats.processors import EventsIndexer, anonymize_user, flag_robots
+from invenio_stats.queries import TermsQuery
 from invenio_vocabularies.config import (
     VOCABULARIES_DATASTREAM_READERS,
     VOCABULARIES_DATASTREAM_TRANSFORMERS,
@@ -62,6 +67,8 @@ from invenio_vocabularies.contrib.names.datastreams import (
 from invenio_vocabularies.contrib.names.datastreams import (
     VOCABULARIES_DATASTREAM_WRITERS as NAMES_WRITERS,
 )
+
+from .stats.event_builders import build_record_unique_id
 
 # TODO: Remove when records-rest is out of communities and files
 RECORDS_REST_ENDPOINTS = {}
@@ -312,6 +319,22 @@ CELERY_BEAT_SCHEDULE = {
     "file-integrity-report": {
         "task": "invenio_app_rdm.tasks.file_integrity_report",
         "schedule": crontab(minute=0, hour=7),  # Every day at 07:00 UTC
+    },
+    # indexing of statistics events & aggregations
+    "stats-process-events": {
+        "task": "invenio_stats.tasks.process_events",
+        "schedule": timedelta(minutes=30),
+        "args": [("record-view", "file-download")],
+    },
+    "stats-aggregate-events": {
+        "task": "invenio_stats.tasks.aggregate_events",
+        "schedule": timedelta(hours=1),
+        "args": [
+            (
+                "record-view-agg",
+                "file-download-agg",
+            )
+        ],
     },
 }
 """Scheduled tasks configuration (aka cronjobs)."""
@@ -844,3 +867,167 @@ PAGES_TEMPLATES = [
     ("invenio_app_rdm/default_static_page.html", "Default"),
 ]
 """List of available templates for pages."""
+
+# Invenio-Stats
+# =============
+# See https://invenio-stats.readthedocs.io/en/latest/configuration.html
+
+STATS_EVENTS = {
+    "file-download": {
+        "templates": "invenio_app_rdm.stats.templates.events.file_download",
+        "event_builders": [
+            "invenio_app_rdm.stats.file_download_event_builder",
+            "invenio_app_rdm.stats.check_if_via_api",
+        ],
+        "cls": EventsIndexer,
+        "params": {
+            "preprocessors": [flag_robots, anonymize_user, build_file_unique_id]
+        },
+    },
+    "record-view": {
+        "templates": "invenio_app_rdm.stats.templates.events.record_view",
+        "event_builders": [
+            "invenio_app_rdm.stats.record_view_event_builder",
+            "invenio_app_rdm.stats.check_if_via_api",
+            "invenio_app_rdm.stats.drop_if_via_api",
+        ],
+        "cls": EventsIndexer,
+        "params": {
+            "preprocessors": [flag_robots, anonymize_user, build_record_unique_id],
+        },
+    },
+}
+
+STATS_AGGREGATIONS = {
+    "file-download-agg": {
+        "templates": "invenio_app_rdm.stats.templates.aggregations.aggr_file_download",
+        "cls": StatAggregator,
+        "params": {
+            "event": "file-download",
+            "field": "unique_id",
+            "interval": "day",
+            "index_interval": "month",
+            "copy_fields": {
+                "file_id": "file_id",
+                "file_key": "file_key",
+                "bucket_id": "bucket_id",
+                "recid": "recid",
+                "parent_recid": "parent_recid",
+            },
+            "metric_fields": {
+                "unique_count": (
+                    "cardinality",
+                    "unique_session_id",
+                    {"precision_threshold": 1000},
+                ),
+                "volume": ("sum", "size", {}),
+            },
+        },
+    },
+    "record-view-agg": {
+        "templates": "invenio_app_rdm.stats.templates.aggregations.aggr_record_view",
+        "cls": StatAggregator,
+        "params": {
+            "event": "record-view",
+            "field": "unique_id",
+            "interval": "day",
+            "index_interval": "month",
+            "copy_fields": {
+                "recid": "recid",
+                "parent_recid": "parent_recid",
+                "via_api": "via_api",
+            },
+            "metric_fields": {
+                "unique_count": (
+                    "cardinality",
+                    "unique_session_id",
+                    {"precision_threshold": 1000},
+                ),
+            },
+            "query_modifiers": [lambda query, **_: query.filter("term", via_api=False)],
+        },
+    },
+}
+
+STATS_QUERIES = {
+    "record-view": {
+        "cls": TermsQuery,
+        "permission_factory": None,
+        "params": {
+            "index": "stats-record-view",
+            "doc_type": "record-view-day-aggregation",
+            "copy_fields": {
+                "recid": "recid",
+                "parent_recid": "parent_recid",
+            },
+            "query_modifiers": [],
+            "required_filters": {
+                "recid": "recid",
+            },
+            "metric_fields": {
+                "views": ("sum", "count", {}),
+                "unique_views": ("sum", "unique_count", {}),
+            },
+        },
+    },
+    "record-view-all-versions": {
+        "cls": TermsQuery,
+        "permission_factory": None,
+        "params": {
+            "index": "stats-record-view",
+            "doc_type": "record-view-day-aggregation",
+            "copy_fields": {
+                "parent_recid": "parent_recid",
+            },
+            "query_modifiers": [],
+            "required_filters": {
+                "parent_recid": "parent_recid",
+            },
+            "metric_fields": {
+                "views": ("sum", "count", {}),
+                "unique_views": ("sum", "unique_count", {}),
+            },
+        },
+    },
+    "record-download": {
+        "cls": TermsQuery,
+        "permission_factory": None,
+        "params": {
+            "index": "stats-file-download",
+            "doc_type": "file-download-day-aggregation",
+            "copy_fields": {
+                "recid": "recid",
+                "parent_recid": "parent_recid",
+            },
+            "query_modifiers": [],
+            "required_filters": {
+                "recid": "recid",
+            },
+            "metric_fields": {
+                "downloads": ("sum", "count", {}),
+                "unique_downloads": ("sum", "unique_count", {}),
+                "data_volume": ("sum", "volume", {}),
+            },
+        },
+    },
+    "record-download-all-versions": {
+        "cls": TermsQuery,
+        "permission_factory": None,
+        "params": {
+            "index": "stats-file-download",
+            "doc_type": "file-download-day-aggregation",
+            "copy_fields": {
+                "parent_recid": "parent_recid",
+            },
+            "query_modifiers": [],
+            "required_filters": {
+                "parent_recid": "parent_recid",
+            },
+            "metric_fields": {
+                "downloads": ("sum", "count", {}),
+                "unique_downloads": ("sum", "unique_count", {}),
+                "data_volume": ("sum", "volume", {}),
+            },
+        },
+    },
+}

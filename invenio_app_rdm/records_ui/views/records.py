@@ -18,6 +18,7 @@ from invenio_previewer.extensions import default
 from invenio_previewer.proxies import current_previewer
 from invenio_rdm_records.proxies import current_rdm_records
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
+from invenio_stats.proxies import current_stats
 from marshmallow import ValidationError
 
 from invenio_app_rdm.records_ui.views.deposits import load_custom_fields
@@ -95,6 +96,11 @@ def record_detail(pid_value, record, files, is_preview=False):
             )
         except ValidationError:
             abort(404)
+
+    # emit a record view stats event
+    emitter = current_stats.get_event_emitter("record-view")
+    if record is not None and emitter is not None:
+        emitter(current_app, record=record._record, via_api=False)
 
     return render_template(
         current_app.config.get("APP_RDM_RECORD_LANDING_PAGE_TEMPLATE"),
@@ -174,6 +180,7 @@ def record_file_preview(
         filename=file_metadata.data["key"],
         preview=1 if is_preview else 0,
     )
+
     # Find a suitable previewer
     fileobj = PreviewFile(file_metadata, pid_value, url)
     for plugin in current_previewer.iter_previewers(
@@ -190,6 +197,13 @@ def record_file_preview(
 def record_file_download(pid_value, file_item=None, is_preview=False, **kwargs):
     """Download a file from a record."""
     download = bool(request.args.get("download"))
+
+    # emit a file download stats event
+    emitter = current_stats.get_event_emitter("file-download")
+    if file_item is not None and emitter is not None:
+        obj = file_item._file.object_version
+        emitter(current_app, record=file_item._record, obj=obj, via_api=False)
+
     return file_item.send_file(as_attachment=download)
 
 

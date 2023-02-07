@@ -1,0 +1,93 @@
+{
+  "index_patterns": ["__SEARCH_INDEX_PREFIX__events-stats-file-download-*"],
+  "settings": {
+    "index": {
+      "refresh_interval": "5s"
+    }
+  },
+  "mappings": {
+    "dynamic_templates": [
+      {
+        "date_fields": {
+          "match_mapping_type": "date",
+          "mapping": {
+            "type": "date",
+            "format": "strict_date_hour_minute_second"
+          }
+        }
+      }
+    ],
+    "date_detection": false,
+    "dynamic": false,
+    "numeric_detection": false,
+    "properties": {
+      "timestamp": {
+        "type": "date",
+        "format": "strict_date_hour_minute_second"
+      },
+      "bucket_id": {
+        "type": "keyword"
+      },
+      "file_id": {
+        "type": "keyword"
+      },
+      "file_key": {
+        "type": "keyword"
+      },
+      "unique_id": {
+        "type": "keyword"
+      },
+      "country": {
+        "type": "keyword"
+      },
+      "visitor_id": {
+        "type": "keyword"
+      },
+      "is_machine": {
+        "type": "boolean"
+      },
+      "is_robot": {
+        "type": "boolean"
+      },
+      "unique_session_id": {
+        "type": "keyword"
+      },
+      "size": {
+        "type": "double"
+      },
+      "referrer": {
+        "type": "keyword"
+      },
+      "ip_address": {
+        "type": "keyword"
+      },
+      "user_agent": {
+        "type": "keyword"
+      },
+      "user_id": {
+        "type": "keyword"
+      },
+      "session_id": {
+        "type": "keyword"
+      },
+      "record_id": {
+        "type": "keyword"
+      },
+      "recid": {
+        "type": "keyword"
+      },
+      "parent_id": {
+        "type": "keyword"
+      },
+      "parent_recid": {
+        "type": "keyword"
+      },
+      "via_api": {
+        "type": "boolean"
+      }
+    }
+  },
+  "aliases": {
+    "__SEARCH_INDEX_PREFIX__events-stats-file-download": {}
+  }
+}
