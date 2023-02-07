@@ -1,0 +1,46 @@
+{
+  "index_patterns": ["__SEARCH_INDEX_PREFIX__stats-record-view-*"],
+  "settings": {
+    "index": {
+      "refresh_interval": "1m"
+    }
+  },
+  "mappings": {
+    "date_detection": false,
+    "dynamic": false,
+    "numeric_detection": false,
+    "properties": {
+      "timestamp": {
+        "type": "date",
+        "format": "date_optional_time"
+      },
+      "count": {
+        "type": "integer"
+      },
+      "unique_count": {
+        "type": "integer"
+      },
+      "record_id": {
+        "type": "keyword"
+      },
+      "recid": {
+        "type": "keyword"
+      },
+      "parent_id": {
+        "type": "keyword"
+      },
+      "parent_recid": {
+        "type": "keyword"
+      },
+      "unique_id": {
+        "type": "keyword"
+      },
+      "via_api": {
+        "type": "boolean"
+      }
+    }
+  },
+  "aliases": {
+    "__SEARCH_INDEX_PREFIX__stats-record-view": {}
+  }
+}
