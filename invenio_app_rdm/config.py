@@ -589,6 +589,7 @@ APP_RDM_ROUTES = {
     "index": "/",
     "robots": "/robots.txt",
     "help_search": "/help/search",
+    "help_statistics": "/help/statistics",
     "record_search": "/search",
     "record_detail": "/records/<pid_value>",
     "record_export": "/records/<pid_value>/export/<export_format>",

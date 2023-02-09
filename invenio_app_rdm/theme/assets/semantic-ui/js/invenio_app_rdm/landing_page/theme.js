@@ -73,3 +73,39 @@ $("#manage-record-btn").popup({
     $($module).attr("aria-expanded", false);
   },
 });
+
+// Statistics table info popup
+const $statsInfoPopup = $("#record-statistics .popup-trigger");
+const $statsInfoPopupContent = $("#record-statistics .popup-trigger + .popup-content");
+
+$statsInfoPopup.popup({
+  on: "hover",
+  popup: $statsInfoPopupContent,
+  position: "top right",
+  onVisible: function ($module) {
+    $($module).attr("aria-expanded", true);
+  },
+  onHidden: function ($module) {
+    $($module).attr("aria-expanded", false);
+  },
+});
+
+$statsInfoPopup.on("focus", function (event) {
+  $(event.target).popup("show");
+  $(event.target).attr("aria-expanded", true);
+});
+
+$statsInfoPopup.on("click", function (event) {
+  if ($statsInfoPopupContent.hasClass("hidden")) {
+    $(event.target).popup("show");
+    $(event.target).attr("aria-expanded", true);
+  } else {
+    $(event.target).popup("hide");
+    $(event.target).attr("aria-expanded", false);
+  }
+});
+
+$statsInfoPopup.on("blur", function (event) {
+  $(event.target).popup("hide");
+  $(event.target).attr("aria-expanded", false);
+});
