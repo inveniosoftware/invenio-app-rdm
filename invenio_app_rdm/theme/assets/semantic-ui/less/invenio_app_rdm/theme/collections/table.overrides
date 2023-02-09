@@ -58,6 +58,11 @@
               background-color: lighten(@borderColor, 75%);
             }
 
+            &.right.aligned {
+              &[data-label]::before {
+                text-align: left;
+              }
+            }
             &:not(.right.aligned) {
               text-align: left;
             }
@@ -70,6 +75,7 @@
                 content: attr(data-label);
                 font-weight: bold;
                 margin-right: 1rem;
+                width: inherit;
               }
 
               .ui.fitted.checkbox {
@@ -91,6 +97,17 @@
         width: auto;
         display: block;
       }
+    }
+  }
+}
+
+#record-statistics.ui.table {
+  .popup-trigger {
+    position: relative;
+
+    &.compact-number {
+      border-bottom: 1px dotted rgba(0,0,0,0.1);
+      width: max-content;
     }
   }
 }

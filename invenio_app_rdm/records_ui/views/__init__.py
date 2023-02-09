@@ -21,14 +21,17 @@ from ..searchapp import search_app_context
 from .deposits import deposit_create, deposit_edit
 from .filters import (
     can_list_files,
+    compact_number,
     get_scheme_label,
     has_images,
     has_previewable_files,
+    localize_number,
     make_files_preview_compatible,
     order_entries,
     pid_url,
     select_preview_file,
     to_previewer_files,
+    truncate_number,
 )
 from .records import (
     not_found_error,
@@ -120,6 +123,9 @@ def create_blueprint(app):
     blueprint.add_app_template_filter(order_entries)
     blueprint.add_app_template_filter(get_scheme_label)
     blueprint.add_app_template_filter(has_images)
+    blueprint.add_app_template_filter(localize_number)
+    blueprint.add_app_template_filter(compact_number)
+    blueprint.add_app_template_filter(truncate_number)
 
     # Register context processor
     blueprint.app_context_processor(search_app_context)

@@ -100,6 +100,22 @@ def record_detail(pid_value, record, files, is_preview=False):
         custom_fields_ui=load_custom_fields()["ui"],
         is_preview=is_preview,
         is_draft=is_draft,
+        stats={
+            "this_version": {
+                "unique_views": "1274245",
+                "views": "14906489",
+                "unique_downloads": "72009789675",
+                "downloads": "832228",
+                "data_volume": "5000000000",
+            },
+            "all_versions": {
+                "unique_views": "1127502",
+                "views": "149081197",
+                "unique_downloads": "72009237812",
+                "downloads": "832228",
+                "data_volume": "5000000000000",
+            },
+        },
     )
 
 
