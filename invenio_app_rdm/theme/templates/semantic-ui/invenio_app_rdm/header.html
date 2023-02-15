@@ -13,6 +13,10 @@
     {%- block site_banner %}
     {%- endblock site_banner %}
     <div class="outer-navbar">
+      {%- block banner %}
+        {% from 'invenio_banners/banner.html' import banner %}
+        {{ banner() }}
+      {%- endblock banner %}
       {%- block navbar %}
       <div class="ui container invenio-header-container">
         <nav id="invenio-nav" class="ui inverted menu borderless stackable p-0">
