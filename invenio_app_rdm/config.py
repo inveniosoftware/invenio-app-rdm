@@ -327,7 +327,7 @@ CELERY_RESULT_BACKEND = "redis://localhost:6379/2"
 # See https://flask-sqlalchemy.palletsprojects.com/en/2.x/config/
 
 SQLALCHEMY_DATABASE_URI = (
-    "postgresql+psycopg2://invenio-app-rdm:invenio-app-rdm@localhost/" "invenio-app-rdm"
+    "postgresql+psycopg2://invenio-app-rdm:invenio-app-rdm@localhost/invenio-app-rdm"
 )
 """Database URI including user and password.
 
@@ -451,7 +451,7 @@ OAISERVER_METADATA_FORMATS = {
     },
     "datacite": {
         "serializer": "invenio_rdm_records.oai:datacite_etree",
-        "schema": "http://schema.datacite.org/" "meta/nonexistant/nonexistant.xsd",
+        "schema": "http://schema.datacite.org/meta/nonexistant/nonexistant.xsd",
         "namespace": "http://datacite.org/schema/nonexistant",
     },
     "oai_datacite": {
@@ -612,7 +612,7 @@ APP_RDM_RECORD_EXPORTERS = {
     "csl": {
         "name": _("CSL"),
         "serializer": (
-            "invenio_rdm_records.resources.serializers:" "CSLJSONSerializer"
+            "invenio_rdm_records.resources.serializers:CSLJSONSerializer"
         ),
         "content-type": "application/vnd.citationstyles.csl+json",
         "filename": "{id}.json",
@@ -620,7 +620,7 @@ APP_RDM_RECORD_EXPORTERS = {
     "datacite-json": {
         "name": _("DataCite JSON"),
         "serializer": (
-            "invenio_rdm_records.resources.serializers:" "DataCite43JSONSerializer"
+            "invenio_rdm_records.resources.serializers:DataCite43JSONSerializer"
         ),
         "content-type": "application/vnd.datacite.datacite+json",
         "filename": "{id}.json",
@@ -628,7 +628,7 @@ APP_RDM_RECORD_EXPORTERS = {
     "datacite-xml": {
         "name": _("DataCite XML"),
         "serializer": (
-            "invenio_rdm_records.resources.serializers:" "DataCite43XMLSerializer"
+            "invenio_rdm_records.resources.serializers:DataCite43XMLSerializer"
         ),
         "content-type": "application/vnd.datacite.datacite+xml",
         "filename": "{id}.xml",
@@ -636,7 +636,7 @@ APP_RDM_RECORD_EXPORTERS = {
     "dublincore": {
         "name": _("Dublin Core XML"),
         "serializer": (
-            "invenio_rdm_records.resources.serializers:" "DublinCoreXMLSerializer"
+            "invenio_rdm_records.resources.serializers:DublinCoreXMLSerializer"
         ),
         "content-type": "application/x-dc+xml",
         "filename": "{id}.xml",
@@ -644,7 +644,7 @@ APP_RDM_RECORD_EXPORTERS = {
     "marcxml": {
         "name": _("MARCXML"),
         "serializer": (
-            "invenio_rdm_records.resources.serializers:" "MARCXMLSerializer"
+            "invenio_rdm_records.resources.serializers:MARCXMLSerializer"
         ),
         "content-type": "application/marcxml+xml",
         "filename": "{id}.xml",
@@ -652,7 +652,7 @@ APP_RDM_RECORD_EXPORTERS = {
     "GeoJSON": {
         "name": _("GeoJSON"),
         "serializer": (
-            "invenio_rdm_records.resources.serializers:" "GeoJSONSerializer"
+            "invenio_rdm_records.resources.serializers:GeoJSONSerializer"
         ),
         "content-type": "application/vnd.geojson+json",
         "filename": "{id}.geojson",
