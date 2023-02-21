@@ -305,6 +305,7 @@ def get_form_config(**kwargs):
         pids=get_form_pids_config(),
         quota=conf.get("APP_RDM_DEPOSIT_FORM_QUOTA"),
         decimal_size_display=conf.get("APP_RDM_DISPLAY_DECIMAL_FILE_SIZES", True),
+        can_have_metadata_only_records=conf.get("RDM_ALLOW_METADATA_ONLY_RECORDS"),
         links=dict(
             user_dashboard_request=conf["RDM_REQUESTS_ROUTES"][
                 "user-dashboard-request-details"
