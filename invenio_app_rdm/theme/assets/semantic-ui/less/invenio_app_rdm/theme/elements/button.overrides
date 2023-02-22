@@ -60,3 +60,10 @@
     }
   }
 }
+
+.ui.transparent.button {
+  &.link {
+    color: @primaryColor;
+    font-weight: normal;
+  }
+}
