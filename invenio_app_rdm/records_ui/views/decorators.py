@@ -12,6 +12,9 @@
 from functools import wraps
 
 from flask import g, request
+from invenio_communities.communities.resources.serializer import (
+    UICommunityJSONSerializer,
+)
 from invenio_communities.proxies import current_communities
 from invenio_rdm_records.proxies import current_rdm_records
 from invenio_records_resources.services.errors import PermissionDeniedError
@@ -259,7 +262,10 @@ def pass_draft_community(f):
         comid = request.args.get("community")
         if comid:
             community = current_communities.service.read(id_=comid, identity=g.identity)
-            kwargs["community"] = community.to_dict()
+            kwargs["community"] = UICommunityJSONSerializer().dump_obj(
+                community.to_dict()
+            )
+
         return f(**kwargs)
 
     return view
