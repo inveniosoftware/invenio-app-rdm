@@ -617,12 +617,7 @@ export class RDMDepositForm extends Component {
                     >
                       <Card>
                         <Card.Content>
-                          <DeleteButton
-                            fluid
-                            // TODO: make is_published part of the API response
-                            //       so we don't have to do this
-                            isPublished={record.is_published}
-                          />
+                          <DeleteButton fluid />
                         </Card.Content>
                       </Card>
                     </Overridable>
