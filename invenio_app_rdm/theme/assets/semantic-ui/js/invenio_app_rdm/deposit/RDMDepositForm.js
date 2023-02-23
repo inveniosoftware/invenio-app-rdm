@@ -492,9 +492,11 @@ export class RDMDepositForm extends Component {
                 >
                   <CustomFields
                     config={customFieldsUI}
-                    templateLoader={(widget) =>
-                      import(`@templates/custom_fields/${widget}.js`)
-                    }
+                    templateLoaders={[
+                      (widget) => import(`@templates/custom_fields/${widget}.js`),
+                      (widget) => import(`react-invenio-deposit`),
+                      (widget) => import(`react-invenio-forms`),
+                    ]}
                     fieldPathPrefix="custom_fields"
                   />
                 </Overridable>
