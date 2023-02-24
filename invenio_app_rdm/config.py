@@ -649,6 +649,12 @@ APP_RDM_RECORD_EXPORTERS = {
         "content-type": "application/marcxml+xml",
         "filename": "{id}.xml",
     },
+    "bibtex": {
+        "name": _("BibTeX"),
+        "serializer": ("invenio_rdm_records.resources.serializers:" "BibtexSerializer"),
+        "content-type": "application/x-bibtex",
+        "filename": "{id}.bib",
+    },
     "GeoJSON": {
         "name": _("GeoJSON"),
         "serializer": (
