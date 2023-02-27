@@ -2,20 +2,26 @@
   <div class="header flex align-items-center justify-space-between rel-mb-1">
     <h2 class="ui small header m-0">{{ _('Communities')}}</h2>
 
-    <!-- TODO: To be added in a different PR where management modals are implemented -->
-    <!-- {% if can_manage_record %}
+    {% if can_manage_record %}
       <div class="ui dropdown">
         <button aria-label="{{ _('Open community management menu') }}" aria-expanded="false" class="ui transparent icon button flex align-items-center">
           <i class="ui cog icon" aria-hidden="true"></i>
           <i class="ui dropdown icon" aria-hidden="true"></i>
         </button>
         <ul class="menu">
-          <li role="button" id="submit-to-community-modal" class="item flex align-items-center">
+          <!-- <li role="button" id="submit-to-community-modal" class="item flex align-items-center">
+            {# Trigger defined by React #}
+          </li> -->
+          <li
+            id="pending-communities-modal"
+            class="item flex align-items-center"
+            data-pending-communities-endpoint="/api/requests?q=topic.record:{{ record.id }}"
+          >
             {# Trigger defined by React #}
           </li>
         </ul>
       </div>
-    {% endif %} -->
+    {% endif %}
   </div>
 
   {# Communities list #}

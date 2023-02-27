@@ -13,6 +13,7 @@ import { RecordVersionsList } from "./RecordVersionsList";
 import { RecordCitationField } from "./RecordCitationField";
 import { ExportDropdown } from "./ExportDropdown";
 import { CommunitiesList } from "./CommunitiesList";
+import { PendingCommunitiesModal } from "./PendingCommunitiesModal/PendingCommunitiesModal";
 
 const recordManagementAppDiv = document.getElementById("recordManagement");
 const recordManagementMobile = document.getElementById("recordManagementMobile");
@@ -21,6 +22,7 @@ const recordVersionsAppDiv = document.getElementById("recordVersions");
 const recordCitationAppDiv = document.getElementById("recordCitation");
 const recordExportDownloadDiv = document.getElementById("recordExportDownload");
 const recordCommunitiesListDiv = document.getElementById("record-communities-list");
+const pendingCommunitiesDiv = document.getElementById("pending-communities-modal");
 
 if (recordManagementAppDiv) {
   renderRecordManagement(recordManagementAppDiv);
@@ -75,5 +77,14 @@ if (recordCommunitiesListDiv) {
   ReactDOM.render(
     <CommunitiesList recordCommunitySearchEndpoint={recordCommunitySearchEndpoint} />,
     recordCommunitiesListDiv
+  );
+}
+
+if (pendingCommunitiesDiv) {
+  const pendingCommunitiesEndpoint =
+    pendingCommunitiesDiv.dataset.pendingCommunitiesEndpoint;
+  ReactDOM.render(
+    <PendingCommunitiesModal pendingCommunitiesEndpoint={pendingCommunitiesEndpoint} />,
+    pendingCommunitiesDiv
   );
 }
