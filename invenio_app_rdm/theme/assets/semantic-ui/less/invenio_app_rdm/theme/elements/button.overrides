@@ -25,18 +25,6 @@
   }
 }
 
-.auto-column-grid {
-  .ui.button.dropdown {
-    &:last-child {
-      margin-right: 0;
-    }
-
-    @media all and (max-width: @largestTabletScreen) {
-      margin-bottom: .5rem;
-    }
-  }
-}
-
 .ui.button{
   &.fluid-responsive {
     @media all and (max-width: @largestTabletScreen) {
