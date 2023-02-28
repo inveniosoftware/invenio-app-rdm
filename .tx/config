@@ -2,6 +2,7 @@
 #
 # Copyright (C) 2019 CERN.
 # Copyright (C) 2019 Northwestern University.
+# Copyright (C) 2023 Graz University of Technology.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -23,14 +24,13 @@
 #    $ tx pull -a
 
 [main]
-host = https://www.transifex.com
+host = https://app.transifex.com
 
-[invenio.invenio-app-rdm-messages]
+[o:inveniosoftware:p:invenio:r:invenio-app-rdm-messages]
 file_filter = invenio_app_rdm/translations/<lang>/LC_MESSAGES/messages.po
 source_file = invenio_app_rdm/translations/messages.pot
 source_lang = en
 type = PO
-
 
 # Translate JavaScript strings
 # 1) Navigate to the invenio_app_rdm/theme/assets/semantic-ui/translations/invenio_app_rdm folder
@@ -59,7 +59,7 @@ type = PO
 # 11) Convert .po file for a single language
 #    $ npm run compile_catalog lang <lang>
 
-[invenio.invenio-app-rdm-messages-ui]
+[o:inveniosoftware:p:invenio:r:invenio-app-rdm-messages-ui]
 file_filter = invenio_app_rdm/theme/assets/semantic-ui/translations/invenio_app_rdm/messages/<lang>/messages.po
 source_file = invenio_app_rdm/theme/assets/semantic-ui/translations/invenio_app_rdm/translations.pot
 source_lang = en

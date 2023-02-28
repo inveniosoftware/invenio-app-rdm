@@ -1,0 +1,17 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright (C) 2023 Graz University of Technology.
+#
+# Invenio App RDM is free software; you can redistribute it and/or modify it
+# under the terms of the MIT License; see LICENSE file for more details.
+
+name: i18n:push translations
+on: workflow_dispatch # manually trigger
+
+jobs:
+  i18n-extract:
+    uses: inveniosoftware/invenio-i18n/.github/workflows/i18n-push-base.yml@master
+    with:
+      extract-backend: true
+      frontend-package-path: invenio_app_rdm/theme/assets/semantic-ui/translations/invenio_app_rdm
+    secrets: inherit
