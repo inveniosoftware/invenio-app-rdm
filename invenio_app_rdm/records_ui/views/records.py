@@ -76,6 +76,61 @@ class PreviewFile:
 #
 
 
+def _get_query(query_name):
+    """Build the statistics query from configuration."""
+    query_config = current_stats.queries[query_name]
+    return query_config.cls(name=query_config.name, **query_config.params)
+
+
+def _get_stats(recid, parent_recid):
+    """Fetch the statistics for the given record."""
+    try:
+        views = _get_query("record-view").run(recid=recid)
+        views_all = _get_query("record-view-all-versions").run(
+            parent_recid=parent_recid
+        )
+    except Exception as e:
+        # e.g. opensearchpy.exceptions.NotFoundError
+        # when the aggregation search index hasn't been created yet
+        current_app.logger.warning(e)
+
+        fallback_result = {
+            "views": 0,
+            "unique_views": 0,
+        }
+        views = views_all = downloads = downloads_all = fallback_result
+
+    try:
+        downloads = _get_query("record-download").run(recid=recid)
+        downloads_all = _get_query("record-download-all-versions").run(
+            parent_recid=parent_recid
+        )
+    except Exception as e:
+        # same as above, but for failure in the download statistics
+        # because they are a separate index that can fail independently
+        current_app.logger.warning(e)
+
+        fallback_result = {
+            "downloads": 0,
+            "unique_downloads": 0,
+            "data_volume": 0,
+        }
+        downloads = downloads_all = fallback_result
+
+    stats = {
+        "this_version": {
+            **views,
+            **downloads,
+        },
+        "all_versions": {
+            **views_all,
+            **downloads_all,
+        },
+    }
+
+    return stats
+
+
 @pass_is_preview
 @pass_record_or_draft(expand=True)
 @pass_record_files
@@ -112,22 +167,7 @@ def record_detail(pid_value, record, files, is_preview=False):
         custom_fields_ui=load_custom_fields()["ui"],
         is_preview=is_preview,
         is_draft=is_draft,
-        stats={
-            "this_version": {
-                "unique_views": "1274245",
-                "views": "14906489",
-                "unique_downloads": "72009789675",
-                "downloads": "832228",
-                "data_volume": "5000000000",
-            },
-            "all_versions": {
-                "unique_views": "1127502",
-                "views": "149081197",
-                "unique_downloads": "72009237812",
-                "downloads": "832228",
-                "data_volume": "5000000000000",
-            },
-        },
+        stats=_get_stats(record_ui["id"], record_ui["parent"]["id"]),
     )
 
 
