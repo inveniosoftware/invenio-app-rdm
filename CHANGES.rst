@@ -10,6 +10,8 @@
 Changes
 =======
 
+Version 11.0.2 (released 2023-03-03)
+
 Version 11.0.0 (released 2023-01-26)
 
 Version 10.0.0 (released 2022-10-10)
