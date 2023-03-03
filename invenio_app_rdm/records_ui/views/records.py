@@ -34,6 +34,35 @@ from .decorators import (
 )
 
 
+def get_record_community(record):
+    """Return record's active community if any.
+
+    A record has an active community when:
+        - has either a request associated with a community
+        - or has been published to a community
+        - and the resolved i.e expanded community is not a "tombstone" i.e unknown
+
+    Returns a tuple with the resolved community or None and the community id
+    """
+    parent = record.get("parent", {})
+    community_review = parent.get("review", {}).get("receiver", {}).get("community")
+    community_default = parent.get("communities", {}).get("default")
+    community_id = community_default or community_review
+    expanded_parent = record.get("expanded", {}).get("parent", {})
+    expanded_community = expanded_parent.get("review", {}).get(
+        "receiver"
+    ) or expanded_parent.get("communities", {}).get("default")
+
+    if community_review or community_default:
+        is_community_deleted = expanded_community.get("is_ghost", False)
+        if is_community_deleted:
+            return None, community_id
+        else:
+            return expanded_community, community_id
+    else:
+        return None, None
+
+
 class PreviewFile:
     """Preview file implementation for InvenioRDM.
 
@@ -157,6 +186,7 @@ def record_detail(pid_value, record, files, is_preview=False):
     if record is not None and emitter is not None:
         emitter(current_app, record=record._record, via_api=False)
 
+    resolved_community, _ = get_record_community(record_ui)
     return render_template(
         current_app.config.get("APP_RDM_RECORD_LANDING_PAGE_TEMPLATE"),
         record=record_ui,
@@ -168,6 +198,7 @@ def record_detail(pid_value, record, files, is_preview=False):
         is_preview=is_preview,
         is_draft=is_draft,
         stats=_get_stats(record_ui["id"], record_ui["parent"]["id"]),
+        community=resolved_community,
     )
 
 

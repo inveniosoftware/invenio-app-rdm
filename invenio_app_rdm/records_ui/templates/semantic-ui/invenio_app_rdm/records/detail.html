@@ -29,15 +29,7 @@
 
     <!-- COMMUNITY HEADER: hide it when displaying the submission request -->
     {% if not is_preview_submission_request %}
-
-      {%- set parent = record.get("parent", {}) %}
-      {%- set community_review = parent.get("review", {}).get("receiver", {}).get("community") %}
-      {%- set community_default = parent.get("communities", {}).get("default") %}
-      {%- set has_community = community_review or community_default %}
-
-      {% if has_community %}
-        {%- set expanded_parent = record.get("expanded", {}).get("parent", {}) %}
-        {%- set community = expanded_parent.get("review", {}).get("receiver") or expanded_parent.get("communities", {}).get("default") %}
+      {% if community %}
         {% set is_community_restricted = community.access.visibility == 'restricted' %}
         <div class="ui fluid container page-subheader-outer with-submenu compact ml-0-mobile mr-0-mobile">
           <div class="ui container page-subheader">
