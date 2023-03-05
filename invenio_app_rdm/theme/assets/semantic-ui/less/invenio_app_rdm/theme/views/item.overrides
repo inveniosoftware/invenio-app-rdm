@@ -101,6 +101,25 @@
 
   .item {
     &.community-item {
+      .ui.grid {
+          margin-left: 0.5em !important;
+          width: 100% !important;
+        }
+      .content{
+        //position: relative;
+        width: 100% !important;
+        &.flex.right-column{
+          flex-direction: column;
+          align-items: end;
+        };
+      }
+      .extra{
+        position: absolute;
+        bottom: 0.7em !important;
+        top: unset;
+        left:unset;
+        width: unset;
+      }
       .header {
         word-break: break-word;
         .header-link {
