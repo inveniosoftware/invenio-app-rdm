@@ -19,8 +19,9 @@
   </div>
 
   {# Communities list #}
-  <!-- TODO: Update endpoint to be record specific -->
-  <div id="record-communities-list" data-record-community-search-endpoint="/api/communities"></div>
+  {#  TODO: Update endpoint to {{ record.links["communities"] }} specific #}
+  {%  set ids = "id:" + record.parent.communities.ids | join (' OR id:')  %}
+  <div id="record-communities-list" data-record-community-search-endpoint="/api/communities?q={{ ids }}"></div>
 
 </section>
 
