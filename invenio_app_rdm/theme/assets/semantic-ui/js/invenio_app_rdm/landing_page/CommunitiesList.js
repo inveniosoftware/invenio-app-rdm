@@ -7,19 +7,19 @@
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import axios from "axios";
 import { withCancel } from "react-invenio-forms";
 import { Container, Item, Placeholder, Message } from "semantic-ui-react";
 import { Image } from "react-invenio-forms";
 import { CommunitiesListModal } from "./CommunitiesListModal/CommunitiesListModal";
+import { http } from "react-invenio-forms";
 
 export class CommunitiesList extends Component {
   constructor(props) {
     super(props);
     this.state = {
       loading: true,
-      communities: null,
-      error: null,
+      communities: undefined,
+      error: undefined,
     };
   }
 
@@ -38,9 +38,12 @@ export class CommunitiesList extends Component {
       error: null,
     });
     try {
-      const res = await this.cancellableFetchCommunities.promise;
-      const { hits } = res.data.hits;
-
+      const response = await this.cancellableFetchCommunities.promise;
+      const {
+        data: {
+          hits: { hits },
+        },
+      } = response;
       this.setState({
         communities: hits,
         loading: false,
@@ -57,7 +60,7 @@ export class CommunitiesList extends Component {
 
   fetchRecordCommunities = async () => {
     const { recordCommunitySearchEndpoint } = this.props;
-    return await axios.get(recordCommunitySearchEndpoint, {
+    return await http.get(recordCommunitySearchEndpoint, {
       headers: {
         Accept: "application/vnd.inveniordm.v1+json",
       },
@@ -67,8 +70,7 @@ export class CommunitiesList extends Component {
   render() {
     const { recordCommunitySearchEndpoint } = this.props;
     const { communities, loading, error } = this.state;
-    const communityItems = communities?.map((community, index) => {
-      if (index > 2) return null;
+    const communityItems = communities?.slice(0, 2).map(community => {
       return (
         <Item key={community.id}>
           <Image size="mini" src={community.links.logo} />
