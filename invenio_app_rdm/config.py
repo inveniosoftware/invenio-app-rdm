@@ -611,9 +611,7 @@ APP_RDM_RECORD_EXPORTERS = {
     },
     "csl": {
         "name": _("CSL"),
-        "serializer": (
-            "invenio_rdm_records.resources.serializers:CSLJSONSerializer"
-        ),
+        "serializer": ("invenio_rdm_records.resources.serializers:CSLJSONSerializer"),
         "content-type": "application/vnd.citationstyles.csl+json",
         "filename": "{id}.json",
     },
@@ -643,17 +641,13 @@ APP_RDM_RECORD_EXPORTERS = {
     },
     "marcxml": {
         "name": _("MARCXML"),
-        "serializer": (
-            "invenio_rdm_records.resources.serializers:MARCXMLSerializer"
-        ),
+        "serializer": ("invenio_rdm_records.resources.serializers:MARCXMLSerializer"),
         "content-type": "application/marcxml+xml",
         "filename": "{id}.xml",
     },
     "GeoJSON": {
         "name": _("GeoJSON"),
-        "serializer": (
-            "invenio_rdm_records.resources.serializers:GeoJSONSerializer"
-        ),
+        "serializer": ("invenio_rdm_records.resources.serializers:GeoJSONSerializer"),
         "content-type": "application/vnd.geojson+json",
         "filename": "{id}.geojson",
     },
