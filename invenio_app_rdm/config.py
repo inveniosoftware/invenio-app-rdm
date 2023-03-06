@@ -69,6 +69,7 @@ from invenio_vocabularies.contrib.names.datastreams import (
 )
 
 from .stats.event_builders import build_record_unique_id
+from .stats.permissions import default_deny_permission_factory
 
 # TODO: Remove when records-rest is out of communities and files
 RECORDS_REST_ENDPOINTS = {}
@@ -1031,3 +1032,5 @@ STATS_QUERIES = {
         },
     },
 }
+
+STATS_PERMISSION_FACTORY = default_deny_permission_factory
