@@ -10,7 +10,7 @@ import PropTypes from "prop-types";
 import { Header, Modal, Button } from "semantic-ui-react";
 import { RecordCommunitiesSearch } from "./RecordCommunitiesSearch";
 
-export class CommunitiesListModal extends Component {
+export class RecordCommunitiesListModal extends Component {
   constructor(props) {
     super(props);
 
@@ -66,7 +66,7 @@ export class CommunitiesListModal extends Component {
   }
 }
 
-CommunitiesListModal.propTypes = {
+RecordCommunitiesListModal.propTypes = {
   recordCommunitySearchEndpoint: PropTypes.string.isRequired,
   totalCommunities: PropTypes.number.isRequired,
 };

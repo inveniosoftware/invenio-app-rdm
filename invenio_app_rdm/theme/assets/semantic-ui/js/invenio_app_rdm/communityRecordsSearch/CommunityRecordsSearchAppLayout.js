@@ -6,13 +6,9 @@ import {
 import { i18next } from "@translations/invenio_communities/i18next";
 import React from "react";
 import { Count, Sort } from "react-searchkit";
-import {
-  Button,
-  Container,
-  Grid,
-} from "semantic-ui-react";
+import { Button, Container, Grid } from "semantic-ui-react";
 import { GridResponsiveSidebarColumn } from "react-invenio-forms";
-import PropTypes from "prop-types"
+import PropTypes from "prop-types";
 
 export const CommunityRecordsSearchAppLayout = ({ config, appName }) => {
   const [sidebarVisible, setSidebarVisible] = React.useState(false);
@@ -86,4 +82,3 @@ CommunityRecordsSearchAppLayout.propTypes = {
 CommunityRecordsSearchAppLayout.defaultProps = {
   appName: "",
 };
-
