@@ -10,10 +10,10 @@ import PropTypes from "prop-types";
 import { withCancel } from "react-invenio-forms";
 import { Container, Item, Placeholder, Message } from "semantic-ui-react";
 import { Image } from "react-invenio-forms";
-import { CommunitiesListModal } from "./CommunitiesListModal/CommunitiesListModal";
+import { RecordCommunitiesListModal } from "./RecordCommunitiesListModal/RecordCommunitiesListModal";
 import { http } from "react-invenio-forms";
 
-export class CommunitiesList extends Component {
+export class RecordCommunitiesList extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -70,7 +70,7 @@ export class CommunitiesList extends Component {
   render() {
     const { recordCommunitySearchEndpoint } = this.props;
     const { communities, loading, error } = this.state;
-    const communityItems = communities?.slice(0, 2).map(community => {
+    const communityItems = communities?.slice(0, 2).map((community) => {
       return (
         <Item key={community.id}>
           <Image size="mini" src={community.links.logo} />
@@ -100,7 +100,7 @@ export class CommunitiesList extends Component {
 
         {!loading && communities?.length > 3 && (
           <Container align="center" className="mt-10">
-            <CommunitiesListModal
+            <RecordCommunitiesListModal
               totalCommunities={communities.length}
               recordCommunitySearchEndpoint={recordCommunitySearchEndpoint}
             />
@@ -113,6 +113,6 @@ export class CommunitiesList extends Component {
   }
 }
 
-CommunitiesList.propTypes = {
+RecordCommunitiesList.propTypes = {
   recordCommunitySearchEndpoint: PropTypes.string.isRequired,
 };

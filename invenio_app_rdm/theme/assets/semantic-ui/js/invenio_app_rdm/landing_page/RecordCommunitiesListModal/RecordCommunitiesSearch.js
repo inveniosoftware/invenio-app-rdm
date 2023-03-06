@@ -5,6 +5,7 @@
 // under the terms of the MIT License; see LICENSE file for more details.
 
 import { i18next } from "@translations/invenio_app_rdm/i18next";
+import { RecordCommunitiesSearchItem } from "./RecordCommunitiesSearchItem";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { OverridableContext } from "react-overridable";
@@ -19,12 +20,11 @@ import {
   Pagination,
 } from "react-searchkit";
 import { Container } from "semantic-ui-react";
-import { CommunityItem } from "./CommunityItem";
 
 const appName = "InvenioAppRdm.RecordCommunitiesSearch";
 
 const overriddenComponents = {
-  [`${appName}.ResultsList.item`]: CommunityItem,
+  [`${appName}.ResultsList.item`]: RecordCommunitiesSearchItem,
 };
 
 export class RecordCommunitiesSearch extends Component {

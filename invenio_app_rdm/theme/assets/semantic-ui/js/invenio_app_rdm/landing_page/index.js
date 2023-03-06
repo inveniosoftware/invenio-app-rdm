@@ -12,7 +12,7 @@ import { RecordManagement } from "./RecordManagement";
 import { RecordVersionsList } from "./RecordVersionsList";
 import { RecordCitationField } from "./RecordCitationField";
 import { ExportDropdown } from "./ExportDropdown";
-import { CommunitiesList } from "./CommunitiesList";
+import { RecordCommunitiesList } from "./RecordCommunitiesList";
 
 const recordManagementAppDiv = document.getElementById("recordManagement");
 const recordManagementMobile = document.getElementById("recordManagementMobile");
@@ -73,7 +73,9 @@ if (recordCommunitiesListDiv) {
   const recordCommunitySearchEndpoint =
     recordCommunitiesListDiv.dataset.recordCommunitySearchEndpoint;
   ReactDOM.render(
-    <CommunitiesList recordCommunitySearchEndpoint={recordCommunitySearchEndpoint} />,
+    <RecordCommunitiesList
+      recordCommunitySearchEndpoint={recordCommunitySearchEndpoint}
+    />,
     recordCommunitiesListDiv
   );
 }
