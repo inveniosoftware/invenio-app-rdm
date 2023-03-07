@@ -681,6 +681,12 @@ APP_RDM_RECORD_EXPORTERS = {
         "content-type": "application/vnd.geojson+json",
         "filename": "{id}.geojson",
     },
+    "DCAT-AP": {
+        "name": _("DCAT"),
+        "serializer": "invenio_rdm_records.resources.serializers:DCATSerializer",
+        "content-type": "application/dcat+xml",
+        "filename": "{id}.xml",
+    },
 }
 
 APP_RDM_RECORDS_EXPORT_URL = "/records/<pid_value>/export/<export_format>"
