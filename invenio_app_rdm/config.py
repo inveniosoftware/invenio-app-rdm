@@ -488,6 +488,11 @@ OAISERVER_METADATA_FORMATS = {
         "schema": "https://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd",
         "namespace": "https://www.loc.gov/standards/marcxml/",
     },
+    "oai_dcat": {
+        "serializer": "invenio_rdm_records.oai:oai_dcat_etree",
+        "schema": "http://schema.datacite.org/meta/kernel-4/metadata.xsd",
+        "namespace": "https://www.w3.org/ns/dcat",
+    },
 }
 
 OAISERVER_LAST_UPDATE_KEY = "updated"
