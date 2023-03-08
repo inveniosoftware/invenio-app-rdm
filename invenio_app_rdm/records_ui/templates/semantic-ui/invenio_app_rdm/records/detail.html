@@ -231,9 +231,9 @@
               {# record has files BUT passed files are empty. This happens when we display are request. #}
               {%- if record.files.enabled -%}
                 <section id="record-files" class="rel-mt-2" aria-label="{{ _('Files') }}">
+                  <h2 id="files-heading">{{ _('Files') }}</h2>
                   {%- if permissions.can_read_files -%}
                     {# record has files AND user can see files #}
-                    <h2 id="files-heading">{{ _('Files') }}</h2>
                     {%- set files = files|order_entries %}
 
                     {%- if files|has_previewable_files -%}
@@ -250,7 +250,7 @@
                           {{ _("Files") }}
                           <i class="angle down icon"></i>
                         </div>
-                        <div id="collapsablePreview" class="active content rm-pt">
+                        <div id="collapsablePreview" class="active content pt-0">
                           <div class="ui {{ record.ui.access_status.message_class }} message file-box-message">
                             <i
                               class="ui {{ record.ui.access_status.icon }} icon"></i><b>{{ record.ui.access_status.title_l10n }}</b>
