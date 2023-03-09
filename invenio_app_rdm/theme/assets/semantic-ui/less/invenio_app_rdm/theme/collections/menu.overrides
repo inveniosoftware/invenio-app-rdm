@@ -80,7 +80,7 @@
       @media screen and (min-width: @tabletBreakpoint) and (max-width: @largestTabletScreen) {
         display: flex;
         flex-direction: row;
-        width: max-content;
+        width: 100%;
 
         > .item {
           flex: 1 0 0;
