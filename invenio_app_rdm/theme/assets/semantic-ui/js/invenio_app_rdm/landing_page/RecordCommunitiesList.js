@@ -5,13 +5,13 @@
 // under the terms of the MIT License; see LICENSE file for more details.
 
 import { i18next } from "@translations/invenio_app_rdm/i18next";
-import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { withCancel } from "react-invenio-forms";
-import { Container, Item, Placeholder, Message } from "semantic-ui-react";
-import { Image } from "react-invenio-forms";
-import { RecordCommunitiesListModal } from "./RecordCommunitiesListModal/RecordCommunitiesListModal";
-import { http } from "react-invenio-forms";
+import React, { Component } from "react";
+import { http, Image, withCancel } from "react-invenio-forms";
+import { Container, Item, Message, Placeholder } from "semantic-ui-react";
+import { RecordCommunitiesListModal } from "./RecordCommunitiesListModal";
+
+const MAX_COMMUNITIES = 2;
 
 export class RecordCommunitiesList extends Component {
   constructor(props) {
@@ -70,7 +70,7 @@ export class RecordCommunitiesList extends Component {
   render() {
     const { recordCommunitySearchEndpoint } = this.props;
     const { communities, loading, error } = this.state;
-    const communityItems = communities?.slice(0, 2).map((community) => {
+    const communityItems = communities?.slice(0, MAX_COMMUNITIES).map((community) => {
       return (
         <Item key={community.id}>
           <Image size="mini" src={community.links.logo} />
@@ -98,7 +98,7 @@ export class RecordCommunitiesList extends Component {
           </Placeholder>
         )) || <Item.Group>{communityItems}</Item.Group>}
 
-        {!loading && communities?.length > 3 && (
+        {!loading && communities?.length > MAX_COMMUNITIES && (
           <Container align="center" className="mt-10">
             <RecordCommunitiesListModal
               totalCommunities={communities.length}

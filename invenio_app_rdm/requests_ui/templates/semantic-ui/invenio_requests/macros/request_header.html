@@ -1,6 +1,12 @@
 {%- from "invenio_app_rdm/records/macros/creatibutors.html" import show_creatibutors %}
 
 {% macro invitation_request_header(back_button_url=None, back_button_text=None, request=None, accepted=False) %}
+  {#
+    Renders the member invitation request header block with:
+    - a back button
+    - a `View community` button, when accepted
+    - the request's title
+  #}
   <div class="flex wrap space-between">
     {% if back_button_url and back_button_text %}
       <div class="mb-10">
@@ -27,24 +33,27 @@
   <div class="ui divider"></div>
 {% endmacro %}
 
-
-
-
-
-{% macro submission_request_header(back_button_url=None, request=None, record=None, draft_is_accepted=False) %}
+{% macro inclusion_request_header(back_button_url=None, back_button_text=None, request=None, record=None, accepted=False) %}
+{#
+  Renders the record inclusion request header block with:
+  - a back button
+  - a `View record` button, when accepted
+  - the request's title
+  - the record's creators, when record is passed
+#}
   <div class="computer-flex-header rel-mt-2">
-    {% if back_button_url %}
+    {% if back_button_url and back_button_text %}
       <div class="mb-10">
         <a href="{{ back_button_url }}"
             class="ui small button labeled icon rel-mr-1">
           <i class="ui icon left arrow" aria-hidden="true"></i>
-          {{ _("Back to requests") }}
+          {{ back_button_text }}
         </a>
       </div>
     {% endif %}
 
     <div id="request-actions" class="flex align-items-start ml-auto mb-10">
-      {% if draft_is_accepted %}
+      {% if accepted %}
         <a href="{{ url_for('invenio_app_rdm_records.record_detail', pid_value=request.topic.record) }}"
            class="ui small button"
            rel="noopener noreferrer" target="_blank"
