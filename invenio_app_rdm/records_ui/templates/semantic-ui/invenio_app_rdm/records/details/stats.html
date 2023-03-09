@@ -11,7 +11,7 @@
   {% set this_version = stats.this_version %}
 
   <div class="ui statistic">
-    <div class="value">{{ all_versions.views|compact_number(max_value=1_000_000) }}</div>
+    <div class="value">{{ all_versions.unique_views|compact_number(max_value=1_000_000) }}</div>
     <div class="label">
       <i aria-hidden="true" class="eye icon"></i>
       {{ _("Views") }}
@@ -19,7 +19,7 @@
   </div>
 
   <div class="ui statistic">
-    <div class="value">{{ all_versions.downloads|compact_number(max_value=1_000_000) }}</div>
+    <div class="value">{{ all_versions.unique_downloads|compact_number(max_value=1_000_000) }}</div>
     <div class="label">
       <i aria-hidden="true" class="download icon"></i>
       {{ _("Downloads") }}
@@ -54,8 +54,8 @@
             {{ _('Total views') }}
           </p>
         </td>
-        <td data-label="{{_('All versions')}}" class="right aligned">{{ stats_popup(all_versions.views) }}</td>
-        <td data-label="{{_('This version')}}" class="right aligned">{{ stats_popup(this_version.views) }}</td>
+        <td data-label="{{_('All versions')}}" class="right aligned">{{ stats_popup(all_versions.unique_views) }}</td>
+        <td data-label="{{_('This version')}}" class="right aligned">{{ stats_popup(this_version.unique_views) }}</td>
       </tr>
       <tr>
         <td>
@@ -74,8 +74,8 @@
             {{ _('Total downloads') }}
           </p>
         </td>
-        <td data-label="{{_('All versions')}}" class="right aligned">{{ stats_popup(all_versions.downloads) }}</td>
-        <td data-label="{{_('This version')}}" class="right aligned">{{ stats_popup(this_version.downloads) }}</td>
+        <td data-label="{{_('All versions')}}" class="right aligned">{{ stats_popup(all_versions.unique_downloads) }}</td>
+        <td data-label="{{_('This version')}}" class="right aligned">{{ stats_popup(this_version.unique_downloads) }}</td>
       </tr>
       <tr>
         <td>
