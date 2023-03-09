@@ -7,30 +7,6 @@
 // Invenio App RDM is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
 
-import { createSearchAppInit } from "@js/invenio_search_ui";
-import {
-  SearchAppFacets,
-  SearchAppResultsPane,
-  InvenioSearchPagination,
-} from "@js/invenio_search_ui/components";
-import { i18next } from "@translations/invenio_app_rdm/i18next";
-import _get from "lodash/get";
-import _truncate from "lodash/truncate";
-import PropTypes from "prop-types";
-import React, { Component } from "react";
-import { GridResponsiveSidebarColumn } from "react-invenio-forms";
-import { Count, ResultsList, SearchBar, Sort, withState } from "react-searchkit";
-import { parametrize, overrideStore } from "react-overridable";
-import {
-  LabelTypeInvitation,
-  LabelTypeSubmission,
-  LabelStatusSubmit,
-  LabelStatusDelete,
-  LabelStatusAccept,
-  LabelStatusDecline,
-  LabelStatusCancel,
-  LabelStatusExpire,
-} from "@js/invenio_requests/request";
 import {
   RequestAcceptButton,
   RequestCancelButton,
@@ -42,6 +18,34 @@ import {
   RequestDeclineModalTrigger,
 } from "@js/invenio_requests/components/ModalTriggers";
 import {
+  LabelStatusAccept,
+  LabelStatusCancel,
+  LabelStatusDecline,
+  LabelStatusDelete,
+  LabelStatusExpire,
+  LabelStatusSubmit,
+  LabelTypeCommunityInclusion,
+  LabelTypeCommunityInvitation,
+  LabelTypeCommunitySubmission,
+} from "@js/invenio_requests/request";
+import { createSearchAppInit } from "@js/invenio_search_ui";
+import {
+  ContribBucketAggregationElement,
+  ContribBucketAggregationValuesElement,
+  ContribSearchAppFacets,
+  InvenioSearchPagination,
+  SearchAppFacets,
+  SearchAppResultsPane,
+} from "@js/invenio_search_ui/components";
+import { i18next } from "@translations/invenio_app_rdm/i18next";
+import _get from "lodash/get";
+import _truncate from "lodash/truncate";
+import PropTypes from "prop-types";
+import React, { Component } from "react";
+import { GridResponsiveSidebarColumn } from "react-invenio-forms";
+import { overrideStore, parametrize } from "react-overridable";
+import { Count, ResultsList, SearchBar, Sort, withState } from "react-searchkit";
+import {
   Button,
   Card,
   Container,
@@ -50,15 +54,10 @@ import {
   Icon,
   Segment,
 } from "semantic-ui-react";
+import { RDMRecordSearchBarElement } from "../search/components";
 import { timestampToRelativeTime } from "../utils";
 import { ComputerTabletRequestsItem } from "./requests_items/ComputerTabletRequestsItem";
 import { MobileRequestsItem } from "./requests_items/MobileRequestsItem";
-import { RDMRecordSearchBarElement } from "../search/components";
-import {
-  ContribSearchAppFacets,
-  ContribBucketAggregationElement,
-  ContribBucketAggregationValuesElement,
-} from "@js/invenio_search_ui/components";
 
 const appName = "InvenioAppRdm.DashboardRequests";
 
@@ -404,11 +403,15 @@ const RequestCancelModalTriggerWithConfig = parametrize(RequestCancelModalTrigge
 });
 
 const CommunitySubmission = () => (
-  <LabelTypeSubmission className="primary" size="small" />
+  <LabelTypeCommunitySubmission className="primary" size="small" />
+);
+
+const CommunityInclusion = () => (
+  <LabelTypeCommunityInclusion className="primary" size="small" />
 );
 
 const CommunityInvitation = () => (
-  <LabelTypeInvitation className="primary" size="small" />
+  <LabelTypeCommunityInvitation className="primary" size="small" />
 );
 
 const Submitted = () => <LabelStatusSubmit className="primary" size="small" />;
@@ -434,6 +437,7 @@ export const defaultComponents = {
   [`${appName}.SearchBar.element`]: RDMRecordSearchBarElement,
   [`${appName}.EmptyResults.element`]: RDMRequestsEmptyResultsWithState,
   [`RequestTypeLabel.layout.community-submission`]: CommunitySubmission,
+  [`RequestTypeLabel.layout.community-inclusion`]: CommunityInclusion,
   [`RequestTypeLabel.layout.community-invitation`]: CommunityInvitation,
   [`RequestStatusLabel.layout.submitted`]: Submitted,
   [`RequestStatusLabel.layout.deleted`]: Deleted,

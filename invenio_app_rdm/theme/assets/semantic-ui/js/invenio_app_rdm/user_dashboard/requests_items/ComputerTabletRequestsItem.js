@@ -4,14 +4,14 @@
 // Invenio App RDM is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
 
-import { i18next } from "@translations/invenio_app_rdm/i18next";
-import React from "react";
-import RequestTypeLabel from "@js/invenio_requests/request/RequestTypeLabel";
-import RequestStatusLabel from "@js/invenio_requests/request/RequestStatusLabel";
-import { RequestActionController } from "@js/invenio_requests/request/actions/RequestActionController";
-import { Icon, Item } from "semantic-ui-react";
 import { RightBottomLabel } from "@js/invenio_communities/requests/requests_items/RightBottomLabel";
+import { RequestActionController } from "@js/invenio_requests/request/actions/RequestActionController";
+import RequestStatusLabel from "@js/invenio_requests/request/RequestStatusLabel";
+import RequestTypeLabel from "@js/invenio_requests/request/RequestTypeLabel";
+import { i18next } from "@translations/invenio_app_rdm/i18next";
 import PropTypes from "prop-types";
+import React from "react";
+import { Icon, Item } from "semantic-ui-react";
 
 export const ComputerTabletRequestsItem = ({
   result,
@@ -25,7 +25,7 @@ export const ComputerTabletRequestsItem = ({
   const { differenceInDays, isCreatorCommunity, creatorName } = extraData;
 
   return (
-    <Item key={result.id} className="community-item computer tablet only flex">
+    <Item key={result.id} className="computer tablet only flex">
       <div className="status-icon mr-10">
         <Item.Content verticalAlign="top">
           <Item.Extra>

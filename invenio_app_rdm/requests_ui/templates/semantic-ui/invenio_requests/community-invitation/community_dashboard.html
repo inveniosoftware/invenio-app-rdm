@@ -15,7 +15,13 @@
 
 {% block request_header %}
   {% set back_button_url = url_for("invenio_communities.invitations", pid_value=invenio_request.created_by.community) %}
-  {{ invitation_request_header(back_button_url, _("Back to invitations"), request=invenio_request) }}
+  {{
+    invitation_request_header(
+      back_button_url=back_button_url,
+      back_button_text=_("Back to invitations"),
+      request=invenio_request
+    )
+  }}
 {% endblock %}
 
 
