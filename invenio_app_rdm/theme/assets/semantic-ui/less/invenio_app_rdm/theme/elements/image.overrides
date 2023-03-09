@@ -52,7 +52,7 @@
 .ui.image.community-logo {
 
   img {
-    height: 115px !important; // needs to override height set for images in items by SUI
+    height: @communityItemLogoWidth !important; // needs to override height set for images in items by SUI
     object-fit: contain;
   }
 

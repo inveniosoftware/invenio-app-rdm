@@ -75,6 +75,7 @@ if (recordCommunitiesListDiv) {
   ReactDOM.render(
     <RecordCommunitiesList
       recordCommunitySearchEndpoint={recordCommunitySearchEndpoint}
+      permissions={JSON.parse(recordManagementAppDiv.dataset.permissions)}
     />,
     recordCommunitiesListDiv
   );

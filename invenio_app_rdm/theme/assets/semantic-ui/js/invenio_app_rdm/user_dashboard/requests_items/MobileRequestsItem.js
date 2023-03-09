@@ -25,7 +25,7 @@ export const MobileRequestsItem = ({
   const { differenceInDays, isCreatorCommunity, creatorName } = extraData;
 
   return (
-    <Item key={result.id} className="community-item mobile only flex">
+    <Item key={result.id} className="mobile only flex">
       <Item.Content className="centered">
         <Item.Extra>
           {result.type && <RequestTypeLabel type={result.type} />}
