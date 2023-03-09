@@ -15,7 +15,10 @@ from invenio_pidstore.errors import (
     PIDDoesNotExistError,
     PIDUnregistered,
 )
-from invenio_records_resources.services.errors import PermissionDeniedError
+from invenio_records_resources.services.errors import (
+    FileKeyNotFoundError,
+    PermissionDeniedError,
+)
 
 from ..searchapp import search_app_context
 from .deposits import deposit_create, deposit_edit
@@ -106,6 +109,7 @@ def create_blueprint(app):
     blueprint.register_error_handler(PIDDoesNotExistError, not_found_error)
     blueprint.register_error_handler(PIDUnregistered, not_found_error)
     blueprint.register_error_handler(KeyError, not_found_error)
+    blueprint.register_error_handler(FileKeyNotFoundError, not_found_error)
     blueprint.register_error_handler(
         PermissionDeniedError, record_permission_denied_error
     )
