@@ -109,20 +109,16 @@ def pass_record_or_draft(expand=False):
         def view(**kwargs):
             pid_value = kwargs.get("pid_value")
             is_preview = kwargs.get("is_preview")
-
-            def get_record():
-                """Retrieve record."""
-                return service().read(id_=pid_value, identity=g.identity, expand=expand)
+            read_kwargs = {"id_": pid_value, "identity": g.identity, "expand": expand}
 
             if is_preview:
                 try:
-                    record = service().read_draft(
-                        id_=pid_value, identity=g.identity, expand=expand
-                    )
+                    record = service().read_draft(**read_kwargs)
                 except NoResultFound:
-                    record = get_record()
+                    record = service().read(**read_kwargs)
             else:
-                record = get_record()
+                record = service().read(**read_kwargs)
+
             kwargs["record"] = record
             return f(**kwargs)
 
@@ -139,22 +135,16 @@ def pass_file_item(f):
         pid_value = kwargs.get("pid_value")
         file_key = kwargs.get("filename")
         is_preview = kwargs.get("is_preview")
-
-        def get_record_file_content():
-            """Retrieve record file content."""
-            return files_service().get_file_content(
-                id_=pid_value, file_key=file_key, identity=g.identity
-            )
+        read_kwargs = {"id_": pid_value, "file_key": file_key, "identity": g.identity}
 
         if is_preview:
             try:
-                item = draft_files_service().get_file_content(
-                    id_=pid_value, file_key=file_key, identity=g.identity
-                )
+                item = draft_files_service().get_file_content(**read_kwargs)
             except NoResultFound:
-                item = get_record_file_content()
+                item = files_service().get_file_content(**read_kwargs)
         else:
-            item = get_record_file_content()
+            item = files_service().get_file_content(**read_kwargs)
+
         kwargs["file_item"] = item
         return f(**kwargs)
 
@@ -169,22 +159,16 @@ def pass_file_metadata(f):
         pid_value = kwargs.get("pid_value")
         file_key = kwargs.get("filename")
         is_preview = kwargs.get("is_preview")
-
-        def get_record_file_content():
-            """Retrieve record file metadata."""
-            return files_service().read_file_metadata(
-                id_=pid_value, file_key=file_key, identity=g.identity
-            )
+        read_kwargs = {"id_": pid_value, "file_key": file_key, "identity": g.identity}
 
         if is_preview:
             try:
-                files = draft_files_service().read_file_metadata(
-                    id_=pid_value, file_key=file_key, identity=g.identity
-                )
+                files = draft_files_service().read_file_metadata(**read_kwargs)
             except NoResultFound:
-                files = get_record_file_content()
+                files = files_service().read_file_metadata(**read_kwargs)
         else:
-            files = get_record_file_content()
+            files = files_service().read_file_metadata(**read_kwargs)
+
         kwargs["file_metadata"] = files
         return f(**kwargs)
 
@@ -197,22 +181,18 @@ def pass_record_files(f):
     @wraps(f)
     def view(**kwargs):
         is_preview = kwargs.get("is_preview")
-
-        def list_record_files():
-            """List record files."""
-            return files_service().list_files(id_=pid_value, identity=g.identity)
+        pid_value = kwargs.get("pid_value")
+        read_kwargs = {"id_": pid_value, "identity": g.identity}
 
         try:
-            pid_value = kwargs.get("pid_value")
             if is_preview:
                 try:
-                    files = draft_files_service().list_files(
-                        id_=pid_value, identity=g.identity
-                    )
+                    files = draft_files_service().list_files(**read_kwargs)
                 except NoResultFound:
-                    files = list_record_files()
+                    files = files_service().list_files(**read_kwargs)
             else:
-                files = list_record_files()
+                files = files_service().list_files(**read_kwargs)
+
             kwargs["files"] = files
 
         except PermissionDeniedError:
