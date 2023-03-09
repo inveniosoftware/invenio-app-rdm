@@ -68,51 +68,60 @@ export class RecordCommunitiesList extends Component {
   };
 
   render() {
-    const { recordCommunitySearchEndpoint } = this.props;
+    const { recordCommunitySearchEndpoint, permissions } = this.props;
     const { communities, loading, error } = this.state;
-    const communityItems = communities?.slice(0, MAX_COMMUNITIES).map((community) => {
-      return (
+    let Element = null;
+
+    if (loading) {
+      Element = (
+        <Placeholder>
+          <Placeholder.Header image>
+            <Placeholder.Line />
+            <Placeholder.Line />
+          </Placeholder.Header>
+        </Placeholder>
+      );
+    } else if (communities?.length === 0 && permissions.can_manage) {
+      Element = (
+        <Message info>
+          {i18next.t("This record is not included in any communities yet.")}
+        </Message>
+      );
+    } else if (communities?.length > 0) {
+      const communityItems = communities?.slice(0, MAX_COMMUNITIES).map((community) => (
         <Item key={community.id}>
           <Image size="mini" src={community.links.logo} />
           <Item.Content verticalAlign="middle">
-            <Item.Header
-              as="a"
-              href={community.links.self_html}
-              className="ui small header"
-            >
+            <Item.Header as="a" size="small" href={community.links.self_html}>
               {community.metadata.title}
             </Item.Header>
           </Item.Content>
         </Item>
+      ));
+
+      Element = (
+        <>
+          <Item.Group>{communityItems}</Item.Group>
+
+          {!loading && communities?.length > MAX_COMMUNITIES && (
+            <Container align="center" className="mt-10">
+              <RecordCommunitiesListModal
+                totalCommunities={communities.length}
+                recordCommunitySearchEndpoint={recordCommunitySearchEndpoint}
+              />
+            </Container>
+          )}
+
+          {error && <Message error>{error}</Message>}
+        </>
       );
-    });
+    }
 
-    return (
-      <>
-        {(loading && (
-          <Placeholder>
-            <Placeholder.Header image>
-              <Placeholder.Line />
-              <Placeholder.Line />
-            </Placeholder.Header>
-          </Placeholder>
-        )) || <Item.Group>{communityItems}</Item.Group>}
-
-        {!loading && communities?.length > MAX_COMMUNITIES && (
-          <Container align="center" className="mt-10">
-            <RecordCommunitiesListModal
-              totalCommunities={communities.length}
-              recordCommunitySearchEndpoint={recordCommunitySearchEndpoint}
-            />
-          </Container>
-        )}
-
-        {error && <Message error>{error}</Message>}
-      </>
-    );
+    return Element;
   }
 }
 
 RecordCommunitiesList.propTypes = {
   recordCommunitySearchEndpoint: PropTypes.string.isRequired,
+  permissions: PropTypes.object.isRequired,
 };

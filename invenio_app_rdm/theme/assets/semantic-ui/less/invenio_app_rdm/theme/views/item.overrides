@@ -106,7 +106,6 @@
           width: 100% !important;
         }
       .content{
-        //position: relative;
         width: 100% !important;
         &.flex.right-column{
           flex-direction: column;
