@@ -30,6 +30,7 @@ export const MobileUploadsItem = ({
     version,
     isPublished,
     viewLink,
+    publishingInformation,
   } = uiMetadata;
 
   const icon = isPublished ? (
@@ -90,6 +91,13 @@ export const MobileUploadsItem = ({
                   </>
                 ) : (
                   i18next.t("No creation date found.")
+                )}
+              </small>
+            </div>
+            <div>
+              <small>
+                {publishingInformation && (
+                  <span> {i18next.t("Published in: ") + publishingInformation}</span>
                 )}
               </small>
             </div>

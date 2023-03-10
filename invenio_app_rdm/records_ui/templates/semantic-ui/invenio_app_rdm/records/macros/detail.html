@@ -213,3 +213,19 @@
     {% endif %}
   {% endfor %}
 {% endmacro %}
+
+{% macro show_detail_conference(conference) %}
+     <dd>
+       {%- if conference.url %}
+        <a href="{{conference.url}}"><i class="fa fa-external-link"></i> {{conference.title}}</a>
+       {%- else %}
+        {{conference.title}}
+       {%- endif%}
+       {%- if conference.place %}, {{conference.place}} {%- endif %}
+       {%- if conference.dates %}, {{conference.dates}} {%- endif %}
+       {% if conference.session %}(Session {{conference.session}}{% if conference.session_part %}, Part {{conference.session_part}}{%- endif %}){%- endif %}
+     </dd>
+     {%- if conference.url and not conference.title %}
+       <dd><a href="{{conference.url}}"><i class="fa fa-external-link"></i> {{_('Conference website')}}</a></dd>
+     {%- endif %}
+{% endmacro %}
