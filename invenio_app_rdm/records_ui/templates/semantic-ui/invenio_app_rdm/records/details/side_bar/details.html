@@ -9,7 +9,7 @@
 #}
 
 {%- from "invenio_app_rdm/records/macros/detail.html" import list_formats, list_languages,
-  list_string_values, show_dates, show_detail %}
+  list_string_values, show_dates, show_detail, show_detail_conference %}
 
   {%- set id_doi = record.pids.get('doi', {}).get('identifier') %}
 
@@ -24,6 +24,10 @@
       {{ show_detail(_('Resource type'), record.ui.resource_type.title_l10n) if record.ui.resource_type }}
       {{ show_detail(_('Publication date'), record.ui.publication_date_l10n) if record.ui.publication_date_l10n }}
       {{ show_detail(_('Publisher'), metadata.publisher) if metadata.publisher }}
+      {{ show_detail(_('Published in'), record.ui.publishing_information.journal) if record.ui.get('publishing_information', {}).get('journal') }}
+      {{ show_detail(_('Imprint'), record.ui.publishing_information.imprint) if record.ui.get('publishing_information', {}).get('imprint') }}
+      {{ show_detail(_('Awarding university'), record.ui.publishing_information.thesis.university) if record.ui.get('publishing_information', {}).get('thesis', {}).get('university') }}
+      {{ show_detail(_('Conference'), show_detail_conference(record.ui.conference)) if record.ui.conference }}
       {{ show_detail(_('Languages'), list_languages(record.ui.languages)) if record.ui.languages }}
       {{ show_detail(_('Formats'), list_formats(metadata.formats)) if metadata.formats }}
       {{ show_detail(_('Sizes'), list_string_values(metadata.sizes)) if metadata.sizes }}

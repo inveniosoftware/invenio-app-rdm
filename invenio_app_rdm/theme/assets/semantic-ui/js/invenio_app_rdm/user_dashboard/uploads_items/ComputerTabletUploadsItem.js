@@ -30,6 +30,7 @@ export const ComputerTabletUploadsItem = ({
     version,
     isPublished,
     viewLink,
+    publishingInformation,
   } = uiMetadata;
 
   const icon = isPublished ? (
@@ -113,6 +114,9 @@ export const ComputerTabletUploadsItem = ({
                 </>
               ) : (
                 i18next.t("No creation date found.")
+              )}
+              {publishingInformation && (
+                <span> | {i18next.t("Published in: ") + publishingInformation}</span>
               )}
             </small>
           </div>

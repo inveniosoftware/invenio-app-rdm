@@ -81,6 +81,7 @@ export const RDMRecordResultsListItem = ({ result }) => {
     version: result.ui?.version ?? "",
     isPublished: isPublished,
     viewLink: isPublished ? `/records/${result.id}` : `/uploads/${result.id}`,
+    publishingInformation: _get(result, "ui.publishing_information.journal", ""),
   };
 
   return (
