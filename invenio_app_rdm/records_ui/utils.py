@@ -9,6 +9,9 @@
 
 """Utility functions."""
 
+from itertools import chain
+
+from flask import current_app, url_for
 from invenio_records.dictutils import dict_set
 from invenio_records.errors import MissingModelError
 from invenio_records_files.api import FileObject
@@ -55,3 +58,69 @@ def set_default_value(record_dict, value, path, default_prefix="metadata"):
         path = "{}.{}".format(default_prefix, path)
 
     dict_set(record_dict, path, value)
+
+
+def get_external_resources(record):
+    """Make number compact if too long."""
+    result = []
+    resources_cfg = current_app.config["APP_RDM_RECORD_LANDING_PAGE_EXTERNAL_LINKS"]
+    for cfg in resources_cfg:
+        res = cfg["render"](record)
+        if res:
+            result.append(res)
+    return list(chain.from_iterable(result))
+
+
+def dump_external_resource(
+    identifier, icon, title, section, subtitle=None, template=None
+):
+    """Dumps a external resource dictionary."""
+    return {
+        "content": {
+            "url": identifier.get("identifier"),
+            "title": title,
+            "subtitle": subtitle,
+            "icon": icon,
+            "section": section,
+        },
+        "template": template,
+    }
+
+
+# The following parsers would need to be implenented by the instance
+#   def github_link_render(record):
+#       """Entry for Github."""
+#       # [TODO] Integrate Inveio_Github here
+#       resources = []
+#
+#       related_identifiers = record["ui"].get("related_identifiers", [])
+#       for identifier in related_identifiers:
+#           if identifier["scheme"] == "url" and "github.com" in identifier["identifier"]:
+#               resources.append(
+#                   dump_external_resource(
+#                       identifier,
+#                       url_for("static", filename="images/github.svg"),
+#                       identifier.get("identifier").replace("https://github.com/", ""),
+#                       "Available in",
+#                       "Version 1.2",
+#                   )
+#               )
+#       return resources or None
+#
+#
+#   def openaire_link_render(record):
+#       """Entry for Openaire."""
+#       resources = []
+#
+#       related_identifiers = record["ui"].get("related_identifiers", [])
+#       for identifier in related_identifiers:
+#           if identifier["scheme"] == "url" and "openaire" in identifier["identifier"]:
+#               resources.append(
+#                   dump_external_resource(
+#                       identifier,
+#                       url_for("static", filename="images/openaire.svg"),
+#                       "OpenAIRE EXPLORE",
+#                       "Indexed in",
+#                   )
+#               )
+#       return resources or None

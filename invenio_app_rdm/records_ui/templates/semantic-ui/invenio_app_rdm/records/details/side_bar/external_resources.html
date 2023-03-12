@@ -1,0 +1,48 @@
+{#
+Copyright (C) 2020 CERN.
+
+Invenio RDM Records is free software; you can redistribute it and/or modify
+it under the terms of the MIT License; see LICENSE file for more details.
+#}
+{%- if external_resources -%}
+  <section id="external-resource" aria-label="{{ _('External resources') }}" class="ui segment rdm-sidebar external resource">
+  <h2 class="ui small header">{{ _('External resources')}}</h2>
+  {# dynamically create the list of external resources #}
+  <div class="ui relaxed divided list">
+    {%- for section, external_resources in external_resources | groupby("content.section") -%}
+      <h5 class="ui small header">{{ section }}</h5>
+
+      {%- for resource in external_resources -%}
+    
+        {%- if resource -%}
+          {%- if resource.template -%}
+            {# It's up to the template to render the `resource` as it wishes #}
+            {%- include resource.template %}
+          {%- else -%}
+            {# Default rendering #}
+            <div class="item">
+
+              {% if resource.content.icon %}
+                <img class="ui avatar image" src="{{ resource.content.icon }}" alt="{{ resource.content.title }} icon" height="32" width="32">
+              {% endif %}
+
+              <div class="content">
+                <a class="header" href="{{resource.content.url}}" target="_blank">{{ resource.content.title }}</a>
+
+                {% if resource.content.subtitle %}
+                  <div class="description">
+                    {{ resource.content.subtitle }}
+                  </div>
+                {%- endif -%}
+
+              </div>
+            </div>
+            </li>
+          {%- endif -%}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endfor -%}
+    </div>
+</section>
+{%- endif -%}
+
