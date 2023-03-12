@@ -26,6 +26,7 @@ from invenio_app_rdm.records_ui.views.deposits import (
     load_custom_fields,
 )
 
+from ..utils import get_external_resources
 from .decorators import (
     pass_file_item,
     pass_file_metadata,
@@ -115,7 +116,6 @@ def record_detail(pid_value, record, files, is_preview=False):
     """Record detail page (aka landing page)."""
     files_dict = None if files is None else files.to_dict()
     record_ui = UIJSONSerializer().dump_obj(record.to_dict())
-
     is_draft = record_ui["is_draft"]
     if is_preview and is_draft:
         # it is possible to save incomplete drafts that break the normal
@@ -147,6 +147,7 @@ def record_detail(pid_value, record, files, is_preview=False):
         is_preview=is_preview,
         is_draft=is_draft,
         community=resolved_community,
+        external_resources=get_external_resources(record_ui),
     )
 
 

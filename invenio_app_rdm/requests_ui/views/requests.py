@@ -32,6 +32,8 @@ from invenio_app_rdm.records_ui.views.deposits import (
     load_custom_fields,
 )
 
+from ...records_ui.utils import get_external_resources
+
 
 def _resolve_topic_record(request):
     """Resolve the record in the topic, when it is a draft or a published record."""
@@ -123,6 +125,7 @@ def user_dashboard_request_view(request, **kwargs):
             is_user_dashboard=True,
             custom_fields_ui=load_custom_fields()["ui"],
             user_communities_memberships=get_user_communities_memberships(),
+            external_resources=get_external_resources(record),
         )
 
     elif is_member_invitation:
@@ -176,6 +179,7 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
             user_avatar=avatar,
             custom_fields_ui=load_custom_fields()["ui"],
             user_communities_memberships=get_user_communities_memberships(),
+            external_resources=get_external_resources(record),
         )
 
     elif is_member_invitation:

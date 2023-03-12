@@ -707,6 +707,27 @@ APP_RDM_RECORD_EXPORTERS = {
     },
 }
 
+APP_RDM_RECORD_LANDING_PAGE_EXTERNAL_LINKS = []
+""" Default format used for adding badges to a record.
+
+Make sure the 'render' field points to a valid render function in invenio_app_rdm.records_ui.utils.
+Example implementation can also be found in invenio_app_rdm.records_ui.utils.
+
+APP_RDM_RECORD_LANDING_PAGE_EXTERNAL_LINKS = [
+    {
+        "id": "github",
+        "render": github_link_render,
+    },
+    {
+        "id": "openaire",
+        "render": openaire_link_render,
+    },
+}
+
+def github_link_render(record):
+    ...
+"""
+
 APP_RDM_RECORDS_EXPORT_URL = "/records/<pid_value>/export/<export_format>"
 
 APP_RDM_DEPOSIT_FORM_DEFAULTS = {
@@ -763,6 +784,7 @@ APP_RDM_DETAIL_SIDE_BAR_TEMPLATES = [
     "invenio_app_rdm/records/details/side_bar/manage_menu.html",
     "invenio_app_rdm/records/details/side_bar/metrics.html",
     "invenio_app_rdm/records/details/side_bar/versions.html",
+    "invenio_app_rdm/records/details/side_bar/external_resources.html",
     "invenio_app_rdm/records/details/side_bar/communities.html",
     "invenio_app_rdm/records/details/side_bar/keywords_subjects.html",
     "invenio_app_rdm/records/details/side_bar/details.html",
