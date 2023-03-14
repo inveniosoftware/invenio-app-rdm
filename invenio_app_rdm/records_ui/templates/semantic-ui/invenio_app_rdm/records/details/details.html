@@ -128,11 +128,13 @@ show_alternate_identifiers, show_related_identifiers, show_funding, show_dates %
           {% set section_has_fields = namespace(value=false) %}
           {% set section_format = section_cfg.section | replace(" ", "-") %}
           {# Show the section if at least one of its fields is in record #}
-          {% for field_cfg in section_cfg.fields %}
-            {% if record.custom_fields.get(field_cfg.field) %}
-              {% set section_has_fields.value = true %}
-            {% endif %}
-          {% endfor %}
+          {% if not section_cfg.hidden %}
+            {% for field_cfg in section_cfg.fields %}
+              {% if record.custom_fields.get(field_cfg.field) %}
+                {% set section_has_fields.value = true %}
+              {% endif %}
+            {% endfor %}
+          {% endif %}
           {% if section_has_fields.value %}
             {% set active_cf_sections.items = active_cf_sections.items + [section_cfg.section] %}
             <a

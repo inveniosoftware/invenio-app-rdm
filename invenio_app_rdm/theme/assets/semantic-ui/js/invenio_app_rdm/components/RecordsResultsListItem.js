@@ -49,6 +49,8 @@ class RecordsResultsListItem extends Component {
     const version = _get(result, "ui.version", null);
     const versions = _get(result, "versions");
 
+    const publishingInformation = _get(result, "ui.publishing_information.journal", "");
+
     const filters = currentQueryState && Object.fromEntries(currentQueryState.filters);
     const allVersionsVisible = filters?.allversions;
     const numOtherVersions = versions.index - 1;
@@ -104,13 +106,24 @@ class RecordsResultsListItem extends Component {
                   {subject.title_l10n}
                 </Label>
               ))}
-              {createdDate && (
-                <p>
-                  <small>
-                    {i18next.t("Uploaded on")} <span>{createdDate}</span>
-                  </small>
-                </p>
-              )}
+              <div>
+                <small>
+                  <p>
+                    {createdDate && (
+                      <>
+                        {i18next.t("Uploaded on")} <span>{createdDate}</span>
+                      </>
+                    )}
+                    {createdDate && publishingInformation && " | "}
+                    {publishingInformation && (
+                      <>
+                        {i18next.t("Published in: ")}{" "}
+                        <span>{publishingInformation}</span>
+                      </>
+                    )}
+                  </p>
+                </small>
+              </div>
               {!allVersionsVisible && versions.index > 1 && (
                 <p>
                   <small>
