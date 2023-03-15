@@ -142,3 +142,15 @@
     }
   }
 }
+
+/* due to complex config interface of CKEditor 5 */
+.generate-ck-editor-heights(@max, @i: 0) when (@i =< @max) {
+  .ck-height-@{i} {
+    .ck-editor__editable {
+      height: unit(@i, em) !important;
+    }
+  }
+  .generate-ck-editor-heights(@max, (@i + 1));
+}
+
+.generate-ck-editor-heights(30);
