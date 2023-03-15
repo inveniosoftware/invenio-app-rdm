@@ -36,7 +36,9 @@ from datetime import datetime, timedelta
 from celery.schedules import crontab
 from flask_principal import Denial
 from invenio_access.permissions import any_user
-from invenio_rdm_records.config import RDM_NAMESPACES
+from invenio_rdm_records.services.communities.components import (
+    CommunityServiceComponents,
+)
 from invenio_stats.aggregations import StatAggregator
 from invenio_stats.contrib.event_builders import build_file_unique_id
 from invenio_stats.processors import EventsIndexer, anonymize_user, flag_robots
@@ -758,6 +760,17 @@ APP_RDM_FILES_INTEGRITY_REPORT_SUBJECT = "Files integrity report"
 APP_RDM_ADMIN_EMAIL_RECIPIENT = "info@inveniosoftware.org"
 """Admin e-mail"""
 
+# Invenio-Communities
+# ===================
+
+COMMUNITIES_SERVICE_COMPONENTS = CommunityServiceComponents
+
+COMMUNITIES_RECORDS_SEARCH = {
+    "facets": ["access_status", "resource_type", "language"],
+    "sort": ["bestmatch", "newest", "oldest", "version"],
+}
+"""Community requests search configuration (i.e list of community requests)"""
+
 # Invenio-RDM-Records
 # ===================
 
@@ -770,11 +783,6 @@ RDM_REQUESTS_ROUTES = {
 RDM_COMMUNITIES_ROUTES = {
     "community-detail": "/communities/<pid_value>",
 }
-COMMUNITIES_RECORDS_SEARCH = {
-    "facets": ["access_status", "resource_type", "language"],
-    "sort": ["bestmatch", "newest", "oldest", "version"],
-}
-"""Community requests search configuration (i.e list of community requests)"""
 
 RDM_SEARCH_USER_COMMUNITIES = {
     "facets": ["visibility", "type"],
