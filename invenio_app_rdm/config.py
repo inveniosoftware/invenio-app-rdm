@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2019-2020 CERN.
+# Copyright (C) 2019-2023 CERN.
 # Copyright (C) 2019-2020 Northwestern University.
 # Copyright (C) 2021 Graz University of Technology.
 # Copyright (C) 2022 KTH Royal Institute of Technology
@@ -35,10 +35,13 @@ from datetime import datetime, timedelta
 
 from celery.schedules import crontab
 from flask_principal import Denial
+from flask_resources import HTTPJSONException, create_error_handler
 from invenio_access.permissions import any_user
+from invenio_communities.communities.resources.config import community_error_handlers
 from invenio_rdm_records.services.communities.components import (
     CommunityServiceComponents,
 )
+from invenio_rdm_records.services.errors import InvalidCommunityVisibility
 from invenio_stats.aggregations import StatAggregator
 from invenio_stats.contrib.event_builders import build_file_unique_id
 from invenio_stats.processors import EventsIndexer, anonymize_user, flag_robots
@@ -764,6 +767,16 @@ APP_RDM_ADMIN_EMAIL_RECIPIENT = "info@inveniosoftware.org"
 # ===================
 
 COMMUNITIES_SERVICE_COMPONENTS = CommunityServiceComponents
+
+COMMUNITIES_ERROR_HANDLERS = {
+    **community_error_handlers,
+    InvalidCommunityVisibility: create_error_handler(
+        lambda e: HTTPJSONException(
+            code=400,
+            description=str(e),
+        )
+    ),
+}
 
 COMMUNITIES_RECORDS_SEARCH = {
     "facets": ["access_status", "resource_type", "language"],
