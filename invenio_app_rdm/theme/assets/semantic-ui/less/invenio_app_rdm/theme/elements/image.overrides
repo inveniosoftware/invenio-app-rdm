@@ -64,6 +64,17 @@
 
 }
 
+.ui.items{
+  .ui.image.community-logo {
+    img {
+      height: @communityItemLogoWidth !important; // needs to override height set for images in items by SUI
+      width: @communityItemLogoWidth !important; // needs to override height set for images in items by SUI
+      object-fit: contain;
+    }
+  }
+}
+
+
 .ui.image.community-header-logo {
   height: inherit;
   object-fit: contain;
