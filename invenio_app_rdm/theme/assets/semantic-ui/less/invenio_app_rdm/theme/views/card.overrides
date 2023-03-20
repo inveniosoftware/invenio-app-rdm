@@ -72,8 +72,9 @@
     display: flex;
     background: transparent;
 
+
     img {
-      object-fit: scale-down;
+      object-fit: contain;
     }
 
     &.fallback_image, &.placeholder {
