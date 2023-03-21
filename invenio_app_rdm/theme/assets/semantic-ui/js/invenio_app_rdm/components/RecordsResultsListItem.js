@@ -48,6 +48,8 @@ class RecordsResultsListItem extends Component {
     const title = _get(result, "metadata.title", "No title");
     const version = _get(result, "ui.version", null);
     const versions = _get(result, "versions");
+    const uniqueViews = _get(result, "stats.all_versions.unique_views", -1);
+    const uniqueDownloads = _get(result, "stats.all_versions.unique_downloads", -1);
 
     const publishingInformation = _get(result, "ui.publishing_information.journal", "");
 
@@ -135,6 +137,12 @@ class RecordsResultsListItem extends Component {
                   </small>
                 </p>
               )}
+              <div>
+                {i18next.t("viewsAndDownloads", {
+                  views: uniqueViews,
+                  downloads: uniqueDownloads,
+                })}
+              </div>
             </Item.Extra>
           </Item.Content>
         </Item>

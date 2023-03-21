@@ -1,3 +1,8 @@
 {
-    "Basic information": "Basic information"
+    "Basic information": "Basic information",
+    "viewsAndDownloads": "$t(views, {\"count\": {{views}} }), $t(downloads, {\"count\": {{downloads}} })",
+    "views": "{{count}} view",
+    "views_plural": "{{count}} views",
+    "downloads": "{{count}} download",
+    "downloads_plural": "{{count}} downloads"
 }
