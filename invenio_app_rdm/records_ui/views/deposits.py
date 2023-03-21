@@ -363,11 +363,12 @@ def deposit_create(community=None):
         record=new_record(),
         files=dict(default_preview=None, entries=[], links={}),
         preselectedCommunity=community,
-        permissions=get_record_permissions([
-            "manage_files",
-            "manage_record_access",
-        ]),
-
+        permissions=get_record_permissions(
+            [
+                "manage_files",
+                "manage_record_access",
+            ]
+        ),
     )
 
 
@@ -386,10 +387,12 @@ def deposit_edit(pid_value, draft=None, draft_files=None):
         record=record,
         files=files_dict,
         searchbar_config=dict(searchUrl=get_search_url()),
-        permissions=draft.has_permissions_to([
-            "new_version",
-            "delete_draft",
-            "manage_files",
-            "manage_record_access",
-        ]),
+        permissions=draft.has_permissions_to(
+            [
+                "new_version",
+                "delete_draft",
+                "manage_files",
+                "manage_record_access",
+            ]
+        ),
     )
