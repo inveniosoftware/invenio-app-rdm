@@ -146,6 +146,7 @@ export class RDMDepositForm extends Component {
                       isDraftRecord={!record.is_published}
                       quota={this.config.quota}
                       decimalSizeDisplay={this.config.decimal_size_display}
+                      showMetadataOnlyToggle={permissions?.can_manage_files}
                     />
                   </Overridable>
                 </AccordionField>
@@ -608,6 +609,7 @@ export class RDMDepositForm extends Component {
                       label={i18next.t("Visibility")}
                       labelIcon="shield"
                       fieldPath="access"
+                      showMetadataAccess={permissions?.can_manage_record_access}
                     />
                   </Overridable>
                   {permissions?.can_delete_draft && (

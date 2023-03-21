@@ -78,6 +78,15 @@ def get_form_pids_config():
     return pids_providers
 
 
+def get_record_permissions(actions, record=None):
+    """Helper for generating (default) record action permissions."""
+    service = current_rdm_records.records_service
+    return {
+        f"can_{action}": service.check_permission(g.identity, action, record=record)
+        for action in actions
+    }
+
+
 class VocabulariesOptions:
     """Holds React form vocabularies options."""
 
@@ -305,7 +314,6 @@ def get_form_config(**kwargs):
         pids=get_form_pids_config(),
         quota=conf.get("APP_RDM_DEPOSIT_FORM_QUOTA"),
         decimal_size_display=conf.get("APP_RDM_DISPLAY_DECIMAL_FILE_SIZES", True),
-        can_have_metadata_only_records=conf.get("RDM_ALLOW_METADATA_ONLY_RECORDS"),
         links=dict(
             user_dashboard_request=conf["RDM_REQUESTS_ROUTES"][
                 "user-dashboard-request-details"
@@ -355,6 +363,12 @@ def deposit_create(community=None):
         record=new_record(),
         files=dict(default_preview=None, entries=[], links={}),
         preselectedCommunity=community,
+        permissions=get_record_permissions(
+            [
+                "manage_files",
+                "manage_record_access",
+            ]
+        ),
     )
 
 
@@ -373,5 +387,12 @@ def deposit_edit(pid_value, draft=None, draft_files=None):
         record=record,
         files=files_dict,
         searchbar_config=dict(searchUrl=get_search_url()),
-        permissions=draft.has_permissions_to(["new_version", "delete_draft"]),
+        permissions=draft.has_permissions_to(
+            [
+                "new_version",
+                "delete_draft",
+                "manage_files",
+                "manage_record_access",
+            ]
+        ),
     )
