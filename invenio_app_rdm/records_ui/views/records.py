@@ -18,7 +18,6 @@ from invenio_previewer.extensions import default
 from invenio_previewer.proxies import current_previewer
 from invenio_rdm_records.proxies import current_rdm_records
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
-from invenio_rdm_records.stats.utils import get_record_stats
 from invenio_stats.proxies import current_stats
 from marshmallow import ValidationError
 
@@ -147,7 +146,6 @@ def record_detail(pid_value, record, files, is_preview=False):
         custom_fields_ui=load_custom_fields()["ui"],
         is_preview=is_preview,
         is_draft=is_draft,
-        stats=get_record_stats(record_ui["id"], record_ui["parent"]["id"]),
         community=resolved_community,
     )
 
