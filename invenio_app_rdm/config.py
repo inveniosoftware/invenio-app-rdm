@@ -42,6 +42,8 @@ from invenio_rdm_records.services.communities.components import (
     CommunityServiceComponents,
 )
 from invenio_rdm_records.services.errors import InvalidCommunityVisibility
+from invenio_rdm_records.stats.event_builders import build_record_unique_id
+from invenio_rdm_records.stats.permissions import default_deny_permission_factory
 from invenio_stats.aggregations import StatAggregator
 from invenio_stats.contrib.event_builders import build_file_unique_id
 from invenio_stats.processors import EventsIndexer, anonymize_user, flag_robots
@@ -72,9 +74,6 @@ from invenio_vocabularies.contrib.names.datastreams import (
 from invenio_vocabularies.contrib.names.datastreams import (
     VOCABULARIES_DATASTREAM_WRITERS as NAMES_WRITERS,
 )
-
-from .stats.event_builders import build_record_unique_id
-from .stats.permissions import default_deny_permission_factory
 
 # TODO: Remove when records-rest is out of communities and files
 RECORDS_REST_ENDPOINTS = {}
@@ -916,10 +915,10 @@ PAGES_TEMPLATES = [
 
 STATS_EVENTS = {
     "file-download": {
-        "templates": "invenio_app_rdm.stats.templates.events.file_download",
+        "templates": "invenio_rdm_records.stats.templates.events.file_download",
         "event_builders": [
-            "invenio_app_rdm.stats.file_download_event_builder",
-            "invenio_app_rdm.stats.check_if_via_api",
+            "invenio_rdm_records.stats.file_download_event_builder",
+            "invenio_rdm_records.stats.check_if_via_api",
         ],
         "cls": EventsIndexer,
         "params": {
@@ -927,11 +926,11 @@ STATS_EVENTS = {
         },
     },
     "record-view": {
-        "templates": "invenio_app_rdm.stats.templates.events.record_view",
+        "templates": "invenio_rdm_records.stats.templates.events.record_view",
         "event_builders": [
-            "invenio_app_rdm.stats.record_view_event_builder",
-            "invenio_app_rdm.stats.check_if_via_api",
-            "invenio_app_rdm.stats.drop_if_via_api",
+            "invenio_rdm_records.stats.record_view_event_builder",
+            "invenio_rdm_records.stats.check_if_via_api",
+            "invenio_rdm_records.stats.drop_if_via_api",
         ],
         "cls": EventsIndexer,
         "params": {
@@ -942,7 +941,7 @@ STATS_EVENTS = {
 
 STATS_AGGREGATIONS = {
     "file-download-agg": {
-        "templates": "invenio_app_rdm.stats.templates.aggregations.aggr_file_download",
+        "templates": "invenio_rdm_records.stats.templates.aggregations.aggr_file_download",
         "cls": StatAggregator,
         "params": {
             "event": "file-download",
@@ -967,7 +966,7 @@ STATS_AGGREGATIONS = {
         },
     },
     "record-view-agg": {
-        "templates": "invenio_app_rdm.stats.templates.aggregations.aggr_record_view",
+        "templates": "invenio_rdm_records.stats.templates.aggregations.aggr_record_view",
         "cls": StatAggregator,
         "params": {
             "event": "record-view",
