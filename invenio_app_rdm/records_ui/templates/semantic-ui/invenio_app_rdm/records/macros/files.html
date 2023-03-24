@@ -1,6 +1,6 @@
 {#
   Copyright (C) 2020 CERN.
-  Copyright (C) 2020 Northwestern University.
+  Copyright (C) 2023 Northwestern University.
   Copyright (C) 2021 Graz University of Technology.
   Copyright (C) 2021 TU Wien.
   Copyright (C) New York University.
@@ -46,10 +46,10 @@
 
 
 {%- macro file_list(
-    files, pid, is_preview, 
-    record=None, 
-    with_preview=true, 
-    download_endpoint='invenio_app_rdm_records.record_file_download', 
+    files, pid, is_preview,
+    record=None,
+    with_preview=true,
+    download_endpoint='invenio_app_rdm_records.record_file_download',
     preview_endpoint='invenio_app_rdm_records.record_file_preview'
 ) %}
   <table class="ui striped table files fluid">
@@ -79,8 +79,8 @@
       {% endif %}
       {%- set file_type = file.key.split('.')[-1] %}
       <tr>
-        <td>
-          <div class="truncated">
+        <td class="ten wide" >
+          <div>
             <a href="{{ file_url_download }}">{{ file.key }}</a>
           </div>
           <small class="ui text-muted font-tiny">{{ file.checksum }}
