@@ -18,8 +18,16 @@ export class PendingCommunitiesModal extends Component {
       modalOpen: false,
     };
   }
+
+  handleOnClose = () => this.setState({ modalOpen: false });
+  handleOnOpen = () => this.setState({ modalOpen: true });
+
+  handleSuccessItemAction = () => {
+    this.handleOnClose();
+    window.location.reload();
+  };
   render() {
-    const { pendingCommunitiesEndpoint, totalCommunities } = this.props;
+    const { searchConfig } = this.props;
     const { modalOpen } = this.state;
 
     return (
@@ -30,13 +38,10 @@ export class PendingCommunitiesModal extends Component {
         closeIcon
         closeOnDimmerClick={false}
         open={modalOpen}
-        onClose={() => this.setState({ modalOpen: false })}
-        onOpen={() => this.setState({ modalOpen: true })}
+        onClose={this.handleOnClose}
+        onOpen={this.handleOnOpen}
         trigger={
-          <span
-            aria-haspopup="dialog"
-            aria-expanded={modalOpen}
-          >
+          <span aria-haspopup="dialog" aria-expanded={modalOpen}>
             <Icon name="comments outline" />
             {i18next.t("Pending communities")}
           </span>
@@ -44,13 +49,14 @@ export class PendingCommunitiesModal extends Component {
       >
         <Modal.Header>
           <Header as="h2" id="record-communities-header">
-            {i18next.t("This record's communities")}
+            {i18next.t("Pending communities")}
           </Header>
         </Modal.Header>
 
         <Modal.Content>
           <PendingCommunitiesSearch
-            pendingCommunitiesEndpoint={pendingCommunitiesEndpoint}
+            searchConfig={searchConfig}
+            successActionCallback={this.handleSuccessItemAction}
           />
         </Modal.Content>
 
@@ -65,6 +71,5 @@ export class PendingCommunitiesModal extends Component {
 }
 
 PendingCommunitiesModal.propTypes = {
-  pendingCommunitiesEndpoint: PropTypes.string.isRequired,
-  totalCommunities: PropTypes.number.isRequired,
+  searchConfig: PropTypes.object.isRequired,
 };

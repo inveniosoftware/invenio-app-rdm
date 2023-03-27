@@ -5,6 +5,7 @@
 // under the terms of the MIT License; see LICENSE file for more details.
 
 import { i18next } from "@translations/invenio_app_rdm/i18next";
+import _isEmpty from "lodash/isEmpty";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Image } from "react-invenio-forms";
@@ -28,7 +29,7 @@ export class RecordCommunitiesList extends Component {
           </Placeholder.Header>
         </Placeholder>
       );
-    } else if (communities?.length === 0 && permissions.can_manage) {
+    } else if (_isEmpty(communities) && permissions.can_manage) {
       Element = (
         <Message info>
           {i18next.t("This record is not included in any communities yet.")}

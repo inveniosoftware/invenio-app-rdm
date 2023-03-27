@@ -5,6 +5,7 @@
     data-record-community-endpoint="{{ record.links.communities }}"
     data-record-community-search-endpoint="{{ record.links.communities }}"
     data-can-manage-record="{{ can_manage_record }}">
+    data-invenio-search-config='{{ search_app_rdm_record_requests_config(app_id="InvenioAppRdm.RecordRequests", endpoint=record.links.requests) | tojson }}'
   </div>
 </section>
 
