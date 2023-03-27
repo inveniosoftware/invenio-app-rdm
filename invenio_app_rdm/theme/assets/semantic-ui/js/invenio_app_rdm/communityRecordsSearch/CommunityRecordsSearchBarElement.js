@@ -5,7 +5,7 @@
 // terms of the MIT License; see LICENSE file for more details.
 
 import { MultipleOptionsSearchBarRSK } from "@js/invenio_search_ui/components";
-import { i18next } from "@translations/invenio_communities/i18next";
+import { i18next } from "@translations/invenio_app_rdm/i18next";
 import _isEmpty from "lodash/isEmpty";
 import React from "react";
 import PropTypes from "prop-types";

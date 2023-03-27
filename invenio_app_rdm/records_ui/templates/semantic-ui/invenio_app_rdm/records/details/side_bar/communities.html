@@ -1,25 +1,10 @@
 <section id="sidebar-communtities" aria-label="{{ _('Record communities') }}" class="ui segment rdm-sidebar">
-  <div class="header flex align-items-center justify-space-between rel-mb-1">
-    <h2 class="ui small header m-0">{{ _('Communities')}}</h2>
-
-    <!-- TODO: To be added in a different PR where management modals are implemented -->
-    <!-- {% if can_manage_record %}
-      <div class="ui dropdown">
-        <button aria-label="{{ _('Open community management menu') }}" aria-expanded="false" class="ui transparent icon button flex align-items-center">
-          <i class="ui cog icon" aria-hidden="true"></i>
-          <i class="ui dropdown icon" aria-hidden="true"></i>
-        </button>
-        <ul class="menu">
-          <li role="button" id="submit-to-community-modal" class="item flex align-items-center">
-            {# Trigger defined by React #}
-          </li>
-        </ul>
-      </div>
-    {% endif %} -->
+  <div 
+    id="sidebar-communities-manage"
+    data-user-communities-memberships="{{ user_communities_memberships }}"
+    data-record-community-endpoint="{{ record.links.communities }}"
+    data-record-community-search-endpoint="{{ record.links.communities }}"
+    data-can-manage-record="{{ can_manage_record }}">
   </div>
-
-  {# Communities list #}
-  <div id="record-communities-list" data-record-community-search-endpoint="{{ record.links.communities }}"></div>
-
 </section>
 
