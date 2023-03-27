@@ -7,69 +7,16 @@
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
-import { http, Image, withCancel } from "react-invenio-forms";
+import { Image } from "react-invenio-forms";
 import { Container, Item, Message, Placeholder } from "semantic-ui-react";
 import { RecordCommunitiesListModal } from "./RecordCommunitiesListModal";
 
 const MAX_COMMUNITIES = 2;
 
 export class RecordCommunitiesList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loading: true,
-      communities: undefined,
-      error: undefined,
-    };
-  }
-
-  componentDidMount() {
-    this.getCommunities();
-  }
-
-  componentWillUnmount() {
-    this.cancellableFetchCommunities?.cancel();
-  }
-
-  getCommunities = async () => {
-    this.cancellableFetchCommunities = withCancel(this.fetchRecordCommunities());
-    this.setState({
-      loading: true,
-      error: null,
-    });
-    try {
-      const response = await this.cancellableFetchCommunities.promise;
-      const {
-        data: {
-          hits: { hits },
-        },
-      } = response;
-      this.setState({
-        communities: hits,
-        loading: false,
-      });
-    } catch (error) {
-      if (error !== "UNMOUNTED") {
-        this.setState({
-          loading: false,
-          error: i18next.t("An error occurred while fetching communities."),
-        });
-      }
-    }
-  };
-
-  fetchRecordCommunities = async () => {
-    const { recordCommunitySearchEndpoint } = this.props;
-    return await http.get(recordCommunitySearchEndpoint, {
-      headers: {
-        Accept: "application/vnd.inveniordm.v1+json",
-      },
-    });
-  };
-
   render() {
-    const { recordCommunitySearchEndpoint, permissions } = this.props;
-    const { communities, loading, error } = this.state;
+    const { recordCommunitySearchEndpoint, permissions, communities, loading, error } =
+      this.props;
     let Element = null;
 
     if (loading) {
@@ -116,7 +63,6 @@ export class RecordCommunitiesList extends Component {
         </>
       );
     }
-
     return Element;
   }
 }
@@ -124,4 +70,13 @@ export class RecordCommunitiesList extends Component {
 RecordCommunitiesList.propTypes = {
   recordCommunitySearchEndpoint: PropTypes.string.isRequired,
   permissions: PropTypes.object.isRequired,
+  communities: PropTypes.array,
+  loading: PropTypes.bool,
+  error: PropTypes.string,
+};
+
+RecordCommunitiesList.defaultProps = {
+  communities: [],
+  loading: false,
+  error: "",
 };

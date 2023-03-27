@@ -21,7 +21,10 @@ from invenio_rdm_records.resources.serializers import UIJSONSerializer
 from invenio_stats.proxies import current_stats
 from marshmallow import ValidationError
 
-from invenio_app_rdm.records_ui.views.deposits import load_custom_fields
+from invenio_app_rdm.records_ui.views.deposits import (
+    get_user_communities_memberships,
+    load_custom_fields,
+)
 
 from .decorators import (
     pass_file_item,
@@ -191,6 +194,7 @@ def record_detail(pid_value, record, files, is_preview=False):
         current_app.config.get("APP_RDM_RECORD_LANDING_PAGE_TEMPLATE"),
         record=record_ui,
         files=files_dict,
+        user_communities_memberships=get_user_communities_memberships(),
         permissions=record.has_permissions_to(
             ["edit", "new_version", "manage", "update_draft", "read_files", "review"]
         ),

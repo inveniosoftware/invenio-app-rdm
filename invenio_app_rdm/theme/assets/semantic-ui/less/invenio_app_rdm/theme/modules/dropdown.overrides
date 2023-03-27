@@ -145,3 +145,9 @@
     }
   }
 }
+
+.communities-manage-dropdown {
+  .dropdown.icon {
+    margin-left: 0 !important;
+  }
+}

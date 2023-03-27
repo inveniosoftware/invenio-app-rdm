@@ -12,7 +12,7 @@ import { RecordManagement } from "./RecordManagement";
 import { RecordVersionsList } from "./RecordVersionsList";
 import { RecordCitationField } from "./RecordCitationField";
 import { ExportDropdown } from "./ExportDropdown";
-import { RecordCommunitiesList } from "./RecordCommunitiesList";
+import { CommunitiesManagement } from "./CommunitiesManagement";
 
 const recordManagementAppDiv = document.getElementById("recordManagement");
 const recordManagementMobile = document.getElementById("recordManagementMobile");
@@ -20,7 +20,9 @@ const recordManagementMobile = document.getElementById("recordManagementMobile")
 const recordVersionsAppDiv = document.getElementById("recordVersions");
 const recordCitationAppDiv = document.getElementById("recordCitation");
 const recordExportDownloadDiv = document.getElementById("recordExportDownload");
-const recordCommunitiesListDiv = document.getElementById("record-communities-list");
+const sidebarCommunitiesManageDiv = document.getElementById(
+  "sidebar-communities-manage"
+);
 
 if (recordManagementAppDiv) {
   renderRecordManagement(recordManagementAppDiv);
@@ -69,14 +71,24 @@ if (recordExportDownloadDiv) {
   );
 }
 
-if (recordCommunitiesListDiv) {
+if (sidebarCommunitiesManageDiv) {
   const recordCommunitySearchEndpoint =
-    recordCommunitiesListDiv.dataset.recordCommunitySearchEndpoint;
+    sidebarCommunitiesManageDiv.dataset.recordCommunitySearchEndpoint;
   ReactDOM.render(
-    <RecordCommunitiesList
+    <CommunitiesManagement
+      userCommunitiesMemberships={JSON.parse(
+        sidebarCommunitiesManageDiv.dataset.userCommunitiesMemberships.replace(
+          /'/g,
+          '"'
+        )
+      )}
+      recordCommunityEndpoint={
+        sidebarCommunitiesManageDiv.dataset.recordCommunityEndpoint
+      }
+      canManageRecord={sidebarCommunitiesManageDiv.dataset.canManageRecord}
       recordCommunitySearchEndpoint={recordCommunitySearchEndpoint}
       permissions={JSON.parse(recordManagementAppDiv.dataset.permissions)}
     />,
-    recordCommunitiesListDiv
+    sidebarCommunitiesManageDiv
   );
 }

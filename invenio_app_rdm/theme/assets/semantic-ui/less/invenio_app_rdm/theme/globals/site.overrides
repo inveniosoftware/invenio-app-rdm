@@ -500,3 +500,15 @@ dl.details-list {
 .highlight-background {
     background-color: @highlightHeaderColor;
 }
+
+.display-inline-block {
+  display: inline-block;
+}
+
+.green-color {
+  color: @green;
+}
+
+.full-width {
+  width: 100%;
+}

@@ -3,7 +3,7 @@ import {
   SearchAppResultsPane,
   SearchBar,
 } from "@js/invenio_search_ui/components";
-import { i18next } from "@translations/invenio_communities/i18next";
+import { i18next } from "@translations/invenio_app_rdm/i18next";
 import React from "react";
 import { Count, Sort } from "react-searchkit";
 import { Button, Container, Grid } from "semantic-ui-react";
