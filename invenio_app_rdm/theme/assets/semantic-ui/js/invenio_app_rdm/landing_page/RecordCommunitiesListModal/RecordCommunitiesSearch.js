@@ -8,7 +8,7 @@ import { i18next } from "@translations/invenio_app_rdm/i18next";
 import { RecordCommunitiesSearchItem } from "./RecordCommunitiesSearchItem";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { OverridableContext } from "react-overridable";
+import { OverridableContext, parametrize } from "react-overridable";
 import {
   EmptyResults,
   Error,
@@ -23,13 +23,15 @@ import { Container } from "semantic-ui-react";
 
 const appName = "InvenioAppRdm.RecordCommunitiesSearch";
 
-const overriddenComponents = {
-  [`${appName}.ResultsList.item`]: RecordCommunitiesSearchItem,
-};
-
 export class RecordCommunitiesSearch extends Component {
   render() {
-    const { recordCommunitySearchEndpoint } = this.props;
+    const { recordCommunitySearchEndpoint, record } = this.props;
+    const overriddenComponents = {
+      [`${appName}.ResultsList.item`]: parametrize(RecordCommunitiesSearchItem, {
+        record: record,
+      }),
+    };
+
     const searchApi = new InvenioSearchApi({
       axios: {
         url: recordCommunitySearchEndpoint,
@@ -76,4 +78,5 @@ export class RecordCommunitiesSearch extends Component {
 
 RecordCommunitiesSearch.propTypes = {
   recordCommunitySearchEndpoint: PropTypes.string.isRequired,
+  record: PropTypes.object.isRequired,
 };

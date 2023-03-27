@@ -56,6 +56,7 @@ export class RecordCommunitiesList extends Component {
               <RecordCommunitiesListModal
                 totalCommunities={communities.length}
                 recordCommunitySearchEndpoint={recordCommunitySearchEndpoint}
+                record={record}
               />
             </Container>
           )}
