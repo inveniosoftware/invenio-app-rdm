@@ -17,6 +17,7 @@ from invenio_requests.views.ui import (
     record_tombstone_error,
 )
 
+from invenio_app_rdm.records_ui.searchapp import search_app_context
 from invenio_app_rdm.requests_ui.views.requests import (
     community_dashboard_request_view,
     user_dashboard_request_view,
@@ -55,5 +56,6 @@ def create_ui_blueprint(app):
     )
     blueprint.register_error_handler(PIDDeletedError, record_tombstone_error)
     blueprint.register_error_handler(PIDDoesNotExistError, not_found_error)
+    blueprint.app_context_processor(search_app_context)
 
     return blueprint
