@@ -7,46 +7,45 @@
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Header, Modal, Button } from "semantic-ui-react";
-import { RecordCommunitiesSearch } from "./RecordCommunitiesSearch";
+import { Header, Modal, Button, Icon, Grid } from "semantic-ui-react";
+import { RecordCommunitiesSearch } from "../RecordCommunitiesListModal/RecordCommunitiesSearch";
 
-export class RecordCommunitiesListModal extends Component {
+export class ManageCommunitiesModal extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       modalOpen: false,
     };
   }
 
+  handleClose = () => {
+    this.setState({ modalOpen: false });
+    // TODO: remove after decision with reload component on landing page
+    window.location.reload();
+  };
+
   render() {
-    const { recordCommunitySearchEndpoint, totalCommunities, record } = this.props;
+    const { recordCommunitySearchEndpoint, record } = this.props;
     const { modalOpen } = this.state;
 
     return (
       <Modal
         role="dialog"
-        aria-labelledby="record-communities-header"
-        id="community-selection-modal"
-        closeIcon
+        aria-labelledby="manage-communities-modal"
+        id="manage-communities-modal"
         closeOnDimmerClick={false}
         open={modalOpen}
-        onClose={() => this.setState({ modalOpen: false })}
         onOpen={() => this.setState({ modalOpen: true })}
         trigger={
-          <Button
-            as="a"
-            className="transparent link"
-            aria-haspopup="dialog"
-            aria-expanded={modalOpen}
-          >
-            {i18next.t("View all")} {totalCommunities} {i18next.t("communities")}
-          </Button>
+          <span aria-haspopup="dialog" aria-expanded={modalOpen}>
+            <Icon name="settings" />
+            {i18next.t("Manage communities")}
+          </span>
         }
       >
         <Modal.Header>
           <Header as="h2" id="record-communities-header">
-            {i18next.t("This record's communities")}
+            {i18next.t("Communities")}
           </Header>
         </Modal.Header>
 
@@ -56,19 +55,21 @@ export class RecordCommunitiesListModal extends Component {
             record={record}
           />
         </Modal.Content>
-
         <Modal.Actions>
-          <Button onClick={() => this.setState({ modalOpen: false })}>
-            {i18next.t("Close")}
-          </Button>
+          <Grid columns={2}>
+            <Grid.Column>
+              <Button floated="left" onClick={() => this.handleClose()}>
+                {i18next.t("Close")}
+              </Button>
+            </Grid.Column>
+          </Grid>
         </Modal.Actions>
       </Modal>
     );
   }
 }
 
-RecordCommunitiesListModal.propTypes = {
+ManageCommunitiesModal.propTypes = {
   recordCommunitySearchEndpoint: PropTypes.string.isRequired,
-  totalCommunities: PropTypes.number.isRequired,
   record: PropTypes.object.isRequired,
 };

@@ -92,3 +92,16 @@ if (sidebarCommunitiesManageDiv) {
     sidebarCommunitiesManageDiv
   );
 }
+
+if (manageCommunitiesDiv) {
+  const recordCommunitySearchEndpoint =
+    manageCommunitiesDiv.dataset.recordCommunitySearchEndpoint;
+  const record = JSON.parse(manageCommunitiesDiv.dataset.record);
+  ReactDOM.render(
+    <ManageCommunitiesModal
+      recordCommunitySearchEndpoint={recordCommunitySearchEndpoint}
+      record={record}
+    />,
+    manageCommunitiesDiv
+  );
+}
