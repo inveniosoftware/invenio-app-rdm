@@ -6,6 +6,7 @@ import { Trans } from "react-i18next";
 import { http, ErrorMessage } from "react-invenio-forms";
 import PropTypes from "prop-types";
 import { withState } from "react-searchkit";
+import { RequestActionController } from "@js/invenio_requests";
 
 class RecordCommunitiesSearchItemComponent extends Component {
 
@@ -52,13 +53,21 @@ class RecordCommunitiesSearchItemComponent extends Component {
   };
 
   render() {
-    const { modalOpen, loading, error, isButtonDisabled, isChecked1, isChecked2 } =
+    const { modalOpen, loading, error, isChecked1, isChecked2 } =
       this.state;
-    const { result } = this.props;
+    const { result, successCallback } = this.props;
+    // const {
+    //   expanded: { receiver: community },
+    // } = result;
+
     const communityTitle = result.metadata.title;
 
     const action = (
       <>
+        <RequestActionController
+          request={result}
+          actionSuccessCallback={successCallback}
+        />
         <Button
           size="tiny"
           negative
@@ -150,6 +159,7 @@ class RecordCommunitiesSearchItemComponent extends Component {
 RecordCommunitiesSearchItemComponent.propTypes = {
   result: PropTypes.object.isRequired,
   record: PropTypes.object.isRequired,
+  successCallback: PropTypes.func.isRequired,
   /* From React-SearchKit */
   updateQueryState: PropTypes.func.isRequired,
   currentQueryState: PropTypes.object.isRequired,

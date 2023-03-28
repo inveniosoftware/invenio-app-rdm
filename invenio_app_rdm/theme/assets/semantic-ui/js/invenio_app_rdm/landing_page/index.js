@@ -88,20 +88,8 @@ if (sidebarCommunitiesManageDiv) {
       recordCommunitySearchEndpoint={recordCommunitySearchEndpoint}
       permissions={JSON.parse(recordManagementAppDiv.dataset.permissions)}
       searchConfig={JSON.parse(pendingCommunitiesSearchConfig)}
+      record={JSON.parse(sidebarCommunitiesManageDiv.dataset.record)}
     />,
     sidebarCommunitiesManageDiv
-  );
-}
-
-if (manageCommunitiesDiv) {
-  const recordCommunitySearchEndpoint =
-    manageCommunitiesDiv.dataset.recordCommunitySearchEndpoint;
-  const record = JSON.parse(manageCommunitiesDiv.dataset.record);
-  ReactDOM.render(
-    <ManageCommunitiesModal
-      recordCommunitySearchEndpoint={recordCommunitySearchEndpoint}
-      record={record}
-    />,
-    manageCommunitiesDiv
   );
 }
