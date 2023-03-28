@@ -22,7 +22,6 @@ import { RDMRecordSearchBarElement } from "../search/components";
 import {
   MobileRequestItem,
   ComputerTabletRequestItem,
-  RequestsResultsGridItemTemplate,
   RequestsSearchLayout,
   RequestsEmptyResultsWithState,
   RequestsResults,
@@ -55,7 +54,7 @@ export const defaultComponents = {
   [`${appName}.BucketAggregationValues.element`]: ContribBucketAggregationValuesElement,
   [`${appName}.SearchApp.facets`]: ContribSearchAppFacets,
   [`${appName}.ResultsList.item`]: RequestsResultsItemTemplateDashboard,
-  [`${appName}.ResultsGrid.item`]: RequestsResultsGridItemTemplate,
+  [`${appName}.ResultsGrid.item`]: () => null,
   [`${appName}.SearchApp.layout`]: RequestsSearchLayoutWithApp,
   [`${appName}.SearchApp.results`]: RequestsResults,
   [`${appName}.SearchBar.element`]: RDMRecordSearchBarElement,

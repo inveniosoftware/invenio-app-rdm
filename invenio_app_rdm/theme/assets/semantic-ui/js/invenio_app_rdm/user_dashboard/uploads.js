@@ -48,7 +48,7 @@ export const RDMRecordResultsListItem = ({ result }) => {
         window.location = `/uploads/${result.id}`;
       })
       .catch((error) => {
-        console.log(error.response.data);
+        console.error(error.response.data);
       });
   };
 

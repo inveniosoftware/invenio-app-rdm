@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { CommunityCompactItem } from "@js/invenio_communities/community";
-import { RequestActionController } from "@js/invenio_requests/";
+import { RequestActionController } from "@js/invenio_requests";
 
 export class PendingCommunityRequestItem extends Component {
   render() {

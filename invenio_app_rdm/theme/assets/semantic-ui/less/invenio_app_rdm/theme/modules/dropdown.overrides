@@ -141,13 +141,14 @@
     & > .menu {
       min-width: 14em !important;
       border-top-width: 1px !important;
-      border-radius: @defaultBorderRadius 0em @defaultBorderRadius @defaultBorderRadius;
+      border-radius: @defaultBorderRadius 0 @defaultBorderRadius @defaultBorderRadius;
     }
   }
 }
 
-.communities-manage-dropdown {
+.manage-menu-dropdown {
   .dropdown.icon {
     margin-left: 0 !important;
+    color: @grey;
   }
 }
