@@ -218,10 +218,7 @@ def record_export(
         abort(404)
 
     serializer = obj_or_import_string(exporter["serializer"])(
-        options={
-            "indent": 2,
-            "sort_keys": True,
-        }
+        **exporter.get("params", {})
     )
     exported_record = serializer.serialize_object(record.to_dict())
     contentType = exporter.get("content-type", export_format)
