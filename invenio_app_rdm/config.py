@@ -640,12 +640,14 @@ APP_RDM_RECORD_EXPORTERS = {
     "json": {
         "name": _("JSON"),
         "serializer": ("flask_resources.serializers:JSONSerializer"),
+        "params": {"options": {"indent": 2, "sort_keys": True}},
         "content-type": "application/json",
         "filename": "{id}.json",
     },
     "csl": {
         "name": _("CSL"),
         "serializer": ("invenio_rdm_records.resources.serializers:CSLJSONSerializer"),
+        "params": {"options": {"indent": 2, "sort_keys": True}},
         "content-type": "application/vnd.citationstyles.csl+json",
         "filename": "{id}.json",
     },
@@ -654,6 +656,7 @@ APP_RDM_RECORD_EXPORTERS = {
         "serializer": (
             "invenio_rdm_records.resources.serializers:DataCite43JSONSerializer"
         ),
+        "params": {"options": {"indent": 2, "sort_keys": True}},
         "content-type": "application/vnd.datacite.datacite+json",
         "filename": "{id}.json",
     },
@@ -662,6 +665,7 @@ APP_RDM_RECORD_EXPORTERS = {
         "serializer": (
             "invenio_rdm_records.resources.serializers:DataCite43XMLSerializer"
         ),
+        "params": {},
         "content-type": "application/vnd.datacite.datacite+xml",
         "filename": "{id}.xml",
     },
@@ -670,30 +674,35 @@ APP_RDM_RECORD_EXPORTERS = {
         "serializer": (
             "invenio_rdm_records.resources.serializers:DublinCoreXMLSerializer"
         ),
+        "params": {},
         "content-type": "application/x-dc+xml",
         "filename": "{id}.xml",
     },
     "marcxml": {
         "name": _("MARCXML"),
         "serializer": ("invenio_rdm_records.resources.serializers:MARCXMLSerializer"),
+        "params": {},
         "content-type": "application/marcxml+xml",
         "filename": "{id}.xml",
     },
     "bibtex": {
         "name": _("BibTeX"),
         "serializer": ("invenio_rdm_records.resources.serializers:" "BibtexSerializer"),
+        "params": {},
         "content-type": "application/x-bibtex",
         "filename": "{id}.bib",
     },
     "GeoJSON": {
         "name": _("GeoJSON"),
         "serializer": ("invenio_rdm_records.resources.serializers:GeoJSONSerializer"),
+        "params": {"options": {"indent": 2, "sort_keys": True}},
         "content-type": "application/vnd.geojson+json",
         "filename": "{id}.geojson",
     },
     "DCAT-AP": {
         "name": _("DCAT"),
         "serializer": "invenio_rdm_records.resources.serializers:DCATSerializer",
+        "params": {},
         "content-type": "application/dcat+xml",
         "filename": "{id}.xml",
     },
