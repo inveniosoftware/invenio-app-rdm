@@ -9,7 +9,7 @@ import PropTypes from "prop-types";
 import { RecordCommunitiesList } from "./RecordCommunitiesList";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import { Header } from "semantic-ui-react";
-import { CommunitiesManagmentDropdown } from "./CommunitiesManagmentDropdown";
+import { CommunitiesManagementDropdown } from "./CommunitiesManagementDropdown";
 import { http, withCancel } from "react-invenio-forms";
 
 export class CommunitiesManagement extends Component {
@@ -66,6 +66,10 @@ export class CommunitiesManagement extends Component {
     }
   };
 
+  handleRefresh = () => {
+    this.getCommunities();
+  };
+
   render() {
     const {
       recordCommunitySearchEndpoint,
@@ -73,6 +77,7 @@ export class CommunitiesManagement extends Component {
       canManageRecord,
       userCommunitiesMemberships,
       recordCommunityEndpoint,
+      searchConfig,
     } = this.props;
     const { communities, loading, error } = this.state;
     return (
@@ -80,17 +85,11 @@ export class CommunitiesManagement extends Component {
         <Header as="h4" dividing className="flex full-width">
           {i18next.t("Communities")}
           {canManageRecord && (
-            <CommunitiesManagmentDropdown
-              actionSucceed={(communitySelected) => {
-                if (
-                  communitySelected.access.review_policy === "open" &&
-                  userCommunitiesMemberships[communitySelected?.id]
-                ) {
-                  this.getCommunities();
-                }
-              }}
+            <CommunitiesManagementDropdown
+              actionSucceed={this.handleRefresh}
               userCommunitiesMemberships={userCommunitiesMemberships}
               recordCommunityEndpoint={recordCommunityEndpoint}
+              searchConfig={searchConfig}
             />
           )}
         </Header>
@@ -112,4 +111,5 @@ CommunitiesManagement.propTypes = {
   permissions: PropTypes.object.isRequired,
   canManageRecord: PropTypes.bool.isRequired,
   userCommunitiesMemberships: PropTypes.object.isRequired,
+  searchConfig: PropTypes.object.isRequired,
 };

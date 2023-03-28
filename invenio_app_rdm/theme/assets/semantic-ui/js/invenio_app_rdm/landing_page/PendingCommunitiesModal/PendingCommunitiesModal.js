@@ -11,24 +11,14 @@ import { Header, Modal, Icon, Button } from "semantic-ui-react";
 import { PendingCommunitiesSearch } from "./PendingCommunitiesSearch";
 
 export class PendingCommunitiesModal extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      modalOpen: false,
-    };
-  }
-
-  handleOnClose = () => this.setState({ modalOpen: false });
-  handleOnOpen = () => this.setState({ modalOpen: true });
-
-  handleSuccessItemAction = () => {
-    this.handleOnClose();
-    window.location.reload();
-  };
   render() {
-    const { searchConfig } = this.props;
-    const { modalOpen } = this.state;
+    const {
+      searchConfig,
+      modalOpen,
+      successActionCallback,
+      handleOnOpen,
+      handleOnClose,
+    } = this.props;
 
     return (
       <Modal
@@ -38,14 +28,8 @@ export class PendingCommunitiesModal extends Component {
         closeIcon
         closeOnDimmerClick={false}
         open={modalOpen}
-        onClose={this.handleOnClose}
-        onOpen={this.handleOnOpen}
-        trigger={
-          <span aria-haspopup="dialog" aria-expanded={modalOpen}>
-            <Icon name="comments outline" />
-            {i18next.t("Pending communities")}
-          </span>
-        }
+        onClose={handleOnClose}
+        onOpen={handleOnOpen}
       >
         <Modal.Header>
           <Header as="h2" id="record-communities-header">
@@ -56,14 +40,12 @@ export class PendingCommunitiesModal extends Component {
         <Modal.Content>
           <PendingCommunitiesSearch
             searchConfig={searchConfig}
-            successActionCallback={this.handleSuccessItemAction}
+            successActionCallback={successActionCallback}
           />
         </Modal.Content>
 
         <Modal.Actions>
-          <Button onClick={() => this.setState({ modalOpen: false })}>
-            {i18next.t("Close")}
-          </Button>
+          <Button onClick={handleOnClose}>{i18next.t("Close")}</Button>
         </Modal.Actions>
       </Modal>
     );
@@ -72,4 +54,12 @@ export class PendingCommunitiesModal extends Component {
 
 PendingCommunitiesModal.propTypes = {
   searchConfig: PropTypes.object.isRequired,
+  modalOpen: PropTypes.bool,
+  successActionCallback: PropTypes.func.isRequired,
+  handleOnClose: PropTypes.func.isRequired,
+  handleOnOpen: PropTypes.func.isRequired,
+};
+
+PendingCommunitiesModal.defaultProps = {
+  modalOpen: false,
 };

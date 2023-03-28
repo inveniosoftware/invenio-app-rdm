@@ -79,15 +79,12 @@ if (sidebarCommunitiesManageDiv) {
   ReactDOM.render(
     <CommunitiesManagement
       userCommunitiesMemberships={JSON.parse(
-        sidebarCommunitiesManageDiv.dataset.userCommunitiesMemberships.replace(
-          /'/g,
-          '"'
-        )
+        sidebarCommunitiesManageDiv.dataset.userCommunitiesMemberships
       )}
       recordCommunityEndpoint={
         sidebarCommunitiesManageDiv.dataset.recordCommunityEndpoint
       }
-      canManageRecord={sidebarCommunitiesManageDiv.dataset.canManageRecord}
+      canManageRecord={JSON.parse(sidebarCommunitiesManageDiv.dataset.canManageRecord)}
       recordCommunitySearchEndpoint={recordCommunitySearchEndpoint}
       permissions={JSON.parse(recordManagementAppDiv.dataset.permissions)}
       searchConfig={JSON.parse(pendingCommunitiesSearchConfig)}

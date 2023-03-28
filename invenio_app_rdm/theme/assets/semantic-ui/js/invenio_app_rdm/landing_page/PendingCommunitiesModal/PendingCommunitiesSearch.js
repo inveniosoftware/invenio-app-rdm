@@ -25,13 +25,18 @@ import { Container } from "semantic-ui-react";
 const appName = "InvenioAppRdm.PendingCommunitiesSearch";
 
 export class PendingCommunitiesSearch extends Component {
+  handleSuccessCallback = (data) => {
+    const { successActionCallback } = this.props;
+    successActionCallback(data, i18next.t("Request action succeeded"));
+  };
+
   render() {
-    const { searchConfig, successActionCallback } = this.props;
+    const { searchConfig } = this.props;
     const searchApi = new InvenioSearchApi(searchConfig["searchApi"]);
 
     const overriddenComponents = {
       [`${appName}.ResultsList.item`]: parametrize(PendingCommunityRequestItem, {
-        successCallback: successActionCallback,
+        successCallback: this.handleSuccessCallback,
       }),
       ...defaultContribComponents,
     };
