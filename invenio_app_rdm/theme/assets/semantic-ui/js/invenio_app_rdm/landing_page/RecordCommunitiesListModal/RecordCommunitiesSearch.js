@@ -24,11 +24,17 @@ import { Container } from "semantic-ui-react";
 const appName = "InvenioAppRdm.RecordCommunitiesSearch";
 
 export class RecordCommunitiesSearch extends Component {
+  handleSuccessCallback = (data) => {
+    const { successActionCallback } = this.props;
+    successActionCallback(data, i18next.t("Request action succeeded"));
+  };
+
   render() {
     const { recordCommunitySearchEndpoint, record } = this.props;
     const overriddenComponents = {
       [`${appName}.ResultsList.item`]: parametrize(RecordCommunitiesSearchItem, {
         record: record,
+        successCallback: this.handleSuccessCallback,
       }),
     };
 
@@ -79,4 +85,5 @@ export class RecordCommunitiesSearch extends Component {
 RecordCommunitiesSearch.propTypes = {
   recordCommunitySearchEndpoint: PropTypes.string.isRequired,
   record: PropTypes.object.isRequired,
+  successActionCallback: PropTypes.func.isRequired,
 };
