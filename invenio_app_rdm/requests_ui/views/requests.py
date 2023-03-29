@@ -27,7 +27,8 @@ from invenio_app_rdm.records_ui.views.decorators import (
     draft_files_service,
     files_service,
 )
-from invenio_app_rdm.records_ui.views.deposits import load_custom_fields
+from invenio_app_rdm.records_ui.views.deposits import load_custom_fields, \
+    get_user_communities_memberships
 
 
 def _resolve_topic_record(request):
@@ -119,6 +120,7 @@ def user_dashboard_request_view(request, **kwargs):
             files=files,
             is_user_dashboard=True,
             custom_fields_ui=load_custom_fields()["ui"],
+            user_communities_memberships=get_user_communities_memberships(),
         )
 
     elif is_member_invitation:
@@ -171,6 +173,7 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
             files=files,
             user_avatar=avatar,
             custom_fields_ui=load_custom_fields()["ui"],
+            user_communities_memberships=get_user_communities_memberships(),
         )
 
     elif is_member_invitation:
