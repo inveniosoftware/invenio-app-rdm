@@ -40,4 +40,21 @@ def search_app_context():
             page=1,
             size=5,
         ),
+        "search_app_rdm_record_communities_config": partial(
+            search_app_config,
+            config_name="RDM_SEARCH_USER_COMMUNITIES",
+            available_facets=current_app.config["COMMUNITIES_FACETS"],
+            sort_options=current_app.config["RDM_SORT_OPTIONS"],
+            headers={"Accept": "application/vnd.inveniordm.v1+json"},
+        ),
+        "search_app_rdm_record_user_communities_config": partial(
+            search_app_config,
+            config_name="RDM_SEARCH_USER_COMMUNITIES",
+            available_facets=current_app.config["COMMUNITIES_FACETS"],
+            sort_options=current_app.config["RDM_SORT_OPTIONS"],
+            headers={"Accept": "application/vnd.inveniordm.v1+json"},
+            hidden_params=[
+                ["user_is_member", "true"],
+            ],
+        ),
     }

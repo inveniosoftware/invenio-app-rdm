@@ -58,7 +58,9 @@ export class PendingCommunitiesSearch extends Component {
                   content: null,
                   className: "search",
                 }}
-                placeholder={i18next.t("Search for pending community request...")}
+                placeholder={i18next.t(
+                  "Search for pending submissions to communities..."
+                )}
               />
             </Container>
             <Container className="rel-pt-2 rel-pb-2">

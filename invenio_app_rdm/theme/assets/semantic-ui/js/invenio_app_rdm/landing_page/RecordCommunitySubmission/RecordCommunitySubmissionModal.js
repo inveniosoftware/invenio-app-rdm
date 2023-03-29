@@ -34,15 +34,19 @@ export class RecordCommunitySubmissionModal extends Component {
     return userMembership && community?.access.review_policy === "open";
   };
 
+  isDirectlyPublished = (requestData) => {
+    return requestData["is_closed"] && requestData["status"] === "accepted";
+  };
+
   handleSuccessSubmit = (data) => {
     const { handleSuccessAction } = this.props;
     this.closeConfirmModal();
-    if (this.canDirectPublish()) {
-      handleSuccessAction(data, i18next.t("Successful community inclusion"));
+    if (this.isDirectlyPublished(data.processed[0].request)) {
+      handleSuccessAction(data, i18next.t("Record added to the community"));
     } else handleSuccessAction(data, i18next.t("Review request created"));
   };
 
-  submitCommunity = async () => {
+  submitCommunity = async (reviewComment) => {
     const { recordCommunityEndpoint } = this.props;
     const { selectedCommunity } = this.state;
 
@@ -52,13 +56,28 @@ export class RecordCommunitySubmissionModal extends Component {
     });
 
     try {
-      const response = await http.post(recordCommunityEndpoint, {
+      let data = {
         communities: [
           {
             id: selectedCommunity.id,
           },
         ],
-      });
+      };
+
+      if (reviewComment) {
+        data = {
+          communities: [
+            {
+              id: selectedCommunity.id,
+              comment: {
+                content: reviewComment,
+                format: "html",
+              },
+            },
+          ],
+        };
+      }
+      const response = await http.post(recordCommunityEndpoint, data);
       this.handleSuccessSubmit(response.data);
     } catch (error) {
       console.error(error);
@@ -75,7 +94,24 @@ export class RecordCommunitySubmissionModal extends Component {
 
   render() {
     const { selectedCommunity, confirmationModalOpen, loading, error } = this.state;
-    const { userCommunitiesMemberships, modalOpen, toggleModal } = this.props;
+    const {
+      userCommunitiesMemberships,
+      modalOpen,
+      toggleModal,
+      recordUserCommunitySearchConfig,
+      recordCommunitySearchConfig,
+    } = this.props;
+    const apiConfigs = {
+      allCommunities: {
+        ...recordCommunitySearchConfig,
+        toggleText: i18next.t("Search in all communities"),
+      },
+      myCommunities: {
+        ...recordUserCommunitySearchConfig,
+        toggleText: i18next.t("Search in my communities"),
+      },
+    };
+
     return (
       <>
         <CommunitySelectionModalComponent
@@ -85,13 +121,14 @@ export class RecordCommunitySubmissionModal extends Component {
           userCommunitiesMemberships={userCommunitiesMemberships}
           onModalChange={toggleModal}
           modalHeader={i18next.t("Select a community")}
+          apiConfigs={apiConfigs}
         />
         {confirmationModalOpen && (
           <SubmitReviewModal
             loading={loading}
             errors={error && <Message error>{error}</Message>}
             isConfirmModalOpen={confirmationModalOpen}
-            onSubmit={() => this.submitCommunity()}
+            onSubmit={({ reviewComment }) => this.submitCommunity(reviewComment)}
             community={selectedCommunity}
             onClose={() => this.closeConfirmModal()}
             directPublish={this.canDirectPublish()}
@@ -108,6 +145,8 @@ RecordCommunitySubmissionModal.propTypes = {
   userCommunitiesMemberships: PropTypes.object.isRequired,
   handleSuccessAction: PropTypes.func.isRequired,
   recordCommunityEndpoint: PropTypes.string.isRequired,
+  recordCommunitySearchConfig: PropTypes.string.isRequired,
+  recordUserCommunitySearchConfig: PropTypes.string.isRequired,
 };
 
 RecordCommunitySubmissionModal.defaultProps = {

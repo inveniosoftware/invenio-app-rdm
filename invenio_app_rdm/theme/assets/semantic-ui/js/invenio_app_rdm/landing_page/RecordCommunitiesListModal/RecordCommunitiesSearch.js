@@ -30,17 +30,17 @@ export class RecordCommunitiesSearch extends Component {
   };
 
   render() {
-    const { recordCommunitySearchEndpoint } = this.props;
+    const { recordCommunityEndpoint } = this.props;
     const overriddenComponents = {
       [`${appName}.ResultsList.item`]: parametrize(RecordCommunitiesSearchItem, {
-        recordCommunityEndpoint: recordCommunitySearchEndpoint,
+        recordCommunityEndpoint: recordCommunityEndpoint,
         successCallback: this.handleSuccessCallback,
       }),
     };
 
     const searchApi = new InvenioSearchApi({
       axios: {
-        url: recordCommunitySearchEndpoint,
+        url: recordCommunityEndpoint,
         headers: { Accept: "application/vnd.inveniordm.v1+json" },
       },
     });
@@ -83,6 +83,6 @@ export class RecordCommunitiesSearch extends Component {
 }
 
 RecordCommunitiesSearch.propTypes = {
-  recordCommunitySearchEndpoint: PropTypes.string.isRequired,
+  recordCommunityEndpoint: PropTypes.string.isRequired,
   successActionCallback: PropTypes.func.isRequired,
 };

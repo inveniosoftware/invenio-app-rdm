@@ -72,10 +72,11 @@ if (recordExportDownloadDiv) {
 }
 
 if (sidebarCommunitiesManageDiv) {
-  const recordCommunitySearchEndpoint =
-    sidebarCommunitiesManageDiv.dataset.recordCommunitySearchEndpoint;
+  const recordCommunitySearchConfig = JSON.parse(
+    sidebarCommunitiesManageDiv.dataset.recordCommunitySearchConfig
+  );
   const pendingCommunitiesSearchConfig =
-    sidebarCommunitiesManageDiv.dataset.invenioSearchConfig;
+    sidebarCommunitiesManageDiv.dataset.pendingCommunitiesSearchConfig;
   ReactDOM.render(
     <CommunitiesManagement
       userCommunitiesMemberships={JSON.parse(
@@ -84,8 +85,11 @@ if (sidebarCommunitiesManageDiv) {
       recordCommunityEndpoint={
         sidebarCommunitiesManageDiv.dataset.recordCommunityEndpoint
       }
+      recordUserCommunitySearchConfig={JSON.parse(
+        sidebarCommunitiesManageDiv.dataset.recordUserCommunitySearchConfig
+      )}
       canManageRecord={JSON.parse(sidebarCommunitiesManageDiv.dataset.canManageRecord)}
-      recordCommunitySearchEndpoint={recordCommunitySearchEndpoint}
+      recordCommunitySearchConfig={recordCommunitySearchConfig}
       permissions={JSON.parse(sidebarCommunitiesManageDiv.dataset.permissions)}
       searchConfig={JSON.parse(pendingCommunitiesSearchConfig)}
     />,
