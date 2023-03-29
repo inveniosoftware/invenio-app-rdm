@@ -30,10 +30,10 @@ export class RecordCommunitiesSearch extends Component {
   };
 
   render() {
-    const { recordCommunitySearchEndpoint, record } = this.props;
+    const { recordCommunitySearchEndpoint } = this.props;
     const overriddenComponents = {
       [`${appName}.ResultsList.item`]: parametrize(RecordCommunitiesSearchItem, {
-        record: record,
+        recordCommunityEndpoint: recordCommunitySearchEndpoint,
         successCallback: this.handleSuccessCallback,
       }),
     };
@@ -84,6 +84,5 @@ export class RecordCommunitiesSearch extends Component {
 
 RecordCommunitiesSearch.propTypes = {
   recordCommunitySearchEndpoint: PropTypes.string.isRequired,
-  record: PropTypes.object.isRequired,
   successActionCallback: PropTypes.func.isRequired,
 };

@@ -4,13 +4,16 @@
 // Invenio App RDM is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
 
+import { RecordCommunitiesListModal } from "./RecordCommunitiesListModal";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { RecordCommunitiesList } from "./RecordCommunitiesList";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
-import { Header } from "semantic-ui-react";
+import { Header, Container, Button } from "semantic-ui-react";
 import { CommunitiesManagementDropdown } from "./CommunitiesManagementDropdown";
 import { http, withCancel } from "react-invenio-forms";
+
+const MAX_COMMUNITIES = 2;
 
 export class CommunitiesManagement extends Component {
   constructor(props) {
@@ -19,6 +22,7 @@ export class CommunitiesManagement extends Component {
       loading: true,
       communities: undefined,
       error: undefined,
+      manageCommunitiesModalOpen: false,
     };
   }
 
@@ -29,6 +33,10 @@ export class CommunitiesManagement extends Component {
   componentWillUnmount() {
     this.cancellableFetchCommunities?.cancel();
   }
+
+  toggleManageCommunitiesModal = (value) => {
+    this.setState({ manageCommunitiesModalOpen: value });
+  };
 
   fetchRecordCommunities = async () => {
     const { recordCommunitySearchEndpoint } = this.props;
@@ -68,6 +76,7 @@ export class CommunitiesManagement extends Component {
 
   handleRefresh = () => {
     this.getCommunities();
+    this.toggleManageCommunitiesModal(false);
   };
 
   render() {
@@ -78,9 +87,8 @@ export class CommunitiesManagement extends Component {
       userCommunitiesMemberships,
       recordCommunityEndpoint,
       searchConfig,
-      record,
     } = this.props;
-    const { communities, loading, error } = this.state;
+    const { communities, loading, error, manageCommunitiesModalOpen } = this.state;
     return (
       <>
         <Header as="h4" dividing className="flex full-width">
@@ -91,19 +99,39 @@ export class CommunitiesManagement extends Component {
               userCommunitiesMemberships={userCommunitiesMemberships}
               recordCommunityEndpoint={recordCommunityEndpoint}
               searchConfig={searchConfig}
-              record={record}
               recordCommunitySearchEndpoint={recordCommunitySearchEndpoint}
+              toggleManageCommunitiesModal={this.toggleManageCommunitiesModal}
             />
           )}
         </Header>
         <RecordCommunitiesList
-          recordCommunitySearchEndpoint={recordCommunitySearchEndpoint}
           permissions={permissions}
           communities={communities}
           error={error}
           loading={loading}
-          record={record}
+          maxDisplayedCommunities={MAX_COMMUNITIES}
         />
+        <RecordCommunitiesListModal
+          modalOpen={manageCommunitiesModalOpen}
+          handleOnOpen={() => this.toggleManageCommunitiesModal(true)}
+          handleOnClose={() => this.toggleManageCommunitiesModal(false)}
+          successActionCallback={this.handleRefresh}
+          recordCommunitySearchEndpoint={recordCommunitySearchEndpoint}
+        />
+
+        {!loading && communities?.length > MAX_COMMUNITIES && (
+          <Container align="center" className="mt-10">
+            <Button
+              as="a"
+              className="transparent link"
+              aria-haspopup="dialog"
+              aria-expanded={manageCommunitiesModalOpen}
+              onClick={() => this.toggleManageCommunitiesModal(true)}
+            >
+              {i18next.t("View all")} {communities.length} {i18next.t("communities")}
+            </Button>
+          </Container>
+        )}
       </>
     );
   }
@@ -116,5 +144,4 @@ CommunitiesManagement.propTypes = {
   canManageRecord: PropTypes.bool.isRequired,
   userCommunitiesMemberships: PropTypes.object.isRequired,
   searchConfig: PropTypes.object.isRequired,
-  record: PropTypes.object.isRequired,
 };

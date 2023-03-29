@@ -89,7 +89,7 @@ export class RecordCommunitySubmissionModal extends Component {
         {confirmationModalOpen && (
           <SubmitReviewModal
             loading={loading}
-            errors={<>{error && <Message error>{error}</Message>}</>}
+            errors={error && <Message error>{error}</Message>}
             isConfirmModalOpen={confirmationModalOpen}
             onSubmit={() => this.submitCommunity()}
             community={selectedCommunity}

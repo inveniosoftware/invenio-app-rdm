@@ -7,7 +7,6 @@
     data-record-community-search-endpoint="{{ record.links.communities }}"
     data-can-manage-record='{{ can_manage_record |tojson }}'
     data-invenio-search-config='{{ search_app_rdm_record_requests_config(app_id="InvenioAppRdm.RecordRequests", endpoint=record.links.requests) | tojson }}'
-    data-record='{{ record | tojson }}'
   >
     <h4 class="ui dividing header flex full-width">Communities</h4>
     <div class="ui fluid placeholder">

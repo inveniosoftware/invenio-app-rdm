@@ -7,7 +7,7 @@
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Header, Modal, Icon, Button } from "semantic-ui-react";
+import { Header, Modal, Button } from "semantic-ui-react";
 import { PendingCommunitiesSearch } from "./PendingCommunitiesSearch";
 
 export class PendingCommunitiesModal extends Component {
