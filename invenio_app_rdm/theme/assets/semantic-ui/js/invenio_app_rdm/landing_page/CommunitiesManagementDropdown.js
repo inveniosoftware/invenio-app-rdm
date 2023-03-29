@@ -8,8 +8,9 @@ import { PendingCommunitiesModal } from "./PendingCommunitiesModal/PendingCommun
 import { RecordCommunitySubmissionModal } from "./RecordCommunitySubmission/RecordCommunitySubmissionModal";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Dropdown, Icon, Transition } from "semantic-ui-react";
+import { Dropdown, Icon } from "semantic-ui-react";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
+import { SuccessIcon } from "@js/invenio_communities/members";
 
 export class CommunitiesManagementDropdown extends Component {
   constructor(props) {
@@ -22,18 +23,12 @@ export class CommunitiesManagementDropdown extends Component {
     };
   }
 
-  delayRemoveSuccessAction = () => {
-    setTimeout(() => {
-      this.setState({ visibleSuccessAction: false });
-    }, 10000);
-  };
-
   handleSuccessAction = (data, text) => {
     const { actionSucceed } = this.props;
-    this.setState({ actionFeedback: text, visibleSuccessAction: true });
-    this.delayRemoveSuccessAction();
+    this.setState({ actionFeedback: text, visibleSuccessAction: false });
     this.toggleSubmissionModal(false);
     this.togglePendingRequestsModal(false);
+    this.setState({ visibleSuccessAction: true });
 
     actionSucceed();
   };
@@ -55,19 +50,23 @@ export class CommunitiesManagementDropdown extends Component {
     const {
       userCommunitiesMemberships,
       searchConfig,
+      recordCommunitySearchConfig,
       recordCommunityEndpoint,
       toggleManageCommunitiesModal,
+      recordUserCommunitySearchConfig,
     } = this.props;
 
     return (
       <>
-        <div className="display-inline-block ml-auto rel-mr-1">
-          <Transition visible={visibleSuccessAction} animation="scale" duration={1000}>
-            <div className="green-color">
-              <Icon name="check" />
-              <p className="display-inline-block">{actionFeedback}</p>
-            </div>
-          </Transition>
+        <div className="display-inline-block ml-auto rel-mr-1 green-color">
+          {visibleSuccessAction && (
+            <SuccessIcon
+              className="full-width display-inline"
+              timeOutDelay={5000}
+              show={visibleSuccessAction}
+              content={actionFeedback}
+            />
+          )}
         </div>
         <Dropdown
           trigger={<Icon name="cog" color="grey" className="ml-0" />}
@@ -98,6 +97,8 @@ export class CommunitiesManagementDropdown extends Component {
           toggleModal={this.toggleSubmissionModal}
           handleSuccessAction={this.handleSuccessAction}
           recordCommunityEndpoint={recordCommunityEndpoint}
+          recordCommunitySearchConfig={recordCommunitySearchConfig}
+          recordUserCommunitySearchConfig={recordUserCommunitySearchConfig}
         />
         <PendingCommunitiesModal
           modalOpen={pendingRequestModalOpen}
@@ -114,6 +115,8 @@ export class CommunitiesManagementDropdown extends Component {
 CommunitiesManagementDropdown.propTypes = {
   userCommunitiesMemberships: PropTypes.object.isRequired,
   recordCommunityEndpoint: PropTypes.string.isRequired,
+  recordCommunitySearchConfig: PropTypes.string.isRequired,
+  recordUserCommunitySearchConfig: PropTypes.string.isRequired,
   toggleManageCommunitiesModal: PropTypes.func.isRequired,
   actionSucceed: PropTypes.func,
   searchConfig: PropTypes.object.isRequired,

@@ -39,8 +39,8 @@ export class CommunitiesManagement extends Component {
   };
 
   fetchRecordCommunities = async () => {
-    const { recordCommunitySearchEndpoint } = this.props;
-    return await http.get(recordCommunitySearchEndpoint, {
+    const { recordCommunityEndpoint } = this.props;
+    return await http.get(recordCommunityEndpoint, {
       headers: {
         Accept: "application/vnd.inveniordm.v1+json",
       },
@@ -81,11 +81,12 @@ export class CommunitiesManagement extends Component {
 
   render() {
     const {
-      recordCommunitySearchEndpoint,
+      recordCommunitySearchConfig,
       permissions,
       canManageRecord,
       userCommunitiesMemberships,
       recordCommunityEndpoint,
+      recordUserCommunitySearchConfig,
       searchConfig,
     } = this.props;
     const { communities, loading, error, manageCommunitiesModalOpen } = this.state;
@@ -99,7 +100,8 @@ export class CommunitiesManagement extends Component {
               userCommunitiesMemberships={userCommunitiesMemberships}
               recordCommunityEndpoint={recordCommunityEndpoint}
               searchConfig={searchConfig}
-              recordCommunitySearchEndpoint={recordCommunitySearchEndpoint}
+              recordCommunitySearchConfig={recordCommunitySearchConfig}
+              recordUserCommunitySearchConfig={recordUserCommunitySearchConfig}
               toggleManageCommunitiesModal={this.toggleManageCommunitiesModal}
             />
           )}
@@ -117,7 +119,7 @@ export class CommunitiesManagement extends Component {
             handleOnOpen={() => this.toggleManageCommunitiesModal(true)}
             handleOnClose={() => this.toggleManageCommunitiesModal(false)}
             successActionCallback={this.handleRefresh}
-            recordCommunitySearchEndpoint={recordCommunitySearchEndpoint}
+            recordCommunityEndpoint={recordCommunityEndpoint}
           />
 
           {!loading && communities?.length > MAX_COMMUNITIES && (
@@ -140,8 +142,9 @@ export class CommunitiesManagement extends Component {
 }
 
 CommunitiesManagement.propTypes = {
-  recordCommunitySearchEndpoint: PropTypes.string.isRequired,
+  recordCommunitySearchConfig: PropTypes.string.isRequired,
   recordCommunityEndpoint: PropTypes.string.isRequired,
+  recordUserCommunitySearchConfig: PropTypes.string.isRequired,
   permissions: PropTypes.object.isRequired,
   canManageRecord: PropTypes.bool.isRequired,
   userCommunitiesMemberships: PropTypes.object.isRequired,

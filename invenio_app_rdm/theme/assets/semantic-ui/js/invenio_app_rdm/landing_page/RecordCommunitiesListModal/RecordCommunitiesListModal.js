@@ -13,7 +13,7 @@ import { RecordCommunitiesSearch } from "./RecordCommunitiesSearch";
 export class RecordCommunitiesListModal extends Component {
   render() {
     const {
-      recordCommunitySearchEndpoint,
+      recordCommunityEndpoint,
       modalOpen,
       successActionCallback,
       handleOnOpen,
@@ -41,7 +41,7 @@ export class RecordCommunitiesListModal extends Component {
 
         <Modal.Content>
           <RecordCommunitiesSearch
-            recordCommunitySearchEndpoint={recordCommunitySearchEndpoint}
+            recordCommunityEndpoint={recordCommunityEndpoint}
             successActionCallback={successActionCallback}
           />
         </Modal.Content>
@@ -61,7 +61,7 @@ export class RecordCommunitiesListModal extends Component {
 }
 
 RecordCommunitiesListModal.propTypes = {
-  recordCommunitySearchEndpoint: PropTypes.string.isRequired,
+  recordCommunityEndpoint: PropTypes.string.isRequired,
   trigger: PropTypes.object,
   modalOpen: PropTypes.bool,
   successActionCallback: PropTypes.func.isRequired,
