@@ -9,14 +9,11 @@ import _isEmpty from "lodash/isEmpty";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Image } from "react-invenio-forms";
-import { Container, Item, Message, Placeholder, Button } from "semantic-ui-react";
-import { RecordCommunitiesListModal } from "./RecordCommunitiesListModal";
-
-const MAX_COMMUNITIES = 2;
+import { Item, Message, Placeholder } from "semantic-ui-react";
 
 export class RecordCommunitiesList extends Component {
   render() {
-    const { recordCommunitySearchEndpoint, permissions, communities, loading, error, record } =
+    const { permissions, communities, loading, error, maxDisplayedCommunities } =
       this.props;
     let Element = null;
 
@@ -36,40 +33,22 @@ export class RecordCommunitiesList extends Component {
         </Message>
       );
     } else if (communities?.length > 0) {
-      const communityItems = communities?.slice(0, MAX_COMMUNITIES).map((community) => (
-        <Item key={community.id}>
-          <Image size="mini" src={community.links.logo} />
-          <Item.Content verticalAlign="middle">
-            <Item.Header as="a" size="small" href={community.links.self_html}>
-              {community.metadata.title}
-            </Item.Header>
-          </Item.Content>
-        </Item>
-      ));
+      const communityItems = communities
+        ?.slice(0, maxDisplayedCommunities)
+        .map((community) => (
+          <Item key={community.id}>
+            <Image size="mini" src={community.links.logo} />
+            <Item.Content verticalAlign="middle">
+              <Item.Header as="a" size="small" href={community.links.self_html}>
+                {community.metadata.title}
+              </Item.Header>
+            </Item.Content>
+          </Item>
+        ));
 
       Element = (
         <>
           <Item.Group>{communityItems}</Item.Group>
-
-          {!loading && communities?.length > MAX_COMMUNITIES && (
-            <Container align="center" className="mt-10">
-              <RecordCommunitiesListModal
-                recordCommunitySearchEndpoint={recordCommunitySearchEndpoint}
-                record={record}
-                trigger={
-                  <Button
-                    as="a"
-                    className="transparent link"
-                    aria-haspopup="dialog"
-                    //aria-expanded={modalOpen}
-                  >
-                    {i18next.t("View all")} {communities.length} {i18next.t("communities")}
-                  </Button>
-                }
-              />
-            </Container>
-          )}
-
           {error && <Message error>{error}</Message>}
         </>
       );
@@ -79,16 +58,15 @@ export class RecordCommunitiesList extends Component {
 }
 
 RecordCommunitiesList.propTypes = {
-  recordCommunitySearchEndpoint: PropTypes.string.isRequired,
+  maxDisplayedCommunities: PropTypes.number.isRequired,
   permissions: PropTypes.object.isRequired,
-  record: PropTypes.object.isRequired,
   communities: PropTypes.array,
   loading: PropTypes.bool,
   error: PropTypes.string,
 };
 
 RecordCommunitiesList.defaultProps = {
-  communities: [],
+  communities: undefined,
   loading: false,
   error: "",
 };

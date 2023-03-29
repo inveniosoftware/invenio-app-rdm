@@ -14,12 +14,11 @@ export class RecordCommunitiesListModal extends Component {
   render() {
     const {
       recordCommunitySearchEndpoint,
-      record,
       modalOpen,
       successActionCallback,
       handleOnOpen,
       handleOnClose,
-      trigger
+      trigger,
     } = this.props;
 
     return (
@@ -28,6 +27,7 @@ export class RecordCommunitiesListModal extends Component {
         aria-labelledby="record-communities-header"
         id="community-selection-modal"
         closeOnDimmerClick={false}
+        closeIcon
         open={modalOpen}
         onClose={handleOnClose}
         onOpen={handleOnOpen}
@@ -42,7 +42,6 @@ export class RecordCommunitiesListModal extends Component {
         <Modal.Content>
           <RecordCommunitiesSearch
             recordCommunitySearchEndpoint={recordCommunitySearchEndpoint}
-            record={record}
             successActionCallback={successActionCallback}
           />
         </Modal.Content>
@@ -63,7 +62,6 @@ export class RecordCommunitiesListModal extends Component {
 
 RecordCommunitiesListModal.propTypes = {
   recordCommunitySearchEndpoint: PropTypes.string.isRequired,
-  record: PropTypes.object.isRequired,
   trigger: PropTypes.object,
   modalOpen: PropTypes.bool,
   successActionCallback: PropTypes.func.isRequired,
@@ -73,4 +71,5 @@ RecordCommunitiesListModal.propTypes = {
 
 RecordCommunitiesListModal.defaultProps = {
   modalOpen: false,
+  trigger: undefined,
 };

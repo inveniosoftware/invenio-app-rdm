@@ -10,7 +10,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Dropdown, Icon, Transition } from "semantic-ui-react";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
-import {RecordCommunitiesListModal} from "./RecordCommunitiesListModal";
 
 export class CommunitiesManagementDropdown extends Component {
   constructor(props) {
@@ -18,7 +17,6 @@ export class CommunitiesManagementDropdown extends Component {
     this.state = {
       submissionModalOpen: false,
       pendingRequestModalOpen: false,
-      manageCommunitiesModalOpen: false,
       visibleSuccessAction: false,
       actionFeedback: "",
     };
@@ -36,7 +34,7 @@ export class CommunitiesManagementDropdown extends Component {
     this.delayRemoveSuccessAction();
     this.toggleSubmissionModal(false);
     this.togglePendingRequestsModal(false);
-    this.toggleManageCommunitiesModal(false);
+
     actionSucceed();
   };
 
@@ -46,9 +44,6 @@ export class CommunitiesManagementDropdown extends Component {
   togglePendingRequestsModal = (value) => {
     this.setState({ pendingRequestModalOpen: value });
   };
-  toggleManageCommunitiesModal = (value) => {
-    this.setState({ manageCommunitiesModalOpen: value });
-  };
 
   render() {
     const {
@@ -56,10 +51,13 @@ export class CommunitiesManagementDropdown extends Component {
       submissionModalOpen,
       actionFeedback,
       pendingRequestModalOpen,
-      manageCommunitiesModalOpen,
     } = this.state;
-    const { userCommunitiesMemberships, searchConfig, recordCommunityEndpoint, record,   recordCommunitySearchEndpoint } =
-      this.props;
+    const {
+      userCommunitiesMemberships,
+      searchConfig,
+      recordCommunityEndpoint,
+      toggleManageCommunitiesModal,
+    } = this.props;
 
     return (
       <>
@@ -89,7 +87,7 @@ export class CommunitiesManagementDropdown extends Component {
             <Dropdown.Item
               text={i18next.t("Manage communities")}
               icon="settings"
-              onClick={() => this.toggleManageCommunitiesModal(true)}
+              onClick={() => toggleManageCommunitiesModal(true)}
             />
           </Dropdown.Menu>
         </Dropdown>
@@ -107,26 +105,17 @@ export class CommunitiesManagementDropdown extends Component {
           successActionCallback={this.handleSuccessAction}
           searchConfig={searchConfig}
         />
-        <RecordCommunitiesListModal
-          modalOpen={manageCommunitiesModalOpen}
-          handleOnOpen={() => this.toggleManageCommunitiesModal(true)}
-          handleOnClose={() => this.toggleManageCommunitiesModal(false)}
-          successActionCallback={this.handleSuccessAction}
-          recordCommunitySearchEndpoint={recordCommunitySearchEndpoint}
-          record={record}
-        />
       </>
     );
   }
 }
 
 CommunitiesManagementDropdown.propTypes = {
-  recordCommunitySearchEndpoint: PropTypes.string.isRequired,
   userCommunitiesMemberships: PropTypes.object.isRequired,
   recordCommunityEndpoint: PropTypes.string.isRequired,
+  toggleManageCommunitiesModal: PropTypes.func.isRequired,
   actionSucceed: PropTypes.func,
   searchConfig: PropTypes.object.isRequired,
-  record: PropTypes.object.isRequired,
 };
 
 CommunitiesManagementDropdown.defaultProps = {
