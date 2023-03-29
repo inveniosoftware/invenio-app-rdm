@@ -27,8 +27,10 @@ from invenio_app_rdm.records_ui.views.decorators import (
     draft_files_service,
     files_service,
 )
-from invenio_app_rdm.records_ui.views.deposits import load_custom_fields, \
-    get_user_communities_memberships
+from invenio_app_rdm.records_ui.views.deposits import (
+    get_user_communities_memberships,
+    load_custom_fields,
+)
 
 
 def _resolve_topic_record(request):
