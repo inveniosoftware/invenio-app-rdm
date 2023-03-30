@@ -86,7 +86,7 @@ if (sidebarCommunitiesManageDiv) {
       }
       canManageRecord={JSON.parse(sidebarCommunitiesManageDiv.dataset.canManageRecord)}
       recordCommunitySearchEndpoint={recordCommunitySearchEndpoint}
-      permissions={JSON.parse(recordManagementAppDiv.dataset.permissions)}
+      permissions={JSON.parse(sidebarCommunitiesManageDiv.dataset.permissions)}
       searchConfig={JSON.parse(pendingCommunitiesSearchConfig)}
     />,
     sidebarCommunitiesManageDiv
