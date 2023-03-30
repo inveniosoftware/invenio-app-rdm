@@ -72,6 +72,7 @@ export class CommunitiesManagementDropdown extends Component {
         <Dropdown
           trigger={<Icon name="cog" color="grey" className="ml-0" />}
           className="manage-menu-dropdown"
+          direction="left"
         >
           <Dropdown.Menu>
             <Dropdown.Item
