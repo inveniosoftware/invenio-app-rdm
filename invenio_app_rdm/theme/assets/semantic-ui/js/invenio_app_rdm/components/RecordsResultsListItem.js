@@ -129,8 +129,8 @@ class RecordsResultsListItem extends Component {
                   <small>
                     <b>
                       {numOtherVersions} more{" "}
-                      {numOtherVersions > 1 ? "versions" : "version"} exist for this
-                      record
+                      {numOtherVersions > 1 ? "versions exist" : "version exists"} for
+                      this record
                     </b>
                   </small>
                 </p>
