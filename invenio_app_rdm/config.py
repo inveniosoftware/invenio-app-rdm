@@ -38,12 +38,12 @@ from flask_principal import Denial
 from flask_resources import HTTPJSONException, create_error_handler
 from invenio_access.permissions import any_user
 from invenio_communities.communities.resources.config import community_error_handlers
+from invenio_rdm_records.resources.stats.event_builders import build_record_unique_id
 from invenio_rdm_records.services.communities.components import (
     CommunityServiceComponents,
 )
 from invenio_rdm_records.services.errors import InvalidCommunityVisibility
-from invenio_rdm_records.stats.event_builders import build_record_unique_id
-from invenio_rdm_records.stats.permissions import default_deny_permission_factory
+from invenio_rdm_records.services.stats import permissions_policy_lookup_factory
 from invenio_stats.aggregations import StatAggregator
 from invenio_stats.contrib.event_builders import build_file_unique_id
 from invenio_stats.processors import EventsIndexer, anonymize_user, flag_robots
@@ -937,10 +937,10 @@ PAGES_TEMPLATES = [
 
 STATS_EVENTS = {
     "file-download": {
-        "templates": "invenio_rdm_records.stats.templates.events.file_download",
+        "templates": "invenio_rdm_records.records.stats.templates.events.file_download",
         "event_builders": [
-            "invenio_rdm_records.stats.file_download_event_builder",
-            "invenio_rdm_records.stats.check_if_via_api",
+            "invenio_rdm_records.resources.stats.file_download_event_builder",
+            "invenio_rdm_records.resources.stats.check_if_via_api",
         ],
         "cls": EventsIndexer,
         "params": {
@@ -948,11 +948,11 @@ STATS_EVENTS = {
         },
     },
     "record-view": {
-        "templates": "invenio_rdm_records.stats.templates.events.record_view",
+        "templates": "invenio_rdm_records.records.stats.templates.events.record_view",
         "event_builders": [
-            "invenio_rdm_records.stats.record_view_event_builder",
-            "invenio_rdm_records.stats.check_if_via_api",
-            "invenio_rdm_records.stats.drop_if_via_api",
+            "invenio_rdm_records.resources.stats.record_view_event_builder",
+            "invenio_rdm_records.resources.stats.check_if_via_api",
+            "invenio_rdm_records.resources.stats.drop_if_via_api",
         ],
         "cls": EventsIndexer,
         "params": {
@@ -963,7 +963,7 @@ STATS_EVENTS = {
 
 STATS_AGGREGATIONS = {
     "file-download-agg": {
-        "templates": "invenio_rdm_records.stats.templates.aggregations.aggr_file_download",
+        "templates": "invenio_rdm_records.records.stats.templates.aggregations.aggr_file_download",
         "cls": StatAggregator,
         "params": {
             "event": "file-download",
@@ -988,7 +988,7 @@ STATS_AGGREGATIONS = {
         },
     },
     "record-view-agg": {
-        "templates": "invenio_rdm_records.stats.templates.aggregations.aggr_record_view",
+        "templates": "invenio_rdm_records.records.stats.templates.aggregations.aggr_record_view",
         "cls": StatAggregator,
         "params": {
             "event": "record-view",
@@ -1095,4 +1095,4 @@ STATS_QUERIES = {
     },
 }
 
-STATS_PERMISSION_FACTORY = default_deny_permission_factory
+STATS_PERMISSION_FACTORY = permissions_policy_lookup_factory
