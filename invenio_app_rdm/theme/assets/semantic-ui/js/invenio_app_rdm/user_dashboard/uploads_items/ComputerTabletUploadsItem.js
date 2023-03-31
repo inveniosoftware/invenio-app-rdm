@@ -5,11 +5,13 @@
 // under the terms of the MIT License; see LICENSE file for more details.
 
 import { i18next } from "@translations/invenio_app_rdm/i18next";
-import _truncate from "lodash/truncate";
 import React from "react";
+import PropTypes from "prop-types";
+import _truncate from "lodash/truncate";
+import _get from "lodash/get";
 import { Button, Icon, Item, Label } from "semantic-ui-react";
 import { SearchItemCreators } from "../../utils";
-import PropTypes from "prop-types";
+import { CompactStats } from "../../components/CompactStats";
 
 export const ComputerTabletUploadsItem = ({
   result,
@@ -38,6 +40,8 @@ export const ComputerTabletUploadsItem = ({
   ) : (
     <Icon name="upload" className="negative" />
   );
+  const uniqueViews = _get(result, "stats.all_versions.unique_views", 0);
+  const uniqueDownloads = _get(result, "stats.all_versions.unique_downloads", 0);
 
   return (
     <Item key={result.id} className="deposits-list-item computer tablet only flex">
@@ -105,8 +109,8 @@ export const ComputerTabletUploadsItem = ({
               {subject.title_l10n}
             </Label>
           ))}
-          <div>
-            {}
+
+          <div className="flex justify-space-between align-items-end">
             <small>
               {createdDate ? (
                 <>
@@ -118,6 +122,12 @@ export const ComputerTabletUploadsItem = ({
               {publishingInformation && (
                 <span> | {i18next.t("Published in: ") + publishingInformation}</span>
               )}
+            </small>
+            <small>
+              <CompactStats
+                uniqueViews={uniqueViews}
+                uniqueDownloads={uniqueDownloads}
+              />
             </small>
           </div>
         </Item.Extra>

@@ -5,11 +5,13 @@
 // under the terms of the MIT License; see LICENSE file for more details.
 
 import { i18next } from "@translations/invenio_app_rdm/i18next";
-import _truncate from "lodash/truncate";
 import React from "react";
+import PropTypes from "prop-types";
+import _truncate from "lodash/truncate";
+import _get from "lodash/get";
 import { Dropdown, Icon, Item, Label } from "semantic-ui-react";
 import { SearchItemCreators } from "../../utils";
-import PropTypes from "prop-types";
+import { CompactStats } from "../../components/CompactStats";
 
 export const MobileUploadsItem = ({
   result,
@@ -38,7 +40,8 @@ export const MobileUploadsItem = ({
   ) : (
     <Icon name="upload" className="negative mr-10" />
   );
-
+  const uniqueViews = _get(result, "stats.all_versions.unique_views", 0);
+  const uniqueDownloads = _get(result, "stats.all_versions.unique_downloads", 0);
   return (
     <Item key={result.id} className="deposits-list-item mobile only flex">
       <Item.Content className="centered">
@@ -83,7 +86,6 @@ export const MobileUploadsItem = ({
               </Label>
             ))}
             <div>
-              {}
               <small>
                 {createdDate ? (
                   <>
@@ -93,13 +95,19 @@ export const MobileUploadsItem = ({
                   i18next.t("No creation date found.")
                 )}
               </small>
-            </div>
-            <div>
               <small>
                 {publishingInformation && (
-                  <span> {i18next.t("Published in: ") + publishingInformation}</span>
+                  <span>{i18next.t("Published in: ") + publishingInformation}</span>
                 )}
               </small>
+              <div className="rel-mt-1">
+                <small>
+                  <CompactStats
+                    uniqueViews={uniqueViews}
+                    uniqueDownloads={uniqueDownloads}
+                  />
+                </small>
+              </div>
             </div>
           </Item.Extra>
         </Item.Extra>
