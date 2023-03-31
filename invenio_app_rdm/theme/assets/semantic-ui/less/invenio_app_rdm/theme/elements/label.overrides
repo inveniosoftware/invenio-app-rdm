@@ -24,6 +24,10 @@
     border-color: @errorTextColor;
     color: @errorTextColor;
   }
+
+  &.transparent {
+    background-color: transparent;
+  }
 }
 
 .subject {
