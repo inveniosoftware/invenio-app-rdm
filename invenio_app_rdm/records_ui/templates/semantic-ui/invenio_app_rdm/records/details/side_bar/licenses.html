@@ -19,8 +19,9 @@
 
 {% set rights = record.ui.get('rights') %}
 {% if rights %}
-<section id="licenses" aria-label="{{ _('Rights') }}" class="ui segment rdm-sidebar">
-  <h2 class="ui small header">{{ _('Rights') }}</h2>
+<h2 class="ui top attached header">{{ _('Rights') }}</h2>
+<section id="licenses" aria-label="{{ _('Rights') }}" class="ui segment bottom attached rdm-sidebar">
+
   <ul class="details-list m-0 p-0">
 
     {%- for license in rights%}

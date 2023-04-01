@@ -1,5 +1,4 @@
-<section id="sidebar-communtities" aria-label="{{ _('Record communities') }}"
-         class="ui segment rdm-sidebar">
+<section id="sidebar-communities rdm-sidebar">
   <div
     id="sidebar-communities-manage"
     data-user-communities-memberships='{{ user_communities_memberships | tojson }}'
@@ -9,21 +8,26 @@
     data-invenio-search-config='{{ search_app_rdm_record_requests_config(app_id="InvenioAppRdm.RecordRequests", endpoint=record.links.requests) | tojson }}'
     data-permissions='{{ permissions | tojson }}'
   >
-    <h4 class="ui dividing header flex full-width">Communities</h4>
-    <div class="ui fluid placeholder">
-      <div class="image header">
-        <div class="line"></div>
-        <div class="line"></div>
-      </div>
-      <div class="image header">
-        <div class="line"></div>
-        <div class="line"></div>
-      </div>
-      <div class="image header">
-        <div class="line"></div>
-        <div class="line"></div>
+    <h4 class="ui medium header top attached flex full-width">Communities</h4>
+
+    <div
+      aria-label="{{ _('Record communities') }}"
+      class="ui segment bottom attached"
+    >
+      <div class="ui fluid placeholder">
+        <div class="image header">
+          <div class="line"></div>
+          <div class="line"></div>
+        </div>
+        <div class="image header">
+          <div class="line"></div>
+          <div class="line"></div>
+        </div>
+        <div class="image header">
+          <div class="line"></div>
+          <div class="line"></div>
+        </div>
       </div>
     </div>
   </div>
 </section>
-

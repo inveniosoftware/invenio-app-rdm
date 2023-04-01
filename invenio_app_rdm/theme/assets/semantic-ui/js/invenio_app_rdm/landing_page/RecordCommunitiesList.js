@@ -9,7 +9,7 @@ import _isEmpty from "lodash/isEmpty";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Image } from "react-invenio-forms";
-import { Item, Message, Placeholder } from "semantic-ui-react";
+import { Item, Message, Placeholder, Header } from "semantic-ui-react";
 
 export class RecordCommunitiesList extends Component {
   render() {
@@ -20,6 +20,14 @@ export class RecordCommunitiesList extends Component {
     if (loading) {
       Element = (
         <Placeholder>
+          <Placeholder.Header image>
+            <Placeholder.Line />
+            <Placeholder.Line />
+          </Placeholder.Header>
+          <Placeholder.Header image>
+            <Placeholder.Line />
+            <Placeholder.Line />
+          </Placeholder.Header>
           <Placeholder.Header image>
             <Placeholder.Line />
             <Placeholder.Line />
@@ -39,8 +47,10 @@ export class RecordCommunitiesList extends Component {
           <Item key={community.id}>
             <Image size="mini" src={community.links.logo} />
             <Item.Content verticalAlign="middle">
-              <Item.Header as="a" size="small" href={community.links.self_html}>
-                {community.metadata.title}
+              <Item.Header as={Header}>
+                <Header as="a" href={community.links.self_html} size="small">
+                  {community.metadata.title}
+                </Header>
               </Item.Header>
             </Item.Content>
           </Item>

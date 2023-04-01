@@ -9,7 +9,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { RecordCommunitiesList } from "./RecordCommunitiesList";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
-import { Header, Container, Button } from "semantic-ui-react";
+import { Header, Container, Button, Segment } from "semantic-ui-react";
 import { CommunitiesManagementDropdown } from "./CommunitiesManagementDropdown";
 import { http, withCancel } from "react-invenio-forms";
 
@@ -91,7 +91,7 @@ export class CommunitiesManagement extends Component {
     const { communities, loading, error, manageCommunitiesModalOpen } = this.state;
     return (
       <>
-        <Header as="h4" dividing className="flex full-width">
+        <Header size="medium" as="h3" className="flex" attached="top">
           {i18next.t("Communities")}
           {canManageRecord && (
             <CommunitiesManagementDropdown
@@ -104,34 +104,36 @@ export class CommunitiesManagement extends Component {
             />
           )}
         </Header>
-        <RecordCommunitiesList
-          permissions={permissions}
-          communities={communities}
-          error={error}
-          loading={loading}
-          maxDisplayedCommunities={MAX_COMMUNITIES}
-        />
-        <RecordCommunitiesListModal
-          modalOpen={manageCommunitiesModalOpen}
-          handleOnOpen={() => this.toggleManageCommunitiesModal(true)}
-          handleOnClose={() => this.toggleManageCommunitiesModal(false)}
-          successActionCallback={this.handleRefresh}
-          recordCommunitySearchEndpoint={recordCommunitySearchEndpoint}
-        />
+        <Segment attached="bottom">
+          <RecordCommunitiesList
+            permissions={permissions}
+            communities={communities}
+            error={error}
+            loading={loading}
+            maxDisplayedCommunities={MAX_COMMUNITIES}
+          />
+          <RecordCommunitiesListModal
+            modalOpen={manageCommunitiesModalOpen}
+            handleOnOpen={() => this.toggleManageCommunitiesModal(true)}
+            handleOnClose={() => this.toggleManageCommunitiesModal(false)}
+            successActionCallback={this.handleRefresh}
+            recordCommunitySearchEndpoint={recordCommunitySearchEndpoint}
+          />
 
-        {!loading && communities?.length > MAX_COMMUNITIES && (
-          <Container align="center" className="mt-10">
-            <Button
-              as="a"
-              className="transparent link"
-              aria-haspopup="dialog"
-              aria-expanded={manageCommunitiesModalOpen}
-              onClick={() => this.toggleManageCommunitiesModal(true)}
-            >
-              {i18next.t("View all")} {communities.length} {i18next.t("communities")}
-            </Button>
-          </Container>
-        )}
+          {!loading && communities?.length > MAX_COMMUNITIES && (
+            <Container align="center" className="mt-10">
+              <Button
+                as="a"
+                className="transparent link"
+                aria-haspopup="dialog"
+                aria-expanded={manageCommunitiesModalOpen}
+                onClick={() => this.toggleManageCommunitiesModal(true)}
+              >
+                {i18next.t("View all")} {communities.length} {i18next.t("communities")}
+              </Button>
+            </Container>
+          )}
+        </Segment>
       </>
     );
   }
