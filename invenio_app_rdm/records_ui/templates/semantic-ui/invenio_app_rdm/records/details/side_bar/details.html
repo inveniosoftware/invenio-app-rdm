@@ -13,14 +13,15 @@
 
   {%- set id_doi = record.pids.get('doi', {}).get('identifier') %}
 
-  <section id="record-details" aria-label="{{ _('Record details') }}" class="ui segment rdm-sidebar">
-    <h2 class="ui small header">{{ _('Details')}}</h2>
+  <h2 class="ui medium top attached header">{{ _('Details')}}</h2>
+  <section id="record-details" aria-label="{{ _('Record details') }}" class="ui segment bottom attached rdm-sidebar">
+
 
     {% if id_doi %}
       {%- include "invenio_app_rdm/records/details/doi.html" %}
     {% endif %}
 
-    <dl class="details-list">
+    <dl class="details-list mt-0">
       {{ show_detail(_('Resource type'), record.ui.resource_type.title_l10n) if record.ui.resource_type }}
       {{ show_detail(_('Publication date'), record.ui.publication_date_l10n) if record.ui.publication_date_l10n }}
       {{ show_detail(_('Publisher'), metadata.publisher) if metadata.publisher }}
