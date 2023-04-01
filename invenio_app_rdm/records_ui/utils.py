@@ -88,39 +88,128 @@ def dump_external_resource(
 
 
 # The following parsers would need to be implenented by the instance
-#   def github_link_render(record):
-#       """Entry for Github."""
-#       # [TODO] Integrate Inveio_Github here
-#       resources = []
-#
-#       related_identifiers = record["ui"].get("related_identifiers", [])
-#       for identifier in related_identifiers:
-#           if identifier["scheme"] == "url" and "github.com" in identifier["identifier"]:
-#               resources.append(
-#                   dump_external_resource(
-#                       identifier,
-#                       url_for("static", filename="images/github.svg"),
-#                       identifier.get("identifier").replace("https://github.com/", ""),
-#                       "Available in",
-#                       "Version 1.2",
-#                   )
-#               )
-#       return resources or None
-#
-#
-#   def openaire_link_render(record):
-#       """Entry for Openaire."""
-#       resources = []
-#
-#       related_identifiers = record["ui"].get("related_identifiers", [])
-#       for identifier in related_identifiers:
-#           if identifier["scheme"] == "url" and "openaire" in identifier["identifier"]:
-#               resources.append(
-#                   dump_external_resource(
-#                       identifier,
-#                       url_for("static", filename="images/openaire.svg"),
-#                       "OpenAIRE EXPLORE",
-#                       "Indexed in",
-#                   )
-#               )
-#       return resources or None
+def github_link_render(record):
+    """Entry for Github."""
+    # [TODO] Integrate Inveio_Github here
+    resources = []
+
+    related_identifiers = record["ui"].get("related_identifiers", [])
+    for identifier in related_identifiers:
+        if identifier["scheme"] == "url" and "github.com" in identifier["identifier"]:
+            resources.append(
+                dump_external_resource(
+                    identifier,
+                    url_for("static", filename="images/github.svg"),
+                    identifier.get("identifier").replace("https://github.com/", ""),
+                    "Available in",
+                )
+            )
+    return resources or None
+
+
+def openaire_link_render(record):
+    """Entry for Openaire."""
+    resources = []
+
+    related_identifiers = record["ui"].get("related_identifiers", [])
+    for identifier in related_identifiers:
+        if identifier["scheme"] == "url" and "openaire" in identifier["identifier"]:
+            resources.append(
+                dump_external_resource(
+                    identifier,
+                    url_for("static", filename="images/openaire.svg"),
+                    "OpenAIRE EXPLORE",
+                    "Indexed in",
+                )
+            )
+    return resources or None
+
+
+def f1000_link_render(record):
+    """Entry for F1000."""
+    resources = []
+
+    related_identifiers = record["ui"].get("related_identifiers", [])
+    for identifier in related_identifiers:
+        if identifier["scheme"] == "url" and "f1000" in identifier["identifier"]:
+            resources.append(
+                dump_external_resource(
+                    identifier,
+                    url_for("static", filename="images/f1000.svg"),
+                    "F1000 Explore",
+                    "Found in",
+                )
+            )
+    return resources or None
+
+
+def dryad_link_render(record):
+    """Entry for Dryad."""
+    resources = []
+
+    related_identifiers = record["ui"].get("related_identifiers", [])
+    for identifier in related_identifiers:
+        if identifier["scheme"] == "url" and "dryad" in identifier["identifier"]:
+            resources.append(
+                dump_external_resource(
+                    identifier,
+                    url_for("static", filename="images/dryad.svg"),
+                    "Dryad Explore",
+                    "Found in",
+                )
+            )
+    return resources or None
+
+
+def inspire_link_render(record):
+    """Entry for Inspire."""
+    resources = []
+
+    related_identifiers = record["ui"].get("related_identifiers", [])
+    for identifier in related_identifiers:
+        if identifier["scheme"] == "url" and "inspire" in identifier["identifier"]:
+            resources.append(
+                dump_external_resource(
+                    identifier,
+                    url_for("static", filename="images/inspire.svg"),
+                    "Inspire Explore",
+                    "Found in",
+                )
+            )
+    return resources or None
+
+
+def orcid_link_render(record):
+    """Entry for Orcid."""
+    resources = []
+
+    related_identifiers = record["ui"].get("related_identifiers", [])
+    for identifier in related_identifiers:
+        if identifier["scheme"] == "url" and "orcid" in identifier["identifier"]:
+            resources.append(
+                dump_external_resource(
+                    identifier,
+                    url_for("static", filename="images/orcid.svg"),
+                    "Orcid Explore",
+                    "Found in",
+                )
+            )
+    return resources or None
+
+
+def reana_link_render(record):
+    """Entry for Reana."""
+    resources = []
+
+    related_identifiers = record["ui"].get("related_identifiers", [])
+    for identifier in related_identifiers:
+        if identifier["scheme"] == "url" and "reana" in identifier["identifier"]:
+            resources.append(
+                dump_external_resource(
+                    identifier,
+                    url_for("static", filename="images/reana.svg"),
+                    "Reana Explore",
+                    "Found in",
+                )
+            )
+    return resources or None

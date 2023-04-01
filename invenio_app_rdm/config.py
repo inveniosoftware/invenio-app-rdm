@@ -75,6 +75,16 @@ from invenio_vocabularies.contrib.names.datastreams import (
     VOCABULARIES_DATASTREAM_WRITERS as NAMES_WRITERS,
 )
 
+from .records_ui.utils import (
+    dryad_link_render,
+    f1000_link_render,
+    github_link_render,
+    inspire_link_render,
+    openaire_link_render,
+    orcid_link_render,
+    reana_link_render,
+)
+
 # TODO: Remove when records-rest is out of communities and files
 RECORDS_REST_ENDPOINTS = {}
 RECORDS_UI_ENDPOINTS = {}
@@ -707,7 +717,36 @@ APP_RDM_RECORD_EXPORTERS = {
     },
 }
 
-APP_RDM_RECORD_LANDING_PAGE_EXTERNAL_LINKS = []
+APP_RDM_RECORD_LANDING_PAGE_EXTERNAL_LINKS = [
+    {
+        "id": "github",
+        "render": github_link_render,
+    },
+    {
+        "id": "openaire",
+        "render": openaire_link_render,
+    },
+    {
+        "id": "f1000",
+        "render": f1000_link_render,
+    },
+    {
+        "id": "dryad",
+        "render": dryad_link_render,
+    },
+    {
+        "id": "inspire",
+        "render": inspire_link_render,
+    },
+    {
+        "id": "orcid",
+        "render": orcid_link_render,
+    },
+    {
+        "id": "reana",
+        "render": reana_link_render,
+    },
+]
 """ Default format used for adding badges to a record.
 
 Make sure the 'render' field points to a valid render function in invenio_app_rdm.records_ui.utils.
