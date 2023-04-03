@@ -554,7 +554,7 @@ SEARCH_HOSTS = [{"host": "localhost", "port": 9200}]
 # ===============
 # See https://invenio-indexer.readthedocs.io/en/latest/configuration.html
 
-INDEXER_DEFAULT_INDEX = "rdmrecords-records-record-v5.0.0"
+INDEXER_DEFAULT_INDEX = "rdmrecords-records-record-v6.0.0"
 """Default index to use if no schema is defined."""
 
 # Invenio-Base
