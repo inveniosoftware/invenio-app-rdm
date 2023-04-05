@@ -21,7 +21,18 @@ export class CommunitiesManagementDropdown extends Component {
       visibleSuccessAction: false,
       actionFeedback: "",
     };
+    this.dropdownRef = React.createRef();
   }
+
+  focusDropdownRef = () => {
+    // A11y: Bring focus to the dropdown menu (e.g. when the modal closes)
+    const {
+      current: {
+        ref: { current: dropdownToggle },
+      },
+    } = this.dropdownRef;
+    dropdownToggle.focus();
+  };
 
   handleSuccessAction = (data, text) => {
     const { actionSucceed } = this.props;
@@ -29,15 +40,38 @@ export class CommunitiesManagementDropdown extends Component {
     this.toggleSubmissionModal(false);
     this.togglePendingRequestsModal(false);
     this.setState({ visibleSuccessAction: true });
+    this.focusDropdownRef();
 
     actionSucceed();
   };
 
   toggleSubmissionModal = (value) => {
     this.setState({ submissionModalOpen: value });
+    if (!value) this.focusDropdownRef();
   };
+
   togglePendingRequestsModal = (value) => {
     this.setState({ pendingRequestModalOpen: value });
+    if (!value) this.focusDropdownRef();
+  };
+
+  handleChange = (event, data) => {
+    // A11y: Needed to trigger keyboard events as well as click events
+    const { toggleManageCommunitiesModal } = this.props;
+
+    switch (data.value) {
+      case "submit-to-community":
+        this.toggleSubmissionModal(true);
+        break;
+      case "pending-submissions":
+        this.togglePendingRequestsModal(true);
+        break;
+      case "manage-communities":
+        toggleManageCommunitiesModal(true);
+        break;
+      default:
+        return;
+    }
   };
 
   render() {
@@ -47,15 +81,35 @@ export class CommunitiesManagementDropdown extends Component {
       actionFeedback,
       pendingRequestModalOpen,
     } = this.state;
+
     const {
       userCommunitiesMemberships,
       searchConfig,
       recordCommunitySearchConfig,
       recordCommunityEndpoint,
-      toggleManageCommunitiesModal,
       recordUserCommunitySearchConfig,
     } = this.props;
 
+    const options = [
+      {
+        id: "submit-to-community",
+        value: "submit-to-community",
+        text: i18next.t("Submit to community"),
+        icon: "plus",
+      },
+      {
+        id: "pending-submissions",
+        value: "pending-submissions",
+        text: i18next.t("Pending submissions"),
+        icon: "comments outline",
+      },
+      {
+        id: "manage-communities",
+        value: "manage-communities",
+        text: i18next.t("Manage communities"),
+        icon: "settings",
+      },
+    ];
     return (
       <>
         <div className="flex align-items-baseline ml-auto rel-mr-1 green-color">
@@ -64,7 +118,10 @@ export class CommunitiesManagementDropdown extends Component {
               timeOutDelay={5000}
               show={visibleSuccessAction}
               content={
-                <div className="half-width sub header small text size truncated">
+                <div
+                  role="alert"
+                  className="half-width sub header small text size truncated"
+                >
                   {actionFeedback}
                 </div>
               }
@@ -72,32 +129,25 @@ export class CommunitiesManagementDropdown extends Component {
           )}
         </div>
         <Dropdown
-          trigger={<Icon name="cog" color="grey" className="ml-0" />}
+          ref={this.dropdownRef}
+          id="modal-dropdown"
           className="manage-menu-dropdown"
+          aria-label={i18next.t("Community management menu dropdown")}
+          closeOnChange
           direction="left"
-        >
-          <Dropdown.Menu>
-            <Dropdown.Item
-              text={i18next.t("Submit to community")}
-              onClick={() => this.toggleSubmissionModal(true)}
-              icon="plus"
-            />
-            <Dropdown.Item
-              text={i18next.t("Pending submissions")}
-              icon="comments outline"
-              onClick={() => this.togglePendingRequestsModal(true)}
-            />
-            <Dropdown.Item
-              text={i18next.t("Manage communities")}
-              icon="settings"
-              onClick={() => toggleManageCommunitiesModal(true)}
-            />
-          </Dropdown.Menu>
-        </Dropdown>
+          options={options}
+          onChange={this.handleChange}
+          selectOnBlur={false}
+          selectOnNavigation={false}
+          value={null} // A11y: needed to trigger the onChange (-triggers both mouse & keyboard) event on every select
+          trigger={<Icon name="cog" color="grey" className="ml-0" />}
+        />
+
         <RecordCommunitySubmissionModal
           modalOpen={submissionModalOpen}
           userCommunitiesMemberships={userCommunitiesMemberships}
           toggleModal={this.toggleSubmissionModal}
+          handleClose={() => this.toggleSubmissionModal(false)}
           handleSuccessAction={this.handleSuccessAction}
           recordCommunityEndpoint={recordCommunityEndpoint}
           recordCommunitySearchConfig={recordCommunitySearchConfig}

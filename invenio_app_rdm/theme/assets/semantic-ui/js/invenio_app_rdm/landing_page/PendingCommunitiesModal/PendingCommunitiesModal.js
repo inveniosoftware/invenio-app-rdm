@@ -37,12 +37,10 @@ export class PendingCommunitiesModal extends Component {
           </Header>
         </Modal.Header>
 
-        <Modal.Content>
-          <PendingCommunitiesSearch
-            searchConfig={searchConfig}
-            successActionCallback={successActionCallback}
-          />
-        </Modal.Content>
+        <PendingCommunitiesSearch
+          searchConfig={searchConfig}
+          successActionCallback={successActionCallback}
+        />
 
         <Modal.Actions>
           <Button onClick={handleOnClose}>{i18next.t("Close")}</Button>

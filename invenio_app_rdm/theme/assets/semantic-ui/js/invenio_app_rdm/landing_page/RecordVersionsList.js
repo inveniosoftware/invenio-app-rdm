@@ -64,7 +64,7 @@ const PreviewMessage = () => {
   return (
     <Grid className="container">
       <Grid.Row>
-        <Grid.Column className="p-0">
+        <Grid.Column>
           <Message info>
             <Message.Header>
               <Icon name="eye" />

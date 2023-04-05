@@ -35,6 +35,10 @@ export class CommunitiesManagement extends Component {
   }
 
   toggleManageCommunitiesModal = (value) => {
+    if (!value) {
+      const modalDropdown = document.getElementById("modal-dropdown"); // A11y: Focus community management dropdown when modal closes
+      modalDropdown.focus();
+    }
     this.setState({ manageCommunitiesModalOpen: value });
   };
 
@@ -94,7 +98,7 @@ export class CommunitiesManagement extends Component {
       <>
         <Header
           size="medium"
-          as="h3"
+          as="h2"
           className="flex align-items-baseline"
           attached="top"
         >
@@ -111,7 +115,7 @@ export class CommunitiesManagement extends Component {
             />
           )}
         </Header>
-        <Segment attached="bottom">
+        <Segment attached="bottom" className="rdm-sidebar rel-mb-1">
           <RecordCommunitiesList
             permissions={permissions}
             communities={communities}
@@ -120,6 +124,7 @@ export class CommunitiesManagement extends Component {
             maxDisplayedCommunities={MAX_COMMUNITIES}
           />
           <RecordCommunitiesListModal
+            id="record-communities-list-modal"
             modalOpen={manageCommunitiesModalOpen}
             handleOnOpen={() => this.toggleManageCommunitiesModal(true)}
             handleOnClose={() => this.toggleManageCommunitiesModal(false)}
@@ -131,10 +136,10 @@ export class CommunitiesManagement extends Component {
           {!loading && communities?.length > MAX_COMMUNITIES && (
             <Container align="center" className="mt-10">
               <Button
-                as="a"
-                className="transparent link"
+                className="ui button transparent"
                 aria-haspopup="dialog"
                 aria-expanded={manageCommunitiesModalOpen}
+                aria-controls="record-communities-list-modal"
                 onClick={() => this.toggleManageCommunitiesModal(true)}
               >
                 {i18next.t("View all {{count}} communities", {

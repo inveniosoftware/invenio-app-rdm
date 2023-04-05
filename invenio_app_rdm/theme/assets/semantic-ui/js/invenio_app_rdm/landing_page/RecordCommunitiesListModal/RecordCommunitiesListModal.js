@@ -7,7 +7,7 @@
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Header, Modal, Button, Grid } from "semantic-ui-react";
+import { Header, Modal, Button } from "semantic-ui-react";
 import { RecordCommunitiesSearch } from "./RecordCommunitiesSearch";
 
 export class RecordCommunitiesListModal extends Component {
@@ -40,22 +40,14 @@ export class RecordCommunitiesListModal extends Component {
           </Header>
         </Modal.Header>
 
-        <Modal.Content>
-          <RecordCommunitiesSearch
-            recordCommunityEndpoint={recordCommunityEndpoint}
-            successActionCallback={successActionCallback}
-            permissions={permissions}
-          />
-        </Modal.Content>
+        <RecordCommunitiesSearch
+          recordCommunityEndpoint={recordCommunityEndpoint}
+          successActionCallback={successActionCallback}
+          permissions={permissions}
+        />
 
         <Modal.Actions>
-          <Grid columns={2}>
-            <Grid.Column>
-              <Button floated="left" onClick={handleOnClose}>
-                {i18next.t("Close")}
-              </Button>
-            </Grid.Column>
-          </Grid>
+          <Button onClick={handleOnClose}>{i18next.t("Close")}</Button>
         </Modal.Actions>
       </Modal>
     );

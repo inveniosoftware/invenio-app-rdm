@@ -4,6 +4,10 @@
 
 .ui.menu {
 
+  button.item {
+    border: none;
+  }
+
   &.compact {
     .item.active {
       background-color: @primaryColor;

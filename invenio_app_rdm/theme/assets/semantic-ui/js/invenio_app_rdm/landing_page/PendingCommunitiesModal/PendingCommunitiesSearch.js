@@ -20,7 +20,7 @@ import {
   SearchBar,
   Pagination,
 } from "react-searchkit";
-import { Container } from "semantic-ui-react";
+import { Modal } from "semantic-ui-react";
 
 const appName = "InvenioAppRdm.PendingCommunitiesSearch";
 
@@ -49,31 +49,34 @@ export class PendingCommunitiesSearch extends Component {
           searchApi={searchApi}
           initialQueryState={searchConfig.initialQueryState}
         >
-          <Container fluid>
-            <Container fluid>
+          <>
+            <Modal.Content>
               <SearchBar
                 autofocus
                 actionProps={{
-                  icon: "search",
-                  content: null,
-                  className: "search",
+                  "icon": "search",
+                  "content": null,
+                  "className": "search",
+                  "aria-label": i18next.t("Search"),
                 }}
                 placeholder={i18next.t(
                   "Search for pending submissions to communities..."
                 )}
               />
-            </Container>
-            <Container className="rel-pt-2 rel-pb-2">
+            </Modal.Content>
+
+            <Modal.Content scrolling>
               <ResultsLoader>
                 <EmptyResults />
                 <Error />
                 <ResultsList />
               </ResultsLoader>
-            </Container>
-            <Container align="center">
+            </Modal.Content>
+
+            <Modal.Content className="text-align-center">
               <Pagination />
-            </Container>
-          </Container>
+            </Modal.Content>
+          </>
         </ReactSearchKit>
       </OverridableContext.Provider>
     );

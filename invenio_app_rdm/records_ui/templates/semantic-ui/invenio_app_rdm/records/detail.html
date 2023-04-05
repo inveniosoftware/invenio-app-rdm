@@ -44,7 +44,7 @@
               <a
                 href="{{ url_for('invenio_app_rdm_communities.communities_detail', pid_value=community.slug) }}"> {{ community.metadata.title }}</a>
               {% if is_community_restricted %}
-                <span class="ui label small access-status restricted rel-ml-1"
+                <span class="ui label horizontal small access-status restricted rel-ml-1"
                       title="{{ _('Community visibility') }}"
                       data-tooltip="{{ _('The community is restricted to users with access.') }}"
                       data-inverted="">
@@ -175,10 +175,10 @@
                     </div>
                     <div class="right floated right aligned column">
                       {% if record.ui.resource_type %}
-                        <span class="ui label small neutral"
+                        <span class="ui label horizontal small neutral mb-5"
                               title="{{ _('Resource type') }}">{{ record.ui.resource_type.title_l10n }}</span>
                       {% endif %}
-                      <span class="ui label small access-status {{ record.ui.access_status.id }}"
+                      <span class="ui label horizontal small access-status {{ record.ui.access_status.id }} mb-5"
                             title="{{ _('Access status') }}"
                             data-tooltip="{{ record.ui.access_status.description_l10n }}"
                             data-inverted=""
