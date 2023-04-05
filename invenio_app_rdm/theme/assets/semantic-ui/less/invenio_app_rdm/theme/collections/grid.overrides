@@ -48,14 +48,33 @@
 .sixteen.wide.tablet.five.wide.computer.column.sidebar {
 
   @media screen and (max-width: @largestTabletScreen) {
-    display: inline-flex;
+    display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     padding-top: 0;
   }
 
-  .ui.segment.rdm-sidebar:first-child {
-    margin-top: 0;
+  > .sidebar-container {
+    margin-bottom: 1rem;
+
+    &:first-child,
+    &:last-child {
+      margin-top: 0;
+      margin-bottom: 1rem;
+    }
+
+
+    @media screen and (max-width: @largestTabletScreen) {
+      flex-basis: calc(50% - 0.5rem);
+      max-width: calc(50% - 0.5rem);
+      margin-top: 0;
+      margin-bottom: 1rem;
+    }
+
+    @media screen and (max-width: @largestMobileScreen) {
+      flex-basis: 100%;
+      max-width: 100%;
+    }
   }
 }
 

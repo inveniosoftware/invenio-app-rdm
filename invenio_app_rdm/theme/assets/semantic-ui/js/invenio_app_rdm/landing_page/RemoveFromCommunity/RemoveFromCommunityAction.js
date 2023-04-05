@@ -24,24 +24,20 @@ export class RemoveFromCommunityAction extends Component {
       buttonDisabled: true,
     };
     this.state = this.INITIAL_STATE;
+
+    this.checkBoxRef = React.createRef();
   }
 
-  handleCheckboxChange = (e, { id, checked }) => {
-    const { checkboxRecords, checkboxMembers } = this.state;
+  componentDidUpdate() {
+    const { modalOpen } = this.state;
+    if (modalOpen && this.checkBoxRef) {
+      const {
+        current: { inputRef },
+      } = this.checkBoxRef;
+      inputRef?.current?.focus(); // A11y: Focus first interactive element when modal opens
+    }
+  }
 
-    if (id === "members-confirm") {
-      this.setState({
-        checkboxMembers: checked,
-        buttonDisabled: !(checked && checkboxRecords),
-      });
-    }
-    if (id === "records-confirm") {
-      this.setState({
-        checkboxRecords: checked,
-        buttonDisabled: !(checkboxMembers && checked),
-      });
-    }
-  };
   openConfirmModal = () => this.setState({ modalOpen: true });
   closeConfirmModal = () => this.setState(this.INITIAL_STATE);
 
@@ -61,6 +57,23 @@ export class RemoveFromCommunityAction extends Component {
       this.closeConfirmModal();
     } catch (e) {
       this.setState({ error: e, loading: false });
+    }
+  };
+
+  handleCheckboxChange = (e, { id, checked }) => {
+    const { checkboxRecords, checkboxMembers } = this.state;
+
+    if (id === "members-confirm") {
+      this.setState({
+        checkboxMembers: checked,
+        buttonDisabled: !(checked && checkboxRecords),
+      });
+    }
+    if (id === "records-confirm") {
+      this.setState({
+        checkboxRecords: checked,
+        buttonDisabled: !(checkboxMembers && checked),
+      });
     }
   };
 
@@ -86,6 +99,9 @@ export class RemoveFromCommunityAction extends Component {
           floated="right"
           onClick={this.openConfirmModal}
           content={i18next.t("Remove")}
+          aria-label={i18next.t("Remove {{communityTitle}} from this record", {
+            communityTitle,
+          })}
         />
         <Modal size="tiny" dimmer="blurring" open={modalOpen}>
           <Modal.Header>{i18next.t("Remove community")}</Modal.Header>
@@ -108,6 +124,7 @@ export class RemoveFromCommunityAction extends Component {
               </Message.Header>
               <Message.Content>
                 <Checkbox
+                  ref={this.checkBoxRef}
                   id="members-confirm"
                   label={
                     /* eslint-disable-next-line jsx-a11y/label-has-associated-control */
@@ -148,6 +165,7 @@ export class RemoveFromCommunityAction extends Component {
               floated="left"
               disabled={loading}
               loading={loading}
+              aria-label={i18next.t("Cancel removal")}
             >
               {i18next.t("Cancel")}
             </Button>
@@ -158,6 +176,7 @@ export class RemoveFromCommunityAction extends Component {
               loading={loading}
               icon="trash alternate outline"
               content={i18next.t("Remove")}
+              aria-label={i18next.t("Confirm removal")}
             />
           </Modal.Actions>
         </Modal>

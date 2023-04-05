@@ -10,24 +10,25 @@
 
 {%- if config.get("APP_RDM_RECORD_EXPORTERS") -%}
   {# if no export formats are specified, don't bother showing the box #}
-  <h2 class="ui medium top attached header">{{ _('Export') }}</h2>
-  <section id="export-record" aria-label="{{ _('Export') }}"
-           class="ui segment bottom attached exports rdm-sidebar">
+  <div class="sidebar-container">
+    <h2 class="ui medium top attached header mt-0">{{ _('Export') }}</h2>
+    <div id="export-record" class="ui segment bottom attached exports rdm-sidebar">
 
-    {# dynamically create the list of export formats #}
-    {% set formats = [] %}
+      {# dynamically create the list of export formats #}
+      {% set formats = [] %}
 
-    {%- for fmt, val in config.get("APP_RDM_RECORD_EXPORTERS", {}).items() -%}
-      {%- set name = val.get("name", fmt) -%}
-      {% if is_preview %}
-        {%- set export_url = url_for('invenio_app_rdm_records.record_export', pid_value=record.id, export_format=fmt, preview=1) -%}
-      {% else %}
-        {%- set export_url = url_for('invenio_app_rdm_records.record_export', pid_value=record.id, export_format=fmt) -%}
-      {% endif %}
+      {%- for fmt, val in config.get("APP_RDM_RECORD_EXPORTERS", {}).items() -%}
+        {%- set name = val.get("name", fmt) -%}
+        {% if is_preview %}
+          {%- set export_url = url_for('invenio_app_rdm_records.record_export', pid_value=record.id, export_format=fmt, preview=1) -%}
+        {% else %}
+          {%- set export_url = url_for('invenio_app_rdm_records.record_export', pid_value=record.id, export_format=fmt) -%}
+        {% endif %}
 
-      {% set formats = formats.append({ 'name': name, 'export_url': export_url }) %}
-    {%- endfor -%}
+        {% set formats = formats.append({ 'name': name, 'export_url': export_url }) %}
+      {%- endfor -%}
 
-    <div id="recordExportDownload" data-formats='{{ formats | tojson }}'></div>
-  </section>
+      <div id="recordExportDownload" data-formats='{{ formats | tojson }}'></div>
+    </div>
+  </div>
 {%- endif -%}

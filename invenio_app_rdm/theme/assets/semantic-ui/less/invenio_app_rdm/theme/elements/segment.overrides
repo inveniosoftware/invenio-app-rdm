@@ -21,17 +21,21 @@
 }
 
 .ui.segment.rdm-sidebar {
+  box-shadow: none;
+
+  &:first-child,
+  &:last-child {
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
   @media screen and (max-width: @largestTabletScreen) {
-    box-shadow: none;
+
     flex-basis: calc(50% - 0.5rem);
-    max-width: 100%;
     margin-top: 0;
     margin-bottom: 1rem;
 
-    &:first-child,
-    &:last-child {
-      margin-top: 0;
-      margin-bottom: 1rem;
+    &:not(.bottom.attached) {
+      max-width: 100%;
     }
   }
 

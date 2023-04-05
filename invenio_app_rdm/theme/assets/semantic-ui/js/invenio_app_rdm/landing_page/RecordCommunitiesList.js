@@ -13,8 +13,7 @@ import { Item, Message, Placeholder, Header } from "semantic-ui-react";
 
 export class RecordCommunitiesList extends Component {
   render() {
-    const { permissions, communities, loading, error, maxDisplayedCommunities } =
-      this.props;
+    const { communities, loading, error, maxDisplayedCommunities } = this.props;
     let Element = null;
 
     if (loading) {
@@ -34,7 +33,7 @@ export class RecordCommunitiesList extends Component {
           </Placeholder.Header>
         </Placeholder>
       );
-    } else if (_isEmpty(communities) && permissions.can_manage) {
+    } else if (_isEmpty(communities)) {
       Element = (
         <Message info>
           {i18next.t("This record is not included in any communities yet.")}
@@ -45,7 +44,7 @@ export class RecordCommunitiesList extends Component {
         ?.slice(0, maxDisplayedCommunities)
         .map((community) => (
           <Item key={community.id}>
-            <Image size="mini" src={community.links.logo} />
+            <Image size="mini" src={community.links.logo} alt="" />
             <Item.Content verticalAlign="middle">
               <Item.Header as={Header}>
                 <Header as="a" href={community.links.self_html} size="small">
@@ -69,7 +68,6 @@ export class RecordCommunitiesList extends Component {
 
 RecordCommunitiesList.propTypes = {
   maxDisplayedCommunities: PropTypes.number.isRequired,
-  permissions: PropTypes.object.isRequired,
   communities: PropTypes.array,
   loading: PropTypes.bool,
   error: PropTypes.string,
