@@ -54,7 +54,7 @@ def search_app_context():
             sort_options=current_app.config["RDM_SORT_OPTIONS"],
             headers={"Accept": "application/vnd.inveniordm.v1+json"},
             hidden_params=[
-                ["user_is_member", "true"],
+                ["membership", "true"],
             ],
         ),
     }
