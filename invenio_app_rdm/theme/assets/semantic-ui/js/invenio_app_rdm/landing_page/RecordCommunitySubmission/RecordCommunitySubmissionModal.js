@@ -27,21 +27,21 @@ export class RecordCommunitySubmissionModal extends Component {
     this.openConfirmModal();
   };
 
-  canDirectPublish = () => {
+  canIncludeDirectly = () => {
     const { community } = this.state;
     const { userCommunitiesMemberships } = this.props;
     const userMembership = userCommunitiesMemberships[community?.id];
     return userMembership && community?.access.review_policy === "open";
   };
 
-  isDirectlyPublished = (requestData) => {
+  isIncludedDirectly = (requestData) => {
     return requestData["is_closed"] && requestData["status"] === "accepted";
   };
 
   handleSuccessSubmit = (data) => {
     const { handleSuccessAction } = this.props;
     this.closeConfirmModal();
-    if (this.isDirectlyPublished(data.processed[0].request)) {
+    if (this.isIncludedDirectly(data.processed[0].request)) {
       handleSuccessAction(data, i18next.t("Record added to the community"));
     } else handleSuccessAction(data, i18next.t("Review request created"));
   };
@@ -70,8 +70,10 @@ export class RecordCommunitySubmissionModal extends Component {
             {
               id: selectedCommunity.id,
               comment: {
-                content: reviewComment,
-                format: "html",
+                payload: {
+                  content: reviewComment,
+                  format: "html",
+                },
               },
             },
           ],
@@ -131,7 +133,7 @@ export class RecordCommunitySubmissionModal extends Component {
             onSubmit={({ reviewComment }) => this.submitCommunity(reviewComment)}
             community={selectedCommunity}
             onClose={() => this.closeConfirmModal()}
-            directPublish={this.canDirectPublish()}
+            directPublish={this.canIncludeDirectly()}
           />
         )}
       </>
