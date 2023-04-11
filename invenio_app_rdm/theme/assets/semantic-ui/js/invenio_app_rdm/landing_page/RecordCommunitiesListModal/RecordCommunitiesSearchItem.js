@@ -1,24 +1,25 @@
-import React from "react";
+import { RemoveFromCommunityAction } from "../RemoveFromCommunity/RemoveFromCommunityAction";
+import React, { Component } from "react";
 import { CommunityCompactItem } from "@js/invenio_communities/community";
-import { Button } from "semantic-ui-react";
-import { i18next } from "@translations/invenio_app_rdm/i18next";
 import PropTypes from "prop-types";
 
-export const RecordCommunitiesSearchItem = ({ result }) => {
-  const action = (
-    <Button
-      disabled
-      size="tiny"
-      negative
-      labelPosition="left"
-      icon="trash"
-      floated="right"
-      content={i18next.t("Remove")}
-    />
-  );
-  return <CommunityCompactItem actions={action} result={result} />;
-};
+export class RecordCommunitiesSearchItem extends Component {
+  render() {
+    const { result, successCallback, recordCommunityEndpoint } = this.props;
+
+    const actions = (
+      <RemoveFromCommunityAction
+        result={result}
+        recordCommunityEndpoint={recordCommunityEndpoint}
+        successCallback={successCallback}
+      />
+    );
+    return <CommunityCompactItem actions={actions} result={result} />;
+  }
+}
 
 RecordCommunitiesSearchItem.propTypes = {
   result: PropTypes.object.isRequired,
+  recordCommunityEndpoint: PropTypes.object.isRequired,
+  successCallback: PropTypes.func.isRequired,
 };

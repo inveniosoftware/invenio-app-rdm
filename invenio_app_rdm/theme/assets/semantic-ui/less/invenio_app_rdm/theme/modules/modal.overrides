@@ -100,7 +100,7 @@
 .ui.modal {
   .actions {
     background: @actionBackground;
-    padding: @actionPadding;
+    padding: @contentPadding;
     border-top: @actionBorder;
     text-align: @actionAlign;
   }
@@ -108,7 +108,13 @@
 .ui.modal .actions {
   .button {
     margin-left: @buttonDistance;
+    margin-right: 0;
+    &.left.floated{
+      margin-right: @buttonDistance;
+      margin-left: 0;
+    }
   }
+
 }
 
 .ui.dimmer .ui.modal .ui.loader {

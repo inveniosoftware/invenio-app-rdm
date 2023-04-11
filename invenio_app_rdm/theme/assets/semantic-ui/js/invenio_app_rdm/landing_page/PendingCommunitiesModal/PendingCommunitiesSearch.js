@@ -5,7 +5,8 @@
 // under the terms of the MIT License; see LICENSE file for more details.
 
 import { i18next } from "@translations/invenio_app_rdm/i18next";
-import { RecordCommunitiesSearchItem } from "./RecordCommunitiesSearchItem";
+import { defaultContribComponents } from "@js/invenio_requests/contrib";
+import { PendingCommunityRequestItem } from "./PendingCommunityRequestItem";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { OverridableContext, parametrize } from "react-overridable";
@@ -21,29 +22,24 @@ import {
 } from "react-searchkit";
 import { Container } from "semantic-ui-react";
 
-const appName = "InvenioAppRdm.RecordCommunitiesSearch";
+const appName = "InvenioAppRdm.PendingCommunitiesSearch";
 
-export class RecordCommunitiesSearch extends Component {
+export class PendingCommunitiesSearch extends Component {
   handleSuccessCallback = (data) => {
     const { successActionCallback } = this.props;
     successActionCallback(data, i18next.t("Request action succeeded"));
   };
 
   render() {
-    const { recordCommunityEndpoint } = this.props;
+    const { searchConfig } = this.props;
+    const searchApi = new InvenioSearchApi(searchConfig["searchApi"]);
+
     const overriddenComponents = {
-      [`${appName}.ResultsList.item`]: parametrize(RecordCommunitiesSearchItem, {
-        recordCommunityEndpoint: recordCommunityEndpoint,
+      [`${appName}.ResultsList.item`]: parametrize(PendingCommunityRequestItem, {
         successCallback: this.handleSuccessCallback,
       }),
+      ...defaultContribComponents,
     };
-
-    const searchApi = new InvenioSearchApi({
-      axios: {
-        url: recordCommunityEndpoint,
-        headers: { Accept: "application/vnd.inveniordm.v1+json" },
-      },
-    });
 
     return (
       <OverridableContext.Provider value={overriddenComponents}>
@@ -51,7 +47,7 @@ export class RecordCommunitiesSearch extends Component {
           appName={appName}
           urlHandlerApi={{ enabled: false }}
           searchApi={searchApi}
-          initialQueryState={{ size: 5, page: 1 }}
+          initialQueryState={searchConfig.initialQueryState}
         >
           <Container fluid>
             <Container fluid>
@@ -62,7 +58,9 @@ export class RecordCommunitiesSearch extends Component {
                   content: null,
                   className: "search",
                 }}
-                placeholder={i18next.t("Search for community...")}
+                placeholder={i18next.t(
+                  "Search for pending submissions to communities..."
+                )}
               />
             </Container>
             <Container className="rel-pt-2 rel-pb-2">
@@ -82,7 +80,7 @@ export class RecordCommunitiesSearch extends Component {
   }
 }
 
-RecordCommunitiesSearch.propTypes = {
-  recordCommunityEndpoint: PropTypes.string.isRequired,
+PendingCommunitiesSearch.propTypes = {
+  searchConfig: PropTypes.object.isRequired,
   successActionCallback: PropTypes.func.isRequired,
 };

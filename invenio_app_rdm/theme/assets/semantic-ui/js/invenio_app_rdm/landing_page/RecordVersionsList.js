@@ -62,29 +62,6 @@ RecordVersionItem.propTypes = {
   activeVersion: PropTypes.bool.isRequired,
 };
 
-const PlaceholderLoader = ({ size }) => {
-  const PlaceholderItem = () => (
-    <Placeholder.Header>
-      <Placeholder.Line />
-      <Placeholder.Line />
-    </Placeholder.Header>
-  );
-  let numberOfHeader = [];
-  for (let i = 0; i < size; i++) {
-    numberOfHeader.push(<PlaceholderItem key={i} />);
-  }
-
-  return <Placeholder>{numberOfHeader}</Placeholder>;
-};
-
-PlaceholderLoader.propTypes = {
-  size: PropTypes.number,
-};
-
-PlaceholderLoader.defaultProps = {
-  size: NUMBER_OF_VERSIONS,
-};
-
 const PreviewMessage = () => {
   return (
     <Grid className="container">
@@ -135,7 +112,16 @@ export const RecordVersionsList = ({ record, isPreview }) => {
     isPreview ? (
       <PreviewMessage />
     ) : (
-      <PlaceholderLoader />
+      <>
+        <div className="rel-p-1" />
+        <Placeholder className="rel-ml-1 rel-mr-1">
+          <Placeholder.Header>
+            <Placeholder.Line />
+            <Placeholder.Line />
+            <Placeholder.Line />
+          </Placeholder.Header>
+        </Placeholder>
+      </>
     )
   ) : (
     <List divided>

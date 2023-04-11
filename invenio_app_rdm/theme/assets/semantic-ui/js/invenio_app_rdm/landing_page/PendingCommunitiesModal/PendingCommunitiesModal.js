@@ -7,18 +7,17 @@
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Header, Modal, Button, Grid } from "semantic-ui-react";
-import { RecordCommunitiesSearch } from "./RecordCommunitiesSearch";
+import { Header, Modal, Button } from "semantic-ui-react";
+import { PendingCommunitiesSearch } from "./PendingCommunitiesSearch";
 
-export class RecordCommunitiesListModal extends Component {
+export class PendingCommunitiesModal extends Component {
   render() {
     const {
-      recordCommunityEndpoint,
+      searchConfig,
       modalOpen,
       successActionCallback,
       handleOnOpen,
       handleOnClose,
-      trigger,
     } = this.props;
 
     return (
@@ -26,50 +25,41 @@ export class RecordCommunitiesListModal extends Component {
         role="dialog"
         aria-labelledby="record-communities-header"
         id="community-selection-modal"
-        closeOnDimmerClick={false}
         closeIcon
+        closeOnDimmerClick={false}
         open={modalOpen}
         onClose={handleOnClose}
         onOpen={handleOnOpen}
-        trigger={trigger}
       >
         <Modal.Header>
           <Header as="h2" id="record-communities-header">
-            {i18next.t("Communities")}
+            {i18next.t("Pending communities")}
           </Header>
         </Modal.Header>
 
         <Modal.Content>
-          <RecordCommunitiesSearch
-            recordCommunityEndpoint={recordCommunityEndpoint}
+          <PendingCommunitiesSearch
+            searchConfig={searchConfig}
             successActionCallback={successActionCallback}
           />
         </Modal.Content>
 
         <Modal.Actions>
-          <Grid columns={2}>
-            <Grid.Column>
-              <Button floated="left" onClick={handleOnClose}>
-                {i18next.t("Close")}
-              </Button>
-            </Grid.Column>
-          </Grid>
+          <Button onClick={handleOnClose}>{i18next.t("Close")}</Button>
         </Modal.Actions>
       </Modal>
     );
   }
 }
 
-RecordCommunitiesListModal.propTypes = {
-  recordCommunityEndpoint: PropTypes.string.isRequired,
-  trigger: PropTypes.object,
+PendingCommunitiesModal.propTypes = {
+  searchConfig: PropTypes.object.isRequired,
   modalOpen: PropTypes.bool,
   successActionCallback: PropTypes.func.isRequired,
   handleOnClose: PropTypes.func.isRequired,
   handleOnOpen: PropTypes.func.isRequired,
 };
 
-RecordCommunitiesListModal.defaultProps = {
+PendingCommunitiesModal.defaultProps = {
   modalOpen: false,
-  trigger: undefined,
 };

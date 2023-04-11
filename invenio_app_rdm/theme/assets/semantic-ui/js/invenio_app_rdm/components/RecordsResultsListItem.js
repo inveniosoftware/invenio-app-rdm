@@ -13,6 +13,7 @@ import { SearchItemCreators } from "../utils";
 import PropTypes from "prop-types";
 import { Item, Label, Icon } from "semantic-ui-react";
 import { buildUID } from "react-searchkit";
+import { CompactStats } from "./CompactStats";
 
 class RecordsResultsListItem extends Component {
   render() {
@@ -48,6 +49,8 @@ class RecordsResultsListItem extends Component {
     const title = _get(result, "metadata.title", "No title");
     const version = _get(result, "ui.version", null);
     const versions = _get(result, "versions");
+    const uniqueViews = _get(result, "stats.all_versions.unique_views", 0);
+    const uniqueDownloads = _get(result, "stats.all_versions.unique_downloads", 0);
 
     const publishingInformation = _get(result, "ui.publishing_information.journal", "");
 
@@ -106,7 +109,8 @@ class RecordsResultsListItem extends Component {
                   {subject.title_l10n}
                 </Label>
               ))}
-              <div>
+
+              <div className="flex justify-space-between align-items-end">
                 <small>
                   <p>
                     {createdDate && (
@@ -115,6 +119,7 @@ class RecordsResultsListItem extends Component {
                       </>
                     )}
                     {createdDate && publishingInformation && " | "}
+
                     {publishingInformation && (
                       <>
                         {i18next.t("Published in: ")}{" "}
@@ -122,19 +127,26 @@ class RecordsResultsListItem extends Component {
                       </>
                     )}
                   </p>
+
+                  {!allVersionsVisible && versions.index > 1 && (
+                    <p>
+                      <b>
+                        {numOtherVersions} more{" "}
+                        {numOtherVersions > 1 ? "versions exist" : "version exists"} for
+                        this record
+                      </b>
+                    </p>
+                  )}
+                </small>
+
+                <small>
+                  <CompactStats
+                    uniqueViews={uniqueViews}
+                    uniqueDownloads={uniqueDownloads}
+                  />
                 </small>
               </div>
-              {!allVersionsVisible && versions.index > 1 && (
-                <p>
-                  <small>
-                    <b>
-                      {numOtherVersions} more{" "}
-                      {numOtherVersions > 1 ? "versions exist" : "version exists"} for
-                      this record
-                    </b>
-                  </small>
-                </p>
-              )}
+
             </Item.Extra>
           </Item.Content>
         </Item>

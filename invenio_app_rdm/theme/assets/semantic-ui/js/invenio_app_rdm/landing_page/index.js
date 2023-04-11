@@ -12,7 +12,7 @@ import { RecordManagement } from "./RecordManagement";
 import { RecordVersionsList } from "./RecordVersionsList";
 import { RecordCitationField } from "./RecordCitationField";
 import { ExportDropdown } from "./ExportDropdown";
-import { RecordCommunitiesList } from "./RecordCommunitiesList";
+import { CommunitiesManagement } from "./CommunitiesManagement";
 
 const recordManagementAppDiv = document.getElementById("recordManagement");
 const recordManagementMobile = document.getElementById("recordManagementMobile");
@@ -20,7 +20,9 @@ const recordManagementMobile = document.getElementById("recordManagementMobile")
 const recordVersionsAppDiv = document.getElementById("recordVersions");
 const recordCitationAppDiv = document.getElementById("recordCitation");
 const recordExportDownloadDiv = document.getElementById("recordExportDownload");
-const recordCommunitiesListDiv = document.getElementById("record-communities-list");
+const sidebarCommunitiesManageDiv = document.getElementById(
+  "sidebar-communities-manage"
+);
 
 if (recordManagementAppDiv) {
   renderRecordManagement(recordManagementAppDiv);
@@ -69,14 +71,28 @@ if (recordExportDownloadDiv) {
   );
 }
 
-if (recordCommunitiesListDiv) {
-  const recordCommunitySearchEndpoint =
-    recordCommunitiesListDiv.dataset.recordCommunitySearchEndpoint;
+if (sidebarCommunitiesManageDiv) {
+  const recordCommunitySearchConfig = JSON.parse(
+    sidebarCommunitiesManageDiv.dataset.recordCommunitySearchConfig
+  );
+  const pendingCommunitiesSearchConfig =
+    sidebarCommunitiesManageDiv.dataset.pendingCommunitiesSearchConfig;
   ReactDOM.render(
-    <RecordCommunitiesList
-      recordCommunitySearchEndpoint={recordCommunitySearchEndpoint}
-      permissions={JSON.parse(recordManagementAppDiv.dataset.permissions)}
+    <CommunitiesManagement
+      userCommunitiesMemberships={JSON.parse(
+        sidebarCommunitiesManageDiv.dataset.userCommunitiesMemberships
+      )}
+      recordCommunityEndpoint={
+        sidebarCommunitiesManageDiv.dataset.recordCommunityEndpoint
+      }
+      recordUserCommunitySearchConfig={JSON.parse(
+        sidebarCommunitiesManageDiv.dataset.recordUserCommunitySearchConfig
+      )}
+      canManageRecord={JSON.parse(sidebarCommunitiesManageDiv.dataset.canManageRecord)}
+      recordCommunitySearchConfig={recordCommunitySearchConfig}
+      permissions={JSON.parse(sidebarCommunitiesManageDiv.dataset.permissions)}
+      searchConfig={JSON.parse(pendingCommunitiesSearchConfig)}
     />,
-    recordCommunitiesListDiv
+    sidebarCommunitiesManageDiv
   );
 }
