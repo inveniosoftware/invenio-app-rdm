@@ -27,7 +27,7 @@ const appName = "InvenioAppRdm.PendingCommunitiesSearch";
 export class PendingCommunitiesSearch extends Component {
   handleSuccessCallback = (data) => {
     const { successActionCallback } = this.props;
-    successActionCallback(data, i18next.t("Request action succeeded"));
+    successActionCallback(data, i18next.t("Success"));
   };
 
   render() {

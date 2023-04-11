@@ -58,13 +58,16 @@ export class CommunitiesManagementDropdown extends Component {
 
     return (
       <>
-        <div className="display-inline-block ml-auto rel-mr-1 green-color">
+        <div className="flex align-items-baseline ml-auto rel-mr-1 green-color">
           {visibleSuccessAction && (
             <SuccessIcon
-              className="full-width display-inline"
               timeOutDelay={5000}
               show={visibleSuccessAction}
-              content={actionFeedback}
+              content={
+                <div className="half-width sub header small text size truncated">
+                  {actionFeedback}
+                </div>
+              }
             />
           )}
         </div>

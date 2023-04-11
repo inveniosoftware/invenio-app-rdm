@@ -92,7 +92,12 @@ export class CommunitiesManagement extends Component {
     const { communities, loading, error, manageCommunitiesModalOpen } = this.state;
     return (
       <>
-        <Header size="medium" as="h3" className="flex" attached="top">
+        <Header
+          size="medium"
+          as="h3"
+          className="flex align-items-baseline"
+          attached="top"
+        >
           {i18next.t("Communities")}
           {canManageRecord && (
             <CommunitiesManagementDropdown
