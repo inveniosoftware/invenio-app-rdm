@@ -114,13 +114,19 @@ export const ComputerTabletUploadsItem = ({
             <small>
               {createdDate ? (
                 <>
-                  {i18next.t("Uploaded on")} <span>{createdDate}</span>
+                  {i18next.t("Uploaded on {{uploadDate}}", { uploadDate: createdDate })}
                 </>
               ) : (
                 i18next.t("No creation date found.")
               )}
               {publishingInformation && (
-                <span> | {i18next.t("Published in: ") + publishingInformation}</span>
+                <span>
+                  {" "}
+                  |{" "}
+                  {i18next.t("Published in: {{publishInfo}}", {
+                    publishInfo: publishingInformation,
+                  })}
+                </span>
               )}
             </small>
             <small>

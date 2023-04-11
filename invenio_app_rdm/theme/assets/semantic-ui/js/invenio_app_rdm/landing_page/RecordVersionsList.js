@@ -30,12 +30,10 @@ const RecordVersionItem = ({ item, activeVersion }) => {
     <List.Item key={item.id} {...(activeVersion && { className: "version active" })}>
       <List.Content floated="left">
         {activeVersion ? (
-          <span>
-            {i18next.t("Version")} {item.version}
-          </span>
+          <span>{i18next.t("Version {{version}}", { version: item.version })}</span>
         ) : (
           <a href={`/records/${item.id}`}>
-            {i18next.t("Version")} {item.version}
+            {i18next.t("Version {{version}}", { version: item.version })}
           </a>
         )}
 
@@ -146,8 +144,8 @@ export const RecordVersionsList = ({ record, isPreview }) => {
               href={`/search?q=parent.id:${recordDeserialized.parent_id}&sort=version&f=allversions:true`}
               className="font-small"
             >
-              {i18next.t(`View all {{total}} versions`, {
-                total: recordVersions.total,
+              {i18next.t(`View all {{count}} versions`, {
+                count: recordVersions.total,
               })}
             </a>
           </Grid.Row>
