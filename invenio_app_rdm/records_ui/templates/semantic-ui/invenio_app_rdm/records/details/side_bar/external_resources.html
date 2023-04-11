@@ -5,10 +5,11 @@ Invenio RDM Records is free software; you can redistribute it and/or modify
 it under the terms of the MIT License; see LICENSE file for more details.
 #}
 {%- if external_resources -%}
-  <section id="external-resource" aria-label="{{ _('External resources') }}" class="ui segment rdm-sidebar external resource">
-  <h2 class="ui small header">{{ _('External resources')}}</h2>
+  <h2 class="ui small top attached header">{{ _('External resources')}}</h2>
+  <section id="external-resource" aria-label="{{ _('External resources') }}" class="ui bottom attached segment rdm-sidebar external resource">
+
   {# dynamically create the list of external resources #}
-  <div class="ui relaxed divided list">
+  <div class="ui relaxed list">
     {%- for section, external_resources in external_resources | groupby("content.section") -%}
       <h5 class="ui small header">{{ section }}</h5>
 
@@ -37,7 +38,6 @@ it under the terms of the MIT License; see LICENSE file for more details.
 
               </div>
             </div>
-            </li>
           {%- endif -%}
         {%- endif -%}
       {%- endfor -%}
