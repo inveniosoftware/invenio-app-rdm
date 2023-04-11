@@ -136,7 +136,9 @@ export class CommunitiesManagement extends Component {
                 aria-expanded={manageCommunitiesModalOpen}
                 onClick={() => this.toggleManageCommunitiesModal(true)}
               >
-                {i18next.t("View all")} {communities.length} {i18next.t("communities")}
+                {i18next.t("View all {{count}} communities", {
+                  count: communities.length,
+                })}
               </Button>
             </Container>
           )}

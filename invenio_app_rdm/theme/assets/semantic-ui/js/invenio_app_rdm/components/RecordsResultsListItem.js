@@ -115,15 +115,18 @@ class RecordsResultsListItem extends Component {
                   <p>
                     {createdDate && (
                       <>
-                        {i18next.t("Uploaded on")} <span>{createdDate}</span>
+                        {i18next.t("Uploaded on {{uploadDate}}", {
+                          uploadDate: createdDate,
+                        })}
                       </>
                     )}
                     {createdDate && publishingInformation && " | "}
 
                     {publishingInformation && (
                       <>
-                        {i18next.t("Published in: ")}{" "}
-                        <span>{publishingInformation}</span>
+                        {i18next.t("Published in: {{publishInfo}}", {
+                          publishInfo: publishingInformation,
+                        })}
                       </>
                     )}
                   </p>
@@ -131,9 +134,9 @@ class RecordsResultsListItem extends Component {
                   {!allVersionsVisible && versions.index > 1 && (
                     <p>
                       <b>
-                        {numOtherVersions} more{" "}
-                        {numOtherVersions > 1 ? "versions" : "version"}{" "}
-                        {i18next.t("exist for this record")};
+                        {i18next.t("{{count}} more versions exist for this record", {
+                          count: numOtherVersions,
+                        })}
                       </b>
                     </p>
                   )}

@@ -89,7 +89,9 @@ export const MobileUploadsItem = ({
               <small>
                 {createdDate ? (
                   <>
-                    {i18next.t("Uploaded on")} <span>{createdDate}</span>
+                    {i18next.t("Uploaded on {{uploadDate}}", {
+                      uploadDate: createdDate,
+                    })}
                   </>
                 ) : (
                   i18next.t("No creation date found.")
@@ -97,7 +99,11 @@ export const MobileUploadsItem = ({
               </small>
               <small>
                 {publishingInformation && (
-                  <span>{i18next.t("Published in: ") + publishingInformation}</span>
+                  <span>
+                    {i18next.t("Published in: {{publishedIn}}", {
+                      publishedIn: publishingInformation,
+                    })}
+                  </span>
                 )}
               </small>
               <div className="rel-mt-1">
