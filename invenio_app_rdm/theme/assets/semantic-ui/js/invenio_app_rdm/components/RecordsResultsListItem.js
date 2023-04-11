@@ -146,7 +146,6 @@ class RecordsResultsListItem extends Component {
                   />
                 </small>
               </div>
-
             </Item.Extra>
           </Item.Content>
         </Item>
