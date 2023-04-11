@@ -11,34 +11,34 @@ import { i18next } from "@translations/invenio_app_rdm/i18next";
 import _get from "lodash/get";
 import _isEmpty from "lodash/isEmpty";
 import React, { Component, createRef, Fragment } from "react";
+import { AccordionField, CustomFields } from "react-invenio-forms";
 import {
   AccessRightField,
-  CommunityHeader,
+  DescriptionsField,
   CreatibutorsField,
   DatesField,
   DeleteButton,
-  DepositFormApp,
   DepositStatusBox,
-  DescriptionsField,
   FileUploader,
   FormFeedback,
   IdentifiersField,
-  LanguagesField,
-  LicenseField,
   PIDField,
   PreviewButton,
+  LanguagesField,
+  LicenseField,
   PublicationDateField,
   PublishButton,
   PublisherField,
   RelatedWorksField,
   ResourceTypeField,
-  SaveButton,
   SubjectsField,
   TitlesField,
   VersionField,
-  FundingField,
-} from "react-invenio-deposit";
-import { AccordionField, CustomFields } from "react-invenio-forms";
+  DepositFormApp,
+  CommunityHeader,
+  SaveButton,
+} from "@js/invenio_rdm_records";
+import { FundingField } from "@js/invenio_vocabularies";
 import { Card, Container, Grid, Ref, Sticky } from "semantic-ui-react";
 import PropTypes from "prop-types";
 import Overridable from "react-overridable";
@@ -555,7 +555,6 @@ export class RDMDepositForm extends Component {
                     config={customFieldsUI}
                     templateLoaders={[
                       (widget) => import(`@templates/custom_fields/${widget}.js`),
-                      (widget) => import(`react-invenio-deposit`),
                       (widget) => import(`react-invenio-forms`),
                     ]}
                     fieldPathPrefix="custom_fields"
