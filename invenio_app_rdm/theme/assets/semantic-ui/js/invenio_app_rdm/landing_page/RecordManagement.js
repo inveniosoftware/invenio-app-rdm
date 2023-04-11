@@ -12,7 +12,7 @@ import { Button, Grid, Icon, Message } from "semantic-ui-react";
 
 import { EditButton } from "./EditButton";
 import { ShareButton } from "./ShareButton";
-import { NewVersionButton } from "react-invenio-deposit";
+import { NewVersionButton } from "@js/invenio_rdm_records/";
 import PropTypes from "prop-types";
 
 export const RecordManagement = ({
