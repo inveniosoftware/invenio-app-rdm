@@ -42,8 +42,8 @@ export class RecordCommunitySubmissionModal extends Component {
     const { handleSuccessAction } = this.props;
     this.closeConfirmModal();
     if (this.isIncludedDirectly(data.processed[0].request)) {
-      handleSuccessAction(data, i18next.t("Record added to the community"));
-    } else handleSuccessAction(data, i18next.t("Review request created"));
+      handleSuccessAction(data, i18next.t("Record submitted"));
+    } else handleSuccessAction(data, i18next.t("Review requested"));
   };
 
   submitCommunity = async (reviewComment) => {
@@ -147,7 +147,7 @@ RecordCommunitySubmissionModal.propTypes = {
   userCommunitiesMemberships: PropTypes.object.isRequired,
   handleSuccessAction: PropTypes.func.isRequired,
   recordCommunityEndpoint: PropTypes.string.isRequired,
-  recordCommunitySearchConfig: PropTypes.string.isRequired,
+  recordCommunitySearchConfig: PropTypes.object.isRequired,
   recordUserCommunitySearchConfig: PropTypes.string.isRequired,
 };
 

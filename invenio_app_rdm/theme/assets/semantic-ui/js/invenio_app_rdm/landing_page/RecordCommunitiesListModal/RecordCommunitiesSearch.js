@@ -26,7 +26,7 @@ const appName = "InvenioAppRdm.RecordCommunitiesSearch";
 export class RecordCommunitiesSearch extends Component {
   handleSuccessCallback = (data) => {
     const { successActionCallback } = this.props;
-    successActionCallback(data, i18next.t("Request action succeeded"));
+    successActionCallback(data, i18next.t("Success"));
   };
 
   render() {
