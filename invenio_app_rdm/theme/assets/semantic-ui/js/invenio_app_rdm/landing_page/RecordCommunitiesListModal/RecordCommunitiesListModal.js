@@ -19,6 +19,7 @@ export class RecordCommunitiesListModal extends Component {
       handleOnOpen,
       handleOnClose,
       trigger,
+      permissions,
     } = this.props;
 
     return (
@@ -43,6 +44,7 @@ export class RecordCommunitiesListModal extends Component {
           <RecordCommunitiesSearch
             recordCommunityEndpoint={recordCommunityEndpoint}
             successActionCallback={successActionCallback}
+            permissions={permissions}
           />
         </Modal.Content>
 
@@ -67,6 +69,7 @@ RecordCommunitiesListModal.propTypes = {
   successActionCallback: PropTypes.func.isRequired,
   handleOnClose: PropTypes.func.isRequired,
   handleOnOpen: PropTypes.func.isRequired,
+  permissions: PropTypes.object.isRequired,
 };
 
 RecordCommunitiesListModal.defaultProps = {

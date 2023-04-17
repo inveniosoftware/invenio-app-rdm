@@ -5,9 +5,14 @@ import PropTypes from "prop-types";
 
 export class RecordCommunitiesSearchItem extends Component {
   render() {
-    const { result, successCallback, recordCommunityEndpoint } = this.props;
+    const {
+      result,
+      successCallback,
+      recordCommunityEndpoint,
+      permissions: { can_manage: canManage },
+    } = this.props;
 
-    const actions = (
+    const actions = canManage && (
       <RemoveFromCommunityAction
         result={result}
         recordCommunityEndpoint={recordCommunityEndpoint}
@@ -20,6 +25,7 @@ export class RecordCommunitiesSearchItem extends Component {
 
 RecordCommunitiesSearchItem.propTypes = {
   result: PropTypes.object.isRequired,
-  recordCommunityEndpoint: PropTypes.object.isRequired,
+  recordCommunityEndpoint: PropTypes.string.isRequired,
   successCallback: PropTypes.func.isRequired,
+  permissions: PropTypes.object.isRequired,
 };
