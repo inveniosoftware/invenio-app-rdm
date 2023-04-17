@@ -125,6 +125,7 @@ export class CommunitiesManagement extends Component {
             handleOnClose={() => this.toggleManageCommunitiesModal(false)}
             successActionCallback={this.handleRefresh}
             recordCommunityEndpoint={recordCommunityEndpoint}
+            permissions={permissions}
           />
 
           {!loading && communities?.length > MAX_COMMUNITIES && (
@@ -149,9 +150,9 @@ export class CommunitiesManagement extends Component {
 }
 
 CommunitiesManagement.propTypes = {
-  recordCommunitySearchConfig: PropTypes.string.isRequired,
+  recordCommunitySearchConfig: PropTypes.object.isRequired,
   recordCommunityEndpoint: PropTypes.string.isRequired,
-  recordUserCommunitySearchConfig: PropTypes.string.isRequired,
+  recordUserCommunitySearchConfig: PropTypes.object.isRequired,
   permissions: PropTypes.object.isRequired,
   canManageRecord: PropTypes.bool.isRequired,
   userCommunitiesMemberships: PropTypes.object.isRequired,
