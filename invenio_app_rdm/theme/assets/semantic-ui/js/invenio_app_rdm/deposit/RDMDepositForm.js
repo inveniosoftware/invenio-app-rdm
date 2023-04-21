@@ -29,6 +29,7 @@ import {
   PublicationDateField,
   PublishButton,
   PublisherField,
+  ReferencesField,
   RelatedWorksField,
   ResourceTypeField,
   SubjectsField,
@@ -95,7 +96,6 @@ export class RDMDepositForm extends Component {
   render() {
     const { record, files, permissions, preselectedCommunity } = this.props;
     const customFieldsUI = this.config.custom_fields.ui;
-
     return (
       <DepositFormApp
         config={this.config}
@@ -543,6 +543,24 @@ export class RDMDepositForm extends Component {
                       options={this.vocabularies.metadata.identifiers}
                       showEmptyValue
                     />
+                  </Overridable>
+                </AccordionField>
+              </Overridable>
+              <Overridable
+                id="InvenioAppRdm.Deposit.AccordionFieldReferences.container"
+                vocabularies={this.vocabularies}
+              >
+                <AccordionField
+                  includesPaths={["metadata.references"]}
+                  active
+                  label={i18next.t("References")}
+                >
+                  <Overridable
+                    id="InvenioAppRdm.Deposit.ReferencesField.container"
+                    fieldPath="metadata.references"
+                    vocabularies={this.vocabularies}
+                  >
+                    <ReferencesField fieldPath="metadata.references" showEmptyValue />
                   </Overridable>
                 </AccordionField>
               </Overridable>

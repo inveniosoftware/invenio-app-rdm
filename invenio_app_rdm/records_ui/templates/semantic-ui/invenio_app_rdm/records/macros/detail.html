@@ -119,7 +119,8 @@
     {% set reference_string = reference.reference %}
     {% if 'identifier' in reference %}
       {% if 'scheme' in reference %}
-        {% set reference_string = reference_string + ' ( ' + reference.scheme +
+        {% set reference_scheme = reference.scheme | get_scheme_label %}
+        {% set reference_string = reference_string + ' ( ' + reference_scheme +
         ' - ' + reference.identifier + ' )' %}
       {% else %}
         {% set reference_string = reference_string + ' ( ' + reference.identifier +
