@@ -116,7 +116,17 @@
 {% macro show_references(references) %}
     <dt class="hidden">{{ _('References') }}</dt>
   {% for reference in references %}
-    <dd>{{ reference.reference + ' ( ' + reference.scheme + ' - ' +  reference.identifier + ' )'}}</dd>
+    {% set reference_string = reference.reference %}
+    {% if 'identifier' in reference %}
+      {% if 'scheme' in reference %}
+        {% set reference_string = reference_string + ' ( ' + reference.scheme +
+        ' - ' + reference.identifier + ' )' %}
+      {% else %}
+        {% set reference_string = reference_string + ' ( ' + reference.identifier +
+         ' )' %}
+      {% endif %}
+    {% endif %}
+    <dd>{{ reference_string }}</dd>
   {% endfor %}
 {% endmacro %}
 
