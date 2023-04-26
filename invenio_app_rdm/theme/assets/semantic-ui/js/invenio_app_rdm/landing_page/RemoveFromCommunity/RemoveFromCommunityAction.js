@@ -1,5 +1,6 @@
 // This file is part of InvenioRDM
 // Copyright (C) 2023 CERN.
+// Copyright (C) 2023 KTH Royal Institute of Technology
 //
 // Invenio App RDM is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
@@ -57,10 +58,10 @@ export class RemoveFromCommunityAction extends Component {
         data: payload,
       });
       successCallback(response.data);
+      this.closeConfirmModal();
     } catch (e) {
       this.setState({ error: e, loading: false });
     }
-    this.setState({ modalOpen: false });
   };
 
   render() {
@@ -136,7 +137,7 @@ export class RemoveFromCommunityAction extends Component {
             {error && (
               <ErrorMessage
                 header={i18next.t("Something went wrong")}
-                content={error.message}
+                content={error.response?.data?.errors[0]?.message || error.message}
                 icon="exclamation"
                 className="text-align-left"
                 negative
