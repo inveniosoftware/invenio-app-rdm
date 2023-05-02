@@ -26,10 +26,12 @@ import {
 import { overrideStore, parametrize } from "react-overridable";
 
 export const appName = "InvenioAppRdm.DashboardCommunities";
+const searchAppDiv = document.getElementById("invenio-search-config");
+const canCreateCommunity = JSON.parse(searchAppDiv.dataset.canCreateCommunity);
 
 export const DashboardCommunitiesSearchLayout = DashboardSearchLayoutHOC({
   searchBarPlaceholder: i18next.t("Search in my communities..."),
-  newBtn: (
+  newBtn: canCreateCommunity && (
     <Button
       positive
       icon="upload"
