@@ -107,20 +107,25 @@
         }
       .content{
         width: 100% !important;
+
         &.flex.right-column{
           flex-direction: column;
           align-items: end;
         };
       }
       .extra{
-        position: absolute;
-        bottom: 0.7em !important;
-        top: unset;
-        left:unset;
-        width: unset;
+        @media all and (min-width: @tabletBreakpoint) {
+          position: absolute;
+          bottom: 0.7em !important;
+          top: unset;
+          left:unset;
+          width: unset;
+        }
       }
       .header {
         word-break: break-word;
+        margin-bottom: 0;
+
         .header-link {
           @media all and (max-width: @largestMobileScreen) {
             margin-top: 1rem;
