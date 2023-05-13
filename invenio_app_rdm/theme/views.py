@@ -3,30 +3,15 @@
 # Copyright (C) 2019-2020 CERN.
 # Copyright (C) 2019-2020 Northwestern University.
 # Copyright (C)      2021 TU Wien.
-# Copyright (C) 2023 Graz University of Technology.
+# Copyright (C) 2023-2024 Graz University of Technology.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """Routes for general pages provided by Invenio-App-RDM."""
 
-from flask import Blueprint, current_app, flash, render_template, request
-from flask_login import current_user
-from flask_menu import current_menu
-from invenio_db import db
+from flask import Blueprint, current_app, render_template
 from invenio_i18n import get_locale
-from invenio_i18n import lazy_gettext as _
-from invenio_users_resources.forms import NotificationsForm
-
-
-def create_url_rule(rule, default_view_func):
-    """Generate rule from string or tuple."""
-    if isinstance(rule, tuple):
-        path, view_func = rule
-
-        return {"rule": path, "view_func": view_func}
-    else:
-        return {"rule": rule, "view_func": default_view_func}
 
 
 #
@@ -56,24 +41,6 @@ def create_blueprint(app):
     blueprint.add_url_rule(
         **create_url_rule(routes["help_versioning"], default_view_func=help_versioning)
     )
-
-    @blueprint.before_app_first_request
-    def init_menu():
-        """Initialize menu before first request."""
-        current_menu.submenu("actions.deposit").register(
-            "invenio_app_rdm_users.uploads", _("My dashboard"), order=1
-        )
-
-        current_menu.submenu("plus.deposit").register(
-            "invenio_app_rdm_records.deposit_create",
-            _("New upload"),
-            order=1,
-        )
-
-        current_menu.submenu("notifications.requests").register(
-            "invenio_app_rdm_users.requests",
-            order=1,
-        )
 
     return blueprint
 

@@ -3,7 +3,7 @@
 # Copyright (C) 2019-2024 CERN.
 # Copyright (C) 2019-2022 Northwestern University.
 # Copyright (C)      2022 TU Wien.
-# Copyright (C) 2023 Graz University of Technology.
+# Copyright (C) 2023-2024 Graz University of Technology.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -11,17 +11,16 @@
 
 from flask import Blueprint, current_app, render_template, request
 from flask_login import current_user
-from flask_menu import current_menu
-from invenio_communities.communities.resources.serializer import (
-    UICommunityJSONSerializer,
-)
+from invenio_communities.communities.resources.serializer import \
+    UICommunityJSONSerializer
 from invenio_communities.errors import CommunityDeletedError
 from invenio_i18n import lazy_gettext as _
 from invenio_pidstore.errors import PIDDeletedError, PIDDoesNotExistError
 from invenio_records_resources.services.errors import PermissionDeniedError
 
 from ..searchapp import search_app_context
-from .communities import communities_detail, communities_home, community_static_page
+from .communities import (communities_detail, communities_home,
+                          community_static_page)
 
 
 #
@@ -98,37 +97,6 @@ def create_ui_blueprint(app):
         routes["community-static-page"],
         view_func=community_static_page,
     )
-
-    @blueprint.before_app_first_request
-    def register_menus():
-        """Register community menu items."""
-        communities = current_menu.submenu("communities")
-        communities.submenu("home").register(
-            "invenio_app_rdm_communities.communities_home",
-            text=_("Home"),
-            order=1,
-            visible_when=_is_branded_community,
-            expected_args=["pid_value"],
-            **dict(icon="home", permissions="can_read"),
-        )
-        communities.submenu("search").register(
-            "invenio_app_rdm_communities.communities_detail",
-            text=_("Records"),
-            order=2,
-            expected_args=["pid_value"],
-            **dict(icon="search", permissions=True),
-        )
-        communities.submenu("submit").register(
-            "invenio_app_rdm_communities.community_static_page",
-            text=_("Submit"),
-            order=3,
-            visible_when=_is_branded_community,
-            endpoint_arguments_constructor=lambda: {
-                "pid_value": request.view_args["pid_value"],
-                "page_slug": "how-to-submit",
-            },
-            **dict(icon="upload", permissions="can_read"),
-        )
 
     # Register error handlers
     blueprint.register_error_handler(

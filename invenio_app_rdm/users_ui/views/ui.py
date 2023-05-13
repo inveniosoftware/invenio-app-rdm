@@ -2,7 +2,7 @@
 #
 # This file is part of Invenio.
 # Copyright (C) 2016-2021 CERN.
-# Copyright (C) 2023 Graz University of Technology.
+# Copyright (C) 2023-2024 Graz University of Technology.
 #
 # Invenio is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -11,8 +11,6 @@
 
 from flask import Blueprint, current_app, render_template
 from flask_login import current_user
-from flask_menu import current_menu
-from invenio_i18n import lazy_gettext as _
 
 from ..searchapp import search_app_context
 from .dashboard import communities, requests, uploads
@@ -63,26 +61,6 @@ def create_ui_blueprint(app):
         routes["requests"],
         view_func=requests,
     )
-
-    @blueprint.before_app_first_request
-    def register_menus():
-        """Register community menu items."""
-        user_dashboard = current_menu.submenu("dashboard")
-        user_dashboard.submenu("uploads").register(
-            "invenio_app_rdm_users.uploads",
-            text=_("My uploads"),
-            order=1,
-        )
-        user_dashboard.submenu("communities").register(
-            "invenio_app_rdm_users.communities",
-            text=_("My communities"),
-            order=2,
-        )
-        user_dashboard.submenu("requests").register(
-            "invenio_app_rdm_users.requests",
-            text=_("My requests"),
-            order=3,
-        )
 
     # Register context processor
     blueprint.app_context_processor(search_app_context)
