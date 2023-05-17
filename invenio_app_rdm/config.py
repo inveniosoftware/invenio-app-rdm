@@ -365,6 +365,12 @@ CELERY_BEAT_SCHEDULE = {
             )
         ],
     },
+    # Invenio communities provides some caching that has the potential to be never removed,
+    # therefore, we need a cronjob to ensure that at least once per day we clear the cache
+    "clear-cache": {
+        "task": "invenio_communities.tasks.clear_cache",
+        "schedule": crontab(minute=0, hour=1),  # Every day at 01:00 UTC
+    },
 }
 """Scheduled tasks configuration (aka cronjobs)."""
 
