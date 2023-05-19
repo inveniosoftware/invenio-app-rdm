@@ -366,6 +366,7 @@ def deposit_create(community=None):
         permissions=get_record_permissions(
             [
                 "manage_files",
+                "delete_draft",
                 "manage_record_access",
             ]
         ),
