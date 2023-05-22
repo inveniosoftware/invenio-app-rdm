@@ -16,6 +16,7 @@ it under the terms of the MIT License; see LICENSE file for more details.
          data-permissions='{{ permissions | tojson }}'
          data-is-draft="{{ is_draft | tojson }}"
          data-is-preview-submission-request="{{ is_preview_submission_request | tojson }}"
+         data-current-user-id="{{ current_user.id }}"
     >
       <div class="ui placeholder">
         <div class="header">

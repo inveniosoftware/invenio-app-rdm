@@ -67,6 +67,7 @@
 
   <div class="rel-mt-2">
     <h2 class="ui header request-header">{{ request.title }}</h2>
+    <h4 class="ui header">{{ request.description|safe }}</h4>
     {% if record %}
       <dl class="creatibutors" aria-label="{{ _('Creators list') }}">
         {{ show_creatibutors(record.metadata.creators) }}
