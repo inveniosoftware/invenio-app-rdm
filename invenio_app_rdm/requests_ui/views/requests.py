@@ -99,13 +99,12 @@ def user_dashboard_request_view(request, **kwargs):
     )["avatar"]
 
     request_type = request["type"]
-
-    is_draft_submission = request_type == CommunitySubmission.type_id
-    is_record_inclusion = request_type == CommunityInclusion.type_id
-    is_member_invitation = request_type == CommunityInvitation.type_id
     request_is_accepted = request["status"] == AcceptAction.status_to
 
-    if is_draft_submission or is_record_inclusion:
+    has_record_topic = "record" in request["topic"]
+    has_community_topic = "community" in request["topic"]
+
+    if has_record_topic:
         topic = _resolve_topic_record(request)
         record = topic["record_ui"]  # None when draft
         is_draft = record["is_draft"] if record else False
@@ -128,7 +127,7 @@ def user_dashboard_request_view(request, **kwargs):
             external_resources=get_external_resources(record),
         )
 
-    elif is_member_invitation:
+    elif has_community_topic:
         return render_template(
             f"invenio_requests/{request_type}/user_dashboard.html",
             base_template="invenio_app_rdm/users/base.html",

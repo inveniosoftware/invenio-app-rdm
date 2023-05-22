@@ -463,3 +463,10 @@ dl.details-list {
 .highlight-background {
     background-color: @highlightHeaderColor;
 }
+
+.capitalize-first-char {
+  display: inline-block;
+  &::first-letter {
+    text-transform: capitalize;
+  }
+}

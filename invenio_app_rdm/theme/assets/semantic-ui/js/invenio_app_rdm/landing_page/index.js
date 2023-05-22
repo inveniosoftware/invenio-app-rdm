@@ -13,6 +13,7 @@ import { RecordVersionsList } from "./RecordVersionsList";
 import { RecordCitationField } from "./RecordCitationField";
 import { ExportDropdown } from "./ExportDropdown";
 import { CommunitiesManagement } from "./CommunitiesManagement";
+import { OverridableContext, overrideStore } from "react-overridable";
 
 const recordManagementAppDiv = document.getElementById("recordManagement");
 const recordManagementMobile = document.getElementById("recordManagementMobile");
@@ -31,14 +32,17 @@ if (recordManagementAppDiv) {
 
 function renderRecordManagement(element) {
   ReactDOM.render(
-    <RecordManagement
-      record={JSON.parse(recordManagementAppDiv.dataset.record)}
-      permissions={JSON.parse(recordManagementAppDiv.dataset.permissions)}
-      isDraft={JSON.parse(recordManagementAppDiv.dataset.isDraft)}
-      isPreviewSubmissionRequest={JSON.parse(
-        recordManagementAppDiv.dataset.isPreviewSubmissionRequest
-      )}
-    />,
+    <OverridableContext.Provider value={overrideStore.getAll()}>
+      <RecordManagement
+        record={JSON.parse(recordManagementAppDiv.dataset.record)}
+        permissions={JSON.parse(recordManagementAppDiv.dataset.permissions)}
+        isDraft={JSON.parse(recordManagementAppDiv.dataset.isDraft)}
+        isPreviewSubmissionRequest={JSON.parse(
+          recordManagementAppDiv.dataset.isPreviewSubmissionRequest
+        )}
+        currentUserId={recordManagementAppDiv.dataset.currentUserId}
+      />
+    </OverridableContext.Provider>,
     element
   );
 }
