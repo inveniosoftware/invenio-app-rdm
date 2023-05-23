@@ -20,6 +20,16 @@ from invenio_rdm_records.proxies import current_rdm_records
 from invenio_records_resources.services.errors import PermissionDeniedError
 from sqlalchemy.orm.exc import NoResultFound
 
+from ..utils import get_id_from_parent_id
+
+
+class ExceptionResult(Exception):
+    """Exception class for handling thrown result."""
+
+    def __init__(self, message):
+        """Constructor."""
+        self.message = message
+
 
 def service():
     """Get the record service."""
@@ -79,7 +89,11 @@ def pass_is_preview(f):
         if preview == "1":
             is_preview = True
         kwargs["is_preview"] = is_preview
-        return f(**kwargs)
+        try:
+            return f(**kwargs)
+        except ExceptionResult as result:  # parent record
+            kwargs["pid_value"] = str(result)
+            return f(**kwargs)
 
     return view
 
@@ -120,7 +134,13 @@ def pass_record_or_draft(expand=False):
                 except NoResultFound:
                     record = service().read(**read_kwargs)
             else:
-                record = service().read(**read_kwargs)
+                try:
+                    read_kwargs["front_end_call"] = True
+                    record = service().read(**read_kwargs)
+
+                except NoResultFound as parent_pid:
+                    record_id = get_id_from_parent_id(str(parent_pid))  # parent record
+                    raise ExceptionResult(record_id)
 
             kwargs["record"] = record
             return f(**kwargs)

@@ -12,6 +12,7 @@
 from itertools import chain
 
 from flask import current_app, url_for
+from invenio_rdm_records.records.models import RDMRecordMetadata
 from invenio_records.dictutils import dict_set
 from invenio_records.errors import MissingModelError
 from invenio_records_files.api import FileObject
@@ -88,3 +89,11 @@ def dump_external_resource(
         },
         "template": template,
     }
+
+
+def get_id_from_parent_id(parent_id):
+    """Retrieve a record from a parent id."""
+    query = RDMRecordMetadata.query.filter_by(parent_id=parent_id)
+    query = query.order_by(RDMRecordMetadata.index.desc())
+    record = query.first()
+    return record.json.get("id")
