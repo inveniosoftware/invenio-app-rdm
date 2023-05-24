@@ -8,7 +8,15 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import { withCancel, http } from "react-invenio-forms";
-import { Loader, Container, Header, Item, Button, Message } from "semantic-ui-react";
+import {
+  Placeholder,
+  Divider,
+  Container,
+  Header,
+  Item,
+  Button,
+  Message,
+} from "semantic-ui-react";
 import Overridable from "react-overridable";
 import RecordsResultsListItem from "@js/invenio_app_rdm/components/RecordsResultsListItem";
 import isEmpty from "lodash/isEmpty";
@@ -54,6 +62,37 @@ export class RecordsList extends Component {
     }
   };
 
+  renderPlaceHolder = () => {
+    const { title } = this.props;
+
+    return (
+      <Container>
+        <Header as="h2">{title}</Header>
+        {Array.from(Array(10)).map((item, index) => (
+          <div key={index}>
+            <Placeholder fluid className="rel-mt-3">
+              <Placeholder.Header>
+                <Placeholder.Line />
+              </Placeholder.Header>
+
+              <Placeholder.Paragraph>
+                <Placeholder.Line />
+              </Placeholder.Paragraph>
+
+              <Placeholder.Paragraph>
+                <Placeholder.Line />
+                <Placeholder.Line />
+                <Placeholder.Line />
+              </Placeholder.Paragraph>
+            </Placeholder>
+
+            {index < 9 && <Divider className="rel-mt-2 rel-mb-2" />}
+          </div>
+        ))}
+      </Container>
+    );
+  };
+
   render() {
     const { isLoading, data, error } = this.state;
     const { title, appName } = this.props;
@@ -65,25 +104,25 @@ export class RecordsList extends Component {
     });
 
     return (
-      !isEmpty(listItems) && (
-        <Container>
-          {isLoading && <Loader active inline="centered" />}
+      <>
+        {isLoading && this.renderPlaceHolder()}
 
-          {!isLoading && !error && (
-            <>
-              <Header as="h2">{title}</Header>
-              <Item.Group relaxed link divided>
-                {listItems}
-              </Item.Group>
-              <Container textAlign="center">
-                <Button href="/search">{i18next.t("More")}</Button>
-              </Container>
-            </>
-          )}
+        {!isLoading && !error && !isEmpty(listItems) && (
+          <Container>
+            <Header as="h2">{title}</Header>
 
-          {error && <Message content={error} error icon="warning sign" />}
-        </Container>
-      )
+            <Item.Group relaxed link divided>
+              {listItems}
+            </Item.Group>
+
+            <Container textAlign="center">
+              <Button href="/search">{i18next.t("More")}</Button>
+            </Container>
+
+            {error && <Message content={error} error icon="warning sign" />}
+          </Container>
+        )}
+      </>
     );
   }
 }
