@@ -1,0 +1,18 @@
+{# -*- coding: utf-8 -*-
+
+This file is part of Invenio.
+Copyright (C) 2023 Graz University of Technology.
+
+Invenio App RDM is free software; you can redistribute it and/or modify it
+under the terms of the MIT License; see LICENSE file for more details.
+#}
+{%- extends config.USERPROFILES_SETTINGS_TEMPLATE %}
+
+{%- block settings_content scoped %}
+
+  {% with notifications_form=preferences_notifications_form %}
+    {% include "invenio_users_resources/settings/notifications.html" %}
+  {% endwith %}
+
+{% endblock %}
+toggle

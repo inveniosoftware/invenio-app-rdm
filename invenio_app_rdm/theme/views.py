@@ -10,10 +10,13 @@
 
 """Routes for general pages provided by Invenio-App-RDM."""
 
-from flask import Blueprint, current_app, render_template
+from flask import Blueprint, current_app, flash, render_template, request
+from flask_login import current_user
 from flask_menu import current_menu
+from invenio_db import db
 from invenio_i18n import get_locale
 from invenio_i18n import lazy_gettext as _
+from invenio_users_resources.forms import NotificationsForm
 
 
 #
@@ -94,3 +97,33 @@ def help_statistics():
             "invenio_app_rdm/help/statistics.en.html",
         ]
     )
+
+
+def notification_settings():
+    """View for notification settings."""
+    preferences_notifications_form = NotificationsForm(
+        formdata=None, obj=current_user, prefix="preferences-notifications"
+    )
+
+    # Pick form
+    form_name = request.form.get("submit", None)
+    form = preferences_notifications_form if form_name else None
+
+    # Process form
+    if form:
+        form.process(formdata=request.form)
+        if form.validate_on_submit():
+            handle_notifications_form(form)
+            flash(_("Notification preferences were updated."), category="success")
+
+    return render_template(
+        "invenio_app_rdm/settings/notifications.html",
+        preferences_notifications_form=preferences_notifications_form,
+    )
+
+
+def handle_notifications_form(form):
+    """Handle notification preferences form."""
+    form.populate_obj(current_user)
+    db.session.add(current_user)
+    current_app.extensions["security"].datastore.commit()
