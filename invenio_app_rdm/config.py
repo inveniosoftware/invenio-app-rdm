@@ -263,11 +263,14 @@ MUST ensure that NGINX (or other proxies) removes these headers again before
 sending the response to the client. Set to False, in case of doubt.
 """
 
-# Invenio-Security-Invenio
+# Flask-Security
 # ========================
 
 SECURITY_EMAIL_SUBJECT_REGISTER = _("Welcome to Invenio App RDM!")
 """Email subject for account registration emails."""
+
+SECURITY_POST_LOGOUT_VIEW = "/oauth/logout"
+"""Required by invenio-oauthclient to be able to set logout urls for the remote apps."""
 
 # Invenio-UserProfiles
 # ================
