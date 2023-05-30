@@ -15,7 +15,7 @@
           <img src="{{ user_avatar }}" alt="" />
         </div>
         <div class="content rel-pl-1">
-          <h4 class="header">{{ current_userprofile.full_name or current_user.username }}</h4>
+          <h4 class="header">{{ current_userprofile.full_name or current_user.username or current_userprofile.email or _('Anonymous user')}}</h4>
           <div class="meta">{{ current_userprofile.affiliations or "" }}</div>
         </div>
       </div>
@@ -29,4 +29,3 @@
   {% endfor %}
 </div>
 </div>
-
