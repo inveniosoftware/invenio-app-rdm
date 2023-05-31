@@ -37,9 +37,9 @@ from ...records_ui.utils import get_external_resources
 
 def _resolve_topic_record(request):
     """Resolve the record in the topic, when it is a draft or a published record."""
-    user_owns_request = str(request["expanded"]["created_by"]["id"]) == str(
-        current_user.id
-    )
+    creator_id = request["expanded"].get("created_by", {}).get("id", None)
+    user_owns_request = str(creator_id) == str(current_user.id)
+
     if request["is_closed"] and not user_owns_request:
         return dict(permissions={}, record_ui=None)
 
@@ -105,27 +105,30 @@ def user_dashboard_request_view(request, **kwargs):
     has_community_topic = "community" in request["topic"]
 
     if has_record_topic:
-        topic = _resolve_topic_record(request)
-        record = topic["record_ui"]  # None when draft
-        is_draft = record["is_draft"] if record else False
+        try:
+            topic = _resolve_topic_record(request)
+            record = topic["record_ui"]  # None when draft
+            is_draft = record["is_draft"] if record else False
 
-        files = _resolve_record_or_draft_files(record)
-        return render_template(
-            f"invenio_requests/{request_type}/index.html",
-            base_template="invenio_app_rdm/users/base.html",
-            user_avatar=avatar,
-            invenio_request=request.to_dict(),
-            record=record,
-            permissions=topic["permissions"],
-            is_preview=is_draft,  # preview only when draft
-            is_draft=is_draft,
-            request_is_accepted=request_is_accepted,
-            files=files,
-            is_user_dashboard=True,
-            custom_fields_ui=load_custom_fields()["ui"],
-            user_communities_memberships=get_user_communities_memberships(),
-            external_resources=get_external_resources(record),
-        )
+            files = _resolve_record_or_draft_files(record)
+            return render_template(
+                f"invenio_requests/{request_type}/index.html",
+                base_template="invenio_app_rdm/users/base.html",
+                user_avatar=avatar,
+                invenio_request=request.to_dict(),
+                record=record,
+                permissions=topic["permissions"],
+                is_preview=is_draft,  # preview only when draft
+                is_draft=is_draft,
+                request_is_accepted=request_is_accepted,
+                files=files,
+                is_user_dashboard=True,
+                custom_fields_ui=load_custom_fields()["ui"],
+                user_communities_memberships=get_user_communities_memberships(),
+                external_resources=get_external_resources(record),
+            )
+        except Exception:
+            pass
 
     elif has_community_topic:
         return render_template(
@@ -135,6 +138,18 @@ def user_dashboard_request_view(request, **kwargs):
             invenio_request=request.to_dict(),
             request_is_accepted=request_is_accepted,
         )
+
+    topic = _resolve_topic_record(request)
+    record = topic["record_ui"]
+
+    return render_template(
+        f"invenio_requests/{request_type}/index.html",
+        base_template="invenio_app_rdm/users/base.html",
+        user_avatar=avatar,
+        record=record,
+        invenio_request=request.to_dict(),
+        request_is_accepted=request_is_accepted,
+    )
 
 
 @login_required
