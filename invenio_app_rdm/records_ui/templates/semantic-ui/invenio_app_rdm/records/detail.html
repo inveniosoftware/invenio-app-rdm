@@ -1,7 +1,7 @@
 {#
   Copyright (C) 2020-2021 CERN.
   Copyright (C) 2020-2021 Northwestern University.
-  Copyright (C) 2021 TU Wien.
+  Copyright (C) 2021-2023 TU Wien.
   Copyright (C) 2021 Graz University of Technology.
   Copyright (C) 2021 New York University.
 
@@ -23,6 +23,10 @@
 <!-- preview_submission_request is set to true when coming from a community submission request -->
 {%- set is_preview_submission_request = preview_submission_request or false %}
 {%- set show_record_management_menu = can_manage_record and (not is_preview or is_preview_submission_request) %}
+
+{#- TODO check if the record allows requests for users/guests #}
+{%- set user_request_enabled = not current_user.is_anonymous %}
+{%- set guest_request_enabled = current_user.is_anonymous %}
 
 {%- block page_body %}
   <section id="banners" class="banners" aria-label="{{ _('Information banner') }}">
@@ -251,6 +255,20 @@
                             {% if record.access.embargo.reason %}
                               <p>{{ _("Reason") }}: {{ record.access.embargo.reason }}</p>
                             {% endif %}
+
+                            {%- if user_request_enabled or guest_request_enabled  %}
+                              <hr style="border-color: darkred;">
+                              <p>
+                                <p>
+                                  <strong>Request access</strong>
+                                </p>
+                                <p>
+                                  <!-- TODO: Once implemented in the backend display the access description provided nad use this as fallback -->
+                                  If you would like to request access to these files, please fill out the form below.
+                                </p>
+                                {%- include "invenio_app_rdm/records/details/access-form.html" %}
+                              </p>
+                            {%- endif %}
 
                           </div>
                         </div>

@@ -1,0 +1,99 @@
+{#
+Copyright (C) 2023 CERN.
+
+Invenio RDM Records is free software; you can redistribute it and/or modify
+it under the terms of the MIT License; see LICENSE file for more details.
+#}
+
+{% set user_access_request_url = "{api}/records/{pid_value}/access/request".format(
+    api=config.SITE_API_URL, pid_value=record.id
+    )
+%}
+{% set guest_access_request_url = "{api}/records/{pid_value}/access/request/guest".format(
+    api=config.SITE_API_URL, pid_value=record.id
+    )
+%}
+
+{% set endpoint = guest_access_request_url if current_user.is_anonymous else user_access_request_url %}
+
+<div id="access-request-form container">
+    <form id="access-request-form" action="{{ endpoint }}" method="post" class="ui form">
+        <input type="hidden" id="is-guest" value="{{current_user.is_anonymous}}">
+        {%- if current_user.is_anonymous %}
+            <div class="ui segment">
+                <i aria-hidden="true" class="user secret icon"></i>You are currently <strong>not logged in</strong>. Do you have an account?
+                <a href="/login/">Log in</a>
+            </div>
+
+            <div class="equal width fields">
+                <div class="field">
+                    <div class="required field">
+                        <label for="access-request-email-address">Your email address</label>
+                        <div class="ui left icon input">
+                            <input placeholder="Email address" required=""
+                                id="access-request-email-address" type="email">
+                                <i aria-hidden="true" class="at icon"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="required field"><label for="access-request-full-name">Your full name</label>
+                        <div class="ui left icon input"><input placeholder="Full name" required=""
+                                id="access-request-full-name" type="text"><i aria-hidden="true"
+                                class="address card icon"></i></div>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="ui segment">
+                <i aria-hidden="true" class="user icon"></i>You are logged in as <strong>{{current_user.email}}</strong>. Not you?
+                <a href="{{ url_for('security.login') }}">Log out</a>
+                <input type="hidden" id="access-request-email-address" value="{{current_user.email}}">
+                <input type="hidden" id="access-request-full-name" value="{{current_user.user_profile.full_name}}">
+            </div>
+        {%- endif %}
+        <div class="field">
+            <div class="required field"><label for="access-request-message">Request message</label><textarea
+                    placeholder="Please describe why you need access here" required="" id="access-request-message"
+                    rows="3"></textarea></div>
+        </div>
+        <div class="field">
+
+            <div class="field">
+                <div class="ui checkbox">
+                <input type="checkbox" id="access-request-checkbox">
+                <label>I agree to that my full name and email address is shared with the owner of the record.</label>
+                </div>
+            </div>
+        </div>
+        <div class="field text-align-center">
+            <button class="ui primary button" type="submit" disabled>
+                <i class="edit outline icon"></i>
+                Request access
+            </button>
+        </div>
+        <div class="ui error message"></div>
+    </form>
+    <div class="ui modal">
+        <i class="close icon"></i>
+        <div class="header">
+          Email confirmation needed
+        </div>
+        <div class="image content">
+          <div class="description">
+            <p>We have sent you an email to verify your address. Please check the email and follow the instructions to complete the access request.</p>
+          </div>
+        </div>
+        <div class="actions">
+          <div class="ui primary deny button">
+            <i class="x icon"></i>
+            Dismiss
+          </div>
+        </div>
+      </div>
+</div>
+
+
+{%- block javascript %}
+    {{ webpack['invenio-app-rdm-landing-page-access-form.js']}}
+{%- endblock %}
