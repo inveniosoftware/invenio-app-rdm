@@ -38,12 +38,18 @@ from flask_principal import Denial
 from flask_resources import HTTPJSONException, create_error_handler
 from invenio_access.permissions import any_user
 from invenio_communities.communities.resources.config import community_error_handlers
+from invenio_notifications.backends import EmailNotificationBackend
+from invenio_rdm_records.notifications.builders import (
+    CommunityInclusionSubmittedNotificationBuilder,
+)
+from invenio_rdm_records.requests.entity_resolvers import RDMRecordServiceResultResolver
 from invenio_rdm_records.resources.stats.event_builders import build_record_unique_id
 from invenio_rdm_records.services.communities.components import (
     CommunityServiceComponents,
 )
 from invenio_rdm_records.services.errors import InvalidCommunityVisibility
 from invenio_rdm_records.services.stats import permissions_policy_lookup_factory
+from invenio_records_resources.references.entity_resolvers import ServiceResultResolver
 from invenio_stats.aggregations import StatAggregator
 from invenio_stats.contrib.event_builders import build_file_unique_id
 from invenio_stats.processors import EventsIndexer, anonymize_user, flag_robots
@@ -51,6 +57,7 @@ from invenio_stats.queries import TermsQuery
 from invenio_users_resources.services.schemas import (
     NotificationPreferences,
     UserPreferencesSchema,
+    UserSchema,
 )
 from invenio_vocabularies.config import (
     VOCABULARIES_DATASTREAM_READERS,
@@ -1113,6 +1120,54 @@ STATS_QUERIES = {
 }
 
 STATS_PERMISSION_FACTORY = permissions_policy_lookup_factory
+
+
+# Invenio-Notifications
+# =================
+# See https://github.com/inveniosoftware/invenio-notifications/blob/master/invenio_notifications/config.py  # noqa
+
+
+NOTIFICATIONS_BACKENDS = {
+    EmailNotificationBackend.id: EmailNotificationBackend(),
+}
+"""Notification backends."""
+
+
+NOTIFICATIONS_BUILDERS = {
+    CommunityInclusionSubmittedNotificationBuilder.type: CommunityInclusionSubmittedNotificationBuilder,
+}
+"""Notification builders."""
+
+
+NOTIFICATIONS_ENTITY_RESOLVERS = [
+    RDMRecordServiceResultResolver(),
+    ServiceResultResolver(service_id="users", type_key="user"),
+    ServiceResultResolver(service_id="communities", type_key="community"),
+    ServiceResultResolver(service_id="requests", type_key="request"),
+    ServiceResultResolver(service_id="request_events", type_key="request_event"),
+]
+"""List of entity resolvers used by notification builders."""
+
+
+class UserPreferencesNotificationsSchema(UserPreferencesSchema):
+    """Schema extending preferences with notification preferences for model validation."""
+
+    notifications = fields.Nested(NotificationPreferences)
+
+
+# Invenio-Notifications
+# =================
+# See https://github.com/inveniosoftware/invenio-users-resources/blob/master/invenio_users_resources/config.py  # noqa
+
+
+class NotificationsUserSchema(UserSchema):
+    """Schema extending preferences with notification preferences for user service."""
+
+    preferences = fields.Nested(UserPreferencesNotificationsSchema)
+
+
+USERS_RESOURCES_SERVICE_SCHEMA = NotificationsUserSchema
+"""Schema used by the users service."""
 
 NOTIFICATIONS_SETTINGS_VIEW_FUNCTION = notification_settings
 """View function for notification settings."""
