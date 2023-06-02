@@ -304,6 +304,12 @@ def get_user_communities_memberships():
 def get_form_config(**kwargs):
     """Get the react form configuration."""
     conf = current_app.config
+    custom_fields = load_custom_fields()
+    # keep only upload form configurable custom fields
+    custom_fields["ui"] = [
+        cf for cf in custom_fields["ui"] if not cf.get("hide_from_upload_form", False)
+    ]
+
     return dict(
         vocabularies=VocabulariesOptions().dump(),
         autocomplete_names=conf.get(
@@ -320,7 +326,7 @@ def get_form_config(**kwargs):
             ]
         ),
         user_communities_memberships=get_user_communities_memberships(),
-        custom_fields=load_custom_fields(),
+        custom_fields=custom_fields,
         publish_modal_extra=current_app.config.get(
             "APP_RDM_DEPOSIT_FORM_PUBLISH_MODAL_EXTRA"
         ),

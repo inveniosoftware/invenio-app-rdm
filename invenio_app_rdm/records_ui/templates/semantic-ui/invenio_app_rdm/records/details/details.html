@@ -124,17 +124,15 @@ show_alternate_identifiers, show_related_identifiers, show_funding, show_dates %
         {# Needed to use namespace as variable assignments are cleared in the end of
            for loops i.e cannot set active = false #}
         {% set active_cf = namespace(value=active) %}
-        {%- for section_cfg in custom_fields_ui %}
+        {%- for section_cfg in custom_fields_ui if not section_cfg.hide_from_landing_page %}
           {% set section_has_fields = namespace(value=false) %}
           {% set section_format = section_cfg.section | replace(" ", "-") %}
           {# Show the section if at least one of its fields is in record #}
-          {% if not section_cfg.hidden %}
-            {% for field_cfg in section_cfg.fields %}
-              {% if record.custom_fields.get(field_cfg.field) %}
-                {% set section_has_fields.value = true %}
-              {% endif %}
-            {% endfor %}
-          {% endif %}
+          {% for field_cfg in section_cfg.fields %}
+            {% if record.custom_fields.get(field_cfg.field) %}
+              {% set section_has_fields.value = true %}
+            {% endif %}
+          {% endfor %}
           {% if section_has_fields.value %}
             {% set active_cf_sections.items = active_cf_sections.items + [section_cfg.section] %}
             <a

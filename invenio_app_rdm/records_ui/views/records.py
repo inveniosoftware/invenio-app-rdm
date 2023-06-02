@@ -117,6 +117,11 @@ def record_detail(pid_value, record, files, is_preview=False):
     files_dict = None if files is None else files.to_dict()
     record_ui = UIJSONSerializer().dump_obj(record.to_dict())
     is_draft = record_ui["is_draft"]
+    custom_fields = load_custom_fields()
+    # keep only landing page configurable custom fields
+    custom_fields["ui"] = [
+        cf for cf in custom_fields["ui"] if not cf.get("hide_from_landing_page", False)
+    ]
     if is_preview and is_draft:
         # it is possible to save incomplete drafts that break the normal
         # (preview) landing page rendering
@@ -143,7 +148,7 @@ def record_detail(pid_value, record, files, is_preview=False):
         permissions=record.has_permissions_to(
             ["edit", "new_version", "manage", "update_draft", "read_files", "review"]
         ),
-        custom_fields_ui=load_custom_fields()["ui"],
+        custom_fields_ui=custom_fields["ui"],
         is_preview=is_preview,
         is_draft=is_draft,
         community=resolved_community,
