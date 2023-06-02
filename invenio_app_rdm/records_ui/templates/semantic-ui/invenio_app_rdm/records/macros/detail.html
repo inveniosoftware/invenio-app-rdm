@@ -215,8 +215,8 @@
           </dd>
         {% elif field_cfg.is_vocabulary %}
           <dd>{{ list_vocabulary_values(field_value) }}</dd>
-        {% elif field_value is mapping and field_value|length > 0 and field_value[0] is string %}
-            <dd>{{ list_string_values(field_value) }}</dd>
+        {% elif field_value is iterable and field_value|length > 0 and field_value[0] is string %}
+          <dd>{{ list_string_values(field_value) }}</dd>
         {% else %}
           <dd>{{ field_value }}</dd>
         {% endif %}
