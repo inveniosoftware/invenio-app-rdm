@@ -20,6 +20,8 @@ from invenio_records_resources.services.errors import (
     PermissionDeniedError,
 )
 
+from invenio_app_rdm.theme.views import create_url_rule
+
 from ..searchapp import search_app_context
 from .deposits import deposit_create, deposit_edit
 from .filters import (
@@ -64,13 +66,17 @@ def create_blueprint(app):
 
     # Record URL rules
     blueprint.add_url_rule(
-        routes["record_detail"],
-        view_func=record_detail,
+        **create_url_rule(
+            routes["record_detail"],
+            default_view_func=record_detail,
+        )
     )
 
     blueprint.add_url_rule(
-        routes["record_latest"],
-        view_func=record_latest,
+        **create_url_rule(
+            routes["record_latest"],
+            default_view_func=record_latest,
+        )
     )
 
     rdm_records_ext = app.extensions["invenio-rdm-records"]
@@ -78,33 +84,45 @@ def create_blueprint(app):
     schemes = ",".join(schemes)
     if schemes:
         blueprint.add_url_rule(
-            routes["record_from_pid"].format(schemes=schemes),
-            view_func=record_from_pid,
+            **create_url_rule(
+                routes["record_from_pid"].format(schemes=schemes),
+                default_view_func=record_from_pid,
+            )
         )
 
     blueprint.add_url_rule(
-        routes["record_export"],
-        view_func=record_export,
+        **create_url_rule(
+            routes["record_export"],
+            default_view_func=record_export,
+        )
     )
 
     blueprint.add_url_rule(
-        routes["record_file_preview"],
-        view_func=record_file_preview,
+        **create_url_rule(
+            routes["record_file_preview"],
+            default_view_func=record_file_preview,
+        )
     )
 
     blueprint.add_url_rule(
-        routes["record_file_download"],
-        view_func=record_file_download,
+        **create_url_rule(
+            routes["record_file_download"],
+            default_view_func=record_file_download,
+        )
     )
 
     blueprint.add_url_rule(
-        routes["deposit_create"],
-        view_func=deposit_create,
+        **create_url_rule(
+            routes["deposit_create"],
+            default_view_func=deposit_create,
+        )
     )
 
     blueprint.add_url_rule(
-        routes["deposit_edit"],
-        view_func=deposit_edit,
+        **create_url_rule(
+            routes["deposit_edit"],
+            default_view_func=deposit_edit,
+        )
     )
 
     # Register error handlers
