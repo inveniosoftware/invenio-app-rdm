@@ -19,6 +19,16 @@ from invenio_i18n import lazy_gettext as _
 from invenio_users_resources.forms import NotificationsForm
 
 
+def create_url_rule(rule, default_view_func):
+    """Generate rule from string or tuple."""
+    if isinstance(rule, tuple):
+        path, view_func = rule
+
+        return {"rule": path, "view_func": view_func}
+    else:
+        return {"rule": rule, "view_func": default_view_func}
+
+
 #
 # Registration
 #
@@ -33,10 +43,16 @@ def create_blueprint(app):
         static_folder="static",
     )
 
-    blueprint.add_url_rule(routes["index"], view_func=index)
-    blueprint.add_url_rule(routes["robots"], view_func=robots)
-    blueprint.add_url_rule(routes["help_search"], view_func=help_search)
-    blueprint.add_url_rule(routes["help_statistics"], view_func=help_statistics)
+    blueprint.add_url_rule(**create_url_rule(routes["index"], default_view_func=index))
+    blueprint.add_url_rule(
+        **create_url_rule(routes["robots"], default_view_func=robots)
+    )
+    blueprint.add_url_rule(
+        **create_url_rule(routes["help_search"], default_view_func=help_search)
+    )
+    blueprint.add_url_rule(
+        **create_url_rule(routes["help_statistics"], default_view_func=help_statistics)
+    )
 
     @blueprint.before_app_first_request
     def init_menu():

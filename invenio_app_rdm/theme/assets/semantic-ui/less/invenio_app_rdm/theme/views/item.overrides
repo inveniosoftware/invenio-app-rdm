@@ -102,10 +102,11 @@
   .item {
     &.community-item {
       .ui.grid {
-          margin-left: 0.5em !important;
-          width: 100% !important;
-        }
-      .content{
+        margin-left: 0.5em !important;
+        width: 100% !important;
+      }
+
+      .content {
         width: 100% !important;
 
         &.flex.right-column{
@@ -113,7 +114,7 @@
           align-items: end;
         };
       }
-      .extra{
+      .extra {
         @media all and (min-width: @tabletBreakpoint) {
           position: absolute;
           bottom: 0.7em !important;
