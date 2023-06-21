@@ -18,6 +18,7 @@ from invenio_previewer.extensions import default
 from invenio_previewer.proxies import current_previewer
 from invenio_rdm_records.proxies import current_rdm_records
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
+from invenio_records.dictutils import dict_lookup
 from invenio_stats.proxies import current_stats
 from marshmallow import ValidationError
 
@@ -140,19 +141,38 @@ def record_detail(pid_value, record, files, is_preview=False):
         emitter(current_app, record=record._record, via_api=False)
 
     resolved_community, _ = get_record_community(record_ui)
+
+    try:
+        externalDOI = (
+            not current_app.config["RDM_LOCK_FILES_FOR_EXTERNAL_DOI"]
+            and dict_lookup(record, "pids.doi.provider")
+            == current_app.config["RDM_EXTERNAL_DOI_PROVIDER_KEY"]
+        )
+    except KeyError:
+        externalDOI = False
+
     return render_template(
         current_app.config.get("APP_RDM_RECORD_LANDING_PAGE_TEMPLATE"),
         record=record_ui,
         files=files_dict,
         user_communities_memberships=get_user_communities_memberships(),
         permissions=record.has_permissions_to(
-            ["edit", "new_version", "manage", "update_draft", "read_files", "review"]
+            [
+                "edit",
+                "new_version",
+                "manage",
+                "update_draft",
+                "read_files",
+                "review",
+                # "draft_modify_files",
+            ]
         ),
         custom_fields_ui=custom_fields["ui"],
         is_preview=is_preview,
         is_draft=is_draft,
         community=resolved_community,
         external_resources=get_external_resources(record_ui),
+        externalDOI=externalDOI,
     )
 
 

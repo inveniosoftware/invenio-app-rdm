@@ -25,8 +25,14 @@ export class RecordManagement extends Component {
   }
 
   render() {
-    const { record, permissions, isDraft, isPreviewSubmissionRequest, currentUserId } =
-      this.props;
+    const {
+      record,
+      permissions,
+      isDraft,
+      isPreviewSubmissionRequest,
+      currentUserId,
+      externalDOI,
+    } = this.props;
     const { error } = this.state;
     const { id: recid } = record;
 
@@ -59,16 +65,18 @@ export class RecordManagement extends Component {
         )}
         {!isPreviewSubmissionRequest && (
           <>
-            <Grid.Column className="pt-5 pb-5">
-              <NewVersionButton
-                fluid
-                size="medium"
-                record={record}
-                onError={handleError}
-                disabled={!permissions.can_new_version}
-              />
-            </Grid.Column>
-
+            {/*{!permissions?.can_draft_modify_files && (*/}
+            {!externalDOI && (
+              <Grid.Column className="pt-5 pb-5">
+                <NewVersionButton
+                  fluid
+                  size="medium"
+                  record={record}
+                  onError={handleError}
+                  disabled={!permissions.can_new_version}
+                />
+              </Grid.Column>
+            )}
             <Grid.Column className="pt-5">
               {permissions.can_manage && (
                 <ShareButton disabled={!permissions.can_update_draft} recid={recid} />
@@ -100,4 +108,5 @@ RecordManagement.propTypes = {
   isDraft: PropTypes.bool.isRequired,
   isPreviewSubmissionRequest: PropTypes.bool.isRequired,
   currentUserId: PropTypes.string.isRequired,
+  externalDOI: PropTypes.bool, // required?
 };

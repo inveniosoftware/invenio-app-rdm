@@ -30,6 +30,9 @@
   {%- if permissions %}
   <input id="deposits-record-permissions" type="hidden" name="deposits-record-permissions" value='{{permissions | tojson }}'></input>
   {%- endif %}
+  {%- if externalDOI is not none %}
+  <input id="deposits-externalDOI" type="hidden" name="deposits-externalDOI" value='{{ externalDOI | tojson }}'></input>
+  {%- endif %}
   <div id="deposit-form"></div>
 {%- endblock page_body %}
 

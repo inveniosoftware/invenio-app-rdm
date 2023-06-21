@@ -94,7 +94,8 @@ export class RDMDepositForm extends Component {
   sidebarRef = createRef();
 
   render() {
-    const { record, files, permissions, preselectedCommunity } = this.props;
+    const { record, files, permissions, preselectedCommunity, externalDOI } =
+      this.props;
     const customFieldsUI = this.config.custom_fields.ui;
     return (
       <DepositFormApp
@@ -147,6 +148,8 @@ export class RDMDepositForm extends Component {
                       quota={this.config.quota}
                       decimalSizeDisplay={this.config.decimal_size_display}
                       showMetadataOnlyToggle={permissions?.can_manage_files}
+                      // externalDOI={permissions?.can_draft_modify_files}
+                      externalDOI={externalDOI}
                     />
                   </Overridable>
                 </AccordionField>
@@ -659,6 +662,7 @@ RDMDepositForm.propTypes = {
   preselectedCommunity: PropTypes.object,
   files: PropTypes.object,
   permissions: PropTypes.object,
+  externalDOI: PropTypes.bool, // required?
 };
 
 RDMDepositForm.defaultProps = {

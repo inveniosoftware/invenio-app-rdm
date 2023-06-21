@@ -41,6 +41,7 @@ function renderRecordManagement(element) {
           recordManagementAppDiv.dataset.isPreviewSubmissionRequest
         )}
         currentUserId={recordManagementAppDiv.dataset.currentUserId}
+        externalDOI={JSON.parse(recordManagementAppDiv.dataset.externalDoi)}
       />
     </OverridableContext.Provider>,
     element

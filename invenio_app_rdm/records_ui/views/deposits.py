@@ -20,6 +20,7 @@ from invenio_rdm_records.proxies import current_rdm_records
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
 from invenio_rdm_records.services.schemas import RDMRecordSchema
 from invenio_rdm_records.services.schemas.utils import dump_empty
+from invenio_records.dictutils import dict_lookup
 from invenio_search.engine import dsl
 from invenio_vocabularies.proxies import current_service as vocabulary_service
 from invenio_vocabularies.records.models import VocabularyScheme
@@ -376,6 +377,7 @@ def deposit_create(community=None):
                 "manage_record_access",
             ]
         ),
+        externalDOI=False,
     )
 
 
@@ -387,6 +389,15 @@ def deposit_edit(pid_value, draft=None, draft_files=None):
     files_dict = None if draft_files is None else draft_files.to_dict()
     ui_serializer = UIJSONSerializer()
     record = ui_serializer.dump_obj(draft.to_dict())
+
+    try:
+        externalDOI = (
+            not current_app.config["RDM_LOCK_FILES_FOR_EXTERNAL_DOI"]
+            and dict_lookup(record, "pids.doi.provider")
+            == current_app.config["RDM_EXTERNAL_DOI_PROVIDER_KEY"]
+        )
+    except KeyError:
+        externalDOI = False
 
     return render_template(
         current_app.config["APP_RDM_DEPOSIT_FORM_TEMPLATE"],
@@ -400,6 +411,8 @@ def deposit_edit(pid_value, draft=None, draft_files=None):
                 "delete_draft",
                 "manage_files",
                 "manage_record_access",
+                # "draft_modify_files",
             ]
         ),
+        externalDOI=externalDOI,
     )

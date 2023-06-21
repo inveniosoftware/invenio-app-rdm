@@ -21,6 +21,7 @@ ReactDOM.render(
       files={getInputFromDOM("deposits-record-files")}
       config={getInputFromDOM("deposits-config")}
       permissions={getInputFromDOM("deposits-record-permissions")}
+      externalDOI={getInputFromDOM("deposits-externalDOI")}
     />
   </OverridableContext.Provider>,
   document.getElementById("deposit-form")
