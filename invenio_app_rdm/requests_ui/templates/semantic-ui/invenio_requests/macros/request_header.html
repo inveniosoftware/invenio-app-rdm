@@ -29,6 +29,7 @@
   </div>
 
   <h2 class="ui header">{{ request.title }}</h2>
+  <p class="ui header">{{ request.description|safe }}</p>
 
   <div class="ui divider"></div>
 {% endmacro %}
@@ -67,7 +68,7 @@
 
   <div class="rel-mt-2">
     <h2 class="ui header request-header">{{ request.title }}</h2>
-    <h4 class="ui header">{{ request.description|safe }}</h4>
+    <p class="ui header">{{ request.description|safe }}</p>
     {% if record %}
       <dl class="creatibutors" aria-label="{{ _('Creators list') }}">
         {{ show_creatibutors(record.metadata.creators) }}
