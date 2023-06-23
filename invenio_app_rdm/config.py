@@ -54,6 +54,9 @@ from invenio_rdm_records.services.errors import InvalidCommunityVisibility
 from invenio_rdm_records.services.permissions import RDMRequestsPermissionPolicy
 from invenio_rdm_records.services.stats import permissions_policy_lookup_factory
 from invenio_records_resources.references.entity_resolvers import ServiceResultResolver
+from invenio_requests.notifications.builders import (
+    CommentRequestEventCreateNotificationBuilder,
+)
 from invenio_stats.aggregations import StatAggregator
 from invenio_stats.contrib.event_builders import build_file_unique_id
 from invenio_stats.processors import EventsIndexer, anonymize_user, flag_robots
@@ -1140,6 +1143,7 @@ NOTIFICATIONS_BACKENDS = {
 NOTIFICATIONS_BUILDERS = {
     CommunityInclusionSubmittedNotificationBuilder.type: CommunityInclusionSubmittedNotificationBuilder,
     CommunityInvitationSubmittedNotificationBuilder.type: CommunityInvitationSubmittedNotificationBuilder,
+    CommentRequestEventCreateNotificationBuilder.type: CommentRequestEventCreateNotificationBuilder,
 }
 """Notification builders."""
 
