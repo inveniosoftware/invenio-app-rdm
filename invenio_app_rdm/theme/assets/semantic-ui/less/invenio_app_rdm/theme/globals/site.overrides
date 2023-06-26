@@ -49,7 +49,7 @@ body {
   }
 }
 
-button:focus-visible, a:focus-visible, [tabindex="0"]:focus-visible {
+button:focus-visible, a:focus-visible {
   outline: 3px solid @focusedFormBorderColor !important;
 }
 
