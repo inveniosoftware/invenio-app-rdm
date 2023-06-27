@@ -54,11 +54,6 @@ from invenio_stats.aggregations import StatAggregator
 from invenio_stats.contrib.event_builders import build_file_unique_id
 from invenio_stats.processors import EventsIndexer, anonymize_user, flag_robots
 from invenio_stats.queries import TermsQuery
-from invenio_users_resources.services.schemas import (
-    NotificationPreferences,
-    UserPreferencesSchema,
-    UserSchema,
-)
 from invenio_vocabularies.config import (
     VOCABULARIES_DATASTREAM_READERS,
     VOCABULARIES_DATASTREAM_TRANSFORMERS,
@@ -85,9 +80,9 @@ from invenio_vocabularies.contrib.names.datastreams import (
 from invenio_vocabularies.contrib.names.datastreams import (
     VOCABULARIES_DATASTREAM_WRITERS as NAMES_WRITERS,
 )
-from marshmallow import fields
 
-from invenio_app_rdm.theme.views import notification_settings
+from .theme.views import notification_settings
+from .users.schemas import NotificationsUserSchema, UserPreferencesNotificationsSchema
 
 # TODO: Remove when records-rest is out of communities and files
 RECORDS_REST_ENDPOINTS = {}
@@ -276,12 +271,6 @@ This feature will add X-Session-ID and X-User-ID headers to HTTP response. You
 MUST ensure that NGINX (or other proxies) removes these headers again before
 sending the response to the client. Set to False, in case of doubt.
 """
-
-
-class UserPreferencesNotificationsSchema(UserPreferencesSchema):
-    """Schema extending preferences with notification preferences."""
-
-    notifications = fields.Nested(NotificationPreferences)
 
 
 ACCOUNTS_USER_PREFERENCES_SCHEMA = UserPreferencesNotificationsSchema()
@@ -1154,26 +1143,14 @@ NOTIFICATIONS_ENTITY_RESOLVERS = [
 ]
 """List of entity resolvers used by notification builders."""
 
-
-class UserPreferencesNotificationsSchema(UserPreferencesSchema):
-    """Schema extending preferences with notification preferences for model validation."""
-
-    notifications = fields.Nested(NotificationPreferences)
+NOTIFICATIONS_SETTINGS_VIEW_FUNCTION = notification_settings
+"""View function for notification settings."""
 
 
-# Invenio-Notifications
+# Invenio-Users-Resources
 # =================
 # See https://github.com/inveniosoftware/invenio-users-resources/blob/master/invenio_users_resources/config.py  # noqa
 
 
-class NotificationsUserSchema(UserSchema):
-    """Schema extending preferences with notification preferences for user service."""
-
-    preferences = fields.Nested(UserPreferencesNotificationsSchema)
-
-
 USERS_RESOURCES_SERVICE_SCHEMA = NotificationsUserSchema
 """Schema used by the users service."""
-
-NOTIFICATIONS_SETTINGS_VIEW_FUNCTION = notification_settings
-"""View function for notification settings."""
