@@ -631,6 +631,9 @@ Previous invenio-search-ui, now is picked by the instance records/ext.py.
 APP_RDM_DEPOSIT_FORM_TEMPLATE = "invenio_app_rdm/records/deposit.html"
 """Deposit page's form template."""
 
+APP_RDM_DEPOSIT_DEFAULT_FILES_ENABLED = True
+"""Deposit page files enabled value on new records."""
+
 APP_RDM_USER_DASHBOARD_ROUTES = {
     "uploads": "/me/uploads",
     "communities": "/me/communities",
