@@ -16,7 +16,7 @@
         </div>
         <div class="content rel-pl-1">
           <h4 class="header">{{ current_userprofile.full_name or current_user.username }}</h4>
-          <div class="meta">{{ current_userprofile.affiliations }}</div>
+          <div class="meta">{{ current_userprofile.affiliations or "" }}</div>
         </div>
       </div>
     </div>
