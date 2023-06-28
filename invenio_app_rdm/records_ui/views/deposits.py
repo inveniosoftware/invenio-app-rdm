@@ -343,9 +343,7 @@ def get_search_url():
 def new_record():
     """Create an empty record with default values."""
     record = dump_empty(RDMRecordSchema)
-    record["files"] = {
-        "enabled": current_app.config.get("APP_RDM_DEPOSIT_DEFAULT_FILES_ENABLED")
-    }
+    record["files"] = {"enabled": current_app.config.get("RDM_DEFAULT_FILES_ENABLED")}
     if "doi" in current_rdm_records.records_service.config.pids_providers:
         record["pids"] = {"doi": {"provider": "external", "identifier": ""}}
     else:

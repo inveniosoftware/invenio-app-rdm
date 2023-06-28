@@ -7,3 +7,4 @@
 // Tablets/phones were left as-is because they have less screen estate
 @selectionComputerMaxMenuHeight : 575px;
 @selectionWidescreenMaxMenuHeight : 575px;
+@selectionIconPadding: (@selectionIconHitbox / @dropdownIconSize);
