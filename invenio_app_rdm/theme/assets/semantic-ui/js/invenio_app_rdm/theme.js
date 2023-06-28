@@ -84,6 +84,7 @@ $invenioMenu.on("keydown", (event) => {
   }
 });
 
+// Search bar
 const headerSearchbar = document.getElementById("header-search-bar");
 const searchBarOptions = JSON.parse(headerSearchbar.dataset.options);
 

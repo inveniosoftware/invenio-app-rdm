@@ -83,13 +83,17 @@ class RecordsResultsListItem extends Component {
         <Item key={key ?? result.id}>
           <Item.Content>
             <Item.Extra className="labels-actions">
-              <Label size="tiny" className="primary">
+              <Label horizontal size="small" className="primary">
                 {publicationDate} ({version})
               </Label>
-              <Label size="tiny" className="neutral">
+              <Label horizontal size="small" className="neutral">
                 {resourceType}
               </Label>
-              <Label size="tiny" className={`access-status ${accessStatusId}`}>
+              <Label
+                horizontal
+                size="small"
+                className={`access-status ${accessStatusId}`}
+              >
                 {accessStatusIcon && <Icon name={accessStatusIcon} />}
                 {accessStatus}
               </Label>
