@@ -11,7 +11,7 @@ import React, { Component } from "react";
 import { Button, Grid, Icon, Message } from "semantic-ui-react";
 
 import { EditButton } from "./EditButton";
-import { ShareButton } from "./ShareButton";
+import { ShareButton } from "./ShareOptions/ShareButton";
 import { NewVersionButton } from "@js/invenio_rdm_records/";
 import PropTypes from "prop-types";
 import Overridable from "react-overridable";
@@ -25,8 +25,14 @@ export class RecordManagement extends Component {
   }
 
   render() {
-    const { record, permissions, isDraft, isPreviewSubmissionRequest, currentUserId } =
-      this.props;
+    const {
+      record,
+      permissions,
+      isDraft,
+      isPreviewSubmissionRequest,
+      currentUserId,
+      accessLinksSearchConfig,
+    } = this.props;
     const { error } = this.state;
     const { id: recid } = record;
 
@@ -71,7 +77,11 @@ export class RecordManagement extends Component {
 
             <Grid.Column className="pt-5">
               {permissions.can_manage && (
-                <ShareButton disabled={!permissions.can_update_draft} recid={recid} />
+                <ShareButton
+                  disabled={!permissions.can_update_draft}
+                  record={record}
+                  accessLinksSearchConfig={accessLinksSearchConfig}
+                />
               )}
             </Grid.Column>
           </>
@@ -100,4 +110,5 @@ RecordManagement.propTypes = {
   isDraft: PropTypes.bool.isRequired,
   isPreviewSubmissionRequest: PropTypes.bool.isRequired,
   currentUserId: PropTypes.string.isRequired,
+  accessLinksSearchConfig: PropTypes.object.isRequired,
 };

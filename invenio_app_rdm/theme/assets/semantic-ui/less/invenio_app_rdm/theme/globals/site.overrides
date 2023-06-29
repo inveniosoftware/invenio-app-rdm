@@ -426,31 +426,31 @@ dl.details-list {
 
 
 .text-align-center {
-  text-align: center;
+  text-align: center !important;
 }
 
 .text-align-left {
-  text-align: left;
+  text-align: left !important;
 }
 
 .text-align-right {
-  text-align: right;
+  text-align: right !important;
 
   &-mobile {
     @media all and (max-width: @largestMobileScreen) {
-      text-align: right;
+      text-align: right !important;
     }
   }
 
   &-tablet {
     @media all and (min-width: @tabletBreakpoint) and (max-width: @largestTabletScreen) {
-      text-align: right;
+      text-align: right !important;
     }
   }
 
   &-computer {
     @media all and (min-width: @computerBreakpoint) {
-      text-align: right;
+      text-align: right !important;
     }
   }
 }

@@ -84,7 +84,7 @@
 }
 
 @minWidthSmallerScreens: calc(100% + 5rem);
-.members-dropdown-container {
+.members-dropdown-container, .access-dropdown-container {
   .ui.dropdown {
     border: @selectionBorder;
     padding: @selectionVerticalPadding @selectionHorizontalPadding;
@@ -99,7 +99,8 @@
       font-weight: normal;
 
     }
-
+  }
+  .ui.dropdown.floating {
     .dropdown.icon {
       padding-top: 0.25em;
     }
@@ -107,7 +108,7 @@
 
 .action-status-container {
   width: 1em;
-  padding: @selectionVerticalPadding @selectionHorizontalPadding;
+  padding: 0 @selectionHorizontalPadding;
   border-radius: @selectionBorderRadius;
 }
 
