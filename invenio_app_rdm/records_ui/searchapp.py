@@ -57,4 +57,11 @@ def search_app_context():
                 ["membership", "true"],
             ],
         ),
+        "search_app_access_links_config": partial(
+            search_app_config,
+            config_name="RDM_SEARCH",
+            available_facets=current_app.config["RDM_FACETS"],
+            sort_options=current_app.config["RDM_SORT_OPTIONS"],
+            headers={"Accept": "application/json"},
+        ),
     }

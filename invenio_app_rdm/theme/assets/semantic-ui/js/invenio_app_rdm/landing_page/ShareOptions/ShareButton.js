@@ -2,6 +2,7 @@
 // Copyright (C) 2021 CERN.
 // Copyright (C) 2021 Northwestern University.
 // Copyright (C) 2021 Graz University of Technology.
+// Copyright (C) 2023 TU Wien.
 //
 // Invenio RDM Records is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
@@ -12,7 +13,7 @@ import { ShareModal } from "./ShareModal";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import PropTypes from "prop-types";
 
-export const ShareButton = ({ disabled, recid }) => {
+export const ShareButton = ({ disabled, record, accessLinksSearchConfig }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const handleOpen = () => setModalOpen(true);
   const handleClose = () => setModalOpen(false);
@@ -38,14 +39,20 @@ export const ShareButton = ({ disabled, recid }) => {
           </Button>
         }
       />
-      <ShareModal open={modalOpen} handleClose={handleClose} recid={recid} />
+      <ShareModal
+        open={modalOpen}
+        handleClose={handleClose}
+        record={record}
+        accessLinksSearchConfig={accessLinksSearchConfig}
+      />
     </>
   );
 };
 
 ShareButton.propTypes = {
   disabled: PropTypes.bool,
-  recid: PropTypes.string.isRequired,
+  record: PropTypes.object.isRequired,
+  accessLinksSearchConfig: PropTypes.object.isRequired,
 };
 
 ShareButton.defaultProps = {

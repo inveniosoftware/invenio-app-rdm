@@ -42,6 +42,9 @@ function renderRecordManagement(element) {
           recordManagementAppDiv.dataset.isPreviewSubmissionRequest
         )}
         currentUserId={recordManagementAppDiv.dataset.currentUserId}
+        accessLinksSearchConfig={JSON.parse(
+          recordManagementAppDiv.dataset.accessLinksSearchConfig
+        )}
       />
     </OverridableContext.Provider>,
     element
