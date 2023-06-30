@@ -262,6 +262,50 @@
               {%- endif %}
             {%- endblock record_files -%}
 
+            {# Files #}
+            {%- block record_media_files -%}
+              {# record has files BUT passed files are empty. This happens when we display are request. #}
+              {%- if record.media_files.enabled -%}
+                <section id="record-media-files" class="rel-mt-2" aria-label="{{ _('Media files') }}">
+                  <h2 id="files-heading">{{ _('Media files') }}</h2>
+                  {%- if permissions.can_view -%}
+                    {# record has files AND user can see files #}
+                    {%- set media_files = media_files|order_entries %}
+
+{#                    {%- if media_files|has_previewable_files -%}#}
+{#                      {%-set preview_file = media_files|select_preview_file(default_preview=record.media_files.default_preview) %}#}
+{#                      {{ preview_file_box(preview_file, record.id, is_preview, record) }}#}
+{#                    {%- endif -%}#}
+                    {{ file_list_box(media_files, record.id, is_preview, record) }}
+                  {% else %}
+                    {# record has media_files BUT user cannot see media_files #}
+                    <div class="pt-0 pb-20">
+                      <div class="ui accordion panel mb-10 {{ record.ui.access_status.id }}" id="preview"
+                           href="#collapsablePreview">
+                        <div class="active title trigger panel-heading {{ record.ui.access_status.id }}">
+                          {{ _("Media files") }}
+                          <i class="angle down icon"></i>
+                        </div>
+                        <div id="collapsablePreview" class="active content pt-0">
+                          <div class="ui {{ record.ui.access_status.message_class }} message file-box-message">
+                            <i
+                              class="ui {{ record.ui.access_status.icon }} icon"></i><b>{{ record.ui.access_status.title_l10n }}</b>
+                            <p>{{ record.ui.access_status.description_l10n }}</p>
+
+                            {% if record.access.embargo.reason %}
+                              <p>{{ _("Reason") }}: {{ record.access.embargo.reason }}</p>
+                            {% endif %}
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  {%- endif %}
+                  <div class="ui divider rel-mt-2"></div>
+                </section>
+              {%- endif %}
+            {%- endblock record_media_files -%}
+
             {# Additional details #}
             {%- block record_details -%}
               <section id="additional-details" class="rel-mt-2" aria-label="{{ _('Additional record details') }}">
