@@ -31,9 +31,19 @@ def files_service():
     return current_rdm_records.records_service.files
 
 
+def media_files_service():
+    """Get the record files service."""
+    return current_rdm_records.records_media_files_service.files
+
+
 def draft_files_service():
     """Get the record files service."""
     return current_rdm_records.records_service.draft_files
+
+
+def draft_media_files_service():
+    """Get the record files service."""
+    return current_rdm_records.records_media_files_service.draft_files
 
 
 def pass_record_latest(f):
@@ -191,18 +201,23 @@ def pass_record_files(f):
             if is_preview:
                 try:
                     files = draft_files_service().list_files(**read_kwargs)
+                    media_files = draft_media_files_service().list_files(**read_kwargs)
                 except NoResultFound:
                     files = files_service().list_files(**read_kwargs)
+                    media_files = media_files_service().list_files(**read_kwargs)
             else:
                 files = files_service().list_files(**read_kwargs)
+                media_files = media_files_service().list_files(**read_kwargs)
 
             kwargs["files"] = files
+            kwargs["media_files"] = media_files
 
         except PermissionDeniedError:
             # this is handled here because we don't want a 404 on the landing
             # page when a user is allowed to read the metadata but not the
             # files
             kwargs["files"] = None
+            kwargs["media_files"] = None
 
         return f(**kwargs)
 
