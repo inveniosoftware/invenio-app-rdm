@@ -7,7 +7,8 @@
 # Translators:
 # Tibor Simko <tibor.simko@cern.ch>, 2022
 # Bessem Aamira <bessemamira@gmail.com>, 2022
-# Salaheddine Ben Ali <salaheddine.benali@cnudst.tn>, 2022
+# Salaheddine Ben Ali <salaheddine.benali@cnudst.tn>, 2023
+# David Eckhard <dabombeeer@gmail.com>, 2023
 # 
 #, fuzzy
 msgid ""
@@ -16,8 +17,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
 "POT-Creation-Date: 2022-10-12 08:49+0200\n"
 "PO-Revision-Date: 2020-07-07 14:12+0000\n"
-"Last-Translator: Salaheddine Ben Ali <salaheddine.benali@cnudst.tn>, 2022\n"
-"Language-Team: Arabic (https://www.transifex.com/inveniosoftware/teams/23537/ar/)\n"
+"Last-Translator: David Eckhard <dabombeeer@gmail.com>, 2023\n"
+"Language-Team: Arabic (https://app.transifex.com/inveniosoftware/teams/23537/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -190,7 +191,7 @@ msgstr "نشرت"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:184
 msgid "Version {version_number}"
-msgstr "الإصدار {رقم_الإصدار}"
+msgstr "الإصدار {version_number}"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:189
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:24
@@ -448,7 +449,7 @@ msgstr "إفتح رابط خارجي"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:34
 msgid "File preview"
-msgstr "ملف مراجع"
+msgstr "عرض الملف"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:52
 msgid "Name"
@@ -489,15 +490,15 @@ msgid ""
 "files prior to upload). The {scheme_label} is registered when your upload is"
 " published."
 msgstr ""
-"احجز {schem_label} بالضغط على الزر (بحيث يمكن إدراجه في الملفات قبل "
-"التحميل). يتم تسجيل {schem_label} عندما يتم نشر التحميل الخاص بك."
+"احجز {scheme_label} بالضغط على الزر (بحيث يمكن إدراجه في الملفات قبل "
+"التحميل). يتم تسجيل {scheme_label} عندما يتم نشر التحميل الخاص بك."
 
 #: invenio_app_rdm/records_ui/views/deposits.py:68
 msgid ""
 "A {scheme_label} allows your upload to be easily and unambiguously cited. "
 "Example: 10.1234/foo.bar"
 msgstr ""
-"يتيح {schem_label} إمكانية الإستشهاد بالتحميل الخاص بك بسهولة ودون لبس. "
+"يتيح {scheme_label} إمكانية الإستشهاد بالتحميل الخاص بك بسهولة ودون لبس. "
 "مثال: 10.1234 / foo.bar"
 
 #: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/community-invitation/community_dashboard.html:18

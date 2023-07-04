@@ -1,15 +1,16 @@
 # 
 # Translators:
-# Tibor Simko <tibor.simko@cern.ch>, 2022
+# Tibor Simko <tibor.simko@cern.ch>, 2021
 # Sam Arbid, 2022
+# Rim Sharif, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2022-10-12T06:58:21.832Z\n"
 "PO-Revision-Date: 2021-07-14 16:07+0000\n"
-"Last-Translator: Sam Arbid, 2022\n"
-"Language-Team: Swedish (https://www.transifex.com/inveniosoftware/teams/23537/sv/)\n"
+"Last-Translator: Rim Sharif, 2023\n"
+"Language-Team: Swedish (https://app.transifex.com/inveniosoftware/teams/23537/sv/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sv\n"
@@ -29,7 +30,7 @@ msgid "Files"
 msgstr "Filer"
 
 msgid "The record has no files."
-msgstr "Rekorden har inga filer."
+msgstr "Posten har inga filer."
 
 msgid "Creators"
 msgstr "Skapare"
@@ -77,7 +78,7 @@ msgid "View all {{total}} versions"
 msgstr "Visa alla {{total}} versioner"
 
 msgid "You don't have permissions to share this record."
-msgstr "Du har inte behörighet att dela denna rekord."
+msgstr "Du har inte behörighet att dela denna post."
 
 msgid "Share"
 msgstr "Dela"
@@ -92,7 +93,7 @@ msgid "Can edit"
 msgstr "Kan redigera"
 
 msgid "Get a link"
-msgstr "Skaffa en länk"
+msgstr "Få en länk"
 
 msgid "Copy link"
 msgstr "Kopiera länk"
@@ -106,13 +107,13 @@ msgstr "Klart"
 msgid ""
 "Anyone with this link <1>can view all versions</1> of this record & files."
 msgstr ""
-"Någon med denna länk <1>kan se alla versioner</1> av denna rekord och filer."
+"Alla med denna länk <1>kan se alla versioner</1> av denna post och filer."
 
 msgid ""
 "Anyone with this link <2>can view all published and unpublished versions</2>"
 " of this record & files."
 msgstr ""
-"Någon med denna länk <2>kan se alla publicerade och opublicerade "
+"Alla med denna länk <2>kan se alla publicerade och opublicerade "
 "versioner</2> av denna post och filer."
 
 msgid "Uploaded on"
@@ -125,7 +126,7 @@ msgid "Search guide"
 msgstr "Sökguide"
 
 msgid "result(s) found"
-msgstr "resultat(s) hittades"
+msgstr "resultat hittades"
 
 msgid "Sort by"
 msgstr "Sortera efter"
@@ -245,7 +246,7 @@ msgid ""
 "record & files."
 msgstr ""
 "Alla med ett konto och denna länk <1>kan redigera alla versioner</1> av "
-"denna rekord och filer."
+"denna post och filer."
 
 msgid "Search records..."
 msgstr "Sök rekord..."
@@ -272,7 +273,7 @@ msgid "Search in my requests..."
 msgstr "Sök i mina förfrågningar..."
 
 msgid "Actions"
-msgstr "Aktioner"
+msgstr "Åtgärder"
 
 msgid "open"
 msgstr "öppna"

@@ -6,7 +6,8 @@
 # 
 # Translators:
 # Tibor Simko <tibor.simko@cern.ch>, 2020
-# Andrea Dömötör, 2022
+# Dorottya Szemigán, 2023
+# Andrea Dömötör, 2023
 # 
 #, fuzzy
 msgid ""
@@ -15,8 +16,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
 "POT-Creation-Date: 2022-10-12 08:49+0200\n"
 "PO-Revision-Date: 2020-07-07 14:12+0000\n"
-"Last-Translator: Andrea Dömötör, 2022\n"
-"Language-Team: Hungarian (https://www.transifex.com/inveniosoftware/teams/23537/hu/)\n"
+"Last-Translator: Andrea Dömötör, 2023\n"
+"Language-Team: Hungarian (https://app.transifex.com/inveniosoftware/teams/23537/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -26,7 +27,7 @@ msgstr ""
 
 #: invenio_app_rdm/config.py:159
 msgid "The turn-key research data management repository"
-msgstr ""
+msgstr "A kész kutatási adatkezelési tárház"
 
 #: invenio_app_rdm/config.py:174
 msgid "InvenioRDM"
@@ -667,7 +668,7 @@ msgstr "Mi következik?"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/frontpage.html:27
 msgid "Configure"
-msgstr "Beállítások"
+msgstr "Konfigurálás"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/frontpage.html:29
 #, python-format

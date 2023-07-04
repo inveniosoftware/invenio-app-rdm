@@ -7,6 +7,7 @@
 # Translators:
 # Tibor Simko <tibor.simko@cern.ch>, 2022
 # Sam Arbid, 2022
+# Rim Sharif, 2023
 # 
 #, fuzzy
 msgid ""
@@ -15,8 +16,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
 "POT-Creation-Date: 2022-10-12 08:49+0200\n"
 "PO-Revision-Date: 2020-07-07 14:12+0000\n"
-"Last-Translator: Sam Arbid, 2022\n"
-"Language-Team: Swedish (https://www.transifex.com/inveniosoftware/teams/23537/sv/)\n"
+"Last-Translator: Rim Sharif, 2023\n"
+"Language-Team: Swedish (https://app.transifex.com/inveniosoftware/teams/23537/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -123,11 +124,11 @@ msgstr "Begränsad"
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:19
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:84
 msgid "Preview"
-msgstr "Förhandsvisa"
+msgstr "Förhandsgranska"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:81
 msgid "You are previewing a published record."
-msgstr "Du förhandsgranskar en publicerad rekord."
+msgstr "Du förhandsgranskar en publicerad post."
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:83
 msgid "You are previewing changes that have not yet been published."
@@ -140,8 +141,7 @@ msgstr "Du förhandsgranskar en ny post som ännu inte har publicerats."
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:87
 msgid ""
 "You are previewing a new record version that has not yet been published."
-msgstr ""
-"Du förhandsgranskar en ny rekordversion som ännu inte har publicerats."
+msgstr "Du förhandsgranskar en ny postversion som ännu inte har publicerats."
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:102
 #, python-format
@@ -151,7 +151,7 @@ msgid ""
 "                  "
 msgstr ""
 "\n"
-"                    Det finns en %(link_start)snyare version%(link_end)s av det tillgängliga rekordet\n"
+"                    Det finns en %(link_start)snyare version%(link_end)s av den tillgängliga posten\n"
 "                  "
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:124
@@ -162,7 +162,7 @@ msgstr "Registrera åtkomstinformation"
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:262
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:115
 msgid "Reason"
-msgstr "Anledning"
+msgstr "Orsak"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:143
 msgid "Back-navigation"
@@ -174,7 +174,7 @@ msgstr "Tillbaka till redigering"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:161
 msgid "Manage record"
-msgstr "Hantera rekord"
+msgstr "Hantera post"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:176
 msgid "Publication date and version number"
@@ -212,7 +212,7 @@ msgstr "Skapare och bidragsgivare"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:224
 msgid "Record citations"
-msgstr "Rekord citeringar"
+msgstr "Postciteringar"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:235
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:238
@@ -223,12 +223,12 @@ msgstr "Filer"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:277
 msgid "Additional record details"
-msgstr "Ytterligare rekorddetaljer"
+msgstr "Ytterligare postdetaljer"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:290
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:16
 msgid "Record details"
-msgstr "Rekord detaljer"
+msgstr "Postdetaljer"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:303
 msgid "Upload information"
@@ -279,8 +279,8 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Rekorden du försöker komma åt togs bort från %(sitename)s. Den \n"
-"metadata i rekorden bevaras för arkivändamål.\n"
+"    Posten du försöker komma åt togs bort från %(sitename)s. Postens\n"
+"metadata bevaras för arkivändamål.\n"
 "  "
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/tombstone.html:21
@@ -302,7 +302,7 @@ msgstr "Bidragsgivare lista"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/description.html:14
 msgid "Record description"
-msgstr "Rekord beskrivning"
+msgstr "Postbeskrivning"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/description.html:15
 msgid "Description"
@@ -365,7 +365,7 @@ msgstr "Detaljer"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:26
 msgid "Publisher"
-msgstr "Bokförläggare"
+msgstr "Förlag"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:27
 msgid "Languages"
@@ -404,7 +404,7 @@ msgstr "Rättigheter"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/licenses.html:52
 msgid "Close"
-msgstr "Stänga"
+msgstr "Stäng"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/licenses.html:56
 msgid "No further description."
@@ -412,11 +412,11 @@ msgstr "Ingen ytterligare beskrivning."
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/manage_menu.html:10
 msgid "Record management"
-msgstr "Rekordhantering"
+msgstr "Hantera post"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/versions.html:11
 msgid "Record versions"
-msgstr "Rekord versioner"
+msgstr "Postversioner"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/versions.html:12
 msgid "Versions"
@@ -428,20 +428,20 @@ msgstr "Versioner"
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:88
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:89
 msgid "profile"
-msgstr "Profil"
+msgstr "profil"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:71
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:75
 msgid "Show affiliations"
-msgstr "Visa tillhörigheter"
+msgstr "Visa affilieringar"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:72
 msgid "Hide affiliations"
-msgstr "Dölj tillhörigheter"
+msgstr "Dölj affilieringar"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:79
 msgid "Affiliations for"
-msgstr "Tillhörigheter för"
+msgstr "Affilieringar för"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:102
 msgid "Open external link"
@@ -462,7 +462,7 @@ msgstr "Storlek"
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:54
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:41
 msgid "Actions"
-msgstr "Aktioner"
+msgstr "Åtgärder"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:74
 msgid ""
@@ -517,7 +517,7 @@ msgstr "Konversation"
 
 #: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/community-submission/index.html:54
 msgid "Record"
-msgstr "Rekord"
+msgstr "Post"
 
 #: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/macros/request_header.html:19
 msgid "View Community"
@@ -525,7 +525,7 @@ msgstr "Visa Community"
 
 #: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/macros/request_header.html:53
 msgid "View record"
-msgstr "Visa rekord"
+msgstr "Visa post"
 
 #: invenio_app_rdm/theme/views.py:39
 msgid "My dashboard"
@@ -613,7 +613,7 @@ msgid ""
 "              "
 msgstr ""
 "\n"
-"              <p><a href=\"%(invenio_rdm_docs_site)s\">Documentation</a></p>\n"
+"              <p><a href=\"%(invenio_rdm_docs_site)s\">Dokumentation</a></p>\n"
 "              "
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:45
@@ -628,7 +628,7 @@ msgid ""
 "              "
 msgstr ""
 "\n"
-"              <p><a href=\"%(invenio_rdm_chatroom)s\">Chatroom</a></p>\n"
+"              <p><a href=\"%(invenio_rdm_chatroom)s\">Chattrum</a></p>\n"
 "              "
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:49
@@ -664,7 +664,7 @@ msgstr ""
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/frontpage.html:19
 msgid "You've successfully installed InvenioRDM!"
-msgstr "Du har framgångsrikt installerat InvenioRDM!"
+msgstr "Du har installerat InvenioRDM!"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/frontpage.html:21
 msgid "What is ahead?"
@@ -700,7 +700,7 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"              Anpassa layouten och anpassa stylingen för att matcha din institutions. Se hur du gör det <a\n"
+"              Anpassa layouten och anpassa stilen för att matcha din institution. Se hur du gör det <a\n"
 "              href=\"%(configuration_link)s\" target=\"_blank\">här</a>.\n"
 "            "
 
@@ -741,7 +741,7 @@ msgstr "Stäng menyn"
 #: invenio_app_rdm/users_ui/templates/semantic-ui/invenio_app_rdm/users/requests.html:8
 #: invenio_app_rdm/users_ui/views/ui.py:83
 msgid "Requests"
-msgstr "Begäran"
+msgstr "Förfrågningar"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header.html:105
 msgid "Inbox"
@@ -753,7 +753,7 @@ msgstr "Logga in"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:21
 msgid "Sign up"
-msgstr "Skriva upp"
+msgstr "Registrera konto"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:59
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:100
@@ -768,12 +768,12 @@ msgstr "Logga ut"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/searchbar.html:6
 msgid "In this community"
-msgstr "I det här samhället"
+msgstr "I denna community"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/searchbar.html:11
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/searchbar.html:19
 msgid "All"
-msgstr "Allt"
+msgstr "Alla"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/help/search.de.html:9
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/help/search.en.html:8
