@@ -1,14 +1,15 @@
 # 
 # Translators:
 # Tibor Simko <tibor.simko@cern.ch>, 2021
+# Vasyl Ostrovskyi <vasyusya@yahoo.com>, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2022-10-12T06:58:21.832Z\n"
 "PO-Revision-Date: 2021-07-14 16:07+0000\n"
-"Last-Translator: Tibor Simko <tibor.simko@cern.ch>, 2021\n"
-"Language-Team: Ukrainian (https://www.transifex.com/inveniosoftware/teams/23537/uk/)\n"
+"Last-Translator: Vasyl Ostrovskyi <vasyusya@yahoo.com>, 2023\n"
+"Language-Team: Ukrainian (https://app.transifex.com/inveniosoftware/teams/23537/uk/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: uk\n"
@@ -16,255 +17,263 @@ msgstr ""
 "mime-version: 1.0\n"
 
 msgid "Basic information"
-msgstr ""
+msgstr "Загальна інформація"
 
 msgid "Copy to clipboard"
-msgstr ""
+msgstr "Копіювати до буферу"
 
 msgid "Copied!"
-msgstr ""
+msgstr "Скопійовано!"
 
 msgid "Files"
-msgstr ""
+msgstr "Файли"
 
 msgid "The record has no files."
-msgstr ""
+msgstr "Запис на містить файлів"
 
 msgid "Creators"
-msgstr ""
+msgstr "Автори"
 
 msgid "Recommended information"
-msgstr ""
+msgstr "Рекомендована інформація"
 
 msgid "Add contributor"
-msgstr ""
+msgstr "Додати учасника"
 
 msgid "Contributors"
-msgstr ""
+msgstr "Учасники"
 
 msgid "Alternate identifiers"
-msgstr ""
+msgstr "Альтернативні ідентифікатори"
 
 msgid "Related works"
-msgstr ""
+msgstr "Пов'язані праці"
 
 msgid "Visibility"
-msgstr ""
+msgstr "Видимість"
 
 msgid "Edit"
-msgstr ""
+msgstr "Редагувати"
 
 msgid "An error occurred while generating the citation."
-msgstr ""
+msgstr "При створенні цитування виникла помилка."
 
 msgid "Citation"
-msgstr ""
+msgstr "Цитування"
 
 msgid "Style"
-msgstr ""
+msgstr "Стиль"
 
 msgid "Version"
-msgstr ""
+msgstr "Версія"
 
 msgid "Preview"
-msgstr ""
+msgstr "Попередній перегляд"
 
 msgid "Only published versions are displayed."
-msgstr ""
+msgstr "Показуються лише опубліковані версії."
 
 msgid "View all {{total}} versions"
-msgstr ""
+msgstr "Переглянути усі {{total}} версії"
 
 msgid "You don't have permissions to share this record."
-msgstr ""
+msgstr "Ви не маєте повноважень поширювати цей запис."
 
 msgid "Share"
-msgstr ""
+msgstr "Поширити"
 
 msgid "Can view"
-msgstr ""
+msgstr "Дозвіл на перегляд"
 
 msgid "Can preview"
-msgstr ""
+msgstr "Дозвіл на попередній перегляд"
 
 msgid "Can edit"
-msgstr ""
+msgstr "Дозвіл на редагування"
 
 msgid "Get a link"
-msgstr ""
+msgstr "Отримати посилання"
 
 msgid "Copy link"
-msgstr ""
+msgstr "Копіювати посилання"
 
 msgid "Delete link"
-msgstr ""
+msgstr "Видалити посилання"
 
 msgid "Done"
-msgstr ""
+msgstr "Готово"
 
 msgid ""
 "Anyone with this link <1>can view all versions</1> of this record & files."
 msgstr ""
+"За цим посиланням будь-хто <1>може переглядати усі версії</1> цього запису "
+"та відповідні файли."
 
 msgid ""
 "Anyone with this link <2>can view all published and unpublished versions</2>"
 " of this record & files."
 msgstr ""
+"За цим посиланням будь-хто <2>може переглядати усі опубліковані та "
+"неопубліковані версії</2> цього запису та відповідні файли."
 
 msgid "Uploaded on"
-msgstr ""
+msgstr "Завантажено"
 
 msgid "Search"
 msgstr "Пошук"
 
 msgid "Search guide"
-msgstr ""
+msgstr "Посібник з пошуку"
 
 msgid "result(s) found"
-msgstr ""
+msgstr "результат(ів) знайдено"
 
 msgid "Sort by"
-msgstr ""
+msgstr "Впорядкувати за"
 
 msgid "View"
-msgstr ""
+msgstr "Переглянути"
 
 msgid "New community"
-msgstr ""
+msgstr "Нова спільнота"
 
 msgid "Get started!"
-msgstr ""
+msgstr "Розпочніть!"
 
 msgid "Open"
-msgstr ""
+msgstr "Відкриті"
 
 msgid "Closed"
-msgstr ""
+msgstr "Закриті"
 
 msgid "All done!"
-msgstr ""
+msgstr "Все зроблено!"
 
 msgid "You've caught up with all open requests."
-msgstr ""
+msgstr "Ви розібралсь з усіма відкритими запитами"
 
 msgid "No creation date found."
-msgstr ""
+msgstr "Не знайдено дату створення"
 
 msgid "No description"
-msgstr ""
+msgstr "Опис відсутній"
 
 msgid "No publication date found."
-msgstr ""
+msgstr "Не знайдено дати публікації."
 
 msgid "No resource type"
-msgstr ""
+msgstr "Не вказано тип ресурсу"
 
 msgid "No title"
-msgstr ""
+msgstr "Не вказано назву"
 
 msgid "Make your first upload!"
-msgstr ""
+msgstr "Зробіть перший внесок до репозитарію!"
 
 msgid "New upload"
-msgstr ""
+msgstr "Нове завантаження"
 
 msgid "ORCID profile"
-msgstr ""
+msgstr "Профіль ORCID"
 
 msgid "ROR profile"
-msgstr ""
+msgstr "Профіль ROR"
 
 msgid "GND profile"
-msgstr ""
+msgstr "Профіль GND"
 
 msgid "No communities found!"
-msgstr ""
+msgstr "Не знайдено жодної спільноти!"
 
 msgid "No requests found!"
-msgstr ""
+msgstr "Не знайдено жодного запиту!"
 
 msgid "Copied"
-msgstr ""
+msgstr "Скопійовано"
 
 msgid "Reset search"
-msgstr ""
+msgstr "Скинути пошук"
 
 msgid "We couldn't find any matches for "
-msgstr ""
+msgstr "Ми не знайшли жодних збігів для "
 
 msgid "your search"
-msgstr ""
+msgstr "вашого пошуку"
 
 msgid "Start over"
-msgstr ""
+msgstr "Розпочати заново"
 
 msgid "ProTip"
-msgstr ""
+msgstr "Порада"
 
 msgid "For more tips, check out our "
-msgstr ""
+msgstr "Для отримання інших порад перегляньте"
 
 msgid "search guide"
-msgstr ""
+msgstr "посібник з пошуку"
 
 msgid "Export"
-msgstr ""
+msgstr "Експортувати"
 
 msgid "Filter results"
-msgstr ""
+msgstr "Фільтрувати результати"
 
 msgid "In review"
-msgstr ""
+msgstr "На розгляді"
 
 msgid "Declined"
-msgstr ""
+msgstr "Відхилено"
 
 msgid "Expired"
-msgstr ""
+msgstr "Застаріло"
 
 msgid "Draft"
-msgstr ""
+msgstr "Чернетка"
 
 msgid "New version draft"
-msgstr ""
+msgstr "Чернетка нової версії"
 
 msgid "Download file"
-msgstr ""
+msgstr "Завантажити файл"
 
 msgid "No link has been created. Click on 'Get a Link' to make a new link."
 msgstr ""
+"Посилання ще не створено. Натисніть \"Отримати посилання\", щоб створити "
+"нове посилання."
 
 msgid ""
 "Anyone with an account and this link <1>can edit all versions</1> of this "
 "record & files."
 msgstr ""
+"За цим посиланням будь-хто <1>може редагувати усі версії</1> цього запису та"
+" відповідні файли."
 
 msgid "Search records..."
-msgstr ""
+msgstr "Шукати записи..."
 
 msgid "will give you all the publications from 2017 until today."
-msgstr ""
+msgstr "видасть усі публікації з 2017 року до сьогодні."
 
 msgid " for defining advanced search queries."
-msgstr ""
+msgstr "для стовення складних пошукових запитів."
 
 msgid "Public"
-msgstr ""
+msgstr "Публічний"
 
 msgid "Restricted"
-msgstr ""
+msgstr "Обмежений доступ"
 
 msgid "Search in my communities..."
-msgstr ""
+msgstr "Шукати в моїх спільнотах..."
 
 msgid "Opened {{difference}} by"
 msgstr ""
 
 msgid "Search in my requests..."
-msgstr ""
+msgstr "Шукати в моїх запитах..."
 
 msgid "Actions"
-msgstr ""
+msgstr "Дії"
 
 msgid "open"
 msgstr ""
@@ -273,4 +282,4 @@ msgid "unlock"
 msgstr ""
 
 msgid "Search in my uploads..."
-msgstr ""
+msgstr "Шукати в моїх завантаженнях..."
