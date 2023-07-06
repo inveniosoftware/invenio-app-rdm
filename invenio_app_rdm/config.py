@@ -48,6 +48,7 @@ from invenio_rdm_records.services.communities.components import (
     CommunityServiceComponents,
 )
 from invenio_rdm_records.services.errors import InvalidCommunityVisibility
+from invenio_rdm_records.services.permissions import RDMRequestsPermissionPolicy
 from invenio_rdm_records.services.stats import permissions_policy_lookup_factory
 from invenio_records_resources.references.entity_resolvers import ServiceResultResolver
 from invenio_stats.aggregations import StatAggregator
@@ -359,6 +360,10 @@ CELERY_BEAT_SCHEDULE = {
     "clear-cache": {
         "task": "invenio_communities.tasks.clear_cache",
         "schedule": crontab(minute=0, hour=1),  # Every day at 01:00 UTC
+    },
+    "clean-access-request-tokens": {
+        "task": "invenio_rdm_records.requests.access.tasks.clean_expired_request_access_tokens",
+        "schedule": crontab(minute=4, hour=0),
     },
 }
 """Scheduled tasks configuration (aka cronjobs)."""
@@ -1154,3 +1159,12 @@ NOTIFICATIONS_SETTINGS_VIEW_FUNCTION = notification_settings
 
 USERS_RESOURCES_SERVICE_SCHEMA = NotificationsUserSchema
 """Schema used by the users service."""
+
+
+# Invenio-Requests
+# =================
+# See https://github.com/inveniosoftware/invenio-requests/blob/master/invenio_requests/config.py  # noqa
+
+
+REQUESTS_PERMISSION_POLICY = RDMRequestsPermissionPolicy
+"""The requests permission policy, extended to work with guest access requests."""
