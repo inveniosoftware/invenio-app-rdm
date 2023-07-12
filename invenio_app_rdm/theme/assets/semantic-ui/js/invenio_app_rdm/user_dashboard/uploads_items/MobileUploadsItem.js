@@ -47,17 +47,17 @@ export const MobileUploadsItem = ({
       <Item.Content className="centered">
         <Item.Extra className="labels-actions">
           {result.status in statuses && result.status !== "published" && (
-            <Label size="tiny" className={statuses[result.status].color}>
+            <Label horizontal size="small" className={statuses[result.status].color}>
               {statuses[result.status].title}
             </Label>
           )}
-          <Label size="tiny" className="primary">
+          <Label horizontal size="small" className="primary">
             {publicationDate} ({version})
           </Label>
-          <Label size="tiny" className="neutral">
+          <Label horizontal size="small" className="neutral">
             {resourceType}
           </Label>
-          <Label size="tiny" className={`access-status ${accessStatusId}`}>
+          <Label horizontal size="small" className={`access-status ${accessStatusId}`}>
             <i className={`icon ${accessStatusIcon}`} />
             {accessStatus}
           </Label>
