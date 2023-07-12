@@ -9,7 +9,6 @@
 
 {%- set id_doi = record.pids.get('doi', {}).get('identifier') %}
 {% if id_doi %}
-<dl>
   <dt class="ui tiny header">{{_('DOI')}}</dt>
   <dd>
     <span class="get-badge" data-toggle="tooltip" data-placement="bottom" style="cursor: pointer;"
@@ -32,5 +31,4 @@
       </div>
     </div>
   </dd>
-</dl>
 {% endif %}
