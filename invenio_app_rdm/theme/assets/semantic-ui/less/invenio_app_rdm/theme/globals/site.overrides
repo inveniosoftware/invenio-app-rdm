@@ -291,14 +291,24 @@ dd {
 }
 
 dl.details-list {
-  margin: 1.5rem 0;
+  margin-top: .5rem;
 
   &:last-child {
     margin-bottom: 0;
   }
 
-  dt.ui.tiny.header {
-    margin-bottom: 0.5rem;
+  dt {
+    &.ui.tiny.header {
+      margin-bottom: 0.2rem;
+
+      &:not(:first-child) {
+        margin-top: 1rem;
+      }
+    }
+
+    &.hidden {
+      display: none;
+    }
   }
 
   dd {

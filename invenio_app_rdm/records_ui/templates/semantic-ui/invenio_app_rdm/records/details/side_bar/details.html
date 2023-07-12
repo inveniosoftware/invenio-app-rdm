@@ -16,11 +16,10 @@
   <h2 class="ui medium top attached header mt-0">{{ _('Details')}}</h2>
   <div id="record-details" class="ui segment bottom attached rdm-sidebar">
 
-    {% if id_doi %}
-      {%- include "invenio_app_rdm/records/details/doi.html" %}
-    {% endif %}
-
-    <dl class="details-list mt-0">
+    <dl class="details-list">
+      {% if id_doi %}
+        {%- include "invenio_app_rdm/records/details/doi.html" %}
+      {% endif %}
       {{ show_detail(_('Resource type'), record.ui.resource_type.title_l10n) if record.ui.resource_type }}
       {{ show_detail(_('Publication date'), record.ui.publication_date_l10n) if record.ui.publication_date_l10n }}
       {{ show_detail(_('Publisher'), metadata.publisher) if metadata.publisher }}

@@ -35,9 +35,13 @@ export class RecordCommunitiesList extends Component {
       );
     } else if (_isEmpty(communities)) {
       Element = (
-        <Message info>
-          {i18next.t("This record is not included in any communities yet.")}
-        </Message>
+        <p>
+          <i>
+            <small>
+              {i18next.t("This record is not included in any communities yet.")}
+            </small>
+          </i>
+        </p>
       );
     } else if (communities?.length > 0) {
       const communityItems = communities

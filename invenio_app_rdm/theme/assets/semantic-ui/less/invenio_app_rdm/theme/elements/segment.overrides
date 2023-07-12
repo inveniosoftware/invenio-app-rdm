@@ -61,10 +61,6 @@
 
     dl.details-list {
       margin-top: 0;
-
-      dt.hidden {
-        display: none;
-      }
     }
   }
 
