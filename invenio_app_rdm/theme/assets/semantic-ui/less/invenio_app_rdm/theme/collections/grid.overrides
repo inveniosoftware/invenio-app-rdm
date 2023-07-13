@@ -10,11 +10,6 @@
     background-color: @highlightHeaderColor;
   }
 
-  .column.community-header {
-    align-items: center;
-    display: flex;
-  }
-
   &.record-citation {
     border-top: 1px solid @borderColor;
     border-bottom: 1px solid @borderColor;

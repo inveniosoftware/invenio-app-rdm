@@ -33,10 +33,6 @@
   align-items: center;
   display: flex;
 
-  @media all and (max-width: @largestMobileScreen) {
-      justify-content: center;
-  }
-
   &.compact {
     height: 3em;
   }

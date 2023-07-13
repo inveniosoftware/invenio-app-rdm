@@ -46,6 +46,7 @@
 
 .ui.image.community-image img {
   max-height: @tinyWidth;
+  min-width: @tinyWidth;
   object-fit: contain;
 }
 
@@ -77,6 +78,7 @@
 
 .ui.image.community-header-logo {
   height: inherit;
+  max-width: @tinyWidth;
   object-fit: contain;
 }
 
