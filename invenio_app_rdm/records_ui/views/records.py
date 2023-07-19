@@ -242,13 +242,13 @@ def record_file_download(pid_value, file_item=None, is_preview=False, **kwargs):
 @pass_record_latest
 def record_latest(record=None, **kwargs):
     """Redirect to record'd latest version page."""
-    return redirect(record["links"]["self_html"], code=301)
+    return redirect(record["links"]["self_html"], code=302)
 
 
 @pass_record_from_pid
 def record_from_pid(record=None, **kwargs):
     """Redirect to record'd latest version page."""
-    return redirect(record["links"]["self_html"], code=301)
+    return redirect(record["links"]["self_html"], code=302)
 
 
 #
