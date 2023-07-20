@@ -53,6 +53,9 @@ def create_blueprint(app):
     blueprint.add_url_rule(
         **create_url_rule(routes["help_statistics"], default_view_func=help_statistics)
     )
+    blueprint.add_url_rule(
+        **create_url_rule(routes["help_versioning"], default_view_func=help_versioning)
+    )
 
     @blueprint.before_app_first_request
     def init_menu():
@@ -111,6 +114,18 @@ def help_statistics():
         [
             f"invenio_app_rdm/help/statistics.{locale}.html",
             "invenio_app_rdm/help/statistics.en.html",
+        ]
+    )
+
+
+def help_versioning():
+    """DOI versioning help guide."""
+    # Default to rendering english page if locale page not found.
+    locale = get_locale()
+    return render_template(
+        [
+            f"invenio_app_rdm/help/versioning.{locale}.html",
+            "invenio_app_rdm/help/versioning.en.html",
         ]
     )
 

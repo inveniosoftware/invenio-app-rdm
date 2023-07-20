@@ -1,0 +1,149 @@
+{#
+  Copyright (C) 2021-2023 CERN.
+  Copyright (C) 2021 Northwestern University.
+
+  Invenio App RDM is free software; you can redistribute it and/or modify it
+  under the terms of the MIT License; see LICENSE file for more details.
+#}
+{%- set title = _("FAQ versioning") %}
+{%- extends config.BASE_TEMPLATE %}
+
+{%- block page_body %}
+  <div class="ui two column grid container rel-mt-2">
+    <div class="ui row">
+      <div class="ui sixteen wide column">
+        <h2 id="versioning">DOI versioning</h2>
+      </div>
+      <div class="ui eight wide column">
+        <h5>
+          <p>What is DOI versioning?</p>
+        </h5>
+        <p>DOI versioning allows you to:</p>
+        <ul>
+          <li>edit/update the record’s files after they have been published.</li>
+          <li>cite a specific version of a record.</li>
+          <li>cite all of versions of a record.</li>
+        </ul>
+        <h5>
+          <p>How does DOI versioning work?</p>
+        </h5>
+        <p>
+          When you publish an upload for the first time, we register two DOIs:
+        </p>
+        <ul>
+          <li>
+            a DOI representing the <strong>specific version</strong> of your record.
+          </li>
+          <li>
+            a DOI representing <strong>all of the versions</strong> of your record.
+          </li>
+        </ul>
+        <p>Afterwards, we register a DOI for every new version of your upload.</p>
+        <p>
+          This is best illustrated by an example of a software package. If the
+          software has been released in two versions (v1.0 and v1.1), then
+          the following DOIs would have been registered:
+        </p>
+        <ul>
+          <li><strong>v1.0 (specific version):</strong> 10.1234/7s0da-05p39</li>
+          <li><strong>v1.1 (specific version):</strong> 10.1234/chc5z-w0r30</li>
+          <li><strong>Concept (all versions):</strong> 10.1234/3s67k-pd636</li>
+        </ul>
+        <p>
+          The first two DOIs for versions <strong>v1.0</strong> and
+          <strong>v.1.1</strong> represent the specific versions of the software.
+          The last DOI represents all the versions of the given software package,
+          i.e. the concept of the software package and the ensemble of versions. We
+          therefore also call the them <strong>Version DOIs</strong> and
+          <strong>Concept DOIs</strong> (note, technically both are just normal
+          DOIs).
+        </p>
+        <p>
+          You may notice that the version DOIs do not include a “.v1”-suffix. Read
+          below to find out why.
+        </p>
+        <h5>
+          <p>Which DOI should I use in citations?</p>
+        </h5>
+        <p>
+          You should normally always use the DOI for the
+          <strong>specific version</strong> of your record in citations. This is to
+          ensure that other researchers can access the
+          <strong>exact</strong> research artefact you used for reproducibility. By
+          default, we use the specific version to generate citations.
+        </p>
+        <p>
+          You can use the Concept DOI representing all versions in citations when it
+          is desirable to cite an evolving research artifact, without being specific
+          about the version.
+        </p>
+        <h5>
+          <p>Where does the Concept DOI resolve to?</p>
+        </h5>
+        <p>
+          The Concept DOI resolves to the landing page of the latest
+          version of your record.
+        </p>
+      </div>
+      <div class="ui eight wide column">
+        <h5>
+          <p>
+            I only want to change the title of my upload, do I still get a new DOI?
+          </p>
+        </h5>
+        <p>
+          No, you can continue to edit the metadata of your upload without
+          creating a new version of a record. You should only create a new version
+          if you want to update the files of your record.
+        </p>
+
+        <h5>
+          <p>Why don’t the DOIs have a version number suffix like “.v1”?</p>
+        </h5>
+        <p>
+          Including semantic information such as the version number in a DOI is bad
+          practice, because this information may change over time, while DOIs must
+          remain persistent and should not change.
+        </p>
+        <p>
+          Moreover, DOI versioning is linear, which means that the version number may
+          in fact not be the real version number of the resource.
+          Take for instance software, where it is common practice to have dot
+          versions and make new releases in a non-linear order (e.g. first v1.0,
+          then v1.1, then v2.0, then v1.2).
+        </p>
+        <p>
+          The versioning suffix is also not a functionality of the DOI system, i.e.
+          adding .v2 to a DOI will not resolve to version 2 of a resource for any DOI
+          from any provider. Different providers also use different patterns such as
+          e.g. .v2, .2, /2.
+        </p>
+        <p>
+          Most importantly, version suffixes are not machine readable. A discovery
+          system that understands DOIs, will not know that .v1 and .v2 of a DOI are
+          in fact two versions of the same resource.
+        </p>
+        <p>
+          A better solution to this problem is to semantically link two DOIs in the
+          metadata of a DOI. This ensures that discovery systems have a
+          machine-readable way to discover that two DOIs are versions of the same
+          resource.
+        </p>
+        <p>
+          See also <a href="https://doi.org/10.5438/55E5-T5C0">Cool DOIs</a> for
+          further information.
+        </p>
+
+        <h5>
+          <p>Do you duplicate all the files for every new version of a record?</p>
+        </h5>
+        <p>
+          No, if you change a 10kb README file in 50GB dataset we do not duplicate
+          the entire 50GB dataset. InvenioRDM, the underlying technical software
+          platform, efficiently handles the file storage so we only store the new
+          extra 10kb.
+        </p>
+      </div>
+    </div>
+  </div>
+{% endblock page_body %}

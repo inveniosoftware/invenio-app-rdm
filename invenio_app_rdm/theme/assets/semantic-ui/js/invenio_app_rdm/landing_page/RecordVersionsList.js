@@ -12,9 +12,11 @@ import React, { useEffect, useState } from "react";
 import { Grid, Icon, Message, Placeholder, List, Divider } from "semantic-ui-react";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import PropTypes from "prop-types";
+import { Trans } from "react-i18next";
 
 const deserializeRecord = (record) => ({
   id: record.id,
+  parent: record.parent,
   parent_id: record.parent.id,
   publication_date: record.ui.publication_date_l10n_medium,
   version: record.ui.version,
@@ -81,6 +83,7 @@ const PreviewMessage = () => {
 
 export const RecordVersionsList = ({ record, isPreview }) => {
   const recordDeserialized = deserializeRecord(record);
+  const recordParentDOI = recordDeserialized?.parent?.pids?.doi?.identifier;
   const recid = recordDeserialized.id;
   const [loading, setLoading] = useState(true);
   const [currentRecordInResults, setCurrentRecordInResults] = useState(false);
@@ -151,6 +154,21 @@ export const RecordVersionsList = ({ record, isPreview }) => {
             </a>
           </Grid.Row>
         </Grid>
+      )}
+      {recordParentDOI && (
+        <List.Item className="parent-doi pr-0">
+          <List.Content floated="left">
+            <Trans>
+              <p>
+                <strong>Cite all versions?</strong> You can cite all versions by using
+                the DOI{" "}
+                <a href={recordDeserialized.links.parent_doi}>{recordParentDOI}</a>.
+                This DOI represents all versions, and will always resolve to the latest
+                one. <a href="/help/versioning">Read more</a>.
+              </p>
+            </Trans>
+          </List.Content>
+        </List.Item>
       )}
     </List>
   );
