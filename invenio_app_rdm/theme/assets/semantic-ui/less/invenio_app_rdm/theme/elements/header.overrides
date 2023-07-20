@@ -46,4 +46,8 @@ aside.sidebar {
   &.text-muted {
     color: @mutedTextColor;
   }
+
+  .doi.sub.header {
+    display: inline-block;
+  }
 }
