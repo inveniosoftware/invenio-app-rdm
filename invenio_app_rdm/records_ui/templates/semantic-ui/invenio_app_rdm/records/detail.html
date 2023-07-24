@@ -24,9 +24,10 @@
 {%- set is_preview_submission_request = preview_submission_request or false %}
 {%- set show_record_management_menu = can_manage_record and (not is_preview or is_preview_submission_request) %}
 
-{#- TODO check if the record allows requests for users/guests #}
-{%- set user_request_enabled = not current_user.is_anonymous %}
-{%- set guest_request_enabled = current_user.is_anonymous %}
+{%- if record.parent.access.settings %}
+  {%- set allow_user_requests = not current_user.is_anonymous and record.parent.access.settings.allow_user_requests %}
+  {%- set allow_guest_requests = current_user.is_anonymous and record.parent.access.settings.allow_guest_requests %}
+{%- endif %}
 
 {%- block page_body %}
   <section id="banners" class="banners" aria-label="{{ _('Information banner') }}">
@@ -256,16 +257,24 @@
                               <p>{{ _("Reason") }}: {{ record.access.embargo.reason }}</p>
                             {% endif %}
 
-                            {%- if user_request_enabled or guest_request_enabled  %}
+                            {%- if allow_user_requests or allow_guest_requests %}
                               <hr style="border-color: darkred;">
                               <p>
                                 <p>
-                                  <strong>Request access</strong>
+                                  <strong>{{ _("Request access") }}</strong>
                                 </p>
                                 <p>
-                                  <!-- TODO: Once implemented in the backend display the access description provided nad use this as fallback -->
-                                  If you would like to request access to these files, please fill out the form below.
+                                  {{ _("If you would like to request access to these files, please fill out the form below.") }}
                                 </p>
+                                <div>
+                                  {%- if record.parent.access.settings %}{%- set accept_conditions_text = record.parent.access.settings.accept_conditions_text %}{%- endif %}
+                                  {%- if accept_conditions_text %}
+                                    <p>
+                                      <h5>{{ _("You need to satisfy these conditions in order for this request to be accepted:") }}</h5>
+                                      {{ accept_conditions_text | safe }}
+                                    </p>
+                                  {%- endif %}
+                                </div>
                                 {%- include "invenio_app_rdm/records/details/access-form.html" %}
                               </p>
                             {%- endif %}
