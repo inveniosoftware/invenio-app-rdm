@@ -11,7 +11,7 @@
 
 from functools import wraps
 
-from flask import g, redirect, request, url_for
+from flask import g, make_response, redirect, request, url_for
 from invenio_communities.communities.resources.serializer import (
     UICommunityJSONSerializer,
 )
@@ -20,6 +20,8 @@ from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_rdm_records.proxies import current_rdm_records
 from invenio_records_resources.services.errors import PermissionDeniedError
 from sqlalchemy.orm.exc import NoResultFound
+
+from invenio_app_rdm.urls import record_url_for
 
 
 def service():
@@ -103,11 +105,7 @@ def pass_is_preview(f):
 
     @wraps(f)
     def view(**kwargs):
-        preview = request.args.get("preview")
-        is_preview = False
-        if preview == "1":
-            is_preview = True
-        kwargs["is_preview"] = is_preview
+        kwargs["is_preview"] = request.args.get("preview") == "1"
         return f(**kwargs)
 
     return view
@@ -334,7 +332,6 @@ def pass_draft_files(f):
             pid_value = kwargs.get("pid_value")
             files = draft_files_service().list_files(id_=pid_value, identity=g.identity)
             kwargs["draft_files"] = files
-
         except PermissionDeniedError:
             # this is handled here because we don't want a 404 on the landing
             # page when a user is allowed to read the metadata but not the
@@ -363,5 +360,24 @@ def pass_draft_community(f):
             )
 
         return f(**kwargs)
+
+    return view
+
+
+def add_signposting(f):
+    """Add signposting link to view's response headers."""
+
+    @wraps(f)
+    def view(*args, **kwargs):
+        response = make_response(f(*args, **kwargs))
+
+        # Relies on other decorators having operated before it
+        pid_value = kwargs["pid_value"]
+        signposting_link = record_url_for(_app="api", pid_value=pid_value)
+
+        response.headers["Link"] = (
+            f'<{signposting_link}> ; rel="linkset" ; type="application/linkset+json"'  # fmt: skip
+        )
+        return response
 
     return view

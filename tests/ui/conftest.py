@@ -8,6 +8,8 @@
 
 """Pytest fixtures and plugins for the UI application."""
 
+from io import BytesIO
+
 import pytest
 from flask_webpackext.manifest import (
     JinjaManifest,
@@ -68,3 +70,35 @@ def record(running_app, minimal_record):
     s = current_rdm_records.records_service
     draft = s.create(system_identity, minimal_record)
     return s.publish(system_identity, draft.id)
+
+
+@pytest.fixture()
+def record_with_file(running_app, minimal_record):
+    """Create and publish a record with file."""
+    minimal_record["files"] = {"enabled": True}
+
+    record_service = current_rdm_records.records_service
+    file_service = record_service.draft_files
+
+    draft = record_service.create(system_identity, minimal_record)
+    file_to_initialise = [
+        {
+            "key": "article.txt",
+            "checksum": "md5:c785060c866796cc2a1708c997154c8e",
+            "size": 17,  # 2kB
+            "metadata": {
+                "description": "Published article PDF.",
+            },
+        }
+    ]
+    file_service.init_files(system_identity, draft.id, file_to_initialise)
+    content = BytesIO(b"test file content")
+    file_service.set_file_content(
+        system_identity,
+        draft.id,
+        file_to_initialise[0]["key"],
+        content,
+        content.getbuffer().nbytes,
+    )
+    file_service.commit_file(system_identity, draft.id, "article.txt")
+    return record_service.publish(system_identity, draft.id)
