@@ -33,6 +33,13 @@
       display: block;
     }
   }
+  &.fluid-mobile {
+    @media all and (max-width: @largestMobileScreen) {
+      width: 100%;
+      min-width: 7em;
+      display: block;
+    }
+  }
 }
 
 
