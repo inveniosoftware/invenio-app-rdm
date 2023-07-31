@@ -180,7 +180,7 @@
 .item {
 
   &.align-no-checkbox {
-    margin-left: @defaultMargin / 2 + @checkboxSize;
+    margin-left: (@defaultMargin / 2) + @checkboxSize;
   }
 
   .ui.fitted.checkbox {
