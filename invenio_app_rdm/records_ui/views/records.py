@@ -23,6 +23,7 @@ from marshmallow import ValidationError
 
 from ..utils import get_external_resources
 from .decorators import (
+    add_signposting,
     pass_file_item,
     pass_file_metadata,
     pass_include_deleted,
@@ -112,6 +113,7 @@ class PreviewFile:
 @pass_record_or_draft(expand=True)
 @pass_record_files
 @pass_record_media_files
+@add_signposting
 def record_detail(
     pid_value, record, files, media_files, is_preview=False, include_deleted=False
 ):
@@ -243,6 +245,7 @@ def record_file_preview(
 
 @pass_is_preview
 @pass_file_item(is_media=False)
+@add_signposting
 def record_file_download(pid_value, file_item=None, is_preview=False, **kwargs):
     """Download a file from a record."""
     download = bool(request.args.get("download"))
