@@ -480,13 +480,3 @@ dl.details-list {
     text-transform: capitalize;
   }
 }
-
-
-.community-header {
-  display: flex;
-  align-items: center;
-
-  @media screen and (max-width: @largestMobileScreen) {
-    flex-wrap: wrap;
-  }
-}

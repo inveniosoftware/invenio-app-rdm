@@ -44,10 +44,24 @@
   }
 }
 
-.ui.image.community-image img {
-  max-height: @tinyWidth;
-  min-width: @tinyWidth;
-  object-fit: contain;
+.ui.image.community-image {
+
+  &.mini {
+    width: 45px;
+    min-width: 45px;
+
+    img {
+      max-height: 45px;
+      min-width: 45px;
+      object-fit: contain;
+    }
+  }
+
+  img {
+    max-height: @tinyWidth;
+    min-width: @tinyWidth;
+    object-fit: contain;
+  }
 }
 
 .ui.image.community-logo {

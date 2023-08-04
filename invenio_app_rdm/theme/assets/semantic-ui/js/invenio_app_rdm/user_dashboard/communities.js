@@ -10,7 +10,6 @@
 import { createSearchAppInit } from "@js/invenio_search_ui";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import React from "react";
-import { Button } from "semantic-ui-react";
 import {
   CommunityItem,
   ResultsGridItemTemplate,
@@ -26,20 +25,9 @@ import {
 import { overrideStore, parametrize } from "react-overridable";
 
 export const appName = "InvenioAppRdm.DashboardCommunities";
-const searchAppDiv = document.getElementById("invenio-search-config");
-const canCreateCommunity = JSON.parse(searchAppDiv.dataset.canCreateCommunity);
 
 export const DashboardCommunitiesSearchLayout = DashboardSearchLayoutHOC({
   searchBarPlaceholder: i18next.t("Search in my communities..."),
-  newBtn: canCreateCommunity && (
-    <Button
-      positive
-      icon="upload"
-      href="/communities/new"
-      content={i18next.t("New community")}
-      floated="right"
-    />
-  ),
   appName: appName,
 });
 

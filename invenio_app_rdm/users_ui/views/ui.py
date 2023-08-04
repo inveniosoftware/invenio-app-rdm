@@ -71,17 +71,17 @@ def create_ui_blueprint(app):
         user_dashboard = current_menu.submenu("dashboard")
         user_dashboard.submenu("uploads").register(
             "invenio_app_rdm_users.uploads",
-            text=_("Uploads"),
+            text=_("My uploads"),
             order=1,
         )
         user_dashboard.submenu("communities").register(
             "invenio_app_rdm_users.communities",
-            text=_("Communities"),
+            text=_("My communities"),
             order=2,
         )
         user_dashboard.submenu("requests").register(
             "invenio_app_rdm_users.requests",
-            text=_("Requests"),
+            text=_("My requests"),
             order=3,
         )
 
