@@ -114,15 +114,7 @@
           align-items: end;
         };
       }
-      .extra {
-        @media all and (min-width: @tabletBreakpoint) {
-          position: absolute;
-          bottom: 0.7em !important;
-          top: unset;
-          left:unset;
-          width: unset;
-        }
-      }
+
       .header {
         word-break: break-word;
         margin-bottom: 0;

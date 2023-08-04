@@ -14,9 +14,9 @@ import {
 } from "@js/invenio_search_ui/components";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import React from "react";
-import { Count, ResultsList, SearchBar, Sort, buildUID } from "react-searchkit";
+import { ResultsList, SearchBar, Sort, buildUID } from "react-searchkit";
 import { GridResponsiveSidebarColumn } from "react-invenio-forms";
-import { Grid, Segment, Button } from "semantic-ui-react";
+import { Grid, Button } from "semantic-ui-react";
 import PropTypes from "prop-types";
 import Overridable from "react-overridable";
 
@@ -26,64 +26,20 @@ export function DashboardResultView(props) {
   return (
     total && (
       <Grid>
-        <Grid.Row>
-          <Grid.Column width={16}>
-            <Segment>
-              <Grid>
-                <Overridable
-                  id={buildUID("ResultView.resultHeader", "", appName)}
-                  sortOptions={sortOptions}
-                  paginationOptions={paginationOptions}
-                  currentResultsState={currentResultsState}
-                  appName={appName}
-                >
-                  <Grid.Row
-                    verticalAlign="middle"
-                    className="small pt-5 pb-5 highlight-background"
-                  >
-                    <Grid.Column width={4}>
-                      <Count
-                        label={() => (
-                          <>
-                            {i18next.t("{{count}} results found", {
-                              count: total,
-                            })}
-                          </>
-                        )}
-                      />
-                    </Grid.Column>
-                    <Grid.Column width={12} textAlign="right" className="padding-r-5">
-                      {sortOptions && (
-                        <Sort
-                          values={sortOptions}
-                          label={(cmp) => (
-                            <>
-                              <label className="mr-10">{i18next.t("Sort by")}</label>
-                              {cmp}
-                            </>
-                          )}
-                        />
-                      )}
-                    </Grid.Column>
-                  </Grid.Row>
-                </Overridable>
-                <Overridable
-                  id={buildUID("ResultView.resultList", "", appName)}
-                  sortOptions={sortOptions}
-                  paginationOptions={paginationOptions}
-                  currentResultsState={currentResultsState}
-                  appName={appName}
-                >
-                  <Grid.Row>
-                    <Grid.Column>
-                      <ResultsList />
-                    </Grid.Column>
-                  </Grid.Row>
-                </Overridable>
-              </Grid>
-            </Segment>
-          </Grid.Column>
-        </Grid.Row>
+        <Overridable
+          id={buildUID("ResultView.resultList", "", appName)}
+          sortOptions={sortOptions}
+          paginationOptions={paginationOptions}
+          currentResultsState={currentResultsState}
+          appName={appName}
+        >
+          <Grid.Row>
+            <Grid.Column>
+              <ResultsList />
+            </Grid.Column>
+          </Grid.Row>
+        </Overridable>
+
         <Overridable
           id={buildUID("ResultView.resultFooter", "", appName)}
           sortOptions={sortOptions}
@@ -91,7 +47,10 @@ export function DashboardResultView(props) {
           currentResultsState={currentResultsState}
           appName={appName}
         >
-          <InvenioSearchPagination paginationOptions={paginationOptions} />
+          <InvenioSearchPagination
+            total={total}
+            paginationOptions={paginationOptions}
+          />
         </Overridable>
       </Grid>
     )
@@ -111,7 +70,6 @@ DashboardResultView.defaultProps = {
 
 export const DashboardSearchLayoutHOC = ({
   searchBarPlaceholder = "",
-  newBtn = () => null,
   appName = undefined,
 }) => {
   const DashboardUploadsSearchLayout = (props) => {
@@ -120,22 +78,72 @@ export const DashboardSearchLayoutHOC = ({
 
     return (
       <Grid>
-        <Grid.Column only="mobile tablet" mobile={2} tablet={1}>
-          <Button
-            basic
-            icon="sliders"
-            onClick={() => setSidebarVisible(true)}
-            aria-label={i18next.t("Filter results")}
-          />
-        </Grid.Column>
+        <Overridable
+          id={buildUID("SearchLayout.searchHeader", "", appName)}
+          sortOptions={config.sortOptions}
+          appName={appName}
+        >
+          <>
+            {/* Mobile/tablet search header */}
+            <Grid.Row className="mobile tablet only">
+              <Grid.Column mobile={2} tablet={1} verticalAlign="middle">
+                <Button
+                  basic
+                  icon="sliders"
+                  onClick={() => setSidebarVisible(true)}
+                  aria-label={i18next.t("Filter results")}
+                />
+              </Grid.Column>
+              <Grid.Column
+                mobile={14}
+                tablet={10}
+                verticalAlign="middle"
+                floated="right"
+              >
+                <SearchBar placeholder={searchBarPlaceholder} />
+              </Grid.Column>
+            </Grid.Row>
 
-        <Grid.Column mobile={14} tablet={10} computer={8} floated="right">
-          <SearchBar placeholder={searchBarPlaceholder} />
-        </Grid.Column>
+            <Grid.Row className="mobile tablet only">
+              <Grid.Column width={16} textAlign="right">
+                {config.sortOptions && (
+                  <Sort
+                    values={config.sortOptions}
+                    label={(cmp) => (
+                      <>
+                        <label className="mr-10">{i18next.t("Sort by")}</label>
+                        {cmp}
+                      </>
+                    )}
+                  />
+                )}
+              </Grid.Column>
+            </Grid.Row>
+            {/* End mobile/tablet search header */}
 
-        <Grid.Column mobile={16} tablet={5} computer={4} align="right">
-          {newBtn}
-        </Grid.Column>
+            {/* Desktop search header */}
+            <Grid.Row className="computer only">
+              <Grid.Column width={8} floated="right">
+                <SearchBar placeholder={searchBarPlaceholder} />
+              </Grid.Column>
+
+              <Grid.Column width={4} textAlign="right">
+                {config.sortOptions && (
+                  <Sort
+                    values={config.sortOptions}
+                    label={(cmp) => (
+                      <>
+                        <label className="mr-10">{i18next.t("Sort by")}</label>
+                        {cmp}
+                      </>
+                    )}
+                  />
+                )}
+              </Grid.Column>
+            </Grid.Row>
+            {/* End desktop search header */}
+          </>
+        </Overridable>
 
         <Grid.Row>
           <GridResponsiveSidebarColumn
