@@ -11,7 +11,7 @@
 
 from functools import wraps
 
-from flask import g, request
+from flask import g, redirect, request, url_for
 from invenio_communities.communities.resources.serializer import (
     UICommunityJSONSerializer,
 )
@@ -128,10 +128,30 @@ def pass_record_or_draft(expand=False):
                 try:
                     record = service().read_draft(**read_kwargs)
                 except NoResultFound:
-                    record = service().read(**read_kwargs)
+                    try:
+                        record = service().read(**read_kwargs)
+                    except NoResultFound:
+                        # If the parent pid is being used we can get the id of the latest record and redirect
+                        latest_version = service().read_latest(**read_kwargs)
+                        return redirect(
+                            url_for(
+                                "invenio_app_rdm_records.record_detail",
+                                pid_value=latest_version.id,
+                                preview=1,
+                            )
+                        )
             else:
-                record = service().read(**read_kwargs)
-
+                try:
+                    record = service().read(**read_kwargs)
+                except NoResultFound:
+                    # If the parent pid is being used we can get the id of the latest record and redirect
+                    latest_version = service().read_latest(**read_kwargs)
+                    return redirect(
+                        url_for(
+                            "invenio_app_rdm_records.record_detail",
+                            pid_value=latest_version.id,
+                        )
+                    )
             kwargs["record"] = record
             return f(**kwargs)
 
