@@ -15,7 +15,7 @@ export const CompactStats = ({ uniqueViews, uniqueDownloads }) => {
       {uniqueViews != null && (
         <Popup
           size="tiny"
-          content={i18next.t("Unique views")}
+          content={i18next.t("Total views")}
           trigger={
             <Label className="transparent">
               <Icon name="eye" />
@@ -27,7 +27,7 @@ export const CompactStats = ({ uniqueViews, uniqueDownloads }) => {
       {uniqueDownloads != null && (
         <Popup
           size="tiny"
-          content={i18next.t("Unique downloads")}
+          content={i18next.t("Total downloads")}
           trigger={
             <Label className="transparent">
               <Icon name="download" />
