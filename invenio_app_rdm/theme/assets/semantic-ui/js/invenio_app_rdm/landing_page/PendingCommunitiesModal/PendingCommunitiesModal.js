@@ -32,7 +32,7 @@ export class PendingCommunitiesModal extends Component {
         onOpen={handleOnOpen}
       >
         <Modal.Header>
-          <Header as="h2" id="record-communities-header">
+          <Header as="h2" size="small" id="record-communities-header" className="mt-5">
             {i18next.t("Pending communities")}
           </Header>
         </Modal.Header>

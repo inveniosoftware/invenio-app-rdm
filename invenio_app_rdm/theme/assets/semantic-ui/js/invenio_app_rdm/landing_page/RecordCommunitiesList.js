@@ -48,7 +48,7 @@ export class RecordCommunitiesList extends Component {
         ?.slice(0, maxDisplayedCommunities)
         .map((community) => (
           <Item key={community.id}>
-            <Image size="mini" src={community.links.logo} alt="" />
+            <Image wrapped size="mini" src={community.links.logo} alt="" />
             <Item.Content verticalAlign="middle">
               <Item.Header as={Header}>
                 <Header as="a" href={community.links.self_html} size="small">
@@ -61,7 +61,7 @@ export class RecordCommunitiesList extends Component {
 
       Element = (
         <>
-          <Item.Group>{communityItems}</Item.Group>
+          <Item.Group unstackable>{communityItems}</Item.Group>
           {error && <Message error>{error}</Message>}
         </>
       );

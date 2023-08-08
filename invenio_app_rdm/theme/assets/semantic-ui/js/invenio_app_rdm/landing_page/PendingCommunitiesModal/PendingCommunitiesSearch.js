@@ -65,7 +65,7 @@ export class PendingCommunitiesSearch extends Component {
               />
             </Modal.Content>
 
-            <Modal.Content scrolling>
+            <Modal.Content scrolling className="community-list-results">
               <ResultsLoader>
                 <EmptyResults />
                 <Error />

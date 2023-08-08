@@ -100,32 +100,6 @@
   }
 
   .item {
-    &.community-item {
-      .ui.grid {
-        margin-left: 0.5em !important;
-        width: 100% !important;
-      }
-
-      .content {
-        width: 100% !important;
-
-        &.flex.right-column{
-          flex-direction: column;
-          align-items: end;
-        };
-      }
-
-      .header {
-        word-break: break-word;
-        margin-bottom: 0;
-
-        .header-link {
-          @media all and (max-width: @largestMobileScreen) {
-            margin-top: 1rem;
-          }
-        }
-      }
-    }
 
     &.flex {
       display: flex !important;
