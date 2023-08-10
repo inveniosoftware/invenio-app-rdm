@@ -7,7 +7,7 @@
   under the terms of the MIT License; see LICENSE file for more details.
 #}
 {% set title = invenio_request.title %}
-{% extends "invenio_requests/details/index.html" %}
+{% extends "invenio_requests/community-submission/index.html" %}
 {% from "invenio_requests/macros/request_header.html" import inclusion_request_header %}
 
 {% block request_header %}
@@ -36,25 +36,12 @@
 
   <div>
     <p>
-      <strong>Requester:</strong>
-      {{ invenio_request.payload.full_name }} ({{ invenio_request.payload.email }})
-    </p>
-    <p>
       <strong>Access level:</strong>
       {{ invenio_request.payload.permission }}
     </p>
-    <p>
-      <strong>Record:</strong>
-      <a href="{{ url_for('invenio_app_rdm_records.record_detail', pid_value=invenio_request.topic.record) }}"
-          rel="noopener noreferrer" target="_blank"
-          title="{{ _('Opens in new tab') }}"
-      >
-        {{ invenio_request.topic.record }}
-      </a>
-    </p>
-  <div class="ui container rel-mt-2">
-    {%- block user_dashboard_body %}
-    {%- endblock user_dashboard_body %}
-  </div>
+    <div class="ui container rel-mt-2">
+      {%- block user_dashboard_body %}
+      {%- endblock user_dashboard_body %}
+    </div>
   </div>
 {% endblock %}

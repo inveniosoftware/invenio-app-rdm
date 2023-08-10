@@ -69,6 +69,7 @@ def _resolve_topic_record(request):
                 "update_draft",
                 "read_files",
                 "review",
+                "read",
             ]
         )
         return dict(permissions=permissions, record_ui=record_ui)
@@ -147,6 +148,7 @@ def user_dashboard_request_view(request, **kwargs):
         base_template="invenio_app_rdm/users/base.html",
         user_avatar=avatar,
         record=record,
+        permissions=topic["permissions"],
         invenio_request=request.to_dict(),
         request_is_accepted=request_is_accepted,
     )
