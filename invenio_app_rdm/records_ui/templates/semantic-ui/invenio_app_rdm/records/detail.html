@@ -65,7 +65,7 @@
 
     <!-- PREVIEW HEADER -->
     {% if is_preview %}
-      <div class="ui info flashed top attached manage message">
+      <div class="ui info flashed bottom attached manage message">
         <div class="ui container">
           <div class="header">
             <i class="eye icon"></i>
@@ -87,8 +87,8 @@
     {% endif %}
     <!-- /PREVIEW HEADER -->
 
-    {% if record.is_published and not record.versions.is_latest %}
-      <div class="ui warning flashed top attached manage message">
+    {% if record.is_published and record.links.latest_html and not record.versions.is_latest %}
+      <div class="ui warning flashed bottom attached manage message">
         <div class="ui container">
           <div class="ui relaxed grid">
             <div class="column">
@@ -118,7 +118,7 @@
                      class="ui {{ record.ui.access_status.message_class }} message rel-mt-1"
                      aria-label="{{ _('Record access information') }}"
             >
-              <i class="{{ record.ui.access_status.icon }} icon"></i>
+              <i class="{{ record.ui.access_status.icon }} icon" aria-hidden="true"></i>
               <strong>{{ record.ui.access_status.title_l10n }}</strong>
               {{ record.ui.access_status.description_l10n }}
 
@@ -179,19 +179,28 @@
                         class="label text-muted"> | {{ _('Version {version_number}').format(version_number=record.ui.version) }}</span>
                     </div>
                     <div class="right floated right aligned column">
+
                       {% if record.ui.resource_type %}
-                        <span class="ui label horizontal small neutral mb-5"
-                              title="{{ _('Resource type') }}">{{ record.ui.resource_type.title_l10n }}</span>
+                        <span role="note"
+                              class="ui label horizontal small neutral mb-5"
+                              aria-label="{{ _('Resource type') }}"
+                        >
+                          {{ record.ui.resource_type.title_l10n }}
+                        </span>
                       {% endif %}
-                      <span class="ui label horizontal small access-status {{ record.ui.access_status.id }} mb-5"
-                            title="{{ _('Access status') }}"
+
+                      <span role="note"
+                            class="ui label horizontal small access-status {{ record.ui.access_status.id }} mb-5"
                             data-tooltip="{{ record.ui.access_status.description_l10n }}"
                             data-inverted=""
+                            aria-label="{{ _('Access status') }}"
                       >
                         {% if record.ui.access_status.icon %}
-                          <i class="icon {{ record.ui.access_status.icon }}"></i>
+                          <i class="icon {{ record.ui.access_status.icon }}" aria-hidden="true"></i>
                         {% endif %}
-                        {{ record.ui.access_status.title_l10n }}
+                        <span aria-label="{{ record.ui.access_status.description_l10n }}">
+                          {{ record.ui.access_status.title_l10n }}
+                        </span>
                       </span>
                     </div>
                   </div>
@@ -214,12 +223,8 @@
               </section>
             {%- endblock record_title -%}
 
-            {# Citation & Description #}
+            {# Description #}
             {%- block record_content -%}
-              <section id="citation" aria-label="{{ _('Record citations') }}">
-                {%- include "invenio_app_rdm/records/details/citation.html" %}
-              </section>
-
               {%- include "invenio_app_rdm/records/details/description.html" %}
             {%- endblock record_content -%}
 
@@ -284,7 +289,6 @@
                       </div>
                     </div>
                   {%- endif %}
-                  <div class="ui divider rel-mt-2"></div>
                 </section>
               {%- endif %}
             {%- endblock record_files -%}
@@ -328,7 +332,6 @@
                       </div>
                     </div>
                   {%- endif %}
-                  <div class="ui divider rel-mt-2"></div>
                 </section>
               {%- endif %}
             {%- endblock record_media_files -%}
@@ -356,49 +359,27 @@
       </div>
     </div>
 
-    <div class="ui relaxed grid">
-      <div class="two column row">
-        <div class="sixteen wide tablet eleven wide computer column">
-
-          {# Upload info #}
-          <section id="upload-info" aria-label="{{ _('Upload information') }}">
-            <dl>
-              <div class="table-row">
-                <dt>{{ _("Created") }}:</dt>
-                <dd>
-                  {{ record.ui.created_date_l10n_long }}
-                </dd>
+    <div class="ui container">
+      <div class="ui relaxed grid">
+        <div class="two column row">
+          <div class="sixteen wide tablet eleven wide computer column">
+            {# Jump up button #}
+            {%- block jump -%}
+              <div class="ui grid">
+                <div class="jump-to-top centered row rel-mt-1" id="jump-btn">
+                  <a style="cursor: pointer;">
+                    <button class="ui button labeled icon" aria-label="{{ _('Jump to top of page') }}">
+                      <i class="arrow alternate circle up outline icon"></i>
+                      {{ _("Jump up") }}
+                    </button>
+                  </a>
+                </div>
               </div>
-              <div class="table-row">
-                <dt>{{ _("Modified") }}:</dt>
-                <dd>
-                  {{ record.ui.updated_date_l10n_long }}
-                </dd>
-              </div>
-            </dl>
-          </section>
-        </div>
-      </div>
-
-      <div class="two column row">
-        <div class="sixteen wide tablet eleven wide computer column">
-          {# Jump up button #}
-          {%- block jump -%}
-            <div class="ui grid">
-              <div class="jump-to-top centered row rel-mt-1" id="jump-btn">
-                <a style="cursor: pointer;">
-                  <button class="ui button labeled icon" aria-label="{{ _('Jump to top of page') }}">
-                    <i class="arrow alternate circle up outline icon"></i>
-                    {{ _("Jump up") }}
-                  </button>
-                </a>
-              </div>
-            </div>
-          {%- endblock jump -%}
+            {%- endblock jump -%}
+          </div>
         </div>
       </div>
     </div>
-
   </div>
 
 {%- endblock page_body %}

@@ -65,19 +65,13 @@ RecordVersionItem.propTypes = {
 
 const PreviewMessage = () => {
   return (
-    <Grid className="container">
-      <Grid.Row>
-        <Grid.Column>
-          <Message info>
-            <Message.Header>
-              <Icon name="eye" />
-              {i18next.t("Preview")}
-            </Message.Header>
-            <p>{i18next.t("Only published versions are displayed.")}</p>
-          </Message>
-        </Grid.Column>
-      </Grid.Row>
-    </Grid>
+    <Message info className="no-border-radius m-0">
+      <Message.Header>
+        <Icon name="eye" />
+        {i18next.t("Preview")}
+      </Message.Header>
+      <p>{i18next.t("Only published versions are displayed.")}</p>
+    </Message>
   );
 };
 
@@ -159,7 +153,7 @@ export const RecordVersionsList = ({ record, isPreview }) => {
         <List.Item className="parent-doi pr-0">
           <List.Content floated="left">
             <Trans>
-              <p>
+              <p className="text-muted">
                 <strong>Cite all versions?</strong> You can cite all versions by using
                 the DOI{" "}
                 <a href={recordDeserialized.links.parent_doi}>{recordParentDOI}</a>.

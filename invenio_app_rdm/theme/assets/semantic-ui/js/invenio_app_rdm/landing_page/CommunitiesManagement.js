@@ -7,6 +7,7 @@
 import { RecordCommunitiesListModal } from "./RecordCommunitiesListModal";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import _isEmpty from "lodash/isEmpty";
 import { RecordCommunitiesList } from "./RecordCommunitiesList";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import { Header, Container, Button, Segment } from "semantic-ui-react";
@@ -95,61 +96,63 @@ export class CommunitiesManagement extends Component {
     } = this.props;
     const { communities, loading, error, manageCommunitiesModalOpen } = this.state;
     return (
-      <>
-        <Header
-          size="medium"
-          as="h2"
-          className="flex align-items-baseline"
-          attached="top"
-        >
-          {i18next.t("Communities")}
-          {canManageRecord && (
-            <CommunitiesManagementDropdown
-              actionSucceed={this.handleRefresh}
-              userCommunitiesMemberships={userCommunitiesMemberships}
-              recordCommunityEndpoint={recordCommunityEndpoint}
-              searchConfig={searchConfig}
-              recordCommunitySearchConfig={recordCommunitySearchConfig}
-              recordUserCommunitySearchConfig={recordUserCommunitySearchConfig}
-              toggleManageCommunitiesModal={this.toggleManageCommunitiesModal}
+      (!_isEmpty(communities) || canManageRecord) && (
+        <>
+          <Header
+            size="medium"
+            as="h2"
+            className="flex align-items-baseline mt-0"
+            attached="top"
+          >
+            {i18next.t("Communities")}
+            {canManageRecord && (
+              <CommunitiesManagementDropdown
+                actionSucceed={this.handleRefresh}
+                userCommunitiesMemberships={userCommunitiesMemberships}
+                recordCommunityEndpoint={recordCommunityEndpoint}
+                searchConfig={searchConfig}
+                recordCommunitySearchConfig={recordCommunitySearchConfig}
+                recordUserCommunitySearchConfig={recordUserCommunitySearchConfig}
+                toggleManageCommunitiesModal={this.toggleManageCommunitiesModal}
+              />
+            )}
+          </Header>
+          <Segment attached="bottom" className="rdm-sidebar">
+            <RecordCommunitiesList
+              permissions={permissions}
+              communities={communities}
+              error={error}
+              loading={loading}
+              maxDisplayedCommunities={MAX_COMMUNITIES}
             />
-          )}
-        </Header>
-        <Segment attached="bottom" className="rdm-sidebar rel-mb-1">
-          <RecordCommunitiesList
-            permissions={permissions}
-            communities={communities}
-            error={error}
-            loading={loading}
-            maxDisplayedCommunities={MAX_COMMUNITIES}
-          />
-          <RecordCommunitiesListModal
-            id="record-communities-list-modal"
-            modalOpen={manageCommunitiesModalOpen}
-            handleOnOpen={() => this.toggleManageCommunitiesModal(true)}
-            handleOnClose={() => this.toggleManageCommunitiesModal(false)}
-            successActionCallback={this.handleRefresh}
-            recordCommunityEndpoint={recordCommunityEndpoint}
-            permissions={permissions}
-          />
+            <RecordCommunitiesListModal
+              id="record-communities-list-modal"
+              modalOpen={manageCommunitiesModalOpen}
+              handleOnOpen={() => this.toggleManageCommunitiesModal(true)}
+              handleOnClose={() => this.toggleManageCommunitiesModal(false)}
+              successActionCallback={this.handleRefresh}
+              recordCommunityEndpoint={recordCommunityEndpoint}
+              permissions={permissions}
+            />
 
-          {!loading && communities?.length > MAX_COMMUNITIES && (
-            <Container align="center" className="mt-10">
-              <Button
-                className="ui button transparent"
-                aria-haspopup="dialog"
-                aria-expanded={manageCommunitiesModalOpen}
-                aria-controls="record-communities-list-modal"
-                onClick={() => this.toggleManageCommunitiesModal(true)}
-              >
-                {i18next.t("View all {{count}} communities", {
-                  count: communities.length,
-                })}
-              </Button>
-            </Container>
-          )}
-        </Segment>
-      </>
+            {!loading && communities?.length > MAX_COMMUNITIES && (
+              <Container align="center" className="mt-10">
+                <Button
+                  className="transparent"
+                  aria-haspopup="dialog"
+                  aria-expanded={manageCommunitiesModalOpen}
+                  aria-controls="record-communities-list-modal"
+                  onClick={() => this.toggleManageCommunitiesModal(true)}
+                >
+                  {i18next.t("View all {{count}} communities", {
+                    count: communities.length,
+                  })}
+                </Button>
+              </Container>
+            )}
+          </Segment>
+        </>
+      )
     );
   }
 }

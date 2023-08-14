@@ -820,7 +820,9 @@ APP_RDM_DETAIL_SIDE_BAR_TEMPLATES = [
     "invenio_app_rdm/records/details/side_bar/keywords_subjects.html",
     "invenio_app_rdm/records/details/side_bar/details.html",
     "invenio_app_rdm/records/details/side_bar/licenses.html",
+    "invenio_app_rdm/records/details/side_bar/citations.html",
     "invenio_app_rdm/records/details/side_bar/export.html",
+    "invenio_app_rdm/records/details/side_bar/technical_metadata.html",
 ]
 """Template names for detail view sidebar components"""
 

@@ -333,61 +333,6 @@ dl.details-list {
   }
 }
 
-#upload-info {
-  width: 100%;
-  position: relative;
-
-  &::before {
-    content: '';
-    display: block;
-    width: 100%;
-    border-bottom: 1px solid @borderColor;
-    position: absolute;
-    top: 50%;
-    left: 0;
-    transform: translateY(-50%);
-    z-index: -1;
-
-    @media screen and (max-width: @mobileBreakpoint) {
-      display: none;
-    }
-  }
-
-  dl {
-    width: max-content;
-    max-width: 100%;
-    margin: 0 auto;
-    background-color: #fff;
-    padding: 0 1.5rem;
-
-    @media screen and (max-width: @mobileBreakpoint) {
-      margin: -1.5rem;
-    }
-
-    div.table-row {
-      display: inline-block;
-      width: max-content;
-
-      @media screen and (max-width: @mobileBreakpoint) {
-        display: block;
-      }
-
-      &:first-child {
-        padding-right: 1.5rem;
-      }
-
-      dt, dd {
-        display: inline-block;
-        color: #777;
-      }
-
-      dt {
-        font-weight: bold;
-      }
-    }
-  }
-}
-
 .language {
   font-size: @fontSizeBase;
   font-weight: normal;
