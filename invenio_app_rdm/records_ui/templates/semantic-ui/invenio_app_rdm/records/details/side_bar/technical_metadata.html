@@ -1,0 +1,21 @@
+{# Upload info #}
+<section
+  id="upload-info"
+  role="note"
+  aria-label="{{ _('Upload information') }}"
+  class="sidebar-container ui segment rdm-sidebar text-muted"
+>
+  <h2 class="ui small header text-muted p-0 mb-5"><small>{{ _('Technical metadata') }}</small></h2>
+  <dl class="m-0">
+    <dt class="inline"><small>{{ _("Created") }}</small></dt>
+    <dd class="inline">
+      <small>{{ record.ui.created_date_l10n_long }}</small>
+    </dd>
+    <div>
+      <dt class="rel-mt-1 inline"><small>{{ _("Modified") }}</small></dt>
+      <dd class="inline">
+        <small>{{ record.ui.updated_date_l10n_long }}</small>
+      </dd>
+    </div>
+  </dl>
+</section>

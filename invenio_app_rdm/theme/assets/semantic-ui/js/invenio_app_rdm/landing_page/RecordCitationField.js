@@ -10,7 +10,7 @@ import axios from "axios";
 import _debounce from "lodash/debounce";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Header, Placeholder, Grid, Dropdown, Message } from "semantic-ui-react";
+import { Placeholder, Dropdown, Message } from "semantic-ui-react";
 import { withCancel } from "react-invenio-forms";
 import { CopyButton } from "../components/CopyButton";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
@@ -101,21 +101,13 @@ export class RecordCitationField extends Component {
     });
 
     return (
-      <Grid className="record-citation pt-10 pb-10 m-0">
-        <Grid.Row verticalAlign="middle" className="relaxed">
-          <Grid.Column mobile={8} tablet={8} computer={12} className="p-0">
-            <Header as="h2" id="citation-heading">
-              {i18next.t("Citation")}
-            </Header>
-          </Grid.Column>
+      <div>
+        <div id="citation-text" className="wrap-overflowing-text rel-mb-2">
+          {loading ? this.placeholderLoader() : citation}
+        </div>
 
-          <Grid.Column
-            mobile={8}
-            tablet={8}
-            computer={4}
-            className="p-0"
-            textAlign="right"
-          >
+        <div className="auto-column-grid no-wrap">
+          <div className="flex align-items-center">
             <label id="citation-style-label" className="mr-10">
               {i18next.t("Style")}
             </label>
@@ -130,23 +122,11 @@ export class RecordCitationField extends Component {
                 500
               )}
             />
-          </Grid.Column>
-        </Grid.Row>
-
-        <Grid.Row verticalAlign="bottom">
-          <Grid.Column computer={12} className="p-0">
-            <div id="citation-text" className="wrap-overflowing-text">
-              {loading ? this.placeholderLoader() : citation}
-            </div>
-          </Grid.Column>
-
-          <Grid.Column computer={4} className="p-0" textAlign="right">
-            <CopyButton text={citation} />
-          </Grid.Column>
-        </Grid.Row>
-
+          </div>
+          <CopyButton text={citation} />
+        </div>
         {error ? this.errorMessage(error) : null}
-      </Grid>
+      </div>
     );
   }
 }

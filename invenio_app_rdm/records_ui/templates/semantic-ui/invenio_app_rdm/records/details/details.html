@@ -11,20 +11,32 @@
 {%- from "invenio_app_rdm/records/macros/detail.html" import show_section_custom_fields, show_references, show_add_titles,
 show_alternate_identifiers, show_related_identifiers, show_funding, show_dates %}
 
-{% set hasContent = record.ui.additional_titles or
+{% set hasContent = namespace(value=false) %}
+{% set hasContent.value = record.ui.additional_titles or
                     metadata.identifiers or
                     record.ui.related_identifiers or
                     metadata.funding or
                     record.ui.dates or
-                    metadata.references or
-                    record.custom_fields
+                    metadata.references
 %}
+
+{# Check if custom field has values if no other content #}
+{% if record.ui.custom_fields and not hasContent.value %}
+  {% for section_cfg in custom_fields_ui %}
+    {% for field_cfg in section_cfg.fields %}
+      {% if record.custom_fields.get(field_cfg.field) %}
+        {% set hasContent.value = true %}
+      {% endif %}
+    {% endfor %}
+  {% endfor %}
+{% endif %}
+
 {% set rights = record.ui.get('rights') %}
 {% set funding = record.ui.get('funding') %}
 {% set active = true %}
 {% set active_cf_sections = namespace(items=[]) %}
 
-{% if hasContent %}
+{% if hasContent.value %}
   <h2 id="record-details-heading">{{ _('Additional details') }}</h2>
 
   <div class="rdm-tab-container ml-0-mobile mr-0-mobile">
@@ -124,7 +136,7 @@ show_alternate_identifiers, show_related_identifiers, show_funding, show_dates %
         {# Needed to use namespace as variable assignments are cleared in the end of
            for loops i.e cannot set active = false #}
         {% set active_cf = namespace(value=active) %}
-        {%- for section_cfg in custom_fields_ui if not section_cfg.hide_from_landing_page %}
+        {%- for section_cfg in custom_fields_ui %}
           {% set section_has_fields = namespace(value=false) %}
           {% set section_format = section_cfg.section | replace(" ", "-") %}
           {# Show the section if at least one of its fields is in record #}
