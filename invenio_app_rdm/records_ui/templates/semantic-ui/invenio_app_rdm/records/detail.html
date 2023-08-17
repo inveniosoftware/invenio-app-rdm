@@ -366,13 +366,11 @@
             {# Jump up button #}
             {%- block jump -%}
               <div class="ui grid">
-                <div class="jump-to-top centered row rel-mt-1" id="jump-btn">
-                  <a style="cursor: pointer;">
-                    <button class="ui button labeled icon" aria-label="{{ _('Jump to top of page') }}">
-                      <i class="arrow alternate circle up outline icon"></i>
-                      {{ _("Jump up") }}
-                    </button>
-                  </a>
+                <div class="centered row rel-mt-1">
+                  <button id="jump-btn" class="jump-to-top ui button labeled icon" aria-label="{{ _('Jump to top of page') }}">
+                    <i class="arrow alternate circle up outline icon"></i>
+                    {{ _("Jump up") }}
+                  </button>
                 </div>
               </div>
             {%- endblock jump -%}
