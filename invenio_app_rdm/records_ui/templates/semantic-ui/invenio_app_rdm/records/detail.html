@@ -302,12 +302,7 @@
                   {%- if permissions.can_view -%}
                     {# record has files AND user can see files #}
                     {%- set media_files = media_files|order_entries %}
-
-{#                    {%- if media_files|has_previewable_files -%}#}
-{#                      {%-set preview_file = media_files|select_preview_file(default_preview=record.media_files.default_preview) %}#}
-{#                      {{ preview_file_box(preview_file, record.id, is_preview, record) }}#}
-{#                    {%- endif -%}#}
-                    {{ file_list_box(media_files, record.id, is_preview, record) }}
+                    {{ file_list_box(media_files, record.id, is_preview, record, is_media=True) }}
                   {% else %}
                     {# record has media_files BUT user cannot see media_files #}
                     <div class="pt-0 pb-20">
