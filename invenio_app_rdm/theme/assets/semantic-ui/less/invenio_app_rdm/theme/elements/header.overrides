@@ -8,6 +8,7 @@
   }
 }
 
+
 .main-record-content {
   h1,
   h1.ui.header {
@@ -49,5 +50,9 @@ aside.sidebar {
 
   .doi.sub.header {
     display: inline-block;
+  }
+
+  &.highlight{
+    background-color:  @highlightBackgroundColor;
   }
 }

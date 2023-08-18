@@ -9,7 +9,6 @@
 
 """Request views module."""
 
-from flask import g, render_template
 from flask_login import current_user, login_required
 from invenio_communities.members.services.request import CommunityInvitation
 from invenio_communities.views.decorators import pass_community
@@ -19,9 +18,25 @@ from invenio_rdm_records.resources.serializers import UIJSONSerializer
 from invenio_records_resources.services.errors import PermissionDeniedError
 from invenio_requests.customizations import AcceptAction
 from invenio_requests.resolvers.registry import ResolverRegistry
-from invenio_requests.views.decorators import pass_request
 from invenio_users_resources.proxies import current_user_resources
 from sqlalchemy.orm.exc import NoResultFound
+from flask import (
+    abort,
+    current_app,
+    g,
+    redirect,
+    render_template,
+    request,
+)
+from invenio_access.permissions import system_identity
+from invenio_i18n import lazy_gettext as _
+from invenio_mail.tasks import send_email
+from invenio_requests.proxies import current_requests_service
+from invenio_requests.views.decorators import pass_request
+
+from invenio_rdm_records.proxies import current_rdm_records_service as current_service
+from invenio_rdm_records.requests.access.requests import GuestAcceptAction
+from invenio_rdm_records.services.errors import DuplicateAccessRequestError
 
 from invenio_app_rdm.records_ui.views.decorators import (
     draft_files_service,
@@ -214,3 +229,73 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
             request_is_accepted=request_is_accepted,
             user_avatar=avatar,
         )
+
+
+def verify_access_request_token():
+    """UI endpoint for verifying guest access request tokens.
+
+    When the token is verified successfully, a new guest access request will be created
+    and the token object will be deleted from the database.
+    The token value will be stored with the newly created request and grant access
+    permissions to the request details.
+    """
+    token = request.args.get("access_request_token")
+    access_request = None
+    try:
+        access_request = current_service.access.create_guest_access_request(
+            identity=g.identity, token=token
+        )
+    except DuplicateAccessRequestError as e:
+        if e.request_ids:
+            duplicate_request = current_requests_service.read(
+                identity=system_identity, id_=e.request_ids[0]
+            )
+            url = duplicate_request.links["self_html"]
+            token = duplicate_request.data["payload"]["token"]
+            return redirect(f"{url}?access_request_token={token}")
+
+    if access_request is None:
+        abort(404)
+
+    url = f"{access_request.links['self_html']}?access_request_token={token}"
+
+    send_email(
+        {
+            "subject": _("Access request submitted successfully"),
+            "html_body": _(
+                (
+                    "Your access request was submitted successfully. "
+                    'The request details are available <a href="%(url)s">here</a>.'
+                ),
+                url=url,
+            ),
+            "body": _(
+                (
+                    "Your access request was submitted successfully. "
+                    "The request details are available at: %(url)s"
+                ),
+                url=url,
+            ),
+            "recipients": [access_request._request["created_by"]["email"]],
+            "sender": current_app.config["MAIL_DEFAULT_SENDER"],
+        }
+    )
+
+    return redirect(url)
+
+
+@pass_request(expand=True)
+def read_request(request, **kwargs):
+    """UI endpoint for the guest access request details."""
+    request_type = request["type"]
+    request_is_accepted = request["status"] == GuestAcceptAction.status_to
+
+    # NOTE: this template is defined in Invenio-App-RDM
+    return render_template(
+        f"invenio_requests/{request_type}/index.html",
+        user_avatar="",
+        record=None,
+        permissions={},
+        invenio_request=request.to_dict(),
+        request_is_accepted=request_is_accepted,
+    )
