@@ -160,28 +160,39 @@ def pass_record_or_draft(expand=False):
     return decorator
 
 
-def pass_file_item(f):
-    """Decorate a view to pass a file item using the files service."""
+def pass_file_item(is_media=False):
+    """Decorator to pass a file or media file item using the corresponding service."""
 
-    @wraps(f)
-    def view(**kwargs):
-        pid_value = kwargs.get("pid_value")
-        file_key = kwargs.get("filename")
-        is_preview = kwargs.get("is_preview")
-        read_kwargs = {"id_": pid_value, "file_key": file_key, "identity": g.identity}
+    def decorator(f):
+        @wraps(f)
+        def view(**kwargs):
+            pid_value = kwargs.get("pid_value")
+            file_key = kwargs.get("filename")
+            is_preview = kwargs.get("is_preview")
+            read_kwargs = {
+                "id_": pid_value,
+                "file_key": file_key,
+                "identity": g.identity,
+            }
+            draft_service = (
+                draft_media_files_service if is_media else draft_files_service
+            )
+            record_service = media_files_service if is_media else files_service
 
-        if is_preview:
-            try:
-                item = draft_files_service().get_file_content(**read_kwargs)
-            except NoResultFound:
-                item = files_service().get_file_content(**read_kwargs)
-        else:
-            item = files_service().get_file_content(**read_kwargs)
+            if is_preview:
+                try:
+                    item = draft_service().get_file_content(**read_kwargs)
+                except NoResultFound:
+                    item = record_service().get_file_content(**read_kwargs)
+            else:
+                item = record_service().get_file_content(**read_kwargs)
 
-        kwargs["file_item"] = item
-        return f(**kwargs)
+            kwargs["file_item"] = item
+            return f(**kwargs)
 
-    return view
+        return view
+
+    return decorator
 
 
 def pass_file_metadata(f):

@@ -225,9 +225,27 @@ def record_file_preview(
 
 
 @pass_is_preview
-@pass_file_item
+@pass_file_item(is_media=False)
 def record_file_download(pid_value, file_item=None, is_preview=False, **kwargs):
     """Download a file from a record."""
+    download = bool(request.args.get("download"))
+
+    # emit a file download stats event
+    emitter = current_stats.get_event_emitter("file-download")
+    if file_item is not None and emitter is not None:
+        obj = file_item._file.object_version
+        emitter(current_app, record=file_item._record, obj=obj, via_api=False)
+
+    return file_item.send_file(as_attachment=download)
+
+
+####### Media files download
+
+
+@pass_is_preview
+@pass_file_item(is_media=True)
+def record_media_file_download(pid_value, file_item=None, is_preview=False, **kwargs):
+    """Download a media file from a record."""
     download = bool(request.args.get("download"))
 
     # emit a file download stats event

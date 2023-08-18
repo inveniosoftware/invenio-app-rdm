@@ -110,8 +110,9 @@
 {%- endmacro %}
 
 
-{% macro file_list_box(files, pid, is_preview, record) %}
+{% macro file_list_box(files, pid, is_preview, record, is_media=false) %}
 {%- set binary_sizes = not config.APP_RDM_DISPLAY_DECIMAL_FILE_SIZES %}
+{%- set files_access = record.access.files if not is_media else record.access.media_files %}
 <div class="">
   <div class="ui accordion panel mb-10 {{record.ui.access_status.id}}" id="preview" href="#collapsablePreview">
     <div class="active title trigger panel-heading {{record.ui.access_status.id}}" tabindex="0">
@@ -130,7 +131,8 @@
       </div>
       {% endif %}
       <div id="collapsableFiles">
-        {{ file_list(files, pid, is_preview, record=record) }}
+        {% set download_endpoint = "invenio_app_rdm_records.record_media_file_download" if is_media else "invenio_app_rdm_records.record_file_download" %}
+        {{ file_list(files, pid, is_preview, record=record, download_endpoint=download_endpoint) }}
       </div>
     </div>
   </div>
