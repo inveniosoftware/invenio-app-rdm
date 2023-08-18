@@ -6,36 +6,31 @@
 
 import PropTypes from "prop-types";
 import React, { Component } from "react";
-import { Grid, Message, Segment } from "semantic-ui-react";
+import { Header, Segment } from "semantic-ui-react";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 
 export class AccessRequestTimelineRead extends Component {
   render() {
-    const { request } = this.props;
-    const expirationDate = request.payload.secret_link_expiration;
+    const {
+      request: {
+        payload: { secret_link_expiration },
+      },
+    } = this.props;
     return (
       <>
-        <Message
-          icon="large edit outline"
-          attached
-          header={i18next.t("Access request")}
+        <Header
+          size="big"
+          icon="edit outline"
+          attached="top"
+          className="highlight"
+          content={i18next.t("Access request")}
         />
-        <Segment className="attached">
-          <Grid>
-            <Grid.Row>
-              <Grid.Column width={2}>
-                <strong>{i18next.t("Link expiration:")}</strong>
-              </Grid.Column>
-              <Grid.Column width={4}>
-                <label>
-                  {expirationDate === "" ? i18next.t("Never") : expirationDate}
-                </label>
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
+        <Segment className="attached rel-mb-2">
+          <strong>{i18next.t("Link expiration:")} </strong>
+          <label>
+            {secret_link_expiration ? i18next.t("Never") : secret_link_expiration}
+          </label>
         </Segment>
-        <br />
-        <br />
       </>
     );
   }

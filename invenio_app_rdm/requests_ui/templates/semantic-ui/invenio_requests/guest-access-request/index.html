@@ -6,42 +6,69 @@
   Invenio is free software; you can redistribute it and/or modify it
   under the terms of the MIT License; see LICENSE file for more details.
 #}
-{% set title = invenio_request.title %}
-{% extends "invenio_requests/community-submission/index.html" %}
+{% extends "invenio_requests/details/index.html" %}
+
+{% set title = _("Access request") %}
+
 {% from "invenio_requests/macros/request_header.html" import inclusion_request_header %}
 
-{% block request_header %}
-  {%- if current_user and current_user.is_authenticated %}
-    {# only display the header for the receiver #}
-    {%- set back_button_url = url_for("invenio_app_rdm_users.requests") %}
-    {{
-      inclusion_request_header(
+{% block page_body %}
+  {%- if not (current_user and current_user.is_authenticated) %}
+    <div class=rel-mt-2>
+      {{ super.super() }}
+    </div>
+  {% else %}
+    {{ super.super() }}
+  {% endif %}
+  {%- block request_body %}
+    <div class="ui container request-detail-page">
+
+      {%- block request_header %}
+        {%- if current_user and current_user.is_authenticated %}
+          {# only display the header for the receiver #}
+          {%- set back_button_url = url_for("invenio_app_rdm_users.requests") %}
+          {{ inclusion_request_header(
         back_button_url=back_button_url,
         back_button_text=_("Back to requests"),
         request=invenio_request,
         accepted=request_is_accepted
-      )
-    }}
-  {%- else %}
-    <div class="computer-flex-header rel-mt-2">
-      <div id="request-actions" class="flex align-items-start ml-auto mb-10">
-        {% if request_is_accepted %}
-          <div class="ui success message">
-            <p>{{ _("Check your email on how to access the record") }}</p>
-          </div>
-        {% endif %}
-      </div>
-    </div>
-  {%- endif %}
+      ) }}
 
-  <div>
-    <p>
-      <strong>Access level:</strong>
-      {{ invenio_request.payload.permission }}
-    </p>
-    <div class="ui container rel-mt-2">
-      {%- block user_dashboard_body %}
-      {%- endblock user_dashboard_body %}
+        {%- else %}
+          <div class="ui grid rel-mt-2">
+            <div class="twelve wide column">
+              <strong>Access level:</strong>
+              {{ invenio_request.payload.permission }}
+
+            </div>
+            <div id="request-actions" class="four wide column text-align-right">
+              {% if request_is_accepted %}
+                <a
+                  href="{{ url_for('invenio_app_rdm_records.record_detail', pid_value=invenio_request.topic.record) }}"
+                  class="ui small button"
+                  rel="noopener noreferrer" target="_blank"
+                  title="{{ _('Opens in new tab') }}"
+                >
+                  {{ _("View record") }}
+                </a>
+              {% endif %}
+            </div>
+          </div>
+        {%- endif %}
+
+        <div class="ui container rel-mt-2">
+          {%- block user_dashboard_body %}
+          {%- endblock user_dashboard_body %}
+        </div>
+
+        <div class="ui divider"></div>
+
+      {%- endblock request_header %}
+
+      {%- block request_timeline %}
+        {{ super() }}
+      {%- endblock request_timeline %}
+
     </div>
-  </div>
-{% endblock %}
+  {% endblock request_body %}
+{% endblock page_body %}
