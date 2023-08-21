@@ -13,8 +13,10 @@ export class AccessRequestExpirationSelect extends Component {
   handleOnChange = ({ data, formikProps }) => {
     formikProps.form.setFieldValue("secret_link_expiration", data.value);
   };
+
   render() {
     const { inline, expirationOptions, value } = this.props;
+    const expirationSetting = value ? value.toString() : expirationOptions[0].value;
     return (
       <SelectField
         label={i18next.t("Link expiration")}
@@ -22,7 +24,7 @@ export class AccessRequestExpirationSelect extends Component {
         fieldPath="secret_link_expiration"
         options={this.expirationOptions}
         onChange={this.handleOnChange}
-        value={value}
+        value={expirationSetting}
         defaultValue={expirationOptions[0]}
       />
     );

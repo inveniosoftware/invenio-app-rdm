@@ -28,28 +28,34 @@ export class AccessRequestTimelineEdit extends Component {
   }
 
   accessRequestFormSchema = Yup.object({
-    secret_link_expiration: Yup.date(),
+    secret_link_expiration: Yup.date()
+      .min(
+        DateTime.now().toJSDate(),
+        i18next.t("Access link expiration date cannot be in the past.")
+      )
+      .nullable(),
   });
 
   handleSubmit = async (values) => {
     this.setState({ loading: true, actionSuccess: false });
     const { request } = this.props;
 
-    // TODO: don't update the whole payload if it's possible (https://github.com/inveniosoftware/invenio-rdm-records/issues/1402)
     const {
       payload,
-      links: { self: self_link },
+      links: { self: selfLink },
     } = request;
-    const { secret_link_expiration } = values;
+    const { secret_link_expiration: secretLinkExpiration } = values;
+    if (secretLinkExpiration === null) {
+      payload["secret_link_expiration"] = "0";
+    } else {
+      const date = DateTime.fromISO(secretLinkExpiration);
+      const days = date.diff(DateTime.now(), "days").days;
 
-    const date = DateTime.fromISO(secret_link_expiration);
-    const days = date.diff(DateTime.now(), 'days').days;
-
-    // update days to expiration
-    payload["secret_link_expiration"] = Math.ceil(days).toString();
-
+      // update days to expiration
+      payload["secret_link_expiration"] = Math.ceil(days).toString();
+    }
     const data = { payload: payload };
-    this.cancellableAction = withCancel(http.put(self_link, data));
+    this.cancellableAction = withCancel(http.put(selfLink, data));
 
     try {
       await this.cancellableAction.promise;
@@ -73,6 +79,11 @@ export class AccessRequestTimelineEdit extends Component {
       },
     } = this.props;
 
+    if (parseInt(secret_link_expiration) === 0) {
+      return {
+        secret_link_expiration: "",
+      };
+    }
     const dateFromDays = DateTime.now().plus({
       days: parseInt(secret_link_expiration),
     });
@@ -121,8 +132,10 @@ export class AccessRequestTimelineEdit extends Component {
                             fluid={false}
                             fieldPath="secret_link_expiration"
                             value={values.secret_link_expiration}
-                            label="Expiration date: "
-                            helpText="Format: YYYY-MM-DD. Granted access will expire on the given date."
+                            label={i18next.t("Expiration date: ")}
+                            helpText={i18next.t(
+                              "Format: YYYY-MM-DD. Granted access will expire on the given date. Leave empty to set no expiration limit."
+                            )}
                             icon="calendar alternate"
                           />
                         </Form.Field>
