@@ -20,7 +20,7 @@ from invenio_requests.views.ui import (
 from invenio_app_rdm.records_ui.searchapp import search_app_context
 from invenio_app_rdm.requests_ui.views.requests import (
     community_dashboard_request_view,
-    user_dashboard_request_view, verify_access_request_token, read_request,
+    user_dashboard_request_view,
 )
 
 
@@ -48,16 +48,6 @@ def create_ui_blueprint(app):
     blueprint.add_url_rule(
         routes["community-dashboard-invitation-details"],
         view_func=community_dashboard_request_view,
-    )
-
-    blueprint.add_url_rule(
-        routes["access-request-verify"],
-        view_func=verify_access_request_token,
-    )
-
-    blueprint.add_url_rule(
-        routes["access-request-view"],
-        view_func=read_request,
     )
 
     # Register error handlers

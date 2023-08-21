@@ -7,5 +7,6 @@
 import { TimelineFeedHeader } from "../requests/timeline/overrides/TimelineFeedHeader";
 
 export const overriddenComponents = {
+  // Guest Access Request customisation
   "TimelineFeed.header": TimelineFeedHeader,
 };

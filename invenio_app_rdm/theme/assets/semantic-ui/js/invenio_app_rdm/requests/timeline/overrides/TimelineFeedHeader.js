@@ -14,9 +14,11 @@ export const TimelineFeedHeader = ({ request, permissions }) => {
     <>
       {request.type === "guest-access-request" && (
         <>
+          {/* access request receiver (record owner) can change action/expiration */}
           {request.status === "submitted" && permissions.can_manage && (
             <AccessRequestTimelineEdit request={request} />
           )}
+          {/* when accepted, creator and receiver will see only the read-only version. */}
           {request.status === "accepted" && (
             <AccessRequestTimelineRead request={request} permissions={permissions} />
           )}

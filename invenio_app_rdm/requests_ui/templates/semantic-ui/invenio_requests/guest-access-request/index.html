@@ -6,7 +6,9 @@
   Invenio is free software; you can redistribute it and/or modify it
   under the terms of the MIT License; see LICENSE file for more details.
 #}
-{% extends "invenio_requests/details/index.html" %}
+
+{# allows to have conversation/record tab #}
+{% extends "invenio_requests/community-submission/index.html" %}
 
 {% set title = _("Access request") %}
 
@@ -42,16 +44,6 @@
 
             </div>
             <div id="request-actions" class="four wide column text-align-right">
-              {% if request_is_accepted %}
-                <a
-                  href="{{ url_for('invenio_app_rdm_records.record_detail', pid_value=invenio_request.topic.record) }}"
-                  class="ui small button"
-                  rel="noopener noreferrer" target="_blank"
-                  title="{{ _('Opens in new tab') }}"
-                >
-                  {{ _("View record") }}
-                </a>
-              {% endif %}
             </div>
           </div>
         {%- endif %}

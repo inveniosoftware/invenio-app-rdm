@@ -6,7 +6,7 @@
 // under the terms of the MIT License; see LICENSE file for more details.
 
 import React, { Component } from "react";
-import { Icon, Button, Modal, Tab } from "semantic-ui-react";
+import { Icon, Modal, Tab, Container } from "semantic-ui-react";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import PropTypes from "prop-types";
 import { LinksTab } from "./AccessLinks/LinksTab";
@@ -26,14 +26,16 @@ export class ShareModal extends Component {
   };
 
   panes = (record, accessLinksSearchConfig) => {
+    const { handleClose } = this.props;
     return [
       {
         menuItem: { icon: "linkify", content: "Links" },
         pane: (
-          <Tab.Pane className="borderless" attached="top" key="accessLinks">
+          <Tab.Pane key="accessLinks" as={Container}>
             <LinksTab
               record={record}
               accessLinksSearchConfig={accessLinksSearchConfig}
+              handleClose={handleClose}
             />
           </Tab.Pane>
         ),
@@ -41,9 +43,10 @@ export class ShareModal extends Component {
       {
         menuItem: { icon: "cog", content: "Access requests" },
         pane: (
-          <Tab.Pane className="borderless" attached="top" key="accessRequests">
+          <Tab.Pane key="accessRequests" as={Container}>
             <AccessRequestsTab
               record={record}
+              handleClose={handleClose}
               successCallback={this.handleRecordUpdate}
             />
           </Tab.Pane>
@@ -73,19 +76,11 @@ export class ShareModal extends Component {
           {i18next.t("Share access")}
         </Modal.Header>
 
-        <Modal.Content>
-          <Tab
-            menu={{ secondary: true, pointing: true }}
-            panes={this.panes(record, accessLinksSearchConfig)}
-            renderActiveOnly={false}
-          />
-        </Modal.Content>
-
-        <Modal.Actions>
-          <Button size="small" onClick={handleClose}>
-            {i18next.t("Close")}
-          </Button>
-        </Modal.Actions>
+        <Tab
+          menu={{ secondary: true, pointing: true }}
+          panes={this.panes(record, accessLinksSearchConfig)}
+          renderActiveOnly={false}
+        />
       </Modal>
     );
   }

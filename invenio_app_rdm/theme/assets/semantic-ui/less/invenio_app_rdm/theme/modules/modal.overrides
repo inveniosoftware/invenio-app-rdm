@@ -115,6 +115,14 @@
     border-top: @actionBorder;
     text-align: @actionAlign;
   }
+  .content {
+  display: block;
+  width: 100%;
+  font-size: @contentFontSize;
+  line-height: @contentLineHeight;
+  padding: @contentPadding;
+  background: @contentBackground;
+}
 }
 .ui.modal .actions {
   .button {

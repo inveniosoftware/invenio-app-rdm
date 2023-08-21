@@ -4,14 +4,21 @@
 // Invenio RDM Records is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
 
+import isEmpty from "lodash/isEmpty";
 import { AccessRequestExpirationSelect } from "../../../requests";
 import React, { Component } from "react";
-import { Modal, Message, Grid, Form, Checkbox, Button } from "semantic-ui-react";
+import { Modal, Divider, Grid, Form, Checkbox, Button } from "semantic-ui-react";
 import PropTypes from "prop-types";
 import { Formik } from "formik";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import { SuccessIcon } from "@js/invenio_communities/members";
-import { RadioField, TextAreaField, http, withCancel, ErrorMessage } from "react-invenio-forms";
+import {
+  RadioField,
+  TextAreaField,
+  http,
+  withCancel,
+  ErrorMessage,
+} from "react-invenio-forms";
 import * as Yup from "yup";
 import _get from "lodash/get";
 
@@ -74,22 +81,17 @@ export class AccessRequestsTab extends Component {
         },
       },
     } = this.props;
+    if (isEmpty(settings.secret_link_expiration)) {
+      settings["secret_link_expiration"] = 0;
+    }
     return { ...settings };
   };
 
   render() {
     const { loading, error, actionSuccess } = this.state;
+    const { handleClose } = this.props;
     return (
-      <Modal.Content>
-        {error && (
-          <ErrorMessage
-            header={i18next.t("Unable to change the access request settings.")}
-            content={i18next.t(error)}
-            icon="exclamation"
-            className="text-align-left"
-            negative
-          />
-        )}
+      <>
         <Formik
           onSubmit={this.handleSubmit}
           enableReinitialize
@@ -98,107 +100,130 @@ export class AccessRequestsTab extends Component {
         >
           {({ values, handleSubmit }) => {
             return (
-              <Grid>
-                <Form>
+              <>
+                <Modal.Content>
+                  {error && (
+                    <ErrorMessage
+                      header={i18next.t(
+                        "Unable to change the access request settings."
+                      )}
+                      content={i18next.t(error)}
+                      icon="exclamation"
+                      className="text-align-left"
+                      negative
+                    />
+                  )}
                   <Grid>
-                    <Grid.Row>
-                      <Grid.Column width={16}>
-                        <Form.Field>
-                          <RadioField
-                            checked={_get(values, "allow_user_requests")}
-                            control={Checkbox}
-                            fieldPath="allow_user_requests"
-                            label={i18next.t(
-                              "Allow authenticated users to request access to restricted records/files."
-                            )}
-                            onChange={({ data, formikProps }) => {
-                              formikProps.form.setFieldValue(
-                                "allow_user_requests",
-                                data.checked
-                              );
-                            }}
-                          />
-                        </Form.Field>
-                        <Form.Field>
-                          <RadioField
-                            checked={_get(values, "allow_guest_requests")}
-                            control={Checkbox}
-                            fieldPath="allow_guest_requests"
-                            label={i18next.t(
-                              "Allow non-authenticated users to request access to restricted records/files."
-                            )}
-                            onChange={({ data, formikProps }) => {
-                              formikProps.form.setFieldValue(
-                                "allow_guest_requests",
-                                data.checked
-                              );
-                            }}
-                          />
-                        </Form.Field>
-                        <label className="helptext mb-0 mt-10">
-                          {i18next.t(
-                            "Enable users and guests to request access to your record. When access is requested " +
-                              "by someone, you will get an e-mail asking for approval. After you approve a request, " +
-                              "users will be granted access and guests will receive a secret link."
-                          )}
-                        </label>
-                      </Grid.Column>
-                    </Grid.Row>
+                    <Form>
+                      <Grid>
+                        <Grid.Row>
+                          <Grid.Column width={16}>
+                            <Form.Field>
+                              <RadioField
+                                checked={_get(values, "allow_user_requests")}
+                                control={Checkbox}
+                                fieldPath="allow_user_requests"
+                                label={i18next.t(
+                                  "Allow authenticated users to request access to restricted files."
+                                )}
+                                onChange={({ data, formikProps }) => {
+                                  formikProps.form.setFieldValue(
+                                    "allow_user_requests",
+                                    data.checked
+                                  );
+                                }}
+                              />
+                            </Form.Field>
+                            <Form.Field>
+                              <RadioField
+                                checked={_get(values, "allow_guest_requests")}
+                                control={Checkbox}
+                                fieldPath="allow_guest_requests"
+                                label={i18next.t(
+                                  "Allow non-authenticated users to request access to restricted files."
+                                )}
+                                onChange={({ data, formikProps }) => {
+                                  formikProps.form.setFieldValue(
+                                    "allow_guest_requests",
+                                    data.checked
+                                  );
+                                }}
+                              />
+                            </Form.Field>
+                            <label className="helptext mb-0 mt-10">
+                              {i18next.t(
+                                "Enable users and guests to request access to your record's files. When access is requested " +
+                                  "by someone, you will get an e-mail asking for approval. After you approve a request, " +
+                                  "users will be granted access and guests will receive a secret link."
+                              )}
+                            </label>
+                          </Grid.Column>
+                        </Grid.Row>
+                        <Grid.Row>
+                          <Grid.Column>
+                            <Form.Field>
+                              <TextAreaField
+                                placeholder={i18next.t(
+                                  "Optional. Specify conditions under which you approve access. This message will be " +
+                                    "visible for any user when requesting access to this record."
+                                )}
+                                fieldPath="accept_conditions_text"
+                                rows={6}
+                              />
+                            </Form.Field>
+                          </Grid.Column>
+                        </Grid.Row>
+                      </Grid>
+                      <h5>{i18next.t("Advanced options")}</h5>
+                      <Divider />
+                      <Grid>
+                        <Grid.Row>
+                          <Grid.Column width={3}>
+                            <Form.Field>
+                              <AccessRequestExpirationSelect
+                                inline
+                                value={values.secret_link_expiration}
+                              />
+                            </Form.Field>
+                          </Grid.Column>
+                        </Grid.Row>
+                      </Grid>
+                    </Form>
                     <Grid.Row>
                       <Grid.Column>
-                        <Form.Field>
-                          <TextAreaField
-                            placeholder={i18next.t(
-                              "Optional. Specify conditions under which you approve access. This message will be " +
-                                "visible for any user when requesting access to this record."
-                            )}
-                            fieldPath="accept_conditions_text"
-                            rows={6}
-                          />
-                        </Form.Field>
-                      </Grid.Column>
-                    </Grid.Row>
-                    <Grid.Row>
-                      <Grid.Column>
-                        <h5>{i18next.t("Advanced options")}</h5>
-                      </Grid.Column>
-                    </Grid.Row>
-                    <Grid.Row>
-                      <Grid.Column width={3}>
-                        <Form.Field>
-                          <AccessRequestExpirationSelect inline />
-                        </Form.Field>
+                        <br />
                       </Grid.Column>
                     </Grid.Row>
                   </Grid>
-                </Form>
-                <Grid.Row>
-                  <Grid.Column>
-                    <br />
-                    <Button
-                      size="small"
-                      labelPosition="left"
-                      icon="checkmark"
-                      primary
-                      content={i18next.t("Save")}
-                      onClick={(event) => handleSubmit(event)}
-                      loading={loading}
-                      disabled={loading}
+                </Modal.Content>
+
+                <Modal.Actions>
+                  <Button
+                    size="small"
+                    labelPosition="left"
+                    icon="checkmark"
+                    primary
+                    content={i18next.t("Save")}
+                    onClick={(event) => handleSubmit(event)}
+                    loading={loading}
+                    disabled={loading}
+                  />
+                  {actionSuccess && (
+                    <SuccessIcon
+                      className="ml-10"
+                      timeOutDelay={3000}
+                      show={actionSuccess}
                     />
-                    {actionSuccess && (
-                      <SuccessIcon
-                        className="ml-10"
-                        timeOutDelay={3000}
-                        show={actionSuccess}
-                      />
-                    )}
-                  </Grid.Column>
-                </Grid.Row>
-              </Grid>
+                  )}
+                  <Button size="small" onClick={handleClose}>
+                    {i18next.t("Close")}
+                  </Button>
+                </Modal.Actions>
+              </>
             );
           }}
         </Formik>
-      </Modal.Content>
+      </>
     );
   }
 }
@@ -206,4 +231,5 @@ export class AccessRequestsTab extends Component {
 AccessRequestsTab.propTypes = {
   record: PropTypes.string.isRequired,
   successCallback: PropTypes.func.isRequired,
+  handleClose: PropTypes.func.isRequired,
 };
