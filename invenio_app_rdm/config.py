@@ -914,12 +914,12 @@ IIIF_API_DECORATOR_HANDLER = None
 
 PREVIEWER_PREFERENCE = [
     "csv_dthreejs",
+    "pdfjs",
     "iiif_simple",
     "simple_image",
     "json_prismjs",
     "xml_prismjs",
     "mistune",
-    "pdfjs",
     "ipynb",
     "zip",
     "txt",
@@ -947,7 +947,6 @@ IIIF_FORMATS_PIL_MAP = {
     "jp2": "jpeg2000",
     "jpeg": "jpeg",
     "jpg": "jpeg",
-    "pdf": "pdf",
     "png": "png",
     "tif": "tiff",
     "tiff": "tiff",
