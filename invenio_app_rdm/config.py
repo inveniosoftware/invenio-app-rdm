@@ -952,6 +952,9 @@ IIIF_FORMATS_PIL_MAP = {
     "tiff": "tiff",
 }
 
+RECORDS_RESOURCES_IMAGE_FORMATS = ["." + ext for ext in IIIF_FORMATS.keys()]
+"""RECORDS_RESOURCES_IMAGE_FORMATS must contain all possible IIIF formats to ensure their metadata is extracted."""
+
 # Invenio-Pages
 # =============
 # See https://invenio-pages.readthedocs.io/en/latest/configuration.html
