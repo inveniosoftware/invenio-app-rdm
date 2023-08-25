@@ -15,6 +15,7 @@ from invenio_pidstore.errors import (
     PIDDoesNotExistError,
     PIDUnregistered,
 )
+from invenio_rdm_records.services.errors import RecordDeletedException
 from invenio_records_resources.services.errors import (
     FileKeyNotFoundError,
     PermissionDeniedError,
@@ -142,6 +143,7 @@ def create_blueprint(app):
     blueprint.register_error_handler(
         PermissionDeniedError, record_permission_denied_error
     )
+    blueprint.register_error_handler(RecordDeletedException, record_tombstone_error)
 
     # Register template filters
     blueprint.add_app_template_filter(can_list_files)
