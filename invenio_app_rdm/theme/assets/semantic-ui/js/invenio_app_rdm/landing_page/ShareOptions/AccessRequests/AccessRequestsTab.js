@@ -198,6 +198,13 @@ export class AccessRequestsTab extends Component {
                 </Modal.Content>
 
                 <Modal.Actions>
+                  {actionSuccess && (
+                    <SuccessIcon
+                      className="ml-10"
+                      timeOutDelay={3000}
+                      show={actionSuccess}
+                    />
+                  )}
                   <Button
                     size="small"
                     labelPosition="left"
@@ -208,13 +215,6 @@ export class AccessRequestsTab extends Component {
                     loading={loading}
                     disabled={loading}
                   />
-                  {actionSuccess && (
-                    <SuccessIcon
-                      className="ml-10"
-                      timeOutDelay={3000}
-                      show={actionSuccess}
-                    />
-                  )}
                   <Button size="small" onClick={handleClose}>
                     {i18next.t("Close")}
                   </Button>
