@@ -262,28 +262,29 @@
                               <p>{{ _("Reason") }}: {{ record.access.embargo.reason }}</p>
                             {% endif %}
 
-                            {%- if allow_user_requests or allow_guest_requests %}
-                              <div class="ui divider"></div>
-                              <p>
+                            {% block record_files_access_request %}
+                              {%- if allow_user_requests or allow_guest_requests %}
+                                <div class="ui divider"></div>
                                 <p>
-                                  <strong>{{ _("Request access") }}</strong>
+                                  <p>
+                                    <strong>{{ _("Request access") }}</strong>
+                                  </p>
+                                  <p>
+                                    {{ _("If you would like to request access to these files, please fill out the form below.") }}
+                                  </p>
+                                  <div>
+                                    {%- if record.parent.access.settings %}{%- set accept_conditions_text = record.parent.access.settings.accept_conditions_text %}{%- endif %}
+                                    {%- if accept_conditions_text %}
+                                      <p>
+                                        <h5>{{ _("You need to satisfy these conditions in order for this request to be accepted:") }}</h5>
+                                        {{ accept_conditions_text | safe }}
+                                      </p>
+                                    {%- endif %}
+                                  </div>
+                                  {%- include "invenio_app_rdm/records/details/access-form.html" %}
                                 </p>
-                                <p>
-                                  {{ _("If you would like to request access to these files, please fill out the form below.") }}
-                                </p>
-                                <div>
-                                  {%- if record.parent.access.settings %}{%- set accept_conditions_text = record.parent.access.settings.accept_conditions_text %}{%- endif %}
-                                  {%- if accept_conditions_text %}
-                                    <p>
-                                      <h5>{{ _("You need to satisfy these conditions in order for this request to be accepted:") }}</h5>
-                                      {{ accept_conditions_text | safe }}
-                                    </p>
-                                  {%- endif %}
-                                </div>
-                                {%- include "invenio_app_rdm/records/details/access-form.html" %}
-                              </p>
-                            {%- endif %}
-
+                              {%- endif %}
+                            {% endblock record_files_access_request %}
                           </div>
                         </div>
                       </div>
