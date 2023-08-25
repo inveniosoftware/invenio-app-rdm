@@ -2,7 +2,7 @@
 #
 # Copyright (C) 2019-2021 CERN.
 # Copyright (C) 2019-2021 Northwestern University.
-# Copyright (C)      2021 TU Wien.
+# Copyright (C) 2021-2023 TU Wien.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -279,7 +279,27 @@ def not_found_error(error):
 
 def record_tombstone_error(error):
     """Tombstone page."""
-    return render_template("invenio_app_rdm/records/tombstone.html"), 410
+    # the RecordDeletedError will have the following properties,
+    # while the PIDDeletedError won't
+    record = getattr(error, "record", None)
+    if (record_ui := getattr(error, "result_item", None)) is not None:
+        if record is None:
+            record = record_ui._record
+
+        record_ui = UIJSONSerializer().dump_obj(record_ui.to_dict())
+
+    # render a 404 page if the tombstone isn't visible
+    if not record.tombstone.is_visible:
+        return not_found_error(error)
+
+    # we only render a tombstone page if there is a record with a visible tombstone
+    return (
+        render_template(
+            "invenio_app_rdm/records/tombstone.html",
+            record=record_ui,
+        ),
+        410,
+    )
 
 
 def record_permission_denied_error(error):
