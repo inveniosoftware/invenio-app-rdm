@@ -678,6 +678,7 @@ APP_RDM_ROUTES = {
     "record_export": "/records/<pid_value>/export/<export_format>",
     "record_file_preview": "/records/<pid_value>/preview/<path:filename>",
     "record_file_download": "/records/<pid_value>/files/<path:filename>",
+    "record_thumbnail": "/records/<pid_value>/thumb<int:size>",
     "record_media_file_download": "/records/<pid_value>/media-files/<path:filename>",
     "record_from_pid": "/<any({schemes}):pid_scheme>/<path:pid_value>",
     "record_latest": "/records/<pid_value>/latest",
@@ -830,6 +831,9 @@ APP_RDM_DEPOSIT_FORM_PUBLISH_MODAL_EXTRA = ""
 """Additional text/html to be displayed in the publish and submit for review modal."""
 
 APP_RDM_RECORD_LANDING_PAGE_TEMPLATE = "invenio_app_rdm/records/detail.html"
+
+APP_RDM_RECORD_THUMBNAIL_SIZES = [10, 50, 100, 250, 750, 1200]
+"""Allowed record thumbnail sizes."""
 
 APP_RDM_DETAIL_SIDE_BAR_TEMPLATES = [
     "invenio_app_rdm/records/details/side_bar/manage_menu.html",

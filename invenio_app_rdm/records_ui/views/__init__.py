@@ -50,6 +50,7 @@ from .records import (
     record_latest,
     record_media_file_download,
     record_permission_denied_error,
+    record_thumbnail,
     record_tombstone_error,
 )
 
@@ -111,6 +112,12 @@ def create_blueprint(app):
         **create_url_rule(
             routes["record_file_download"],
             default_view_func=record_file_download,
+        )
+    )
+    blueprint.add_url_rule(
+        **create_url_rule(
+            routes["record_thumbnail"],
+            default_view_func=record_thumbnail,
         )
     )
 
