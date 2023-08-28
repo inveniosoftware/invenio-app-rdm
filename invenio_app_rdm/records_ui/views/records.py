@@ -9,17 +9,27 @@
 
 """Routes for record-related pages provided by Invenio-App-RDM."""
 
+import itertools
 from os.path import splitext
+from pathlib import Path
 
 from flask import abort, current_app, g, redirect, render_template, request, url_for
 from flask_login import current_user
 from invenio_base.utils import obj_or_import_string
-from invenio_previewer.extensions import default
+from invenio_previewer.extensions import default as default_previewer
 from invenio_previewer.proxies import current_previewer
 from invenio_rdm_records.proxies import current_rdm_records
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
 from invenio_stats.proxies import current_stats
 from marshmallow import ValidationError
+
+from invenio_app_rdm.records_ui.previewer.iiif_simple import (
+    previewable_extensions as image_extensions,
+)
+from invenio_app_rdm.records_ui.views.deposits import (
+    get_user_communities_memberships,
+    load_custom_fields,
+)
 
 from ..utils import get_external_resources
 from .decorators import (
@@ -241,7 +251,7 @@ def record_file_preview(
         if plugin.can_preview(fileobj):
             return plugin.preview(fileobj)
 
-    return default.preview(fileobj)
+    return default_previewer.preview(fileobj)
 
 
 @pass_is_preview
@@ -257,6 +267,33 @@ def record_file_download(pid_value, file_item=None, is_preview=False, **kwargs):
         emitter(current_app, record=file_item._record, obj=obj, via_api=False)
 
     return file_item.send_file(as_attachment=download)
+
+
+@pass_record_or_draft(expand=False)
+def record_thumbnail(pid_value, size, record=None, **kwargs):
+    """Display a record's thumbnail."""
+    # Verify against allowed thumbnail sizes
+    if size not in current_app.config["APP_RDM_RECORD_THUMBNAIL_SIZES"]:
+        abort(404)
+    files = record.data.get("files", {})
+    default_preview = files.get("default_preview")
+    file_entries = files.get("entries", {})
+    if file_entries:
+        file_key = next(
+            (
+                key
+                for key in itertools.chain([default_preview], file_entries)
+                if key and Path(key).suffix[1:] in image_extensions
+            ),
+            None,
+        )
+        if file_key:
+            file = current_rdm_records.records_service.files.read_file_metadata(
+                id_=pid_value, file_key=file_key, identity=g.identity
+            )
+            iiif_base_url = file["links"]["iiif_base"]
+            return redirect(f"{iiif_base_url}/full/{size},/0/default.png")
+    return abort(404)
 
 
 ####### Media files download
