@@ -230,7 +230,7 @@
 
             {# Files #}
             {%- block record_files -%}
-              {# record has files BUT passed files are empty. This happens when we display are request. #}
+              {# record has files BUT passed files are empty. This happens when we display a request. #}
               {%- if record.files.enabled -%}
                 <section id="record-files" class="rel-mt-2" aria-label="{{ _('Files') }}">
                   <h2 id="files-heading">{{ _('Files') }}</h2>
@@ -296,7 +296,7 @@
 
             {# Files #}
             {%- block record_media_files -%}
-              {# record has files BUT passed files are empty. This happens when we display are request. #}
+              {# record has files BUT passed files are empty. This happens when we display a request. #}
               {%- if record.media_files.enabled -%}
                 <section id="record-media-files" class="rel-mt-2" aria-label="{{ _('Media files') }}">
                   <h2 id="files-heading">{{ _('Media files') }}</h2>
