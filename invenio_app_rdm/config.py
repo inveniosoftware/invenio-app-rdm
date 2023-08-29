@@ -380,6 +380,10 @@ CELERY_BEAT_SCHEDULE = {
             )
         ],
     },
+    "reindex-stats": {
+        "task": "invenio_rdm_records.services.tasks.reindex_stats",
+        "schedule": timedelta(hours=1),
+    },
     # Invenio communities provides some caching that has the potential to be never removed,
     # therefore, we need a cronjob to ensure that at least once per day we clear the cache
     "clear-cache": {
