@@ -295,7 +295,7 @@ def invalid_file_instance(db, dummy_location):
     file_id = obj.file_id
 
     # Get FileInstance from file ID
-    f = FileInstance.query.get(file_id)
+    f = db.session.get(FileInstance, file_id)
 
     # Force an invalid checksum
     f.checksum = "invalid"
@@ -303,6 +303,6 @@ def invalid_file_instance(db, dummy_location):
     db.session.commit()
 
     # Retrieve the file instance (with updated last_check)
-    f = FileInstance.query.get(file_id)
+    f = db.session.get(FileInstance, file_id)
 
     return f
