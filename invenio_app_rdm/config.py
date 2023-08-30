@@ -47,6 +47,10 @@ from invenio_communities.notifications.builders import (
 )
 from invenio_notifications.backends import EmailNotificationBackend
 from invenio_rdm_records.notifications.builders import (
+    CommunityInclusionAcceptNotificationBuilder,
+    CommunityInclusionCancelNotificationBuilder,
+    CommunityInclusionDeclineNotificationBuilder,
+    CommunityInclusionExpireNotificationBuilder,
     CommunityInclusionSubmittedNotificationBuilder,
 )
 from invenio_rdm_records.requests.entity_resolvers import RDMRecordServiceResultResolver
@@ -1160,16 +1164,20 @@ NOTIFICATIONS_BACKENDS = {
 
 
 NOTIFICATIONS_BUILDERS = {
-    # community inclusion
+    # Comment request event
+    CommentRequestEventCreateNotificationBuilder.type: CommentRequestEventCreateNotificationBuilder,
+    # Community inclusion
+    CommunityInclusionAcceptNotificationBuilder.type: CommunityInclusionAcceptNotificationBuilder,
+    CommunityInclusionCancelNotificationBuilder.type: CommunityInclusionCancelNotificationBuilder,
+    CommunityInclusionDeclineNotificationBuilder.type: CommunityInclusionDeclineNotificationBuilder,
+    CommunityInclusionExpireNotificationBuilder.type: CommunityInclusionExpireNotificationBuilder,
     CommunityInclusionSubmittedNotificationBuilder.type: CommunityInclusionSubmittedNotificationBuilder,
-    # community invitation
+    # Community invitation
     CommunityInvitationAcceptNotificationBuilder.type: CommunityInvitationAcceptNotificationBuilder,
     CommunityInvitationCancelNotificationBuilder.type: CommunityInvitationCancelNotificationBuilder,
     CommunityInvitationDeclineNotificationBuilder.type: CommunityInvitationDeclineNotificationBuilder,
     CommunityInvitationExpireNotificationBuilder.type: CommunityInvitationExpireNotificationBuilder,
     CommunityInvitationSubmittedNotificationBuilder.type: CommunityInvitationSubmittedNotificationBuilder,
-    # comment request
-    CommentRequestEventCreateNotificationBuilder.type: CommentRequestEventCreateNotificationBuilder,
 }
 """Notification builders."""
 
