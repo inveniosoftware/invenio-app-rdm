@@ -13,7 +13,12 @@ import { ShareModal } from "./ShareModal";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import PropTypes from "prop-types";
 
-export const ShareButton = ({ disabled, record, accessLinksSearchConfig }) => {
+export const ShareButton = ({
+  disabled,
+  record,
+  accessLinksSearchConfig,
+  permissions,
+}) => {
   const [modalOpen, setModalOpen] = useState(false);
   const handleOpen = () => setModalOpen(true);
   const handleClose = () => setModalOpen(false);
@@ -43,6 +48,7 @@ export const ShareButton = ({ disabled, record, accessLinksSearchConfig }) => {
         open={modalOpen}
         handleClose={handleClose}
         record={record}
+        permissions={permissions}
         accessLinksSearchConfig={accessLinksSearchConfig}
       />
     </>
@@ -53,6 +59,7 @@ ShareButton.propTypes = {
   disabled: PropTypes.bool,
   record: PropTypes.object.isRequired,
   accessLinksSearchConfig: PropTypes.object.isRequired,
+  permissions: PropTypes.object.isRequired,
 };
 
 ShareButton.defaultProps = {

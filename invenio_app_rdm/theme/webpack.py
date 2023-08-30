@@ -20,7 +20,7 @@ theme = WebpackThemeBundle(
         "semantic-ui": dict(
             entry={
                 "invenio-app-rdm-landing-page": "./js/invenio_app_rdm/landing_page/index.js",
-                "invenio-app-rdm-landing-page-access-form": "./js/invenio_app_rdm/landing_page/accessForm.js",
+                "invenio-app-rdm-landing-page-access-form": "./js/invenio_app_rdm/landing_page/access.js",
                 "invenio-app-rdm-landing-page-theme": "./js/invenio_app_rdm/landing_page/theme.js",
                 "invenio-app-rdm-deposit": "./js/invenio_app_rdm/deposit/index.js",
                 "invenio-app-rdm-search": "./js/invenio_app_rdm/search/index.js",

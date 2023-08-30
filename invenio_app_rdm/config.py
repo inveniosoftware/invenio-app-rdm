@@ -869,8 +869,6 @@ RDM_REQUESTS_ROUTES = {
     "user-dashboard-request-details": "/me/requests/<request_pid_value>",
     "community-dashboard-request-details": "/communities/<pid_value>/requests/<request_pid_value>",
     "community-dashboard-invitation-details": "/communities/<pid_value>/invitations/<request_pid_value>",
-    "access-request-verify": "/access-requests/verify",
-    "access-request-view": "/access-requests/requests/<request_pid_value>",
 }
 
 RDM_COMMUNITIES_ROUTES = {

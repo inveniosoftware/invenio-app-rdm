@@ -29,6 +29,7 @@ export class AccessRequestTimelineEdit extends Component {
 
   accessRequestFormSchema = Yup.object({
     secret_link_expiration: Yup.date()
+      .typeError(i18next.t("Invalid date format."))
       .min(
         DateTime.now().toJSDate(),
         i18next.t("Access link expiration date cannot be in the past.")
