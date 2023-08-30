@@ -32,7 +32,12 @@ const appName = "InvenioAppRdm.DashboardRequests";
 export function RequestsResultsItemTemplateDashboard({ result }) {
   const ComputerTabletRequestsItemWithState = withState(ComputerTabletRequestItem);
   const MobileRequestsItemWithState = withState(MobileRequestItem);
-  const detailsURL = `/me/requests/${result.id}`;
+  let detailsURL;
+  if (result.type === "user-access-request") {
+    detailsURL = `/access/requests/${result.id}`;
+  } else {
+    detailsURL = `/me/requests/${result.id}`;
+  }
   return (
     <>
       <ComputerTabletRequestsItemWithState result={result} detailsURL={detailsURL} />

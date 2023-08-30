@@ -81,6 +81,7 @@ export class RecordManagement extends Component {
                   disabled={!permissions.can_update_draft}
                   record={record}
                   accessLinksSearchConfig={accessLinksSearchConfig}
+                  permissions={permissions}
                 />
               )}
             </Grid.Column>

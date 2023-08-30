@@ -10,6 +10,9 @@
 
 from flask import Blueprint
 from invenio_pidstore.errors import PIDDeletedError, PIDDoesNotExistError
+
+from invenio_rdm_records.access_requests_ui.views import verify_access_request_token, \
+    read_request
 from invenio_records_resources.services.errors import PermissionDeniedError
 from invenio_requests.views.ui import (
     not_found_error,
@@ -49,6 +52,11 @@ def create_ui_blueprint(app):
         routes["community-dashboard-invitation-details"],
         view_func=community_dashboard_request_view,
     )
+
+    blueprint.add_url_rule("/access/requests/confirm",
+                           view_func=verify_access_request_token)
+    blueprint.add_url_rule("/access/requests/<request_pid_value>",
+                           view_func=read_request)
 
     # Register error handlers
     blueprint.register_error_handler(

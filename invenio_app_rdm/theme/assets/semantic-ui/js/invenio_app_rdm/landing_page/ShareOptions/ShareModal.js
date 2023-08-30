@@ -11,6 +11,7 @@ import { i18next } from "@translations/invenio_app_rdm/i18next";
 import PropTypes from "prop-types";
 import { LinksTab } from "./AccessLinks/LinksTab";
 import { AccessRequestsTab } from "./AccessRequests/AccessRequestsTab";
+import { AccessUsers } from "./AccessUsers/AccessUsers";
 
 export class ShareModal extends Component {
   constructor(props) {
@@ -25,9 +26,23 @@ export class ShareModal extends Component {
     this.setState({ record: updatedRecord });
   };
 
-  panes = (record, accessLinksSearchConfig) => {
+  panes = (record, accessLinksSearchConfig, permissions) => {
     const { handleClose } = this.props;
     return [
+      {
+        menuItem: { icon: "users", content: "People" },
+        pane: (
+          <Tab.Pane key="accessUsers" as={Container}>
+            <AccessUsers
+              record={record}
+              handleClose={handleClose}
+              permissions={permissions}
+              successCallback={this.handleRecordUpdate}
+            />
+          </Tab.Pane>
+        ),
+      },
+
       {
         menuItem: { icon: "linkify", content: "Links" },
         pane: (
@@ -56,7 +71,7 @@ export class ShareModal extends Component {
   };
 
   render() {
-    const { open, handleClose, accessLinksSearchConfig } = this.props;
+    const { open, handleClose, accessLinksSearchConfig, permissions } = this.props;
     const { record } = this.state;
     return (
       <Modal
@@ -78,7 +93,7 @@ export class ShareModal extends Component {
 
         <Tab
           menu={{ secondary: true, pointing: true }}
-          panes={this.panes(record, accessLinksSearchConfig)}
+          panes={this.panes(record, accessLinksSearchConfig, permissions)}
           renderActiveOnly={false}
         />
       </Modal>
@@ -91,4 +106,5 @@ ShareModal.propTypes = {
   open: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
   accessLinksSearchConfig: PropTypes.object.isRequired,
+  permissions: PropTypes.object.isRequired,
 };
