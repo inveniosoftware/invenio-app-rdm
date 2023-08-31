@@ -1,7 +1,7 @@
 ..
     Copyright (C) 2019-2021 CERN.
     Copyright (C) 2019-2021 Northwestern University.
-    Copyright (C)      2021 TU Wien.
+    Copyright (C) 2021-2023 TU Wien.
     Copyright (C)      2021 Graz University of Technology.
 
     Invenio App RDM is free software; you can redistribute it and/or modify
@@ -9,6 +9,8 @@
 
 Changes
 =======
+
+Version 11.0.3 (released 2023-08-31)
 
 Version 11.0.2 (released 2023-03-03)
 
