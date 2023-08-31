@@ -20,6 +20,7 @@ from invenio_requests.views.ui import (
     record_permission_denied_error,
     record_tombstone_error,
 )
+from sqlalchemy.exc import NoResultFound
 
 from invenio_app_rdm.records_ui.searchapp import search_app_context
 from invenio_app_rdm.requests_ui.views.requests import (
@@ -67,6 +68,8 @@ def create_ui_blueprint(app):
     )
     blueprint.register_error_handler(PIDDeletedError, record_tombstone_error)
     blueprint.register_error_handler(PIDDoesNotExistError, not_found_error)
+    # due to requests found by ID, not PID (check service read method)
+    blueprint.register_error_handler(NoResultFound, not_found_error)
     blueprint.app_context_processor(search_app_context)
 
     return blueprint
