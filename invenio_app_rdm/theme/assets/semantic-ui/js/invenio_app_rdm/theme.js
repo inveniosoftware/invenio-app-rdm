@@ -86,12 +86,15 @@ $invenioMenu.on("keydown", (event) => {
 
 // Search bar
 const headerSearchbar = document.getElementById("header-search-bar");
-const searchBarOptions = JSON.parse(headerSearchbar.dataset.options);
 
-ReactDOM.render(
-  <MultipleOptionsSearchBar
-    options={searchBarOptions}
-    placeholder={i18next.t("Search records...")}
-  />,
-  headerSearchbar
-);
+if(headerSearchbar) {
+  const searchBarOptions = JSON.parse(headerSearchbar.dataset.options);
+
+  ReactDOM.render(
+    <MultipleOptionsSearchBar
+      options={searchBarOptions}
+      placeholder={i18next.t("Search records...")}
+    />,
+    headerSearchbar
+  );
+}
