@@ -87,7 +87,7 @@ $invenioMenu.on("keydown", (event) => {
 // Search bar
 const headerSearchbar = document.getElementById("header-search-bar");
 
-if(headerSearchbar) {
+if (headerSearchbar) {
   const searchBarOptions = JSON.parse(headerSearchbar.dataset.options);
 
   ReactDOM.render(
