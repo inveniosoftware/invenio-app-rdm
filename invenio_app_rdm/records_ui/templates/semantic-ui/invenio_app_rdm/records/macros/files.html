@@ -30,7 +30,7 @@
 
 {% macro preview_file_box(file, pid, is_preview, record) %}
 <div class="">
-  <div class="ui accordion panel mb-10 {{record.ui.access_status.id}}" id="preview" href="#collapsablePreview">
+  <div class="ui accordion panel mb-10 {{record.ui.access_status.id}}" href="#collapsablePreview">
     <div class="active title trigger panel-heading {{record.ui.access_status.id}} truncated" tabindex="0" aria-label="{{ _('File preview') }}">
       <span id="preview-file-title">{{file.key}}</span>
       <i class="ui angle right icon"></i>
@@ -114,7 +114,7 @@
 {%- set binary_sizes = not config.APP_RDM_DISPLAY_DECIMAL_FILE_SIZES %}
 {%- set files_access = record.access.files if not is_media else record.access.media_files %}
 <div class="">
-  <div class="ui accordion panel mb-10 {{record.ui.access_status.id}}" id="preview" href="#collapsablePreview">
+  <div class="ui accordion panel mb-10 {{record.ui.access_status.id}}" href="#collapsablePreview">
     <div class="active title trigger panel-heading {{record.ui.access_status.id}}" tabindex="0">
       {{ _("Files") }}
       <small class="text-muted">{% if files %} ({{files|sum(attribute='size')|filesizeformat(binary=binary_sizes)}}){% endif %}</small>

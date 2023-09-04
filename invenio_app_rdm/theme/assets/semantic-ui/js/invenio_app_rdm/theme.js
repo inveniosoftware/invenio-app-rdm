@@ -55,6 +55,23 @@ $("#user-profile-dropdown.ui.dropdown").dropdown({
   },
 });
 
+/* Quick create ("plus") dropdown */
+$("#quick-create-dropdown.ui.dropdown").dropdown({
+  showOnFocus: false,
+  selectOnKeydown: false,
+  action: (text, value, element) => {
+    // needed to trigger navigation on keyboard interaction
+    let path = element.attr("href");
+    window.location.pathname = path;
+  },
+  onShow: () => {
+    $("#quick-create-dropdown-btn").attr("aria-expanded", true);
+  },
+  onHide: () => {
+    $("#quick-create-dropdown-btn").attr("aria-expanded", false);
+  },
+});
+
 /* Burger menu */
 const $burgerIcon = $("#rdm-burger-menu-icon");
 const $closeBurgerIcon = $("#rdm-close-burger-menu-icon");
