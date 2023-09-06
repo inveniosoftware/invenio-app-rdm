@@ -13,7 +13,7 @@
   {%- extends config.BASE_TEMPLATE %}
 {% endif %}
 
-{%- from "invenio_app_rdm/records/macros/files.html" import file_list_box, preview_file_box %}
+{%- from "invenio_app_rdm/records/macros/files.html" import file_list_box, preview_file_box, media_file_list_box %}
 
 {%- set title = record.metadata.title %}
 {%- set metadata = record.metadata %}
@@ -250,7 +250,7 @@
                            href="#collapsablePreview">
                         <div class="active title trigger panel-heading {{ record.ui.access_status.id }}">
                           {{ _("Files") }}
-                          <i class="angle down icon"></i>
+                          <i class="angle right icon"></i>
                         </div>
                         <div id="collapsablePreview" class="active content pt-0">
                           <div class="ui {{ record.ui.access_status.message_class }} message file-box-message">
@@ -296,38 +296,12 @@
 
             {# Files #}
             {%- block record_media_files -%}
-              {# record has files BUT passed files are empty. This happens when we display are request. #}
-              {%- if record.media_files.enabled -%}
-                <section id="record-media-files" class="rel-mt-2" aria-label="{{ _('Media files') }}">
-                  <h2 id="files-heading">{{ _('Media files') }}</h2>
-                  {%- if permissions.can_view -%}
-                    {# record has files AND user can see files #}
-                    {%- set media_files = media_files|order_entries %}
-                    {{ file_list_box(media_files, record.id, is_preview, record, is_media=True) }}
-                  {% else %}
-                    {# record has media_files BUT user cannot see media_files #}
-                    <div class="pt-0 pb-20">
-                      <div class="ui accordion panel mb-10 {{ record.ui.access_status.id }}"
-                           href="#collapsablePreview">
-                        <div class="active title trigger panel-heading {{ record.ui.access_status.id }}">
-                          {{ _("Media files") }}
-                          <i class="angle down icon"></i>
-                        </div>
-                        <div id="collapsablePreview" class="active content pt-0">
-                          <div class="ui {{ record.ui.access_status.message_class }} message file-box-message">
-                            <i
-                              class="ui {{ record.ui.access_status.icon }} icon"></i><b>{{ record.ui.access_status.title_l10n }}</b>
-                            <p>{{ record.ui.access_status.description_l10n }}</p>
-
-                            {% if record.access.embargo.reason %}
-                              <p>{{ _("Reason") }}: {{ record.access.embargo.reason }}</p>
-                            {% endif %}
-
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  {%- endif %}
+              {# record has media files AND user can see files #}
+              {# can_media_read_files is false when record is fully restricted and users can't see the landing page at all #}
+              {%- if media_files.enabled and media_files.entries and permissions.can_media_read_files -%}
+                <section id="record-media-files" aria-label="{{ _('System files') }}">
+                  {%- set media_files = media_files|order_entries %}
+                  {{ media_file_list_box(media_files, record.id, is_preview, record) }}
                 </section>
               {%- endif %}
             {%- endblock record_media_files -%}
