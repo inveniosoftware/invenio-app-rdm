@@ -34,6 +34,7 @@ from .decorators import (
     pass_record_files,
     pass_record_from_pid,
     pass_record_latest,
+    pass_record_media_files,
     pass_record_or_draft,
 )
 
@@ -112,6 +113,7 @@ class PreviewFile:
 @pass_is_preview
 @pass_record_or_draft(expand=True)
 @pass_record_files
+@pass_record_media_files
 def record_detail(pid_value, record, files, media_files, is_preview=False):
     """Record detail page (aka landing page)."""
     files_dict = None if files is None else files.to_dict()
@@ -156,6 +158,7 @@ def record_detail(pid_value, record, files, media_files, is_preview=False):
                 "read_files",
                 "review",
                 "view",
+                "media_read_files",
             ]
         ),
         custom_fields_ui=custom_fields["ui"],

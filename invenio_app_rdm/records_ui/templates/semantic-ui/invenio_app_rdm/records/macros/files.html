@@ -50,7 +50,8 @@
     record=None,
     with_preview=true,
     download_endpoint='invenio_app_rdm_records.record_file_download',
-    preview_endpoint='invenio_app_rdm_records.record_file_preview'
+    preview_endpoint='invenio_app_rdm_records.record_file_preview',
+    is_media=false
 ) %}
   <table class="ui striped table files fluid">
     <thead>
@@ -59,7 +60,7 @@
         <th>{{_('Size')}}</th>
         <th class>
           {%- if config.RDM_ARCHIVE_DOWNLOAD_ENABLED %}
-          {% set archive_download_url = record.links.archive %}
+          {% set archive_download_url = record.links.archive_media if is_media else record.links.archive %}
           <a role="button" class="ui compact mini button right floated archive-link" href="{{ archive_download_url }}">
             <i class="file archive icon button"></i> {{_("Download all")}}
           </a>
@@ -110,9 +111,8 @@
 {%- endmacro %}
 
 
-{% macro file_list_box(files, pid, is_preview, record, is_media=false) %}
+{% macro file_list_box(files, pid, is_preview, record) %}
 {%- set binary_sizes = not config.APP_RDM_DISPLAY_DECIMAL_FILE_SIZES %}
-{%- set files_access = record.access.files if not is_media else record.access.media_files %}
 <div class="">
   <div class="ui accordion panel mb-10 {{record.ui.access_status.id}}" href="#collapsablePreview">
     <div class="active title trigger panel-heading {{record.ui.access_status.id}}" tabindex="0">
@@ -131,8 +131,34 @@
       </div>
       {% endif %}
       <div id="collapsableFiles">
-        {% set download_endpoint = "invenio_app_rdm_records.record_media_file_download" if is_media else "invenio_app_rdm_records.record_file_download" %}
-        {{ file_list(files, pid, is_preview, record=record, download_endpoint=download_endpoint) }}
+        {{ file_list(files, pid, is_preview, record=record, download_endpoint="invenio_app_rdm_records.record_file_download") }}
+      </div>
+    </div>
+  </div>
+</div>
+{%- endmacro %}
+
+{% macro media_file_list_box(files, pid, is_preview, record) %}
+{%- set binary_sizes = not config.APP_RDM_DISPLAY_DECIMAL_FILE_SIZES %}
+<div class="">
+  <div class="ui accordion panel mb-10 {{record.access.record}}" id="preview" href="#collapsablePreview">
+    <div class="active title trigger panel-heading {{record.access.record}}" tabindex="0">
+      {{ _("System files") }}
+      <small class="text-muted">{% if files %} ({{files|sum(attribute='size')|filesizeformat(binary=binary_sizes)}}){% endif %}</small>
+      <i class="angle right icon"></i>
+    </div>
+    <div class="active content pt-0">
+      {% if record.access.record == 'restricted'%}
+      <div class="ui {{ record.ui.access_status.message_class }} message file-box-message">
+        <i class="ui {{ record.ui.access_status.icon }} icon"></i><b>{{ record.ui.access_status.title_l10n }}</b>
+        <p>{{ record.ui.access_status.description_l10n }}</p>
+        {% if record.access.embargo.reason %}
+          <p>{{_("Reason")}}: {{record.access.embargo.reason}}</p>
+        {% endif%}
+      </div>
+      {% endif %}
+      <div id="collapsableFiles">
+        {{ file_list(files, pid, is_preview, record=record, with_preview=false, download_endpoint="invenio_app_rdm_records.record_media_file_download", is_media=true) }}
       </div>
     </div>
   </div>

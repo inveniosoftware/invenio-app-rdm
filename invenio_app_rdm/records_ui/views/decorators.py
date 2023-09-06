@@ -232,22 +232,48 @@ def pass_record_files(f):
             if is_preview:
                 try:
                     files = draft_files_service().list_files(**read_kwargs)
-                    media_files = draft_media_files_service().list_files(**read_kwargs)
                 except NoResultFound:
                     files = files_service().list_files(**read_kwargs)
-                    media_files = media_files_service().list_files(**read_kwargs)
             else:
                 files = files_service().list_files(**read_kwargs)
-                media_files = media_files_service().list_files(**read_kwargs)
 
             kwargs["files"] = files
-            kwargs["media_files"] = media_files
 
         except PermissionDeniedError:
             # this is handled here because we don't want a 404 on the landing
             # page when a user is allowed to read the metadata but not the
             # files
             kwargs["files"] = None
+
+        return f(**kwargs)
+
+    return view
+
+
+def pass_record_media_files(f):
+    """Decorate a view to pass a record's media files using the files service."""
+
+    @wraps(f)
+    def view(**kwargs):
+        is_preview = kwargs.get("is_preview")
+        pid_value = kwargs.get("pid_value")
+        read_kwargs = {"id_": pid_value, "identity": g.identity}
+
+        try:
+            if is_preview:
+                try:
+                    media_files = draft_media_files_service().list_files(**read_kwargs)
+                except NoResultFound:
+                    media_files = media_files_service().list_files(**read_kwargs)
+            else:
+                media_files = media_files_service().list_files(**read_kwargs)
+
+            kwargs["media_files"] = media_files
+
+        except PermissionDeniedError:
+            # this is handled here because we don't want a 404 on the landing
+            # page when a user is allowed to read the metadata but not the
+            # files
             kwargs["media_files"] = None
 
         return f(**kwargs)
