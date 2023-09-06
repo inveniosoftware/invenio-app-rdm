@@ -32,6 +32,8 @@ theme = WebpackThemeBundle(
                 "iiif-simple-previewer": "./less/invenio_app_rdm/previewer/iiif_simple.less",
                 "invenio-app-rdm-frontpage": "./js/invenio_app_rdm/frontpage/index.js",
                 "overridable-registry": "./js/invenio_app_rdm/overridableRegistry/index.js",
+                "invenio-users-moderation-administration": "./js/invenio_app_rdm/administration/userModeration/index.js",
+                "invenio-users-administration": "./js/invenio_app_rdm/administration/users/index.js",
             },
             dependencies={
                 "@babel/runtime": "^7.9.0",
