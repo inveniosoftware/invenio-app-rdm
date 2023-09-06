@@ -14,35 +14,47 @@
 {%- endif %}
 
 {%- block message %}
-  <h1><i class="fa fa-flash"></i> {{ _('Gone') }}</h1>
+<div class="container centered rel-pt-2">
+  <h1 class="ui header inline-block">
+    <i class="icon lightning" aria-hidden="true"></i>
+    <div class="content pl-0 rel-pr-1">
+      {{ _('Gone') }}
+    </div>
+  </h1>
+
   <p>
-  {%- trans sitename=config.THEME_SITENAME %}
-    The record  you are trying to access was removed from {{ sitename }}. The
-    metadata of the record is kept for archival purposes.
-  {%- endtrans %}
+    {%- trans sitename=config.THEME_SITENAME %}
+      The record  you are trying to access was removed from {{ sitename }}. The
+      metadata of the record is kept for archival purposes.
+    {%- endtrans %}
   </p>
-  <div class="ui segment">
-    <p>
-      <strong>{{ _("Reason for removal:") }}</strong> {{ removal_reason }}
-    </p>
-    <p>
-      <strong>{{ _("Removed by:") }}</strong> {{ record.ui.tombstone.removed_by }}
-    </p>
-    {%- if record.ui.tombstone.note %}
-    <p>
-      <strong>{{ _("Removal note:") }}</strong> {{ record.ui.tombstone.note }}
-    </p>
-    {%- endif %}
-    <p>
-      <strong>{{ _("Date of removal:") }}</strong> {{ record.ui.tombstone.removal_date_l10n_long }}
-    </p>
-    <p>
-      <strong>{{ _("Citation:") }}</strong> {{ record.ui.tombstone.citation_text }}
-    </p>
-    {%- if record.pids.doi %}
-    <p>
-      <strong>{{ _("Identifier:") }}</strong> {{ record.pids.doi.identifier }}
-    </p>
-    {%- endif %}
+
+  <div class="ui message compact text-align-left">
+    <div class="content">
+      <p>
+        <strong>{{ _("Reason for removal:") }}</strong> {{ removal_reason }}
+      </p>
+      <p>
+        <strong>{{ _("Removed by:") }}</strong> {{ record.ui.tombstone.removed_by }}
+      </p>
+      {%- if record.ui.tombstone.note %}
+      <p>
+        <strong>{{ _("Removal note:") }}</strong> {{ record.ui.tombstone.note }}
+      </p>
+      {%- endif %}
+      <p>
+        <strong>{{ _("Date of removal:") }}</strong> {{ record.ui.tombstone.removal_date_l10n_long }}
+      </p>
+      <p>
+        <strong>{{ _("Citation:") }}</strong> {{ record.ui.tombstone.citation_text }}
+      </p>
+      {%- if record.pids.doi %}
+      <p>
+        <strong>{{ _("Identifier:") }}</strong> {{ record.pids.doi.identifier }}
+      </p>
+      {%- endif %}
+    </div>
+
   </div>
+</div>
 {% endblock message %}
