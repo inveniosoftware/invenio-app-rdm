@@ -14,14 +14,13 @@ from flask_login import current_user
 from flask_menu import current_menu
 from invenio_i18n import lazy_gettext as _
 
+from ..searchapp import search_app_context
+from .dashboard import communities, requests, uploads
+
+
 #
 # Error handlers
 #
-from invenio_app_rdm.users_ui.views.dashboard import communities, requests, uploads
-
-from ..searchapp import search_app_context
-
-
 def not_found_error(error):
     """Handler for 'Not Found' errors."""
     return render_template(current_app.config["THEME_404_TEMPLATE"]), 404

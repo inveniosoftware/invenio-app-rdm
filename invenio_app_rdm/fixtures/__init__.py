@@ -11,8 +11,8 @@ from pathlib import Path
 
 from flask import current_app
 
-from invenio_app_rdm.fixtures.oai_sets import OAICustomSets
-from invenio_app_rdm.fixtures.pages import StaticPages
+from .oai_sets import OAICustomSets
+from .pages import StaticPages
 
 
 class Pages:

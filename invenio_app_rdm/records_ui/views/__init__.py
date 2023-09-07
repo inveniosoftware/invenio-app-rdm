@@ -21,8 +21,7 @@ from invenio_records_resources.services.errors import (
     PermissionDeniedError,
 )
 
-from invenio_app_rdm.theme.views import create_url_rule
-
+from ...theme.views import create_url_rule
 from ..searchapp import search_app_context
 from .deposits import deposit_create, deposit_edit
 from .filters import (

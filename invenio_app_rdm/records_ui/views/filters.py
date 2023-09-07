@@ -18,9 +18,7 @@ from invenio_previewer.views import is_previewable
 from invenio_records_files.api import FileObject
 from invenio_records_permissions.policies import get_record_permission_policy
 
-from invenio_app_rdm.records_ui.previewer.iiif_simple import (
-    previewable_extensions as image_extensions,
-)
+from ..previewer.iiif_simple import previewable_extensions as image_extensions
 
 
 def make_files_preview_compatible(files):
