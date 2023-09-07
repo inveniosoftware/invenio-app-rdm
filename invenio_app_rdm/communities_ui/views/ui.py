@@ -16,9 +16,8 @@ from invenio_i18n import lazy_gettext as _
 from invenio_pidstore.errors import PIDDeletedError, PIDDoesNotExistError
 from invenio_records_resources.services.errors import PermissionDeniedError
 
-from invenio_app_rdm.communities_ui.views.communities import communities_detail
-
 from ..searchapp import search_app_context
+from .communities import communities_detail
 
 
 #

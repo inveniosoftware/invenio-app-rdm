@@ -22,11 +22,8 @@ from invenio_requests.views.ui import (
 )
 from sqlalchemy.exc import NoResultFound
 
-from invenio_app_rdm.records_ui.searchapp import search_app_context
-from invenio_app_rdm.requests_ui.views.requests import (
-    community_dashboard_request_view,
-    user_dashboard_request_view,
-)
+from ...records_ui.searchapp import search_app_context
+from .requests import community_dashboard_request_view, user_dashboard_request_view
 
 
 def create_ui_blueprint(app):

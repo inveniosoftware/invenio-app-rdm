@@ -23,16 +23,12 @@ from invenio_requests.views.decorators import pass_request
 from invenio_users_resources.proxies import current_user_resources
 from sqlalchemy.orm.exc import NoResultFound
 
-from invenio_app_rdm.records_ui.views.decorators import (
-    draft_files_service,
-    files_service,
-)
-from invenio_app_rdm.records_ui.views.deposits import (
+from ...records_ui.utils import get_external_resources
+from ...records_ui.views.decorators import draft_files_service, files_service
+from ...records_ui.views.deposits import (
     get_user_communities_memberships,
     load_custom_fields,
 )
-
-from ...records_ui.utils import get_external_resources
 
 
 def _resolve_topic_record(request):

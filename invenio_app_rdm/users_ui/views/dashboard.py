@@ -13,7 +13,7 @@ from flask_login import current_user, login_required
 from invenio_communities.proxies import current_communities
 from invenio_users_resources.proxies import current_user_resources
 
-from invenio_app_rdm.records_ui.views.deposits import get_search_url
+from ...records_ui.views.deposits import get_search_url
 
 
 @login_required

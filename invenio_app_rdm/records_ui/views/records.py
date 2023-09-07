@@ -21,11 +21,6 @@ from invenio_rdm_records.resources.serializers import UIJSONSerializer
 from invenio_stats.proxies import current_stats
 from marshmallow import ValidationError
 
-from invenio_app_rdm.records_ui.views.deposits import (
-    get_user_communities_memberships,
-    load_custom_fields,
-)
-
 from ..utils import get_external_resources
 from .decorators import (
     pass_file_item,
@@ -37,6 +32,7 @@ from .decorators import (
     pass_record_media_files,
     pass_record_or_draft,
 )
+from .deposits import get_user_communities_memberships, load_custom_fields
 
 
 def get_record_community(record):
