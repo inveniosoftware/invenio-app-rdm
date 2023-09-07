@@ -15,7 +15,6 @@ is that nothing happens!
 
 import yaml
 from flask import current_app
-from invenio_access.permissions import system_identity
 from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier
 from invenio_rdm_records.records.api import RDMDraft, RDMRecord
@@ -144,7 +143,7 @@ def check_affiliations():
         with open("invalid_affiliations.yaml", "w") as f:
             yaml.dump(list(invalid_affiliations), f)
     else:
-        print(f"All your instance's affiliations are valid.")
+        print("All your instance's affiliations are valid.")
     if needs_ror:
         print(
             "You have affiliations with ROR identifiers, you need to "
@@ -197,7 +196,7 @@ def check_subjects():
         with open("custom_subjects.yaml", "w") as f:
             yaml.dump(list(subjects_to_dump.values()), f)
     else:
-        print(f"All your instance's subjects are valid.")
+        print("All your instance's subjects are valid.")
 
 
 def execute_upgrade():

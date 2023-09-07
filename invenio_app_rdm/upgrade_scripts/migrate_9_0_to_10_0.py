@@ -30,7 +30,7 @@ def execute_upgrade():
         echo(f"Updating record: {system_created_set.id}... ", nl=True)
         system_created_set.system_created = True
 
-    echo(f"Commiting to DB", nl=True)
+    echo("Committing to DB", nl=True)
     db.session.commit()
     secho(
         "Data migration completed.",

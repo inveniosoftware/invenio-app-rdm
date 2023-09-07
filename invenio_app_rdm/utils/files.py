@@ -111,7 +111,7 @@ def send_integrity_report_email(files):
             sender = current_app.config["MAIL_DEFAULT_SENDER"]
             admin_email = current_app.config["APP_RDM_ADMIN_EMAIL_RECIPIENT"]
             recipients = admin_email
-            if not type(admin_email) == list:
+            if not isinstance(admin_email, list):
                 recipients = [admin_email]
             mail_ext = current_app.extensions["mail"]
             msg = Message(subject, sender=sender, recipients=recipients, body=body)

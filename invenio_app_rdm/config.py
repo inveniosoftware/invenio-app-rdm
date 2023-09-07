@@ -45,10 +45,7 @@ from invenio_notifications.backends import EmailNotificationBackend
 from invenio_rdm_records.notifications.builders import (
     CommunityInclusionSubmittedNotificationBuilder,
 )
-from invenio_rdm_records.requests.entity_resolvers import (
-    EmailResolver,
-    RDMRecordServiceResultResolver,
-)
+from invenio_rdm_records.requests.entity_resolvers import RDMRecordServiceResultResolver
 from invenio_rdm_records.resources.stats.event_builders import build_record_unique_id
 from invenio_rdm_records.services.communities.components import (
     CommunityServiceComponents,
