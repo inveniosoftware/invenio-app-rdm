@@ -11,7 +11,7 @@
 
 from itertools import chain
 
-from flask import current_app, url_for
+from flask import current_app
 from invenio_records.dictutils import dict_set
 from invenio_records.errors import MissingModelError
 from invenio_records_files.api import FileObject

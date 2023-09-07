@@ -40,7 +40,7 @@ def execute_upgrade():
         migrate_review_policy(community)
         community.commit()
 
-    secho(f"Committing to DB", fg="green")
+    secho("Committing to DB", fg="green")
     db.session.commit()
     secho("Data migration completed.", fg="green")
 

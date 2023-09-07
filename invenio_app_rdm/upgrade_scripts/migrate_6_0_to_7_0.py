@@ -13,7 +13,6 @@ If this script is executed at any other time, probably the best case scenario
 is that nothing happens!
 """
 
-import sys
 
 from click import secho
 from invenio_db import db

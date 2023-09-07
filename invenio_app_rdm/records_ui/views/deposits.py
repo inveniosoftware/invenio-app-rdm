@@ -23,7 +23,6 @@ from invenio_rdm_records.services.schemas.utils import dump_empty
 from invenio_search.engine import dsl
 from invenio_vocabularies.proxies import current_service as vocabulary_service
 from invenio_vocabularies.records.models import VocabularyScheme
-from invenio_vocabularies.services.custom_fields import VocabularyCF
 from marshmallow_utils.fields.babel import gettext_from_dict
 from sqlalchemy.orm import load_only
 

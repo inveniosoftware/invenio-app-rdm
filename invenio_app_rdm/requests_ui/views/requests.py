@@ -9,7 +9,7 @@
 
 """Request views module."""
 
-from flask import abort, current_app, g, redirect, render_template, request
+from flask import g, render_template
 from flask_login import current_user, login_required
 from invenio_communities.members.services.request import CommunityInvitation
 from invenio_communities.views.decorators import pass_community

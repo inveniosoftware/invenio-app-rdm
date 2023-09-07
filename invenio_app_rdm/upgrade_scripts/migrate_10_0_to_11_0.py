@@ -37,7 +37,7 @@ def execute_upgrade():
         fi.storage_class = "L"
         db.session.add(fi)
 
-    secho(f"Commiting to DB", fg="green")
+    secho("Committing to DB", fg="green")
     db.session.commit()
     secho("Data migration completed.", fg="green")
 
