@@ -178,7 +178,7 @@ export const DashboardUploadsSearchLayout = DashboardSearchLayoutHOC({
 });
 
 const ContribSearchAppFacetsWithConfig = parametrize(ContribSearchAppFacets, {
-  toogle: true,
+  toggle: true,
 });
 
 const DashboardResultViewWAppName = parametrize(DashboardResultView, {
