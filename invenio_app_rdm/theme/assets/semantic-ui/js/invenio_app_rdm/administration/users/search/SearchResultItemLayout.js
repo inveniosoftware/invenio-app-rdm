@@ -6,9 +6,7 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import {
-  BoolFormatter
-} from '@js/invenio_administration';
+import { BoolFormatter } from "@js/invenio_administration";
 import { UserActions } from "../UserActions";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
@@ -25,17 +23,13 @@ class SearchResultItemComponent extends Component {
   };
 
   render() {
-    const {
-      result,
-      idKeyPath,
-      listUIEndpoint,
-    } = this.props;
+    const { result, idKeyPath, listUIEndpoint } = this.props;
 
     return (
       <Table.Row>
         {/*<Table.Cell>*/}
-          {/*We pass user ID to bulk actions - user moderation API takes user IDs*/}
-          {/*<SearchResultsRowCheckbox rowId={userId} data={result} />*/}
+        {/*We pass user ID to bulk actions - user moderation API takes user IDs*/}
+        {/*<SearchResultsRowCheckbox rowId={userId} data={result} />*/}
         {/*</Table.Cell>*/}
         <Table.Cell
           key={`user-column-${result.id}`}
@@ -66,9 +60,8 @@ class SearchResultItemComponent extends Component {
           data-label="Active"
           className="word-break-all"
         >
-          <BoolFormatter icon="check" color="green" value={result.active}/>
-          <BoolFormatter icon="close" color="red" value={!result.active}/>
-
+          <BoolFormatter icon="check" color="green" value={result.active} />
+          <BoolFormatter icon="close" color="red" value={!result.active} />
         </Table.Cell>
         <Table.Cell
           collapsing
@@ -112,7 +105,7 @@ class SearchResultItemComponent extends Component {
         </Table.Cell>
 
         <Table.Cell collapsing>
-          <UserActions user={result} successCallback={this.refreshAfterAction}/>
+          <UserActions user={result} successCallback={this.refreshAfterAction} />
         </Table.Cell>
       </Table.Row>
     );
@@ -120,20 +113,13 @@ class SearchResultItemComponent extends Component {
 }
 
 SearchResultItemComponent.propTypes = {
-  resourceName: PropTypes.string.isRequired,
   result: PropTypes.object.isRequired,
-  displayDelete: PropTypes.bool,
-  displayEdit: PropTypes.bool,
-  actions: PropTypes.object,
+  idKeyPath: PropTypes.string.isRequired,
   updateQueryState: PropTypes.func.isRequired,
   currentQueryState: PropTypes.object.isRequired,
   listUIEndpoint: PropTypes.string.isRequired,
 };
 
-SearchResultItemComponent.defaultProps = {
-  displayDelete: true,
-  displayEdit: true,
-  actions: {},
-};
+SearchResultItemComponent.defaultProps = {};
 
 export const SearchResultItemLayout = withState(SearchResultItemComponent);

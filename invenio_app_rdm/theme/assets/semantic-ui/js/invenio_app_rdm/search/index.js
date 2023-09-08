@@ -25,7 +25,7 @@ import {
 } from "@js/invenio_search_ui/components";
 
 const ContribSearchAppFacetsWithConfig = parametrize(ContribSearchAppFacets, {
-  toogle: true,
+  toggle: true,
 });
 
 const appName = "InvenioAppRdm.Search";

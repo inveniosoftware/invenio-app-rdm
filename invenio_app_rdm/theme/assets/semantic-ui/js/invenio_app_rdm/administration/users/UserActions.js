@@ -18,14 +18,14 @@ import { UserModerationApi } from "./api";
 export class UserActions extends Component {
   constructor(props) {
     super(props);
-    this.state = { loading: false, actionSuccess: undefined, error: undefined };
+    this.state = { loading: false };
   }
-
-  static contextType = NotificationContext;
 
   componentWillUnmount() {
     this.cancellableAction && this.cancellableAction.cancel();
   }
+
+  static contextType = NotificationContext;
 
   handleAction = async (action) => {
     this.setState({ loading: true });
@@ -51,8 +51,8 @@ export class UserActions extends Component {
     } else if (action === "deactivate") {
       this.cancellableAction = withCancel(UserModerationApi.deactivateUser(user));
       successNotification = {
-        title: "Deactivated",
-        content: `User ${name} was deactivated.`,
+        title: "Suspended",
+        content: `User ${name} was suspended.`,
         type: "success",
       };
     } else if (action === "approve") {
@@ -64,12 +64,11 @@ export class UserActions extends Component {
       };
     }
     try {
-      const result = await this.cancellableAction.promise;
+      await this.cancellableAction.promise;
       addNotification(successNotification);
-      this.setState({ loading: false, actionSuccess: true });
+      this.setState({ loading: false });
       successCallback();
     } catch (e) {
-      this.setState({ actionSuccess: undefined });
       addNotification({
         title: "Error",
         content: e.toString(),
@@ -86,7 +85,7 @@ export class UserActions extends Component {
     const isUserVerified = !isEmpty(user.verified_at);
 
     return (
-      <>
+      <Button.Group basic widths={4} compact className="margined">
         {isUserBlocked && (
           <Button
             key="restore"
@@ -96,11 +95,12 @@ export class UserActions extends Component {
             icon
             labelPosition="left"
           >
-            <Icon name="undo"></Icon>
+            <Icon name="undo" />
             Restore
           </Button>
         )}
-        {isUserVerified && (
+
+        {!isUserBlocked && (
           <Button
             key="block"
             onClick={() => this.handleAction("block")}
@@ -109,11 +109,11 @@ export class UserActions extends Component {
             icon
             labelPosition="left"
           >
-            <Icon name="ban"></Icon>
+            <Icon name="ban" />
             Block
           </Button>
         )}
-        {!isUserVerified && isUserActive && (
+        {isUserActive && !isUserVerified && (
           <Button
             key="deactivate"
             onClick={() => this.handleAction("approve")}
@@ -122,8 +122,8 @@ export class UserActions extends Component {
             icon
             labelPosition="left"
           >
-            <Icon name="check"></Icon>
-            Approve
+            <Icon name="check" />
+            Reactivate
           </Button>
         )}
         {isUserActive && (
@@ -135,11 +135,11 @@ export class UserActions extends Component {
             icon
             labelPosition="left"
           >
-            <Icon name="pause"></Icon>
+            <Icon name="pause" />
             Suspend
           </Button>
         )}
-      </>
+      </Button.Group>
     );
   }
 }

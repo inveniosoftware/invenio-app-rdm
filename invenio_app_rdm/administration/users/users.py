@@ -2,9 +2,8 @@
 #
 # Copyright (C) 2023 CERN.
 #
-# invenio-administration is free software; you can redistribute it and/or
-# modify it under the terms of the MIT License; see LICENSE file for more
-# details.
+# Invenio App RDM is free software; you can redistribute it and/or modify it
+# under the terms of the MIT License; see LICENSE file for more details.
 
 """Invenio administration users view module."""
 from functools import partial
@@ -15,7 +14,6 @@ from invenio_administration.views.base import (
     AdminResourceListView,
 )
 from invenio_i18n import lazy_gettext as _
-
 from invenio_search_ui.searchconfig import search_app_config
 
 USERS_ITEM_LIST = {
@@ -55,6 +53,7 @@ class UsersListView(AdminResourceListView):
 
     search_config_name = "USERS_RESOURCES_SEARCH"
     search_sort_config_name = "USERS_RESOURCES_SORT_OPTIONS"
+    search_facets_config_name = "USERS_RESOURCES_SEARCH_FACETS"
     template = "invenio_app_rdm/administration/users_search.html"
 
     # These actions are not connected on the frontend -

@@ -7,15 +7,16 @@
  */
 
 import { SearchAppResultsPane } from "@js/invenio_search_ui/components";
+import { SearchFacets } from "@js/invenio_administration";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { UserStatusFilter } from "./filters";
 import { SearchBar, Sort } from "react-searchkit";
+import { Grid } from "semantic-ui-react";
 
 export class UserSearchLayout extends Component {
   render() {
     const { config, appName } = this.props;
-
     return (
       <>
         {/* auto column grid used instead of SUI grid for better searchbar width adjustment */}
@@ -42,8 +43,29 @@ export class UserSearchLayout extends Component {
         <div className="rel-mb-1">
           {/*<FilterLabels ignoreFilters={["is_open"]} />*/}
         </div>
-
-        <SearchAppResultsPane layoutOptions={config.layoutOptions} appName={appName} />
+        <Grid>
+          <Grid.Column
+            computer={4}
+            mobile={16}
+            tablet={16}
+            largeScreen={2}
+            widescreen={2}
+          >
+            <SearchFacets aggs={config.aggs} appName={appName} />
+          </Grid.Column>
+          <Grid.Column
+            mobile={16}
+            tablet={16}
+            computer={12}
+            largeScreen={14}
+            widescreen={14}
+          >
+            <SearchAppResultsPane
+              layoutOptions={config.layoutOptions}
+              appName={appName}
+            />
+          </Grid.Column>
+        </Grid>
       </>
     );
   }

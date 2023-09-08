@@ -43,8 +43,7 @@ class UserStatusFilterComponent extends Component {
 
     if (selected === selectedFilter) {
       return;
-    }
-    else{
+    } else {
       // remove other filters on change
       currentQueryState.filters = [];
     }
