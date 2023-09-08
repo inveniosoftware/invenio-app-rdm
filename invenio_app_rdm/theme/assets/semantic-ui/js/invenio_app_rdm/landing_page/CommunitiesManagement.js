@@ -93,6 +93,7 @@ export class CommunitiesManagement extends Component {
       recordCommunityEndpoint,
       recordUserCommunitySearchConfig,
       searchConfig,
+      record,
     } = this.props;
     const { communities, loading, error, manageCommunitiesModalOpen } = this.state;
     return (
@@ -114,6 +115,7 @@ export class CommunitiesManagement extends Component {
                 recordCommunitySearchConfig={recordCommunitySearchConfig}
                 recordUserCommunitySearchConfig={recordUserCommunitySearchConfig}
                 toggleManageCommunitiesModal={this.toggleManageCommunitiesModal}
+                record={record}
               />
             )}
           </Header>
@@ -165,4 +167,5 @@ CommunitiesManagement.propTypes = {
   canManageRecord: PropTypes.bool.isRequired,
   userCommunitiesMemberships: PropTypes.object.isRequired,
   searchConfig: PropTypes.object.isRequired,
+  record: PropTypes.object.isRequired,
 };

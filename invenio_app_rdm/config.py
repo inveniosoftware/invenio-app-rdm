@@ -53,13 +53,17 @@ from invenio_rdm_records.resources.stats.event_builders import build_record_uniq
 from invenio_rdm_records.services.communities.components import (
     CommunityServiceComponents,
 )
-from invenio_rdm_records.services.errors import InvalidCommunityVisibility
+from invenio_rdm_records.services.errors import (
+    InvalidAccessRestrictions,
+    InvalidCommunityVisibility,
+)
 from invenio_rdm_records.services.permissions import RDMRequestsPermissionPolicy
 from invenio_rdm_records.services.stats import permissions_policy_lookup_factory
 from invenio_records_resources.references.entity_resolvers import ServiceResultResolver
 from invenio_requests.notifications.builders import (
     CommentRequestEventCreateNotificationBuilder,
 )
+from invenio_requests.resources.requests.config import request_error_handlers
 from invenio_stats.aggregations import StatAggregator
 from invenio_stats.contrib.event_builders import build_file_unique_id
 from invenio_stats.processors import EventsIndexer, anonymize_user, flag_robots
@@ -1184,3 +1188,14 @@ USERS_RESOURCES_SERVICE_SCHEMA = NotificationsUserSchema
 
 REQUESTS_PERMISSION_POLICY = RDMRequestsPermissionPolicy
 """The requests permission policy, extended to work with guest access requests."""
+
+
+REQUESTS_ERROR_HANDLERS = {
+    **request_error_handlers,
+    InvalidAccessRestrictions: create_error_handler(
+        lambda e: HTTPJSONException(
+            code=400,
+            description=e.description,
+        )
+    ),
+}

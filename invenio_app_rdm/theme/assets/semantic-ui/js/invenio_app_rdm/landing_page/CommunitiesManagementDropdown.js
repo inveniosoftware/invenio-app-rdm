@@ -88,6 +88,7 @@ export class CommunitiesManagementDropdown extends Component {
       recordCommunitySearchConfig,
       recordCommunityEndpoint,
       recordUserCommunitySearchConfig,
+      record,
     } = this.props;
 
     const options = [
@@ -152,6 +153,7 @@ export class CommunitiesManagementDropdown extends Component {
           recordCommunityEndpoint={recordCommunityEndpoint}
           recordCommunitySearchConfig={recordCommunitySearchConfig}
           recordUserCommunitySearchConfig={recordUserCommunitySearchConfig}
+          record={record}
         />
         <PendingCommunitiesModal
           modalOpen={pendingRequestModalOpen}
@@ -173,6 +175,7 @@ CommunitiesManagementDropdown.propTypes = {
   toggleManageCommunitiesModal: PropTypes.func.isRequired,
   actionSucceed: PropTypes.func,
   searchConfig: PropTypes.object.isRequired,
+  record: PropTypes.object.isRequired,
 };
 
 CommunitiesManagementDropdown.defaultProps = {
