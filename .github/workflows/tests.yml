@@ -37,11 +37,9 @@ jobs:
       matrix:
           python-version: [3.7, 3.8, 3.9]
           requirements-level: [pypi]
-          db-service: [postgresql10,postgresql13]
+          db-service: [postgresql13]
           search-service: [opensearch2,elasticsearch7]
           include:
-          - db-service: postgresql10
-            DB_EXTRAS: "postgresql"
 
           - db-service: postgresql13
             DB_EXTRAS: "postgresql"
