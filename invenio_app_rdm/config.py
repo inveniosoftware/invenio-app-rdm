@@ -916,7 +916,7 @@ IIIF_API_DECORATOR_HANDLER = None
 # See https://github.com/inveniosoftware/invenio-previewer/blob/master/invenio_previewer/config.py  # noqa
 
 PREVIEWER_PREFERENCE = [
-    "csv_dthreejs",
+    "csv_papaparsejs",
     "iiif_simple",
     "simple_image",
     "json_prismjs",
