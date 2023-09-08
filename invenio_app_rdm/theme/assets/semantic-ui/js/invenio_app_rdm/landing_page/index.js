@@ -100,6 +100,7 @@ if (sidebarCommunitiesManageDiv) {
       recordCommunitySearchConfig={recordCommunitySearchConfig}
       permissions={JSON.parse(sidebarCommunitiesManageDiv.dataset.permissions)}
       searchConfig={JSON.parse(pendingCommunitiesSearchConfig)}
+      record={JSON.parse(recordCitationAppDiv.dataset.record)}
     />,
     sidebarCommunitiesManageDiv
   );

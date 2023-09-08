@@ -103,6 +103,7 @@ export class RecordCommunitySubmissionModal extends Component {
       recordUserCommunitySearchConfig,
       recordCommunitySearchConfig,
       handleClose,
+      record,
     } = this.props;
     const apiConfigs = {
       allCommunities: {
@@ -126,6 +127,7 @@ export class RecordCommunitySubmissionModal extends Component {
           modalHeader={i18next.t("Select a community")}
           apiConfigs={apiConfigs}
           handleClose={handleClose}
+          record={record}
         />
         {confirmationModalOpen && (
           <SubmitReviewModal
@@ -152,6 +154,7 @@ RecordCommunitySubmissionModal.propTypes = {
   recordCommunitySearchConfig: PropTypes.object.isRequired,
   recordUserCommunitySearchConfig: PropTypes.string.isRequired,
   handleClose: PropTypes.func.isRequired,
+  record: PropTypes.object.isRequired,
 };
 
 RecordCommunitySubmissionModal.defaultProps = {
