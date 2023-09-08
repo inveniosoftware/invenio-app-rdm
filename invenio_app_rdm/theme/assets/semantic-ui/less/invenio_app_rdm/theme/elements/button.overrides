@@ -62,3 +62,17 @@
     font-weight: normal;
   }
 }
+
+/* groups */
+.ui.buttons.margined {
+  border: none !important;
+  .button {
+    margin: @verticalMargin @horizontalMargin 0 0;
+    box-shadow: @basicGroupBoxShadow;
+    border: @basicGroupBorder;
+    border-radius: @borderRadius;
+    &:last-child{
+      margin-right: 0 !important;
+    }
+  }
+}

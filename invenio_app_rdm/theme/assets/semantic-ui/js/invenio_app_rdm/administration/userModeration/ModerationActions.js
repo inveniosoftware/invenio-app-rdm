@@ -5,10 +5,9 @@
  * Invenio is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
  */
-import isEmpty from "lodash/isEmpty";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Button } from "semantic-ui-react";
+import { Button, Icon } from "semantic-ui-react";
 import { InvenioAdministrationActionsApi as adminAPI } from "@js/invenio_administration";
 import { NotificationContext } from "@js/invenio_administration";
 import { withCancel } from "react-invenio-forms";
@@ -16,14 +15,14 @@ import { withCancel } from "react-invenio-forms";
 export class ModerationActions extends Component {
   constructor(props) {
     super(props);
-    this.state = { loading: false, actionSuccess: undefined, error: undefined };
+    this.state = { loading: false };
   }
-
-  static contextType = NotificationContext;
 
   componentWillUnmount() {
     this.cancellableAction && this.cancellableAction.cancel();
   }
+
+  static contextType = NotificationContext;
 
   handleActionClick = async (e, actionKey, actionConfig) => {
     this.setState({ loading: true });
@@ -38,7 +37,7 @@ export class ModerationActions extends Component {
     try {
       if (actionUrl) {
         this.cancellableAction = withCancel(adminAPI.resourceAction(actionUrl, {}));
-        const result = await this.cancellableAction.promise;
+        await this.cancellableAction.promise;
         if (actionKey === "accept") {
           addNotification({
             title: "Success",
@@ -53,10 +52,9 @@ export class ModerationActions extends Component {
           });
         }
       }
-      this.setState({ loading: false, actionSuccess: true });
+      this.setState({ loading: false });
       successCallback();
     } catch (e) {
-      this.setState({ actionSuccess: undefined });
       addNotification({
         title: "Error",
         content: e.toString(),
@@ -70,21 +68,26 @@ export class ModerationActions extends Component {
   render() {
     const { actions } = this.props;
     const { loading } = this.state;
+
     return (
-      <>
+      <Button.Group className="margined" basic compact widths={2}>
         {Object.entries(actions).map(([actionKey, actionConfig]) => {
+          const icon = actionKey === "accept" ? "check" : "ban";
           return (
             <Button
               key={actionKey}
               onClick={(e) => this.handleActionClick(e, actionKey, actionConfig)}
               disabled={loading}
               loading={loading}
+              icon
+              labelPosition="left"
             >
+              <Icon name={icon} />
               {actionConfig.text}
             </Button>
           );
         })}
-      </>
+      </Button.Group>
     );
   }
 }
@@ -92,6 +95,8 @@ export class ModerationActions extends Component {
 ModerationActions.propTypes = {
   user: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired,
+  resource: PropTypes.object.isRequired,
+  successCallback: PropTypes.func.isRequired,
 };
 
 ModerationActions.defaultProps = {};

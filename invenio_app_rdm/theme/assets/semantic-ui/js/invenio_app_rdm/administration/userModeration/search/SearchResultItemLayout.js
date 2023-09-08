@@ -6,6 +6,7 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
+import { BoolFormatter } from "@js/invenio_administration";
 import { ModerationActions } from "../ModerationActions";
 import { UserActions } from "../../users/UserActions";
 import PropTypes from "prop-types";
@@ -25,32 +26,25 @@ class SearchResultItemComponent extends Component {
   render() {
     const {
       title,
-      resourceName,
       result,
-      columns,
+      idKeyPath,
+      listUIEndpoint,
+      resourceHasActions,
+      resourceName,
       displayEdit,
       displayDelete,
       actions,
-      idKeyPath,
-      resourceSchema,
-      listUIEndpoint,
-      resourceHasActions,
     } = this.props;
-
-    console.log(columns, "-------------------------------------------------");
-    console.log(result, "+++++++++++++++++++++++++++");
-    console.log(resourceSchema, "+++++++++++++++++++++++++++");
 
     const {
       expanded: { topic: user },
-      topic: { user: userId },
     } = result;
     const splitEmail = user.email.split("@");
     return (
       <Table.Row>
         {/*<Table.Cell>*/}
-          {/*We pass user ID to bulk actions - user moderation API takes user IDs*/}
-          {/*<SearchResultsRowCheckbox rowId={userId} data={result} />*/}
+        {/*We pass user ID to bulk actions - user moderation API takes user IDs*/}
+        {/*<SearchResultsRowCheckbox rowId={userId} data={result} />*/}
         {/*</Table.Cell>*/}
         <Table.Cell
           key={`user-column-${result.id}`}
@@ -83,7 +77,20 @@ class SearchResultItemComponent extends Component {
         >
           @{splitEmail[1]}
         </Table.Cell>
-
+        <Table.Cell />
+        <Table.Cell>
+          <BoolFormatter
+            value={result.status === "submitted"}
+            icon="hourglass"
+            color="yellow"
+          />
+          <BoolFormatter value={result.status === "declined"} icon="ban" color="red" />
+          <BoolFormatter
+            value={result.status === "accepted"}
+            icon="check"
+            color="green"
+          />
+        </Table.Cell>
         <Table.Cell collapsing textAlign="right">
           {resourceHasActions && result.is_open && (
             <ModerationActions
@@ -100,9 +107,9 @@ class SearchResultItemComponent extends Component {
               listUIEndpoint={listUIEndpoint}
             />
           )}
-          {!result.is_open &&
-            <UserActions user={user} successCallback={this.refreshAfterAction}/>
-          }
+          {!result.is_open && (
+            <UserActions user={user} successCallback={this.refreshAfterAction} />
+          )}
         </Table.Cell>
       </Table.Row>
     );
@@ -113,21 +120,21 @@ SearchResultItemComponent.propTypes = {
   title: PropTypes.string.isRequired,
   resourceName: PropTypes.string.isRequired,
   result: PropTypes.object.isRequired,
-  columns: PropTypes.array.isRequired,
   displayDelete: PropTypes.bool,
   displayEdit: PropTypes.bool,
   actions: PropTypes.object,
   updateQueryState: PropTypes.func.isRequired,
   currentQueryState: PropTypes.object.isRequired,
   idKeyPath: PropTypes.string.isRequired,
-  resourceSchema: PropTypes.object.isRequired,
   listUIEndpoint: PropTypes.string.isRequired,
+  resourceHasActions: PropTypes.bool,
 };
 
 SearchResultItemComponent.defaultProps = {
   displayDelete: true,
   displayEdit: true,
   actions: {},
+  resourceHasActions: false,
 };
 
 export const SearchResultItemLayout = withState(SearchResultItemComponent);

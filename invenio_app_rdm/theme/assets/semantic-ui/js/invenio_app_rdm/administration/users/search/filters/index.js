@@ -1,1 +1,1 @@
-export { UserStatusFilter } from "./UserStatusFilterComponent"
+export { UserStatusFilter } from "./UserStatusFilterComponent";

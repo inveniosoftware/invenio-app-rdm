@@ -16,7 +16,6 @@ const blockUser = async (user) => {
   return await http.post(APIRoutes.block(user));
 };
 
-
 const deactivateUser = async (user) => {
   return await http.post(APIRoutes.deactivate(user));
 };
@@ -24,7 +23,6 @@ const deactivateUser = async (user) => {
 const approveUser = async (user) => {
   return await http.post(APIRoutes.approve(user));
 };
-
 
 export const UserModerationApi = {
   restoreUser: restoreUser,

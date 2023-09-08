@@ -2,21 +2,22 @@
 #
 # Copyright (C) 2023 CERN.
 #
-# Invenio-requests is free software; you can redistribute it and/or modify
-# it under the terms of the MIT License; see LICENSE file for more details.
+# Invenio App RDM is free software; you can redistribute it and/or modify it
+# under the terms of the MIT License; see LICENSE file for more details.
 """Invenio administration view module for user moderation."""
 from functools import partial
 
 from flask import current_app
-from invenio_administration.views.base import AdminView, AdminResourceListView, \
-    AdminResourceDetailView
-from invenio_search_ui.searchconfig import search_app_config
-from marshmallow import Schema
-
+from invenio_administration.views.base import (
+    AdminResourceDetailView,
+    AdminResourceListView,
+)
 from invenio_requests.customizations.user_moderation import UserModerationRequest
+from invenio_search_ui.searchconfig import search_app_config
 
 
 class UserModerationListView(AdminResourceListView):
+    """User moderation admin search view."""
 
     api_endpoint = "/requests"
     extension_name = "invenio-requests"
@@ -53,6 +54,17 @@ class UserModerationListView(AdminResourceListView):
         "domain": {
             "text": "Email domain",
             "order": 4,
+            "width": 2,
+        },
+        # custom display of the values - only declared to create columns
+        "activity": {
+            "text": "Activity",
+            "order": 5,
+            "width": 4,
+        },
+        "status": {
+            "text": "Status",
+            "order": 6,
             "width": 2,
         },
     }
@@ -156,5 +168,5 @@ class UserModerationRequestDetailView(AdminResourceDetailView):
         },  # TODO we should resolve the user. But this is fetched from the API.
         # TODO can we dereference somehow?
         "created": {"text": "Created", "order": 2},
-        "is_open": {"text": "Open", "order": 4}
+        "is_open": {"text": "Open", "order": 4},
     }
