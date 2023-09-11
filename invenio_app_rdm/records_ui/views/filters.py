@@ -13,7 +13,7 @@ from os.path import splitext
 
 import idutils
 from babel.numbers import format_compact_decimal, format_decimal
-from flask import current_app
+from flask import current_app, url_for
 from invenio_previewer.views import is_previewable
 from invenio_records_files.api import FileObject
 from invenio_records_permissions.policies import get_record_permission_policy
@@ -148,3 +148,31 @@ def truncate_number(value, max_value):
     if int(value) > max_value:
         number = compact_number(value, max_value=1_000_000)
     return number
+
+
+def namespace_url(field):
+    """Get custom field namespace url."""
+    namespace_array = field.split(":")
+    namespace = namespace_array[0]
+    namespace_value = namespace_array[1]
+    namespaces = current_app.config.get("RDM_NAMESPACES")
+
+    if not namespaces.get(namespace):
+        return None
+
+    return namespaces[namespace] + namespace_value
+
+
+def custom_fields_search(field, field_value):
+    """Get custom field search url."""
+    namespace_array = field.split(":")
+    namespace = namespace_array[0]
+    namespaces = current_app.config.get("RDM_NAMESPACES")
+
+    if not namespaces.get(namespace):
+        return None
+
+    namespace_string = "\:".join(namespace_array)
+    return url_for(
+        "invenio_search_ui.search", q=f"custom_fields.{namespace_string}:{field_value}"
+    )

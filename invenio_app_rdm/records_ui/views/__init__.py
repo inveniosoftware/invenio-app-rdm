@@ -27,11 +27,13 @@ from .deposits import deposit_create, deposit_edit
 from .filters import (
     can_list_files,
     compact_number,
+    custom_fields_search,
     get_scheme_label,
     has_images,
     has_previewable_files,
     localize_number,
     make_files_preview_compatible,
+    namespace_url,
     order_entries,
     pid_url,
     select_preview_file,
@@ -157,6 +159,8 @@ def create_blueprint(app):
     blueprint.add_app_template_filter(localize_number)
     blueprint.add_app_template_filter(compact_number)
     blueprint.add_app_template_filter(truncate_number)
+    blueprint.add_app_template_filter(namespace_url)
+    blueprint.add_app_template_filter(custom_fields_search)
 
     # Register context processor
     blueprint.app_context_processor(search_app_context)

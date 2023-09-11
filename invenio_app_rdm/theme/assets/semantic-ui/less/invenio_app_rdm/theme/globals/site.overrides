@@ -276,7 +276,7 @@ a.no-text-decoration:hover {
   text-decoration: none;
 }
 
-#collapsablePreview {
+.preview-container {
   border: 1px solid transparent; // Prevents iframe from overflowing accordion border
 }
 
@@ -290,8 +290,18 @@ dd {
   margin-inline-start: 0;
 }
 
+ul.details-list {
+  li {
+    padding-left: 0 !important;
+
+    &:not(:last-child) {
+      margin-bottom: 1rem;
+    }
+  }
+}
+
 dl.details-list {
-  margin-top: .5rem;
+  margin-top: 0;
 
   &:last-child {
     margin-bottom: 0;
@@ -424,4 +434,15 @@ dl.details-list {
   &::first-letter {
     text-transform: capitalize;
   }
+}
+
+.sr-only { // Hide element in the UI, but keep it available for screen readers
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  word-wrap: normal;
+  border: 0;
 }

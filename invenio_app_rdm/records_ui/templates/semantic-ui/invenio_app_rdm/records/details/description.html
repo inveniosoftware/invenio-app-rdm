@@ -12,7 +12,7 @@
 {% set description = metadata.get('description') %}
 {% if description %}
   <section id="description" class="rel-mt-2" aria-label="{{ _('Record description') }}">
-    <h2 id="description-heading">{{ _('Description') }}</h2>
+    <h2 id="description-heading" class="sr-only">{{ _('Description') }}</h2>
     {# description data is being sanitized by marshmallow in the backend #}
     <p>{{ description | safe }}</p>
   </section>
