@@ -54,7 +54,7 @@
     {% endif %}
 
     <div id="request-actions" class="flex align-items-start ml-auto mb-10">
-      {% if accepted %}
+      {% if accepted and record %}
         <a href="{{ url_for('invenio_app_rdm_records.record_detail', pid_value=request.topic.record) }}"
            class="ui small button"
            rel="noopener noreferrer" target="_blank"
