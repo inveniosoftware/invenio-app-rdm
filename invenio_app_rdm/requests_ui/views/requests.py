@@ -24,7 +24,12 @@ from invenio_users_resources.proxies import current_user_resources
 from sqlalchemy.orm.exc import NoResultFound
 
 from ...records_ui.utils import get_external_resources
-from ...records_ui.views.decorators import draft_files_service, files_service
+from ...records_ui.views.decorators import (
+    draft_files_service,
+    draft_media_files_service,
+    files_service,
+    media_files_service,
+)
 from ...records_ui.views.deposits import (
     get_user_communities_memberships,
     load_custom_fields,
@@ -87,6 +92,22 @@ def _resolve_record_or_draft_files(record):
     return None
 
 
+def _resolve_record_or_draft_media_files(record):
+    """Resolve the record's or draft's media files."""
+    if record and record["media_files"]["enabled"]:
+        record_pid = record["id"]
+        try:
+            media_files = draft_media_files_service().list_files(
+                id_=record_pid, identity=g.identity
+            )
+        except NoResultFound:
+            media_files = media_files_service().list_files(
+                id_=record_pid, identity=g.identity
+            )
+        return media_files.to_dict()
+    return None
+
+
 @login_required
 @pass_request(expand=True)
 def user_dashboard_request_view(request, **kwargs):
@@ -107,6 +128,7 @@ def user_dashboard_request_view(request, **kwargs):
         is_draft = record["is_draft"] if record else False
 
         files = _resolve_record_or_draft_files(record)
+        media_files = _resolve_record_or_draft_media_files(record)
         return render_template(
             f"invenio_requests/{request_type}/index.html",
             base_template="invenio_app_rdm/users/base.html",
@@ -118,6 +140,7 @@ def user_dashboard_request_view(request, **kwargs):
             is_draft=is_draft,
             request_is_accepted=request_is_accepted,
             files=files,
+            media_files=media_files,
             is_user_dashboard=True,
             custom_fields_ui=load_custom_fields()["ui"],
             user_communities_memberships=get_user_communities_memberships(),
@@ -175,6 +198,7 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
 
         permissions.update(topic["permissions"])
         files = _resolve_record_or_draft_files(record)
+        media_files = _resolve_record_or_draft_media_files(record)
         return render_template(
             f"invenio_requests/{request_type}/index.html",
             base_template="invenio_communities/details/base.html",
@@ -186,6 +210,7 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
             is_draft=is_draft,
             request_is_accepted=request_is_accepted,
             files=files,
+            media_files=media_files,
             user_avatar=avatar,
             custom_fields_ui=load_custom_fields()["ui"],
             user_communities_memberships=get_user_communities_memberships(),
