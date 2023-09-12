@@ -298,7 +298,7 @@
             {%- block record_media_files -%}
               {# record has media files AND user can see files #}
               {# can_media_read_files is false when record is fully restricted and users can't see the landing page at all #}
-              {%- if media_files.enabled and media_files.entries and permissions.can_media_read_files -%}
+              {%- if media_files and media_files.enabled and media_files.entries and permissions.can_media_read_files -%}
                 <section id="record-media-files" aria-label="{{ _('System files') }}">
                   {%- set media_files = media_files|order_entries %}
                   {{ media_file_list_box(media_files, record.id, is_preview, record) }}
