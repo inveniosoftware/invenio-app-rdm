@@ -119,8 +119,9 @@ def user_dashboard_request_view(request, **kwargs):
     request_type = request["type"]
     request_is_accepted = request["status"] == AcceptAction.status_to
 
-    has_record_topic = "record" in request["topic"]
-    has_community_topic = "community" in request["topic"]
+    has_topic = request["topic"] is not None
+    has_record_topic = has_topic and "record" in request["topic"]
+    has_community_topic = has_topic and "community" in request["topic"]
 
     if has_record_topic:
         topic = _resolve_topic_record(request)
@@ -147,7 +148,7 @@ def user_dashboard_request_view(request, **kwargs):
             external_resources=get_external_resources(record),
         )
 
-    elif has_community_topic:
+    elif has_community_topic or not has_topic:
         return render_template(
             f"invenio_requests/{request_type}/user_dashboard.html",
             base_template="invenio_app_rdm/users/base.html",
