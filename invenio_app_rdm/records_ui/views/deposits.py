@@ -11,12 +11,15 @@
 
 """Routes for record-related pages provided by Invenio-App-RDM."""
 
+from copy import deepcopy
+
 from flask import current_app, g, render_template
 from flask_login import login_required
 from invenio_communities.proxies import current_communities
 from invenio_i18n import lazy_gettext as _
 from invenio_i18n.ext import current_i18n
 from invenio_rdm_records.proxies import current_rdm_records
+from invenio_rdm_records.records.api import get_quota
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
 from invenio_rdm_records.services.schemas import RDMRecordSchema
 from invenio_rdm_records.services.schemas.utils import dump_empty
@@ -308,6 +311,10 @@ def get_form_config(**kwargs):
     custom_fields["ui"] = [
         cf for cf in custom_fields["ui"] if not cf.get("hide_from_upload_form", False)
     ]
+    quota = deepcopy(conf.get("APP_RDM_DEPOSIT_FORM_QUOTA", {}))
+    record_quota = kwargs.pop("quota", None)
+    if record_quota:
+        quota["maxStorage"] = record_quota["quota_size"]
 
     return dict(
         vocabularies=VocabulariesOptions().dump(),
@@ -317,7 +324,7 @@ def get_form_config(**kwargs):
         current_locale=str(current_i18n.locale),
         default_locale=conf.get("BABEL_DEFAULT_LOCALE", "en"),
         pids=get_form_pids_config(),
-        quota=conf.get("APP_RDM_DEPOSIT_FORM_QUOTA"),
+        quota=quota,
         decimal_size_display=conf.get("APP_RDM_DISPLAY_DECIMAL_FILE_SIZES", True),
         links=dict(
             user_dashboard_request=conf["RDM_REQUESTS_ROUTES"][
@@ -363,7 +370,7 @@ def deposit_create(community=None):
     """Create a new deposit."""
     return render_template(
         current_app.config["APP_RDM_DEPOSIT_FORM_TEMPLATE"],
-        forms_config=get_form_config(createUrl="/api/records"),
+        forms_config=get_form_config(createUrl="/api/records", quota=get_quota()),
         searchbar_config=dict(searchUrl=get_search_url()),
         record=new_record(),
         files=dict(default_preview=None, entries=[], links={}),
@@ -389,7 +396,11 @@ def deposit_edit(pid_value, draft=None, draft_files=None):
 
     return render_template(
         current_app.config["APP_RDM_DEPOSIT_FORM_TEMPLATE"],
-        forms_config=get_form_config(apiUrl=f"/api/records/{pid_value}/draft"),
+        forms_config=get_form_config(
+            apiUrl=f"/api/records/{pid_value}/draft",
+            # maybe quota should be serialized into the record e.g for admins
+            quota=get_quota(draft._record),
+        ),
         record=record,
         files=files_dict,
         searchbar_config=dict(searchUrl=get_search_url()),

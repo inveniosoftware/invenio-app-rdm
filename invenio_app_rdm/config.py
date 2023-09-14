@@ -237,6 +237,12 @@ FILES_REST_STORAGE_CLASS_LIST = {
 
 FILES_REST_DEFAULT_STORAGE_CLASS = "L"
 
+FILES_REST_DEFAULT_QUOTA_SIZE = 10**10
+"""Default quota size is 10Gb."""
+
+FILES_REST_DEFAULT_MAX_FILE_SIZE = FILES_REST_DEFAULT_QUOTA_SIZE
+"""Default maximum file size for a bucket in bytes."""
+
 # Invenio-Formatter
 # =================
 
@@ -804,7 +810,7 @@ Available options:
 
 APP_RDM_DEPOSIT_FORM_QUOTA = {
     "maxFiles": 100,
-    "maxStorage": 10**10,
+    "maxStorage": FILES_REST_DEFAULT_QUOTA_SIZE,
 }
 """Deposit file upload quota """
 
