@@ -555,6 +555,14 @@ APP_RDM_RECORD_EXPORTERS = {
         "content-type": "application/json",
         "filename": "{id}.json",
     },
+    "json-ld": {
+        "name": _("JSON-LD"),
+        "serializer": (
+            "invenio_rdm_records.resources.serializers:" "SchemaorgJSONLDSerializer"
+        ),
+        "content-type": "application/ld+json",
+        "filename": "{id}.json",
+    },
     "csl": {
         "name": _("CSL"),
         "serializer": (
