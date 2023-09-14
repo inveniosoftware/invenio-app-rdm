@@ -170,9 +170,9 @@ export const RDMToggleComponent = ({
       <Card.Content>
         <Checkbox
           toggle
-          label={label}
+          label={<label aria-hidden="true">{label}</label>}
           name="versions-toggle"
-          id="versions-toggle"
+          aria-label={label}
           onClick={onToggleClicked}
           checked={isChecked}
         />
