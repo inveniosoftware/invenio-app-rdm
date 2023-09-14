@@ -26,6 +26,7 @@ def test_export_formats(client, running_app, cache, record):
     # Expected export formats:
     formats = [
         "json",
+        "json-ld",
         "csl",
         "datacite-json",
         "datacite-xml",
