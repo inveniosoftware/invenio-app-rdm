@@ -21,11 +21,22 @@
   .community-list-results.content {
     height: calc(55vh - 10em);
 
-    .item {
-      padding: @defaultPadding;
+    .community-item {
+      padding: @defaultPadding calc(@defaultPadding/2);
+      border-bottom: 1px solid @borderColor;
 
-      &:first-child {
+      &:first-child,
+      &:first-child + .mobile {
         padding-top: @defaultPadding !important; //overriding semantic ui's !important
+        border-top: 1px solid @borderColor;
+      }
+
+      &:last-child {
+        padding-bottom: @defaultPadding !important; //overriding semantic ui's !important
+      }
+
+      @media all and (max-width: @largestMobileScreen) {
+        padding: @defaultPadding calc(@defaultPadding/4);
       }
 
       &.selected {
@@ -100,15 +111,29 @@
 .ui.modal {
   .actions {
     background: @actionBackground;
-    padding: @actionPadding;
+    padding: @contentPadding;
     border-top: @actionBorder;
     text-align: @actionAlign;
   }
+  .content {
+  display: block;
+  width: 100%;
+  font-size: @contentFontSize;
+  line-height: @contentLineHeight;
+  padding: @contentPadding;
+  background: @contentBackground;
+}
 }
 .ui.modal .actions {
   .button {
     margin-left: @buttonDistance;
+    margin-right: 0;
+    &.left.floated{
+      margin-right: @buttonDistance;
+      margin-left: 0;
+    }
   }
+
 }
 
 .ui.dimmer .ui.modal .ui.loader {

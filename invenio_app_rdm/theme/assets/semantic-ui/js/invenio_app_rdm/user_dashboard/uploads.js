@@ -12,14 +12,14 @@ import _get from "lodash/get";
 import _truncate from "lodash/truncate";
 import React from "react";
 import { Button, Card, Divider, Header, Segment } from "semantic-ui-react";
-import { parametrize } from "react-overridable";
+import { parametrize, overrideStore } from "react-overridable";
 import {
   RDMCountComponent,
   RDMEmptyResults as RDMNoSearchResults,
   RDMRecordSearchBarElement,
   RDMToggleComponent,
 } from "../search/components";
-import { axiosWithconfig } from "../utils";
+import { http } from "react-invenio-forms";
 import { DashboardResultView, DashboardSearchLayoutHOC } from "./base";
 import { createSearchAppInit } from "@js/invenio_search_ui";
 import { ComputerTabletUploadsItem } from "./uploads_items/ComputerTabletUploadsItem";
@@ -42,13 +42,13 @@ const statuses = {
 
 export const RDMRecordResultsListItem = ({ result }) => {
   const editRecord = () => {
-    axiosWithconfig
+    http
       .post(`/api/records/${result.id}/draft`)
       .then(() => {
         window.location = `/uploads/${result.id}`;
       })
       .catch((error) => {
-        console.log(error.response.data);
+        console.error(error.response.data);
       });
   };
 
@@ -81,6 +81,7 @@ export const RDMRecordResultsListItem = ({ result }) => {
     version: result.ui?.version ?? "",
     isPublished: isPublished,
     viewLink: isPublished ? `/records/${result.id}` : `/uploads/${result.id}`,
+    publishingInformation: _get(result, "ui.publishing_information.journal", ""),
   };
 
   return (
@@ -161,6 +162,8 @@ RDMEmptyResults.propTypes = {
   queryString: PropTypes.string.isRequired,
 };
 
+const appName = "InvenioAppRdm.DashboardUploads";
+
 export const DashboardUploadsSearchLayout = DashboardSearchLayoutHOC({
   searchBarPlaceholder: i18next.t("Search in my uploads..."),
   newBtn: (
@@ -172,24 +175,35 @@ export const DashboardUploadsSearchLayout = DashboardSearchLayoutHOC({
       floated="right"
     />
   ),
+  appName: appName,
 });
 
 const ContribSearchAppFacetsWithConfig = parametrize(ContribSearchAppFacets, {
-  toogle: true,
+  toggle: true,
+});
+
+const DashboardResultViewWAppName = parametrize(DashboardResultView, {
+  appName: appName,
 });
 
 export const defaultComponents = {
-  "BucketAggregation.element": ContribBucketAggregationElement,
-  "BucketAggregationValues.element": ContribBucketAggregationValuesElement,
-  "Count.element": RDMCountComponent,
-  "EmptyResults.element": RDMEmptyResults,
-  "ResultsList.item": RDMRecordResultsListItem,
-  "ResultsGrid.item": RDMRecordResultsGridItem,
-  "SearchApp.facets": ContribSearchAppFacetsWithConfig,
-  "SearchApp.layout": DashboardUploadsSearchLayout,
-  "SearchApp.results": DashboardResultView,
-  "SearchBar.element": RDMRecordSearchBarElement,
-  "SearchFilters.Toggle.element": RDMToggleComponent,
+  [`${appName}.BucketAggregation.element`]: ContribBucketAggregationElement,
+  [`${appName}.BucketAggregationValues.element`]: ContribBucketAggregationValuesElement,
+  [`${appName}.Count.element`]: RDMCountComponent,
+  [`${appName}.EmptyResults.element`]: RDMEmptyResults,
+  [`${appName}.ResultsList.item`]: RDMRecordResultsListItem,
+  [`${appName}.ResultsGrid.item`]: RDMRecordResultsGridItem,
+  [`${appName}.SearchApp.facets`]: ContribSearchAppFacetsWithConfig,
+  [`${appName}.SearchApp.layout`]: DashboardUploadsSearchLayout,
+  [`${appName}.SearchApp.results`]: DashboardResultViewWAppName,
+  [`${appName}.SearchBar.element`]: RDMRecordSearchBarElement,
+  [`${appName}.SearchFilters.Toggle.element`]: RDMToggleComponent,
 };
+const overriddenComponents = overrideStore.getAll();
 
-createSearchAppInit(defaultComponents);
+createSearchAppInit(
+  { ...defaultComponents, ...overriddenComponents },
+  true,
+  "invenio-search-config",
+  true
+);

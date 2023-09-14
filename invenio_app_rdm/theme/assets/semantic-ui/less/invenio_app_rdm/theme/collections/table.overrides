@@ -17,6 +17,7 @@
     text-align: center;
   }
 
+
   .ui.primary.medium.file-upload-progress {
     &.progress,
     &.success {
@@ -58,6 +59,11 @@
               background-color: lighten(@borderColor, 75%);
             }
 
+            &.right.aligned {
+              &[data-label]::before {
+                text-align: left;
+              }
+            }
             &:not(.right.aligned) {
               text-align: left;
             }
@@ -70,6 +76,7 @@
                 content: attr(data-label);
                 font-weight: bold;
                 margin-right: 1rem;
+                width: inherit;
               }
 
               .ui.fitted.checkbox {
@@ -92,5 +99,43 @@
         display: block;
       }
     }
+  }
+}
+
+#record-statistics.ui.table {
+  .popup-trigger {
+    position: relative;
+
+    &.compact-number {
+      border-bottom: 1px dotted rgba(0,0,0,0.1);
+      width: max-content;
+    }
+  }
+}
+
+@media all and (min-width: @computerBreakpoint) {
+  table.fixed-header{
+    height: 45vh;              // <-- Select the height of the table
+    display: block;
+    width: 100% !important;
+    tbody{
+      overflow-y: scroll;
+      height: 40vh;            //  <-- Select the height of the body
+      width: 100%;
+      position: absolute;
+      tr {
+        width: calc(100% - 2em);
+        display: inline-table;
+        table-layout: fixed;
+      }
+  }
+
+  thead {
+    tr {
+          width: 100%;
+          display: inline-table;
+          table-layout: fixed;
+        }
+  }
   }
 }

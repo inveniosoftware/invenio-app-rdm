@@ -2,6 +2,7 @@
 #
 # This file is part of Invenio.
 # Copyright (C) 2016-2021 CERN.
+# Copyright (C) 2023 Graz University of Technology.
 #
 # Invenio is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -9,18 +10,17 @@
 """Communities UI views."""
 
 from flask import Blueprint, current_app, render_template
-from flask_babelex import lazy_gettext as _
 from flask_login import current_user
 from flask_menu import current_menu
+from invenio_i18n import lazy_gettext as _
+
+from ..searchapp import search_app_context
+from .dashboard import communities, requests, uploads
+
 
 #
 # Error handlers
 #
-from invenio_app_rdm.users_ui.views.dashboard import communities, requests, uploads
-
-from ..searchapp import search_app_context
-
-
 def not_found_error(error):
     """Handler for 'Not Found' errors."""
     return render_template(current_app.config["THEME_404_TEMPLATE"]), 404
@@ -70,17 +70,17 @@ def create_ui_blueprint(app):
         user_dashboard = current_menu.submenu("dashboard")
         user_dashboard.submenu("uploads").register(
             "invenio_app_rdm_users.uploads",
-            text=_("Uploads"),
+            text=_("My uploads"),
             order=1,
         )
         user_dashboard.submenu("communities").register(
             "invenio_app_rdm_users.communities",
-            text=_("Communities"),
+            text=_("My communities"),
             order=2,
         )
         user_dashboard.submenu("requests").register(
             "invenio_app_rdm_users.requests",
-            text=_("Requests"),
+            text=_("My requests"),
             order=3,
         )
 

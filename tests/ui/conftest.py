@@ -17,6 +17,7 @@ from flask_webpackext.manifest import (
 from invenio_access.permissions import system_identity
 from invenio_app.factory import create_ui
 from invenio_rdm_records.proxies import current_rdm_records
+from invenio_search import current_search
 
 
 #
@@ -53,6 +54,12 @@ def app_config(app_config):
 def create_app():
     """Create test app."""
     return create_ui
+
+
+@pytest.fixture()
+def index_templates(running_app):
+    """Ensure the index templates are in place."""
+    list(current_search.put_templates(ignore=[400]))
 
 
 @pytest.fixture()

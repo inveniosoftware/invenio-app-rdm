@@ -1,0 +1,197 @@
+{#
+  Copyright (C) 2021-2023 CERN.
+  Copyright (C) 2021 Northwestern University.
+
+  Invenio App RDM is free software; you can redistribute it and/or modify it
+  under the terms of the MIT License; see LICENSE file for more details.
+#}
+{%- set title = _("FAQ statistics") %}
+{%- extends config.BASE_TEMPLATE %}
+
+{%- block page_body %}
+  <div class="ui two column grid container rel-mt-2">
+    <div class="ui row">
+      <div class="ui sixteen wide column">
+        <h2 id="statistics">Statistics</h2>
+        <p></p>
+      </div>
+      <div class="ui eight wide column">
+        <h3>
+          <p>What do you track?</p>
+        </h3>
+        <p>We track two types of events:</p>
+        <ol>
+          <li>Visits to a record page.</li>
+          <li>Downloads of a file.</li>
+        </ol>
+        <p>For both types of events, we track:</p>
+        <ol>
+          <li>
+            <strong>Visitor:</strong>
+            An anonymized visitor ID.
+          </li>
+          <li>
+            <strong>Visitor type:</strong>
+            If the request was made by a) human, b) machine or c) robot.
+          </li>
+          <li>
+            <strong>Country:</strong>
+            The country of origin of the request (based on the IP address).
+          </li>
+          <li>
+            <strong>Referrer:</strong>
+            The referrer domain.
+          </li>
+        </ol>
+        <h3>
+          <p>
+            What is a
+            <em>view</em>
+            ?
+          </p>
+        </h3>
+        <p>A user (human or machine) visiting a record, excluding double-clicks and robots.</p>
+        <h3>
+          <p>
+            What is a
+            <em>unique view</em>
+            ?
+          </p>
+        </h3>
+        <p>
+          A
+          <em>unique view</em>
+          is defined as one or more visits by a user within a 1-hour time-window. This means that if the same record was
+          accessed multiple times by the same user within the same time-window, we consider it as one unique view.
+        </p>
+        <h3>
+          <p>
+            What is a
+            <em>download</em>
+            ?
+          </p>
+        </h3>
+        <p>A user (human or machine) downloading a file from a record, excluding double-clicks and robots. If a record has
+          multiple files and you download all files, each file counts as one download.</p>
+        <h3>
+          <p>
+            What is a
+            <em>unique download</em>
+            ?
+          </p>
+        </h3>
+        <p>
+          A
+          <em>unique download</em>
+          is defined as one or more file downloads from files of a single record by a user within a 1-hour time-window. This
+          means that if one or more files of the same record were downloaded multiple times by the same user within the same
+          time-window, we consider it as one unique download.
+        </p>
+        <h3>
+          <p>
+            What is
+            <em>downloaded data volume</em>
+            ?
+          </p>
+        </h3>
+        <p>The total data volume that has been downloaded for all files in a record by a user (human or machine), excluding
+          double-clicks and robots. In case a user cancels a file download mid-way, we still count the total file size as
+          fully downloaded.</p><h3>
+          <p>How do you deal with versions?</p>
+        </h3>
+        <p>By default, for a record, we display the aggregated counts of views, downloads and data volume for all versions
+          of a record. You can further expand the usage statistics box on a record page to see the counts for the specific
+          version.</p>
+        <h3>
+          <p>How do you deal with robots?</p>
+        </h3>
+        <p>
+          Requests made by robots (aka crawlers, spiders, bots) are filtered out from the usage statistics. We detect robots
+          based on a standardized list of robots provided by the
+          <a href="https://www.projectcounter.org/">COUNTER</a>
+          and
+          <a href="https://makedatacount.org/">Making Data Count</a>
+          projects.
+        </p>
+        <h3>
+          <p>How often do you update usage statistics?</p>
+        </h3>
+        <p>Once a day.</p>
+        <h3>
+          <p>How can I see the most viewed records?</p>
+        </h3>
+        <p>
+          Any search on {{ config.THEME_SITENAME }} allows you to sort the search results by "
+          <a href="https://zenodo.org/search?sort=mostviewed">most viewed</a>
+          ".
+        </p>
+        <h3>
+          <p>How do you track?</p>
+        </h3>
+        <p>
+          We comply with the
+          <a href="https://www.projectcounter.org/">COUNTER Code of Practice</a>
+          as well as the
+          <a href="https://peerj.com/preprints/26505/">Code of Practice for Research Data Usage Metrics</a>
+          in our tracking. This means that our usage statistics can be compared with other COUNTER-compliant repositories.
+        </p>
+      </div>
+      <div class="ui eight wide column">
+        <h3>
+          <p>What is the difference between a machine and a robot?</p>
+        </h3>
+        <p>
+          A
+          <em>machine request</em>
+          is an automated request initiated by a human user, e.g. a script downloading data from {{ config.THEME_SITENAME }} and running an
+          analysis on the data. A
+          <em>robot request</em>
+          is an automated request made by e.g. a search engine crawler.
+        </p>
+        <h3>
+          <p>How do you anonymize users?</p>
+        </h3>
+        <p>For each view/download event, we track an anonymized visitor ID. This anonymized visitor ID changes for a user
+          every 24 hours, hence a user viewing the same record on two different days will have two different anonymized
+          visitor IDs. The reason we track an anonymized visitor ID is in order to count unique views and downloads.</p>
+        <p>
+          For security purposes, we also keep a web server access log which includes your
+          <a href="https://en.wikipedia.org/wiki/IP_address">IP address</a>
+          and your browser’s
+          <a href="https://en.wikipedia.org/wiki/User_agent">user agent</a>
+          string. This web server access log is automatically deleted after maximum 1 year and is also strictly separated
+          from the usage statistics collection.
+        </p>
+        <p>The anonymized visitor ID is generated from a personal identifier such as:</p>
+        <ol>
+          <li>a user ID (e.g. if you are logged in on zenodo.org),</li>
+          <li>a session ID,</li>
+          <li>or an IP address and your browser’s user-agent string.</li>
+        </ol>
+        <p>
+          We combine the personal identifier with a random text value (a salt) and apply a one-way
+          <a href="https://en.wikipedia.org/wiki/Cryptographic_hash_function">cryptographic hash function</a>
+          to scramble the data. The salt (random text value) is thrown away and regenerated every 24 hours. Using and
+          afterwards throwing away the random salt, ensures that the anonymized visitor ID is fully random.
+        </p>
+        <h3>
+          <p>Can I opt-out of the usage statistics tracking?</p>
+        </h3>
+        <p>No, it is not possible to opt-out. The usage statistics tracking is fully anonymized and is done on the
+          server-side.</p>
+        <h3>
+          <p>Do you support usage statistics for a community?</p>
+        </h3>
+        <p>Not yet, but we will be adding aggregated usage statistics for your communities.</p>
+        <h3>
+          <p>Do you track my search queries?</p>
+        </h3>
+        <p>No.</p>
+        <h3>
+          <p>Do you do any manual or automatic profiling of users?</p>
+        </h3>
+        <p>No.</p>
+      </div>
+    </div>
+  </div>
+{% endblock page_body %}

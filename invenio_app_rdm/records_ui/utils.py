@@ -9,6 +9,9 @@
 
 """Utility functions."""
 
+from itertools import chain
+
+from flask import current_app
 from invenio_records.dictutils import dict_set
 from invenio_records.errors import MissingModelError
 from invenio_records_files.api import FileObject
@@ -55,3 +58,33 @@ def set_default_value(record_dict, value, path, default_prefix="metadata"):
         path = "{}.{}".format(default_prefix, path)
 
     dict_set(record_dict, path, value)
+
+
+def get_external_resources(record):
+    """Generate external resources from the record."""
+    result = []
+    resources_cfg = current_app.config["APP_RDM_RECORD_LANDING_PAGE_EXTERNAL_LINKS"]
+    for cfg in resources_cfg:
+        try:
+            res = cfg["render"](record)
+            if res:
+                result.append(res)
+        except Exception:
+            pass
+    return list(chain.from_iterable(result))
+
+
+def dump_external_resource(
+    url, title, section, icon=None, subtitle=None, template=None
+):
+    """Dumps a external resource dictionary."""
+    return {
+        "content": {
+            "url": url,
+            "title": title,
+            "subtitle": subtitle,
+            "icon": icon,
+            "section": section,
+        },
+        "template": template,
+    }

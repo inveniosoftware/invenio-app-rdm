@@ -1,0 +1,284 @@
+# 
+# Translators:
+# Tibor Simko <tibor.simko@cern.ch>, 2021
+# Bessem Aamira <bessemamira@gmail.com>, 2022
+# Salaheddine Ben Ali <salaheddine.benali@cnudst.tn>, 2023
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2022-10-12T06:58:21.832Z\n"
+"PO-Revision-Date: 2021-07-14 16:07+0000\n"
+"Last-Translator: Salaheddine Ben Ali <salaheddine.benali@cnudst.tn>, 2023\n"
+"Language-Team: Arabic (https://app.transifex.com/inveniosoftware/teams/23537/ar/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"mime-version: 1.0\n"
+
+msgid "Basic information"
+msgstr "المعلومات الأساسية"
+
+msgid "Copy to clipboard"
+msgstr "نسخ إلى لوخة المفاتيح"
+
+msgid "Copied!"
+msgstr "تم النسخ!"
+
+msgid "Files"
+msgstr "الملفّات"
+
+msgid "The record has no files."
+msgstr "التّسجيلة لا تحتوي على ملفّات."
+
+msgid "Creators"
+msgstr "المنشؤون"
+
+msgid "Recommended information"
+msgstr "معلومات موصى بها"
+
+msgid "Add contributor"
+msgstr "أضف مساهم"
+
+msgid "Contributors"
+msgstr "المساهمون"
+
+msgid "Alternate identifiers"
+msgstr "معرفات بديلة"
+
+msgid "Related works"
+msgstr "أعمال ذات علاقة"
+
+msgid "Visibility"
+msgstr "مرئيّة"
+
+msgid "Edit"
+msgstr "تعديل"
+
+msgid "An error occurred while generating the citation."
+msgstr "حدث خطأ أثناء إنشاء الاستشهاد."
+
+msgid "Citation"
+msgstr "إستشهاد"
+
+msgid "Style"
+msgstr "أسلوب"
+
+msgid "Version"
+msgstr "إصدار"
+
+msgid "Preview"
+msgstr "معاينة"
+
+msgid "Only published versions are displayed."
+msgstr " يمكن الإطلاع على الإصدار المنشور فقط."
+
+msgid "View all {{total}} versions"
+msgstr "الأطلاع على كافة الإصدارات {{total}}"
+
+msgid "You don't have permissions to share this record."
+msgstr "غير مخول لك مشاركة السجل."
+
+msgid "Share"
+msgstr "شارك"
+
+msgid "Can view"
+msgstr "يمكن الإطلاع"
+
+msgid "Can preview"
+msgstr "يمكن المعاينة"
+
+msgid "Can edit"
+msgstr "يمكن التعديل"
+
+msgid "Get a link"
+msgstr "ارفع الرابط"
+
+msgid "Copy link"
+msgstr "نسخ الرابط"
+
+msgid "Delete link"
+msgstr "حذف الرابط"
+
+msgid "Done"
+msgstr "تم"
+
+msgid ""
+"Anyone with this link <1>can view all versions</1> of this record & files."
+msgstr ""
+"يمكن لأي شخص لديه هذا الرابط <1>عرض كافة إصدارات </1> هذه التّسجيلة "
+"وملفاتها."
+
+msgid ""
+"Anyone with this link <2>can view all published and unpublished versions</2>"
+" of this record & files."
+msgstr ""
+"يمكن لأي شخص لديه هذا الرابط<2>عرض كافة الإصدارات المنشورة و غير "
+"المنشورة</2> لهذه التّسجيلة وملفاتها."
+
+msgid "Uploaded on"
+msgstr "تم التحميل على"
+
+msgid "Search"
+msgstr "بحث"
+
+msgid "Search guide"
+msgstr "دليل البحث"
+
+msgid "result(s) found"
+msgstr "النتيجة"
+
+msgid "Sort by"
+msgstr "مرتبة حسب"
+
+msgid "View"
+msgstr "عرض"
+
+msgid "New community"
+msgstr "مجموعة جديدة"
+
+msgid "Get started!"
+msgstr "لتبدأ الآن!"
+
+msgid "Open"
+msgstr "مفتوح"
+
+msgid "Closed"
+msgstr "مغلق"
+
+msgid "All done!"
+msgstr "تم بنجاح!"
+
+msgid "You've caught up with all open requests."
+msgstr "قمت بمعالجة كافة الطلبيات المفتوحة."
+
+msgid "No creation date found."
+msgstr "لا وجود لأي تاريخ إنشاء."
+
+msgid "No description"
+msgstr "بلا وصف"
+
+msgid "No publication date found."
+msgstr "لا وجود لتاريخ نشر."
+
+msgid "No resource type"
+msgstr "نوع مورد غير مبين"
+
+msgid "No title"
+msgstr "لا يوجد عنوان"
+
+msgid "Make your first upload!"
+msgstr "قم بأولى إيداعاتك!"
+
+msgid "New upload"
+msgstr "إيداع جديد"
+
+msgid "ORCID profile"
+msgstr "الملف الشخصي أوركيد ORCID"
+
+msgid "ROR profile"
+msgstr "الملف الشّخصي ROR"
+
+msgid "GND profile"
+msgstr "الملف الشخصي GND"
+
+msgid "No communities found!"
+msgstr "لا وجود لأي مجتمعات!"
+
+msgid "No requests found!"
+msgstr "لا وجود لطلبيات!"
+
+msgid "Copied"
+msgstr "تم النسخ"
+
+msgid "Reset search"
+msgstr "تصفير البحث"
+
+msgid "We couldn't find any matches for "
+msgstr "لا يمكننا إيجاد أي تطابق مع "
+
+msgid "your search"
+msgstr "بحثك"
+
+msgid "Start over"
+msgstr "إبدا من جديد"
+
+msgid "ProTip"
+msgstr "نصيحة محترف"
+
+msgid "For more tips, check out our "
+msgstr "لمزيد من النصائح، قم بالاطلاع على "
+
+msgid "search guide"
+msgstr "دليل البحث"
+
+msgid "Export"
+msgstr "تصدير"
+
+msgid "Filter results"
+msgstr "تنقية النتائج"
+
+msgid "In review"
+msgstr "بصدد التقييم"
+
+msgid "Declined"
+msgstr "مرفوضة"
+
+msgid "Expired"
+msgstr "منتهي الصلاحية"
+
+msgid "Draft"
+msgstr "مسودة"
+
+msgid "New version draft"
+msgstr "مسودّة إصدار جديدة"
+
+msgid "Download file"
+msgstr "تنزيل الملف"
+
+msgid "No link has been created. Click on 'Get a Link' to make a new link."
+msgstr "لم يتم إنشاء رابط. انقر على 'ارفع الرابط' لإنشاء رابط جديد."
+
+msgid ""
+"Anyone with an account and this link <1>can edit all versions</1> of this "
+"record & files."
+msgstr ""
+"يمكن لأي شخص لديه حساب و هذا الرابط <1>تعديل كافة إصدارات </1> هذه التّسجيلة"
+" وملفاتها."
+
+msgid "Search records..."
+msgstr "البحث عن تسجيلات..."
+
+msgid "will give you all the publications from 2017 until today."
+msgstr "سيقدّم لك جميع المنشورات من سنة 2017 إلى اليوم."
+
+msgid " for defining advanced search queries."
+msgstr "لإنشاء مقاربات بحث متقدّمة"
+
+msgid "Public"
+msgstr "عمومي"
+
+msgid "Restricted"
+msgstr "مقيّد"
+
+msgid "Search in my communities..."
+msgstr "البحث في مجتمعاتي..."
+
+msgid "Opened {{difference}} by"
+msgstr "مفتوح {{difference}} من طرف"
+
+msgid "Search in my requests..."
+msgstr "البحث في طلبيّاتي..."
+
+msgid "Actions"
+msgstr "العمليات"
+
+msgid "open"
+msgstr "مفتوح"
+
+msgid "unlock"
+msgstr "إلغاء القفل"
+
+msgid "Search in my uploads..."
+msgstr "البحث في التحميلات خاصّتي..."

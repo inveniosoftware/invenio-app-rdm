@@ -11,266 +11,343 @@
 {%- from "invenio_app_rdm/records/macros/detail.html" import show_section_custom_fields, show_references, show_add_titles,
 show_alternate_identifiers, show_related_identifiers, show_funding, show_dates %}
 
-{% set hasContent = record.ui.additional_titles or
+{% set hasContent = namespace(value=false) %}
+{% set hasContent.value = record.ui.additional_titles or
                     metadata.identifiers or
                     record.ui.related_identifiers or
                     metadata.funding or
                     record.ui.dates or
-                    metadata.references or
-                    record.custom_fields
+                    metadata.references
 %}
+
+{# Check if custom field has values if no other content #}
+{% if record.ui.custom_fields and not hasContent.value %}
+  {% for section_cfg in custom_fields_ui %}
+    {% for field_cfg in section_cfg.fields %}
+      {% if record.custom_fields.get(field_cfg.field) %}
+        {% set hasContent.value = true %}
+      {% endif %}
+    {% endfor %}
+  {% endfor %}
+{% endif %}
+
 {% set rights = record.ui.get('rights') %}
 {% set funding = record.ui.get('funding') %}
-{% set active = true %}
-{% set active_cf_sections = namespace(items=[]) %}
 
-{% if hasContent %}
+{% if hasContent.value %}
   <h2 id="record-details-heading">{{ _('Additional details') }}</h2>
 
-  <div class="rdm-tab-container ml-0-mobile mr-0-mobile">
-    {# Tabs #}
-    <div role="tablist" class="ui top attached tabs menu rdm-tab-menu">
-      {% if record.ui.additional_titles %}
-        <a
-          role="tab"
-          aria-selected="{{ active }}"
-          aria-controls="additional-titles-tab-panel"
-          data-tab="additional-titles"
-          tabindex="0"
-          class="{{ 'active' if active }} item"
-          id="additional-titles-tab"
-        >
-          {{ _('Additional titles') }}
-        </a>
-        {% set active = false %}
-      {% endif %}
+  <div class="ui divider"></div>
 
-
-      {% if metadata.identifiers %}
-        <a
-          role="tab"
-          aria-selected="{{ active }}"
-          aria-controls="identifiers-tab-panel"
-          data-tab="identifiers"
-          tabindex="0"
-          class="{{ 'active' if active }} item"
-          id="identifiers-tab"
-        >
-          {{ _('Identifiers') }}
-        </a>
-        {% set active = false %}
-      {% endif %}
-
-      {% if record.ui.related_identifiers %}
-        <a
-          role="tab"
-          aria-selected="{{ active }}"
-          aria-controls="related-works-tab-panel"
-          data-tab="related-works"
-          tabindex="0"
-          class="{{ 'active' if active }} item"
-          id="related-works-tab"
-        >
-          {{ _('Related works') }}
-        </a>
-        {% set active = false %}
-      {% endif %}
-
-      {% if metadata.funding %}
-        <a
-          role="tab"
-          aria-selected="{{ active }}"
-          aria-controls="funding-tab-panel"
-          data-tab="funding"
-          tabindex="0"
-          class="{{ 'active' if active }} item"
-          id="funding-tab"
-        >
-          {{ _('Funding') }}
-        </a>
-        {% set active = false %}
-      {% endif %}
-
-      {% if record.ui.dates %}
-        <a
-          role="tab"
-          aria-selected="{{ active }}"
-          aria-controls="dates-tab-panel"
-          data-tab="dates"
-          tabindex="0"
-          class="{{ 'active' if active }} item"
-          id="dates-tab"
-        >
-          {{ _('Dates') }}
-        </a>
-        {% set active = false %}
-      {% endif %}
-
-      {% if metadata.references %}
-        <a
-          role="tab"
-          aria-selected="{{ active }}"
-          aria-controls="references-tab-panel"
-          data-tab="references"
-          tabindex="0"
-          class="{{ 'active' if active }} item"
-          id="references-tab"
-        >
-          {{ _('References') }}
-        </a>
-        {% set active = false %}
-      {% endif %}
-      {% if record.custom_fields %}
-        {# Needed to use namespace as variable assignments are cleared in the end of
-           for loops i.e cannot set active = false #}
-        {% set active_cf = namespace(value=active) %}
-        {%- for section_cfg in custom_fields_ui %}
-          {% set section_has_fields = namespace(value=false) %}
-          {% set section_format = section_cfg.section | replace(" ", "-") %}
-          {# Show the section if at least one of its fields is in record #}
-          {% for field_cfg in section_cfg.fields %}
-            {% if record.custom_fields.get(field_cfg.field) %}
-              {% set section_has_fields.value = true %}
-            {% endif %}
-          {% endfor %}
-          {% if section_has_fields.value %}
-            {% set active_cf_sections.items = active_cf_sections.items + [section_cfg.section] %}
-            <a
-            role="tab"
-            aria-selected="{{ active_cf.value }}"
-            aria-controls="{{section_format}}-tab-panel"
-            data-tab="{{section_format}}"
-            tabindex="0"
-            class="{{ 'active' if active_cf.value }} item"
-            id="{{section_format}}-tab"
+  {% if record.ui.additional_titles %}
+    {% if record.ui.additional_titles|length > 5 %}
+      <div class="ui fluid accordion padded grid rel-mb-1">
+        <div class="active title sixteen wide mobile four wide tablet three wide computer column">
+          <h3 class="ui header">
+            <div
+              id="additional-titles-accordion-trigger"
+              role="button"
+              tabindex="0"
+              aria-expanded="true"
+              aria-controls="additional-titles-panel"
+              class="trigger"
             >
-            {{ section_cfg.section }}
-            </a>
-            {% set active_cf.value = false %}
-          {% endif %}
-        {%- endfor %}
-      {% endif %}
-    </div>
-
-    {# Content #}
-    {% set active = true %}
-
-    {% if record.ui.additional_titles %}
-      <div
-          role="tabpanel"
-          class="ui bottom attached {{ 'active' if active }} tab segment"
-          data-tab="additional-titles"
-          aria-labelledby="additional-titles-tab"
-          id="additional-titles-tab-panel"
-          hidden="{{ not active }}"
-
-      >
-        <dl class="details-list">
-          {{ show_add_titles(record.ui.additional_titles) }}
-        </dl>
+              <i class="caret right icon" aria-hidden="true"></i>{{ _('Additional titles') }}
+            </div>
+          </h3>
+        </div>
+        <div
+          id="additional-titles-panel"
+          role="region"
+          aria-labelledby="additional-titles-accordion-trigger"
+          class="active content sixteen wide mobile twelve wide tablet thirteen wide computer column"
+        >
+          <dl class="details-list">
+            {{ show_add_titles(record.ui.additional_titles) }}
+          </dl>
+        </div>
       </div>
-      {% set active = false %}
-    {% endif %}
-
-    {% if metadata.identifiers %}
-      <div
-          role="tabpanel"
-          class="ui bottom attached {{ 'active' if active }} tab segment"
-          data-tab="identifiers"
-          aria-labelledby="identifiers-tab"
-          id="identifiers-tab-panel"
-          hidden="{{ not active }}"
-      >
-        <dl class="details-list">
-          {{ show_alternate_identifiers(metadata.identifiers) }}
-        </dl>
+    {% else %}
+      <div class="ui grid">
+        <div class="sixteen wide mobile four wide tablet three wide computer column">
+          <h3 class="ui header">{{ _('Additional titles') }}</h3>
+        </div>
+        <div class="sixteen wide mobile twelve wide tablet thirteen wide computer column">
+          <dl class="details-list">
+            {{ show_add_titles(record.ui.additional_titles) }}
+          </dl>
+        </div>
       </div>
-      {% set active = false %}
     {% endif %}
+    <div class="ui divider"></div>
+  {% endif %}
 
-    {% if record.ui.related_identifiers %}
-      <div
-          role="tabpanel"
-          class="ui bottom attached {{ 'active' if active }} tab segment"
-          data-tab="related-works"
-          aria-labelledby="related-works-tab"
-          id="related-works-tab-panel"
-          hidden="{{ not active }}"
-      >
-        <dl class="details-list">
+  {% if metadata.identifiers %}
+    {% if metadata.identifiers|length > 5 %}
+      <div class="ui fluid accordion padded grid rel-mb-1">
+        <div class="active title sixteen wide mobile four wide tablet three wide computer column">
+          <h3 class="ui header">
+            <div
+              id="identifiers-accordion-trigger"
+              role="button"
+              tabindex="0"
+              aria-expanded="true"
+              aria-controls="identifiers-panel"
+              class="trigger"
+            >
+              <i class="caret right icon" aria-hidden="true"></i>{{ _('Identifiers') }}
+            </div>
+          </h3>
+        </div>
+        <div
+          id="identifiers-panel"
+          role="region"
+          aria-labelledby="identifiers-accordion-trigger"
+          class="active content sixteen wide mobile twelve wide tablet thirteen wide computer column"
+        >
+          <dl class="details-list">
+            {{ show_alternate_identifiers(metadata.identifiers) }}
+          </dl>
+        </div>
+      </div>
+    {% else %}
+      <div class="ui grid">
+        <div class="sixteen wide mobile four wide tablet three wide computer column">
+          <h3 class="ui header">{{ _('Identifiers') }}</h3>
+        </div>
+        <div class="sixteen wide mobile twelve wide tablet thirteen wide computer column">
+          <dl class="details-list">
+            {{ show_alternate_identifiers(metadata.identifiers) }}
+          </dl>
+        </div>
+      </div>
+    {% endif %}
+    <div class="ui divider"></div>
+  {% endif %}
+
+  {% if record.ui.related_identifiers %}
+    {% if record.ui.related_identifiers|length > 5 %}
+      <div class="ui fluid accordion padded grid rel-mb-1">
+        <div class="active title sixteen wide mobile four wide tablet three wide computer column">
+          <h3 class="ui header">
+            <div
+              id="related-works-accordion-trigger"
+              role="button"
+              tabindex="0"
+              aria-expanded="true"
+              aria-controls="related-works-panel"
+              class="trigger"
+            >
+              <i class="caret right icon" aria-hidden="true"></i>{{ _('Related works') }}
+            </div>
+          </h3>
+        </div>
+        <div
+          id="related-works-panel"
+          role="region"
+          aria-labelledby="related-works-accordion-trigger"
+          class="active content sixteen wide mobile twelve wide tablet thirteen wide computer column"
+        >
           {{ show_related_identifiers(record.ui.related_identifiers) }}
-        </dl>
+        </div>
       </div>
-      {% set active = false %}
+    {% else %}
+      <div class="ui grid">
+        <div class="sixteen wide mobile four wide tablet three wide computer column">
+          <h3 class="ui header">{{ _('Related works') }}</h3>
+        </div>
+        <div class="sixteen wide mobile twelve wide tablet thirteen wide computer column">
+          {{ show_related_identifiers(record.ui.related_identifiers) }}
+        </div>
+      </div>
     {% endif %}
+    <div class="ui divider"></div>
+  {% endif %}
 
-    {% if funding %}
+  {% if funding %}
+   {% if funding|length > 5 %}
+    <div class="ui fluid accordion padded grid rel-mb-1">
+      <div class="active title sixteen wide mobile four wide tablet three wide computer column">
+        <h3 class="ui header">
+          <div
+            id="funding-accordion-trigger"
+            role="button"
+            tabindex="0"
+            aria-expanded="true"
+            aria-controls="funding-panel"
+            class="trigger"
+          >
+            <i class="caret right icon" aria-hidden="true"></i>{{ _('Funding') }}
+          </div>
+        </h3>
+      </div>
       <div
-          role="tabpanel"
-          class="ui bottom attached {{ 'active' if active }} tab segment"
-          data-tab="funding"
-          aria-labelledby="funding-tab"
-          id="funding-tab-panel"
-          hidden="{{ not active }}"
+        id="funding-panel"
+        role="region"
+        aria-labelledby="funding-accordion-trigger"
+        class="active content sixteen wide mobile twelve wide tablet thirteen wide computer column"
       >
         <dl class="details-list">
           {{ show_funding(funding) }}
         </dl>
       </div>
-      {% set active = false %}
-    {% endif %}
-
-    {% if record.ui.dates %}
-      <div
-          role="tabpanel"
-          class="ui bottom attached {{ 'active' if active }} tab segment"
-          data-tab="dates"
-          aria-labelledby="dates-tab"
-          id="dates-tab-panel"
-          hidden="{{ not active }}"
-      >
-        <dl class="details-list">
-          {{ show_dates(record.ui.dates) }}
-        </dl>
-      </div>
-      {% set active = false %}
-    {% endif %}
-
-    {% if metadata.references %}
-      <div
-          role="tabpanel"
-          class="ui bottom attached {{ 'active' if active }} tab segment"
-          data-tab="references"
-          aria-labelledby="references-tab"
-          id="references-tab-panel"
-          hidden="{{ not active }}"
-      >
-        <dl class="details-list">
-          {{ show_references(metadata.references) }}
-        </dl>
-      </div>
-    {% endif %}
-
-    {% if record.custom_fields %}
-      {# Needed to use namespace as variable assignments are cleared in the end of for
-         loops i.e cannot set active = false #}
-      {% set active_cf = namespace(value=active) %}
-      {%- for section_cfg in custom_fields_ui if section_cfg.section in active_cf_sections.items %}
-        {% set section_format = section_cfg.section | replace(" ", "-") %}
-        <div
-          role="tabpanel"
-          class="ui bottom attached {{ 'active' if active_cf.value }} tab segment"
-          data-tab="{{section_format}}"
-          aria-labelledby="{{section_format}}-tab"
-          id="{{section_format}}-tab-panel"
-          hidden="{{ not active_cf.value }}"
-        >
+    </div>
+    {% else %}
+      <div class="ui grid">
+        <div class="sixteen wide mobile four wide tablet three wide computer column">
+          <h3 class="ui header">{{ _('Funding') }}</h3>
+        </div>
+        <div class="sixteen wide mobile twelve wide tablet thirteen wide computer column">
           <dl class="details-list">
-            {{ show_section_custom_fields(record.ui.custom_fields, section_cfg.fields) }}
+            {{ show_funding(funding) }}
           </dl>
         </div>
-        {% set active_cf.value = false %}
-      {%- endfor %}
+      </div>
     {% endif %}
-  </div>
+    <div class="ui divider"></div>
+  {% endif %}
+
+  {% if record.ui.dates %}
+    {% if record.ui.dates|length > 5 %}
+      <div class="ui fluid accordion padded grid rel-mb-1">
+        <div class="active title sixteen wide mobile four wide tablet three wide computer column">
+          <h3 class="ui header">
+            <div
+              id="dates-accordion-trigger"
+              role="button"
+              tabindex="0"
+              aria-expanded="true"
+              aria-controls="dates-panel"
+              class="trigger"
+            >
+              <i class="caret right icon" aria-hidden="true"></i>{{ _('Dates') }}
+            </div>
+          </h3>
+        </div>
+        <div
+          id="dates-panel"
+          role="region"
+          aria-labelledby="dates-accordion-trigger"
+          class="active content sixteen wide mobile twelve wide tablet thirteen wide computer column"
+        >
+          <dl class="details-list">
+            {{ show_dates(record.ui.dates) }}
+          </dl>
+        </div>
+      </div>
+    {% else %}
+      <div class="ui grid">
+        <div class="sixteen wide mobile four wide tablet three wide computer column">
+          <h3 class="ui header">{{ _('Dates') }}</h3>
+        </div>
+        <div class="sixteen wide mobile twelve wide tablet thirteen wide computer column">
+          <dl class="details-list">
+            {{ show_dates(record.ui.dates) }}
+          </dl>
+        </div>
+      </div>
+    {% endif %}
+    <div class="ui divider"></div>
+  {% endif %}
+
+  {% if record.custom_fields %}
+    {%- for section_cfg in custom_fields_ui %}
+      {% set section_has_fields = namespace(value=false) %}
+      {% set section_format = section_cfg.section | replace(" ", "-") %}
+      {# Show the section if at least one of its fields is in record #}
+      {% for field_cfg in section_cfg.fields %}
+        {% if record.custom_fields.get(field_cfg.field) %}
+          {% set section_has_fields.value = true %}
+        {% endif %}
+      {% endfor %}
+
+      {% if section_has_fields.value %}
+        {% if section_cfg.fields|length > 5 %}
+          <div class="ui fluid accordion padded grid rel-mb-1">
+            <div class="active title sixteen wide mobile four wide tablet three wide computer column">
+              <h3 class="ui header">
+                <div
+                  id="custom-fields-accordion-trigger"
+                  role="button"
+                  tabindex="0"
+                  aria-expanded="true"
+                  aria-controls="custom-fields-panel"
+                  class="trigger"
+                >
+                  <i class="caret right icon" aria-hidden="true"></i>{{ section_cfg.section }}
+                </div>
+              </h3>
+            </div>
+            <div
+              id="custom-fields-panel"
+              role="region"
+              aria-labelledby="custom-fields-accordion-trigger"
+              class="active content sixteen wide mobile twelve wide tablet thirteen wide computer column"
+            >
+              {%- for section_cfg in custom_fields_ui if section_cfg.section %}
+                {% set section_format = section_cfg.section | replace(" ", "-") %}
+                <dl class="details-list">
+                  {{ show_section_custom_fields(record.ui.custom_fields, section_cfg.fields) }}
+                </dl>
+              {%- endfor %}
+            </div>
+          </div>
+        {% else %}
+          <div class="ui grid">
+            <div class="sixteen wide mobile four wide tablet three wide computer column">
+              <h3 class="ui header">{{ section_cfg.section }}</h3>
+            </div>
+            <div class="sixteen wide mobile twelve wide tablet thirteen wide computer column">
+              {%- for section_cfg in custom_fields_ui if section_cfg.section %}
+                {% set section_format = section_cfg.section | replace(" ", "-") %}
+                <dl class="details-list">
+                  {{ show_section_custom_fields(record.ui.custom_fields, section_cfg.fields) }}
+                </dl>
+              {%- endfor %}
+            </div>
+          </div>
+        {% endif %}
+        <div class="ui divider"></div>
+      {% endif %}
+    {%- endfor %}
+  {% endif %}
+
+  {% if metadata.references %}
+    {% if metadata.references|length > 5 %}
+      <div class="ui fluid accordion padded grid rel-mb-1">
+        <div class="active title sixteen wide mobile four wide tablet three wide computer column">
+          <h3 class="ui header">
+            <div
+              id="references-accordion-trigger"
+              role="button"
+              tabindex="0"
+              aria-expanded="true"
+              aria-controls="references-panel"
+              class="trigger"
+            >
+              <i class="caret right icon" aria-hidden="true"></i>{{ _('References') }}
+            </div>
+          </h3>
+        </div>
+        <div
+          id="references-panel"
+          role="region"
+          aria-labelledby="references-accordion-trigger"
+          class="active content sixteen wide mobile twelve wide tablet thirteen wide computer column"
+        >
+          {{ show_references(metadata.references) }}
+        </div>
+      </div>
+    {% else %}
+      <div class="ui grid">
+        <div class="sixteen wide mobile four wide tablet three wide computer column">
+          <h3 class="ui header">{{ _('References') }}</h3>
+        </div>
+        <div class="sixteen wide mobile twelve wide tablet thirteen wide computer column">
+          {{ show_references(metadata.references) }}
+        </div>
+      </div>
+    {% endif %}
+  {% endif %}
+  <div class="ui divider"></div>
 {% endif %}

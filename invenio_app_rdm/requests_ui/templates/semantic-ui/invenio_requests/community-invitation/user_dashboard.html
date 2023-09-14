@@ -13,7 +13,14 @@
 
 {% block request_header %}
   {% set back_button_url = url_for("invenio_app_rdm_users.requests") %}
-  {{ invitation_request_header(back_button_url, _("Back to requests"), request=invenio_request, accepted=invitation_accepted) }}
+  {{
+    invitation_request_header(
+      back_button_url=back_button_url,
+      back_button_text=_("Back to requests"),
+      request=invenio_request,
+      accepted=request_is_accepted
+    )
+  }}
 {% endblock %}
 
 {% set active_dashboard_menu_item = 'requests' %}

@@ -5,11 +5,13 @@
 // under the terms of the MIT License; see LICENSE file for more details.
 
 import { i18next } from "@translations/invenio_app_rdm/i18next";
-import _truncate from "lodash/truncate";
 import React from "react";
+import PropTypes from "prop-types";
+import _truncate from "lodash/truncate";
+import _get from "lodash/get";
 import { Dropdown, Icon, Item, Label } from "semantic-ui-react";
 import { SearchItemCreators } from "../../utils";
-import PropTypes from "prop-types";
+import { CompactStats } from "../../components/CompactStats";
 
 export const MobileUploadsItem = ({
   result,
@@ -30,6 +32,7 @@ export const MobileUploadsItem = ({
     version,
     isPublished,
     viewLink,
+    publishingInformation,
   } = uiMetadata;
 
   const icon = isPublished ? (
@@ -37,23 +40,24 @@ export const MobileUploadsItem = ({
   ) : (
     <Icon name="upload" className="negative mr-10" />
   );
-
+  const uniqueViews = _get(result, "stats.all_versions.unique_views", 0);
+  const uniqueDownloads = _get(result, "stats.all_versions.unique_downloads", 0);
   return (
     <Item key={result.id} className="deposits-list-item mobile only flex">
       <Item.Content className="centered">
         <Item.Extra className="labels-actions">
           {result.status in statuses && result.status !== "published" && (
-            <Label size="tiny" className={statuses[result.status].color}>
+            <Label horizontal size="small" className={statuses[result.status].color}>
               {statuses[result.status].title}
             </Label>
           )}
-          <Label size="tiny" className="primary">
+          <Label horizontal size="small" className="primary">
             {publicationDate} ({version})
           </Label>
-          <Label size="tiny" className="neutral">
+          <Label horizontal size="small" className="neutral">
             {resourceType}
           </Label>
-          <Label size="tiny" className={`access-status ${accessStatusId}`}>
+          <Label horizontal size="small" className={`access-status ${accessStatusId}`}>
             <i className={`icon ${accessStatusIcon}`} />
             {accessStatus}
           </Label>
@@ -82,16 +86,34 @@ export const MobileUploadsItem = ({
               </Label>
             ))}
             <div>
-              {}
               <small>
                 {createdDate ? (
                   <>
-                    {i18next.t("Uploaded on")} <span>{createdDate}</span>
+                    {i18next.t("Uploaded on {{uploadDate}}", {
+                      uploadDate: createdDate,
+                    })}
                   </>
                 ) : (
                   i18next.t("No creation date found.")
                 )}
               </small>
+              <small>
+                {publishingInformation && (
+                  <span>
+                    {i18next.t("Published in: {{publishedIn}}", {
+                      publishedIn: publishingInformation,
+                    })}
+                  </span>
+                )}
+              </small>
+              <div className="rel-mt-1">
+                <small>
+                  <CompactStats
+                    uniqueViews={uniqueViews}
+                    uniqueDownloads={uniqueDownloads}
+                  />
+                </small>
+              </div>
             </div>
           </Item.Extra>
         </Item.Extra>

@@ -18,7 +18,7 @@
 {%- block user_dashboard_body %}
   <div
     id="invenio-search-config"
-    data-invenio-search-config='{{ search_app_rdm_user_requests_config() | tojson }}'
+    data-invenio-search-config='{{ search_app_rdm_user_requests_config(app_id="InvenioAppRdm.DashboardRequests") | tojson }}'
   >
   </div>
 {%- endblock user_dashboard_body %}

@@ -84,7 +84,7 @@
 }
 
 @minWidthSmallerScreens: calc(100% + 5rem);
-.members-dropdown-container {
+.members-dropdown-container, .access-dropdown-container {
   .ui.dropdown {
     border: @selectionBorder;
     padding: @selectionVerticalPadding @selectionHorizontalPadding;
@@ -99,7 +99,8 @@
       font-weight: normal;
 
     }
-
+  }
+  .ui.dropdown.floating {
     .dropdown.icon {
       padding-top: 0.25em;
     }
@@ -107,7 +108,7 @@
 
 .action-status-container {
   width: 1em;
-  padding: @selectionVerticalPadding @selectionHorizontalPadding;
+  padding: 0 @selectionHorizontalPadding;
   border-radius: @selectionBorderRadius;
 }
 
@@ -141,7 +142,14 @@
     & > .menu {
       min-width: 14em !important;
       border-top-width: 1px !important;
-      border-radius: @defaultBorderRadius 0em @defaultBorderRadius @defaultBorderRadius;
+      border-radius: @defaultBorderRadius 0 @defaultBorderRadius @defaultBorderRadius;
     }
+  }
+}
+
+.manage-menu-dropdown {
+  .dropdown.icon {
+    margin-left: 0 !important;
+    color: @grey;
   }
 }

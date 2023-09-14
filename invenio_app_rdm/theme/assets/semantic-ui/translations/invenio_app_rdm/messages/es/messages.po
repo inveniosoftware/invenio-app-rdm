@@ -1,0 +1,287 @@
+# 
+# Translators:
+# Alizee Pace <alizee.pace@gmail.com>, 2022
+# Tibor Simko <tibor.simko@cern.ch>, 2022
+# Zacharias Zacharodimos <zacharias.zacharodimos@cern.ch>, 2022
+# Jesús Martín <jesusmartin@sallep.net>, 2022
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2022-10-12T06:58:21.832Z\n"
+"PO-Revision-Date: 2021-07-14 16:07+0000\n"
+"Last-Translator: Jesús Martín <jesusmartin@sallep.net>, 2022\n"
+"Language-Team: Spanish (https://app.transifex.com/inveniosoftware/teams/23537/es/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+"mime-version: 1.0\n"
+
+msgid "Basic information"
+msgstr "Información básica"
+
+msgid "Copy to clipboard"
+msgstr "Copiar al portapapeles"
+
+msgid "Copied!"
+msgstr "¡Copiado!"
+
+msgid "Files"
+msgstr "Archivos"
+
+msgid "The record has no files."
+msgstr "El registro no tiene archivos."
+
+msgid "Creators"
+msgstr "Creadores"
+
+msgid "Recommended information"
+msgstr "Información recomendada"
+
+msgid "Add contributor"
+msgstr "Añadir colaborador"
+
+msgid "Contributors"
+msgstr "Colaboradores"
+
+msgid "Alternate identifiers"
+msgstr "Identificadores alternativos"
+
+msgid "Related works"
+msgstr "Trabajos relacionados"
+
+msgid "Visibility"
+msgstr "Visibilidad"
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "An error occurred while generating the citation."
+msgstr "Ocurrió un error al generar la cita."
+
+msgid "Citation"
+msgstr "Citación"
+
+msgid "Style"
+msgstr "Estilo"
+
+msgid "Version"
+msgstr "Version"
+
+msgid "Preview"
+msgstr "Previsualizar"
+
+msgid "Only published versions are displayed."
+msgstr "Solo se muestran las versiones publicadas."
+
+msgid "View all {{total}} versions"
+msgstr "Ver las {{total}} versiones"
+
+msgid "You don't have permissions to share this record."
+msgstr "No tiene permisos para compartir este registro."
+
+msgid "Share"
+msgstr "Compartir"
+
+msgid "Can view"
+msgstr "Puede ver"
+
+msgid "Can preview"
+msgstr "Puede previsualizar"
+
+msgid "Can edit"
+msgstr "Puede editar"
+
+msgid "Get a link"
+msgstr "Generar enlace"
+
+msgid "Copy link"
+msgstr "Copiar enlace"
+
+msgid "Delete link"
+msgstr "Borrar enlace"
+
+msgid "Done"
+msgstr "Hecho"
+
+msgid ""
+"Anyone with this link <1>can view all versions</1> of this record & files."
+msgstr ""
+"Cualquiera con este enlace <1>puede ver todas las versiones</1> de este "
+"registro y de sus archivos."
+
+msgid ""
+"Anyone with this link <2>can view all published and unpublished versions</2>"
+" of this record & files."
+msgstr ""
+"Cualquiera con este enlace <2>puede ver todas las versiones publicadas o "
+"no</2> de este registro y de sus arcchivos."
+
+msgid "Uploaded on"
+msgstr "Subido en"
+
+msgid "Search"
+msgstr "Buscar"
+
+msgid "Search guide"
+msgstr "Guía de búsqueda"
+
+msgid "result(s) found"
+msgstr "resultado(s) encontrado(s)"
+
+msgid "Sort by"
+msgstr "Ordenado por"
+
+msgid "View"
+msgstr "Ver"
+
+msgid "New community"
+msgstr "Nueva comunidad"
+
+msgid "Get started!"
+msgstr "¡Empezar!"
+
+msgid "Open"
+msgstr "Abrir"
+
+msgid "Closed"
+msgstr "Cerrado"
+
+msgid "All done!"
+msgstr "¡Todo listo!"
+
+msgid "You've caught up with all open requests."
+msgstr "Se ha puesto al día con todas las solicitudes abiertas."
+
+msgid "No creation date found."
+msgstr "No se encontró la fecha de creación."
+
+msgid "No description"
+msgstr "Sin descripción"
+
+msgid "No publication date found."
+msgstr "No se encontró la fecha de publicación."
+
+msgid "No resource type"
+msgstr "Ningún tipo de recurso"
+
+msgid "No title"
+msgstr "Sin título"
+
+msgid "Make your first upload!"
+msgstr "¡Haga su primer envío!"
+
+msgid "New upload"
+msgstr "Nueva subida"
+
+msgid "ORCID profile"
+msgstr "Perfil de ORCID"
+
+msgid "ROR profile"
+msgstr "Perfil de ROR"
+
+msgid "GND profile"
+msgstr "Perfil GND"
+
+msgid "No communities found!"
+msgstr "¡No se encontraron comunidades!"
+
+msgid "No requests found!"
+msgstr "¡No se encontraron solicitudes!"
+
+msgid "Copied"
+msgstr "Copiado"
+
+msgid "Reset search"
+msgstr "Restablecer búsqueda"
+
+msgid "We couldn't find any matches for "
+msgstr "No pudimos encontrar ninguna coincidencia para "
+
+msgid "your search"
+msgstr "tu busqueda"
+
+msgid "Start over"
+msgstr "Empezar de nuevo"
+
+msgid "ProTip"
+msgstr "Consejo"
+
+msgid "For more tips, check out our "
+msgstr "Para más consejos, consulta nuestra "
+
+msgid "search guide"
+msgstr "guía de búsqueda"
+
+msgid "Export"
+msgstr "Exportar"
+
+msgid "Filter results"
+msgstr "Filtrar Resultados"
+
+msgid "In review"
+msgstr "En revisión"
+
+msgid "Declined"
+msgstr "Rechazado"
+
+msgid "Expired"
+msgstr "Caducado"
+
+msgid "Draft"
+msgstr "Borrador"
+
+msgid "New version draft"
+msgstr "Borrador de la nueva versión"
+
+msgid "Download file"
+msgstr "Descargar archivo"
+
+msgid "No link has been created. Click on 'Get a Link' to make a new link."
+msgstr ""
+"No se ha creado ningún enlace. Haga clic en 'Obtener un enlace' para crear "
+"uno nuevo."
+
+msgid ""
+"Anyone with an account and this link <1>can edit all versions</1> of this "
+"record & files."
+msgstr ""
+"Cualquiera que tenga una cuenta y este enlace <1>puede editar todas las "
+"versiones</1> de este registro y archivos."
+
+msgid "Search records..."
+msgstr "Buscar registros..."
+
+msgid "will give you all the publications from 2017 until today."
+msgstr "te ofrecerá todas las publicaciones desde 2017 hasta hoy."
+
+msgid " for defining advanced search queries."
+msgstr "para definir consultas de búsqueda avanzada."
+
+msgid "Public"
+msgstr "Publico"
+
+msgid "Restricted"
+msgstr "Restringido"
+
+msgid "Search in my communities..."
+msgstr "Buscar en mis comunidades..."
+
+msgid "Opened {{difference}} by"
+msgstr "Abierto {{difference}} por"
+
+msgid "Search in my requests..."
+msgstr "Buscar en mis solicitudes..."
+
+msgid "Actions"
+msgstr "Acciones"
+
+msgid "open"
+msgstr "abrir"
+
+msgid "unlock"
+msgstr "desbloquear"
+
+msgid "Search in my uploads..."
+msgstr "Buscar en mis subidas..."

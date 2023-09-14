@@ -12,7 +12,7 @@
 <div class="ui grid">
   {% if record.ui.creators and record.ui.creators.creators %}
     <div class="row ui accordion affiliations">
-      <div class="sixteen wide mobile twelve wide tablet thirteen wide computer column mb-10">
+      <div class="sixteen wide mobile twelve wide tablet thirteen wide computer column">
           <dl class="creatibutors" aria-label="{{ _('Creators list') }}">
             <dt class="hidden">{{ _('Creators') }}</dt>
               {{ show_creatibutors(record.ui.creators.creators, show_affiliations=True) }}
@@ -30,7 +30,7 @@
 
   {% if record.ui.contributors and record.ui.contributors.contributors %}
     <div class="row ui accordion affiliations">
-      <div class="sixteen wide mobile twelve wide tablet thirteen wide computer column mb-10">
+      <div class="sixteen wide mobile twelve wide tablet thirteen wide computer column">
 
           {%- for group in record.ui.contributors.contributors|groupby('role.title')%}
           <dl class="creatibutors" aria-label="{{ _('Contributors list') }}">

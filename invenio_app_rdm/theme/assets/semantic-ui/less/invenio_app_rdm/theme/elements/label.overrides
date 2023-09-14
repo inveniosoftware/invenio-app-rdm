@@ -24,6 +24,10 @@
     border-color: @errorTextColor;
     color: @errorTextColor;
   }
+
+  &.transparent {
+    background-color: transparent;
+  }
 }
 
 .subject {
@@ -53,7 +57,6 @@ label.helptext {
 
 .ui.form {
   .field {
-
     label.helptext {
       display: block;
       color: @mutedTextColor;
@@ -61,6 +64,17 @@ label.helptext {
       font-size: 0.9em;
       margin-top: -0.8em; // counterweight Form field bottom margin
       margin-bottom: @defaultMargin;
+    }
+
+    &.inline {
+      label.helptext {
+        display: block;
+        color: @mutedTextColor;
+        font-weight: normal;
+        font-size: 0.9em;
+        margin-bottom: @defaultMargin;
+        margin-top: 0.5 * (@defaultMargin);
+      }
     }
   }
 }

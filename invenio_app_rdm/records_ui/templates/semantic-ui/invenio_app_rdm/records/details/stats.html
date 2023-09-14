@@ -4,98 +4,122 @@
   Invenio RDM Records is free software; you can redistribute it and/or modify
   it under the terms of the MIT License; see LICENSE file for more details.
 #}
+{% from "invenio_app_rdm/records/macros/stats_popup.html" import stats_popup %}
 
-<div class="row stats-box">
-  <div class="ui padded grid">
-    <!-- Banner -->
-    <div class="two column row">
-      <div class="eight wide column centered">
-        <div><span class="stats-data">1,175</span></div>
-        <i class="eye icon"></i> views
-      </div>
-      <div class="eight wide column centered">
-        <div><span class="stats-data">52</span></div>
-        <i class="download icon"></i> downloads
-      </div>
+<div class="ui tiny two statistics rel-mt-1">
+  {% set all_versions = record.stats.all_versions %}
+  {% set this_version = record.stats.this_version %}
+
+  <div class="ui statistic">
+    <div class="value">{{ all_versions.unique_views|compact_number(max_value=1_000_000) }}</div>
+    <div class="label">
+      <i aria-hidden="true" class="eye icon"></i>
+      {{ _("Views") }}
     </div>
+  </div>
 
-    <!-- Collapsed details -->
-    <div class="centered row">
-      <div class="ui grid accordion">
-        <div class="title centered row">
-          <a style="cursor: pointer;" class="dropdown">
-            <span class="up">Show details<i class="angle right icon"></i></span>
-            <span class="down">Hide details<i class="angle down icon"></i></span>
-          </a>
-        </div>
-        <div class="centered row">
-          <div class="transition hidden">
-            <div class="ui padded grid">
-              <div class="centered row">
-                <table class="ui very basic table">
-                  <thead>
-                    <tr>
-                      <th></th>
-                      <th class="middle aligned">All versions</th>
-                      <th class="middle aligned">This version</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="centered">
-                      <td class="left aligned">Views
-                        <span class="ui text-muted"
-                          data-tooltip="Total views."
-                        ><i class="question circle outline icon"></i></span>
-                      </td>
-                      <td>1,175</td>
-                      <td>265</td>
-                    </tr>
-                    <tr class="centered">
-                      <td class="left aligned">Downloads
-                        <span class="ui text-muted"
-                          data-tooltip="Total downloads."
-                        ><i class="question circle outline icon"></i></span>
-                      </td>
-                      <td>52</td>
-                      <td>10</td>
-                    </tr>
-                    <tr class="centered">
-                      <td class="left aligned">Data volume
-                        <span class="ui text-muted"
-                          data-tooltip="Total download volume."
-                        ><i class="question circle outline icon"></i></span>
-                      </td>
-                      <td>191.3 MB</td>
-                      <td>21.8 MB</td>
-                    </tr>
-                    <tr class="centered">
-                      <td class="left aligned">Unique views
-                        <span class="ui text-muted"
-                          data-tooltip="Views in one hour user-sessions are counted only once."
-                        ><i class="question circle outline icon"></i></span>
-                      </td>
-                      <td>880</td>
-                      <td>192</td>
-                    </tr>
-                    <tr class="centered">
-                      <td class="left aligned">Unique downloads
-                        <span class="ui text-muted"
-                          data-tooltip="Downloads in one hour user-sessions are counted only once."
-                        ><i class="question circle outline icon"></i></span>
-                      </td>
-                      <td>46</td>
-                      <td>8</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div class="centered row">
-                <a href="/coming-soon">More info on how stats are collected.</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+  <div class="ui statistic">
+    <div class="value">{{ all_versions.unique_downloads|compact_number(max_value=1_000_000) }}</div>
+    <div class="label">
+      <i aria-hidden="true" class="download icon"></i>
+      {{ _("Downloads") }}
     </div>
   </div>
 </div>
+
+<div class="ui accordion rel-mt-1 centered">
+  <div class="title">
+    <i class="caret right icon" aria-hidden="true"></i>
+    <span
+      tabindex="0"
+      class="trigger"
+      data-open-text="{{ _('Show more details') }}"
+      data-close-text="{{ _('Show less details') }}"
+    >
+      {{ _('Show more details') }}
+    </span>
+  </div>
+
+  <div class="content">
+    <table id="record-statistics" class="ui definition table fluid">
+      <thead>
+        <tr>
+          <th></th>
+          <th class="right aligned">{{ _("All versions") }}</th>
+          <th class="right aligned">{{ _("This version") }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            {{ _("Views") }}
+            <i
+              tabindex="0"
+              role="button"
+              style="position:relative"
+              class="popup-trigger question circle small icon"
+              aria-expanded="false"
+              aria-label="{{ _('More info') }}"
+              data-variation="mini inverted"
+            >
+            </i>
+            <p role="tooltip" class="popup-content ui flowing popup transition hidden">
+              {{ _('Total views') }}
+            </p>
+          </td>
+          <td data-label="{{_('All versions')}}" class="right aligned">{{ stats_popup(all_versions.unique_views) }}</td>
+          <td data-label="{{_('This version')}}" class="right aligned">{{ stats_popup(this_version.unique_views) }}</td>
+        </tr>
+        <tr>
+          <td>
+            {{ _("Downloads") }}
+            <i
+              tabindex="0"
+              role="button"
+              style="position:relative"
+              class="popup-trigger question circle small icon"
+              aria-expanded="false"
+              aria-label="{{ _('More info') }}"
+              data-variation="mini inverted"
+            >
+            </i>
+            <p role="tooltip" class="popup-content ui flowing popup transition hidden">
+              {{ _('Total downloads') }}
+            </p>
+          </td>
+          <td data-label="{{_('All versions')}}" class="right aligned">{{ stats_popup(all_versions.unique_downloads) }}</td>
+          <td data-label="{{_('This version')}}" class="right aligned">{{ stats_popup(this_version.unique_downloads) }}</td>
+        </tr>
+        <tr>
+          <td>
+            {{ _("Data volume") }}
+            <i
+              tabindex="0"
+              role="button"
+              style="position:relative"
+              class="popup-trigger question circle small icon"
+              aria-expanded="false"
+              aria-label="{{ _('More info') }}"
+              data-variation="mini inverted"
+            >
+            </i>
+            <p role="tooltip" class="popup-content ui flowing popup transition hidden">
+              {{ _('Total data volume') }}
+            </p>
+          </td>
+          {%- set binary_sizes = not config.APP_RDM_DISPLAY_DECIMAL_FILE_SIZES %}
+
+          <td data-label="{{_('All versions')}}" class="right aligned">{{ all_versions.data_volume|filesizeformat(binary=binary_sizes) }}</td>
+          <td data-label="{{_('This version')}}" class="right aligned">{{ this_version.data_volume|filesizeformat(binary=binary_sizes) }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="text-align-center rel-mt-1">
+      <small>
+        <a href="/help/statistics">{{ _("More info on how stats are collected.") }}...</a>
+      </small>
+    </p>
+  </div>
+
+</div>
+

@@ -9,23 +9,28 @@
 #}
 
 {%- from "invenio_app_rdm/records/macros/detail.html" import list_formats, list_languages,
-  list_string_values, show_dates, show_detail %}
+  list_string_values, show_dates, show_detail, show_detail_conference %}
 
-  {%- set id_doi = record.pids.get('doi', {}).get('identifier') %}
+{%- set id_doi = record.pids.get('doi', {}).get('identifier') %}
 
-  <section id="record-details" aria-label="{{ _('Record details') }}" class="ui segment rdm-sidebar">
-    <h2 class="ui small header">{{ _('Details')}}</h2>
-
-    {% if id_doi %}
-      {%- include "invenio_app_rdm/records/details/doi.html" %}
-    {% endif %}
+<div class="sidebar-container">
+  <h2 class="ui medium top attached header mt-0">{{ _('Details')}}</h2>
+  <div id="record-details" class="ui segment bottom attached rdm-sidebar">
 
     <dl class="details-list">
+      {% if id_doi %}
+        {%- include "invenio_app_rdm/records/details/doi.html" %}
+      {% endif %}
       {{ show_detail(_('Resource type'), record.ui.resource_type.title_l10n) if record.ui.resource_type }}
       {{ show_detail(_('Publication date'), record.ui.publication_date_l10n) if record.ui.publication_date_l10n }}
       {{ show_detail(_('Publisher'), metadata.publisher) if metadata.publisher }}
+      {{ show_detail(_('Published in'), record.ui.publishing_information.journal) if record.ui.get('publishing_information', {}).get('journal') }}
+      {{ show_detail(_('Imprint'), record.ui.publishing_information.imprint) if record.ui.get('publishing_information', {}).get('imprint') }}
+      {{ show_detail(_('Awarding university'), record.ui.publishing_information.thesis) if record.ui.get('publishing_information', {}).get('thesis', {}) }}
+      {{ show_detail(_('Conference'), show_detail_conference(record.ui.conference)) if record.ui.conference }}
       {{ show_detail(_('Languages'), list_languages(record.ui.languages)) if record.ui.languages }}
       {{ show_detail(_('Formats'), list_formats(metadata.formats)) if metadata.formats }}
       {{ show_detail(_('Sizes'), list_string_values(metadata.sizes)) if metadata.sizes }}
     </dl>
-  </section>
+  </div>
+</div>

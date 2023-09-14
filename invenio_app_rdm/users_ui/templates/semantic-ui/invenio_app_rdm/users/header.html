@@ -8,18 +8,33 @@
 #}
 
 <div class="ui container fluid page-subheader-outer shadowless with-submenu ml-0-mobile mr-0-mobile mb-0 rel-pt-2" id="dashboard-user-header-container">
-  <div class="ui container page-subheader">
-    <div class="ui items unstackable">
+  <div class="ui container page-subheader flex justify-space-between align-items-center">
+    <div class="ui items unstackable m-0">
       <div class="item">
         <div class="ui image dashboard-header-avatar">
           <img src="{{ user_avatar }}" alt="" />
         </div>
-        <div class="content rel-pl-1">
-          <h4 class="header">{{ current_userprofile.full_name or current_user.username }}</h4>
-          <div class="meta">{{ current_userprofile.affiliations }}</div>
+        <div class="middle aligned content rel-pl-1">
+          <h1 class="ui medium header" aria-label="{{ _('Your dashboard') }}">{{ current_userprofile.full_name or current_user.username or current_userprofile.email or _('Anonymous user')}}</h1>
+          {% if current_userprofile.affiliations %}
+            <div class="meta">{{ current_userprofile.affiliations }}</div>
+          {% endif %}
         </div>
       </div>
     </div>
+    {% if active_dashboard_menu_item == "uploads" %}
+      <a class="ui tiny button positive left labeled icon m-0" href="/uploads/new">
+        <i class="upload icon" aria-hidden="true"></i>
+        {{ _('New upload') }}
+      </a>
+    {% endif %}
+
+    {% if active_dashboard_menu_item == "communities" %}
+      <a class="ui tiny button positive left labeled icon m-0" href="/communities/new">
+        <i class="plus icon" aria-hidden="true"></i>
+        {{ _('New community') }}
+      </a>
+    {% endif %}
   </div>
   <div class="ui container secondary pointing menu page-subheader pl-0">
   {% for item in current_menu.submenu('dashboard').children %}
@@ -29,4 +44,3 @@
   {% endfor %}
 </div>
 </div>
-

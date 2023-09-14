@@ -8,14 +8,17 @@
   }
 }
 
+
 .main-record-content {
   h1,
-  h1.ui.header {
+  h1.ui.header,
+  .ui.huge.header {
     font-size: 2rem;
   }
 
   h2,
-  h2.ui.header {
+  h2.ui.header,
+  .ui.large.header {
     font-size: 1.5rem;
 
     &:not(:first-child) {
@@ -24,12 +27,14 @@
   }
 
   h3,
-  h3.ui.header {
+  h3.ui.header,
+  .ui.medium.header {
     font-size: 1.2rem;
   }
 
   h4,
-  h4.ui.header {
+  h4.ui.header,
+  .ui.small.header {
     font-size: 1rem;
   }
 }
@@ -45,5 +50,13 @@ aside.sidebar {
 
   &.text-muted {
     color: @mutedTextColor;
+  }
+
+  .doi.sub.header {
+    display: inline-block;
+  }
+
+  &.highlight{
+    background-color:  @highlightBackgroundColor;
   }
 }

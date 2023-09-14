@@ -26,6 +26,8 @@ except AttributeError:
 
     security.safe_str_cmp = hmac.compare_digest
 
+import shutil
+import tempfile
 from collections import namedtuple
 
 import pytest
@@ -36,12 +38,20 @@ from invenio_access.permissions import system_identity
 from invenio_access.proxies import current_access
 from invenio_accounts.proxies import current_datastore
 from invenio_accounts.testutils import login_user_via_session
+from invenio_app.factory import create_app as _create_app
 from invenio_db import db
+from invenio_files_rest.models import Bucket, FileInstance, Location, ObjectVersion
 from invenio_records_resources.proxies import current_service_registry
 from invenio_vocabularies.contrib.subjects.api import Subject
 from invenio_vocabularies.proxies import current_service as vocabulary_service
 from invenio_vocabularies.records.api import Vocabulary
 from invenio_vocabularies.records.models import VocabularyScheme
+
+
+@pytest.fixture(scope="module")
+def create_app(entry_points):
+    """Creates a test app."""
+    return _create_app
 
 
 @pytest.fixture(scope="module")
@@ -60,6 +70,14 @@ def subjects_service(app):
 
 
 pytest_plugins = ("celery.contrib.pytest",)
+
+
+@pytest.fixture(scope="module")
+def extra_entry_points():
+    """Register extra entry point."""
+    return {
+        "invenio_base.blueprints": ["mock_module = mock_module.views:create_blueprint"],
+    }
 
 
 @pytest.fixture(scope="function")
@@ -250,3 +268,41 @@ RunningApp = namedtuple(
 def running_app(app, location, resource_type_item, language_item, subject_item):
     """Fixture mimicking a running app."""
     return RunningApp(app, location, resource_type_item, language_item, subject_item)
+
+
+@pytest.yield_fixture()
+def dummy_location(db):
+    """File system location."""
+    tmppath = tempfile.mkdtemp()
+
+    loc = Location(name="testloc", uri=tmppath, default=True)
+    db.session.add(loc)
+    db.session.commit()
+
+    yield loc
+
+    shutil.rmtree(tmppath)
+
+
+@pytest.fixture
+def invalid_file_instance(db, dummy_location):
+    """Creates a file instance."""
+    # Create a Bucket and ObjectVersion
+    b1 = Bucket.create(location=dummy_location)
+    with open("README.rst", "rb") as fp:
+        obj = ObjectVersion.create(b1, "README.rst", stream=fp)
+    db.session.commit()
+    file_id = obj.file_id
+
+    # Get FileInstance from file ID
+    f = FileInstance.query.get(file_id)
+
+    # Force an invalid checksum
+    f.checksum = "invalid"
+    f.verify_checksum()
+    db.session.commit()
+
+    # Retrieve the file instance (with updated last_check)
+    f = FileInstance.query.get(file_id)
+
+    return f

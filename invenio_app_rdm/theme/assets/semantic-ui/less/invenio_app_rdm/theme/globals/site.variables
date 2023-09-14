@@ -130,6 +130,7 @@
 ------------------*/
 
 @userDashboardAvatarSize: 40px;
+@communityItemLogoWidth: 115px;
 
 
 /*------------------

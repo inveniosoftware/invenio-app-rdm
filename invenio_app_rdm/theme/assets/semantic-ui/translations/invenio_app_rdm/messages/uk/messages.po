@@ -1,0 +1,285 @@
+# 
+# Translators:
+# Tibor Simko <tibor.simko@cern.ch>, 2021
+# Vasyl Ostrovskyi <vasyusya@yahoo.com>, 2023
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2022-10-12T06:58:21.832Z\n"
+"PO-Revision-Date: 2021-07-14 16:07+0000\n"
+"Last-Translator: Vasyl Ostrovskyi <vasyusya@yahoo.com>, 2023\n"
+"Language-Team: Ukrainian (https://app.transifex.com/inveniosoftware/teams/23537/uk/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: uk\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+"mime-version: 1.0\n"
+
+msgid "Basic information"
+msgstr "Загальна інформація"
+
+msgid "Copy to clipboard"
+msgstr "Копіювати до буферу"
+
+msgid "Copied!"
+msgstr "Скопійовано!"
+
+msgid "Files"
+msgstr "Файли"
+
+msgid "The record has no files."
+msgstr "Запис на містить файлів"
+
+msgid "Creators"
+msgstr "Автори"
+
+msgid "Recommended information"
+msgstr "Рекомендована інформація"
+
+msgid "Add contributor"
+msgstr "Додати учасника"
+
+msgid "Contributors"
+msgstr "Учасники"
+
+msgid "Alternate identifiers"
+msgstr "Альтернативні ідентифікатори"
+
+msgid "Related works"
+msgstr "Пов'язані праці"
+
+msgid "Visibility"
+msgstr "Видимість"
+
+msgid "Edit"
+msgstr "Редагувати"
+
+msgid "An error occurred while generating the citation."
+msgstr "При створенні цитування виникла помилка."
+
+msgid "Citation"
+msgstr "Цитування"
+
+msgid "Style"
+msgstr "Стиль"
+
+msgid "Version"
+msgstr "Версія"
+
+msgid "Preview"
+msgstr "Попередній перегляд"
+
+msgid "Only published versions are displayed."
+msgstr "Показуються лише опубліковані версії."
+
+msgid "View all {{total}} versions"
+msgstr "Переглянути усі {{total}} версії"
+
+msgid "You don't have permissions to share this record."
+msgstr "Ви не маєте повноважень поширювати цей запис."
+
+msgid "Share"
+msgstr "Поширити"
+
+msgid "Can view"
+msgstr "Дозвіл на перегляд"
+
+msgid "Can preview"
+msgstr "Дозвіл на попередній перегляд"
+
+msgid "Can edit"
+msgstr "Дозвіл на редагування"
+
+msgid "Get a link"
+msgstr "Отримати посилання"
+
+msgid "Copy link"
+msgstr "Копіювати посилання"
+
+msgid "Delete link"
+msgstr "Видалити посилання"
+
+msgid "Done"
+msgstr "Готово"
+
+msgid ""
+"Anyone with this link <1>can view all versions</1> of this record & files."
+msgstr ""
+"За цим посиланням будь-хто <1>може переглядати усі версії</1> цього запису "
+"та відповідні файли."
+
+msgid ""
+"Anyone with this link <2>can view all published and unpublished versions</2>"
+" of this record & files."
+msgstr ""
+"За цим посиланням будь-хто <2>може переглядати усі опубліковані та "
+"неопубліковані версії</2> цього запису та відповідні файли."
+
+msgid "Uploaded on"
+msgstr "Завантажено"
+
+msgid "Search"
+msgstr "Пошук"
+
+msgid "Search guide"
+msgstr "Посібник з пошуку"
+
+msgid "result(s) found"
+msgstr "результат(ів) знайдено"
+
+msgid "Sort by"
+msgstr "Впорядкувати за"
+
+msgid "View"
+msgstr "Переглянути"
+
+msgid "New community"
+msgstr "Нова спільнота"
+
+msgid "Get started!"
+msgstr "Розпочніть!"
+
+msgid "Open"
+msgstr "Відкриті"
+
+msgid "Closed"
+msgstr "Закриті"
+
+msgid "All done!"
+msgstr "Все зроблено!"
+
+msgid "You've caught up with all open requests."
+msgstr "Ви розібралсь з усіма відкритими запитами"
+
+msgid "No creation date found."
+msgstr "Не знайдено дату створення"
+
+msgid "No description"
+msgstr "Опис відсутній"
+
+msgid "No publication date found."
+msgstr "Не знайдено дати публікації."
+
+msgid "No resource type"
+msgstr "Не вказано тип ресурсу"
+
+msgid "No title"
+msgstr "Не вказано назву"
+
+msgid "Make your first upload!"
+msgstr "Зробіть перший внесок до репозитарію!"
+
+msgid "New upload"
+msgstr "Нове завантаження"
+
+msgid "ORCID profile"
+msgstr "Профіль ORCID"
+
+msgid "ROR profile"
+msgstr "Профіль ROR"
+
+msgid "GND profile"
+msgstr "Профіль GND"
+
+msgid "No communities found!"
+msgstr "Не знайдено жодної спільноти!"
+
+msgid "No requests found!"
+msgstr "Не знайдено жодного запиту!"
+
+msgid "Copied"
+msgstr "Скопійовано"
+
+msgid "Reset search"
+msgstr "Скинути пошук"
+
+msgid "We couldn't find any matches for "
+msgstr "Ми не знайшли жодних збігів для "
+
+msgid "your search"
+msgstr "вашого пошуку"
+
+msgid "Start over"
+msgstr "Розпочати заново"
+
+msgid "ProTip"
+msgstr "Порада"
+
+msgid "For more tips, check out our "
+msgstr "Для отримання інших порад перегляньте"
+
+msgid "search guide"
+msgstr "посібник з пошуку"
+
+msgid "Export"
+msgstr "Експортувати"
+
+msgid "Filter results"
+msgstr "Фільтрувати результати"
+
+msgid "In review"
+msgstr "На розгляді"
+
+msgid "Declined"
+msgstr "Відхилено"
+
+msgid "Expired"
+msgstr "Застаріло"
+
+msgid "Draft"
+msgstr "Чернетка"
+
+msgid "New version draft"
+msgstr "Чернетка нової версії"
+
+msgid "Download file"
+msgstr "Завантажити файл"
+
+msgid "No link has been created. Click on 'Get a Link' to make a new link."
+msgstr ""
+"Посилання ще не створено. Натисніть \"Отримати посилання\", щоб створити "
+"нове посилання."
+
+msgid ""
+"Anyone with an account and this link <1>can edit all versions</1> of this "
+"record & files."
+msgstr ""
+"За цим посиланням будь-хто <1>може редагувати усі версії</1> цього запису та"
+" відповідні файли."
+
+msgid "Search records..."
+msgstr "Шукати записи..."
+
+msgid "will give you all the publications from 2017 until today."
+msgstr "видасть усі публікації з 2017 року до сьогодні."
+
+msgid " for defining advanced search queries."
+msgstr "для стовення складних пошукових запитів."
+
+msgid "Public"
+msgstr "Публічний"
+
+msgid "Restricted"
+msgstr "Обмежений доступ"
+
+msgid "Search in my communities..."
+msgstr "Шукати в моїх спільнотах..."
+
+msgid "Opened {{difference}} by"
+msgstr ""
+
+msgid "Search in my requests..."
+msgstr "Шукати в моїх запитах..."
+
+msgid "Actions"
+msgstr "Дії"
+
+msgid "open"
+msgstr ""
+
+msgid "unlock"
+msgstr ""
+
+msgid "Search in my uploads..."
+msgstr "Шукати в моїх завантаженнях..."

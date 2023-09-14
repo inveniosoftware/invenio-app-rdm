@@ -12,9 +12,11 @@ import React, { useEffect, useState } from "react";
 import { Grid, Icon, Message, Placeholder, List, Divider } from "semantic-ui-react";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import PropTypes from "prop-types";
+import { Trans } from "react-i18next";
 
 const deserializeRecord = (record) => ({
   id: record.id,
+  parent: record.parent,
   parent_id: record.parent.id,
   publication_date: record.ui.publication_date_l10n_medium,
   version: record.ui.version,
@@ -30,21 +32,20 @@ const RecordVersionItem = ({ item, activeVersion }) => {
     <List.Item key={item.id} {...(activeVersion && { className: "version active" })}>
       <List.Content floated="left">
         {activeVersion ? (
-          <span>
-            {i18next.t("Version")} {item.version}
-          </span>
+          <span>{i18next.t("Version {{version}}", { version: item.version })}</span>
         ) : (
           <a href={`/records/${item.id}`}>
-            {i18next.t("Version")} {item.version}
+            {i18next.t("Version {{version}}", { version: item.version })}
           </a>
         )}
 
         {doi && (
-          <small
+          <a
+            href={`https://doi.org/${doi}`}
             className={"doi" + (activeVersion ? " text-muted-darken" : " text-muted")}
           >
             {doi}
-          </small>
+          </a>
         )}
       </List.Content>
 
@@ -62,49 +63,21 @@ RecordVersionItem.propTypes = {
   activeVersion: PropTypes.bool.isRequired,
 };
 
-const PlaceholderLoader = ({ size }) => {
-  const PlaceholderItem = () => (
-    <Placeholder.Header>
-      <Placeholder.Line />
-      <Placeholder.Line />
-    </Placeholder.Header>
-  );
-  let numberOfHeader = [];
-  for (let i = 0; i < size; i++) {
-    numberOfHeader.push(<PlaceholderItem key={i} />);
-  }
-
-  return <Placeholder>{numberOfHeader}</Placeholder>;
-};
-
-PlaceholderLoader.propTypes = {
-  size: PropTypes.number,
-};
-
-PlaceholderLoader.defaultProps = {
-  size: NUMBER_OF_VERSIONS,
-};
-
 const PreviewMessage = () => {
   return (
-    <Grid className="container">
-      <Grid.Row>
-        <Grid.Column className="p-0">
-          <Message info>
-            <Message.Header>
-              <Icon name="eye" />
-              {i18next.t("Preview")}
-            </Message.Header>
-            <p>{i18next.t("Only published versions are displayed.")}</p>
-          </Message>
-        </Grid.Column>
-      </Grid.Row>
-    </Grid>
+    <Message info className="no-border-radius m-0">
+      <Message.Header>
+        <Icon name="eye" />
+        {i18next.t("Preview")}
+      </Message.Header>
+      <p>{i18next.t("Only published versions are displayed.")}</p>
+    </Message>
   );
 };
 
 export const RecordVersionsList = ({ record, isPreview }) => {
   const recordDeserialized = deserializeRecord(record);
+  const recordParentDOI = recordDeserialized?.parent?.pids?.doi?.identifier;
   const recid = recordDeserialized.id;
   const [loading, setLoading] = useState(true);
   const [currentRecordInResults, setCurrentRecordInResults] = useState(false);
@@ -135,7 +108,16 @@ export const RecordVersionsList = ({ record, isPreview }) => {
     isPreview ? (
       <PreviewMessage />
     ) : (
-      <PlaceholderLoader />
+      <>
+        <div className="rel-p-1" />
+        <Placeholder className="rel-ml-1 rel-mr-1">
+          <Placeholder.Header>
+            <Placeholder.Line />
+            <Placeholder.Line />
+            <Placeholder.Line />
+          </Placeholder.Header>
+        </Placeholder>
+      </>
     )
   ) : (
     <List divided>
@@ -160,12 +142,27 @@ export const RecordVersionsList = ({ record, isPreview }) => {
               href={`/search?q=parent.id:${recordDeserialized.parent_id}&sort=version&f=allversions:true`}
               className="font-small"
             >
-              {i18next.t(`View all {{total}} versions`, {
-                total: recordVersions.total,
+              {i18next.t(`View all {{count}} versions`, {
+                count: recordVersions.total,
               })}
             </a>
           </Grid.Row>
         </Grid>
+      )}
+      {recordParentDOI && (
+        <List.Item className="parent-doi pr-0">
+          <List.Content floated="left">
+            <Trans>
+              <p className="text-muted">
+                <strong>Cite all versions?</strong> You can cite all versions by using
+                the DOI{" "}
+                <a href={recordDeserialized.links.parent_doi}>{recordParentDOI}</a>.
+                This DOI represents all versions, and will always resolve to the latest
+                one. <a href="/help/versioning">Read more</a>.
+              </p>
+            </Trans>
+          </List.Content>
+        </List.Item>
       )}
     </List>
   );

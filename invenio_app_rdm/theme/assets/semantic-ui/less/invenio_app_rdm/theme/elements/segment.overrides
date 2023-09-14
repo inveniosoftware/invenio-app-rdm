@@ -21,17 +21,20 @@
 }
 
 .ui.segment.rdm-sidebar {
-  @media screen and (max-width: @largestTabletScreen) {
-    box-shadow: none;
-    flex-basis: calc(50% - 0.5rem);
-    max-width: 100%;
-    margin-top: 0;
-    margin-bottom: 1rem;
+  box-shadow: none;
+  margin-top: 0;
+  margin-bottom: 0;
 
-    &:first-child,
-    &:last-child {
-      margin-top: 0;
-      margin-bottom: 1rem;
+  &.bottom.attached {
+    flex: 1 1 0;
+  }
+
+  @media screen and (max-width: @largestTabletScreen) {
+
+    flex-basis: calc(50% - 0.5rem);
+
+    &:not(.bottom.attached) {
+      max-width: 100%;
     }
   }
 
@@ -39,10 +42,15 @@
     flex-basis: 100%;
   }
 
-  h2.ui.small.header {
+  &#upload-info {
+    background-color: lighten(@borderColor, 75%);
+    border-color: lighten(@borderColor, 75%);
+  }
+
+  > h2.ui.small.header,
+  > .header {
     margin-bottom: 0.5rem;
     padding-bottom: 0.5rem;
-    border-bottom: 1px solid @borderColor;
   }
 }
 
@@ -56,10 +64,6 @@
 
     dl.details-list {
       margin-top: 0;
-
-      dt.hidden {
-        display: none;
-      }
     }
   }
 

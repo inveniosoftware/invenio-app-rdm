@@ -19,47 +19,50 @@
 
 {% set rights = record.ui.get('rights') %}
 {% if rights %}
-<section id="licenses" aria-label="{{ _('Rights') }}" class="ui segment rdm-sidebar">
-  <h2 class="ui small header">{{ _('Rights') }}</h2>
-  <ul class="details-list m-0 p-0">
+  <div class="sidebar-container">
+    <h2 class="ui medium top attached header mt-0">{{ _('Rights') }}</h2>
+    <div id="licenses" class="ui segment bottom attached rdm-sidebar">
 
-    {%- for license in rights%}
-      <li id="license-{{license.id}}-{{loop.index}}" class="has-popup">
-        <div id="title-{{license.id}}-{{loop.index}}"
-             class="license clickable"
-             tabindex="0"
-             aria-haspopup="dialog"
-             aria-expanded="false"
-             role="button"
-             aria-label="{{ license.title_l10n }}"
-        >
-          {% if license.icon %}
-            {% set iconFile = 'icons/licenses/{}.svg'.format(license.icon) %}
-            <span class="icon-wrap">
-              <img class="icon" src="{{ url_for('static', filename=iconFile) }}" alt="{{ license.id }} icon"/>
-            </span>
-          {% endif %}
+      <ul class="details-list m-0 p-0">
 
-          <span class="title-text">
-            {{ license.title_l10n }}
-          </span>
-        </div>
-        <div id="description-{{license.id}}-{{loop.index}}"
-              class="licenses-description ui flowing popup transition hidden"
-              role="dialog"
-              aria-labelledby="title-{{license.id}}-{{loop.index}}"
-        >
-          <i role="button" tabindex="0" class="close icon text-muted" aria-label="{{ _('Close') }}"></i>
+        {%- for license in rights%}
+          <li id="license-{{license.id}}-{{loop.index}}" class="has-popup">
+            <div id="title-{{license.id}}-{{loop.index}}"
+                class="license clickable"
+                tabindex="0"
+                aria-haspopup="dialog"
+                aria-expanded="false"
+                role="button"
+                aria-label="{{ license.title_l10n }}"
+            >
+              {% if license.icon %}
+                {% set iconFile = 'icons/licenses/{}.svg'.format(license.icon) %}
+                <span class="icon-wrap">
+                  <img class="icon" src="{{ url_for('static', filename=iconFile) }}" alt="{{ license.id }} icon"/>
+                </span>
+              {% endif %}
 
-          <div id="license-description-{{loop.index}}" class="description">
-            <span class="text-muted">
-              {{ license.description_l10n or _('No further description.')}}
-            </span>
-            {{ license_link(license)}}
-          </div>
-        </div>
-      </li>
-    {% endfor %}
-  </ul>
-</section>
+              <span class="title-text">
+                {{ license.title_l10n }}
+              </span>
+            </div>
+            <div id="description-{{license.id}}-{{loop.index}}"
+                  class="licenses-description ui flowing popup transition hidden"
+                  role="dialog"
+                  aria-labelledby="title-{{license.id}}-{{loop.index}}"
+            >
+              <i role="button" tabindex="0" class="close icon text-muted" aria-label="{{ _('Close') }}"></i>
+
+              <div id="license-description-{{loop.index}}" class="description">
+                <span class="text-muted">
+                  {{ license.description_l10n or _('No further description.')}}
+                </span>
+                {{ license_link(license)}}
+              </div>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
 {% endif %}

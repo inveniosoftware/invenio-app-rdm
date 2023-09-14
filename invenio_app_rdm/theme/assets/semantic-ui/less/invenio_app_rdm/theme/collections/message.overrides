@@ -7,7 +7,6 @@
 .ui.form .flashed.message {
   &.manage {
     padding: 1em 0;
-    margin-bottom: 1em;
   }
 }
 
@@ -20,4 +19,12 @@
   border-bottom-right-radius: 10px !important;
   border-bottom-left-radius: 10px !important;
   margin: 0 !important;
+}
+
+.ui.message .ui.checkbox label {
+  color: currentColor;
+}
+
+.ui.message .ui.checkbox {
+  margin-top: @defaultMargin / 2.5;
 }

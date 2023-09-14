@@ -11,7 +11,10 @@
 
 from functools import wraps
 
-from flask import g, request
+from flask import g, redirect, request, url_for
+from invenio_communities.communities.resources.serializer import (
+    UICommunityJSONSerializer,
+)
 from invenio_communities.proxies import current_communities
 from invenio_rdm_records.proxies import current_rdm_records
 from invenio_records_resources.services.errors import PermissionDeniedError
@@ -28,9 +31,19 @@ def files_service():
     return current_rdm_records.records_service.files
 
 
+def media_files_service():
+    """Get the record files service."""
+    return current_rdm_records.records_media_files_service.files
+
+
 def draft_files_service():
     """Get the record files service."""
     return current_rdm_records.records_service.draft_files
+
+
+def draft_media_files_service():
+    """Get the record files service."""
+    return current_rdm_records.records_media_files_service.draft_files
 
 
 def pass_record_latest(f):
@@ -109,20 +122,36 @@ def pass_record_or_draft(expand=False):
         def view(**kwargs):
             pid_value = kwargs.get("pid_value")
             is_preview = kwargs.get("is_preview")
-
-            def get_record():
-                """Retrieve record."""
-                return service().read(id_=pid_value, identity=g.identity, expand=expand)
+            read_kwargs = {"id_": pid_value, "identity": g.identity, "expand": expand}
 
             if is_preview:
                 try:
-                    record = service().read_draft(
-                        id_=pid_value, identity=g.identity, expand=expand
-                    )
+                    record = service().read_draft(**read_kwargs)
                 except NoResultFound:
-                    record = get_record()
+                    try:
+                        record = service().read(**read_kwargs)
+                    except NoResultFound:
+                        # If the parent pid is being used we can get the id of the latest record and redirect
+                        latest_version = service().read_latest(**read_kwargs)
+                        return redirect(
+                            url_for(
+                                "invenio_app_rdm_records.record_detail",
+                                pid_value=latest_version.id,
+                                preview=1,
+                            )
+                        )
             else:
-                record = get_record()
+                try:
+                    record = service().read(**read_kwargs)
+                except NoResultFound:
+                    # If the parent pid is being used we can get the id of the latest record and redirect
+                    latest_version = service().read_latest(**read_kwargs)
+                    return redirect(
+                        url_for(
+                            "invenio_app_rdm_records.record_detail",
+                            pid_value=latest_version.id,
+                        )
+                    )
             kwargs["record"] = record
             return f(**kwargs)
 
@@ -131,34 +160,39 @@ def pass_record_or_draft(expand=False):
     return decorator
 
 
-def pass_file_item(f):
-    """Decorate a view to pass a file item using the files service."""
+def pass_file_item(is_media=False):
+    """Decorator to pass a file or media file item using the corresponding service."""
 
-    @wraps(f)
-    def view(**kwargs):
-        pid_value = kwargs.get("pid_value")
-        file_key = kwargs.get("filename")
-        is_preview = kwargs.get("is_preview")
-
-        def get_record_file_content():
-            """Retrieve record file content."""
-            return files_service().get_file_content(
-                id_=pid_value, file_key=file_key, identity=g.identity
+    def decorator(f):
+        @wraps(f)
+        def view(**kwargs):
+            pid_value = kwargs.get("pid_value")
+            file_key = kwargs.get("filename")
+            is_preview = kwargs.get("is_preview")
+            read_kwargs = {
+                "id_": pid_value,
+                "file_key": file_key,
+                "identity": g.identity,
+            }
+            draft_service = (
+                draft_media_files_service if is_media else draft_files_service
             )
+            record_service = media_files_service if is_media else files_service
 
-        if is_preview:
-            try:
-                item = draft_files_service().get_file_content(
-                    id_=pid_value, file_key=file_key, identity=g.identity
-                )
-            except NoResultFound:
-                item = get_record_file_content()
-        else:
-            item = get_record_file_content()
-        kwargs["file_item"] = item
-        return f(**kwargs)
+            if is_preview:
+                try:
+                    item = draft_service().get_file_content(**read_kwargs)
+                except NoResultFound:
+                    item = record_service().get_file_content(**read_kwargs)
+            else:
+                item = record_service().get_file_content(**read_kwargs)
 
-    return view
+            kwargs["file_item"] = item
+            return f(**kwargs)
+
+        return view
+
+    return decorator
 
 
 def pass_file_metadata(f):
@@ -169,22 +203,16 @@ def pass_file_metadata(f):
         pid_value = kwargs.get("pid_value")
         file_key = kwargs.get("filename")
         is_preview = kwargs.get("is_preview")
-
-        def get_record_file_content():
-            """Retrieve record file metadata."""
-            return files_service().read_file_metadata(
-                id_=pid_value, file_key=file_key, identity=g.identity
-            )
+        read_kwargs = {"id_": pid_value, "file_key": file_key, "identity": g.identity}
 
         if is_preview:
             try:
-                files = draft_files_service().read_file_metadata(
-                    id_=pid_value, file_key=file_key, identity=g.identity
-                )
+                files = draft_files_service().read_file_metadata(**read_kwargs)
             except NoResultFound:
-                files = get_record_file_content()
+                files = files_service().read_file_metadata(**read_kwargs)
         else:
-            files = get_record_file_content()
+            files = files_service().read_file_metadata(**read_kwargs)
+
         kwargs["file_metadata"] = files
         return f(**kwargs)
 
@@ -197,22 +225,18 @@ def pass_record_files(f):
     @wraps(f)
     def view(**kwargs):
         is_preview = kwargs.get("is_preview")
-
-        def list_record_files():
-            """List record files."""
-            return files_service().list_files(id_=pid_value, identity=g.identity)
+        pid_value = kwargs.get("pid_value")
+        read_kwargs = {"id_": pid_value, "identity": g.identity}
 
         try:
-            pid_value = kwargs.get("pid_value")
             if is_preview:
                 try:
-                    files = draft_files_service().list_files(
-                        id_=pid_value, identity=g.identity
-                    )
+                    files = draft_files_service().list_files(**read_kwargs)
                 except NoResultFound:
-                    files = list_record_files()
+                    files = files_service().list_files(**read_kwargs)
             else:
-                files = list_record_files()
+                files = files_service().list_files(**read_kwargs)
+
             kwargs["files"] = files
 
         except PermissionDeniedError:
@@ -220,6 +244,37 @@ def pass_record_files(f):
             # page when a user is allowed to read the metadata but not the
             # files
             kwargs["files"] = None
+
+        return f(**kwargs)
+
+    return view
+
+
+def pass_record_media_files(f):
+    """Decorate a view to pass a record's media files using the files service."""
+
+    @wraps(f)
+    def view(**kwargs):
+        is_preview = kwargs.get("is_preview")
+        pid_value = kwargs.get("pid_value")
+        read_kwargs = {"id_": pid_value, "identity": g.identity}
+
+        try:
+            if is_preview:
+                try:
+                    media_files = draft_media_files_service().list_files(**read_kwargs)
+                except NoResultFound:
+                    media_files = media_files_service().list_files(**read_kwargs)
+            else:
+                media_files = media_files_service().list_files(**read_kwargs)
+
+            kwargs["media_files"] = media_files
+
+        except PermissionDeniedError:
+            # this is handled here because we don't want a 404 on the landing
+            # page when a user is allowed to read the metadata but not the
+            # files
+            kwargs["media_files"] = None
 
         return f(**kwargs)
 
@@ -259,7 +314,10 @@ def pass_draft_community(f):
         comid = request.args.get("community")
         if comid:
             community = current_communities.service.read(id_=comid, identity=g.identity)
-            kwargs["community"] = community.to_dict()
+            kwargs["community"] = UICommunityJSONSerializer().dump_obj(
+                community.to_dict()
+            )
+
         return f(**kwargs)
 
     return view

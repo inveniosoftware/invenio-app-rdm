@@ -1,0 +1,56 @@
+{# Copyright (C) 2023 CERN. Invenio RDM Records is free software; you can redistribute
+it and/or modify it under the terms of the MIT License; see LICENSE file for more
+details. #}
+
+{% from "invenio_accounts/_macros.html" import render_field, form_errors %}
+
+<div class="container">
+
+  {%- if current_user.is_anonymous %}
+    {% set email = None %}
+    {% set full_name = None %}
+    <div class="ui segment">
+      <i aria-hidden="true" class="user secret icon"></i>You are currently
+      <strong>not logged in</strong>. Do you have an account?
+      <a href="/login/">Log in here</a>
+    </div>
+  {% else %}
+    {% set email = current_user.email %}
+    {% set full_name = current_user.user_profile.full_name %}
+    <div class="ui segment">
+      <i aria-hidden="true" class="user icon"></i>You are logged in as
+      <strong>{{ email }}</strong>. Not you?
+      <a href="{{ url_for('security.login') }}">Log out</a>
+    </div>
+  {% endif %}
+  <div class="ui hidden divider"></div>
+  <div id="access-request-form-root"
+       data-record='{{ record | tojson }}'
+       data-user-anonymous='{{ current_user.is_anonymous | tojson }}'
+       data-user-full-name='{{ full_name | tojson }}'
+       data-user-email='{{ email | tojson }}'>
+    <div class="ui fluid placeholder">
+      <div class="header">
+        {%- if current_user.is_anonymous %}
+        <div class="paragraph">
+          <div class="line"></div>
+          <div class="line"></div>
+          <div class="line"></div>
+          <div class="line"></div>
+          <div class="line"></div>
+        </div>
+        {% endif %}
+        <div class="full line"></div>
+        <div class="full line"></div>
+        <div class="full line"></div>
+        <div class="full line"></div>
+        <div class="full line"></div>
+        <div class="full line"></div>
+        <div class="full line"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  {%- block javascript %}
+    {{ webpack['invenio-app-rdm-landing-page-access-form.js'] }}
+  {%-endblock %}

@@ -55,6 +55,23 @@ $("#user-profile-dropdown.ui.dropdown").dropdown({
   },
 });
 
+/* Quick create ("plus") dropdown */
+$("#quick-create-dropdown.ui.dropdown").dropdown({
+  showOnFocus: false,
+  selectOnKeydown: false,
+  action: (text, value, element) => {
+    // needed to trigger navigation on keyboard interaction
+    let path = element.attr("href");
+    window.location.pathname = path;
+  },
+  onShow: () => {
+    $("#quick-create-dropdown-btn").attr("aria-expanded", true);
+  },
+  onHide: () => {
+    $("#quick-create-dropdown-btn").attr("aria-expanded", false);
+  },
+});
+
 /* Burger menu */
 const $burgerIcon = $("#rdm-burger-menu-icon");
 const $closeBurgerIcon = $("#rdm-close-burger-menu-icon");
@@ -84,13 +101,17 @@ $invenioMenu.on("keydown", (event) => {
   }
 });
 
+// Search bar
 const headerSearchbar = document.getElementById("header-search-bar");
-const searchBarOptions = JSON.parse(headerSearchbar.dataset.options);
 
-ReactDOM.render(
-  <MultipleOptionsSearchBar
-    options={searchBarOptions}
-    placeholder={i18next.t("Search records...")}
-  />,
-  headerSearchbar
-);
+if (headerSearchbar) {
+  const searchBarOptions = JSON.parse(headerSearchbar.dataset.options);
+
+  ReactDOM.render(
+    <MultipleOptionsSearchBar
+      options={searchBarOptions}
+      placeholder={i18next.t("Search records...")}
+    />,
+    headerSearchbar
+  );
+}

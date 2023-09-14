@@ -9,23 +9,26 @@
 #}
 
 {%- if config.get("APP_RDM_RECORD_EXPORTERS") -%}
-{# if no export formats are specified, don't bother showing the box #}
-<section id="export-record" aria-label="{{ _('Export') }}" class="ui segment rdm-sidebar exports">
-  <h2 class="ui small header">{{ _('Export')}}</h2>
-  {# dynamically create the list of export formats #}
-  {% set formats = [] %}
+  {# if no export formats are specified, don't bother showing the box #}
+  <div class="sidebar-container">
+    <h2 class="ui medium top attached header mt-0">{{ _('Export') }}</h2>
+    <div id="export-record" class="ui segment bottom attached exports rdm-sidebar">
 
-  {%- for fmt, val in config.get("APP_RDM_RECORD_EXPORTERS", {}).items() -%}
-    {%- set name = val.get("name", fmt) -%}
-    {% if is_preview %}
-      {%- set export_url = url_for('invenio_app_rdm_records.record_export', pid_value=record.id, export_format=fmt, preview=1) -%}
-    {% else %}
-      {%- set export_url = url_for('invenio_app_rdm_records.record_export', pid_value=record.id, export_format=fmt) -%}
-    {% endif %}
+      {# dynamically create the list of export formats #}
+      {% set formats = [] %}
 
-    {% set formats = formats.append({ 'name': name, 'export_url': export_url }) %}
-  {%- endfor -%}
+      {%- for fmt, val in config.get("APP_RDM_RECORD_EXPORTERS", {}).items() -%}
+        {%- set name = val.get("name", fmt) -%}
+        {% if is_preview %}
+          {%- set export_url = url_for('invenio_app_rdm_records.record_export', pid_value=record.id, export_format=fmt, preview=1) -%}
+        {% else %}
+          {%- set export_url = url_for('invenio_app_rdm_records.record_export', pid_value=record.id, export_format=fmt) -%}
+        {% endif %}
 
-  <div id="recordExportDownload" data-formats='{{ formats | tojson }}'></div>
-</section>
+        {% set formats = formats.append({ 'name': name, 'export_url': export_url }) %}
+      {%- endfor -%}
+
+      <div id="recordExportDownload" data-formats='{{ formats | tojson }}'></div>
+    </div>
+  </div>
 {%- endif -%}

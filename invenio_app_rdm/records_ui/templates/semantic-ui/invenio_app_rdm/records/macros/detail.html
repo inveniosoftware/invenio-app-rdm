@@ -31,9 +31,15 @@
 {%- endmacro %}
 
 
-{% macro list_string_values(values) %}
+{% macro list_string_values(field, values) %}
   {% for value in values %}
-    {{ value }}{{ ", " if not loop.last }}
+    {% set search_url = field | custom_fields_search(value) %}
+    {% if search_url %}
+      <a href="{{ search_url }}">{{ value }}</a> {{ ", " if not loop.last }}
+    {% else %}
+      {{ value }}{{ ", " if not loop.last }}
+    {% endif %}
+
   {% endfor %}
 {% endmacro %}
 
@@ -60,7 +66,14 @@
   {% for add_description in add_descriptions %}
   <section id="additional-description-{{loop.index}}" class="rel-mt-2" aria-label="{{ _( add_description.type.title_l10n ) }}">
     <h2>{{add_description.type.title_l10n }} <span class="text-muted language">{{ '(' + add_description.lang.title_l10n + ')' if add_description.lang }}</span></h2>
-    <p>{{ add_description.description | sanitize_html() | safe}}</p>
+
+    {% if add_description.type.id == "notes" %}
+      <div class="ui message warning">
+        {{ add_description.description | sanitize_html() | safe }}
+      </div>
+    {% else %}
+      {{ add_description.description | sanitize_html() | safe }}
+    {% endif %}
   </section>
   {% endfor %}
 {% endmacro %}
@@ -88,6 +101,10 @@
     {%- if item.award.title_l10n -%}
       <dt class="ui tiny header">
         <span class="mr-5">
+          {% if item.award.acronym %}
+            {{ item.award.acronym }} –
+          {% endif %}
+
           {{ item.award.title_l10n }}
         </span>
 
@@ -114,10 +131,22 @@
 
 
 {% macro show_references(references) %}
-    <dt class="hidden">{{ _('References') }}</dt>
-  {% for reference in references %}
-    <dd>{{ reference.reference + ' ( ' + reference.scheme + ' - ' +  reference.identifier + ' )'}}</dd>
-  {% endfor %}
+  <ul class="ui bulleted list details-list">
+    {% for reference in references %}
+      {% set reference_string = reference.reference %}
+      {% if 'identifier' in reference %}
+        {% if 'scheme' in reference %}
+          {% set reference_scheme = reference.scheme | get_scheme_label %}
+          {% set reference_string = reference_string + ' ( ' + reference_scheme +
+          ' - ' + reference.identifier + ' )' %}
+        {% else %}
+          {% set reference_string = reference_string + ' ( ' + reference.identifier +
+          ' )' %}
+        {% endif %}
+      {% endif %}
+      <li class="item">{{ reference_string }}</li>
+    {% endfor %}
+  </ul>
 {% endmacro %}
 
 
@@ -144,10 +173,12 @@
 
 
 {% macro show_related_identifiers(related_identifiers) %}
-  {%- for group in related_identifiers | groupby('relation_type.title_l10n')%}
-  <dt class="ui tiny header">{{ group.grouper }}</dt>
-  {{ _identifiers_for_group(group.list) }}
-  {%- endfor %}
+<dl class="details-list">
+    {%- for group in related_identifiers | groupby('relation_type.title_l10n')%}
+    <dt class="ui tiny header">{{ group.grouper }}</dt>
+    {{ _identifiers_for_group(group.list) }}
+    {%- endfor %}
+  </dl>
 {% endmacro %}
 
 
@@ -191,9 +222,24 @@
       {% if field_cfg.template %}
         {% include field_cfg.template %}
       {% else %}
-        <dt class="ui tiny header">{{ field_cfg.props.label }}</dt>
+        <dt class="ui tiny header">
+          {{ field_cfg.props.label }}
+          {% set namespace_url = field_cfg.field | namespace_url %}
+          {% if namespace_url %}
+          <a href="{{ namespace_url }}" aria-label="{{ namespace_url }}">
+            <i class="icon external" aria-hidden="true"></i>
+          </a>
+          {% endif %}
+        </dt>
         {% if field_value is string %}
-          <dd>{{ field_value | safe }}</dd>
+          <dd>
+            {% set search_url = field_cfg.field | custom_fields_search(field_value|safe) %}
+            {% if search_url %}
+              <a href="{{ search_url }}">{{ field_value | safe }}</a>
+            {% else %}
+              {{ field_value | safe }}
+            {% endif %}
+          </dd>
         {% elif field_value is boolean %}
           <dd>
             {% if field_value %}
@@ -204,12 +250,28 @@
           </dd>
         {% elif field_cfg.is_vocabulary %}
           <dd>{{ list_vocabulary_values(field_value) }}</dd>
-        {% elif field_value is mapping and field_value|length > 0 and field_value[0] is string %}
-            <dd>{{ list_string_values(field_value) }}</dd>
+        {% elif field_value is iterable and field_value|length > 0 and field_value[0] is string %}
+          <dd>{{ list_string_values(field_cfg.field, field_value) }}</dd>
         {% else %}
           <dd>{{ field_value }}</dd>
         {% endif %}
       {% endif %}
     {% endif %}
   {% endfor %}
+{% endmacro %}
+
+{% macro show_detail_conference(conference) %}
+    <dd>
+      {%- if conference.url %}
+      <a href="{{conference.url}}"><i class="fa fa-external-link"></i> {{conference.title}}</a>
+      {%- else %}
+      {{conference.title}}
+      {%- endif%}
+      {%- if conference.place %}, {{conference.place}} {%- endif %}
+      {%- if conference.dates %}, {{conference.dates}} {%- endif %}
+      {% if conference.session %}(Session {{conference.session}}{% if conference.session_part %}, Part {{conference.session_part}}{%- endif %}){%- endif %}
+    </dd>
+    {%- if conference.url and not conference.title %}
+      <dd><a href="{{conference.url}}"><i class="fa fa-external-link"></i> {{_('Conference website')}}</a></dd>
+    {%- endif %}
 {% endmacro %}

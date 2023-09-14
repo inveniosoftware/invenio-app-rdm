@@ -1,6 +1,10 @@
 .ui.accordion .active.title .icon:not(.button),
 .ui.accordion .accordion .active.title .icon:not(.button) {
   transform: rotate(90deg);
+
+  &.tab-menu-accordion {
+    transform: none;
+  }
 }
 
 /* use these classes to change accordion title when up/down */
@@ -109,10 +113,6 @@ div.affiliations.accordion div.title button.down {
 
   &.affiliations {
     padding-bottom: 1.5rem;
-
-    &:last-child {
-      padding-bottom: 3rem;
-    }
 
     .title {
       cursor: default;

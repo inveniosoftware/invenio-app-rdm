@@ -1,3 +1,10 @@
+// This file is part of InvenioRDM
+// Copyright (C) 2023 CERN.
+// Copyright (C) 2023 Northwestern University.
+//
+// Invenio App RDM is free software; you can redistribute it and/or modify it
+// under the terms of the MIT License; see LICENSE file for more details.
+
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Grid, Dropdown, Button } from "semantic-ui-react";
@@ -26,6 +33,7 @@ export class ExportDropdown extends Component {
       <Grid>
         <Grid.Column width={11}>
           <Dropdown
+            aria-label={i18next.t("Export selection")}
             selection
             fluid
             selectOnNavigation={false}

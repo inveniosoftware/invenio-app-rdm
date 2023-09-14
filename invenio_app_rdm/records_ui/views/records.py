@@ -2,7 +2,7 @@
 #
 # Copyright (C) 2019-2021 CERN.
 # Copyright (C) 2019-2021 Northwestern University.
-# Copyright (C)      2021 TU Wien.
+# Copyright (C) 2021-2023 TU Wien.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -18,10 +18,10 @@ from invenio_previewer.extensions import default
 from invenio_previewer.proxies import current_previewer
 from invenio_rdm_records.proxies import current_rdm_records
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
+from invenio_stats.proxies import current_stats
 from marshmallow import ValidationError
 
-from invenio_app_rdm.records_ui.views.deposits import load_custom_fields
-
+from ..utils import get_external_resources
 from .decorators import (
     pass_file_item,
     pass_file_metadata,
@@ -29,8 +29,39 @@ from .decorators import (
     pass_record_files,
     pass_record_from_pid,
     pass_record_latest,
+    pass_record_media_files,
     pass_record_or_draft,
 )
+from .deposits import get_user_communities_memberships, load_custom_fields
+
+
+def get_record_community(record):
+    """Return record's active community if any.
+
+    A record has an active community when:
+        - has either a request associated with a community
+        - or has been published to a community
+        - and the resolved i.e expanded community is not a "tombstone" i.e unknown
+
+    Returns a tuple with the resolved community or None and the community id
+    """
+    parent = record.get("parent", {})
+    community_review = parent.get("review", {}).get("receiver", {}).get("community")
+    community_default = parent.get("communities", {}).get("default")
+    community_id = community_default or community_review
+    expanded_parent = record.get("expanded", {}).get("parent", {})
+    expanded_community = expanded_parent.get("review", {}).get(
+        "receiver"
+    ) or expanded_parent.get("communities", {}).get("default")
+
+    if community_review or community_default:
+        is_community_deleted = expanded_community.get("is_ghost", False)
+        if is_community_deleted:
+            return None, community_id
+        else:
+            return expanded_community, community_id
+    else:
+        return None, None
 
 
 class PreviewFile:
@@ -78,28 +109,59 @@ class PreviewFile:
 @pass_is_preview
 @pass_record_or_draft(expand=True)
 @pass_record_files
-def record_detail(pid_value, record, files, is_preview=False):
+@pass_record_media_files
+def record_detail(pid_value, record, files, media_files, is_preview=False):
     """Record detail page (aka landing page)."""
     files_dict = None if files is None else files.to_dict()
+    media_files_dict = None if media_files is None else media_files.to_dict()
     record_ui = UIJSONSerializer().dump_obj(record.to_dict())
-
     is_draft = record_ui["is_draft"]
+    custom_fields = load_custom_fields()
+    # keep only landing page configurable custom fields
+    custom_fields["ui"] = [
+        cf for cf in custom_fields["ui"] if not cf.get("hide_from_landing_page", False)
+    ]
     if is_preview and is_draft:
+        # it is possible to save incomplete drafts that break the normal
+        # (preview) landing page rendering
+        # to prevent this from happening, we validate the draft's structure
+        # see: https://github.com/inveniosoftware/invenio-app-rdm/issues/1051
         try:
-            current_rdm_records.records_service.validate_draft(g.identity, record.id)
+            current_rdm_records.records_service.validate_draft(
+                g.identity, record.id, ignore_field_permissions=True
+            )
         except ValidationError:
             abort(404)
 
+    # emit a record view stats event
+    emitter = current_stats.get_event_emitter("record-view")
+    if record is not None and emitter is not None:
+        emitter(current_app, record=record._record, via_api=False)
+
+    resolved_community, _ = get_record_community(record_ui)
     return render_template(
-        "invenio_app_rdm/records/detail.html",
+        current_app.config.get("APP_RDM_RECORD_LANDING_PAGE_TEMPLATE"),
         record=record_ui,
         files=files_dict,
+        media_files=media_files_dict,
+        user_communities_memberships=get_user_communities_memberships(),
         permissions=record.has_permissions_to(
-            ["edit", "new_version", "manage", "update_draft", "read_files", "review"]
+            [
+                "edit",
+                "new_version",
+                "manage",
+                "update_draft",
+                "read_files",
+                "review",
+                "view",
+                "media_read_files",
+            ]
         ),
-        custom_fields_ui=load_custom_fields()["ui"],
+        custom_fields_ui=custom_fields["ui"],
         is_preview=is_preview,
         is_draft=is_draft,
+        community=resolved_community,
+        external_resources=get_external_resources(record_ui),
     )
 
 
@@ -115,10 +177,7 @@ def record_export(
         abort(404)
 
     serializer = obj_or_import_string(exporter["serializer"])(
-        options={
-            "indent": 2,
-            "sort_keys": True,
-        }
+        **exporter.get("params", {})
     )
     exported_record = serializer.serialize_object(record.to_dict())
     contentType = exporter.get("content-type", export_format)
@@ -152,6 +211,7 @@ def record_file_preview(
         filename=file_metadata.data["key"],
         preview=1 if is_preview else 0,
     )
+
     # Find a suitable previewer
     fileobj = PreviewFile(file_metadata, pid_value, url)
     for plugin in current_previewer.iter_previewers(
@@ -164,23 +224,48 @@ def record_file_preview(
 
 
 @pass_is_preview
-@pass_file_item
+@pass_file_item(is_media=False)
 def record_file_download(pid_value, file_item=None, is_preview=False, **kwargs):
     """Download a file from a record."""
     download = bool(request.args.get("download"))
+
+    # emit a file download stats event
+    emitter = current_stats.get_event_emitter("file-download")
+    if file_item is not None and emitter is not None:
+        obj = file_item._file.object_version
+        emitter(current_app, record=file_item._record, obj=obj, via_api=False)
+
+    return file_item.send_file(as_attachment=download)
+
+
+####### Media files download
+
+
+@pass_is_preview
+@pass_file_item(is_media=True)
+def record_media_file_download(pid_value, file_item=None, is_preview=False, **kwargs):
+    """Download a media file from a record."""
+    download = bool(request.args.get("download"))
+
+    # emit a file download stats event
+    emitter = current_stats.get_event_emitter("file-download")
+    if file_item is not None and emitter is not None:
+        obj = file_item._file.object_version
+        emitter(current_app, record=file_item._record, obj=obj, via_api=False)
+
     return file_item.send_file(as_attachment=download)
 
 
 @pass_record_latest
 def record_latest(record=None, **kwargs):
     """Redirect to record'd latest version page."""
-    return redirect(record["links"]["self_html"], code=301)
+    return redirect(record["links"]["self_html"], code=302)
 
 
 @pass_record_from_pid
 def record_from_pid(record=None, **kwargs):
     """Redirect to record'd latest version page."""
-    return redirect(record["links"]["self_html"], code=301)
+    return redirect(record["links"]["self_html"], code=302)
 
 
 #
@@ -193,7 +278,27 @@ def not_found_error(error):
 
 def record_tombstone_error(error):
     """Tombstone page."""
-    return render_template("invenio_app_rdm/records/tombstone.html"), 410
+    # the RecordDeletedError will have the following properties,
+    # while the PIDDeletedError won't
+    record = getattr(error, "record", None)
+    if (record_ui := getattr(error, "result_item", None)) is not None:
+        if record is None:
+            record = record_ui._record
+
+        record_ui = UIJSONSerializer().dump_obj(record_ui.to_dict())
+
+    # render a 404 page if the tombstone isn't visible
+    if not record.tombstone.is_visible:
+        return not_found_error(error)
+
+    # we only render a tombstone page if there is a record with a visible tombstone
+    return (
+        render_template(
+            "invenio_app_rdm/records/tombstone.html",
+            record=record_ui,
+        ),
+        410,
+    )
 
 
 def record_permission_denied_error(error):

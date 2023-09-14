@@ -18,7 +18,8 @@
 {%- block user_dashboard_body %}
   <div
     id="invenio-search-config"
-    data-invenio-search-config='{{ search_app_rdm_user_communities_config() | tojson }}'
+    data-invenio-search-config='{{ search_app_rdm_user_communities_config(app_id="InvenioAppRdm.DashboardCommunities") | tojson }}'
+    data-can-create-community='{{ can_create_community | tojson }}'
   >
   </div>
 {%- endblock user_dashboard_body %}

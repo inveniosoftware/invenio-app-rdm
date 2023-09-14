@@ -15,20 +15,30 @@ from invenio_pidstore.errors import (
     PIDDoesNotExistError,
     PIDUnregistered,
 )
-from invenio_records_resources.services.errors import PermissionDeniedError
+from invenio_rdm_records.services.errors import RecordDeletedException
+from invenio_records_resources.services.errors import (
+    FileKeyNotFoundError,
+    PermissionDeniedError,
+)
 
+from ...theme.views import create_url_rule
 from ..searchapp import search_app_context
 from .deposits import deposit_create, deposit_edit
 from .filters import (
     can_list_files,
+    compact_number,
+    custom_fields_search,
     get_scheme_label,
     has_images,
     has_previewable_files,
+    localize_number,
     make_files_preview_compatible,
+    namespace_url,
     order_entries,
     pid_url,
     select_preview_file,
     to_previewer_files,
+    truncate_number,
 )
 from .records import (
     not_found_error,
@@ -38,6 +48,7 @@ from .records import (
     record_file_preview,
     record_from_pid,
     record_latest,
+    record_media_file_download,
     record_permission_denied_error,
     record_tombstone_error,
 )
@@ -58,13 +69,17 @@ def create_blueprint(app):
 
     # Record URL rules
     blueprint.add_url_rule(
-        routes["record_detail"],
-        view_func=record_detail,
+        **create_url_rule(
+            routes["record_detail"],
+            default_view_func=record_detail,
+        )
     )
 
     blueprint.add_url_rule(
-        routes["record_latest"],
-        view_func=record_latest,
+        **create_url_rule(
+            routes["record_latest"],
+            default_view_func=record_latest,
+        )
     )
 
     rdm_records_ext = app.extensions["invenio-rdm-records"]
@@ -72,33 +87,52 @@ def create_blueprint(app):
     schemes = ",".join(schemes)
     if schemes:
         blueprint.add_url_rule(
-            routes["record_from_pid"].format(schemes=schemes),
-            view_func=record_from_pid,
+            **create_url_rule(
+                routes["record_from_pid"].format(schemes=schemes),
+                default_view_func=record_from_pid,
+            )
         )
 
     blueprint.add_url_rule(
-        routes["record_export"],
-        view_func=record_export,
+        **create_url_rule(
+            routes["record_export"],
+            default_view_func=record_export,
+        )
     )
 
     blueprint.add_url_rule(
-        routes["record_file_preview"],
-        view_func=record_file_preview,
+        **create_url_rule(
+            routes["record_file_preview"],
+            default_view_func=record_file_preview,
+        )
     )
 
     blueprint.add_url_rule(
-        routes["record_file_download"],
-        view_func=record_file_download,
+        **create_url_rule(
+            routes["record_file_download"],
+            default_view_func=record_file_download,
+        )
     )
 
     blueprint.add_url_rule(
-        routes["deposit_create"],
-        view_func=deposit_create,
+        **create_url_rule(
+            routes["record_media_file_download"],
+            default_view_func=record_media_file_download,
+        )
     )
 
     blueprint.add_url_rule(
-        routes["deposit_edit"],
-        view_func=deposit_edit,
+        **create_url_rule(
+            routes["deposit_create"],
+            default_view_func=deposit_create,
+        )
+    )
+
+    blueprint.add_url_rule(
+        **create_url_rule(
+            routes["deposit_edit"],
+            default_view_func=deposit_edit,
+        )
     )
 
     # Register error handlers
@@ -106,9 +140,11 @@ def create_blueprint(app):
     blueprint.register_error_handler(PIDDoesNotExistError, not_found_error)
     blueprint.register_error_handler(PIDUnregistered, not_found_error)
     blueprint.register_error_handler(KeyError, not_found_error)
+    blueprint.register_error_handler(FileKeyNotFoundError, not_found_error)
     blueprint.register_error_handler(
         PermissionDeniedError, record_permission_denied_error
     )
+    blueprint.register_error_handler(RecordDeletedException, record_tombstone_error)
 
     # Register template filters
     blueprint.add_app_template_filter(can_list_files)
@@ -120,6 +156,11 @@ def create_blueprint(app):
     blueprint.add_app_template_filter(order_entries)
     blueprint.add_app_template_filter(get_scheme_label)
     blueprint.add_app_template_filter(has_images)
+    blueprint.add_app_template_filter(localize_number)
+    blueprint.add_app_template_filter(compact_number)
+    blueprint.add_app_template_filter(truncate_number)
+    blueprint.add_app_template_filter(namespace_url)
+    blueprint.add_app_template_filter(custom_fields_search)
 
     # Register context processor
     blueprint.app_context_processor(search_app_context)

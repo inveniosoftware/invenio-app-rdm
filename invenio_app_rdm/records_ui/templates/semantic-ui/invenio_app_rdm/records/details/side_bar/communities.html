@@ -1,0 +1,33 @@
+<div
+  id="sidebar-communities-manage"
+  data-user-communities-memberships='{{ user_communities_memberships | tojson }}'
+  data-record-community-endpoint="{{ record.links.communities }}"
+  data-record-community-search-endpoint="{{ record.links['communities-suggestions'] }}"
+  data-record-user-community-search-endpoint="{{ record.links['user-communities-suggestions'] }}"
+  data-can-manage-record='{{ can_manage_record |tojson }}'
+  data-pending-communities-search-config='{{ search_app_rdm_record_requests_config(app_id="InvenioAppRdm.RecordRequests", endpoint=record.links.requests) | tojson }}'
+  data-record-community-search-config='{{ search_app_rdm_record_communities_config(app_id="InvenioAppRdm.RecordCommunitiesSuggestions", endpoint=record.links["communities-suggestions"]) | tojson }}'
+  data-record-user-community-search-config='{{ search_app_rdm_record_user_communities_config(app_id="InvenioAppRdm.RecordUserCommunitiesSuggestions", endpoint=record.links["communities-suggestions"]) | tojson }}'
+  data-permissions='{{ permissions | tojson }}'
+  class="sidebar-container"
+>
+
+  <h2 class="ui medium top attached header">{{ _("Communities") }}</h2>
+
+  <div class="ui segment bottom attached rdm-sidebar">
+    <div class="ui fluid placeholder">
+      <div class="image header">
+        <div class="line"></div>
+        <div class="line"></div>
+      </div>
+      <div class="image header">
+        <div class="line"></div>
+        <div class="line"></div>
+      </div>
+      <div class="image header">
+        <div class="line"></div>
+        <div class="line"></div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -12,14 +12,13 @@
 from os.path import splitext
 
 import idutils
-from flask import current_app
+from babel.numbers import format_compact_decimal, format_decimal
+from flask import current_app, url_for
 from invenio_previewer.views import is_previewable
 from invenio_records_files.api import FileObject
 from invenio_records_permissions.policies import get_record_permission_policy
 
-from invenio_app_rdm.records_ui.previewer.iiif_simple import (
-    previewable_extensions as image_extensions,
-)
+from ..previewer.iiif_simple import previewable_extensions as image_extensions
 
 
 def make_files_preview_compatible(files):
@@ -121,3 +120,59 @@ def get_scheme_label(scheme):
     scheme_to_label = current_app.config.get("RDM_RECORDS_IDENTIFIERS_SCHEMES", {})
 
     return scheme_to_label.get(scheme, {}).get("label", scheme)
+
+
+def localize_number(value):
+    """Format number according to locale value."""
+    locale_value = current_app.config.get("BABEL_DEFAULT_LOCALE")
+    number = int(value)
+    return format_decimal(number, locale=locale_value)
+
+
+def compact_number(value, max_value):
+    """Format long numbers."""
+    locale_value = current_app.config.get("BABEL_DEFAULT_LOCALE")
+    number = int(value)
+    decimals = 0
+
+    if number > max_value:
+        decimals = 2
+    return format_compact_decimal(
+        int(value), format_type="short", locale=locale_value, fraction_digits=decimals
+    )
+
+
+def truncate_number(value, max_value):
+    """Make number compact if too long."""
+    number = localize_number(value)
+    if int(value) > max_value:
+        number = compact_number(value, max_value=1_000_000)
+    return number
+
+
+def namespace_url(field):
+    """Get custom field namespace url."""
+    namespace_array = field.split(":")
+    namespace = namespace_array[0]
+    namespace_value = namespace_array[1]
+    namespaces = current_app.config.get("RDM_NAMESPACES")
+
+    if not namespaces.get(namespace):
+        return None
+
+    return namespaces[namespace] + namespace_value
+
+
+def custom_fields_search(field, field_value):
+    """Get custom field search url."""
+    namespace_array = field.split(":")
+    namespace = namespace_array[0]
+    namespaces = current_app.config.get("RDM_NAMESPACES")
+
+    if not namespaces.get(namespace):
+        return None
+
+    namespace_string = "\:".join(namespace_array)
+    return url_for(
+        "invenio_search_ui.search", q=f"custom_fields.{namespace_string}:{field_value}"
+    )

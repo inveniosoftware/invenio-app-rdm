@@ -44,11 +44,13 @@ recursive-include docs *.rst
 recursive-include docs *.txt
 recursive-include docs Makefile
 recursive-include invenio_app_rdm *.gitkeep
-recursive-include invenio_app_rdm *.html *.js *.less *.json
+recursive-include invenio_app_rdm *.html *.js *.less *.json *.yaml
 recursive-include invenio_app_rdm *.overrides
 recursive-include invenio_app_rdm *.variables
 recursive-include invenio_app_rdm *.png *.svg
+recursive-include invenio_app_rdm *.txt
 recursive-include invenio_app_rdm *.po *.pot *.mo
+recursive-include invenio_app_rdm *.py
 recursive-include docker *.cfg *.conf *.crt *.ini *.key *.pem *.sh
-recursive-include tests *.py
+recursive-include tests *.py *.yaml *.html
 include .git-blame-ignore-revs

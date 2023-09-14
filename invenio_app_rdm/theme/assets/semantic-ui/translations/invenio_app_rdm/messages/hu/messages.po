@@ -1,0 +1,286 @@
+# 
+# Translators:
+# Tibor Simko <tibor.simko@cern.ch>, 2021
+# Andrea Dömötör, 2022
+# Dorottya Szemigán, 2023
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2022-10-12T06:58:21.832Z\n"
+"PO-Revision-Date: 2021-07-14 16:07+0000\n"
+"Last-Translator: Dorottya Szemigán, 2023\n"
+"Language-Team: Hungarian (https://app.transifex.com/inveniosoftware/teams/23537/hu/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: hu\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"mime-version: 1.0\n"
+
+msgid "Basic information"
+msgstr "Alapvető információ"
+
+msgid "Copy to clipboard"
+msgstr "Másolás a vágólapra"
+
+msgid "Copied!"
+msgstr "Másolva!"
+
+msgid "Files"
+msgstr "Fájlok"
+
+msgid "The record has no files."
+msgstr "A rekordhoz nem tartoznak fájlok. "
+
+msgid "Creators"
+msgstr "Készítők"
+
+msgid "Recommended information"
+msgstr "Ajánlott információ"
+
+msgid "Add contributor"
+msgstr "Közreműködő hozzáadása"
+
+msgid "Contributors"
+msgstr "Közreműködők"
+
+msgid "Alternate identifiers"
+msgstr "Alternatív azonosítók"
+
+msgid "Related works"
+msgstr "Kapcsolódó munkák"
+
+msgid "Visibility"
+msgstr "Láthatóság"
+
+msgid "Edit"
+msgstr "Szerkesztés"
+
+msgid "An error occurred while generating the citation."
+msgstr "Hiba történt az idézés generálása közben."
+
+msgid "Citation"
+msgstr "Idézés"
+
+msgid "Style"
+msgstr "Stílus"
+
+msgid "Version"
+msgstr "Verzió"
+
+msgid "Preview"
+msgstr "Előnézet"
+
+msgid "Only published versions are displayed."
+msgstr "Csak a közzétett verziókat jelenítettük meg."
+
+msgid "View all {{total}} versions"
+msgstr "Összes ({total}) verzió megjelenítése"
+
+msgid "You don't have permissions to share this record."
+msgstr "Nincs jogosultsága a rekord megosztására."
+
+msgid "Share"
+msgstr "Megosztás"
+
+msgid "Can view"
+msgstr "Megtekintheti"
+
+msgid "Can preview"
+msgstr "Megtekintheti az előnézetet"
+
+msgid "Can edit"
+msgstr "Szerkesztheti"
+
+msgid "Get a link"
+msgstr "Kérek egy linket"
+
+msgid "Copy link"
+msgstr "Link másolása"
+
+msgid "Delete link"
+msgstr "Link törlése"
+
+msgid "Done"
+msgstr "Kész"
+
+msgid ""
+"Anyone with this link <1>can view all versions</1> of this record & files."
+msgstr ""
+"Bárki ezzel a linkkel <1>megtekintheti az összes verziót </1>ennél a "
+"rekordnál és a fájloknál."
+
+msgid ""
+"Anyone with this link <2>can view all published and unpublished versions</2>"
+" of this record & files."
+msgstr ""
+"Bárki ezzel a linkkel <2>megtekintheti az összes közzétett és nem közzétett "
+"verziót </2> ennél a rekordnál és a fájloknál."
+
+msgid "Uploaded on"
+msgstr "Feltöltve: "
+
+msgid "Search"
+msgstr "Keresés"
+
+msgid "Search guide"
+msgstr "Keresési útmutató"
+
+msgid "result(s) found"
+msgstr "találatot kaptunk"
+
+msgid "Sort by"
+msgstr "Rendezési elv"
+
+msgid "View"
+msgstr "Megtekintés"
+
+msgid "New community"
+msgstr "Új közösség"
+
+msgid "Get started!"
+msgstr "Kezdjük!"
+
+msgid "Open"
+msgstr "Megnyitás"
+
+msgid "Closed"
+msgstr "Lezárva"
+
+msgid "All done!"
+msgstr "Kész!"
+
+msgid "You've caught up with all open requests."
+msgstr "Önnek nincsenek függő kérései."
+
+msgid "No creation date found."
+msgstr "Létrehozási dátum nem található."
+
+msgid "No description"
+msgstr "Nincs leírás"
+
+msgid "No publication date found."
+msgstr "Publikálási dátum nem található."
+
+msgid "No resource type"
+msgstr "Nincs forrástípus"
+
+msgid "No title"
+msgstr "Nincs cím"
+
+msgid "Make your first upload!"
+msgstr "Tegye meg az első feltöltését!"
+
+msgid "New upload"
+msgstr "Új feltöltés"
+
+msgid "ORCID profile"
+msgstr "ORCID profil"
+
+msgid "ROR profile"
+msgstr "ROR profil"
+
+msgid "GND profile"
+msgstr "GND profil"
+
+msgid "No communities found!"
+msgstr "Nem találtunk közösségeket!"
+
+msgid "No requests found!"
+msgstr "Nem találtunk kéréseket!"
+
+msgid "Copied"
+msgstr "Másolva"
+
+msgid "Reset search"
+msgstr "Keresési beállítások visszaállítása"
+
+msgid "We couldn't find any matches for "
+msgstr "Nincs találat erre:"
+
+msgid "your search"
+msgstr "az Ön keresése"
+
+msgid "Start over"
+msgstr "Újrakezdés"
+
+msgid "ProTip"
+msgstr "ProTip"
+
+msgid "For more tips, check out our "
+msgstr "További tippekért keresse fel: "
+
+msgid "search guide"
+msgstr "keresési útmutató"
+
+msgid "Export"
+msgstr "Exportálás"
+
+msgid "Filter results"
+msgstr "Találatok szűrése"
+
+msgid "In review"
+msgstr "Bírálás alatt"
+
+msgid "Declined"
+msgstr "Elutasítva"
+
+msgid "Expired"
+msgstr "Lejárt"
+
+msgid "Draft"
+msgstr "Piszkozat"
+
+msgid "New version draft"
+msgstr "Piszkozat új verzióhoz"
+
+msgid "Download file"
+msgstr "Fájl letöltése"
+
+msgid "No link has been created. Click on 'Get a Link' to make a new link."
+msgstr ""
+"Nem jött létre link. Új link létrehozásához kattintson a \"Linket kérek\" "
+"gombra! "
+
+msgid ""
+"Anyone with an account and this link <1>can edit all versions</1> of this "
+"record & files."
+msgstr ""
+"Ezzel a linkkel minden regisztrált felhasználó <1>szerkesztheti az összes "
+"verziót </1>ennél a rekordnál és a fájloknál."
+
+msgid "Search records..."
+msgstr "Rekordok keresése..."
+
+msgid "will give you all the publications from 2017 until today."
+msgstr "megadjuk az összes publikációt 2017-től máig."
+
+msgid " for defining advanced search queries."
+msgstr "összetett keresések meghatározásához."
+
+msgid "Public"
+msgstr "Nyilvános"
+
+msgid "Restricted"
+msgstr "Korlátozott hozzáférés"
+
+msgid "Search in my communities..."
+msgstr "Keresés a közösségeimben..."
+
+msgid "Opened {{difference}} by"
+msgstr "{{difference}} megnyitva általa:"
+
+msgid "Search in my requests..."
+msgstr "Keresés a kéréseim között..."
+
+msgid "Actions"
+msgstr "Tevékenységek"
+
+msgid "open"
+msgstr "megnyit"
+
+msgid "unlock"
+msgstr "felold"
+
+msgid "Search in my uploads..."
+msgstr "Keresés a feltöltéseim között..."

@@ -52,6 +52,16 @@
       display: block;
       margin-top: .5rem;
       word-wrap: break-word;
+      font-size: 80%;
+    }
+
+    &.parent-doi:last-child {
+      border-top: none;
+    }
+
+    &.parent-doi {
+      margin-top: .5rem;
+      word-wrap: break-word;
     }
   }
 }

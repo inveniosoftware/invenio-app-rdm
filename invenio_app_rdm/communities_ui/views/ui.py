@@ -3,21 +3,21 @@
 # Copyright (C) 2019-2022 CERN.
 # Copyright (C) 2019-2022 Northwestern University.
 # Copyright (C)      2022 TU Wien.
+# Copyright (C) 2023 Graz University of Technology.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 """Communities UI blueprints module."""
 
 from flask import Blueprint, current_app, render_template
-from flask_babelex import lazy_gettext as _
 from flask_login import current_user
 from flask_menu import current_menu
+from invenio_i18n import lazy_gettext as _
 from invenio_pidstore.errors import PIDDeletedError, PIDDoesNotExistError
 from invenio_records_resources.services.errors import PermissionDeniedError
 
-from invenio_app_rdm.communities_ui.views.communities import communities_detail
-
 from ..searchapp import search_app_context
+from .communities import communities_detail
 
 
 #

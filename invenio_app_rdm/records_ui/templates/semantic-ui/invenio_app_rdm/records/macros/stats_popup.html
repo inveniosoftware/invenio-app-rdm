@@ -1,0 +1,21 @@
+{% macro stats_popup(number) %}
+  {% if number|truncate_number(max_value=10_000_000) != number|localize_number %}
+  <div>
+    <span
+      tabindex="0"
+      role="button"
+      class="popup-trigger compact-number"
+      aria-expanded="false"
+      aria-label="{{ _('See the full number') }}"
+      data-variation="mini"
+    >
+      {{ number|truncate_number(max_value=10_000_000) }}
+    </span>
+    <p role="tooltip" class="popup-content ui flowing popup transition hidden">
+      {{ number|localize_number }}
+    </p>
+  </div>
+  {% else %}
+    {{ number|truncate_number(max_value=10_000_000) }}
+  {% endif %}
+{% endmacro %}

@@ -1,0 +1,67 @@
+/***********************************************
+    Invenio App RDM Transition Overrides
+***********************************************/
+
+// Left
+.transition[class*="carousel-slide left"].in {
+  animation-name: carouselSlideInLeft;
+  transform-origin: center left;
+}
+
+.transition[class*="carousel-slide left"].out {
+  animation-name: carouselSlideOutLeft;
+  transform-origin: center left;
+}
+
+// Right
+.transition[class*="carousel-slide right"].in {
+  animation-name: carouselSlideInRight;
+  transform-origin: center left;
+}
+
+.transition[class*="carousel-slide right"].out {
+  animation-name: carouselSlideOutRight;
+  transform-origin: center left;
+}
+
+@keyframes carouselSlideInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(100vw);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes carouselSlideOutLeft {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-100vw);
+  }
+}
+
+@keyframes carouselSlideInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(-100vw);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes carouselSlideOutRight {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(100vw);
+  }
+}

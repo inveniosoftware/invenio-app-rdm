@@ -13,36 +13,33 @@ on:
   push:
     branches:
       - master
-      - 'feature/*'
-      - 'maint-**'
+      - "feature/*"
+      - "maint-**"
   pull_request:
     branches:
       - master
-      - 'maint-**'
-      - 'feature/**'
+      - "maint-**"
+      - "feature/**"
   schedule:
     # * is a special character in YAML so you have to quote this string
-    - cron:  '0 3 * * 6'
+    - cron: "0 3 * * 6"
   workflow_dispatch:
     inputs:
       reason:
-        description: 'Reason'
+        description: "Reason"
         required: false
-        default: 'Manual trigger'
+        default: "Manual trigger"
 
 jobs:
   Tests:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-          python-version: [3.7, 3.8, 3.9]
-          requirements-level: [pypi]
-          db-service: [postgresql10,postgresql13]
-          search-service: [opensearch2,elasticsearch7]
-          include:
-          - db-service: postgresql10
-            DB_EXTRAS: "postgresql"
-
+        python-version: [3.8, 3.9]
+        requirements-level: [pypi]
+        db-service: [postgresql13]
+        search-service: [opensearch2, elasticsearch7]
+        include:
           - db-service: postgresql13
             DB_EXTRAS: "postgresql"
 
@@ -51,7 +48,7 @@ jobs:
 
           - search-service: elasticsearch7
             SEARCH_EXTRAS: "elasticsearch7"
-          node-version: [14.x]
+        node-version: [14.x]
     env:
       DB: ${{ matrix.db-service }}
       SEARCH: ${{ matrix.search-service }}

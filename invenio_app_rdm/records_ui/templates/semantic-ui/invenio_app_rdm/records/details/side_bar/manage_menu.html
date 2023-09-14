@@ -8,7 +8,7 @@ it under the terms of the MIT License; see LICENSE file for more details.
 {% if show_record_management_menu %}
   <section id="record-manage-menu"
            aria-label="{{ _('Record management') }}"
-           class="ui grid segment computer only rdm-sidebar"
+           class="ui grid segment computer only sidebar-container rdm-sidebar"
   >
     <div class="column"
          id="recordManagement"
@@ -16,7 +16,20 @@ it under the terms of the MIT License; see LICENSE file for more details.
          data-permissions='{{ permissions | tojson }}'
          data-is-draft="{{ is_draft | tojson }}"
          data-is-preview-submission-request="{{ is_preview_submission_request | tojson }}"
+         data-current-user-id="{{ current_user.id }}"
+         data-access-links-search-config='{{ search_app_access_links_config(app_id="InvenioAppRdm.AccessLinks", endpoint=record.links.access_links) | tojson }}'
     >
+      <div class="ui placeholder">
+        <div class="header">
+          <div class="full line"></div>
+          <div class="full line"></div>
+          <div class="full line"></div>
+          <div class="full line"></div>
+          <div class="full line"></div>
+          <div class="full line"></div>
+          <div class="full line"></div>
+        </div>
+      </div>
     </div>
   </section>
 {% endif %}

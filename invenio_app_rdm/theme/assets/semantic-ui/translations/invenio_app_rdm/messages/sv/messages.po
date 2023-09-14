@@ -1,0 +1,285 @@
+# 
+# Translators:
+# Tibor Simko <tibor.simko@cern.ch>, 2021
+# Sam Arbid, 2022
+# Rim Sharif, 2023
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2022-10-12T06:58:21.832Z\n"
+"PO-Revision-Date: 2021-07-14 16:07+0000\n"
+"Last-Translator: Rim Sharif, 2023\n"
+"Language-Team: Swedish (https://app.transifex.com/inveniosoftware/teams/23537/sv/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sv\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"mime-version: 1.0\n"
+
+msgid "Basic information"
+msgstr "Basinformation"
+
+msgid "Copy to clipboard"
+msgstr "Kopiera till klippbordet"
+
+msgid "Copied!"
+msgstr "Kopierade!"
+
+msgid "Files"
+msgstr "Filer"
+
+msgid "The record has no files."
+msgstr "Posten har inga filer."
+
+msgid "Creators"
+msgstr "Skapare"
+
+msgid "Recommended information"
+msgstr "Rekommenderad information"
+
+msgid "Add contributor"
+msgstr "Lägg till bidragsgivare"
+
+msgid "Contributors"
+msgstr "Bidragsgivare"
+
+msgid "Alternate identifiers"
+msgstr "Alternativa identifierare"
+
+msgid "Related works"
+msgstr "Relaterade arbeten"
+
+msgid "Visibility"
+msgstr "Synlighet"
+
+msgid "Edit"
+msgstr "Redigera"
+
+msgid "An error occurred while generating the citation."
+msgstr "Ett fel uppstod när citatet genererades."
+
+msgid "Citation"
+msgstr "citering"
+
+msgid "Style"
+msgstr "Stil"
+
+msgid "Version"
+msgstr "Version"
+
+msgid "Preview"
+msgstr "Förhandsvisa"
+
+msgid "Only published versions are displayed."
+msgstr "Endast publicerade versioner visas."
+
+msgid "View all {{total}} versions"
+msgstr "Visa alla {{total}} versioner"
+
+msgid "You don't have permissions to share this record."
+msgstr "Du har inte behörighet att dela denna post."
+
+msgid "Share"
+msgstr "Dela"
+
+msgid "Can view"
+msgstr "Kan visa"
+
+msgid "Can preview"
+msgstr "Kan förhandsgranska"
+
+msgid "Can edit"
+msgstr "Kan redigera"
+
+msgid "Get a link"
+msgstr "Få en länk"
+
+msgid "Copy link"
+msgstr "Kopiera länk"
+
+msgid "Delete link"
+msgstr "Ta bort länk"
+
+msgid "Done"
+msgstr "Klart"
+
+msgid ""
+"Anyone with this link <1>can view all versions</1> of this record & files."
+msgstr ""
+"Alla med denna länk <1>kan se alla versioner</1> av denna post och filer."
+
+msgid ""
+"Anyone with this link <2>can view all published and unpublished versions</2>"
+" of this record & files."
+msgstr ""
+"Alla med denna länk <2>kan se alla publicerade och opublicerade "
+"versioner</2> av denna post och filer."
+
+msgid "Uploaded on"
+msgstr "Uppladdad på"
+
+msgid "Search"
+msgstr "Sök"
+
+msgid "Search guide"
+msgstr "Sökguide"
+
+msgid "result(s) found"
+msgstr "resultat hittades"
+
+msgid "Sort by"
+msgstr "Sortera efter"
+
+msgid "View"
+msgstr "vy"
+
+msgid "New community"
+msgstr "Ny community"
+
+msgid "Get started!"
+msgstr "Börja!"
+
+msgid "Open"
+msgstr "Öppen"
+
+msgid "Closed"
+msgstr "Stängd"
+
+msgid "All done!"
+msgstr "Allt klart!"
+
+msgid "You've caught up with all open requests."
+msgstr "Du har kommit ikapp med alla öppna förfrågningar."
+
+msgid "No creation date found."
+msgstr "Inget datum för skapande hittades."
+
+msgid "No description"
+msgstr "Ingen beskrivning"
+
+msgid "No publication date found."
+msgstr "Inget publiceringsdatum hittades."
+
+msgid "No resource type"
+msgstr "Ingen resurstyp"
+
+msgid "No title"
+msgstr "Ingen titel"
+
+msgid "Make your first upload!"
+msgstr "Gör din första uppladdning!"
+
+msgid "New upload"
+msgstr "Ny uppladdning"
+
+msgid "ORCID profile"
+msgstr "ORCID-profil"
+
+msgid "ROR profile"
+msgstr "ROR-profil"
+
+msgid "GND profile"
+msgstr "GND-profil"
+
+msgid "No communities found!"
+msgstr "Inga communities hittades!"
+
+msgid "No requests found!"
+msgstr "Inga förfrågningar hittades!"
+
+msgid "Copied"
+msgstr "Kopierade"
+
+msgid "Reset search"
+msgstr "Återställ sökning"
+
+msgid "We couldn't find any matches for "
+msgstr "Vi kunde inte hitta några matchningar för"
+
+msgid "your search"
+msgstr "Din sökning"
+
+msgid "Start over"
+msgstr "Börja om"
+
+msgid "ProTip"
+msgstr "ProTip"
+
+msgid "For more tips, check out our "
+msgstr "För fler tips, kolla in vår"
+
+msgid "search guide"
+msgstr "sökguide"
+
+msgid "Export"
+msgstr "Exportera"
+
+msgid "Filter results"
+msgstr "Filtrera resultat"
+
+msgid "In review"
+msgstr "Under granskning"
+
+msgid "Declined"
+msgstr "Tackade nej"
+
+msgid "Expired"
+msgstr "Utgånget"
+
+msgid "Draft"
+msgstr "Utkast"
+
+msgid "New version draft"
+msgstr "Nytt utkast till version"
+
+msgid "Download file"
+msgstr "Nedladdning fil"
+
+msgid "No link has been created. Click on 'Get a Link' to make a new link."
+msgstr ""
+"Ingen länk har skapats. Klicka på \"Hämta en länk\" för att skapa en ny "
+"länk."
+
+msgid ""
+"Anyone with an account and this link <1>can edit all versions</1> of this "
+"record & files."
+msgstr ""
+"Alla med ett konto och denna länk <1>kan redigera alla versioner</1> av "
+"denna post och filer."
+
+msgid "Search records..."
+msgstr "Sök rekord..."
+
+msgid "will give you all the publications from 2017 until today."
+msgstr "kommer att ge dig alla publikationer från 2017 till idag."
+
+msgid " for defining advanced search queries."
+msgstr "för att definiera avancerade sökfrågor."
+
+msgid "Public"
+msgstr "Offentlig"
+
+msgid "Restricted"
+msgstr "Begränsad"
+
+msgid "Search in my communities..."
+msgstr "Sök i mina communities..."
+
+msgid "Opened {{difference}} by"
+msgstr "Öppnad {{skillnad}} av"
+
+msgid "Search in my requests..."
+msgstr "Sök i mina förfrågningar..."
+
+msgid "Actions"
+msgstr "Åtgärder"
+
+msgid "open"
+msgstr "öppna"
+
+msgid "unlock"
+msgstr "låsa upp"
+
+msgid "Search in my uploads..."
+msgstr "Sök i mina uppladdningar..."

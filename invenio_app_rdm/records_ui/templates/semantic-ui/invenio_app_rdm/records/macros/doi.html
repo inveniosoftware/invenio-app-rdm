@@ -1,0 +1,34 @@
+{#
+  Copyright (C) 2023 CERN.
+
+  Invenio RDM Records is free software; you can redistribute it and/or modify
+  it under the terms of the MIT License; see LICENSE file for more details.
+#}
+
+{% macro show_doi(doi_value, record, badge_id="record-doi-badge", modal_id="doi-modal", subheader=None, parent_doi=false) %}
+  <dt class="ui tiny header">{{_('DOI')}}
+    {% if subheader %}
+      <i><span class="doi sub header">{{subheader}}</span></i></dt>
+    {% endif %}
+  <dd>
+    <span class="get-badge" data-toggle="tooltip" data-placement="bottom" style="cursor: pointer;"
+      title="{{ _('Get the DOI badge!') }}">
+      <img id='{{badge_id}}' data-target="[data-modal='{{ doi_value }}']"
+        src="{{ url_for('invenio_formatter_badges.badge', title='DOI', value=doi_value, ext='svg') }}" alt="{{ doi_value }}" />
+    </span>
+
+    <div id="{{modal_id}}" class="ui modal fade badge-modal" data-modal="{{ doi_value }}">
+      <div class="header">{{ _("DOI Badge") }}</div>
+      <div class="content">
+        <h4>
+          <small>{{ _("DOI") }}</small>
+        </h4>
+        <h4>
+          <pre>{{ doi_value }}</pre>
+        </h4>
+        {% from "semantic-ui/invenio_formatter/macros/badges.html" import badges_formats_list %}
+        {{ badges_formats_list(url_for('invenio_formatter_badges.badge', title='DOI', value=doi_value, ext='svg', _external=True, _scheme='https'), record.links.parent_doi if parent_doi else record.links.doi) }}
+      </div>
+    </div>
+  </dd>
+{%- endmacro %}

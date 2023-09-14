@@ -1,0 +1,59 @@
+{# -*- coding: utf-8 -*-
+
+  This file is part of Invenio.
+  Copyright (C) 2023 TU Wien.
+
+  Invenio is free software; you can redistribute it and/or modify it
+  under the terms of the MIT License; see LICENSE file for more details.
+#}
+{% set title = invenio_request.title %}
+{% extends "invenio_requests/details/index.html" %}
+{% from "invenio_requests/macros/request_header.html" import inclusion_request_header %}
+
+{% block page_body %}
+  {%- if not (current_user and current_user.is_authenticated) %}
+    <div class=rel-mt-2>
+      {{ super.super() }}
+    </div>
+  {% else %}
+    {{ super.super() }}
+  {% endif %}
+  {%- block request_body %}
+    <div class="ui container request-detail-page">
+
+      {% block request_header %}
+        {% set back_button_url = url_for("invenio_app_rdm_users.requests") %}
+        {{ inclusion_request_header(
+      back_button_url=back_button_url,
+      back_button_text=_("Back to requests"),
+      request=invenio_request,
+      accepted=request_is_accepted
+    ) }}
+
+        <div>
+          <p>
+            <strong>Access level:</strong>
+            {{ invenio_request.payload.permission }}
+          </p>
+          <p>
+            <strong>Record:</strong>
+            <a
+              href="{{ url_for('invenio_app_rdm_records.record_detail', pid_value=invenio_request.topic.record) }}"
+              rel="noopener noreferrer" target="_blank"
+              title="{{ _('Opens in new tab') }}"
+            >
+              {{ invenio_request.topic.record }}
+            </a>
+          </p>
+        </div>
+      {% endblock %}
+      {%- block request_timeline %}
+        {{ super() }}
+      {%- endblock request_timeline %}
+
+    </div>
+  {% endblock request_body %}
+{% endblock page_body %}
+
+
+{% set active_dashboard_menu_item = 'requests' %}

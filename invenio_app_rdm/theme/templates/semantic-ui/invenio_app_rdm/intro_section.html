@@ -1,0 +1,99 @@
+{#
+  Copyright (C) 2019-2022 CERN.
+
+  Invenio App RDM is free software; you can redistribute it and/or modify it
+  under the terms of the MIT License; see LICENSE file for more details.
+#}
+
+<section class="light-bg rel-pt-3 rel-pb-3">
+  {{ records }}
+  <h2 class="section-title">
+    {{ _("You've successfully installed InvenioRDM!") }}
+    <br/>
+    {{ _("What is ahead?") }}
+  </h2>
+
+  <div class="ui cards centered container">
+    <div class="ui card">
+      <div class="image">
+        <div class="intro-step-list-image">1</div>
+      </div>
+      <div class="content">
+        <div class="header">
+          {{ _("Configure") }}
+        </div>
+        <div class="description">
+          {% trans configuration_link="https://inveniordm.docs.cern.ch/install/configuration/" %}
+            Configure the datamodel, resource types, permissions and much more to make it suit your needs! For more
+            information on how to do it visit the <a href="{{ configuration_link }}" target="_blank">configuration
+            section in the docs</a>.
+          {% endtrans %}
+        </div>
+      </div>
+    </div>
+
+    <div class="ui card">
+      <div class="image">
+        <div class="intro-step-list-image">2</div>
+      </div>
+      <div class="content">
+        <div class="header">
+          {{ _("Customize") }}
+        </div>
+        <div class="description">
+          {% trans configuration_link="https://inveniordm.docs.cern.ch/customize/" %}
+            Customize the layout and adapt the styling to match your institution's. See how to do so <a
+            href="{{ configuration_link }}" target="_blank">here</a>.
+          {% endtrans %}
+        </div>
+      </div>
+    </div>
+
+    <div class="ui card">
+      <div class="image">
+        <div class="intro-step-list-image">3</div>
+      </div>
+      <div class="content">
+        <div class="header">{{ _("Run it!") }}</div>
+        <div class="description">
+          {% trans
+            deployment_link="https://inveniordm.docs.cern.ch/install/build-setup-run/#run_1"
+            %}
+            <a href="{{ deployment_link }}" target="_blank">Run</a> your
+            InvenioRDM instance locally or in containers.
+          {% endtrans %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ui centered container rel-mt-2">
+    <a
+      class="ui primary big labeled icon button"
+      href="https://inveniordm.docs.cern.ch"
+      target="_blank"
+    >
+      <i class="file alternate outline icon" aria-hidden="true"></i>
+      {{ _("Docs") }}
+    </a>
+
+    <a
+      class="ui primary big labeled icon button"
+      href="https://github.com/inveniosoftware"
+      target="_blank"
+    >
+      <i class="github icon" aria-hidden="true"></i>
+      {{ _("Code") }}
+    </a>
+  </div>
+
+  <div class="ui centered container rel-mt-3">
+    <div class="ui compact tiny message">
+      <p>
+        {{ _("To disable this section, add") }}
+        <code>THEME_SHOW_FRONTPAGE_INTRO_SECTION = False</code>
+        {{ _("to your invenio.cfg file.") }}
+      </p>
+    </div>
+  </div>
+</section>

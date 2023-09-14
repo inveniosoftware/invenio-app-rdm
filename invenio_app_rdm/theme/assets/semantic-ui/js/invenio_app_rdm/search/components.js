@@ -16,7 +16,7 @@ import _get from "lodash/get";
 import _truncate from "lodash/truncate";
 import React from "react";
 import Overridable from "react-overridable";
-import { withState } from "react-searchkit";
+import { withState, buildUID } from "react-searchkit";
 import {
   Button,
   Card,
@@ -25,84 +25,31 @@ import {
   Header,
   Icon,
   Input,
-  Item,
   Label,
   Message,
   Segment,
 } from "semantic-ui-react";
-import { SearchItemCreators } from "../utils";
+import RecordsResultsListItem from "../components/RecordsResultsListItem";
 import PropTypes from "prop-types";
+import { Trans } from "react-i18next";
 
-export const RDMRecordResultsListItem = ({ result }) => {
-  const accessStatusId = _get(result, "ui.access_status.id", "open");
-  const accessStatus = _get(result, "ui.access_status.title_l10n", "Open");
-  const accessStatusIcon = _get(result, "ui.access_status.icon", "unlock");
-  const createdDate = _get(
-    result,
-    "ui.created_date_l10n_long",
-    "No creation date found."
-  );
-  const creators = result.ui.creators.creators.slice(0, 3);
+export const RDMRecordResultsListItemWithState = withState(
+  ({ currentQueryState, result, appName }) => (
+    <RecordsResultsListItem
+      currentQueryState={currentQueryState}
+      result={result}
+      appName={appName}
+    />
+  )
+);
 
-  const descriptionStripped = _get(result, "ui.description_stripped", "No description");
-
-  const publicationDate = _get(
-    result,
-    "ui.publication_date_l10n_long",
-    "No publication date found."
-  );
-  const resourceType = _get(result, "ui.resource_type.title_l10n", "No resource type");
-  const subjects = _get(result, "ui.subjects", []);
-  const title = _get(result, "metadata.title", "No title");
-  const version = _get(result, "ui.version", null);
-
-  // Derivatives
-  const viewLink = `/records/${result.id}`;
-  return (
-    <Item>
-      <Item.Content>
-        <Item.Extra className="labels-actions">
-          <Label size="tiny" className="primary">
-            {publicationDate} ({version})
-          </Label>
-          <Label size="tiny" className="neutral">
-            {resourceType}
-          </Label>
-          <Label size="tiny" className={`access-status ${accessStatusId}`}>
-            {accessStatusIcon && <i className={`icon ${accessStatusIcon}`} />}
-            {accessStatus}
-          </Label>
-        </Item.Extra>
-        <Item.Header as="h2">
-          <a href={viewLink}>{title}</a>
-        </Item.Header>
-        <Item className="creatibutors">
-          <SearchItemCreators creators={creators} />
-        </Item>
-        <Item.Description>
-          {_truncate(descriptionStripped, { length: 350 })}
-        </Item.Description>
-        <Item.Extra>
-          {subjects.map((subject) => (
-            <Label key={subject.title_l10n} size="tiny">
-              {subject.title_l10n}
-            </Label>
-          ))}
-          {createdDate && (
-            <div>
-              <small>
-                {i18next.t("Uploaded on")} <span>{createdDate}</span>
-              </small>
-            </div>
-          )}
-        </Item.Extra>
-      </Item.Content>
-    </Item>
-  );
+RDMRecordResultsListItemWithState.propTypes = {
+  currentQueryState: PropTypes.object,
+  result: PropTypes.object.isRequired,
 };
 
-RDMRecordResultsListItem.propTypes = {
-  result: PropTypes.object.isRequired,
+RDMRecordResultsListItemWithState.defaultProps = {
+  currentQueryState: null,
 };
 
 // TODO: Update this according to the full List item template?
@@ -124,12 +71,16 @@ RDMRecordResultsGridItem.propTypes = {
   result: PropTypes.object.isRequired,
 };
 
-export const RDMRecordSearchBarContainer = () => {
+export const RDMRecordSearchBarContainer = ({ appName }) => {
   return (
-    <Overridable id="SearchApp.searchbar">
+    <Overridable id={buildUID("SearchApp.searchbar", "", appName)}>
       <SearchBar />
     </Overridable>
   );
+};
+
+RDMRecordSearchBarContainer.propTypes = {
+  appName: PropTypes.string.isRequired,
 };
 
 export const RDMRecordMultipleSearchBarElement = ({ queryString, onInputChange }) => {
@@ -179,10 +130,11 @@ export const RDMRecordSearchBarElement = withState(
           "icon": "search",
           "onClick": onBtnSearchClick,
           "className": "search",
-          "aria-label": "Search",
+          "aria-label": i18next.t("Search"),
         }}
         fluid
         placeholder={placeholder}
+        aria-label={placeholder}
         onChange={(event, { value }) => {
           onInputChange(value);
         }}
@@ -219,9 +171,9 @@ export const RDMToggleComponent = ({
       <Card.Content>
         <Checkbox
           toggle
-          label={label}
+          label={<label aria-hidden="true">{label}</label>}
           name="versions-toggle"
-          id="versions-toggle"
+          aria-label={label}
           onClick={onToggleClicked}
           checked={isChecked}
         />
@@ -252,8 +204,9 @@ export const RDMEmptyResults = ({ queryString, searchPath, resetQuery }) => {
       <Grid.Row centered>
         <Grid.Column width={12} textAlign="center">
           <Header as="h2">
-            {i18next.t("We couldn't find any matches for ")}
-            {(queryString && `'${queryString}'`) || i18next.t("your search")}
+            {i18next.t("We couldn't find any matches for {{- search}}", {
+              search: (queryString && `'${queryString}'`) || "your search",
+            })}
           </Header>
         </Grid.Column>
       </Grid.Row>
@@ -271,19 +224,23 @@ export const RDMEmptyResults = ({ queryString, searchPath, resetQuery }) => {
             <Header as="h3" size="small">
               {i18next.t("ProTip")}!
             </Header>
-            <p>
-              <a href={`${searchPath}?q=metadata.publication_date:[2017-01-01 TO *]`}>
-                metadata.publication_date:[2017-01-01 TO *]
-              </a>{" "}
-              {i18next.t("will give you all the publications from 2017 until today.")}
-            </p>
-            <p>
-              {i18next.t("For more tips, check out our ")}
-              <a href="/help/search" title={i18next.t("Search guide")}>
-                {i18next.t("search guide")}
-              </a>
-              {i18next.t(" for defining advanced search queries.")}
-            </p>
+            <Trans>
+              <p>
+                <a href={`${searchPath}?q=metadata.publication_date:[2017-01-01 TO *]`}>
+                  metadata.publication_date:[2017-01-01 TO *]
+                </a>{" "}
+                will give you all the publications from 2017 until today.
+              </p>
+            </Trans>
+            <Trans>
+              <p>
+                For more tips, check out our{" "}
+                <a href="/help/search" title={i18next.t("Search guide")}>
+                  search guide
+                </a>{" "}
+                for defining advanced search queries.
+              </p>
+            </Trans>
           </Segment>
         </Grid.Column>
       </Grid.Row>
@@ -302,14 +259,7 @@ RDMEmptyResults.defaultProps = {
 };
 
 export const RDMErrorComponent = ({ error }) => {
-  return (
-    <Message warning>
-      <Message.Header>
-        <Icon name="warning sign" />
-        {error.response.data.message}
-      </Message.Header>
-    </Message>
-  );
+  return <Message error content={error.response.data.message} icon="warning sign" />;
 };
 
 RDMErrorComponent.propTypes = {

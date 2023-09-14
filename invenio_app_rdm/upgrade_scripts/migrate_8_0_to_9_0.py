@@ -67,7 +67,7 @@ def execute_upgrade():
     success = not errors
 
     if success:
-        echo(f"Commiting to DB", nl=True)
+        echo("Committing to DB", nl=True)
         db.session.commit()
         secho(
             "Data migration completed, please rebuild the search indices now.",
@@ -75,7 +75,7 @@ def execute_upgrade():
         )
 
     else:
-        echo(f"Rollback", nl=True)
+        echo("Rollback", nl=True)
         db.session.rollback()
         secho(
             "Upgrade aborted due to the following errors:",

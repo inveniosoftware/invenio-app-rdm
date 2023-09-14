@@ -1,0 +1,283 @@
+# 
+# Translators:
+# Martin Jantson <martinjantson97@gmail.com>, 2022
+# Mart Jantson, 2022
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2022-10-12T06:58:21.832Z\n"
+"PO-Revision-Date: 2021-07-14 16:07+0000\n"
+"Last-Translator: Mart Jantson, 2022\n"
+"Language-Team: Estonian (https://app.transifex.com/inveniosoftware/teams/23537/et/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: et\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"mime-version: 1.0\n"
+
+msgid "Basic information"
+msgstr "Põhiandmed"
+
+msgid "Copy to clipboard"
+msgstr "Kopeeri lõikelauale"
+
+msgid "Copied!"
+msgstr "Kopeeritud!"
+
+msgid "Files"
+msgstr "Failid"
+
+msgid "The record has no files."
+msgstr "Antud kirjel failid puuduvad."
+
+msgid "Creators"
+msgstr "Loojad"
+
+msgid "Recommended information"
+msgstr "Soovitatud informatsioon"
+
+msgid "Add contributor"
+msgstr "Lisa kaastööline"
+
+msgid "Contributors"
+msgstr "Kaastöölised"
+
+msgid "Alternate identifiers"
+msgstr "Alternatiivsed identifikaatorid"
+
+msgid "Related works"
+msgstr "Seotud tööd"
+
+msgid "Visibility"
+msgstr "Nähtavus"
+
+msgid "Edit"
+msgstr "Redigeeri"
+
+msgid "An error occurred while generating the citation."
+msgstr "Tsiteeringu loomise käigus tekkis viga."
+
+msgid "Citation"
+msgstr "Tsiteering"
+
+msgid "Style"
+msgstr "Stiil"
+
+msgid "Version"
+msgstr "Versioon"
+
+msgid "Preview"
+msgstr "Eelvaade"
+
+msgid "Only published versions are displayed."
+msgstr "Kuvatakse ainult avaldatud versioonid."
+
+msgid "View all {{total}} versions"
+msgstr "Vaata kõiki {{total}} versiooni"
+
+msgid "You don't have permissions to share this record."
+msgstr "Teil puudub luba seda kirjet jagada."
+
+msgid "Share"
+msgstr "Jaga"
+
+msgid "Can view"
+msgstr "Saab vaadata"
+
+msgid "Can preview"
+msgstr "Saab näha eelvaadet"
+
+msgid "Can edit"
+msgstr "Saab muuta"
+
+msgid "Get a link"
+msgstr "Hangi link"
+
+msgid "Copy link"
+msgstr "Kopeeri link"
+
+msgid "Delete link"
+msgstr "Kustuta link"
+
+msgid "Done"
+msgstr "Valmis"
+
+msgid ""
+"Anyone with this link <1>can view all versions</1> of this record & files."
+msgstr ""
+"Igaüks, kellel on see link, saab selle kirje ja failide <1>kõiki versioone "
+"vaadata</1>."
+
+msgid ""
+"Anyone with this link <2>can view all published and unpublished versions</2>"
+" of this record & files."
+msgstr ""
+"Igaüks, kellel on see link, saab selle kirje ja failide <2>avaldatud ja "
+"avaldamata versioone vaadata</2>."
+
+msgid "Uploaded on"
+msgstr "Üles laetud"
+
+msgid "Search"
+msgstr "Otsi"
+
+msgid "Search guide"
+msgstr "Otsingu juhend"
+
+msgid "result(s) found"
+msgstr "tulemus(t) leitud"
+
+msgid "Sort by"
+msgstr "Sorteeri"
+
+msgid "View"
+msgstr "Vaata"
+
+msgid "New community"
+msgstr "Uus grupp"
+
+msgid "Get started!"
+msgstr "Alusta!"
+
+msgid "Open"
+msgstr "Avatud"
+
+msgid "Closed"
+msgstr "Suletud"
+
+msgid "All done!"
+msgstr "Valmis!"
+
+msgid "You've caught up with all open requests."
+msgstr "Oled kõikide avatud taotlustega kursis."
+
+msgid "No creation date found."
+msgstr "Loomiskuupäeva ei leitud."
+
+msgid "No description"
+msgstr "Kirjeldus puudub"
+
+msgid "No publication date found."
+msgstr "Avaldamise kuupäeva ei leitud."
+
+msgid "No resource type"
+msgstr "Ressursitüüp puudub"
+
+msgid "No title"
+msgstr "Pealkiri puudub"
+
+msgid "Make your first upload!"
+msgstr "Laadi üles oma esimene fail!"
+
+msgid "New upload"
+msgstr "Uus üleslaadimine"
+
+msgid "ORCID profile"
+msgstr "ORCID profiil"
+
+msgid "ROR profile"
+msgstr "ROR profiil"
+
+msgid "GND profile"
+msgstr "GND profiil"
+
+msgid "No communities found!"
+msgstr "Ühtegi gruppi ei leitud!"
+
+msgid "No requests found!"
+msgstr "Ühtegi taotlust ei leitud!"
+
+msgid "Copied"
+msgstr "Kopeeritud"
+
+msgid "Reset search"
+msgstr "Lähtesta otsing"
+
+msgid "We couldn't find any matches for "
+msgstr "Ei leitud ühtegi vastet"
+
+msgid "your search"
+msgstr "sinu otsingule"
+
+msgid "Start over"
+msgstr "Alusta uuesti"
+
+msgid "ProTip"
+msgstr "Profinipp"
+
+msgid "For more tips, check out our "
+msgstr "Rohkemate nõuannete jaoks vaata meie"
+
+msgid "search guide"
+msgstr "otsingu juhendit"
+
+msgid "Export"
+msgstr "Ekspordi"
+
+msgid "Filter results"
+msgstr "Filtreeri tulemusi"
+
+msgid "In review"
+msgstr "Ülevaatamisel"
+
+msgid "Declined"
+msgstr "Tagasi lükatud"
+
+msgid "Expired"
+msgstr "Aegunud"
+
+msgid "Draft"
+msgstr "Mustand"
+
+msgid "New version draft"
+msgstr "Uue versiooni mustand"
+
+msgid "Download file"
+msgstr "Lae fail alla"
+
+msgid "No link has been created. Click on 'Get a Link' to make a new link."
+msgstr "Linki pole loodud. Uue lingi loomiseks klõpsake nuppu \"Hangi link\"."
+
+msgid ""
+"Anyone with an account and this link <1>can edit all versions</1> of this "
+"record & files."
+msgstr ""
+"Igaüks, kellel on konto ja see link<1>, saab muuta selle kirje ja failide "
+"kõiki versioone</1>."
+
+msgid "Search records..."
+msgstr "Otsi kirjeid..."
+
+msgid "will give you all the publications from 2017 until today."
+msgstr "annab teile kõik väljaanded alates 2017. aastast kuni tänaseni."
+
+msgid " for defining advanced search queries."
+msgstr "täpsemate otsingupäringute määratlemiseks."
+
+msgid "Public"
+msgstr "Avalik"
+
+msgid "Restricted"
+msgstr "Piiratud"
+
+msgid "Search in my communities..."
+msgstr "Otsi minu kogukondadest..."
+
+msgid "Opened {{difference}} by"
+msgstr "Avas {{difference}}"
+
+msgid "Search in my requests..."
+msgstr "Otsi minu päringutest..."
+
+msgid "Actions"
+msgstr "Tegevused"
+
+msgid "open"
+msgstr "avatud"
+
+msgid "unlock"
+msgstr "Ava"
+
+msgid "Search in my uploads..."
+msgstr "Otsi minu üleslaadimistest..."

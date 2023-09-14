@@ -25,8 +25,15 @@
         <div id="header-search-bar" data-options='{{ options | tojson }}'>
           <div class="ui fluid search">
             <div class="ui icon input">
-              <input autocomplete="off" placeholder="Search records..."
-                     type="text" tabindex="0" class="prompt" value="">
+              <input
+                autocomplete="off"
+                aria-label="{{ _('Search records') }}"
+                placeholder="{{ _('Search records') }}..."
+                type="text"
+                tabindex="0"
+                class="prompt"
+                value=""
+              >
               <i aria-hidden="true" class="search icon"></i>
             </div>
           </div>

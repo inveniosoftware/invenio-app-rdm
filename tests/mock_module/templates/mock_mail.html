@@ -1,0 +1,28 @@
+{#
+# -*- coding: utf-8 -*-
+#
+# Copyright (C) 2022 CERN.
+#
+# Invenio App RDM is free software; you can redistribute it and/or modify it
+# under the terms of the MIT License; see LICENSE file for more details.
+-#}
+
+{% set BASE_URL = config.SITE_UI_URL %}
+
+{%- for entry in entries -%}
+{{ "ID: %s" | format(entry.file.id) }}
+{{ "URI: %s" | format(entry.file.uri) }}
+{%- if 'filename' in entry %}
+{{ "Name: %s" | format(entry.filename) }}
+{%- endif %}
+{{ "Created: %s" | format(entry.file.created) }}
+{{ "Checksum: %s" | format(entry.file.checksum) }}
+{{ "Last check: %s" | format(entry.file.last_check_at) }}
+{%- if 'record' in entry %}
+{{ "Record: %s/records/%s" | format(BASE_URL, entry.record.id) }}
+{%- endif %}
+{%- if 'draft' in entry %}
+{{ "Draft: %s/uploads/%s" | format(BASE_URL, entry.draft.id) }}
+{%- endif %}
+{{ "-" * 80 }}
+{% endfor %}

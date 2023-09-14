@@ -1,14 +1,18 @@
 {# -*- coding: utf-8 -*-
 
   This file is part of Invenio.
-  Copyright (C) 2016-2022 CERN.
+  Copyright (C) 2016-2023 CERN.
 
   Invenio is free software; you can redistribute it and/or modify it
   under the terms of the MIT License; see LICENSE file for more details.
 #}
 
+{#
+  Renders the request details page when publishing a draft and including it in a community.
+#}
+
 {% extends "invenio_requests/details/index.html" %}
-{% from "invenio_requests/macros/request_header.html" import submission_request_header %}
+
 {% set active_dashboard_menu_item = 'requests' %}
 {% set active_community_header_menu_item = 'requests' %}
 
@@ -18,8 +22,14 @@
   {% else %}
     {% set back_button_url = url_for("invenio_communities.communities_requests", pid_value=community.id) %}
   {% endif %}
-  {{ submission_request_header(
-    request=invenio_request, record=record, draft_is_accepted=draft_is_accepted, back_button_url=back_button_url) }}
+  {% from "invenio_requests/macros/request_header.html" import inclusion_request_header %}
+  {{ inclusion_request_header(
+      request=invenio_request,
+      record=record,
+      accepted=request_is_accepted,
+      back_button_url=back_button_url,
+      back_button_text=_("Back to requests")
+    ) }}
 {%- endblock request_header %}
 
 {% block request_timeline %}
@@ -27,22 +37,23 @@
     class="ui container rdm-tab-container fluid rel-pt-2 ml-0-mobile mr-0-mobile"
     id="request-community-submission-tab-container"
   >
-    <div
-      class="ui secondary pointing menu rdm-tab-menu"
-      id="request-community-submission-tab"
-    >
-      <a
-        class="active item"
-        data-tab="conversation"
-        role="tab"
-        aria-selected="true"
-        aria-controls="conversation-tab-panel"
-        id="conversation-tab"
+    {% if record %}
+      <div
+        class="ui secondary pointing menu rdm-tab-menu"
+        id="request-community-submission-tab"
       >
-        {{ _("Conversation") }}
-      </a>
+        <a
+          class="active item"
+          data-tab="conversation"
+          role="tab"
+          aria-selected="true"
+          aria-controls="conversation-tab-panel"
+          id="conversation-tab"
+        >
+          {{ _("Conversation") }}
+        </a>
 
-      {% if record %}
+
         <a
           role="tab"
           class="item"
@@ -53,8 +64,9 @@
         >
           {{ _("Record") }}
         </a>
-      {% endif %}
-    </div>
+      </div>
+    {% endif %}
+
 
     <div
       class="ui bottom attached tab segment active borderless p-0"
@@ -77,7 +89,6 @@
       >
         {% set use_theme_basic_template = false %}
         {% set preview_submission_request = true %}
-        {% set is_draft = true %}
         {% include "invenio_app_rdm/records/detail.html" %}
       </div>
     {% endif %}

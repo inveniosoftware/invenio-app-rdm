@@ -1,0 +1,278 @@
+# 
+# Translators:
+# Tibor Simko <tibor.simko@cern.ch>, 2021
+# Weizheng Lu, 2022
+# Kalven Richie, 2022
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2022-10-12T06:58:21.832Z\n"
+"PO-Revision-Date: 2021-07-14 16:07+0000\n"
+"Last-Translator: Kalven Richie, 2022\n"
+"Language-Team: Chinese (China) (https://app.transifex.com/inveniosoftware/teams/23537/zh_CN/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"mime-version: 1.0\n"
+
+msgid "Basic information"
+msgstr "基本信息"
+
+msgid "Copy to clipboard"
+msgstr "复制到剪切板"
+
+msgid "Copied!"
+msgstr "成功复制！"
+
+msgid "Files"
+msgstr "文件"
+
+msgid "The record has no files."
+msgstr "本数据记录没有文件"
+
+msgid "Creators"
+msgstr "创建者"
+
+msgid "Recommended information"
+msgstr "建议信息"
+
+msgid "Add contributor"
+msgstr "添加贡献者"
+
+msgid "Contributors"
+msgstr "贡献者"
+
+msgid "Alternate identifiers"
+msgstr "其他的唯一标识符"
+
+msgid "Related works"
+msgstr "相关的工作"
+
+msgid "Visibility"
+msgstr "可见性"
+
+msgid "Edit"
+msgstr "编辑"
+
+msgid "An error occurred while generating the citation."
+msgstr "在生成注解时遇到错误。"
+
+msgid "Citation"
+msgstr "引用"
+
+msgid "Style"
+msgstr "风格"
+
+msgid "Version"
+msgstr "版本"
+
+msgid "Preview"
+msgstr "预览"
+
+msgid "Only published versions are displayed."
+msgstr "只有发布的版本可以展示。"
+
+msgid "View all {{total}} versions"
+msgstr "查看所有{{total}} 版本"
+
+msgid "You don't have permissions to share this record."
+msgstr "你没有权限分享本数据记录。"
+
+msgid "Share"
+msgstr "分享"
+
+msgid "Can view"
+msgstr "可以查看"
+
+msgid "Can preview"
+msgstr "可以预览"
+
+msgid "Can edit"
+msgstr "可修改"
+
+msgid "Get a link"
+msgstr "获取链接"
+
+msgid "Copy link"
+msgstr "复制链接"
+
+msgid "Delete link"
+msgstr "删除链接"
+
+msgid "Done"
+msgstr "完成"
+
+msgid ""
+"Anyone with this link <1>can view all versions</1> of this record & files."
+msgstr "有这个链接的人<1>才能访问所有版本</1>的数据记录和文件。"
+
+msgid ""
+"Anyone with this link <2>can view all published and unpublished versions</2>"
+" of this record & files."
+msgstr "有这个链接的人<2>才能访问所有发布和未发布的版本</2>的数据记录和文件。"
+
+msgid "Uploaded on"
+msgstr "上传到"
+
+msgid "Search"
+msgstr "搜索"
+
+msgid "Search guide"
+msgstr "搜索指南"
+
+msgid "result(s) found"
+msgstr "找到结果"
+
+msgid "Sort by"
+msgstr "排序方式"
+
+msgid "View"
+msgstr "查看"
+
+msgid "New community"
+msgstr "新群组"
+
+msgid "Get started!"
+msgstr "开始！"
+
+msgid "Open"
+msgstr "开放"
+
+msgid "Closed"
+msgstr "已关闭"
+
+msgid "All done!"
+msgstr "全部完成！"
+
+msgid "You've caught up with all open requests."
+msgstr "您已处理完所有未处理的请求。"
+
+msgid "No creation date found."
+msgstr "找不到创建日期。"
+
+msgid "No description"
+msgstr "无描述"
+
+msgid "No publication date found."
+msgstr "找不到发布日期。"
+
+msgid "No resource type"
+msgstr "没有资源类型"
+
+msgid "No title"
+msgstr "无标题"
+
+msgid "Make your first upload!"
+msgstr "进行首次上传!"
+
+msgid "New upload"
+msgstr "新建上传"
+
+msgid "ORCID profile"
+msgstr "ORCID信息"
+
+msgid "ROR profile"
+msgstr "ROR信息"
+
+msgid "GND profile"
+msgstr "GND信息"
+
+msgid "No communities found!"
+msgstr "没有发现群组！"
+
+msgid "No requests found!"
+msgstr "没有发现请求！"
+
+msgid "Copied"
+msgstr "已复制"
+
+msgid "Reset search"
+msgstr "重置搜索"
+
+msgid "We couldn't find any matches for "
+msgstr "我们找不到任何匹配项"
+
+msgid "your search"
+msgstr "您的搜索"
+
+msgid "Start over"
+msgstr "重新开始"
+
+msgid "ProTip"
+msgstr "提示建议"
+
+msgid "For more tips, check out our "
+msgstr "有关更多提示，请查看"
+
+msgid "search guide"
+msgstr "搜索指南"
+
+msgid "Export"
+msgstr "导出"
+
+msgid "Filter results"
+msgstr "筛选结果"
+
+msgid "In review"
+msgstr "检查中"
+
+msgid "Declined"
+msgstr "拒绝"
+
+msgid "Expired"
+msgstr "已过期"
+
+msgid "Draft"
+msgstr "草稿"
+
+msgid "New version draft"
+msgstr "新版本草稿"
+
+msgid "Download file"
+msgstr ""
+
+msgid "No link has been created. Click on 'Get a Link' to make a new link."
+msgstr ""
+
+msgid ""
+"Anyone with an account and this link <1>can edit all versions</1> of this "
+"record & files."
+msgstr ""
+
+msgid "Search records..."
+msgstr ""
+
+msgid "will give you all the publications from 2017 until today."
+msgstr ""
+
+msgid " for defining advanced search queries."
+msgstr ""
+
+msgid "Public"
+msgstr "公开"
+
+msgid "Restricted"
+msgstr "被限制"
+
+msgid "Search in my communities..."
+msgstr ""
+
+msgid "Opened {{difference}} by"
+msgstr ""
+
+msgid "Search in my requests..."
+msgstr ""
+
+msgid "Actions"
+msgstr "动作"
+
+msgid "open"
+msgstr ""
+
+msgid "unlock"
+msgstr ""
+
+msgid "Search in my uploads..."
+msgstr ""

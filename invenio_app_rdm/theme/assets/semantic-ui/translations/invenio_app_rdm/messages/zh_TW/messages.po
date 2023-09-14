@@ -1,0 +1,276 @@
+# 
+# Translators:
+# Tibor Simko <tibor.simko@cern.ch>, 2022
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2022-10-12T06:58:21.832Z\n"
+"PO-Revision-Date: 2021-07-14 16:07+0000\n"
+"Last-Translator: Tibor Simko <tibor.simko@cern.ch>, 2022\n"
+"Language-Team: Chinese (Taiwan) (https://app.transifex.com/inveniosoftware/teams/23537/zh_TW/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_TW\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"mime-version: 1.0\n"
+
+msgid "Basic information"
+msgstr ""
+
+msgid "Copy to clipboard"
+msgstr ""
+
+msgid "Copied!"
+msgstr ""
+
+msgid "Files"
+msgstr ""
+
+msgid "The record has no files."
+msgstr ""
+
+msgid "Creators"
+msgstr ""
+
+msgid "Recommended information"
+msgstr ""
+
+msgid "Add contributor"
+msgstr ""
+
+msgid "Contributors"
+msgstr ""
+
+msgid "Alternate identifiers"
+msgstr ""
+
+msgid "Related works"
+msgstr ""
+
+msgid "Visibility"
+msgstr ""
+
+msgid "Edit"
+msgstr "編輯"
+
+msgid "An error occurred while generating the citation."
+msgstr ""
+
+msgid "Citation"
+msgstr ""
+
+msgid "Style"
+msgstr ""
+
+msgid "Version"
+msgstr ""
+
+msgid "Preview"
+msgstr ""
+
+msgid "Only published versions are displayed."
+msgstr ""
+
+msgid "View all {{total}} versions"
+msgstr ""
+
+msgid "You don't have permissions to share this record."
+msgstr ""
+
+msgid "Share"
+msgstr ""
+
+msgid "Can view"
+msgstr ""
+
+msgid "Can preview"
+msgstr ""
+
+msgid "Can edit"
+msgstr ""
+
+msgid "Get a link"
+msgstr ""
+
+msgid "Copy link"
+msgstr ""
+
+msgid "Delete link"
+msgstr ""
+
+msgid "Done"
+msgstr ""
+
+msgid ""
+"Anyone with this link <1>can view all versions</1> of this record & files."
+msgstr ""
+
+msgid ""
+"Anyone with this link <2>can view all published and unpublished versions</2>"
+" of this record & files."
+msgstr ""
+
+msgid "Uploaded on"
+msgstr ""
+
+msgid "Search"
+msgstr "搜尋"
+
+msgid "Search guide"
+msgstr ""
+
+msgid "result(s) found"
+msgstr ""
+
+msgid "Sort by"
+msgstr ""
+
+msgid "View"
+msgstr ""
+
+msgid "New community"
+msgstr ""
+
+msgid "Get started!"
+msgstr ""
+
+msgid "Open"
+msgstr ""
+
+msgid "Closed"
+msgstr ""
+
+msgid "All done!"
+msgstr ""
+
+msgid "You've caught up with all open requests."
+msgstr ""
+
+msgid "No creation date found."
+msgstr ""
+
+msgid "No description"
+msgstr ""
+
+msgid "No publication date found."
+msgstr ""
+
+msgid "No resource type"
+msgstr ""
+
+msgid "No title"
+msgstr ""
+
+msgid "Make your first upload!"
+msgstr ""
+
+msgid "New upload"
+msgstr ""
+
+msgid "ORCID profile"
+msgstr ""
+
+msgid "ROR profile"
+msgstr ""
+
+msgid "GND profile"
+msgstr ""
+
+msgid "No communities found!"
+msgstr ""
+
+msgid "No requests found!"
+msgstr ""
+
+msgid "Copied"
+msgstr ""
+
+msgid "Reset search"
+msgstr ""
+
+msgid "We couldn't find any matches for "
+msgstr ""
+
+msgid "your search"
+msgstr ""
+
+msgid "Start over"
+msgstr ""
+
+msgid "ProTip"
+msgstr ""
+
+msgid "For more tips, check out our "
+msgstr ""
+
+msgid "search guide"
+msgstr ""
+
+msgid "Export"
+msgstr ""
+
+msgid "Filter results"
+msgstr ""
+
+msgid "In review"
+msgstr ""
+
+msgid "Declined"
+msgstr ""
+
+msgid "Expired"
+msgstr ""
+
+msgid "Draft"
+msgstr ""
+
+msgid "New version draft"
+msgstr ""
+
+msgid "Download file"
+msgstr ""
+
+msgid "No link has been created. Click on 'Get a Link' to make a new link."
+msgstr ""
+
+msgid ""
+"Anyone with an account and this link <1>can edit all versions</1> of this "
+"record & files."
+msgstr ""
+
+msgid "Search records..."
+msgstr ""
+
+msgid "will give you all the publications from 2017 until today."
+msgstr ""
+
+msgid " for defining advanced search queries."
+msgstr ""
+
+msgid "Public"
+msgstr ""
+
+msgid "Restricted"
+msgstr ""
+
+msgid "Search in my communities..."
+msgstr ""
+
+msgid "Opened {{difference}} by"
+msgstr ""
+
+msgid "Search in my requests..."
+msgstr ""
+
+msgid "Actions"
+msgstr "行動"
+
+msgid "open"
+msgstr ""
+
+msgid "unlock"
+msgstr ""
+
+msgid "Search in my uploads..."
+msgstr ""
