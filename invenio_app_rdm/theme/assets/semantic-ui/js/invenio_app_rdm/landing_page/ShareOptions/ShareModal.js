@@ -86,7 +86,7 @@ export class ShareModal extends Component {
         size="large"
         closeOnDimmerClick={false}
       >
-        <Modal.Header id="access-link-modal-header">
+        <Modal.Header as="h2" id="access-link-modal-header">
           <Icon name="share square" />
           {i18next.t("Share access")}
         </Modal.Header>
