@@ -28,10 +28,10 @@ export class RecordCommunitySubmissionModal extends Component {
   };
 
   canIncludeDirectly = () => {
-    const { community } = this.state;
+    const { selectedCommunity } = this.state;
     const { userCommunitiesMemberships } = this.props;
-    const userMembership = userCommunitiesMemberships[community?.id];
-    return userMembership && community?.access.review_policy === "open";
+    const userMembership = userCommunitiesMemberships[selectedCommunity?.id];
+    return userMembership && selectedCommunity?.access.review_policy === "open";
   };
 
   isIncludedDirectly = (requestData) => {
@@ -138,6 +138,7 @@ export class RecordCommunitySubmissionModal extends Component {
             community={selectedCommunity}
             onClose={() => this.closeConfirmModal()}
             directPublish={this.canIncludeDirectly()}
+            record={record}
           />
         )}
       </>
