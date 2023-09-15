@@ -7,16 +7,17 @@
 // Invenio RDM Records is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
 import React, { Component } from "react";
-import { Table, Button, Item, Label, Image, Grid } from "semantic-ui-react";
+import { Table, Button, Item, Label, Grid } from "semantic-ui-react";
 import { withCancel, http } from "react-invenio-forms";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import PropTypes from "prop-types";
 import { SuccessIcon } from "@js/invenio_communities/members";
+import { Image } from "react-invenio-forms";
 
 class UserAccessSearchResultItem extends Component {
   constructor(props) {
     super(props);
-    this.state = { loading: true, success: undefined };
+    this.state = { loading: false, success: undefined };
   }
   handleDelete = async () => {
     const { record, result, setError } = this.props;
@@ -42,6 +43,7 @@ class UserAccessSearchResultItem extends Component {
     const { result, permissions } = this.props;
     const { loading, success } = this.state;
     const user = result.expanded.subject;
+
     return (
       <Table.Row>
         <Table.Cell>
@@ -52,9 +54,10 @@ class UserAccessSearchResultItem extends Component {
                 key={result.id}
               >
                 <Image
-                  src={user.avatar}
+                  src={user.links.avatar}
                   avatar
                   className={user.is_current_user ? "" : "rel-ml-1"}
+                  alt=""
                 />
                 <Item.Content className="ml-10">
                   <Item.Header

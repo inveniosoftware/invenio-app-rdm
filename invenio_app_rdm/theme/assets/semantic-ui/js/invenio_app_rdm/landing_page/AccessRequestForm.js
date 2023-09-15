@@ -22,10 +22,12 @@ export class AccessRequestForm extends Component {
       loading: false,
       error: undefined,
       modalOpen: false,
+      retry: true,
     };
+    // nullable().required() is needed to avoid ``null`` type message errors.
     this.accessRequestSchema = Yup.object({
-      email: Yup.string().email().required(),
-      full_name: Yup.string().required(),
+      email: Yup.string().email().nullable().required(),
+      full_name: Yup.string().nullable().required(),
       message: Yup.string().nullable(),
       consent_to_share_personal_data: Yup.bool().required(),
     });
@@ -76,11 +78,23 @@ export class AccessRequestForm extends Component {
     } catch (error) {
       if (error === "UNMOUNTED") return;
 
+      const errorMessage = error?.response?.data?.message || error?.message;
+
       this.setState({
-        error: error?.response?.data?.message || error?.message,
+        error: errorMessage,
         loading: false,
       });
       console.error(error);
+
+      // Retry the POST request if the request failed on CORS validation.
+      const corsError =
+        errorMessage.toLowerCase().includes("csrf") && error?.response?.status === 400;
+      const { retry } = this.state;
+      if (corsError && retry) {
+        // Disable retries, retry should only happen once.
+        this.setState({ retry: false });
+        this.handleSubmit(values);
+      }
     }
   };
 

@@ -69,10 +69,14 @@ export class LinksTab extends Component {
             />
           )}
         </Modal.Content>
-        <Modal.Actions>
-          <Button size="small" onClick={handleClose}>
-            {i18next.t("Close")}
-          </Button>
+        <Modal.Actions className="ui clearing segment">
+          <Button
+            size="small"
+            onClick={handleClose}
+            content={i18next.t("Cancel")}
+            icon="remove"
+            className="left floated clearing"
+          />
         </Modal.Actions>
       </>
     );
