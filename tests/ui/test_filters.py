@@ -7,4 +7,4 @@ def test_get_scheme_label(app):
 
     assert "arXiv" == get_scheme_label("arxiv")
 
-    assert "Bibcode" == get_scheme_label("bibcode")
+    assert "Bibcode" == get_scheme_label("ads")
