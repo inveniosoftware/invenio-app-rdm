@@ -41,3 +41,12 @@
     {%- set file_url = url_for('invenio_records_ui.recid_files', pid_value=pid.pid_value, filename=file.key, _external=True) %}
     <link rel="alternate" type="{{file.mimetype}}" href="{{ file_url }}">
 {%- endfor -%}
+
+{%- block javascript %}
+{%- block record_jsonld %}
+{% set jsonld_serialization = record | transform_record(pid, 'schemaorg_jsonld', throws=False)%}
+{%- if jsonld_serialization %}
+  <script type='application/ld+json'>{{ jsonld_serialization | tojson }}</script>
+{%- endif %}
+{%- endblock record_jsonld %}
+{%- endblock javascript %}
