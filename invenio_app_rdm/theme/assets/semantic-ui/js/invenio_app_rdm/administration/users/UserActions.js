@@ -78,15 +78,16 @@ export class UserActions extends Component {
   };
 
   render() {
-    const { user } = this.props;
+    const { user, displaySuspend, displayBlock, displayApprove, displayRestore } =
+      this.props;
     const { loading } = this.state;
     const isUserBlocked = !isEmpty(user.blocked_at);
     const isUserActive = user.active;
     const isUserVerified = !isEmpty(user.verified_at);
 
     return (
-      <Button.Group basic widths={4} compact className="margined">
-        {isUserBlocked && (
+      <>
+        {(isUserBlocked || displayRestore) && (
           <Button
             key="restore"
             onClick={() => this.handleAction("restore")}
@@ -100,7 +101,7 @@ export class UserActions extends Component {
           </Button>
         )}
 
-        {!isUserBlocked && (
+        {(!isUserBlocked || displayBlock) && (
           <Button
             key="block"
             onClick={() => this.handleAction("block")}
@@ -113,20 +114,21 @@ export class UserActions extends Component {
             Block
           </Button>
         )}
-        {isUserActive && !isUserVerified && (
-          <Button
-            key="deactivate"
-            onClick={() => this.handleAction("approve")}
-            disabled={loading}
-            loading={loading}
-            icon
-            labelPosition="left"
-          >
-            <Icon name="check" />
-            Reactivate
-          </Button>
-        )}
-        {isUserActive && (
+        {displayApprove ||
+          (isUserActive && !isUserVerified && (
+            <Button
+              key="reactivate"
+              onClick={() => this.handleAction("approve")}
+              disabled={loading}
+              loading={loading}
+              icon
+              labelPosition="left"
+            >
+              <Icon name="check" />
+              Reactivate
+            </Button>
+          ))}
+        {(isUserActive || displaySuspend) && (
           <Button
             key="deactivate"
             onClick={() => this.handleAction("deactivate")}
@@ -139,7 +141,7 @@ export class UserActions extends Component {
             Suspend
           </Button>
         )}
-      </Button.Group>
+      </>
     );
   }
 }
@@ -147,4 +149,15 @@ export class UserActions extends Component {
 UserActions.propTypes = {
   user: PropTypes.object.isRequired,
   successCallback: PropTypes.func.isRequired,
+  displayBlock: PropTypes.bool,
+  displaySuspend: PropTypes.bool,
+  displayApprove: PropTypes.bool,
+  displayRestore: PropTypes.bool,
+};
+
+UserActions.defaultProps = {
+  displayBlock: false,
+  displaySuspend: false,
+  displayApprove: false,
+  displayRestore: false,
 };
