@@ -157,6 +157,7 @@
 
     &.search-bar {
       padding-right: 1rem;
+      margin-right: 1rem;
     }
 
     &:first-of-type {
@@ -222,6 +223,7 @@
       z-index: 100;
       padding: 2rem 1.5rem 1.5rem 1.5rem;
       overflow-y: scroll;
+      top: 0 !important;
 
       .item {
         width: 100%;
@@ -238,6 +240,7 @@
 
         &.search-bar {
           width: 100%;
+          margin-right: 0;
 
           .ui.input {
             width: 99% !important;

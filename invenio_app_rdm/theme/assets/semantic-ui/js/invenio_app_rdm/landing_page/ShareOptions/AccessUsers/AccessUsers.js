@@ -82,10 +82,14 @@ export class AccessUsers extends Component {
             </Container>
           )}
         </Modal.Content>
-        <Modal.Actions>
-          <Button size="small" onClick={handleClose}>
-            {i18next.t("Close")}
-          </Button>
+        <Modal.Actions className="ui clearing segment">
+          <Button
+            size="small"
+            onClick={handleClose}
+            floated="left"
+            content={i18next.t("Cancel")}
+            icon="remove"
+          />
         </Modal.Actions>
       </>
     );

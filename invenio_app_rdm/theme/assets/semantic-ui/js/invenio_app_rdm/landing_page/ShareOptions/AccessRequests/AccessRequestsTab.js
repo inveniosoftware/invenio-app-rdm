@@ -4,7 +4,7 @@
 // Invenio RDM Records is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
 
-import isEmpty from "lodash/isEmpty";
+import _has from "lodash/has";
 import { AccessRequestExpirationSelect } from "../../../requests";
 import React, { Component } from "react";
 import { Modal, Divider, Grid, Form, Checkbox, Button } from "semantic-ui-react";
@@ -72,14 +72,11 @@ export class AccessRequestsTab extends Component {
   };
 
   initFormValues = () => {
-    const {
-      record: {
-        parent: {
-          access: { settings },
-        },
-      },
-    } = this.props;
-    if (isEmpty(settings.secret_link_expiration)) {
+    const { record } = this.props;
+
+    const settings = record.parent.access.settings;
+
+    if (!_has(settings, "secret_link_expiration")) {
       settings["secret_link_expiration"] = 0;
     }
     return { ...settings };
@@ -202,6 +199,13 @@ export class AccessRequestsTab extends Component {
                 )}
                 <Button
                   size="small"
+                  onClick={handleClose}
+                  floated="left"
+                  content={i18next.t("Cancel")}
+                  icon="remove"
+                />
+                <Button
+                  size="small"
                   labelPosition="left"
                   icon="checkmark"
                   primary
@@ -210,9 +214,6 @@ export class AccessRequestsTab extends Component {
                   loading={loading}
                   disabled={loading}
                 />
-                <Button size="small" onClick={handleClose}>
-                  {i18next.t("Close")}
-                </Button>
               </Modal.Actions>
             </>
           );
