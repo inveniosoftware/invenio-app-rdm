@@ -7,11 +7,11 @@
  */
 
 import { BoolFormatter } from "@js/invenio_administration";
+import { SetQuotaAction } from "../../components/SetQuotaAction";
 import { UserActions } from "../UserActions";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
-import { Table } from "semantic-ui-react";
-import isEmpty from "lodash/isEmpty";
+import { Table, Button } from "semantic-ui-react";
 import { withState } from "react-searchkit";
 import { AdminUIRoutes } from "@js/invenio_administration/src/routes";
 import { UserListItemCompact, SearchResultsRowCheckbox } from "react-invenio-forms";
@@ -105,7 +105,14 @@ class SearchResultItemComponent extends Component {
         </Table.Cell>
 
         <Table.Cell collapsing>
-          <UserActions user={result} successCallback={this.refreshAfterAction} />
+          <Button.Group basic widths={4} compact className="margined">
+            <SetQuotaAction
+              successCallback={this.refreshAfterAction}
+              apiUrl={`/api/users/${result.id}/quota`}
+              resource={result}
+            />
+            <UserActions user={result} successCallback={this.refreshAfterAction} />
+          </Button.Group>
         </Table.Cell>
       </Table.Row>
     );

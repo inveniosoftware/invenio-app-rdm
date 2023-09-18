@@ -11,7 +11,7 @@ import { ModerationActions } from "../ModerationActions";
 import { UserActions } from "../../users/UserActions";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
-import { Table } from "semantic-ui-react";
+import { Table, Icon } from "semantic-ui-react";
 import isEmpty from "lodash/isEmpty";
 import { withState } from "react-searchkit";
 import { AdminUIRoutes } from "@js/invenio_administration/src/routes";
@@ -77,7 +77,13 @@ class SearchResultItemComponent extends Component {
         >
           @{splitEmail[1]}
         </Table.Cell>
-        <Table.Cell />
+        <Table.Cell>
+          {/* TEMPORARY */}
+          <a href={`/administration/records?q=parent.access.owned_by.user:${user.id}`}>
+            <Icon name="paperclip" />
+            Records
+          </a>
+        </Table.Cell>
         <Table.Cell>
           <BoolFormatter
             value={result.status === "submitted"}
