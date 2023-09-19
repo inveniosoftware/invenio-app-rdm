@@ -35,6 +35,7 @@ theme = WebpackThemeBundle(
                 "invenio-users-moderation-administration": "./js/invenio_app_rdm/administration/userModeration/index.js",
                 "invenio-users-administration": "./js/invenio_app_rdm/administration/users/index.js",
                 "invenio-records-administration": "./js/invenio_app_rdm/administration/records/index.js",
+                "invenio-drafts-administration": "./js/invenio_app_rdm/administration/drafts/index.js",
             },
             dependencies={
                 "@babel/runtime": "^7.9.0",

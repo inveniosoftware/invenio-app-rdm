@@ -150,7 +150,7 @@ export default class TombstoneForm extends Component {
                       fieldPath="citation_text"
                       label={i18next.t("Bibliographic citation")}
                       placeholder={i18next.t(
-                        "Input citation text. Blank field will fill with APA citation by default."
+                        "Input citation text. Blank field will be filled with APA citation by default."
                       )}
                     />
                   </Form.Field>
