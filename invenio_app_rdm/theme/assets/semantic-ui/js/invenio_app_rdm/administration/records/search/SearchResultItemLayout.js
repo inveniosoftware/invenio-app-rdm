@@ -7,7 +7,6 @@
  */
 
 import { BoolFormatter, Actions } from "@js/invenio_administration";
-import _get from "lodash/get";
 import { SetQuotaAction } from "../../components/SetQuotaAction";
 import { UserActions } from "../../users/UserActions";
 import _truncate from "lodash/truncate";
@@ -102,11 +101,13 @@ class SearchResultItemComponent extends Component {
 
         <Table.Cell collapsing>
           <Button.Group basic widths={5} compact className="margined">
-            {!result.is_published && <SetQuotaAction
-              successCallback={this.refreshAfterAction}
-              apiUrl={`/api/records/${result.id}/quota`}
-              resource={result}
-            />}
+            {!result.is_published && (
+              <SetQuotaAction
+                successCallback={this.refreshAfterAction}
+                apiUrl={`/api/records/${result.id}/quota`}
+                resource={result}
+              />
+            )}
             <Actions
               title={title}
               resourceName={resourceName}

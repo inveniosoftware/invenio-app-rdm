@@ -11,7 +11,6 @@ import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { RequestStatusFilter } from "@js/invenio_requests/search";
 import { SearchBar, Sort } from "react-searchkit";
-import { SearchFilters } from "@js/invenio_search_ui/components/SearchFilters";
 
 export class UserModerationSearchLayout extends Component {
   render() {
@@ -35,14 +34,11 @@ export class UserModerationSearchLayout extends Component {
           </div>
           <div className="flex align-items-center column-mobile">
             <div className="full-width flex align-items-center justify-end column-mobile">
-              {/*<SearchFilters customFilters={customFilters} />*/}
               <Sort values={config.sortOptions} />
             </div>
           </div>
         </div>
-        <div className="rel-mb-1">
-          {/*<FilterLabels ignoreFilters={["is_open"]} />*/}
-        </div>
+        <div className="rel-mb-1" />
 
         <SearchAppResultsPane layoutOptions={config.layoutOptions} appName={appName} />
       </>

@@ -80,7 +80,6 @@ export default class TombstoneForm extends Component {
   };
 
   initFormValues = () => {
-    const { resource } = this.props; // TODO take citation
     return {
       removal_reason: undefined,
       note: undefined,
