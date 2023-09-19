@@ -6,6 +6,6 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """Invenio app rdm records administration module."""
-from invenio_app_rdm.administration.records.records import RecordAdminListView
+from invenio_app_rdm.administration.records.records import RecordAdminListView, DraftAdminListView
 
-__all__ = ("RecordAdminListView",)
+__all__ = ("RecordAdminListView", "DraftAdminListView")

@@ -37,15 +37,8 @@ class SearchResultItemComponent extends Component {
       listUIEndpoint,
     } = this.props;
 
-    if (!_get(result, "deletion_status", false)) {
-      console.log(result.pid, "-----------------");
-    }
     return (
       <Table.Row>
-        {/*<Table.Cell>*/}
-        {/*We pass user ID to bulk actions - user moderation API takes user IDs*/}
-        {/*<SearchResultsRowCheckbox rowId={userId} data={result} />*/}
-        {/*</Table.Cell>*/}
         <Table.Cell
           key={`record-title-${result.id}`}
           data-label="Title"
@@ -109,6 +102,11 @@ class SearchResultItemComponent extends Component {
 
         <Table.Cell collapsing>
           <Button.Group basic widths={5} compact className="margined">
+            {!result.is_published && <SetQuotaAction
+              successCallback={this.refreshAfterAction}
+              apiUrl={`/api/records/${result.id}/quota`}
+              resource={result}
+            />}
             <Actions
               title={title}
               resourceName={resourceName}
