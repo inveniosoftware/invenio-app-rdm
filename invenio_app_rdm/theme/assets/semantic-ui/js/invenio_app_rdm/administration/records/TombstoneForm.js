@@ -31,8 +31,8 @@ export default class TombstoneForm extends Component {
     };
     this.tombstoneSchema = Yup.object({
       removal_reason: Yup.string().required(),
-      note: Yup.string().required(),
-      citation_text: Yup.string().required(),
+      note: Yup.string(),
+      citation_text: Yup.string(),
       is_visible: Yup.bool().required(),
     });
   }
@@ -58,8 +58,8 @@ export default class TombstoneForm extends Component {
       await this.cancellableAction.promise;
       this.setState({ loading: false, error: undefined });
       addNotification({
-        title: "Success",
-        content: `Record ${resource.id} was deleted.`,
+        title: i18next.t("Success"),
+        content: i18next.t("Record {{id}} was deleted.", { id: resource.id }),
         type: "success",
       });
       actionSuccessCallback();
@@ -109,8 +109,8 @@ export default class TombstoneForm extends Component {
             <>
               {error && (
                 <ErrorMessage
-                  header={i18next.t("Unable to delete.")}
-                  content={i18next.t(error)}
+                  header={i18next.t("Unable to delete")}
+                  content={error}
                   icon="exclamation"
                   className="text-align-left"
                   negative
@@ -147,9 +147,11 @@ export default class TombstoneForm extends Component {
                   </Form.Field>
                   <Form.Field>
                     <TextField
-                      required
                       fieldPath="citation_text"
-                      label="Bibliographic citation"
+                      label={i18next.t("Bibliographic citation")}
+                      placeholder={i18next.t(
+                        "Input citation text. Blank field will fill with APA citation by default."
+                      )}
                     />
                   </Form.Field>
                   <Form.Field>

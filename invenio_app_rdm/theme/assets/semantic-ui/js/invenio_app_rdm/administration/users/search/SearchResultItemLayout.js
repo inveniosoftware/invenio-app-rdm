@@ -14,7 +14,8 @@ import React, { Component } from "react";
 import { Table, Button } from "semantic-ui-react";
 import { withState } from "react-searchkit";
 import { AdminUIRoutes } from "@js/invenio_administration/src/routes";
-import { UserListItemCompact, SearchResultsRowCheckbox } from "react-invenio-forms";
+import { UserListItemCompact } from "react-invenio-forms";
+import { i18next } from "@translations/invenio_app_rdm/i18next";
 
 class SearchResultItemComponent extends Component {
   refreshAfterAction = () => {
@@ -33,7 +34,7 @@ class SearchResultItemComponent extends Component {
         {/*</Table.Cell>*/}
         <Table.Cell
           key={`user-column-${result.id}`}
-          data-label="Username"
+          data-label={i18next.t("Username")}
           className="word-break-all"
         >
           <UserListItemCompact
@@ -48,7 +49,7 @@ class SearchResultItemComponent extends Component {
         </Table.Cell>
         <Table.Cell
           key={`user-email-${result.id}`}
-          data-label="Email"
+          data-label={i18next.t("Email")}
           collapsing
           className="word-break-all"
         >
@@ -57,7 +58,7 @@ class SearchResultItemComponent extends Component {
         <Table.Cell
           collapsing
           key={`user-active-${result.id}`}
-          data-label="Active"
+          data-label={i18next.t("Active")}
           className="word-break-all"
         >
           <BoolFormatter icon="check" color="green" value={result.active} />
@@ -66,7 +67,7 @@ class SearchResultItemComponent extends Component {
         <Table.Cell
           collapsing
           key={`user-confirmed-${result.id}`}
-          data-label="Confirmed"
+          data-label={i18next.t("Confirmed")}
           className="word-break-all"
         >
           {result.confirmed_at}
@@ -74,7 +75,7 @@ class SearchResultItemComponent extends Component {
         <Table.Cell
           collapsing
           key={`user-verified-${result.id}`}
-          data-label="Verified at"
+          data-label={i18next.t("Verified at")}
           className="word-break-all"
         >
           {result.verified_at}
@@ -82,7 +83,7 @@ class SearchResultItemComponent extends Component {
         <Table.Cell
           collapsing
           key={`user-blocked-${result.id}`}
-          data-label="Blocked at"
+          data-label={i18next.t("Blocked at")}
           className="word-break-all"
         >
           {result.blocked_at}
@@ -90,7 +91,7 @@ class SearchResultItemComponent extends Component {
         <Table.Cell
           collapsing
           key={`user-created-${result.id}`}
-          data-label="Created"
+          data-label={i18next.t("Created")}
           className="word-break-all"
         >
           {result.created}
@@ -98,7 +99,7 @@ class SearchResultItemComponent extends Component {
         <Table.Cell
           collapsing
           key={`user-updated-${result.id}`}
-          data-label="Updated"
+          data-label={i18next.t("Updated")}
           className="word-break-all"
         >
           {result.updated}
@@ -108,7 +109,7 @@ class SearchResultItemComponent extends Component {
           <Button.Group basic widths={4} compact className="margined">
             <SetQuotaAction
               successCallback={this.refreshAfterAction}
-              apiUrl={`/api/users/${result.id}/quota`}
+              apiUrl={(`/api/users/${result.id}/quota`)}
               resource={result}
             />
             <UserActions user={result} successCallback={this.refreshAfterAction} />

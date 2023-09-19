@@ -12,10 +12,10 @@ import { UserActions } from "../../users/UserActions";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Table, Icon } from "semantic-ui-react";
-import isEmpty from "lodash/isEmpty";
 import { withState } from "react-searchkit";
 import { AdminUIRoutes } from "@js/invenio_administration/src/routes";
-import { UserListItemCompact, SearchResultsRowCheckbox } from "react-invenio-forms";
+import { UserListItemCompact } from "react-invenio-forms";
+import { i18next } from "@translations/invenio_app_rdm/i18next";
 
 class SearchResultItemComponent extends Component {
   refreshAfterAction = () => {
@@ -48,7 +48,7 @@ class SearchResultItemComponent extends Component {
         {/*</Table.Cell>*/}
         <Table.Cell
           key={`user-column-${result.id}`}
-          data-label="User"
+          data-label={i18next.t("User")}
           className="word-break-all"
         >
           <UserListItemCompact
@@ -63,7 +63,7 @@ class SearchResultItemComponent extends Component {
         </Table.Cell>
         <Table.Cell
           key={`user-email-${result.id}`}
-          data-label="Email"
+          data-label={i18next.t("Email")}
           collapsing
           className="word-break-all"
         >
@@ -72,19 +72,23 @@ class SearchResultItemComponent extends Component {
         <Table.Cell
           collapsing
           key={`user-email-domain-${result.id}`}
-          data-label="Email"
+          data-label={i18next.t("Email domain")}
           className="word-break-all"
         >
           @{splitEmail[1]}
         </Table.Cell>
-        <Table.Cell>
+        <Table.Cell data-label={i18next.t("Actions")}>
           {/* TEMPORARY */}
-          <a href={`/administration/records?q=parent.access.owned_by.user:${user.id}`}>
+          <a
+            href={encodeURI(
+              `/administration/records?q=parent.access.owned_by.user:${user.id}`
+            )}
+          >
             <Icon name="paperclip" />
             Records
           </a>
         </Table.Cell>
-        <Table.Cell>
+        <Table.Cell data-label={i18next.t("Status")}>
           <BoolFormatter
             value={result.status === "submitted"}
             icon="hourglass"

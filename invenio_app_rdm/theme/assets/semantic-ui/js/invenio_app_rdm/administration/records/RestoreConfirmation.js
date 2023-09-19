@@ -41,8 +41,8 @@ export class RestoreConfirmation extends Component {
       await this.cancellableAction.promise;
       this.setState({ loading: false, error: undefined });
       addNotification({
-        title: "Success",
-        content: `Record ${resource.id} was restored.`,
+        title: i18next.t("Success"),
+        content: i18next.t("Record {{id}} was restored.", { id: resource.id }),
         type: "success",
       });
       actionSuccessCallback();
@@ -69,14 +69,14 @@ export class RestoreConfirmation extends Component {
         {error && (
           <ErrorMessage
             header={i18next.t("Unable to restore.")}
-            content={i18next.t(error)}
+            content={error}
             icon="exclamation"
             className="text-align-left"
             negative
           />
         )}
         <Modal.Content>
-          Are you sure you want to restore #{resource.id}:{" "}
+          {i18next.t("Are you sure you want to restore #{{id}}", { id: resource.id })}
           <b>"{resource.metadata.title}"</b> ?
         </Modal.Content>
         <Modal.Actions>

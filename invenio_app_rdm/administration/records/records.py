@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2022 CERN.
+# Copyright (C) 2023 CERN.
 # Copyright (C) 2023 Graz University of Technology.
 #
 # invenio-administration is free software; you can redistribute it and/or
@@ -19,14 +19,14 @@ from invenio_search_ui.searchconfig import search_app_config
 class RecordAdminListView(AdminResourceListView):
     """Configuration for OAI-PMH sets list view."""
 
-    api_endpoint = "/records/all"
+    api_endpoint = "/administration/records"
     name = "Records"
     resource_config = "records_resource"
     search_request_headers = {"Accept": "application/json"}
     title = "Records"
     category = "Records & files"
     icon = "file"
-    template = "invenio_app_rdm/administration/records/record-admin-search.html"
+    template = "invenio_app_rdm/administration/records/records.html"
     extension_name = "invenio-rdm-records"
 
     display_search = True
@@ -44,12 +44,12 @@ class RecordAdminListView(AdminResourceListView):
 
     actions = {
         "delete": {
-            "text": "Delete record",
+            "text": _("Delete record"),
             "payload_schema": None,
             "order": 1,
         },
         "restore": {
-            "text": "Restore record",
+            "text": _("Restore record"),
             "payload_schema": None,
             "order": 1,
         },

@@ -34,13 +34,11 @@ export class AdministrationSearchLayout extends Component {
           </div>
           <div className="flex align-items-center column-mobile">
             <div className="full-width flex align-items-center justify-end column-mobile">
-              {/*<SearchFilters customFilters={customFilters} />*/}
               <Sort values={config.sortOptions} />
             </div>
           </div>
         </div>
         <div className="rel-mb-1">
-          {/*<FilterLabels ignoreFilters={["is_open"]} />*/}
         </div>
 
         <SearchAppResultsPane layoutOptions={config.layoutOptions} appName={appName} />

@@ -11,7 +11,8 @@ import { http } from "react-invenio-forms";
 const deleteRecord = async (record, payload) => {
   const reason = payload["removal_reason"];
   payload["removal_reason"] = { id: reason };
-  return await http.post(APIRoutes.delete(record), payload);
+  // WARNING: Axios does not accept payload without data key
+  return await http.delete(APIRoutes.delete(record), { data: { ...payload } });
 };
 
 const restoreRecord = async (record) => {

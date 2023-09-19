@@ -12,6 +12,7 @@ import PropTypes from "prop-types";
 import { Button, Icon } from "semantic-ui-react";
 import { NotificationContext } from "@js/invenio_administration";
 import { withCancel } from "react-invenio-forms";
+import { i18next } from "@translations/invenio_app_rdm/i18next";
 
 import { UserModerationApi } from "./api";
 
@@ -37,29 +38,29 @@ export class UserActions extends Component {
     if (action === "restore") {
       this.cancellableAction = withCancel(UserModerationApi.restoreUser(user));
       successNotification = {
-        title: "Restored",
-        content: `User ${name} was restored.`,
+        title: i18next.t("Restored"),
+        content: i18next.t("User {{name}} was restored.", { name: name }),
         type: "success",
       };
     } else if (action === "block") {
       this.cancellableAction = withCancel(UserModerationApi.blockUser(user));
       successNotification = {
-        title: "Blocked",
-        content: `User ${name} was blocked.`,
+        title: i18next.t("Blocked"),
+        content: i18next.t("User {{name}} was blocked.", { name: name }),
         type: "success",
       };
     } else if (action === "deactivate") {
       this.cancellableAction = withCancel(UserModerationApi.deactivateUser(user));
       successNotification = {
-        title: "Suspended",
-        content: `User ${name} was suspended.`,
+        title: i18next.t("Suspended"),
+        content: i18next.t("User {{name}} was suspended.", { name: name }),
         type: "success",
       };
     } else if (action === "approve") {
       this.cancellableAction = withCancel(UserModerationApi.approveUser(user));
       successNotification = {
-        title: "Approved",
-        content: `User ${name} was approved.`,
+        title: i18next.t("Approved"),
+        content: i18next.t("User {{name}} was approved.", { name: name }),
         type: "success",
       };
     }
@@ -70,7 +71,7 @@ export class UserActions extends Component {
       successCallback();
     } catch (e) {
       addNotification({
-        title: "Error",
+        title: i18next.t("Error"),
         content: e.toString(),
         type: "error",
       });
@@ -97,7 +98,7 @@ export class UserActions extends Component {
             labelPosition="left"
           >
             <Icon name="undo" />
-            Restore
+            {i18next.t("Restore")}
           </Button>
         )}
 
@@ -111,7 +112,7 @@ export class UserActions extends Component {
             labelPosition="left"
           >
             <Icon name="ban" />
-            Block
+            {i18next.t("Block")}
           </Button>
         )}
         {displayApprove ||
@@ -125,7 +126,7 @@ export class UserActions extends Component {
               labelPosition="left"
             >
               <Icon name="check" />
-              Reactivate
+              {i18next.t("Reactivate")}
             </Button>
           ))}
         {(isUserActive || displaySuspend) && (
@@ -138,7 +139,7 @@ export class UserActions extends Component {
             labelPosition="left"
           >
             <Icon name="pause" />
-            Suspend
+            {i18next.t("Suspend")}
           </Button>
         )}
       </>
