@@ -109,7 +109,7 @@ class SearchResultItemComponent extends Component {
           <Button.Group basic widths={4} compact className="margined">
             <SetQuotaAction
               successCallback={this.refreshAfterAction}
-              apiUrl={(`/api/users/${result.id}/quota`)}
+              apiUrl={`/api/users/${result.id}/quota`}
               resource={result}
             />
             <UserActions user={result} successCallback={this.refreshAfterAction} />

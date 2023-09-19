@@ -78,7 +78,7 @@ export class RecordResourceActions extends Component {
     const { actions, Element, resource } = this.props;
     const { modalOpen, modalHeader, modalBody } = this.state;
     let icon;
-    console.log(resource)
+    console.log(resource);
     return (
       <>
         {Object.entries(actions).map(([actionKey, actionConfig]) => {
