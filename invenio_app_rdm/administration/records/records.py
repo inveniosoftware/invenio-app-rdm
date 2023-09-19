@@ -99,7 +99,7 @@ class DraftAdminListView(AdminResourceListView):
     api_endpoint = "/user/records"
     name = "Drafts"
     resource_config = "records_resource"
-    search_request_headers = {"Accept": "application/json"}
+    search_request_headers = {"Accept": "application/vnd.inveniordm.v1+json"}
     title = "Drafts"
     category = "Records & files"
     icon = "upload"
