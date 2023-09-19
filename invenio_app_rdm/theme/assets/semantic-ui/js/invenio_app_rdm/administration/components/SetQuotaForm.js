@@ -51,8 +51,11 @@ export class SetQuotaForm extends Component {
       await this.cancellableAction.promise;
       this.setState({ loading: false, error: undefined });
       addNotification({
-        title: "Success",
-        content: `Quota of ${resource.id} was set to `,
+        title: i18next.t("Success"),
+        content: i18next.t("Quota of {{id}} was set to {{quota}}", {
+          id: resource.id,
+          quota: payload.quota_size,
+        }),
         type: "success",
       });
       actionSuccessCallback();
@@ -110,22 +113,22 @@ export class SetQuotaForm extends Component {
                     <TextField
                       required
                       fieldPath="quota_size"
-                      label="Quota size"
-                      placeholder="Enter quota size..."
+                      label={i18next.t("Quota size")}
+                      placeholder={i18next.t("Enter quota size...")}
                       type="number"
                     />
                     <TextField
                       required
                       fieldPath="max_file_size"
-                      label="Max file size"
-                      placeholder="Enter max file size..."
+                      label={i18next.t("Max file size")}
+                      placeholder={i18next.t("Enter max file size...")}
                       type="number"
                     />
                   </Form.Field>
                   <Form.Field>
                     <TextAreaField
                       fieldPath="notes"
-                      label={i18next.t("Public note")}
+                      label={i18next.t("Note")}
                       fluid
                     />
                   </Form.Field>

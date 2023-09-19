@@ -10,6 +10,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Dropdown, http, withCancel } from "react-invenio-forms";
 import { Dropdown as SUIDropdown } from "semantic-ui-react";
+import { i18next } from "@translations/invenio_app_rdm/i18next";
 
 export default class RemovalReasonsSelect extends Component {
   constructor(props) {
@@ -69,7 +70,7 @@ export default class RemovalReasonsSelect extends Component {
     return (
       <Dropdown
         required
-        label="Unaivailability statement"
+        label={i18next.t("Unavailability statement")}
         options={options}
         fieldPath="removal_reason"
         defaultValue={defaultOpt}

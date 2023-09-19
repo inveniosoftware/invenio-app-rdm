@@ -7,6 +7,7 @@
  */
 
 import { BoolFormatter, Actions } from "@js/invenio_administration";
+import _get from 'lodash/get';
 import { SetQuotaAction } from "../../components/SetQuotaAction";
 import { UserActions } from "../../users/UserActions";
 import _truncate from "lodash/truncate";
@@ -16,6 +17,7 @@ import { Table, Button } from "semantic-ui-react";
 import { withState } from "react-searchkit";
 import { AdminUIRoutes } from "@js/invenio_administration/src/routes";
 import { humanReadableBytes, toRelativeTime } from "react-invenio-forms";
+import { i18next } from "@translations/invenio_app_rdm/i18next";
 
 class SearchResultItemComponent extends Component {
   refreshAfterAction = () => {
@@ -35,6 +37,9 @@ class SearchResultItemComponent extends Component {
       listUIEndpoint,
     } = this.props;
 
+    if(!_get(result, "deletion_status", false)){
+      console.log(result.pid, "-----------------")
+    }
     return (
       <Table.Row>
         {/*<Table.Cell>*/}
@@ -64,12 +69,12 @@ class SearchResultItemComponent extends Component {
           </a>
           <br />
           <div className="text-muted">
-            {result.id} | {result.versions.index} revisions
+            {result.id} | {result.versions.index} {i18next.t("revisions")}
           </div>
         </Table.Cell>
         <Table.Cell
           key={`record-owner-${result.id}`}
-          data-label="Owner"
+          data-label={i18next.t('Owner')}
           collapsing
           className="word-break-all"
         >
@@ -79,7 +84,7 @@ class SearchResultItemComponent extends Component {
         <Table.Cell
           collapsing
           key={`record-created-${result.id}`}
-          data-label="Created"
+          data-label={i18next.t('Created')}
           className="word-break-all"
         >
           {toRelativeTime(result.created)}
@@ -87,7 +92,7 @@ class SearchResultItemComponent extends Component {
         <Table.Cell
           collapsing
           key={`record-files-${result.id}`}
-          data-label="Files"
+          data-label={i18next.t('Files')}
           className="word-break-all"
         >
           {humanReadableBytes(result.files.total_bytes)} | #{result.files.count}
@@ -95,7 +100,7 @@ class SearchResultItemComponent extends Component {
         <Table.Cell
           collapsing
           key={`record-stats-${result.id}`}
-          data-label="Stats"
+          data-label={i18next.t('Stats')}
           className="word-break-all"
         >
           {result.stats.all_versions.unique_views} |{" "}
@@ -104,7 +109,7 @@ class SearchResultItemComponent extends Component {
 
         <Table.Cell collapsing>
           <Button.Group basic widths={5} compact className="margined">
-            {!result.is_deleted && (
+            {!result.deletion_status.is_deleted && result.has_draft && (
               <SetQuotaAction
                 successCallback={this.refreshAfterAction}
                 apiUrl={`/api/records/${result.id}/quota`}

@@ -12,6 +12,7 @@ import { Button, Modal, Icon } from "semantic-ui-react";
 import { ActionModal } from "@js/invenio_administration";
 import _isEmpty from "lodash/isEmpty";
 import { SetQuotaForm } from "./SetQuotaForm";
+import { i18next } from "@translations/invenio_app_rdm/i18next";
 
 export class SetQuotaAction extends Component {
   constructor(props) {
@@ -28,7 +29,7 @@ export class SetQuotaAction extends Component {
 
     this.setState({
       modalOpen: true,
-      modalHeader: "Set quota",
+      modalHeader: i18next.t("Set quota"),
       modalBody: (
         <SetQuotaForm
           actionSuccessCallback={this.handleSuccess}

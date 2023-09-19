@@ -11,6 +11,7 @@ import { Button, Icon } from "semantic-ui-react";
 import { InvenioAdministrationActionsApi as adminAPI } from "@js/invenio_administration";
 import { NotificationContext } from "@js/invenio_administration";
 import { withCancel } from "react-invenio-forms";
+import { i18next } from "@translations/invenio_app_rdm/i18next";
 
 export class ModerationActions extends Component {
   constructor(props) {
@@ -40,14 +41,14 @@ export class ModerationActions extends Component {
         await this.cancellableAction.promise;
         if (actionKey === "accept") {
           addNotification({
-            title: "Success",
-            content: `User ${name} was approved.`,
+            title: i18next.t("Success"),
+            content: i18next.t("User {{name}} was approved.", { name: name }),
             type: "success",
           });
         } else if (actionKey === "decline") {
           addNotification({
-            title: "Success",
-            content: `User ${name} is blocked.`,
+            title: i18next.t("Success"),
+            content: i18next.t("User {{name}} is blocked.", { name: name }),
             type: "success",
           });
         }
@@ -56,7 +57,7 @@ export class ModerationActions extends Component {
       successCallback();
     } catch (e) {
       addNotification({
-        title: "Error",
+        title: i18next.t("Error"),
         content: e.toString(),
         type: "error",
       });

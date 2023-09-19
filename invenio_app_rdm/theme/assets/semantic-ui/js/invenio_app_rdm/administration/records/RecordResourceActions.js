@@ -13,6 +13,7 @@ import { Button, Modal, Icon } from "semantic-ui-react";
 import { ActionModal } from "@js/invenio_administration";
 import _isEmpty from "lodash/isEmpty";
 import { RestoreConfirmation } from "./RestoreConfirmation";
+import { i18next } from "@translations/invenio_app_rdm/i18next";
 
 export class RecordResourceActions extends Component {
   constructor(props) {
@@ -30,7 +31,7 @@ export class RecordResourceActions extends Component {
     if (dataActionKey === "delete") {
       this.setState({
         modalOpen: true,
-        modalHeader: "Delete record",
+        modalHeader: i18next.t("Delete record"),
         modalBody: (
           <TombstoneForm
             actionSuccessCallback={this.handleSuccess}
@@ -43,7 +44,7 @@ export class RecordResourceActions extends Component {
     if (dataActionKey === "restore") {
       this.setState({
         modalOpen: true,
-        modalHeader: "Delete record",
+        modalHeader: i18next.t("Restore record"),
         modalBody: (
           <RestoreConfirmation
             actionSuccessCallback={this.handleSuccess}
@@ -77,10 +78,11 @@ export class RecordResourceActions extends Component {
     const { actions, Element, resource } = this.props;
     const { modalOpen, modalHeader, modalBody } = this.state;
     let icon;
+    console.log(resource)
     return (
       <>
         {Object.entries(actions).map(([actionKey, actionConfig]) => {
-          if (actionKey === "delete" && !resource.is_deleted) {
+          if (actionKey === "delete" && !resource.deletion_status.is_deleted) {
             icon = "trash alternate";
             return (
               <Element
@@ -98,7 +100,7 @@ export class RecordResourceActions extends Component {
               </Element>
             );
           }
-          if (actionKey === "restore" && resource.is_deleted) {
+          if (actionKey === "restore" && resource.deletion_status.is_deleted) {
             icon = "undo";
             return (
               <Element
