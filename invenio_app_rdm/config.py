@@ -859,7 +859,7 @@ COMMUNITIES_ERROR_HANDLERS = {
     InvalidCommunityVisibility: create_error_handler(
         lambda e: HTTPJSONException(
             code=400,
-            description=str(e),
+            description=e.reason,
         )
     ),
 }
