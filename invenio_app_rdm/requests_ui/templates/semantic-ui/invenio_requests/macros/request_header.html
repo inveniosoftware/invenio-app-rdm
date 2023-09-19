@@ -70,9 +70,9 @@
     <h2 class="ui header request-header">{{ request.title }}</h2>
     <p class="ui header">{{ request.description|safe }}</p>
     {% if record %}
-      <dl class="creatibutors" aria-label="{{ _('Creators list') }}">
+      <ul class="creatibutors" aria-label="{{ _('Creators') }}">
         {{ show_creatibutors(record.metadata.creators) }}
-      </dl>
+      </ul>
     {% endif %}
   </div>
 {% endmacro %}

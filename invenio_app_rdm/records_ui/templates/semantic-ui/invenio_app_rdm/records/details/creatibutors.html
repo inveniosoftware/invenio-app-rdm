@@ -13,10 +13,10 @@
   {% if record.ui.creators and record.ui.creators.creators %}
     <div class="row ui accordion affiliations">
       <div class="sixteen wide mobile twelve wide tablet thirteen wide computer column">
-          <dl class="creatibutors" aria-label="{{ _('Creators list') }}">
-            <dt class="hidden">{{ _('Creators') }}</dt>
-              {{ show_creatibutors(record.ui.creators.creators, show_affiliations=True) }}
-          </dl>
+          <h2 class="sr-only">{{ _('Creators') }}</h2>
+          <ul class="creatibutors">
+            {{ show_creatibutors(record.ui.creators.creators, show_affiliations=True) }}
+          </ul>
       </div>
 
         {# Todo: get full list of all affiliations (both creators & contributors) e.g.
@@ -31,12 +31,14 @@
   {% if record.ui.contributors and record.ui.contributors.contributors %}
     <div class="row ui accordion affiliations">
       <div class="sixteen wide mobile twelve wide tablet thirteen wide computer column">
-
+          <h2 class="sr-only">{{ _('Contributors') }}</h2>
           {%- for group in record.ui.contributors.contributors|groupby('role.title')%}
-          <dl class="creatibutors" aria-label="{{ _('Contributors list') }}">
-              <dt class="text-muted">{{group.grouper}}{%- if group.list|length > 1 -%}s{%- endif -%}:</dt>
+          <div>
+            <h3 class="creatibutors-header ui small header">{{group.grouper}}{%- if group.list|length > 1 -%}s{%- endif -%}:</h3>
+            <ul class="creatibutors">
               {{ show_creatibutors(group.list, show_affiliations=True) }}
-          </dl>
+            </ul>
+          </div>
           {%- endfor %}
       </div>
 
