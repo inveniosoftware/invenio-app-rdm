@@ -38,8 +38,7 @@ export class AdministrationSearchLayout extends Component {
             </div>
           </div>
         </div>
-        <div className="rel-mb-1">
-        </div>
+        <div className="rel-mb-1" />
 
         <SearchAppResultsPane layoutOptions={config.layoutOptions} appName={appName} />
       </>

@@ -7,7 +7,7 @@
  */
 
 import { BoolFormatter, Actions } from "@js/invenio_administration";
-import _get from 'lodash/get';
+import _get from "lodash/get";
 import { SetQuotaAction } from "../../components/SetQuotaAction";
 import { UserActions } from "../../users/UserActions";
 import _truncate from "lodash/truncate";
@@ -37,8 +37,8 @@ class SearchResultItemComponent extends Component {
       listUIEndpoint,
     } = this.props;
 
-    if(!_get(result, "deletion_status", false)){
-      console.log(result.pid, "-----------------")
+    if (!_get(result, "deletion_status", false)) {
+      console.log(result.pid, "-----------------");
     }
     return (
       <Table.Row>
@@ -74,7 +74,7 @@ class SearchResultItemComponent extends Component {
         </Table.Cell>
         <Table.Cell
           key={`record-owner-${result.id}`}
-          data-label={i18next.t('Owner')}
+          data-label={i18next.t("Owner")}
           collapsing
           className="word-break-all"
         >
@@ -84,7 +84,7 @@ class SearchResultItemComponent extends Component {
         <Table.Cell
           collapsing
           key={`record-created-${result.id}`}
-          data-label={i18next.t('Created')}
+          data-label={i18next.t("Created")}
           className="word-break-all"
         >
           {toRelativeTime(result.created)}
@@ -92,7 +92,7 @@ class SearchResultItemComponent extends Component {
         <Table.Cell
           collapsing
           key={`record-files-${result.id}`}
-          data-label={i18next.t('Files')}
+          data-label={i18next.t("Files")}
           className="word-break-all"
         >
           {humanReadableBytes(result.files.total_bytes)} | #{result.files.count}
@@ -100,7 +100,7 @@ class SearchResultItemComponent extends Component {
         <Table.Cell
           collapsing
           key={`record-stats-${result.id}`}
-          data-label={i18next.t('Stats')}
+          data-label={i18next.t("Stats")}
           className="word-break-all"
         >
           {result.stats.all_versions.unique_views} |{" "}
@@ -109,13 +109,6 @@ class SearchResultItemComponent extends Component {
 
         <Table.Cell collapsing>
           <Button.Group basic widths={5} compact className="margined">
-            {!result.deletion_status.is_deleted && result.has_draft && (
-              <SetQuotaAction
-                successCallback={this.refreshAfterAction}
-                apiUrl={`/api/records/${result.id}/quota`}
-                resource={result}
-              />
-            )}
             <Actions
               title={title}
               resourceName={resourceName}
