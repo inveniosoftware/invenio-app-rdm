@@ -38,7 +38,7 @@ export class CommunitiesManagement extends Component {
   toggleManageCommunitiesModal = (value) => {
     if (!value) {
       const modalDropdown = document.getElementById("modal-dropdown"); // A11y: Focus community management dropdown when modal closes
-      modalDropdown.focus();
+      modalDropdown && modalDropdown.focus();
     }
     this.setState({ manageCommunitiesModalOpen: value });
   };
