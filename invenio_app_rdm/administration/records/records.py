@@ -19,7 +19,7 @@ from invenio_search_ui.searchconfig import search_app_config
 class RecordAdminListView(AdminResourceListView):
     """Configuration for OAI-PMH sets list view."""
 
-    api_endpoint = "/administration/records"
+    api_endpoint = "/records"
     name = "Records"
     resource_config = "records_resource"
     search_request_headers = {"Accept": "application/vnd.inveniordm.v1+json"}
@@ -87,6 +87,7 @@ class RecordAdminListView(AdminResourceListView):
             initial_filters=[["status", "P"]],
             hidden_params=[
                 ["expand", "1"],
+                ["is_admin", "1"],
             ],
             page=1,
             size=30,
@@ -144,6 +145,7 @@ class DraftAdminListView(AdminResourceListView):
             hidden_params=[
                 ["expand", "1"],
                 ["is_published", False],
+                ["is_admin", "1"],
             ],
             page=1,
             size=30,
