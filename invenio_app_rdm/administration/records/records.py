@@ -22,7 +22,7 @@ class RecordAdminListView(AdminResourceListView):
     api_endpoint = "/administration/records"
     name = "Records"
     resource_config = "records_resource"
-    search_request_headers = {"Accept": "application/json"}
+    search_request_headers = {"Accept": "application/vnd.inveniordm.v1+json"}
     title = "Records"
     category = "Records & files"
     icon = "file"
