@@ -132,6 +132,20 @@ def record_detail(pid_value, record, files, media_files, is_preview=False):
             )
         except ValidationError:
             abort(404)
+        # inject parent doi format for new drafts so we can show in preview
+        if current_app.config["DATACITE_ENABLED"]:
+            service = current_rdm_records.records_service
+            datacite_provider = [
+                v["datacite"]
+                for p, v in service.config.parent_pids_providers.items()
+                if p == "doi" and "datacite" in v
+            ]
+            if datacite_provider:
+                datacite_provider = datacite_provider[0]
+                parent_doi = datacite_provider.client.generate_doi(
+                    record._record.parent
+                )
+                record_ui["ui"]["new_draft_parent_doi"] = parent_doi
 
     # emit a record view stats event
     emitter = current_stats.get_event_emitter("record-view")
