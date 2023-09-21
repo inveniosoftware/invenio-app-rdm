@@ -143,16 +143,16 @@ export default class TombstoneForm extends Component {
                     </Button>
                   </Button.Group>
                   {!values.is_visible && isPublic && (
-                    <Message icon warning>
-                      <Icon size="huge" name="warning sign" />
+                    <Message icon warning className="display">
+                      <Icon name="warning sign" />
                       {i18next.t(
                         "The tombstone is set to hidden but your record is public. Best practice is to provide a public tombstone when deactivating public records."
                       )}
                     </Message>
                   )}
                   {values.is_visible && !isPublic && (
-                    <Message icon negative>
-                      <Icon size="huge" name="warning sign" />
+                    <Message icon negative className="display">
+                      <Icon name="warning sign" />
                       {i18next.t(
                         "RISK INFORMATION LEAKAGE: The tombstone is set to public but your record is restricted. Please make sure no restricted information is shared in the tombstone below."
                       )}
