@@ -18,7 +18,7 @@ import {
   TextField,
   TextAreaField,
 } from "react-invenio-forms";
-import { Form, Button, Modal, Divider } from "semantic-ui-react";
+import { Form, Button, Modal, Divider, Message, Icon } from "semantic-ui-react";
 import { NotificationContext } from "@js/invenio_administration";
 import * as Yup from "yup";
 
@@ -94,6 +94,8 @@ export default class TombstoneForm extends Component {
 
   render() {
     const { error, loading } = this.state;
+    const { resource } = this.props;
+    const isPublic = resource.access.record === "public";
     return (
       <Formik
         onSubmit={this.handleSubmit}
@@ -117,7 +119,7 @@ export default class TombstoneForm extends Component {
               )}
               <Modal.Content>
                 <Form className="full-width">
-                  <Button.Group widths={3} fluid>
+                  <Button.Group widths={2} fluid>
                     <Button
                       color={values.is_visible ? "green" : ""}
                       active={values.is_visible}
@@ -140,6 +142,22 @@ export default class TombstoneForm extends Component {
                       Hidden
                     </Button>
                   </Button.Group>
+                  {!values.is_visible && isPublic && (
+                    <Message icon warning>
+                      <Icon size="huge" name="warning sign" />
+                      {i18next.t(
+                        "The tombstone is set to hidden but your record is public. Best practice is to provide a public tombstone when deactivating public records."
+                      )}
+                    </Message>
+                  )}
+                  {values.is_visible && !isPublic && (
+                    <Message icon negative>
+                      <Icon size="huge" name="warning sign" />
+                      {i18next.t(
+                        "RISK INFORMATION LEAKAGE: The tombstone is set to public but your record is restricted. Please make sure no restricted information is shared in the tombstone below."
+                      )}
+                    </Message>
+                  )}
                   <Divider hidden />
                   <Form.Field>
                     <RemovalReasonsSelect setFieldValue={setFieldValue} />
