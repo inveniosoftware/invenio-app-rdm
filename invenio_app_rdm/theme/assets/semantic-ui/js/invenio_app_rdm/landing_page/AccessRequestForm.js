@@ -1,5 +1,6 @@
 import _get from "lodash/get";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
+import isEmpty from "lodash/isEmpty";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Formik } from "formik";
@@ -42,7 +43,7 @@ export class AccessRequestForm extends Component {
 
     return {
       email: email,
-      full_name: fullName,
+      full_name: !isEmpty(fullName) ? fullName : undefined,
       message: undefined,
       consent_to_share_personal_data: false,
     };
@@ -104,7 +105,8 @@ export class AccessRequestForm extends Component {
 
   render() {
     const { error, loading, modalOpen } = this.state;
-    const { isAnonymous, email, fullName } = this.props;
+    const { isAnonymous, fullName } = this.props;
+    const disablePersonalDataField = !isAnonymous;
     return (
       <>
         <Formik
@@ -136,12 +138,13 @@ export class AccessRequestForm extends Component {
                         <TextField
                           required
                           fieldPath="email"
-                          label={isAnonymous && i18next.t("Your email address")}
+                          label="Your email address"
                           placeholder={i18next.t("Email address")}
-                          icon={isAnonymous && "at"}
+                          icon="at"
                           iconPosition="left"
-                          value={email}
-                          type={!isAnonymous ? "hidden" : "input"}
+                          value={values.email}
+                          type="input"
+                          disabled={disablePersonalDataField}
                         />
                       </Form.Field>
                     </Grid.Column>
@@ -150,12 +153,13 @@ export class AccessRequestForm extends Component {
                         <TextField
                           required
                           fieldPath="full_name"
-                          label={isAnonymous && i18next.t("Your full name")}
+                          label={i18next.t("Your full name")}
                           placeholder={i18next.t("Full name")}
-                          icon={isAnonymous && "address card"}
+                          icon="address card"
                           iconPosition="left"
-                          value={fullName}
-                          type={!isAnonymous ? "hidden" : "input"}
+                          value={values.full_name}
+                          type="input"
+                          disabled={disablePersonalDataField && !isEmpty(fullName)}
                         />
                       </Form.Field>
                     </Grid.Column>
