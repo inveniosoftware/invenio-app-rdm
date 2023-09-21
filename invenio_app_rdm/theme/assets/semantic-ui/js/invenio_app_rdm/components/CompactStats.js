@@ -5,9 +5,9 @@
 // under the terms of the MIT License; see LICENSE file for more details.
 
 import { i18next } from "@translations/invenio_app_rdm/i18next";
-import React from "react";
 import PropTypes from "prop-types";
-import { Popup, Label, Icon } from "semantic-ui-react";
+import React from "react";
+import { Icon, Label, Popup } from "semantic-ui-react";
 
 export const CompactStats = ({ uniqueViews, uniqueDownloads }) => {
   return (
@@ -15,7 +15,7 @@ export const CompactStats = ({ uniqueViews, uniqueDownloads }) => {
       {uniqueViews != null && (
         <Popup
           size="tiny"
-          content={i18next.t("Total views")}
+          content={i18next.t("Views")}
           trigger={
             <Label className="transparent">
               <Icon name="eye" />
@@ -27,7 +27,7 @@ export const CompactStats = ({ uniqueViews, uniqueDownloads }) => {
       {uniqueDownloads != null && (
         <Popup
           size="tiny"
-          content={i18next.t("Total downloads")}
+          content={i18next.t("Downloads")}
           trigger={
             <Label className="transparent">
               <Icon name="download" />
