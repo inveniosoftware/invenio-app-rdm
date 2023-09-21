@@ -8,14 +8,22 @@ export class PendingCommunityRequestItem extends Component {
     const { result, successCallback } = this.props;
     const {
       expanded: { receiver: community },
+      links: { self_html: requestLinkSelf },
     } = result;
+    const requestLink = requestLinkSelf.replace("/requests", "/me/requests"); //We should use self_html once the following issue is fixed: https://github.com/inveniosoftware/invenio-requests/issues/332
     const actions = (
       <RequestActionController
         request={result}
         actionSuccessCallback={successCallback}
       />
     );
-    return <CommunityCompactItem result={community} actions={actions} />;
+    return (
+      <CommunityCompactItem
+        result={community}
+        actions={actions}
+        detailUrl={requestLink}
+      />
+    );
   }
 }
 
