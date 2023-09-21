@@ -87,7 +87,7 @@ class RecordAdminListView(AdminResourceListView):
             initial_filters=[["status", "P"]],
             hidden_params=[
                 ["expand", "1"],
-                ["is_admin", "1"],
+                ["include_deleted", "1"],
             ],
             page=1,
             size=30,
@@ -145,7 +145,7 @@ class DraftAdminListView(AdminResourceListView):
             hidden_params=[
                 ["expand", "1"],
                 ["is_published", False],
-                ["is_admin", "1"],
+                ["include_deleted", "1"],
             ],
             page=1,
             size=30,
