@@ -94,6 +94,22 @@ def pass_is_preview(f):
     return view
 
 
+# TODO to be improved as a request arg schema (following the REST views)
+def pass_include_deleted(f):
+    """Decorate a view to check if it's a include deleted."""
+
+    @wraps(f)
+    def view(**kwargs):
+        deleted_arg = request.args.get("include_deleted")
+        include_deleted = False
+        if deleted_arg == "1":
+            include_deleted = True
+        kwargs["include_deleted"] = include_deleted
+        return f(**kwargs)
+
+    return view
+
+
 def pass_record_from_pid(f):
     """Decorate a view to pass the record from a pid."""
 
@@ -122,7 +138,13 @@ def pass_record_or_draft(expand=False):
         def view(**kwargs):
             pid_value = kwargs.get("pid_value")
             is_preview = kwargs.get("is_preview")
-            read_kwargs = {"id_": pid_value, "identity": g.identity, "expand": expand}
+            include_deleted = kwargs.get("include_deleted", False)
+            read_kwargs = {
+                "id_": pid_value,
+                "identity": g.identity,
+                "expand": expand,
+                "include_deleted": include_deleted,
+            }
 
             if is_preview:
                 try:

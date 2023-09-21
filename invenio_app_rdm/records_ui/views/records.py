@@ -25,6 +25,7 @@ from ..utils import get_external_resources
 from .decorators import (
     pass_file_item,
     pass_file_metadata,
+    pass_include_deleted,
     pass_is_preview,
     pass_record_files,
     pass_record_from_pid,
@@ -107,10 +108,13 @@ class PreviewFile:
 
 
 @pass_is_preview
+@pass_include_deleted
 @pass_record_or_draft(expand=True)
 @pass_record_files
 @pass_record_media_files
-def record_detail(pid_value, record, files, media_files, is_preview=False):
+def record_detail(
+    pid_value, record, files, media_files, is_preview=False, include_deleted=False
+):
     """Record detail page (aka landing page)."""
     files_dict = None if files is None else files.to_dict()
     media_files_dict = None if media_files is None else media_files.to_dict()
