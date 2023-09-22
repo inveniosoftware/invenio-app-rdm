@@ -143,8 +143,9 @@ def pass_record_or_draft(expand=False):
                 "id_": pid_value,
                 "identity": g.identity,
                 "expand": expand,
-                "include_deleted": include_deleted,
             }
+            if include_deleted:
+                read_kwargs.update({"include_deleted": include_deleted})
 
             if is_preview:
                 try:

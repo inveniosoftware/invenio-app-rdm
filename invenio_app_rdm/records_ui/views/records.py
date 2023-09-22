@@ -276,7 +276,7 @@ def record_media_file_download(pid_value, file_item=None, is_preview=False, **kw
 
 @pass_record_latest
 def record_latest(record=None, **kwargs):
-    """Redirect to record'd latest version page."""
+    """Redirect to record's latest version page."""
     return redirect(record["links"]["self_html"], code=302)
 
 
