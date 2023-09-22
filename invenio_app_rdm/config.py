@@ -75,7 +75,7 @@ from invenio_stats.aggregations import StatAggregator
 from invenio_stats.contrib.event_builders import build_file_unique_id
 from invenio_stats.processors import EventsIndexer, anonymize_user, flag_robots
 from invenio_stats.queries import TermsQuery
-from invenio_stats.tasks import StatsEventTask, StatsAggregationTask
+from invenio_stats.tasks import StatsAggregationTask, StatsEventTask
 from invenio_vocabularies.config import (
     VOCABULARIES_DATASTREAM_READERS,
     VOCABULARIES_DATASTREAM_TRANSFORMERS,
@@ -328,7 +328,7 @@ BROKER_URL = "amqp://guest:guest@localhost:5672/"
 CELERY_BEAT_SCHEDULE = {
     "indexer": {
         "task": "invenio_records_resources.tasks.manage_indexer_queues",
-        "schedule": timedelta(minutes=10),
+        "schedule": timedelta(seconds=10),
     },
     "accounts_sessions": {
         "task": "invenio_accounts.tasks.clean_session_table",
@@ -367,9 +367,15 @@ CELERY_BEAT_SCHEDULE = {
         "schedule": crontab(minute=0, hour=7),  # Every day at 07:00 UTC
     },
     # indexing of statistics events & aggregations
-    "stats-process-events": StatsEventTask,
-    "stats-aggregate-events": StatsAggregationTask,
-    "reindex-stats": StatsRDMReindexTask,
+    "stats-process-events": {
+        **StatsEventTask,
+        "schedule": crontab(minute="25,55"),  # Every hour at minute 25 and 55
+    },
+    "stats-aggregate-events": {
+        **StatsAggregationTask,
+        "schedule": crontab(minute=0),  # Every hour at minute 0
+    },
+    "reindex-stats": StatsRDMReindexTask,  # Every hour at minute 10
     # Invenio communities provides some caching that has the potential to be never removed,
     # therefore, we need a cronjob to ensure that at least once per day we clear the cache
     "clear-cache": {
