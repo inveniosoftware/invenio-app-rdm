@@ -57,6 +57,7 @@ from invenio_rdm_records.services.errors import (
 from invenio_rdm_records.services.github.release import RDMGithubRelease
 from invenio_rdm_records.services.permissions import RDMRequestsPermissionPolicy
 from invenio_rdm_records.services.stats import permissions_policy_lookup_factory
+from invenio_rdm_records.services.tasks import StatsRDMReindexTask
 from invenio_records_resources.references.entity_resolvers import ServiceResultResolver
 from invenio_requests.notifications.builders import (
     CommentRequestEventCreateNotificationBuilder,
@@ -66,6 +67,7 @@ from invenio_stats.aggregations import StatAggregator
 from invenio_stats.contrib.event_builders import build_file_unique_id
 from invenio_stats.processors import EventsIndexer, anonymize_user, flag_robots
 from invenio_stats.queries import TermsQuery
+from invenio_stats.tasks import StatsEventTask, StatsAggregationTask
 from invenio_vocabularies.config import (
     VOCABULARIES_DATASTREAM_READERS,
     VOCABULARIES_DATASTREAM_TRANSFORMERS,
@@ -318,7 +320,7 @@ BROKER_URL = "amqp://guest:guest@localhost:5672/"
 CELERY_BEAT_SCHEDULE = {
     "indexer": {
         "task": "invenio_records_resources.tasks.manage_indexer_queues",
-        "schedule": timedelta(seconds=10),
+        "schedule": timedelta(minutes=10),
     },
     "accounts_sessions": {
         "task": "invenio_accounts.tasks.clean_session_table",
@@ -357,25 +359,9 @@ CELERY_BEAT_SCHEDULE = {
         "schedule": crontab(minute=0, hour=7),  # Every day at 07:00 UTC
     },
     # indexing of statistics events & aggregations
-    "stats-process-events": {
-        "task": "invenio_stats.tasks.process_events",
-        "schedule": timedelta(minutes=30),
-        "args": [("record-view", "file-download")],
-    },
-    "stats-aggregate-events": {
-        "task": "invenio_stats.tasks.aggregate_events",
-        "schedule": timedelta(hours=1),
-        "args": [
-            (
-                "record-view-agg",
-                "file-download-agg",
-            )
-        ],
-    },
-    "reindex-stats": {
-        "task": "invenio_rdm_records.services.tasks.reindex_stats",
-        "schedule": timedelta(hours=1),
-    },
+    "stats-process-events": StatsEventTask,
+    "stats-aggregate-events": StatsAggregationTask,
+    "reindex-stats": StatsRDMReindexTask,
     # Invenio communities provides some caching that has the potential to be never removed,
     # therefore, we need a cronjob to ensure that at least once per day we clear the cache
     "clear-cache": {
