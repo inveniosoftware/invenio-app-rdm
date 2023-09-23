@@ -6,7 +6,7 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import { BoolFormatter } from "@js/invenio_administration";
+import { BoolFormatter, DateFormatter } from "@js/invenio_administration";
 import { SetQuotaAction } from "../../components/SetQuotaAction";
 import { UserActions } from "../UserActions";
 import PropTypes from "prop-types";
@@ -94,7 +94,7 @@ class SearchResultItemComponent extends Component {
           data-label={i18next.t("Created")}
           className="word-break-all"
         >
-          {result.created}
+          <DateFormatter value={result.created} />
         </Table.Cell>
         <Table.Cell
           collapsing
@@ -102,7 +102,7 @@ class SearchResultItemComponent extends Component {
           data-label={i18next.t("Updated")}
           className="word-break-all"
         >
-          {result.updated}
+          <DateFormatter value={result.updated} />
         </Table.Cell>
 
         <Table.Cell collapsing>
