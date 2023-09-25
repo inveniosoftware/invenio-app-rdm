@@ -9,41 +9,47 @@ it under the terms of the MIT License; see LICENSE file for more details.
   <h2 class="ui small top attached header">{{ _('External resources')}}</h2>
   <div id="external-resource" aria-label="{{ _('External resources') }}" class="ui bottom attached segment rdm-sidebar external resource">
 
-  {# dynamically create the list of external resources #}
-  <div class="ui relaxed list">
+    {# dynamically create the list of external resources #}
     {%- for section, external_resources in external_resources | groupby("content.section") -%}
-      <h5 class="ui small header">{{ section }}</h5>
+      <h3 class="ui small header">{{ section }}</h3>
+      <ul class="ui relaxed list no-bullet">
 
-      {%- for resource in external_resources -%}
+        {%- for resource in external_resources -%}
 
-        {%- if resource -%}
-          {%- if resource.template -%}
-            {# It's up to the template to render the `resource` as it wishes #}
-            {%- include resource.template %}
-          {%- else -%}
-            {# Default rendering #}
-            <div class="item">
+          {%- if resource -%}
+            {%- if resource.template -%}
+              {# It's up to the template to render the `resource` as it wishes #}
+              {%- include resource.template %}
+            {%- else -%}
+              {# Default rendering #}
+              <li class="item">
 
-              {% if resource.content.icon %}
-                <img class="ui image" src="{{ resource.content.icon }}" alt="{{ resource.content.title }} icon" width="32">
-              {% endif %}
+                {% if resource.content.icon %}
+                  <img class="ui image" src="{{ resource.content.icon }}" alt="" width="32">
+                {% endif %}
 
-              <div class="content">
-                <a class="header" href="{{resource.content.url}}" target="_blank">{{ resource.content.title }}</a>
+                <div class="content">
+                  <a
+                    class="header"
+                    href="{{resource.content.url}}"
+                    target="_blank"
+                    rel="noreferrer"
+                  >{{ resource.content.title }}
+                  </a>
 
-                {% if resource.content.subtitle %}
-                  <div class="description">
-                    {{ resource.content.subtitle }}
-                  </div>
-                {%- endif -%}
+                  {% if resource.content.subtitle %}
+                    <p class="description">
+                      {{ resource.content.subtitle }}
+                    </p>
+                  {%- endif -%}
 
-              </div>
-            </div>
+                </div>
+              </li>
+            {%- endif -%}
           {%- endif -%}
-        {%- endif -%}
-      {%- endfor -%}
+        {%- endfor -%}
+      </ul>
     {%- endfor -%}
-    </div>
   </div>
 </div>
 {%- endif -%}

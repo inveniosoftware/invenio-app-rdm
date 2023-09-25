@@ -290,6 +290,20 @@ dd {
   margin-inline-start: 0;
 }
 
+ul.no-bullet {
+  list-style-type: none;
+  margin-left: 0 !important;
+  padding-left: 0;
+
+  li {
+    padding-left: 0 !important;
+
+    &::before {
+      content: none !important;
+    }
+  }
+}
+
 ul.details-list {
   li {
     padding-left: 0 !important;
