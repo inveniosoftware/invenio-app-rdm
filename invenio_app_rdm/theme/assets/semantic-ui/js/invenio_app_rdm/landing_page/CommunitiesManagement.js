@@ -14,7 +14,7 @@ import { Header, Container, Button, Segment } from "semantic-ui-react";
 import { CommunitiesManagementDropdown } from "./CommunitiesManagementDropdown";
 import { http, withCancel } from "react-invenio-forms";
 
-const MAX_COMMUNITIES = 2;
+const MAX_COMMUNITIES = 3;
 
 export class CommunitiesManagement extends Component {
   constructor(props) {
