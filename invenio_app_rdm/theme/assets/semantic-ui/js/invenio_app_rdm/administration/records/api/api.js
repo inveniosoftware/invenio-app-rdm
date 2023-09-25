@@ -12,7 +12,10 @@ const deleteRecord = async (record, payload) => {
   const reason = payload["removal_reason"];
   payload["removal_reason"] = { id: reason };
   // WARNING: Axios does not accept payload without data key
-  return await http.delete(APIRoutes.delete(record), { data: { ...payload } });
+  return await http.delete(APIRoutes.delete(record), {
+    data: { ...payload },
+    headers: { ...http.headers, if_match: record.revision_id },
+  });
 };
 
 const restoreRecord = async (record) => {
