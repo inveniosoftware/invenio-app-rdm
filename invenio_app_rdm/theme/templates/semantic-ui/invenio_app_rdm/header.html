@@ -25,7 +25,7 @@
                     <a class="logo-link" href="/">
                       <img class="ui image rdm-logo"
                             src="{{ url_for('static', filename=config.THEME_LOGO) }}"
-                            alt="{{ _(config.THEME_SITENAME) }}"/>
+                            alt="{{ _(config.THEME_SITENAME) }} {{ _('home') }}"/>
                     </a>
                   {%- else %}
                     <a class="logo" href="/">{{ _(config.THEME_SITENAME) }}</a>
@@ -87,15 +87,15 @@
                     </div>
                   </div>
                 {%- else %}
-                  <div class="{{' item active' if item.active and loop.depth == 0 else ' item' }}">
+                  <div class="{{ 'item active' if item.active else 'item' }}">
                     <a href="{{ item.url }}">{{ item.text|safe }}</a>
                   </div>
                 {%- endif %}
               {%- endfor %}
 
               {% for item in current_menu.submenu('actions').children|sort(attribute='order') if item.visible recursive %}
-                <div class="item">
-                  <a  href="{{ item.url }}">{{ item.text|safe }}</a>
+                <div class="{{ 'item active' if item.active else 'item' }}">
+                  <a href="{{ item.url }}">{{ item.text|safe }}</a>
                 </div>
               {% endfor %}
             {%- endblock navbar_nav %}
@@ -104,7 +104,7 @@
               <div class="right menu item">
                 {%- if config.ACCOUNTS and current_user.is_authenticated %}
                   {% for item in current_menu.submenu('notifications').children|sort(attribute='order') if item.visible recursive %}
-                    <div class="item inbox">
+                    <div class="{{'item active' if item.active else 'item' }} inbox">
                       <a href="{{ item.url }}" aria-label="{{ _('Requests') }}">
                         <i class="fitted inbox icon inverted"></i>
                         <span class="mobile tablet only inline">{{ _("Inbox") }}</span>
