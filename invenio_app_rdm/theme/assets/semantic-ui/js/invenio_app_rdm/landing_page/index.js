@@ -67,6 +67,7 @@ if (recordCitationAppDiv) {
       record={JSON.parse(recordCitationAppDiv.dataset.record)}
       styles={JSON.parse(recordCitationAppDiv.dataset.styles)}
       defaultStyle={JSON.parse(recordCitationAppDiv.dataset.defaultstyle)}
+      includeDeleted={JSON.parse(recordCitationAppDiv.dataset.includeDeleted)}
     />,
     recordCitationAppDiv
   );

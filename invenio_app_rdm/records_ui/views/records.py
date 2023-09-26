@@ -177,6 +177,7 @@ def record_detail(
         ),
         custom_fields_ui=custom_fields["ui"],
         is_preview=is_preview,
+        include_deleted=include_deleted,
         is_draft=is_draft,
         community=resolved_community,
         external_resources=get_external_resources(record_ui),

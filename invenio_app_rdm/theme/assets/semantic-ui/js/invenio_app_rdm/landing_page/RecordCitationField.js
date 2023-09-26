@@ -27,8 +27,8 @@ export class RecordCitationField extends Component {
   }
 
   componentDidMount() {
-    const { record, defaultStyle } = this.props;
-    this.getCitation(record, defaultStyle);
+    const { record, defaultStyle, includeDeleted } = this.props;
+    this.getCitation(record, defaultStyle, includeDeleted);
   }
 
   componentWillUnmount() {
@@ -51,25 +51,26 @@ export class RecordCitationField extends Component {
     return <Message negative>{message}</Message>;
   };
 
-  fetchCitation = async (record, style) => {
-    return await axios(
-      `${record.links.self}?locale=${navigator.language}&style=${style}`,
-      {
-        headers: {
-          Accept: "text/x-bibliography",
-        },
-      }
-    );
+  fetchCitation = async (record, style, includeDeleted) => {
+    const includeDeletedParam = includeDeleted === true ? "&include_deleted=1" : "";
+    const url = `${record.links.self}?locale=${navigator.language}&style=${style}${includeDeletedParam}`;
+    return await axios(url, {
+      headers: {
+        Accept: "text/x-bibliography",
+      },
+    });
   };
 
-  getCitation = async (record, style) => {
+  getCitation = async (record, style, includeDeleted) => {
     this.setState({
       loading: true,
       citation: "",
       error: "",
     });
 
-    this.cancellableFetchCitation = withCancel(this.fetchCitation(record, style));
+    this.cancellableFetchCitation = withCancel(
+      this.fetchCitation(record, style, includeDeleted)
+    );
 
     try {
       const response = await this.cancellableFetchCitation.promise;
@@ -89,9 +90,8 @@ export class RecordCitationField extends Component {
   };
 
   render() {
-    const { styles, record, defaultStyle } = this.props;
+    const { styles, record, defaultStyle, includeDeleted } = this.props;
     const { loading, citation, error } = this.state;
-
     const citationOptions = styles.map((style) => {
       return {
         key: style[0],
@@ -118,7 +118,7 @@ export class RecordCitationField extends Component {
               options={citationOptions}
               selection
               onChange={_debounce(
-                (event, data) => this.getCitation(record, data.value),
+                (event, data) => this.getCitation(record, data.value, includeDeleted),
                 500
               )}
             />
@@ -135,4 +135,5 @@ RecordCitationField.propTypes = {
   styles: PropTypes.array.isRequired,
   record: PropTypes.object.isRequired,
   defaultStyle: PropTypes.string.isRequired,
+  includeDeleted: PropTypes.bool.isRequired,
 };
