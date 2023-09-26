@@ -28,3 +28,7 @@
 .ui.message .ui.checkbox {
   margin-top: @defaultMargin / 2.5;
 }
+
+.ui.message.community-branding-error {
+  max-width: 25em;
+}

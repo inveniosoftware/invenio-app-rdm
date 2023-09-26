@@ -135,6 +135,7 @@ export class CommunitiesManagement extends Component {
               successActionCallback={this.handleRefresh}
               recordCommunityEndpoint={recordCommunityEndpoint}
               permissions={permissions}
+              record={record}
             />
 
             {!loading && communities?.length > MAX_COMMUNITIES && (
