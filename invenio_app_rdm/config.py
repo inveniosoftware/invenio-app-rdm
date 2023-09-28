@@ -318,6 +318,9 @@ CELERY_BEAT_SCHEDULE = {
     "indexer": {
         "task": "invenio_records_resources.tasks.manage_indexer_queues",
         "schedule": timedelta(seconds=10),
+        "kwargs": {
+            "bulk_chunk_limit": 2,
+        },
     },
     "accounts_sessions": {
         "task": "invenio_accounts.tasks.clean_session_table",
