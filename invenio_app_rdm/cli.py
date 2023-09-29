@@ -56,24 +56,34 @@ def create_fixtures():
 
 
 @rdm.command("rebuild-all-indices")
-@with_appcontext
-def rebuild_all_indices():
-    """Schedule reindexing of all items for search."""
-    click.secho("Scheduling bulk indexing for all items.", fg="yellow")
-    for name, service in current_service_registry._services.items():
-        if name == "records":
-            continue
-        if hasattr(service, "rebuild_index"):
-            click.echo(f"{name}... ", nl=False)
-            service.rebuild_index(system_identity)
-            click.secho("Done.", fg="green")
-    if "records" in current_service_registry._services and hasattr(current_service_registry._services["records"], "rebuild_index"):
-        click.echo("records... ", nl=False)
-        current_service_registry._services["records"].rebuild_index(system_identity)
-        click.secho("Done.", fg="green")
-
-
-    click.secho(
-        "Please start a celery worker to process the scheduled bulk indexing!",
-        fg="green",
+@click.option(
+    "-o",
+    "--order",
+    default=""
     )
+@with_appcontext
+def rebuild_all_indices(order):
+    """Extracting ordering info if it exists."""
+    ordered_indices_to_rebuild = order.split(",")
+    available_services = current_service_registry._services
+    for index_to_rebuild in ordered_indices_to_rebuild:
+        if index_to_rebuild not in available_services:
+            click.secho(f"{index_to_rebuild} is not part of available indices that can be rebuilt", fg="red")
+            click.secho(f"You can chose out of these services: {' , '.join(available_services.keys())}", fg="red")
+            return
+    """Schedule reindexing of items for search."""
+    if order == "":
+        click.secho("Scheduling bulk indexing for all items.", fg="yellow")
+        for name, service in current_service_registry._services.items():
+            if hasattr(service, "rebuild_index"):
+                click.echo(f"{name}... ", nl=False)
+                service.rebuild_index(system_identity)
+                click.secho("Done.", fg="green")
+    else:
+        click.secho("Scheduling bulk indexing for specified items in specified order.", fg="yellow")
+        for index_to_rebuild in ordered_indices_to_rebuild:
+            if hasattr(current_service_registry._services[index_to_rebuild], "rebuild_index"):
+                click.echo(f"{index_to_rebuild}... ", nl=False)
+                current_service_registry._services[index_to_rebuild].rebuild_index(system_identity)
+                click.secho("Done.", fg="green")
+
