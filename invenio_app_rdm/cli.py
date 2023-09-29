@@ -61,10 +61,17 @@ def rebuild_all_indices():
     """Schedule reindexing of all items for search."""
     click.secho("Scheduling bulk indexing for all items.", fg="yellow")
     for name, service in current_service_registry._services.items():
+        if name == "records":
+            continue
         if hasattr(service, "rebuild_index"):
             click.echo(f"{name}... ", nl=False)
             service.rebuild_index(system_identity)
             click.secho("Done.", fg="green")
+    if "records" in current_service_registry._services and hasattr(current_service_registry._services["records"], "rebuild_index"):
+        click.echo("records... ", nl=False)
+        current_service_registry._services["records"].rebuild_index(system_identity)
+        click.secho("Done.", fg="green")
+
 
     click.secho(
         "Please start a celery worker to process the scheduled bulk indexing!",
