@@ -39,6 +39,10 @@ from flask_resources import HTTPJSONException, create_error_handler
 from invenio_access.permissions import any_user
 from invenio_communities.communities.resources.config import community_error_handlers
 from invenio_communities.notifications.builders import (
+    CommunityInvitationAcceptNotificationBuilder,
+    CommunityInvitationCancelNotificationBuilder,
+    CommunityInvitationDeclineNotificationBuilder,
+    CommunityInvitationExpireNotificationBuilder,
     CommunityInvitationSubmittedNotificationBuilder,
 )
 from invenio_notifications.backends import EmailNotificationBackend
@@ -1156,8 +1160,15 @@ NOTIFICATIONS_BACKENDS = {
 
 
 NOTIFICATIONS_BUILDERS = {
+    # community inclusion
     CommunityInclusionSubmittedNotificationBuilder.type: CommunityInclusionSubmittedNotificationBuilder,
+    # community invitation
+    CommunityInvitationAcceptNotificationBuilder.type: CommunityInvitationAcceptNotificationBuilder,
+    CommunityInvitationCancelNotificationBuilder.type: CommunityInvitationCancelNotificationBuilder,
+    CommunityInvitationDeclineNotificationBuilder.type: CommunityInvitationDeclineNotificationBuilder,
+    CommunityInvitationExpireNotificationBuilder.type: CommunityInvitationExpireNotificationBuilder,
     CommunityInvitationSubmittedNotificationBuilder.type: CommunityInvitationSubmittedNotificationBuilder,
+    # comment request
     CommentRequestEventCreateNotificationBuilder.type: CommentRequestEventCreateNotificationBuilder,
 }
 """Notification builders."""
