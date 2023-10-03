@@ -163,3 +163,10 @@
     display: block !important;
   }
 }
+
+.ui.negative.message.file-box-message .ui.form {
+  .field > label {
+    font-weight: @bold;
+    color: @negativeTextColor;
+  }
+}

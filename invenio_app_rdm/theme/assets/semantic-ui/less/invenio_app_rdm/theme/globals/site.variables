@@ -29,9 +29,9 @@
 @accessRightEmbargoed: @yellow;
 @accessRightMetadataOnly: @teal;
 
-@restricted-components-background-color: #f502020f;
+@restricted-components-background-color: #feeaea;
 @restricted-components-border-color: #e0b4b4;
-@embargoed-components-background-color: #c7a00014;
+@embargoed-components-background-color: #fbf8ee;
 @embargoed-components-border-color: #c9ba9b;
 
 @footerLightColor: #0377cd;

@@ -19,6 +19,7 @@ from invenio_previewer.proxies import current_previewer
 from invenio_rdm_records.proxies import current_rdm_records
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
 from invenio_stats.proxies import current_stats
+from invenio_users_resources.proxies import current_user_resources
 from marshmallow import ValidationError
 
 from ..utils import get_external_resources
@@ -125,6 +126,13 @@ def record_detail(
     custom_fields["ui"] = [
         cf for cf in custom_fields["ui"] if not cf.get("hide_from_landing_page", False)
     ]
+    avatar = None
+
+    if current_user.is_authenticated:
+        avatar = current_user_resources.users_service.links_item_tpl.expand(
+            g.identity, current_user
+        )["avatar"]
+
     if is_preview and is_draft:
         # it is possible to save incomplete drafts that break the normal
         # (preview) landing page rendering
@@ -180,6 +188,7 @@ def record_detail(
         is_draft=is_draft,
         community=resolved_community,
         external_resources=get_external_resources(record_ui),
+        user_avatar=avatar,
     )
 
 
