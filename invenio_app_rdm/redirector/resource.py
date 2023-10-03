@@ -69,6 +69,7 @@ class RedirectorResource(Resource):
                     rule=source,
                     view_meth=self.redirect_view_factory,
                     endpoint=endpoint,
+                    rule_options=rule.get("rule_options"),
                 )
             )
         return url_rules
