@@ -254,8 +254,9 @@
                         </div>
                       </h3>
                       <div role="region" id="files-preview-accordion-panel" aria-labelledby="files-preview-accordion-trigger" class="active content preview-container pt-0">
-                        <div class="ui {{ record.ui.access_status.message_class }} message file-box-message">
-                          <i class="ui {{ record.ui.access_status.icon }} icon"></i><b>{{ record.ui.access_status.title_l10n }}</b>
+                        <div class="ui {{ record.ui.access_status.message_class }} message file-box-message rel-pl-1 rel-pr-1">
+                          <i class="ui {{ record.ui.access_status.icon }} icon" aria-hidden="true"></i>
+                          <h4 class="inline">{{ record.ui.access_status.title_l10n }}</h4>
                           <p>{{ record.ui.access_status.description_l10n }}</p>
 
                           {% if record.access.embargo.reason %}
@@ -265,24 +266,24 @@
                           {% block record_files_access_request %}
                             {%- if allow_user_requests or allow_guest_requests %}
                               <div class="ui divider"></div>
+                              <h4>{{ _("Request access") }}</h4>
                               <p>
-                                <p>
-                                  <strong>{{ _("Request access") }}</strong>
-                                </p>
-                                <p>
-                                  {{ _("If you would like to request access to these files, please fill out the form below.") }}
-                                </p>
-                                <div>
-                                  {%- if record.parent.access.settings %}{%- set accept_conditions_text = record.parent.access.settings.accept_conditions_text %}{%- endif %}
-                                  {%- if accept_conditions_text %}
-                                  <p class="ui small header">{{ _("You need to satisfy these conditions in order for this request to be accepted:") }}</p>
-                                  <p>
-                                      {{ accept_conditions_text | safe }}
-                                    </p>
-                                  {%- endif %}
-                                </div>
-                                {%- include "invenio_app_rdm/records/details/access-form.html" %}
+                                {{ _("If you would like to request access to these files, please fill out the form below.") }}
                               </p>
+                              {%- if record.parent.access.settings %}
+                                {%- set accept_conditions_text = record.parent.access.settings.accept_conditions_text %}
+                              {%- endif %}
+
+                              {%- if accept_conditions_text %}
+                                <p class="ui small header rel-mt-2 rel-mb-1">
+                                  {{ _("You need to satisfy these conditions in order for this request to be accepted:") }}
+                                </p>
+                                <p class="rel-mb-2">
+                                  {{ accept_conditions_text | safe }}
+                                </p>
+                              {%- endif %}
+
+                              {%- include "invenio_app_rdm/records/details/access-form.html" %}
                             {%- endif %}
                           {% endblock record_files_access_request %}
                         </div>

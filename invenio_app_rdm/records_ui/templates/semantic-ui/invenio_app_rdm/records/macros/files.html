@@ -50,7 +50,12 @@
       </div>
     </h3>
 
-    <div role="region" id="files-preview-accordion-panel" aria-labelledby="files-preview-accordion-trigger" class="active content preview-container pt-0">
+    <div
+      role="region"
+      id="files-preview-accordion-panel"
+      aria-labelledby="files-preview-accordion-trigger"
+      class="active content preview-container pt-0 {{record.ui.access_status.id}}"
+    >
       <div>
         {{ preview_file('invenio_app_rdm_records.record_file_preview', pid_value=pid, filename=file.key, is_preview=is_preview, include_deleted=include_deleted) }}
       </div>
@@ -67,7 +72,7 @@
     preview_endpoint='invenio_app_rdm_records.record_file_preview',
     is_media=false
 ) %}
-  <table class="ui striped table files fluid">
+  <table class="ui striped table files fluid {{record.ui.access_status.id}}">
     <thead>
       <tr>
         <th>{{_('Name')}}</th>
@@ -99,7 +104,7 @@
 
       {%- set file_type = file.key.split('.')[-1] %}
       <tr>
-        <td class="ten wide" >
+        <td class="ten wide">
           <div>
             <a href="{{ file_url_download }}">{{ file.key }}</a>
           </div>
@@ -143,7 +148,8 @@
     <div role="region" id="files-list-accordion-panel" aria-labelledby="files-list-accordion-trigger" class="active content pt-0">
       {% if record.access.files == 'restricted' %}
         <div class="ui {{ record.ui.access_status.message_class }} message file-box-message">
-          <i class="ui {{ record.ui.access_status.icon }} icon" aria-hidden="true"></i><b>{{ record.ui.access_status.title_l10n }}</b>
+          <i class="ui {{ record.ui.access_status.icon }} icon" aria-hidden="true"></i>
+          <h4 class="inline">{{ record.ui.access_status.title_l10n }}</h4>
           <p>{{ record.ui.access_status.description_l10n }}</p>
           {% if record.access.embargo.reason %}
             <p>{{_("Reason")}}: {{record.access.embargo.reason}}</p>
@@ -171,7 +177,9 @@
     <div role="region" id="media-files-preview-accordion-panel" aria-labelledby="media-files-preview-accordion-trigger" class="active content pt-0">
       {% if record.access.record == 'restricted'%}
         <div class="ui {{ record.ui.access_status.message_class }} message file-box-message">
-          <i class="ui {{ record.ui.access_status.icon }} icon"></i><b>{{ record.ui.access_status.title_l10n }}</b>
+          <i class="ui {{ record.ui.access_status.icon }} icon"></i>
+          <h4 class="inline">{{ record.ui.access_status.title_l10n }}</h4>
+
           <p>{{ record.ui.access_status.description_l10n }}</p>
           {% if record.access.embargo.reason %}
             <p>{{_("Reason")}}: {{record.access.embargo.reason}}</p>

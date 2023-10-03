@@ -4,26 +4,31 @@ details. #}
 
 {% from "invenio_accounts/_macros.html" import render_field, form_errors %}
 
-<div class="container">
-
+<div class="container rel-mt-2">
   {%- if current_user.is_anonymous %}
     {% set email = None %}
     {% set full_name = None %}
-    <div class="ui segment">
-      <i aria-hidden="true" class="user secret icon"></i>You are currently
-      <strong>not logged in</strong>. Do you have an account?
+    <p class="rel-mb-2">
+      <i aria-hidden="true" class="user secret icon"></i>
+      <strong>You are currently not logged in</strong>. Do you have an account?
       <a href="/login/">Log in here</a>
-    </div>
+    </p>
   {% else %}
     {% set email = current_user.email %}
     {% set full_name = current_user.user_profile.full_name %}
-    <div class="ui segment">
-      <i aria-hidden="true" class="user icon"></i>You are logged in as
-      <strong>{{ email }}</strong>. Not you?
-      <a href="{{ url_for('security.login') }}">Log out</a>
+    <h4>{{ _("You are logged in as") }}</h4>
+    <div class="flex align-items-center column-mobile mb-10">
+      <div class="ui image label mb-10 rel-mr-1">
+        <img src="{{ user_avatar }}" alt="" />
+        <strong class="text-muted mr-5">{{ full_name }}</strong>
+      </div>
+
+      <p class="mt-0 mb-10">
+        Not you?
+        <a href="{{ url_for('security.login') }}">Log out</a> to switch account.
+      </p>
     </div>
   {% endif %}
-  <div class="ui hidden divider"></div>
   <div id="access-request-form-root"
        data-record='{{ record | tojson }}'
        data-user-anonymous='{{ current_user.is_anonymous | tojson }}'
