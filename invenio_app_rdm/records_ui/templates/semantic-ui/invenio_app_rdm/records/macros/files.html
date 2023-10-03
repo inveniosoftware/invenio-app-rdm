@@ -9,11 +9,16 @@
   it under the terms of the MIT License; see LICENSE file for more details.
 #}
 
-{%- macro preview_file(preview_endpoint, pid_value, filename, is_preview, id='preview-iframe', width='100%', height='400' ) %}
+
+{%- macro preview_file(preview_endpoint, pid_value, filename, is_preview, include_deleted, id='preview-iframe', width='100%', height='400' ) %}
+  {%- set include_deleted_value = 0 -%}
+  {% if include_deleted %}
+    {%- set include_deleted_value = 1 -%}
+  {% endif %}
   {% if is_preview %}
-    {%- set preview_url = url_for(preview_endpoint, pid_value=pid_value, filename=filename, preview=1) -%}
+    {%- set preview_url = url_for(preview_endpoint, pid_value=pid_value, filename=filename, preview=1, include_deleted=include_deleted_value) -%}
   {% else %}
-    {%- set preview_url = url_for(preview_endpoint, pid_value=pid_value, filename=filename) -%}
+    {%- set preview_url = url_for(preview_endpoint, pid_value=pid_value, filename=filename, include_deleted=include_deleted_value) -%}
   {% endif %}
   <iframe
     title="{{_('Preview')}}"
@@ -28,7 +33,7 @@
 {%- endmacro %}
 
 
-{% macro preview_file_box(file, pid, is_preview, record) %}
+{% macro preview_file_box(file, pid, is_preview, record, include_deleted) %}
   <div class="ui accordion panel mb-10 {{record.ui.access_status.id}}" href="#files-preview-accordion-panel">
     <h3 class="active title panel-heading {{ record.ui.access_status.id }} m-0">
       <div
@@ -47,7 +52,7 @@
 
     <div role="region" id="files-preview-accordion-panel" aria-labelledby="files-preview-accordion-trigger" class="active content preview-container pt-0">
       <div>
-        {{ preview_file('invenio_app_rdm_records.record_file_preview', pid_value=pid, filename=file.key, is_preview=is_preview) }}
+        {{ preview_file('invenio_app_rdm_records.record_file_preview', pid_value=pid, filename=file.key, is_preview=is_preview, include_deleted=include_deleted) }}
       </div>
     </div>
   </div>
@@ -55,7 +60,7 @@
 
 
 {%- macro file_list(
-    files, pid, is_preview,
+    files, pid, is_preview, include_deleted,
     record=None,
     with_preview=true,
     download_endpoint='invenio_app_rdm_records.record_file_download',
@@ -79,13 +84,17 @@
     </thead>
     <tbody>
     {%- set binary_sizes = not config.APP_RDM_DISPLAY_DECIMAL_FILE_SIZES %}
+    {%- set include_deleted_value = 0 -%}
+    {% if include_deleted %}
+      {%- set include_deleted_value = 1 -%}
+    {% endif %}
     {% for file in files %}
       {% if is_preview %}
         {%- set file_url_download = url_for(download_endpoint, pid_value=pid, filename=file.key, download=1, preview=1) %}
-        {%- set file_url_preview = url_for(preview_endpoint, pid_value=pid, filename=file.key, preview=1) %}
+        {%- set file_url_preview = url_for(preview_endpoint, pid_value=pid, filename=file.key, preview=1, include_deleted=include_deleted_value) %}
       {% else %}
         {%- set file_url_download = url_for(download_endpoint, pid_value=pid, filename=file.key, download=1) %}
-        {%- set file_url_preview = url_for(preview_endpoint, pid_value=pid, filename=file.key) %}
+        {%- set file_url_preview = url_for(preview_endpoint, pid_value=pid, filename=file.key, include_deleted=include_deleted_value) %}
       {% endif %}
 
       {%- set file_type = file.key.split('.')[-1] %}
@@ -120,7 +129,7 @@
 {%- endmacro %}
 
 
-{% macro file_list_box(files, pid, is_preview, record) %}
+{% macro file_list_box(files, pid, is_preview, include_deleted, record) %}
   {%- set binary_sizes = not config.APP_RDM_DISPLAY_DECIMAL_FILE_SIZES %}
   <div class="ui accordion panel mb-10 {{ record.ui.access_status.id }}" href="#files-list-accordion-panel">
     <h3 class="active title panel-heading {{ record.ui.access_status.id }} m-0">
@@ -142,13 +151,13 @@
         </div>
       {% endif %}
       <div>
-        {{ file_list(files, pid, is_preview, record=record, download_endpoint="invenio_app_rdm_records.record_file_download") }}
+        {{ file_list(files, pid, is_preview, include_deleted, record=record, download_endpoint="invenio_app_rdm_records.record_file_download") }}
       </div>
     </div>
   </div>
 {%- endmacro %}
 
-{% macro media_file_list_box(files, pid, is_preview, record) %}
+{% macro media_file_list_box(files, pid, is_preview, include_deleted, record) %}
   {%- set binary_sizes = not config.APP_RDM_DISPLAY_DECIMAL_FILE_SIZES %}
   <div class="ui accordion panel mb-10 {{ record.access.record }}" href="#media-files-preview-accordion-panel">
     <h3 class="active title panel-heading {{ record.access.record }} m-0">
