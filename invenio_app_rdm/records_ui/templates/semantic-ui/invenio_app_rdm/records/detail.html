@@ -240,9 +240,9 @@
 
                     {%- if files|has_previewable_files -%}
                       {%-set preview_file = files|select_preview_file(default_preview=record.files.default_preview) %}
-                      {{ preview_file_box(preview_file, record.id, is_preview, record) }}
+                      {{ preview_file_box(preview_file, record.id, is_preview, record, include_deleted) }}
                     {%- endif -%}
-                    {{ file_list_box(files, record.id, is_preview, record) }}
+                    {{ file_list_box(files, record.id, is_preview, include_deleted, record) }}
                   {% else %}
                     {# record has files BUT user does not have permission to see files #}
                     <div class="ui accordion panel mb-10 {{ record.ui.access_status.id }}"
@@ -300,7 +300,7 @@
               {%- if media_files and media_files.enabled and media_files.entries and permissions.can_media_read_files -%}
                 <section id="record-media-files" aria-label="{{ _('System files') }}">
                   {%- set media_files = media_files|order_entries %}
-                  {{ media_file_list_box(media_files, record.id, is_preview, record) }}
+                  {{ media_file_list_box(media_files, record.id, is_preview, include_deleted, record) }}
                 </section>
               {%- endif %}
             {%- endblock record_media_files -%}

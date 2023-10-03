@@ -177,6 +177,7 @@ def record_detail(
         ),
         custom_fields_ui=custom_fields["ui"],
         is_preview=is_preview,
+        include_deleted=include_deleted,
         is_draft=is_draft,
         community=resolved_community,
         external_resources=get_external_resources(record_ui),
@@ -208,6 +209,7 @@ def record_export(
 
 
 @pass_is_preview
+@pass_include_deleted
 @pass_record_or_draft(expand=False)
 @pass_file_metadata
 def record_file_preview(
@@ -216,6 +218,7 @@ def record_file_preview(
     pid_type="recid",
     file_metadata=None,
     is_preview=False,
+    include_deleted=False,
     **kwargs,
 ):
     """Render a preview of the specified file."""

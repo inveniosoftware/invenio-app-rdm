@@ -144,15 +144,15 @@ def pass_record_or_draft(expand=False):
                 "identity": g.identity,
                 "expand": expand,
             }
-            if include_deleted:
-                read_kwargs.update({"include_deleted": include_deleted})
 
             if is_preview:
                 try:
                     record = service().read_draft(**read_kwargs)
                 except NoResultFound:
                     try:
-                        record = service().read(**read_kwargs)
+                        record = service().read(
+                            include_deleted=include_deleted, **read_kwargs
+                        )
                     except NoResultFound:
                         # If the parent pid is being used we can get the id of the latest record and redirect
                         latest_version = service().read_latest(**read_kwargs)
@@ -165,7 +165,9 @@ def pass_record_or_draft(expand=False):
                         )
             else:
                 try:
-                    record = service().read(**read_kwargs)
+                    record = service().read(
+                        include_deleted=include_deleted, **read_kwargs
+                    )
                 except NoResultFound:
                     # If the parent pid is being used we can get the id of the latest record and redirect
                     latest_version = service().read_latest(**read_kwargs)
