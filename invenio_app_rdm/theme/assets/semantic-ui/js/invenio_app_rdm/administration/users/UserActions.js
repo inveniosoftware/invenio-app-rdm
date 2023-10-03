@@ -118,7 +118,7 @@ export class UserActions extends Component {
         {displayApprove ||
           (isUserActive && !isUserVerified && (
             <Button
-              key="reactivate"
+              key="verify"
               onClick={() => this.handleAction("approve")}
               disabled={loading}
               loading={loading}
@@ -126,7 +126,7 @@ export class UserActions extends Component {
               labelPosition="left"
             >
               <Icon name="check" />
-              {i18next.t("Reactivate")}
+              {i18next.t("Verify")}
             </Button>
           ))}
         {(isUserActive || displaySuspend) && (
