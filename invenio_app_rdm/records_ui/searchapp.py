@@ -24,6 +24,7 @@ def search_app_context():
             current_app.config["RDM_SORT_OPTIONS"],
             "/api/records",
             {"Accept": "application/vnd.inveniordm.v1+json"},
+            pagination_options=(10, 20),
         ),
         "search_app_rdm_record_requests_config": partial(
             search_app_config,
@@ -46,6 +47,7 @@ def search_app_context():
             available_facets=current_app.config["COMMUNITIES_FACETS"],
             sort_options=current_app.config["RDM_SORT_OPTIONS"],
             headers={"Accept": "application/vnd.inveniordm.v1+json"},
+            pagination_options=(10, 20),
         ),
         "search_app_rdm_record_user_communities_config": partial(
             search_app_config,
@@ -56,6 +58,7 @@ def search_app_context():
             hidden_params=[
                 ["membership", "true"],
             ],
+            pagination_options=(10, 20),
         ),
         "search_app_access_links_config": partial(
             search_app_config,
