@@ -6,8 +6,10 @@
  * // under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import { SearchAppResultsPane } from "@js/invenio_search_ui/components";
-import { SearchFacets } from "@js/invenio_administration";
+import {
+  SearchAppFacets,
+  SearchAppResultsPane,
+} from "@js/invenio_search_ui/components";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { DeletionStatusFilter } from "./filters";
@@ -52,7 +54,7 @@ export class RecordSearchLayout extends Component {
             largeScreen={2}
             widescreen={2}
           >
-            <SearchFacets aggs={config.aggs} appName={appName} />
+            <SearchAppFacets aggs={config.aggs} appName={appName} />
           </Grid.Column>
           <Grid.Column
             mobile={16}
