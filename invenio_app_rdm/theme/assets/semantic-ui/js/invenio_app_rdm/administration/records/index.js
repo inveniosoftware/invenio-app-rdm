@@ -9,7 +9,14 @@ import { createSearchAppInit } from "@js/invenio_search_ui";
 import { NotificationController } from "@js/invenio_administration";
 import { RecordResourceActions } from "./RecordResourceActions";
 import { SearchResultItemLayout, RecordSearchLayout } from "./search";
-import { SearchFacets } from "@js/invenio_administration";
+import { RDMToggleComponent } from "../../search/components";
+
+import { ContribSearchAppFacets } from "@js/invenio_search_ui/components";
+import { parametrize } from "react-overridable";
+
+const ContribSearchAppFacetsWithConfig = parametrize(ContribSearchAppFacets, {
+  toggle: true,
+});
 
 const domContainer = document.getElementById("invenio-search-config");
 
@@ -19,8 +26,9 @@ const overridenComponents = {
   ...defaultComponents,
   "InvenioAdministration.SearchResultItem.layout": SearchResultItemLayout,
   "SearchApp.layout": RecordSearchLayout,
-  "SearchApp.facets": SearchFacets,
+  "SearchApp.facets": ContribSearchAppFacetsWithConfig,
   "InvenioAdministration.ResourceActions": RecordResourceActions,
+  "SearchFilters.Toggle.element": RDMToggleComponent,
 };
 
 createSearchAppInit(
