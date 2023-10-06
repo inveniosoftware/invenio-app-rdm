@@ -15,6 +15,7 @@ import { ShareButton } from "./ShareOptions/ShareButton";
 import { NewVersionButton } from "@js/invenio_rdm_records/";
 import PropTypes from "prop-types";
 import Overridable from "react-overridable";
+import { ManageButton } from "./ManageButton";
 
 export class RecordManagement extends Component {
   constructor(props) {
@@ -32,10 +33,10 @@ export class RecordManagement extends Component {
       isPreviewSubmissionRequest,
       currentUserId,
       accessLinksSearchConfig,
+      recordOwnerUsername,
     } = this.props;
     const { error } = this.state;
     const { id: recid } = record;
-
     const handleError = (errorMessage) => {
       console.error(errorMessage);
       this.setState({ error: errorMessage });
@@ -43,8 +44,13 @@ export class RecordManagement extends Component {
 
     return (
       <Grid columns={1} className="record-management">
-        {permissions.can_edit && !isDraft && (
+        {permissions.can_moderate && (
           <Grid.Column className="pb-5">
+            <ManageButton recid={recid} recordOwnerUsername={recordOwnerUsername} />
+          </Grid.Column>
+        )}
+        {permissions.can_edit && !isDraft && (
+          <Grid.Column className={permissions.can_manage ? "pb-5 pt-5" : "pb-5"}>
             <EditButton recid={recid} onError={handleError} />
           </Grid.Column>
         )}
@@ -111,5 +117,6 @@ RecordManagement.propTypes = {
   isDraft: PropTypes.bool.isRequired,
   isPreviewSubmissionRequest: PropTypes.bool.isRequired,
   currentUserId: PropTypes.string.isRequired,
+  recordOwnerUsername: PropTypes.object.isRequired,
   accessLinksSearchConfig: PropTypes.object.isRequired,
 };
