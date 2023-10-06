@@ -61,7 +61,7 @@ class SearchResultItemComponent extends Component {
           </a>
           <br />
           <div className="text-muted">
-            {result.id} | {result.versions.index} {i18next.t("revisions")}
+            {result.id} | {i18next.t("version")} {result.versions.index}
           </div>
         </Table.Cell>
         <Table.Cell
