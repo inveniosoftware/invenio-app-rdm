@@ -45,6 +45,11 @@
       <p>
         <strong>{{ _("Date of removal:") }}</strong> {{ record.ui.tombstone.removal_date_l10n_long }}
       </p>
+      {%- if removal_reason != "Spam" %}
+      <p>
+        <strong>{{ _("Citation:") }}</strong> {{ record.ui.tombstone.citation_text }}
+      </p>
+      {%- endif %}
       {%- if record.pids.doi %}
       <p>
         <strong>{{ _("Identifier:") }}</strong> {{ record.pids.doi.identifier }}
