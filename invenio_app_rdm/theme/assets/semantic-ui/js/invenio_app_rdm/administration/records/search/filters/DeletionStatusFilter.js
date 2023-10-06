@@ -25,6 +25,7 @@ class DeletionStatusFilterComponent extends Component {
     const { currentQueryState } = this.props;
     const userSelectionFilters = currentQueryState.filters;
     const openFilter = userSelectionFilters.find((obj) => obj.includes("status"));
+
     if (openFilter) {
       // eslint-disable-next-line react/no-did-mount-set-state
       this.setState({
@@ -57,6 +58,11 @@ class DeletionStatusFilterComponent extends Component {
       : [];
 
     currentQueryState.filters.push(["status", value]);
+
+    // For deleted and marked for purge filters we show by default all versions
+    if (["D", "X"].includes(value)) {
+      currentQueryState.filters.push(["allversions", true]);
+    }
     updateQueryState(currentQueryState);
   };
 
