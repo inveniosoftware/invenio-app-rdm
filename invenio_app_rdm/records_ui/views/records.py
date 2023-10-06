@@ -174,6 +174,9 @@ def record_detail(
     if record is not None and emitter is not None:
         emitter(current_app, record=record._record, via_api=False)
 
+    # NOTE: this should maybe be an expandable field instead
+    record_owner = record._record.parent.access.owner.resolve()
+
     resolved_community, _ = get_record_community(record_ui)
     return render_template(
         current_app.config.get("APP_RDM_RECORD_LANDING_PAGE_TEMPLATE"),
@@ -191,6 +194,7 @@ def record_detail(
                 "review",
                 "view",
                 "media_read_files",
+                "moderate",
             ]
         ),
         custom_fields_ui=custom_fields["ui"],
@@ -200,6 +204,9 @@ def record_detail(
         community=resolved_community,
         external_resources=get_external_resources(record_ui),
         user_avatar=avatar,
+        record_owner_username=record_owner.username
+        if record_owner is not None
+        else None,  # record created with system_identity have not owners e.g demo
     )
 
 

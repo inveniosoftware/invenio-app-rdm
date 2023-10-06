@@ -42,6 +42,7 @@ function renderRecordManagement(element) {
           recordManagementAppDiv.dataset.isPreviewSubmissionRequest
         )}
         currentUserId={recordManagementAppDiv.dataset.currentUserId}
+        recordOwnerUsername={recordManagementAppDiv.dataset.recordOwnerUsername}
         accessLinksSearchConfig={JSON.parse(
           recordManagementAppDiv.dataset.accessLinksSearchConfig
         )}

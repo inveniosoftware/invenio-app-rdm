@@ -16,7 +16,7 @@ from invenio_communities.views.decorators import pass_community
 def communities_detail(pid_value, community, community_ui):
     """Community detail page."""
     permissions = community.has_permissions_to(
-        ["update", "read", "search_requests", "search_invites"]
+        ["update", "read", "search_requests", "search_invites", "moderate"]
     )
     endpoint = "/api/communities/{pid_value}/records"
 
