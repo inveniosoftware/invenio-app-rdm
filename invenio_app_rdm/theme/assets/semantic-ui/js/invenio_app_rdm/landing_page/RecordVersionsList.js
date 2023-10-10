@@ -88,7 +88,7 @@ export const RecordVersionsList = ({ record, isPreview }) => {
   useEffect(() => {
     async function fetchVersions() {
       const result = await axios(
-        `${recordDeserialized.links.versions}?size=${NUMBER_OF_VERSIONS}&sort=version&allversions=true&status=P`,
+        `${recordDeserialized.links.versions}?size=${NUMBER_OF_VERSIONS}&sort=version&allversions=true`,
         {
           headers: {
             Accept: "application/vnd.inveniordm.v1+json",
