@@ -16,6 +16,8 @@ from pathlib import Path
 from flask import abort, current_app, g, redirect, render_template, request, url_for
 from flask_login import current_user
 from invenio_base.utils import obj_or_import_string
+from invenio_communities.errors import CommunityDeletedError
+from invenio_communities.proxies import current_communities
 from invenio_previewer.extensions import default as default_previewer
 from invenio_previewer.proxies import current_previewer
 from invenio_rdm_records.proxies import current_rdm_records
@@ -67,11 +69,20 @@ def get_record_community(record):
     ) or expanded_parent.get("communities", {}).get("default")
 
     if community_review or community_default:
-        is_community_deleted = expanded_community.get("is_ghost", False)
-        if is_community_deleted:
+        is_community_pid_deleted = expanded_community.get("is_ghost", False)
+        if is_community_pid_deleted:
+            # community pid is not found in search i.e its pid is deleted
             return None, community_id
-        else:
+
+        # resolve the community again to check the deletion status
+        # deleted communities with tombstones are not idenitfied as ghost records
+        # at the moment because `read_many()` function is not filtering them out
+        try:
+            current_communities.service.read(id_=community_id, identity=g.identity)
+            # community has not tombstone
             return expanded_community, community_id
+        except CommunityDeletedError:
+            return None, community_id
     else:
         return None, None
 
