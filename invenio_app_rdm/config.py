@@ -547,7 +547,7 @@ OAISERVER_METADATA_FORMATS = {
     },
     "datacite": {
         "serializer": "invenio_rdm_records.oai:datacite_etree",
-        "schema": "http://schema.datacite.org/meta/kernel-4.1/metadata.xsd",
+        "schema": "http://schema.datacite.org/meta/kernel-4.3/metadata.xsd",
         "namespace": "http://datacite.org/schema/kernel-4",
     },
     "oai_datacite": {
@@ -557,7 +557,7 @@ OAISERVER_METADATA_FORMATS = {
     },
     "datacite4": {
         "serializer": "invenio_rdm_records.oai:datacite_etree",
-        "schema": "http://schema.datacite.org/meta/kernel-4.1/metadata.xsd",
+        "schema": "http://schema.datacite.org/meta/kernel-4.3/metadata.xsd",
         "namespace": "http://datacite.org/schema/kernel-4",
     },
     "oai_datacite4": {
