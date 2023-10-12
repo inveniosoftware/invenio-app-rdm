@@ -14,10 +14,10 @@ from os.path import splitext
 import idutils
 from babel.numbers import format_compact_decimal, format_decimal
 from flask import current_app, url_for
+from invenio_base.utils import obj_or_import_string
 from invenio_previewer.views import is_previewable
 from invenio_records_files.api import FileObject
 from invenio_records_permissions.policies import get_record_permission_policy
-from invenio_base.utils import obj_or_import_string
 
 from ..previewer.iiif_simple import previewable_extensions as image_extensions
 
