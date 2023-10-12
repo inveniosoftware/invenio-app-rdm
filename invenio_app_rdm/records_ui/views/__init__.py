@@ -39,6 +39,7 @@ from .filters import (
     select_preview_file,
     to_previewer_files,
     truncate_number,
+    transform_record
 )
 from .records import (
     not_found_error,
@@ -168,6 +169,7 @@ def create_blueprint(app):
     blueprint.add_app_template_filter(truncate_number)
     blueprint.add_app_template_filter(namespace_url)
     blueprint.add_app_template_filter(custom_fields_search)
+    blueprint.add_app_template_filter(transform_record)
 
     # Register context processor
     blueprint.app_context_processor(search_app_context)

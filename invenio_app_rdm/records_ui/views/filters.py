@@ -17,6 +17,7 @@ from flask import current_app, url_for
 from invenio_previewer.views import is_previewable
 from invenio_records_files.api import FileObject
 from invenio_records_permissions.policies import get_record_permission_policy
+from invenio_base.utils import obj_or_import_string
 
 from ..previewer.iiif_simple import previewable_extensions as image_extensions
 
@@ -176,3 +177,19 @@ def custom_fields_search(field, field_value):
     return url_for(
         "invenio_search_ui.search", q=f"custom_fields.{namespace_string}:{field_value}"
     )
+
+
+def transform_record(record, serializer, module=None, throws=True, **kwargs):
+    """Transform a record using a serializer."""
+    try:
+        module = module or "invenio_rdm_records.resources.serializers"
+        import_str = f"{module}:{serializer}"
+        serializer = obj_or_import_string(import_str)
+        if serializer:
+            return serializer().serialize_object(record)
+        if throws:
+            raise Exception("No serializer found.")
+    except Exception:
+        current_app.logger.error("Record transformation failed.")
+        if throws:
+            raise
