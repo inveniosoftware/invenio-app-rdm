@@ -146,6 +146,7 @@ def user_dashboard_request_view(request, **kwargs):
             custom_fields_ui=load_custom_fields()["ui"],
             user_communities_memberships=get_user_communities_memberships(),
             external_resources=get_external_resources(record),
+            include_deleted=False,
         )
 
     elif has_community_topic or not has_topic:
@@ -156,6 +157,7 @@ def user_dashboard_request_view(request, **kwargs):
             invenio_request=request.to_dict(),
             request_is_accepted=request_is_accepted,
             permissions={},
+            include_deleted=False,
         )
 
     topic = _resolve_topic_record(request)
@@ -169,6 +171,7 @@ def user_dashboard_request_view(request, **kwargs):
         permissions=topic["permissions"],
         invenio_request=request.to_dict(),
         request_is_accepted=request_is_accepted,
+        include_deleted=False,
     )
 
 
@@ -216,6 +219,7 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
             custom_fields_ui=load_custom_fields()["ui"],
             user_communities_memberships=get_user_communities_memberships(),
             external_resources=get_external_resources(record),
+            include_deleted=False,
         )
 
     elif is_member_invitation:
@@ -233,4 +237,5 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
             permissions=permissions,
             request_is_accepted=request_is_accepted,
             user_avatar=avatar,
+            include_deleted=False,
         )
