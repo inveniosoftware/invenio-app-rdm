@@ -29,6 +29,11 @@
   {%- set allow_guest_requests = current_user.is_anonymous and record.parent.access.settings.allow_guest_requests %}
 {%- endif %}
 
+{%- block head_meta %}
+  {{ super() }}
+  {%- include "invenio_app_rdm/records/details/meta.html" %}
+{%- endblock head_meta %}
+
 {%- block page_body %}
   <section id="banners" class="banners" aria-label="{{ _('Information banner') }}">
 
@@ -358,6 +363,13 @@
   {% else %}
     {% include config.THEME_JAVASCRIPT_TEMPLATE %}
   {% endif %}
+  {%- block record_jsonld %}
+    {% set jsonld_serialization = record | transform_record('SchemaorgJSONLDSerializer', module=None, throws=true) %}
+    {%- if jsonld_serialization %}
+      <script type='application/ld+json'>{{ jsonld_serialization | safe }}</script>
+    {%- endif %}
+  {%- endblock record_jsonld %}
+
   {{ webpack['invenio-app-rdm-landing-page-theme.js'] }}
   {{ webpack['invenio-app-rdm-landing-page.js'] }}
   {{ webpack['previewer_theme.js'] }}
