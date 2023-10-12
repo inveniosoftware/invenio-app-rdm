@@ -30,7 +30,9 @@
 {%- endif %}
 
 {%- block head_meta %}
-  {{ super() }}
+  {% if use_theme_basic_template|default(true) %}
+    {{ super() }}
+  {% endif %}
   {%- include "invenio_app_rdm/records/details/meta.html" %}
 {%- endblock head_meta %}
 
