@@ -38,8 +38,8 @@ from .filters import (
     pid_url,
     select_preview_file,
     to_previewer_files,
+    transform_record,
     truncate_number,
-    transform_record
 )
 from .records import (
     not_found_error,
