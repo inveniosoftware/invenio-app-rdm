@@ -238,7 +238,7 @@
             {# Files #}
             {%- block record_files -%}
               {# record has files BUT passed files are empty. This happens when we display are request. #}
-              {%- if record.files.enabled -%}
+              {%- if files and record.files.enabled -%}
                 <section id="record-files" class="rel-mt-2 rel-mb-3" aria-label="{{ _('Files') }}">
                   <h2 id="files-heading">{{ _('Files') }}</h2>
                   {%- if permissions.can_read_files -%}
