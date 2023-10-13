@@ -78,6 +78,7 @@ def create_ui_blueprint(app):
     blueprint.add_url_rule(
         routes["community-detail"],
         view_func=communities_detail,
+        strict_slashes=False,
     )
 
     @blueprint.before_app_first_request
