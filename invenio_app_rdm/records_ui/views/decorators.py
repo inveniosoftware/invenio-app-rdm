@@ -16,6 +16,7 @@ from invenio_communities.communities.resources.serializer import (
     UICommunityJSONSerializer,
 )
 from invenio_communities.proxies import current_communities
+from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_rdm_records.proxies import current_rdm_records
 from invenio_records_resources.services.errors import PermissionDeniedError
 from sqlalchemy.orm.exc import NoResultFound
@@ -66,13 +67,25 @@ def pass_draft(expand=False):
         @wraps(f)
         def view(**kwargs):
             pid_value = kwargs.get("pid_value")
-            draft = service().read_draft(
-                id_=pid_value,
-                identity=g.identity,
-                expand=expand,
-            )
-            kwargs["draft"] = draft
-            return f(**kwargs)
+            try:
+                draft = service().read_draft(
+                    id_=pid_value,
+                    identity=g.identity,
+                    expand=expand,
+                )
+                kwargs["draft"] = draft
+                return f(**kwargs)
+            except PIDDoesNotExistError:
+                # Redirect to /records/:id because users are interchangeably
+                # using /records/:id and /uploads/:id when sharing links, so in
+                # case a draft doesn't exists, when check if the record exists
+                # always.
+                return redirect(
+                    url_for(
+                        "invenio_app_rdm_records.record_detail",
+                        pid_value=pid_value,
+                    )
+                )
 
         return view
 
