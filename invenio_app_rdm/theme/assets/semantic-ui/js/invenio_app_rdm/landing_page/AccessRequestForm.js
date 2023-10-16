@@ -28,7 +28,7 @@ export class AccessRequestForm extends Component {
     // nullable().required() is needed to avoid ``null`` type message errors.
     this.accessRequestSchema = Yup.object({
       email: Yup.string().email().nullable().required(),
-      full_name: Yup.string().nullable().required(),
+      full_name: Yup.string().nullable(),
       message: Yup.string().nullable(),
       consent_to_share_personal_data: Yup.bool().required(),
     });
