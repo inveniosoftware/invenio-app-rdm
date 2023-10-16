@@ -112,6 +112,9 @@ def order_entries(files):
             return files_.pop(idx)
 
         files = [get_file(key) for key in order]
+    else:
+        # sort alphabetically by filekey
+        files = sorted(files, key=lambda x: x["key"].lower())
 
     return files
 
