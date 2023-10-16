@@ -32,6 +32,13 @@ export class AccessRequestForm extends Component {
       message: Yup.string().nullable(),
       consent_to_share_personal_data: Yup.bool().required(),
     });
+
+    this.anonymousAccessRequestSchema = Yup.object({
+      email: Yup.string().email().nullable().required(),
+      full_name: Yup.string().nullable().required(),
+      message: Yup.string().nullable(),
+      consent_to_share_personal_data: Yup.bool().required(),
+    });
   }
 
   componentWillUnmount() {
@@ -113,7 +120,9 @@ export class AccessRequestForm extends Component {
           onSubmit={this.handleSubmit}
           enableReinitialize
           initialValues={this.initFormValues()}
-          validationSchema={this.accessRequestSchema}
+          validationSchema={
+            isAnonymous ? this.anonymousAccessRequestSchema : this.accessRequestSchema
+          }
           validateOnChange={false}
           validateOnBlur={false}
         >
