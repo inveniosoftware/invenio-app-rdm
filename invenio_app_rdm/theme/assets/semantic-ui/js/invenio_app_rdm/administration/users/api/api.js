@@ -24,9 +24,14 @@ const approveUser = async (user) => {
   return await http.post(APIRoutes.approve(user));
 };
 
+const impersonateUser = async (user) => {
+  return await http.post(APIRoutes.impersonate(user));
+};
+
 export const UserModerationApi = {
   restoreUser: restoreUser,
   approveUser: approveUser,
+  impersonateUser: impersonateUser,
   deactivateUser: deactivateUser,
   blockUser: blockUser,
 };

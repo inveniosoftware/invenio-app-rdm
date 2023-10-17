@@ -24,6 +24,10 @@ const APIRoutesGenerators = {
   deactivate: (user, idKeyPath = "id") => {
     return `/api/users/${_get(user, idKeyPath)}/deactivate`;
   },
+
+  impersonate: (user, idKeyPath = "id") => {
+    return `/api/users/${_get(user, idKeyPath)}/impersonate`;
+  },
 };
 export const APIRoutes = {
   ...APIRoutesGenerators,

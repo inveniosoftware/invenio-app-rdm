@@ -7,6 +7,7 @@
  */
 
 import { BoolFormatter, DateFormatter } from "@js/invenio_administration";
+import { ImpersonateUser } from "../../components/ImpersonateUser";
 import { SetQuotaAction } from "../../components/SetQuotaAction";
 import { UserActions } from "../UserActions";
 import PropTypes from "prop-types";
@@ -106,11 +107,18 @@ class SearchResultItemComponent extends Component {
         </Table.Cell>
 
         <Table.Cell collapsing>
-          <Button.Group basic widths={4} compact className="margined">
+          <Button.Group basic widths={6} compact className="margined">
             <SetQuotaAction
               successCallback={this.refreshAfterAction}
               apiUrl={`/api/users/${result.id}/quota`}
               resource={result}
+            />
+            <ImpersonateUser
+              successCallback={() => {
+                this.refreshAfterAction();
+                setTimeout(() => (window.location = "/"), 1000);
+              }}
+              user={result}
             />
             <UserActions user={result} successCallback={this.refreshAfterAction} />
           </Button.Group>
