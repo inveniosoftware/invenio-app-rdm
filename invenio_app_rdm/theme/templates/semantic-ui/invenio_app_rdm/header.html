@@ -10,6 +10,19 @@
 
 <div>
   <header class="theme header">
+    {%- block user_impersonation %}
+      {%- if '_impersonator_id' in session %}
+        <div class="ui negative flashed top attached manage m-0 big message">
+          <div class="ui container">
+            <div class="header">
+              <i class="ui spy big icon"></i><strong>Impersonated session</strong>
+            </div>
+            You must logout after you finish with you inquiry!
+          </div>
+        </div>
+      {%- endif %}
+    {%- endblock user_impersonation %}
+
     {%- block site_banner %}
       {% from 'invenio_banners/banner.html' import banner %}
       {{ banner() }}
