@@ -92,6 +92,7 @@ export class RecordResourceActions extends Component {
                 dataActionKey={actionKey}
                 icon={icon}
                 fluid
+                basic
                 labelPosition="left"
               >
                 {icon && <Icon name={icon} />}
