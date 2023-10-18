@@ -88,6 +88,7 @@ export class RestoreConfirmation extends Component {
             labelPosition="left"
             icon="trash alternate"
             color="red"
+            basic
             content={i18next.t("Restore record")}
             onClick={(event) => this.handleSubmit(event)}
             loading={loading}

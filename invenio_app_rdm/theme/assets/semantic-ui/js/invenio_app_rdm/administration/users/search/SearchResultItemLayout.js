@@ -31,10 +31,10 @@ class SearchResultItemComponent extends Component {
         {/*We pass user ID to bulk actions - user moderation API takes user IDs*/}
         {/*<SearchResultsRowCheckbox rowId={userId} data={result} />*/}
         {/*</Table.Cell>*/}
-        <Table.Cell
-          key={`user-column-${result.id}`}
-          data-label={i18next.t("Username")}
-        >
+        <Table.Cell key={`user-${result.id}`} data-label={i18next.t("ID")} collapsing>
+          {result.id}
+        </Table.Cell>
+        <Table.Cell key={`user-column-${result.id}`} data-label={i18next.t("User")}>
           <UserListItemCompact
             user={result}
             id={result.id}
@@ -44,6 +44,9 @@ class SearchResultItemComponent extends Component {
               idKeyPath
             )}
           />
+        </Table.Cell>
+        <Table.Cell key={`user-name-${result.id}`} data-label={i18next.t("Username")}>
+          @{result.username}
         </Table.Cell>
         <Table.Cell
           key={`user-email-${result.id}`}
@@ -55,20 +58,17 @@ class SearchResultItemComponent extends Component {
         </Table.Cell>
         <Table.Cell
           collapsing
-          key={`user-active-${result.id}`}
-          data-label={i18next.t("Active")}
-          className="word-break-all"
-        >
-          <BoolFormatter icon="check" color="green" value={result.active} />
-          <BoolFormatter icon="close" color="red" value={!result.active} />
-        </Table.Cell>
-        <Table.Cell
-          collapsing
           key={`user-confirmed-${result.id}`}
           data-label={i18next.t("Confirmed")}
           className="word-break-all"
         >
-          {result.confirmed_at}
+          <BoolFormatter
+            tooltip={result.confirmed_at}
+            icon="check"
+            color="green"
+            value={result.confirmed_at}
+          />
+          <BoolFormatter icon="close" color="red" value={!result.confirmed_at} />
         </Table.Cell>
         <Table.Cell
           collapsing
@@ -76,15 +76,13 @@ class SearchResultItemComponent extends Component {
           data-label={i18next.t("Verified at")}
           className="word-break-all"
         >
-          {result.verified_at}
-        </Table.Cell>
-        <Table.Cell
-          collapsing
-          key={`user-blocked-${result.id}`}
-          data-label={i18next.t("Blocked at")}
-          className="word-break-all"
-        >
-          {result.blocked_at}
+          <BoolFormatter
+            tooltip={result.verified_at}
+            icon="check"
+            color="green"
+            value={result.verified_at}
+          />
+          <BoolFormatter icon="close" color="red" value={!result.verified_at} />
         </Table.Cell>
         <Table.Cell
           collapsing

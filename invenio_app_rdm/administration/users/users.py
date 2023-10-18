@@ -17,12 +17,12 @@ from invenio_i18n import lazy_gettext as _
 from invenio_search_ui.searchconfig import search_app_config
 
 USERS_ITEM_LIST = {
-    "username": {"text": _("Username"), "order": 1, "width": 4},
-    "email": {"text": _("Email"), "order": 2, "width": 2},
-    "active": {"text": _("Active"), "order": 3, "width": 1},
-    "confirmed": {"text": _("Confirmed at"), "order": 4, "width": 1},
-    "verified_at": {"text": _("Verified at"), "order": 5, "width": 2},
-    "blocked_at": {"text": _("Blocked at"), "order": 6, "width": 2},
+    "id": {"text": _("ID"), "order": 1, "width": 1},
+    "user": {"text": _("User"), "order": 2, "width": 2},
+    "username": {"text": _("Username"), "order": 3, "width": 2},
+    "email": {"text": _("Email"), "order": 4, "width": 1},
+    "confirmed": {"text": _("Confirmed"), "order": 5, "width": 1},
+    "verified_at": {"text": _("Verified"), "order": 6, "width": 1},
     "created": {"text": _("Created"), "order": 7, "width": 2},
     "updated": {"text": _("Updated"), "order": 8, "width": 2},
 }

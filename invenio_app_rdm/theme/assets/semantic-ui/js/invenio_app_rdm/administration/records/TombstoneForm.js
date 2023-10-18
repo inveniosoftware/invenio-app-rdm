@@ -187,6 +187,7 @@ export default class TombstoneForm extends Component {
                 <Button
                   size="small"
                   labelPosition="left"
+                  basic
                   icon="trash alternate"
                   color="red"
                   content={i18next.t("Delete record")}
