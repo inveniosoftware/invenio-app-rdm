@@ -43,7 +43,16 @@ const statuses = {
 export const RDMRecordResultsListItem = ({ result }) => {
   const editRecord = () => {
     http
-      .post(`/api/records/${result.id}/draft`)
+      .post(
+        `/api/records/${result.id}/draft`,
+        {},
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/vnd.inveniordm.v1+json",
+          },
+        }
+      )
       .then(() => {
         window.location = `/uploads/${result.id}`;
       })
