@@ -9,11 +9,12 @@
 import isEmpty from "lodash/isEmpty";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Button, Icon } from "semantic-ui-react";
+import { Button, Icon, Dropdown } from "semantic-ui-react";
 import { NotificationContext } from "@js/invenio_administration";
 import { withCancel } from "react-invenio-forms";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
-
+import { ImpersonateUser } from "../components/ImpersonateUser";
+import { SetQuotaAction } from "../components/SetQuotaAction";
 import { UserModerationApi } from "./api";
 
 export class UserActions extends Component {
@@ -32,117 +33,151 @@ export class UserActions extends Component {
     this.setState({ loading: true });
     const { user, successCallback } = this.props;
     const { addNotification } = this.context;
-    const name = user.profile.full_name || user.profile.email || user.profile.username;
-    let successNotification = {};
+    const name = user.profile?.full_name || user.email || user.username || user.id;
 
-    if (action === "restore") {
-      this.cancellableAction = withCancel(UserModerationApi.restoreUser(user));
-      successNotification = {
-        title: i18next.t("Restored"),
-        content: i18next.t("User {{name}} was restored.", { name: name }),
+    const actionConfig = {
+      restore: {
+        label: i18next.t("Restore"),
+        icon: "undo",
+        apiFunction: UserModerationApi.restoreUser,
+        notificationTitle: i18next.t("Restored"),
+      },
+      block: {
+        label: i18next.t("Block"),
+        icon: "ban",
+        apiFunction: UserModerationApi.blockUser,
+        notificationTitle: i18next.t("Blocked"),
+      },
+      deactivate: {
+        label: i18next.t("Suspend"),
+        icon: "pause",
+        apiFunction: UserModerationApi.deactivateUser,
+        notificationTitle: i18next.t("Suspended"),
+      },
+      approve: {
+        label: i18next.t("Approve"),
+        icon: "check",
+        apiFunction: UserModerationApi.approveUser,
+        notificationTitle: i18next.t("Approved"),
+      },
+    }[action];
+
+    if (actionConfig) {
+      this.cancellableAction = withCancel(actionConfig.apiFunction(user));
+      const successNotification = {
+        title: actionConfig.notificationTitle,
+        content: i18next.t(`User {{name}} was ${actionConfig.label.toLowerCase()}.`, {
+          name: name,
+        }),
         type: "success",
       };
-    } else if (action === "block") {
-      this.cancellableAction = withCancel(UserModerationApi.blockUser(user));
-      successNotification = {
-        title: i18next.t("Blocked"),
-        content: i18next.t("User {{name}} was blocked.", { name: name }),
-        type: "success",
-      };
-    } else if (action === "deactivate") {
-      this.cancellableAction = withCancel(UserModerationApi.deactivateUser(user));
-      successNotification = {
-        title: i18next.t("Suspended"),
-        content: i18next.t("User {{name}} was suspended.", { name: name }),
-        type: "success",
-      };
-    } else if (action === "approve") {
-      this.cancellableAction = withCancel(UserModerationApi.approveUser(user));
-      successNotification = {
-        title: i18next.t("Approved"),
-        content: i18next.t("User {{name}} was approved.", { name: name }),
-        type: "success",
-      };
-    }
-    try {
-      await this.cancellableAction.promise;
-      addNotification(successNotification);
-      this.setState({ loading: false });
-      successCallback();
-    } catch (e) {
-      addNotification({
-        title: i18next.t("Error"),
-        content: e.toString(),
-        type: "error",
-      });
+
+      try {
+        await this.cancellableAction.promise;
+        addNotification(successNotification);
+        this.setState({ loading: false });
+        successCallback();
+      } catch (e) {
+        addNotification({
+          title: i18next.t("Error"),
+          content: e.toString(),
+          type: "error",
+        });
+      }
     }
   };
 
   render() {
-    const { user, displaySuspend, displayBlock, displayApprove, displayRestore } =
-      this.props;
+    const {
+      user,
+      displaySuspend,
+      displayBlock,
+      displayApprove,
+      displayRestore,
+      successCallback,
+      displayImpersonateUser,
+      displayQuota,
+      useDropdown,
+    } = this.props;
     const { loading } = this.state;
     const isUserBlocked = !isEmpty(user.blocked_at);
     const isUserActive = user.active;
     const isUserVerified = !isEmpty(user.verified_at);
 
-    return (
-      <>
-        {(isUserBlocked || displayRestore) && (
-          <Button
-            key="restore"
-            onClick={() => this.handleAction("restore")}
-            disabled={loading}
-            loading={loading}
-            icon
-            labelPosition="left"
-          >
-            <Icon name="undo" />
-            {i18next.t("Restore")}
-          </Button>
-        )}
+    const actionItems = [
+      { key: "approve", label: "Verify", icon: "check" },
+      { key: "restore", label: "Restore", icon: "undo" },
+      { key: "block", label: "Block", icon: "ban" },
+      { key: "deactivate", label: "Suspend", icon: "pause" },
+    ];
 
-        {(!isUserBlocked || displayBlock) && (
-          <Button
-            key="block"
-            onClick={() => this.handleAction("block")}
-            disabled={loading}
-            loading={loading}
-            icon
-            labelPosition="left"
-          >
-            <Icon name="ban" />
-            {i18next.t("Block")}
-          </Button>
-        )}
-        {displayApprove ||
-          (isUserActive && !isUserVerified && (
+    const filteredActions = actionItems.filter((actionItem) => {
+      return (
+        (actionItem.key === "restore" && (isUserBlocked || displayRestore)) ||
+        (actionItem.key === "block" && (!isUserBlocked || displayBlock)) ||
+        (actionItem.key === "deactivate" && (isUserActive || displaySuspend)) ||
+        (actionItem.key === "approve" &&
+          (displayApprove || (isUserActive && !isUserVerified)))
+      );
+    });
+
+    const generateActions = () => {
+      return (
+        <>
+          {displayQuota && (
+            <SetQuotaAction
+              successCallback={successCallback}
+              apiUrl={`/api/users/${user.id}/quota`}
+              resource={user}
+            />
+          )}
+          {displayImpersonateUser && (
+            <ImpersonateUser
+              successCallback={() => {
+                successCallback();
+                setTimeout(() => (window.location = "/"), 1000);
+              }}
+              user={user}
+            />
+          )}
+          {filteredActions.map((actionItem) => (
             <Button
-              key="verify"
-              onClick={() => this.handleAction("approve")}
+              key={actionItem.key}
+              onClick={() => this.handleAction(actionItem.key)}
               disabled={loading}
               loading={loading}
               icon
+              fluid
+              basic
               labelPosition="left"
             >
-              <Icon name="check" />
-              {i18next.t("Verify")}
+              <Icon name={actionItem.icon} />
+              {i18next.t(actionItem.label)}
             </Button>
           ))}
-        {(isUserActive || displaySuspend) && (
-          <Button
-            key="deactivate"
-            onClick={() => this.handleAction("deactivate")}
-            disabled={loading}
-            loading={loading}
-            icon
-            labelPosition="left"
+        </>
+      );
+    };
+
+    return (
+      <div>
+        {useDropdown ? (
+          <Dropdown
+            text="Actions"
+            icon="filter"
+            floating
+            labeled
+            button
+            className="icon"
           >
-            <Icon name="pause" />
-            {i18next.t("Suspend")}
-          </Button>
+            <Dropdown.Menu>{generateActions()}</Dropdown.Menu>
+          </Dropdown>
+        ) : (
+          <Button.Group basic widths={5} compact className="margined">
+            {generateActions()}
+          </Button.Group>
         )}
-      </>
+      </div>
     );
   }
 }
@@ -154,6 +189,9 @@ UserActions.propTypes = {
   displaySuspend: PropTypes.bool,
   displayApprove: PropTypes.bool,
   displayRestore: PropTypes.bool,
+  displayImpersonateUser: PropTypes.bool,
+  displayQuota: PropTypes.bool,
+  useDropdown: PropTypes.bool,
 };
 
 UserActions.defaultProps = {
@@ -161,4 +199,7 @@ UserActions.defaultProps = {
   displaySuspend: false,
   displayApprove: false,
   displayRestore: false,
+  displayImpersonateUser: false,
+  displayQuota: false,
+  useDropdown: false,
 };
