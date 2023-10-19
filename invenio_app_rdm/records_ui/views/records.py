@@ -21,6 +21,9 @@ from invenio_communities.proxies import current_communities
 from invenio_previewer.extensions import default as default_previewer
 from invenio_previewer.proxies import current_previewer
 from invenio_rdm_records.proxies import current_rdm_records
+from invenio_rdm_records.records.systemfields.access.access_settings import (
+    AccessSettings,
+)
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
 from invenio_stats.proxies import current_stats
 from invenio_users_resources.proxies import current_user_resources
@@ -140,6 +143,11 @@ def record_detail(
     """Record detail page (aka landing page)."""
     files_dict = None if files is None else files.to_dict()
     media_files_dict = None if media_files is None else media_files.to_dict()
+
+    access = record._record.parent["access"]
+    if "settings" not in access or access["settings"] is None:
+        record._record.parent["access"]["settings"] = AccessSettings({}).dump()
+
     record_ui = UIJSONSerializer().dump_obj(record.to_dict())
     is_draft = record_ui["is_draft"]
     custom_fields = load_custom_fields()
