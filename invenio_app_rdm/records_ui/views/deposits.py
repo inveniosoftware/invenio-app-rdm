@@ -375,6 +375,7 @@ def deposit_create(community=None):
         record=new_record(),
         files=dict(default_preview=None, entries=[], links={}),
         preselectedCommunity=community,
+        files_locked=False,
         permissions=get_record_permissions(
             [
                 "manage_files",
@@ -388,7 +389,7 @@ def deposit_create(community=None):
 @login_required
 @pass_draft(expand=True)
 @pass_draft_files
-def deposit_edit(pid_value, draft=None, draft_files=None):
+def deposit_edit(pid_value, draft=None, draft_files=None, files_locked=True):
     """Edit an existing deposit."""
     files_dict = None if draft_files is None else draft_files.to_dict()
     ui_serializer = UIJSONSerializer()
@@ -404,6 +405,7 @@ def deposit_edit(pid_value, draft=None, draft_files=None):
         record=record,
         files=files_dict,
         searchbar_config=dict(searchUrl=get_search_url()),
+        files_locked=files_locked,
         permissions=draft.has_permissions_to(
             [
                 "new_version",

@@ -68,12 +68,18 @@ def pass_draft(expand=False):
         def view(**kwargs):
             pid_value = kwargs.get("pid_value")
             try:
-                draft = service().read_draft(
+                record_service = service()
+                draft = record_service.read_draft(
                     id_=pid_value,
                     identity=g.identity,
                     expand=expand,
                 )
                 kwargs["draft"] = draft
+                kwargs[
+                    "files_locked"
+                ] = record_service.config.lock_edit_published_files(
+                    record_service, g.identity, record=draft._record
+                )
                 return f(**kwargs)
             except PIDDoesNotExistError:
                 # Redirect to /records/:id because users are interchangeably
