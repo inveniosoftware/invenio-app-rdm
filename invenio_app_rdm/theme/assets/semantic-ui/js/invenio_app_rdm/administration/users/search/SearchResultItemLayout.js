@@ -7,12 +7,10 @@
  */
 
 import { BoolFormatter, DateFormatter } from "@js/invenio_administration";
-import { ImpersonateUser } from "../../components/ImpersonateUser";
-import { SetQuotaAction } from "../../components/SetQuotaAction";
 import { UserActions } from "../UserActions";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
-import { Table, Button } from "semantic-ui-react";
+import { Table } from "semantic-ui-react";
 import { withState } from "react-searchkit";
 import { AdminUIRoutes } from "@js/invenio_administration/src/routes";
 import { UserListItemCompact } from "react-invenio-forms";
@@ -36,7 +34,6 @@ class SearchResultItemComponent extends Component {
         <Table.Cell
           key={`user-column-${result.id}`}
           data-label={i18next.t("Username")}
-          className="word-break-all"
         >
           <UserListItemCompact
             user={result}
@@ -107,21 +104,13 @@ class SearchResultItemComponent extends Component {
         </Table.Cell>
 
         <Table.Cell collapsing>
-          <Button.Group basic widths={6} compact className="margined">
-            <SetQuotaAction
-              successCallback={this.refreshAfterAction}
-              apiUrl={`/api/users/${result.id}/quota`}
-              resource={result}
-            />
-            <ImpersonateUser
-              successCallback={() => {
-                this.refreshAfterAction();
-                setTimeout(() => (window.location = "/"), 1000);
-              }}
-              user={result}
-            />
-            <UserActions user={result} successCallback={this.refreshAfterAction} />
-          </Button.Group>
+          <UserActions
+            useDropdown
+            user={result}
+            successCallback={this.refreshAfterAction}
+            displayImpersonateUser
+            displayQuota
+          />
         </Table.Cell>
       </Table.Row>
     );

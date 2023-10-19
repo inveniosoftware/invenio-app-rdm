@@ -69,12 +69,13 @@ export class SetQuotaAction extends Component {
           onClick={this.onModalTriggerClick}
           icon
           fluid
+          basic
           labelPosition="left"
         >
           <Icon name="disk" />
-          Set quota
+          Set Quota
         </Button>
-        );
+
         <ActionModal modalOpen={modalOpen} resource={resource}>
           {modalHeader && <Modal.Header>{modalHeader}</Modal.Header>}
           {!_isEmpty(modalBody) && modalBody}

@@ -68,12 +68,12 @@ export class ImpersonateUser extends Component {
           onClick={this.onModalTriggerClick}
           icon
           fluid
+          basic
           labelPosition="left"
         >
           <Icon name="spy" />
           Impersonate
         </Button>
-        );
         <ActionModal modalOpen={modalOpen} user={user}>
           {modalHeader && <Modal.Header>{modalHeader}</Modal.Header>}
           {!_isEmpty(modalBody) && modalBody}
