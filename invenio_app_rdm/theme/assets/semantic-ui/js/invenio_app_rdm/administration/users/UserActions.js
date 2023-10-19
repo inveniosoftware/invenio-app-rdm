@@ -66,9 +66,12 @@ export class UserActions extends Component {
       this.cancellableAction = withCancel(actionConfig.apiFunction(user));
       const successNotification = {
         title: actionConfig.notificationTitle,
-        content: i18next.t(`User {{name}} was ${actionConfig.label.toLowerCase()}.`, {
-          name: name,
-        }),
+        content: i18next.t(
+          `User {{name}} was ${actionConfig.notificationTitle.toLowerCase()}.`,
+          {
+            name: name,
+          }
+        ),
         type: "success",
       };
 
