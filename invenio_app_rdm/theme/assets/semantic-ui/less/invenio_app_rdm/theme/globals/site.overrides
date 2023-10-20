@@ -65,6 +65,10 @@ button:focus-visible, a:focus-visible {
   a {
     color: @white;
   }
+
+  .flashed a {
+    color: inherit; /* Reset the color to inherit from parent */
+  }
 }
 
 .titlecase {
