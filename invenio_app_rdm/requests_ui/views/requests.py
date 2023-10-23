@@ -13,6 +13,7 @@ from flask import g, render_template
 from flask_login import current_user, login_required
 from invenio_communities.members.services.request import CommunityInvitation
 from invenio_communities.views.decorators import pass_community
+from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_rdm_records.proxies import current_rdm_records_service
 from invenio_rdm_records.requests import CommunityInclusion, CommunitySubmission
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
@@ -51,7 +52,12 @@ def _resolve_topic_record(request):
     try:
         # read draft
         record = current_rdm_records_service.read_draft(g.identity, pid, expand=True)
-    except NoResultFound:
+    except (NoResultFound, PIDDoesNotExistError):
+        # We catch PIDDoesNotExistError because a published record with
+        # a soft-deleted draft will raise this error. The lines below
+        # will catch the case that a id does not exists and raise a
+        # PIDDoesNotExistError that can be handled as 404 in the resource
+        # layer.
         try:
             # read published record
             record = current_rdm_records_service.read(g.identity, pid, expand=True)
