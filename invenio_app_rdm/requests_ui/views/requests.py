@@ -49,9 +49,19 @@ def _resolve_topic_record(request):
     # parse the topic field to get the draft/record pid `record:abcd-efgh`
     entity = ResolverRegistry.resolve_entity_proxy(request["topic"])
     pid = entity._parse_ref_dict_id()
+
+    request_type = request["type"]
+    is_record_inclusion = request_type == CommunityInclusion.type_id
+
     try:
-        # read draft
-        record = current_rdm_records_service.read_draft(g.identity, pid, expand=True)
+        if is_record_inclusion:
+            # read published record
+            record = current_rdm_records_service.read(g.identity, pid, expand=True)
+        else:
+            # read draft
+            record = current_rdm_records_service.read_draft(
+                g.identity, pid, expand=True
+            )
     except (NoResultFound, PIDDoesNotExistError):
         # We catch PIDDoesNotExistError because a published record with
         # a soft-deleted draft will raise this error. The lines below
@@ -84,28 +94,40 @@ def _resolve_topic_record(request):
     return dict(permissions={}, record_ui=None)
 
 
-def _resolve_record_or_draft_files(record):
+def _resolve_record_or_draft_files(record, request):
     """Resolve the record's or draft's files."""
+    request_type = request["type"]
+    is_record_inclusion = request_type == CommunityInclusion.type_id
     if record and record["files"]["enabled"]:
         record_pid = record["id"]
         try:
-            files = draft_files_service().list_files(
-                id_=record_pid, identity=g.identity
-            )
+            if is_record_inclusion:
+                files = files_service().list_files(id_=record_pid, identity=g.identity)
+            else:
+                files = draft_files_service().list_files(
+                    id_=record_pid, identity=g.identity
+                )
         except NoResultFound:
             files = files_service().list_files(id_=record_pid, identity=g.identity)
         return files.to_dict()
     return None
 
 
-def _resolve_record_or_draft_media_files(record):
+def _resolve_record_or_draft_media_files(record, request):
     """Resolve the record's or draft's media files."""
+    request_type = request["type"]
+    is_record_inclusion = request_type == CommunityInclusion.type_id
     if record and record["media_files"]["enabled"]:
         record_pid = record["id"]
         try:
-            media_files = draft_media_files_service().list_files(
-                id_=record_pid, identity=g.identity
-            )
+            if is_record_inclusion:
+                media_files = media_files_service().list_files(
+                    id_=record_pid, identity=g.identity
+                )
+            else:
+                media_files = draft_media_files_service().list_files(
+                    id_=record_pid, identity=g.identity
+                )
         except NoResultFound:
             media_files = media_files_service().list_files(
                 id_=record_pid, identity=g.identity
@@ -207,8 +229,8 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
         is_draft = record["is_draft"] if record else False
 
         permissions.update(topic["permissions"])
-        files = _resolve_record_or_draft_files(record)
-        media_files = _resolve_record_or_draft_media_files(record)
+        files = _resolve_record_or_draft_files(record, request)
+        media_files = _resolve_record_or_draft_media_files(record, request)
         return render_template(
             f"invenio_requests/{request_type}/index.html",
             base_template="invenio_communities/details/base.html",
