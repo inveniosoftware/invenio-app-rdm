@@ -115,17 +115,27 @@
     border-top: @actionBorder;
     text-align: @actionAlign;
   }
+
+  .content {
+    display: block;
+    width: 100%;
+    font-size: @contentFontSize;
+    line-height: @contentLineHeight;
+    padding: @contentPadding;
+    background: @contentBackground;
+  }
 }
+
 .ui.modal .actions {
   .button {
     margin-left: @buttonDistance;
     margin-right: 0;
+
     &.left.floated{
       margin-right: @buttonDistance;
       margin-left: 0;
     }
   }
-
 }
 
 .ui.dimmer .ui.modal .ui.loader {

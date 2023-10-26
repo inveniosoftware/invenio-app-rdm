@@ -76,12 +76,12 @@ export const LinksSearchItem = ({ result, record, fetchData }) => {
       <Table.Cell width={3} data-label="Expires at">
         {isEmpty(result.expires_at)
           ? i18next.t("Never")
-          : timestampToRelativeTime(result.expires_at)}
+          : `${timestampToRelativeTime(result.expires_at)} (${result.expires_at})`}
       </Table.Cell>
       <Table.Cell width={3} data-label="Access">
         <AccessDropdown record={record} result={result} />
       </Table.Cell>
-      <Table.Cell width={4} textAlign="right">
+      <Table.Cell width={4}>
         <Button
           loading={loading}
           disabled={loading}
@@ -100,12 +100,15 @@ export const LinksSearchItem = ({ result, record, fetchData }) => {
           inverted
           open={copied}
           on="click"
-          size="mini"
+          size="small"
           trigger={
             <Button
               ref={copyButtonRef}
               onClick={() => copyAccessLink(result?.id)}
               aria-label={i18next.t("Copy link")}
+              size="small"
+              icon
+              labelPosition="left"
             >
               <Icon name="copy outline" />
               {i18next.t("Copy link")}

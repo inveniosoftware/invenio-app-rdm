@@ -42,6 +42,7 @@ function renderRecordManagement(element) {
           recordManagementAppDiv.dataset.isPreviewSubmissionRequest
         )}
         currentUserId={recordManagementAppDiv.dataset.currentUserId}
+        recordOwnerUsername={recordManagementAppDiv.dataset.recordOwnerUsername}
         accessLinksSearchConfig={JSON.parse(
           recordManagementAppDiv.dataset.accessLinksSearchConfig
         )}
@@ -67,6 +68,7 @@ if (recordCitationAppDiv) {
       record={JSON.parse(recordCitationAppDiv.dataset.record)}
       styles={JSON.parse(recordCitationAppDiv.dataset.styles)}
       defaultStyle={JSON.parse(recordCitationAppDiv.dataset.defaultstyle)}
+      includeDeleted={JSON.parse(recordCitationAppDiv.dataset.includeDeleted)}
     />,
     recordCitationAppDiv
   );
@@ -100,6 +102,7 @@ if (sidebarCommunitiesManageDiv) {
       recordCommunitySearchConfig={recordCommunitySearchConfig}
       permissions={JSON.parse(sidebarCommunitiesManageDiv.dataset.permissions)}
       searchConfig={JSON.parse(pendingCommunitiesSearchConfig)}
+      record={JSON.parse(recordCitationAppDiv.dataset.record)}
     />,
     sidebarCommunitiesManageDiv
   );

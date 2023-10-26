@@ -20,7 +20,7 @@ theme = WebpackThemeBundle(
         "semantic-ui": dict(
             entry={
                 "invenio-app-rdm-landing-page": "./js/invenio_app_rdm/landing_page/index.js",
-                "invenio-app-rdm-landing-page-access-form": "./js/invenio_app_rdm/landing_page/accessForm.js",
+                "invenio-app-rdm-landing-page-access-form": "./js/invenio_app_rdm/landing_page/access.js",
                 "invenio-app-rdm-landing-page-theme": "./js/invenio_app_rdm/landing_page/theme.js",
                 "invenio-app-rdm-deposit": "./js/invenio_app_rdm/deposit/index.js",
                 "invenio-app-rdm-search": "./js/invenio_app_rdm/search/index.js",
@@ -32,6 +32,10 @@ theme = WebpackThemeBundle(
                 "iiif-simple-previewer": "./less/invenio_app_rdm/previewer/iiif_simple.less",
                 "invenio-app-rdm-frontpage": "./js/invenio_app_rdm/frontpage/index.js",
                 "overridable-registry": "./js/invenio_app_rdm/overridableRegistry/index.js",
+                "invenio-users-moderation-administration": "./js/invenio_app_rdm/administration/userModeration/index.js",
+                "invenio-users-administration": "./js/invenio_app_rdm/administration/users/index.js",
+                "invenio-records-administration": "./js/invenio_app_rdm/administration/records/index.js",
+                "invenio-drafts-administration": "./js/invenio_app_rdm/administration/drafts/index.js",
             },
             dependencies={
                 "@babel/runtime": "^7.9.0",

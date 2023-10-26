@@ -9,126 +9,149 @@
 
 
 {%- if config.ACCOUNTS %}
-    {%- if not current_user.is_authenticated %}
-        <form>
-            <a href="{{ url_for_security('login', next=request.path) }}"
-               class="ui button">
-                <i class="sign-in icon"></i>
-                {{ _('Log in') }}</a>
-            {% if security.registerable %}
-                <a href="{{ url_for_security('register') }}" class="ui button signup">
-                    <i class="edit outline icon"></i>
-                    {{ _('Sign up') }}
-                </a>
-            {% endif %}
-        </form>
-    {%- else %}
+  {%- if not current_user.is_authenticated %}
+    <form>
+      <a
+        href="{{ url_for_security('login', next=request.path) }}"
+        class="ui button">
+        <i class="sign-in icon"></i>
+        {{ _('Log in') }}</a>
+      {% if security.registerable %}
+        <a href="{{ url_for_security('register') }}" class="ui button signup">
+          <i class="edit outline icon"></i>
+          {{ _('Sign up') }}
+        </a>
+      {% endif %}
+    </form>
+  {%- else %}
 
-        {# Quick-create ("plus") menu #}
-        {%- set plus_menu_items = current_menu.submenu('plus').children %}
-        {%- if plus_menu_items %}
-          <div role="menuitem" class="rdm-plus-menu rdm-plus-menu-responsive ui dropdown floating pr-15 computer only" aria-label="{{ _("Quick create") }}">
-              <i class="fitted plus icon inverted"></i>
-              <i class="fitted dropdown icon inverted"></i>
-              <div class="menu">
-                  {%- for item in plus_menu_items if item.visible %}
-                    <a class="item" href="{{ item.url }}">{{ item.text|safe }} </a>
-                  {%- endfor %}
-              </div>
-          </div>
+    {# Desktop Quick-create ("plus") menu #}
+    {%- set plus_menu_items = current_menu.submenu('plus').children %}
+    {%- if plus_menu_items %}
+      <div
+        id="quick-create-dropdown"
+        class="rdm-plus-menu rdm-plus-menu-responsive ui dropdown floating pr-15 computer only"
+      >
+        <a
+          id="quick-create-dropdown-btn"
+          role="button"
+          aria-controls="quick-create-menu"
+          aria-label="{{ _('Quick create') }}"
+          aria-expanded="false"
+          aria-haspopup="menu"
+        >
+          <i class="fitted plus icon inverted" aria-hidden="true"></i>
+          <i class="fitted dropdown icon inverted" aria-hidden="true"></i>
+        </a>
 
-          <div class="sub-menu mobile tablet only">
-            <h2 class="ui small header">{{ _("Actions") }}</h2>
+        <div role="menu" aria-labelledby="quick-create-dropdown-btn" id="quick-create-menu" class="menu">
+          {%- for item in plus_menu_items if item.visible %}
+            <a role="menuitem" class="item" href="{{ item.url }}">{{ item.text|safe }}</a>
+          {%- endfor %}
+        </div>
+      </div>
 
-            {%- for item in plus_menu_items if item.visible %}
-              <a role="menuitem" class="item" href="{{ item.url }}">
-                <i class="plus icon"></i>
-                {{ item.text|safe }}
-              </a>
-            {%- endfor %}
-          </div>
-        {% endif %}
-
-        {%- if config.USERPROFILES %}
-          <div role="menuitem" id="user-profile-dropdown" class="ui floating dropdown computer only">
-            <button id="user-profile-dropdown-btn"
-                    class="ui right labeled right floated icon button text"
-                    aria-controls="user-profile-menu"
-                    aria-expanded="false"
-                    aria-haspopup="menu"
-                    aria-label="{{ _('My account') }}"
-            >
-              <span>
-                <i class="user icon"></i>
-                {{ current_user.email|truncate(31,true) }}
-              </span>
-              <i class="dropdown icon"></i>
-            </button>
-
-            <div id="user-profile-menu"
-                 class="ui menu"
-                 role="menu"
-                 aria-labelledby="user-profile-dropdown-btn"
-            >
-              {%- for item in current_menu.submenu('settings').children if item.visible %}
-                <a role="menuitem" class="item" href="{{ item.url }}" tabindex="-1">
-                  {{ item.text|safe }}
-                </a>
-              {%- endfor %}
-
-              <div class="ui divider"></div>
-
-              {% set ns = namespace(admin_menu=False) %} 
-              {%- for item in current_menu.submenu('profile-admin').children if item.visible %}
-                {% set ns.admin_menu = True %}
-                <a role="menuitem" class="item" href="{{ item.url }}" tabindex="-1">
-                  {{ item.text|safe }}
-                </a>
-              {%- endfor %} 
-              {% if ns.admin_menu %}
-                <div class="ui divider"></div>
-              {% endif %}  
-
-              <a role="menuitem" class="item" href="{{ url_for_security('logout') }}" tabindex="-1">
-                <i class="sign-out icon"></i>
-                {{ _('Log out') }}
-              </a>
-            </div>
-          </div>
-
-          <div class="sub-menu mobile tablet only">
-            <h2 class="ui small header">{{ _("My account") }}</h2>
-
-            {%- for item in current_menu.submenu('settings').children if item.visible %}
-              <a role="menuitem" class="item" href="{{ item.url }}">
-                {{ item.text|safe }}
-              </a>
-            {%- endfor %}
-
-            <div class="ui divider"></div>
-
-            {% set ns = namespace(admin_menu=False) %} 
-            {%- for item in current_menu.submenu('profile-admin').children if item.visible %}
-              {% set ns.admin_menu = True %}
-              <a role="menuitem" class="item" href="{{ item.url }}">
-                {{ item.text|safe }}
-              </a>
-            {%- endfor %}
-            {% if ns.admin_menu %}
-              <div class="ui divider"></div>
-            {% endif %}  
-
-            <a role="menuitem" class="item" href="{{ url_for_security('logout') }}">
-                <i class="sign-out icon"></i>
-                {{ _('Log out') }}
+      {# Mobile/Tablet Quick create ("plus") menu #}
+      <div class="sub-menu mobile tablet only">
+        <h2 class="ui small header">{{ _("Actions") }}</h2>
+        <div role="menu">
+          {%- for item in plus_menu_items if item.visible %}
+            <a role="menuitem" class="item" href="{{ item.url }}">
+              <i class="plus icon"></i>
+              {{ item.text|safe }}
             </a>
-          </div>
+          {%- endfor %}
+        </div>
+      </div>
+    {% endif %}
 
-        {%- else %}
-          <a role="button" href="{{ url_for_security('logout') }}" class="ui button">
+    {# Desktop Account dropdown menu #}
+    {%- if config.USERPROFILES %}
+      <div id="user-profile-dropdown" class="ui floating dropdown computer only">
+        <button
+          id="user-profile-dropdown-btn"
+          class="ui right labeled right floated icon button text"
+          aria-controls="user-profile-menu"
+          aria-expanded="false"
+          aria-haspopup="menu"
+          aria-label="{{ _('My account') }}"
+        >
+          <span>
+            <i class="user icon" aria-hidden="true"></i>
+            {{ current_user.email|truncate(31,true) }}
+          </span>
+          <i class="dropdown icon" aria-hidden="true"></i>
+        </button>
+
+        <div
+          id="user-profile-menu"
+          class="ui menu"
+          role="menu"
+          aria-labelledby="user-profile-dropdown-btn"
+        >
+          {%- for item in current_menu.submenu('settings').children if item.visible %}
+            <a role="menuitem" class="item" href="{{ item.url }}" tabindex="-1">
+              {{ item.text|safe }}
+            </a>
+          {%- endfor %}
+
+          <div class="ui divider"></div>
+
+          {% set ns = namespace(admin_menu=False) %}
+          {%- for item in current_menu.submenu('profile-admin').children if item.visible %}
+            {% set ns.admin_menu = True %}
+            <a role="menuitem" class="item" href="{{ item.url }}" tabindex="-1">
+              {{ item.text|safe }}
+            </a>
+          {%- endfor %}
+          {% if ns.admin_menu %}
+            <div class="ui divider"></div>
+          {% endif %}
+
+          <a role="menuitem" class="item" href="{{ url_for_security('logout') }}" tabindex="-1">
             <i class="sign-out icon"></i>
             {{ _('Log out') }}
           </a>
-        {%- endif %}
+        </div>
+      </div>
+
+      {# Mobile/Tablet Account menu #}
+      <div class="sub-menu mobile tablet only">
+        <h2 class="ui small header">{{ _("My account") }}</h2>
+
+        <div role="menu">
+          {%- for item in current_menu.submenu('settings').children if item.visible %}
+            <a role="menuitem" class="item" href="{{ item.url }}">
+              {{ item.text|safe }}
+            </a>
+          {%- endfor %}
+
+          <div class="ui divider"></div>
+
+          {% set ns = namespace(admin_menu=False) %}
+          {%- for item in current_menu.submenu('profile-admin').children if item.visible %}
+            {% set ns.admin_menu = True %}
+            <a role="menuitem" class="item" href="{{ item.url }}">
+              {{ item.text|safe }}
+            </a>
+          {%- endfor %}
+
+          {% if ns.admin_menu %}
+            <div class="ui divider"></div>
+          {% endif %}
+
+          <a role="menuitem" class="item" href="{{ url_for_security('logout') }}">
+            <i class="sign-out icon"></i>
+            {{ _('Log out') }}
+          </a>
+        </div>
+      </div>
+
+    {%- else %}
+      <a role="button" href="{{ url_for_security('logout') }}" class="ui button">
+        <i class="sign-out icon"></i>
+        {{ _('Log out') }}
+      </a>
     {%- endif %}
+  {%- endif %}
 {%- endif %}

@@ -17,7 +17,16 @@ export const EditButton = ({ recid, onError }) => {
   const handleClick = async () => {
     setLoading(true);
     try {
-      await http.post(`/api/records/${recid}/draft`);
+      await http.post(
+        `/api/records/${recid}/draft`,
+        {},
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/vnd.inveniordm.v1+json",
+          },
+        }
+      );
       window.location = `/uploads/${recid}`;
     } catch (error) {
       setLoading(false);

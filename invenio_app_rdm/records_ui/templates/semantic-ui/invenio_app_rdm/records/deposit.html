@@ -24,7 +24,7 @@
 
     <input id="deposits-record-locked-files" type="hidden"
            name="deposits-record-locked-files"
-           value='{{ config.RDM_LOCK_EDIT_PUBLISHED_FILES(record) | tojson }}'>
+           value='{{ files_locked | tojson }}'>
   {%- endif %}
 
   {%- if preselectedCommunity %}

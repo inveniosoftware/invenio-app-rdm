@@ -130,10 +130,11 @@ export const RDMRecordSearchBarElement = withState(
           "icon": "search",
           "onClick": onBtnSearchClick,
           "className": "search",
-          "aria-label": "Search",
+          "aria-label": i18next.t("Search"),
         }}
         fluid
         placeholder={placeholder}
+        aria-label={placeholder}
         onChange={(event, { value }) => {
           onInputChange(value);
         }}
@@ -170,9 +171,9 @@ export const RDMToggleComponent = ({
       <Card.Content>
         <Checkbox
           toggle
-          label={label}
+          label={<label aria-hidden="true">{label}</label>}
           name="versions-toggle"
-          id="versions-toggle"
+          aria-label={label}
           onClick={onToggleClicked}
           checked={isChecked}
         />

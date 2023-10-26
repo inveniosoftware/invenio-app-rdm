@@ -83,6 +83,10 @@
       }
     }
   }
+
+  .content .header {
+    overflow-wrap: break-word;
+  }
 }
 
 @media only screen and (min-width: @largestSmallMonitor) {
@@ -162,5 +166,3 @@ a.ui.card {
 .ui.card > .field > .content > .header + .description  {
   margin-top: @descriptionDistance;
 }
-
-

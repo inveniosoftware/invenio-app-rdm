@@ -6,7 +6,7 @@
 // under the terms of the MIT License; see LICENSE file for more details.
 
 import React, { Component } from "react";
-import { Button, Modal, Message, Icon, Checkbox, Grid } from "semantic-ui-react";
+import { Button, Modal, Message, Icon, Checkbox } from "semantic-ui-react";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import { Trans } from "react-i18next";
 import { http, ErrorMessage } from "react-invenio-forms";
@@ -104,25 +104,20 @@ export class RemoveFromCommunityAction extends Component {
           })}
         />
         <Modal size="tiny" dimmer="blurring" open={modalOpen}>
-          <Modal.Header>{i18next.t("Remove community")}</Modal.Header>
+          <Modal.Header as="h2">{i18next.t("Remove community")}</Modal.Header>
           <Modal.Content>
-            {i18next.t(
-              "Are you sure you want to remove the record from the community?"
-            )}
-          </Modal.Content>
-          <Modal.Content>
+            <p>
+              {i18next.t(
+                "Are you sure you want to remove the record from the community?"
+              )}
+            </p>
+
             <Message negative>
-              <Message.Header>
-                <Grid columns={2} verticalAlign="middle">
-                  <Grid.Column width={1}>
-                    <Icon name="warning sign" />
-                  </Grid.Column>
-                  <Grid.Column width={15}>
-                    {i18next.t("I understand the consequences:")}
-                  </Grid.Column>
-                </Grid>
+              <Message.Header className="rel-mb-1">
+                <Icon name="warning sign" className="rel-mr-1" />
+                {i18next.t("I understand the consequences:")}
               </Message.Header>
-              <Message.Content>
+              <>
                 <Checkbox
                   ref={this.checkBoxRef}
                   id="members-confirm"
@@ -137,6 +132,7 @@ export class RemoveFromCommunityAction extends Component {
                   }
                   checked={checkboxMembers}
                   onChange={this.handleCheckboxChange}
+                  className="mb-5"
                 />
                 <Checkbox
                   id="records-confirm"
@@ -145,8 +141,9 @@ export class RemoveFromCommunityAction extends Component {
                   )}
                   checked={checkboxRecords}
                   onChange={this.handleCheckboxChange}
+                  className="mb-5"
                 />
-              </Message.Content>
+              </>
             </Message>
           </Modal.Content>
 
@@ -174,7 +171,6 @@ export class RemoveFromCommunityAction extends Component {
               negative
               onClick={() => this.handleDelete()}
               loading={loading}
-              icon="trash alternate outline"
               content={i18next.t("Remove")}
               aria-label={i18next.t("Confirm removal")}
             />

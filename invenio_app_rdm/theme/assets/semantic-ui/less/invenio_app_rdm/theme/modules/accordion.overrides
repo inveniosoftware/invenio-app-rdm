@@ -81,6 +81,23 @@ div.affiliations.accordion div.title button.down {
     }
   }
 
+  .content {
+    &.preview-container {
+
+      &.restricted {
+        background-color: @negativeBackgroundColor;
+        border-bottom-left-radius: @defaultBorderRadius;
+        border-bottom-right-radius: @defaultBorderRadius;
+      }
+
+      &.embargoed {
+        background-color: @warningBackgroundColor;
+        border-bottom-left-radius: @defaultBorderRadius;
+        border-bottom-right-radius: @defaultBorderRadius;
+      }
+    }
+  }
+
   .title:not(.ui).panel-heading {
     border-radius: @defaultBorderRadius;
     background-color: @mutedAccordionHeaderColor;
@@ -104,10 +121,12 @@ div.affiliations.accordion div.title button.down {
 
     &.restricted {
       background-color: @restricted-components-background-color;
+      border-color: @restricted-components-border-color !important;
     }
 
     &.embargoed {
       background-color: @embargoed-components-background-color;
+      border-color: @embargoed-components-border-color !important;
     }
   }
 

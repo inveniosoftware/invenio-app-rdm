@@ -9,5 +9,6 @@
 
 <div id="recordCitation" data-record='{{ record | tojson }}'
   data-styles='{{ config.get("RDM_CITATION_STYLES") | tojson }}'
-  data-defaultstyle='{{ config.get("RDM_CITATION_STYLES_DEFAULT") | tojson }}'>
+  data-defaultstyle='{{ config.get("RDM_CITATION_STYLES_DEFAULT") | tojson }}'
+  data-include-deleted='{{ include_deleted | tojson }}'>
 </div>

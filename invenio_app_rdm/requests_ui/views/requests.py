@@ -13,6 +13,7 @@ from flask import g, render_template
 from flask_login import current_user, login_required
 from invenio_communities.members.services.request import CommunityInvitation
 from invenio_communities.views.decorators import pass_community
+from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_rdm_records.proxies import current_rdm_records_service
 from invenio_rdm_records.requests import CommunityInclusion, CommunitySubmission
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
@@ -23,16 +24,17 @@ from invenio_requests.views.decorators import pass_request
 from invenio_users_resources.proxies import current_user_resources
 from sqlalchemy.orm.exc import NoResultFound
 
-from invenio_app_rdm.records_ui.views.decorators import (
+from ...records_ui.utils import get_external_resources
+from ...records_ui.views.decorators import (
     draft_files_service,
+    draft_media_files_service,
     files_service,
+    media_files_service,
 )
-from invenio_app_rdm.records_ui.views.deposits import (
+from ...records_ui.views.deposits import (
     get_user_communities_memberships,
     load_custom_fields,
 )
-
-from ...records_ui.utils import get_external_resources
 
 
 def _resolve_topic_record(request):
@@ -50,7 +52,12 @@ def _resolve_topic_record(request):
     try:
         # read draft
         record = current_rdm_records_service.read_draft(g.identity, pid, expand=True)
-    except NoResultFound:
+    except (NoResultFound, PIDDoesNotExistError):
+        # We catch PIDDoesNotExistError because a published record with
+        # a soft-deleted draft will raise this error. The lines below
+        # will catch the case that a id does not exists and raise a
+        # PIDDoesNotExistError that can be handled as 404 in the resource
+        # layer.
         try:
             # read published record
             record = current_rdm_records_service.read(g.identity, pid, expand=True)
@@ -69,6 +76,7 @@ def _resolve_topic_record(request):
                 "update_draft",
                 "read_files",
                 "review",
+                "read",
             ]
         )
         return dict(permissions=permissions, record_ui=record_ui)
@@ -90,6 +98,22 @@ def _resolve_record_or_draft_files(record):
     return None
 
 
+def _resolve_record_or_draft_media_files(record):
+    """Resolve the record's or draft's media files."""
+    if record and record["media_files"]["enabled"]:
+        record_pid = record["id"]
+        try:
+            media_files = draft_media_files_service().list_files(
+                id_=record_pid, identity=g.identity
+            )
+        except NoResultFound:
+            media_files = media_files_service().list_files(
+                id_=record_pid, identity=g.identity
+            )
+        return media_files.to_dict()
+    return None
+
+
 @login_required
 @pass_request(expand=True)
 def user_dashboard_request_view(request, **kwargs):
@@ -101,42 +125,45 @@ def user_dashboard_request_view(request, **kwargs):
     request_type = request["type"]
     request_is_accepted = request["status"] == AcceptAction.status_to
 
-    has_record_topic = "record" in request["topic"]
-    has_community_topic = "community" in request["topic"]
+    has_topic = request["topic"] is not None
+    has_record_topic = has_topic and "record" in request["topic"]
+    has_community_topic = has_topic and "community" in request["topic"]
 
     if has_record_topic:
-        try:
-            topic = _resolve_topic_record(request)
-            record = topic["record_ui"]  # None when draft
-            is_draft = record["is_draft"] if record else False
+        topic = _resolve_topic_record(request)
+        record = topic["record_ui"]  # None when draft
+        is_draft = record["is_draft"] if record else False
 
-            files = _resolve_record_or_draft_files(record)
-            return render_template(
-                f"invenio_requests/{request_type}/index.html",
-                base_template="invenio_app_rdm/users/base.html",
-                user_avatar=avatar,
-                invenio_request=request.to_dict(),
-                record=record,
-                permissions=topic["permissions"],
-                is_preview=is_draft,  # preview only when draft
-                is_draft=is_draft,
-                request_is_accepted=request_is_accepted,
-                files=files,
-                is_user_dashboard=True,
-                custom_fields_ui=load_custom_fields()["ui"],
-                user_communities_memberships=get_user_communities_memberships(),
-                external_resources=get_external_resources(record),
-            )
-        except Exception:
-            pass
+        files = _resolve_record_or_draft_files(record)
+        media_files = _resolve_record_or_draft_media_files(record)
+        return render_template(
+            f"invenio_requests/{request_type}/index.html",
+            base_template="invenio_app_rdm/users/base.html",
+            user_avatar=avatar,
+            invenio_request=request.to_dict(),
+            record=record,
+            permissions=topic["permissions"],
+            is_preview=is_draft,  # preview only when draft
+            is_draft=is_draft,
+            request_is_accepted=request_is_accepted,
+            files=files,
+            media_files=media_files,
+            is_user_dashboard=True,
+            custom_fields_ui=load_custom_fields()["ui"],
+            user_communities_memberships=get_user_communities_memberships(),
+            external_resources=get_external_resources(record),
+            include_deleted=False,
+        )
 
-    elif has_community_topic:
+    elif has_community_topic or not has_topic:
         return render_template(
             f"invenio_requests/{request_type}/user_dashboard.html",
             base_template="invenio_app_rdm/users/base.html",
             user_avatar=avatar,
             invenio_request=request.to_dict(),
             request_is_accepted=request_is_accepted,
+            permissions={},
+            include_deleted=False,
         )
 
     topic = _resolve_topic_record(request)
@@ -147,8 +174,10 @@ def user_dashboard_request_view(request, **kwargs):
         base_template="invenio_app_rdm/users/base.html",
         user_avatar=avatar,
         record=record,
+        permissions=topic["permissions"],
         invenio_request=request.to_dict(),
         request_is_accepted=request_is_accepted,
+        include_deleted=False,
     )
 
 
@@ -179,6 +208,7 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
 
         permissions.update(topic["permissions"])
         files = _resolve_record_or_draft_files(record)
+        media_files = _resolve_record_or_draft_media_files(record)
         return render_template(
             f"invenio_requests/{request_type}/index.html",
             base_template="invenio_communities/details/base.html",
@@ -190,10 +220,12 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
             is_draft=is_draft,
             request_is_accepted=request_is_accepted,
             files=files,
+            media_files=media_files,
             user_avatar=avatar,
             custom_fields_ui=load_custom_fields()["ui"],
             user_communities_memberships=get_user_communities_memberships(),
             external_resources=get_external_resources(record),
+            include_deleted=False,
         )
 
     elif is_member_invitation:
@@ -211,4 +243,5 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
             permissions=permissions,
             request_is_accepted=request_is_accepted,
             user_avatar=avatar,
+            include_deleted=False,
         )

@@ -13,14 +13,13 @@ from os.path import splitext
 
 import idutils
 from babel.numbers import format_compact_decimal, format_decimal
-from flask import current_app
+from flask import current_app, url_for
+from invenio_base.utils import obj_or_import_string
 from invenio_previewer.views import is_previewable
 from invenio_records_files.api import FileObject
 from invenio_records_permissions.policies import get_record_permission_policy
 
-from invenio_app_rdm.records_ui.previewer.iiif_simple import (
-    previewable_extensions as image_extensions,
-)
+from ..previewer.iiif_simple import previewable_extensions as image_extensions
 
 
 def make_files_preview_compatible(files):
@@ -113,6 +112,9 @@ def order_entries(files):
             return files_.pop(idx)
 
         files = [get_file(key) for key in order]
+    else:
+        # sort alphabetically by filekey
+        files = sorted(files, key=lambda x: x["key"].lower())
 
     return files
 
@@ -150,3 +152,47 @@ def truncate_number(value, max_value):
     if int(value) > max_value:
         number = compact_number(value, max_value=1_000_000)
     return number
+
+
+def namespace_url(field):
+    """Get custom field namespace url."""
+    namespace_array = field.split(":")
+    namespace = namespace_array[0]
+    namespace_value = namespace_array[1]
+    namespaces = current_app.config.get("RDM_NAMESPACES")
+
+    if not namespaces.get(namespace):
+        return None
+
+    return namespaces[namespace] + namespace_value
+
+
+def custom_fields_search(field, field_value):
+    """Get custom field search url."""
+    namespace_array = field.split(":")
+    namespace = namespace_array[0]
+    namespaces = current_app.config.get("RDM_NAMESPACES")
+
+    if not namespaces.get(namespace):
+        return None
+
+    namespace_string = "\:".join(namespace_array)
+    return url_for(
+        "invenio_search_ui.search", q=f"custom_fields.{namespace_string}:{field_value}"
+    )
+
+
+def transform_record(record, serializer, module=None, throws=True, **kwargs):
+    """Transform a record using a serializer."""
+    try:
+        module = module or "invenio_rdm_records.resources.serializers"
+        import_str = f"{module}:{serializer}"
+        serializer = obj_or_import_string(import_str)
+        if serializer:
+            return serializer().serialize_object(record)
+        if throws:
+            raise Exception("No serializer found.")
+    except Exception:
+        current_app.logger.error("Record transformation failed.")
+        if throws:
+            raise

@@ -23,6 +23,7 @@ def search_app_context():
             current_app.config["RDM_SORT_OPTIONS"],
             "/api/user/records",
             {"Accept": "application/vnd.inveniordm.v1+json"},
+            pagination_options=(10, 20),
         ),
         "search_app_rdm_user_communities_config": partial(
             search_app_config,
@@ -31,6 +32,7 @@ def search_app_context():
             current_app.config["RDM_SORT_OPTIONS"],
             "/api/user/communities",
             {"Accept": "application/vnd.inveniordm.v1+json"},
+            pagination_options=(10, 20),
         ),
         "search_app_rdm_user_requests_config": partial(
             search_app_config,

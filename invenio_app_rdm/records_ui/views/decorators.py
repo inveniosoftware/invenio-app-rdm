@@ -16,6 +16,7 @@ from invenio_communities.communities.resources.serializer import (
     UICommunityJSONSerializer,
 )
 from invenio_communities.proxies import current_communities
+from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_rdm_records.proxies import current_rdm_records
 from invenio_records_resources.services.errors import PermissionDeniedError
 from sqlalchemy.orm.exc import NoResultFound
@@ -66,13 +67,31 @@ def pass_draft(expand=False):
         @wraps(f)
         def view(**kwargs):
             pid_value = kwargs.get("pid_value")
-            draft = service().read_draft(
-                id_=pid_value,
-                identity=g.identity,
-                expand=expand,
-            )
-            kwargs["draft"] = draft
-            return f(**kwargs)
+            try:
+                record_service = service()
+                draft = record_service.read_draft(
+                    id_=pid_value,
+                    identity=g.identity,
+                    expand=expand,
+                )
+                kwargs["draft"] = draft
+                kwargs[
+                    "files_locked"
+                ] = record_service.config.lock_edit_published_files(
+                    record_service, g.identity, record=draft._record
+                )
+                return f(**kwargs)
+            except PIDDoesNotExistError:
+                # Redirect to /records/:id because users are interchangeably
+                # using /records/:id and /uploads/:id when sharing links, so in
+                # case a draft doesn't exists, when check if the record exists
+                # always.
+                return redirect(
+                    url_for(
+                        "invenio_app_rdm_records.record_detail",
+                        pid_value=pid_value,
+                    )
+                )
 
         return view
 
@@ -89,6 +108,22 @@ def pass_is_preview(f):
         if preview == "1":
             is_preview = True
         kwargs["is_preview"] = is_preview
+        return f(**kwargs)
+
+    return view
+
+
+# TODO to be improved as a request arg schema (following the REST views)
+def pass_include_deleted(f):
+    """Decorate a view to check if it's a include deleted."""
+
+    @wraps(f)
+    def view(**kwargs):
+        deleted_arg = request.args.get("include_deleted")
+        include_deleted = False
+        if deleted_arg == "1":
+            include_deleted = True
+        kwargs["include_deleted"] = include_deleted
         return f(**kwargs)
 
     return view
@@ -122,14 +157,21 @@ def pass_record_or_draft(expand=False):
         def view(**kwargs):
             pid_value = kwargs.get("pid_value")
             is_preview = kwargs.get("is_preview")
-            read_kwargs = {"id_": pid_value, "identity": g.identity, "expand": expand}
+            include_deleted = kwargs.get("include_deleted", False)
+            read_kwargs = {
+                "id_": pid_value,
+                "identity": g.identity,
+                "expand": expand,
+            }
 
             if is_preview:
                 try:
                     record = service().read_draft(**read_kwargs)
                 except NoResultFound:
                     try:
-                        record = service().read(**read_kwargs)
+                        record = service().read(
+                            include_deleted=include_deleted, **read_kwargs
+                        )
                     except NoResultFound:
                         # If the parent pid is being used we can get the id of the latest record and redirect
                         latest_version = service().read_latest(**read_kwargs)
@@ -142,7 +184,9 @@ def pass_record_or_draft(expand=False):
                         )
             else:
                 try:
-                    record = service().read(**read_kwargs)
+                    record = service().read(
+                        include_deleted=include_deleted, **read_kwargs
+                    )
                 except NoResultFound:
                     # If the parent pid is being used we can get the id of the latest record and redirect
                     latest_version = service().read_latest(**read_kwargs)
@@ -232,22 +276,48 @@ def pass_record_files(f):
             if is_preview:
                 try:
                     files = draft_files_service().list_files(**read_kwargs)
-                    media_files = draft_media_files_service().list_files(**read_kwargs)
                 except NoResultFound:
                     files = files_service().list_files(**read_kwargs)
-                    media_files = media_files_service().list_files(**read_kwargs)
             else:
                 files = files_service().list_files(**read_kwargs)
-                media_files = media_files_service().list_files(**read_kwargs)
 
             kwargs["files"] = files
-            kwargs["media_files"] = media_files
 
         except PermissionDeniedError:
             # this is handled here because we don't want a 404 on the landing
             # page when a user is allowed to read the metadata but not the
             # files
             kwargs["files"] = None
+
+        return f(**kwargs)
+
+    return view
+
+
+def pass_record_media_files(f):
+    """Decorate a view to pass a record's media files using the files service."""
+
+    @wraps(f)
+    def view(**kwargs):
+        is_preview = kwargs.get("is_preview")
+        pid_value = kwargs.get("pid_value")
+        read_kwargs = {"id_": pid_value, "identity": g.identity}
+
+        try:
+            if is_preview:
+                try:
+                    media_files = draft_media_files_service().list_files(**read_kwargs)
+                except NoResultFound:
+                    media_files = media_files_service().list_files(**read_kwargs)
+            else:
+                media_files = media_files_service().list_files(**read_kwargs)
+
+            kwargs["media_files"] = media_files
+
+        except PermissionDeniedError:
+            # this is handled here because we don't want a 404 on the landing
+            # page when a user is allowed to read the metadata but not the
+            # files
             kwargs["media_files"] = None
 
         return f(**kwargs)

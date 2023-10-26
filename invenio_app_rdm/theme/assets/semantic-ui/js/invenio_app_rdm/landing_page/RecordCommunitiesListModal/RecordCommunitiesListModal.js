@@ -11,6 +11,18 @@ import { Header, Modal, Button } from "semantic-ui-react";
 import { RecordCommunitiesSearch } from "./RecordCommunitiesSearch";
 
 export class RecordCommunitiesListModal extends Component {
+  constructor(props) {
+    super(props);
+    const { record } = this.props;
+    this.state = {
+      recordParent: record.parent,
+    };
+  }
+
+  handleRecordUpdate = (updatedRecord) => {
+    this.setState({ recordParent: updatedRecord });
+  };
+
   render() {
     const {
       recordCommunityEndpoint,
@@ -21,6 +33,7 @@ export class RecordCommunitiesListModal extends Component {
       trigger,
       permissions,
     } = this.props;
+    const { recordParent } = this.state;
 
     return (
       <Modal
@@ -44,6 +57,8 @@ export class RecordCommunitiesListModal extends Component {
           recordCommunityEndpoint={recordCommunityEndpoint}
           successActionCallback={successActionCallback}
           permissions={permissions}
+          recordParent={recordParent}
+          updateRecordCallback={this.handleRecordUpdate}
         />
 
         <Modal.Actions>
@@ -62,6 +77,7 @@ RecordCommunitiesListModal.propTypes = {
   handleOnClose: PropTypes.func.isRequired,
   handleOnOpen: PropTypes.func.isRequired,
   permissions: PropTypes.object.isRequired,
+  record: PropTypes.object.isRequired,
 };
 
 RecordCommunitiesListModal.defaultProps = {

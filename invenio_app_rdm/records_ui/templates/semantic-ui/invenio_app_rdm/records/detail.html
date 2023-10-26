@@ -13,7 +13,7 @@
   {%- extends config.BASE_TEMPLATE %}
 {% endif %}
 
-{%- from "invenio_app_rdm/records/macros/files.html" import file_list_box, preview_file_box %}
+{%- from "invenio_app_rdm/records/macros/files.html" import file_list_box, preview_file_box, media_file_list_box %}
 
 {%- set title = record.metadata.title %}
 {%- set metadata = record.metadata %}
@@ -28,6 +28,13 @@
   {%- set allow_user_requests = not current_user.is_anonymous and record.parent.access.settings.allow_user_requests %}
   {%- set allow_guest_requests = current_user.is_anonymous and record.parent.access.settings.allow_guest_requests %}
 {%- endif %}
+
+{%- block head_meta %}
+  {% if use_theme_basic_template|default(true) %}
+    {{ super() }}
+  {% endif %}
+  {%- include "invenio_app_rdm/records/details/meta.html" %}
+{%- endblock head_meta %}
 
 {%- block page_body %}
   <section id="banners" class="banners" aria-label="{{ _('Information banner') }}">
@@ -231,8 +238,8 @@
             {# Files #}
             {%- block record_files -%}
               {# record has files BUT passed files are empty. This happens when we display are request. #}
-              {%- if record.files.enabled -%}
-                <section id="record-files" class="rel-mt-2" aria-label="{{ _('Files') }}">
+              {%- if files and record.files.enabled -%}
+                <section id="record-files" class="rel-mt-2 rel-mb-3" aria-label="{{ _('Files') }}">
                   <h2 id="files-heading">{{ _('Files') }}</h2>
                   {%- if permissions.can_read_files -%}
                     {# record has files AND user can see files #}
@@ -240,51 +247,52 @@
 
                     {%- if files|has_previewable_files -%}
                       {%-set preview_file = files|select_preview_file(default_preview=record.files.default_preview) %}
-                      {{ preview_file_box(preview_file, record.id, is_preview, record) }}
+                      {{ preview_file_box(preview_file, record.id, is_preview, record, include_deleted) }}
                     {%- endif -%}
-                    {{ file_list_box(files, record.id, is_preview, record) }}
+                    {{ file_list_box(files, record.id, is_preview, include_deleted, record) }}
                   {% else %}
-                    {# record has files BUT user cannot see files #}
-                    <div class="pt-0 pb-20">
-                      <div class="ui accordion panel mb-10 {{ record.ui.access_status.id }}" id="preview"
-                           href="#collapsablePreview">
-                        <div class="active title trigger panel-heading {{ record.ui.access_status.id }}">
+                    {# record has files BUT user does not have permission to see files #}
+                    <div class="ui accordion panel mb-10 {{ record.ui.access_status.id }}"
+                          href="#files-preview-accordion-panel">
+                      <h3 class="active title panel-heading {{ record.ui.access_status.id }} m-0">
+                        <div role="button" id="files-preview-accordion-trigger" tabindex="0" class="trigger" aria-controls="files-preview-accordion-panel">
                           {{ _("Files") }}
-                          <i class="angle down icon"></i>
+                          <i class="angle right icon" aria-hidden="true"></i>
                         </div>
-                        <div id="collapsablePreview" class="active content pt-0">
-                          <div class="ui {{ record.ui.access_status.message_class }} message file-box-message">
-                            <i
-                              class="ui {{ record.ui.access_status.icon }} icon"></i><b>{{ record.ui.access_status.title_l10n }}</b>
-                            <p>{{ record.ui.access_status.description_l10n }}</p>
+                      </h3>
+                      <div role="region" id="files-preview-accordion-panel" aria-labelledby="files-preview-accordion-trigger" class="active content preview-container pt-0">
+                        <div class="ui {{ record.ui.access_status.message_class }} message file-box-message rel-pl-1 rel-pr-1">
+                          <i class="ui {{ record.ui.access_status.icon }} icon" aria-hidden="true"></i>
+                          <h4 class="inline">{{ record.ui.access_status.title_l10n }}</h4>
+                          <p>{{ record.ui.access_status.description_l10n }}</p>
 
-                            {% if record.access.embargo.reason %}
-                              <p>{{ _("Reason") }}: {{ record.access.embargo.reason }}</p>
-                            {% endif %}
+                          {% if record.access.embargo.reason %}
+                            <p>{{ _("Reason") }}: {{ record.access.embargo.reason }}</p>
+                          {% endif %}
 
+                          {% block record_files_access_request %}
                             {%- if allow_user_requests or allow_guest_requests %}
-                              <hr style="border-color: darkred;">
+                              <div class="ui divider"></div>
+                              <h4>{{ _("Request access") }}</h4>
                               <p>
-                                <p>
-                                  <strong>{{ _("Request access") }}</strong>
-                                </p>
-                                <p>
-                                  {{ _("If you would like to request access to these files, please fill out the form below.") }}
-                                </p>
-                                <div>
-                                  {%- if record.parent.access.settings %}{%- set accept_conditions_text = record.parent.access.settings.accept_conditions_text %}{%- endif %}
-                                  {%- if accept_conditions_text %}
-                                    <p>
-                                      <h5>{{ _("You need to satisfy these conditions in order for this request to be accepted:") }}</h5>
-                                      {{ accept_conditions_text | safe }}
-                                    </p>
-                                  {%- endif %}
-                                </div>
-                                {%- include "invenio_app_rdm/records/details/access-form.html" %}
+                                {{ _("If you would like to request access to these files, please fill out the form below.") }}
                               </p>
-                            {%- endif %}
+                              {%- if record.parent.access.settings %}
+                                {%- set accept_conditions_text = record.parent.access.settings.accept_conditions_text %}
+                              {%- endif %}
 
-                          </div>
+                              {%- if accept_conditions_text %}
+                                <p class="ui small header rel-mt-2 rel-mb-1">
+                                  {{ _("You need to satisfy these conditions in order for this request to be accepted:") }}
+                                </p>
+                                <p class="rel-mb-2">
+                                  {{ accept_conditions_text | safe }}
+                                </p>
+                              {%- endif %}
+
+                              {%- include "invenio_app_rdm/records/details/access-form.html" %}
+                            {%- endif %}
+                          {% endblock record_files_access_request %}
                         </div>
                       </div>
                     </div>
@@ -293,40 +301,14 @@
               {%- endif %}
             {%- endblock record_files -%}
 
-            {# Files #}
+            {# Media files #}
             {%- block record_media_files -%}
-              {# record has files BUT passed files are empty. This happens when we display are request. #}
-              {%- if record.media_files.enabled -%}
-                <section id="record-media-files" class="rel-mt-2" aria-label="{{ _('Media files') }}">
-                  <h2 id="files-heading">{{ _('Media files') }}</h2>
-                  {%- if permissions.can_view -%}
-                    {# record has files AND user can see files #}
-                    {%- set media_files = media_files|order_entries %}
-                    {{ file_list_box(media_files, record.id, is_preview, record, is_media=True) }}
-                  {% else %}
-                    {# record has media_files BUT user cannot see media_files #}
-                    <div class="pt-0 pb-20">
-                      <div class="ui accordion panel mb-10 {{ record.ui.access_status.id }}" id="preview"
-                           href="#collapsablePreview">
-                        <div class="active title trigger panel-heading {{ record.ui.access_status.id }}">
-                          {{ _("Media files") }}
-                          <i class="angle down icon"></i>
-                        </div>
-                        <div id="collapsablePreview" class="active content pt-0">
-                          <div class="ui {{ record.ui.access_status.message_class }} message file-box-message">
-                            <i
-                              class="ui {{ record.ui.access_status.icon }} icon"></i><b>{{ record.ui.access_status.title_l10n }}</b>
-                            <p>{{ record.ui.access_status.description_l10n }}</p>
-
-                            {% if record.access.embargo.reason %}
-                              <p>{{ _("Reason") }}: {{ record.access.embargo.reason }}</p>
-                            {% endif %}
-
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  {%- endif %}
+              {# record has media files AND user can see files #}
+              {# can_media_read_files is false when record is fully restricted and users can't see the landing page at all #}
+              {%- if media_files and media_files.enabled and media_files.entries and permissions.can_media_read_files -%}
+                <section id="record-media-files" aria-label="{{ _('System files') }}">
+                  {%- set media_files = media_files|order_entries %}
+                  {{ media_file_list_box(media_files, record.id, is_preview, include_deleted, record) }}
                 </section>
               {%- endif %}
             {%- endblock record_media_files -%}
@@ -383,6 +365,13 @@
   {% else %}
     {% include config.THEME_JAVASCRIPT_TEMPLATE %}
   {% endif %}
+  {%- block record_jsonld %}
+    {% set jsonld_serialization = record | transform_record('SchemaorgJSONLDSerializer', module=None, throws=true) %}
+    {%- if jsonld_serialization %}
+      <script type='application/ld+json'>{{ jsonld_serialization | safe }}</script>
+    {%- endif %}
+  {%- endblock record_jsonld %}
+
   {{ webpack['invenio-app-rdm-landing-page-theme.js'] }}
   {{ webpack['invenio-app-rdm-landing-page.js'] }}
   {{ webpack['previewer_theme.js'] }}

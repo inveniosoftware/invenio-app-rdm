@@ -1,0 +1,34 @@
+{#
+Copyright (C) 2020 CERN.
+Copyright (C) 2020 Northwestern University.
+Copyright (C) 2021 New York University.
+Copyright (C) 2023 Front Matter.
+
+Invenio App RDM is free software; you can redistribute it and/or modify
+it under the terms of the MIT License; see LICENSE file for more details.
+#}
+
+{%- from "invenio_formatter/macros/meta.html" import meta_twittercard, meta_opengraph, meta_highwire -%}
+
+{%- set meta_title = record.metadata.title|striptags -%}
+{%- set meta_description = record.metadata.description|striptags -%}
+{%- set meta_authors = record.creators|map(attribute='name') -%}
+{%- set files = record.files %}
+
+{{- meta_highwire(meta_title,meta_description,authors=meta_authors,publisher=meta_publisher,publication_date=record.publication_date|from_isodate,doi=record.pids.get("doi", {}).get("identifier"),keywords=record.metadata.subjects | map(attribute="subject"),url=record.links.self_html) }}
+{{- meta_opengraph(meta_title, meta_description, url=record.links.self_html) }}
+{{- meta_twittercard(meta_title, meta_description) }}
+
+{%- if permissions.can_read_files -%}
+  {%- for file_name, file in files.entries.items() or {} -%}
+    {%- set file_url = url_for("invenio_app_rdm_records.record_file_download", pid_value=record.id, filename=file_name,
+_external=True) %}
+    {##}
+    {%- if file.ext == "pdf" %}
+      <meta name="citation_pdf_url" content="{{ file_url }}"/>
+    {%- endif %}
+    <link rel="alternate" type="{{ file.mimetype }}" href="{{ file_url }}">
+  {%- endfor %}
+{% endif %}
+
+<link rel="canonical" href="{{ record.links.self_html }}">

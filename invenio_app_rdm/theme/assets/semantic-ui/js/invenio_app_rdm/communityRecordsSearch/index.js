@@ -27,7 +27,7 @@ import {
 const appName = "InvenioCommunities.DetailsSearch";
 
 const ContribSearchAppFacetsWithConfig = parametrize(ContribSearchAppFacets, {
-  toogle: true,
+  toggle: true,
 });
 
 const CommunityRecordSearchAppLayoutWAppName = parametrize(

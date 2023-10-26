@@ -9,7 +9,6 @@
 
 import { createSearchAppInit } from "@js/invenio_search_ui";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
-import React from "react";
 import {
   CommunityItem,
   ResultsGridItemTemplate,

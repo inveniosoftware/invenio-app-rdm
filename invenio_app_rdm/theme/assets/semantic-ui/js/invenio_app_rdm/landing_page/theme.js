@@ -13,7 +13,7 @@ $("#record-doi-badge").on("click", function () {
 });
 
 $(".preview-link").on("click", function (event) {
-  $("#preview").find("#preview-file-title").html(event.target.dataset.fileKey);
+  $("#preview-file-title").html(event.target.dataset.fileKey);
 });
 
 // Export dropdown on landing page

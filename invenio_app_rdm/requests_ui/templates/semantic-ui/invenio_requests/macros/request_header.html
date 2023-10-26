@@ -54,7 +54,7 @@
     {% endif %}
 
     <div id="request-actions" class="flex align-items-start ml-auto mb-10">
-      {% if accepted %}
+      {% if accepted and record %}
         <a href="{{ url_for('invenio_app_rdm_records.record_detail', pid_value=request.topic.record) }}"
            class="ui small button"
            rel="noopener noreferrer" target="_blank"
@@ -70,9 +70,9 @@
     <h2 class="ui header request-header">{{ request.title }}</h2>
     <p class="ui header">{{ request.description|safe }}</p>
     {% if record %}
-      <dl class="creatibutors" aria-label="{{ _('Creators list') }}">
+      <ul class="creatibutors" aria-label="{{ _('Creators') }}">
         {{ show_creatibutors(record.metadata.creators) }}
-      </dl>
+      </ul>
     {% endif %}
   </div>
 {% endmacro %}

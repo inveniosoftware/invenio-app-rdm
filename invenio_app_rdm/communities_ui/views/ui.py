@@ -12,13 +12,16 @@
 from flask import Blueprint, current_app, render_template
 from flask_login import current_user
 from flask_menu import current_menu
+from invenio_communities.communities.resources.serializer import (
+    UICommunityJSONSerializer,
+)
+from invenio_communities.errors import CommunityDeletedError
 from invenio_i18n import lazy_gettext as _
 from invenio_pidstore.errors import PIDDeletedError, PIDDoesNotExistError
 from invenio_records_resources.services.errors import PermissionDeniedError
 
-from invenio_app_rdm.communities_ui.views.communities import communities_detail
-
 from ..searchapp import search_app_context
+from .communities import communities_detail
 
 
 #
@@ -31,7 +34,26 @@ def not_found_error(error):
 
 def record_tombstone_error(error):
     """Tombstone page."""
-    return render_template("invenio_communities/tombstone.html"), 410
+    # the RecordDeletedError will have the following properties,
+    # while the PIDDeletedError won't
+    record = getattr(error, "record", None)
+    if (record_ui := getattr(error, "result_item", None)) is not None:
+        if record is None:
+            record = record_ui._record
+        record_ui = UICommunityJSONSerializer().dump_obj(record_ui.to_dict())
+
+    # render a 404 page if the tombstone isn't visible
+    if not record.tombstone.is_visible:
+        return not_found_error(error)
+
+    # we only render a tombstone page if there is a record with a visible tombstone
+    return (
+        render_template(
+            "invenio_communities/tombstone.html",
+            record=record_ui,
+        ),
+        410,
+    )
 
 
 def record_permission_denied_error(error):
@@ -56,6 +78,7 @@ def create_ui_blueprint(app):
     blueprint.add_url_rule(
         routes["community-detail"],
         view_func=communities_detail,
+        strict_slashes=False,
     )
 
     @blueprint.before_app_first_request
@@ -67,7 +90,7 @@ def create_ui_blueprint(app):
             text=_("Search"),
             order=1,
             expected_args=["pid_value"],
-            **dict(icon="search", permissions=True)
+            **dict(icon="search", permissions=True),
         )
 
     # Register error handlers
@@ -75,6 +98,8 @@ def create_ui_blueprint(app):
         PermissionDeniedError, record_permission_denied_error
     )
     blueprint.register_error_handler(PIDDeletedError, record_tombstone_error)
+    blueprint.register_error_handler(CommunityDeletedError, record_tombstone_error)
+    blueprint.register_error_handler(PIDDoesNotExistError, not_found_error)
     blueprint.register_error_handler(PIDDoesNotExistError, not_found_error)
 
     # Register context processor

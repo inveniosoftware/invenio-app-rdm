@@ -1,0 +1,62 @@
+{#
+Copyright (C) 2023 CERN.
+
+Invenio-app-rdm is free software; you can redistribute it and/or modify
+it under the terms of the MIT License; see LICENSE file for more details.
+#}
+
+{% macro render_point(coordinates) %}
+  {% if coordinates | length == 2 %}
+    (<a href="https://google.com/maps/place/{{coordinates[1]}},{{coordinates[0]}}">{{ coordinates[1] }}, {{
+      coordinates[0] }} <i class="external alternate icon"></i></a>)
+  {% endif %}
+{% endmacro %}
+
+{% macro render_feature(feature) %}
+  {% set place = feature.get("place") %}
+  <div class="rel-mt-1">
+    {%- if place %}
+      {{ render_feature_with_place(feature) }}
+    {%- else %}
+      {{ render_feature_without_place(feature) }}
+    {%- endif %}
+  </div>
+{% endmacro %}
+
+<!-- Render points with known "Place"  -->
+{% macro render_feature_with_place(feature) %}
+  {% set geometry = feature.get("geometry", {}) %}
+  {% set place = feature.get("place") %}
+  {% set description = feature.get("description") %}
+
+  <dd>
+    {{place}} {%- if geometry %}
+    {% set coordinates = geometry.get("coordinates", []) %}
+      {{ render_point(coordinates) }}
+    {%- endif %}
+    <br />
+    {% if description %}
+      <small>{{description}}</small>
+    {%- endif %}
+  </dd>
+{%- endmacro %}
+
+
+<!-- Render points unknown "Place"  -->
+{% macro render_feature_without_place(feature) %}
+  {% set geometry = feature.get("geometry", {}) %}
+  {% set place = feature.get("place") %}
+  {% set description = feature.get("description") %}
+
+  <dd>
+    {%- if geometry %}
+      {{ render_point(geometry.get("coordinates", [])) }}
+    {%- else %}
+      {{ _("Unknown") }}
+    {%- endif %}
+    <br />
+    {% if description %}
+      <small>{{description}}</small>
+    {%- endif %}
+  </dd>
+{%- endmacro %}

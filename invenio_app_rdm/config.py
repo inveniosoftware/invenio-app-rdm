@@ -39,28 +39,51 @@ from flask_resources import HTTPJSONException, create_error_handler
 from invenio_access.permissions import any_user
 from invenio_communities.communities.resources.config import community_error_handlers
 from invenio_communities.notifications.builders import (
+    CommunityInvitationAcceptNotificationBuilder,
+    CommunityInvitationCancelNotificationBuilder,
+    CommunityInvitationDeclineNotificationBuilder,
+    CommunityInvitationExpireNotificationBuilder,
     CommunityInvitationSubmittedNotificationBuilder,
 )
 from invenio_notifications.backends import EmailNotificationBackend
 from invenio_rdm_records.notifications.builders import (
+    CommunityInclusionAcceptNotificationBuilder,
+    CommunityInclusionCancelNotificationBuilder,
+    CommunityInclusionDeclineNotificationBuilder,
+    CommunityInclusionExpireNotificationBuilder,
     CommunityInclusionSubmittedNotificationBuilder,
+    GuestAccessRequestAcceptNotificationBuilder,
+    GuestAccessRequestSubmitNotificationBuilder,
+    GuestAccessRequestTokenCreateNotificationBuilder,
+    UserAccessRequestAcceptNotificationBuilder,
+    UserAccessRequestSubmitNotificationBuilder,
 )
-from invenio_rdm_records.requests.entity_resolvers import RDMRecordServiceResultResolver
+from invenio_rdm_records.requests.entity_resolvers import (
+    EmailResolver,
+    RDMRecordServiceResultResolver,
+)
 from invenio_rdm_records.resources.stats.event_builders import build_record_unique_id
 from invenio_rdm_records.services.communities.components import (
     CommunityServiceComponents,
 )
-from invenio_rdm_records.services.errors import InvalidCommunityVisibility
+from invenio_rdm_records.services.errors import (
+    InvalidAccessRestrictions,
+    InvalidCommunityVisibility,
+)
+from invenio_rdm_records.services.github.release import RDMGithubRelease
 from invenio_rdm_records.services.permissions import RDMRequestsPermissionPolicy
 from invenio_rdm_records.services.stats import permissions_policy_lookup_factory
+from invenio_rdm_records.services.tasks import StatsRDMReindexTask
 from invenio_records_resources.references.entity_resolvers import ServiceResultResolver
 from invenio_requests.notifications.builders import (
     CommentRequestEventCreateNotificationBuilder,
 )
+from invenio_requests.resources.requests.config import request_error_handlers
 from invenio_stats.aggregations import StatAggregator
 from invenio_stats.contrib.event_builders import build_file_unique_id
 from invenio_stats.processors import EventsIndexer, anonymize_user, flag_robots
 from invenio_stats.queries import TermsQuery
+from invenio_stats.tasks import StatsAggregationTask, StatsEventTask
 from invenio_vocabularies.config import (
     VOCABULARIES_DATASTREAM_READERS,
     VOCABULARIES_DATASTREAM_TRANSFORMERS,
@@ -203,6 +226,9 @@ THEME_LOGO = "images/invenio-rdm.svg"
 THEME_SITENAME = _("InvenioRDM")
 """Site name."""
 
+THEME_TWITTERHANDLE = ""
+"""Twitter handle."""
+
 THEME_SHOW_FRONTPAGE_INTRO_SECTION = True
 """Front page intro section visibility"""
 
@@ -232,6 +258,12 @@ FILES_REST_STORAGE_CLASS_LIST = {
 }
 
 FILES_REST_DEFAULT_STORAGE_CLASS = "L"
+
+FILES_REST_DEFAULT_QUOTA_SIZE = 10**10
+"""Default quota size is 10Gb."""
+
+FILES_REST_DEFAULT_MAX_FILE_SIZE = FILES_REST_DEFAULT_QUOTA_SIZE
+"""Default maximum file size for a bucket in bytes."""
 
 # Invenio-Formatter
 # =================
@@ -347,20 +379,14 @@ CELERY_BEAT_SCHEDULE = {
     },
     # indexing of statistics events & aggregations
     "stats-process-events": {
-        "task": "invenio_stats.tasks.process_events",
-        "schedule": timedelta(minutes=30),
-        "args": [("record-view", "file-download")],
+        **StatsEventTask,
+        "schedule": crontab(minute="25,55"),  # Every hour at minute 25 and 55
     },
     "stats-aggregate-events": {
-        "task": "invenio_stats.tasks.aggregate_events",
-        "schedule": timedelta(hours=1),
-        "args": [
-            (
-                "record-view-agg",
-                "file-download-agg",
-            )
-        ],
+        **StatsAggregationTask,
+        "schedule": crontab(minute=0),  # Every hour at minute 0
     },
+    "reindex-stats": StatsRDMReindexTask,  # Every hour at minute 10
     # Invenio communities provides some caching that has the potential to be never removed,
     # therefore, we need a cronjob to ensure that at least once per day we clear the cache
     "clear-cache": {
@@ -502,30 +528,45 @@ OAISERVER_ID_FETCHER = "invenio_rdm_records.oai:oaiid_fetcher"
 """OAI ID fetcher function."""
 
 OAISERVER_METADATA_FORMATS = {
-    "oai_dc": {
-        "serializer": ("invenio_rdm_records.oai:dublincore_etree"),
-        "schema": "http://www.openarchives.org/OAI/2.0/oai_dc.xsd",
-        "namespace": "http://www.openarchives.org/OAI/2.0/oai_dc/",
-    },
-    "datacite": {
-        "serializer": "invenio_rdm_records.oai:datacite_etree",
-        "schema": "http://schema.datacite.org/meta/nonexistant/nonexistant.xsd",
-        "namespace": "http://datacite.org/schema/nonexistant",
-    },
-    "oai_datacite": {
-        "serializer": ("invenio_rdm_records.oai:oai_datacite_etree"),
-        "schema": "http://schema.datacite.org/oai/oai-1.1/oai.xsd",
-        "namespace": "http://schema.datacite.org/oai/oai-1.1/",
-    },
-    "oai_marcxml": {
-        "serializer": "invenio_rdm_records.oai:oai_marcxml_etree",
+    "marcxml": {
+        "serializer": "invenio_rdm_records.oai:marcxml_etree",
         "schema": "https://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd",
         "namespace": "https://www.loc.gov/standards/marcxml/",
     },
-    "oai_dcat": {
-        "serializer": "invenio_rdm_records.oai:oai_dcat_etree",
+    "oai_dc": {
+        "serializer": "invenio_rdm_records.oai:dublincore_etree",
+        "schema": "http://www.openarchives.org/OAI/2.0/oai_dc.xsd",
+        "namespace": "http://www.openarchives.org/OAI/2.0/oai_dc/",
+    },
+    "dcat": {
+        "serializer": "invenio_rdm_records.oai:dcat_etree",
         "schema": "http://schema.datacite.org/meta/kernel-4/metadata.xsd",
         "namespace": "https://www.w3.org/ns/dcat",
+    },
+    "marc21": {
+        "serializer": "invenio_rdm_records.oai:marcxml_etree",
+        "schema": "https://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd",
+        "namespace": "https://www.loc.gov/standards/marcxml/",
+    },
+    "datacite": {
+        "serializer": "invenio_rdm_records.oai:datacite_etree",
+        "schema": "http://schema.datacite.org/meta/kernel-4.3/metadata.xsd",
+        "namespace": "http://datacite.org/schema/kernel-4",
+    },
+    "oai_datacite": {
+        "serializer": "invenio_rdm_records.oai:oai_datacite_etree",
+        "schema": "http://schema.datacite.org/oai/oai-1.1/oai.xsd",
+        "namespace": "http://schema.datacite.org/oai/oai-1.1/",
+    },
+    "datacite4": {
+        "serializer": "invenio_rdm_records.oai:datacite_etree",
+        "schema": "http://schema.datacite.org/meta/kernel-4.3/metadata.xsd",
+        "namespace": "http://datacite.org/schema/kernel-4",
+    },
+    "oai_datacite4": {
+        "serializer": ("invenio_rdm_records.oai:oai_datacite_etree"),
+        "schema": "http://schema.datacite.org/oai/oai-1.1/oai.xsd",
+        "namespace": "http://schema.datacite.org/oai/oai-1.1/",
     },
 }
 
@@ -659,6 +700,7 @@ APP_RDM_ROUTES = {
     "record_export": "/records/<pid_value>/export/<export_format>",
     "record_file_preview": "/records/<pid_value>/preview/<path:filename>",
     "record_file_download": "/records/<pid_value>/files/<path:filename>",
+    "record_thumbnail": "/records/<pid_value>/thumb<int:size>",
     "record_media_file_download": "/records/<pid_value>/media-files/<path:filename>",
     "record_from_pid": "/<any({schemes}):pid_scheme>/<path:pid_value>",
     "record_latest": "/records/<pid_value>/latest",
@@ -673,6 +715,14 @@ APP_RDM_RECORD_EXPORTERS = {
         "serializer": ("flask_resources.serializers:JSONSerializer"),
         "params": {"options": {"indent": 2, "sort_keys": True}},
         "content-type": "application/json",
+        "filename": "{id}.json",
+    },
+    "json-ld": {
+        "name": _("JSON-LD"),
+        "serializer": (
+            "invenio_rdm_records.resources.serializers:" "SchemaorgJSONLDSerializer"
+        ),
+        "content-type": "application/ld+json",
         "filename": "{id}.json",
     },
     "csl": {
@@ -800,7 +850,7 @@ Available options:
 
 APP_RDM_DEPOSIT_FORM_QUOTA = {
     "maxFiles": 100,
-    "maxStorage": 10**10,
+    "maxStorage": FILES_REST_DEFAULT_QUOTA_SIZE,
 }
 """Deposit file upload quota """
 
@@ -812,6 +862,9 @@ APP_RDM_DEPOSIT_FORM_PUBLISH_MODAL_EXTRA = ""
 
 APP_RDM_RECORD_LANDING_PAGE_TEMPLATE = "invenio_app_rdm/records/detail.html"
 
+APP_RDM_RECORD_THUMBNAIL_SIZES = [10, 50, 100, 250, 750, 1200]
+"""Allowed record thumbnail sizes."""
+
 APP_RDM_DETAIL_SIDE_BAR_TEMPLATES = [
     "invenio_app_rdm/records/details/side_bar/manage_menu.html",
     "invenio_app_rdm/records/details/side_bar/metrics.html",
@@ -820,6 +873,7 @@ APP_RDM_DETAIL_SIDE_BAR_TEMPLATES = [
     "invenio_app_rdm/records/details/side_bar/communities.html",
     "invenio_app_rdm/records/details/side_bar/keywords_subjects.html",
     "invenio_app_rdm/records/details/side_bar/details.html",
+    "invenio_app_rdm/records/details/side_bar/locations.html",
     "invenio_app_rdm/records/details/side_bar/licenses.html",
     "invenio_app_rdm/records/details/side_bar/citations.html",
     "invenio_app_rdm/records/details/side_bar/export.html",
@@ -848,7 +902,7 @@ COMMUNITIES_ERROR_HANDLERS = {
     InvalidCommunityVisibility: create_error_handler(
         lambda e: HTTPJSONException(
             code=400,
-            description=str(e),
+            description=e.reason,
         )
     ),
 }
@@ -913,7 +967,7 @@ IIIF_API_DECORATOR_HANDLER = None
 # See https://github.com/inveniosoftware/invenio-previewer/blob/master/invenio_previewer/config.py  # noqa
 
 PREVIEWER_PREFERENCE = [
-    "csv_dthreejs",
+    "csv_papaparsejs",
     "pdfjs",
     "iiif_simple",
     "simple_image",
@@ -1146,14 +1200,32 @@ NOTIFICATIONS_BACKENDS = {
 
 
 NOTIFICATIONS_BUILDERS = {
-    CommunityInclusionSubmittedNotificationBuilder.type: CommunityInclusionSubmittedNotificationBuilder,
-    CommunityInvitationSubmittedNotificationBuilder.type: CommunityInvitationSubmittedNotificationBuilder,
+    # Access request
+    GuestAccessRequestTokenCreateNotificationBuilder.type: GuestAccessRequestTokenCreateNotificationBuilder,
+    GuestAccessRequestAcceptNotificationBuilder.type: GuestAccessRequestAcceptNotificationBuilder,
+    GuestAccessRequestSubmitNotificationBuilder.type: GuestAccessRequestSubmitNotificationBuilder,
+    UserAccessRequestAcceptNotificationBuilder.type: UserAccessRequestAcceptNotificationBuilder,
+    UserAccessRequestSubmitNotificationBuilder.type: UserAccessRequestSubmitNotificationBuilder,
+    # Comment request event
     CommentRequestEventCreateNotificationBuilder.type: CommentRequestEventCreateNotificationBuilder,
+    # Community inclusion
+    CommunityInclusionAcceptNotificationBuilder.type: CommunityInclusionAcceptNotificationBuilder,
+    CommunityInclusionCancelNotificationBuilder.type: CommunityInclusionCancelNotificationBuilder,
+    CommunityInclusionDeclineNotificationBuilder.type: CommunityInclusionDeclineNotificationBuilder,
+    CommunityInclusionExpireNotificationBuilder.type: CommunityInclusionExpireNotificationBuilder,
+    CommunityInclusionSubmittedNotificationBuilder.type: CommunityInclusionSubmittedNotificationBuilder,
+    # Community invitation
+    CommunityInvitationAcceptNotificationBuilder.type: CommunityInvitationAcceptNotificationBuilder,
+    CommunityInvitationCancelNotificationBuilder.type: CommunityInvitationCancelNotificationBuilder,
+    CommunityInvitationDeclineNotificationBuilder.type: CommunityInvitationDeclineNotificationBuilder,
+    CommunityInvitationExpireNotificationBuilder.type: CommunityInvitationExpireNotificationBuilder,
+    CommunityInvitationSubmittedNotificationBuilder.type: CommunityInvitationSubmittedNotificationBuilder,
 }
 """Notification builders."""
 
 
 NOTIFICATIONS_ENTITY_RESOLVERS = [
+    EmailResolver(),
     RDMRecordServiceResultResolver(),
     ServiceResultResolver(service_id="users", type_key="user"),
     ServiceResultResolver(service_id="communities", type_key="community"),
@@ -1182,3 +1254,21 @@ USERS_RESOURCES_SERVICE_SCHEMA = NotificationsUserSchema
 
 REQUESTS_PERMISSION_POLICY = RDMRequestsPermissionPolicy
 """The requests permission policy, extended to work with guest access requests."""
+
+
+REQUESTS_ERROR_HANDLERS = {
+    **request_error_handlers,
+    InvalidAccessRestrictions: create_error_handler(
+        lambda e: HTTPJSONException(
+            code=400,
+            description=e.description,
+        )
+    ),
+}
+
+
+# Invenio-Github
+# =================
+#
+GITHUB_RELEASE_CLASS = RDMGithubRelease
+"""Default RDM release class."""

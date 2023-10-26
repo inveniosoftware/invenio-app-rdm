@@ -3,13 +3,52 @@
 ***********************************************/
 
 .ui.table {
-
   &.files {
     border: 0;
 
-    th.hidden {
-      color: transparent;
-      user-select: none;
+    &.restricted {
+      background: @negativeBackgroundColor;
+      border-color: @restricted-components-border-color;
+      border-top-left-radius: 0px;
+      border-top-right-radius: 0px;
+
+      tr td {
+        border-color: lighten(@restricted-components-border-color, 10%);
+      }
+
+      thead th {
+        border-top: 1px solid;
+        border-color: lighten(@restricted-components-border-color, 10%);
+        background: @restricted-components-background-color;
+      }
+    }
+
+    &.embargoed {
+      background: @warningBackgroundColor;
+      border-color: @embargoed-components-border-color;
+      border-top-left-radius: 0px;
+      border-top-right-radius: 0px;
+
+      tr td {
+        border-color: lighten(@embargoed-components-border-color, 10%);
+      }
+
+      thead th {
+        border-top: 1px solid;
+        border-color: lighten(@embargoed-components-border-color, 10%);
+        background: @embargoed-components-background-color;
+      }
+    }
+
+    thead {
+      th {
+        border-radius: 0 !important;
+
+        &.hidden {
+          color: transparent;
+          user-select: none;
+        }
+      }
     }
   }
 

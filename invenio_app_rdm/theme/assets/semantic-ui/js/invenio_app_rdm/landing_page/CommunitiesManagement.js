@@ -14,7 +14,7 @@ import { Header, Container, Button, Segment } from "semantic-ui-react";
 import { CommunitiesManagementDropdown } from "./CommunitiesManagementDropdown";
 import { http, withCancel } from "react-invenio-forms";
 
-const MAX_COMMUNITIES = 2;
+const MAX_COMMUNITIES = 3;
 
 export class CommunitiesManagement extends Component {
   constructor(props) {
@@ -38,7 +38,7 @@ export class CommunitiesManagement extends Component {
   toggleManageCommunitiesModal = (value) => {
     if (!value) {
       const modalDropdown = document.getElementById("modal-dropdown"); // A11y: Focus community management dropdown when modal closes
-      modalDropdown.focus();
+      modalDropdown && modalDropdown.focus();
     }
     this.setState({ manageCommunitiesModalOpen: value });
   };
@@ -93,6 +93,7 @@ export class CommunitiesManagement extends Component {
       recordCommunityEndpoint,
       recordUserCommunitySearchConfig,
       searchConfig,
+      record,
     } = this.props;
     const { communities, loading, error, manageCommunitiesModalOpen } = this.state;
     return (
@@ -114,6 +115,7 @@ export class CommunitiesManagement extends Component {
                 recordCommunitySearchConfig={recordCommunitySearchConfig}
                 recordUserCommunitySearchConfig={recordUserCommunitySearchConfig}
                 toggleManageCommunitiesModal={this.toggleManageCommunitiesModal}
+                record={record}
               />
             )}
           </Header>
@@ -133,6 +135,7 @@ export class CommunitiesManagement extends Component {
               successActionCallback={this.handleRefresh}
               recordCommunityEndpoint={recordCommunityEndpoint}
               permissions={permissions}
+              record={record}
             />
 
             {!loading && communities?.length > MAX_COMMUNITIES && (
@@ -165,4 +168,5 @@ CommunitiesManagement.propTypes = {
   canManageRecord: PropTypes.bool.isRequired,
   userCommunitiesMemberships: PropTypes.object.isRequired,
   searchConfig: PropTypes.object.isRequired,
+  record: PropTypes.object.isRequired,
 };

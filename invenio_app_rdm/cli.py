@@ -11,7 +11,7 @@ from flask.cli import with_appcontext
 from invenio_access.permissions import system_identity
 from invenio_records_resources.proxies import current_service_registry
 
-from invenio_app_rdm.fixtures import FixturesEngine, Pages
+from .fixtures import FixturesEngine, Pages
 
 
 @click.group()

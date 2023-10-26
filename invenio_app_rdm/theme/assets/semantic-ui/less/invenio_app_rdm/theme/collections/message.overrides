@@ -16,9 +16,13 @@
 
 .ui.message.file-box-message {
   box-shadow: none !important;
-  border-bottom-right-radius: 10px !important;
-  border-bottom-left-radius: 10px !important;
+  border-bottom-right-radius: @defaultBorderRadius !important;
+  border-bottom-left-radius: @defaultBorderRadius !important;
   margin: 0 !important;
+
+  h4 {
+    font-weight: @bold !important;
+  }
 }
 
 .ui.message .ui.checkbox label {
@@ -27,4 +31,8 @@
 
 .ui.message .ui.checkbox {
   margin-top: @defaultMargin / 2.5;
+}
+
+.ui.message.community-branding-error {
+  max-width: 25em;
 }

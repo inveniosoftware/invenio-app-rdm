@@ -15,27 +15,30 @@ from invenio_pidstore.errors import (
     PIDDoesNotExistError,
     PIDUnregistered,
 )
+from invenio_rdm_records.services.errors import RecordDeletedException
 from invenio_records_resources.services.errors import (
     FileKeyNotFoundError,
     PermissionDeniedError,
 )
 
-from invenio_app_rdm.theme.views import create_url_rule
-
+from ...theme.views import create_url_rule
 from ..searchapp import search_app_context
 from .deposits import deposit_create, deposit_edit
 from .filters import (
     can_list_files,
     compact_number,
+    custom_fields_search,
     get_scheme_label,
     has_images,
     has_previewable_files,
     localize_number,
     make_files_preview_compatible,
+    namespace_url,
     order_entries,
     pid_url,
     select_preview_file,
     to_previewer_files,
+    transform_record,
     truncate_number,
 )
 from .records import (
@@ -48,6 +51,7 @@ from .records import (
     record_latest,
     record_media_file_download,
     record_permission_denied_error,
+    record_thumbnail,
     record_tombstone_error,
 )
 
@@ -111,6 +115,12 @@ def create_blueprint(app):
             default_view_func=record_file_download,
         )
     )
+    blueprint.add_url_rule(
+        **create_url_rule(
+            routes["record_thumbnail"],
+            default_view_func=record_thumbnail,
+        )
+    )
 
     blueprint.add_url_rule(
         **create_url_rule(
@@ -142,6 +152,7 @@ def create_blueprint(app):
     blueprint.register_error_handler(
         PermissionDeniedError, record_permission_denied_error
     )
+    blueprint.register_error_handler(RecordDeletedException, record_tombstone_error)
 
     # Register template filters
     blueprint.add_app_template_filter(can_list_files)
@@ -156,6 +167,9 @@ def create_blueprint(app):
     blueprint.add_app_template_filter(localize_number)
     blueprint.add_app_template_filter(compact_number)
     blueprint.add_app_template_filter(truncate_number)
+    blueprint.add_app_template_filter(namespace_url)
+    blueprint.add_app_template_filter(custom_fields_search)
+    blueprint.add_app_template_filter(transform_record)
 
     # Register context processor
     blueprint.app_context_processor(search_app_context)

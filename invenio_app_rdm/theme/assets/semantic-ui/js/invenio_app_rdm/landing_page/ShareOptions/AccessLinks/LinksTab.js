@@ -5,8 +5,9 @@
 // under the terms of the MIT License; see LICENSE file for more details.
 
 import React, { Component } from "react";
-import { Modal, Loader } from "semantic-ui-react";
+import { Modal, Loader, Button } from "semantic-ui-react";
 import PropTypes from "prop-types";
+import { i18next } from "@translations/invenio_app_rdm/i18next";
 
 import { LinksSearchResultContainer } from "./LinksSearchResultContainer";
 import { withCancel } from "react-invenio-forms";
@@ -53,7 +54,7 @@ export class LinksTab extends Component {
 
   render() {
     const { results, loading, error } = this.state;
-    const { record } = this.props;
+    const { record, handleClose } = this.props;
     return (
       <>
         {error && error}
@@ -68,6 +69,15 @@ export class LinksTab extends Component {
             />
           )}
         </Modal.Content>
+        <Modal.Actions className="ui clearing segment">
+          <Button
+            size="small"
+            onClick={handleClose}
+            content={i18next.t("Cancel")}
+            icon="remove"
+            className="left floated clearing"
+          />
+        </Modal.Actions>
       </>
     );
   }
@@ -75,4 +85,5 @@ export class LinksTab extends Component {
 
 LinksTab.propTypes = {
   record: PropTypes.string.isRequired,
+  handleClose: PropTypes.func.isRequired,
 };

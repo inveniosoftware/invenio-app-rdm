@@ -22,6 +22,7 @@ const deserializeRecord = (record) => ({
   version: record.ui.version,
   links: record.links,
   pids: record.pids,
+  new_draft_parent_doi: record.ui.new_draft_parent_doi,
 });
 
 const NUMBER_OF_VERSIONS = 5;
@@ -78,6 +79,7 @@ const PreviewMessage = () => {
 export const RecordVersionsList = ({ record, isPreview }) => {
   const recordDeserialized = deserializeRecord(record);
   const recordParentDOI = recordDeserialized?.parent?.pids?.doi?.identifier;
+  const recordDraftParentDOIFormat = recordDeserialized?.new_draft_parent_doi;
   const recid = recordDeserialized.id;
   const [loading, setLoading] = useState(true);
   const [currentRecordInResults, setCurrentRecordInResults] = useState(false);
@@ -149,7 +151,7 @@ export const RecordVersionsList = ({ record, isPreview }) => {
           </Grid.Row>
         </Grid>
       )}
-      {recordParentDOI && (
+      {recordParentDOI ? (
         <List.Item className="parent-doi pr-0">
           <List.Content floated="left">
             <Trans>
@@ -163,7 +165,20 @@ export const RecordVersionsList = ({ record, isPreview }) => {
             </Trans>
           </List.Content>
         </List.Item>
-      )}
+      ) : recordDraftParentDOIFormat ? (
+        // new drafts without registered parent dois yet
+        <List.Item className="parent-doi pr-0">
+          <List.Content floated="left">
+            <Trans>
+              <p className="text-muted">
+                <strong>Cite all versions?</strong> You can cite all versions by using
+                the DOI {recordDraftParentDOIFormat}. The DOI is registered when the
+                first version is published. <a href="/help/versioning">Read more</a>.
+              </p>
+            </Trans>
+          </List.Content>
+        </List.Item>
+      ) : null}
     </List>
   );
 };

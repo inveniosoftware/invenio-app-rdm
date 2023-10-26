@@ -2,25 +2,36 @@
 #
 # Copyright (C) 2019-2021 CERN.
 # Copyright (C) 2019-2021 Northwestern University.
-# Copyright (C)      2021 TU Wien.
+# Copyright (C) 2021-2023 TU Wien.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """Routes for record-related pages provided by Invenio-App-RDM."""
 
+import itertools
 from os.path import splitext
+from pathlib import Path
 
 from flask import abort, current_app, g, redirect, render_template, request, url_for
 from flask_login import current_user
 from invenio_base.utils import obj_or_import_string
-from invenio_previewer.extensions import default
+from invenio_communities.errors import CommunityDeletedError
+from invenio_communities.proxies import current_communities
+from invenio_previewer.extensions import default as default_previewer
 from invenio_previewer.proxies import current_previewer
 from invenio_rdm_records.proxies import current_rdm_records
+from invenio_rdm_records.records.systemfields.access.access_settings import (
+    AccessSettings,
+)
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
 from invenio_stats.proxies import current_stats
+from invenio_users_resources.proxies import current_user_resources
 from marshmallow import ValidationError
 
+from invenio_app_rdm.records_ui.previewer.iiif_simple import (
+    previewable_extensions as image_extensions,
+)
 from invenio_app_rdm.records_ui.views.deposits import (
     get_user_communities_memberships,
     load_custom_fields,
@@ -30,12 +41,15 @@ from ..utils import get_external_resources
 from .decorators import (
     pass_file_item,
     pass_file_metadata,
+    pass_include_deleted,
     pass_is_preview,
     pass_record_files,
     pass_record_from_pid,
     pass_record_latest,
+    pass_record_media_files,
     pass_record_or_draft,
 )
+from .deposits import get_user_communities_memberships, load_custom_fields
 
 
 def get_record_community(record):
@@ -58,11 +72,20 @@ def get_record_community(record):
     ) or expanded_parent.get("communities", {}).get("default")
 
     if community_review or community_default:
-        is_community_deleted = expanded_community.get("is_ghost", False)
-        if is_community_deleted:
+        is_community_pid_deleted = expanded_community.get("is_ghost", False)
+        if is_community_pid_deleted:
+            # community pid is not found in search i.e its pid is deleted
             return None, community_id
-        else:
+
+        # resolve the community again to check the deletion status
+        # deleted communities with tombstones are not idenitfied as ghost records
+        # at the moment because `read_many()` function is not filtering them out
+        try:
+            current_communities.service.read(id_=community_id, identity=g.identity)
+            # community has not tombstone
             return expanded_community, community_id
+        except CommunityDeletedError:
+            return None, community_id
     else:
         return None, None
 
@@ -110,12 +133,21 @@ class PreviewFile:
 
 
 @pass_is_preview
+@pass_include_deleted
 @pass_record_or_draft(expand=True)
 @pass_record_files
-def record_detail(pid_value, record, files, media_files, is_preview=False):
+@pass_record_media_files
+def record_detail(
+    pid_value, record, files, media_files, is_preview=False, include_deleted=False
+):
     """Record detail page (aka landing page)."""
     files_dict = None if files is None else files.to_dict()
     media_files_dict = None if media_files is None else media_files.to_dict()
+
+    access = record._record.parent["access"]
+    if "settings" not in access or access["settings"] is None:
+        record._record.parent["access"]["settings"] = AccessSettings({}).dump()
+
     record_ui = UIJSONSerializer().dump_obj(record.to_dict())
     is_draft = record_ui["is_draft"]
     custom_fields = load_custom_fields()
@@ -123,6 +155,13 @@ def record_detail(pid_value, record, files, media_files, is_preview=False):
     custom_fields["ui"] = [
         cf for cf in custom_fields["ui"] if not cf.get("hide_from_landing_page", False)
     ]
+    avatar = None
+
+    if current_user.is_authenticated:
+        avatar = current_user_resources.users_service.links_item_tpl.expand(
+            g.identity, current_user
+        )["avatar"]
+
     if is_preview and is_draft:
         # it is possible to save incomplete drafts that break the normal
         # (preview) landing page rendering
@@ -134,11 +173,28 @@ def record_detail(pid_value, record, files, media_files, is_preview=False):
             )
         except ValidationError:
             abort(404)
+        # inject parent doi format for new drafts so we can show in preview
+        if current_app.config["DATACITE_ENABLED"]:
+            service = current_rdm_records.records_service
+            datacite_provider = [
+                v["datacite"]
+                for p, v in service.config.parent_pids_providers.items()
+                if p == "doi" and "datacite" in v
+            ]
+            if datacite_provider:
+                datacite_provider = datacite_provider[0]
+                parent_doi = datacite_provider.client.generate_doi(
+                    record._record.parent
+                )
+                record_ui["ui"]["new_draft_parent_doi"] = parent_doi
 
     # emit a record view stats event
     emitter = current_stats.get_event_emitter("record-view")
     if record is not None and emitter is not None:
         emitter(current_app, record=record._record, via_api=False)
+
+    # NOTE: this should maybe be an expandable field instead
+    record_owner = record._record.parent.access.owner.resolve()
 
     resolved_community, _ = get_record_community(record_ui)
     return render_template(
@@ -156,13 +212,20 @@ def record_detail(pid_value, record, files, media_files, is_preview=False):
                 "read_files",
                 "review",
                 "view",
+                "media_read_files",
+                "moderate",
             ]
         ),
         custom_fields_ui=custom_fields["ui"],
         is_preview=is_preview,
+        include_deleted=include_deleted,
         is_draft=is_draft,
         community=resolved_community,
         external_resources=get_external_resources(record_ui),
+        user_avatar=avatar,
+        record_owner_username=record_owner.username
+        if record_owner is not None
+        else None,  # record created with system_identity have not owners e.g demo
     )
 
 
@@ -191,6 +254,7 @@ def record_export(
 
 
 @pass_is_preview
+@pass_include_deleted
 @pass_record_or_draft(expand=False)
 @pass_file_metadata
 def record_file_preview(
@@ -199,6 +263,7 @@ def record_file_preview(
     pid_type="recid",
     file_metadata=None,
     is_preview=False,
+    include_deleted=False,
     **kwargs,
 ):
     """Render a preview of the specified file."""
@@ -221,7 +286,7 @@ def record_file_preview(
         if plugin.can_preview(fileobj):
             return plugin.preview(fileobj)
 
-    return default.preview(fileobj)
+    return default_previewer.preview(fileobj)
 
 
 @pass_is_preview
@@ -237,6 +302,33 @@ def record_file_download(pid_value, file_item=None, is_preview=False, **kwargs):
         emitter(current_app, record=file_item._record, obj=obj, via_api=False)
 
     return file_item.send_file(as_attachment=download)
+
+
+@pass_record_or_draft(expand=False)
+def record_thumbnail(pid_value, size, record=None, **kwargs):
+    """Display a record's thumbnail."""
+    # Verify against allowed thumbnail sizes
+    if size not in current_app.config["APP_RDM_RECORD_THUMBNAIL_SIZES"]:
+        abort(404)
+    files = record.data.get("files", {})
+    default_preview = files.get("default_preview")
+    file_entries = files.get("entries", {})
+    if file_entries:
+        file_key = next(
+            (
+                key
+                for key in itertools.chain([default_preview], file_entries)
+                if key and Path(key).suffix[1:] in image_extensions
+            ),
+            None,
+        )
+        if file_key:
+            file = current_rdm_records.records_service.files.read_file_metadata(
+                id_=pid_value, file_key=file_key, identity=g.identity
+            )
+            iiif_base_url = file["links"]["iiif_base"]
+            return redirect(f"{iiif_base_url}/full/{size},/0/default.png")
+    return abort(404)
 
 
 ####### Media files download
@@ -259,7 +351,7 @@ def record_media_file_download(pid_value, file_item=None, is_preview=False, **kw
 
 @pass_record_latest
 def record_latest(record=None, **kwargs):
-    """Redirect to record'd latest version page."""
+    """Redirect to record's latest version page."""
     return redirect(record["links"]["self_html"], code=302)
 
 
@@ -279,7 +371,27 @@ def not_found_error(error):
 
 def record_tombstone_error(error):
     """Tombstone page."""
-    return render_template("invenio_app_rdm/records/tombstone.html"), 410
+    # the RecordDeletedError will have the following properties,
+    # while the PIDDeletedError won't
+    record = getattr(error, "record", None)
+    if (record_ui := getattr(error, "result_item", None)) is not None:
+        if record is None:
+            record = record_ui._record
+
+        record_ui = UIJSONSerializer().dump_obj(record_ui.to_dict())
+
+    # render a 404 page if the tombstone isn't visible
+    if not record.tombstone.is_visible:
+        return not_found_error(error)
+
+    # we only render a tombstone page if there is a record with a visible tombstone
+    return (
+        render_template(
+            "invenio_app_rdm/records/tombstone.html",
+            record=record_ui,
+        ),
+        410,
+    )
 
 
 def record_permission_denied_error(error):

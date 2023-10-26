@@ -33,8 +33,10 @@
           <div class="sixteen wide mobile eight wide computer column center aligned">
             <form action="{{ url_for('invenio_search_ui.search') }}" class="ui form" role="search">
               <div class="ui fluid big action input">
-                <input type="text" name="q" class="form-control" placeholder="{{ _('Search') }}">
-                <button type="submit" class="ui icon search button" aria-label="{{ _('Search') }}"><i class="search icon"></i></button>
+                <input type="text" name="q" class="form-control" aria-label="{{ _('Search') }}" placeholder="{{ _('Search') }}">
+                <button type="submit" class="ui icon search button" aria-label="{{ _('Search') }}">
+                  <i class="search icon"></i>
+                </button>
               </div>
             </form>
           </div>

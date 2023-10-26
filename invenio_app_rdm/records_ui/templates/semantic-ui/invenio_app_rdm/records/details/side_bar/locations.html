@@ -1,0 +1,23 @@
+{#
+Copyright (C) 2023 CERN.
+
+Invenio-app-rdm is free software; you can redistribute it and/or modify
+it under the terms of the MIT License; see LICENSE file for more details.
+#}
+
+{%- from "invenio_app_rdm/records/macros/locations.html" import render_feature %}
+
+{% set locations = record.ui.get('locations') %}
+
+{%- if locations %}
+<div class="sidebar-container">
+  <h2 class="ui medium top attached header mt-0">{{ _('Geographic locations')}}</h2>
+  <div id="record-locations" class="ui segment bottom attached rdm-sidebar">
+    <dl class="details-list mt-0">
+      {%- for feature in locations.get('features', []) %}
+        {{ render_feature(feature)}}
+      {%- endfor %}
+    </dl>
+  </div>
+</div>
+{%- endif %}
