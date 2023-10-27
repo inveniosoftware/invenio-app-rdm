@@ -62,13 +62,8 @@ class SearchResultItemComponent extends Component {
           data-label={i18next.t("Confirmed")}
           className="word-break-all"
         >
-          <BoolFormatter
-            tooltip={result.confirmed_at}
-            icon="check"
-            color="green"
-            value={result.confirmed_at}
-          />
-          <BoolFormatter icon="close" color="red" value={!result.confirmed_at} />
+          <BoolFormatter icon="check" color="green" value={result.confirmed} />
+          <BoolFormatter icon="close" color="red" value={!result.confirmed} />
         </Table.Cell>
         <Table.Cell
           collapsing
