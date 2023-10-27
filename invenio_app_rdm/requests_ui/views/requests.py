@@ -156,8 +156,8 @@ def user_dashboard_request_view(request, **kwargs):
         record = topic["record_ui"]  # None when draft
         is_draft = record["is_draft"] if record else False
 
-        files = _resolve_record_or_draft_files(record)
-        media_files = _resolve_record_or_draft_media_files(record)
+        files = _resolve_record_or_draft_files(record, request)
+        media_files = _resolve_record_or_draft_media_files(record, request)
         return render_template(
             f"invenio_requests/{request_type}/index.html",
             base_template="invenio_app_rdm/users/base.html",
