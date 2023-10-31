@@ -87,7 +87,7 @@ def create_ui_blueprint(app):
         communities = current_menu.submenu("communities")
         communities.submenu("search").register(
             "invenio_app_rdm_communities.communities_detail",
-            text=_("Search"),
+            text=_("Records"),
             order=1,
             expected_args=["pid_value"],
             **dict(icon="search", permissions=True),
