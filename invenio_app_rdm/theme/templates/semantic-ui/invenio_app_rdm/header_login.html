@@ -7,6 +7,47 @@
   under the terms of the MIT License; see LICENSE file for more details.
 #}
 
+{%- set plus_menu_items = current_menu.submenu('plus').children %}
+
+{# Desktop Quick-create ("plus") menu #}
+{%- if plus_menu_items %}
+<div
+  id="quick-create-dropdown"
+  class="rdm-plus-menu rdm-plus-menu-responsive ui dropdown floating pr-15 computer only"
+>
+  <a
+    id="quick-create-dropdown-btn"
+    role="button"
+    aria-controls="quick-create-menu"
+    aria-label="{{ _('Quick create') }}"
+    aria-expanded="false"
+    aria-haspopup="menu"
+  >
+    <i class="fitted plus icon inverted" aria-hidden="true"></i>
+    <span>{{ _('New') + ' ...' }}</span>
+    <i class="fitted dropdown icon inverted" aria-hidden="true"></i>
+  </a>
+
+  <div role="menu" aria-labelledby="quick-create-dropdown-btn" id="quick-create-menu" class="menu">
+    {%- for item in plus_menu_items if item.visible %}
+      <a role="menuitem" class="item" href="{{ item.url }}">{{ item.text|safe }}</a>
+    {%- endfor %}
+  </div>
+</div>
+
+{# Mobile/Tablet Quick create ("plus") menu #}
+<div class="sub-menu mobile tablet only">
+  <h2 class="ui small header">{{ _("Actions") }}</h2>
+  <div role="menu">
+    {%- for item in plus_menu_items if item.visible %}
+      <a role="menuitem" class="item" href="{{ item.url }}">
+        <i class="plus icon"></i>
+        {{ item.text|safe }}
+      </a>
+    {%- endfor %}
+  </div>
+</div>
+{% endif %}
 
 {%- if config.ACCOUNTS %}
   {%- if not current_user.is_authenticated %}
@@ -24,47 +65,6 @@
       {% endif %}
     </form>
   {%- else %}
-
-    {# Desktop Quick-create ("plus") menu #}
-    {%- set plus_menu_items = current_menu.submenu('plus').children %}
-    {%- if plus_menu_items %}
-      <div
-        id="quick-create-dropdown"
-        class="rdm-plus-menu rdm-plus-menu-responsive ui dropdown floating pr-15 computer only"
-      >
-        <a
-          id="quick-create-dropdown-btn"
-          role="button"
-          aria-controls="quick-create-menu"
-          aria-label="{{ _('Quick create') }}"
-          aria-expanded="false"
-          aria-haspopup="menu"
-        >
-          <i class="fitted plus icon inverted" aria-hidden="true"></i>
-          <i class="fitted dropdown icon inverted" aria-hidden="true"></i>
-        </a>
-
-        <div role="menu" aria-labelledby="quick-create-dropdown-btn" id="quick-create-menu" class="menu">
-          {%- for item in plus_menu_items if item.visible %}
-            <a role="menuitem" class="item" href="{{ item.url }}">{{ item.text|safe }}</a>
-          {%- endfor %}
-        </div>
-      </div>
-
-      {# Mobile/Tablet Quick create ("plus") menu #}
-      <div class="sub-menu mobile tablet only">
-        <h2 class="ui small header">{{ _("Actions") }}</h2>
-        <div role="menu">
-          {%- for item in plus_menu_items if item.visible %}
-            <a role="menuitem" class="item" href="{{ item.url }}">
-              <i class="plus icon"></i>
-              {{ item.text|safe }}
-            </a>
-          {%- endfor %}
-        </div>
-      </div>
-    {% endif %}
-
     {# Desktop Account dropdown menu #}
     {%- if config.USERPROFILES %}
       <div id="user-profile-dropdown" class="ui floating dropdown computer only">
