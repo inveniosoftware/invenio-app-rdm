@@ -129,6 +129,9 @@ export class UserActions extends Component {
         <>
           {displayQuota && (
             <SetQuotaAction
+              headerText={i18next.t("Set default quota for {{email}}", {
+                email: user.email,
+              })}
               successCallback={successCallback}
               apiUrl={`/api/users/${user.id}/quota`}
               resource={user}

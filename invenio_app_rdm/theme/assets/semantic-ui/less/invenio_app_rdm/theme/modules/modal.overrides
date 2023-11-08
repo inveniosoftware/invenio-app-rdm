@@ -123,6 +123,11 @@
     line-height: @contentLineHeight;
     padding: @contentPadding;
     background: @contentBackground;
+
+    .ui.message .content {
+      background: transparent;
+      padding: 0;
+    }
   }
 }
 
