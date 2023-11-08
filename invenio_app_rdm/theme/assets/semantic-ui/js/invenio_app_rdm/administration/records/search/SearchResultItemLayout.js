@@ -6,8 +6,9 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import { BoolFormatter, Actions } from "@js/invenio_administration";
+import { BoolFormatter } from "@js/invenio_administration";
 import { UserActions } from "../../users/UserActions";
+import { RecordActions } from "../RecordActions";
 import _truncate from "lodash/truncate";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
@@ -100,14 +101,15 @@ class SearchResultItemComponent extends Component {
 
         <Table.Cell collapsing>
           <Button.Group basic widths={5} compact className="margined">
-            <Actions
+            <RecordActions
+              record={result}
+              displayQuota={!result.is_published}
               title={title}
               resourceName={resourceName}
               editUrl={AdminUIRoutes.editView(listUIEndpoint, result, idKeyPath)}
               displayEdit={displayEdit}
               displayDelete={displayDelete}
               actions={actions}
-              resource={result}
               idKeyPath={idKeyPath}
               successCallback={this.refreshAfterAction}
               listUIEndpoint={listUIEndpoint}
@@ -116,7 +118,6 @@ class SearchResultItemComponent extends Component {
               user={{ id: result.parent.access.owned_by.user }}
               displaySuspend
               displayBlock
-              displayQuota={!result.is_published}
               successCallback={this.refreshAfterAction}
             />
           </Button.Group>
