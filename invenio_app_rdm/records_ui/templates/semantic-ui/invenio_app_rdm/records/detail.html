@@ -286,9 +286,9 @@
                                 <p class="ui small header rel-mt-2 rel-mb-1">
                                   {{ _("You need to satisfy these conditions in order for this request to be accepted:") }}
                                 </p>
-                                <p class="rel-mb-2">
+                                <div class="rel-mt-2 rich-input-content">
                                   {{ accept_conditions_text | safe }}
-                                </p>
+                                </div>
                               {%- endif %}
 
                               {%- include "invenio_app_rdm/records/details/access-form.html" %}
