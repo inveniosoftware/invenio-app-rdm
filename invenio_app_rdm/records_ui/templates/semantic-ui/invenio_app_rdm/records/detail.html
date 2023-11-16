@@ -360,6 +360,9 @@
 {%- endblock page_body %}
 
 {%- block javascript %}
+  {% if config.THEME_MATHJAX_CDN %}
+    <script type="text/javascript" src="{{ config.THEME_MATHJAX_CDN }}"></script>
+  {% endif %}
   {% if use_theme_basic_template|default(true) %}
     {{ super() }}
   {% else %}
