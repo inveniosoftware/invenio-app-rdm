@@ -11,12 +11,16 @@
 
 from flask import g, render_template
 from flask_login import current_user, login_required
+from invenio_communities.config import COMMUNITIES_ROLES
 from invenio_communities.members.services.request import CommunityInvitation
+from invenio_communities.proxies import current_identities_cache
+from invenio_communities.utils import identity_cache_key
 from invenio_communities.views.decorators import pass_community
 from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_rdm_records.proxies import current_rdm_records_service
 from invenio_rdm_records.requests import CommunityInclusion, CommunitySubmission
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
+from invenio_rdm_records.services.generators import CommunityInclusionNeed
 from invenio_records_resources.services.errors import PermissionDeniedError
 from invenio_requests.customizations import AcceptAction
 from invenio_requests.resolvers.registry import ResolverRegistry
@@ -55,6 +59,23 @@ def _resolve_topic_record(request):
 
     try:
         if is_record_inclusion:
+            community = request["receiver"]["community"]
+            # Get the roles that can curate and in consequence should be able to see the record of the inclusion request
+            can_curate_roles = {
+                role["name"]
+                for role in COMMUNITIES_ROLES
+                if role.get("can_curate", False)
+            }
+            cache_key = identity_cache_key(g.identity)
+            user_community_roles = current_identities_cache.get(cache_key)
+            for community_id, role in user_community_roles:
+                if community_id == community and role in can_curate_roles:
+                    # This need should not be reused, see CommunityInclusionReviewers generator docstring for more info
+                    community_inclusion_need = CommunityInclusionNeed(
+                        pid
+                    )  # pid is the record pid
+                    g.identity.provides.add(community_inclusion_need)
+                    break
             # read published record
             record = current_rdm_records_service.read(g.identity, pid, expand=True)
         else:
