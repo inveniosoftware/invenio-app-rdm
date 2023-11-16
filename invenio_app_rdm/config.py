@@ -579,7 +579,7 @@ OAISERVER_CREATED_KEY = "created"
 OAISERVER_RECORD_CLS = "invenio_rdm_records.records.api:RDMRecord"
 """Record retrieval class."""
 
-OAISERVER_RECORD_SETS_FETCHER = "invenio_oaiserver.utils:record_sets_fetcher"
+OAISERVER_RECORD_SETS_FETCHER = "invenio_oaiserver.percolator:find_sets_for_record"
 """Record's OAI sets function."""
 
 OAISERVER_RECORD_INDEX = "rdmrecords-records"
