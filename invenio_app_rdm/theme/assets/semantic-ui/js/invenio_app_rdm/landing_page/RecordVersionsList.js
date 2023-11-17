@@ -6,13 +6,13 @@
 // Invenio RDM Records is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
 
-import axios from "axios";
 import _get from "lodash/get";
 import React, { useEffect, useState } from "react";
 import { Grid, Icon, Message, Placeholder, List, Divider } from "semantic-ui-react";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import PropTypes from "prop-types";
 import { Trans } from "react-i18next";
+import { withCancel, http, ErrorMessage } from "react-invenio-forms";
 
 const deserializeRecord = (record) => ({
   id: record.id,
@@ -82,32 +82,50 @@ export const RecordVersionsList = ({ record, isPreview }) => {
   const recordDraftParentDOIFormat = recordDeserialized?.new_draft_parent_doi;
   const recid = recordDeserialized.id;
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [currentRecordInResults, setCurrentRecordInResults] = useState(false);
   const [recordVersions, setRecordVersions] = useState({});
 
+  const fetchVersions = async () => {
+    return await http.get(
+      `${recordDeserialized.links.versions}?size=${NUMBER_OF_VERSIONS}&sort=version&allversions=true`,
+      {
+        headers: {
+          Accept: "application/vnd.inveniordm.v1+json",
+        },
+        withCredentials: true,
+      }
+    );
+  };
+
+  const cancellableFetchCitation = withCancel(fetchVersions());
+
   useEffect(() => {
     async function fetchVersions() {
-      const result = await axios(
-        `${recordDeserialized.links.versions}?size=${NUMBER_OF_VERSIONS}&sort=version&allversions=true`,
-        {
-          headers: {
-            Accept: "application/vnd.inveniordm.v1+json",
-          },
-          withCredentials: true,
+      try {
+        const result = await cancellableFetchCitation.promise;
+        let { hits, total } = result.data.hits;
+        hits = hits.map(deserializeRecord);
+        setCurrentRecordInResults(hits.some((record) => record.id === recid));
+        setRecordVersions({ hits, total });
+        setLoading(false);
+      } catch (error) {
+        if (error !== "UNMOUNTED") {
+          setError(i18next.t("An error occurred while fetching the versions."));
+          setLoading(false);
         }
-      );
-      let { hits, total } = result.data.hits;
-      hits = hits.map(deserializeRecord);
-      setCurrentRecordInResults(hits.some((record) => record.id === recid));
-      setRecordVersions({ hits, total });
-      setLoading(false);
+      }
     }
     fetchVersions();
+
+    return () => {
+      cancellableFetchCitation?.cancel();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return loading ? (
-    isPreview ? (
+  const loadingcmp = () => {
+    return isPreview ? (
       <PreviewMessage />
     ) : (
       <>
@@ -120,8 +138,14 @@ export const RecordVersionsList = ({ record, isPreview }) => {
           </Placeholder.Header>
         </Placeholder>
       </>
-    )
-  ) : (
+    );
+  };
+
+  const errorMessagecmp = () => (
+    <ErrorMessage className="rel-mr-1 rel-ml-1" content={i18next.t(error)} negative />
+  );
+
+  const recordVersionscmp = () => {
     <List divided>
       {isPreview ? <PreviewMessage /> : null}
       {recordVersions.hits.map((item) => (
@@ -179,8 +203,10 @@ export const RecordVersionsList = ({ record, isPreview }) => {
           </List.Content>
         </List.Item>
       ) : null}
-    </List>
-  );
+    </List>;
+  };
+
+  return loading ? loadingcmp() : error ? errorMessagecmp() : recordVersionscmp();
 };
 
 RecordVersionsList.propTypes = {
