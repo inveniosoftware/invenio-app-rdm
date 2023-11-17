@@ -6,7 +6,6 @@
 // Invenio RDM Records is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
 
-import axios from "axios";
 import _debounce from "lodash/debounce";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
@@ -14,6 +13,7 @@ import { Placeholder, Dropdown, Message } from "semantic-ui-react";
 import { withCancel } from "react-invenio-forms";
 import { CopyButton } from "../components/CopyButton";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
+import { http } from "react-invenio-forms";
 
 export class RecordCitationField extends Component {
   constructor(props) {
@@ -54,7 +54,7 @@ export class RecordCitationField extends Component {
   fetchCitation = async (record, style, includeDeleted) => {
     const includeDeletedParam = includeDeleted === true ? "&include_deleted=1" : "";
     const url = `${record.links.self}?locale=${navigator.language}&style=${style}${includeDeletedParam}`;
-    return await axios(url, {
+    return await http.get(url, {
       headers: {
         Accept: "text/x-bibliography",
       },
