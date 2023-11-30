@@ -56,11 +56,7 @@ def create_fixtures():
 
 
 @rdm.command("rebuild-all-indices")
-@click.option(
-    "-o",
-    "--order",
-    default=""
-    )
+@click.option("-o", "--order", default="")
 @with_appcontext
 def rebuild_all_indices(order):
     """Schedule reindexing of (all) items for search with optional selecting and ordering."""
@@ -71,12 +67,12 @@ def rebuild_all_indices(order):
     for service_to_reindex in services_to_reindex:
         if service_to_reindex not in service_names:
             click.secho(
-                f"Service: '{service_to_reindex}' is not part of available services that can be reindexed", # noqa
-                fg="red"
+                f"Service: '{service_to_reindex}' is not part of available services that can be reindexed",  # noqa
+                fg="red",
             )
             click.secho(
                 f"You can chose out of these services: {' , '.join(service_names)}",
-                fg="red"
+                fg="red",
             )
             return
 
@@ -87,4 +83,3 @@ def rebuild_all_indices(order):
             click.echo(f"Reindexing {service_to_reindex}... ", nl=False)
             service.rebuild_index(system_identity)
             click.secho("Done.", fg="green")
-
