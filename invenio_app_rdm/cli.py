@@ -56,17 +56,35 @@ def create_fixtures():
 
 
 @rdm.command("rebuild-all-indices")
+@click.option(
+    "-o",
+    "--order",
+    default=""
+    )
 @with_appcontext
-def rebuild_all_indices():
-    """Schedule reindexing of all items for search."""
-    click.secho("Scheduling bulk indexing for all items.", fg="yellow")
-    for name, service in current_service_registry._services.items():
+def rebuild_all_indices(order):
+    """Schedule reindexing of (all) items for search with optional selecting and ordering."""
+    services = current_service_registry._services
+    service_names = services.keys()
+    services_to_reindex = order.split(",") if order else service_names
+
+    for service_to_reindex in services_to_reindex:
+        if service_to_reindex not in service_names:
+            click.secho(
+                f"Service: '{service_to_reindex}' is not part of available services that can be reindexed", # noqa
+                fg="red"
+            )
+            click.secho(
+                f"You can chose out of these services: {' , '.join(service_names)}",
+                fg="red"
+            )
+            return
+
+    click.secho("Scheduling bulk indexing.", fg="yellow")
+    for service_to_reindex in services_to_reindex:
+        service = services[service_to_reindex]
         if hasattr(service, "rebuild_index"):
-            click.echo(f"{name}... ", nl=False)
+            click.echo(f"Reindexing {service_to_reindex}... ", nl=False)
             service.rebuild_index(system_identity)
             click.secho("Done.", fg="green")
 
-    click.secho(
-        "Please start a celery worker to process the scheduled bulk indexing!",
-        fg="green",
-    )
