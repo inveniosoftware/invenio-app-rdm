@@ -145,7 +145,7 @@ export const RecordVersionsList = ({ record, isPreview }) => {
     <ErrorMessage className="rel-mr-1 rel-ml-1" content={i18next.t(error)} negative />
   );
 
-  const recordVersionscmp = () => {
+  const recordVersionscmp = () => (
     <List divided>
       {isPreview ? <PreviewMessage /> : null}
       {recordVersions.hits.map((item) => (
@@ -203,8 +203,8 @@ export const RecordVersionsList = ({ record, isPreview }) => {
           </List.Content>
         </List.Item>
       ) : null}
-    </List>;
-  };
+    </List>
+  );
 
   return loading ? loadingcmp() : error ? errorMessagecmp() : recordVersionscmp();
 };
