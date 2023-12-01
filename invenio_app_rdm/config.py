@@ -773,21 +773,28 @@ APP_RDM_RECORD_EXPORTERS = {
         "content-type": "application/x-bibtex",
         "filename": "{id}.bib",
     },
-    "GeoJSON": {
+    "geojson": {
         "name": _("GeoJSON"),
         "serializer": ("invenio_rdm_records.resources.serializers:GeoJSONSerializer"),
         "params": {"options": {"indent": 2, "sort_keys": True}},
         "content-type": "application/vnd.geojson+json",
         "filename": "{id}.geojson",
     },
-    "DCAT-AP": {
+    "dcat-ap": {
         "name": _("DCAT"),
         "serializer": "invenio_rdm_records.resources.serializers:DCATSerializer",
         "params": {},
         "content-type": "application/dcat+xml",
         "filename": "{id}.xml",
     },
-    "CFF": {
+    "codemeta": {
+        "name": _("Codemeta"),
+        "serializer": "invenio_rdm_records.resources.serializers:CodemetaSerializer",
+        "params": {},
+        "content-type": "application/ld+json",
+        "filename": "{id}.json",
+    },
+    "cff": {
         "name": _("CFF"),
         "serializer": "invenio_rdm_records.resources.serializers:CFFSerializer",
         "params": {},
