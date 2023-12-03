@@ -1,0 +1,1 @@
+/home/bethel/Documents/grsis/assets/js/invenio_app_rdm/user_dashboard/stumble.js
