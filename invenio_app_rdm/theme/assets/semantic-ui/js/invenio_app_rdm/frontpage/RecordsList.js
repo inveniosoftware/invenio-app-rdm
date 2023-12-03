@@ -21,13 +21,14 @@ import Overridable from "react-overridable";
 import RecordsResultsListItem from "@js/invenio_app_rdm/components/RecordsResultsListItem";
 import isEmpty from "lodash/isEmpty";
 import { buildUID } from "react-searchkit";
-
+import {StumbleItem} from "../user_dashboard/stumble"
 export class RecordsList extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       data: { hits: [] },
+      dataStumble:{hits:[]},
       isLoading: false,
       error: null,
     };
@@ -35,6 +36,7 @@ export class RecordsList extends Component {
 
   componentDidMount() {
     this.fetchData();
+    this.fetchDataStumble();
   }
 
   componentWillUnmount() {
@@ -43,6 +45,7 @@ export class RecordsList extends Component {
 
   fetchData = async () => {
     const { fetchUrl } = this.props;
+    console.log(fetchUrl)
     this.setState({ isLoading: true });
 
     this.cancellableFetch = withCancel(
@@ -61,7 +64,26 @@ export class RecordsList extends Component {
       this.setState({ error: error.response.data.message, isLoading: false });
     }
   };
+  fetchDataStumble = async () => {
+ 
+    this.setState({ isLoading: true });
 
+    this.cancellableFetch = withCancel(
+      http.get("/api/records?sort=newest&size=20", {
+        headers: {
+          Accept: "application/vnd.inveniordm.v1+json",
+        },
+      })
+    );
+
+    try {
+      const response = await this.cancellableFetch.promise;
+      this.setState({ dataStumble: response.data.hits, isLoading: false });
+    } catch (error) {
+      console.error(error);
+      this.setState({ error: error.response.data.message, isLoading: false });
+    }
+  };
   renderPlaceHolder = () => {
     const { title } = this.props;
 
@@ -94,9 +116,9 @@ export class RecordsList extends Component {
   };
 
   render() {
-    const { isLoading, data, error } = this.state;
+    const { isLoading, data, dataStumble,error } = this.state;
     const { title, appName } = this.props;
-
+   
     const listItems = data.hits?.map((record) => {
       return (
         <RecordsResultsListItem result={record} key={record.id} appName={appName} />
@@ -105,6 +127,7 @@ export class RecordsList extends Component {
 
     return (
       <>
+        <StumbleItem result={dataStumble.hits}  appName={appName} />
         {isLoading && this.renderPlaceHolder()}
 
         {!isLoading && !error && !isEmpty(listItems) && (
