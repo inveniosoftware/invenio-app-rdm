@@ -787,6 +787,13 @@ APP_RDM_RECORD_EXPORTERS = {
         "content-type": "application/dcat+xml",
         "filename": "{id}.xml",
     },
+    "CFF": {
+        "name": _("CFF"),
+        "serializer": "invenio_rdm_records.resources.serializers:CFFSerializer",
+        "params": {},
+        "content-type": "application/x-yaml",
+        "filename": "{id}.yaml",
+    },
 }
 
 APP_RDM_RECORD_LANDING_PAGE_EXTERNAL_LINKS = []
