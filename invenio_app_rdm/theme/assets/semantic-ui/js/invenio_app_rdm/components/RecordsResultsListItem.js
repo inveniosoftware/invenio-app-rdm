@@ -27,7 +27,8 @@ class RecordsResultsListItem extends Component {
       "ui.created_date_l10n_long",
       "No creation date found."
     );
-    const creators = result.ui.creators.creators.slice(0, 3);
+
+    const creators = result.ui.creators.creators;
 
     const descriptionStripped = _get(
       result,
@@ -102,7 +103,7 @@ class RecordsResultsListItem extends Component {
               <a href={viewLink}>{title}</a>
             </Item.Header>
             <Item className="creatibutors">
-              <SearchItemCreators creators={creators} />
+              <SearchItemCreators creators={creators} othersLink={viewLink} />
             </Item>
             <Item.Description>
               {_truncate(descriptionStripped, { length: 350 })}

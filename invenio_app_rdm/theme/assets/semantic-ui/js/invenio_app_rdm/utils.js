@@ -2,6 +2,7 @@
 // Copyright (C) 2021 CERN.
 // Copyright (C) 2021 New York University.
 // Copyright (C) 2022 data-futures.
+// Copyright (C) 2023 Northwestern University.
 //
 // Invenio RDM Records is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
@@ -11,7 +12,7 @@ import React from "react";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import { DateTime } from "luxon";
 
-export function SearchItemCreators({ creators, className }) {
+export function SearchItemCreators({ creators, className, othersLink }) {
   let spanClass = "creatibutor-wrap separated";
   className && (spanClass += ` ${className}`);
 
@@ -78,12 +79,35 @@ export function SearchItemCreators({ creators, className }) {
     );
     return link;
   }
-  return creators.map((creator) => (
+
+  const numDisplayed = 3;
+  const result = creators.slice(0, numDisplayed).map((creator) => (
     <span className={spanClass} key={creator.person_or_org.name}>
       {getLink(creator)}
       {getIcons(creator)}
     </span>
   ));
+
+  const numExtra = creators.length - numDisplayed;
+  if (0 < numExtra) {
+    let text;
+    if (numExtra === 1) {
+      text = "and {{count}} other";
+    } else {
+      text = "and {{count}} others";
+    }
+    result.push(
+      <span className={spanClass} key={text}>
+        <a className="creatibutor-link" href={othersLink}>
+          <span className="creatibutor-name">
+            {i18next.t(text, { count: numExtra })}
+          </span>
+        </a>
+      </span>
+    );
+  }
+
+  return result;
 }
 
 /**
