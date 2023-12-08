@@ -148,7 +148,7 @@
           ' )' %}
         {% endif %}
       {% endif %}
-      <li class="item">{{ reference_string }}</li>
+      <li class="item">{{ reference_string | urlize }}</li>
     {% endfor %}
   </ul>
 {% endmacro %}
