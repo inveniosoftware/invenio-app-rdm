@@ -977,6 +977,9 @@ RDM_CITATION_STYLES_DEFAULT = "apa"
 IIIF_PREVIEW_TEMPLATE = "invenio_app_rdm/records/iiif_preview.html"
 """Template for IIIF image preview."""
 
+MIRADOR_PREVIEW_TEMPLATE = "invenio_app_rdm/records/mirador_preview.html"
+"""Template for Mirador image preview."""
+
 IIIF_API_DECORATOR_HANDLER = None
 
 # Invenio-Previewer
@@ -985,6 +988,7 @@ IIIF_API_DECORATOR_HANDLER = None
 
 PREVIEWER_PREFERENCE = [
     "csv_papaparsejs",
+    "mirador",
     "iiif_simple",
     "simple_image",
     "json_prismjs",
@@ -1015,6 +1019,7 @@ IIIF_FORMATS = {
     "tif": "image/tiff",
     "tiff": "image/tiff",
 }
+
 IIIF_FORMATS_PIL_MAP = {
     "gif": "gif",
     "jp2": "jpeg2000",
