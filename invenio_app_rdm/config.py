@@ -795,7 +795,7 @@ APP_RDM_RECORD_EXPORTERS = {
         "filename": "{id}.json",
     },
     "cff": {
-        "name": _("CFF"),
+        "name": _("Citation File Format"),
         "serializer": "invenio_rdm_records.resources.serializers:CFFSerializer",
         "params": {},
         "content-type": "application/x-yaml",
