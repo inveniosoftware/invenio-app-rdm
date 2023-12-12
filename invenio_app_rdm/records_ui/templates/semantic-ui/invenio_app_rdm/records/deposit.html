@@ -1,12 +1,12 @@
-{#
-  Copyright (C) 2020 CERN.
-  Copyright (C) 2020 Northwestern University.
-
-  Invenio App RDM is free software; you can redistribute it and/or modify it
-  under the terms of the MIT License; see LICENSE file for more details.
-#}
 
 {%- extends config.BASE_TEMPLATE %}
+
+{%- if community and community.theme %}
+  {%- block css %}
+  {{ super() }}
+  <link rel="stylesheet" type="text/css" href="/communities/{{community.slug}}/community-theme-{{ community.revision_id }}.css">
+  {%- endblock %}
+{%- endif %}
 
 {%- if not record.is_published and record.versions.index and record.versions.index > 1 %}
   {%- set title = _("New version") %}
@@ -17,6 +17,10 @@
 {%- endif %}
 
 {%- block page_body %}
+
+{%- if community_use_jinja_header %}
+{%- include "invenio_communities/details/header.html" %}
+{%- endif %}
 
   {%- if record %}
     <input id="deposits-record" type="hidden" name="deposits-record"

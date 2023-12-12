@@ -193,7 +193,7 @@ BABEL_DEFAULT_TIMEZONE = "Europe/Zurich"
 APP_THEME = ["semantic-ui"]
 """Application theme."""
 
-BASE_TEMPLATE = "invenio_theme/page.html"
+BASE_TEMPLATE = "invenio_app_rdm/page.html"
 """Global base template."""
 
 COVER_TEMPLATE = "invenio_theme/page_cover.html"

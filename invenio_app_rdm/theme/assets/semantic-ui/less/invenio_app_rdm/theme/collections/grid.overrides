@@ -10,21 +10,6 @@
   }
 }
 
-#rdm-footer-element {
-  .ui.grid {
-
-    .row.footer-top {
-      background-color: @footerLightColor;
-      padding: 2rem 0 4rem;
-    }
-
-    .row.footer-bottom, .sub-footer {
-      background-color: @footerDarkColor;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, .2) inset;
-    }
-  }
-}
-
 #record-info .ui.grid.middle.aligned,
 .sixteen.wide.tablet.five.wide.computer.column.sidebar {
   padding-top: 1rem;

@@ -35,7 +35,7 @@ body {
       }
     }
 
-    &:not(.computer):not(.mobile){
+    &:not(.computer):not(.mobile) {
       @media not all and (min-width: @tabletBreakpoint) and (max-width: @largestTabletScreen) {
         display: none !important;
       }
@@ -51,6 +51,11 @@ body {
 
 button:focus-visible, a:focus-visible {
   outline: 3px solid @focusedFormBorderColor !important;
+}
+
+.theme-default.outer-navbar {
+  background-color: @defaultBrandColor;
+  background-image: none;
 }
 
 .outer-navbar {
@@ -125,6 +130,12 @@ pre.export.result {
   max-height: @75px;
 }
 
+.theme-default {
+  .rdm-logo {
+    max-height: @45px;
+  }
+}
+
 #lang-code {
   min-width: 14em;
 }
@@ -164,6 +175,14 @@ pre.export.result {
 .footer-bottom, .sub-footer {
   background-color: @footerDarkColor;
   box-shadow: 0 2px 5px rgba(0, 0, 0, .2) inset;
+}
+
+.theme-default {
+  &.footer-bottom, &.sub-footer {
+    background-color: @defaultBrandColor;
+    color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .2) inset;
+  }
 }
 
 .intro-step-list-image {
@@ -444,11 +463,12 @@ dl.details-list {
 }
 
 .highlight-background {
-    background-color: @highlightHeaderColor;
+  background-color: @highlightHeaderColor;
 }
 
 .capitalize-first-char {
   display: inline-block;
+
   &::first-letter {
     text-transform: capitalize;
   }

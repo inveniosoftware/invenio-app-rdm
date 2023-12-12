@@ -20,6 +20,8 @@ from invenio_communities.errors import CommunityDeletedError
 from invenio_communities.proxies import current_communities
 from invenio_previewer.extensions import default as default_previewer
 from invenio_previewer.proxies import current_previewer
+
+from invenio_communities.views.communities import render_community_theme_template
 from invenio_rdm_records.proxies import current_rdm_records
 from invenio_rdm_records.records.systemfields.access.access_settings import (
     AccessSettings,
@@ -31,10 +33,6 @@ from marshmallow import ValidationError
 
 from invenio_app_rdm.records_ui.previewer.iiif_simple import (
     previewable_extensions as image_extensions,
-)
-from invenio_app_rdm.records_ui.views.deposits import (
-    get_user_communities_memberships,
-    load_custom_fields,
 )
 
 from ..utils import get_external_resources
@@ -78,12 +76,14 @@ def get_record_community(record):
             return None, community_id
 
         # resolve the community again to check the deletion status
-        # deleted communities with tombstones are not idenitfied as ghost records
+        # deleted communities with tombstones are not identified as ghost records
         # at the moment because `read_many()` function is not filtering them out
         try:
-            current_communities.service.read(id_=community_id, identity=g.identity)
+            community = current_communities.service.read(
+                id_=community_id, identity=g.identity
+            )
             # community has not tombstone
-            return expanded_community, community_id
+            return community, community_id
         except CommunityDeletedError:
             return None, community_id
     else:
@@ -197,8 +197,11 @@ def record_detail(
     record_owner = record._record.parent.access.owner.resolve()
 
     resolved_community, _ = get_record_community(record_ui)
-    return render_template(
+    return render_community_theme_template(
         current_app.config.get("APP_RDM_RECORD_LANDING_PAGE_TEMPLATE"),
+        theme_brand=resolved_community.to_dict().get("theme", {}).get("brand")
+        if resolved_community is not None
+        else None,
         record=record_ui,
         files=files_dict,
         media_files=media_files_dict,
@@ -331,7 +334,7 @@ def record_thumbnail(pid_value, size, record=None, **kwargs):
     return abort(404)
 
 
-####### Media files download
+# Media files download
 
 
 @pass_is_preview
@@ -357,7 +360,7 @@ def record_latest(record=None, **kwargs):
 
 @pass_record_from_pid
 def record_from_pid(record=None, **kwargs):
-    """Redirect to record'd latest version page."""
+    """Redirect to record's latest version page."""
     return redirect(record["links"]["self_html"], code=302)
 
 
