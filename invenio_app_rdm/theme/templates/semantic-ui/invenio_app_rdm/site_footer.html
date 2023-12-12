@@ -1,0 +1,22 @@
+<div class="footer-bottom sub-footer">
+  <div class="ui container">
+    <div class="ui grid">
+      <div class="eight wide column left middle aligned">
+        {%- block footer_bottom_left %}
+          {% trans invenio_rdm="http://inveniosoftware.org/products/rdm" %}
+            Powered by
+            <a
+              href="{{ invenio_rdm }}">InvenioRDM</a>{% endtrans %}
+        {%- endblock footer_bottom_left %}
+      </div>
+      <div class="eight wide column right aligned">
+        {%- block footer_bottom_right %}
+          {%- if config.I18N_LANGUAGES %}
+            {% from "invenio_i18n/macros/language_selector.html" import language_selector_dropdown %}
+            {{ language_selector_dropdown() }}
+          {%- endif %}
+        {%- endblock footer_bottom_right %}
+      </div>
+    </div>
+  </div>
+</div>

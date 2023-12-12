@@ -13,6 +13,7 @@ from flask import g, render_template
 from flask_login import current_user, login_required
 from invenio_communities.config import COMMUNITIES_ROLES
 from invenio_communities.members.services.request import CommunityInvitation
+from invenio_communities.views.communities import render_community_theme_template
 from invenio_communities.proxies import current_identities_cache
 from invenio_communities.utils import identity_cache_key
 from invenio_communities.views.decorators import pass_community
@@ -252,8 +253,9 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
         permissions.update(topic["permissions"])
         files = _resolve_record_or_draft_files(record, request)
         media_files = _resolve_record_or_draft_media_files(record, request)
-        return render_template(
+        return render_community_theme_template(
             f"invenio_requests/{request_type}/index.html",
+            theme_brand=community.get("theme", {}).get("brand"),
             base_template="invenio_communities/details/base.html",
             invenio_request=request.to_dict(),
             record=record,
@@ -278,8 +280,9 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
         if not permissions["can_search_invites"]:
             raise PermissionDeniedError()
 
-        return render_template(
+        return render_community_theme_template(
             f"invenio_requests/{request_type}/community_dashboard.html",
+            theme_brand=community.get("theme", {}).get("brand"),
             base_template="invenio_communities/details/members/base.html",
             invenio_request=request.to_dict(),
             community=community.to_dict(),

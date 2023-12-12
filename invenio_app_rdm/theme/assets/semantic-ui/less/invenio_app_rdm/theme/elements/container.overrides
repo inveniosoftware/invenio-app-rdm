@@ -99,3 +99,31 @@
 .ui.container.requests-feed-container {
   position: relative;
 }
+
+.ui.container.invenio-header-container.theme-default{
+      width: calc(@largeMonitorWidth + 10%);
+    @media screen and (max-width: @largestSmallMonitor) {
+      width: calc(@computerWidth + 10%);
+    }
+    @media screen and (max-width: @largestTabletScreen) {
+      width: calc(@tabletWidth + 10%);
+    }
+    @media screen and (max-width: @largestMobileScreen) {
+      width: calc(@mobileWidth + 5%);
+    }
+}
+
+.sub-footer.theme-default{
+  .ui.container {
+      width: calc(@largeMonitorWidth + 10%);
+    @media screen and (max-width: @largestSmallMonitor) {
+      width: calc(@computerWidth + 10%);
+    }
+    @media screen and (max-width: @largestTabletScreen) {
+      width: calc(@tabletWidth + 10%);
+    }
+    @media screen and (max-width: @largestMobileScreen) {
+      width: calc(@mobileWidth + 5%);
+    }
+  }
+}

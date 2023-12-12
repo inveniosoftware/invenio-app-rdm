@@ -88,6 +88,9 @@ export class RDMDepositForm extends Component {
     ) {
       this.noFiles = true;
     }
+
+    // hide community header for branded communities
+    this.hide_community_selection = this.config.hide_community_selection || false;
   }
 
   formFeedbackRef = createRef();
@@ -117,10 +120,12 @@ export class RDMDepositForm extends Component {
         </Overridable>
 
         <Overridable id="InvenioAppRdm.Deposit.CommunityHeader.container">
-          <CommunityHeader
-            imagePlaceholderLink="/static/images/square-placeholder.png"
-            record={record}
-          />
+          {!this.hide_community_selection && (
+            <CommunityHeader
+              imagePlaceholderLink="/static/images/square-placeholder.png"
+              record={record}
+            />
+          )}
         </Overridable>
         <Container id="rdm-deposit-form" className="rel-mt-1">
           <Grid className="mt-25">

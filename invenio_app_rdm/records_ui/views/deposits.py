@@ -13,9 +13,11 @@
 
 from copy import deepcopy
 
-from flask import current_app, g, render_template
+from flask import current_app, g
 from flask_login import login_required
+from invenio_communities.errors import CommunityDeletedError
 from invenio_communities.proxies import current_communities
+from invenio_communities.views.communities import render_community_theme_template
 from invenio_i18n import lazy_gettext as _
 from invenio_i18n.ext import current_i18n
 from invenio_rdm_records.proxies import current_rdm_records
@@ -368,11 +370,25 @@ def new_record():
 @pass_draft_community
 def deposit_create(community=None):
     """Create a new deposit."""
-    return render_template(
+    community_theme = None
+    if community is not None:
+        community_theme = community.get("theme", None)
+
+    community_use_jinja_header = community_theme is not None
+    brand = community_theme.get("brand") if community_theme else None
+
+    return render_community_theme_template(
         current_app.config["APP_RDM_DEPOSIT_FORM_TEMPLATE"],
-        forms_config=get_form_config(createUrl="/api/records", quota=get_quota()),
+        theme_brand=brand,
+        forms_config=get_form_config(
+            createUrl="/api/records",
+            quota=get_quota(),
+            hide_community_selection=community_use_jinja_header,
+        ),
         searchbar_config=dict(searchUrl=get_search_url()),
         record=new_record(),
+        community=community,
+        community_use_jinja_header=community_use_jinja_header,
         files=dict(default_preview=None, entries=[], links={}),
         preselectedCommunity=community,
         files_locked=False,
@@ -395,14 +411,41 @@ def deposit_edit(pid_value, draft=None, draft_files=None, files_locked=True):
     ui_serializer = UIJSONSerializer()
     record = ui_serializer.dump_obj(draft.to_dict())
 
-    return render_template(
+    community_theme = None
+    community = record.get("expanded", {}).get("parent", {}).get("review", {}).get(
+        "receiver"
+    ) or record.get("expanded", {}).get("parent", {}).get("communities", {}).get(
+        "default"
+    )
+
+    if community:
+        # TODO: handle deleted community
+        try:
+            community = current_communities.service.read(
+                id_=community["id"], identity=g.identity
+            )
+            community_theme = community.to_dict().get("theme", {})
+        except CommunityDeletedError:
+            pass
+
+    # show the community branded header when there is a theme and record is published
+    # for unpublished records we fallback to the react component so users can change
+    # communities
+    community_use_jinja_header = community_theme is not None
+
+    return render_community_theme_template(
         current_app.config["APP_RDM_DEPOSIT_FORM_TEMPLATE"],
+        theme_brand=community_theme.get("brand") if community_theme else None,
         forms_config=get_form_config(
             apiUrl=f"/api/records/{pid_value}/draft",
             # maybe quota should be serialized into the record e.g for admins
             quota=get_quota(draft._record),
+            # hide react community component
+            hide_community_selection=community_use_jinja_header,
         ),
         record=record,
+        community=community,
+        community_use_jinja_header=community_use_jinja_header,
         files=files_dict,
         searchbar_config=dict(searchUrl=get_search_url()),
         files_locked=files_locked,

@@ -60,6 +60,8 @@
 @versionActiveColor: #d9edf7;
 
 @mutedAccordionHeaderColor: #f5f5f5;
+@defaultBrandColor: #434C5E;
+
 
 /*-------------------
       Links

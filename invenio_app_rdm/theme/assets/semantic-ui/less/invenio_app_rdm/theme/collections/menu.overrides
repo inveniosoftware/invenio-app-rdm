@@ -123,6 +123,7 @@
 }
 
 #invenio-nav.ui.menu {
+
   height: @relative75px;
   position: relative;
 
@@ -208,6 +209,14 @@
 
   }
 }
+
+
+.theme-default{
+  #invenio-nav {
+    height: @relative50px !important;
+  }
+}
+
 
 @media all and (max-width: @largestTabletScreen) {
   #invenio-nav.ui.menu {
@@ -386,4 +395,3 @@
     }
   }
 }
-

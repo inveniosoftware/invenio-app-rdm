@@ -8,7 +8,7 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 """Request views module."""
 
-from flask import render_template
+from invenio_communities.views.communities import render_community_theme_template
 from invenio_communities.views.decorators import pass_community
 
 
@@ -20,9 +20,11 @@ def communities_detail(pid_value, community, community_ui):
     )
     endpoint = "/api/communities/{pid_value}/records"
 
-    return render_template(
+    return render_community_theme_template(
         "invenio_communities/details/index.html",
-        community=community_ui,
+        theme_brand=community_ui.get("theme", {}).get("brand"),
+        community=community,
+        community_ui=community_ui,
         # Pass permissions so we can disable partially UI components
         # e.g Settings tab
         permissions=permissions,
