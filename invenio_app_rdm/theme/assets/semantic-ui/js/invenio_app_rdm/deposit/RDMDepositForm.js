@@ -478,9 +478,10 @@ export class RDMDepositForm extends Component {
 
                           // there cannot be an award without a funder
                           if (funding.award) {
+                            const { acronym, title } = funding.award;
                             awardOrFunder = "award";
                             descriptionContent = funderName;
-                            headerContent = funding.award.title;
+                            headerContent = acronym ? `${acronym} — ${title}` : title;
                           }
                         }
 
