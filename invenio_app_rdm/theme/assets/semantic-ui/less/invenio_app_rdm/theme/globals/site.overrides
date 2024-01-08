@@ -464,3 +464,7 @@ dl.details-list {
   word-wrap: normal;
   border: 0;
 }
+
+#new-dropdown-label-login {
+  margin-left: 0.1rem;
+}
