@@ -13,9 +13,9 @@ from flask import g, render_template
 from flask_login import current_user, login_required
 from invenio_communities.config import COMMUNITIES_ROLES
 from invenio_communities.members.services.request import CommunityInvitation
-from invenio_communities.views.communities import render_community_theme_template
 from invenio_communities.proxies import current_identities_cache
 from invenio_communities.utils import identity_cache_key
+from invenio_communities.views.communities import render_community_theme_template
 from invenio_communities.views.decorators import pass_community
 from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_rdm_records.proxies import current_rdm_records_service

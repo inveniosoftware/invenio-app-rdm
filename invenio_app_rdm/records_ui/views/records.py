@@ -18,10 +18,9 @@ from flask_login import current_user
 from invenio_base.utils import obj_or_import_string
 from invenio_communities.errors import CommunityDeletedError
 from invenio_communities.proxies import current_communities
+from invenio_communities.views.communities import render_community_theme_template
 from invenio_previewer.extensions import default as default_previewer
 from invenio_previewer.proxies import current_previewer
-
-from invenio_communities.views.communities import render_community_theme_template
 from invenio_rdm_records.proxies import current_rdm_records
 from invenio_rdm_records.records.systemfields.access.access_settings import (
     AccessSettings,
