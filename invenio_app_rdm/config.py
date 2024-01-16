@@ -725,6 +725,13 @@ APP_RDM_RECORD_EXPORTERS = {
         "content-type": "application/ld+json",
         "filename": "{id}.json",
     },
+    "csv": {
+        "name": _("CSV"),
+        "serializer": ("invenio_rdm_records.resources.serializers:CSVSerializer"),
+        "params": {"options": {"indent": 2, "sort_keys": True}},
+        "content-type": "application/vnd.inveniordm.v1.csv",
+        "filename": "{id}.csv",
+    },
     "csl": {
         "name": _("CSL"),
         "serializer": ("invenio_rdm_records.resources.serializers:CSLJSONSerializer"),
