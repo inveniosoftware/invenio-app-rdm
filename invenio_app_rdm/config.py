@@ -727,7 +727,7 @@ APP_RDM_RECORD_EXPORTERS = {
     },
     "csv": {
         "name": _("CSV"),
-        "serializer": ("invenio_rdm_records.resources.serializers:CSVSerializer"),
+        "serializer": ("invenio_rdm_records.resources.serializers:CSVRecordSerializer"),
         "params": {"options": {"indent": 2, "sort_keys": True}},
         "content-type": "application/vnd.inveniordm.v1.csv",
         "filename": "{id}.csv",
