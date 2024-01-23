@@ -72,10 +72,10 @@
 
       {% if add_description.type.id == "notes" %}
         <div class="ui message warning">
-          {{ add_description.description | sanitize_html() | safe }}
+          {{ add_description.description | safe }}
         </div>
       {% else %}
-        {{ add_description.description | sanitize_html() | safe }}
+        {{ add_description.description | safe }}
       {% endif %}
     </section>
   {% endfor %}
