@@ -48,6 +48,7 @@
 @highlightBackgroundColor: @highlightHeaderColor;
 @highlightBackgroundColorHover:  darken(saturate(@highlightHeaderColor, 20), 15, relative);
 @highlightLandingPageBackgroundColor: rgba(173, 206, 224, 0.52);
+@selectedColor: #ededed;
 
 
 @navbarBackgroundImage: linear-gradient(

@@ -466,6 +466,18 @@ dl.details-list {
   background-color: @highlightHeaderColor;
 }
 
+.selected-background {
+  background-color: @selectedColor !important;
+}
+
+.text-muted {
+  color: @mutedTextColor !important;
+}
+
+.clickable {
+  cursor: pointer !important;
+}
+
 .capitalize-first-char {
   display: inline-block;
 
@@ -484,3 +496,4 @@ dl.details-list {
   word-wrap: normal;
   border: 0;
 }
+

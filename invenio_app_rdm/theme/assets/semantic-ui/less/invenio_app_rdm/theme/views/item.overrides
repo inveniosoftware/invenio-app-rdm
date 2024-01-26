@@ -28,11 +28,11 @@
 }
 
 .ui.unstackable.items > .item > .image.dashboard-header-avatar,
-.ui.unstackable.items > .item > .image.dashboard-header-avatar > img{
-// override default SUI for dashboard avatar
-    width: @userDashboardAvatarSize !important;
-    height: @userDashboardAvatarSize !important;
-    object-fit: contain;
+.ui.unstackable.items > .item > .image.dashboard-header-avatar > img {
+  // override default SUI for dashboard avatar
+  width: @userDashboardAvatarSize !important;
+  height: @userDashboardAvatarSize !important;
+  object-fit: contain;
 }
 
 
@@ -100,6 +100,9 @@
   }
 
   .item {
+    &.disabled {
+      color: @selectedColor !important;
+    }
 
     &.flex {
       display: flex !important;
