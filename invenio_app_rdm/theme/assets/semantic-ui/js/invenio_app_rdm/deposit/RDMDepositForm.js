@@ -563,6 +563,7 @@ export class RDMDepositForm extends Component {
                 >
                   <CustomFields
                     config={customFieldsUI}
+                    record={record}
                     templateLoaders={[
                       (widget) => import(`@templates/custom_fields/${widget}.js`),
                       (widget) =>
@@ -571,6 +572,7 @@ export class RDMDepositForm extends Component {
                     ]}
                     fieldPathPrefix="custom_fields"
                   />
+
                 </Overridable>
               )}
             </Grid.Column>
