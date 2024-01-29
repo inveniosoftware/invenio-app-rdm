@@ -219,6 +219,18 @@
   {% endif %}
 {% endmacro %}
 
+{% macro list_float_values(field, values) %}
+  {% for value in values %}
+    {% set search_url = field | custom_fields_search(value) %}
+    {% if search_url %}
+      <a href="{{ search_url }}">{{ "%0.2f" | format(value) }}</a>{{ " , " if not loop.last }}
+    {% else %}
+      {{ "%0.2f" | format(value) }}{{ ", " if not loop.last }}
+    {% endif %}
+  {% endfor %}
+{% endmacro %}
+
+
 {% macro show_section_custom_fields(custom_fields, section_fields) %}
   {% for field_cfg in section_fields %}
     {% set field_value = custom_fields.get(field_cfg.field) %}
@@ -256,6 +268,8 @@
           <dd>{{ list_vocabulary_values(field_value) }}</dd>
         {% elif field_value is iterable and field_value|length > 0 and field_value[0] is string %}
           <dd>{{ list_string_values(field_cfg.field, field_value) }}</dd>
+        {% elif field_value is iterable and field_value|length > 0 and field_value[0] is number %}
+          <dd>{{ list_float_values(field_cfg.field, field_value) }}</dd>
         {% else %}
           <dd>{{ field_value }}</dd>
         {% endif %}
