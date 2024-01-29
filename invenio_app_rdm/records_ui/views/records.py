@@ -198,9 +198,11 @@ def record_detail(
     resolved_community, _ = get_record_community(record_ui)
     return render_community_theme_template(
         current_app.config.get("APP_RDM_RECORD_LANDING_PAGE_TEMPLATE"),
-        theme_brand=resolved_community.to_dict().get("theme", {}).get("brand")
-        if resolved_community is not None
-        else None,
+        theme_brand=(
+            resolved_community.to_dict().get("theme", {}).get("brand")
+            if resolved_community is not None
+            else None
+        ),
         record=record_ui,
         files=files_dict,
         media_files=media_files_dict,
@@ -225,9 +227,9 @@ def record_detail(
         community=resolved_community,
         external_resources=get_external_resources(record_ui),
         user_avatar=avatar,
-        record_owner_username=record_owner.username
-        if record_owner is not None
-        else None,  # record created with system_identity have not owners e.g demo
+        record_owner_username=(
+            record_owner.username if record_owner is not None else None
+        ),  # record created with system_identity have not owners e.g demo
     )
 
 
