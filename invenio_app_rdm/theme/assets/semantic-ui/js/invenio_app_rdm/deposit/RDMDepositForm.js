@@ -572,7 +572,6 @@ export class RDMDepositForm extends Component {
                     ]}
                     fieldPathPrefix="custom_fields"
                   />
-
                 </Overridable>
               )}
             </Grid.Column>
