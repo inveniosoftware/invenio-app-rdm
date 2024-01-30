@@ -31,7 +31,7 @@ def search_app_context():
             config_name="RDM_SEARCH_USER_REQUESTS",
             available_facets=current_app.config["REQUESTS_FACETS"],
             sort_options=current_app.config["RDM_SORT_OPTIONS"],
-            headers={"Accept": "application/json"},
+            headers={"Accept": "application/vnd.inveniordm.v1+json"},
             hidden_params=[
                 ["expand", "1"],
                 ["is_open", "true"],
@@ -65,6 +65,6 @@ def search_app_context():
             config_name="RDM_SEARCH",
             available_facets=current_app.config["RDM_FACETS"],
             sort_options=current_app.config["RDM_SORT_OPTIONS"],
-            headers={"Accept": "application/json"},
+            headers={"Accept": "application/vnd.inveniordm.v1+json"},
         ),
     }

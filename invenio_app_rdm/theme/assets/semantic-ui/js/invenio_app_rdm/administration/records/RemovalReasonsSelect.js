@@ -34,13 +34,8 @@ export default class RemovalReasonsSelect extends Component {
     const { setFieldValue } = this.props;
     this.setState({ loading: true });
     const url = "/api/vocabularies/removalreasons";
-    this.cancellableAction = withCancel(
-      http.get(url, {
-        headers: {
-          Accept: "application/vnd.inveniordm.v1+json",
-        },
-      })
-    );
+    this.cancellableAction = withCancel(http.get(url));
+
     try {
       const response = await this.cancellableAction.promise;
       const options = response.data.hits.hits;
