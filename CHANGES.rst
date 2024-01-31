@@ -1,5 +1,5 @@
 ..
-    Copyright (C) 2019-2021 CERN.
+    Copyright (C) 2019-2024 CERN.
     Copyright (C) 2019-2021 Northwestern University.
     Copyright (C)      2021 TU Wien.
     Copyright (C)      2021 Graz University of Technology.
