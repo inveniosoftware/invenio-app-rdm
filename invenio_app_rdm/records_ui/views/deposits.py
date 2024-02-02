@@ -424,7 +424,7 @@ def deposit_edit(pid_value, draft=None, draft_files=None, files_locked=True):
             community = current_communities.service.read(
                 id_=community["id"], identity=g.identity
             )
-            community_theme = community.to_dict().get("theme", {})
+            community_theme = community.to_dict().get("theme", None)
         except CommunityDeletedError:
             pass
 
