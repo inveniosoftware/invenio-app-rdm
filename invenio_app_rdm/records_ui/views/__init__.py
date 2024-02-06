@@ -23,7 +23,7 @@ from invenio_records_resources.services.errors import (
 
 from ...theme.views import create_url_rule
 from ..searchapp import search_app_context
-from .deposits import deposit_create, deposit_edit
+from .deposits import community_upload, deposit_create, deposit_edit
 from .filters import (
     can_list_files,
     compact_number,
@@ -62,6 +62,7 @@ from .records import (
 def create_blueprint(app):
     """Register blueprint routes on app."""
     routes = app.config.get("APP_RDM_ROUTES")
+    communities_routes = app.config.get("COMMUNITIES_ROUTES")
 
     blueprint = Blueprint(
         "invenio_app_rdm_records",
@@ -140,6 +141,13 @@ def create_blueprint(app):
         **create_url_rule(
             routes["deposit_edit"],
             default_view_func=deposit_edit,
+        )
+    )
+
+    blueprint.add_url_rule(
+        **create_url_rule(
+            communities_routes["upload"],
+            default_view_func=community_upload,
         )
     )
 
