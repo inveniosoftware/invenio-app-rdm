@@ -75,10 +75,10 @@ def pass_draft(expand=False):
                     expand=expand,
                 )
                 kwargs["draft"] = draft
-                kwargs["files_locked"] = (
-                    record_service.config.lock_edit_published_files(
-                        record_service, g.identity, record=draft._record
-                    )
+                kwargs[
+                    "files_locked"
+                ] = record_service.config.lock_edit_published_files(
+                    record_service, g.identity, record=draft._record
                 )
                 return f(**kwargs)
             except PIDDoesNotExistError:
