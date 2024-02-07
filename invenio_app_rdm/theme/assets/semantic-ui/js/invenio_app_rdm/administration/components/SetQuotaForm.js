@@ -151,7 +151,7 @@ export class SetQuotaForm extends Component {
                     />
                   </Form.Field>
                   <Form.Field>
-                    <TextAreaField fieldPath="notes" label={i18next.t("Note")} fluid />
+                    <TextAreaField fieldPath="notes" label={i18next.t("Note")} fluid placeholder={i18next.t("Ticket 1234")}/>
                   </Form.Field>
                 </Form>
               </Modal.Content>
