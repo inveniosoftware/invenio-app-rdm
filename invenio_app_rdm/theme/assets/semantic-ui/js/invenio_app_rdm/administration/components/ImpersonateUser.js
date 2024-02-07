@@ -8,7 +8,7 @@
 
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Button, Modal, Icon } from "semantic-ui-react";
+import { Modal, Icon, Dropdown } from "semantic-ui-react";
 import { ActionModal } from "@js/invenio_administration";
 import _isEmpty from "lodash/isEmpty";
 import { ImpersonateUserForm } from "./ImpersonateUserForm";
@@ -63,7 +63,7 @@ export class ImpersonateUser extends Component {
     const { modalOpen, modalHeader, modalBody } = this.state;
     return (
       <>
-        <Button
+        <Dropdown.Item
           key="impersonate-user"
           onClick={this.onModalTriggerClick}
           icon
@@ -73,7 +73,7 @@ export class ImpersonateUser extends Component {
         >
           <Icon name="spy" />
           Impersonate
-        </Button>
+        </Dropdown.Item>
         <ActionModal modalOpen={modalOpen} user={user}>
           {modalHeader && <Modal.Header>{modalHeader}</Modal.Header>}
           {!_isEmpty(modalBody) && modalBody}

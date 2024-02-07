@@ -17,14 +17,28 @@ from invenio_i18n import lazy_gettext as _
 from invenio_search_ui.searchconfig import search_app_config
 
 USERS_ITEM_LIST = {
+    "user": {"text": _("User"), "order": 2, "width": 3},
+    "username": {"text": _("Username"), "order": 3, "width": 2},
+    "email": {"text": _("Email"), "order": 4, "width": 2},
+    "status": {"text": _("Status"), "order": 5, "width": 1},
+    "created": {"text": _("Created"), "order": 6, "width": 1},
+    "updated": {"text": _("Updated"), "order": 6, "width": 1},
+    "links": {"text": "", "order": 7, "width": 1},
+}
+
+USERS_ITEM_DETAIL = {
     "id": {"text": _("ID"), "order": 1, "width": 1},
-    "user": {"text": _("User"), "order": 2, "width": 2},
     "username": {"text": _("Username"), "order": 3, "width": 2},
     "email": {"text": _("Email"), "order": 4, "width": 1},
-    "confirmed": {"text": _("Confirmed"), "order": 5, "width": 1},
-    "verified_at": {"text": _("Verified"), "order": 6, "width": 1},
-    "created": {"text": _("Created"), "order": 7, "width": 2},
-    "updated": {"text": _("Updated"), "order": 8, "width": 2},
+    "domain": {"text": _("Domain "), "order": 5, "width": 1},
+    "status": {"text": _("Status"), "order": 6, "width": 1},
+    "visibility": {"text": _("Visibility"), "order": 7, "width": 1},
+    "active": {"text": _("Active"), "order": 8, "width": 1},
+    "confirmed_at": {"text": _("Confirmed at"), "order": 9, "width": 1},
+    "verified_at": {"text": _("Verified at"), "order": 10, "width": 1},
+    "blocked_at": {"text": _("Blocked at"), "order": 11, "width": 1},
+    "created": {"text": _("Created"), "order": 12, "width": 2},
+    "updated": {"text": _("Updated"), "order": 13, "width": 2},
 }
 
 
@@ -34,7 +48,7 @@ USERS_ITEM_LIST = {
 class UsersListView(AdminResourceListView):
     """Configuration for users sets list view."""
 
-    api_endpoint = "/users/moderation"
+    api_endpoint = "/users/all"
     extension_name = "invenio-users-resources"
     name = "users"
     resource_config = "users_resource"
@@ -111,9 +125,9 @@ class UsersDetailView(AdminResourceDetailView):
     extension_name = "invenio-users-resources"
     name = "User details"
     resource_config = "users_resource"
-    title = "User Details"
+    title = _("User details")
     display_delete = False
     display_edit = False
 
     pid_path = "username"
-    item_field_list = USERS_ITEM_LIST
+    item_field_list = USERS_ITEM_DETAIL

@@ -8,7 +8,7 @@
 
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Button, Modal, Icon, Checkbox } from "semantic-ui-react";
+import { Modal, Icon, Checkbox, Dropdown } from "semantic-ui-react";
 import { ActionModal } from "@js/invenio_administration";
 import { SetQuotaForm } from "./SetQuotaForm";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
@@ -50,7 +50,7 @@ export class SetQuotaAction extends Component {
 
     return (
       <>
-        <Button
+        <Dropdown.Item
           key="set-quota"
           onClick={this.onModalTriggerClick}
           icon
@@ -60,7 +60,7 @@ export class SetQuotaAction extends Component {
         >
           <Icon name="disk" />
           {i18next.t("Set Quota")}
-        </Button>
+        </Dropdown.Item>
 
         <ActionModal modalOpen={modalOpen} resource={resource}>
           <Modal.Header className="flex justify-space-between">
@@ -78,7 +78,7 @@ export class SetQuotaAction extends Component {
               <p>
                 <strong>{i18next.t("Note")}:</strong>{" "}
                 {i18next.t(
-                  "This is the default quota that will be applied to any NEW buckets created by this user – it will NOT update existing buckets."
+                  "This is the default quota that will be applied to any NEW records created by this user – it will NOT update quota of existing records."
                 )}
               </p>
             </Modal.Content>

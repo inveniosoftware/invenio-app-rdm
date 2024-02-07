@@ -10,7 +10,7 @@ import { BoolFormatter, DateFormatter } from "@js/invenio_administration";
 import { UserActions } from "../UserActions";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
-import { Table } from "semantic-ui-react";
+import { Table, Dropdown, Icon } from "semantic-ui-react";
 import { withState } from "react-searchkit";
 import { AdminUIRoutes } from "@js/invenio_administration/src/routes";
 import { UserListItemCompact } from "react-invenio-forms";
@@ -31,9 +31,6 @@ class SearchResultItemComponent extends Component {
         {/*We pass user ID to bulk actions - user moderation API takes user IDs*/}
         {/*<SearchResultsRowCheckbox rowId={userId} data={result} />*/}
         {/*</Table.Cell>*/}
-        <Table.Cell key={`user-${result.id}`} data-label={i18next.t("ID")} collapsing>
-          {result.id}
-        </Table.Cell>
         <Table.Cell key={`user-column-${result.id}`} data-label={i18next.t("User")}>
           <UserListItemCompact
             user={result}
@@ -47,6 +44,16 @@ class SearchResultItemComponent extends Component {
         </Table.Cell>
         <Table.Cell key={`user-name-${result.id}`} data-label={i18next.t("Username")}>
           @{result.username}
+
+          { result.identities.orcid && (
+            <img class="inline-id-icon ml-5" src="/static/images/orcid.svg" alt="ORCID"></img>
+          )}
+          <BoolFormatter
+            tooltip={i18next.t("GitHub")}
+            icon="github"
+            color="black"
+            value={(result.identities.github)}
+          />
         </Table.Cell>
         <Table.Cell
           key={`user-email-${result.id}`}
@@ -54,30 +61,68 @@ class SearchResultItemComponent extends Component {
           collapsing
           className="word-break-all"
         >
+          <BoolFormatter
+            tooltip={i18next.t("New")}
+            icon="hourglass end"
+            color="grey"
+            value={result.domaininfo.status==1}
+          />
+          <BoolFormatter
+            tooltip={i18next.t("Moderated")}
+            icon="eye"
+            color="grey"
+            value={result.domaininfo.status==2}
+          />
+          <BoolFormatter
+            tooltip={i18next.t("Verified")}
+            icon="check"
+            color="green"
+            value={result.domaininfo.status==3}
+          />
+          <BoolFormatter
+            tooltip={i18next.t("Blocked")}
+            icon="ban"
+            color="red"
+            value={result.domaininfo.status==4}
+          />
           {result.email}
         </Table.Cell>
         <Table.Cell
           collapsing
-          key={`user-confirmed-${result.id}`}
-          data-label={i18next.t("Confirmed")}
+          key={`user-status-${result.id}`}
+          data-label={i18next.t("Status")}
           className="word-break-all"
         >
-          <BoolFormatter icon="check" color="green" value={result.confirmed} />
-          <BoolFormatter icon="close" color="red" value={!result.confirmed} />
-        </Table.Cell>
-        <Table.Cell
-          collapsing
-          key={`user-verified-${result.id}`}
-          data-label={i18next.t("Verified at")}
-          className="word-break-all"
-        >
-          <BoolFormatter
-            tooltip={result.verified_at}
-            icon="check"
-            color="green"
-            value={result.verified_at}
-          />
-          <BoolFormatter icon="close" color="red" value={!result.verified_at} />
+            <BoolFormatter
+              tooltip={i18next.t("Verified")}
+              icon="star"
+              color="yellow"
+              value={result.status=="verified"}
+            />
+            <BoolFormatter
+              tooltip={i18next.t("Confirmed")}
+              icon="check"
+              color="green"
+              value={result.status=="confirmed"}
+            />
+            <BoolFormatter
+              tooltip={i18next.t("New")}
+              icon="hourglass"
+              color="grey"
+              value={result.status=="new"}
+            />
+            <BoolFormatter
+              tooltip={i18next.t("Inactive")}
+              icon="times"
+              color="red"
+              value={result.status=="inactive"}
+            />
+            <BoolFormatter
+              tooltip={i18next.t("Blocked")}
+              icon="ban"
+              color="red"
+              value={result.status=="blocked"}
+            />
         </Table.Cell>
         <Table.Cell
           collapsing
@@ -95,7 +140,20 @@ class SearchResultItemComponent extends Component {
         >
           <DateFormatter value={result.updated} />
         </Table.Cell>
-
+        <Table.Cell
+          collapsing
+          key={`user-links-${result.id}`}
+          data-label={i18next.t("Links")}
+          className="word-break-all"
+        >
+          <Dropdown text={<Icon name="eye"/>}>
+          <Dropdown.Menu>
+            <Dropdown.Item text='Records' onClick={() => (window.location = result.links.admin_records_html)} />
+            <Dropdown.Item text='Drafts' onClick={() => (window.location = result.links.admin_drafts_html)}/>
+            <Dropdown.Item text='Moderation'  onClick={() => (window.location = result.links.admin_moderation_html)} />
+            </Dropdown.Menu>
+          </Dropdown>
+        </Table.Cell>
         <Table.Cell collapsing>
           <UserActions
             useDropdown
