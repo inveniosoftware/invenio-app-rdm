@@ -128,6 +128,7 @@ export class RecordCommunitySubmissionModal extends Component {
           apiConfigs={apiConfigs}
           handleClose={handleClose}
           record={record}
+          isInitialSubmission={false}
         />
         {confirmationModalOpen && (
           <SubmitReviewModal
