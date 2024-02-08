@@ -22,7 +22,7 @@ def communities_detail(pid_value, community, community_ui):
 
     return render_community_theme_template(
         "invenio_communities/details/index.html",
-        theme_brand=community_ui.get("theme", {}).get("brand"),
+        theme=community_ui.get("theme", {}),
         community=community,
         community_ui=community_ui,
         # Pass permissions so we can disable partially UI components

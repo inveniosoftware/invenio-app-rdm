@@ -13,7 +13,7 @@
   {%- extends config.BASE_TEMPLATE %}
   {%- block css %}
     {{ super() }}
-    {% if community and community.theme %}
+    {% if community and community.theme.enabled %}
       <link rel="stylesheet" type="text/css"
             href="/communities/{{ community.slug }}/community-theme-{{ community.revision_id }}.css">
     {% endif %}
@@ -53,7 +53,7 @@
     {% if not is_preview_submission_request %}
       {% if community %}
         {% set is_community_restricted = community.access.visibility == 'restricted' %}
-        {% if community.theme %}
+        {% if community.theme.enabled %}
           {% include "invenio_communities/details/header.html" %}
         {% else %}
           <div

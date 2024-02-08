@@ -1,7 +1,7 @@
 
 {%- extends config.BASE_TEMPLATE %}
 
-{%- if community and community.theme %}
+{%- if community and community.theme.enabled %}
   {%- block css %}
   {{ super() }}
   <link rel="stylesheet" type="text/css" href="/communities/{{community.slug}}/community-theme-{{ community.revision_id }}.css">
