@@ -255,7 +255,7 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
         media_files = _resolve_record_or_draft_media_files(record, request)
         return render_community_theme_template(
             f"invenio_requests/{request_type}/index.html",
-            theme_brand=community.to_dict().get("theme", {}).get("brand"),
+            theme=community.to_dict().get("theme", {}),
             base_template="invenio_communities/details/base.html",
             invenio_request=request.to_dict(),
             record=record,
@@ -282,7 +282,7 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
 
         return render_community_theme_template(
             f"invenio_requests/{request_type}/community_dashboard.html",
-            theme_brand=community.to_dict().get("theme", {}).get("brand"),
+            theme=community.to_dict().get("theme", {}),
             base_template="invenio_communities/details/members/base.html",
             invenio_request=request.to_dict(),
             community=community.to_dict(),

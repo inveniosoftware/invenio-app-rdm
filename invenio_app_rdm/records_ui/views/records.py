@@ -196,13 +196,11 @@ def record_detail(
     record_owner = record._record.parent.access.owner.resolve()
 
     resolved_community, _ = get_record_community(record_ui)
+    theme = resolved_community.to_dict().get("theme", {}) if resolved_community else None
+
     return render_community_theme_template(
         current_app.config.get("APP_RDM_RECORD_LANDING_PAGE_TEMPLATE"),
-        theme_brand=(
-            resolved_community.to_dict().get("theme", {}).get("brand")
-            if resolved_community is not None
-            else None
-        ),
+        theme=theme,
         record=record_ui,
         files=files_dict,
         media_files=media_files_dict,
