@@ -194,7 +194,6 @@ def record_detail(
 
     # NOTE: this should maybe be an expandable field instead
     record_owner = record._record.parent.access.owner.resolve()
-
     resolved_community, _ = get_record_community(record_ui)
     theme = (
         resolved_community.to_dict().get("theme", {}) if resolved_community else None
