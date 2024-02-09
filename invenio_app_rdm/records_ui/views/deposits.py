@@ -460,6 +460,6 @@ def deposit_edit(pid_value, draft=None, draft_files=None, files_locked=True):
 
 
 def community_upload(pid_value):
-    """Community dedicated upload form."""
+    """Redirection for upload to community."""
     routes = current_app.config.get("APP_RDM_ROUTES")
     return redirect(f"{routes['deposit_create']}?community={pid_value}")
