@@ -938,6 +938,7 @@ RDM_REQUESTS_ROUTES = {
 
 RDM_COMMUNITIES_ROUTES = {
     "community-detail": "/communities/<pid_value>/records",
+    "community-home": "/communities/<pid_value>/",
 }
 
 RDM_SEARCH_USER_COMMUNITIES = {
