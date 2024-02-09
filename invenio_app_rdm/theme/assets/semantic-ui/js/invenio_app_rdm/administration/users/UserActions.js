@@ -179,41 +179,44 @@ export class UserActions extends Component {
       <div>
         {useDropdown ? (
           <div>
-            { isUserActive && (<Button
-              key="block"
-              onClick={() => this.handleAction("block")}
-              disabled={loading}
-              loading={loading}
-              icon
-              labelPosition="left"
-            >
-              <Icon name="ban" />
-              {i18next.t("Block")}
-            </Button>
+            {isUserActive && (
+              <Button
+                key="block"
+                onClick={() => this.handleAction("block")}
+                disabled={loading}
+                loading={loading}
+                icon
+                labelPosition="left"
+              >
+                <Icon name="ban" />
+                {i18next.t("Block")}
+              </Button>
             )}
-            {!isUserActive && !isUserBlocked && (<Button
-              key="activate"
-              onClick={() => this.handleAction("activate")}
-              disabled={loading}
-              loading={loading}
-              icon
-              labelPosition="left"
-            >
-              <Icon name="check" />
-              {i18next.t("Activate")}
-            </Button>
+            {!isUserActive && !isUserBlocked && (
+              <Button
+                key="activate"
+                onClick={() => this.handleAction("activate")}
+                disabled={loading}
+                loading={loading}
+                icon
+                labelPosition="left"
+              >
+                <Icon name="check" />
+                {i18next.t("Activate")}
+              </Button>
             )}
-            {isUserBlocked && (<Button
-              key="restore"
-              onClick={() => this.handleAction("restore")}
-              disabled={loading}
-              loading={loading}
-              icon
-              labelPosition="left"
-            >
-              <Icon name="undo" />
-              {i18next.t("Restore")}
-            </Button>
+            {isUserBlocked && (
+              <Button
+                key="restore"
+                onClick={() => this.handleAction("restore")}
+                disabled={loading}
+                loading={loading}
+                icon
+                labelPosition="left"
+              >
+                <Icon name="undo" />
+                {i18next.t("Restore")}
+              </Button>
             )}
             <Dropdown
               text={<Icon name="cog" />}
