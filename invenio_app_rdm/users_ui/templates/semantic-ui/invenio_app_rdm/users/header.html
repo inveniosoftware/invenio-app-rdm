@@ -37,7 +37,7 @@
     {% endif %}
   </div>
   <div class="ui container secondary pointing menu page-subheader pl-0">
-  {% for item in current_menu.submenu('dashboard').children %}
+  {% for item in current_menu.submenu('dashboard').children if item.visible %}
   <a
     class="item {{ 'active' if active_dashboard_menu_item == item.name }} {{ 'disabled' if not item.url }}"
     href="{{ item.url }}">{{ item.text }}</a>
