@@ -98,13 +98,6 @@ def create_ui_blueprint(app):
     def register_menus():
         """Register community menu items."""
         communities = current_menu.submenu("communities")
-        communities.submenu("search").register(
-            "invenio_app_rdm_communities.communities_detail",
-            text=_("Records"),
-            order=2,
-            expected_args=["pid_value"],
-            **dict(icon="search", permissions=True),
-        )
         communities.submenu("home").register(
             "invenio_app_rdm_communities.communities_home",
             text=_("Home"),
@@ -112,6 +105,13 @@ def create_ui_blueprint(app):
             visible_when=_is_branded_community,
             expected_args=["pid_value"],
             **dict(icon="home", permissions="can_read"),
+        )
+        communities.submenu("search").register(
+            "invenio_app_rdm_communities.communities_detail",
+            text=_("Records"),
+            order=2,
+            expected_args=["pid_value"],
+            **dict(icon="search", permissions=True),
         )
 
     # Register error handlers
