@@ -462,6 +462,12 @@ dl.details-list {
   margin-left: .1rem;
 }
 
+.comma-separated:not(:last-child)::after {
+  content: @listCommaSeparator;
+  display: inline-block;
+  font-size: 1em;
+}
+
 .highlight-background {
   background-color: @highlightHeaderColor;
 }

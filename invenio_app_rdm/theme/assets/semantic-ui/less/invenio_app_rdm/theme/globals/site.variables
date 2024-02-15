@@ -140,3 +140,4 @@
   Separators
 ------------------*/
 @listSeparator: ";";
+@listCommaSeparator: ",";
