@@ -8,12 +8,14 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 """Request views module."""
 
-from flask import g, redirect, request, url_for
+from flask import abort, g, redirect, request, url_for
 from invenio_communities.views.communities import render_community_theme_template
 from invenio_communities.views.decorators import pass_community
+from invenio_pages.proxies import current_pages_service
 from invenio_rdm_records.proxies import current_community_records_service
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
 from invenio_records_resources.services.errors import PermissionDeniedError
+from sqlalchemy.orm.exc import NoResultFound
 
 
 @pass_community(serialize=True)
@@ -88,3 +90,28 @@ def communities_home(pid_value, community, community_ui):
             permissions=permissions,
             records=records_ui,
         )
+
+
+@pass_community(serialize=True)
+def community_static_page(pid_value, community, community_ui, page_url):
+    """Community static page."""
+    permissions = community.has_permissions_to(
+        ["update", "read", "search_requests", "search_invites", "moderate"]
+    )
+
+    try:
+        page = current_pages_service.read_by_url(g.identity, page_url).to_dict()
+        theme = community_ui.get("theme", {})
+        if not theme:
+            raise NoResultFound
+
+    except NoResultFound:
+        abort(404)
+
+    return render_community_theme_template(
+        page["template_name"],
+        theme=theme,
+        page=page,
+        community=community_ui,
+        permissions=permissions,
+    )

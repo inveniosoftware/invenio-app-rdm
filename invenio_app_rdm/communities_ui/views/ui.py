@@ -21,7 +21,7 @@ from invenio_pidstore.errors import PIDDeletedError, PIDDoesNotExistError
 from invenio_records_resources.services.errors import PermissionDeniedError
 
 from ..searchapp import search_app_context
-from .communities import communities_detail, communities_home
+from .communities import communities_detail, communities_home, community_static_page
 
 
 #
@@ -92,6 +92,12 @@ def create_ui_blueprint(app):
     blueprint.add_url_rule(
         routes["community-home"],
         view_func=communities_home,
+    )
+
+    blueprint.add_url_rule(
+        routes["community-static-page"],
+        view_func=community_static_page,
+        defaults={"page_url": routes["community-static-page"]},
     )
 
     @blueprint.before_app_first_request
