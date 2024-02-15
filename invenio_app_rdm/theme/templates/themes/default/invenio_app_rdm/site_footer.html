@@ -6,7 +6,7 @@
     under the terms of the MIT License; see LICENSE file for more details.
 #}
 
-<div class="footer-bottom sub-footer theme-default">
+<div class="footer-bottom sub-footer theme-default rel-p-1">
   <div class="ui container">
     <div class="ui grid">
       {%- block footer_bottom_left %}
@@ -14,21 +14,16 @@
         <div
           class="eight wide computer six wide tablet sixteen wide mobile column left middle aligned"
         >
-          {% trans invenio_rdm="http://inveniosoftware.org/products/rdm" %}Powered by
-            <a href="{{ invenio_rdm }}">InvenioRDM</a>{% endtrans %}
+          {% trans cern_data_center="http://information-technology.web.cern.ch/about/computer-centre" %}Powered by
+            <a href="{{ cern_data_center }}">CERN Data Centre</a>{% endtrans %}
         </div>
       {%- endblock footer_bottom_left %}
 
       <div
         class="four wide computer four wide tablet sixteen wide mobile column middle aligned"
       >
-      <i class="large icons">
-        <i class="green certificate icon"></i>
-        <i class="bottom right corner check icon"></i>
-      </i>
-        {% trans learn_more="http://inveniosoftware.org/products/rdm" %}
-          Verified community - <a href="{{ learn_more }}">Learn more?</a>
-        {% endtrans %}
+        <i class="green check circle outline icon"></i>
+          Verified community
       </div>
       <div
         class="four wide computer six wide tablet sixteen wide mobile column right aligned"
