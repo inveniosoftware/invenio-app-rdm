@@ -40,7 +40,6 @@ def communities_detail(pid_value, community, community_ui):
 @pass_community(serialize=True)
 def communities_home(pid_value, community, community_ui):
     """Community home page."""
-    _id = community.id
     query_params = request.args
 
     permissions = community.has_permissions_to(
@@ -62,7 +61,7 @@ def communities_home(pid_value, community, community_ui):
     if query_params or not theme_enabled:
         url = url_for(
             "invenio_app_rdm_communities.communities_detail",
-            pid_value=community.slug,
+            pid_value=community.data["slug"],
             **request.args
         )
         return redirect(url)
