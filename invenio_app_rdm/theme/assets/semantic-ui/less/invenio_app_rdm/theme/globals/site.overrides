@@ -299,6 +299,10 @@ a.no-text-decoration:hover {
   text-decoration: none;
 }
 
+a.remove-default-style:hover {
+  color: @mutedTextColor;
+}
+
 .preview-container {
   border: 1px solid transparent; // Prevents iframe from overflowing accordion border
 }
@@ -416,6 +420,9 @@ dl.details-list {
   }
 }
 
+.display-inline-flex {
+  display: inline-flex;
+}
 
 .text-align-center {
   text-align: center !important;
