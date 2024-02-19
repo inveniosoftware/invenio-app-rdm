@@ -12,6 +12,8 @@ import _get from "lodash/get";
 import { Button, Icon, Item, Label } from "semantic-ui-react";
 import { SearchItemCreators } from "../../utils";
 import { CompactStats } from "../../components/CompactStats";
+import { DisplayVerifiedCommunity } from "../../components/DisplayVerifiedCommunity";
+import { DisplayPartOfCommunities } from "../../components/DisplayPartOfCommunities";
 
 export const ComputerTabletUploadsItem = ({
   result,
@@ -112,6 +114,8 @@ export const ComputerTabletUploadsItem = ({
 
           <div className="flex justify-space-between align-items-end">
             <small>
+              <DisplayPartOfCommunities communities={result.parent?.communities} />
+
               {createdDate ? (
                 <>
                   {i18next.t("Uploaded on {{uploadDate}}", { uploadDate: createdDate })}
@@ -136,6 +140,7 @@ export const ComputerTabletUploadsItem = ({
               />
             </small>
           </div>
+          <DisplayVerifiedCommunity communities={result.parent?.communities} />
         </Item.Extra>
       </Item.Content>
     </Item>
