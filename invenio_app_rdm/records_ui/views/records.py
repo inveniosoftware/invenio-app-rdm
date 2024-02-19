@@ -16,6 +16,9 @@ from pathlib import Path
 from flask import abort, current_app, g, redirect, render_template, request, url_for
 from flask_login import current_user
 from invenio_base.utils import obj_or_import_string
+from invenio_communities.communities.resources.serializer import (
+    UICommunityJSONSerializer,
+)
 from invenio_communities.errors import CommunityDeletedError
 from invenio_communities.proxies import current_communities
 from invenio_communities.views.communities import render_community_theme_template
@@ -195,9 +198,12 @@ def record_detail(
     # NOTE: this should maybe be an expandable field instead
     record_owner = record._record.parent.access.owner.resolve()
     resolved_community, _ = get_record_community(record_ui)
-    theme = (
-        resolved_community.to_dict().get("theme", {}) if resolved_community else None
+    resolved_community = (
+        UICommunityJSONSerializer().dump_obj(resolved_community.to_dict())
+        if resolved_community
+        else None
     )
+    theme = resolved_community.get("theme", {}) if resolved_community else None
 
     return render_community_theme_template(
         current_app.config.get("APP_RDM_RECORD_LANDING_PAGE_TEMPLATE"),
