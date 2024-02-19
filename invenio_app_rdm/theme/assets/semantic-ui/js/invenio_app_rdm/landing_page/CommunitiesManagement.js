@@ -126,6 +126,7 @@ export class CommunitiesManagement extends Component {
               error={error}
               loading={loading}
               maxDisplayedCommunities={MAX_COMMUNITIES}
+              branded={record.parent?.communities?.default}
             />
             <RecordCommunitiesListModal
               id="record-communities-list-modal"

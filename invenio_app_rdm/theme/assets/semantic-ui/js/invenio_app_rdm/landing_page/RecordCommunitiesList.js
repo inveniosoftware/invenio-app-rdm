@@ -9,11 +9,12 @@ import _isEmpty from "lodash/isEmpty";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Image } from "react-invenio-forms";
-import { Item, Message, Placeholder, Header } from "semantic-ui-react";
+import { Item, Message, Placeholder, Header, Icon } from "semantic-ui-react";
 
 export class RecordCommunitiesList extends Component {
   render() {
-    const { communities, loading, error, maxDisplayedCommunities } = this.props;
+    const { communities, loading, error, maxDisplayedCommunities, branded } =
+      this.props;
     let Element = null;
 
     if (loading) {
@@ -49,6 +50,9 @@ export class RecordCommunitiesList extends Component {
         .map((community) => (
           <Item key={community.id}>
             <Image wrapped size="mini" src={community.links.logo} alt="" />
+            {community.id === branded && community?.theme && (
+              <Icon color="green" size="small" name="check circle" />
+            )}
             <Item.Content verticalAlign="middle">
               <Item.Header as={Header}>
                 <Header as="a" href={community.links.self_html} size="small">
@@ -75,10 +79,12 @@ RecordCommunitiesList.propTypes = {
   communities: PropTypes.array,
   loading: PropTypes.bool,
   error: PropTypes.string,
+  branded: PropTypes.string,
 };
 
 RecordCommunitiesList.defaultProps = {
   communities: undefined,
   loading: false,
   error: "",
+  branded: undefined,
 };
