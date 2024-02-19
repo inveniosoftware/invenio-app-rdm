@@ -14,6 +14,8 @@ import PropTypes from "prop-types";
 import { Item, Label, Icon } from "semantic-ui-react";
 import { buildUID } from "react-searchkit";
 import { CompactStats } from "./CompactStats";
+import { DisplayVerifiedCommunity } from "./DisplayVerifiedCommunity";
+import { DisplayPartOfCommunities } from "./DisplayPartOfCommunities";
 
 class RecordsResultsListItem extends Component {
   render() {
@@ -117,6 +119,7 @@ class RecordsResultsListItem extends Component {
 
               <div className="flex justify-space-between align-items-end">
                 <small>
+                  <DisplayPartOfCommunities communities={result.parent?.communities} />
                   <p>
                     {createdDate && (
                       <>
@@ -154,6 +157,7 @@ class RecordsResultsListItem extends Component {
                   />
                 </small>
               </div>
+              <DisplayVerifiedCommunity communities={result.parent?.communities} />
             </Item.Extra>
           </Item.Content>
         </Item>

@@ -12,6 +12,8 @@ import _get from "lodash/get";
 import { Dropdown, Icon, Item, Label } from "semantic-ui-react";
 import { SearchItemCreators } from "../../utils";
 import { CompactStats } from "../../components/CompactStats";
+import { DisplayVerifiedCommunity } from "../../components/DisplayVerifiedCommunity";
+import { DisplayPartOfCommunities } from "../../components/DisplayPartOfCommunities";
 
 export const MobileUploadsItem = ({
   result,
@@ -42,6 +44,7 @@ export const MobileUploadsItem = ({
   );
   const uniqueViews = _get(result, "stats.all_versions.unique_views", 0);
   const uniqueDownloads = _get(result, "stats.all_versions.unique_downloads", 0);
+
   return (
     <Item key={result.id} className="deposits-list-item mobile only flex">
       <Item.Content className="centered">
@@ -87,6 +90,7 @@ export const MobileUploadsItem = ({
             ))}
             <div>
               <small>
+                <DisplayPartOfCommunities communities={result.parent?.communities} />
                 {createdDate ? (
                   <>
                     {i18next.t("Uploaded on {{uploadDate}}", {
@@ -115,6 +119,7 @@ export const MobileUploadsItem = ({
                 </small>
               </div>
             </div>
+            <DisplayVerifiedCommunity communities={result.parent?.communities} />
           </Item.Extra>
         </Item.Extra>
         <Item.Extra>
