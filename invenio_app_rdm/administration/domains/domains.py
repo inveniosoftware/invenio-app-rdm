@@ -17,7 +17,7 @@ from invenio_i18n import lazy_gettext as _
 
 
 class DomainAdminMixin:
-    """Common admin properties,"""
+    """Common admin properties."""
 
     resource_config = "domains_resource"
     extension_name = "invenio-users-resources"
@@ -66,6 +66,8 @@ class DomainsListView(DomainAdminMixin, AdminResourceListView):
 
 
 class FormMixin:
+    """Mixin class for form fields."""
+
     form_fields = {
         "domain": {
             "order": 1,
@@ -124,12 +126,16 @@ class DomainsCreateView(DomainAdminMixin, FormMixin, AdminResourceCreateView):
 
 
 class DomainsEditView(DomainAdminMixin, FormMixin, AdminResourceEditView):
+    """Domain edit view."""
+
     name = "domains_edit"
     url = "/domains/<pid_value>/edit"
     title = _("Edit domain")
 
 
 class DomainsDetailView(DomainAdminMixin, AdminResourceDetailView):
+    """Domain detail view."""
+
     url = "/domains/<pid_value>"
     name = "domains_details"
     title = _("Domain details")
