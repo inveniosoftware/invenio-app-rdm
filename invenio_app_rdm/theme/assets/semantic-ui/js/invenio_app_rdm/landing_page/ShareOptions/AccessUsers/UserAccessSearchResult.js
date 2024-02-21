@@ -23,7 +23,7 @@ class UserAccessSearchResultItem extends Component {
     const { record, result, setError } = this.props;
     this.setState({ loading: true });
     const cancellableAction = withCancel(
-      http.delete(`${record.links.access_users}/${result.id}`)
+      http.delete(`${record.links.access_grants}/${result.id}`)
     );
     try {
       await cancellableAction.promise;

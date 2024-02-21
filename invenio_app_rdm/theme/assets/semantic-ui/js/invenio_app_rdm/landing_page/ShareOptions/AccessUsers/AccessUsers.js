@@ -40,7 +40,7 @@ export class AccessUsers extends Component {
     this.setState({ loading: true });
     try {
       this.cancellableAction = withCancel(
-        http.get(`${record.links.access_users}?expand=true`)
+        http.get(`${record.links.access_grants}?expand=true`)
       );
       const response = await this.cancellableAction.promise;
       this.setState({
