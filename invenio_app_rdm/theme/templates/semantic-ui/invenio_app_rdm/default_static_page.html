@@ -16,12 +16,10 @@
 # along with Invenio; if not, write to the Free Software Foundation, Inc.,
 # 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 #}
-{% extends "invenio_communities/base.html" %}
+{% extends config.PAGES_BASE_TEMPLATE %}
 
 {% set title = page.title %}
-{% set community_menu_active = True %}
 {% block page_body %}
-	{% include "invenio_communities/details/header.html" %}
 <div class="ui container rel-mt-2">
 	<div class="row">
 	  	<div class="col-xs-12 rich-input-content">

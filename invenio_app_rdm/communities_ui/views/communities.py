@@ -12,10 +12,10 @@ from flask import abort, g, redirect, request, url_for
 from invenio_communities.views.communities import render_community_theme_template
 from invenio_communities.views.decorators import pass_community
 from invenio_pages.proxies import current_pages_service
+from invenio_pages.records.errors import PageNotFoundError
 from invenio_rdm_records.proxies import current_community_records_service
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
 from invenio_records_resources.services.errors import PermissionDeniedError
-from sqlalchemy.orm.exc import NoResultFound
 
 
 @pass_community(serialize=True)
@@ -93,24 +93,23 @@ def communities_home(pid_value, community, community_ui):
 
 
 @pass_community(serialize=True)
-def community_static_page(pid_value, community, community_ui, page_url):
+def community_static_page(pid_value, community, community_ui, **kwargs):
     """Community static page."""
     permissions = community.has_permissions_to(
         ["update", "read", "search_requests", "search_invites", "moderate"]
     )
+    if not permissions["can_read"]:
+        raise PermissionDeniedError()
 
     try:
-        page = current_pages_service.read_by_url(g.identity, page_url).to_dict()
-        theme = community_ui.get("theme", {})
-        if not theme:
-            raise NoResultFound
+        page = current_pages_service.read_by_url(g.identity, request.path).to_dict()
 
-    except NoResultFound:
+    except PageNotFoundError:
         abort(404)
 
     return render_community_theme_template(
         page["template_name"],
-        theme=theme,
+        theme=community_ui.get("theme", {}),
         page=page,
         community=community_ui,
         permissions=permissions,
