@@ -97,7 +97,6 @@ def create_ui_blueprint(app):
     blueprint.add_url_rule(
         routes["community-static-page"],
         view_func=community_static_page,
-        defaults={"page_url": routes["community-static-page"]},
     )
 
     @blueprint.before_app_first_request
