@@ -118,6 +118,7 @@ class SearchResultItemComponent extends Component {
               user={{ id: result.parent.access.owned_by.user }}
               displaySuspend
               displayBlock
+              useDropdown
               successCallback={this.refreshAfterAction}
             />
           </Button.Group>
