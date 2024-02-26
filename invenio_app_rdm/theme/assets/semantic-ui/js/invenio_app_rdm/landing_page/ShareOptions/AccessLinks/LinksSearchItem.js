@@ -14,6 +14,7 @@ import { AccessDropdown } from "./AccessDropdown";
 import _truncate from "lodash/truncate";
 import { isEmpty } from "lodash";
 import { withCancel, http } from "react-invenio-forms";
+import { dropdownOptions } from "./LinksSearchResultContainer";
 
 export const LinksSearchItem = ({ result, record, fetchData }) => {
   const [copied, setCopied] = useState(false);
@@ -79,7 +80,11 @@ export const LinksSearchItem = ({ result, record, fetchData }) => {
           : `${timestampToRelativeTime(result.expires_at)} (${result.expires_at})`}
       </Table.Cell>
       <Table.Cell width={3} data-label="Access">
-        <AccessDropdown record={record} result={result} />
+        <AccessDropdown
+          updateEndpoint={`${record.links.access_links}/${result.id}`}
+          dropdownOptions={dropdownOptions}
+          result={result}
+        />
       </Table.Cell>
       <Table.Cell width={4}>
         <Button

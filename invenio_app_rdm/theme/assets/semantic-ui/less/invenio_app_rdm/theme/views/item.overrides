@@ -15,6 +15,10 @@
   }
 }
 
+.no-padding {
+    padding : 0 !important;
+}
+
 .ui.items > .item .extra {
   color: @mutedTextColor;
 }
