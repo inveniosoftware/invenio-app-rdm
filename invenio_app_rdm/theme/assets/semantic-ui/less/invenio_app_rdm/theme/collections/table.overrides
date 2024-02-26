@@ -154,16 +154,16 @@
 
 @media all and (min-width: @computerBreakpoint) {
   table.fixed-header{
-    height: 45vh;              // <-- Select the height of the table
+    height: 47vh;              // <-- Select the height of the table
     display: block;
     width: 100% !important;
     tbody{
       overflow-y: scroll;
       height: 40vh;            //  <-- Select the height of the body
-      width: 100%;
+      width: 98%;
       position: absolute;
       tr {
-        width: calc(100% - 2em);
+        width: calc(100% - 0.5em);
         display: inline-table;
         table-layout: fixed;
       }

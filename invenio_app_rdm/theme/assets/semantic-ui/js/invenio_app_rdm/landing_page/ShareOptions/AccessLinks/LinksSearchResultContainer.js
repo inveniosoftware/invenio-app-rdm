@@ -16,9 +16,24 @@ import { CreateAccessLink } from "./CreateAccessLink";
 import { LinksSearchItem } from "./LinksSearchItem";
 
 export const dropdownOptions = [
-  { key: "view", text: i18next.t("Can view"), value: "view" },
-  { key: "preview", text: i18next.t("Can preview"), value: "preview" },
-  { key: "edit", text: i18next.t("Can edit"), value: "edit" },
+  {
+    key: "view",
+    text: i18next.t("Can view"),
+    value: "view",
+    description: i18next.t("Can view restricted records/files."),
+  },
+  {
+    key: "preview",
+    text: i18next.t("Can preview"),
+    value: "preview",
+    description: i18next.t("Can view drafts and restricted records/files."),
+  },
+  {
+    key: "edit",
+    text: i18next.t("Can edit"),
+    value: "edit",
+    description: i18next.t("Can edit drafts and view restricted records/files."),
+  },
 ];
 
 export class LinksSearchResultContainer extends Component {
