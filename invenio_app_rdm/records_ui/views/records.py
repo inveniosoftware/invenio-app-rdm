@@ -197,8 +197,12 @@ def record_detail(
     if record is not None and emitter is not None:
         emitter(current_app, record=record._record, via_api=False)
 
-    # NOTE: this should maybe be an expandable field instead
-    record_owner = record._record.parent.access.owner.resolve()
+    record_owner = (
+        record_ui.get("expanded", {})
+        .get("parent", {})
+        .get("access", {})
+        .get("owned_by", {})
+    )
     resolved_community, _ = get_record_community(record_ui)
     resolved_community = (
         UICommunityJSONSerializer().dump_obj(resolved_community.to_dict())
@@ -235,7 +239,7 @@ def record_detail(
         external_resources=get_external_resources(record_ui),
         user_avatar=avatar,
         record_owner_username=(
-            record_owner.username if record_owner is not None else None
+            record_owner.get("username")
         ),  # record created with system_identity have not owners e.g demo
     )
 

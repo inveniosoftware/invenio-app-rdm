@@ -57,9 +57,9 @@ export class AccessUsers extends Component {
       console.error(error);
     }
   };
+
   render() {
     const { record, handleClose, permissions } = this.props;
-
     const { results, loading, error } = this.state;
 
     return (
@@ -73,6 +73,7 @@ export class AccessUsers extends Component {
               results={results}
               record={record}
               fetchData={this.fetchData}
+              recOwner={record?.expanded?.parent?.access?.owned_by}
               setError={this.setError}
             />
           )}

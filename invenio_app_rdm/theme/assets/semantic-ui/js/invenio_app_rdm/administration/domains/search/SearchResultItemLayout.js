@@ -6,7 +6,7 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import { BoolFormatter, DateFormatter, Actions } from "@js/invenio_administration";
+import { BoolFormatter, Actions } from "@js/invenio_administration";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Table, Dropdown, Icon, Button } from "semantic-ui-react";
@@ -33,8 +33,6 @@ class SearchResultItemComponent extends Component {
       listUIEndpoint,
     } = this.props;
 
-    const resourceHasActions = displayEdit || displayDelete || !isEmpty(actions);
-
     return (
       <Table.Row>
         {/*<Table.Cell>*/}
@@ -53,25 +51,25 @@ class SearchResultItemComponent extends Component {
             tooltip={i18next.t("Organization")}
             icon="university"
             color="black"
-            value={result.status_name == "organization"}
+            value={result.status_name === "organization"}
           />
           <BoolFormatter
             tooltip={i18next.t("Company")}
             icon="building outline"
             color="black"
-            value={result.category_name == "company"}
+            value={result.category_name === "company"}
           />
           <BoolFormatter
             tooltip={i18next.t("Mail provider")}
             icon="mail outline"
             color="black"
-            value={result.status_name == "mail-provider"}
+            value={result.status_name === "mail-provider"}
           />
           <BoolFormatter
             tooltip={i18next.t("Spammer")}
             icon="warning"
             color="yellow"
-            value={result.status_name == "spammer"}
+            value={result.status_name === "spammer"}
           />
         </Table.Cell>
         <Table.Cell key={`domain-tld-${result.id}`} data-label={i18next.t("TLD")}>
@@ -82,25 +80,25 @@ class SearchResultItemComponent extends Component {
             tooltip={i18next.t("New")}
             icon="hourglass end"
             color="grey"
-            value={result.status_name == "new"}
+            value={result.status_name === "new"}
           />
           <BoolFormatter
             tooltip={i18next.t("Moderated")}
             icon="eye"
             color="grey"
-            value={result.status_name == "moderated"}
+            value={result.status_name === "moderated"}
           />
           <BoolFormatter
             tooltip={i18next.t("Verified")}
             icon="check"
             color="green"
-            value={result.status_name == "verified"}
+            value={result.status_name === "verified"}
           />
           <BoolFormatter
             tooltip={i18next.t("Blocked")}
             icon="ban"
             color="red"
-            value={result.status_name == "blocked"}
+            value={result.status_name === "blocked"}
           />
         </Table.Cell>
         <Table.Cell key={`domain-users-${result.id}`} data-label={i18next.t("Users")}>

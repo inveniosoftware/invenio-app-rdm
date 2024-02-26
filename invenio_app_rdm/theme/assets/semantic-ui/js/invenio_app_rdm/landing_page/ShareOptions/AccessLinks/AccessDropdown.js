@@ -12,7 +12,6 @@ import { i18next } from "@translations/invenio_app_rdm/i18next";
 import { http } from "react-invenio-forms";
 import { SuccessIcon, ErrorPopup } from "@js/invenio_communities/members";
 import { withCancel } from "react-invenio-forms";
-import { dropdownOptions } from "./LinksSearchResultContainer";
 
 export const errorSerializer = (error) =>
   error?.response?.data?.message || error?.message;
@@ -28,12 +27,10 @@ export class AccessDropdown extends Component {
   }
 
   handleUpdate = async (permission) => {
-    const { record, result } = this.props;
+    const { updateEndpoint } = this.props;
     const data = { permission: permission };
     this.setState({ loading: true, actionSuccess: false });
-    this.cancellableAction = withCancel(
-      http.patch(`${record.links.access_links}/${result.id}`, data)
-    );
+    this.cancellableAction = withCancel(http.patch(updateEndpoint, data));
 
     try {
       await this.cancellableAction.promise;
@@ -50,7 +47,7 @@ export class AccessDropdown extends Component {
   };
 
   render() {
-    const { result } = this.props;
+    const { result, dropdownOptions } = this.props;
     const { loading, actionSuccess, error } = this.state;
     return (
       <div className="flex align-items-center access-dropdown-container">
@@ -74,5 +71,6 @@ export class AccessDropdown extends Component {
 
 AccessDropdown.propTypes = {
   result: PropTypes.object.isRequired,
-  record: PropTypes.object.isRequired,
+  dropdownOptions: PropTypes.object.isRequired,
+  updateEndpoint: PropTypes.string.isRequired,
 };

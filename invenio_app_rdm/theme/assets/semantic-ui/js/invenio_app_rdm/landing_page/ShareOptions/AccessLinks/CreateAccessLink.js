@@ -21,6 +21,24 @@ export class CreateAccessLink extends Component {
     };
   }
 
+  dropdownOptionsGenerator = (value) => {
+    return value.map((options) => {
+      return {
+        key: options.key,
+        text: options.text,
+        value: options.key,
+        content: (
+          <>
+            <div>{options.text}</div>
+            <div>
+              <small className="text-muted">{options.description}</small>
+            </div>
+          </>
+        ),
+      };
+    });
+  };
+
   render() {
     const { permission, expiresAt, description } = this.state;
     const { handleCreation, loading } = this.props;
@@ -63,7 +81,7 @@ export class CreateAccessLink extends Component {
                 fluid
                 selection
                 onChange={(event, data) => this.setState({ permission: data.value })}
-                options={dropdownOptions}
+                options={this.dropdownOptionsGenerator(dropdownOptions)}
                 defaultValue={permission}
               />
             </Grid.Column>
