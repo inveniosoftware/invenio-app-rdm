@@ -117,6 +117,13 @@ def create_ui_blueprint(app):
             order=2,
             expected_args=["pid_value"],
             **dict(icon="search", permissions=True),
+        ),
+        communities.submenu("submit").register(
+            external_url="pages/how-to-submit",
+            text=_("Submit"),
+            order=3,
+            visible_when=_is_branded_community,
+            **dict(icon="upload", permissions="can_read"),
         )
 
     # Register error handlers
