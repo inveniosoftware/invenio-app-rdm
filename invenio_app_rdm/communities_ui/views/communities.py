@@ -64,7 +64,7 @@ def communities_home(pid_value, community, community_ui):
         url = url_for(
             "invenio_app_rdm_communities.communities_detail",
             pid_value=community.data["slug"],
-            **request.args
+            **request.args,
         )
         return redirect(url)
 
@@ -75,9 +75,29 @@ def communities_home(pid_value, community, community_ui):
             params={
                 "sort": "newest",
                 "size": 3,
+                "metrics": {
+                    "total_grants": {
+                        "name": "total_grants",
+                        "type": "value_count",
+                        "kwargs": {"field": "metadata.funding.award.id"},
+                    },
+                    "total_data": {
+                        "name": "total_data",
+                        "type": "sum",
+                        "kwargs": {"field": "files.totalbytes"},
+                    },
+                },
             },
             expand=True,
         )
+
+        # TODO resultitem does not expose aggregations except labelled facets
+        _metric_aggs = recent_uploads._results.aggregations
+        metrics = {
+            "total_records": recent_uploads.total,
+            "total_data": _metric_aggs.total_data.value,
+            "total_grants": _metric_aggs.total_grants.value,
+        }
 
         records_ui = UIJSONSerializer().dump_list(recent_uploads.to_dict())["hits"][
             "hits"
@@ -89,6 +109,7 @@ def communities_home(pid_value, community, community_ui):
             community=community_ui,
             permissions=permissions,
             records=records_ui,
+            metrics=metrics,
         )
 
 
