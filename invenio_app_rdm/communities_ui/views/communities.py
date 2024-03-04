@@ -94,9 +94,9 @@ def communities_home(pid_value, community, community_ui):
         # TODO resultitem does not expose aggregations except labelled facets
         _metric_aggs = recent_uploads._results.aggregations
         metrics = {
-            "total_records": recent_uploads.total,
-            "total_data": _metric_aggs.total_data.value,
-            "total_grants": _metric_aggs.total_grants.value,
+            "total_records": {"value": recent_uploads.total, "title": "RECORDS", "icon": "file"},
+            "total_grants": {"value": _metric_aggs.total_data.value, "title": "GRANTS", "icon": "money"},
+            "total_data": {"value": _metric_aggs.total_grants.value, "title": "DATA VOLUME", "icon": "database"},
         }
 
         records_ui = UIJSONSerializer().dump_list(recent_uploads.to_dict())["hits"][
