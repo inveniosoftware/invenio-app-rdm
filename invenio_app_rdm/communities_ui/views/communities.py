@@ -9,7 +9,10 @@
 """Request views module."""
 
 from flask import abort, g, redirect, request, url_for
-from invenio_communities.views.communities import render_community_theme_template
+from invenio_communities.views.communities import (
+    HEADER_PERMISSIONS,
+    render_community_theme_template,
+)
 from invenio_communities.views.decorators import pass_community
 from invenio_pages.proxies import current_pages_service
 from invenio_pages.records.errors import PageNotFoundError
@@ -21,9 +24,7 @@ from invenio_records_resources.services.errors import PermissionDeniedError
 @pass_community(serialize=True)
 def communities_detail(pid_value, community, community_ui):
     """Community detail page."""
-    permissions = community.has_permissions_to(
-        ["update", "read", "search_requests", "search_invites", "moderate"]
-    )
+    permissions = community.has_permissions_to(HEADER_PERMISSIONS)
     endpoint = "/api/communities/{pid_value}/records"
 
     return render_community_theme_template(
@@ -44,15 +45,7 @@ def communities_home(pid_value, community, community_ui):
     """Community home page."""
     query_params = request.args
 
-    permissions = community.has_permissions_to(
-        [
-            "update",
-            "read",
-            "search_requests",
-            "search_invites",
-            "moderate",
-        ]
-    )
+    permissions = community.has_permissions_to(HEADER_PERMISSIONS)
     if not permissions["can_read"]:
         raise PermissionDeniedError()
 
@@ -116,9 +109,7 @@ def communities_home(pid_value, community, community_ui):
 @pass_community(serialize=True)
 def community_static_page(pid_value, community, community_ui, **kwargs):
     """Community static page."""
-    permissions = community.has_permissions_to(
-        ["update", "read", "search_requests", "search_invites", "moderate"]
-    )
+    permissions = community.has_permissions_to(HEADER_PERMISSIONS)
     if not permissions["can_read"]:
         raise PermissionDeniedError()
 
