@@ -9,7 +9,7 @@ import _isEmpty from "lodash/isEmpty";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Image } from "react-invenio-forms";
-import { Item, Message, Placeholder, Header, Icon } from "semantic-ui-react";
+import { Item, Message, Popup, Placeholder, Header, Icon } from "semantic-ui-react";
 
 export class RecordCommunitiesList extends Component {
   render() {
@@ -50,14 +50,20 @@ export class RecordCommunitiesList extends Component {
         .map((community) => (
           <Item key={community.id}>
             <Image wrapped size="mini" src={community.links.logo} alt="" />
-            {community.id === branded && community?.theme && (
-              <Icon color="green" size="small" name="check circle" />
-            )}
             <Item.Content verticalAlign="middle">
               <Item.Header as={Header}>
                 <Header as="a" href={community.links.self_html} size="small">
                   {community.metadata.title}
                 </Header>
+                {community.id === branded && community?.theme && (
+                  <p className="ml-5 display-inline-block">
+                    <Popup
+                      content="Verified community"
+                      trigger={<Icon color="green" name="check circle outline" />}
+                      position="top center"
+                    />
+                  </p>
+                )}
               </Item.Header>
             </Item.Content>
           </Item>
