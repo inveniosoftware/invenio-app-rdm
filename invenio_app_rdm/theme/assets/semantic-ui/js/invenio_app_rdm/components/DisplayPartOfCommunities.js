@@ -10,8 +10,9 @@ import { i18next } from "@translations/invenio_app_rdm/i18next";
 
 export const DisplayPartOfCommunities = ({ communities }) => {
   const PartOfCommunities = () => {
-    const communitiesEntries = communities.entries;
-    if (communitiesEntries) {
+    const communitiesEntries = communities.entries?.filter((community) => !(community.id === communities?.default && community?.theme));
+
+    if (communitiesEntries?.length > 0) {
       return (
         <>
           {i18next.t("Part of ")}
