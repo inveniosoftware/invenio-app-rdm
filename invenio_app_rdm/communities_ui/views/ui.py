@@ -117,12 +117,16 @@ def create_ui_blueprint(app):
             order=2,
             expected_args=["pid_value"],
             **dict(icon="search", permissions=True),
-        ),
+        )
         communities.submenu("submit").register(
-            external_url="pages/how-to-submit",
+            "invenio_app_rdm_communities.community_static_page",
             text=_("Submit"),
             order=3,
             visible_when=_is_branded_community,
+            endpoint_arguments_constructor=lambda: {
+                "pid_value": request.view_args["pid_value"],
+                "page_slug": "how-to-submit",
+            },
             **dict(icon="upload", permissions="can_read"),
         )
 
