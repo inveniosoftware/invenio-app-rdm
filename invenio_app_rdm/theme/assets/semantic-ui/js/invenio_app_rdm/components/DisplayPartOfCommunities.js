@@ -10,23 +10,23 @@ import { i18next } from "@translations/invenio_app_rdm/i18next";
 
 export const DisplayPartOfCommunities = ({ communities }) => {
   const PartOfCommunities = () => {
-    const communitiesEntries = communities.entries?.filter((community) => !(community.id === communities?.default && community?.theme));
+    // FIXME: Uncomment to enable themed banner
+    // const communitiesEntries = communities.entries?.filter((community) => !(community.id === communities?.default && community?.theme));
+    const communitiesEntries = communities.entries;
 
     if (communitiesEntries?.length > 0) {
       return (
         <>
           {i18next.t("Part of ")}
           {communitiesEntries.map((community, index) => {
-            if (!(community.id === communities?.default && community?.theme)) {
-              return (
-                <>
-                  <a href={`/communities/${community.slug}`}>
-                    {community.metadata?.title}
-                  </a>
-                  {index !== communitiesEntries.length - 1 && ", "}
-                </>
-              );
-            }
+            return (
+              <>
+                <a href={`/communities/${community.slug}`}>
+                  {community.metadata?.title}
+                </a>
+                {index !== communitiesEntries.length - 1 && ", "}
+              </>
+            );
           })}
         </>
       );

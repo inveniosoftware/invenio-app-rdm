@@ -85,7 +85,8 @@ class RecordsResultsListItem extends Component {
       >
         <Item key={key ?? result.id}>
           <Item.Content>
-            <DisplayVerifiedCommunity communities={result.parent?.communities} />
+            {/* FIXME: Uncomment to enable themed banner */}
+            {/* <DisplayVerifiedCommunity communities={result.parent?.communities} /> */}
             <Item.Extra className="labels-actions">
               <Label horizontal size="small" className="primary">
                 {publicationDate} ({version})

@@ -48,7 +48,8 @@ export const MobileUploadsItem = ({
   return (
     <Item key={result.id} className="deposits-list-item mobile only flex">
       <Item.Content className="centered">
-        <DisplayVerifiedCommunity communities={result.parent?.communities} />
+        {/* FIXME: Uncomment to enable themed banner */}
+        {/* <DisplayVerifiedCommunity communities={result.parent?.communities} /> */}
         <Item.Extra className="labels-actions">
           {result.status in statuses && result.status !== "published" && (
             <Label horizontal size="small" className={statuses[result.status].color}>
