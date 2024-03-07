@@ -48,6 +48,7 @@ export const MobileUploadsItem = ({
   return (
     <Item key={result.id} className="deposits-list-item mobile only flex">
       <Item.Content className="centered">
+        <DisplayVerifiedCommunity communities={result.parent?.communities} />
         <Item.Extra className="labels-actions">
           {result.status in statuses && result.status !== "published" && (
             <Label horizontal size="small" className={statuses[result.status].color}>
@@ -119,7 +120,6 @@ export const MobileUploadsItem = ({
                 </small>
               </div>
             </div>
-            <DisplayVerifiedCommunity communities={result.parent?.communities} />
           </Item.Extra>
         </Item.Extra>
         <Item.Extra>

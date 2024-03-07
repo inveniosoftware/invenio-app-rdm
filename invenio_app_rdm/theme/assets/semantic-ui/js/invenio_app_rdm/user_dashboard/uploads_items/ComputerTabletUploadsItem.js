@@ -53,6 +53,7 @@ export const ComputerTabletUploadsItem = ({
         </Item.Content>
       </div>
       <Item.Content>
+        <DisplayVerifiedCommunity communities={result.parent?.communities} />
         <Item.Extra className="labels-actions">
           {result.status in statuses && result.status !== "published" && (
             <Label horizontal size="small" className={statuses[result.status].color}>
@@ -140,7 +141,6 @@ export const ComputerTabletUploadsItem = ({
               />
             </small>
           </div>
-          <DisplayVerifiedCommunity communities={result.parent?.communities} />
         </Item.Extra>
       </Item.Content>
     </Item>

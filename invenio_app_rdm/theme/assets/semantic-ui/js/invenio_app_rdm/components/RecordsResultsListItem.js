@@ -85,6 +85,7 @@ class RecordsResultsListItem extends Component {
       >
         <Item key={key ?? result.id}>
           <Item.Content>
+            <DisplayVerifiedCommunity communities={result.parent?.communities} />
             <Item.Extra className="labels-actions">
               <Label horizontal size="small" className="primary">
                 {publicationDate} ({version})
@@ -157,7 +158,6 @@ class RecordsResultsListItem extends Component {
                   />
                 </small>
               </div>
-              <DisplayVerifiedCommunity communities={result.parent?.communities} />
             </Item.Extra>
           </Item.Content>
         </Item>
