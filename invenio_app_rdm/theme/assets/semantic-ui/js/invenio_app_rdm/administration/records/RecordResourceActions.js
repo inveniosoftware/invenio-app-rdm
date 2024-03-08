@@ -118,6 +118,7 @@ export class RecordResourceActions extends Component {
               </Element>
             );
           }
+          return null;
         })}
         <ActionModal modalOpen={modalOpen} resource={resource}>
           {modalHeader && <Modal.Header>{modalHeader}</Modal.Header>}

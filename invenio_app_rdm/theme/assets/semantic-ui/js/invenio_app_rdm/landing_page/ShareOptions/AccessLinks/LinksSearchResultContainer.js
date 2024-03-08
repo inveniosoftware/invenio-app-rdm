@@ -18,19 +18,25 @@ import { LinksSearchItem } from "./LinksSearchItem";
 export const dropdownOptions = [
   {
     key: "view",
+    name: "view",
     text: i18next.t("Can view"),
+    title: i18next.t("Can view"),
     value: "view",
     description: i18next.t("Can view restricted records/files."),
   },
   {
     key: "preview",
+    name: "preview",
     text: i18next.t("Can preview"),
+    title: i18next.t("Can preview"),
     value: "preview",
     description: i18next.t("Can view drafts and restricted records/files."),
   },
   {
     key: "edit",
+    name: "edit",
     text: i18next.t("Can edit"),
+    title: i18next.t("Can edit"),
     value: "edit",
     description: i18next.t("Can edit drafts and view restricted records/files."),
   },

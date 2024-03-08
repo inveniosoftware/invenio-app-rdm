@@ -10,6 +10,7 @@ import PropTypes from "prop-types";
 import { Table, Input, Dropdown, Button, Icon, Grid } from "semantic-ui-react";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import { dropdownOptions } from "./LinksSearchResultContainer";
+import { dropdownOptionsGenerator } from "react-invenio-forms";
 
 export class CreateAccessLink extends Component {
   constructor(props) {
@@ -20,24 +21,6 @@ export class CreateAccessLink extends Component {
       permission: dropdownOptions[0].key,
     };
   }
-
-  dropdownOptionsGenerator = (value) => {
-    return value.map((options) => {
-      return {
-        key: options.key,
-        text: options.text,
-        value: options.key,
-        content: (
-          <>
-            <div>{options.text}</div>
-            <div>
-              <small className="text-muted">{options.description}</small>
-            </div>
-          </>
-        ),
-      };
-    });
-  };
 
   render() {
     const { permission, expiresAt, description } = this.state;
@@ -81,7 +64,7 @@ export class CreateAccessLink extends Component {
                 fluid
                 selection
                 onChange={(event, data) => this.setState({ permission: data.value })}
-                options={this.dropdownOptionsGenerator(dropdownOptions)}
+                options={dropdownOptionsGenerator(dropdownOptions)}
                 defaultValue={permission}
               />
             </Grid.Column>

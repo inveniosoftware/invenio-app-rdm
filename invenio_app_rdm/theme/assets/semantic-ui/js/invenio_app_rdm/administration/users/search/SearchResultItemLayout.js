@@ -68,25 +68,25 @@ class SearchResultItemComponent extends Component {
             tooltip={i18next.t("New")}
             icon="hourglass end"
             color="grey"
-            value={result.domaininfo.status == 1}
+            value={result.domaininfo.status === 1}
           />
           <BoolFormatter
             tooltip={i18next.t("Moderated")}
             icon="eye"
             color="grey"
-            value={result.domaininfo.status == 2}
+            value={result.domaininfo.status === 2}
           />
           <BoolFormatter
             tooltip={i18next.t("Verified")}
             icon="check"
             color="green"
-            value={result.domaininfo.status == 3}
+            value={result.domaininfo.status === 3}
           />
           <BoolFormatter
             tooltip={i18next.t("Blocked")}
             icon="ban"
             color="red"
-            value={result.domaininfo.status == 4}
+            value={result.domaininfo.status === 4}
           />
           {result.email}
         </Table.Cell>
@@ -100,31 +100,31 @@ class SearchResultItemComponent extends Component {
             tooltip={i18next.t("Verified")}
             icon="star"
             color="yellow"
-            value={result.status == "verified"}
+            value={result.status === "verified"}
           />
           <BoolFormatter
             tooltip={i18next.t("Confirmed")}
             icon="check"
             color="green"
-            value={result.status == "confirmed"}
+            value={result.status === "confirmed"}
           />
           <BoolFormatter
             tooltip={i18next.t("New")}
             icon="hourglass"
             color="grey"
-            value={result.status == "new"}
+            value={result.status === "new"}
           />
           <BoolFormatter
             tooltip={i18next.t("Inactive")}
             icon="times"
             color="red"
-            value={result.status == "inactive"}
+            value={result.status === "inactive"}
           />
           <BoolFormatter
             tooltip={i18next.t("Blocked")}
             icon="ban"
             color="red"
-            value={result.status == "blocked"}
+            value={result.status === "blocked"}
           />
         </Table.Cell>
         <Table.Cell

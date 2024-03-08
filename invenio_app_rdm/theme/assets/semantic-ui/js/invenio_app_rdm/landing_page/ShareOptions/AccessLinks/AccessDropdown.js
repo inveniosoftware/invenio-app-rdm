@@ -16,6 +16,8 @@ import { withCancel } from "react-invenio-forms";
 export const errorSerializer = (error) =>
   error?.response?.data?.message || error?.message;
 
+const MIN_LOADING_DURATION = 400;
+
 export class AccessDropdown extends Component {
   constructor(props) {
     super(props);
@@ -26,6 +28,9 @@ export class AccessDropdown extends Component {
     this.cancellableAction && this.cancellableAction.cancel();
   }
 
+  onSuccess = () =>
+    this.setState({ loading: false, actionSuccess: true, error: undefined });
+
   handleUpdate = async (permission) => {
     const { updateEndpoint } = this.props;
     const data = { permission: permission };
@@ -33,8 +38,12 @@ export class AccessDropdown extends Component {
     this.cancellableAction = withCancel(http.patch(updateEndpoint, data));
 
     try {
-      await this.cancellableAction.promise;
-      this.setState({ loading: false, actionSuccess: true, error: undefined });
+      // prolong loading to make sure UI displays to the end user for long enough that the action was completed
+      await Promise.all([
+        new Promise((resolve) => setTimeout(resolve, MIN_LOADING_DURATION)),
+        this.cancellableAction.promise,
+      ]);
+      this.onSuccess();
     } catch (error) {
       if (error === "UNMOUNTED") return;
       this.setState({
@@ -52,6 +61,7 @@ export class AccessDropdown extends Component {
     return (
       <div className="flex align-items-center access-dropdown-container">
         <Dropdown
+          className="overflow-scroll"
           placeholder={i18next.t("Select permissions")}
           fluid
           loading={loading}
@@ -71,6 +81,6 @@ export class AccessDropdown extends Component {
 
 AccessDropdown.propTypes = {
   result: PropTypes.object.isRequired,
-  dropdownOptions: PropTypes.object.isRequired,
+  dropdownOptions: PropTypes.array.isRequired,
   updateEndpoint: PropTypes.string.isRequired,
 };
