@@ -71,7 +71,7 @@ def communities_home(pid_value, community, community_ui):
                 "metrics": {
                     "total_grants": {
                         "name": "total_grants",
-                        "type": "value_count",
+                        "type": "cardinality",
                         "kwargs": {"field": "metadata.funding.award.id"},
                     },
                     "total_data": {
