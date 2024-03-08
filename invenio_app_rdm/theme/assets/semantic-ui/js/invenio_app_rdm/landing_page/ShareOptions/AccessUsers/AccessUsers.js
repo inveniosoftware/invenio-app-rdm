@@ -5,7 +5,6 @@
 // under the terms of the MIT License; see LICENSE file for more details.
 import _isEmpty from "lodash/isEmpty";
 import { UserAccessSearchResult } from "./UserAccessSearchResult";
-import isEmpty from "lodash/isEmpty";
 import React, { Component } from "react";
 import { Modal, Loader, Button, Container } from "semantic-ui-react";
 import PropTypes from "prop-types";
@@ -61,13 +60,12 @@ export class AccessUsers extends Component {
   render() {
     const { record, handleClose, permissions } = this.props;
     const { results, loading, error } = this.state;
-
     return (
       <>
         {error && error}
         <Modal.Content>
           {loading && <Loader isLoading active />}
-          {!loading && !isEmpty(results) && (
+          {!loading && results !== undefined && (
             <UserAccessSearchResult
               permissions={permissions}
               results={results}
@@ -88,8 +86,7 @@ export class AccessUsers extends Component {
             size="small"
             onClick={handleClose}
             floated="left"
-            content={i18next.t("Cancel")}
-            icon="remove"
+            content={i18next.t("Close")}
           />
         </Modal.Actions>
       </>

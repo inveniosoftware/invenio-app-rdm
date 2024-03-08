@@ -12,9 +12,24 @@ import { withCancel, http } from "react-invenio-forms";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import PropTypes from "prop-types";
 import { SuccessIcon } from "@js/invenio_communities/members";
-import { Image } from "react-invenio-forms";
+import { Image, dropdownOptionsGenerator } from "react-invenio-forms";
 import { AccessDropdown } from "../AccessLinks/AccessDropdown";
 import { dropdownOptions } from "../AccessLinks/LinksSearchResultContainer";
+import { AddUserAccessModal } from "./AddUserAccessModal";
+
+const accessDropdownOptions = [
+  ...dropdownOptions,
+  {
+    key: "manage",
+    name: "manage",
+    text: i18next.t("Can manage"),
+    title: i18next.t("Can manage"),
+    value: "manage",
+    description: i18next.t(
+      "Can manage access, edit drafts and view restricted records/files."
+    ),
+  },
+];
 
 class UserAccessSearchResultItem extends Component {
   constructor(props) {
@@ -40,36 +55,6 @@ class UserAccessSearchResultItem extends Component {
   handleSuccess = (data) => {
     const { deleteSuccessCallback } = this.props;
     deleteSuccessCallback(data);
-  };
-
-  accessDropdownOptions = [
-    ...dropdownOptions,
-    {
-      key: "manage",
-      text: i18next.t("Can manage"),
-      value: "manage",
-      description: i18next.t(
-        "Can manage access, edit drafts and view restricted records/files."
-      ),
-    },
-  ];
-
-  dropdownOptionsGenerator = (value) => {
-    return value.map((options) => {
-      return {
-        key: options.key,
-        text: options.text,
-        value: options.key,
-        content: (
-          <>
-            <div>{options.text}</div>
-            <div>
-              <small className="text-muted">{options.description}</small>
-            </div>
-          </>
-        ),
-      };
-    });
   };
 
   render() {
@@ -109,7 +94,7 @@ class UserAccessSearchResultItem extends Component {
         <Table.Cell data-label={i18next.t("Access")} width={4}>
           <AccessDropdown
             updateEndpoint={`${record.links.access_users}/${result?.expanded?.subject?.id}`}
-            dropdownOptions={this.dropdownOptionsGenerator(this.accessDropdownOptions)}
+            dropdownOptions={dropdownOptionsGenerator(accessDropdownOptions)}
             result={result}
           />
         </Table.Cell>
@@ -151,79 +136,87 @@ export class UserAccessSearchResult extends Component {
   render() {
     const { results, fetchData, record, permissions, setError, recOwner } = this.props;
     return (
-      <Table className="fixed-header">
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell data-label="User" width={8}>
-              {i18next.t("People with access")}
-            </Table.HeaderCell>
-            <Table.HeaderCell data-label="Access" width={4}>
-              {i18next.t("Access")}
-            </Table.HeaderCell>
-            <Table.HeaderCell width={3}>
-              <Button
-                content={i18next.t("Add people")}
-                positive
-                fluid
-                size="medium"
-                icon="plus"
-                labelPosition="left"
-              />
-            </Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
-          <Table.Row>
-            <Table.Cell width={8}>
-              <Grid textAlign="left" verticalAlign="middle">
-                <Grid.Column>
-                  <Item className="flex">
-                    <Image
-                      src={recOwner.links.avatar}
-                      avatar
-                      className="rel-ml-1"
-                      alt=""
-                    />
-                    <Item.Content className="ml-10 p-0">
-                      <Item.Header
-                        className={`flex align-items-center ${
-                          !recOwner.description ? "mt-5" : ""
-                        }`}
-                      >
-                        <b className="mr-10">
-                          {recOwner.profile.full_name || recOwner.username}
-                        </b>
-                        {recOwner.is_current_user && (
-                          <Label size="tiny" className="primary">
-                            {i18next.t("You")}
-                          </Label>
+      <>
+        <AddUserAccessModal
+          isComputer={false}
+          accessDropdownOptions={accessDropdownOptions}
+          results={results}
+          record={record}
+          fetchData={fetchData}
+        />
+        <Table className="fixed-header">
+          <Table.Header>
+            <Table.Row>
+              <Table.HeaderCell data-label="User" width={8}>
+                {i18next.t("People with access")}
+              </Table.HeaderCell>
+              <Table.HeaderCell data-label="Access" width={4}>
+                {i18next.t("Access")}
+              </Table.HeaderCell>
+              <Table.HeaderCell textAlign="center" width={3}>
+                <AddUserAccessModal
+                  isComputer
+                  accessDropdownOptions={accessDropdownOptions}
+                  results={results}
+                  record={record}
+                  fetchData={fetchData}
+                />
+              </Table.HeaderCell>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
+            <Table.Row>
+              <Table.Cell width={8}>
+                <Grid textAlign="left" verticalAlign="middle">
+                  <Grid.Column>
+                    <Item className="flex">
+                      <Image
+                        src={recOwner.links.avatar}
+                        avatar
+                        className="rel-ml-1"
+                        alt=""
+                      />
+                      <Item.Content className="ml-10 p-0">
+                        <Item.Header
+                          className={`flex align-items-center ${
+                            !recOwner.description ? "mt-5" : ""
+                          }`}
+                        >
+                          <b className="mr-10">
+                            {recOwner.profile.full_name || recOwner.username}
+                          </b>
+                          {recOwner.is_current_user && (
+                            <Label size="tiny" className="primary">
+                              {i18next.t("You")}
+                            </Label>
+                          )}
+                        </Item.Header>
+                        {recOwner.profile.affiliations && (
+                          <Item.Meta>{recOwner.profile.affiliations}</Item.Meta>
                         )}
-                      </Item.Header>
-                      {recOwner.profile.affiliations && (
-                        <Item.Meta>{recOwner.profile.affiliations}</Item.Meta>
-                      )}
-                    </Item.Content>
-                  </Item>
-                </Grid.Column>
-              </Grid>
-            </Table.Cell>
-            <Table.Cell textAlign="left" data-label={i18next.t("Access")} width={4}>
-              {i18next.t("Owner")}
-            </Table.Cell>
-            <Table.Cell width={3} />
-          </Table.Row>
-          {results.map((result) => (
-            <UserAccessSearchResultItem
-              key={result.id}
-              result={result}
-              record={record}
-              permissions={permissions}
-              deleteSuccessCallback={fetchData}
-              setError={setError}
-            />
-          ))}
-        </Table.Body>
-      </Table>
+                      </Item.Content>
+                    </Item>
+                  </Grid.Column>
+                </Grid>
+              </Table.Cell>
+              <Table.Cell textAlign="left" data-label={i18next.t("Access")} width={4}>
+                {i18next.t("Owner")}
+              </Table.Cell>
+              <Table.Cell width={3} />
+            </Table.Row>
+            {results.map((result) => (
+              <UserAccessSearchResultItem
+                key={result.id}
+                result={result}
+                record={record}
+                permissions={permissions}
+                deleteSuccessCallback={fetchData}
+                setError={setError}
+              />
+            ))}
+          </Table.Body>
+        </Table>
+      </>
     );
   }
 }

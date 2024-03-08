@@ -52,6 +52,7 @@ from invenio_rdm_records.notifications.builders import (
     CommunityInclusionDeclineNotificationBuilder,
     CommunityInclusionExpireNotificationBuilder,
     CommunityInclusionSubmittedNotificationBuilder,
+    GrantUserAccessNotificationBuilder,
     GuestAccessRequestAcceptNotificationBuilder,
     GuestAccessRequestSubmitNotificationBuilder,
     GuestAccessRequestTokenCreateNotificationBuilder,
@@ -1222,6 +1223,8 @@ NOTIFICATIONS_BUILDERS = {
     GuestAccessRequestSubmitNotificationBuilder.type: GuestAccessRequestSubmitNotificationBuilder,
     UserAccessRequestAcceptNotificationBuilder.type: UserAccessRequestAcceptNotificationBuilder,
     UserAccessRequestSubmitNotificationBuilder.type: UserAccessRequestSubmitNotificationBuilder,
+    # Grant user access
+    GrantUserAccessNotificationBuilder.type: GrantUserAccessNotificationBuilder,
     # Comment request event
     CommentRequestEventCreateNotificationBuilder.type: CommentRequestEventCreateNotificationBuilder,
     # Community inclusion

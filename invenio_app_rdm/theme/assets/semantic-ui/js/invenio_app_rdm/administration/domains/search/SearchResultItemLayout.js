@@ -13,7 +13,6 @@ import { Table, Dropdown, Icon, Button } from "semantic-ui-react";
 import { withState } from "react-searchkit";
 import { AdminUIRoutes } from "@js/invenio_administration/src/routes";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
-import isEmpty from "lodash/isEmpty";
 
 class SearchResultItemComponent extends Component {
   refreshAfterAction = () => {
@@ -152,8 +151,8 @@ class SearchResultItemComponent extends Component {
               title={title}
               resourceName={resourceName}
               editUrl={AdminUIRoutes.editView(listUIEndpoint, result, idKeyPath)}
-              displayEdit
-              displayDelete
+              displayEdit={displayEdit}
+              displayDelete={displayDelete}
               actions={actions}
               resource={result}
               idKeyPath={idKeyPath}
