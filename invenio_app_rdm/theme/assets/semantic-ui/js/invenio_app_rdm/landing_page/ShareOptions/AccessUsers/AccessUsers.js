@@ -20,13 +20,11 @@ export class AccessUsers extends Component {
       results: undefined,
       loading: false,
       error: undefined,
-      recOwner: undefined,
     };
   }
 
   componentDidMount() {
     this.fetchData();
-    this.fetchOwner();
   }
 
   componentWillUnmount() {
@@ -90,8 +88,7 @@ export class AccessUsers extends Component {
             size="small"
             onClick={handleClose}
             floated="left"
-            content={i18next.t("Cancel")}
-            icon="remove"
+            content={i18next.t("Close")}
           />
         </Modal.Actions>
       </>
