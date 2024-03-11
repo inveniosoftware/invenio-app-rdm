@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2023 CERN.
+# Copyright (C) 2024 Graz University of Technology.
 #
 # Invenio-App-RDM is free software; you can redistribute it and/or modify
 # it under the terms of the MIT License; see LICENSE file for more details.
@@ -14,9 +15,11 @@ is that nothing happens!
 """
 
 from click import secho
+from flask import current_app
 from invenio_communities.communities.records.api import Community
 from invenio_communities.communities.records.systemfields.access import ReviewPolicyEnum
 from invenio_db import db
+from invenio_rdm_records.proxies import current_rdm_records
 from invenio_rdm_records.records.api import RDMDraft, RDMRecord
 
 
@@ -45,6 +48,18 @@ def execute_upgrade():
                 "user": record.parent["access"]["owned_by"][0]["user"]
             }
 
+        if "pids" not in record.parent:
+            record.parent["pids"] = {}
+
+            if current_app.config["DATACITE_ENABLED"]:
+                pids = current_rdm_records.records_service.pids.parent_pid_manager.create_all(
+                    record.parent, pids={}, schemes={"doi"}
+                )
+                current_rdm_records.records_service.pids.parent_pid_manager.reserve_all(
+                    record.parent, pids
+                )
+                record.parent["pids"] = pids
+
     def update_record(record):
         # skipping deleted records because can't be committed
         if record.is_deleted:
@@ -52,6 +67,10 @@ def execute_upgrade():
 
         try:
             secho(f"Updating record : {record.pid.pid_value}", fg="yellow")
+
+            # otherwise the save would not work, due to new attributes
+            # (media_files, parent_doi) used
+            record["$schema"] = "local://records/record-v6.0.0.json"
 
             # Initialize media files as disabled if not any
             record.setdefault("media_files", {"enabled": False})
@@ -67,8 +86,8 @@ def execute_upgrade():
             secho(f"> Updated record: {record.pid.pid_value}\n", fg="green")
             return None
         except Exception as e:
-            secho("> Error {}".format(repr(e)), fg="red")
-            error = "Record {} failed to update".format(record.pid.pid_value)
+            secho(f"> Error {repr(e)}", fg="red")
+            error = f"Record {record.pid.pid_value} failed to update"
             return error
 
     secho("Starting data migration...", fg="green")
@@ -78,14 +97,18 @@ def execute_upgrade():
 
     for community_data in communities:
         community = Community(community_data.data, model=community_data)
-        migrate_review_policy(community)
-        community.commit()
+
+        # production data could have problems without it
+        if community:
+            migrate_review_policy(community)
+            community.commit()
 
     # Migrating records and drafts
     errors = []
     for record_metadata in RDMRecord.model_cls.query.all():
         record = RDMRecord(record_metadata.data, model=record_metadata)
         error = update_record(record)
+
         if error:
             errors.append(error)
 
@@ -98,7 +121,7 @@ def execute_upgrade():
     success = not errors
 
     if success:
-        secho(f"Commiting to DB", nl=True)
+        secho("Commiting to DB", nl=True)
         db.session.commit()
         secho(
             "Data migration completed, please rebuild the search indices now.",
@@ -106,7 +129,7 @@ def execute_upgrade():
         )
 
     else:
-        secho(f"Rollback", nl=True)
+        secho("Rollback", nl=True)
         db.session.rollback()
         secho(
             "Upgrade aborted due to the following errors:",
