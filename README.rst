@@ -22,8 +22,3 @@ InvenioRDM Research Data Management
 
 Further documentation is available on
 https://inveniordm.docs.cern.ch
-
-For Mirador Previewer
----------------
-- The asset files under invenio_app_rdm/theme/static/js/m3/dist should be under the global static/js/m3/dist folder
-
