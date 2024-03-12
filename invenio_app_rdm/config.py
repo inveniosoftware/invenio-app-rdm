@@ -977,9 +977,6 @@ RDM_CITATION_STYLES_DEFAULT = "apa"
 IIIF_PREVIEW_TEMPLATE = "invenio_app_rdm/records/iiif_preview.html"
 """Template for IIIF image preview."""
 
-MIRADOR_PREVIEW_TEMPLATE = "invenio_app_rdm/records/mirador_preview.html"
-"""Template for Mirador image preview."""
-
 IIIF_API_DECORATOR_HANDLER = None
 
 # Invenio-Previewer
@@ -1030,6 +1027,28 @@ IIIF_FORMATS_PIL_MAP = {
     "tif": "tiff",
     "tiff": "tiff",
 }
+
+# Invenio-Previewer
+# =================
+# See https://github.com/inveniosoftware/invenio-previewer/blob/master/invenio_previewer/config.py  # noqa
+
+PREVIEWER_PREFERENCE = [
+    "csv_papaparsejs",
+    "mirador",
+    "iiif_simple",
+    "simple_image",
+    "json_prismjs",
+    "xml_prismjs",
+    "mistune",
+    "pdfjs",
+    "ipynb",
+    "zip",
+    "txt",
+]
+"""Preferred previewers."""
+
+MIRADOR_PREVIEW_EXTENSIONS = list(IIIF_FORMATS.keys())
+
 
 # Invenio-Pages
 # =============

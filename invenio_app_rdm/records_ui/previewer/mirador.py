@@ -8,12 +8,7 @@
 
 """Mirador preview."""
 
-from os.path import splitext
-
 from flask import current_app, render_template
-from werkzeug.local import LocalProxy
-
-previewable_extensions = LocalProxy(lambda: current_app.config["IIIF_FORMATS"].keys())
 
 def can_preview(file):
     """Check if file can be previewed by this previewer.
@@ -22,7 +17,8 @@ def can_preview(file):
     :returns: Boolean
     """
     # supported_extensions list needs . prefixed -
-    supported_extensions = ["." + ext for ext in previewable_extensions]
+    preview_extensions = current_app.config["MIRADOR_PREVIEW_EXTENSIONS"]
+    supported_extensions = ["." + ext for ext in preview_extensions]
     return file.has_extensions(*supported_extensions)
 
 
@@ -30,7 +26,6 @@ def preview(file):
     """Render template.
     """
     return render_template(
-        current_app.config["MIRADOR_PREVIEW_TEMPLATE"],
-        html_tags='dir="ltr" mozdisallowselectionprint moznomarginboxes',
+        "invenio_app_rdm/records/mirador_preview.html",
         file=file,
     )
