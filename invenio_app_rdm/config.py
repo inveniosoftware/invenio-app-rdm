@@ -777,7 +777,7 @@ APP_RDM_RECORD_EXPORTERS = {
         "name": _("GeoJSON"),
         "serializer": ("invenio_rdm_records.resources.serializers:GeoJSONSerializer"),
         "params": {"options": {"indent": 2, "sort_keys": True}},
-        "content-type": "application/vnd.geojson+json",
+        "content-type": "application/vnd.geo+json",
         "filename": "{id}.geojson",
     },
     "dcat-ap": {
