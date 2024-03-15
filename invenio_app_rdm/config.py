@@ -984,12 +984,12 @@ IIIF_API_DECORATOR_HANDLER = None
 
 PREVIEWER_PREFERENCE = [
     "csv_papaparsejs",
+    "pdfjs",
     "iiif_simple",
     "simple_image",
     "json_prismjs",
     "xml_prismjs",
     "mistune",
-    "pdfjs",
     "ipynb",
     "zip",
     "txt",
@@ -1017,11 +1017,13 @@ IIIF_FORMATS_PIL_MAP = {
     "jp2": "jpeg2000",
     "jpeg": "jpeg",
     "jpg": "jpeg",
-    "pdf": "pdf",
     "png": "png",
     "tif": "tiff",
     "tiff": "tiff",
 }
+
+RECORDS_RESOURCES_IMAGE_FORMATS = ["." + ext for ext in IIIF_FORMATS.keys()]
+"""RECORDS_RESOURCES_IMAGE_FORMATS must contain all possible IIIF formats to ensure their metadata is extracted."""
 
 # Invenio-Pages
 # =============
