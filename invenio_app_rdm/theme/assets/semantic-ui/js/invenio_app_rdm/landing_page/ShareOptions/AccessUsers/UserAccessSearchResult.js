@@ -13,6 +13,8 @@ import { i18next } from "@translations/invenio_app_rdm/i18next";
 import PropTypes from "prop-types";
 import { SuccessIcon } from "@js/invenio_communities/members";
 import { Image } from "react-invenio-forms";
+import { AccessDropdown } from "../AccessLinks/AccessDropdown";
+import { dropdownOptions } from "../AccessLinks/LinksSearchResultContainer";
 
 class UserAccessSearchResultItem extends Component {
   constructor(props) {
@@ -23,7 +25,7 @@ class UserAccessSearchResultItem extends Component {
     const { record, result, setError } = this.props;
     this.setState({ loading: true });
     const cancellableAction = withCancel(
-      http.delete(`${record.links.access_users}/${result.id}`)
+      http.delete(`${record.links.access_users}/${result?.expanded?.subject?.id}`)
     );
     try {
       await cancellableAction.promise;
@@ -39,27 +41,49 @@ class UserAccessSearchResultItem extends Component {
     const { deleteSuccessCallback } = this.props;
     deleteSuccessCallback(data);
   };
+
+  accessDropdownOptions = [
+    ...dropdownOptions,
+    {
+      key: "manage",
+      text: i18next.t("Can manage"),
+      value: "manage",
+      description: i18next.t(
+        "Can manage access, edit drafts and view restricted records/files."
+      ),
+    },
+  ];
+
+  dropdownOptionsGenerator = (value) => {
+    return value.map((options) => {
+      return {
+        key: options.key,
+        text: options.text,
+        value: options.key,
+        content: (
+          <>
+            <div>{options.text}</div>
+            <div>
+              <small className="text-muted">{options.description}</small>
+            </div>
+          </>
+        ),
+      };
+    });
+  };
+
   render() {
-    const { result, permissions } = this.props;
+    const { result, permissions, record } = this.props;
     const { loading, success } = this.state;
     const user = result.expanded.subject;
-
     return (
       <Table.Row>
-        <Table.Cell>
+        <Table.Cell width={8}>
           <Grid textAlign="left" verticalAlign="middle">
             <Grid.Column>
-              <Item
-                className={user.is_current_user ? "flex align-no-checkbox" : "flex"}
-                key={result.id}
-              >
-                <Image
-                  src={user.links.avatar}
-                  avatar
-                  className={user.is_current_user ? "" : "rel-ml-1"}
-                  alt=""
-                />
-                <Item.Content className="ml-10">
+              <Item className="flex" key={result.id}>
+                <Image src={user.links.avatar} avatar className="rel-ml-1" alt="" />
+                <Item.Content className="ml-10 p-0">
                   <Item.Header
                     className={`flex align-items-center ${
                       !user.description ? "mt-5" : ""
@@ -82,23 +106,28 @@ class UserAccessSearchResultItem extends Component {
           </Grid>
         </Table.Cell>
 
-        <Table.Cell data-label={i18next.t("Access")}>{result.permission}</Table.Cell>
+        <Table.Cell data-label={i18next.t("Access")} width={4}>
+          <AccessDropdown
+            updateEndpoint={`${record.links.access_users}/${result?.expanded?.subject?.id}`}
+            dropdownOptions={this.dropdownOptionsGenerator(this.accessDropdownOptions)}
+            result={result}
+          />
+        </Table.Cell>
 
-        <Table.Cell data-label={i18next.t("Actions")} textAlign="right">
+        <Table.Cell data-label={i18next.t("Actions")} textAlign="center" width={3}>
           <div>
             {permissions.can_manage && (
               <>
                 {success && <SuccessIcon timeOutDelay={3000} show={success} />}
                 <Button
-                  size="small"
+                  size="medium"
                   labelPosition="left"
-                  icon="user delete"
+                  icon="trash alternate outline"
                   className="fluid-computer-only"
                   compact
-                  negative
                   disabled={loading}
                   loading={loading}
-                  content={i18next.t("Remove access")}
+                  content={i18next.t("Remove")}
                   onClick={this.handleDelete}
                 />
               </>
@@ -120,21 +149,69 @@ UserAccessSearchResultItem.propTypes = {
 
 export class UserAccessSearchResult extends Component {
   render() {
-    const { results, fetchData, record, permissions, setError } = this.props;
+    const { results, fetchData, record, permissions, setError, recOwner } = this.props;
     return (
-      <Table>
+      <Table className="fixed-header">
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell data-label="User" width={4}>
+            <Table.HeaderCell data-label="User" width={8}>
               {i18next.t("People with access")}
             </Table.HeaderCell>
-            <Table.HeaderCell data-label="Access" width={3}>
+            <Table.HeaderCell data-label="Access" width={4}>
               {i18next.t("Access")}
             </Table.HeaderCell>
-            <Table.HeaderCell width={4} />
+            <Table.HeaderCell width={3}>
+              <Button
+                content={i18next.t("Add people")}
+                positive
+                fluid
+                size="medium"
+                icon="plus"
+                labelPosition="left"
+              />
+            </Table.HeaderCell>
           </Table.Row>
         </Table.Header>
         <Table.Body>
+          <Table.Row>
+            <Table.Cell width={8}>
+              <Grid textAlign="left" verticalAlign="middle">
+                <Grid.Column>
+                  <Item className="flex">
+                    <Image
+                      src={recOwner.links.avatar}
+                      avatar
+                      className="rel-ml-1"
+                      alt=""
+                    />
+                    <Item.Content className="ml-10 p-0">
+                      <Item.Header
+                        className={`flex align-items-center ${
+                          !recOwner.description ? "mt-5" : ""
+                        }`}
+                      >
+                        <b className="mr-10">
+                          {recOwner.profile.full_name || recOwner.username}
+                        </b>
+                        {recOwner.is_current_user && (
+                          <Label size="tiny" className="primary">
+                            {i18next.t("You")}
+                          </Label>
+                        )}
+                      </Item.Header>
+                      {recOwner.profile.affiliations && (
+                        <Item.Meta>{recOwner.profile.affiliations}</Item.Meta>
+                      )}
+                    </Item.Content>
+                  </Item>
+                </Grid.Column>
+              </Grid>
+            </Table.Cell>
+            <Table.Cell textAlign="left" data-label={i18next.t("Access")} width={4}>
+              {i18next.t("Owner")}
+            </Table.Cell>
+            <Table.Cell width={3} />
+          </Table.Row>
           {results.map((result) => (
             <UserAccessSearchResultItem
               key={result.id}
@@ -157,4 +234,5 @@ UserAccessSearchResult.propTypes = {
   permissions: PropTypes.object.isRequired,
   fetchData: PropTypes.func.isRequired,
   setError: PropTypes.func.isRequired,
+  recOwner: PropTypes.object.isRequired,
 };
