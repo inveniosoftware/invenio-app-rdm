@@ -8,9 +8,9 @@
 {%- extends config.PREVIEWER_ABSTRACT_TEMPLATE %}
 
 {% block panel %}
-<div id="demo"><p>{{ _("Loading...") }}</p></div>
+<div id="m3-dist"><p>{{ _("Loading...") }}</p></div>
 {% endblock %}
 
 {% block javascript %}
-<script src="{{ url_for('static', filename='js/m3/dist/main.js') }}"></script>
+<script src="{{ url_for('static', filename='js/mirador3-dist/main.js') }}"></script>
 {% endblock javascript %}
