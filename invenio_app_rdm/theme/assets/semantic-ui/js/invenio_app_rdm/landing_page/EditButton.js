@@ -23,7 +23,6 @@ export const EditButton = ({ recid, onError }) => {
         {
           headers: {
             "Content-Type": "application/json",
-            "Accept": "application/vnd.inveniordm.v1+json",
           },
         }
       );

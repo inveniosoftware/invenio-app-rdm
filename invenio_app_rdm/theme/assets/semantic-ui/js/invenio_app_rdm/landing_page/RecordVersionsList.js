@@ -89,12 +89,7 @@ export const RecordVersionsList = ({ record, isPreview }) => {
   const fetchVersions = async () => {
     return await http.get(
       `${recordDeserialized.links.versions}?size=${NUMBER_OF_VERSIONS}&sort=version&allversions=true`,
-      {
-        headers: {
-          Accept: "application/vnd.inveniordm.v1+json",
-        },
-        withCredentials: true,
-      }
+      { withCredentials: true }
     );
   };
 

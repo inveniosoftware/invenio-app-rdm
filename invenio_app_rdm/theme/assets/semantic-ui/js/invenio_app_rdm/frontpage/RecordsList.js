@@ -45,13 +45,7 @@ export class RecordsList extends Component {
     const { fetchUrl } = this.props;
     this.setState({ isLoading: true });
 
-    this.cancellableFetch = withCancel(
-      http.get(fetchUrl, {
-        headers: {
-          Accept: "application/vnd.inveniordm.v1+json",
-        },
-      })
-    );
+    this.cancellableFetch = withCancel(http.get(fetchUrl));
 
     try {
       const response = await this.cancellableFetch.promise;

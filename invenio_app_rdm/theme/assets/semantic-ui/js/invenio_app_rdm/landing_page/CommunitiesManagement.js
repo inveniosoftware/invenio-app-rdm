@@ -45,11 +45,7 @@ export class CommunitiesManagement extends Component {
 
   fetchRecordCommunities = async () => {
     const { recordCommunityEndpoint } = this.props;
-    return await http.get(recordCommunityEndpoint, {
-      headers: {
-        Accept: "application/vnd.inveniordm.v1+json",
-      },
-    });
+    return await http.get(recordCommunityEndpoint);
   };
 
   getCommunities = async () => {

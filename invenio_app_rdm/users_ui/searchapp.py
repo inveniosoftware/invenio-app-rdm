@@ -40,7 +40,7 @@ def search_app_context():
             current_app.config["REQUESTS_FACETS"],
             current_app.config["RDM_SORT_OPTIONS"],
             "/api/user/requests",
-            {"Accept": "application/json"},
+            {"Accept": "application/vnd.inveniordm.v1+json"},
             initial_filters=[["is_open", "true"]],
             hidden_params=[["expand", "1"]],
         ),
