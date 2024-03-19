@@ -25,6 +25,7 @@ from invenio_rdm_records.records.api import get_quota
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
 from invenio_rdm_records.services.schemas import RDMRecordSchema
 from invenio_rdm_records.services.schemas.utils import dump_empty
+from invenio_records_resources.services.errors import PermissionDeniedError
 from invenio_search.engine import dsl
 from invenio_vocabularies.proxies import current_service as vocabulary_service
 from invenio_vocabularies.records.models import VocabularyScheme
@@ -406,6 +407,14 @@ def deposit_create(community=None):
 @pass_draft_files
 def deposit_edit(pid_value, draft=None, draft_files=None, files_locked=True):
     """Edit an existing deposit."""
+    # don't show draft's deposit form if the user can't edit it
+    service = current_rdm_records.records_service
+    can_edit_draft = service.check_permission(
+        g.identity, "update_draft", record=draft._record
+    )
+    if not can_edit_draft:
+        raise PermissionDeniedError()
+
     files_dict = None if draft_files is None else draft_files.to_dict()
     ui_serializer = UIJSONSerializer()
     record = ui_serializer.dump_obj(draft.to_dict())
