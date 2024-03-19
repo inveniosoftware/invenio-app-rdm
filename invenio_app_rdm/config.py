@@ -990,6 +990,8 @@ PREVIEWER_PREFERENCE = [
     "xml_prismjs",
     "mistune",
     "pdfjs",
+    "video_videojs",
+    "audio_videojs",
     "ipynb",
     "zip",
     "txt",
