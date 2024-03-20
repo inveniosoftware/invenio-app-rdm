@@ -10,8 +10,22 @@
 
 """Routes for general pages provided by Invenio-App-RDM."""
 
-from flask import Blueprint, current_app, render_template
+from flask import Blueprint, current_app, render_template, request
+from flask_login import current_user
+from invenio_db import db
 from invenio_i18n import get_locale
+from invenio_i18n import lazy_gettext as _
+from invenio_users_resources.forms import NotificationsForm
+
+
+def create_url_rule(rule, default_view_func):
+    """Generate rule from string or tuple."""
+    if isinstance(rule, tuple):
+        path, view_func = rule
+
+        return {"rule": path, "view_func": view_func}
+    else:
+        return {"rule": rule, "view_func": default_view_func}
 
 
 #
