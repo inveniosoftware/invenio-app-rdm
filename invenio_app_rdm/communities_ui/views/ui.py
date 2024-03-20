@@ -11,16 +11,16 @@
 
 from flask import Blueprint, current_app, render_template, request
 from flask_login import current_user
-from invenio_communities.communities.resources.serializer import \
-    UICommunityJSONSerializer
+from invenio_communities.communities.resources.serializer import (
+    UICommunityJSONSerializer,
+)
 from invenio_communities.errors import CommunityDeletedError
 from invenio_i18n import lazy_gettext as _
 from invenio_pidstore.errors import PIDDeletedError, PIDDoesNotExistError
 from invenio_records_resources.services.errors import PermissionDeniedError
 
 from ..searchapp import search_app_context
-from .communities import (communities_detail, communities_home,
-                          community_static_page)
+from .communities import communities_detail, communities_home, community_static_page
 
 
 #
