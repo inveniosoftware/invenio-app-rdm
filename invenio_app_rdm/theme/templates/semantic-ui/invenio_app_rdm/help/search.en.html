@@ -87,7 +87,9 @@
     >
   </p>
   <p>
-    See the field reference below for the full list of fields you can search.
+    See <a href="https://inveniordm.docs.cern.ch/reference/metadata/#metadata"
+      > the InvenioRDM documentation </a
+    > for the full list of fields you can search.
   </p>
   <h3>Combined simple, phrase or field search</h3>
   <p>
@@ -152,6 +154,9 @@
   <ul>
     <li>Most recent</li>
     <li>Best match</li>
+    <li>Oldest</li>
+    <li>Most viewed</li>
+    <li>Most downloaded</li>
   </ul>
   <h3>Regular expressions</h3>
   <p>
@@ -179,12 +184,12 @@
   <p>
     It is possible to search for records that either are missing a value or have
     a value in a specific field using the <code>_exists_</code> and
-    <code>_missing_</code> field names.
+    <code> not _exists_</code> field names.
   </p>
   <p>
     <strong>Example:</strong>
     <a href="/search?page=1&amp;size=20&amp;q=_missing_:metadata.additional_titles"
-      ><code>_missing_:metadata.additional_titles</code></a
+      ><code>not _exists_:metadata.additional_titles</code></a
     >
     (all records without metadata.additional_titles)
   </p>
