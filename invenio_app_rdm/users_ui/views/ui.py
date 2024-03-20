@@ -12,7 +12,6 @@
 from flask import Blueprint, current_app, render_template
 from flask_login import current_user
 from flask_menu import current_menu
-from invenio_i18n import lazy_gettext as _
 
 from ..searchapp import search_app_context
 from .dashboard import communities, requests, uploads
@@ -68,21 +67,9 @@ def create_ui_blueprint(app):
     def register_menus():
         """Register community menu items."""
         user_dashboard = current_menu.submenu("dashboard")
-        user_dashboard.submenu("uploads").register(
-            "invenio_app_rdm_users.uploads",
-            text=_("My uploads"),
-            order=1,
-        )
-        user_dashboard.submenu("communities").register(
-            "invenio_app_rdm_users.communities",
-            text=_("My communities"),
-            order=2,
-        )
-        user_dashboard.submenu("requests").register(
-            "invenio_app_rdm_users.requests",
-            text=_("My requests"),
-            order=3,
-        )
+        dashboard_submenu_config = current_app.config["APP_RDM_USER_DASHBOARD_SUBMENUS"]
+        for submenu_name, submenu_kwargs in dashboard_submenu_config.items():
+            user_dashboard.submenu(submenu_name).register(**submenu_kwargs)
 
     # Register context processor
     blueprint.app_context_processor(search_app_context)

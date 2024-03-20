@@ -689,6 +689,25 @@ APP_RDM_USER_DASHBOARD_ROUTES = {
     "requests": "/me/requests",
 }
 
+APP_RDM_USER_DASHBOARD_SUBMENUS = {
+    "uploads": {
+        "endpoint": "invenio_app_rdm_users.uploads",
+        "text": _("My uploads"),
+        "order": 1,
+    },
+    "communities": {
+        "endpoint": "invenio_app_rdm_users.communities",
+        "text": _("My communities"),
+        "order": 2,
+    },
+    "requests": {
+        "endpoint": "invenio_app_rdm_users.requests",
+        "text": _("My requests"),
+        "order": 3,
+    },
+}
+"""Menus shown on user's dashboard."""
+
 APP_RDM_ROUTES = {
     "index": "/",
     "robots": "/robots.txt",
