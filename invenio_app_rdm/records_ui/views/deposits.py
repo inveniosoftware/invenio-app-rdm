@@ -3,7 +3,7 @@
 # Copyright (C) 2019-2024 CERN.
 # Copyright (C) 2019-2021 Northwestern University.
 # Copyright (C)      2021 TU Wien.
-# Copyright (C) 2022 KTH Royal Institute of Technology
+# Copyright (C) 2022-2023 KTH Royal Institute of Technology.
 # Copyright (C) 2023 Graz University of Technology.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
@@ -376,6 +376,17 @@ def deposit_create(community=None):
 
     community_use_jinja_header = bool(community_theme)
 
+    permissions = get_record_permissions(
+        [
+            "manage_files",
+            "delete_draft",
+            "manage_record_access",
+        ]
+    )
+    # Can't check "publish" permission as draft is not a record with an id yet.
+    permissions["can_publish_always_in_community"] = current_app.config.get(
+        "RDM_RECORD_ALWAYS_IN_COMMUNITY", False
+    )
     return render_community_theme_template(
         current_app.config["APP_RDM_DEPOSIT_FORM_TEMPLATE"],
         theme=community_theme,
@@ -391,13 +402,7 @@ def deposit_create(community=None):
         files=dict(default_preview=None, entries=[], links={}),
         preselectedCommunity=community,
         files_locked=False,
-        permissions=get_record_permissions(
-            [
-                "manage_files",
-                "delete_draft",
-                "manage_record_access",
-            ]
-        ),
+        permissions=permissions,
     )
 
 
@@ -409,7 +414,17 @@ def deposit_edit(pid_value, draft=None, draft_files=None, files_locked=True):
     files_dict = None if draft_files is None else draft_files.to_dict()
     ui_serializer = UIJSONSerializer()
     record = ui_serializer.dump_obj(draft.to_dict())
-
+    permissions = draft.has_permissions_to(
+        [
+            "new_version",
+            "delete_draft",
+            "manage_files",
+            "manage_record_access",
+        ]
+    )
+    permissions["can_publish_always_in_community"] = current_app.config.get(
+        "RDM_RECORD_ALWAYS_IN_COMMUNITY", False
+    )
     community_theme = None
     community = record.get("expanded", {}).get("parent", {}).get("review", {}).get(
         "receiver"
@@ -448,14 +463,7 @@ def deposit_edit(pid_value, draft=None, draft_files=None, files_locked=True):
         files=files_dict,
         searchbar_config=dict(searchUrl=get_search_url()),
         files_locked=files_locked,
-        permissions=draft.has_permissions_to(
-            [
-                "new_version",
-                "delete_draft",
-                "manage_files",
-                "manage_record_access",
-            ]
-        ),
+        permissions=permissions,
     )
 
 
