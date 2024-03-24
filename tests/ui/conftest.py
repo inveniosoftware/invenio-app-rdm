@@ -2,6 +2,7 @@
 #
 # Copyright (C) 2019 CERN.
 # Copyright (C) 2019 Northwestern University.
+# Copyright (C) 2024 Graz University of Technology.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -49,6 +50,7 @@ class MockManifestLoader(JinjaManifestLoader):
 def app_config(app_config):
     """Create test app."""
     app_config["WEBPACKEXT_MANIFEST_LOADER"] = MockManifestLoader
+    app_config["GITHUB_INTEGRATION_ENABLED"] = True
     return app_config
 
 
