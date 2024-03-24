@@ -50,7 +50,6 @@ class MockManifestLoader(JinjaManifestLoader):
 def app_config(app_config):
     """Create test app."""
     app_config["WEBPACKEXT_MANIFEST_LOADER"] = MockManifestLoader
-    app_config["GITHUB_INTEGRATION_ENABLED"] = True
     return app_config
 
 
