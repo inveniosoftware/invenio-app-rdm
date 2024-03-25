@@ -22,4 +22,3 @@ InvenioRDM Research Data Management
 
 Further documentation is available on
 https://inveniordm.docs.cern.ch
-
