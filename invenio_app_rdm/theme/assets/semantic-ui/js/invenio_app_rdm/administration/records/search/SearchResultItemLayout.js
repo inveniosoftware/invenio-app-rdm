@@ -95,8 +95,8 @@ class SearchResultItemComponent extends Component {
           data-label={i18next.t("Stats")}
           className="word-break-all"
         >
-          {result.stats.all_versions.unique_views} |{" "}
-          {result.stats.all_versions.unique_downloads}
+          {result?.stats?.all_versions?.unique_views} |{" "}
+          {result?.stats?.all_versions?.unique_downloads} |{" "}
         </Table.Cell>
 
         <Table.Cell collapsing>
