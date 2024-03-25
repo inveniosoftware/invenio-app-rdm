@@ -249,7 +249,11 @@
         </dt>
         {% if field_value is string %}
           <dd>
-            {% set search_url = field_cfg.field | custom_fields_search(field_value|safe) %}
+            {% if field_cfg.field == 'code:codeRepository' %}
+              {% set search_url = field_value %}
+            {% else %}
+              {% set search_url = field_cfg.field | custom_fields_search(field_value | safe) %}
+            {% endif %}
             {% if search_url %}
               <a href="{{ search_url }}">{{ field_value | safe }}</a>
             {% else %}
