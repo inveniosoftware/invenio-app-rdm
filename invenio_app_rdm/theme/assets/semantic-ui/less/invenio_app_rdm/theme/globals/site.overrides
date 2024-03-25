@@ -522,3 +522,6 @@ dl.details-list {
   max-height: 100%;
 }
 
+.text-break {
+  word-break: break-word
+}
