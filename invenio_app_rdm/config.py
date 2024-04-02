@@ -2,7 +2,7 @@
 #
 # Copyright (C) 2019-2024 CERN.
 # Copyright (C) 2019-2020 Northwestern University.
-# Copyright (C) 2021 Graz University of Technology.
+# Copyright (C) 2021-2024 Graz University of Technology.
 # Copyright (C) 2022 KTH Royal Institute of Technology
 # Copyright (C) 2023 TU Wien
 #
@@ -634,12 +634,6 @@ INDEXER_DEFAULT_INDEX = "rdmrecords-records-record-v6.0.0"
 
 WSGI_PROXIES = 2
 """Correct number of proxies in front of your application."""
-
-# Invenio-Admin
-# =============
-
-# Admin interface is deprecated and should not be used.
-ADMIN_PERMISSION_FACTORY = "invenio_app_rdm.admin.permission_factory"
 
 # Invenio-REST
 # ============
