@@ -249,7 +249,7 @@
         </dt>
         {% if field_value is string %}
           <dd>
-            {% set search_url = field_cfg.field | custom_fields_search(field_value|safe) %}
+            {% set search_url = (field_value | pid_url) if field_cfg.props.is_identifier else (field_cfg.field | custom_fields_search(field_value | safe)) %}
             {% if search_url %}
               <a href="{{ search_url }}">{{ field_value | safe }}</a>
             {% else %}
