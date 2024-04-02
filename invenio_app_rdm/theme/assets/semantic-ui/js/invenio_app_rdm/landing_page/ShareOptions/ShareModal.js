@@ -8,6 +8,7 @@
 import React, { Component } from "react";
 import { Icon, Modal, Tab, Container } from "semantic-ui-react";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
+import Overridable from "react-overridable";
 import PropTypes from "prop-types";
 import { LinksTab } from "./AccessLinks/LinksTab";
 import { AccessRequestsTab } from "./AccessRequests/AccessRequestsTab";
@@ -74,6 +75,14 @@ export class ShareModal extends Component {
     const { open, handleClose, accessLinksSearchConfig, permissions } = this.props;
     const { record } = this.state;
     return (
+      <Overridable
+        id="InvenioAppRdm.RecordLandingPage.ShareModal.component"
+        open={open}
+        handleClose={handleClose}
+        accessLinksSearchConfig={accessLinksSearchConfig}
+        permissions={permissions}
+        record={record}
+      >
       <Modal
         open={open}
         closeIcon
@@ -97,6 +106,7 @@ export class ShareModal extends Component {
           renderActiveOnly={false}
         />
       </Modal>
+      </Overridable>
     );
   }
 }
