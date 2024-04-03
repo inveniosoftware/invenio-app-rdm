@@ -9,7 +9,7 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 """Communities UI blueprints module."""
 
-from flask import Blueprint, current_app, render_template, request
+from flask import Blueprint, current_app, render_template
 from flask_login import current_user
 from invenio_communities.communities.resources.serializer import (
     UICommunityJSONSerializer,
@@ -53,14 +53,6 @@ def record_tombstone_error(error):
         ),
         410,
     )
-
-
-def _is_branded_community():
-    """Function used to check if community is branded."""
-    community = request.community
-    if community.get("theme", {}).get("enabled", False):
-        return True
-    return False
 
 
 def record_permission_denied_error(error):
