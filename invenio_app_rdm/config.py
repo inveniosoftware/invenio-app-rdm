@@ -158,7 +158,7 @@ SESSION_COOKIE_SAMESITE = "Lax"
 # =============
 # https://flask-limiter.readthedocs.io/en/stable/#configuration
 
-RATELIMIT_STORAGE_URL = "redis://localhost:6379/3"
+RATELIMIT_STORAGE_URI = "redis://localhost:6379/3"
 """Storage for ratelimiter."""
 
 # Increase defaults
