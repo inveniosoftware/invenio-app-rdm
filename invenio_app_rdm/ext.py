@@ -7,8 +7,17 @@
 
 """Invenio Research Data Management."""
 
+from flask import request
 from flask_menu import current_menu
 from invenio_i18n import lazy_gettext as _
+
+
+def _is_branded_community():
+    """Function used to check if community is branded."""
+    community = request.community
+    if community.get("theme", {}).get("enabled", False):
+        return True
+    return False
 
 
 def finalize_app(app):
@@ -53,10 +62,29 @@ def init_menu(app):
     )
 
     communities = current_menu.submenu("communities")
-    communities.submenu("search").register(
-        endpoint="invenio_app_rdm_communities.communities_detail",
-        text=_("Search"),
+    communities.submenu("home").register(
+        "invenio_app_rdm_communities.communities_home",
+        text=_("Home"),
         order=1,
+        visible_when=_is_branded_community,
         expected_args=["pid_value"],
-        **dict(icon="search", permissions=True)
+        **dict(icon="home", permissions="can_read"),
+    )
+    communities.submenu("search").register(
+        "invenio_app_rdm_communities.communities_detail",
+        text=_("Records"),
+        order=2,
+        expected_args=["pid_value"],
+        **dict(icon="search", permissions=True),
+    )
+    communities.submenu("submit").register(
+        "invenio_app_rdm_communities.community_static_page",
+        text=_("Submit"),
+        order=3,
+        visible_when=_is_branded_community,
+        endpoint_arguments_constructor=lambda: {
+            "pid_value": request.view_args["pid_value"],
+            "page_slug": "how-to-submit",
+        },
+        **dict(icon="upload", permissions="can_read"),
     )
