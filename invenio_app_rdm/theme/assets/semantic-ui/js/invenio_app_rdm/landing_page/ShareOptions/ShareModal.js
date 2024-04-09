@@ -29,19 +29,20 @@ export class ShareModal extends Component {
   panes = (record, accessLinksSearchConfig, permissions) => {
     const { handleClose } = this.props;
     return [
-      {
-        menuItem: { icon: "users", content: "People" },
-        pane: (
-          <Tab.Pane key="accessUsers" as={Container}>
-            <AccessUsers
-              record={record}
-              handleClose={handleClose}
-              permissions={permissions}
-              successCallback={this.handleRecordUpdate}
-            />
-          </Tab.Pane>
-        ),
-      },
+      // hiding user access for until the groups tab is added and fully tested
+      // {
+      //   menuItem: { icon: "users", content: "People" },
+      //   pane: (
+      //     <Tab.Pane key="accessUsers" as={Container}>
+      //       <AccessUsers
+      //         record={record}
+      //         handleClose={handleClose}
+      //         permissions={permissions}
+      //         successCallback={this.handleRecordUpdate}
+      //       />
+      //     </Tab.Pane>
+      //   ),
+      // },
 
       {
         menuItem: { icon: "linkify", content: "Links" },
