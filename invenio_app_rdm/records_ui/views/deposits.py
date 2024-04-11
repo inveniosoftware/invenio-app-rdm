@@ -371,6 +371,12 @@ def new_record():
 @pass_draft_community
 def deposit_create(community=None):
     """Create a new deposit."""
+    can_create = current_rdm_records.records_service.check_permission(
+        g.identity, "create"
+    )
+    if not can_create:
+        raise PermissionDeniedError()
+
     community_theme = None
     if community is not None:
         community_theme = community.get("theme", {})
