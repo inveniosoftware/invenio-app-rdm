@@ -34,6 +34,7 @@ export class RecordManagement extends Component {
       currentUserId,
       accessLinksSearchConfig,
       recordOwnerUsername,
+      groupsEnabled,
     } = this.props;
     const { error } = this.state;
     const { id: recid } = record;
@@ -88,6 +89,7 @@ export class RecordManagement extends Component {
                   record={record}
                   accessLinksSearchConfig={accessLinksSearchConfig}
                   permissions={permissions}
+                  groupsEnabled={groupsEnabled}
                 />
               )}
             </Grid.Column>
@@ -115,6 +117,7 @@ RecordManagement.propTypes = {
   record: PropTypes.object.isRequired,
   permissions: PropTypes.object.isRequired,
   isDraft: PropTypes.bool.isRequired,
+  groupsEnabled: PropTypes.bool.isRequired,
   isPreviewSubmissionRequest: PropTypes.bool.isRequired,
   currentUserId: PropTypes.string.isRequired,
   recordOwnerUsername: PropTypes.object.isRequired,

@@ -12,7 +12,7 @@ import { SearchWithRoleSelection } from "@js/invenio_communities/members";
 import { RichEditor } from "react-invenio-forms";
 import { GrantAccessApi } from "../api/api";
 
-export class AddUserAccessModal extends Component {
+export class AddUserGroupAccessModal extends Component {
   constructor(props) {
     super(props);
     this.state = { open: false, notifyUser: true, message: undefined };
@@ -39,7 +39,20 @@ export class AddUserAccessModal extends Component {
   };
 
   render() {
-    const { results, record, isComputer, accessDropdownOptions } = this.props;
+    const {
+      results,
+      record,
+      isComputer,
+      accessDropdownOptions,
+      addButtonText,
+      searchBarTitle,
+      selectedItemsHeader,
+      fetchMembers,
+      searchType,
+      searchBarTooltip,
+      searchBarPlaceholder,
+      doneButtonTipType,
+    } = this.props;
     const { open, notifyUser, message } = this.state;
 
     const api = new GrantAccessApi(record);
@@ -56,11 +69,11 @@ export class AddUserAccessModal extends Component {
         onOpen={this.handleOpenModal}
         closeOnDimmerClick={false}
         open={open}
-        aria-label={i18next.t("Add people")}
+        aria-label={addButtonText}
         trigger={
           <Button
             className={!isComputer ? "mobile only tablet only mb-15" : ""}
-            content={i18next.t("Add people")}
+            content={addButtonText}
             positive
             size="medium"
             icon="plus"
@@ -69,22 +82,22 @@ export class AddUserAccessModal extends Component {
           />
         }
       >
-        <Modal.Header as="h2">{i18next.t("Add people")}</Modal.Header>
+        <Modal.Header as="h2">{addButtonText}</Modal.Header>
         <SearchWithRoleSelection
           key="access-users"
           roleOptions={accessDropdownOptions}
           modalClose={this.handleCloseModal}
           action={api.createGrants}
+          fetchMembers={fetchMembers}
           onSuccessCallback={this.onSuccess}
-          searchBarTitle={<label>{i18next.t("User")}</label>}
-          searchBarTooltip={i18next.t(
-            "Search for users to grant access (only users with a public profile can be invited)"
-          )}
+          searchBarTitle={<label>{searchBarTitle}</label>}
+          searchBarTooltip={searchBarTooltip}
           doneButtonText={i18next.t("Add")}
           doneButtonIcon="plus"
           radioLabel={i18next.t("Access")}
-          selectedItemsHeader={i18next.t("Selected users")}
+          selectedItemsHeader={selectedItemsHeader}
           message={message}
+          searchType={searchType}
           messageComponent={
             <>
               <Checkbox
@@ -96,7 +109,7 @@ export class AddUserAccessModal extends Component {
               {notifyUser && (
                 <>
                   <p>
-                    <b>{i18next.t("Message")}</b>
+                    <b>{i18next.t("Invitation message")}</b>
                   </p>
                   <RichEditor
                     onBlur={(event, editor) => {
@@ -109,18 +122,37 @@ export class AddUserAccessModal extends Component {
           }
           notify={notifyUser}
           doneButtonTip={i18next.t("You are about to add")}
+          doneButtonTipType={doneButtonTipType}
           existingEntities={existingIds}
           existingEntitiesDescription={i18next.t("Access already granted")}
+          searchBarPlaceholder={searchBarPlaceholder}
         />
       </Modal>
     );
   }
 }
 
-AddUserAccessModal.propTypes = {
+AddUserGroupAccessModal.propTypes = {
   record: PropTypes.object.isRequired,
   results: PropTypes.array.isRequired,
   isComputer: PropTypes.bool.isRequired,
   accessDropdownOptions: PropTypes.array.isRequired,
   fetchData: PropTypes.func.isRequired,
+  addButtonText: PropTypes.string,
+  searchBarTitle: PropTypes.string,
+  searchBarPlaceholder: PropTypes.string,
+  searchBarTooltip: PropTypes.string,
+  doneButtonTipType: PropTypes.string,
+  selectedItemsHeader: PropTypes.string,
+  fetchMembers: PropTypes.func.isRequired,
+  searchType: PropTypes.oneOf(["group", "user"]).isRequired,
+};
+
+AddUserGroupAccessModal.defaultProps = {
+  addButtonText: "",
+  searchBarTitle: "",
+  searchBarTooltip: "",
+  selectedItemsHeader: "",
+  searchBarPlaceholder: "",
+  doneButtonTipType: "",
 };
