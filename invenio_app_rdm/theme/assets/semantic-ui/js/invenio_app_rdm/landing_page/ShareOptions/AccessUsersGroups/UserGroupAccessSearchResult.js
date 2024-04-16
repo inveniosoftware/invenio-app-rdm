@@ -15,7 +15,7 @@ import { SuccessIcon } from "@js/invenio_communities/members";
 import { Image, dropdownOptionsGenerator } from "react-invenio-forms";
 import { AccessDropdown } from "../AccessLinks/AccessDropdown";
 import { dropdownOptions } from "../AccessLinks/LinksSearchResultContainer";
-import { AddUserAccessModal } from "./AddUserAccessModal";
+import { AddUserGroupAccessModal } from "./AddUserGroupAccessModal";
 
 const accessDropdownOptions = [
   ...dropdownOptions,
@@ -31,16 +31,16 @@ const accessDropdownOptions = [
   },
 ];
 
-class UserAccessSearchResultItem extends Component {
+class UserGroupAccessSearchResultItem extends Component {
   constructor(props) {
     super(props);
     this.state = { loading: false, success: undefined };
   }
   handleDelete = async () => {
-    const { record, result, setError } = this.props;
+    const { result, setError, endpoint } = this.props;
     this.setState({ loading: true });
     const cancellableAction = withCancel(
-      http.delete(`${record.links.access_users}/${result?.expanded?.subject?.id}`)
+      http.delete(`${endpoint}/${result?.expanded?.subject?.id}`)
     );
     try {
       await cancellableAction.promise;
@@ -58,32 +58,34 @@ class UserAccessSearchResultItem extends Component {
   };
 
   render() {
-    const { result, permissions, record } = this.props;
+    const { result, permissions, endpoint } = this.props;
     const { loading, success } = this.state;
-    const user = result.expanded.subject;
+    const entity = result.expanded.subject;
     return (
       <Table.Row>
         <Table.Cell width={8}>
           <Grid textAlign="left" verticalAlign="middle">
             <Grid.Column>
               <Item className="flex" key={result.id}>
-                <Image src={user.links.avatar} avatar className="rel-ml-1" alt="" />
+                <Image src={entity.links.avatar} avatar className="rel-ml-1" alt="" />
                 <Item.Content className="ml-10 p-0">
                   <Item.Header
                     className={`flex align-items-center ${
-                      !user.description ? "mt-5" : ""
+                      !entity.description ? "mt-5" : ""
                     }`}
                   >
-                    <b className="mr-10">{user.profile.full_name || user.username}</b>
+                    <b className="mr-10">
+                      {entity.profile?.full_name || entity?.username || entity?.name}
+                    </b>
 
-                    {user.is_current_user && (
+                    {entity.is_current_user && (
                       <Label size="tiny" className="primary">
                         {i18next.t("You")}
                       </Label>
                     )}
                   </Item.Header>
-                  {user.profile.affiliations && (
-                    <Item.Meta>{user.profile.affiliations}</Item.Meta>
+                  {entity.profile?.affiliations && (
+                    <Item.Meta>{entity.profile?.affiliations}</Item.Meta>
                   )}
                 </Item.Content>
               </Item>
@@ -93,7 +95,7 @@ class UserAccessSearchResultItem extends Component {
 
         <Table.Cell data-label={i18next.t("Access")} width={4}>
           <AccessDropdown
-            updateEndpoint={`${record.links.access_users}/${result?.expanded?.subject?.id}`}
+            updateEndpoint={`${endpoint}/${result?.expanded?.subject?.id}`}
             dropdownOptions={dropdownOptionsGenerator(accessDropdownOptions)}
             result={result}
           />
@@ -124,42 +126,73 @@ class UserAccessSearchResultItem extends Component {
   }
 }
 
-UserAccessSearchResultItem.propTypes = {
-  record: PropTypes.object.isRequired,
+UserGroupAccessSearchResultItem.propTypes = {
   result: PropTypes.object.isRequired,
   permissions: PropTypes.object.isRequired,
   deleteSuccessCallback: PropTypes.func.isRequired,
   setError: PropTypes.func.isRequired,
+  endpoint: PropTypes.string.isRequired,
 };
 
-export class UserAccessSearchResult extends Component {
+export class UserGroupAccessSearchResult extends Component {
   render() {
-    const { results, fetchData, record, permissions, setError, recOwner } = this.props;
+    const {
+      record,
+      results,
+      fetchData,
+      permissions,
+      setError,
+      recOwner,
+      tableHeaderText,
+      addButtonText,
+      endpoint,
+      searchBarTitle,
+      selectedItemsHeader,
+      fetchMembers,
+      searchType,
+      searchBarTooltip,
+      searchBarPlaceholder,
+      doneButtonTipType,
+    } = this.props;
     return (
       <>
-        <AddUserAccessModal
+        <AddUserGroupAccessModal
           isComputer={false}
           accessDropdownOptions={accessDropdownOptions}
           results={results}
           record={record}
           fetchData={fetchData}
+          addButtonText={addButtonText}
+          searchBarTitle={searchBarTitle}
+          selectedItemsHeader={selectedItemsHeader}
+          fetchMembers={fetchMembers}
+          searchType={searchType}
+          searchBarTooltip={searchBarTooltip}
+          searchBarPlaceholder={searchBarPlaceholder}
+          doneButtonTipType={doneButtonTipType}
         />
         <Table className="fixed-header">
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell data-label="User" width={8}>
-                {i18next.t("People with access")}
-              </Table.HeaderCell>
+              <Table.HeaderCell width={8}>{tableHeaderText}</Table.HeaderCell>
               <Table.HeaderCell data-label="Access" width={4}>
                 {i18next.t("Access")}
               </Table.HeaderCell>
               <Table.HeaderCell textAlign="center" width={3}>
-                <AddUserAccessModal
+                <AddUserGroupAccessModal
                   isComputer
                   accessDropdownOptions={accessDropdownOptions}
                   results={results}
                   record={record}
                   fetchData={fetchData}
+                  addButtonText={addButtonText}
+                  searchBarTitle={searchBarTitle}
+                  selectedItemsHeader={selectedItemsHeader}
+                  fetchMembers={fetchMembers}
+                  searchType={searchType}
+                  searchBarTooltip={searchBarTooltip}
+                  searchBarPlaceholder={searchBarPlaceholder}
+                  doneButtonTipType={doneButtonTipType}
                 />
               </Table.HeaderCell>
             </Table.Row>
@@ -191,8 +224,8 @@ export class UserAccessSearchResult extends Component {
                             </Label>
                           )}
                         </Item.Header>
-                        {recOwner.profile.affiliations && (
-                          <Item.Meta>{recOwner.profile.affiliations}</Item.Meta>
+                        {recOwner.profile?.affiliations && (
+                          <Item.Meta>{recOwner.profile?.affiliations}</Item.Meta>
                         )}
                       </Item.Content>
                     </Item>
@@ -205,13 +238,14 @@ export class UserAccessSearchResult extends Component {
               <Table.Cell width={3} />
             </Table.Row>
             {results.map((result) => (
-              <UserAccessSearchResultItem
+              <UserGroupAccessSearchResultItem
                 key={result.id}
                 result={result}
                 record={record}
                 permissions={permissions}
                 deleteSuccessCallback={fetchData}
                 setError={setError}
+                endpoint={endpoint}
               />
             ))}
           </Table.Body>
@@ -221,11 +255,31 @@ export class UserAccessSearchResult extends Component {
   }
 }
 
-UserAccessSearchResult.propTypes = {
+UserGroupAccessSearchResult.propTypes = {
   record: PropTypes.object.isRequired,
   results: PropTypes.array.isRequired,
   permissions: PropTypes.object.isRequired,
   fetchData: PropTypes.func.isRequired,
   setError: PropTypes.func.isRequired,
   recOwner: PropTypes.object.isRequired,
+  tableHeaderText: PropTypes.string,
+  selectedItemsHeader: PropTypes.string,
+  searchBarTitle: PropTypes.string,
+  doneButtonTipType: PropTypes.string,
+  searchBarTooltip: PropTypes.string,
+  searchBarPlaceholder: PropTypes.string,
+  addButtonText: PropTypes.string,
+  endpoint: PropTypes.string.isRequired,
+  fetchMembers: PropTypes.func.isRequired,
+  searchType: PropTypes.oneOf(["group", "user"]).isRequired,
+};
+
+UserGroupAccessSearchResult.defaultProps = {
+  tableHeaderText: "",
+  addButtonText: "",
+  searchBarTitle: "",
+  searchBarTooltip: "",
+  selectedItemsHeader: "",
+  searchBarPlaceholder: "",
+  doneButtonTipType: "",
 };

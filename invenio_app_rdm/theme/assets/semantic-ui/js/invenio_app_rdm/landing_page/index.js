@@ -46,6 +46,7 @@ function renderRecordManagement(element) {
         accessLinksSearchConfig={JSON.parse(
           recordManagementAppDiv.dataset.accessLinksSearchConfig
         )}
+        groupsEnabled={JSON.parse(recordManagementAppDiv.dataset.groupsEnabled)}
       />
     </OverridableContext.Provider>,
     element

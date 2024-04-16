@@ -18,6 +18,7 @@ export const ShareButton = ({
   record,
   accessLinksSearchConfig,
   permissions,
+  groupsEnabled,
 }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const handleOpen = () => setModalOpen(true);
@@ -50,6 +51,7 @@ export const ShareButton = ({
         record={record}
         permissions={permissions}
         accessLinksSearchConfig={accessLinksSearchConfig}
+        groupsEnabled={groupsEnabled}
       />
     </>
   );
@@ -60,6 +62,7 @@ ShareButton.propTypes = {
   record: PropTypes.object.isRequired,
   accessLinksSearchConfig: PropTypes.object.isRequired,
   permissions: PropTypes.object.isRequired,
+  groupsEnabled: PropTypes.bool.isRequired,
 };
 
 ShareButton.defaultProps = {

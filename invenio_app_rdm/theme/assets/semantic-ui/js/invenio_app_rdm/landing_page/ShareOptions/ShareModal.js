@@ -11,7 +11,9 @@ import { i18next } from "@translations/invenio_app_rdm/i18next";
 import PropTypes from "prop-types";
 import { LinksTab } from "./AccessLinks/LinksTab";
 import { AccessRequestsTab } from "./AccessRequests/AccessRequestsTab";
-import { AccessUsers } from "./AccessUsers/AccessUsers";
+import { AccessUsersGroups } from "./AccessUsersGroups/AccessUsersGroups";
+import { GroupsApi } from "@js/invenio_communities/api";
+// import { UsersApi } from "@js/invenio_communities/api"; uncomment together with the code below
 
 export class ShareModal extends Component {
   constructor(props) {
@@ -27,23 +29,65 @@ export class ShareModal extends Component {
   };
 
   panes = (record, accessLinksSearchConfig, permissions) => {
-    const { handleClose } = this.props;
-    return [
+    const { handleClose, groupsEnabled } = this.props;
+    // const usersClient = new UsersApi(); uncomment together with the code below
+    const groupsClient = new GroupsApi();
+    const panes = [
       // hiding user access for until the groups tab is added and fully tested
       // {
-      //   menuItem: { icon: "users", content: "People" },
+      //   menuItem: { icon: "user", content: "People" },
       //   pane: (
       //     <Tab.Pane key="accessUsers" as={Container}>
-      //       <AccessUsers
+      //       <AccessUsersGroups
+      //         searchType="user"
       //         record={record}
       //         handleClose={handleClose}
       //         permissions={permissions}
       //         successCallback={this.handleRecordUpdate}
+      //         endpoint={`${record.links.access_users}`}
+      //         emptyResultText={i18next.t("No user has access to this record yet.")}
+      //         tableHeaderText={i18next.t("People with access")}
+      //         addButtonText={i18next.t("Add people")}
+      //         searchBarTitle={i18next.t("User")}
+      //         selectedItemsHeader={i18next.t("No selected users")}
+      //         fetchMembers={usersClient.getUsers}
+      //         searchBarTooltip={i18next.t(
+      //           "Search for users to grant access (only users with a public profile can be invited)"
+      //         )}
+      //         searchBarPlaceholder={i18next.t("Search by email, full name or username")}
+      //         doneButtonTipType={i18next.t("users")}
       //       />
       //     </Tab.Pane>
       //   ),
       // },
+    ];
+    if (groupsEnabled) {
+      panes.push({
+        menuItem: { icon: "users", content: "Groups" },
+        pane: (
+          <Tab.Pane key="accessGroups" as={Container}>
+            <AccessUsersGroups
+              searchType="group"
+              record={record}
+              handleClose={handleClose}
+              permissions={permissions}
+              successCallback={this.handleRecordUpdate}
+              endpoint={`${record.links.access_groups}`}
+              emptyResultText={i18next.t("No group has access to this record yet.")}
+              tableHeaderText={i18next.t("Groups with access")}
+              addButtonText={i18next.t("Add groups")}
+              searchBarTitle={i18next.t("Group")}
+              selectedItemsHeader={i18next.t("No selected groups")}
+              fetchMembers={groupsClient.getGroups}
+              searchBarPlaceholder={i18next.t("Search for groups")}
+              doneButtonTipType={i18next.t("groups")}
+            />
+          </Tab.Pane>
+        ),
+      });
+    }
 
+    panes.push(
       {
         menuItem: { icon: "linkify", content: "Links" },
         pane: (
@@ -67,8 +111,10 @@ export class ShareModal extends Component {
             />
           </Tab.Pane>
         ),
-      },
-    ];
+      }
+    );
+
+    return panes;
   };
 
   render() {
@@ -105,6 +151,7 @@ export class ShareModal extends Component {
 ShareModal.propTypes = {
   record: PropTypes.object.isRequired,
   open: PropTypes.bool.isRequired,
+  groupsEnabled: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
   accessLinksSearchConfig: PropTypes.object.isRequired,
   permissions: PropTypes.object.isRequired,

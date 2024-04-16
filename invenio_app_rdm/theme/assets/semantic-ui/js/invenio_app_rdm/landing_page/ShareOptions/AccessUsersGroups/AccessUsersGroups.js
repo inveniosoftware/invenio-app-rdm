@@ -4,7 +4,7 @@
 // Invenio RDM Records is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
 import _isEmpty from "lodash/isEmpty";
-import { UserAccessSearchResult } from "./UserAccessSearchResult";
+import { UserGroupAccessSearchResult } from "./UserGroupAccessSearchResult";
 import React, { Component } from "react";
 import { Modal, Loader, Button, Container } from "semantic-ui-react";
 import PropTypes from "prop-types";
@@ -12,7 +12,7 @@ import { withCancel } from "react-invenio-forms";
 import { http } from "react-invenio-forms";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 
-export class AccessUsers extends Component {
+export class AccessUsersGroups extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -35,12 +35,10 @@ export class AccessUsers extends Component {
   };
 
   fetchData = async () => {
-    const { record } = this.props;
+    const { endpoint } = this.props;
     this.setState({ loading: true });
     try {
-      this.cancellableAction = withCancel(
-        http.get(`${record.links.access_users}?expand=true`)
-      );
+      this.cancellableAction = withCancel(http.get(`${endpoint}?expand=true`));
       const response = await this.cancellableAction.promise;
       this.setState({
         loading: false,
@@ -58,7 +56,22 @@ export class AccessUsers extends Component {
   };
 
   render() {
-    const { record, handleClose, permissions } = this.props;
+    const {
+      record,
+      handleClose,
+      permissions,
+      emptyResultText,
+      tableHeaderText,
+      addButtonText,
+      endpoint,
+      searchBarTitle,
+      selectedItemsHeader,
+      fetchMembers,
+      searchType,
+      searchBarTooltip,
+      searchBarPlaceholder,
+      doneButtonTipType,
+    } = this.props;
     const { results, loading, error } = this.state;
     return (
       <>
@@ -66,18 +79,28 @@ export class AccessUsers extends Component {
         <Modal.Content>
           {loading && <Loader isLoading active />}
           {!loading && results !== undefined && (
-            <UserAccessSearchResult
+            <UserGroupAccessSearchResult
               permissions={permissions}
               results={results}
-              record={record}
               fetchData={this.fetchData}
               recOwner={record?.expanded?.parent?.access?.owned_by}
               setError={this.setError}
+              tableHeaderText={tableHeaderText}
+              addButtonText={addButtonText}
+              searchBarTitle={searchBarTitle}
+              selectedItemsHeader={selectedItemsHeader}
+              endpoint={endpoint}
+              record={record}
+              fetchMembers={fetchMembers}
+              searchType={searchType}
+              searchBarTooltip={searchBarTooltip}
+              searchBarPlaceholder={searchBarPlaceholder}
+              doneButtonTipType={doneButtonTipType}
             />
           )}
           {_isEmpty(results) && (
             <Container className="mt-10" textAlign="center">
-              <h5>{i18next.t("No user has access to this record yet.")}</h5>
+              <h5>{emptyResultText}</h5>
             </Container>
           )}
         </Modal.Content>
@@ -94,8 +117,30 @@ export class AccessUsers extends Component {
   }
 }
 
-AccessUsers.propTypes = {
+AccessUsersGroups.propTypes = {
   record: PropTypes.object.isRequired,
   handleClose: PropTypes.func.isRequired,
   permissions: PropTypes.object.isRequired,
+  endpoint: PropTypes.string.isRequired,
+  emptyResultText: PropTypes.string,
+  tableHeaderText: PropTypes.string,
+  addButtonText: PropTypes.string,
+  searchBarTitle: PropTypes.string,
+  doneButtonTipType: PropTypes.string,
+  searchBarTooltip: PropTypes.string,
+  searchBarPlaceholder: PropTypes.string,
+  selectedItemsHeader: PropTypes.string,
+  fetchMembers: PropTypes.func.isRequired,
+  searchType: PropTypes.oneOf(["group", "user"]).isRequired,
+};
+
+AccessUsersGroups.defaultProps = {
+  emptyResultText: "",
+  tableHeaderText: "",
+  addButtonText: "",
+  searchBarTitle: "",
+  searchBarTooltip: "",
+  selectedItemsHeader: "",
+  searchBarPlaceholder: "",
+  doneButtonTipType: "",
 };
