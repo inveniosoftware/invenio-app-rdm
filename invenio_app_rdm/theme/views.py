@@ -10,7 +10,7 @@
 
 """Routes for general pages provided by Invenio-App-RDM."""
 
-from flask import Blueprint, current_app, render_template, request
+from flask import Blueprint, current_app, flash, render_template, request
 from flask_login import current_user
 from invenio_db import db
 from invenio_i18n import get_locale
