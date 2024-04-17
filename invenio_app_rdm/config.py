@@ -2,9 +2,9 @@
 #
 # Copyright (C) 2019-2024 CERN.
 # Copyright (C) 2019-2020 Northwestern University.
-# Copyright (C) 2021 Graz University of Technology.
-# Copyright (C) 2022 KTH Royal Institute of Technology
-# Copyright (C) 2023 TU Wien
+# Copyright (C) 2021      Graz University of Technology.
+# Copyright (C) 2022-2024 KTH Royal Institute of Technology.
+# Copyright (C) 2023      TU Wien
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -1037,6 +1037,17 @@ PAGES_TEMPLATES = [
     ("invenio_app_rdm/default_static_page.html", "Default"),
 ]
 """List of available templates for pages."""
+
+APP_RDM_PAGES = {}
+"""Register static pages with predefined initial content from 'pages.yaml' file.
+
+Example:
+{
+    "about": "/about",
+    "terms": "/terms",
+    "privacy-policy": "/privacy-policy",
+}
+"""
 
 # Invenio-Stats
 # =============

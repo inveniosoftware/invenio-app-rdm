@@ -4,6 +4,7 @@
 # Copyright (C) 2019-2020 Northwestern University.
 # Copyright (C)      2021 TU Wien.
 # Copyright (C) 2023-2024 Graz University of Technology.
+# Copyright (C)      2024 KTH Royal Institute of Technology.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -15,6 +16,7 @@ from flask_login import current_user
 from invenio_db import db
 from invenio_i18n import get_locale
 from invenio_i18n import lazy_gettext as _
+from invenio_pages.views import create_page_view
 from invenio_users_resources.forms import NotificationsForm
 
 
@@ -55,6 +57,7 @@ def create_blueprint(app):
     blueprint.add_url_rule(
         **create_url_rule(routes["help_versioning"], default_view_func=help_versioning)
     )
+    add_static_page_routes(blueprint, app)
 
     return blueprint
 
@@ -139,3 +142,11 @@ def handle_notifications_form(form):
     form.populate_obj(current_user)
     db.session.add(current_user)
     current_app.extensions["security"].datastore.commit()
+
+
+def add_static_page_routes(blueprint, app):
+    """Add custom page routes to the blueprint from the app configuration."""
+    for endpoint, path in app.config["APP_RDM_PAGES"].items():
+        blueprint.add_url_rule(
+            path, endpoint=endpoint, view_func=create_page_view(path)
+        )
