@@ -10,6 +10,7 @@
 
 from flask import current_app, render_template
 
+
 def can_preview(file):
     """Check if file can be previewed by this previewer.
 
@@ -23,17 +24,10 @@ def can_preview(file):
 
 
 def preview(file):
-    """Render template.
-    """
-    ui_config = {
-        "workspace": {
-            "draggingEnabled": True,
-            "showZoomControls": True,
-        }
-    }
+    """Render template."""
 
     return render_template(
         "invenio_app_rdm/records/mirador_preview.html",
         file=file,
-        ui_config= ui_config,
+        ui_config=current_app.config["MIRADOR_PREVIEW_CONFIG"],
     )

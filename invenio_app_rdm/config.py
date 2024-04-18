@@ -1028,7 +1028,15 @@ PREVIEWER_PREFERENCE = [
 """Preferred previewers."""
 
 MIRADOR_PREVIEW_EXTENSIONS = list(IIIF_FORMATS.keys())
+"""Mirador previewer allowed extensions."""
 
+MIRADOR_PREVIEW_CONFIG = {
+    "workspace": {
+        "draggingEnabled": True,
+        "showZoomControls": True,
+    }
+}
+"""Config for the Mirador previewer."""
 
 # Invenio-Pages
 # =============
