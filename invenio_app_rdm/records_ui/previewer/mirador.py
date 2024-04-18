@@ -25,7 +25,15 @@ def can_preview(file):
 def preview(file):
     """Render template.
     """
+    ui_config = {
+        "workspace": {
+            "draggingEnabled": True,
+            "showZoomControls": True,
+        }
+    }
+
     return render_template(
         "invenio_app_rdm/records/mirador_preview.html",
         file=file,
+        ui_config= ui_config,
     )
