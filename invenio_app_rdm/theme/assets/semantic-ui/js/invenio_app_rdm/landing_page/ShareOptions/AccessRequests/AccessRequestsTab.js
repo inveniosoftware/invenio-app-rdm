@@ -95,7 +95,7 @@ export class AccessRequestsTab extends Component {
         {({ values, handleSubmit }) => {
           return (
             <>
-              <Modal.Content>
+              <Modal.Content className="share-content">
                 {error && (
                   <ErrorMessage
                     header={i18next.t("Unable to change the access request settings.")}

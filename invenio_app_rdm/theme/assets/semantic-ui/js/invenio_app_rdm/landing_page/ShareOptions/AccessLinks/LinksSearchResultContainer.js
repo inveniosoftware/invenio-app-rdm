@@ -19,26 +19,30 @@ export const dropdownOptions = [
   {
     key: "view",
     name: "view",
-    text: i18next.t("Can view"),
-    title: i18next.t("Can view"),
+    text: i18next.t("Can view all versions"),
+    title: i18next.t("Can view all versions"),
     value: "view",
-    description: i18next.t("Can view restricted records/files."),
+    description: i18next.t("Can view restricted files of all versions of this record."),
   },
   {
     key: "preview",
     name: "preview",
-    text: i18next.t("Can preview"),
-    title: i18next.t("Can preview"),
+    text: i18next.t("Can preview all drafts"),
+    title: i18next.t("Can preview all drafts"),
     value: "preview",
-    description: i18next.t("Can view drafts and restricted records/files."),
+    description: i18next.t(
+      "Can view drafts and restricted files of all versions of this record."
+    ),
   },
   {
     key: "edit",
     name: "edit",
-    text: i18next.t("Can edit"),
-    title: i18next.t("Can edit"),
+    text: i18next.t("Can edit all versions"),
+    title: i18next.t("Can edit all versions"),
     value: "edit",
-    description: i18next.t("Can edit drafts and view restricted records/files."),
+    description: i18next.t(
+      "Can edit drafts and view restricted files of all versions of this record."
+    ),
   },
 ];
 
@@ -92,7 +96,7 @@ export class LinksSearchResultContainer extends Component {
   };
 
   handleCreation = async (permission, expiresAt, description) => {
-    const { fetchData, record } = this.props;
+    const { onItemAddedOrDeleted, record } = this.props;
     this.setState({ loading: true });
     try {
       const data = {
@@ -102,7 +106,7 @@ export class LinksSearchResultContainer extends Component {
       };
       this.cancellableAction = withCancel(http.post(record.links.access_links, data));
       await this.cancellableAction.promise;
-      fetchData();
+      onItemAddedOrDeleted(record.links.access_links, "links");
       this.setState({ loading: false, error: undefined });
     } catch (error) {
       if (error === "UNMOUNTED") return;
@@ -115,7 +119,7 @@ export class LinksSearchResultContainer extends Component {
   };
 
   render() {
-    const { results, record, fetchData } = this.props;
+    const { results, record, onItemAddedOrDeleted, onPermissionChanged } = this.props;
     const { loading, error } = this.state;
     return (
       <>
@@ -148,7 +152,8 @@ export class LinksSearchResultContainer extends Component {
                   key={result.id}
                   result={result}
                   record={record}
-                  fetchData={fetchData}
+                  onItemAddedOrDeleted={onItemAddedOrDeleted}
+                  onPermissionChanged={onPermissionChanged}
                 />
               ))
             ) : (
@@ -174,5 +179,6 @@ export class LinksSearchResultContainer extends Component {
 LinksSearchResultContainer.propTypes = {
   results: PropTypes.array.isRequired,
   record: PropTypes.object.isRequired,
-  fetchData: PropTypes.func.isRequired,
+  onItemAddedOrDeleted: PropTypes.func.isRequired,
+  onPermissionChanged: PropTypes.func.isRequired,
 };

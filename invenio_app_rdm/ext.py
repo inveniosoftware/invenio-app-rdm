@@ -6,6 +6,7 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """Invenio Research Data Management."""
+import warnings
 
 from flask import request
 from flask_menu import current_menu
@@ -23,6 +24,21 @@ def _is_branded_community():
 def finalize_app(app):
     """Finalize app."""
     init_menu(app)
+    init_config(app)
+
+
+def init_config(app):
+    """Initialize configuration."""
+    if "COMMUNITIES_GROUPS_ENABLED" in app.config:
+        warnings.warn(
+            "COMMUNITIES_GROUPS_ENABLED config variable is deprecated. Please use USERS_RESOURCES_GROUPS_ENABLED "
+            "instead. For now, COMMUNITIES_GROUPS_ENABLED value will be taken into account and features related to "
+            "groups will be disabled if this was the intention.",
+            DeprecationWarning,
+        )
+
+        if not app.config["COMMUNITIES_GROUPS_ENABLED"]:
+            app.config["USERS_RESOURCES_GROUPS_ENABLED"] = False
 
 
 def init_menu(app):
