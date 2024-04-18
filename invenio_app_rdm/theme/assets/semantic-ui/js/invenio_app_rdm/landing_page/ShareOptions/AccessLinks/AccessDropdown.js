@@ -32,7 +32,7 @@ export class AccessDropdown extends Component {
     this.setState({ loading: false, actionSuccess: true, error: undefined });
 
   handleUpdate = async (permission) => {
-    const { updateEndpoint } = this.props;
+    const { updateEndpoint, onPermissionChanged, result, entityType } = this.props;
     const data = { permission: permission };
     this.setState({ loading: true, actionSuccess: false });
     this.cancellableAction = withCancel(http.patch(updateEndpoint, data));
@@ -44,6 +44,11 @@ export class AccessDropdown extends Component {
         this.cancellableAction.promise,
       ]);
       this.onSuccess();
+      onPermissionChanged(
+        result?.subject?.id ?? result.id,
+        data.permission,
+        entityType
+      );
     } catch (error) {
       if (error === "UNMOUNTED") return;
       this.setState({
@@ -83,4 +88,6 @@ AccessDropdown.propTypes = {
   result: PropTypes.object.isRequired,
   dropdownOptions: PropTypes.array.isRequired,
   updateEndpoint: PropTypes.string.isRequired,
+  entityType: PropTypes.string.isRequired,
+  onPermissionChanged: PropTypes.func.isRequired,
 };

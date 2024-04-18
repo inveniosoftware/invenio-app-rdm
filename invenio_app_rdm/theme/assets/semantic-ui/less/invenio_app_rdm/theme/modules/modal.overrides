@@ -1,12 +1,9 @@
 
-.share-modal {
-  .share-content {
-    display: flex;
+.record-share-modal {
+  min-height: 35em;
 
-    .input {
-      flex-grow: 1;
-      padding-right: 0.5em;
-    }
+  .share-content {
+    min-height: 26em;
   }
 
   .share-description {

@@ -6,14 +6,21 @@
 // under the terms of the MIT License; see LICENSE file for more details.
 
 import React, { Component } from "react";
-import { Icon, Modal, Tab, Container } from "semantic-ui-react";
+import {
+  Icon,
+  Modal,
+  Tab,
+  Container,
+  Button,
+  MenuItem,
+  Label,
+} from "semantic-ui-react";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import PropTypes from "prop-types";
 import { LinksTab } from "./AccessLinks/LinksTab";
 import { AccessRequestsTab } from "./AccessRequests/AccessRequestsTab";
-import { AccessUsersGroups } from "./AccessUsersGroups/AccessUsersGroups";
-import { GroupsApi } from "@js/invenio_communities/api";
-// import { UsersApi } from "@js/invenio_communities/api"; uncomment together with the code below
+import { PeopleTab } from "./AccessUsersGroups/PeopleTab";
+import { GroupsTab } from "./AccessUsersGroups/GroupsTab";
 
 export class ShareModal extends Component {
   constructor(props) {
@@ -21,66 +28,110 @@ export class ShareModal extends Component {
     const { record } = this.props;
     this.state = {
       record: record,
+      usersResults: undefined,
+      groupsResults: undefined,
+      linksResults: undefined,
+      activeTab: 0,
     };
   }
 
+  updateGroupsState = (results, isDataChanged) => {
+    this.setState({ groupsResults: results });
+
+    if (isDataChanged) {
+      const { record } = this.state;
+      const updatedRecord = record?.parent?.access?.grants
+        ?.filter((grant) => grant?.subject?.type !== "role")
+        .concat(results);
+
+      record.parent.access.grants = updatedRecord;
+
+      this.setState({ record: record });
+    }
+  };
+
+  updateUsersState = (results, isDataChanged) => {
+    this.setState({ usersResults: results });
+
+    if (isDataChanged) {
+      const { record } = this.state;
+      const updatedRecord = record?.parent?.access?.grants
+        ?.filter((grant) => grant?.subject?.type !== "user")
+        .concat(results);
+      record.parent.access.grants = updatedRecord;
+
+      this.setState({ record: record });
+    }
+  };
+
+  updateLinksState = (results, isDataChanged) => {
+    this.setState({ linksResults: results });
+
+    if (isDataChanged) {
+      const { record } = this.state;
+      record.parent.access.links = results;
+      this.setState({ record: record });
+    }
+  };
+
+  handleTabChange = (e, data) => {
+    this.setState({ activeTab: data.activeIndex });
+  };
+
   handleRecordUpdate = (updatedRecord) => {
+    const { record } = this.state;
+    updatedRecord.expanded = record.expanded;
     this.setState({ record: updatedRecord });
   };
 
   panes = (record, accessLinksSearchConfig, permissions) => {
     const { handleClose, groupsEnabled } = this.props;
-    // const usersClient = new UsersApi(); uncomment together with the code below
-    const groupsClient = new GroupsApi();
+    const { linksResults, groupsResults, usersResults } = this.state;
+
+    const users = [];
+    const groups = [];
+    record.parent?.access?.grants.forEach((grant) => {
+      if (grant.subject.type === "user") users.push(grant);
+      if (grant.subject.type === "role") groups.push(grant);
+    });
+
     const panes = [
-      // hiding user access for until the groups tab is added and fully tested
-      // {
-      //   menuItem: { icon: "user", content: "People" },
-      //   pane: (
-      //     <Tab.Pane key="accessUsers" as={Container}>
-      //       <AccessUsersGroups
-      //         searchType="user"
-      //         record={record}
-      //         handleClose={handleClose}
-      //         permissions={permissions}
-      //         successCallback={this.handleRecordUpdate}
-      //         endpoint={`${record.links.access_users}`}
-      //         emptyResultText={i18next.t("No user has access to this record yet.")}
-      //         tableHeaderText={i18next.t("People with access")}
-      //         addButtonText={i18next.t("Add people")}
-      //         searchBarTitle={i18next.t("User")}
-      //         selectedItemsHeader={i18next.t("No selected users")}
-      //         fetchMembers={usersClient.getUsers}
-      //         searchBarTooltip={i18next.t(
-      //           "Search for users to grant access (only users with a public profile can be invited)"
-      //         )}
-      //         searchBarPlaceholder={i18next.t("Search by email, full name or username")}
-      //         doneButtonTipType={i18next.t("users")}
-      //       />
-      //     </Tab.Pane>
-      //   ),
-      // },
+      {
+        menuItem: (
+          <MenuItem key="accessUsers">
+            <Icon name="user" />
+            {i18next.t("People")}
+            <Label size="tiny">{users?.length + 1}</Label>
+          </MenuItem>
+        ),
+        render: () => (
+          <Tab.Pane key="accessUsers" as={Container}>
+            <PeopleTab
+              record={record}
+              permissions={permissions}
+              results={usersResults}
+              updateUsersState={this.updateUsersState}
+            />
+          </Tab.Pane>
+        ),
+      },
     ];
     if (groupsEnabled) {
       panes.push({
-        menuItem: { icon: "users", content: "Groups" },
-        pane: (
+        menuItem: (
+          <MenuItem key="accessGroups">
+            <Icon name="users" />
+            {i18next.t("Groups")}
+            <Label size="tiny">{groups?.length}</Label>
+          </MenuItem>
+        ),
+        render: () => (
           <Tab.Pane key="accessGroups" as={Container}>
-            <AccessUsersGroups
-              searchType="group"
+            <GroupsTab
               record={record}
-              handleClose={handleClose}
               permissions={permissions}
-              successCallback={this.handleRecordUpdate}
-              endpoint={`${record.links.access_groups}`}
-              emptyResultText={i18next.t("No group has access to this record yet.")}
-              tableHeaderText={i18next.t("Groups with access")}
-              addButtonText={i18next.t("Add groups")}
-              searchBarTitle={i18next.t("Group")}
-              selectedItemsHeader={i18next.t("No selected groups")}
-              fetchMembers={groupsClient.getGroups}
-              searchBarPlaceholder={i18next.t("Search for groups")}
-              doneButtonTipType={i18next.t("groups")}
+              results={groupsResults}
+              updateGroupsState={this.updateGroupsState}
             />
           </Tab.Pane>
         ),
@@ -89,20 +140,26 @@ export class ShareModal extends Component {
 
     panes.push(
       {
-        menuItem: { icon: "linkify", content: "Links" },
-        pane: (
+        menuItem: (
+          <MenuItem key="accessLinks">
+            <Icon name="linkify" />
+            {i18next.t("Links")}
+            <Label size="tiny">{record.parent?.access?.links?.length}</Label>
+          </MenuItem>
+        ),
+        render: () => (
           <Tab.Pane key="accessLinks" as={Container}>
             <LinksTab
+              results={linksResults}
               record={record}
-              accessLinksSearchConfig={accessLinksSearchConfig}
-              handleClose={handleClose}
+              updateLinksState={this.updateLinksState}
             />
           </Tab.Pane>
         ),
       },
       {
-        menuItem: { icon: "cog", content: "Access requests" },
-        pane: (
+        menuItem: { icon: "cog", content: i18next.t("Access requests") },
+        render: () => (
           <Tab.Pane key="accessRequests" as={Container}>
             <AccessRequestsTab
               record={record}
@@ -119,13 +176,13 @@ export class ShareModal extends Component {
 
   render() {
     const { open, handleClose, accessLinksSearchConfig, permissions } = this.props;
-    const { record } = this.state;
+    const { record, activeTab } = this.state;
     return (
       <Modal
         open={open}
         closeIcon
         onClose={handleClose}
-        className="share-modal"
+        className="record-share-modal"
         role="dialog"
         aria-labelledby="access-link-modal-header"
         aria-modal="true"
@@ -141,8 +198,18 @@ export class ShareModal extends Component {
         <Tab
           menu={{ secondary: true, pointing: true }}
           panes={this.panes(record, accessLinksSearchConfig, permissions)}
-          renderActiveOnly={false}
+          onTabChange={this.handleTabChange}
         />
+        {(activeTab === 0 || activeTab === 1 || activeTab === 2) && (
+          <Modal.Actions className="ui clearing segment">
+            <Button
+              size="small"
+              onClick={handleClose}
+              content={i18next.t("Close")}
+              className="left floated clearing"
+            />
+          </Modal.Actions>
+        )}
       </Modal>
     );
   }

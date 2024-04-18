@@ -11,6 +11,8 @@ import PropTypes from "prop-types";
 import { SearchWithRoleSelection } from "@js/invenio_communities/members";
 import { RichEditor } from "react-invenio-forms";
 import { GrantAccessApi } from "../api/api";
+import { UsersApi } from "@js/invenio_communities/api";
+import { GroupsApi } from "@js/invenio_communities/api";
 
 export class AddUserGroupAccessModal extends Component {
   constructor(props) {
@@ -19,8 +21,8 @@ export class AddUserGroupAccessModal extends Component {
   }
 
   onSuccess = () => {
-    const { fetchData } = this.props;
-    fetchData();
+    const { onGrantAddedOrDeleted, endpoint, searchType } = this.props;
+    onGrantAddedOrDeleted(`${endpoint}?expand=true`, searchType);
     this.handleCloseModal();
   };
 
@@ -38,21 +40,21 @@ export class AddUserGroupAccessModal extends Component {
     this.setState({ open: false, notifyUser: true });
   };
 
+  searchEntities = () => {
+    const { searchType } = this.props;
+    if (searchType === "user") {
+      const usersClient = new UsersApi();
+      return usersClient.getUsers;
+    }
+    if (searchType === "role") {
+      const groupsClient = new GroupsApi();
+      return groupsClient.getGroups;
+    }
+  };
+
   render() {
-    const {
-      results,
-      record,
-      isComputer,
-      accessDropdownOptions,
-      addButtonText,
-      searchBarTitle,
-      selectedItemsHeader,
-      fetchMembers,
-      searchType,
-      searchBarTooltip,
-      searchBarPlaceholder,
-      doneButtonTipType,
-    } = this.props;
+    const { results, record, isComputer, accessDropdownOptions, searchType } =
+      this.props;
     const { open, notifyUser, message } = this.state;
 
     const api = new GrantAccessApi(record);
@@ -62,9 +64,34 @@ export class AddUserGroupAccessModal extends Component {
       existingIds.push(result?.subject?.id);
     });
 
+    let addButtonText = "";
+    let searchBarTitle = "";
+    let selectedItemsHeader = "";
+    let searchBarTooltip = "";
+    let searchBarPlaceholder = "";
+    let doneButtonTipType = "";
+    if (searchType === "user") {
+      addButtonText = i18next.t("Add people");
+      searchBarTitle = i18next.t("User");
+      selectedItemsHeader = i18next.t("No selected users");
+      searchBarTooltip = i18next.t(
+        "Search for users to grant access (only users with a public profile can be invited)"
+      );
+      searchBarPlaceholder = i18next.t("Search by email, full name or username");
+      doneButtonTipType = i18next.t("users");
+    }
+    if (searchType === "role") {
+      addButtonText = i18next.t("Add groups");
+      searchBarTitle = i18next.t("Group");
+      selectedItemsHeader = i18next.t("No selected groups");
+      searchBarPlaceholder = i18next.t("Search for groups");
+      doneButtonTipType = i18next.t("groups");
+    }
+
     return (
       <Modal
         role="dialog"
+        closeIcon
         onClose={this.handleCloseModal}
         onOpen={this.handleOpenModal}
         closeOnDimmerClick={false}
@@ -88,7 +115,7 @@ export class AddUserGroupAccessModal extends Component {
           roleOptions={accessDropdownOptions}
           modalClose={this.handleCloseModal}
           action={api.createGrants}
-          fetchMembers={fetchMembers}
+          fetchMembers={this.searchEntities()}
           onSuccessCallback={this.onSuccess}
           searchBarTitle={<label>{searchBarTitle}</label>}
           searchBarTooltip={searchBarTooltip}
@@ -109,7 +136,7 @@ export class AddUserGroupAccessModal extends Component {
               {notifyUser && (
                 <>
                   <p>
-                    <b>{i18next.t("Invitation message")}</b>
+                    <b>{i18next.t("Notification message")}</b>
                   </p>
                   <RichEditor
                     onBlur={(event, editor) => {
@@ -137,22 +164,7 @@ AddUserGroupAccessModal.propTypes = {
   results: PropTypes.array.isRequired,
   isComputer: PropTypes.bool.isRequired,
   accessDropdownOptions: PropTypes.array.isRequired,
-  fetchData: PropTypes.func.isRequired,
-  addButtonText: PropTypes.string,
-  searchBarTitle: PropTypes.string,
-  searchBarPlaceholder: PropTypes.string,
-  searchBarTooltip: PropTypes.string,
-  doneButtonTipType: PropTypes.string,
-  selectedItemsHeader: PropTypes.string,
-  fetchMembers: PropTypes.func.isRequired,
-  searchType: PropTypes.oneOf(["group", "user"]).isRequired,
-};
-
-AddUserGroupAccessModal.defaultProps = {
-  addButtonText: "",
-  searchBarTitle: "",
-  searchBarTooltip: "",
-  selectedItemsHeader: "",
-  searchBarPlaceholder: "",
-  doneButtonTipType: "",
+  onGrantAddedOrDeleted: PropTypes.func.isRequired,
+  endpoint: PropTypes.string.isRequired,
+  searchType: PropTypes.oneOf(["group", "role", "user"]).isRequired,
 };
