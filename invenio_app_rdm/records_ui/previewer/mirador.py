@@ -29,5 +29,6 @@ def preview(file):
     return render_template(
         "invenio_app_rdm/records/mirador_preview.html",
         file=file,
+        manifest_url=file.record.links['self_iiif_manifest'],
         ui_config=current_app.config["MIRADOR_PREVIEW_CONFIG"],
     )

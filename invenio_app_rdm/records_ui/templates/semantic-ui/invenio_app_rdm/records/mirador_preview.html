@@ -7,10 +7,6 @@
 
 {%- extends config.PREVIEWER_ABSTRACT_TEMPLATE %}
 
-{% set manifest_url = file.data.links.iiif_base.rsplit(':', 1)[0] + '/manifest' %}
-
-{{ updated_iiif_base }}
-
 {% block panel %}
 <div id="m3-dist"
 data-canvas='{{file.data.links.iiif_canvas}}'
