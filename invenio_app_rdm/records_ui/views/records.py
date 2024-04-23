@@ -100,10 +100,11 @@ class PreviewFile:
     `invenio_previewer.api.PreviewFile`.
     """
 
-    def __init__(self, file_item, record_pid_value, url=None):
+    def __init__(self, file_item, record_pid_value, record=None, url=None):
         """Create a new PreviewFile."""
         self.file = file_item
         self.data = file_item.data
+        self.record = record
         self.size = self.data["size"]
         self.filename = self.data["key"]
         self.bucket = self.data["bucket_id"]
@@ -294,7 +295,7 @@ def record_file_preview(
     )
 
     # Find a suitable previewer
-    fileobj = PreviewFile(file_metadata, pid_value, url)
+    fileobj = PreviewFile(file_metadata, pid_value, record, url)
     for plugin in current_previewer.iter_previewers(
         previewers=[file_previewer] if file_previewer else None
     ):
