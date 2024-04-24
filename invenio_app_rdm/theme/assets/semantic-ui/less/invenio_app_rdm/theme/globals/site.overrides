@@ -310,6 +310,8 @@ a.remove-default-style:hover {
 .preview-iframe {
   display: block;
   border-style: none;
+  width:100%;
+  height:400px;
 }
 
 dd {
