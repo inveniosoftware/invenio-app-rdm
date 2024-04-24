@@ -1302,3 +1302,11 @@ REQUESTS_ERROR_HANDLERS = {
 #
 GITHUB_RELEASE_CLASS = RDMGithubRelease
 """Default RDM release class."""
+
+
+# Flask-Menu
+# ==========
+#
+
+USER_DASHBOARD_MENU_OVERRIDES = {}
+"""Overrides for "dashboard" menu."""
