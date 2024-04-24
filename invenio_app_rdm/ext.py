@@ -45,21 +45,39 @@ def init_menu(app):
     )
 
     user_dashboard = current_menu.submenu("dashboard")
-    user_dashboard.submenu("uploads").register(
-        endpoint="invenio_app_rdm_users.uploads",
-        text=_("Uploads"),
-        order=1,
-    )
-    user_dashboard.submenu("communities").register(
-        endpoint="invenio_app_rdm_users.communities",
-        text=_("Communities"),
-        order=2,
-    )
-    user_dashboard.submenu("requests").register(
-        endpoint="invenio_app_rdm_users.requests",
-        text=_("Requests"),
-        order=3,
-    )
+    # set dashboard-config to its default
+    user_dashboard_menu_config = {
+        "uploads": {
+            "endpoint": "invenio_app_rdm_users.uploads",
+            "text": _("Uploads"),
+            "order": 1,
+        },
+        "communities": {
+            "endpoint": "invenio_app_rdm_users.communities",
+            "text": _("Communities"),
+            "order": 2,
+        },
+        "requests": {
+            "endpoint": "invenio_app_rdm_users.requests",
+            "text": _("Requests"),
+            "order": 3,
+        },
+    }
+
+    # apply dashboard-config overrides
+    for submenu_name, submenu_kwargs in app.config[
+        "USER_DASHBOARD_MENU_OVERRIDES"
+    ].items():
+        if submenu_name not in user_dashboard_menu_config:
+            raise ValueError(
+                f"attempting to override dashboard's submenu `{submenu_name}`, "
+                "but dashboard has no registered submenu of that name"
+            )
+        user_dashboard_menu_config[submenu_name].update(submenu_kwargs)
+
+    # register dashboard-menus
+    for submenu_name, submenu_kwargs in user_dashboard_menu_config.items():
+        user_dashboard.submenu(submenu_name).register(**submenu_kwargs)
 
     communities = current_menu.submenu("communities")
     communities.submenu("home").register(
