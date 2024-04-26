@@ -92,40 +92,42 @@
       {%- set include_deleted_value = 1 -%}
     {% endif %}
     {% for file in files %}
-      {% if is_preview %}
-        {%- set file_url_download = url_for(download_endpoint, pid_value=pid, filename=file.key, download=1, preview=1) %}
-        {%- set file_url_preview = url_for(preview_endpoint, pid_value=pid, filename=file.key, preview=1, include_deleted=include_deleted_value) %}
-      {% else %}
-        {%- set file_url_download = url_for(download_endpoint, pid_value=pid, filename=file.key, download=1) %}
-        {%- set file_url_preview = url_for(preview_endpoint, pid_value=pid, filename=file.key, include_deleted=include_deleted_value) %}
-      {% endif %}
+      {% if not file.access.hidden %}
+        {% if is_preview %}
+          {%- set file_url_download = url_for(download_endpoint, pid_value=pid, filename=file.key, download=1, preview=1) %}
+          {%- set file_url_preview = url_for(preview_endpoint, pid_value=pid, filename=file.key, preview=1, include_deleted=include_deleted_value) %}
+        {% else %}
+          {%- set file_url_download = url_for(download_endpoint, pid_value=pid, filename=file.key, download=1) %}
+          {%- set file_url_preview = url_for(preview_endpoint, pid_value=pid, filename=file.key, include_deleted=include_deleted_value) %}
+        {% endif %}
 
-      {%- set file_type = file.key.split('.')[-1] %}
-      <tr>
-        <td class="ten wide">
-          <div>
-            <a href="{{ file_url_download }}">{{ file.key }}</a>
-          </div>
-          <small class="ui text-muted font-tiny">{{ file.checksum }}
-          <div class="ui icon inline-block" data-tooltip="{{_('This is the file fingerprint (checksum), which can be used to verify the file integrity.')}}">
-            <i class="question circle checksum icon"></i>
-          </div>
-          </small>
-        </td>
-        <td>{{ file.size|filesizeformat(binary=binary_sizes) }}</td>
-        <td class="right aligned">
-          <span>
-            {% if with_preview and file_type|lower is previewable %}
-              <a role="button" class="ui compact mini button preview-link" href="{{ file_url_preview }}" target="preview-iframe" data-file-key="{{file.key}}">
-                <i class="eye icon" aria-hidden="true"></i>{{_("Preview")}}
+        {%- set file_type = file.key.split('.')[-1] %}
+        <tr>
+          <td class="ten wide">
+            <div>
+              <a href="{{ file_url_download }}">{{ file.key }}</a>
+            </div>
+            <small class="ui text-muted font-tiny">{{ file.checksum }}
+            <div class="ui icon inline-block" data-tooltip="{{_('This is the file fingerprint (checksum), which can be used to verify the file integrity.')}}">
+              <i class="question circle checksum icon"></i>
+            </div>
+            </small>
+          </td>
+          <td>{{ file.size|filesizeformat(binary=binary_sizes) }}</td>
+          <td class="right aligned">
+            <span>
+              {% if with_preview and file_type|lower is previewable %}
+                <a role="button" class="ui compact mini button preview-link" href="{{ file_url_preview }}" target="preview-iframe" data-file-key="{{file.key}}">
+                  <i class="eye icon" aria-hidden="true"></i>{{_("Preview")}}
+                </a>
+              {% endif %}
+              <a role="button" class="ui compact mini button" href="{{ file_url_download }}">
+                <i class="download icon" aria-hidden="true"></i>{{_('Download')}}
               </a>
-            {% endif %}
-            <a role="button" class="ui compact mini button" href="{{ file_url_download }}">
-              <i class="download icon" aria-hidden="true"></i>{{_('Download')}}
-            </a>
-          </span>
-        </td>
-      </tr>
+            </span>
+          </td>
+        </tr>
+      {% endif %}
     {% endfor %}
     </tbody>
   </table>

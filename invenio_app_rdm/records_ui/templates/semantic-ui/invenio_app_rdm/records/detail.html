@@ -344,12 +344,15 @@
               {# record has media files AND user can see files #}
               {# can_media_read_files is false when record is fully restricted and users can't see the landing page at all #}
               {%- if media_files and media_files.enabled and media_files.entries and permissions.can_media_read_files -%}
-                <section id="record-media-files" aria-label="{{ _('System files') }}">
-                  {%- set media_files = media_files | order_entries | selectattr("status", "==", "completed") | list %}
-                  {%- if media_files|length > 0 -%}
-                    {{ media_file_list_box(media_files, record.id, is_preview, include_deleted, record) }}
-                  {%- endif %}
-                </section>
+                {%- set any_visible = media_files.entries | selectattr('access.hidden', 'equalto', false) | list | length > 0 %}
+                {%- if any_visible %}
+                  <section id="record-media-files" aria-label="{{ _('System files') }}">
+                    {%- set media_files = media_files | order_entries | selectattr("status", "==", "completed") | list %}
+                    {%- if media_files|length > 0 -%}
+                      {{ media_file_list_box(media_files, record.id, is_preview, include_deleted, record) }}
+                    {%- endif %}
+                  </section>
+                {%- endif %}
               {%- endif %}
             {%- endblock record_media_files -%}
 
