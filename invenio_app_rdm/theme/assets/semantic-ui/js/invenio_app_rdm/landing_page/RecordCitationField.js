@@ -106,10 +106,12 @@ export class RecordCitationField extends Component {
     const urlRegex = /(https?:\/\/[^\s,;]+(?=[^\s,;]*))/g;
     const urlizedCitation = escapedCitation.replace(urlRegex, (url) => {
       // remove trailing dot
+      let trailingDot = "";
       if (url.endsWith(".")) {
+        trailingDot = ".";
         url = url.slice(0, -1);
       }
-      return `<a href="${url}" target="_blank">${url}</a>`;
+      return `<a href="${url}" target="_blank">${url}</a>${trailingDot}`;
     });
 
     return (
