@@ -12,7 +12,6 @@ import _get from "lodash/get";
 import { Button, Icon, Item, Label } from "semantic-ui-react";
 import { SearchItemCreators } from "../../utils";
 import { CompactStats } from "../../components/CompactStats";
-import { DisplayVerifiedCommunity } from "../../components/DisplayVerifiedCommunity";
 import { DisplayPartOfCommunities } from "../../components/DisplayPartOfCommunities";
 
 export const ComputerTabletUploadsItem = ({

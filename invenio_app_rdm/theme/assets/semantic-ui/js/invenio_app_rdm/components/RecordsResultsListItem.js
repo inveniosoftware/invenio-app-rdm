@@ -14,7 +14,6 @@ import PropTypes from "prop-types";
 import { Item, Label, Icon } from "semantic-ui-react";
 import { buildUID } from "react-searchkit";
 import { CompactStats } from "./CompactStats";
-import { DisplayVerifiedCommunity } from "./DisplayVerifiedCommunity";
 import { DisplayPartOfCommunities } from "./DisplayPartOfCommunities";
 
 class RecordsResultsListItem extends Component {
