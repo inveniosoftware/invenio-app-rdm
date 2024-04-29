@@ -314,6 +314,14 @@ a.remove-default-style:hover {
   height:400px;
 }
 
+#previewer-banner{
+  display: none;
+    .message {
+    padding: 1em;
+  }
+}
+
+
 dd {
   // Start left aligned
   margin-inline-start: 0;
