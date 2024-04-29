@@ -69,6 +69,7 @@ export class RecordsList extends Component {
       <Container>
         <Header as="h2">{title}</Header>
         {Array.from(Array(10)).map((item, index) => (
+          // eslint-disable-next-line react/no-array-index-key
           <div key={index}>
             <Placeholder fluid className="rel-mt-3">
               <Placeholder.Header>
