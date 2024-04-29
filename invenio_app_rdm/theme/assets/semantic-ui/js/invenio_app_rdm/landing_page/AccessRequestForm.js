@@ -112,7 +112,7 @@ export class AccessRequestForm extends Component {
 
   render() {
     const { error, loading, modalOpen } = this.state;
-    const { isAnonymous, fullName } = this.props;
+    const { isAnonymous } = this.props;
     const disablePersonalDataField = !isAnonymous;
     return (
       <>
