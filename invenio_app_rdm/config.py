@@ -2,9 +2,9 @@
 #
 # Copyright (C) 2019-2024 CERN.
 # Copyright (C) 2019-2020 Northwestern University.
-# Copyright (C) 2021      Graz University of Technology.
-# Copyright (C) 2022-2024 KTH Royal Institute of Technology.
-# Copyright (C) 2023      TU Wien
+# Copyright (C) 2021 Graz University of Technology.
+# Copyright (C) 2022 KTH Royal Institute of Technology
+# Copyright (C) 2023 TU Wien
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -985,12 +985,13 @@ IIIF_API_DECORATOR_HANDLER = None
 
 PREVIEWER_PREFERENCE = [
     "csv_papaparsejs",
+    "pdfjs",
+    "mirador",
     "iiif_simple",
     "simple_image",
     "json_prismjs",
     "xml_prismjs",
     "mistune",
-    "pdfjs",
     "video_videojs",
     "audio_videojs",
     "ipynb",
@@ -1007,6 +1008,7 @@ IIIF_SIMPLE_PREVIEWER_SIZE = "!800,800"
 """Size of image in IIIF preview window. Must be a valid IIIF Image API size parameter."""
 
 IIIF_FORMATS = {
+    "pdf": "applicaion/pdf",
     "gif": "image/gif",
     "jp2": "image/jp2",
     "jpeg": "image/jpeg",
