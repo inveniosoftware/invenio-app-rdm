@@ -33,9 +33,11 @@ const RecordVersionItem = ({ item, activeVersion }) => {
     <List.Item key={item.id} {...(activeVersion && { className: "version active" })}>
       <List.Content floated="left">
         {activeVersion ? (
-          <span>{i18next.t("Version {{version}}", { version: item.version })}</span>
+          <span className="text-break">
+            {i18next.t("Version {{version}}", { version: item.version })}
+          </span>
         ) : (
-          <a href={`/records/${item.id}`}>
+          <a href={`/records/${item.id}`} className="text-break">
             {i18next.t("Version {{version}}", { version: item.version })}
           </a>
         )}
