@@ -979,28 +979,6 @@ IIIF_PREVIEW_TEMPLATE = "invenio_app_rdm/records/iiif_preview.html"
 
 IIIF_API_DECORATOR_HANDLER = None
 
-# Invenio-Previewer
-# =================
-# See https://github.com/inveniosoftware/invenio-previewer/blob/master/invenio_previewer/config.py  # noqa
-
-PREVIEWER_PREFERENCE = [
-    "csv_papaparsejs",
-    "pdfjs",
-    "mirador",
-    "iiif_simple",
-    "simple_image",
-    "json_prismjs",
-    "xml_prismjs",
-    "mistune",
-    "video_videojs",
-    "audio_videojs",
-    "ipynb",
-    "zip",
-    "txt",
-]
-"""Preferred previewers."""
-
-
 IIIF_SIMPLE_PREVIEWER_NATIVE_EXTENSIONS = ["gif", "png"]
 """Images are converted to JPEG for preview, unless listed here."""
 
@@ -1017,6 +995,8 @@ IIIF_FORMATS = {
     "tif": "image/tiff",
     "tiff": "image/tiff",
 }
+"""Controls which formats are supported by the Flask-IIIF server."""
+
 IIIF_FORMATS_PIL_MAP = {
     "gif": "gif",
     "jp2": "jpeg2000",
@@ -1027,19 +1007,27 @@ IIIF_FORMATS_PIL_MAP = {
     "tif": "tiff",
     "tiff": "tiff",
 }
+"""Mapping of IIIF formats to PIL-compatible formats."""
 
-# Config introduced as not all IIIF_FORMATS used for generation should end up in
-# the manifest - (used by Mirador) e.g. PDFs
-RDM_IIIF_MANIFEST_FORMATS = [
-    "gif",
-    "jp2",
-    "jpeg",
-    "jpg",
-    "png",
-    "tif",
-    "tiff",
+# Invenio-Previewer
+# =================
+# See https://github.com/inveniosoftware/invenio-previewer/blob/master/invenio_previewer/config.py  # noqa
+
+PREVIEWER_PREFERENCE = [
+    "csv_papaparsejs",
+    "pdfjs",
+    "iiif_simple",
+    "simple_image",
+    "json_prismjs",
+    "xml_prismjs",
+    "mistune",
+    "video_videojs",
+    "audio_videojs",
+    "ipynb",
+    "zip",
+    "txt",
 ]
-"""Formats to be included in the IIIF Manifest."""
+"""Preferred previewers."""
 
 # Invenio-Pages
 # =============
