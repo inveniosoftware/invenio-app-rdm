@@ -8,7 +8,7 @@
 #}
 {% set title = invenio_request.title %}
 {% extends "invenio_requests/details/index.html" %}
-{% from "invenio_requests/macros/request_header.html" import invitation_request_header %}
+{% from "invenio_requests/macros/request_header.html" import member_request_header %}
 
 {% set active_community_header_menu_item = 'members' %}
 {% set active_members_menu_item = 'invitations' %}
@@ -16,7 +16,7 @@
 {% block request_header %}
   {% set back_button_url = url_for("invenio_communities.invitations", pid_value=invenio_request.created_by.community) %}
   {{
-    invitation_request_header(
+    member_request_header(
       back_button_url=back_button_url,
       back_button_text=_("Back to invitations"),
       request=invenio_request

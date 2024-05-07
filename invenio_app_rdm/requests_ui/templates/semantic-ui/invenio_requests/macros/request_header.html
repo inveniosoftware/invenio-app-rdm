@@ -1,8 +1,8 @@
 {%- from "invenio_app_rdm/records/macros/creatibutors.html" import show_creatibutors %}
 
-{% macro invitation_request_header(back_button_url=None, back_button_text=None, request=None, accepted=False) %}
+{% macro member_request_header(back_button_url=None, back_button_text=None, request=None, accepted=False) %}
   {#
-    Renders the member invitation request header block with:
+    Renders the member invitation/membership request header block with:
     - a back button
     - a `View community` button, when accepted
     - the request's title
