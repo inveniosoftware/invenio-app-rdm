@@ -30,8 +30,7 @@ def communities_detail(pid_value, community, community_ui):
     return render_community_theme_template(
         "invenio_communities/records/index.html",
         theme=community_ui.get("theme", {}),
-        community=community,
-        community_ui=community_ui,
+        community=community_ui,
         # Pass permissions so we can disable partially UI components
         # e.g Settings tab
         permissions=permissions,
