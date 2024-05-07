@@ -979,27 +979,6 @@ IIIF_PREVIEW_TEMPLATE = "invenio_app_rdm/records/iiif_preview.html"
 
 IIIF_API_DECORATOR_HANDLER = None
 
-# Invenio-Previewer
-# =================
-# See https://github.com/inveniosoftware/invenio-previewer/blob/master/invenio_previewer/config.py  # noqa
-
-PREVIEWER_PREFERENCE = [
-    "csv_papaparsejs",
-    "iiif_simple",
-    "simple_image",
-    "json_prismjs",
-    "xml_prismjs",
-    "mistune",
-    "pdfjs",
-    "video_videojs",
-    "audio_videojs",
-    "ipynb",
-    "zip",
-    "txt",
-]
-"""Preferred previewers."""
-
-
 IIIF_SIMPLE_PREVIEWER_NATIVE_EXTENSIONS = ["gif", "png"]
 """Images are converted to JPEG for preview, unless listed here."""
 
@@ -1015,6 +994,7 @@ IIIF_FORMATS = {
     "tif": "image/tiff",
     "tiff": "image/tiff",
 }
+
 IIIF_FORMATS_PIL_MAP = {
     "gif": "gif",
     "jp2": "jpeg2000",
@@ -1025,6 +1005,38 @@ IIIF_FORMATS_PIL_MAP = {
     "tif": "tiff",
     "tiff": "tiff",
 }
+
+# Invenio-Previewer
+# =================
+# See https://github.com/inveniosoftware/invenio-previewer/blob/master/invenio_previewer/config.py  # noqa
+
+PREVIEWER_PREFERENCE = [
+    "csv_papaparsejs",
+    "mirador",
+    "iiif_simple",
+    "simple_image",
+    "json_prismjs",
+    "xml_prismjs",
+    "mistune",
+    "pdfjs",
+    "video_videojs",
+    "audio_videojs",
+    "ipynb",
+    "zip",
+    "txt",
+]
+"""Preferred previewers."""
+
+MIRADOR_PREVIEW_EXTENSIONS = list(IIIF_FORMATS.keys())
+"""Mirador previewer allowed extensions."""
+
+MIRADOR_PREVIEW_CONFIG = {
+    "workspace": {
+        "draggingEnabled": True,
+        "showZoomControls": True,
+    }
+}
+"""Config for the Mirador previewer."""
 
 # Invenio-Pages
 # =============
