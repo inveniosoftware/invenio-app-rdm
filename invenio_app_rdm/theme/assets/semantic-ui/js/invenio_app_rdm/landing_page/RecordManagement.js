@@ -32,7 +32,6 @@ export class RecordManagement extends Component {
       isDraft,
       isPreviewSubmissionRequest,
       currentUserId,
-      accessLinksSearchConfig,
       recordOwnerUsername,
       groupsEnabled,
     } = this.props;
@@ -87,7 +86,6 @@ export class RecordManagement extends Component {
                 <ShareButton
                   disabled={!permissions.can_update_draft}
                   record={record}
-                  accessLinksSearchConfig={accessLinksSearchConfig}
                   permissions={permissions}
                   groupsEnabled={groupsEnabled}
                 />
@@ -121,5 +119,4 @@ RecordManagement.propTypes = {
   isPreviewSubmissionRequest: PropTypes.bool.isRequired,
   currentUserId: PropTypes.string.isRequired,
   recordOwnerUsername: PropTypes.object.isRequired,
-  accessLinksSearchConfig: PropTypes.object.isRequired,
 };

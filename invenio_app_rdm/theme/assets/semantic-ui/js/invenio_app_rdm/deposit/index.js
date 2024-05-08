@@ -26,6 +26,7 @@ ReactDOM.render(
         "deposits-record-restriction-grace-period"
       )}
       allowRecordRestriction={getInputFromDOM("deposits-allow-record-restriction")}
+      groupsEnabled={getInputFromDOM("config-groups-enabled")}
     />
   </OverridableContext.Provider>,
   document.getElementById("deposit-form")

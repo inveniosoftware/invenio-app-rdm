@@ -18,7 +18,6 @@ it under the terms of the MIT License; see LICENSE file for more details.
          data-is-preview-submission-request="{{ is_preview_submission_request | tojson }}"
          data-current-user-id="{{ current_user.id }}"
          data-record-owner-username='{{ record_owner_username }}'
-         data-access-links-search-config='{{ search_app_access_links_config(app_id="InvenioAppRdm.AccessLinks", endpoint=record.links.access_links) | tojson }}'
          data-groups-enabled='{{ config.USERS_RESOURCES_GROUPS_ENABLED | tojson }}'
     >
       <div class="ui placeholder">

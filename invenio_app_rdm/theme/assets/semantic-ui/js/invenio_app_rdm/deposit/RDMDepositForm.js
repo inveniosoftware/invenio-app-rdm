@@ -43,6 +43,7 @@ import { FundingField } from "@js/invenio_vocabularies";
 import { Card, Container, Grid, Ref, Sticky } from "semantic-ui-react";
 import PropTypes from "prop-types";
 import Overridable from "react-overridable";
+import { ShareDraftButton } from "./ShareDraftButton";
 
 export class RDMDepositForm extends Component {
   constructor(props) {
@@ -105,6 +106,7 @@ export class RDMDepositForm extends Component {
       filesLocked,
       recordRestrictionGracePeriod,
       allowRecordRestriction,
+      groupsEnabled,
     } = this.props;
     const customFieldsUI = this.config.custom_fields.ui;
     return (
@@ -622,6 +624,16 @@ export class RDMDepositForm extends Component {
                           <Grid.Column width={16} className="pt-10">
                             <PublishButton fluid />
                           </Grid.Column>
+
+                          <Grid.Column width={16} className="pt-0">
+                            {(record.is_draft === null || permissions.can_manage) && (
+                              <ShareDraftButton
+                                record={record}
+                                permissions={permissions}
+                                groupsEnabled={groupsEnabled}
+                              />
+                            )}
+                          </Grid.Column>
                         </Grid>
                       </Card.Content>
                     </Card>
@@ -663,6 +675,7 @@ export class RDMDepositForm extends Component {
 }
 
 RDMDepositForm.propTypes = {
+  groupsEnabled: PropTypes.bool.isRequired,
   config: PropTypes.object.isRequired,
   recordRestrictionGracePeriod: PropTypes.object.isRequired,
   allowRecordRestriction: PropTypes.bool.isRequired,

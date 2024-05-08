@@ -43,9 +43,6 @@ function renderRecordManagement(element) {
         )}
         currentUserId={recordManagementAppDiv.dataset.currentUserId}
         recordOwnerUsername={recordManagementAppDiv.dataset.recordOwnerUsername}
-        accessLinksSearchConfig={JSON.parse(
-          recordManagementAppDiv.dataset.accessLinksSearchConfig
-        )}
         groupsEnabled={JSON.parse(recordManagementAppDiv.dataset.groupsEnabled)}
       />
     </OverridableContext.Provider>,
