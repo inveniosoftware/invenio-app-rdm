@@ -84,7 +84,7 @@ export class ShareModal extends Component {
     this.setState({ record: updatedRecord });
   };
 
-  panes = (record, accessLinksSearchConfig, permissions) => {
+  panes = (record, permissions) => {
     const { handleClose, groupsEnabled } = this.props;
     const { linksResults, groupsResults, usersResults } = this.state;
 
@@ -175,7 +175,7 @@ export class ShareModal extends Component {
   };
 
   render() {
-    const { open, handleClose, accessLinksSearchConfig, permissions } = this.props;
+    const { open, handleClose, permissions } = this.props;
     const { record, activeTab } = this.state;
     return (
       <Modal
@@ -197,7 +197,7 @@ export class ShareModal extends Component {
 
         <Tab
           menu={{ secondary: true, pointing: true }}
-          panes={this.panes(record, accessLinksSearchConfig, permissions)}
+          panes={this.panes(record, permissions)}
           onTabChange={this.handleTabChange}
         />
         {(activeTab === 0 || activeTab === 1 || activeTab === 2) && (
@@ -220,6 +220,5 @@ ShareModal.propTypes = {
   open: PropTypes.bool.isRequired,
   groupsEnabled: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
-  accessLinksSearchConfig: PropTypes.object.isRequired,
   permissions: PropTypes.object.isRequired,
 };

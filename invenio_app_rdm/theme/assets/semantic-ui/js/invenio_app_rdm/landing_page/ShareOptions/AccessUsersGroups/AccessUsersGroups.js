@@ -110,7 +110,7 @@ export class AccessUsersGroups extends Component {
                                   }`}
                                 >
                                   <b className="mr-10">
-                                    {recOwner.profile.full_name || recOwner.username}
+                                    {recOwner.profile?.full_name || recOwner.username}
                                   </b>
                                   {recOwner.is_current_user && (
                                     <Label size="tiny" className="primary">

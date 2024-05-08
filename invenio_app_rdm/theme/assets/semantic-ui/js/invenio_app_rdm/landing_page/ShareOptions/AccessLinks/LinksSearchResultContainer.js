@@ -19,16 +19,16 @@ export const dropdownOptions = [
   {
     key: "view",
     name: "view",
-    text: i18next.t("Can view all versions"),
-    title: i18next.t("Can view all versions"),
+    text: i18next.t("Can view"),
+    title: i18next.t("Can view"),
     value: "view",
     description: i18next.t("Can view restricted files of all versions of this record."),
   },
   {
     key: "preview",
     name: "preview",
-    text: i18next.t("Can preview all drafts"),
-    title: i18next.t("Can preview all drafts"),
+    text: i18next.t("Can preview drafts"),
+    title: i18next.t("Can preview drafts"),
     value: "preview",
     description: i18next.t(
       "Can view drafts and restricted files of all versions of this record."
@@ -37,8 +37,8 @@ export const dropdownOptions = [
   {
     key: "edit",
     name: "edit",
-    text: i18next.t("Can edit all versions"),
-    title: i18next.t("Can edit all versions"),
+    text: i18next.t("Can edit"),
+    title: i18next.t("Can edit"),
     value: "edit",
     description: i18next.t(
       "Can edit drafts and view restricted files of all versions of this record."

@@ -21,8 +21,8 @@ export const accessDropdownOptions = [
   {
     key: "manage",
     name: "manage",
-    text: i18next.t("Can manage all versions"),
-    title: i18next.t("Can manage all versions"),
+    text: i18next.t("Can manage"),
+    title: i18next.t("Can manage"),
     value: "manage",
     description: i18next.t(
       "Can manage access, edit drafts and view restricted files of all versions of this record."
