@@ -79,7 +79,7 @@ def pass_draft(expand=False):
                 kwargs["draft"] = draft
                 kwargs["files_locked"] = (
                     record_service.config.lock_edit_published_files(
-                        record_service, g.identity, record=draft._record
+                        record_service, g.identity, draft=draft, record=draft._record
                     )
                 )
                 return f(**kwargs)
