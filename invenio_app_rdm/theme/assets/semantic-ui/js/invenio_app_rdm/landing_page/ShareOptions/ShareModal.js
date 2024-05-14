@@ -158,7 +158,7 @@ export class ShareModal extends Component {
         ),
       },
       {
-        menuItem: { icon: "cog", content: i18next.t("Access requests") },
+        menuItem: { icon: "cog", content: i18next.t("Settings") },
         render: () => (
           <Tab.Pane key="accessRequests" as={Container}>
             <AccessRequestsTab

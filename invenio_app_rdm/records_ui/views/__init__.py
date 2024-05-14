@@ -19,6 +19,7 @@ from invenio_rdm_records.services.errors import RecordDeletedException
 from invenio_records_resources.services.errors import (
     FileKeyNotFoundError,
     PermissionDeniedError,
+    RecordPermissionDeniedError,
 )
 
 from ...theme.views import create_url_rule
@@ -159,6 +160,9 @@ def create_blueprint(app):
     blueprint.register_error_handler(FileKeyNotFoundError, not_found_error)
     blueprint.register_error_handler(
         PermissionDeniedError, record_permission_denied_error
+    )
+    blueprint.register_error_handler(
+        RecordPermissionDeniedError, record_permission_denied_error
     )
     blueprint.register_error_handler(RecordDeletedException, record_tombstone_error)
 
