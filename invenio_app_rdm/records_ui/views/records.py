@@ -412,8 +412,22 @@ def record_tombstone_error(error):
 
 
 def record_permission_denied_error(error):
-    """Handle permission denier error on record views."""
+    """Handle permission denied error on record views."""
     if not current_user.is_authenticated:
         # trigger the flask-login unauthorized handler
         return current_app.login_manager.unauthorized()
+
+    record = getattr(error, "record", None)
+
+    is_restricted = record.get("access", {}).get("record", None) == "restricted"
+    has_doi = "doi" in record.get("pids", {})
+    if record and is_restricted and has_doi:
+        return (
+            render_template(
+                "invenio_app_rdm/records/restricted_tombstone.html",
+                record=record,
+            ),
+            403,
+        )
+
     return render_template(current_app.config["THEME_403_TEMPLATE"]), 403

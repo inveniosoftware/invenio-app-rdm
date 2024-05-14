@@ -41,6 +41,13 @@
            value='{{ files | tojson }}'>
   {%- endif %}
 
+  {%- if config %}
+    <input type="hidden" name="deposits-record-restriction-grace-period"
+           value='{{ config.RDM_RECORDS_RESTRICTION_GRACE_PERIOD.days | tojson }}'>
+    <input type="hidden" name="deposits-allow-record-restriction"
+           value='{{ config.RDM_RECORDS_ALLOW_RESTRICTION_AFTER_GRACE_PERIOD | tojson }}'>
+  {%- endif %}
+
   {%- if forms_config %}
     <input type="hidden" name="deposits-config"
            value='{{ forms_config | tojson }}'>

@@ -7,6 +7,7 @@
 
 """Invenio Research Data Management."""
 import warnings
+from datetime import timedelta
 
 from flask import request
 from flask_menu import current_menu
@@ -39,6 +40,14 @@ def init_config(app):
 
         if not app.config["COMMUNITIES_GROUPS_ENABLED"]:
             app.config["USERS_RESOURCES_GROUPS_ENABLED"] = False
+
+    # validate grace period
+    grace_period = app.config["RDM_RECORDS_RESTRICTION_GRACE_PERIOD"]
+    if not isinstance(grace_period, timedelta) or grace_period.total_seconds() < 0:
+        raise TypeError(
+            "RDM_RECORDS_RESTRICTION_GRACE_PERIOD config value must be of type datetime.timedelta with a "
+            "duration greater than or equal to 0. "
+        )
 
 
 def init_menu(app):

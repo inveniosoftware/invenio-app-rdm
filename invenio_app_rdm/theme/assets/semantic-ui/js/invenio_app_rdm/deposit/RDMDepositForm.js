@@ -97,8 +97,15 @@ export class RDMDepositForm extends Component {
   sidebarRef = createRef();
 
   render() {
-    const { record, files, permissions, preselectedCommunity, filesLocked } =
-      this.props;
+    const {
+      record,
+      files,
+      permissions,
+      preselectedCommunity,
+      filesLocked,
+      recordRestrictionGracePeriod,
+      allowRecordRestriction,
+    } = this.props;
     const customFieldsUI = this.config.custom_fields.ui;
     return (
       <DepositFormApp
@@ -205,6 +212,7 @@ export class RDMDepositForm extends Component {
                             pidType={pid.scheme}
                             unmanagedHelpText={pid.unmanaged_help_text}
                             required
+                            record={record}
                           />
                         </Fragment>
                       ))}
@@ -624,9 +632,12 @@ export class RDMDepositForm extends Component {
                   >
                     <AccessRightField
                       label={i18next.t("Visibility")}
+                      record={record}
                       labelIcon="shield"
                       fieldPath="access"
                       showMetadataAccess={permissions?.can_manage_record_access}
+                      recordRestrictionGracePeriod={recordRestrictionGracePeriod}
+                      allowRecordRestriction={allowRecordRestriction}
                     />
                   </Overridable>
                   {permissions?.can_delete_draft && (
@@ -653,6 +664,8 @@ export class RDMDepositForm extends Component {
 
 RDMDepositForm.propTypes = {
   config: PropTypes.object.isRequired,
+  recordRestrictionGracePeriod: PropTypes.object.isRequired,
+  allowRecordRestriction: PropTypes.bool.isRequired,
   record: PropTypes.object.isRequired,
   preselectedCommunity: PropTypes.object,
   files: PropTypes.object,

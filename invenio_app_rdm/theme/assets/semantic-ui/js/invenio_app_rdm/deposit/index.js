@@ -22,6 +22,10 @@ ReactDOM.render(
       config={getInputFromDOM("deposits-config")}
       permissions={getInputFromDOM("deposits-record-permissions")}
       filesLocked={getInputFromDOM("deposits-record-locked-files")}
+      recordRestrictionGracePeriod={getInputFromDOM(
+        "deposits-record-restriction-grace-period"
+      )}
+      allowRecordRestriction={getInputFromDOM("deposits-allow-record-restriction")}
     />
   </OverridableContext.Provider>,
   document.getElementById("deposit-form")
