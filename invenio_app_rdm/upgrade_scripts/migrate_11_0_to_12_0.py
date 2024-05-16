@@ -35,8 +35,7 @@ def execute_upgrade():
 
     def update_parent(record):
         """Update parent schema and parent communities for older records."""
-        new_parent_schema = "local://records/parent-v3.0.0.json"
-        record.parent["$schema"] = new_parent_schema
+        record.parent["$schema"] = "local://records/parent-v3.0.0.json"
         if (
             isinstance(record.parent["access"]["owned_by"], list)
             and len(record.parent["access"]["owned_by"]) > 0
@@ -52,6 +51,9 @@ def execute_upgrade():
 
         try:
             secho(f"Updating record : {record.pid.pid_value}", fg="yellow")
+
+            # Update schema
+            record["$schema"] = "local://records/record-v6.0.0.json"
 
             # Initialize media files as disabled if not any
             record.setdefault("media_files", {"enabled": False})
