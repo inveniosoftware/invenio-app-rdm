@@ -189,7 +189,7 @@ def transform_record(record, serializer, module=None, throws=True, **kwargs):
         import_str = f"{module}:{serializer}"
         serializer = obj_or_import_string(import_str)
         if serializer:
-            return serializer().serialize_object(record)
+            return serializer().dump_obj(record)
         if throws:
             raise Exception("No serializer found.")
     except Exception:
