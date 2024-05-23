@@ -101,6 +101,9 @@ from invenio_vocabularies.contrib.awards.datastreams import (
 from invenio_vocabularies.contrib.awards.datastreams import (
     VOCABULARIES_DATASTREAM_WRITERS as AWARDS_WRITERS,
 )
+from invenio_vocabularies.contrib.common.ror.datastreams import (
+    VOCABULARIES_DATASTREAM_READERS as COMMON_ROR_READERS,
+)
 from invenio_vocabularies.contrib.funders.datastreams import (
     VOCABULARIES_DATASTREAM_TRANSFORMERS as FUNDERS_TRANSFORMERS,
 )
@@ -658,6 +661,7 @@ REST_CSRF_ENABLED = True
 VOCABULARIES_DATASTREAM_READERS = {
     **VOCABULARIES_DATASTREAM_READERS,
     **NAMES_READERS,
+    **COMMON_ROR_READERS,
 }
 """Data Streams readers."""
 
