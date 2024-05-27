@@ -419,15 +419,16 @@ def record_permission_denied_error(error):
 
     record = getattr(error, "record", None)
 
-    is_restricted = record.get("access", {}).get("record", None) == "restricted"
-    has_doi = "doi" in record.get("pids", {})
-    if record and is_restricted and has_doi:
-        return (
-            render_template(
-                "invenio_app_rdm/records/restricted_tombstone.html",
-                record=record,
-            ),
-            403,
-        )
+    if record:
+        is_restricted = record.get("access", {}).get("record", None) == "restricted"
+        has_doi = "doi" in record.get("pids", {})
+        if is_restricted and has_doi:
+            return (
+                render_template(
+                    "invenio_app_rdm/records/restricted_with_doi_tombstone.html",
+                    record=record,
+                ),
+                403,
+            )
 
     return render_template(current_app.config["THEME_403_TEMPLATE"]), 403
