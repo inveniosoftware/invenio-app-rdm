@@ -54,9 +54,14 @@ from invenio_rdm_records.notifications.builders import (
     CommunityInclusionSubmittedNotificationBuilder,
     GrantUserAccessNotificationBuilder,
     GuestAccessRequestAcceptNotificationBuilder,
+    GuestAccessRequestCancelNotificationBuilder,
+    GuestAccessRequestDeclineNotificationBuilder,
     GuestAccessRequestSubmitNotificationBuilder,
+    GuestAccessRequestSubmittedNotificationBuilder,
     GuestAccessRequestTokenCreateNotificationBuilder,
     UserAccessRequestAcceptNotificationBuilder,
+    UserAccessRequestCancelNotificationBuilder,
+    UserAccessRequestDeclineNotificationBuilder,
     UserAccessRequestSubmitNotificationBuilder,
 )
 from invenio_rdm_records.requests.entity_resolvers import (
@@ -1235,8 +1240,13 @@ NOTIFICATIONS_BUILDERS = {
     GuestAccessRequestTokenCreateNotificationBuilder.type: GuestAccessRequestTokenCreateNotificationBuilder,
     GuestAccessRequestAcceptNotificationBuilder.type: GuestAccessRequestAcceptNotificationBuilder,
     GuestAccessRequestSubmitNotificationBuilder.type: GuestAccessRequestSubmitNotificationBuilder,
+    GuestAccessRequestSubmittedNotificationBuilder.type: GuestAccessRequestSubmittedNotificationBuilder,
+    GuestAccessRequestCancelNotificationBuilder.type: GuestAccessRequestCancelNotificationBuilder,
+    GuestAccessRequestDeclineNotificationBuilder.type: GuestAccessRequestDeclineNotificationBuilder,
     UserAccessRequestAcceptNotificationBuilder.type: UserAccessRequestAcceptNotificationBuilder,
     UserAccessRequestSubmitNotificationBuilder.type: UserAccessRequestSubmitNotificationBuilder,
+    UserAccessRequestDeclineNotificationBuilder.type: UserAccessRequestDeclineNotificationBuilder,
+    UserAccessRequestCancelNotificationBuilder.type: UserAccessRequestCancelNotificationBuilder,
     # Grant user access
     GrantUserAccessNotificationBuilder.type: GrantUserAccessNotificationBuilder,
     # Comment request event
