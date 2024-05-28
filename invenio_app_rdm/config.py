@@ -108,8 +108,8 @@ from invenio_vocabularies.contrib.awards.datastreams import (
 from invenio_vocabularies.contrib.common.ror.datastreams import (
     VOCABULARIES_DATASTREAM_READERS as COMMON_ROR_READERS,
 )
-from invenio_vocabularies.contrib.funders.datastreams import (
-    VOCABULARIES_DATASTREAM_TRANSFORMERS as FUNDERS_TRANSFORMERS,
+from invenio_vocabularies.contrib.common.ror.datastreams import (
+    VOCABULARIES_DATASTREAM_TRANSFORMERS as COMMON_ROR_TRANSFORMERS,
 )
 from invenio_vocabularies.contrib.funders.datastreams import (
     VOCABULARIES_DATASTREAM_WRITERS as FUNDERS_WRITERS,
@@ -122,6 +122,9 @@ from invenio_vocabularies.contrib.names.datastreams import (
 )
 from invenio_vocabularies.contrib.names.datastreams import (
     VOCABULARIES_DATASTREAM_WRITERS as NAMES_WRITERS,
+)
+from invenio_vocabularies.contrib.affiliations.datastreams import (
+    VOCABULARIES_DATASTREAM_WRITERS as AFFILIATIONS_WRITERS,
 )
 
 from .theme.views import notification_settings
@@ -697,7 +700,7 @@ VOCABULARIES_DATASTREAM_READERS = {
 VOCABULARIES_DATASTREAM_TRANSFORMERS = {
     **VOCABULARIES_DATASTREAM_TRANSFORMERS,
     **NAMES_TRANSFORMERS,
-    **FUNDERS_TRANSFORMERS,
+    **COMMON_ROR_TRANSFORMERS,
     **AWARDS_TRANSFORMERS,
 }
 """Data Streams transformers."""
@@ -707,6 +710,7 @@ VOCABULARIES_DATASTREAM_WRITERS = {
     **NAMES_WRITERS,
     **FUNDERS_WRITERS,
     **AWARDS_WRITERS,
+    **AFFILIATIONS_WRITERS,
 }
 """Data Streams writers."""
 
