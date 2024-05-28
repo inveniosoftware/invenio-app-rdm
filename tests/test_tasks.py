@@ -6,7 +6,6 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 """Test invenio-app-rdm celery tasks."""
 
-
 from invenio_app_rdm.tasks import file_integrity_report
 
 

@@ -6,6 +6,7 @@
 # it under the terms of the MIT License; see LICENSE file for more details.
 
 """Command-line tools for invenio app rdm."""
+
 import click
 from flask.cli import with_appcontext
 from invenio_access.permissions import system_identity

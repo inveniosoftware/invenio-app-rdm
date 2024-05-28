@@ -6,6 +6,7 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """Invenio administration users view module."""
+
 from functools import partial
 
 from flask import current_app

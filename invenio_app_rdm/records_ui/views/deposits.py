@@ -154,9 +154,7 @@ class VocabulariesOptions:
             {
                 "icon": hit.get("icon", ""),
                 "id": hit["id"],
-                "subtype_name": self._get_type_subtype_label(hit, type_labels)[
-                    1
-                ],  # noqa
+                "subtype_name": self._get_type_subtype_label(hit, type_labels)[1],
                 "type_name": self._get_type_subtype_label(hit, type_labels)[0],
             }
             for hit in subset_resource_types.to_dict()["hits"]["hits"]

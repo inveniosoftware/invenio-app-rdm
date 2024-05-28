@@ -7,7 +7,6 @@
 
 """RDM User Schemas."""
 
-
 from invenio_users_resources.services.schemas import (
     NotificationPreferences,
     UserPreferencesSchema,

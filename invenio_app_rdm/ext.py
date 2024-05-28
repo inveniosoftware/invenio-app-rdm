@@ -6,6 +6,7 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """Invenio Research Data Management."""
+
 import warnings
 from datetime import timedelta
 

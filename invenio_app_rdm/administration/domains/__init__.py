@@ -6,6 +6,7 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """Invenio administration module for user resources."""
+
 from .domains import (
     DomainsCreateView,
     DomainsDetailView,
