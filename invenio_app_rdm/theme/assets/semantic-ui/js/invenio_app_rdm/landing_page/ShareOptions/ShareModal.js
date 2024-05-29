@@ -90,7 +90,7 @@ export class ShareModal extends Component {
 
     const users = [];
     const groups = [];
-    record.parent?.access?.grants.forEach((grant) => {
+    record.parent?.access?.grants?.forEach((grant) => {
       if (grant.subject.type === "user") users.push(grant);
       if (grant.subject.type === "role") groups.push(grant);
     });
