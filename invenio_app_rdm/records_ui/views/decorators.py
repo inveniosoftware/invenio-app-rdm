@@ -11,7 +11,7 @@
 
 from functools import wraps
 
-from flask import g, make_response, redirect, request, url_for
+from flask import abort, g, make_response, redirect, request, url_for
 from invenio_communities.communities.resources.serializer import (
     UICommunityJSONSerializer,
 )
@@ -135,7 +135,13 @@ def pass_record_from_pid(f):
         scheme = kwargs.get("pid_scheme")
         pid_value = kwargs.get("pid_value")
 
-        record = service().pids.resolve(
+        record_service = service()
+
+        enabled_schemes = record_service.config.pids_providers.keys()
+        if scheme not in enabled_schemes:
+            abort(404)
+
+        record = record_service.pids.resolve(
             g.identity,
             pid_value,
             scheme,

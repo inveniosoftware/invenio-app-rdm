@@ -86,8 +86,9 @@ def create_blueprint(app):
         )
     )
 
-    rdm_records_ext = app.extensions["invenio-rdm-records"]
-    schemes = rdm_records_ext.records_service.config.pids_providers.keys()
+    # NOTE: We register routes for all schemes, and will handle in the view function
+    # the case where a scheme is disabled.
+    schemes = app.config["RDM_PERSISTENT_IDENTIFIERS"].keys()
     schemes = ",".join(schemes)
     if schemes:
         blueprint.add_url_rule(
