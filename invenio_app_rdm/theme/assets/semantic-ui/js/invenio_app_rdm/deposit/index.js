@@ -1,5 +1,5 @@
 // This file is part of InvenioRDM
-// Copyright (C) 2020-2022 CERN.
+// Copyright (C) 2020-2024 CERN.
 // Copyright (C) 2020-2022 Northwestern University.
 //
 // Invenio App RDM is free software; you can redistribute it and/or modify it
