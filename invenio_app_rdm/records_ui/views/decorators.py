@@ -11,7 +11,8 @@
 
 from functools import wraps
 
-from flask import g, make_response, redirect, request, url_for
+from flask import g, make_response, redirect, request, session, url_for
+from flask_login import login_required
 from invenio_communities.communities.resources.serializer import (
     UICommunityJSONSerializer,
 )
@@ -381,3 +382,24 @@ def add_signposting(f):
         return response
 
     return view
+
+
+def secret_link_or_login_required():
+    """Skip login redirection check for requests with secret links.
+
+    If access has been granted via a secret link, then permissions are checked
+    in the dedicated view.
+    """
+
+    def decorator(f):
+        @wraps(f)
+        def view(**kwargs):
+            secret_link_token_arg = "token"
+            session_token = session.get(secret_link_token_arg, None)
+            if session_token is None:
+                login_required(f)
+            return f(**kwargs)
+
+        return view
+
+    return decorator
