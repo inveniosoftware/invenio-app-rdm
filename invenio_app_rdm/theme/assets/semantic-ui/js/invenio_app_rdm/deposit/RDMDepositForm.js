@@ -450,7 +450,7 @@ export class RDMDepositForm extends Component {
                           size: 5,
                         },
                       }}
-                      label="Awards"
+                      label="Awards/Grants"
                       labelIcon="money bill alternate outline"
                       deserializeAward={(award) => {
                         return {
