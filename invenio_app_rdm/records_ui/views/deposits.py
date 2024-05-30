@@ -33,7 +33,12 @@ from marshmallow_utils.fields.babel import gettext_from_dict
 from sqlalchemy.orm import load_only
 
 from ..utils import set_default_value
-from .decorators import pass_draft, pass_draft_community, pass_draft_files
+from .decorators import (
+    pass_draft,
+    pass_draft_community,
+    pass_draft_files,
+    secret_link_or_login_required,
+)
 from .filters import get_scheme_label
 
 
@@ -409,7 +414,7 @@ def deposit_create(community=None):
     )
 
 
-@login_required
+@secret_link_or_login_required()
 @pass_draft(expand=True)
 @pass_draft_files
 def deposit_edit(pid_value, draft=None, draft_files=None, files_locked=True):
