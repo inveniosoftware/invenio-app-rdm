@@ -31,7 +31,7 @@ export class ShareModal extends Component {
       usersResults: undefined,
       groupsResults: undefined,
       linksResults: undefined,
-      activeTab: 0,
+      activeTabKey: "",
     };
   }
 
@@ -75,7 +75,8 @@ export class ShareModal extends Component {
   };
 
   handleTabChange = (e, data) => {
-    this.setState({ activeTab: data.activeIndex });
+    const tabIndex = data.activeIndex;
+    this.setState({ activeTabKey: data?.panes[tabIndex]?.menuItem?.key });
   };
 
   handleRecordUpdate = (updatedRecord) => {
@@ -158,7 +159,12 @@ export class ShareModal extends Component {
         ),
       },
       {
-        menuItem: { icon: "cog", content: i18next.t("Settings") },
+        menuItem: (
+          <MenuItem key="accessRequests">
+            <Icon name="cog" />
+            {i18next.t("Settings")}
+          </MenuItem>
+        ),
         render: () => (
           <Tab.Pane key="accessRequests" as={Container}>
             <AccessRequestsTab
@@ -176,7 +182,8 @@ export class ShareModal extends Component {
 
   render() {
     const { open, handleClose, permissions } = this.props;
-    const { record, activeTab } = this.state;
+    const { record, activeTabKey } = this.state;
+    const shouldShowCloseButton = activeTabKey !== "accessRequests";
     return (
       <Modal
         open={open}
@@ -200,7 +207,7 @@ export class ShareModal extends Component {
           panes={this.panes(record, permissions)}
           onTabChange={this.handleTabChange}
         />
-        {(activeTab === 0 || activeTab === 1 || activeTab === 2) && (
+        {shouldShowCloseButton && (
           <Modal.Actions className="ui clearing segment">
             <Button
               size="small"
