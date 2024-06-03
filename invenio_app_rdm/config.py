@@ -230,6 +230,30 @@ THEME_FRONTPAGE_TEMPLATE = "invenio_app_rdm/frontpage.html"
 THEME_HEADER_LOGIN_TEMPLATE = "invenio_app_rdm/header_login.html"
 """Header login base template."""
 
+
+def _get_package_version():
+    from importlib.metadata import PackageNotFoundError, version
+
+    from packaging.version import Version
+
+    try:
+        package_version = version("invenio-app-rdm")
+        parsed_version = Version(package_version)
+        major_minor_version = (
+            f"InvenioRDM {parsed_version.major}.{parsed_version.minor}"
+        )
+        return major_minor_version
+    except PackageNotFoundError:
+        # default without any version
+        return "InvenioRDM"
+
+
+THEME_GENERATOR = _get_package_version()
+"""Generator meta tag to identify the software that generated the page.
+
+Set it to `None` to disable the tag.
+"""
+
 THEME_LOGO = "images/invenio-rdm.svg"
 """Theme logo."""
 
