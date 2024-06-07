@@ -163,7 +163,7 @@ export function RequestsResultsGridItemTemplate({ result, index }) {
       <Card.Content>
         <Card.Header>{result.metadata.title}</Card.Header>
         <Card.Description>
-          <div dangerouslySetInnerHTML={{ __html: result.metadata.description }} />
+          <div>{result.metadata.description}</div>
         </Card.Description>
       </Card.Content>
     </Card>
