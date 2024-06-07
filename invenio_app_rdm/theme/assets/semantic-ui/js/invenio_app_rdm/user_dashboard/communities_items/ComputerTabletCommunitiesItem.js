@@ -54,12 +54,7 @@ export const ComputerTabletCommunitiesItem = ({ result, index }) => {
           <a href={`/communities/${result.id}`}>{result.metadata.title}</a>
         </Item.Header>
         <Item.Meta>
-          <div
-            className="truncate-lines-2"
-            dangerouslySetInnerHTML={{
-              __html: result.metadata.description,
-            }}
-          />
+        <div className="truncate-lines-2">{result.metadata.description}</div>
         </Item.Meta>
         <Item>
           {result.metadata.website && (
