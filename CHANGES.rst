@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version 11.0.6 (released 2024-06-10)
+
+- ui: fixed unsafe html rendering
+
 Version 11.0.5 (released 2023-10-27)
 
 - backport community logo placeholder fix via new jinja filter
