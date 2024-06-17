@@ -471,6 +471,9 @@ export class RDMDepositForm extends Component {
                           ...(funder.title_l10n && { title: funder.title_l10n }),
                           ...(funder.pid && { pid: funder.pid }),
                           ...(funder.country && { country: funder.country }),
+                          ...(funder.country_name && {
+                            country_name: funder.country_name,
+                          }),
                           ...(funder.identifiers && {
                             identifiers: funder.identifiers,
                           }),
