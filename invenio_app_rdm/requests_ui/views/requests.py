@@ -14,6 +14,7 @@ from flask_login import current_user, login_required
 from invenio_communities.config import COMMUNITIES_ROLES
 from invenio_communities.members.services.request import CommunityInvitation
 from invenio_communities.proxies import current_identities_cache
+from invenio_communities.subcommunities.services.request import SubCommunityRequest
 from invenio_communities.utils import identity_cache_key
 from invenio_communities.views.communities import render_community_theme_template
 from invenio_communities.views.decorators import pass_community
@@ -239,13 +240,14 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
     is_draft_submission = request_type == CommunitySubmission.type_id
     is_record_inclusion = request_type == CommunityInclusion.type_id
     is_member_invitation = request_type == CommunityInvitation.type_id
+    is_subcommunity_request = request_type == SubCommunityRequest.type_id
     request_is_accepted = request["status"] == AcceptAction.status_to
 
-    if is_draft_submission or is_record_inclusion:
-        permissions = community.has_permissions_to(
-            ["update", "read", "search_requests", "search_invites"]
-        )
+    permissions = community.has_permissions_to(
+        ["update", "read", "search_requests", "search_invites"]
+    )
 
+    if is_draft_submission or is_record_inclusion:
         topic = _resolve_topic_record(request)
         record = topic["record_ui"]  # None when draft
         is_draft = record["is_draft"] if record else False
@@ -274,9 +276,6 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
         )
 
     elif is_member_invitation:
-        permissions = community.has_permissions_to(
-            ["update", "read", "search_requests", "search_invites"]
-        )
         if not permissions["can_search_invites"]:
             raise PermissionDeniedError()
 
@@ -286,6 +285,19 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
             base_template="invenio_communities/details/members/base.html",
             invenio_request=request.to_dict(),
             community=community.to_dict(),
+            permissions=permissions,
+            request_is_accepted=request_is_accepted,
+            user_avatar=avatar,
+            include_deleted=False,
+        )
+
+    elif is_subcommunity_request:
+        return render_community_theme_template(
+            f"invenio_requests/{request_type}/index.html",
+            theme=community.to_dict().get("theme", {}),
+            base_template="invenio_communities/details/base.html",
+            invenio_request=request.to_dict(),
+            community=community_ui,
             permissions=permissions,
             request_is_accepted=request_is_accepted,
             user_avatar=avatar,
