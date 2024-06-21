@@ -33,6 +33,7 @@ WARNING: An instance should NOT install multiple flavour extensions since
 
 from datetime import datetime, timedelta
 
+import invenio_communities.notifications.builders as community_notifications
 from celery.schedules import crontab
 from flask_principal import Denial
 from flask_resources import HTTPJSONException, create_error_handler
@@ -1267,6 +1268,10 @@ NOTIFICATIONS_BUILDERS = {
     CommunityInvitationDeclineNotificationBuilder.type: CommunityInvitationDeclineNotificationBuilder,
     CommunityInvitationExpireNotificationBuilder.type: CommunityInvitationExpireNotificationBuilder,
     CommunityInvitationSubmittedNotificationBuilder.type: CommunityInvitationSubmittedNotificationBuilder,
+    # Subcommunity request
+    community_notifications.SubCommunityCreate.type: community_notifications.SubCommunityCreate,
+    community_notifications.SubCommunityAccept.type: community_notifications.SubCommunityAccept,
+    community_notifications.SubCommunityDecline.type: community_notifications.SubCommunityDecline,
 }
 """Notification builders."""
 
