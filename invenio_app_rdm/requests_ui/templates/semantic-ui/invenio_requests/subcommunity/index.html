@@ -17,7 +17,11 @@
 {% set active_community_header_menu_item = 'requests' %}
 
 {%- block request_header %}
-  {% set back_button_url = url_for("invenio_communities.communities_requests", pid_value=community.id) %}
+  {% if is_user_dashboard %}
+    {% set back_button_url = url_for("invenio_app_rdm_users.requests") %}
+  {% else %}
+    {% set back_button_url = url_for("invenio_communities.communities_requests", pid_value=community.id) %}
+  {% endif %}
   {% from "invenio_requests/macros/request_header.html" import inclusion_request_header %}
   {{ inclusion_request_header(
       request=invenio_request,
