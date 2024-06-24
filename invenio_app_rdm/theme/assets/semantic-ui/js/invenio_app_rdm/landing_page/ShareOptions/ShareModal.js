@@ -96,6 +96,11 @@ export class ShareModal extends Component {
       if (grant.subject.type === "role") groups.push(grant);
     });
 
+    const links = [];
+    record.parent?.access?.links?.forEach((link) => {
+      if (link.id !== null) links.push(link);
+    });
+
     const panes = [
       {
         menuItem: (
@@ -145,7 +150,7 @@ export class ShareModal extends Component {
           <MenuItem key="accessLinks">
             <Icon name="linkify" />
             {i18next.t("Links")}
-            <Label size="tiny">{record.parent?.access?.links?.length}</Label>
+            <Label size="tiny">{links?.length}</Label>
           </MenuItem>
         ),
         render: () => (

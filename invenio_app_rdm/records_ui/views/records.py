@@ -386,6 +386,17 @@ def not_found_error(error):
     return render_template(current_app.config["THEME_404_TEMPLATE"]), 404
 
 
+def draft_not_found_error(error):
+    """Handler for draft not found while published record exists."""
+    return (
+        render_template(
+            "invenio_app_rdm/records/draft_not_found.html",
+            record_id=error.pid_value,
+        ),
+        404,
+    )
+
+
 def record_tombstone_error(error):
     """Tombstone page."""
     # the RecordDeletedError will have the following properties,

@@ -13,19 +13,14 @@ import { timestampToRelativeTime } from "../../../utils";
 import { AccessDropdown } from "./AccessDropdown";
 import _truncate from "lodash/truncate";
 import { isEmpty } from "lodash";
-import {
-  withCancel,
-  http,
-  dropdownOptionsGenerator,
-  ErrorMessage,
-} from "react-invenio-forms";
-import { dropdownOptions } from "./LinksSearchResultContainer";
+import { withCancel, http, ErrorMessage } from "react-invenio-forms";
 
 export const LinksSearchItem = ({
   result,
   record,
   onItemAddedOrDeleted,
   onPermissionChanged,
+  dropdownOptions,
 }) => {
   const [copied, setCopied] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -71,7 +66,19 @@ export const LinksSearchItem = ({
   }, [copied]);
 
   const copyAccessLink = () => {
-    const accessLink = `${record.links.self_html}?token=${result.token}`;
+    let selfLink = "";
+
+    if (result?.permission === "view") {
+      // point to `/records/<id>` even for drafts
+      selfLink = `${record.links.record_html || record.links.self_html}?`;
+    } else if (result?.permission === "preview") {
+      // point to `/records/<id>?preview=1` even for published records
+      selfLink = `${record.links.record_html || record.links.self_html}?preview=1&`;
+    } else if (result?.permission === "edit") {
+      selfLink = `${record.links.self_html}?`;
+    }
+
+    const accessLink = `${selfLink}token=${result.token}`;
     navigator.clipboard.writeText(accessLink);
     setCopied(true);
   };
@@ -106,7 +113,7 @@ export const LinksSearchItem = ({
           <Table.Cell width={3} data-label="Access">
             <AccessDropdown
               updateEndpoint={`${record.links.access_links}/${result.id}`}
-              dropdownOptions={dropdownOptionsGenerator(dropdownOptions)}
+              dropdownOptions={dropdownOptions}
               result={result}
               onPermissionChanged={onPermissionChanged}
               entityType="links"
@@ -158,4 +165,5 @@ LinksSearchItem.propTypes = {
   record: PropTypes.object.isRequired,
   onItemAddedOrDeleted: PropTypes.func.isRequired,
   onPermissionChanged: PropTypes.func.isRequired,
+  dropdownOptions: PropTypes.array.isRequired,
 };
