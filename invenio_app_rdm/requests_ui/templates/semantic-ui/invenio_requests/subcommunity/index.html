@@ -17,7 +17,9 @@
 {% set active_community_header_menu_item = 'requests' %}
 
 {%- block request_header %}
+ {% if permissions.can_search_requests %}
   {% set back_button_url = url_for("invenio_communities.communities_requests", pid_value=community.slug) %}
+ {% endif %}
   {% from "invenio_requests/macros/request_header.html" import inclusion_request_header %}
   {{ inclusion_request_header(
       request=invenio_request,
