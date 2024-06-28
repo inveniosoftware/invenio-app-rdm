@@ -1,6 +1,7 @@
 /*
  * This file is part of Invenio.
  * Copyright (C) 2022-2024 CERN.
+ * Copyright (C) 2024      KTH Royal Institute of Technology.
  *
  * Invenio is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
@@ -22,8 +23,18 @@ class SearchResultItemComponent extends Component {
     updateQueryState(currentQueryState);
   };
 
+  buildAdminLinks = (userId) => {
+    const baseQuery = `parent.access.owned_by.user:${userId}`;
+    return {
+      admin_records_html: `/administration/records?q=${baseQuery}&f=allversions`,
+      admin_drafts_html: `/administration/drafts?q=${baseQuery}&f=allversions`,
+      admin_moderation_html: `/administration/moderation?q=topic.user:${userId}`,
+    };
+  };
+
   render() {
     const { result, idKeyPath, listUIEndpoint } = this.props;
+    const adminLinks = this.buildAdminLinks(result.id);
 
     return (
       <Table.Row>
@@ -153,15 +164,15 @@ class SearchResultItemComponent extends Component {
             <Dropdown.Menu>
               <Dropdown.Item
                 text="Records"
-                onClick={() => (window.location = result.links.admin_records_html)}
+                onClick={() => (window.location = adminLinks.admin_records_html)}
               />
               <Dropdown.Item
                 text="Drafts"
-                onClick={() => (window.location = result.links.admin_drafts_html)}
+                onClick={() => (window.location = adminLinks.admin_drafts_html)}
               />
               <Dropdown.Item
                 text="Moderation"
-                onClick={() => (window.location = result.links.admin_moderation_html)}
+                onClick={() => (window.location = adminLinks.admin_moderation_html)}
               />
             </Dropdown.Menu>
           </Dropdown>
