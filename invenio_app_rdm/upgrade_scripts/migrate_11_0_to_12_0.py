@@ -41,9 +41,11 @@ This script has been tested with following data:
 
 from click import secho
 from flask import current_app
+from invenio_access.permissions import system_identity
 from invenio_communities.communities.records.api import Community
 from invenio_communities.communities.records.systemfields.access import ReviewPolicyEnum
 from invenio_db import db
+from invenio_rdm_records.fixtures import PrioritizedVocabulariesFixtures
 from invenio_rdm_records.proxies import current_rdm_records
 from invenio_rdm_records.records.api import RDMDraft, RDMRecord
 
@@ -123,6 +125,10 @@ def execute_upgrade():
             return error
 
     secho("Starting data migration...", fg="green")
+
+    # upgrading vocabularies
+    pvf = PrioritizedVocabulariesFixtures(system_identity)
+    pvf.load()
 
     # Migrating communities
     communities = Community.model_cls.query.all()
