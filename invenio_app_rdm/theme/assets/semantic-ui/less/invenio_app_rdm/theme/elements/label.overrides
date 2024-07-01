@@ -1,6 +1,7 @@
 .ui.label.access-status {
   color: @white;
   width: max-content;
+  z-index: 100;
 
   &.open {
     background-color: @positiveColor;
