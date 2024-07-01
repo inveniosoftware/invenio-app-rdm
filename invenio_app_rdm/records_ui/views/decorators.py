@@ -19,7 +19,11 @@ from invenio_communities.communities.resources.serializer import (
 from invenio_communities.proxies import current_communities
 from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_rdm_records.proxies import current_rdm_records
-from invenio_records_resources.services.errors import PermissionDeniedError
+from invenio_rdm_records.services.errors import RecordDeletedException
+from invenio_records_resources.services.errors import (
+    FileKeyNotFoundError,
+    PermissionDeniedError,
+)
 from sqlalchemy.orm.exc import NoResultFound
 
 from invenio_app_rdm.urls import record_url_for
@@ -222,13 +226,19 @@ def pass_file_item(is_media=False):
             )
             record_service = media_files_service if is_media else files_service
 
-            if is_preview:
-                try:
-                    item = draft_service().get_file_content(**read_kwargs)
-                except NoResultFound:
+            try:
+                if is_preview:
+                    try:
+                        item = draft_service().get_file_content(**read_kwargs)
+                    except NoResultFound:
+                        item = record_service().get_file_content(**read_kwargs)
+                else:
                     item = record_service().get_file_content(**read_kwargs)
-            else:
-                item = record_service().get_file_content(**read_kwargs)
+
+            except RecordDeletedException:
+                # if a record is deleted, we mask the error with a 404
+                # which is consistent with what gets returned for invalid file keys
+                raise FileKeyNotFoundError(pid_value, file_key)
 
             kwargs["file_item"] = item
             return f(**kwargs)
