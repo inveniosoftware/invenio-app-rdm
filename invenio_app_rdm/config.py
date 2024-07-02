@@ -1307,6 +1307,7 @@ NOTIFICATIONS_ENTITY_RESOLVERS = [
     ServiceResultResolver(service_id="communities", type_key="community"),
     ServiceResultResolver(service_id="requests", type_key="request"),
     ServiceResultResolver(service_id="request_events", type_key="request_event"),
+    ServiceResultResolver(service_id="groups", type_key="group"),
 ]
 """List of entity resolvers used by notification builders."""
 
