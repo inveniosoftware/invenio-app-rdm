@@ -1,0 +1,17 @@
+{#
+  Copyright (C) 2024 CERN.
+
+  Invenio App RDM is free software; you can redistribute it and/or modify it
+  under the terms of the MIT License; see LICENSE file for more details.
+#}
+
+{% extends config.THEME_ERROR_TEMPLATE %}
+
+{%- set title = _("Draft not found") + " | " + config.THEME_SITENAME -%}
+{%- set record_link = record_id %}
+
+{%- block message %}
+  <h1><i class="bolt icon"></i> {{_('Draft not found')}}</h1>
+  <p>{{_('This record has already been published and is not currently being edited, so no draft exists.')}}</p>
+  <a href="{{ record_link }}"> {{ _('Go to published record') }}</a>
+{% endblock message %}

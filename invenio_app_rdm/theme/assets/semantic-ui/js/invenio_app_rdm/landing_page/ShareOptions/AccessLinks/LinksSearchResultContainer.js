@@ -14,6 +14,8 @@ import { withCancel } from "react-invenio-forms";
 import { http } from "react-invenio-forms";
 import { CreateAccessLink } from "./CreateAccessLink";
 import { LinksSearchItem } from "./LinksSearchItem";
+import { dropdownOptionsGenerator } from "react-invenio-forms";
+import _cloneDeep from "lodash/cloneDeep";
 
 export const dropdownOptions = [
   {
@@ -118,6 +120,26 @@ export class LinksSearchResultContainer extends Component {
     }
   };
 
+  generateDropdownOptions = () => {
+    const { record } = this.props;
+
+    // "can view" option is disabled for drafts
+    const dropdownOptionsCopy = _cloneDeep(dropdownOptions);
+    if (record?.is_draft || record?.is_draft === null) {
+      const viewOption = dropdownOptionsCopy.find((item) => item.key === "view");
+      viewOption.text = i18next.t(
+        "Can view (view access link can be created only after the record is published)"
+      );
+    }
+
+    const options = dropdownOptionsGenerator(dropdownOptionsCopy);
+    if (record?.is_draft || record?.is_draft === null) {
+      const viewOption = options.find((item) => item.key === "view");
+      viewOption.disabled = true;
+    }
+    return options;
+  };
+
   render() {
     const { results, record, onItemAddedOrDeleted, onPermissionChanged } = this.props;
     const { loading, error } = this.state;
@@ -154,6 +176,11 @@ export class LinksSearchResultContainer extends Component {
                   record={record}
                   onItemAddedOrDeleted={onItemAddedOrDeleted}
                   onPermissionChanged={onPermissionChanged}
+                  dropdownOptions={
+                    result.permission === "view"
+                      ? dropdownOptionsGenerator(dropdownOptions)
+                      : this.generateDropdownOptions()
+                  }
                 />
               ))
             ) : (
@@ -169,7 +196,12 @@ export class LinksSearchResultContainer extends Component {
         </Table>
 
         <Table color="green">
-          <CreateAccessLink handleCreation={this.handleCreation} loading={loading} />
+          <CreateAccessLink
+            handleCreation={this.handleCreation}
+            loading={loading}
+            record={record}
+            dropdownOptions={this.generateDropdownOptions()}
+          />
         </Table>
       </>
     );
