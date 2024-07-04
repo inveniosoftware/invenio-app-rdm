@@ -1,6 +1,7 @@
 /*
  * This file is part of Invenio.
  * Copyright (C) 2023-2024 CERN.
+ * Copyright (C) 2024      KTH Royal Institute of Technology.
  *
  * Invenio is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
@@ -57,7 +58,9 @@ class SearchResultItemComponent extends Component {
             icon="lock"
           />
           <a target="_blank" rel="noreferrer" href={result.links.self_html}>
-            {_truncate(result.metadata.title, { length: 50 })}
+            {_truncate(result.metadata.title || i18next.t("Empty draft title"), {
+              length: 50,
+            })}
           </a>
           <br />
           <div className="text-muted">
