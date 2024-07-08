@@ -97,9 +97,6 @@ from invenio_vocabularies.config import (
     VOCABULARIES_DATASTREAM_WRITERS,
 )
 from invenio_vocabularies.contrib.awards.datastreams import (
-    VOCABULARIES_DATASTREAM_READERS as AWARDS_READERS,
-)
-from invenio_vocabularies.contrib.awards.datastreams import (
     VOCABULARIES_DATASTREAM_TRANSFORMERS as AWARDS_TRANSFORMERS,
 )
 from invenio_vocabularies.contrib.awards.datastreams import (
@@ -690,7 +687,6 @@ VOCABULARIES_DATASTREAM_READERS = {
     **VOCABULARIES_DATASTREAM_READERS,
     **NAMES_READERS,
     **COMMON_ROR_READERS,
-    **AWARDS_READERS,
 }
 """Data Streams readers."""
 
