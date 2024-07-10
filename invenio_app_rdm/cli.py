@@ -81,5 +81,14 @@ def rebuild_all_indices(order):
         service = services[service_to_reindex]
         if hasattr(service, "rebuild_index"):
             click.echo(f"Reindexing {service_to_reindex}... ", nl=False)
-            service.rebuild_index(system_identity)
-            click.secho("Done.", fg="green")
+            try:
+                service.rebuild_index(system_identity)
+            except NotImplementedError:
+                click.secho(
+                    f"{service_to_reindex} does not use the search cluster, skipping.",
+                    fg="green",
+                )
+                continue
+            else:
+                # success
+                click.secho("Done.", fg="green")
