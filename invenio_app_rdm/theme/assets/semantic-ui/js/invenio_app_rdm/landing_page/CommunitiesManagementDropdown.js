@@ -1,5 +1,6 @@
 // This file is part of InvenioRDM
 // Copyright (C) 2023 CERN.
+// Copyright (C) 2024 KTH Royal Institute of Technology.
 //
 // Invenio App RDM is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
@@ -129,20 +130,22 @@ export class CommunitiesManagementDropdown extends Component {
             />
           )}
         </div>
-        <Dropdown
-          ref={this.dropdownRef}
-          id="modal-dropdown"
-          className="manage-menu-dropdown"
-          aria-label={i18next.t("Community management menu dropdown")}
-          closeOnChange
-          direction="left"
-          options={options}
-          onChange={this.handleChange}
-          selectOnBlur={false}
-          selectOnNavigation={false}
-          value={null} // A11y: needed to trigger the onChange (-triggers both mouse & keyboard) event on every select
-          trigger={<Icon name="cog" color="grey" className="ml-0" />}
-        />
+        {!record.is_draft && (
+          <Dropdown
+            ref={this.dropdownRef}
+            id="modal-dropdown"
+            className="manage-menu-dropdown"
+            aria-label={i18next.t("Community management menu dropdown")}
+            closeOnChange
+            direction="left"
+            options={options}
+            onChange={this.handleChange}
+            selectOnBlur={false}
+            selectOnNavigation={false}
+            value={null} // A11y: needed to trigger the onChange (-triggers both mouse & keyboard) event on every select
+            trigger={<Icon name="cog" color="grey" className="ml-0" />}
+          />
+        )}
 
         <RecordCommunitySubmissionModal
           modalOpen={submissionModalOpen}
