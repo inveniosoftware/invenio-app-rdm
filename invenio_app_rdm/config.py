@@ -5,6 +5,7 @@
 # Copyright (C) 2021      Graz University of Technology.
 # Copyright (C) 2022-2024 KTH Royal Institute of Technology.
 # Copyright (C) 2023      TU Wien
+# Copyright (C) 2024      University of Münster.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -122,6 +123,12 @@ from invenio_vocabularies.contrib.names.datastreams import (
 )
 from invenio_vocabularies.contrib.names.datastreams import (
     VOCABULARIES_DATASTREAM_WRITERS as NAMES_WRITERS,
+)
+from invenio_vocabularies.contrib.subjects.datastreams import (
+    VOCABULARIES_DATASTREAM_TRANSFORMERS as SUBJECTS_TRANSFORMERS,
+)
+from invenio_vocabularies.contrib.subjects.datastreams import (
+    VOCABULARIES_DATASTREAM_WRITERS as SUBJECTS_WRITERS,
 )
 
 from .theme.views import notification_settings
@@ -699,6 +706,7 @@ VOCABULARIES_DATASTREAM_TRANSFORMERS = {
     **NAMES_TRANSFORMERS,
     **FUNDERS_TRANSFORMERS,
     **AWARDS_TRANSFORMERS,
+    **SUBJECTS_TRANSFORMERS,
 }
 """Data Streams transformers."""
 
@@ -707,6 +715,7 @@ VOCABULARIES_DATASTREAM_WRITERS = {
     **NAMES_WRITERS,
     **FUNDERS_WRITERS,
     **AWARDS_WRITERS,
+    **SUBJECTS_WRITERS,
 }
 """Data Streams writers."""
 
