@@ -285,8 +285,8 @@ def record_file_preview(
     """Render a preview of the specified file."""
     # Try to see if specific previewer is set
     # TODO: what's the analog of: file_previewer = fileobj.get("previewer") ?
-    file_previewer = file_metadata.data.get("previewer")
 
+    file_previewer = file_metadata.data.get("metadata", {}).get("previewer", {})
     url = url_for(
         "invenio_app_rdm_records.record_file_download",
         pid_value=pid_value,
