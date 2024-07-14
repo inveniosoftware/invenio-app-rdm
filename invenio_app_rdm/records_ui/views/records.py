@@ -283,10 +283,6 @@ def record_file_preview(
     **kwargs,
 ):
     """Render a preview of the specified file."""
-    # Try to see if specific previewer is set
-    # TODO: what's the analog of: file_previewer = fileobj.get("previewer") ?
-
-    file_previewer = file_metadata.data.get("metadata", {}).get("previewer", {})
     url = url_for(
         "invenio_app_rdm_records.record_file_download",
         pid_value=pid_value,
@@ -296,9 +292,15 @@ def record_file_preview(
 
     # Find a suitable previewer
     fileobj = PreviewFile(file_metadata, pid_value, record, url)
-    for plugin in current_previewer.iter_previewers(
-        previewers=[file_previewer] if file_previewer else None
-    ):
+    # Try to see if specific previewer preference is set for the file
+    file_previewer = (file_metadata.data.get("metadata") or {}).get("previewer")
+    if file_previewer:
+        previewer = current_previewer.previewers.get(file_previewer)
+        if previewer and previewer.can_preview(fileobj):
+            return previewer.preview(fileobj)
+
+    # Go through all previewers to find the first one that can preview the file
+    for plugin in current_previewer.iter_previewers():
         if plugin.can_preview(fileobj):
             return plugin.preview(fileobj)
 
