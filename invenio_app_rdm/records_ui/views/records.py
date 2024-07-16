@@ -237,7 +237,7 @@ def record_detail(
         include_deleted=include_deleted,
         is_draft=is_draft,
         community=resolved_community,
-        external_resources=get_external_resources(record_ui),
+        external_resources=get_external_resources(record),
         user_avatar=avatar,
         record_owner_username=(
             record_owner.get("username")
