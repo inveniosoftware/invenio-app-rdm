@@ -14,7 +14,7 @@ import { RecordVersionsList } from "./RecordVersionsList";
 import { RecordCitationField } from "./RecordCitationField";
 import { ExportDropdown } from "./ExportDropdown";
 import { CommunitiesManagement } from "./CommunitiesManagement";
-import { OverridableContext, overrideStore } from "react-overridable";
+import Overridable, { OverridableContext, overrideStore } from "react-overridable";
 
 const recordManagementAppDiv = document.getElementById("recordManagement");
 const recordManagementMobile = document.getElementById("recordManagementMobile");
@@ -23,7 +23,7 @@ const recordVersionsAppDiv = document.getElementById("recordVersions");
 const recordCitationAppDiv = document.getElementById("recordCitation");
 const recordExportDownloadDiv = document.getElementById("recordExportDownload");
 const sidebarCommunitiesManageDiv = document.getElementById(
-  "sidebar-communities-manage"
+  "sidebar-communities-manage",
 );
 
 const overriddenComponents = overrideStore.getAll();
@@ -41,14 +41,14 @@ function renderRecordManagement(element) {
         permissions={JSON.parse(recordManagementAppDiv.dataset.permissions)}
         isDraft={JSON.parse(recordManagementAppDiv.dataset.isDraft)}
         isPreviewSubmissionRequest={JSON.parse(
-          recordManagementAppDiv.dataset.isPreviewSubmissionRequest
+          recordManagementAppDiv.dataset.isPreviewSubmissionRequest,
         )}
         currentUserId={recordManagementAppDiv.dataset.currentUserId}
         recordOwnerUsername={recordManagementAppDiv.dataset.recordOwnerUsername}
         groupsEnabled={JSON.parse(recordManagementAppDiv.dataset.groupsEnabled)}
       />
     </OverridableContext.Provider>,
-    element
+    element,
   );
 }
 
@@ -70,20 +70,20 @@ if (recordCitationAppDiv) {
       defaultStyle={JSON.parse(recordCitationAppDiv.dataset.defaultstyle)}
       includeDeleted={JSON.parse(recordCitationAppDiv.dataset.includeDeleted)}
     />,
-    recordCitationAppDiv
+    recordCitationAppDiv,
   );
 }
 
 if (recordExportDownloadDiv) {
   ReactDOM.render(
     <ExportDropdown formats={JSON.parse(recordExportDownloadDiv.dataset.formats)} />,
-    recordExportDownloadDiv
+    recordExportDownloadDiv,
   );
 }
 
 if (sidebarCommunitiesManageDiv) {
   const recordCommunitySearchConfig = JSON.parse(
-    sidebarCommunitiesManageDiv.dataset.recordCommunitySearchConfig
+    sidebarCommunitiesManageDiv.dataset.recordCommunitySearchConfig,
   );
   const pendingCommunitiesSearchConfig =
     sidebarCommunitiesManageDiv.dataset.pendingCommunitiesSearchConfig;
