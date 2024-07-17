@@ -23,7 +23,7 @@ const recordVersionsAppDiv = document.getElementById("recordVersions");
 const recordCitationAppDiv = document.getElementById("recordCitation");
 const recordExportDownloadDiv = document.getElementById("recordExportDownload");
 const sidebarCommunitiesManageDiv = document.getElementById(
-  "sidebar-communities-manage",
+  "sidebar-communities-manage"
 );
 
 const overriddenComponents = overrideStore.getAll();
@@ -41,14 +41,14 @@ function renderRecordManagement(element) {
         permissions={JSON.parse(recordManagementAppDiv.dataset.permissions)}
         isDraft={JSON.parse(recordManagementAppDiv.dataset.isDraft)}
         isPreviewSubmissionRequest={JSON.parse(
-          recordManagementAppDiv.dataset.isPreviewSubmissionRequest,
+          recordManagementAppDiv.dataset.isPreviewSubmissionRequest
         )}
         currentUserId={recordManagementAppDiv.dataset.currentUserId}
         recordOwnerUsername={recordManagementAppDiv.dataset.recordOwnerUsername}
         groupsEnabled={JSON.parse(recordManagementAppDiv.dataset.groupsEnabled)}
       />
     </OverridableContext.Provider>,
-    element,
+    element
   );
 }
 
@@ -58,7 +58,7 @@ if (recordVersionsAppDiv) {
       record={JSON.parse(recordVersionsAppDiv.dataset.record)}
       isPreview={JSON.parse(recordVersionsAppDiv.dataset.preview)}
     />,
-    recordVersionsAppDiv,
+    recordVersionsAppDiv
   );
 }
 
@@ -70,20 +70,20 @@ if (recordCitationAppDiv) {
       defaultStyle={JSON.parse(recordCitationAppDiv.dataset.defaultstyle)}
       includeDeleted={JSON.parse(recordCitationAppDiv.dataset.includeDeleted)}
     />,
-    recordCitationAppDiv,
+    recordCitationAppDiv
   );
 }
 
 if (recordExportDownloadDiv) {
   ReactDOM.render(
     <ExportDropdown formats={JSON.parse(recordExportDownloadDiv.dataset.formats)} />,
-    recordExportDownloadDiv,
+    recordExportDownloadDiv
   );
 }
 
 if (sidebarCommunitiesManageDiv) {
   const recordCommunitySearchConfig = JSON.parse(
-    sidebarCommunitiesManageDiv.dataset.recordCommunitySearchConfig,
+    sidebarCommunitiesManageDiv.dataset.recordCommunitySearchConfig
   );
   const pendingCommunitiesSearchConfig =
     sidebarCommunitiesManageDiv.dataset.pendingCommunitiesSearchConfig;
@@ -92,15 +92,17 @@ if (sidebarCommunitiesManageDiv) {
       <Overridable id="InvenioAppRdm.RecordLandingPage.CommunitiesManagement.container">
         <CommunitiesManagement
           userCommunitiesMemberships={JSON.parse(
-            sidebarCommunitiesManageDiv.dataset.userCommunitiesMemberships,
+            sidebarCommunitiesManageDiv.dataset.userCommunitiesMemberships
           )}
           recordCommunityEndpoint={
             sidebarCommunitiesManageDiv.dataset.recordCommunityEndpoint
           }
           recordUserCommunitySearchConfig={JSON.parse(
-            sidebarCommunitiesManageDiv.dataset.recordUserCommunitySearchConfig,
+            sidebarCommunitiesManageDiv.dataset.recordUserCommunitySearchConfig
           )}
-          canManageRecord={JSON.parse(sidebarCommunitiesManageDiv.dataset.canManageRecord)}
+          canManageRecord={JSON.parse(
+            sidebarCommunitiesManageDiv.dataset.canManageRecord
+          )}
           recordCommunitySearchConfig={recordCommunitySearchConfig}
           permissions={JSON.parse(sidebarCommunitiesManageDiv.dataset.permissions)}
           searchConfig={JSON.parse(pendingCommunitiesSearchConfig)}
@@ -108,6 +110,6 @@ if (sidebarCommunitiesManageDiv) {
         />
       </Overridable>
     </OverridableContext.Provider>,
-    sidebarCommunitiesManageDiv,
+    sidebarCommunitiesManageDiv
   );
 }
