@@ -176,7 +176,7 @@ def user_dashboard_request_view(request, **kwargs):
     if has_record_topic:
         topic = _resolve_topic_record(request)
         record_ui = topic["record_ui"]  # None when draft
-        record = topic["record"] # None when draft
+        record = topic["record"]  # None when draft
         is_draft = record_ui["is_draft"] if record_ui else False
 
         files = _resolve_record_or_draft_files(record_ui, request)
@@ -249,7 +249,7 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
 
         topic = _resolve_topic_record(request)
         record_ui = topic["record_ui"]  # None when draft
-        record = topic["record"] # None when draft
+        record = topic["record"]  # None when draft
         is_draft = record_ui["is_draft"] if record_ui else False
 
         permissions.update(topic["permissions"])
