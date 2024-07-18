@@ -112,9 +112,9 @@ def _resolve_topic_record(request):
                 "read",
             ]
         )
-        return dict(permissions=permissions, record_ui=record_ui, record=record)
+        return dict(permissions=permissions, record_ui=record_ui)
 
-    return dict(permissions={}, record_ui=None, record=None)
+    return dict(permissions={}, record_ui=None)
 
 
 def _resolve_record_or_draft_files(record, request):
@@ -176,18 +176,17 @@ def user_dashboard_request_view(request, **kwargs):
 
     if has_record_topic:
         topic = _resolve_topic_record(request)
-        record_ui = topic["record_ui"]  # None when draft
-        record = topic["record"]  # None when draft
-        is_draft = record_ui["is_draft"] if record_ui else False
+        record = topic["record_ui"]  # None when draft
+        is_draft = record["is_draft"] if record else False
 
-        files = _resolve_record_or_draft_files(record_ui, request)
-        media_files = _resolve_record_or_draft_media_files(record_ui, request)
+        files = _resolve_record_or_draft_files(record, request)
+        media_files = _resolve_record_or_draft_media_files(record, request)
         return render_template(
             f"invenio_requests/{request_type}/index.html",
             base_template="invenio_app_rdm/users/base.html",
             user_avatar=avatar,
             invenio_request=request.to_dict(),
-            record=record_ui,
+            record=record,
             permissions=topic["permissions"],
             is_preview=is_draft,  # preview only when draft
             is_draft=is_draft,
@@ -213,13 +212,13 @@ def user_dashboard_request_view(request, **kwargs):
         )
 
     topic = _resolve_topic_record(request)
-    record_ui = topic["record_ui"]
+    record = topic["record_ui"]
 
     return render_template(
         f"invenio_requests/{request_type}/index.html",
         base_template="invenio_app_rdm/users/base.html",
         user_avatar=avatar,
-        record=record_ui,
+        record=record,
         permissions=topic["permissions"],
         invenio_request=request.to_dict(),
         request_is_accepted=request_is_accepted,
@@ -250,19 +249,18 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
 
     if is_draft_submission or is_record_inclusion:
         topic = _resolve_topic_record(request)
-        record_ui = topic["record_ui"]  # None when draft
-        record = topic["record"]  # None when draft
-        is_draft = record_ui["is_draft"] if record_ui else False
+        record = topic["record_ui"]  # None when draft
+        is_draft = record["is_draft"] if record else False
 
         permissions.update(topic["permissions"])
-        files = _resolve_record_or_draft_files(record_ui, request)
-        media_files = _resolve_record_or_draft_media_files(record_ui, request)
+        files = _resolve_record_or_draft_files(record, request)
+        media_files = _resolve_record_or_draft_media_files(record, request)
         return render_community_theme_template(
             f"invenio_requests/{request_type}/index.html",
             theme=community.to_dict().get("theme", {}),
             base_template="invenio_communities/details/base.html",
             invenio_request=request.to_dict(),
-            record=record_ui,
+            record=record,
             community=community_ui,
             permissions=permissions,
             is_preview=is_draft,  # preview only when draft
