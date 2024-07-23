@@ -36,7 +36,7 @@
           <div>
             <h3 class="creatibutors-header ui small header">{{group.grouper}}{%- if group.list|length > 1 -%}s{%- endif -%}:</h3>
             <ul class="creatibutors">
-              {{ show_creatibutors(group.list, show_affiliations=True) }}
+              {{ show_creatibutors(group.list, show_affiliations=True, type="contributors") }}
             </ul>
           </div>
           {%- endfor %}
