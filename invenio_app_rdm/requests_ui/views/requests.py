@@ -48,7 +48,7 @@ def _resolve_topic_record(request):
     user_owns_request = str(creator_id) == str(current_user.id)
 
     if request["is_closed"] and not user_owns_request:
-        return dict(permissions={}, record_ui=None)
+        return dict(permissions={}, record_ui=None, record=None)
 
     record = None
     # parse the topic field to get the draft/record pid `record:abcd-efgh`
