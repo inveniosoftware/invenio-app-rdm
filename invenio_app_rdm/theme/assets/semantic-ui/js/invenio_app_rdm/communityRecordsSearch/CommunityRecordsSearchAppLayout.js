@@ -36,7 +36,7 @@ export const CommunityRecordsSearchAppLayout = ({ config, appName }) => {
               <Count
                 label={(cmp) => (
                   <Trans key="communityRecordsSearch" count={cmp}>
-                    {cmp} results found
+                    {cmp.toLocaleString(i18next.language)} results found
                   </Trans>
                 )}
               />
