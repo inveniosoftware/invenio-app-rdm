@@ -15,6 +15,7 @@ import idutils
 from babel.numbers import format_compact_decimal, format_decimal
 from flask import current_app, url_for
 from invenio_base.utils import obj_or_import_string
+from invenio_i18n import get_locale
 from invenio_previewer.views import is_previewable
 from invenio_records_files.api import FileObject
 from invenio_records_permissions.policies import get_record_permission_policy
@@ -177,6 +178,25 @@ def custom_fields_search(field, field_value):
         return None
 
     namespace_string = "\:".join(namespace_array)
+    return url_for(
+        "invenio_search_ui.search", q=f"custom_fields.{namespace_string}:{field_value}"
+    )
+
+
+def custom_vocab_fields_search(field, field_value, sub_field):
+    """Get custom field search url for vocabulary values."""
+    namespace_array = field.split(":")
+    namespace = namespace_array[0]
+    namespaces = current_app.config.get("RDM_NAMESPACES")
+
+    if not namespaces.get(namespace):
+        return None
+
+    locale = get_locale()
+    if not locale:
+        locale = current_app.config.get("BABEL_DEFAULT_LOCALE", "en")
+
+    namespace_string = "\:".join(namespace_array) + f".{sub_field}.{locale}"
     return url_for(
         "invenio_search_ui.search", q=f"custom_fields.{namespace_string}:{field_value}"
     )

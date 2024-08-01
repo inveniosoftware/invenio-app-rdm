@@ -30,6 +30,7 @@ from .filters import (
     can_list_files,
     compact_number,
     custom_fields_search,
+    custom_vocab_fields_search,
     get_scheme_label,
     has_images,
     has_previewable_files,
@@ -184,6 +185,7 @@ def create_blueprint(app):
     blueprint.add_app_template_filter(truncate_number)
     blueprint.add_app_template_filter(namespace_url)
     blueprint.add_app_template_filter(custom_fields_search)
+    blueprint.add_app_template_filter(custom_vocab_fields_search)
     blueprint.add_app_template_filter(transform_record)
 
     # Register context processor
