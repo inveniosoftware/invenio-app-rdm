@@ -191,7 +191,7 @@ RDMToggleComponent.propTypes = {
 };
 
 export const RDMCountComponent = ({ totalResults }) => {
-  return <Label>{totalResults.toLocaleString("en-US")}</Label>;
+  return <Label>{totalResults.toLocaleString(i18next.language)}</Label>;
 };
 
 RDMCountComponent.propTypes = {
