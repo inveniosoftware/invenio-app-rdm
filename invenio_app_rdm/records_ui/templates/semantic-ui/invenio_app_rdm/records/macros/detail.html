@@ -209,9 +209,14 @@
   {% endfor %}
 {% endmacro %}
 
-{% macro list_vocabulary_values(values) %}
+{% macro list_vocabulary_values(field, values) %}
   {% if values.title_l10n is defined %}
-    {{ values.title_l10n }}
+    {% set search_url = field | custom_vocab_fields_search(values.title_l10n, "title") %}
+    {% if search_url %}
+      <a href="{{ search_url }}">{{ values.title_l10n | safe }}</a>
+    {% else %}
+      {{ values.title_l10n }}
+    {% endif %}
   {% else %}
     {% for value in values %}
       {{ value.title_l10n }}{{ ", " if not loop.last }}
@@ -240,7 +245,7 @@
       {% else %}
         <dt class="ui tiny header">
           {{ field_cfg.props.label }}
-          {% set namespace_url = field_cfg.field | namespace_url %}
+          {% set namespace_url = field_cfg.display_url if field_cfg.display_url is defined else field_cfg.field | namespace_url %}
           {% if namespace_url %}
             <a href="{{ namespace_url }}" aria-label="{{ namespace_url }}">
               <i class="icon external" aria-hidden="true"></i>
@@ -265,7 +270,7 @@
             {% endif %}
           </dd>
         {% elif field_cfg.is_vocabulary %}
-          <dd>{{ list_vocabulary_values(field_value) }}</dd>
+          <dd>{{ list_vocabulary_values(field_cfg.field, field_value) }}</dd>
         {% elif field_value is iterable and field_value|length > 0 and field_value[0] is string %}
           <dd>{{ list_string_values(field_cfg.field, field_value) }}</dd>
         {% elif field_value is iterable and field_value|length > 0 and field_value[0] is number %}
