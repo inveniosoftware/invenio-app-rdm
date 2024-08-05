@@ -182,6 +182,7 @@ def custom_fields_search(field, field_value, field_cfg):
         locale = get_locale()
         if not locale:
             locale = current_app.config.get("BABEL_DEFAULT_LOCALE", "en")
+        # example: cern:experiments.title.en
         namespace_string = "\:".join(namespace_array) + f".{localised_title}.{locale}"
     else:
         namespace_string = "\:".join(namespace_array)
