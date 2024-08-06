@@ -366,6 +366,7 @@ export class RDMDepositForm extends Component {
                       fieldPath="metadata.subjects"
                       initialOptions={_get(record, "ui.subjects", null)}
                       limitToOptions={this.vocabularies.metadata.subjects.limit_to}
+                      searchOnFocus
                     />
                   </Overridable>
 
