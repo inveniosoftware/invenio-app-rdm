@@ -21,7 +21,7 @@ from invenio_communities.views.communities import render_community_theme_templat
 from invenio_i18n import lazy_gettext as _
 from invenio_i18n.ext import current_i18n
 from invenio_rdm_records.proxies import current_rdm_records
-from invenio_rdm_records.records.api import get_quota
+from invenio_rdm_records.records.api import get_files_quota
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
 from invenio_rdm_records.services.schemas import RDMRecordSchema
 from invenio_rdm_records.services.schemas.utils import dump_empty
@@ -391,7 +391,7 @@ def deposit_create(community=None):
         theme=community_theme,
         forms_config=get_form_config(
             createUrl="/api/records",
-            quota=get_quota(),
+            quota=get_files_quota(),
             hide_community_selection=community_use_jinja_header,
         ),
         searchbar_config=dict(searchUrl=get_search_url()),
@@ -457,7 +457,7 @@ def deposit_edit(pid_value, draft=None, draft_files=None, files_locked=True):
         forms_config=get_form_config(
             apiUrl=f"/api/records/{pid_value}/draft",
             # maybe quota should be serialized into the record e.g for admins
-            quota=get_quota(draft._record),
+            quota=get_files_quota(draft._record),
             # hide react community component
             hide_community_selection=community_use_jinja_header,
         ),
