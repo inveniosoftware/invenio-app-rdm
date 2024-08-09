@@ -76,7 +76,7 @@ jobs:
           pip install ".[$EXTRAS]"
           pip freeze
           docker --version
-          docker-compose --version
+          docker compose --version
 
       - name: Run tests
         run: ./run-tests.sh
