@@ -12,7 +12,10 @@
 from flask import g, render_template
 from flask_login import current_user, login_required
 from invenio_communities.config import COMMUNITIES_ROLES
-from invenio_communities.members.services.request import CommunityInvitation
+from invenio_communities.members.services.request import (
+    CommunityInvitation,
+    MembershipRequestRequestType,
+)
 from invenio_communities.proxies import current_identities_cache
 from invenio_communities.subcommunities.services.request import SubCommunityRequest
 from invenio_communities.utils import identity_cache_key
@@ -240,8 +243,11 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
 
     is_draft_submission = request_type == CommunitySubmission.type_id
     is_record_inclusion = request_type == CommunityInclusion.type_id
-    is_member_invitation = request_type == CommunityInvitation.type_id
     is_subcommunity_request = request_type == SubCommunityRequest.type_id
+    types_of_member_requests = [
+        CommunityInvitation.type_id,
+        MembershipRequestRequestType.type_id,
+    ]
     request_is_accepted = request["status"] == AcceptAction.status_to
 
     permissions = community.has_permissions_to(
@@ -277,9 +283,23 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
             include_deleted=False,
         )
 
-    elif is_member_invitation:
-        if not permissions["can_search_invites"]:
-            raise PermissionDeniedError()
+    elif request_type in types_of_member_requests:
+        permissions = community.has_permissions_to(
+            [
+                "update",
+                "read",
+                "search_requests",
+                "members_search_public",
+                "search_invites",
+                "search_membership_requests",
+            ]
+        )
+        if request_type == CommunityInvitation.type_id:
+            if not permissions["can_search_invites"]:
+                raise PermissionDeniedError()
+        else:  # is a membership request
+            if not permissions["can_search_membership_requests"]:
+                raise PermissionDeniedError()
 
         return render_community_theme_template(
             f"invenio_requests/{request_type}/community_dashboard.html",

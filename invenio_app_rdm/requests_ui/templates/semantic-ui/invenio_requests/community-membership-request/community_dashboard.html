@@ -2,6 +2,7 @@
 
   This file is part of Invenio.
   Copyright (C) 2022 CERN.
+  Copyright (C) 2024 Northwestern University
 
   Invenio is free software; you can redistribute it and/or modify it
   under the terms of the MIT License; see LICENSE file for more details.
@@ -11,14 +12,13 @@
 {% from "invenio_requests/macros/request_header.html" import member_request_header %}
 
 {% set active_community_header_menu_item = 'members' %}
-{% set active_members_menu_item = 'invitations' %}
+{% set active_members_menu_item = 'membership_requests' %}
 
 {% block request_header %}
-  {% set back_button_url = url_for("invenio_communities.invitations", pid_value=invenio_request.created_by.community) %}
   {{
     member_request_header(
-      back_button_url=back_button_url,
-      back_button_text=_("Back to invitations"),
+      back_button_url=url_for("invenio_communities.membership_requests", pid_value=invenio_request.receiver.community),
+      back_button_text=_("Back to membership requests"),
       request=invenio_request
     )
   }}
