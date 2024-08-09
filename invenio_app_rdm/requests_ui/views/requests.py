@@ -245,7 +245,7 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
     request_is_accepted = request["status"] == AcceptAction.status_to
 
     permissions = community.has_permissions_to(
-        ["update", "read", "search_requests", "search_invites"]
+        ["update", "read", "search_requests", "search_invites", "submit_record"]
     )
 
     if is_draft_submission or is_record_inclusion:
