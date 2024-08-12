@@ -168,7 +168,7 @@ def namespace_url(field):
     return namespaces[namespace] + namespace_value
 
 
-def custom_fields_search(field, field_value, field_cfg):
+def custom_fields_search(field, field_value, field_cfg=None):
     """Get custom field search url."""
     namespace_array = field.split(":")
     namespace = namespace_array[0]
@@ -177,7 +177,7 @@ def custom_fields_search(field, field_value, field_cfg):
     if not namespaces.get(namespace):
         return None
 
-    localised_title = field_cfg.get("locale")
+    localised_title = (field_cfg or {}).get("locale")
     if localised_title:
         locale = get_locale()
         if not locale:
