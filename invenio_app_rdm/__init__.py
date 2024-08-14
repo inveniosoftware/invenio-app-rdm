@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019-2024 CERN.
-# Copyright (C) 2019-2022 Northwestern University.
+# Copyright (C) 2019-2024 Northwestern University.
 # Copyright (C) 2024 Graz University of Technology.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
@@ -17,6 +17,6 @@
 #
 # See PEP 0440 for details - https://www.python.org/dev/peps/pep-0440
 
-__version__ = "12.0.1"
+__version__ = "12.0.2"
 
 __all__ = ("__version__",)
