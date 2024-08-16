@@ -97,6 +97,9 @@ from invenio_vocabularies.config import (
     VOCABULARIES_DATASTREAM_WRITERS,
 )
 from invenio_vocabularies.contrib.affiliations.datastreams import (
+    VOCABULARIES_DATASTREAM_READERS as AFFILIATIONS_READERS,
+)
+from invenio_vocabularies.contrib.affiliations.datastreams import (
     VOCABULARIES_DATASTREAM_TRANSFORMERS as AFFILIATIONS_TRANSFORMERS,
 )
 from invenio_vocabularies.contrib.affiliations.datastreams import (
@@ -707,6 +710,7 @@ VOCABULARIES_DATASTREAM_READERS = {
     **COMMON_ROR_READERS,
     **AWARDS_READERS,
     **FUNDERS_READERS,
+    **AFFILIATIONS_READERS,
 }
 """Data Streams readers."""
 
