@@ -45,7 +45,7 @@ export class AddUserGroupAccessModal extends Component {
     const { searchType } = this.props;
     if (searchType === "user") {
       const usersClient = new UsersApi();
-      return usersClient.getUsers;
+      return usersClient.suggestUsers;
     }
     if (searchType === "role") {
       const groupsClient = new GroupsApi();
