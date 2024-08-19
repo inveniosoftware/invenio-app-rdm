@@ -38,6 +38,7 @@ This script has been tested with following data:
   - drafts visible
   - records visible
 """
+import sys
 
 from click import secho
 from flask import current_app
@@ -183,6 +184,8 @@ def execute_upgrade():
             "Please fix the above listed errors and try the upgrade again",
         )
         secho(msg, fg="yellow", err=True)
+
+        sys.exit(1)
 
 
 # if the script is executed on its own, perform the upgrade
