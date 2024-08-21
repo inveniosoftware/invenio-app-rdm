@@ -8,8 +8,8 @@
   it under the terms of the MIT License; see LICENSE file for more details.
 #}
 
-{%- from "invenio_app_rdm/records/macros/detail.html" import list_formats, list_languages,
-  list_string_values, show_dates, show_detail, show_detail_conference %}
+{%- from "invenio_app_rdm/records/macros/detail.html" import
+  list_languages, show_dates, show_detail, show_detail_conference %}
 
 {%- set id_doi = record.pids.get('doi', {}).get('identifier') %}
 
@@ -29,8 +29,8 @@
       {{ show_detail(_('Awarding university'), record.ui.publishing_information.thesis) if record.ui.get('publishing_information', {}).get('thesis', {}) }}
       {{ show_detail(_('Conference'), show_detail_conference(record.ui.conference)) if record.ui.conference }}
       {{ show_detail(_('Languages'), list_languages(record.ui.languages)) if record.ui.languages }}
-      {{ show_detail(_('Formats'), list_formats(metadata.formats)) if metadata.formats }}
-      {{ show_detail(_('Sizes'), list_string_values(metadata.sizes)) if metadata.sizes }}
+      {{ show_detail(_('Formats'), ", ".join(metadata.formats)) if metadata.formats }}
+      {{ show_detail(_('Sizes'), ", ".join(metadata.sizes)) if metadata.sizes }}
     </dl>
   </div>
 </div>

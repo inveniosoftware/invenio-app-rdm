@@ -1,5 +1,6 @@
 {#
   Copyright (C) 2020-2024 CERN.
+  Copyright (C) 2024 Northwestern University.
 
   Invenio RDM Records is free software; you can redistribute it and/or modify
   it under the terms of the MIT License; see LICENSE file for more details.
@@ -10,6 +11,7 @@
   <dt class="ui tiny header">{{ title }}</dt>
   <dd>{{ value }}</dd>
 {%- endmacro %}
+
 
 {% macro show_title_detail(title, language, value) %}
   <dt class="ui tiny header">
@@ -22,6 +24,7 @@
     {{ value }}
   </dd>
 {%- endmacro %}
+
 
 {% macro show_sanitized_detail(title, value) %}
   <dt class="ui tiny header">{{ title }}</dt>
@@ -39,14 +42,6 @@
     {% else %}
       {{ value }}{{ ", " if not loop.last }}
     {% endif %}
-
-  {% endfor %}
-{% endmacro %}
-
-
-{% macro list_formats(formats) %}
-  {% for format in formats %}
-    {{ format }}{{ ", " if not loop.last }}
   {% endfor %}
 {% endmacro %}
 
@@ -98,6 +93,7 @@
     {{ _show_funding_item(fund, loop.index0) }}
   {% endfor %}
 {% endmacro %}
+
 
 {% macro _show_funding_item(item, index) %}
   {%- if item.award -%}
@@ -224,6 +220,7 @@
   {% endif %}
 {% endmacro %}
 
+
 {% macro list_float_values(field, values) %}
   {% for value in values %}
     {% set search_url = field | custom_fields_search(value) %}
@@ -282,6 +279,7 @@
     {% endif %}
   {% endfor %}
 {% endmacro %}
+
 
 {% macro show_detail_conference(conference) %}
   <dd>
