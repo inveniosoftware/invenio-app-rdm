@@ -10,6 +10,13 @@
 Changes
 =======
 
+Version v13.0.0b0.dev14 (released 2024-08-22)
+
+- migrate to v12: emit non-zero exit code on error
+- config: import affiliations vocabulary readers
+- package: bump react-invenio-forms
+- DepositForm: Add searchOnFocus prop to subjects RemoteSelectField
+
 Version 10.0.0 (released 2022-10-10)
 
 Version 7.0.0 (released 2021-12-06)
