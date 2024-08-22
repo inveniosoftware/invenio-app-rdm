@@ -126,8 +126,7 @@ pre.export.result {
 }
 
 .invenio-page-body {
-  padding-bottom: @defaultPadding;
-  padding: 1rem 0 1rem;
+  padding: @defaultPadding 0 @defaultPadding;
 }
 
 
