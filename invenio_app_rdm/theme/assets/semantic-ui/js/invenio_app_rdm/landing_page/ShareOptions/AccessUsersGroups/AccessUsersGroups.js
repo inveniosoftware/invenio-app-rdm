@@ -91,7 +91,7 @@ export class AccessUsersGroups extends Component {
                   </Table.Row>
                 </Table.Header>
                 <Table.Body>
-                  {searchType === "user" && (
+                  {searchType === "user" && recOwner && (
                     <Table.Row>
                       <Table.Cell width={8}>
                         <Grid textAlign="left" verticalAlign="middle">
