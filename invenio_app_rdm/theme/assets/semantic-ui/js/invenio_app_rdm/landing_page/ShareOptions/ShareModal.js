@@ -89,17 +89,13 @@ export class ShareModal extends Component {
     const { handleClose, groupsEnabled } = this.props;
     const { linksResults, groupsResults, usersResults } = this.state;
 
-    const users = [];
-    const groups = [];
+    let numUsers = 0;
+    let numGroups = 0;
     record.parent?.access?.grants?.forEach((grant) => {
-      if (grant.subject.type === "user") users.push(grant);
-      if (grant.subject.type === "role") groups.push(grant);
+      if (grant.subject.type === "user") numUsers++;
+      if (grant.subject.type === "role") numGroups++;
     });
-
-    const links = [];
-    record.parent?.access?.links?.forEach((link) => {
-      if (link.id !== null) links.push(link);
-    });
+    if (record?.expanded?.parent?.access?.owned_by) numUsers++;
 
     const panes = [
       {
@@ -107,7 +103,7 @@ export class ShareModal extends Component {
           <MenuItem key="accessUsers">
             <Icon name="user" />
             {i18next.t("People")}
-            <Label size="tiny">{users?.length + 1}</Label>
+            <Label size="tiny">{numUsers}</Label>
           </MenuItem>
         ),
         render: () => (
@@ -122,13 +118,14 @@ export class ShareModal extends Component {
         ),
       },
     ];
+
     if (groupsEnabled) {
       panes.push({
         menuItem: (
           <MenuItem key="accessGroups">
             <Icon name="users" />
             {i18next.t("Groups")}
-            <Label size="tiny">{groups?.length}</Label>
+            <Label size="tiny">{numGroups}</Label>
           </MenuItem>
         ),
         render: () => (
@@ -144,13 +141,18 @@ export class ShareModal extends Component {
       });
     }
 
+    let numLinks = 0;
+    record.parent?.access?.links?.forEach((link) => {
+      if (link.id !== null) numLinks++;
+    });
+
     panes.push(
       {
         menuItem: (
           <MenuItem key="accessLinks">
             <Icon name="linkify" />
             {i18next.t("Links")}
-            <Label size="tiny">{links?.length}</Label>
+            <Label size="tiny">{numLinks}</Label>
           </MenuItem>
         ),
         render: () => (
