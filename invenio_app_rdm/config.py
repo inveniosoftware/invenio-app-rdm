@@ -114,6 +114,15 @@ from invenio_vocabularies.contrib.awards.datastreams import (
 from invenio_vocabularies.contrib.awards.datastreams import (
     VOCABULARIES_DATASTREAM_WRITERS as AWARDS_WRITERS,
 )
+from invenio_vocabularies.contrib.common.openaire.datastreams import (
+    VOCABULARIES_DATASTREAM_READERS as COMMON_OPENAIRE_READERS,
+)
+from invenio_vocabularies.contrib.common.openaire.datastreams import (
+    VOCABULARIES_DATASTREAM_TRANSFORMERS as COMMON_OPENAIRE_TRANSFORMERS,
+)
+from invenio_vocabularies.contrib.common.openaire.datastreams import (
+    VOCABULARIES_DATASTREAM_WRITERS as COMMON_OPENAIRE_WRITERS,
+)
 from invenio_vocabularies.contrib.common.ror.datastreams import (
     VOCABULARIES_DATASTREAM_READERS as COMMON_ROR_READERS,
 )
@@ -716,6 +725,7 @@ REST_CSRF_ENABLED = True
 VOCABULARIES_DATASTREAM_READERS = {
     **VOCABULARIES_DATASTREAM_READERS,
     **NAMES_READERS,
+    **COMMON_OPENAIRE_READERS,
     **COMMON_ROR_READERS,
     **AWARDS_READERS,
     **FUNDERS_READERS,
@@ -727,6 +737,7 @@ VOCABULARIES_DATASTREAM_READERS = {
 VOCABULARIES_DATASTREAM_TRANSFORMERS = {
     **VOCABULARIES_DATASTREAM_TRANSFORMERS,
     **NAMES_TRANSFORMERS,
+    **COMMON_OPENAIRE_TRANSFORMERS,
     **COMMON_ROR_TRANSFORMERS,
     **AWARDS_TRANSFORMERS,
     **FUNDERS_TRANSFORMERS,
@@ -741,6 +752,7 @@ VOCABULARIES_DATASTREAM_WRITERS = {
     **FUNDERS_WRITERS,
     **AWARDS_WRITERS,
     **AFFILIATIONS_WRITERS,
+    **COMMON_OPENAIRE_WRITERS,
     **COMMON_ROR_WRITERS,
     **SUBJECTS_WRITERS,
 }
