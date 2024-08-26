@@ -88,7 +88,12 @@ from invenio_requests.notifications.builders import (
 from invenio_requests.resources.requests.config import request_error_handlers
 from invenio_stats.aggregations import StatAggregator
 from invenio_stats.contrib.event_builders import build_file_unique_id
-from invenio_stats.processors import EventsIndexer, anonymize_user, flag_robots
+from invenio_stats.processors import (
+    EventsIndexer,
+    anonymize_user,
+    filter_robots,
+    flag_machines,
+)
 from invenio_stats.queries import TermsQuery
 from invenio_stats.tasks import StatsAggregationTask, StatsEventTask
 from invenio_vocabularies.config import (
@@ -1130,6 +1135,7 @@ Example:
 # =============
 # See https://invenio-stats.readthedocs.io/en/latest/configuration.html
 
+
 STATS_EVENTS = {
     "file-download": {
         "templates": "invenio_rdm_records.records.stats.templates.events.file_download",
@@ -1139,7 +1145,12 @@ STATS_EVENTS = {
         ],
         "cls": EventsIndexer,
         "params": {
-            "preprocessors": [flag_robots, anonymize_user, build_file_unique_id]
+            "preprocessors": [
+                filter_robots,
+                flag_machines,
+                anonymize_user,
+                build_file_unique_id,
+            ]
         },
     },
     "record-view": {
@@ -1151,7 +1162,12 @@ STATS_EVENTS = {
         ],
         "cls": EventsIndexer,
         "params": {
-            "preprocessors": [flag_robots, anonymize_user, build_record_unique_id],
+            "preprocessors": [
+                filter_robots,
+                flag_machines,
+                anonymize_user,
+                build_record_unique_id,
+            ],
         },
     },
 }
