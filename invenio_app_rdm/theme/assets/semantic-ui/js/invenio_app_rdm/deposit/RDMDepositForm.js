@@ -128,7 +128,10 @@ export class RDMDepositForm extends Component {
           />
         </Overridable>
 
-        <Overridable id="InvenioAppRdm.Deposit.CommunityHeader.container">
+        <Overridable
+          id="InvenioAppRdm.Deposit.CommunityHeader.container"
+          record={record}
+        >
           {!this.hide_community_selection && (
             <CommunityHeader
               imagePlaceholderLink="/static/images/square-placeholder.png"
@@ -159,6 +162,8 @@ export class RDMDepositForm extends Component {
                     id="InvenioAppRdm.Deposit.FileUploader.container"
                     record={record}
                     config={this.config}
+                    permissions={permissions}
+                    filesLocked={filesLocked}
                   >
                     <FileUploader
                       isDraftRecord={!record.is_published}
@@ -574,6 +579,7 @@ export class RDMDepositForm extends Component {
               {!_isEmpty(customFieldsUI) && (
                 <Overridable
                   id="InvenioAppRdm.Deposit.CustomFields.container"
+                  record={record}
                   customFieldsUI={customFieldsUI}
                 >
                   <CustomFields
@@ -598,7 +604,12 @@ export class RDMDepositForm extends Component {
                 className="deposit-sidebar"
               >
                 <Sticky context={this.sidebarRef} offset={20}>
-                  <Overridable id="InvenioAppRdm.Deposit.CardDepositStatusBox.container">
+                  <Overridable
+                    id="InvenioAppRdm.Deposit.CardDepositStatusBox.container"
+                    record={record}
+                    permissions={permissions}
+                    groupsEnabled={groupsEnabled}
+                  >
                     <Card>
                       <Card.Content>
                         <DepositStatusBox />
@@ -641,6 +652,10 @@ export class RDMDepositForm extends Component {
                   <Overridable
                     id="InvenioAppRdm.Deposit.AccessRightField.container"
                     fieldPath="access"
+                    record={record}
+                    permissions={permissions}
+                    recordRestrictionGracePeriod={recordRestrictionGracePeriod}
+                    allowRecordRestriction={allowRecordRestriction}
                   >
                     <AccessRightField
                       label={i18next.t("Visibility")}
