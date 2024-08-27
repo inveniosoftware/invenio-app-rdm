@@ -94,6 +94,12 @@ def execute_upgrade():
                     record.parent, pids
                 )
                 record.parent["pids"] = pids
+                current_rdm_records.records_service.pids.register_or_update(
+                    id_=record["id"],
+                    identity=system_identity,
+                    scheme="doi",
+                    parent=True,
+                )
 
     def update_record(record):
         # skipping deleted records because can't be committed
