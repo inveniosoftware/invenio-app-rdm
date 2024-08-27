@@ -10,6 +10,12 @@
 Changes
 =======
 
+Version v13.0.0b1.dev1 (released 2024-08-27)
+
+- ui: ccount for system created records in share modal
+- config: add subjects datastream config
+- tests: use opensearch2
+
 Version v13.0.0b1.dev0 (released 2024-08-22)
 
 - search: improve search results for records, users and affiliations
