@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version v13.0.0b1.dev2 (released 2024-08-27)
+
+- setup: bump invenio-communities
+
 Version v13.0.0b1.dev1 (released 2024-08-27)
 
 - ui: ccount for system created records in share modal
