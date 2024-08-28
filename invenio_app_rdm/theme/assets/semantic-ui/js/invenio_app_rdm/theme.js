@@ -115,3 +115,14 @@ if (headerSearchbar) {
     headerSearchbar
   );
 }
+
+// Login Logout Button
+const $authButton = $("#auth-button");
+const $authIcon = $("#auth-icon");
+
+const handleAuthButtonClick = () => {
+  $authIcon.attr("class", "spinner loading icon");
+  $authButton.addClass("disabled");
+};
+
+$authButton.on({ click: handleAuthButtonClick });
