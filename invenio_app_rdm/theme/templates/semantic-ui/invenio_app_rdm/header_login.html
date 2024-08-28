@@ -13,9 +13,12 @@
     <form>
       <a
         href="{{ url_for_security('login', next=request.path) }}"
-        class="ui button">
-        <i class="sign-in icon"></i>
-        {{ _('Log in') }}</a>
+        class="ui button"
+        id="auth-button"
+      >
+        <i class="sign-in icon" id="auth-icon"></i>
+        {{ _('Log in') }}
+      </a>
       {% if security.registerable %}
         <a href="{{ url_for_security('register') }}" class="ui button signup">
           <i class="edit outline icon"></i>
@@ -108,8 +111,10 @@
             <div class="ui divider"></div>
           {% endif %}
 
-          <a role="menuitem" class="item" href="{{ url_for_security('logout') }}" tabindex="-1">
-            <i class="sign-out icon"></i>
+          <a role="menuitem" class="item" href="{{ url_for_security('logout') }}" tabindex="-1"
+            id="auth-button"
+          >
+            <i class="sign-out icon" id="auth-icon"></i>
             {{ _('Log out') }}
           </a>
         </div>
@@ -140,16 +145,20 @@
             <div class="ui divider"></div>
           {% endif %}
 
-          <a role="menuitem" class="item" href="{{ url_for_security('logout') }}">
-            <i class="sign-out icon"></i>
+          <a role="menuitem" class="item" href="{{ url_for_security('logout') }}"
+            id="auth-button"
+          >
+            <i class="sign-out icon" id="auth-icon"></i>
             {{ _('Log out') }}
           </a>
         </div>
       </div>
 
     {%- else %}
-      <a role="button" href="{{ url_for_security('logout') }}" class="ui button">
-        <i class="sign-out icon"></i>
+      <a role="button" href="{{ url_for_security('logout') }}" class="ui button"
+        id="auth-button"
+      >
+        <i class="sign-out icon" id="auth-icon"></i>
         {{ _('Log out') }}
       </a>
     {%- endif %}
