@@ -59,10 +59,12 @@ def execute_upgrade():
     """
 
     def migrate_review_policy(community_record):
-        review_policy = community_record["access"].get(
+        if community_record.is_deleted:
+            return
+
+        community_record["access"].setdefault(
             "review_policy", ReviewPolicyEnum.CLOSED.value
         )
-        community_record["access"]["review_policy"] = review_policy
 
     def update_parent(record):
         """Update parent schema and parent communities for older records."""
@@ -94,12 +96,17 @@ def execute_upgrade():
                     record.parent, pids
                 )
                 record.parent["pids"] = pids
-                current_rdm_records.records_service.pids.register_or_update(
-                    id_=record["id"],
-                    identity=system_identity,
-                    scheme="doi",
-                    parent=True,
-                )
+                # Have to commit here otherwise register_or_update won't get
+                # the above data
+                record.parent.commit()
+
+                if isinstance(record, RDMRecord):
+                    current_rdm_records.records_service.pids.register_or_update(
+                        id_=record["id"],
+                        identity=system_identity,
+                        scheme="doi",
+                        parent=True,
+                    )
 
     def update_record(record):
         # skipping deleted records because can't be committed
@@ -120,7 +127,6 @@ def execute_upgrade():
 
             update_parent(record)
 
-            record.parent.commit()
             record.commit()
 
             secho(f"> Updated parent: {record.parent.pid.pid_value}", fg="green")
