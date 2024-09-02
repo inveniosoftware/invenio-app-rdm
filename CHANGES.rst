@@ -10,6 +10,14 @@
 Changes
 =======
 
+Version v13.0.0b1.dev3 (released 2024-09-02)
+
+- deposit: renamed get quota function
+- config: filter out robots and flag machines
+- migration: mint the new concept DOI for each upgraded record
+    * previously, the script would create a new concept DOI for each record
+      but never actually mint them on DataCite
+
 Version v13.0.0b1.dev2 (released 2024-08-27)
 
 - setup: bump invenio-communities
