@@ -65,6 +65,7 @@ from invenio_rdm_records.notifications.builders import (
     UserAccessRequestDeclineNotificationBuilder,
     UserAccessRequestSubmitNotificationBuilder,
 )
+from invenio_rdm_records.proxies import current_rdm_records_service
 from invenio_rdm_records.requests.entity_resolvers import (
     EmailResolver,
     RDMRecordServiceResultResolver,
@@ -155,6 +156,7 @@ from invenio_vocabularies.contrib.subjects.datastreams import (
 from invenio_vocabularies.contrib.subjects.datastreams import (
     VOCABULARIES_DATASTREAM_WRITERS as SUBJECTS_WRITERS,
 )
+from werkzeug.local import LocalProxy
 
 from .theme.views import notification_settings
 from .users.schemas import NotificationsUserSchema, UserPreferencesNotificationsSchema
@@ -651,7 +653,10 @@ OAISERVER_RECORD_CLS = "invenio_rdm_records.records.api:RDMRecord"
 OAISERVER_RECORD_SETS_FETCHER = "invenio_oaiserver.percolator:find_sets_for_record"
 """Record's OAI sets function."""
 
-OAISERVER_RECORD_INDEX = "rdmrecords-records"
+OAISERVER_RECORD_INDEX = LocalProxy(
+    lambda: current_rdm_records_service.record_cls.index._name
+)
+
 """Specify a search index with records that should be exposed via OAI-PMH."""
 
 OAISERVER_GETRECORD_FETCHER = "invenio_rdm_records.oai:getrecord_fetcher"
@@ -694,7 +699,9 @@ SEARCH_HOSTS = [{"host": "localhost", "port": 9200}]
 # ===============
 # See https://invenio-indexer.readthedocs.io/en/latest/configuration.html
 
-INDEXER_DEFAULT_INDEX = "rdmrecords-records-record-v7.0.0"
+# We want that indexers are always explicit about the index they are indexing to.
+# NOTE: Can be removed when https://github.com/inveniosoftware/invenio-indexer/pull/158 is merged and released.
+INDEXER_DEFAULT_INDEX = None
 """Default index to use if no schema is defined."""
 
 # Invenio-Base
