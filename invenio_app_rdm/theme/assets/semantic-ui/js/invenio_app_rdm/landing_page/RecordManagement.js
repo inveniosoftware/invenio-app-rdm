@@ -36,7 +36,14 @@ export class RecordManagement extends Component {
       groupsEnabled,
     } = this.props;
     const { error } = this.state;
-    const { id: recid } = record;
+    const {
+      id: recid,
+      parent: {
+        access: {
+          owned_by: { user: recordOwnerId },
+        },
+      },
+    } = record;
     const handleError = (errorMessage) => {
       console.error(errorMessage);
       this.setState({ error: errorMessage });
@@ -46,7 +53,11 @@ export class RecordManagement extends Component {
       <Grid columns={1} className="record-management">
         {permissions.can_moderate && (
           <Grid.Column className="pb-5">
-            <ManageButton recid={recid} recordOwnerUsername={recordOwnerUsername} />
+            <ManageButton
+              recid={recid}
+              recordOwnerUsername={recordOwnerUsername}
+              recordOwnerId={recordOwnerId}
+            />
           </Grid.Column>
         )}
         {permissions.can_edit && !isDraft && (
