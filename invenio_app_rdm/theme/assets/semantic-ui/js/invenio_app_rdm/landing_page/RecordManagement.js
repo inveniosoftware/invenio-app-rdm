@@ -12,7 +12,7 @@ import { Button, Grid, Icon, Message } from "semantic-ui-react";
 
 import { EditButton } from "./EditButton";
 import { ShareButton } from "./ShareOptions/ShareButton";
-import { NewVersionButton } from "@js/invenio_rdm_records/";
+import { NewVersionButton } from "@js/invenio_rdm_records";
 import PropTypes from "prop-types";
 import Overridable from "react-overridable";
 import { ManageButton } from "./ManageButton";
