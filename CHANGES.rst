@@ -10,6 +10,11 @@
 Changes
 =======
 
+Version v13.0.0b1.dev4 (released 2024-09-11)
+
+- deposit: fix adding a record to a community
+- config: make OAI-PMH record index dynamic
+
 Version v13.0.0b1.dev3 (released 2024-09-02)
 
 - deposit: renamed get quota function
