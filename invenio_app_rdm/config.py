@@ -1417,6 +1417,14 @@ GITHUB_RELEASE_CLASS = RDMGithubRelease
 # Flask-Menu
 # ==========
 #
-
 USER_DASHBOARD_MENU_OVERRIDES = {}
 """Overrides for "dashboard" menu."""
+
+
+# Invenio-Administration
+# ======================
+#
+from invenio_app_rdm import __version__
+
+ADMINISTRATION_DISPLAY_VERSIONS = [("invenio-app-rdm", f"v{__version__}")]
+"""Show the InvenioRDM version in the administration panel."""
