@@ -407,7 +407,7 @@
 
 {%- block javascript %}
   {% if use_theme_basic_template|default(true) %}
-    {{ super.super() }}
+    {{ super() }}
   {% else %}
     {% include config.THEME_JAVASCRIPT_TEMPLATE %}
   {% endif %}
