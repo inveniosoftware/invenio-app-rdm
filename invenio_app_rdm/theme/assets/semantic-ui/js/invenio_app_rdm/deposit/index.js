@@ -1,6 +1,7 @@
 // This file is part of InvenioRDM
 // Copyright (C) 2020-2024 CERN.
 // Copyright (C) 2020-2022 Northwestern University.
+// Copyright (C) 2022-2024 KTH Royal Institute of Technology.
 //
 // Invenio App RDM is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
@@ -27,6 +28,7 @@ ReactDOM.render(
       )}
       allowRecordRestriction={getInputFromDOM("deposits-allow-record-restriction")}
       groupsEnabled={getInputFromDOM("config-groups-enabled")}
+      allowEmptyFiles={getInputFromDOM("records-resources-allow-empty-files")}
     />
   </OverridableContext.Provider>,
   document.getElementById("deposit-form")
