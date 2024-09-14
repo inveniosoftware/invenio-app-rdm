@@ -2,7 +2,7 @@
 // Copyright (C) 2020-2024 CERN.
 // Copyright (C) 2020-2022 Northwestern University.
 // Copyright (C) 2021-2022 Graz University of Technology.
-// Copyright (C) 2022-2023 KTH Royal Institute of Technology.
+// Copyright (C) 2022-2024 KTH Royal Institute of Technology.
 //
 // Invenio App RDM is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
@@ -107,6 +107,7 @@ export class RDMDepositForm extends Component {
       recordRestrictionGracePeriod,
       allowRecordRestriction,
       groupsEnabled,
+      allowEmptyFiles,
     } = this.props;
     const customFieldsUI = this.config.custom_fields.ui;
     return (
@@ -164,12 +165,14 @@ export class RDMDepositForm extends Component {
                     config={this.config}
                     permissions={permissions}
                     filesLocked={filesLocked}
+                    allowEmptyFiles={allowEmptyFiles}
                   >
                     <FileUploader
                       isDraftRecord={!record.is_published}
                       quota={this.config.quota}
                       decimalSizeDisplay={this.config.decimal_size_display}
                       showMetadataOnlyToggle={permissions?.can_manage_files}
+                      allowEmptyFiles={allowEmptyFiles}
                       filesLocked={filesLocked}
                     />
                   </Overridable>
@@ -703,6 +706,7 @@ RDMDepositForm.propTypes = {
   files: PropTypes.object,
   permissions: PropTypes.object,
   filesLocked: PropTypes.bool,
+  allowEmptyFiles: PropTypes.bool,
 };
 
 RDMDepositForm.defaultProps = {
@@ -710,4 +714,5 @@ RDMDepositForm.defaultProps = {
   permissions: null,
   files: null,
   filesLocked: false,
+  allowEmptyFiles: true,
 };
