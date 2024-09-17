@@ -2,6 +2,7 @@
  * This file is part of Invenio.
  * Copyright (C) 2023-2024 CERN.
  * Copyright (C) 2024      KTH Royal Institute of Technology.
+ * Copyright (C) 2024      Northwestern University.
  *
  * Invenio is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
@@ -36,6 +37,10 @@ class SearchResultItemComponent extends Component {
       idKeyPath,
       listUIEndpoint,
     } = this.props;
+
+    /* TODO needs to be expanded */
+    // May be null/undefined if System record
+    const recordOwner = result?.parent?.access?.owned_by;
 
     return (
       <Table.Row>
@@ -73,8 +78,7 @@ class SearchResultItemComponent extends Component {
           collapsing
           className="word-break-all"
         >
-          {/* TODO needs to be expanded */}
-          {result.parent.access.owned_by.user}
+          {(recordOwner && recordOwner.user) || "System"}
         </Table.Cell>
         <Table.Cell
           collapsing
@@ -117,13 +121,15 @@ class SearchResultItemComponent extends Component {
               successCallback={this.refreshAfterAction}
               listUIEndpoint={listUIEndpoint}
             />
-            <UserActions
-              user={{ id: result.parent.access.owned_by.user }}
-              displaySuspend
-              displayBlock
-              useDropdown
-              successCallback={this.refreshAfterAction}
-            />
+            {recordOwner && recordOwner.user && (
+              <UserActions
+                user={{ id: recordOwner.user }}
+                displaySuspend
+                displayBlock
+                useDropdown
+                successCallback={this.refreshAfterAction}
+              />
+            )}
           </Button.Group>
         </Table.Cell>
       </Table.Row>
