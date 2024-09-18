@@ -40,6 +40,8 @@ class SearchResultItemComponent extends Component {
 
     /* TODO needs to be expanded */
     // May be null/undefined if System record
+    // TODO: account for that
+    // See  https://github.com/inveniosoftware/invenio-app-rdm/issues/2849
     const recordOwner = result?.parent?.access?.owned_by;
 
     return (
