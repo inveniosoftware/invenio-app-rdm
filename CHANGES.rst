@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version 12.0.7 (released 2024-09-18)
+
+- add group resolver to notifications
+
 Version 12.0.6 (released 2024-09-18)
 - Account for system owner in admin records list
 - Account for parent fetching, drafts and deleted communities in migration script
