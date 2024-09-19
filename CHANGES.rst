@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version 12.0.8 (released 2024-09-19)
+
+- deposit: provide and check publish permission for visibility
+
 Version 12.0.7 (released 2024-09-18)
 
 - add group resolver to notifications
