@@ -131,3 +131,15 @@ const handleAuthButtonClick = () => {
 };
 
 $authButton.on({ click: handleAuthButtonClick });
+
+const mainId = document.getElementById("main");
+const invenioConfig = JSON.parse(mainId.dataset.invenioConfig);
+const isMathJaxEnabled = invenioConfig?.isMathJaxEnabled;
+if (window.invenio) {
+  window.invenio.onSearchResultsRendered = () => {
+    if (isMathJaxEnabled) {
+      // Re-render mathematical content on the page using MathJax.
+      return window.MathJax?.typeset();
+    }
+  };
+}
