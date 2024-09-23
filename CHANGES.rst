@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version 12.0.9 (released 2024-09-23)
+
+- setup: bump minimum required invenio-rdm-records version
+
 Version 12.0.8 (released 2024-09-19)
 
 - deposit: provide and check publish permission for visibility
