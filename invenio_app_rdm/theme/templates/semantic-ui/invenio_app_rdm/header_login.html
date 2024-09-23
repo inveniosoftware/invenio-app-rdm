@@ -13,10 +13,9 @@
     <form>
       <a
         href="{{ url_for_security('login', next=request.path) }}"
-        class="ui button"
-        id="auth-button"
+        class="ui button auth-button" aria-busy="false" aria-live="polite" aria-label="{{ _('Log in') }}"
       >
-        <i class="sign-in icon" id="auth-icon"></i>
+        <i class="sign-in icon auth-icon" aria-hidden="true"></i>
         {{ _('Log in') }}
       </a>
       {% if security.registerable %}
@@ -111,10 +110,10 @@
             <div class="ui divider"></div>
           {% endif %}
 
-          <a role="menuitem" class="item" href="{{ url_for_security('logout') }}" tabindex="-1"
-            id="auth-button"
+          <a role="menuitem" href="{{ url_for_security('logout') }}" tabindex="-1"
+            class="item auth-button" aria-busy="false" aria-live="polite" aria-label="{{ _('Log out') }}"
           >
-            <i class="sign-out icon" id="auth-icon"></i>
+            <i class="sign-out icon auth-icon" aria-hidden="true"></i>
             {{ _('Log out') }}
           </a>
         </div>
@@ -145,20 +144,20 @@
             <div class="ui divider"></div>
           {% endif %}
 
-          <a role="menuitem" class="item" href="{{ url_for_security('logout') }}"
-            id="auth-button"
+          <a role="menuitem" href="{{ url_for_security('logout') }}"
+            class="item auth-button" aria-busy="false" aria-live="polite" aria-label="{{ _('Log out') }}"
           >
-            <i class="sign-out icon" id="auth-icon"></i>
+            <i class="sign-out icon auth-icon" aria-hidden="true"></i>
             {{ _('Log out') }}
           </a>
         </div>
       </div>
 
     {%- else %}
-      <a role="button" href="{{ url_for_security('logout') }}" class="ui button"
-        id="auth-button"
+      <a role="button" href="{{ url_for_security('logout') }}"
+        class="ui button auth-button" aria-busy="false" aria-live="polite" aria-label="{{ _('Log out') }}"
       >
-        <i class="sign-out icon" id="auth-icon"></i>
+        <i class="sign-out icon auth-icon" aria-hidden="true"></i>
         {{ _('Log out') }}
       </a>
     {%- endif %}

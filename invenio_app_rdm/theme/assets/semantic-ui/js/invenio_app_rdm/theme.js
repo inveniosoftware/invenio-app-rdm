@@ -117,12 +117,17 @@ if (headerSearchbar) {
 }
 
 // Login Logout Button
-const $authButton = $("#auth-button");
-const $authIcon = $("#auth-icon");
+const $authButton = $(".auth-button");
+const $authIcon = $(".auth-icon");
 
 const handleAuthButtonClick = () => {
-  $authIcon.attr("class", "spinner loading icon");
+  $authButton.attr(
+    "aria-label",
+    $authIcon.hasClass("sign-in") ? "Logging in..." : "Logging out..."
+  );
+  $authButton.attr("aria-busy", "true");
   $authButton.addClass("disabled");
+  $authIcon.attr("class", "spinner loading icon");
 };
 
 $authButton.on({ click: handleAuthButtonClick });
