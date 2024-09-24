@@ -4,7 +4,7 @@
 # Copyright (C) 2019-2021 Northwestern University.
 # Copyright (C)      2021 TU Wien.
 # Copyright (C) 2022 KTH Royal Institute of Technology
-# Copyright (C) 2023 Graz University of Technology.
+# Copyright (C) 2023-2024 Graz University of Technology.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -185,7 +185,7 @@ class VocabulariesOptions:
         """Dump subjects vocabulary (limitTo really)."""
         subjects = (
             VocabularyScheme.query.filter_by(parent_id="subjects")
-            .options(load_only("id"))
+            .options(load_only(VocabularyScheme.id))
             .all()
         )
         limit_to = [{"text": "All", "value": "all"}]
