@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2023 CERN.
+# Copyright (C) 2024 Graz University of Technology.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -10,9 +11,9 @@
 from invenio_accounts.testutils import login_user_via_session
 
 
-def test_ui_event_emission(running_app, headers, client, admin_user):
+def test_ui_event_emission(running_app, headers, client, administration_user):
     """It is expected that the REST API endpoint for the statistics is disabled."""
-    login_user_via_session(client, email=admin_user.email)
+    login_user_via_session(client, email=administration_user.email)
 
     # NOTE: the permissions are only relevant per requested query type ("stat")
     data = {"my-query": {"stat": "record-view", "params": {"recid": "doesnt-matter"}}}
