@@ -1,0 +1,28 @@
+{# -*- coding: utf-8 -*-
+
+This file is part of Invenio.
+Copyright (C) 2024 CERN.
+
+Invenio is free software; you can redistribute it and/or modify it
+under the terms of the MIT License; see LICENSE file for more details.
+#}
+
+{% extends "invenio_communities/details/base.html" %}
+
+{%- block javascript %}
+{{ super() }}
+{{ webpack['invenio-app-rdm-collections-search.js'] }}
+{%- endblock %}
+
+{%- block page_body %}
+{{ super() }}
+<div class="ui container fluid theme-tertiary page-subheader rel p-10 mr-0-mobile ml-0-mobile">
+  <h1 class="ui container">
+    {{ collection.title }}
+  </h1>
+</div>
+<div id="collection-search"
+  data-invenio-search-config='{{search_app_collection_config(app_id="InvenioAppRDM.CollectionsSearch", endpoint=collection.links.search, hidden_params=[["q", collection.query]]) | tojson }}'
+  data-permissions='{{ permissions | tojson }}'>
+</div>
+{%- endblock page_body %}

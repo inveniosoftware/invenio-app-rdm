@@ -17,6 +17,7 @@ from invenio_communities.communities.resources.serializer import (
 from invenio_communities.errors import CommunityDeletedError
 from invenio_i18n import lazy_gettext as _
 from invenio_pidstore.errors import PIDDeletedError, PIDDoesNotExistError
+from invenio_rdm_records.collections import search_app_context as c_search_app_context
 from invenio_records_resources.services.errors import PermissionDeniedError
 
 from ..searchapp import search_app_context
@@ -24,6 +25,7 @@ from .communities import (
     communities_browse,
     communities_detail,
     communities_home,
+    community_collection,
     community_static_page,
 )
 
@@ -108,6 +110,10 @@ def create_ui_blueprint(app):
         view_func=community_static_page,
     )
 
+    blueprint.add_url_rule(
+        routes["community-collection"],
+        view_func=community_collection,
+    )
     # Register error handlers
     blueprint.register_error_handler(
         PermissionDeniedError, record_permission_denied_error
@@ -119,5 +125,6 @@ def create_ui_blueprint(app):
 
     # Register context processor
     blueprint.app_context_processor(search_app_context)
+    blueprint.app_context_processor(c_search_app_context)
 
     return blueprint
