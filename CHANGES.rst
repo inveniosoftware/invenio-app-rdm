@@ -10,6 +10,25 @@
 Changes
 =======
 
+Version v13.0.0b1.dev5 (released 2024-09-25)
+
+- deposit: Add allow-empty-files config available for deposit page
+    * Expose `RECORDS_RESOURCES_ALLOW_EMPTY_FILES` for UI control
+    * Related to: https://github.com/inveniosoftware/invenio-rdm-records/pull/1802
+- deposit: provide permissions to publish button
+- config: add group resolver for notifications
+- admin-records: add reference to gh issue
+- admin-records: account for system owned records
+- migration: account for deleted communities and draft concept DOI
+- user-dashboard: fixed broken menu padding
+- theme: fix accordion rotation
+- template: mathjax remove from javascript block
+- templates: add mathjax only to parent template
+- landing page: support different MathJax delimeters
+    * closes https://github.com/CERNDocumentServer/cds-rdm/issues/133
+- search-result: namespace overridable id for community search results
+- search-result: provide key to part of community array element
+
 Version v13.0.0b1.dev4 (released 2024-09-11)
 
 - deposit: fix adding a record to a community
