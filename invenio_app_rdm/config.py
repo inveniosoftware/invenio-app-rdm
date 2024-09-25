@@ -1031,6 +1031,7 @@ RDM_COMMUNITIES_ROUTES = {
     "community-home": "/communities/<pid_value>/",
     "community-browse": "/communities/<pid_value>/browse",
     "community-static-page": "/communities/<pid_value>/pages/<path:page_slug>",
+    "community-collection": "/communities/<pid_value>/collections/<tree_slug>/<collection_slug>",
 }
 
 RDM_SEARCH_USER_COMMUNITIES = {

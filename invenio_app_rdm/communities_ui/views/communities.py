@@ -19,7 +19,10 @@ from invenio_communities.views.communities import (
 from invenio_communities.views.decorators import pass_community
 from invenio_pages.proxies import current_pages_service
 from invenio_pages.records.errors import PageNotFoundError
-from invenio_rdm_records.proxies import current_community_records_service
+from invenio_rdm_records.proxies import (
+    current_community_records_service,
+    current_rdm_records,
+)
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
 from invenio_records_resources.services.errors import PermissionDeniedError
 
@@ -143,4 +146,35 @@ def community_static_page(pid_value, community, community_ui, **kwargs):
         page=page,
         community=community_ui,
         permissions=permissions,
+    )
+
+
+@pass_community(serialize=True)
+def community_collection(
+    community, community_ui, pid_value, tree_slug, collection_slug
+):
+    """Render a community collection page."""
+    collections_service = current_rdm_records.collections_service
+    collection = None
+    try:
+        collection = collections_service.read_slug(
+            g.identity,
+            community_id=community.id,
+            slug=collection_slug,
+            tree_slug=tree_slug,
+        )
+    except Exception:
+        abort(404)
+
+    if not collection:
+        abort(404)
+
+    collection_dict = collection.to_dict()
+    return render_community_theme_template(
+        "invenio_communities/collections/collection.html",
+        collection=collection,
+        collection_dict=collection_dict,
+        community=community,
+        permissions=community.has_permissions_to(HEADER_PERMISSIONS),
+        theme=community_ui.get("theme", {}),
     )
