@@ -14,6 +14,8 @@ from flask import request
 from flask_menu import current_menu
 from invenio_i18n import lazy_gettext as _
 
+from .communities_ui.views.ui import _show_browse_page
+
 
 def _is_branded_community():
     """Function used to check if community is branded."""
@@ -113,6 +115,14 @@ def init_menu(app):
         visible_when=_is_branded_community,
         expected_args=["pid_value"],
         **dict(icon="home", permissions="can_read"),
+    )
+    communities.submenu("browse").register(
+        endpoint="invenio_communities.communities_browse",
+        text=_("Browse"),
+        order=15,
+        visible_when=_show_browse_page,
+        expected_args=["pid_value"],
+        **{"icon": "list", "permissions": "can_read"},
     )
     communities.submenu("search").register(
         "invenio_app_rdm_communities.communities_detail",

@@ -1,0 +1,34 @@
+{# -*- coding: utf-8 -*-
+
+This file is part of Invenio.
+Copyright (C) 2024 CERN.
+
+Invenio is free software; you can redistribute it and/or modify it
+under the terms of the MIT License; see LICENSE file for more details.
+#}
+
+{% extends "invenio_communities/details/base.html" %}
+
+{% set active_community_header_menu_item= 'browse' %}
+{% set subcommunities_endpoint = community["links"]["subcommunities"] %}
+{% set community_slug = community["slug"] %}
+
+{%- block javascript %}
+    {{ super() }}
+    {{ webpack['invenio-communities-browse.js'] }}
+{%- endblock %}
+
+{%- block page_body %}
+{{ super() }}
+<div id='invenio-browse-config' data-api-endpoint='{{ subcommunities_endpoint }}'
+    class="ui container communities-frontpage rel-mt-3 rel-mb-2">
+    <div class="flex">
+        <h2 class="ui header mb-0 align-self-center">{{ _('Subcommunities') }}</h2>
+        <a class="align-self-center rel-ml-1" href="{{url_for('invenio_communities.communities_subcommunities', pid_value=community_slug)}}">
+            {{ _('See all')}}
+        </a>
+    </div>
+    <div class="ui divider hidden"></div>
+    <div id="subcommunities-container"></div>
+</div>
+{%- endblock page_body %}

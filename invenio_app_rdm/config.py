@@ -1014,6 +1014,9 @@ COMMUNITIES_RECORDS_SEARCH = {
 }
 """Community requests search configuration (i.e list of community requests)"""
 
+COMMUNITIES_SHOW_BROWSE_MENU_ENTRY = False
+"""Toggle to show or hide the 'Browse' menu entry for communities."""
+
 # Invenio-RDM-Records
 # ===================
 
@@ -1026,6 +1029,7 @@ RDM_REQUESTS_ROUTES = {
 RDM_COMMUNITIES_ROUTES = {
     "community-detail": "/communities/<pid_value>/records",
     "community-home": "/communities/<pid_value>/",
+    "community-browse": "/communities/<pid_value>/browse",
     "community-static-page": "/communities/<pid_value>/pages/<path:page_slug>",
 }
 

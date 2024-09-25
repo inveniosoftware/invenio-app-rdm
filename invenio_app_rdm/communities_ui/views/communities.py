@@ -11,6 +11,9 @@
 from flask import abort, g, redirect, request, url_for
 from invenio_communities.views.communities import (
     HEADER_PERMISSIONS,
+    MEMBERS_PERMISSIONS,
+    _get_roles_can_invite,
+    _get_roles_can_update,
     render_community_theme_template,
 )
 from invenio_communities.views.decorators import pass_community
@@ -104,6 +107,21 @@ def communities_home(pid_value, community, community_ui):
             records=records_ui,
             metrics=metrics,
         )
+
+
+@pass_community(serialize=True)
+def communities_browse(pid_value, community, community_ui):
+    """Community browse page."""
+    permissions = community.has_permissions_to(HEADER_PERMISSIONS)
+
+    return render_community_theme_template(
+        "invenio_communities/details/browse/index.html",
+        theme=community_ui.get("theme", {}),
+        community=community_ui,
+        permissions=permissions,
+        roles_can_update=_get_roles_can_update(community.id),
+        roles_can_invite=_get_roles_can_invite(community.id),
+    )
 
 
 @pass_community(serialize=True)
