@@ -636,7 +636,7 @@ export class RDMDepositForm extends Component {
                           </Grid.Column>
 
                           <Grid.Column width={16} className="pt-10">
-                            <PublishButton permissions={permissions} fluid />
+                            <PublishButton fluid />
                           </Grid.Column>
 
                           <Grid.Column width={16} className="pt-0">
