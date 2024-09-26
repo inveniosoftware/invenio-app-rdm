@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version 12.0.10 (released 2024-09-26)
+
+- revert deposit permission check for publish button, as it is not working as expected
+
 Version 12.0.9 (released 2024-09-23)
 
 - setup: bump minimum required invenio-rdm-records version
