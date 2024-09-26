@@ -403,11 +403,10 @@ def deposit_create(community=None):
         files_locked=False,
         permissions=get_record_permissions(
             [
-                "delete_draft",
                 "manage",
                 "manage_files",
+                "delete_draft",
                 "manage_record_access",
-                "publish",
             ]
         ),
     )
@@ -470,12 +469,11 @@ def deposit_edit(pid_value, draft=None, draft_files=None, files_locked=True):
         files_locked=files_locked,
         permissions=draft.has_permissions_to(
             [
-                "delete_draft",
                 "manage",
+                "new_version",
+                "delete_draft",
                 "manage_files",
                 "manage_record_access",
-                "new_version",
-                "publish",
             ]
         ),
     )
