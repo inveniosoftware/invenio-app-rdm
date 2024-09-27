@@ -10,6 +10,14 @@
 Changes
 =======
 
+Version v13.0.0b1.dev6 (released 2024-09-27)
+
+- communities: create browse communities page
+- header_login: Make auth UI accessible
+- header_login: Add loader icon when logging in or out
+- Revert "deposit: provide permissions to publish button"
+- feat: display package version in administration panel
+
 Version v13.0.0b1.dev5 (released 2024-09-25)
 
 - deposit: Add allow-empty-files config available for deposit page
