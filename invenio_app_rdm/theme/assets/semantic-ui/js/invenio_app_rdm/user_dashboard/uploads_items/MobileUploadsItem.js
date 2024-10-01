@@ -125,14 +125,14 @@ export const MobileUploadsItem = ({
             <Dropdown.Menu>
               <Dropdown.Item
                 onClick={() => editRecord()}
-                labelPosition="left"
+                labelposition="left"
                 icon="edit"
                 content={i18next.t("Edit")}
               />
 
               {isPublished && (
                 <Dropdown.Item
-                  labelPosition="left"
+                  labelposition="left"
                   href={viewLink}
                   icon="eye"
                   content={i18next.t("View")}
