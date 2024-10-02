@@ -151,7 +151,7 @@ export class RemoveFromCommunityAction extends Component {
             {error && (
               <ErrorMessage
                 header={i18next.t("Something went wrong")}
-                content={error.response?.data?.errors[0]?.message || error.message}
+                content={error.response?.data?.errors?.[0]?.message || error.message}
                 icon="exclamation"
                 className="text-align-left"
                 negative
