@@ -11,7 +11,6 @@
 from flask import abort, g, redirect, request, url_for
 from invenio_communities.views.communities import (
     HEADER_PERMISSIONS,
-    MEMBERS_PERMISSIONS,
     _get_roles_can_invite,
     _get_roles_can_update,
     render_community_theme_template,
@@ -19,6 +18,7 @@ from invenio_communities.views.communities import (
 from invenio_communities.views.decorators import pass_community
 from invenio_pages.proxies import current_pages_service
 from invenio_pages.records.errors import PageNotFoundError
+from invenio_rdm_records.collections import CollectionNotFound
 from invenio_rdm_records.proxies import (
     current_community_records_service,
     current_rdm_records,
@@ -155,7 +155,6 @@ def community_collection(
 ):
     """Render a community collection page."""
     collections_service = current_rdm_records.collections_service
-    collection = None
     try:
         collection = collections_service.read(
             g.identity,
@@ -163,10 +162,7 @@ def community_collection(
             slug=collection_slug,
             tree_slug=tree_slug,
         )
-    except Exception:
-        abort(404)
-
-    if not collection:
+    except CollectionNotFound:
         abort(404)
 
     collection_dict = collection.to_dict()
