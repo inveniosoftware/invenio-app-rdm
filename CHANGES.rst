@@ -10,6 +10,14 @@
 Changes
 =======
 
+Version v13.0.0b1.dev7 (released 2024-10-03)
+
+- setup: bump invenio-rdm-records to >=13.0.0
+- collections: added minimal UI page
+- theme: read invenio config from document body
+- search results: render Mathjax in the results list
+- records-community: fix error message display when removing a community
+
 Version v13.0.0b1.dev6 (released 2024-09-27)
 
 - communities: create browse communities page
