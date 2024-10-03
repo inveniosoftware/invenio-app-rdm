@@ -16,7 +16,7 @@
     {% include config.THEME_HEADER_TEMPLATE %}
   {%- endblock page_header %}
 
-  <main id="main" data-invenio-config='{{ { "isMathJaxEnabled": config.THEME_MATHJAX_CDN, } | tojson }}'>
+  <main id="main">
     <div class="invenio-page-body">
       {%- block page_body %}
         {% include "invenio_theme/body.html" %}
