@@ -8,27 +8,42 @@ under the terms of the MIT License; see LICENSE file for more details.
 #}
 
 {% extends "invenio_communities/details/base.html" %}
+{% from "invenio_communities/collections/macros.html" import render_depth_one_collection %}
 
 {% set active_community_header_menu_item= 'browse' %}
 {% set subcommunities_endpoint = community["links"]["subcommunities"] %}
 {% set community_slug = community["slug"] %}
 
 {%- block javascript %}
-    {{ super() }}
-    {{ webpack['invenio-communities-browse.js'] }}
+{{ super() }}
+{{ webpack['invenio-communities-browse.js'] }}
 {%- endblock %}
 
 {%- block page_body %}
 {{ super() }}
-<div id='invenio-browse-config' data-api-endpoint='{{ subcommunities_endpoint }}'
-    class="ui container communities-frontpage rel-mt-3 rel-mb-2">
-    <div class="flex">
-        <h2 class="ui header mb-0 align-self-center">{{ _('Subcommunities') }}</h2>
-        <a class="align-self-center rel-ml-1" href="{{url_for('invenio_communities.communities_subcommunities', pid_value=community_slug)}}">
-            {{ _('See all')}}
-        </a>
+{%- for tree_id, ctree in trees.items() -%}
+<div class="ui container rel-mt-3 rel-mb-2">
+  <h2 class="ui header mb-0 align-self-center">{{ ctree.title }}</h2>
+  <div class="ui divider"></div>
+  <div class="ui relaxed grid stackable">
+    {%- for collection in ctree.collections -%}
+    <div class="four wide column">
+      {{ render_depth_one_collection(community, ctree, collection) }}
     </div>
-    <div class="ui divider hidden"></div>
-    <div id="subcommunities-container"></div>
+    {%- endfor -%}
+  </div>
+</div>
+{%- endfor -%}
+<div id='invenio-browse-config' data-api-endpoint='{{ subcommunities_endpoint }}'
+  class="ui container communities-frontpage rel-mt-3 rel-mb-2">
+  <div class="flex">
+    <h2 class="ui header mb-0 align-self-center">{{ _('Subcommunities') }}</h2>
+    <a class="align-self-center rel-ml-1"
+      href="{{url_for('invenio_communities.communities_subcommunities', pid_value=community_slug)}}">
+      {{ _('See all')}}
+    </a>
+  </div>
+  <div class="ui divider"></div>
+  <div id="subcommunities-container"></div>
 </div>
 {%- endblock page_body %}
