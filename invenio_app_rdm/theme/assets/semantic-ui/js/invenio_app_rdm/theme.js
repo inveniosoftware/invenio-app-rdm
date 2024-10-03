@@ -132,8 +132,7 @@ const handleAuthButtonClick = () => {
 
 $authButton.on({ click: handleAuthButtonClick });
 
-const mainId = document.getElementById("main");
-const invenioConfig = JSON.parse(mainId.dataset.invenioConfig);
+const invenioConfig = JSON.parse(document.body.dataset.invenioConfig);
 const isMathJaxEnabled = invenioConfig?.isMathJaxEnabled;
 if (window.invenio) {
   window.invenio.onSearchResultsRendered = () => {
