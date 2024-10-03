@@ -8,6 +8,7 @@ under the terms of the MIT License; see LICENSE file for more details.
 #}
 
 {% extends "invenio_communities/details/base.html" %}
+{% from "invenio_communities/collections/macros.html" import render_depth_one_collection %}
 
 {%- block javascript %}
 {{ super() }}
@@ -25,4 +26,16 @@ under the terms of the MIT License; see LICENSE file for more details.
   data-invenio-search-config='{{search_app_collection_config(app_id="InvenioAppRDM.CollectionsSearch", endpoint=collection.links.search, hidden_params=[["q", collection.query]]) | tojson }}'
   data-permissions='{{ permissions | tojson }}'>
 </div>
+{%- if collection.children -%}
+<div class="ui container">
+  <div class="ui card borderless facet">
+    <div class="content">
+      <h2 class=" header">{{ _("See also")}}</h2>
+    </div>
+    {% for child in collection.children %}
+    {{ render_depth_one_collection(community, tree, child.to_dict(max_depth=0)) }}
+    {% endfor %}
+  </div>
+</div>
+{%- endif -%}
 {%- endblock page_body %}
