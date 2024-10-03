@@ -117,6 +117,11 @@ def communities_browse(pid_value, community, community_ui):
     """Community browse page."""
     permissions = community.has_permissions_to(HEADER_PERMISSIONS)
 
+    collections_service = current_rdm_records.collections_service
+
+    trees_ui = collections_service.list_trees(
+        g.identity, community_id=community.id, max_depth=2
+    ).to_dict()
     return render_community_theme_template(
         "invenio_communities/details/browse/index.html",
         theme=community_ui.get("theme", {}),
@@ -124,6 +129,7 @@ def communities_browse(pid_value, community, community_ui):
         permissions=permissions,
         roles_can_update=_get_roles_can_update(community.id),
         roles_can_invite=_get_roles_can_invite(community.id),
+        trees=trees_ui,
     )
 
 
@@ -151,7 +157,7 @@ def community_static_page(pid_value, community, community_ui, **kwargs):
 
 @pass_community(serialize=True)
 def community_collection(
-    community, community_ui, pid_value, tree_slug, collection_slug
+    community, community_ui, pid_value, tree_slug=None, collection_slug=None
 ):
     """Render a community collection page."""
     collections_service = current_rdm_records.collections_service
@@ -165,11 +171,10 @@ def community_collection(
     except CollectionNotFound:
         abort(404)
 
-    collection_dict = collection.to_dict()
     return render_community_theme_template(
         "invenio_communities/collections/collection.html",
         collection=collection,
-        collection_dict=collection_dict,
+        tree=collection.collection_tree,
         community=community,
         permissions=community.has_permissions_to(HEADER_PERMISSIONS),
         theme=community_ui.get("theme", {}),
