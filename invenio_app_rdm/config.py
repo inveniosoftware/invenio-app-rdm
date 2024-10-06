@@ -45,6 +45,11 @@ from invenio_communities.notifications.builders import (
     CommunityInvitationDeclineNotificationBuilder,
     CommunityInvitationExpireNotificationBuilder,
     CommunityInvitationSubmittedNotificationBuilder,
+    CommunityMembershipRequestAcceptNotificationBuilder,
+    CommunityMembershipRequestCancelNotificationBuilder,
+    CommunityMembershipRequestDeclineNotificationBuilder,
+    CommunityMembershipRequestExpireNotificationBuilder,
+    CommunityMembershipRequestSubmittedNotificationBuilder,
 )
 from invenio_notifications.backends import EmailNotificationBackend
 from invenio_rdm_records.notifications.builders import (
@@ -1364,6 +1369,12 @@ NOTIFICATIONS_BUILDERS = {
     community_notifications.SubCommunityCreate.type: community_notifications.SubCommunityCreate,
     community_notifications.SubCommunityAccept.type: community_notifications.SubCommunityAccept,
     community_notifications.SubCommunityDecline.type: community_notifications.SubCommunityDecline,
+    # Community membership request
+    CommunityMembershipRequestAcceptNotificationBuilder.type: CommunityMembershipRequestAcceptNotificationBuilder,
+    CommunityMembershipRequestCancelNotificationBuilder.type: CommunityMembershipRequestCancelNotificationBuilder,
+    CommunityMembershipRequestDeclineNotificationBuilder.type: CommunityMembershipRequestDeclineNotificationBuilder,
+    CommunityMembershipRequestExpireNotificationBuilder.type: CommunityMembershipRequestExpireNotificationBuilder,
+    CommunityMembershipRequestSubmittedNotificationBuilder.type: CommunityMembershipRequestSubmittedNotificationBuilder,
 }
 """Notification builders."""
 

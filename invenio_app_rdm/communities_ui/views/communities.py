@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019-2024 CERN.
-# Copyright (C) 2019-2022 Northwestern University.
+# Copyright (C) 2019-2024 Northwestern University.
 # Copyright (C)      2022 TU Wien.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
@@ -9,6 +9,7 @@
 """Request views module."""
 
 from flask import abort, g, redirect, request, url_for
+from invenio_communities.proxies import current_communities
 from invenio_communities.views.communities import (
     HEADER_PERMISSIONS,
     MEMBERS_PERMISSIONS,
@@ -32,17 +33,22 @@ def communities_detail(pid_value, community, community_ui):
     """Community detail page."""
     permissions = community.has_permissions_to(HEADER_PERMISSIONS)
     endpoint = "/api/communities/{pid_value}/records"
+    members_service = current_communities.service.members
 
     return render_community_theme_template(
         "invenio_communities/records/index.html",
         theme=community_ui.get("theme", {}),
-        community=community,
-        community_ui=community_ui,
+        community=community_ui,
         # Pass permissions so we can disable partially UI components
         # e.g Settings tab
         permissions=permissions,
         active_community_header_menu_item="search",
         endpoint=endpoint.format(pid_value=community.to_dict()["id"]),
+        associated_request_id=(
+            members_service.get_pending_request_id_if_any(
+                g.identity.id, community.id
+            )
+        )
     )
 
 
@@ -102,6 +108,9 @@ def communities_home(pid_value, community, community_ui):
             "hits"
         ]
 
+        members_service = current_communities.service.members
+
+
         return render_community_theme_template(
             "invenio_communities/details/home/index.html",
             theme=community_ui.get("theme", {}),
@@ -109,6 +118,11 @@ def communities_home(pid_value, community, community_ui):
             permissions=permissions,
             records=records_ui,
             metrics=metrics,
+            associated_request_id=(  # in case public
+                members_service.get_pending_request_id_if_any(
+                    g.identity.id, community.id
+                )
+            )
         )
 
 
@@ -136,9 +150,10 @@ def community_static_page(pid_value, community, community_ui, **kwargs):
 
     try:
         page = current_pages_service.read_by_url(g.identity, request.path).to_dict()
-
     except PageNotFoundError:
         abort(404)
+
+    members_service = current_communities.service.members
 
     return render_community_theme_template(
         page["template_name"],
@@ -146,6 +161,10 @@ def community_static_page(pid_value, community, community_ui, **kwargs):
         page=page,
         community=community_ui,
         permissions=permissions,
+        associated_request_id=(  # in case public
+            members_service.get_pending_request_id_if_any(
+                g.identity.id, community.id)
+        )
     )
 
 
