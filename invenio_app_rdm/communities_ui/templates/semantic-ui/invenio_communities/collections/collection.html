@@ -10,6 +10,8 @@ under the terms of the MIT License; see LICENSE file for more details.
 {% extends "invenio_communities/details/base.html" %}
 {% from "invenio_communities/collections/macros.html" import render_depth_one_collection %}
 
+{% set active_community_header_menu_item= 'browse' %}
+
 {%- block javascript %}
 {{ super() }}
 {{ webpack['invenio-app-rdm-collections-search.js'] }}
@@ -17,25 +19,55 @@ under the terms of the MIT License; see LICENSE file for more details.
 
 {%- block page_body %}
 {{ super() }}
-<div class="ui container fluid theme-tertiary page-subheader rel p-10 mr-0-mobile ml-0-mobile">
-  <h1 class="ui container">
-    {{ collection.title }}
-  </h1>
+{% set root_collection=collection[collection.root] %}
+<div class="ui container fluid page-subheader rel p-10 mr-0-mobile ml-0-mobile">
+  <div class="collection-header ui container">
+    <h1 class="ui medium header">
+      <div class="content">{{ root_collection.title }}</div>
+    </h1>
+  </div>
 </div>
+<!-- Breadcrumbs -->
+<div class="ui container mb-0">
+  {% if root_collection.breadcrumbs | length > 1 %}
+    {%- for breadcrumb in root_collection.breadcrumbs -%}
+    <span>
+      <a href="{{ breadcrumb.link }}">
+        {{ breadcrumb.title }}
+      </a>
+      {% if not loop.last %}
+      <span>
+        <i class="angle right icon mr-0" aria-hidden="true"></i>
+      </span>
+      {% endif %}
+    </span>
+    {%- endfor -%}
+  {%- endif -%}
+</div>
+<div class="ui divider mt-0 mb-0" aria-hidden="true"></div>
+<!-- Collection record search -->
 <div id="collection-search"
-  data-invenio-search-config='{{search_app_collection_config(app_id="InvenioAppRDM.CollectionsSearch", endpoint=collection.links.search, hidden_params=[["q", collection.query]]) | tojson }}'
+  data-invenio-search-config='{{search_app_collection_config(app_id="InvenioAppRDM.CollectionsSearch", endpoint=root_collection["links"]["search"], hidden_params=[["q", root_collection["query"]]]) | tojson }}'
   data-permissions='{{ permissions | tojson }}'>
 </div>
-{%- if collection.children -%}
-<div class="ui container">
-  <div class="ui card borderless facet">
-    <div class="content">
-      <h2 class=" header">{{ _("See also")}}</h2>
+<!-- Other collections -->
+{%- if root_collection["children"] -%}
+<div class="ui container rel-mt-2">
+  <h2 class="ui small header">{{ _("Other collections of " ~ root_collection.title)}}</h2>
+  <div class="ui divider mb-0 mt-0"></div>
+  <div class="ui container grid rel-mt-1">
+    {% for child_id in root_collection["children"] %}
+    {% set child_collection = collection[child_id] %}
+    <div class="four wide column p-0">
+      <span class="rel-mr-1">
+        <a href='{{ child_collection["links"]["self_html"] }}'>
+          {{ child_collection["title"] }}
+        </a>
+      </span>
     </div>
-    {% for child in collection.children %}
-    {{ render_depth_one_collection(community, tree, child.to_dict(max_depth=0)) }}
     {% endfor %}
   </div>
+
 </div>
 {%- endif -%}
 {%- endblock page_body %}
