@@ -1,26 +1,30 @@
 {% macro render_depth_one_collection(community, tree, collection) %}
 {% set root_collection=collection[collection.root] %}
 <div class="ui card borderless facet mt-0 mb-0 rel-ml-1">
-  <div class="content collection-header rel-mb-1">
-    <span class="ui tiny header">
-      <a
-        href='{{ url_for("invenio_app_rdm_communities.community_collection", pid_value=community.slug, collection_slug=root_collection.slug, tree_slug=tree.slug )}}'>
-        {{ root_collection.title }}
-      </a>
-      <label class="ui tiny label">{{ root_collection.num_records }}</label>
-    </span>
+  <div class="content rel-mb-1">
+    <div class="collection-header">
+      <h4 class="theme-primary-text">
+        <a
+          href='{{ url_for("invenio_app_rdm_communities.community_collection", pid_value=community.slug, collection_slug=root_collection.slug, tree_slug=tree.slug )}}'>
+          {{ root_collection.title }}
+        </a>
+        <label class="ui tiny label">{{ root_collection.num_records }}</label>
+      </h4>
+    </div>
 
   </div>
   {%- if root_collection.children -%}
   <div class="content">
     {%- for child_id in root_collection.children -%}
     {% set child_collection = collection[child_id] %}
-    <span class="ui tiny header primary mb-0 mt-0 rel-ml-1">
+    <div class="ui container mb-0 mt-0 rel-ml-1">
+      <h5 class="theme-primary-text">
       <a href='{{ url_for("invenio_app_rdm_communities.community_collection", pid_value=community.slug,
-        collection_slug=child_collection.slug, tree_slug=tree.slug )}}'>
+          collection_slug=child_collection.slug, tree_slug=tree.slug )}}'>
         {{ child_collection.title }}
       </a>
-    </span>
+      </h5>
+    </div>
     {%- endfor -%}
   </div>
   {%- endif -%}
