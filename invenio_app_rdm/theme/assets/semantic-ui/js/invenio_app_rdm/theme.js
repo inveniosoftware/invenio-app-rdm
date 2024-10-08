@@ -117,13 +117,15 @@ if (headerSearchbar) {
 }
 
 // Login Logout Button
-const $authButton = $(".auth-button");
-const $authIcon = $(".auth-icon");
+const $authButton = $("#invenio-nav.ui.menu").find(".auth-button");
+const $authIcon = $authButton.find(".auth-icon");
 
 const handleAuthButtonClick = () => {
   $authButton.attr(
     "aria-label",
-    $authIcon.hasClass("sign-in") ? "Logging in..." : "Logging out..."
+    $authIcon.hasClass("sign-in")
+      ? i18next.t("Logging in...")
+      : i18next.t("Logging out...")
   );
   $authButton.attr("aria-busy", "true");
   $authButton.addClass("disabled");
