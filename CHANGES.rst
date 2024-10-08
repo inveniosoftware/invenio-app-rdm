@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version v13.0.0b1.dev9 (released 2024-10-08)
+
+- installation: bump invenio-communities & invenio-rdm-records
+
 Version v13.0.0b1.dev8 (released 2024-10-04)
 
 - installation: bump invenio-communities & invenio-rdm-records
