@@ -18,7 +18,11 @@ from invenio_communities.views.communities import (
 from invenio_communities.views.decorators import pass_community
 from invenio_pages.proxies import current_pages_service
 from invenio_pages.records.errors import PageNotFoundError
-from invenio_rdm_records.collections import CollectionNotFound, CollectionTreeNotFound
+from invenio_rdm_records.collections import (
+    CollectionNotFound,
+    CollectionTreeNotFound,
+    LogoNotFoundError,
+)
 from invenio_rdm_records.proxies import (
     current_community_records_service,
     current_rdm_records,
@@ -171,11 +175,17 @@ def community_collection(
     except (CollectionNotFound, CollectionTreeNotFound):
         abort(404)
 
+    try:
+        logo = collections_service.read_logo(g.identity, collection_slug)
+    except LogoNotFoundError:
+        logo = None
+
     collection_ui = collection.to_dict(max_depth=2, include_breadcrumbs=True)
     return render_community_theme_template(
         "invenio_communities/collections/collection.html",
         collection=collection_ui,
         tree=collection.collection_tree,
+        logo=logo,
         community=community,
         permissions=community.has_permissions_to(HEADER_PERMISSIONS),
         theme=community_ui.get("theme", {}),
