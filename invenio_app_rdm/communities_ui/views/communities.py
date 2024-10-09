@@ -124,7 +124,7 @@ def communities_browse(pid_value, community, community_ui):
     collections_service = current_rdm_records.collections_service
 
     trees_ui = collections_service.list_trees(
-        g.identity, community_id=community.id, max_depth=2
+        g.identity, community_id=community.id, depth=2
     ).to_dict()
     return render_community_theme_template(
         "invenio_communities/details/browse/index.html",
@@ -180,11 +180,12 @@ def community_collection(
     except LogoNotFoundError:
         logo = None
 
-    collection_ui = collection.to_dict(max_depth=2, include_breadcrumbs=True)
+    collection_ui = collection.to_dict()
     return render_community_theme_template(
         "invenio_communities/collections/collection.html",
         collection=collection_ui,
-        tree=collection.collection_tree,
+        # TODO _collection should not be accessed from here
+        tree=collection._collection.collection_tree,
         logo=logo,
         community=community,
         permissions=community.has_permissions_to(HEADER_PERMISSIONS),
