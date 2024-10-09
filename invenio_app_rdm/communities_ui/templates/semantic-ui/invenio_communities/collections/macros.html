@@ -4,8 +4,8 @@
   <div class="content rel-mb-1">
     {% set logo_url = url_for("static", filename="images/collections/" ~ root_collection.slug ~ ".jpg") %}
     <div class="ui grid">
-      <div class="four wide column collection-logo mr-0">
-        <img src="{{ logo_url }}" width="45" height="45" alt=""
+      <div class="four wide column collection-logo mr-0 computer only">
+        <img src="{{ logo_url }}" width="45" height="auto" alt=""
           onerror="null;"/>
       </div>
       <div class="ten wide column collection-header middle aligned left floated pl-0">

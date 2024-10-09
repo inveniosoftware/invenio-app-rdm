@@ -1445,3 +1445,7 @@ from invenio_app_rdm import __version__
 
 ADMINISTRATION_DISPLAY_VERSIONS = [("invenio-app-rdm", f"v{__version__}")]
 """Show the InvenioRDM version in the administration panel."""
+
+
+APP_RDM_SUBCOMMUNITIES_LABEL = "Subcommunities"
+"""Label for the subcommunities in the community browse page."""
