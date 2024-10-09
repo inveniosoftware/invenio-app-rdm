@@ -117,7 +117,7 @@ def init_menu(app):
         **dict(icon="home", permissions="can_read"),
     )
     communities.submenu("browse").register(
-        endpoint="invenio_communities.communities_browse",
+        endpoint="invenio_app_rdm_communities.communities_browse",
         text=_("Browse"),
         order=15,
         visible_when=_show_browse_page,

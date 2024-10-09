@@ -23,26 +23,33 @@ under the terms of the MIT License; see LICENSE file for more details.
 <div class="ui container fluid page-subheader rel p-10 mr-0-mobile ml-0-mobile">
   <div class="collection-header ui container">
     <h1 class="ui medium header">
+      {%- if logo -%}
+        <img src="{{ logo }}" width="45" height="45" alt="Collection logo"/>
+      {%- endif -%}
       <div class="content">{{ root_collection.title }}</div>
     </h1>
   </div>
 </div>
 <!-- Breadcrumbs -->
 <div class="ui container mb-0">
-  {% if root_collection.breadcrumbs | length > 1 %}
+  <div class="ui breadcrumb">
+    <a class="section"
+      href="{{ url_for('invenio_app_rdm_communities.communities_browse', pid_value=community.slug ) }}">
+      {{ _("Browse") }}
+    </a>
+    <i class="angle right icon divider mr-0" aria-hidden="true"></i>
+
+    {% if root_collection.breadcrumbs %}
     {%- for breadcrumb in root_collection.breadcrumbs -%}
-    <span>
-      <a href="{{ breadcrumb.link }}">
-        {{ breadcrumb.title }}
-      </a>
-      {% if not loop.last %}
-      <span>
-        <i class="angle right icon mr-0" aria-hidden="true"></i>
-      </span>
-      {% endif %}
-    </span>
+    <a class="section" href="{{ breadcrumb.link }}">
+      {{ breadcrumb.title }}
+    </a>
+    {% if not loop.last %}
+    <i class="angle right icon divider mr-0" aria-hidden="true"></i>
+    {% endif %}
     {%- endfor -%}
-  {%- endif -%}
+    {%- endif -%}
+  </div>
 </div>
 <div class="ui divider mt-0 mb-0" aria-hidden="true"></div>
 <!-- Collection record search -->
@@ -50,24 +57,4 @@ under the terms of the MIT License; see LICENSE file for more details.
   data-invenio-search-config='{{search_app_collection_config(app_id="InvenioAppRDM.CollectionsSearch", endpoint=root_collection["links"]["search"], hidden_params=[["q", root_collection["query"]]]) | tojson }}'
   data-permissions='{{ permissions | tojson }}'>
 </div>
-<!-- Other collections -->
-{%- if root_collection["children"] -%}
-<div class="ui container rel-mt-2">
-  <h2 class="ui small header">{{ _("Other collections of " ~ root_collection.title)}}</h2>
-  <div class="ui divider mb-0 mt-0"></div>
-  <div class="ui container grid rel-mt-1">
-    {% for child_id in root_collection["children"] %}
-    {% set child_collection = collection[child_id] %}
-    <div class="four wide column p-0">
-      <span class="rel-mr-1">
-        <a href='{{ child_collection["links"]["self_html"] }}'>
-          {{ child_collection["title"] }}
-        </a>
-      </span>
-    </div>
-    {% endfor %}
-  </div>
-
-</div>
-{%- endif -%}
 {%- endblock page_body %}
