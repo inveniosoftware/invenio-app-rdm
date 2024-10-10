@@ -95,6 +95,7 @@
 
 .ui.items {
 
+
   &.link > .item:hover .content .header {
     color: @darkTextColor;
   }
@@ -109,6 +110,13 @@
     }
 
     .content {
+      .description.truncate-lines-2 {
+        display: -webkit-box !important;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
       .header {
         &.flex {
           display: flex;

@@ -101,10 +101,8 @@ export const ComputerTabletUploadsItem = ({
             <SearchItemCreators creators={creators} />
           </div>
         </Item.Meta>
-        <Item.Description>
-          {_truncate(descriptionStripped, {
-            length: 350,
-          })}
+        <Item.Description className="truncate-lines-2">
+          {descriptionStripped}
         </Item.Description>
         <Item.Extra>
           {subjects.map((subject) => (
