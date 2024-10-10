@@ -699,7 +699,7 @@ export class RDMDepositForm extends Component {
 RDMDepositForm.propTypes = {
   groupsEnabled: PropTypes.bool.isRequired,
   config: PropTypes.object.isRequired,
-  recordRestrictionGracePeriod: PropTypes.object.isRequired,
+  recordRestrictionGracePeriod: PropTypes.number.isRequired,
   allowRecordRestriction: PropTypes.bool.isRequired,
   record: PropTypes.object.isRequired,
   preselectedCommunity: PropTypes.object,

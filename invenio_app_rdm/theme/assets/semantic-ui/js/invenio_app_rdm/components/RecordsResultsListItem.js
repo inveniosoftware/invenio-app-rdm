@@ -6,7 +6,6 @@
 
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import _get from "lodash/get";
-import _truncate from "lodash/truncate";
 import React, { Component } from "react";
 import Overridable from "react-overridable";
 import { SearchItemCreators } from "../utils";
