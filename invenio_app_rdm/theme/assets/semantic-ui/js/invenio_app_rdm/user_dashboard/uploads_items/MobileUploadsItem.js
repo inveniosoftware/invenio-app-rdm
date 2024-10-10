@@ -7,7 +7,6 @@
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import React from "react";
 import PropTypes from "prop-types";
-import _truncate from "lodash/truncate";
 import _get from "lodash/get";
 import { Dropdown, Icon, Item, Label } from "semantic-ui-react";
 import { SearchItemCreators } from "../../utils";
