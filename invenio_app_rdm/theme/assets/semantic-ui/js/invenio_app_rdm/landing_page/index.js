@@ -14,7 +14,7 @@ import { RecordVersionsList } from "./RecordVersionsList";
 import { RecordCitationField } from "./RecordCitationField";
 import { ExportDropdown } from "./ExportDropdown";
 import { CommunitiesManagement } from "./CommunitiesManagement";
-import { OverridableContext, overrideStore } from "react-overridable";
+import Overridable, { OverridableContext, overrideStore } from "react-overridable";
 
 const recordManagementAppDiv = document.getElementById("recordManagement");
 const recordManagementMobile = document.getElementById("recordManagementMobile");
@@ -25,6 +25,8 @@ const recordExportDownloadDiv = document.getElementById("recordExportDownload");
 const sidebarCommunitiesManageDiv = document.getElementById(
   "sidebar-communities-manage"
 );
+
+const overriddenComponents = overrideStore.getAll();
 
 if (recordManagementAppDiv) {
   renderRecordManagement(recordManagementAppDiv);
@@ -86,22 +88,28 @@ if (sidebarCommunitiesManageDiv) {
   const pendingCommunitiesSearchConfig =
     sidebarCommunitiesManageDiv.dataset.pendingCommunitiesSearchConfig;
   ReactDOM.render(
-    <CommunitiesManagement
-      userCommunitiesMemberships={JSON.parse(
-        sidebarCommunitiesManageDiv.dataset.userCommunitiesMemberships
-      )}
-      recordCommunityEndpoint={
-        sidebarCommunitiesManageDiv.dataset.recordCommunityEndpoint
-      }
-      recordUserCommunitySearchConfig={JSON.parse(
-        sidebarCommunitiesManageDiv.dataset.recordUserCommunitySearchConfig
-      )}
-      canManageRecord={JSON.parse(sidebarCommunitiesManageDiv.dataset.canManageRecord)}
-      recordCommunitySearchConfig={recordCommunitySearchConfig}
-      permissions={JSON.parse(sidebarCommunitiesManageDiv.dataset.permissions)}
-      searchConfig={JSON.parse(pendingCommunitiesSearchConfig)}
-      record={JSON.parse(recordCitationAppDiv.dataset.record)}
-    />,
+    <OverridableContext.Provider value={overriddenComponents}>
+      <Overridable id="InvenioAppRdm.RecordLandingPage.CommunitiesManagement.container">
+        <CommunitiesManagement
+          userCommunitiesMemberships={JSON.parse(
+            sidebarCommunitiesManageDiv.dataset.userCommunitiesMemberships
+          )}
+          recordCommunityEndpoint={
+            sidebarCommunitiesManageDiv.dataset.recordCommunityEndpoint
+          }
+          recordUserCommunitySearchConfig={JSON.parse(
+            sidebarCommunitiesManageDiv.dataset.recordUserCommunitySearchConfig
+          )}
+          canManageRecord={JSON.parse(
+            sidebarCommunitiesManageDiv.dataset.canManageRecord
+          )}
+          recordCommunitySearchConfig={recordCommunitySearchConfig}
+          permissions={JSON.parse(sidebarCommunitiesManageDiv.dataset.permissions)}
+          searchConfig={JSON.parse(pendingCommunitiesSearchConfig)}
+          record={JSON.parse(recordCitationAppDiv.dataset.record)}
+        />
+      </Overridable>
+    </OverridableContext.Provider>,
     sidebarCommunitiesManageDiv
   );
 }
