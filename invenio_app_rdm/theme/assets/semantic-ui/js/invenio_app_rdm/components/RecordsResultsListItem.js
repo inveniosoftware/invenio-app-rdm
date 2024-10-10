@@ -108,8 +108,8 @@ class RecordsResultsListItem extends Component {
             <Item className="creatibutors">
               <SearchItemCreators creators={creators} othersLink={viewLink} />
             </Item>
-            <Item.Description>
-              {_truncate(descriptionStripped, { length: 350 })}
+            <Item.Description className="truncate-lines-2">
+              {descriptionStripped}
             </Item.Description>
             <Item.Extra>
               {subjects.map((subject) => (

@@ -77,10 +77,8 @@ export const MobileUploadsItem = ({
             <SearchItemCreators creators={creators} />
           </div>
         </Item.Meta>
-        <Item.Description>
-          {_truncate(descriptionStripped, {
-            length: 100,
-          })}
+        <Item.Description className="truncate-lines-2">
+          {descriptionStripped}
         </Item.Description>
         <Item.Extra>
           <Item.Extra>
