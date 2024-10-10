@@ -14,6 +14,7 @@ from flask_login import current_user
 
 from ..searchapp import search_app_context
 from .dashboard import communities, requests, uploads
+from invenio_app_rdm.theme.views import create_url_rule
 
 
 #
@@ -47,19 +48,25 @@ def create_ui_blueprint(app):
     )
 
     blueprint.add_url_rule(
-        routes["uploads"],
-        view_func=uploads,
+        **create_url_rule(
+            routes["uploads"],
+            default_view_func=uploads,
+        )
     )
 
     # Settings tab routes
     blueprint.add_url_rule(
-        routes["communities"],
-        view_func=communities,
+        **create_url_rule(
+            routes["communities"],
+            default_view_func=communities,
+        )
     )
 
     blueprint.add_url_rule(
-        routes["requests"],
-        view_func=requests,
+        **create_url_rule(
+            routes["requests"],
+            default_view_func=requests,
+        )
     )
 
     # Register context processor
