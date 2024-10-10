@@ -11,7 +11,6 @@
 from flask import abort, g, redirect, request, url_for
 from invenio_communities.views.communities import (
     HEADER_PERMISSIONS,
-    MEMBERS_PERMISSIONS,
     _get_roles_can_invite,
     _get_roles_can_update,
     render_community_theme_template,
@@ -19,6 +18,11 @@ from invenio_communities.views.communities import (
 from invenio_communities.views.decorators import pass_community
 from invenio_pages.proxies import current_pages_service
 from invenio_pages.records.errors import PageNotFoundError
+from invenio_rdm_records.collections import (
+    CollectionNotFound,
+    CollectionTreeNotFound,
+    LogoNotFoundError,
+)
 from invenio_rdm_records.proxies import (
     current_community_records_service,
     current_rdm_records,
@@ -117,6 +121,11 @@ def communities_browse(pid_value, community, community_ui):
     """Community browse page."""
     permissions = community.has_permissions_to(HEADER_PERMISSIONS)
 
+    collections_service = current_rdm_records.collections_service
+
+    trees_ui = collections_service.list_trees(
+        g.identity, community_id=community.id, depth=2
+    ).to_dict()
     return render_community_theme_template(
         "invenio_communities/details/browse/index.html",
         theme=community_ui.get("theme", {}),
@@ -124,6 +133,7 @@ def communities_browse(pid_value, community, community_ui):
         permissions=permissions,
         roles_can_update=_get_roles_can_update(community.id),
         roles_can_invite=_get_roles_can_invite(community.id),
+        trees=trees_ui,
     )
 
 
@@ -151,29 +161,32 @@ def community_static_page(pid_value, community, community_ui, **kwargs):
 
 @pass_community(serialize=True)
 def community_collection(
-    community, community_ui, pid_value, tree_slug, collection_slug
+    community, community_ui, pid_value, tree_slug=None, collection_slug=None
 ):
     """Render a community collection page."""
     collections_service = current_rdm_records.collections_service
-    collection = None
     try:
-        collection = collections_service.read_slug(
+        collection = collections_service.read(
             g.identity,
             community_id=community.id,
             slug=collection_slug,
             tree_slug=tree_slug,
         )
-    except Exception:
+    except (CollectionNotFound, CollectionTreeNotFound):
         abort(404)
 
-    if not collection:
-        abort(404)
+    try:
+        logo = collections_service.read_logo(g.identity, collection_slug)
+    except LogoNotFoundError:
+        logo = None
 
-    collection_dict = collection.to_dict()
+    collection_ui = collection.to_dict()
     return render_community_theme_template(
         "invenio_communities/collections/collection.html",
-        collection=collection,
-        collection_dict=collection_dict,
+        collection=collection_ui,
+        # TODO _collection should not be accessed from here
+        tree=collection._collection.collection_tree,
+        logo=logo,
         community=community,
         permissions=community.has_permissions_to(HEADER_PERMISSIONS),
         theme=community_ui.get("theme", {}),

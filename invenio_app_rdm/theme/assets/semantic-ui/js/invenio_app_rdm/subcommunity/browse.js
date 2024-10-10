@@ -19,7 +19,7 @@ const apiEndpoint = _get(domContainer.dataset, "apiEndpoint");
 if (subCommunitiesContainer) {
   ReactDOM.render(
     <CommunitiesCardGroup
-      fetchDataUrl={apiEndpoint}
+      fetchDataUrl={`${apiEndpoint}?sort=newest&page=1&size=5`}
       emptyMessage="There are no child communities."
       defaultLogo="/static/images/square-placeholder.png"
     />,
