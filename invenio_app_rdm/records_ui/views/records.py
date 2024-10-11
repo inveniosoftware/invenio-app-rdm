@@ -239,8 +239,8 @@ def record_detail(
         community=resolved_community,
         external_resources=get_external_resources(record),
         user_avatar=avatar,
-        record_owner_username=(
-            record_owner.get("username")
+        record_owner_id=(
+            record_owner.get("id")
         ),  # record created with system_identity have not owners e.g demo
     )
 

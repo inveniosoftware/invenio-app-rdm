@@ -42,7 +42,7 @@ function renderRecordManagement(element) {
           recordManagementAppDiv.dataset.isPreviewSubmissionRequest
         )}
         currentUserId={recordManagementAppDiv.dataset.currentUserId}
-        recordOwnerUsername={recordManagementAppDiv.dataset.recordOwnerUsername}
+        recordOwnerID={recordManagementAppDiv.dataset.recordOwnerId}
         groupsEnabled={JSON.parse(recordManagementAppDiv.dataset.groupsEnabled)}
       />
     </OverridableContext.Provider>,
