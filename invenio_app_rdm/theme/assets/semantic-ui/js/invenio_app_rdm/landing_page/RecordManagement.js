@@ -32,7 +32,7 @@ export class RecordManagement extends Component {
       isDraft,
       isPreviewSubmissionRequest,
       currentUserId,
-      recordOwnerUsername,
+      recordOwnerID,
       groupsEnabled,
     } = this.props;
     const { error } = this.state;
@@ -46,7 +46,7 @@ export class RecordManagement extends Component {
       <Grid columns={1} className="record-management">
         {permissions.can_moderate && (
           <Grid.Column className="pb-5">
-            <ManageButton recid={recid} recordOwnerUsername={recordOwnerUsername} />
+            <ManageButton recid={recid} recordOwnerID={recordOwnerID} />
           </Grid.Column>
         )}
         {permissions.can_edit && !isDraft && (
@@ -118,5 +118,5 @@ RecordManagement.propTypes = {
   groupsEnabled: PropTypes.bool.isRequired,
   isPreviewSubmissionRequest: PropTypes.bool.isRequired,
   currentUserId: PropTypes.string.isRequired,
-  recordOwnerUsername: PropTypes.object.isRequired,
+  recordOwnerID: PropTypes.string.isRequired,
 };
