@@ -167,7 +167,7 @@ def community_collection(
     collections_service = current_rdm_records.collections_service
     try:
         collection = collections_service.read(
-            g.identity,
+            identity=g.identity,
             community_id=community.id,
             slug=collection_slug,
             tree_slug=tree_slug,
