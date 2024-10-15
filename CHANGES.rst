@@ -10,6 +10,18 @@
 Changes
 =======
 
+Version v13.0.0b1.dev11 (released 2024-10-15)
+
+- config: vocabularies Datastream common OpenAIRE
+
+Version v13.0.0b1.dev10 (released 2024-10-10)
+
+- webpack: bump react-searchkit due to axios major upgrade
+- setup: bump invenio-search-ui due to axios major upgrade
+- assets: fix item description overflow issue
+    * addresses mathjax formulas truncation
+- browse: fix endpoint name.
+
 Version v13.0.0b1.dev9 (released 2024-10-08)
 
 - installation: bump invenio-communities & invenio-rdm-records
