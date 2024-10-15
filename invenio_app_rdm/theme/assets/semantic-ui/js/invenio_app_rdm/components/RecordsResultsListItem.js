@@ -87,7 +87,7 @@ class RecordsResultsListItem extends Component {
             {/* FIXME: Uncomment to enable themed banner */}
             {/* <DisplayVerifiedCommunity communities={result.parent?.communities} /> */}
             <Item.Extra className="labels-actions">
-              <Label horizontal size="small" className="primary">
+              <Label horizontal size="small" className="primary theme-primary">
                 {publicationDate} ({version})
               </Label>
               <Label horizontal size="small" className="neutral">
@@ -102,7 +102,7 @@ class RecordsResultsListItem extends Component {
                 {accessStatus}
               </Label>
             </Item.Extra>
-            <Item.Header as="h2">
+            <Item.Header as="h2" className="theme-primary-text">
               <a href={viewLink}>{title}</a>
             </Item.Header>
             <Item className="creatibutors">
