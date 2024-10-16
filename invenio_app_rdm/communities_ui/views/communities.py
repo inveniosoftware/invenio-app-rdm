@@ -54,7 +54,7 @@ def communities_detail(pid_value, community, community_ui):
 def communities_home(pid_value, community, community_ui):
     """Community home page."""
     query_params = request.args
-
+    collections_service = current_rdm_records.collections_service
     permissions = community.has_permissions_to(HEADER_PERMISSIONS)
     if not permissions["can_read"]:
         raise PermissionDeniedError()
@@ -94,6 +94,8 @@ def communities_home(pid_value, community, community_ui):
             expand=True,
         )
 
+        collections = collections_service.list_trees(g.identity, community.id, depth=0)
+
         # TODO resultitem does not expose aggregations except labelled facets
         _metric_aggs = recent_uploads._results.aggregations
         metrics = {
@@ -113,6 +115,7 @@ def communities_home(pid_value, community, community_ui):
             permissions=permissions,
             records=records_ui,
             metrics=metrics,
+            collections=collections.to_dict(),
         )
 
 
