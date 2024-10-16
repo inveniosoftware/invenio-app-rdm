@@ -10,6 +10,11 @@
 Changes
 =======
 
+Version v13.0.0b1.dev12 (released 2024-10-16)
+
+- collections: browse page improvements and collection records search pages
+- search-ui: added community theme classes to record list items
+
 Version v13.0.0b1.dev11 (released 2024-10-15)
 
 - config: vocabularies Datastream common OpenAIRE
