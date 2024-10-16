@@ -1,10 +1,10 @@
 {% macro render_depth_one_collection(community, tree, collection) %}
 {% set root_collection=collection[collection.root] %}
-<div class="ui card borderless facet mt-0 mb-0 rel-ml-1">
+<div class="ui mt-0 mb-0 rel-ml-1">
   <div class="content rel-mb-1">
     {% set logo_url = url_for("static", filename="images/collections/" ~ root_collection.slug ~ ".jpg") %}
     <div class="ui grid">
-      <div class="four wide column collection-logo mr-0 computer only">
+      <div class="three wide column collection-logo mr-0 computer only">
         <img src="{{ logo_url }}" width="45" height="auto" alt=""
           onerror="null;"/>
       </div>
@@ -16,7 +16,7 @@
           </a>
         </h4>
       </div>
-      <div class="two wide column collection-number middle aligned">
+      <div class="three wide column collection-number middle aligned">
         <label class="ui small label middle aligned">{{ root_collection.num_records }}</label>
       </div>
     </div>
