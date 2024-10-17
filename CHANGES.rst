@@ -10,6 +10,15 @@
 Changes
 =======
 
+Version v13.0.0b1.dev13 (released 2024-10-17)
+
+- ui: more space under breadcrumbs
+- ui: fixed space between logo and title, number formatting
+- ui: updated collection grid styling
+- ui: passing collections to communities_home
+- community: added verified icon and parent
+- landing page: swap username by ID to manage user.
+
 Version v13.0.0b1.dev12 (released 2024-10-16)
 
 - collections: browse page improvements and collection records search pages
