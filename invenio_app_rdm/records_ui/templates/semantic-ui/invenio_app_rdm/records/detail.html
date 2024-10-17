@@ -67,8 +67,23 @@
                 />
               </div>
               <div class="page-subheader-element">
-                <a
-                  href="{{ url_for('invenio_app_rdm_communities.communities_detail', pid_value=community.slug) }}"> {{ community.metadata.title }}</a>
+                <div class="ui header">
+                  <a
+                  href="{{ url_for('invenio_app_rdm_communities.communities_detail', pid_value=community.slug) }}" class="ui small header">
+                    {{ community.metadata.title }}  
+                  </a>  
+                  {% if community.is_verified %}
+                    <p class="ml-2 mb-0 display-inline-block"><i class="green check circle outline icon"></i></p>
+                  {% endif %}
+                  {% if community.parent %}
+                    <div class="sub header">Part of
+                      <a
+                  href="{{ url_for('invenio_app_rdm_communities.communities_home', pid_value=community.parent.slug) }}">
+                   {{community.parent.metadata.title}}
+                  </a>
+                </div>
+                  {% endif %}
+                </div>
                 {% if is_community_restricted %}
                   <span
                     class="ui label horizontal small access-status restricted rel-ml-1"

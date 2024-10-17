@@ -7,6 +7,7 @@
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
+import { Popup, Icon } from "semantic-ui-react";
 
 export const DisplayPartOfCommunities = ({ communities }) => {
   const PartOfCommunities = () => {
@@ -24,6 +25,15 @@ export const DisplayPartOfCommunities = ({ communities }) => {
                 <a href={`/communities/${community.slug}`}>
                   {community.metadata?.title}
                 </a>
+                <span>&nbsp;</span>
+                {community.is_verified && (
+                  <Popup
+                    trigger={<Icon name="check outline circle" color="green mr-0" />}
+                    content="Verified community"
+                    position="top center"
+                  />
+                )}
+
                 {index !== communitiesEntries.length - 1 && ", "}
               </Fragment>
             );
@@ -32,6 +42,7 @@ export const DisplayPartOfCommunities = ({ communities }) => {
       );
     }
   };
+
   return (
     <p>
       <b>{PartOfCommunities()}</b>
