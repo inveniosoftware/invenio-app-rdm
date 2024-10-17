@@ -8,7 +8,7 @@
         <img src="{{ logo_url }}" width="45" height="auto" alt=""
           onerror="null;"/>
       </div>
-      <div class="ten wide column collection-header middle aligned left floated pl-0">
+      <div class="nine wide column collection-header middle aligned right floated pl-0">
         <h4 class="theme-primary-text">
           <a
             href='{{ url_for("invenio_app_rdm_communities.community_collection", pid_value=community.slug, collection_slug=root_collection.slug, tree_slug=tree.slug )}}'>
@@ -16,7 +16,7 @@
           </a>
         </h4>
       </div>
-      <div class="three wide column collection-number middle aligned">
+      <div class="four wide column collection-number middle aligned left floated">
         <label class="ui small label middle aligned">{{ root_collection.num_records }}</label>
       </div>
     </div>
