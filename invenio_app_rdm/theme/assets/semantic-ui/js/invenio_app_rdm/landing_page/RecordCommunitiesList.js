@@ -67,7 +67,9 @@ export class RecordCommunitiesList extends Component {
                   <Item.Header className="ui">
                     <Header as="a" href={community.links.self_html} size="small">
                       {community.metadata.title}
-                      {community.parent?.is_verified && (
+                      {/* Show the icon for communities allowing children, and for subcommunities */}
+                      {(community.children?.allow ||
+                        community.parent !== undefined) && (
                         <p className="ml-5 display-inline-block">
                           <Popup
                             content="Verified community"
