@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version v13.0.0b1.dev14 (released 2024-10-18)
+
+- communities-ui: make verified icon display depend on parent community
+
 Version v13.0.0b1.dev13 (released 2024-10-17)
 
 - ui: more space under breadcrumbs
