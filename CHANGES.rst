@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version v13.0.0b1.dev15 (released 2024-10-18)
+
+- communities-ui: verified icon display logic change and deterministic sorting
+
 Version v13.0.0b1.dev14 (released 2024-10-18)
 
 - communities-ui: make verified icon display depend on parent community
