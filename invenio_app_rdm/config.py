@@ -252,7 +252,7 @@ APP_THEME = ["semantic-ui"]
 BASE_TEMPLATE = "invenio_app_rdm/page.html"
 """Global base template."""
 
-COVER_TEMPLATE = "invenio_theme/page_cover.html"
+COVER_TEMPLATE = "invenio_app_rdm/page_cover.html"
 """Cover page base template (used for e.g. login/sign-up)."""
 
 SETTINGS_TEMPLATE = "invenio_theme/page_settings.html"
