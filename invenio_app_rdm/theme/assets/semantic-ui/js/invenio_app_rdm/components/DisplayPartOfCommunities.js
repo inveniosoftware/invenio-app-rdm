@@ -13,9 +13,31 @@ export const DisplayPartOfCommunities = ({ communities }) => {
   const PartOfCommunities = () => {
     // FIXME: Uncomment to enable themed banner
     // const communitiesEntries = communities.entries?.filter((community) => !(community.id === communities?.default && community?.theme));
-    const communitiesEntries = communities.entries;
+    let communitiesEntries = communities.entries;
 
     if (communitiesEntries?.length > 0) {
+      communitiesEntries = communitiesEntries.sort((a, b) => {
+        // Put parent communities before other communities.
+        if (
+          a.children !== undefined &&
+          b.children !== undefined &&
+          a.children.allow !== b.children.allow
+        ) {
+          return a.children.allow ? -1 : 1;
+        }
+        // Put subcommunities before regular communities.
+        if ((a.parent !== undefined) !== (b.parent !== undefined)) {
+          return a.parent !== undefined ? -1 : 1;
+        }
+        // Then sort communities by their title.
+        const titleCompare = a.metadata?.title.localeCompare(b.metadata?.title);
+        if (titleCompare !== undefined && titleCompare !== 0) {
+          return titleCompare;
+        }
+        // Finally if all else is equal, sort by slug (which is unique).
+        return a.slug.localeCompare(b.slug);
+      });
+
       return (
         <>
           {i18next.t("Part of ")}
@@ -26,7 +48,8 @@ export const DisplayPartOfCommunities = ({ communities }) => {
                   {community.metadata?.title}
                 </a>
                 <span>&nbsp;</span>
-                {community.parent?.is_verified && (
+                {/* Show the icon for communities allowing children, and for subcommunities */}
+                {(community.children?.allow || community.parent !== undefined) && (
                   <Popup
                     trigger={<Icon name="check outline circle" color="green mr-0" />}
                     content="Verified community"
