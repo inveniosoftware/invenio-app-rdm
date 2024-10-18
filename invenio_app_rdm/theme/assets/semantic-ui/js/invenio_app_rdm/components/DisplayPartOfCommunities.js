@@ -26,7 +26,7 @@ export const DisplayPartOfCommunities = ({ communities }) => {
                   {community.metadata?.title}
                 </a>
                 <span>&nbsp;</span>
-                {community.is_verified && (
+                {community.parent?.is_verified && (
                   <Popup
                     trigger={<Icon name="check outline circle" color="green mr-0" />}
                     content="Verified community"
