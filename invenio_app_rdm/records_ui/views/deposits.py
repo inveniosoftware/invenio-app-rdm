@@ -3,7 +3,7 @@
 # Copyright (C) 2019-2024 CERN.
 # Copyright (C) 2019-2021 Northwestern University.
 # Copyright (C)      2021 TU Wien.
-# Copyright (C) 2022 KTH Royal Institute of Technology
+# Copyright (C) 2022-2024 KTH Royal Institute of Technology
 # Copyright (C) 2023-2024 Graz University of Technology.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
@@ -226,7 +226,7 @@ class VocabulariesOptions:
             .options(load_only(VocabularyScheme.id))
             .all()
         )
-        limit_to = [{"text": "All", "value": "all"}]
+        limit_to = [{"text": _("All"), "value": "all"}]
         # id is human readable and shorter, so we use it
         limit_to += [{"text": s.id, "value": s.id} for s in subjects]
 

@@ -1,6 +1,7 @@
 /*
  * This file is part of Invenio.
  * Copyright (C) 2022 CERN.
+ * Copyright (C) 2024 KTH Royal Institute of Technology.
  *
  * Invenio is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
@@ -85,7 +86,7 @@ class SearchResultItemComponent extends Component {
             )}
           >
             <Icon name="paperclip" />
-            Records
+            {i18next.t("Records")}
           </a>
         </Table.Cell>
         <Table.Cell data-label={i18next.t("Status")}>

@@ -3,6 +3,7 @@
   Copyright (C) 2020 Northwestern University.
   Copyright (C) 2021 Graz University of Technology.
   Copyright (C) 2021 New York University.
+  Copyright (C) 2024 KTH Royal Institute of Technology.
 
   Invenio RDM Records is free software; you can redistribute it and/or modify
   it under the terms of the MIT License; see LICENSE file for more details.
@@ -10,12 +11,11 @@
 
 {% macro license_link(license) %}
   {% if license.link %}
-      <a class="license-link" href="{{ license.link }}" target="_blank" title="{{ _('Opens in new tab') }}">Read more</a>
+      <a class="license-link" href="{{ license.link }}" target="_blank" title="{{ _('Opens in new tab') }}">{{ _('Read more') }}</a>
   {% elif license.props and license.props.url %}
-      <a class="license-link" href="{{ license.props.url }}" target="_blank" title="{{ _('Opens in new tab') }}">Read more</a>
+      <a class="license-link" href="{{ license.props.url }}" target="_blank" title="{{ _('Opens in new tab') }}">{{ _('Read more') }}</a>
   {% endif %}
 {% endmacro %}
-
 
 {% set rights = record.ui.get('rights') %}
 {% if rights %}
@@ -55,9 +55,9 @@
 
               <div id="license-description-{{loop.index}}" class="description">
                 <span class="text-muted">
-                  {{ license.description_l10n or _('No further description.')}}
+                  {{ license.description_l10n or _('No further description.') }}
                 </span>
-                {{ license_link(license)}}
+                {{ license_link(license) }}
               </div>
             </div>
           </li>
