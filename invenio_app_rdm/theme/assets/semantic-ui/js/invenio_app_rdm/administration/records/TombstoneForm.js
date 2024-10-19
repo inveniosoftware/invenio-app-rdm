@@ -1,6 +1,7 @@
 /*
  * // This file is part of Invenio-App-Rdm
  * // Copyright (C) 2023 CERN.
+ * // Copyright (C) 2024 KTH Royal Institute of Technology.
  * //
  * // Invenio-App-Rdm is free software; you can redistribute it and/or modify it
  * // under the terms of the MIT License; see LICENSE file for more details.
@@ -129,7 +130,7 @@ export default class TombstoneForm extends Component {
                         this.handleVisibility(setFieldValue, true)
                       }
                     >
-                      Public
+                      {i18next.t("Public")}
                     </Button>
                     <Button
                       active={!values.is_visible}
@@ -139,7 +140,7 @@ export default class TombstoneForm extends Component {
                         this.handleVisibility(setFieldValue, false)
                       }
                     >
-                      Hidden
+                      {i18next.t("Hidden")}
                     </Button>
                   </Button.Group>
                   {!values.is_visible && isPublic && (
@@ -182,7 +183,7 @@ export default class TombstoneForm extends Component {
               </Modal.Content>
               <Modal.Actions>
                 <Button onClick={this.handleModalClose} floated="left">
-                  Close
+                  {i18next.t("Close")}
                 </Button>
                 <Button
                   size="small"
