@@ -1,6 +1,7 @@
 /*
  * This file is part of Invenio.
  * Copyright (C) 2022-2024 CERN.
+ * Copyright (C) 2024 KTH Royal Institute of Technology.
  *
  * Invenio is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
@@ -152,15 +153,15 @@ class SearchResultItemComponent extends Component {
           <Dropdown text={<Icon name="eye" />}>
             <Dropdown.Menu>
               <Dropdown.Item
-                text="Records"
+                text={i18next.t("Records")}
                 onClick={() => (window.location = result.links.admin_records_html)}
               />
               <Dropdown.Item
-                text="Drafts"
+                text={i18next.t("Drafts")}
                 onClick={() => (window.location = result.links.admin_drafts_html)}
               />
               <Dropdown.Item
-                text="Moderation"
+                text={i18next.t("Moderation")}
                 onClick={() => (window.location = result.links.admin_moderation_html)}
               />
             </Dropdown.Menu>
