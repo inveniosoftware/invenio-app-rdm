@@ -3,6 +3,7 @@
   Copyright (C) 2019-2020 CERN.
   Copyright (C) 2019-2020 Northwestern University.
   Copyright (C) 2021 Graz University of Technology.
+  Copyright (C) 2024 KTH Royal Institute of Technology.
 
   Invenio App RDM is free software; you can redistribute it and/or modify it
   under the terms of the MIT License; see LICENSE file for more details.
@@ -15,42 +16,22 @@
         <div class="ui grid app-rdm-footer">
         <div class="rdm-footer five wide tablet two wide computer column">
           <h2 class="ui small header">{{ _("About InvenioRDM") }}</h2>
-          {% trans invenio_rdm="http://inveniosoftware.org/products/rdm" %}
-            <p><a href="{{ invenio_rdm }}">Product page</a></p>
-          {% endtrans %}
-          {% trans invenio_rdm_features="https://inveniosoftware.org/products/rdm/#features" %}
-            <p><a href="{{ invenio_rdm_features }}">Features</a></p>
-          {% endtrans %}
-          {% trans invenio_rdm_roadmap="https://inveniosoftware.org/products/rdm/roadmap/" %}
-            <p><a href="{{ invenio_rdm_roadmap }}">Roadmap</a></p>
-          {% endtrans %}
-          {% trans invenio_rdm_demo_site="http://inveniordm.web.cern.ch" %}
-            <p><a href="{{ invenio_rdm_demo_site }}">Demo site</a></p>
-          {% endtrans %}
+          <p><a href="http://inveniosoftware.org/products/rdm">{{ _("Product page") }}</a></p>
+          <p><a href="https://inveniosoftware.org/products/rdm/#features">{{ _("Features") }}</a></p>
+          <p><a href="https://inveniosoftware.org/products/rdm/roadmap/">{{ _("Roadmap") }}</a></p>
+          <p><a href="http://inveniordm.web.cern.ch">{{ _("Demo site") }}</a></p>
         </div>
         <div class="rdm-footer five wide tablet two wide computer column">
-          <h2 class="ui small header">{{ _ ("Get involved") }}</h2>
-          {% trans invenio_rdm_gh="https://github.com/inveniosoftware/invenio-app-rdm" %}
-            <p><a href="{{ invenio_rdm_gh }}">GitHub</a></p>
-          {% endtrans %}
-          {% trans invenio_rdm_milestones="https://github.com/inveniosoftware/product-rdm" %}
-            <p><a href="{{ invenio_rdm_milestones }}">Project Milestones</a></p>
-          {% endtrans %}
-          {% trans invenio_rdm_docs_site="http://inveniordm.docs.cern.ch" %}
-            <p><a href="{{ invenio_rdm_docs_site }}">Documentation</a></p>
-          {% endtrans %}
+          <h2 class="ui small header">{{ _("Get involved") }}</h2>
+          <p><a href="https://github.com/inveniosoftware/invenio-app-rdm">{{ _("GitHub") }}</a></p>
+          <p><a href="https://github.com/inveniosoftware/product-rdm">{{ _("Project Milestones") }}</a></p>
+          <p><a href="http://inveniordm.docs.cern.ch">{{ _("Documentation") }}</a></p>
         </div>
         <div class="rdm-footer five wide tablet two wide computer column">
-          <h2 class="ui small header">{{ _ ("Community") }}</h2>
-          {% trans invenio_rdm_chatroom="https://discord.gg/8qatqBC" %}
-            <p><a href="{{ invenio_rdm_chatroom }}">Chatroom</a></p>
-          {% endtrans %}
-          {% trans invenio_rdm_talk="https://invenio-talk.web.cern.ch/c/projects/invenio-rdm" %}
-            <p><a href="{{ invenio_rdm_talk }}">Forum</a></p>
-          {% endtrans %}
-          {% trans invenio_events="https://inveniosoftware.org/events/" %}
-            <p><a href="{{ invenio_events }}">Events & training</a></p>
-          {% endtrans %}
+          <h2 class="ui small header">{{ _("Community") }}</h2>
+          <p><a href="https://discord.gg/8qatqBC">{{ _("Chatroom") }}</a></p>
+          <p><a href="https://invenio-talk.web.cern.ch/c/projects/invenio-rdm">{{ _("Forum") }}</a></p>
+          <p><a href="https://inveniosoftware.org/events/">{{ _("Events & training") }}</a></p>
         </div>
 
       {%- endblock footer_top_left %}

@@ -63,16 +63,16 @@ export class RDMDepositForm extends Component {
         creators: {
           ...this.config.vocabularies.creators,
           type: [
-            { text: "Person", value: "personal" },
-            { text: "Organization", value: "organizational" },
+            { text: i18next.t("Person"), value: "personal" },
+            { text: i18next.t("Organization"), value: "organizational" },
           ],
         },
 
         contributors: {
           ...this.config.vocabularies.contributors,
           type: [
-            { text: "Person", value: "personal" },
-            { text: "Organization", value: "organizational" },
+            { text: i18next.t("Person"), value: "personal" },
+            { text: i18next.t("Organization"), value: "organizational" },
           ],
         },
         identifiers: {
@@ -358,8 +358,8 @@ export class RDMDepositForm extends Component {
                       schema="contributors"
                       autocompleteNames={this.config.autocomplete_names}
                       modal={{
-                        addLabel: "Add contributor",
-                        editLabel: "Edit contributor",
+                        addLabel: i18next.t("Add contributor"),
+                        editLabel: i18next.t("Edit contributor"),
                       }}
                     />
                   </Overridable>
@@ -431,7 +431,7 @@ export class RDMDepositForm extends Component {
                 <AccordionField
                   includesPaths={["metadata.funding"]}
                   active
-                  label="Funding"
+                  label={i18next.t("Funding")}
                   ui={this.accordionStyle}
                 >
                   <Overridable
@@ -458,7 +458,7 @@ export class RDMDepositForm extends Component {
                           size: 5,
                         },
                       }}
-                      label="Awards/Grants"
+                      label={i18next.t("Awards/Grants")}
                       labelIcon="money bill alternate outline"
                       deserializeAward={(award) => {
                         return {

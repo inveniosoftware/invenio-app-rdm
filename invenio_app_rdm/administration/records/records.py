@@ -23,8 +23,9 @@ class RecordAdminListView(AdminResourceListView):
     name = "Records"
     resource_config = "records_resource"
     search_request_headers = {"Accept": "application/vnd.inveniordm.v1+json"}
-    title = "Records"
-    category = "Records & files"
+    title = _("Records")
+    menu_label = _("Records")
+    category = _("Records & files")
     icon = "file"
     template = "invenio_app_rdm/administration/records/records.html"
     extension_name = "invenio-rdm-records"
@@ -101,8 +102,9 @@ class DraftAdminListView(AdminResourceListView):
     name = "Drafts"
     resource_config = "records_resource"
     search_request_headers = {"Accept": "application/vnd.inveniordm.v1+json"}
-    title = "Drafts"
-    category = "Records & files"
+    title = _("Drafts")
+    menu_label = _("Drafts")
+    category = _("Records & files")
     icon = "upload"
     template = "invenio_app_rdm/administration/records/drafts.html"
     extension_name = "invenio-rdm-records"

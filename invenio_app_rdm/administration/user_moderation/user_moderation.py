@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2023 CERN.
+# Copyright (C) 2023-2024 CERN.
+# Copyright (C) 2024 KTH Royal Institute of Technology.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -12,6 +13,7 @@ from invenio_administration.views.base import (
     AdminResourceDetailView,
     AdminResourceListView,
 )
+from invenio_i18n import lazy_gettext as _
 from invenio_requests.customizations.user_moderation import UserModerationRequest
 from invenio_search_ui.searchconfig import search_app_config
 
@@ -24,9 +26,9 @@ class UserModerationListView(AdminResourceListView):
     name = "moderation"
     resource_config = "requests_resource"
     request_headers = {"Accept": "application/vnd.inveniordm.v1+json"}
-    title = "Moderation"
-    menu_label = "Moderation"
-    category = "Moderation"
+    title = _("Moderation")
+    menu_label = _("Moderation")
+    category = _("Moderation")
     pid_path = "id"
     icon = "users"
     template = "invenio_app_rdm/administration/user_moderation.html"
@@ -40,30 +42,30 @@ class UserModerationListView(AdminResourceListView):
     item_field_list = {
         # custom display of the values - only declared to create columns
         "expanded.topic.user": {
-            "text": "User",
+            "text": _("User"),
             "order": 2,
             "width": 4,
         },
         # custom display of the values - only declared to create columns
         "expanded.topic.user.profile.email": {
-            "text": "Email",
+            "text": _("Email"),
             "order": 3,
             "width": 2,
         },
         # custom display of the values - only declared to create columns
         "domain": {
-            "text": "Email domain",
+            "text": _("Email domain"),
             "order": 4,
             "width": 2,
         },
         # custom display of the values - only declared to create columns
         "activity": {
-            "text": "Activity",
+            "text": _("Activity"),
             "order": 5,
             "width": 4,
         },
         "status": {
-            "text": "Status",
+            "text": _("Status"),
             "order": 6,
             "width": 2,
         },
@@ -71,12 +73,12 @@ class UserModerationListView(AdminResourceListView):
 
     actions = {
         "accept": {
-            "text": "Approve",
+            "text": _("Approve"),
             "payload_schema": None,
             "order": 1,
         },
         "decline": {
-            "text": "Block",
+            "text": _("Block"),
             "payload_schema": None,
             "order": 2,
         },
@@ -136,7 +138,7 @@ class UserModerationRequestDetailView(AdminResourceDetailView):
     api_endpoint = "/requests"
     name = "user-moderation-details"
     resource_config = "requests_resource"
-    title = "User moderation"
+    title = _("User moderation")
 
     display_delete = False
     display_edit = False
@@ -159,14 +161,14 @@ class UserModerationRequestDetailView(AdminResourceDetailView):
 
     item_field_list = {
         "id": {
-            "text": "ID",
+            "text": _("ID"),
             "order": 1,
         },
         "topic.user": {
-            "text": "User",
+            "text": _("User"),
             "order": 3,
         },  # TODO we should resolve the user. But this is fetched from the API.
         # TODO can we dereference somehow?
-        "created": {"text": "Created", "order": 2},
-        "is_open": {"text": "Open", "order": 4},
+        "created": {"text": _("Created"), "order": 2},
+        "is_open": {"text": _("Open"), "order": 4},
     }
