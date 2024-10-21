@@ -170,6 +170,6 @@ class UserModerationRequestDetailView(AdminResourceDetailView):
             "order": 3,
         },  # TODO we should resolve the user. But this is fetched from the API.
         # TODO can we dereference somehow?
-        "created": {"text": "Created", "order": 2},
-        "is_open": {"text": "Open", "order": 4},
+        "created": {"text": _("Created"), "order": 2},
+        "is_open": {"text": _("Open"), "order": 4},
     }
