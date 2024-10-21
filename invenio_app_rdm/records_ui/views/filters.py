@@ -3,6 +3,7 @@
 # Copyright (C) 2019-2024 CERN.
 # Copyright (C) 2019-2020 Northwestern University.
 # Copyright (C)      2021 TU Wien.
+# Copyright (C) 2024 KTH Royal Institute of Technology
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -16,6 +17,7 @@ from babel.numbers import format_compact_decimal, format_decimal
 from flask import current_app, url_for
 from invenio_base.utils import obj_or_import_string
 from invenio_i18n import get_locale
+from invenio_i18n import lazy_gettext as _
 from invenio_previewer.views import is_previewable
 from invenio_records_files.api import FileObject
 from invenio_records_permissions.policies import get_record_permission_policy
@@ -202,6 +204,6 @@ def transform_record(record, serializer, module=None, throws=True, **kwargs):
         if throws:
             raise Exception("No serializer found.")
     except Exception:
-        current_app.logger.error("Record transformation failed.")
+        current_app.logger.error(_("Record transformation failed."))
         if throws:
             raise
