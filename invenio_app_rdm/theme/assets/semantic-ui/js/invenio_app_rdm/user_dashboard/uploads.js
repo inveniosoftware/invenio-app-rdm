@@ -122,7 +122,11 @@ RDMRecordResultsListItem.propTypes = {
 // these components in RDM result broken.
 
 export const RDMRecordResultsGridItem = ({ result, index }) => {
-  const descriptionStripped = _get(result, "ui.description_stripped", i18next.t("No description"));
+  const descriptionStripped = _get(
+    result,
+    "ui.description_stripped",
+    i18next.t("No description")
+  );
   return (
     <Card fluid key={index} href={`/records/${result.id}`}>
       <Card.Content>
