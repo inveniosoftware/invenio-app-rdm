@@ -2,6 +2,7 @@
 #
 # Copyright (C) 2023-2024 CERN.
 # Copyright (C) 2023 Graz University of Technology.
+# Copyright (C) 2024 KTH Royal Institute of Technology.
 #
 # invenio-administration is free software; you can redistribute it and/or
 # modify it under the terms of the MIT License; see LICENSE file for more
@@ -24,8 +25,8 @@ class RecordAdminListView(AdminResourceListView):
     name = "Records"
     resource_config = "records_resource"
     search_request_headers = {"Accept": "application/vnd.inveniordm.v1+json"}
-    title = "Records"
-    category = "Records & files"
+    title = _("Records")
+    category = _("Records & files")
     icon = "file"
     template = "invenio_app_rdm/administration/records/records.html"
     extension_name = "invenio-rdm-records"
@@ -99,11 +100,11 @@ class DraftAdminListView(AdminResourceListView):
     """Configuration for OAI-PMH sets list view."""
 
     api_endpoint = "/user/records"
-    name = "Drafts"
+    name = "drafts"
     resource_config = "records_resource"
     search_request_headers = {"Accept": "application/vnd.inveniordm.v1+json"}
-    title = "Drafts"
-    category = "Records & files"
+    title = _("Drafts")
+    category = _("Records & files")
     icon = "upload"
     template = "invenio_app_rdm/administration/records/drafts.html"
     extension_name = "invenio-rdm-records"

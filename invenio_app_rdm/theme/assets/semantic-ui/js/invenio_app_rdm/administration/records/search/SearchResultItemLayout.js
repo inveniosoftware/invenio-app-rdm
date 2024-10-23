@@ -96,6 +96,7 @@ class SearchResultItemComponent extends Component {
           data-label={i18next.t("Files")}
           className="word-break-all"
         >
+          {/* eslint-disable-next-line i18next/no-literal-string */}
           {humanReadableBytes(result.files.total_bytes)} | #{result.files.count}
         </Table.Cell>
         <Table.Cell
