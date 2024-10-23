@@ -2,6 +2,7 @@
 #
 # Copyright (C) 2023-2024 CERN.
 # Copyright (C) 2023 Graz University of Technology.
+# Copyright (C) 2024 KTH Royal Institute of Technology.
 #
 # invenio-administration is free software; you can redistribute it and/or
 # modify it under the terms of the MIT License; see LICENSE file for more
@@ -21,7 +22,7 @@ class RecordAdminListView(AdminResourceListView):
     """Configuration for OAI-PMH sets list view."""
 
     api_endpoint = "/records"
-    name = "Records"
+    name = "records"
     resource_config = "records_resource"
     search_request_headers = {"Accept": "application/vnd.inveniordm.v1+json"}
     title = "Records"

@@ -1,5 +1,6 @@
 // This file is part of InvenioRDM
 // Copyright (C) 2023-2024 CERN.
+// Copyright (C) 2024 KTH Royal Institute of Technology.
 //
 // InvenioRDM is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
@@ -22,8 +23,7 @@ import {
 
 export class RecordCommunitiesList extends Component {
   render() {
-    const { communities, loading, error, maxDisplayedCommunities, branded } =
-      this.props;
+    const { communities, loading, error, maxDisplayedCommunities } = this.props;
     let Element = null;
 
     if (loading) {
@@ -116,12 +116,10 @@ RecordCommunitiesList.propTypes = {
   communities: PropTypes.array,
   loading: PropTypes.bool,
   error: PropTypes.string,
-  branded: PropTypes.string,
 };
 
 RecordCommunitiesList.defaultProps = {
   communities: undefined,
   loading: false,
   error: "",
-  branded: undefined,
 };
