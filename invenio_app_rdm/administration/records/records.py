@@ -22,7 +22,7 @@ class RecordAdminListView(AdminResourceListView):
     """Configuration for OAI-PMH sets list view."""
 
     api_endpoint = "/records"
-    name = "records"
+    name = "Records"
     resource_config = "records_resource"
     search_request_headers = {"Accept": "application/vnd.inveniordm.v1+json"}
     title = _("Records")
