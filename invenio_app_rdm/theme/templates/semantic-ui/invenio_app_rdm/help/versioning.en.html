@@ -1,7 +1,6 @@
 {#
   Copyright (C) 2021-2023 CERN.
   Copyright (C) 2021 Northwestern University.
-  Copyright (C) 2024 KTH Royal Institute of Technology.
 
   Invenio App RDM is free software; you can redistribute it and/or modify it
   under the terms of the MIT License; see LICENSE file for more details.
@@ -13,136 +12,136 @@
   <div class="ui two column grid container rel-mt-2">
     <div class="ui row">
       <div class="ui sixteen wide column">
-        <h2 id="versioning">{{ _("DOI versioning") }}</h2>
+        <h2 id="versioning">DOI versioning</h2>
       </div>
       <div class="ui eight wide column">
         <h5>
-          <p>{{ _("What is DOI versioning?") }}</p>
+          <p>What is DOI versioning?</p>
         </h5>
-        <p>{{ _("DOI versioning allows you to:") }}</p>
+        <p>DOI versioning allows you to:</p>
         <ul>
-          <li>{{ _("edit/update the record’s files after they have been published.") }}</li>
-          <li>{{ _("cite a specific version of a record.") }}</li>
-          <li>{{ _("cite all of versions of a record.") }}</li>
+          <li>edit/update the record’s files after they have been published.</li>
+          <li>cite a specific version of a record.</li>
+          <li>cite all of versions of a record.</li>
         </ul>
         <h5>
-          <p>{{ _("How does DOI versioning work?") }}</p>
+          <p>How does DOI versioning work?</p>
         </h5>
         <p>
-          {{ _("When you publish an upload for the first time, we register two DOIs:") }}
+          When you publish an upload for the first time, we register two DOIs:
         </p>
         <ul>
           <li>
-            {{ _("a DOI representing the") }} <strong>{{ _("specific version") }}</strong> {{ _("of your record.") }}
+            a DOI representing the <strong>specific version</strong> of your record.
           </li>
           <li>
-            {{ _("a DOI representing") }} <strong>{{ _("all of the versions") }}</strong> {{ _("of your record.") }}
+            a DOI representing <strong>all of the versions</strong> of your record.
           </li>
         </ul>
-        <p>{{ _("Afterwards, we register a DOI for every new version of your upload.") }}</p>
+        <p>Afterwards, we register a DOI for every new version of your upload.</p>
         <p>
-          {{ _("This is best illustrated by an example of a software package. If the") }}
-          {{ _("software has been released in two versions (v1.0 and v1.1), then") }}
-          {{ _("the following DOIs would have been registered:") }}
+          This is best illustrated by an example of a software package. If the
+          software has been released in two versions (v1.0 and v1.1), then
+          the following DOIs would have been registered:
         </p>
         <ul>
-          <li><strong>{{ _("v1.0 (specific version):") }}</strong> 10.1234/7s0da-05p39</li>
-          <li><strong>{{ _("v1.1 (specific version):") }}</strong> 10.1234/chc5z-w0r30</li>
-          <li><strong>{{ _("Concept (all versions):") }}</strong> 10.1234/3s67k-pd636</li>
+          <li><strong>v1.0 (specific version):</strong> 10.1234/7s0da-05p39</li>
+          <li><strong>v1.1 (specific version):</strong> 10.1234/chc5z-w0r30</li>
+          <li><strong>Concept (all versions):</strong> 10.1234/3s67k-pd636</li>
         </ul>
         <p>
-          {{ _("The first two DOIs for versions") }} <strong>{{ _("v1.0") }}</strong> {{ _("and") }}
-          <strong>{{ _("v.1.1") }}</strong> {{ _("represent the specific versions of the software.") }}
-          {{ _("The last DOI represents all the versions of the given software package,") }}
-          {{ _("i.e. the concept of the software package and the ensemble of versions. We") }}
-          {{ _("therefore also call the them") }} <strong>{{ _("Version DOIs") }}</strong> {{ _("and") }}
-          <strong>{{ _("Concept DOIs") }}</strong> {{ _("(note, technically both are just normal") }}
-          {{ _("DOIs).") }}
+          The first two DOIs for versions <strong>v1.0</strong> and
+          <strong>v.1.1</strong> represent the specific versions of the software.
+          The last DOI represents all the versions of the given software package,
+          i.e. the concept of the software package and the ensemble of versions. We
+          therefore also call the them <strong>Version DOIs</strong> and
+          <strong>Concept DOIs</strong> (note, technically both are just normal
+          DOIs).
         </p>
         <p>
-          {{ _("You may notice that the version DOIs do not include a “.v1”-suffix. Read") }}
-          {{ _("below to find out why.") }}
-        </p>
-        <h5>
-          <p>{{ _("Which DOI should I use in citations?") }}</p>
-        </h5>
-        <p>
-          {{ _("You should normally always use the DOI for the") }}
-          <strong>{{ _("specific version") }}</strong> {{ _("of your record in citations. This is to") }}
-          {{ _("ensure that other researchers can access the") }}
-          <strong>{{ _("exact") }}</strong> {{ _("research artefact you used for reproducibility. By") }}
-          {{ _("default, we use the specific version to generate citations.") }}
-        </p>
-        <p>
-          {{ _("You can use the Concept DOI representing all versions in citations when it") }}
-          {{ _("is desirable to cite an evolving research artifact, without being specific") }}
-          {{ _("about the version.") }}
+          You may notice that the version DOIs do not include a “.v1”-suffix. Read
+          below to find out why.
         </p>
         <h5>
-          <p>{{ _("Where does the Concept DOI resolve to?") }}</p>
+          <p>Which DOI should I use in citations?</p>
         </h5>
         <p>
-          {{ _("The Concept DOI resolves to the landing page of the latest") }}
-          {{ _("version of your record.") }}
+          You should normally always use the DOI for the
+          <strong>specific version</strong> of your record in citations. This is to
+          ensure that other researchers can access the
+          <strong>exact</strong> research artefact you used for reproducibility. By
+          default, we use the specific version to generate citations.
+        </p>
+        <p>
+          You can use the Concept DOI representing all versions in citations when it
+          is desirable to cite an evolving research artifact, without being specific
+          about the version.
+        </p>
+        <h5>
+          <p>Where does the Concept DOI resolve to?</p>
+        </h5>
+        <p>
+          The Concept DOI resolves to the landing page of the latest
+          version of your record.
         </p>
       </div>
       <div class="ui eight wide column">
         <h5>
           <p>
-            {{ _("I only want to change the title of my upload, do I still get a new DOI?") }}
+            I only want to change the title of my upload, do I still get a new DOI?
           </p>
         </h5>
         <p>
-          {{ _("No, you can continue to edit the metadata of your upload without") }}
-          {{ _("creating a new version of a record. You should only create a new version") }}
-          {{ _("if you want to update the files of your record.") }}
+          No, you can continue to edit the metadata of your upload without
+          creating a new version of a record. You should only create a new version
+          if you want to update the files of your record.
         </p>
 
         <h5>
-          <p>{{ _("Why don’t the DOIs have a version number suffix like “.v1”?") }}</p>
+          <p>Why don’t the DOIs have a version number suffix like “.v1”?</p>
         </h5>
         <p>
-          {{ _("Including semantic information such as the version number in a DOI is bad") }}
-          {{ _("practice, because this information may change over time, while DOIs must") }}
-          {{ _("remain persistent and should not change.") }}
+          Including semantic information such as the version number in a DOI is bad
+          practice, because this information may change over time, while DOIs must
+          remain persistent and should not change.
         </p>
         <p>
-          {{ _("Moreover, DOI versioning is linear, which means that the version number may") }}
-          {{ _("in fact not be the real version number of the resource.") }}
-          {{ _("Take for instance software, where it is common practice to have dot") }}
-          {{ _("versions and make new releases in a non-linear order (e.g. first v1.0,") }}
-          {{ _("then v1.1, then v2.0, then v1.2).") }}
+          Moreover, DOI versioning is linear, which means that the version number may
+          in fact not be the real version number of the resource.
+          Take for instance software, where it is common practice to have dot
+          versions and make new releases in a non-linear order (e.g. first v1.0,
+          then v1.1, then v2.0, then v1.2).
         </p>
         <p>
-          {{ _("The versioning suffix is also not a functionality of the DOI system, i.e.") }}
-          {{ _("adding .v2 to a DOI will not resolve to version 2 of a resource for any DOI") }}
-          {{ _("from any provider. Different providers also use different patterns such as") }}
-          {{ _("e.g. .v2, .2, /2.") }}
+          The versioning suffix is also not a functionality of the DOI system, i.e.
+          adding .v2 to a DOI will not resolve to version 2 of a resource for any DOI
+          from any provider. Different providers also use different patterns such as
+          e.g. .v2, .2, /2.
         </p>
         <p>
-          {{ _("Most importantly, version suffixes are not machine readable. A discovery") }}
-          {{ _("system that understands DOIs, will not know that .v1 and .v2 of a DOI are") }}
-          {{ _("in fact two versions of the same resource.") }}
+          Most importantly, version suffixes are not machine readable. A discovery
+          system that understands DOIs, will not know that .v1 and .v2 of a DOI are
+          in fact two versions of the same resource.
         </p>
         <p>
-          {{ _("A better solution to this problem is to semantically link two DOIs in the") }}
-          {{ _("metadata of a DOI. This ensures that discovery systems have a") }}
-          {{ _("machine-readable way to discover that two DOIs are versions of the same") }}
-          {{ _("resource.") }}
+          A better solution to this problem is to semantically link two DOIs in the
+          metadata of a DOI. This ensures that discovery systems have a
+          machine-readable way to discover that two DOIs are versions of the same
+          resource.
         </p>
         <p>
-          {{ _("See also") }} <a href="https://doi.org/10.5438/55E5-T5C0">{{ _("Cool DOIs") }}</a>
-          {{ _("for further information.") }}
+          See also <a href="https://doi.org/10.5438/55E5-T5C0">Cool DOIs</a> for
+          further information.
         </p>
 
         <h5>
-          <p>{{ _("Do you duplicate all the files for every new version of a record?") }}</p>
+          <p>Do you duplicate all the files for every new version of a record?</p>
         </h5>
         <p>
-          {{ _("No, if you change a 10kb README file in 50GB dataset we do not duplicate") }}
-          {{ _("the entire 50GB dataset. InvenioRDM, the underlying technical software") }}
-          {{ _("platform, efficiently handles the file storage so we only store the new") }}
-          {{ _("extra 10kb.") }}
+          No, if you change a 10kb README file in 50GB dataset we do not duplicate
+          the entire 50GB dataset. InvenioRDM, the underlying technical software
+          platform, efficiently handles the file storage so we only store the new
+          extra 10kb.
         </p>
       </div>
     </div>
