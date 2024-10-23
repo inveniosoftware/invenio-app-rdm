@@ -1,5 +1,6 @@
 // This file is part of InvenioRDM
 // Copyright (C) 2023-2024 CERN.
+// Copyright (C) 2024 KTH Royal Institute of Technology.
 //
 // InvenioRDM is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
@@ -87,9 +88,9 @@ export class RecordCommunitiesList extends Component {
                     </Header>
                     {community.parent && (
                       <HeaderSubheader>
-                        Part of{" "}
+                        {i18next.t("Part of")}{" "}
                         <a href={`/communities/${community.parent.slug}`}>
-                          {community.parent.metadata.title}
+                          {i18next.t(community.parent.metadata.title)}
                         </a>
                       </HeaderSubheader>
                     )}
