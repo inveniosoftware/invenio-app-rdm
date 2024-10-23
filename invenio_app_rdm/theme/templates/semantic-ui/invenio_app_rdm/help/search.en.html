@@ -1,7 +1,6 @@
 {#
   Copyright (C) 2021 CERN.
   Copyright (C) 2021 Northwestern University.
-  Copyright (C) 2024 KTH Royal Institute of Technology.
 
   Invenio App RDM is free software; you can redistribute it and/or modify it
   under the terms of the MIT License; see LICENSE file for more details.
@@ -11,250 +10,253 @@
 
 {%- block page_body %}
 <div class="ui container mt-25">
-  <h1>{{ _("Search guide") }}</h1>
+  <h1>Search guide</h1>
   <p>
-    {{ _("This guide explains how to write advanced search queries using easy to understand examples.") }}
+    This guide explains how to write advanced search queries using easy
+    to understand examples.
   </p>
-  <h3>{{ _("Simple search (one or multiple terms)")}}</h3>
+  <h3>Simple search (one or multiple terms)</h3>
   <p>
-    <strong>{{ _("Example:") }}</strong>
+    <strong>Example:</strong>
     <a href="/search?page=1&amp;size=20&amp;q=open%20science"
-      ><code>{{ _("open science") }}</code></a
+      ><code>open science</code></a
     >
   </p>
   <p>
-    {{ _("Results will match records with the ")}}<em>{{_("terms")}}</em> <code>{{ _("open") }}</code>
-    <em>{{ _("or") }}</em> <code>{{ _("science") }}</code> {{ _("in") }} <em>{{ _("any field") }}</em>. {{ _("Note that stemming is applied so e.g.") }} <code>{{ _("science") }}</code> {{ _("will also match") }}
-    <code>{{ _("sciences") }}</code>. {{ _("Search results are ranked according to an algorithm that takes your query terms into account.") }}
+    Results will match records with the <em>terms</em> <code>open</code>
+    <em>or</em> <code>science</code> in <em>any field</em>. Note that stemming
+    is applied so e.g. <code>science</code> will also match
+    <code>sciences</code>. Search results are ranked according to an algorithm
+    that takes your query terms into account.
   </p>
   <p>
-    {{ _("You can require") }} <em>{{ _("presence") }}</em> {{ _("of both terms using either the") }}
-    <code>{{ _("+") }}</code> {{ _("or") }} <code>{{ _("AND") }}</code> {{ _("operator:") }}
+    You can require <em>presence</em> of both terms using either the
+    <code>+</code> or <code>AND</code> operator:
   </p>
   <p>
-    <strong>{{ _("Examples:") }}</strong>
+    <strong>Examples:</strong>
     <a href="/search?page=1&amp;size=20&amp;q=%2Bopen%20%2Bscience"
-      ><code>{{ _("+open +science") }}</code></a
+      ><code>+open +science</code></a
     >
-    {{ _("or") }}
+    or
     <a href="/search?page=1&amp;size=20&amp;q=open%20AND%20science"
-      ><code>{{ _("open AND science") }}</code></a
+      ><code>open AND science</code></a
     >
   </p>
   <p>
-    {{ _("You can require") }} <em>{{ _("absence") }}</em> {{ _("of one or more terms using either the") }}
-    <code>{{ _("-") }}</code> {{ _("or") }} <code>{{ _("NOT") }}</code> {{ _("operator:") }}
+    You can require <em>absence</em> of one or more terms using either the
+    <code>-</code> or <code>NOT</code> operator:
   </p>
   <p>
-    <strong>{{ _("Examples:") }}</strong>
+    <strong>Examples:</strong>
     <a href="/search?page=1&amp;size=20&amp;q=-open%20%2Bscience"
-      ><code>{{ _("-open +science") }}</code></a
+      ><code>-open +science</code></a
     >
-    {{ _("or") }}
+    or
     <a href="/search?page=1&amp;size=20&amp;q=NOT%20open%20AND%20science"
-      ><code>{{ _("NOT open AND science") }}</code></a
+      ><code>NOT open AND science</code></a
     >
   </p>
-  <h3>{{ _("Phrase search") }}</h3>
+  <h3>Phrase search</h3>
   <p>
-    <strong>{{ _("Example:") }}</strong>
+    <strong>Example:</strong>
     <a href="/search?page=1&amp;size=20&amp;q=%22open%20science%22"
-      ><code>{{ _("\"open science\"") }}</code></a
+      ><code>"open science"</code></a
     >
   </p>
   <p>
-    {{ _("Results will match records with the") }} <em>{{ _("phrase") }}</em>
-    <code>{{ _("open science") }}</code> {{ _("in") }} <em>{{ _("any field") }}</em>.
+    Results will match records with the <em>phrase</em>
+    <code>open science</code> in <em>any field</em>.
   </p>
-  <h3>{{ _("Field search") }}</h3>
+  <h3>Field search</h3>
   <p>
-    <strong>{{ _("Example:") }}</strong>
+    <strong>Example:</strong>
     <a href="/search?page=1&amp;size=20&amp;q=metadata.title:open"
-      ><code>{{ _("metadata.title:open") }}</code></a
+      ><code>metadata.title:open</code></a
     >
   </p>
   <p>
-    {{ _("Results will match records with the") }} <em>{{ _("term") }}</em> <code>{{ _("open") }}</code> {{ _("in the") }}
-    <em>{{ _("field") }}</em> <code>{{ _("metadata.title") }}</code>. {{ _("If you want to search for multiple terms") }}
-    {{ _("in the title you must") }} <strong>{{ _("group the terms") }}</strong> {{ _("using parenthesis:") }}
+    Results will match records with the <em>term</em> <code>open</code> in the
+    <em>field</em> <code>metadata.title</code>. If you want to search for multiple terms
+    in the title you must <strong>group the terms</strong> using parenthesis:
   </p>
   <p>
-    <strong>{{ _("Example:") }}</strong>
+    <strong>Example:</strong>
     <a href="/search?page=1&amp;size=20&amp;q=metadata.title:(open%20science%29"
-      ><code>{{ _("metadata.title:(open science)") }}</code></a
+      ><code>metadata.title:(open science)</code></a
     >
   </p>
   <p>
-    {{ _("See") }} <a href="https://inveniordm.docs.cern.ch/reference/metadata/#metadata"
-      >{{ _("the InvenioRDM documentation") }}</a
-    > {{ _("for the full list of fields you can search.") }}
+    See <a href="https://inveniordm.docs.cern.ch/reference/metadata/#metadata"
+      > the InvenioRDM documentation </a
+    > for the full list of fields you can search.
   </p>
-  <h3>{{ _("Combined simple, phrase or field search") }}</h3>
+  <h3>Combined simple, phrase or field search</h3>
   <p>
-    <strong>{{ _("Example:") }}</strong>
+    <strong>Example:</strong>
     <a
       href="/search?page=1&amp;size=20&amp;q=%2Bmetadata.title:%22open%20science%22%20-metadata.title:policy"
-      ><code>{{ _("+metadata.title:\"open science\" -metadata.title:policy") }}</code></a
+      ><code>+metadata.title:"open science" -metadata.title:policy</code></a
     >
-    {{ _("or e.g.") }}
+    or e.g.
     <a href="/search?page=1&amp;size=20&amp;q=metadata.title:(-open%20%2Bscience%29"
-      ><code>{{ _("metadata.title:(-open +science)") }}</code></a
+      ><code>metadata.title:(-open +science)</code></a
     >
   </p>
   <p>
-    {{ _("You can combine simple, phrase and field search to construct advanced search") }}
-    {{ _("queries.") }}
+    You can combine simple, phrase and field search to construct advanced search
+    queries.
   </p>
-  <h3>{{ _("Range search") }}</h3>
+  <h3>Range search</h3>
   <p>
-    <strong>{{ _("Example:") }}</strong>
+    <strong>Example:</strong>
     <a
       href="/search?page=1&amp;size=20&amp;q=metadata.publication_date:%5B2017%20TO%202018%5D"
-      ><code>{{ _("metadata.publication_date:[2017 TO 2018]") }}</code></a
+      ><code>metadata.publication_date:[2017 TO 2018]</code></a
     >
-    {{ _("(note, you must capitalize") }} <code>{{ _("TO") }}</code>).
+    (note, you must capitalize <code>TO</code>).
   </p>
   <p>
-    {{ _("Results will match any record with a publication date between 2017-01-01 and") }}
-    {{ _("2018-01-01 (both dates inclusive).") }}
+    Results will match any record with a publication date between 2017-01-01 and
+    2018-01-01 (both dates inclusive).
   </p>
-  <p>{{ _("Note that, partial dates are expanded to full dates, e.g.:") }}</p>
+  <p>Note that, partial dates are expanded to full dates, e.g.:</p>
   <ul>
-    <li>{{ _("2017 is expanded to 2017-01-01") }}</li>
-    <li>{{ _("2017-06 is expanded to 2017-06-01") }}</li>
+    <li>2017 is expanded to 2017-01-01</li>
+    <li>2017-06 is expanded to 2017-06-01</li>
   </ul>
   <p>
-    {{ _("Use square brackets (") }}<code>{{ _("[]") }}</code>{{ _(") for") }} <em>{{ _("inclusive") }}</em> {{ _("ranges and use") }}
-    {{ _("curly brackets (") }}<code>{{ _("{}") }}</code>{{ _(") for") }} <em>{{ _("exclusive") }}</em> {{ _("ranges, e.g.:") }}
+    Use square brackets (<code>[]</code>) for <em>inclusive</em> ranges and use
+    curly brackets (<code>{}</code>) for <em>exclusive</em> ranges, e.g.:
   </p>
-  <ul>
-    <li>
-      <code>{{ _("[2023 TO 2024}") }}</code> {{ _("is equivalent to") }}
-      <code>{{ _("[2023-01-01 TO 2024-12-31]") }}</code> {{ _("because of date expansion and") }}
-      {{ _("exclusive upper bound.") }}
-    </li>
-  </ul>
-  <p>{{ _("Examples of other ranges:") }}</p>
   <ul>
     <li>
-      <code>{{ _("metadata.publication_date:{* TO 2024-01-01}") }}</code>: {{ _("All days until 2024.") }}
+      <code>[2017 TO 2018}</code> is equivalent to
+      <code>[2017-01-01 TO 2017-12-31]</code> because of date expansion and
+      exclusive upper bound.
+    </li>
+  </ul>
+  <p>Examples of other ranges:</p>
+  <ul>
+    <li>
+      <code>metadata.publication_date:{* TO 2017-01-01}</code>: All days until 2017.
     </li>
     <li>
-      <code>{{ _("metadata.publication_date:[2024-01-01 TO *]") }}</code>: {{ _("All days from 2024.") }}
+      <code>metadata.publication_date:[2017-01-01 TO *]</code>: All days from 2017.
     </li>
   </ul>
-  <h3>{{ _("Ranking/Sorting") }}</h3>
+  <h3>Ranking/Sorting</h3>
   <p>
-    {{ _("By default all searches are sorted according to an internal ranking") }}
-    {{ _("algorithm that scores each match against your query. In both the user") }}
-    {{ _("interface and REST API, it's possible to sort the results by:") }}
+    By default all searches are sorted according to an internal ranking
+    algorithm that scores each match against your query. In both the user
+    interface and REST API, it's possible to sort the results by:
   </p>
   <ul>
-    <li>{{ _("Most recent") }}</li>
-    <li>{{ _("Best match") }}</li>
-    <li>{{ _("Oldest") }}</li>
-    <li>{{ _("Most viewed") }}</li>
-    <li>{{ _("Most downloaded") }}</li>
+    <li>Most recent</li>
+    <li>Best match</li>
+    <li>Oldest</li>
+    <li>Most viewed</li>
+    <li>Most downloaded</li>
   </ul>
-  <h3>{{ _("Regular expressions") }}</h3>
+  <h3>Regular expressions</h3>
   <p>
-    {{ _("Regular expressions are a powerful pattern matching language that allow to") }}
-    {{ _("search for specific patterns in a field. For instance if we wanted to find") }}
-    {{ _("all records with a DOI-prefix 10.5281 we could use a regular expression") }}
-    {{ _("search:") }}
+    Regular expressions are a powerful pattern matching language that allow to
+    search for specific patterns in a field. For instance if we wanted to find
+    all records with a DOI-prefix 10.5281 we could use a regular expression
+    search:
   </p>
   <p>
-    <strong>{{ _("Example:") }}</strong>
+    <strong>Example:</strong>
     <a href="/search?page=1&amp;size=20&amp;q=metadata.subjects.identifier:%2F03yrm5c2%5B1%2C6%5D%2F"
-      ><code>{{ _("metadata.subjects.identifier:/03yrm5c2[1,6]/") }}</code></a
+      ><code>metadata.subjects.identifier:/03yrm5c2[1,6]/</code></a
     >
   </p>
   <p>
-    {{ _("Careful, the regular expression must match the") }} <em>{{ _("entire") }}</em> {{ _("field value.") }}
-    {{ _("See the") }}
+    Careful, the regular expression must match the <em>entire</em> field value.
+    See the
     <a
       href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-regexp-query.html#regexp-syntax"
-      >{{ _("regular expression syntax") }}</a
+      >regular expression syntax</a
     >
-    {{ _("for further details.") }}
+    for further details.
   </p>
-  <h3>{{ _("Missing values") }}</h3>
+  <h3>Missing values</h3>
   <p>
-    {{ _("It is possible to search for records that either are missing a value or have") }}
-    {{ _("a value in a specific field using the") }} <code>{{ _("_exists_") }}</code> {{ _("and") }}
-    <code>{{ _("not _exists_") }}</code> {{ _("field names.") }}
+    It is possible to search for records that either are missing a value or have
+    a value in a specific field using the <code>_exists_</code> and
+    <code> not _exists_</code> field names.
   </p>
   <p>
-    <strong>{{ _("Example:") }}</strong>
+    <strong>Example:</strong>
     <a href="/search?page=1&amp;size=20&amp;q=_missing_:metadata.additional_titles"
-      ><code>{{ _("not _exists_:metadata.additional_titles") }}</code></a
+      ><code>not _exists_:metadata.additional_titles</code></a
     >
-    {{ _("(all records without metadata.additional_titles)") }}
+    (all records without metadata.additional_titles)
   </p>
   <p>
-    <strong>{{ _("Example:") }}</strong>
+    <strong>Example:</strong>
     <a href="/search?page=1&amp;size=20&amp;q=_exists_:metadata.creators"
-      ><code>{{ _("_exists_:metadata.creators") }}</code></a
+      ><code>_exists_:metadata.creators</code></a
     >
-    {{ _("(all records with metadata.creators)") }}
+    (all records with metadata.creators)
   </p>
-  <h3>{{ _("Advanced concepts") }}</h3>
-  <h4>{{ _("Boosting") }}</h4>
+  <h3>Advanced concepts</h3>
+  <h4>Boosting</h4>
   <p>
-    {{ _("You can use the boost operator") }} <code>{{ _("^") }}</code> {{ _("when one term is more relevant") }}
-    {{ _("than another. For instance, you can search for all records with the phrase") }}
-    <em>{{ _("open science") }}</em> {{ _("in either") }} <em>{{ _("title") }}</em> {{ _("or") }}
-    <em>{{ _("description") }}</em> {{ _("field, but rank records with the phrase in the") }}
-    <em>{{ _("title") }}</em> {{ _("field higher:") }}
+    You can use the boost operator <code>^</code> when one term is more relevant
+    than another. For instance, you can search for all records with the phrase
+    <em>open science</em> in either <em>title</em> or
+    <em>description</em> field, but rank records with the phrase in the
+    <em>title</em> field higher:
   </p>
   <p>
-    <strong>{{ _("Example:") }}</strong>
+    <strong>Example:</strong>
     <a
       href="/search?page=1&amp;size=20&amp;q=metadata.title:%22open%20science%22%5E5%20metadata.description:%22open%20science%22"
-      ><code>{{ _("metadata.title:\"open science\"^5 metadata.description:\"open science\"") }}</code></a
+      ><code>metadata.title:"open science"^5 metadata.description:"open science"</code></a
     >
   </p>
-  <h4>{{ _("Fuzziness") }}</h4>
+  <h4>Fuzziness</h4>
   <p>
-    {{ _("You can search for terms similar to but not exactly like your search term") }}
-    {{ _("using the fuzzy operator") }} <code>~</code>.
+    You can search for terms similar to but not exactly like your search term
+    using the fuzzy operator <code>~</code>.
   </p>
   <p>
-    <strong>{{ _("Example:") }}</strong>
-    <a href="/search?page=1&amp;size=20&amp;q=oepn~"><code>{{ _("oepn~") }}</code></a>
+    <strong>Example:</strong>
+    <a href="/search?page=1&amp;size=20&amp;q=oepn~"><code>oepn~</code></a>
   </p>
   <p>
-    {{ _("Results will match records with terms similar to") }} <code>{{ _("oepn") }}</code> {{ _("which") }}
-    {{ _("would e.g. also match") }} <code>{{ _("open") }}</code>.
+    Results will match records with terms similar to <code>oepn</code> which
+    would e.g. also match <code>open</code>.
   </p>
-  <h4>{{ _("Proximity searches") }}</h4>
+  <h4>Proximity searches</h4>
   <p>
-    {{ _("A phrase search like") }} <code>{{ _("\"open science\"") }}</code> {{ _("by default expect all terms") }}
-    {{ _("in exactly the same order, and thus for instance would not match a record") }}
-    {{ _("containing the phrase") }} <em>{{ _("\"open access and science\"") }}</em>. {{ _("A proximity search") }}
-    {{ _("allows that the terms are not in the exact order and may include other terms") }}
-    {{ _("inbetween. The degree of flexiblity is specified by an integer afterwards:") }}
+    A phrase search like <code>"open science"</code> by default expect all terms
+    in exactly the same order, and thus for instance would not match a record
+    containing the phrase <em>"open access and science"</em>. A proximity search
+    allows that the terms are not in the exact order and may include other terms
+    inbetween. The degree of flexiblity is specified by an integer afterwards:
   </p>
   <p>
-    <strong>{{ _("Example:") }}</strong>
+    <strong>Example:</strong>
     <a href="/search?page=1&amp;size=20&amp;q=%22open%20science%22~5"
-      ><code>{{ _("\"open science\"~5") }}</code></a
+      ><code>"open science"~5</code></a
     >
   </p>
-  <h4>{{ _("Wildcards") }}</h4>
+  <h4>Wildcards</h4>
   <p>
-    {{ _("You can use wildcards in search terms to replace a single character (using") }}
-    <code>?</code> {{ _("operator) or zero or more characters (using") }}
-    <code>*</code> {{ _("operator).") }}
+    You can use wildcards in search terms to replace a single character (using
+    <code>?</code> operator) or zero or more characters (using
+    <code>*</code> operator).
   </p>
   <p>
-    <strong>{{ _("Example:") }}</strong>
+    <strong>Example:</strong>
     <a href="/search?page=1&amp;size=20&amp;q=ope%3F%20scien*"
-      ><code>{{ _("ope? scien*") }}</code></a
+      ><code>ope? scien*</code></a
     >
   </p>
   <p>
-    {{ _("Wildcard searches can be slow and should normally be avoided if possible.") }}
+    Wildcard searches can be slow and should normally be avoided if possible.
   </p>
 </div>
 {%- endblock page_body%}
