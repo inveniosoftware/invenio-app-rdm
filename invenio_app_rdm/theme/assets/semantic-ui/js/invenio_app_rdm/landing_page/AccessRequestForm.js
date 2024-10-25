@@ -228,7 +228,9 @@ export class AccessRequestForm extends Component {
           <Modal.Content>
             <Modal.Description>
               {i18next.t("We have sent you an email to verify your address.")}
-              {i18next.t("Please check the email and follow the instructions to complete the access request.")}
+              {i18next.t(`
+                Please check the email and follow the instructions to complete the access request.
+              `)}
             </Modal.Description>
           </Modal.Content>
           <Modal.Actions>
