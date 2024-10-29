@@ -385,12 +385,14 @@ def deposit_create(community=None):
         community_theme = community.get("theme", {})
 
     community_use_jinja_header = bool(community_theme)
-    dashboard_route = current_app.config["APP_RDM_USER_DASHBOARD_ROUTES"]["uploads"]
+    dashboard_uploads_route = current_app.config["APP_RDM_USER_DASHBOARD_ROUTES"][
+        "uploads"
+    ]
     return render_community_theme_template(
         current_app.config["APP_RDM_DEPOSIT_FORM_TEMPLATE"],
         theme=community_theme,
         forms_config=get_form_config(
-            dashboard_route=dashboard_route,
+            dashboard_uploads_route=dashboard_uploads_route,
             createUrl="/api/records",
             quota=get_files_quota(),
             hide_community_selection=community_use_jinja_header,
@@ -451,13 +453,15 @@ def deposit_edit(pid_value, draft=None, draft_files=None, files_locked=True):
     # for unpublished records we fallback to the react component so users can change
     # communities
     community_use_jinja_header = bool(community_theme)
-    dashboard_route = current_app.config["APP_RDM_USER_DASHBOARD_ROUTES"]["uploads"]
+    dashboard_uploads_route = current_app.config["APP_RDM_USER_DASHBOARD_ROUTES"][
+        "uploads"
+    ]
     return render_community_theme_template(
         current_app.config["APP_RDM_DEPOSIT_FORM_TEMPLATE"],
         theme=community_theme,
         forms_config=get_form_config(
             apiUrl=f"/api/records/{pid_value}/draft",
-            dashboard_route=dashboard_route,
+            dashboard_uploads_route=dashboard_uploads_route,
             # maybe quota should be serialized into the record e.g for admins
             quota=get_files_quota(draft._record),
             # hide react community component
