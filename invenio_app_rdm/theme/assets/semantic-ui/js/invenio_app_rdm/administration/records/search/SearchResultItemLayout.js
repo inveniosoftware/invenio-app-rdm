@@ -80,7 +80,13 @@ class SearchResultItemComponent extends Component {
           collapsing
           className="word-break-all"
         >
-          {(recordOwner && recordOwner.user) || "System"}
+          {recordOwner ? (
+            <a href={`/administration/users?q=id:${recordOwner.user}`}>
+              {recordOwner.user}
+            </a>
+          ) : (
+            i18next.t("System")
+          )}
         </Table.Cell>
         <Table.Cell
           collapsing
