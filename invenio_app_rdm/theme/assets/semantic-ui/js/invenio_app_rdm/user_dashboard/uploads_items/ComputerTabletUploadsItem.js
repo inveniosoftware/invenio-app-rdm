@@ -7,7 +7,6 @@
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import React from "react";
 import PropTypes from "prop-types";
-import _truncate from "lodash/truncate";
 import _get from "lodash/get";
 import { Button, Icon, Item, Label } from "semantic-ui-react";
 import { SearchItemCreators } from "../../utils";
@@ -101,10 +100,8 @@ export const ComputerTabletUploadsItem = ({
             <SearchItemCreators creators={creators} />
           </div>
         </Item.Meta>
-        <Item.Description>
-          {_truncate(descriptionStripped, {
-            length: 350,
-          })}
+        <Item.Description className="truncate-lines-2">
+          {descriptionStripped}
         </Item.Description>
         <Item.Extra>
           {subjects.map((subject) => (

@@ -23,6 +23,10 @@ import Overridable from "react-overridable";
 export function DashboardResultView(props) {
   const { sortOptions, paginationOptions, currentResultsState, appName } = props;
   const { total } = currentResultsState.data;
+
+  const handleResultsRendered = () => {
+    window.invenio?.onSearchResultsRendered();
+  };
   return (
     total && (
       <Grid>
@@ -35,7 +39,7 @@ export function DashboardResultView(props) {
         >
           <Grid.Row>
             <Grid.Column>
-              <ResultsList />
+              <ResultsList onResultsRendered={handleResultsRendered} />
             </Grid.Column>
           </Grid.Row>
         </Overridable>

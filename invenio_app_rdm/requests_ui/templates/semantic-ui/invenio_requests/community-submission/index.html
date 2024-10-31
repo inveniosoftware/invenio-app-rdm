@@ -1,7 +1,7 @@
 {# -*- coding: utf-8 -*-
 
   This file is part of Invenio.
-  Copyright (C) 2016-2023 CERN.
+  Copyright (C) 2016-2024 CERN.
 
   Invenio is free software; you can redistribute it and/or modify it
   under the terms of the MIT License; see LICENSE file for more details.
@@ -37,23 +37,22 @@
     class="ui container rdm-tab-container fluid rel-pt-2 ml-0-mobile mr-0-mobile"
     id="request-community-submission-tab-container"
   >
-    {% if record %}
-      <div
-        class="ui secondary pointing menu rdm-tab-menu"
-        id="request-community-submission-tab"
+    <div
+      class="ui secondary pointing menu rdm-tab-menu"
+      id="request-community-submission-tab"
+    >
+      <a
+        class="active item"
+        data-tab="conversation"
+        role="tab"
+        aria-selected="true"
+        aria-controls="conversation-tab-panel"
+        id="conversation-tab"
       >
-        <a
-          class="active item"
-          data-tab="conversation"
-          role="tab"
-          aria-selected="true"
-          aria-controls="conversation-tab-panel"
-          id="conversation-tab"
-        >
-          {{ _("Conversation") }}
-        </a>
+        {{ _("Conversation") }}
+      </a>
 
-
+      {% if record %}
         <a
           role="tab"
           class="item"
@@ -64,9 +63,8 @@
         >
           {{ _("Record") }}
         </a>
-      </div>
-    {% endif %}
-
+      {% endif %}
+    </div>
 
     <div
       class="ui bottom attached tab segment active borderless p-0"

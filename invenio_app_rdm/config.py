@@ -65,6 +65,7 @@ from invenio_rdm_records.notifications.builders import (
     UserAccessRequestDeclineNotificationBuilder,
     UserAccessRequestSubmitNotificationBuilder,
 )
+from invenio_rdm_records.proxies import current_rdm_records_service
 from invenio_rdm_records.requests.entity_resolvers import (
     EmailResolver,
     RDMRecordServiceResultResolver,
@@ -88,13 +89,24 @@ from invenio_requests.notifications.builders import (
 from invenio_requests.resources.requests.config import request_error_handlers
 from invenio_stats.aggregations import StatAggregator
 from invenio_stats.contrib.event_builders import build_file_unique_id
-from invenio_stats.processors import EventsIndexer, anonymize_user, flag_robots
+from invenio_stats.processors import (
+    EventsIndexer,
+    anonymize_user,
+    filter_robots,
+    flag_machines,
+)
 from invenio_stats.queries import TermsQuery
 from invenio_stats.tasks import StatsAggregationTask, StatsEventTask
 from invenio_vocabularies.config import (
     VOCABULARIES_DATASTREAM_READERS,
     VOCABULARIES_DATASTREAM_TRANSFORMERS,
     VOCABULARIES_DATASTREAM_WRITERS,
+)
+from invenio_vocabularies.contrib.affiliations.datastreams import (
+    VOCABULARIES_DATASTREAM_READERS as AFFILIATIONS_READERS,
+)
+from invenio_vocabularies.contrib.affiliations.datastreams import (
+    VOCABULARIES_DATASTREAM_TRANSFORMERS as AFFILIATIONS_TRANSFORMERS,
 )
 from invenio_vocabularies.contrib.affiliations.datastreams import (
     VOCABULARIES_DATASTREAM_WRITERS as AFFILIATIONS_WRITERS,
@@ -108,11 +120,29 @@ from invenio_vocabularies.contrib.awards.datastreams import (
 from invenio_vocabularies.contrib.awards.datastreams import (
     VOCABULARIES_DATASTREAM_WRITERS as AWARDS_WRITERS,
 )
+from invenio_vocabularies.contrib.common.openaire.datastreams import (
+    VOCABULARIES_DATASTREAM_READERS as COMMON_OPENAIRE_READERS,
+)
+from invenio_vocabularies.contrib.common.openaire.datastreams import (
+    VOCABULARIES_DATASTREAM_TRANSFORMERS as COMMON_OPENAIRE_TRANSFORMERS,
+)
+from invenio_vocabularies.contrib.common.openaire.datastreams import (
+    VOCABULARIES_DATASTREAM_WRITERS as COMMON_OPENAIRE_WRITERS,
+)
 from invenio_vocabularies.contrib.common.ror.datastreams import (
     VOCABULARIES_DATASTREAM_READERS as COMMON_ROR_READERS,
 )
 from invenio_vocabularies.contrib.common.ror.datastreams import (
     VOCABULARIES_DATASTREAM_TRANSFORMERS as COMMON_ROR_TRANSFORMERS,
+)
+from invenio_vocabularies.contrib.common.ror.datastreams import (
+    VOCABULARIES_DATASTREAM_WRITERS as COMMON_ROR_WRITERS,
+)
+from invenio_vocabularies.contrib.funders.datastreams import (
+    VOCABULARIES_DATASTREAM_READERS as FUNDERS_READERS,
+)
+from invenio_vocabularies.contrib.funders.datastreams import (
+    VOCABULARIES_DATASTREAM_TRANSFORMERS as FUNDERS_TRANSFORMERS,
 )
 from invenio_vocabularies.contrib.funders.datastreams import (
     VOCABULARIES_DATASTREAM_WRITERS as FUNDERS_WRITERS,
@@ -126,6 +156,16 @@ from invenio_vocabularies.contrib.names.datastreams import (
 from invenio_vocabularies.contrib.names.datastreams import (
     VOCABULARIES_DATASTREAM_WRITERS as NAMES_WRITERS,
 )
+from invenio_vocabularies.contrib.subjects.datastreams import (
+    VOCABULARIES_DATASTREAM_READERS as SUBJECTS_READERS,
+)
+from invenio_vocabularies.contrib.subjects.datastreams import (
+    VOCABULARIES_DATASTREAM_TRANSFORMERS as SUBJECTS_TRANSFORMERS,
+)
+from invenio_vocabularies.contrib.subjects.datastreams import (
+    VOCABULARIES_DATASTREAM_WRITERS as SUBJECTS_WRITERS,
+)
+from werkzeug.local import LocalProxy
 
 from .theme.views import notification_settings
 from .users.schemas import NotificationsUserSchema, UserPreferencesNotificationsSchema
@@ -212,7 +252,7 @@ APP_THEME = ["semantic-ui"]
 BASE_TEMPLATE = "invenio_app_rdm/page.html"
 """Global base template."""
 
-COVER_TEMPLATE = "invenio_theme/page_cover.html"
+COVER_TEMPLATE = "invenio_app_rdm/page_cover.html"
 """Cover page base template (used for e.g. login/sign-up)."""
 
 SETTINGS_TEMPLATE = "invenio_theme/page_settings.html"
@@ -622,7 +662,10 @@ OAISERVER_RECORD_CLS = "invenio_rdm_records.records.api:RDMRecord"
 OAISERVER_RECORD_SETS_FETCHER = "invenio_oaiserver.percolator:find_sets_for_record"
 """Record's OAI sets function."""
 
-OAISERVER_RECORD_INDEX = "rdmrecords-records"
+OAISERVER_RECORD_INDEX = LocalProxy(
+    lambda: current_rdm_records_service.record_cls.index._name
+)
+
 """Specify a search index with records that should be exposed via OAI-PMH."""
 
 OAISERVER_GETRECORD_FETCHER = "invenio_rdm_records.oai:getrecord_fetcher"
@@ -665,7 +708,9 @@ SEARCH_HOSTS = [{"host": "localhost", "port": 9200}]
 # ===============
 # See https://invenio-indexer.readthedocs.io/en/latest/configuration.html
 
-INDEXER_DEFAULT_INDEX = "rdmrecords-records-record-v6.0.0"
+# We want that indexers are always explicit about the index they are indexing to.
+# NOTE: Can be removed when https://github.com/inveniosoftware/invenio-indexer/pull/158 is merged and released.
+INDEXER_DEFAULT_INDEX = None
 """Default index to use if no schema is defined."""
 
 # Invenio-Base
@@ -692,16 +737,24 @@ REST_CSRF_ENABLED = True
 VOCABULARIES_DATASTREAM_READERS = {
     **VOCABULARIES_DATASTREAM_READERS,
     **NAMES_READERS,
+    **COMMON_OPENAIRE_READERS,
     **COMMON_ROR_READERS,
     **AWARDS_READERS,
+    **FUNDERS_READERS,
+    **AFFILIATIONS_READERS,
+    **SUBJECTS_READERS,
 }
 """Data Streams readers."""
 
 VOCABULARIES_DATASTREAM_TRANSFORMERS = {
     **VOCABULARIES_DATASTREAM_TRANSFORMERS,
     **NAMES_TRANSFORMERS,
+    **COMMON_OPENAIRE_TRANSFORMERS,
     **COMMON_ROR_TRANSFORMERS,
     **AWARDS_TRANSFORMERS,
+    **FUNDERS_TRANSFORMERS,
+    **AFFILIATIONS_TRANSFORMERS,
+    **SUBJECTS_TRANSFORMERS,
 }
 """Data Streams transformers."""
 
@@ -711,6 +764,9 @@ VOCABULARIES_DATASTREAM_WRITERS = {
     **FUNDERS_WRITERS,
     **AWARDS_WRITERS,
     **AFFILIATIONS_WRITERS,
+    **COMMON_OPENAIRE_WRITERS,
+    **COMMON_ROR_WRITERS,
+    **SUBJECTS_WRITERS,
 }
 """Data Streams writers."""
 
@@ -970,6 +1026,9 @@ COMMUNITIES_RECORDS_SEARCH = {
 }
 """Community requests search configuration (i.e list of community requests)"""
 
+COMMUNITIES_SHOW_BROWSE_MENU_ENTRY = False
+"""Toggle to show or hide the 'Browse' menu entry for communities."""
+
 # Invenio-RDM-Records
 # ===================
 
@@ -982,7 +1041,9 @@ RDM_REQUESTS_ROUTES = {
 RDM_COMMUNITIES_ROUTES = {
     "community-detail": "/communities/<pid_value>/records",
     "community-home": "/communities/<pid_value>/",
+    "community-browse": "/communities/<pid_value>/browse",
     "community-static-page": "/communities/<pid_value>/pages/<path:page_slug>",
+    "community-collection": "/communities/<pid_value>/collections/<tree_slug>/<collection_slug>",
 }
 
 RDM_SEARCH_USER_COMMUNITIES = {
@@ -1098,6 +1159,7 @@ Example:
 # =============
 # See https://invenio-stats.readthedocs.io/en/latest/configuration.html
 
+
 STATS_EVENTS = {
     "file-download": {
         "templates": "invenio_rdm_records.records.stats.templates.events.file_download",
@@ -1107,7 +1169,12 @@ STATS_EVENTS = {
         ],
         "cls": EventsIndexer,
         "params": {
-            "preprocessors": [flag_robots, anonymize_user, build_file_unique_id]
+            "preprocessors": [
+                filter_robots,
+                flag_machines,
+                anonymize_user,
+                build_file_unique_id,
+            ]
         },
     },
     "record-view": {
@@ -1119,7 +1186,12 @@ STATS_EVENTS = {
         ],
         "cls": EventsIndexer,
         "params": {
-            "preprocessors": [flag_robots, anonymize_user, build_record_unique_id],
+            "preprocessors": [
+                filter_robots,
+                flag_machines,
+                anonymize_user,
+                build_record_unique_id,
+            ],
         },
     },
 }
@@ -1315,6 +1387,7 @@ NOTIFICATIONS_ENTITY_RESOLVERS = [
     ServiceResultResolver(service_id="communities", type_key="community"),
     ServiceResultResolver(service_id="requests", type_key="request"),
     ServiceResultResolver(service_id="request_events", type_key="request_event"),
+    ServiceResultResolver(service_id="groups", type_key="group"),
 ]
 """List of entity resolvers used by notification builders."""
 
@@ -1361,6 +1434,18 @@ GITHUB_RELEASE_CLASS = RDMGithubRelease
 # Flask-Menu
 # ==========
 #
-
 USER_DASHBOARD_MENU_OVERRIDES = {}
 """Overrides for "dashboard" menu."""
+
+
+# Invenio-Administration
+# ======================
+#
+from invenio_app_rdm import __version__
+
+ADMINISTRATION_DISPLAY_VERSIONS = [("invenio-app-rdm", f"v{__version__}")]
+"""Show the InvenioRDM version in the administration panel."""
+
+
+APP_RDM_SUBCOMMUNITIES_LABEL = "Subcommunities"
+"""Label for the subcommunities in the community browse page."""

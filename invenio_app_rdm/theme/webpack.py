@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2019-2022 CERN.
+# Copyright (C) 2019-2024 CERN.
 # Copyright (C) 2019-2022 Northwestern University.
 # Copyright (C)      2022 TU Wien.
 # Copyright (C)      2022 Graz University of Technology.
@@ -28,6 +28,7 @@ theme = WebpackThemeBundle(
                 "invenio-app-rdm-user-communities": "./js/invenio_app_rdm/user_dashboard/communities.js",
                 "invenio-app-rdm-user-requests": "./js/invenio_app_rdm/user_dashboard/requests.js",
                 "invenio-app-rdm-community-records-search": "./js/invenio_app_rdm/communityRecordsSearch/index.js",
+                "invenio-app-rdm-collections-search": "./js/invenio_app_rdm/collectionRecordsSearch/index.js",
                 "base-theme-rdm": "./js/invenio_app_rdm/theme.js",
                 "iiif-simple-previewer": "./less/invenio_app_rdm/previewer/iiif_simple.less",
                 "invenio-app-rdm-frontpage": "./js/invenio_app_rdm/frontpage/index.js",
@@ -37,6 +38,7 @@ theme = WebpackThemeBundle(
                 "invenio-records-administration": "./js/invenio_app_rdm/administration/records/index.js",
                 "invenio-drafts-administration": "./js/invenio_app_rdm/administration/drafts/index.js",
                 "invenio-domains-administration": "./js/invenio_app_rdm/administration/domains/index.js",
+                "invenio-communities-browse": "./js/invenio_app_rdm/subcommunity/browse.js",
             },
             dependencies={
                 "@babel/runtime": "^7.9.0",
@@ -53,8 +55,8 @@ theme = WebpackThemeBundle(
                 "react-dnd-html5-backend": "^11.1.0",
                 "react-dropzone": "^11.0.0",
                 "react-i18next": "^11.11.0",
-                "react-invenio-forms": "^3.0.0",
-                "react-searchkit": "^2.0.0",
+                "react-invenio-forms": "^4.0.0",
+                "react-searchkit": "^3.0.0",
                 "yup": "^0.32.0",
             },
             aliases={

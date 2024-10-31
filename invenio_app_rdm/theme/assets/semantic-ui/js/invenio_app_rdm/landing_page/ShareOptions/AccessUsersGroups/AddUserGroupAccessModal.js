@@ -1,5 +1,6 @@
 // This file is part of InvenioRDM
-// Copyright (C) 2024-2024 CERN.
+// Copyright (C) 2024 CERN.
+// Copyright (C) 2024 KTH Royal Institute of Technology.
 //
 // Invenio App RDM is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
@@ -44,7 +45,7 @@ export class AddUserGroupAccessModal extends Component {
     const { searchType } = this.props;
     if (searchType === "user") {
       const usersClient = new UsersApi();
-      return usersClient.getUsers;
+      return usersClient.suggestUsers;
     }
     if (searchType === "role") {
       const groupsClient = new GroupsApi();
@@ -139,6 +140,7 @@ export class AddUserGroupAccessModal extends Component {
                     <b>{i18next.t("Notification message")}</b>
                   </p>
                   <RichEditor
+                    inputValue={() => message} // () =>  Avoid re-rendering
                     onBlur={(event, editor) => {
                       this.updateMessage(editor.getContent());
                     }}

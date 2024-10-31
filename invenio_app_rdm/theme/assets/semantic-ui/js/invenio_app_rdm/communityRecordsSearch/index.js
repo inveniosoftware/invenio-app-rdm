@@ -1,5 +1,6 @@
 // This file is part of Invenio
-// Copyright (C) 2022 CERN.
+// Copyright (C) 2022-2024 CERN.
+// Copyright (C) 2024 Northwestern University.
 //
 // Invenio is free software; you can redistribute it and/or modify it under the
 // terms of the MIT License; see LICENSE file for more details.
@@ -37,12 +38,16 @@ const CommunityRecordSearchAppLayoutWAppName = parametrize(
   }
 );
 
+const CommunityRecordsResultsListItem = parametrize(RecordsResultsListItem, {
+  appName: appName,
+});
+
 const defaultComponents = {
   [`${appName}.BucketAggregation.element`]: ContribBucketAggregationElement,
   [`${appName}.BucketAggregationValues.element`]: ContribBucketAggregationValuesElement,
   [`${appName}.ResultsGrid.item`]: RDMRecordResultsGridItem,
   [`${appName}.EmptyResults.element`]: RDMEmptyResults,
-  [`${appName}.ResultsList.item`]: RecordsResultsListItem,
+  [`${appName}.ResultsList.item`]: CommunityRecordsResultsListItem,
   [`${appName}.SearchApp.facets`]: ContribSearchAppFacetsWithConfig,
   [`${appName}.SearchApp.layout`]: CommunityRecordSearchAppLayoutWAppName,
   [`${appName}.SearchBar.element`]: CommunityRecordsSearchBarElement,

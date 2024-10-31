@@ -15,6 +15,7 @@ import idutils
 from babel.numbers import format_compact_decimal, format_decimal
 from flask import current_app, url_for
 from invenio_base.utils import obj_or_import_string
+from invenio_i18n import get_locale
 from invenio_previewer.views import is_previewable
 from invenio_records_files.api import FileObject
 from invenio_records_permissions.policies import get_record_permission_policy
@@ -167,7 +168,7 @@ def namespace_url(field):
     return namespaces[namespace] + namespace_value
 
 
-def custom_fields_search(field, field_value):
+def custom_fields_search(field, field_value, field_cfg=None):
     """Get custom field search url."""
     namespace_array = field.split(":")
     namespace = namespace_array[0]
@@ -176,7 +177,15 @@ def custom_fields_search(field, field_value):
     if not namespaces.get(namespace):
         return None
 
-    namespace_string = "\:".join(namespace_array)
+    localised_title = (field_cfg or {}).get("locale")
+    if localised_title:
+        locale = get_locale()
+        if not locale:
+            locale = current_app.config.get("BABEL_DEFAULT_LOCALE", "en")
+        # example: cern:experiments.title.en
+        namespace_string = "\:".join(namespace_array) + f".{localised_title}.{locale}"
+    else:
+        namespace_string = "\:".join(namespace_array)
     return url_for(
         "invenio_search_ui.search", q=f"custom_fields.{namespace_string}:{field_value}"
     )

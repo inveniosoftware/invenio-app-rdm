@@ -1,5 +1,5 @@
 // This file is part of InvenioRDM
-// Copyright (C) 2023 CERN.
+// Copyright (C) 2023-2024 CERN.
 //
 // Invenio RDM Records is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
@@ -9,7 +9,7 @@ import { Dropdown } from "semantic-ui-react";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import PropTypes from "prop-types";
 
-export const ManageButton = ({ recid, recordOwnerUsername }) => {
+export const ManageButton = ({ recid, recordOwnerID }) => {
   return (
     <Dropdown
       fluid
@@ -30,7 +30,7 @@ export const ManageButton = ({ recid, recordOwnerUsername }) => {
         />
         <Dropdown.Item
           as="a"
-          href={`/administration/users?q=username:${recordOwnerUsername}`}
+          href={`/administration/users?q=id:${recordOwnerID}`}
           target="_blank"
           key="manage_user"
           text={i18next.t("Manage user")}
@@ -42,5 +42,5 @@ export const ManageButton = ({ recid, recordOwnerUsername }) => {
 
 ManageButton.propTypes = {
   recid: PropTypes.string.isRequired,
-  recordOwnerUsername: PropTypes.string.isRequired,
+  recordOwnerID: PropTypes.string.isRequired,
 };

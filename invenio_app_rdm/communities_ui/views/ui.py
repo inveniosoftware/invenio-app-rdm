@@ -9,7 +9,7 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 """Communities UI blueprints module."""
 
-from flask import Blueprint, current_app, render_template
+from flask import Blueprint, current_app, render_template, request
 from flask_login import current_user
 from invenio_communities.communities.resources.serializer import (
     UICommunityJSONSerializer,
@@ -17,10 +17,17 @@ from invenio_communities.communities.resources.serializer import (
 from invenio_communities.errors import CommunityDeletedError
 from invenio_i18n import lazy_gettext as _
 from invenio_pidstore.errors import PIDDeletedError, PIDDoesNotExistError
+from invenio_rdm_records.collections import search_app_context as c_search_app_context
 from invenio_records_resources.services.errors import PermissionDeniedError
 
 from ..searchapp import search_app_context
-from .communities import communities_detail, communities_home, community_static_page
+from .communities import (
+    communities_browse,
+    communities_detail,
+    communities_home,
+    community_collection,
+    community_static_page,
+)
 
 
 #
@@ -63,6 +70,14 @@ def record_permission_denied_error(error):
     return render_template(current_app.config["THEME_403_TEMPLATE"]), 403
 
 
+def _show_browse_page():
+    """Whether the browse page should be visible in the menu."""
+    return (
+        current_app.config.get("COMMUNITIES_SHOW_BROWSE_MENU_ENTRY", False)
+        and request.community["children"]["allow"]
+    )
+
+
 def create_ui_blueprint(app):
     """Register blueprint routes on app."""
     routes = app.config["RDM_COMMUNITIES_ROUTES"]
@@ -86,10 +101,19 @@ def create_ui_blueprint(app):
     )
 
     blueprint.add_url_rule(
+        routes["community-browse"],
+        view_func=communities_browse,
+    )
+
+    blueprint.add_url_rule(
         routes["community-static-page"],
         view_func=community_static_page,
     )
 
+    blueprint.add_url_rule(
+        routes["community-collection"],
+        view_func=community_collection,
+    )
     # Register error handlers
     blueprint.register_error_handler(
         PermissionDeniedError, record_permission_denied_error
@@ -101,5 +125,6 @@ def create_ui_blueprint(app):
 
     # Register context processor
     blueprint.app_context_processor(search_app_context)
+    blueprint.app_context_processor(c_search_app_context)
 
     return blueprint

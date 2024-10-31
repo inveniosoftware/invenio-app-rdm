@@ -544,3 +544,11 @@ dl.details-list {
     }
   }
 }
+
+
+.collection-header > .ui.medium.header, h4 {
+  font-weight: @bold;
+  .content {
+    vertical-align: sub;
+  }
+}

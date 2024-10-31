@@ -11,12 +11,22 @@
 from flask import abort, g, redirect, request, url_for
 from invenio_communities.views.communities import (
     HEADER_PERMISSIONS,
+    _get_roles_can_invite,
+    _get_roles_can_update,
     render_community_theme_template,
 )
 from invenio_communities.views.decorators import pass_community
 from invenio_pages.proxies import current_pages_service
 from invenio_pages.records.errors import PageNotFoundError
-from invenio_rdm_records.proxies import current_community_records_service
+from invenio_rdm_records.collections import (
+    CollectionNotFound,
+    CollectionTreeNotFound,
+    LogoNotFoundError,
+)
+from invenio_rdm_records.proxies import (
+    current_community_records_service,
+    current_rdm_records,
+)
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
 from invenio_records_resources.services.errors import PermissionDeniedError
 
@@ -44,7 +54,7 @@ def communities_detail(pid_value, community, community_ui):
 def communities_home(pid_value, community, community_ui):
     """Community home page."""
     query_params = request.args
-
+    collections_service = current_rdm_records.collections_service
     permissions = community.has_permissions_to(HEADER_PERMISSIONS)
     if not permissions["can_read"]:
         raise PermissionDeniedError()
@@ -84,6 +94,8 @@ def communities_home(pid_value, community, community_ui):
             expand=True,
         )
 
+        collections = collections_service.list_trees(g.identity, community.id, depth=0)
+
         # TODO resultitem does not expose aggregations except labelled facets
         _metric_aggs = recent_uploads._results.aggregations
         metrics = {
@@ -103,7 +115,29 @@ def communities_home(pid_value, community, community_ui):
             permissions=permissions,
             records=records_ui,
             metrics=metrics,
+            collections=collections.to_dict(),
         )
+
+
+@pass_community(serialize=True)
+def communities_browse(pid_value, community, community_ui):
+    """Community browse page."""
+    permissions = community.has_permissions_to(HEADER_PERMISSIONS)
+
+    collections_service = current_rdm_records.collections_service
+
+    trees_ui = collections_service.list_trees(
+        g.identity, community_id=community.id, depth=2
+    ).to_dict()
+    return render_community_theme_template(
+        "invenio_communities/details/browse/index.html",
+        theme=community_ui.get("theme", {}),
+        community=community_ui,
+        permissions=permissions,
+        roles_can_update=_get_roles_can_update(community.id),
+        roles_can_invite=_get_roles_can_invite(community.id),
+        trees=trees_ui,
+    )
 
 
 @pass_community(serialize=True)
@@ -125,4 +159,38 @@ def community_static_page(pid_value, community, community_ui, **kwargs):
         page=page,
         community=community_ui,
         permissions=permissions,
+    )
+
+
+@pass_community(serialize=True)
+def community_collection(
+    community, community_ui, pid_value, tree_slug=None, collection_slug=None
+):
+    """Render a community collection page."""
+    collections_service = current_rdm_records.collections_service
+    try:
+        collection = collections_service.read(
+            identity=g.identity,
+            community_id=community.id,
+            slug=collection_slug,
+            tree_slug=tree_slug,
+        )
+    except (CollectionNotFound, CollectionTreeNotFound):
+        abort(404)
+
+    try:
+        logo = collections_service.read_logo(g.identity, collection_slug)
+    except LogoNotFoundError:
+        logo = None
+
+    collection_ui = collection.to_dict()
+    return render_community_theme_template(
+        "invenio_communities/collections/collection.html",
+        collection=collection_ui,
+        # TODO _collection should not be accessed from here
+        tree=collection._collection.collection_tree,
+        logo=logo,
+        community=community,
+        permissions=community.has_permissions_to(HEADER_PERMISSIONS),
+        theme=community_ui.get("theme", {}),
     )

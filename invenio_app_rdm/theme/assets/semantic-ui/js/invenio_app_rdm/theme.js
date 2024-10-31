@@ -115,3 +115,32 @@ if (headerSearchbar) {
     headerSearchbar
   );
 }
+
+// Login Logout Button
+const $authButton = $("#invenio-nav.ui.menu").find(".auth-button");
+const $authIcon = $authButton.find(".auth-icon");
+
+const handleAuthButtonClick = () => {
+  $authButton.attr(
+    "aria-label",
+    $authIcon.hasClass("sign-in")
+      ? i18next.t("Logging in...")
+      : i18next.t("Logging out...")
+  );
+  $authButton.attr("aria-busy", "true");
+  $authButton.addClass("disabled");
+  $authIcon.attr("class", "spinner loading icon");
+};
+
+$authButton.on({ click: handleAuthButtonClick });
+
+const invenioConfig = JSON.parse(document.body.dataset.invenioConfig);
+const isMathJaxEnabled = invenioConfig?.isMathJaxEnabled;
+if (window.invenio) {
+  window.invenio.onSearchResultsRendered = () => {
+    if (isMathJaxEnabled) {
+      // Re-render mathematical content on the page using MathJax.
+      return window.MathJax?.typeset();
+    }
+  };
+}

@@ -1,5 +1,5 @@
 {#
-  Copyright (C) 2020 CERN.
+  Copyright (C) 2020-2024 CERN.
   Copyright (C) 2020 Northwestern University.
   Copyright (C) 2021 TU Wien.
 
@@ -13,9 +13,9 @@
   {% if record.ui.creators and record.ui.creators.creators %}
     <div class="row ui accordion affiliations">
       <div class="sixteen wide mobile twelve wide tablet thirteen wide computer column">
-          <h2 class="sr-only">{{ _('Creators') }}</h2>
+          <h3 class="sr-only">{{ _('Creators') }}</h3>
           <ul class="creatibutors">
-            {{ show_creatibutors(record.ui.creators.creators, show_affiliations=True) }}
+            {{ show_creatibutors(record.ui.creators.creators, show_affiliations=True, show_role=True) }}
           </ul>
       </div>
 
@@ -31,12 +31,12 @@
   {% if record.ui.contributors and record.ui.contributors.contributors %}
     <div class="row ui accordion affiliations">
       <div class="sixteen wide mobile twelve wide tablet thirteen wide computer column">
-          <h2 class="sr-only">{{ _('Contributors') }}</h2>
+          <h3>{{ _('Contributors') }}</h3>
           {%- for group in record.ui.contributors.contributors|groupby('role.title')%}
           <div>
             <h3 class="creatibutors-header ui small header">{{group.grouper}}{%- if group.list|length > 1 -%}s{%- endif -%}:</h3>
             <ul class="creatibutors">
-              {{ show_creatibutors(group.list, show_affiliations=True) }}
+              {{ show_creatibutors(group.list, show_affiliations=True, type="contributors") }}
             </ul>
           </div>
           {%- endfor %}

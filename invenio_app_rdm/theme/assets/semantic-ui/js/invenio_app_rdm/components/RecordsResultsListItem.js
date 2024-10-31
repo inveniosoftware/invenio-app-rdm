@@ -6,7 +6,6 @@
 
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import _get from "lodash/get";
-import _truncate from "lodash/truncate";
 import React, { Component } from "react";
 import Overridable from "react-overridable";
 import { SearchItemCreators } from "../utils";
@@ -87,7 +86,7 @@ class RecordsResultsListItem extends Component {
             {/* FIXME: Uncomment to enable themed banner */}
             {/* <DisplayVerifiedCommunity communities={result.parent?.communities} /> */}
             <Item.Extra className="labels-actions">
-              <Label horizontal size="small" className="primary">
+              <Label horizontal size="small" className="primary theme-primary">
                 {publicationDate} ({version})
               </Label>
               <Label horizontal size="small" className="neutral">
@@ -102,14 +101,14 @@ class RecordsResultsListItem extends Component {
                 {accessStatus}
               </Label>
             </Item.Extra>
-            <Item.Header as="h2">
+            <Item.Header as="h2" className="theme-primary-text">
               <a href={viewLink}>{title}</a>
             </Item.Header>
             <Item className="creatibutors">
               <SearchItemCreators creators={creators} othersLink={viewLink} />
             </Item>
-            <Item.Description>
-              {_truncate(descriptionStripped, { length: 350 })}
+            <Item.Description className="truncate-lines-2">
+              {descriptionStripped}
             </Item.Description>
             <Item.Extra>
               {subjects.map((subject) => (

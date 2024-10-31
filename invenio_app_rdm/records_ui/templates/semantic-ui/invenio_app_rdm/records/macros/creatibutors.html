@@ -1,5 +1,5 @@
 {#
-    Copyright (C) 2020 CERN.
+    Copyright (C) 2020-2024 CERN.
     Copyright (C) 2020 Northwestern University.
     Copyright (C) 2021 Graz University of Technology.
     Copyright (C) 2021-2022 New York University.
@@ -37,18 +37,21 @@
 {% endmacro %}
 
 
-{% macro show_creatibutors(creatibutors, show_affiliations=False) %}
+{% macro show_creatibutors(creatibutors, show_affiliations=False, type="creators", show_role=False) %}
   {% for creatibutor in creatibutors %}
   <li class="creatibutor-wrap separated">
     <a class="ui creatibutor-link"
       {% if show_affiliations and creatibutor.affiliations %}
         data-tooltip="{{ creatibutor.affiliations|join('; ', attribute='1') }}"
       {% endif %}
-      href="{{url_for('invenio_search_ui.search', q='metadata.creators.person_or_org.name:"' + creatibutor.person_or_org.name + '"')}}"
+      href="{{url_for('invenio_search_ui.search', q='metadata.' + type + '.person_or_org.name:"' + creatibutor.person_or_org.name + '"')}}"
     >
 
       <span class="creatibutor-name">
         {{- creatibutor.person_or_org.name -}}
+        {% if show_role and creatibutor.role %}
+          ({{- creatibutor.role.title -}})
+        {%- endif -%}
       </span>
       {%- if creatibutor.affiliations -%}
       <sup class="font-tiny">
