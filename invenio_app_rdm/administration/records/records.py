@@ -26,6 +26,7 @@ class RecordAdminListView(AdminResourceListView):
     resource_config = "records_resource"
     search_request_headers = {"Accept": "application/vnd.inveniordm.v1+json"}
     title = "Records"
+    menu_label = "Records"
     category = "Records & files"
     icon = "file"
     template = "invenio_app_rdm/administration/records/records.html"
@@ -100,10 +101,11 @@ class DraftAdminListView(AdminResourceListView):
     """Configuration for OAI-PMH sets list view."""
 
     api_endpoint = "/user/records"
-    name = "Drafts"
+    name = "drafts"
     resource_config = "records_resource"
     search_request_headers = {"Accept": "application/vnd.inveniordm.v1+json"}
     title = "Drafts"
+    menu_label = "Drafts"
     category = "Records & files"
     icon = "upload"
     template = "invenio_app_rdm/administration/records/drafts.html"
