@@ -139,8 +139,9 @@ class SearchResultItemComponent extends Component {
           <Dropdown text={<Icon name="eye" />}>
             <Dropdown.Menu>
               <Dropdown.Item
+                as="a"
+                href={result.links.admin_users_html}
                 text={i18next.t("Users")}
-                onClick={() => (window.location = result.links.admin_users_html)}
               />
             </Dropdown.Menu>
           </Dropdown>
