@@ -35,7 +35,7 @@ if (recordManagementAppDiv) {
 
 function renderRecordManagement(element) {
   ReactDOM.render(
-    <OverridableContext.Provider value={overrideStore.getAll()}>
+    <OverridableContext.Provider value={overriddenComponents}>
       <RecordManagement
         record={JSON.parse(recordManagementAppDiv.dataset.record)}
         permissions={JSON.parse(recordManagementAppDiv.dataset.permissions)}
