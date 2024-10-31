@@ -14,7 +14,7 @@ import { RecordActions } from "../RecordActions";
 import _truncate from "lodash/truncate";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
-import { Table, Button } from "semantic-ui-react";
+import { Popup, Table, Button } from "semantic-ui-react";
 import { withState } from "react-searchkit";
 import { AdminUIRoutes } from "@js/invenio_administration/src/routes";
 import { humanReadableBytes, toRelativeTime } from "react-invenio-forms";
@@ -102,7 +102,8 @@ class SearchResultItemComponent extends Component {
           data-label={i18next.t("Files")}
           className="word-break-all"
         >
-          {humanReadableBytes(result.files.total_bytes)} | #{result.files.count}
+          {result.files.count} file{result.files.count !== 1 ? "s" : ""}:{" "}
+          {humanReadableBytes(result.files.total_bytes, true)}
         </Table.Cell>
         <Table.Cell
           collapsing
@@ -110,8 +111,15 @@ class SearchResultItemComponent extends Component {
           data-label={i18next.t("Stats")}
           className="word-break-all"
         >
-          {result?.stats?.all_versions?.unique_views} |{" "}
-          {result?.stats?.all_versions?.unique_downloads} |{" "}
+          <Popup
+            content="views | downloads"
+            trigger={
+              <span>
+                {result?.stats?.all_versions?.unique_views ?? 0} |{" "}
+                {result?.stats?.all_versions?.unique_downloads ?? 0}
+              </span>
+            }
+          />
         </Table.Cell>
 
         <Table.Cell collapsing>
