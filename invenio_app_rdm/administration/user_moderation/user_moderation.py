@@ -124,8 +124,8 @@ class UserModerationListView(AdminResourceListView):
                 ["expand", "1"],
                 ["type", UserModerationRequest.type_id],
             ],
-            page=1,
-            size=15,
+            pagination_options=(20, 50),
+            default_size=20,
         )
 
 
