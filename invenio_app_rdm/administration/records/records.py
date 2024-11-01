@@ -92,8 +92,8 @@ class RecordAdminListView(AdminResourceListView):
                 ["expand", "1"],
                 ["include_deleted", "1"],
             ],
-            page=1,
-            size=30,
+            pagination_options=(20, 50),
+            default_size=20,
         )
 
 
@@ -151,6 +151,6 @@ class DraftAdminListView(AdminResourceListView):
                 ["is_published", False],
                 ["include_deleted", "1"],
             ],
-            page=1,
-            size=30,
+            pagination_options=(20, 50),
+            default_size=20,
         )
