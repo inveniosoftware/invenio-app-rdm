@@ -51,29 +51,27 @@ class SearchResultItemComponent extends Component {
           data-label="Title"
           className="word-break-all"
         >
-          <div>
-            <BoolFormatter
-              value={result.access.record === "public"}
-              color="green"
-              icon="lock unlocked"
-            />
-            <BoolFormatter
-              value={
-                result.access.record === "restricted" ||
-                result.access.files === "restricted"
-              }
-              color="red"
-              icon="lock"
-            />
-            <a target="_blank" rel="noreferrer" href={result.links.self_html}>
-              {_truncate(result.metadata.title || i18next.t("Empty draft title"), {
-                length: 100,
-              })}
-            </a>
-            <br />
-            <div className="text-muted">
-              {result.id} | {i18next.t("version")} {result.versions.index}
-            </div>
+          <BoolFormatter
+            value={result.access.record === "public"}
+            color="green"
+            icon="lock unlocked"
+          />
+          <BoolFormatter
+            value={
+              result.access.record === "restricted" ||
+              result.access.files === "restricted"
+            }
+            color="red"
+            icon="lock"
+          />
+          <a target="_blank" rel="noreferrer noopener" href={result.links.self_html}>
+            {_truncate(result.metadata.title || i18next.t("Empty draft title"), {
+              length: 100,
+            })}
+          </a>
+          <br />
+          <div className="text-muted">
+            {result.id} | {i18next.t("version")} {result.versions.index}
           </div>
         </Table.Cell>
         <Table.Cell

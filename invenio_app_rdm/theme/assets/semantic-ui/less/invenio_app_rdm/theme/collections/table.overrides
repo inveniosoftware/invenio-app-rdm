@@ -108,18 +108,23 @@
             }
 
             &[data-label]  {
-              display: inline-grid !important;
-              grid-template-columns: [col1-start] 30% [col2-start] 70% [end];
+              display: grid;
+              grid-template-columns: [col1-start] 20% [col2-start] 80% [end];
 
               &:before {
                 content: attr(data-label);
                 font-weight: bold;
                 margin-right: 1rem;
                 width: inherit;
+                grid-column: 1;
               }
 
               .ui.fitted.checkbox {
                 padding-top: .2rem;
+              }
+
+              > * {
+                grid-column: 2;
               }
             }
 
