@@ -323,7 +323,6 @@ export class RDMDepositForm extends Component {
                       })}
                     />
                   </Overridable>
-
                   <Overridable
                     id="InvenioAppRdm.Deposit.AccordionFieldBasicInformation.extra"
                     record={record}
