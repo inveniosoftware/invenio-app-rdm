@@ -340,7 +340,7 @@ export class RDMDepositForm extends Component {
                     vocabularies={this.vocabularies}
                     noFiles={this.noFiles}
                     hideCommunitySelection={this.hide_community_selection}
-                  ></Overridable>
+                  />
                 </AccordionField>
               </Overridable>
               <Overridable
