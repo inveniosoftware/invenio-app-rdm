@@ -429,6 +429,10 @@ CELERY_BEAT_SCHEDULE = {
         "task": "invenio_accounts.tasks.delete_ips",
         "schedule": timedelta(hours=6),
     },
+    "update_domain_status": {
+        "task": "invenio_accounts.tasks.update_domain_status",
+        "schedule": timedelta(hours=4),
+    },
     "draft_resources": {
         "task": ("invenio_drafts_resources.services.records.tasks.cleanup_drafts"),
         "schedule": timedelta(minutes=60),
