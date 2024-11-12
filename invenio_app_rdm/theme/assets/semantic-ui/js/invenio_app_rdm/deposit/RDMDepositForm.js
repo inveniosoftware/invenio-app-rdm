@@ -323,6 +323,23 @@ export class RDMDepositForm extends Component {
                       })}
                     />
                   </Overridable>
+                  <Overridable
+                    id="InvenioAppRdm.Deposit.AccordionFieldBasicInformation.extra"
+                    record={record}
+                    files={files}
+                    permissions={permissions}
+                    preselectedCommunity={preselectedCommunity}
+                    filesLocked={filesLocked}
+                    recordRestrictionGracePeriod={recordRestrictionGracePeriod}
+                    allowRecordRestriction={allowRecordRestriction}
+                    groupsEnabled={groupsEnabled}
+                    allowEmptyFiles={allowEmptyFiles}
+                    customFieldsUI={customFieldsUI}
+                    config={this.config}
+                    vocabularies={this.vocabularies}
+                    noFiles={this.noFiles}
+                    hideCommunitySelection={this.hide_community_selection}
+                  />
                 </AccordionField>
               </Overridable>
               <Overridable

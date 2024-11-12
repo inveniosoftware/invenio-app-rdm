@@ -112,8 +112,8 @@ class UsersListView(AdminResourceListView):
             headers=self.get_search_request_headers(),
             initial_filters=[["is_active", 1]],
             hidden_params=[],
-            page=1,
-            size=15,
+            pagination_options=(20, 50),
+            default_size=20,
         )
 
 

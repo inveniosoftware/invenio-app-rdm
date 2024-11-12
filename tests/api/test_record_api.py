@@ -2,6 +2,7 @@
 #
 # Copyright (C) 2019-2021 CERN.
 # Copyright (C) 2019-2021 Northwestern University.
+# Copyright (C) 2024 Graz University of Technology.
 #
 # Invenio-RDM-Records is free software; you can redistribute it and/or modify
 # it under the terms of the MIT License; see LICENSE file for more details.
@@ -130,7 +131,7 @@ def test_read_record_with_redirected_pid(
 
 @pytest.mark.skip()
 def test_read_deleted_record(
-    client_with_login, headers, location, minimal_record, es_clear, admin_user
+    client_with_login, headers, location, minimal_record, es_clear, administration_user
 ):
     """Test read a deleted record."""
     client = client_with_login

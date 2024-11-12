@@ -45,18 +45,24 @@ class SearchResultItemComponent extends Component {
         <Table.Cell key={`user-name-${result.id}`} data-label={i18next.t("Username")}>
           @{result.username}
           {result.identities.orcid && (
-            <img
-              className="inline-id-icon ml-5"
-              src="/static/images/orcid.svg"
-              alt="ORCID"
-            />
+            <a href={`https://orcid.org/${result.identities.orcid}`}>
+              <img
+                className="inline-id-icon ml-5"
+                src="/static/images/orcid.svg"
+                alt="ORCID"
+              />
+            </a>
           )}
-          <BoolFormatter
-            tooltip={i18next.t("GitHub")}
-            icon="github"
-            color="black"
-            value={result.identities.github}
-          />
+          {result.identities.github && (
+            <a href={`https://api.github.com/user/${result.identities.github}`}>
+              <Icon
+                title={i18next.t("GitHub")}
+                name="github"
+                color="black"
+                className="ml-5"
+              />
+            </a>
+          )}
         </Table.Cell>
         <Table.Cell
           key={`user-email-${result.id}`}
@@ -152,16 +158,19 @@ class SearchResultItemComponent extends Component {
           <Dropdown text={<Icon name="eye" />}>
             <Dropdown.Menu>
               <Dropdown.Item
-                text="Records"
-                onClick={() => (window.location = result.links.admin_records_html)}
+                as="a"
+                href={result.links.admin_records_html}
+                text={i18next.t("Records")}
               />
               <Dropdown.Item
-                text="Drafts"
-                onClick={() => (window.location = result.links.admin_drafts_html)}
+                as="a"
+                href={result.links.admin_drafts_html}
+                text={i18next.t("Drafts")}
               />
               <Dropdown.Item
-                text="Moderation"
-                onClick={() => (window.location = result.links.admin_moderation_html)}
+                as="a"
+                href={result.links.admin_moderation_html}
+                text={i18next.t("Moderation")}
               />
             </Dropdown.Menu>
           </Dropdown>
