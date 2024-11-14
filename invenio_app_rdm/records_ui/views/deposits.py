@@ -291,6 +291,9 @@ def load_custom_fields():
             if field_error_label:
                 error_labels[f"custom_fields.{field['field']}"] = field_error_label
             if getattr(field_instance, "relation_cls", None):
+                sort_by = field.get("props", {}).get("sort_by")
+                if sort_by:
+                    field_instance.sort_by = sort_by
                 # add vocabulary options to field's properties
                 field["props"]["options"] = field_instance.options(g.identity)
                 # mark field as vocabulary
