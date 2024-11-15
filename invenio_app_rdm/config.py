@@ -708,15 +708,6 @@ ACCESS_CACHE = "invenio_cache:current_cache"
 SEARCH_HOSTS = [{"host": "localhost", "port": 9200}]
 """Search hosts."""
 
-# Invenio-Indexer
-# ===============
-# See https://invenio-indexer.readthedocs.io/en/latest/configuration.html
-
-# We want that indexers are always explicit about the index they are indexing to.
-# NOTE: Can be removed when https://github.com/inveniosoftware/invenio-indexer/pull/158 is merged and released.
-INDEXER_DEFAULT_INDEX = None
-"""Default index to use if no schema is defined."""
-
 # Invenio-Base
 # ============
 # See https://invenio-base.readthedocs.io/en/latest/api.html#invenio_base.wsgi.wsgi_proxyfix  # noqa
