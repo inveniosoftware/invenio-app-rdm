@@ -99,7 +99,7 @@
   <dt class="ui tiny header">{{ item.funder.name if item.funder }}</dt>
   {%- if item.award -%}
   <dt class="ui tiny header">
-    <span class="mr-0">
+    <span class="mr-0 text-muted">
       {% if item.award.acronym %}
         {{ item.award.acronym }} –
       {% endif %}
@@ -110,7 +110,7 @@
     </span>
 
     {%- if item.award.number -%}
-      <span class="ui mini basic ml-0 text-muted {% if item.award.title_l10n %}mr-5{% endif %}" id="number-label-{{ index }}">
+      <span class="ui mini basic ml-0 label {% if item.award.title_l10n %}mr-5{% endif %}" id="number-label-{{ index }}">
         {{ item.award.number }}
       </span>
     {%- endif -%}
