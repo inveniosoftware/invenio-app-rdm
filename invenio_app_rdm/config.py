@@ -1384,6 +1384,11 @@ NOTIFICATIONS_BUILDERS = {
     community_notifications.SubCommunityCreate.type: community_notifications.SubCommunityCreate,
     community_notifications.SubCommunityAccept.type: community_notifications.SubCommunityAccept,
     community_notifications.SubCommunityDecline.type: community_notifications.SubCommunityDecline,
+    # Subcommunity invitation request
+    community_notifications.SubComInvitationCreate.type: community_notifications.SubComInvitationCreate,
+    community_notifications.SubComInvitationAccept.type: community_notifications.SubComInvitationAccept,
+    community_notifications.SubComInvitationDecline.type: community_notifications.SubComInvitationDecline,
+    community_notifications.SubComInvitationExpire.type: community_notifications.SubComInvitationExpire,
 }
 """Notification builders."""
 
