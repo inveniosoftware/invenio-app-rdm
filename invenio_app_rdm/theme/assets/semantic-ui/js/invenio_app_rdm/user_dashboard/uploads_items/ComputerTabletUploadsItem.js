@@ -125,7 +125,7 @@ export const ComputerTabletUploadsItem = ({
                 <span>
                   {" "}
                   |{" "}
-                  {i18next.t("Published in: {{publishInfo}}", {
+                  {i18next.t("Published in: {{- publishInfo }}", {
                     publishInfo: publishingInformation,
                   })}
                 </span>
