@@ -1,0 +1,196 @@
+{#
+  Copyright (C) 2021-2023 CERN.
+  Copyright (C) 2024 KTH Royal Institute of Technology.
+
+  Invenio App RDM är fri programvara; du kan återdistribuera och/eller modifiera den
+  enligt villkoren i MIT-licensen; se LICENSE-filen för mer information.
+#}
+{%- set title = _("FAQ statistics") %}
+{%- extends config.BASE_TEMPLATE %}
+
+{%- block page_body %}
+  <div class="ui two column grid container rel-mt-2">
+    <div class="ui row">
+      <div class="ui sixteen wide column">
+        <h2 id="statistics">Statistik</h2>
+        <p></p>
+      </div>
+      <div class="ui eight wide column">
+        <h3>
+          <p>Vad spårar ni?</p>
+        </h3>
+        <p>Vi spårar två typer av händelser:</p>
+        <ol>
+          <li>Besök på en post-sida.</li>
+          <li>Nedladdningar av en fil.</li>
+        </ol>
+        <p>För båda typer av händelser spårar vi:</p>
+        <ol>
+          <li>
+            <strong>Besökare:</strong>
+            Ett anonymiserat besökar-ID.
+          </li>
+          <li>
+            <strong>Besökarkategori:</strong>
+            Om förfrågan gjordes av a) människa, b) maskin eller c) robot.
+          </li>
+          <li>
+            <strong>Land:</strong>
+            Ursprungsland för förfrågan (baserat på IP-adress).
+          </li>
+          <li>
+            <strong>Referens:</strong>
+            Domän från vilken besökaren kom.
+          </li>
+        </ol>
+        <h3>
+          <p>
+            Vad är en
+            <em>visning</em>
+            ?
+          </p>
+        </h3>
+        <p>En användare (människa eller maskin) som besöker en post, exklusive dubbelklick och robotar.</p>
+        <h3>
+          <p>
+            Vad är en
+            <em>unik visning</em>
+            ?
+          </p>
+        </h3>
+        <p>
+          En
+          <em>unik visning</em>
+          definieras som ett eller flera besök av en användare inom ett tidsfönster på 1 timme. Detta innebär att om samma
+          post besöks flera gånger av samma användare inom samma tidsfönster räknas det som en unik visning.
+        </p>
+        <h3>
+          <p>
+            Vad är en
+            <em>nedladdning</em>
+            ?
+          </p>
+        </h3>
+        <p>En användare (människa eller maskin) som laddar ner en fil från en post, exklusive dubbelklick och robotar. Om en
+          post har flera filer och du laddar ner alla filer, räknas varje fil som en nedladdning.</p>
+        <h3>
+          <p>
+            Vad är en
+            <em>unik nedladdning</em>
+            ?
+          </p>
+        </h3>
+        <p>
+          En
+          <em>unik nedladdning</em>
+          definieras som en eller flera nedladdningar från filer i en post av en användare inom ett tidsfönster på 1 timme.
+          Detta innebär att om en eller flera filer från samma post laddas ner flera gånger av samma användare inom samma
+          tidsfönster räknas det som en unik nedladdning.
+        </p>
+        <h3>
+          <p>
+            Vad är
+            <em>nedladdad datavolym</em>
+            ?
+          </p>
+        </h3>
+        <p>Den totala datavolym som har laddats ner för alla filer i en post av en användare (människa eller maskin),
+          exklusive dubbelklick och robotar. Om en användare avbryter en nedladdning mitt i, räknar vi ändå hela filstorleken
+          som fullt nedladdad.</p><h3>
+          <p>Hur hanterar ni versioner?</p>
+        </h3>
+        <p>Som standard visar vi de sammanlagda räkningarna av visningar, nedladdningar och datavolymer för alla versioner av
+          en post. Du kan även expandera användningsstatistikrutan på en postsida för att se informationen för den specifika
+          versionen.</p>
+        <h3>
+          <p>Hur hanterar ni robotar?</p>
+        </h3>
+        <p>
+          Förfrågningar från robotar (även kallade crawlers, spindlar, bots) filtreras bort från användningsstatistiken. Vi
+          identifierar robotar baserat på en standardiserad lista från projekten
+          <a href="https://www.projectcounter.org/">COUNTER</a>
+          och
+          <a href="https://makedatacount.org/">Making Data Count</a>.
+        </p>
+        <h3>
+          <p>Hur ofta uppdateras användningsstatistiken?</p>
+        </h3>
+        <p>En gång om dagen.</p>
+        <h3>
+          <p>Hur kan jag se de mest visade posterna?</p>
+        </h3>
+        <p>
+          Vid sökningar på {{ config.THEME_SITENAME }} kan du sortera sökresultaten efter "
+          <a href="https://zenodo.org/search?sort=mostviewed">mest visade</a>
+          ".
+        </p>
+        <h3>
+          <p>Hur spårar ni?</p>
+        </h3>
+        <p>
+          Vi följer
+          <a href="https://www.projectcounter.org/">COUNTER Code of Practice</a>
+          samt
+          <a href="https://peerj.com/preprints/26505/">Code of Practice for Research Data Usage Metrics</a>
+          i vår spårning. Detta innebär att vår användningsstatistik kan jämföras med andra COUNTER-kompatibla arkiv.
+        </p>
+      </div>
+      <div class="ui eight wide column">
+        <h3>
+          <p>Vad är skillnaden mellan en maskin och en robot?</p>
+        </h3>
+        <p>
+          En
+          <em>maskinförfrågan</em>
+          är en automatiserad förfrågan initierad av en mänsklig användare, t.ex. ett skript som laddar ner data från {{
+          config.THEME_SITENAME }} och kör en analys på datan. En
+          <em>robotförfrågan</em>
+          är en automatiserad förfrågan gjord av t.ex. en sökmotorcrawler.
+        </p>
+        <h3>
+          <p>Hur anonymiserar ni användare?</p>
+        </h3>
+        <p>För varje visnings-/nedladdningshändelse spårar vi ett anonymiserat besökar-ID. Detta anonymiserade besökar-ID
+          ändras för en användare var 24:e timme, så en användare som besöker samma post två olika dagar får två olika
+          anonymiserade besökar-ID. Syftet med att spåra ett anonymiserat besökar-ID är att kunna räkna unika visningar och
+          nedladdningar.</p>
+        <p>
+          Av säkerhetsskäl behåller vi även en webbserverlogg som inkluderar din
+          <a href="https://en.wikipedia.org/wiki/IP_address">IP-adress</a>
+          och din webbläsares
+          <a href="https://en.wikipedia.org/wiki/User_agent">user agent</a>
+          -sträng. Denna logg raderas automatiskt efter högst ett år och är strikt separerad från insamlingen av användningsstatistik.
+        </p>
+        <p>Det anonymiserade besökar-ID:et genereras från en personlig identifierare, exempelvis:</p>
+        <ol>
+          <li>ett användar-ID (t.ex. om du är inloggad på zenodo.org),</li>
+          <li>ett sessions-ID,</li>
+          <li>eller en IP-adress och din webbläsares user agent-sträng.</li>
+        </ol>
+        <p>
+          Vi kombinerar den personliga identifieraren med ett slumpmässigt textvärde (ett salt) och tillämpar en envägs-
+          <a href="https://en.wikipedia.org/wiki/Cryptographic_hash_function">kryptografisk hash-funktion</a>
+          för att kryptera datan. Saltet (slumpvärdet) kastas bort och genereras om var 24:e timme. Genom att använda och
+          sedan kasta bort det slumpmässiga saltet säkerställs att det anonymiserade besökar-ID:et är helt slumpmässigt.
+        </p>
+        <h3>
+          <p>Kan jag välja bort att bli spårad i användningsstatistiken?</p>
+        </h3>
+        <p>Nej, det är inte möjligt att välja bort. Spårningen för användningsstatistik är fullt anonymiserad och sker på
+          serversidan.</p>
+        <h3>
+          <p>Stödjer ni användningsstatistik för en community?</p>
+        </h3>
+        <p>Inte än, men vi kommer att lägga till aggregerad användningsstatistik för communities.</p>
+        <h3>
+          <p>Spårar ni mina sökningar?</p>
+        </h3>
+        <p>Nej.</p>
+        <h3>
+          <p>Gör ni någon manuell eller automatisk profilering av användare?</p>
+        </h3>
+        <p>Nej.</p>
+      </div>
+    </div>
+  </div>
+{% endblock page_body %}
