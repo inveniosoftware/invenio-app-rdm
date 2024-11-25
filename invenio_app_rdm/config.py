@@ -994,6 +994,25 @@ APP_RDM_FILES_INTEGRITY_REPORT_SUBJECT = "Files integrity report"
 APP_RDM_ADMIN_EMAIL_RECIPIENT = "info@inveniosoftware.org"
 """Admin e-mail"""
 
+APP_RDM_IDENTIFIER_SCHEMES_UI = {
+    "orcid": {
+        "url_prefix": "http://orcid.org/",
+        "icon": "images/orcid.svg",
+        "label": "ORCID",
+    },
+    "ror": {
+        "url_prefix": "https://ror.org/",
+        "icon": "images/ror-icon.svg",
+        "label": "ROR",
+    },
+    "gnd": {
+        "url_prefix": "http://d-nb.info/gnd/",
+        "icon": "images/gnd-icon.svg",
+        "label": "GND",
+    },
+}
+"""Identifier Schemes UI config"""
+
 # Invenio-Communities
 # ===================
 
