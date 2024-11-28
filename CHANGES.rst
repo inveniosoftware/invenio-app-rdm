@@ -10,6 +10,12 @@
 Changes
 =======
 
+Version v13.0.0b1.dev20 (released 2024-11-28)
+
+- config: add subcommunity invitation request notifications
+- requests: add subcommunity invitation request details page
+- creatibutors: added config for identifiers scheme
+
 Version v13.0.0b1.dev15 (released 2024-10-18)
 
 - communities-ui: verified icon display logic change and deterministic sorting
