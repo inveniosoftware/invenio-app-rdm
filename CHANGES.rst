@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version v13.0.0b1.dev21 (released 2024-11-28)
+
+- installation: remove "sentry_sdk" extra from invenio-logging
+
 Version v13.0.0b1.dev20 (released 2024-11-28)
 
 - config: add subcommunity invitation request notifications
