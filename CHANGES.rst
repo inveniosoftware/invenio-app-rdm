@@ -10,6 +10,11 @@
 Changes
 =======
 
+Version v13.0.0b1.dev22 (released 2024-11-28)
+
+- installation: bump invenio-access
+    * This removes the invenio-admin dependency.
+
 Version v13.0.0b1.dev21 (released 2024-11-28)
 
 - installation: remove "sentry_sdk" extra from invenio-logging
