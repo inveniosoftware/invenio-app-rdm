@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version v12.0.11 (released 2024-11-28)
+
+- installation: remove "sentry_sdk" extra from invenio-logging
+
 Version 12.0.10 (released 2024-09-26)
 
 - revert deposit permission check for publish button, as it is not working as expected
