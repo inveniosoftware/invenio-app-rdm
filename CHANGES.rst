@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version v12.0.12 (released 2024-11-28)
+
+- assets: use the new copy feature to copy needed TinyMCE static assets
+
 Version v12.0.11 (released 2024-11-28)
 
 - installation: remove "sentry_sdk" extra from invenio-logging
