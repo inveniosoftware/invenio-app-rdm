@@ -107,6 +107,10 @@ def execute_upgrade():
                         scheme="doi",
                         parent=True,
                     )
+            else:
+                # commit parent if Datacite DOIs are disabled to create
+                # parent user link
+                record.parent.commit()
 
     def update_record(record):
         # skipping deleted records because can't be committed
