@@ -221,7 +221,8 @@ export class RDMDepositForm extends Component {
                             pidPlaceholder={pid.pid_placeholder}
                             pidType={pid.scheme}
                             unmanagedHelpText={pid.unmanaged_help_text}
-                            required
+                            doiDefaultSelection={pid.default_selected}
+                            required={this.config.is_doi_required}
                             record={record}
                           />
                         </Fragment>
