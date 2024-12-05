@@ -1,6 +1,7 @@
 {#
   Copyright (C) 2020-2025 CERN.
   Copyright (C) 2024 Northwestern University.
+  Copyright (C) 2024 KTH Royal Institute of Technology.
 
   Invenio RDM Records is free software; you can redistribute it and/or modify
   it under the terms of the MIT License; see LICENSE file for more details.
@@ -60,12 +61,14 @@
 {% macro show_add_descriptions(add_descriptions) %}
   {% for add_description in add_descriptions %}
     <section id="additional-description-{{ loop.index }}" class="rel-mt-2 rich-input-content"
-             aria-label="{{ _( add_description.type.title_l10n ) }}">
-      <h2>{{ add_description.type.title_l10n }} <span
-        class="text-muted language">{{ '(' + add_description.lang.title_l10n + ')' if add_description.lang }}</span>
+             aria-label="{{ _( add_description.type.title_l10n ) if add_description.type is defined else 'Missing description!' }}">
+      <h2>{{ add_description.type.title_l10n if add_description.type is defined else _('Missing Additional description type!') }}
+        <span class="text-muted language">
+          {{ '(' + add_description.lang.title_l10n + ')' if add_description.lang is defined else '' }}
+        </span>
       </h2>
 
-      {% if add_description.type.id == "notes" %}
+      {% if add_description.type is defined and add_description.type.id == "notes" %}
         <div class="ui message warning">
           {{ add_description.description | sanitize_html() | safe }}
         </div>
