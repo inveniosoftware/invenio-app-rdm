@@ -108,6 +108,7 @@ export class RDMDepositForm extends Component {
       allowRecordRestriction,
       groupsEnabled,
       allowEmptyFiles,
+      isDoiRequired,
     } = this.props;
     const customFieldsUI = this.config.custom_fields.ui;
     return (
@@ -221,7 +222,8 @@ export class RDMDepositForm extends Component {
                             pidPlaceholder={pid.pid_placeholder}
                             pidType={pid.scheme}
                             unmanagedHelpText={pid.unmanaged_help_text}
-                            required
+                            doiDefaultSelection={pid.default_selected}
+                            required={isDoiRequired}
                             record={record}
                           />
                         </Fragment>
@@ -724,6 +726,7 @@ RDMDepositForm.propTypes = {
   permissions: PropTypes.object,
   filesLocked: PropTypes.bool,
   allowEmptyFiles: PropTypes.bool,
+  isDoiRequired: PropTypes.bool.isRequired,
 };
 
 RDMDepositForm.defaultProps = {

@@ -82,6 +82,9 @@ def get_form_pids_config():
                 "A {scheme_label} allows your upload to be easily and "
                 "unambiguously cited. Example: 10.1234/foo.bar"
             ).format(scheme_label=scheme_label),
+            "default_selected": record_pid_config.get(scheme, {})
+            .get("ui", {})
+            .get("default_selected", "yes"),
         }
         pids_providers.append(pids_provider)
 
@@ -360,7 +363,10 @@ def new_record():
     record = dump_empty(RDMRecordSchema)
     record["files"] = {"enabled": current_app.config.get("RDM_DEFAULT_FILES_ENABLED")}
     if "doi" in current_rdm_records.records_service.config.pids_providers:
-        record["pids"] = {"doi": {"provider": "external", "identifier": ""}}
+        if current_app.config.get("DOI_DEFAULT_SELECTION", {}) is True:
+            record["pids"] = {"doi": {"provider": "external", "identifier": ""}}
+        else:
+            record["pids"] = {}
     else:
         record["pids"] = {}
     record["status"] = "draft"
@@ -389,6 +395,11 @@ def deposit_create(community=None):
 
     community_use_jinja_header = bool(community_theme)
     dashboard_routes = current_app.config["APP_RDM_USER_DASHBOARD_ROUTES"]
+    is_doi_required = (
+        current_app.config.get("RDM_PERSISTENT_IDENTIFIERS", {})
+        .get("doi", {})
+        .get("required")
+    )
     return render_community_theme_template(
         current_app.config["APP_RDM_DEPOSIT_FORM_TEMPLATE"],
         theme=community_theme,
@@ -413,6 +424,7 @@ def deposit_create(community=None):
                 "manage_record_access",
             ]
         ),
+        is_doi_required=is_doi_required,
     )
 
 
@@ -455,6 +467,11 @@ def deposit_edit(pid_value, draft=None, draft_files=None, files_locked=True):
     # communities
     community_use_jinja_header = bool(community_theme)
     dashboard_routes = current_app.config["APP_RDM_USER_DASHBOARD_ROUTES"]
+    is_doi_required = (
+        current_app.config.get("RDM_PERSISTENT_IDENTIFIERS", {})
+        .get("doi", {})
+        .get("required")
+    )
     return render_community_theme_template(
         current_app.config["APP_RDM_DEPOSIT_FORM_TEMPLATE"],
         theme=community_theme,
@@ -481,6 +498,7 @@ def deposit_edit(pid_value, draft=None, draft_files=None, files_locked=True):
                 "manage_record_access",
             ]
         ),
+        is_doi_required=is_doi_required,
     )
 
 

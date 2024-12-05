@@ -61,6 +61,12 @@
            value='{{ permissions | tojson }}'>
   {%- endif %}
 
+  {%- if is_doi_required != None %}
+    <input id="deposits-is-doi-required" type="hidden"
+           name="deposits-is-doi-required"
+           value='{{ is_doi_required | tojson }}'>
+  {%- endif %}
+
   <div id="deposit-form"></div>
 
 {%- endblock page_body %}
