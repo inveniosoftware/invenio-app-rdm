@@ -163,11 +163,11 @@
 {% macro _identifiers_for_group(related_identifiers) %}
   {% for identifier in related_identifiers %}
     <dd>
-      {% if identifier.resource_type is defined %}
+      {% if identifier.resource_type is defined and identifier.resource_type.title_l10n is defined %}
         {{ identifier.resource_type.title_l10n }}:
       {% endif %}
 
-      {% set ident_val = identifier.identifier if identifier.identifier is defined else '' %}
+      {% set ident_val = identifier.identifier|default('') %}
       {% set url = ident_val|pid_url %}
       {% if url %}
         <a href="{{ url }}" target="_blank" title="{{ _('Opens in new tab') }}">
@@ -177,7 +177,7 @@
         {{ ident_val }}
       {% endif %}
 
-      {% if identifier.scheme is defined %}
+      {% if identifier.scheme is defined and identifier.scheme %}
         {{ ' (' ~ (identifier.scheme|get_scheme_label) ~ ')' }}
       {% endif %}
     </dd>
