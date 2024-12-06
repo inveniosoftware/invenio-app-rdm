@@ -139,15 +139,13 @@
 {% macro show_references(references) %}
   <ul class="ui bulleted list details-list">
     {% for reference in references %}
-      {% set reference_string = reference.reference %}
-      {% if 'identifier' in reference %}
-        {% if 'scheme' in reference %}
+      {% set reference_string = reference.reference|default('') %}
+      {% if reference.identifier is defined and reference.identifier %}
+        {% if reference.scheme is defined and reference.scheme %}
           {% set reference_scheme = reference.scheme | get_scheme_label %}
-          {% set reference_string = reference_string + ' ( ' + reference_scheme +
-          ' - ' + reference.identifier + ' )' %}
+          {% set reference_string = reference_string ~ ' (' ~ reference_scheme ~ ' - ' ~ reference.identifier ~ ')' %}
         {% else %}
-          {% set reference_string = reference_string + ' ( ' + reference.identifier +
-          ' )' %}
+          {% set reference_string = reference_string ~ ' (' ~ reference.identifier ~ ')' %}
         {% endif %}
       {% endif %}
       <li class="item">{{ reference_string | urlize }}</li>
