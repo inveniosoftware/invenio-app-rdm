@@ -87,10 +87,11 @@
 
 {% macro show_dates(dates) %}
   {% for date in dates %}
-    <dt class="ui tiny header">{{ date.type.title_l10n if date.type is defined else _('Unknown date type') }}</dt>
+    {% set date_type_title = date.type.title_l10n if (date.type is defined and date.type.title_l10n is defined) else _('Unknown date type') %}
+    <dt class="ui tiny header">{{ date_type_title }}</dt>
     <dd>
-      <div>{{ date.date }}</div>
-      <div class="text-muted">{{ date.description }}</div>
+      <div>{{ date.date|default('') }}</div>
+      <div class="text-muted">{{ date.description|default('') }}</div>
     </dd>
   {% endfor %}
 {% endmacro %}
