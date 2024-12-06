@@ -105,25 +105,28 @@
 
 
 {% macro _show_funding_item(item, index) %}
-  {%- if item.award -%}
-    {%- if item.award.title_l10n -%}
+  {% set has_award = item is defined and item.award is defined %}
+  {% set award_title = item.award.title_l10n if has_award and item.award.title_l10n is defined else '' %}
+  {% set funder_name = item.funder.name if item.funder is defined and item.funder.name is defined else '' %}
+
+  {% if has_award %}
+    {% if award_title %}
       <dt class="ui tiny header">
         <span class="mr-5">
-          {% if item.award.acronym %}
+          {% if item.award.acronym is defined and item.award.acronym %}
             {{ item.award.acronym }} –
           {% endif %}
-
-          {{ item.award.title_l10n }}
+          {{ award_title }}
         </span>
 
-        {%- if item.award.number -%}
+        {%- if item.award.number is defined and item.award.number -%}
           <span class="ui mini basic label ml-0 mr-5" id="number-label-{{ index }}">
             {{ item.award.number }}
           </span>
         {%- endif -%}
 
-        {%- if item.award.identifiers -%}
-          {% for identifier in item.award.identifiers if 'url' == identifier.scheme %}
+        {%- if item.award.identifiers is defined -%}
+          {% for identifier in item.award.identifiers if identifier.scheme == 'url' %}
             <a href="{{ identifier.identifier }}" target="_blank"
                rel="noopener noreferrer" aria-label="{{ _('Open external link') }}">
               <i class="external alternate icon"></i>
@@ -132,9 +135,9 @@
         {%- endif -%}
       </dt>
     {%- endif -%}
-    <dd class="text-muted">{{ item.funder.name if item.funder }}</dd>
+    <dd class="text-muted">{{ funder_name }}</dd>
   {%- else -%}
-    <dt class="ui tiny header">{{ item.funder.name if item.funder }}</dt>
+    <dt class="ui tiny header">{{ funder_name }}</dt>
   {%- endif -%}
 {% endmacro %}
 
