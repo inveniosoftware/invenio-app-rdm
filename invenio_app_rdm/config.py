@@ -903,6 +903,13 @@ APP_RDM_RECORD_EXPORTERS = {
         "content-type": "application/x-yaml",
         "filename": "{id}.yaml",
     },
+    "datapackage": {
+        "name": _("Data Package JSON"),
+        "serializer": "invenio_rdm_records.resources.serializers:DataPackageSerializer",
+        "params": {},
+        "content-type": "application/ld+json",
+        "filename": "{id}.json",
+    },
 }
 
 APP_RDM_RECORD_LANDING_PAGE_EXTERNAL_LINKS = []
