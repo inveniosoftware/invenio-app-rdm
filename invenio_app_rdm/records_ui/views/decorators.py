@@ -10,8 +10,9 @@
 """Routes for record-related pages provided by Invenio-App-RDM."""
 
 from functools import wraps
+from itertools import islice
 
-from flask import g, make_response, redirect, request, session, url_for
+from flask import current_app, g, make_response, redirect, request, session, url_for
 from flask_login import login_required
 from invenio_communities.communities.resources.serializer import (
     UICommunityJSONSerializer,
@@ -19,10 +20,11 @@ from invenio_communities.communities.resources.serializer import (
 from invenio_communities.proxies import current_communities
 from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_rdm_records.proxies import current_rdm_records
+from invenio_rdm_records.resources.serializers.utils import get_vocabulary_props
 from invenio_records_resources.services.errors import PermissionDeniedError
 from sqlalchemy.orm.exc import NoResultFound
 
-from invenio_app_rdm.urls import record_url_for
+from invenio_app_rdm.urls import download_url_for, export_url_for, record_url_for
 
 
 def service():
@@ -365,8 +367,105 @@ def pass_draft_community(f):
     return view
 
 
-def add_signposting(f):
-    """Add signposting link to view's response headers."""
+def _get_header(rel, value, link_type=None):
+    header = f'<{value}> ; rel="{rel}"'
+    if link_type:
+        header += f' ; type="{link_type}"'
+    return header
+
+
+def _get_signposting_cite_as(record):
+    """Release self url points to RDM record.
+
+    It points to DataCite URL if the integration is enabled, otherwise it points to the HTML URL.
+    """
+    doi_url = record["links"].get("doi")
+    html_url = record["links"]["self_html"]
+    return _get_header("cite-as", doi_url or html_url)
+
+
+def _get_signposting_types(record):
+    resource_type = record["metadata"]["resource_type"]
+    props = get_vocabulary_props(
+        "resourcetypes",
+        [
+            "props.schema.org",
+        ],
+        resource_type["id"],
+    )
+    url_schema_org = props.get("schema.org")
+    return [
+        _get_header("type", url_schema_org),
+        _get_header("type", "https://schema.org/AboutPage"),
+    ]
+
+
+def _get_signposting_authors(record):
+    authors = []
+    # Limit authors to the first 10.
+    for creator in islice(record["metadata"]["creators"], 0, 10):
+        for identifier in creator["person_or_org"].get("identifiers", []):
+            if identifier["scheme"] == "orcid":
+                authors.append(
+                    _get_header(
+                        "author", "https://orcid.org/" + identifier["identifier"]
+                    )
+                )
+    return authors
+
+
+def _get_signposting_describedbys(pid_value):
+    describedbys = []
+    for export_format, val in current_app.config.get(
+        "APP_RDM_RECORD_EXPORTERS", {}
+    ).items():
+        url = export_url_for(pid_value=pid_value, export_format=export_format)
+        content_type = val["content-type"]
+        describedbys.append(_get_header("describedby", url, content_type))
+    return describedbys
+
+
+def _get_signposting_licenses(record):
+    licenses = []
+    for right in record["metadata"].get("rights", []):
+        # First try to get `props.url` from the standard licenses,
+        # then try to get the optional `link` from the custom license.
+        url = right.get("props", {}).get("url") or right.get("link")
+        if url:
+            licenses.append(_get_header("license", url))
+    return licenses
+
+
+def _get_signposting_items(files, pid_value):
+    items = []
+    # Checking if the user has access to the potentially restricted files.
+    if files:
+        # Limiting the iteration to 100 files maximum.
+        # The `entries` key does not exist if files are not enabled.
+        for file in islice(files.to_dict().get("entries", []), 0, 100):
+            url = download_url_for(pid_value=pid_value, filename=file["key"])
+            items.append(_get_header("item", url, file["mimetype"]))
+
+    return items
+
+
+def _get_signposting_collection(pid_value):
+    ui_url = record_url_for(pid_value=pid_value)
+    return _get_header("collection", ui_url, "text/html")
+
+
+def _get_signposting_describes(pid_value):
+    ui_url = record_url_for(pid_value=pid_value)
+    return _get_header("describes", ui_url, "text/html")
+
+
+def _get_signposting_linkset(pid_value):
+    api_url = record_url_for(_app="api", pid_value=pid_value)
+    return _get_header("linkset", api_url, "application/linkset+json")
+
+
+def add_signposting_landing_page(f):
+    """Add signposting links to the landing page view's response headers."""
 
     @wraps(f)
     def view(*args, **kwargs):
@@ -374,11 +473,65 @@ def add_signposting(f):
 
         # Relies on other decorators having operated before it
         pid_value = kwargs["pid_value"]
-        signposting_link = record_url_for(_app="api", pid_value=pid_value)
+        record = kwargs["record"]
+        files = kwargs["files"]
 
-        response.headers["Link"] = (
-            f'<{signposting_link}> ; rel="linkset" ; type="application/linkset+json"'  # fmt: skip
-        )
+        signposting_headers = [
+            _get_signposting_cite_as(record),
+            *_get_signposting_types(record),
+            *_get_signposting_authors(record),
+            *_get_signposting_describedbys(pid_value),
+            *_get_signposting_licenses(record),
+            *_get_signposting_items(files, pid_value),
+            _get_signposting_linkset(pid_value),
+        ]
+
+        response.headers["Link"] = " , ".join(signposting_headers)
+
+        return response
+
+    return view
+
+
+def add_signposting_content_resources(f):
+    """Add signposting links to the content resources view's response headers."""
+
+    @wraps(f)
+    def view(*args, **kwargs):
+        response = make_response(f(*args, **kwargs))
+
+        # Relies on other decorators having operated before it
+        pid_value = kwargs["pid_value"]
+
+        signposting_headers = [
+            _get_signposting_collection(pid_value),
+            _get_signposting_linkset(pid_value),
+        ]
+
+        response.headers["Link"] = " , ".join(signposting_headers)
+
+        return response
+
+    return view
+
+
+def add_signposting_metadata_resources(f):
+    """Add signposting links to the metadata resources view's response headers."""
+
+    @wraps(f)
+    def view(*args, **kwargs):
+        response = make_response(f(*args, **kwargs))
+
+        # Relies on other decorators having operated before it
+        pid_value = kwargs["pid_value"]
+
+        signposting_headers = [
+            _get_signposting_describes(pid_value),
+            _get_signposting_linkset(pid_value),
+        ]
+
+        response.headers["Link"] = " , ".join(signposting_headers)
+
         return response
 
     return view
