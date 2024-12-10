@@ -60,3 +60,21 @@ def download_url_for(pid_value="", filename=""):
     )
 
     return "/".join(p.strip("/") for p in [url_prefix, url_path])
+
+
+def export_url_for(pid_value="", export_format=""):
+    """Return url for export route."""
+    url_prefix = current_app.config.get(f"SITE_UI_URL", "")
+
+    # We use [] so that this fails and brings to attention the configuration
+    # problem if APP_RDM_ROUTES.record_export is missing
+    # url_path = current_app.config["APP_RDM_ROUTES"]["record_export"].replace(
+    #     "<pid_value>", pid_value
+    # )
+    url_path = (
+        current_app.config["APP_RDM_ROUTES"]["record_export"]
+        .replace("<pid_value>", pid_value)
+        .replace("<export_format>", export_format)
+    )
+
+    return "/".join(p.strip("/") for p in [url_prefix, url_path])
