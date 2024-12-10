@@ -10,6 +10,11 @@
 Changes
 =======
 
+Version v13.0.0b1.dev24 (released 2024-12-10)
+
+- fix: meta: add missing HighWire authors
+- config: add subcommunity comment notifications
+
 Version v13.0.0b1.dev23 (released 2024-11-28)
 
 - assets: use the new copy feature to copy needed TinyMCE static assets
