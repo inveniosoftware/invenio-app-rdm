@@ -1,5 +1,6 @@
 {#
   Copyright (C) 2019-2022 CERN.
+  Copyright (C) 2014 KTH Royal Institute of Technology.
 
   Invenio App RDM is free software; you can redistribute it and/or modify it
   under the terms of the MIT License; see LICENSE file for more details.
@@ -23,11 +24,10 @@
           {{ _("Configure") }}
         </div>
         <div class="description">
-          {% trans configuration_link="https://inveniordm.docs.cern.ch/install/configuration/" %}
-            Configure the datamodel, resource types, permissions and much more to make it suit your needs! For more
-            information on how to do it visit the <a href="{{ configuration_link }}" target="_blank">configuration
-            section in the docs</a>.
-          {% endtrans %}
+          {{ _("Configure the datamodel, resource types, permissions and much more to make it suit your needs! For more information on how to do it visit the") }}
+          <a href="https://inveniordm.docs.cern.ch/install/configuration/" target="_blank">
+            {{ _("configuration section in the docs") }}
+          </a>.
         </div>
       </div>
     </div>
@@ -41,10 +41,10 @@
           {{ _("Customize") }}
         </div>
         <div class="description">
-          {% trans configuration_link="https://inveniordm.docs.cern.ch/customize/" %}
-            Customize the layout and adapt the styling to match your institution's. See how to do so <a
-            href="{{ configuration_link }}" target="_blank">here</a>.
-          {% endtrans %}
+          {{ _("Customize the layout and adapt the styling to match your institution's. See how to do so") }}
+          <a href="https://inveniordm.docs.cern.ch/customize/" target="_blank">
+            {{ _("here") }}
+          </a>.
         </div>
       </div>
     </div>
@@ -56,12 +56,10 @@
       <div class="content">
         <div class="header">{{ _("Run it!") }}</div>
         <div class="description">
-          {% trans
-            deployment_link="https://inveniordm.docs.cern.ch/install/build-setup-run/#run_1"
-            %}
-            <a href="{{ deployment_link }}" target="_blank">Run</a> your
-            InvenioRDM instance locally or in containers.
-          {% endtrans %}
+          {{ _("Run your InvenioRDM instance locally or in containers.") }}
+          <a href="https://inveniordm.docs.cern.ch/install/build-setup-run/#run_1" target="_blank">
+            {{ _("Run") }}
+          </a>.
         </div>
       </div>
     </div>
