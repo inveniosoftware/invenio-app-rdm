@@ -438,12 +438,14 @@ def _get_signposting_licenses(record):
 
 def _get_signposting_items(files, pid_value):
     items = []
-    # Checking if the user has access to the files.
+    # Checking if the user has access to the potentially restricted files.
     if files:
         # Limiting the iteration to 100 files maximum.
-        for file in islice(files.to_dict()["entries"], 0, 100):
+        # The `entries` key does not exist if files are not enabled.
+        for file in islice(files.to_dict().get("entries", []), 0, 100):
             url = download_url_for(pid_value=pid_value, filename=file["key"])
             items.append(_get_header("item", url, file["mimetype"]))
+
     return items
 
 
