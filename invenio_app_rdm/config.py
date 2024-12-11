@@ -50,6 +50,7 @@ from invenio_notifications.backends import EmailNotificationBackend
 from invenio_rdm_records.notifications.builders import (
     CommunityInclusionAcceptNotificationBuilder,
     CommunityInclusionCancelNotificationBuilder,
+    CommunityInclusionCommentNotificationBuilder,
     CommunityInclusionDeclineNotificationBuilder,
     CommunityInclusionExpireNotificationBuilder,
     CommunityInclusionSubmittedNotificationBuilder,
@@ -1368,6 +1369,9 @@ NOTIFICATIONS_BUILDERS = {
     GrantUserAccessNotificationBuilder.type: GrantUserAccessNotificationBuilder,
     # Comment request event
     CommentRequestEventCreateNotificationBuilder.type: CommentRequestEventCreateNotificationBuilder,
+    CommunityInclusionCommentNotificationBuilder.type: CommunityInclusionCommentNotificationBuilder,
+    community_notifications.CommunityInvitationCommentNotificationBuilder.type: community_notifications.CommunityInvitationCommentNotificationBuilder,
+    community_notifications.CommunityRequestCommentNotificationBuilder.type: community_notifications.CommunityRequestCommentNotificationBuilder,
     community_notifications.SubComReqCommentNotificationBuilder.type: community_notifications.SubComReqCommentNotificationBuilder,
     community_notifications.SubComInvCommentNotificationBuilder.type: community_notifications.SubComInvCommentNotificationBuilder,
     # Community inclusion
