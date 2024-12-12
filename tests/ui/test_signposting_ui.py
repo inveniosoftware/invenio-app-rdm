@@ -9,14 +9,19 @@
 
 See https://signposting.org/FAIR/#level2 for more information on Signposting
 """
+import pytest
 
 
-def test_link_in_landing_page_response_headers(running_app, client, record_with_file):
+@pytest.mark.parametrize("http_method", ["head", "get"])
+def test_link_in_landing_page_response_headers(
+    running_app, client, record_with_file, http_method
+):
     ui_url = f"https://127.0.0.1:5000/records/{record_with_file.id}"
     api_url = f"https://127.0.0.1:5000/api/records/{record_with_file.id}"
     filename = "article.txt"
 
-    res = client.head(f"/records/{record_with_file.id}")
+    client_http_method = getattr(client, http_method)
+    res = client_http_method(f"/records/{record_with_file.id}")
 
     assert res.headers["Link"].split(" , ") == [
         f'<{ui_url}> ; rel="cite-as"',
@@ -41,14 +46,16 @@ def test_link_in_landing_page_response_headers(running_app, client, record_with_
     ]
 
 
+@pytest.mark.parametrize("http_method", ["head", "get"])
 def test_link_in_content_resource_response_headers(
-    running_app, client, record_with_file
+    running_app, client, record_with_file, http_method
 ):
     ui_url = f"https://127.0.0.1:5000/records/{record_with_file.id}"
     api_url = f"https://127.0.0.1:5000/api/records/{record_with_file.id}"
     filename = "article.txt"
 
-    res = client.head(f"/records/{record_with_file.id}/files/{filename}")
+    client_http_method = getattr(client, http_method)
+    res = client_http_method(f"/records/{record_with_file.id}/files/{filename}")
 
     assert res.headers["Link"].split(" , ") == [
         f'<{ui_url}> ; rel="collection" ; type="text/html"',
@@ -56,11 +63,15 @@ def test_link_in_content_resource_response_headers(
     ]
 
 
-def test_link_in_metadata_resource_response_headers(running_app, client, record):
+@pytest.mark.parametrize("http_method", ["head", "get"])
+def test_link_in_metadata_resource_response_headers(
+    running_app, client, record, http_method
+):
     ui_url = f"https://127.0.0.1:5000/records/{record.id}"
     api_url = f"https://127.0.0.1:5000/api/records/{record.id}"
 
-    res = client.head(f"/records/{record.id}/export/bibtex")
+    client_http_method = getattr(client, http_method)
+    res = client_http_method(f"/records/{record.id}/export/bibtex")
 
     assert res.headers["Link"].split(" , ") == [
         f'<{ui_url}> ; rel="describes" ; type="text/html"',
