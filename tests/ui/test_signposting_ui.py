@@ -24,24 +24,26 @@ def test_link_in_landing_page_response_headers(
     res = client_http_method(f"/records/{record_with_file.id}")
 
     assert res.headers["Link"].split(" , ") == [
-        f'<{ui_url}> ; rel="cite-as"',
+        # The test record does not have an author with an identifier.
+        # The test record does not have a cite-as since it has no DOI.
+        f'<{api_url}> ; rel="describedby" ; type="application/dcat+xml"',
+        f'<{api_url}> ; rel="describedby" ; type="application/json"',
+        f'<{api_url}> ; rel="describedby" ; type="application/ld+json"',
+        f'<{api_url}> ; rel="describedby" ; type="application/marcxml+xml"',
+        f'<{api_url}> ; rel="describedby" ; type="application/vnd.citationstyles.csl+json"',
+        f'<{api_url}> ; rel="describedby" ; type="application/vnd.datacite.datacite+json"',
+        f'<{api_url}> ; rel="describedby" ; type="application/vnd.datacite.datacite+xml"',
+        f'<{api_url}> ; rel="describedby" ; type="application/vnd.geo+json"',
+        f'<{api_url}> ; rel="describedby" ; type="application/vnd.inveniordm.v1+json"',
+        f'<{api_url}> ; rel="describedby" ; type="application/vnd.inveniordm.v1.full+csv"',
+        f'<{api_url}> ; rel="describedby" ; type="application/vnd.inveniordm.v1.simple+csv"',
+        f'<{api_url}> ; rel="describedby" ; type="application/x-bibtex"',
+        f'<{api_url}> ; rel="describedby" ; type="application/x-dc+xml"',
+        f'<{api_url}> ; rel="describedby" ; type="text/x-bibliography"',
+        f'<{ui_url}/files/{filename}> ; rel="item" ; type="text/plain"',
+        # The test record does not have a license.
         '<https://schema.org/Photograph> ; rel="type"',
         '<https://schema.org/AboutPage> ; rel="type"',
-        # The test record does not have an author with an identifier.
-        f'<{ui_url}/export/json> ; rel="describedby" ; type="application/json"',
-        f'<{ui_url}/export/json-ld> ; rel="describedby" ; type="application/ld+json"',
-        f'<{ui_url}/export/csl> ; rel="describedby" ; type="application/vnd.citationstyles.csl+json"',
-        f'<{ui_url}/export/datacite-json> ; rel="describedby" ; type="application/vnd.datacite.datacite+json"',
-        f'<{ui_url}/export/datacite-xml> ; rel="describedby" ; type="application/vnd.datacite.datacite+xml"',
-        f'<{ui_url}/export/dublincore> ; rel="describedby" ; type="application/x-dc+xml"',
-        f'<{ui_url}/export/marcxml> ; rel="describedby" ; type="application/marcxml+xml"',
-        f'<{ui_url}/export/bibtex> ; rel="describedby" ; type="application/x-bibtex"',
-        f'<{ui_url}/export/geojson> ; rel="describedby" ; type="application/vnd.geo+json"',
-        f'<{ui_url}/export/dcat-ap> ; rel="describedby" ; type="application/dcat+xml"',
-        f'<{ui_url}/export/codemeta> ; rel="describedby" ; type="application/ld+json"',
-        f'<{ui_url}/export/cff> ; rel="describedby" ; type="application/x-yaml"',
-        # The test record does not have a license.
-        f'<{ui_url}/files/{filename}> ; rel="item" ; type="text/plain"',
         f'<{api_url}> ; rel="linkset" ; type="application/linkset+json"',
     ]
 
