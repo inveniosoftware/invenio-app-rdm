@@ -15,7 +15,7 @@
     <h2 id="description-heading" class="sr-only">{{ _('Description') }}</h2>
     {# description data is being sanitized by marshmallow in the backend #}
     <div style="word-wrap: break-word;">
-      <p>{{ description | safe }}</p>
+      {{ description | safe }}
     </div>
   </section>
 {% endif %}
