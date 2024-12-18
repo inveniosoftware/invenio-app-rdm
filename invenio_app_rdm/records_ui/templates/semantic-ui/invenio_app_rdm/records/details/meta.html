@@ -28,6 +28,8 @@ _external=True) %}
       <meta name="citation_pdf_url" content="{{ file_url }}"/>
     {%- endif %}
     <link rel="alternate" type="{{ file.mimetype }}" href="{{ file_url }}">
+    {#- See https://signposting.org/FAIR/ #}
+    <link rel="item" type="{{ file.mimetype }}" href="{{ file_url }}">
   {%- endfor %}
 {% endif %}
 
