@@ -5,7 +5,6 @@
 
 .ui.flashed.message,
 .ui.form .flashed.message {
-  z-index: 0;
   &.manage {
     padding: 1em 0;
   }
