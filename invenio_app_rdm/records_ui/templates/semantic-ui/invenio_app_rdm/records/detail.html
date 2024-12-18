@@ -104,7 +104,7 @@
 
     <!-- PREVIEW HEADER -->
     {% if is_preview %}
-      <div class="ui info flashed bottom attached manage message">
+      <div class="ui info flashed bottom attached manage message record-banner">
         <div class="ui container">
           <div class="header">
             <i class="eye icon"></i>
@@ -127,7 +127,7 @@
     <!-- /PREVIEW HEADER -->
 
     {% if record.is_published and record.links.latest_html and not record.versions.is_latest %}
-      <div class="ui warning flashed bottom attached manage message">
+      <div class="ui warning flashed bottom attached manage message record-banner">
         <div class="ui container">
           <div class="ui relaxed grid">
             <div class="column">
