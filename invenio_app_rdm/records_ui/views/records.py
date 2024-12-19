@@ -28,6 +28,7 @@ from invenio_rdm_records.proxies import current_rdm_records
 from invenio_rdm_records.records.systemfields.access.access_settings import (
     AccessSettings,
 )
+from invenio_rdm_records.resources.config import record_serializers
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
 from invenio_stats.proxies import current_stats
 from invenio_users_resources.proxies import current_user_resources
@@ -146,6 +147,12 @@ def record_detail(
     pid_value, record, files, media_files, is_preview=False, include_deleted=False
 ):
     """Record detail page (aka landing page)."""
+    if not request.accept_mimetypes.accept_html:
+        accept_mimetype = request.accept_mimetypes.best_match(record_serializers.keys())
+        if accept_mimetype:
+            serializer = record_serializers[accept_mimetype]
+            return serializer.serializer.serialize_object(record.to_dict())
+
     files_dict = None if files is None else files.to_dict()
     media_files_dict = None if media_files is None else media_files.to_dict()
 
