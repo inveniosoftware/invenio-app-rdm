@@ -13,7 +13,7 @@
 
 from copy import deepcopy
 
-from flask import current_app, g, redirect
+from flask import current_app, g, make_response, redirect
 from flask_login import login_required
 from invenio_communities.errors import CommunityDeletedError
 from invenio_communities.proxies import current_communities
@@ -504,7 +504,7 @@ def deposit_edit(pid_value, draft=None, draft_files=None, files_locked=True):
             if doi_provider_config:
                 doi_provider_config[0]["default_selected"] = "no"
 
-    return render_community_theme_template(
+    html_content = render_community_theme_template(
         current_app.config["APP_RDM_DEPOSIT_FORM_TEMPLATE"],
         theme=community_theme,
         forms_config=form_config,
@@ -524,6 +524,15 @@ def deposit_edit(pid_value, draft=None, draft_files=None, files_locked=True):
             ]
         ),
     )
+    # Wrap the HTML string in a response object
+    response = make_response(html_content)
+
+    # Add cache-control headers to the response
+    response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = "0"
+
+    return response
 
 
 def community_upload(pid_value):
