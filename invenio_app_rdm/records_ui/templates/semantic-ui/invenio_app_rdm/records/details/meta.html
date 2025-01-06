@@ -1,5 +1,5 @@
 {#
-Copyright (C) 2020 CERN.
+Copyright (C) 2020-2024 CERN.
 Copyright (C) 2020 Northwestern University.
 Copyright (C) 2021 New York University.
 Copyright (C) 2023 Front Matter.
@@ -12,7 +12,7 @@ it under the terms of the MIT License; see LICENSE file for more details.
 
 {%- set meta_title = record.metadata.title|striptags -%}
 {%- set meta_description = record.metadata.description|striptags -%}
-{%- set meta_authors = record.creators|map(attribute='name') -%}
+{%- set meta_authors = record.metadata.creators|map(attribute='person_or_org')|map(attribute='name') -%}
 {%- set files = record.files %}
 
 {{- meta_highwire(meta_title,meta_description,authors=meta_authors,publisher=meta_publisher,publication_date=record.publication_date|from_isodate,doi=record.pids.get("doi", {}).get("identifier"),keywords=record.metadata.subjects | map(attribute="subject"),url=record.links.self_html) }}

@@ -29,6 +29,7 @@ ReactDOM.render(
       allowRecordRestriction={getInputFromDOM("deposits-allow-record-restriction")}
       groupsEnabled={getInputFromDOM("config-groups-enabled")}
       allowEmptyFiles={getInputFromDOM("records-resources-allow-empty-files")}
+      isDoiRequired={getInputFromDOM("deposits-is-doi-required")}
     />
   </OverridableContext.Provider>,
   document.getElementById("deposit-form")

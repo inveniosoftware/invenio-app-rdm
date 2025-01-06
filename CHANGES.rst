@@ -10,6 +10,30 @@
 Changes
 =======
 
+Version v13.0.0b1.dev24 (released 2024-12-10)
+
+- fix: meta: add missing HighWire authors
+- config: add subcommunity comment notifications
+
+Version v13.0.0b1.dev23 (released 2024-11-28)
+
+- assets: use the new copy feature to copy needed TinyMCE static assets
+
+Version v13.0.0b1.dev22 (released 2024-11-28)
+
+- installation: bump invenio-access
+    * This removes the invenio-admin dependency.
+
+Version v13.0.0b1.dev21 (released 2024-11-28)
+
+- installation: remove "sentry_sdk" extra from invenio-logging
+
+Version v13.0.0b1.dev20 (released 2024-11-28)
+
+- config: add subcommunity invitation request notifications
+- requests: add subcommunity invitation request details page
+- creatibutors: added config for identifiers scheme
+
 Version v13.0.0b1.dev15 (released 2024-10-18)
 
 - communities-ui: verified icon display logic change and deterministic sorting

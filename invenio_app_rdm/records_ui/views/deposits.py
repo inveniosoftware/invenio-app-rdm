@@ -60,6 +60,12 @@ def get_form_pids_config():
             continue
         record_pid_config = current_app.config["RDM_PERSISTENT_IDENTIFIERS"]
         scheme_label = record_pid_config.get(scheme, {}).get("label", scheme)
+        is_doi_required = record_pid_config.get(scheme, {}).get("required")
+        default_selected = (
+            record_pid_config.get(scheme, {}).get("ui", {}).get("default_selected")
+        )
+        if is_doi_required and default_selected == "not_needed":
+            default_selected = "yes"
         pids_provider = {
             "scheme": scheme,
             "field_label": "Digital Object Identifier",
@@ -82,6 +88,7 @@ def get_form_pids_config():
                 "A {scheme_label} allows your upload to be easily and "
                 "unambiguously cited. Example: 10.1234/foo.bar"
             ).format(scheme_label=scheme_label),
+            "default_selected": default_selected,
         }
         pids_providers.append(pids_provider)
 
@@ -360,7 +367,16 @@ def new_record():
     record = dump_empty(RDMRecordSchema)
     record["files"] = {"enabled": current_app.config.get("RDM_DEFAULT_FILES_ENABLED")}
     if "doi" in current_rdm_records.records_service.config.pids_providers:
-        record["pids"] = {"doi": {"provider": "external", "identifier": ""}}
+        if (
+            current_app.config["RDM_PERSISTENT_IDENTIFIERS"]
+            .get("doi", {})
+            .get("ui", {})
+            .get("default_selected")
+            == "yes"  # yes, no or not_needed
+        ):
+            record["pids"] = {"doi": {"provider": "external", "identifier": ""}}
+        else:
+            record["pids"] = {}
     else:
         record["pids"] = {}
     record["status"] = "draft"
@@ -389,6 +405,11 @@ def deposit_create(community=None):
 
     community_use_jinja_header = bool(community_theme)
     dashboard_routes = current_app.config["APP_RDM_USER_DASHBOARD_ROUTES"]
+    is_doi_required = (
+        current_app.config.get("RDM_PERSISTENT_IDENTIFIERS", {})
+        .get("doi", {})
+        .get("required")
+    )
     return render_community_theme_template(
         current_app.config["APP_RDM_DEPOSIT_FORM_TEMPLATE"],
         theme=community_theme,
@@ -397,6 +418,7 @@ def deposit_create(community=None):
             createUrl="/api/records",
             quota=get_files_quota(),
             hide_community_selection=community_use_jinja_header,
+            is_doi_required=is_doi_required,
         ),
         searchbar_config=dict(searchUrl=get_search_url()),
         record=new_record(),
@@ -455,17 +477,37 @@ def deposit_edit(pid_value, draft=None, draft_files=None, files_locked=True):
     # communities
     community_use_jinja_header = bool(community_theme)
     dashboard_routes = current_app.config["APP_RDM_USER_DASHBOARD_ROUTES"]
+    is_doi_required = (
+        current_app.config.get("RDM_PERSISTENT_IDENTIFIERS", {})
+        .get("doi", {})
+        .get("required")
+    )
+    form_config = get_form_config(
+        apiUrl=f"/api/records/{pid_value}/draft",
+        dashboard_routes=dashboard_routes,
+        # maybe quota should be serialized into the record e.g for admins
+        quota=get_files_quota(draft._record),
+        # hide react community component
+        hide_community_selection=community_use_jinja_header,
+        is_doi_required=is_doi_required,
+    )
+
+    if is_doi_required and not record.get("pids", {}).get("doi"):
+        # if the DOI is required but there is no value, we set the default selected pid
+        # to no i.e. system should automatically mint a local DOI
+        if record["status"] == "new_version_draft":
+            doi_provider_config = [
+                pid_config
+                for pid_config in form_config["pids"]
+                if pid_config.get("scheme") == "doi"
+            ]
+            if doi_provider_config:
+                doi_provider_config[0]["default_selected"] = "no"
+
     return render_community_theme_template(
         current_app.config["APP_RDM_DEPOSIT_FORM_TEMPLATE"],
         theme=community_theme,
-        forms_config=get_form_config(
-            apiUrl=f"/api/records/{pid_value}/draft",
-            dashboard_routes=dashboard_routes,
-            # maybe quota should be serialized into the record e.g for admins
-            quota=get_files_quota(draft._record),
-            # hide react community component
-            hide_community_selection=community_use_jinja_header,
-        ),
+        forms_config=form_config,
         record=record,
         community=community,
         community_use_jinja_header=community_use_jinja_header,

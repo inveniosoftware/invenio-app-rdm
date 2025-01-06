@@ -61,7 +61,7 @@ export class ManageDefaultBrandingAction extends Component {
             labelPosition="left"
             icon="paint brush"
             floated="right"
-            onClick={() => this.handleSetBranding("")}
+            onClick={() => this.handleSetBranding(null)}
             content={i18next.t("Remove branding")}
             aria-label={i18next.t(
               "{{communityTitle}} is a default branding for this record",

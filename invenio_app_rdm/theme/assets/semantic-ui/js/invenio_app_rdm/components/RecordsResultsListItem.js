@@ -132,7 +132,7 @@ class RecordsResultsListItem extends Component {
 
                     {publishingInformation && (
                       <>
-                        {i18next.t("Published in: {{publishInfo}}", {
+                        {i18next.t("Published in: {{- publishInfo }}", {
                           publishInfo: publishingInformation,
                         })}
                       </>

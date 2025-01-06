@@ -102,7 +102,7 @@ export const MobileUploadsItem = ({
               <small>
                 {publishingInformation && (
                   <span>
-                    {i18next.t("Published in: {{publishedIn}}", {
+                    {i18next.t("Published in: {{- publishedIn }}", {
                       publishedIn: publishingInformation,
                     })}
                   </span>

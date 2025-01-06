@@ -708,15 +708,6 @@ ACCESS_CACHE = "invenio_cache:current_cache"
 SEARCH_HOSTS = [{"host": "localhost", "port": 9200}]
 """Search hosts."""
 
-# Invenio-Indexer
-# ===============
-# See https://invenio-indexer.readthedocs.io/en/latest/configuration.html
-
-# We want that indexers are always explicit about the index they are indexing to.
-# NOTE: Can be removed when https://github.com/inveniosoftware/invenio-indexer/pull/158 is merged and released.
-INDEXER_DEFAULT_INDEX = None
-"""Default index to use if no schema is defined."""
-
 # Invenio-Base
 # ============
 # See https://invenio-base.readthedocs.io/en/latest/api.html#invenio_base.wsgi.wsgi_proxyfix  # noqa
@@ -1002,6 +993,25 @@ APP_RDM_FILES_INTEGRITY_REPORT_SUBJECT = "Files integrity report"
 
 APP_RDM_ADMIN_EMAIL_RECIPIENT = "info@inveniosoftware.org"
 """Admin e-mail"""
+
+APP_RDM_IDENTIFIER_SCHEMES_UI = {
+    "orcid": {
+        "url_prefix": "http://orcid.org/",
+        "icon": "images/orcid.svg",
+        "label": "ORCID",
+    },
+    "ror": {
+        "url_prefix": "https://ror.org/",
+        "icon": "images/ror-icon.svg",
+        "label": "ROR",
+    },
+    "gnd": {
+        "url_prefix": "http://d-nb.info/gnd/",
+        "icon": "images/gnd-icon.svg",
+        "label": "GND",
+    },
+}
+"""Identifier Schemes UI config"""
 
 # Invenio-Communities
 # ===================
@@ -1358,6 +1368,8 @@ NOTIFICATIONS_BUILDERS = {
     GrantUserAccessNotificationBuilder.type: GrantUserAccessNotificationBuilder,
     # Comment request event
     CommentRequestEventCreateNotificationBuilder.type: CommentRequestEventCreateNotificationBuilder,
+    community_notifications.SubComReqCommentNotificationBuilder.type: community_notifications.SubComReqCommentNotificationBuilder,
+    community_notifications.SubComInvCommentNotificationBuilder.type: community_notifications.SubComInvCommentNotificationBuilder,
     # Community inclusion
     CommunityInclusionAcceptNotificationBuilder.type: CommunityInclusionAcceptNotificationBuilder,
     CommunityInclusionCancelNotificationBuilder.type: CommunityInclusionCancelNotificationBuilder,
@@ -1374,6 +1386,11 @@ NOTIFICATIONS_BUILDERS = {
     community_notifications.SubCommunityCreate.type: community_notifications.SubCommunityCreate,
     community_notifications.SubCommunityAccept.type: community_notifications.SubCommunityAccept,
     community_notifications.SubCommunityDecline.type: community_notifications.SubCommunityDecline,
+    # Subcommunity invitation request
+    community_notifications.SubComInvitationCreate.type: community_notifications.SubComInvitationCreate,
+    community_notifications.SubComInvitationAccept.type: community_notifications.SubComInvitationAccept,
+    community_notifications.SubComInvitationDecline.type: community_notifications.SubComInvitationDecline,
+    community_notifications.SubComInvitationExpire.type: community_notifications.SubComInvitationExpire,
 }
 """Notification builders."""
 

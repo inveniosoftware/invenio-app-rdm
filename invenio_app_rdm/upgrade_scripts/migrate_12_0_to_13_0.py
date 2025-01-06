@@ -19,6 +19,7 @@ This script has been tested with following data:
 - record
     - internal_notes
 """
+
 import sys
 
 from click import secho
@@ -42,10 +43,7 @@ def execute_upgrade():
         try:
             secho(f"Updating record : {record.pid.pid_value}", fg="yellow")
 
-            # otherwise the save would not work, due to new attributes
-            # (media_files, parent_doi) used
-            record["$schema"] = "local://records/record-v7.0.0.json"
-
+            # TODO: Add any record datamodel migration code here
             record.commit()
 
             secho(f"> Updated parent: {record.parent.pid.pid_value}", fg="green")

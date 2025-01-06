@@ -14,7 +14,10 @@ from flask_login import current_user, login_required
 from invenio_communities.config import COMMUNITIES_ROLES
 from invenio_communities.members.services.request import CommunityInvitation
 from invenio_communities.proxies import current_identities_cache
-from invenio_communities.subcommunities.services.request import SubCommunityRequest
+from invenio_communities.subcommunities.services.request import (
+    SubCommunityInvitationRequest,
+    SubCommunityRequest,
+)
 from invenio_communities.utils import identity_cache_key
 from invenio_communities.views.communities import render_community_theme_template
 from invenio_communities.views.decorators import pass_community
@@ -242,6 +245,9 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
     is_record_inclusion = request_type == CommunityInclusion.type_id
     is_member_invitation = request_type == CommunityInvitation.type_id
     is_subcommunity_request = request_type == SubCommunityRequest.type_id
+    is_subcommunity_invitation_request = (
+        request_type == SubCommunityInvitationRequest.type_id
+    )
     request_is_accepted = request["status"] == AcceptAction.status_to
 
     permissions = community.has_permissions_to(
@@ -293,7 +299,7 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
             include_deleted=False,
         )
 
-    elif is_subcommunity_request:
+    elif is_subcommunity_request or is_subcommunity_invitation_request:
         return render_community_theme_template(
             f"invenio_requests/{request_type}/index.html",
             theme=community.to_dict().get("theme", {}),
