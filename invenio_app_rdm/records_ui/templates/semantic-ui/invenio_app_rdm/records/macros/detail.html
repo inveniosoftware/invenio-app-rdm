@@ -110,7 +110,7 @@
     </span>
 
     {%- if item.award.number -%}
-      <span class="ui mini basic ml-0 label {% if item.award.title_l10n %}mr-5{% endif %}" id="number-label-{{ index }}">
+      <span class="ui mini basic label {% if not item.award.title_l10n %}ml-0{% endif %}" id="number-label-{{ index }}">
         {{ item.award.number }}
       </span>
     {%- endif -%}
