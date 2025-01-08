@@ -134,13 +134,15 @@ const handleAuthButtonClick = () => {
 
 $authButton.on({ click: handleAuthButtonClick });
 
-const invenioConfig = JSON.parse(document.body.dataset.invenioConfig);
-const isMathJaxEnabled = invenioConfig?.isMathJaxEnabled;
-if (window.invenio) {
-  window.invenio.onSearchResultsRendered = () => {
-    if (isMathJaxEnabled) {
-      // Re-render mathematical content on the page using MathJax.
-      return window.MathJax?.typeset();
-    }
-  };
+if (document.body.dataset.invenioConfig) {
+  const invenioConfig = JSON.parse(document.body.dataset.invenioConfig);
+  const isMathJaxEnabled = invenioConfig?.isMathJaxEnabled;
+  if (window.invenio) {
+    window.invenio.onSearchResultsRendered = () => {
+      if (isMathJaxEnabled) {
+        // Re-render mathematical content on the page using MathJax.
+        return window.MathJax?.typeset();
+      }
+    };
+  }
 }

@@ -262,7 +262,7 @@ THEME_FOOTER_TEMPLATE = "invenio_app_rdm/footer.html"
 """Footer base template."""
 
 THEME_FRONTPAGE = False
-"""Use default frontpage."""
+"""Use default theme frontpage."""
 
 THEME_FRONTPAGE_TITLE = _("The turn-key research data management repository")
 """Frontpage title."""

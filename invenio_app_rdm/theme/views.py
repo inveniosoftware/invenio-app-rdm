@@ -43,7 +43,6 @@ def create_blueprint(app):
         template_folder="templates",
         static_folder="static",
     )
-
     blueprint.add_url_rule(**create_url_rule(routes["index"], default_view_func=index))
     blueprint.add_url_rule(
         **create_url_rule(routes["robots"], default_view_func=robots)
