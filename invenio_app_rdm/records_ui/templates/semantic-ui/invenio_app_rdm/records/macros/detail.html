@@ -96,39 +96,36 @@
 
 
 {% macro _show_funding_item(item, index) %}
+  <dt class="ui tiny header">{{ item.funder.name if item.funder }}</dt>
   {%- if item.award -%}
-    {%- if item.award.title_l10n -%}
-      <dt class="ui tiny header">
-        <span class="mr-5">
-          {% if item.award.acronym %}
-            {{ item.award.acronym }} –
-          {% endif %}
+  <dt class="ui tiny header">
+    <span class="mr-0 text-muted">
+      {% if item.award.acronym %}
+        {{ item.award.acronym }} –
+      {% endif %}
+      
+      {%- if item.award.title_l10n -%}
+        {{ item.award.title_l10n }}
+      {%- endif -%}
+    </span>
 
-          {{ item.award.title_l10n }}
-        </span>
-
-        {%- if item.award.number -%}
-          <span class="ui mini basic label ml-0 mr-5" id="number-label-{{ index }}">
-            {{ item.award.number }}
-          </span>
-        {%- endif -%}
-
-        {%- if item.award.identifiers -%}
-          {% for identifier in item.award.identifiers if 'url' == identifier.scheme %}
-            <a href="{{ identifier.identifier }}" target="_blank"
-               rel="noopener noreferrer" aria-label="{{ _('Open external link') }}">
-              <i class="external alternate icon"></i>
-            </a>
-          {%- endfor -%}
-        {%- endif -%}
-      </dt>
+    {%- if item.award.number -%}
+      <span class="ui mini basic label {% if not item.award.title_l10n %}ml-0{% endif %}" id="number-label-{{ index }}">
+        {{ item.award.number }}
+      </span>
     {%- endif -%}
-    <dd class="text-muted">{{ item.funder.name if item.funder }}</dd>
-  {%- else -%}
-    <dt class="ui tiny header">{{ item.funder.name if item.funder }}</dt>
-  {%- endif -%}
-{% endmacro %}
 
+    {%- if item.award.identifiers -%}
+      {% for identifier in item.award.identifiers if 'url' == identifier.scheme %}
+        <a href="{{ identifier.identifier }}" target="_blank"
+          rel="noopener noreferrer" aria-label="{{ _('Open external link') }}">
+          <i class="external alternate icon"></i>
+        </a>
+      {%- endfor -%}
+    {%- endif -%}
+  </dt>
+{%- endif -%}
+{% endmacro %}
 
 {% macro show_references(references) %}
   <ul class="ui bulleted list details-list">
