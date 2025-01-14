@@ -1,7 +1,7 @@
 ..
     Copyright (C) 2019-2024 CERN.
     Copyright (C) 2019-2024 Northwestern University.
-    Copyright (C)      2021 TU Wien.
+    Copyright (C) 2021-2025 TU Wien.
     Copyright (C)      2021 Graz University of Technology.
 
     Invenio App RDM is free software; you can redistribute it and/or modify
@@ -9,6 +9,10 @@
 
 Changes
 =======
+
+Version v12.0.13 (released 2025-01-14)
+
+- config: set OAI-PMH record index dynamically
 
 Version v12.0.12 (released 2024-11-28)
 
