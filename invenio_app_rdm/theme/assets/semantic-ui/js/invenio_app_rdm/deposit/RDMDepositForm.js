@@ -211,6 +211,7 @@ export class RDMDepositForm extends Component {
                             btnLabelGetPID={pid.btn_label_get_pid}
                             canBeManaged={pid.can_be_managed}
                             canBeUnmanaged={pid.can_be_unmanaged}
+                            optionalDOItransitions={pid.optional_doi_transitions}
                             fieldPath={`pids.${pid.scheme}`}
                             fieldLabel={pid.field_label}
                             isEditingPublishedRecord={

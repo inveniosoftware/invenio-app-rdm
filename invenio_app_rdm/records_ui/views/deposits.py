@@ -23,6 +23,9 @@ from invenio_i18n.ext import current_i18n
 from invenio_rdm_records.proxies import current_rdm_records
 from invenio_rdm_records.records.api import get_files_quota
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
+from invenio_rdm_records.services.components.pids import (
+    _get_optional_doi_transitions,
+)
 from invenio_rdm_records.services.schemas import RDMRecordSchema
 from invenio_rdm_records.services.schemas.utils import dump_empty
 from invenio_records_resources.services.errors import PermissionDeniedError
@@ -45,7 +48,7 @@ from .filters import get_scheme_label
 #
 # Helpers
 #
-def get_form_pids_config():
+def get_form_pids_config(record=None):
     """Prepare configuration for the pids field.
 
     Currently supporting only doi.
@@ -55,17 +58,45 @@ def get_form_pids_config():
     # FIXME: User provider.is_managed() requires tiny fix in config
     can_be_managed = True
     can_be_unmanaged = True
+    # We initialize the optional doi to empty to indicate that there is no restriction on the transitions
+    # This is valid for new uploads and when the DOI is required in an instance
+    optional_doi_transitions = []
     for scheme in service.config.pids_providers.keys():
         if not scheme == "doi":
             continue
+
         record_pid_config = current_app.config["RDM_PERSISTENT_IDENTIFIERS"]
         scheme_label = record_pid_config.get(scheme, {}).get("label", scheme)
         is_doi_required = record_pid_config.get(scheme, {}).get("required")
         default_selected = (
             record_pid_config.get(scheme, {}).get("ui", {}).get("default_selected")
         )
+        if record is not None and not is_doi_required:
+            sitename = current_app.config.get("THEME_SITENAME", "this repository")
+            previous_published_record = (
+                service.record_cls.get_latest_published_by_parent(record.parent)
+            )
+            optional_doi_transitions = _get_optional_doi_transitions(
+                previous_published_record
+            )
+            if optional_doi_transitions:
+                optional_doi_transitions["message"] = optional_doi_transitions.get(
+                    "message"
+                ).format(sitename=sitename)
+                if set(optional_doi_transitions.get("allowed_providers", [])) - set(
+                    ["external", "not_needed"]
+                ):
+                    # In case we have locally managed provider as an allowed one, we need to
+                    # select it by default. That is relevant for the case when the
+                    # user creates a new version of the record and the previous version
+                    # had a datacite DOI.
+                    default_selected = "no"
+
+        # if the DOI is required but the default selected is not_needed then we set it to yes
+        # to force the user to mint a DOI
         if is_doi_required and default_selected == "not_needed":
             default_selected = "yes"
+
         pids_provider = {
             "scheme": scheme,
             "field_label": "Digital Object Identifier",
@@ -89,6 +120,7 @@ def get_form_pids_config():
                 "unambiguously cited. Example: 10.1234/foo.bar"
             ).format(scheme_label=scheme_label),
             "default_selected": default_selected,
+            "optional_doi_transitions": optional_doi_transitions,
         }
         pids_providers.append(pids_provider)
 
@@ -332,6 +364,8 @@ def get_form_config(**kwargs):
     if record_quota:
         quota["maxStorage"] = record_quota["quota_size"]
 
+    record = kwargs.pop("record", None)
+
     return dict(
         vocabularies=VocabulariesOptions().dump(),
         autocomplete_names=conf.get(
@@ -339,7 +373,7 @@ def get_form_config(**kwargs):
         ),
         current_locale=str(current_i18n.locale),
         default_locale=conf.get("BABEL_DEFAULT_LOCALE", "en"),
-        pids=get_form_pids_config(),
+        pids=get_form_pids_config(record=record),
         quota=quota,
         decimal_size_display=conf.get("APP_RDM_DISPLAY_DECIMAL_FILE_SIZES", True),
         links=dict(
@@ -490,6 +524,7 @@ def deposit_edit(pid_value, draft=None, draft_files=None, files_locked=True):
         # hide react community component
         hide_community_selection=community_use_jinja_header,
         is_doi_required=is_doi_required,
+        record=draft._record,
     )
 
     if is_doi_required and not record.get("pids", {}).get("doi"):
