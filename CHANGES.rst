@@ -10,6 +10,13 @@
 Changes
 =======
 
+Version v13.0.0b1.dev26 (released 2025-01-16)
+
+- config: add record and membership comment notifications
+- records/macros/detail.html: Allow funding entry with award number only (#2912)
+- records-ui: remove unnecessary p tag in record details
+- ui: close unclosed div in header navbar
+
 Version v13.0.0b1.dev24 (released 2024-12-10)
 
 - fix: meta: add missing HighWire authors
