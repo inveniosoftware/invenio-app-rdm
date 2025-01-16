@@ -10,6 +10,13 @@
 Changes
 =======
 
+Version v13.0.0b1.dev27 (released 2025-01-16)
+
+- Revert "config: add record and membership comment notifications"
+    * This is actually a breaking change since it introduces a new
+      set of notification templates that will potentialy not be
+      styled if overridden in an instance's overlay.
+
 Version v13.0.0b1.dev26 (released 2025-01-16)
 
 - config: add record and membership comment notifications
