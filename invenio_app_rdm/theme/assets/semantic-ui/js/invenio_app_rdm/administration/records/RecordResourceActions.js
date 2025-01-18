@@ -7,6 +7,7 @@
  */
 
 import TombstoneForm from "./TombstoneForm";
+import { CompareRevisions } from "./CompareRevisions";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Button, Modal, Icon } from "semantic-ui-react";
@@ -28,6 +29,19 @@ export class RecordResourceActions extends Component {
   onModalTriggerClick = (e, { payloadSchema, dataName, dataActionKey }) => {
     const { resource } = this.props;
 
+    if (dataActionKey === "compare") {
+      this.setState({
+        modalOpen: true,
+        modalHeader: i18next.t("Compare revisions"),
+        modalBody: (
+          <CompareRevisions
+            actionSuccessCallback={this.handleSuccess}
+            actionCancelCallback={this.closeModal}
+            resource={resource}
+          />
+        ),
+      });
+    }
     if (dataActionKey === "delete") {
       this.setState({
         modalOpen: true,
@@ -81,6 +95,25 @@ export class RecordResourceActions extends Component {
     return (
       <>
         {Object.entries(actions).map(([actionKey, actionConfig]) => {
+          if (actionKey === "compare" && !resource.deletion_status.is_deleted) {
+            icon = "file code outline";
+            return (
+              <Element
+                key={actionKey}
+                onClick={this.onModalTriggerClick}
+                payloadSchema={actionConfig.payload_schema}
+                dataName={actionConfig.text}
+                dataActionKey={actionKey}
+                icon={icon}
+                fluid
+                basic
+                labelPosition="left"
+              >
+                {icon && <Icon name={icon} />}
+                {actionConfig.text}
+              </Element>
+            );
+          }
           if (actionKey === "delete" && !resource.deletion_status.is_deleted) {
             icon = "trash alternate";
             return (
