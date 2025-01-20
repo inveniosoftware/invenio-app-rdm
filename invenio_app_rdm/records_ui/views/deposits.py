@@ -23,9 +23,7 @@ from invenio_i18n.ext import current_i18n
 from invenio_rdm_records.proxies import current_rdm_records
 from invenio_rdm_records.records.api import get_files_quota
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
-from invenio_rdm_records.services.components.pids import (
-    _get_optional_doi_transitions,
-)
+from invenio_rdm_records.services.components.pids import _get_optional_doi_transitions
 from invenio_rdm_records.services.schemas import RDMRecordSchema
 from invenio_rdm_records.services.schemas.utils import dump_empty
 from invenio_records_resources.services.errors import PermissionDeniedError
@@ -37,6 +35,7 @@ from sqlalchemy.orm import load_only
 
 from ..utils import set_default_value
 from .decorators import (
+    no_cache_response,
     pass_draft,
     pass_draft_community,
     pass_draft_files,
@@ -424,6 +423,7 @@ def new_record():
 # Views
 #
 @login_required
+@no_cache_response
 @pass_draft_community
 def deposit_create(community=None):
     """Create a new deposit."""
@@ -475,6 +475,7 @@ def deposit_create(community=None):
 @secret_link_or_login_required()
 @pass_draft(expand=True)
 @pass_draft_files
+@no_cache_response
 def deposit_edit(pid_value, draft=None, draft_files=None, files_locked=True):
     """Edit an existing deposit."""
     # don't show draft's deposit form if the user can't edit it
