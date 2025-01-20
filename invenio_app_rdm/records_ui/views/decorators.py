@@ -403,3 +403,24 @@ def secret_link_or_login_required():
         return view
 
     return decorator
+
+
+def no_cache_response(f):
+    """Add appropriate response headers to force no caching.
+
+    This decorator is used to prevent caching of the response in the browser. This is needed
+    in the deposit form as we initialize the form with the record metadata included in the html page
+    and we don't want the browser to cache this page so that the user always gets the latest version of the record.
+    """
+
+    @wraps(f)
+    def view(*args, **kwargs):
+        response = make_response(f(*args, **kwargs))
+
+        response.cache_control.no_cache = True
+        response.cache_control.no_store = True
+        response.cache_control.must_revalidate = True
+
+        return response
+
+    return view
