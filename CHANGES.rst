@@ -10,7 +10,9 @@
 Changes
 =======
 
-Version 13.0.0b2.dev0 (released 2024-12-16)
+Version v13.0.0b2.dev1 (released 2025-01-23)
+
+Version v13.0.0b2.dev0 (released 2024-12-16)
 
 - setup: remove flask pin
 - setup: change to reusable workflows
