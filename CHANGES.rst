@@ -10,6 +10,15 @@
 Changes
 =======
 
+Version v13.0.0b1.dev29 (released 2025-01-23)
+
+- preview: do not mint parent doi if doi is not reserved and doi is optional
+
+Version v13.0.0b1.dev28 (released 2025-01-21)
+
+- pids: pass optional DOI transitions in the upload form
+- deposit: force no caching in the response headers
+
 Version v13.0.0b1.dev27 (released 2025-01-16)
 
 - Revert "config: add record and membership comment notifications"
