@@ -5,48 +5,26 @@
  * // Invenio-App-Rdm is free software; you can redistribute it and/or modify it
  * // under the terms of the MIT License; see LICENSE file for more details.
  */
-
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { RecordModerationApi } from "./api";
 import { withCancel, ErrorMessage } from "react-invenio-forms";
-import { Modal, Grid, Segment, Button } from "semantic-ui-react";
+import { Modal, Button, Grid } from "semantic-ui-react";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
-import { Differ, Viewer } from "json-diff-kit";
 import { CompareRevisionsDropdown } from "../components/CompareRevisionsDropdown";
+import { RevisionsDiffViewer } from "../components/RevisionsDiffViewer";
 
 export class CompareRevisions extends Component {
   constructor(props) {
     super(props);
-    this.differ = new Differ({
-      detectCircular: true,
-      maxDepth: null,
-      showModifications: true,
-      arrayDiffMethod: "lcs",
-      ignoreCase: false,
-      ignoreCaseForKey: false,
-      recursiveEqual: true,
-    });
-    this.viewerProps = {
-      indent: 4,
-      lineNumbers: true,
-      highlightInlineDiff: true,
-      inlineDiffOptions: {
-        mode: "word",
-        wordSeparator: " ",
-      },
-      hideUnchangedLines: true,
-      syntaxHighlight: false,
-      virtual: true,
-    };
 
     this.state = {
       loading: true,
       error: undefined,
-      currentDiff: undefined,
       allRevisions: {},
       srcRevision: undefined,
       targetRevision: undefined,
+      diff: undefined,
     };
   }
 
@@ -80,22 +58,20 @@ export class CompareRevisions extends Component {
     this.cancellableAction && this.cancellableAction.cancel();
   }
 
-  computeDiff = () => {
-    const { srcRevision, targetRevision } = this.state;
-    if (srcRevision && targetRevision) {
-      const diff = this.differ.diff(srcRevision, targetRevision);
-      this.setState({ currentDiff: diff });
-    }
-  };
-
   handleModalClose = () => {
     const { actionCancelCallback } = this.props;
     actionCancelCallback();
   };
 
+  handleCompare = (srcRevision, targetRevision) => {
+    this.setState({ diff: { srcRevision, targetRevision } });
+  };
+
   render() {
-    const { error, loading, currentDiff, allRevisions, srcRevision, targetRevision } =
+    const { error, loading, allRevisions, srcRevision, targetRevision, diff } =
       this.state;
+
+    console.log({ diff });
 
     const options = Object.values(allRevisions).map((rev) => ({
       key: rev.updated,
@@ -103,7 +79,9 @@ export class CompareRevisions extends Component {
       value: rev,
     }));
 
-    return (
+    return loading ? (
+      <p>Loading...</p>
+    ) : (
       <>
         <Modal.Content>
           <CompareRevisionsDropdown
@@ -111,9 +89,7 @@ export class CompareRevisions extends Component {
             options={options}
             srcRevision={srcRevision}
             targetRevision={targetRevision}
-            onSrcChange={(value) => this.setState({ srcRevision: value })}
-            onTargetChange={(value) => this.setState({ targetRevision: value })}
-            onCompare={this.computeDiff}
+            onCompare={this.handleCompare}
           />
           {error && (
             <Modal.Content>
@@ -127,16 +103,7 @@ export class CompareRevisions extends Component {
             </Modal.Content>
           )}
           <Modal.Content scrolling>
-            {loading && <p>Loading...</p>}
-            {!loading && currentDiff && (
-              <Grid>
-                <Grid.Column width={14}>
-                  <Segment>
-                    <Viewer diff={currentDiff} {...this.viewerProps} />
-                  </Segment>
-                </Grid.Column>
-              </Grid>
-            )}
+            <RevisionsDiffViewer diff={this.state.diff} />
           </Modal.Content>
         </Modal.Content>
         <Modal.Actions>

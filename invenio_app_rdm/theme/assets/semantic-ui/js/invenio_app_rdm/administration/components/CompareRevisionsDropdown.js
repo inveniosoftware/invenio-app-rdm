@@ -6,19 +6,25 @@
  * // under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Grid, Dropdown, Button } from "semantic-ui-react";
 
 export const CompareRevisionsDropdown = ({
   loading,
   options,
-  srcRevision,
-  targetRevision,
-  onSrcChange,
-  onTargetChange,
   onCompare,
+  srcRevision: srcOption,
+  targetRevision: targetOption,
 }) => {
+  // Local state for selected revisions
+  const [srcRevision, setSrcRevision] = useState(srcOption);
+  const [targetRevision, setTargetRevision] = useState(targetOption);
+
+  const handleCompare = () => {
+    onCompare(srcRevision, targetRevision);
+  };
+
   return (
     <Grid>
       <Grid.Column mobile={16} computer={6} tablet={16} largeScreen={6} widescreen={6}>
@@ -30,7 +36,7 @@ export const CompareRevisionsDropdown = ({
           fluid
           selection
           value={srcRevision}
-          onChange={(e, { value }) => onSrcChange(value)}
+          onChange={(e, { value }) => setSrcRevision(value)}
           options={options}
           scrolling
         />
@@ -44,7 +50,7 @@ export const CompareRevisionsDropdown = ({
           fluid
           selection
           value={targetRevision}
-          onChange={(e, { value }) => onTargetChange(value)}
+          onChange={(e, { value }) => setTargetRevision(value)}
           options={options}
           scrolling
         />
@@ -57,7 +63,12 @@ export const CompareRevisionsDropdown = ({
         largeScreen={2}
         widescreen={2}
       >
-        <Button onClick={onCompare}>Compare</Button>
+        <Button
+          onClick={handleCompare}
+          disabled={loading || !srcRevision || !targetRevision}
+        >
+          Compare
+        </Button>
       </Grid.Column>
     </Grid>
   );
@@ -66,9 +77,7 @@ export const CompareRevisionsDropdown = ({
 CompareRevisionsDropdown.propTypes = {
   loading: PropTypes.bool.isRequired,
   options: PropTypes.array.isRequired,
+  onCompare: PropTypes.func.isRequired,
   srcRevision: PropTypes.object,
   targetRevision: PropTypes.object,
-  onSrcChange: PropTypes.func.isRequired,
-  onTargetChange: PropTypes.func.isRequired,
-  onCompare: PropTypes.func.isRequired,
 };
