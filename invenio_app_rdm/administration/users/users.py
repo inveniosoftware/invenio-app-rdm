@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2023-2024 CERN.
+# Copyright (C) 2024 Ubiquity Press.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -11,6 +12,7 @@ from functools import partial
 
 from flask import current_app
 from invenio_administration.views.base import (
+    AdminResourceCreateView,
     AdminResourceDetailView,
     AdminResourceListView,
 )
@@ -42,8 +44,13 @@ USERS_ITEM_DETAIL = {
     "updated": {"text": _("Updated"), "order": 13, "width": 2},
 }
 
+USERS_DEFAULT_FORM_ITEMS = {
+    "username": {"text": _("Username"), "order": 1, "width": 2},
+    "email": {"text": _("Email"), "order": 2, "width": 1},
+}
 
-# List of the columns displayed on the user list and user details
+
+# List of the columns displayed on the user list, user details, and user creaste form
 
 
 class UsersListView(AdminResourceListView):
@@ -62,7 +69,9 @@ class UsersListView(AdminResourceListView):
     display_search = True
     display_delete = False
     display_edit = False
-    display_create = False
+    display_create = True
+    # self.name from create class
+    create_view_name = "invenio-users-resources-create"
 
     item_field_list = USERS_ITEM_LIST
 
@@ -130,5 +139,19 @@ class UsersDetailView(AdminResourceDetailView):
     display_delete = False
     display_edit = False
 
-    pid_path = "username"
+    pid_path = "id"
     item_field_list = USERS_ITEM_DETAIL
+
+
+class UsersCreateView(AdminResourceCreateView):
+    """Configuration for user create view."""
+
+    url = "/users/create"
+    api_endpoint = "/users"
+    extension_name = "invenio-users-resources"
+    name = "invenio-users-resources-create"
+    resource_config = "users_resource"
+    title = _("Create user details")
+    pid_path = "id"
+    list_view_name = "users"
+    form_fields = USERS_DEFAULT_FORM_ITEMS
