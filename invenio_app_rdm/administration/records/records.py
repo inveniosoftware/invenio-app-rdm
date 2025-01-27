@@ -56,6 +56,11 @@ class RecordAdminListView(AdminResourceListView):
             "payload_schema": None,
             "order": 1,
         },
+        "compare": {
+            "text": _("Compare revisions"),
+            "payload_schema": None,
+            "order": 1,
+        },
     }
 
     search_config_name = "RDM_SEARCH"
