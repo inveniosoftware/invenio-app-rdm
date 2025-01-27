@@ -166,6 +166,10 @@ def truncate_number(value, max_value):
 def namespace_url(field):
     """Get custom field namespace url."""
     namespace_array = field.split(":")
+    if len(namespace_array) < 2:
+        # Not a namespaced field
+        return None
+
     namespace = namespace_array[0]
     namespace_value = namespace_array[1]
     namespaces = current_app.config.get("RDM_NAMESPACES")
@@ -179,6 +183,10 @@ def namespace_url(field):
 def custom_fields_search(field, field_value, field_cfg=None):
     """Get custom field search url."""
     namespace_array = field.split(":")
+    if len(namespace_array) < 2:
+        # Not a namespaced field
+        return None
+
     namespace = namespace_array[0]
     namespaces = current_app.config.get("RDM_NAMESPACES")
 
