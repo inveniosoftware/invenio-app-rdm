@@ -12,6 +12,9 @@ const APIRoutesGenerators = {
   delete: (record, idKeyPath = "id") => {
     return `/api/records/${_get(record, idKeyPath)}/delete`;
   },
+  compare: (record, idKeyPath = "id") => {
+    return `/api/records/${_get(record, idKeyPath)}/revisions`;
+  },
 
   restore: (record, idKeyPath = "id") => {
     return `/api/records/${_get(record, idKeyPath)}/restore`;
