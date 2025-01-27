@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version v13.0.0b1.dev30 (released 2025-01-27)
+
+- administration: add record revision comparison
+
 Version v13.0.0b1.dev29 (released 2025-01-23)
 
 - preview: do not mint parent doi if doi is not reserved and doi is optional
