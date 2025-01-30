@@ -107,9 +107,16 @@ class RecordsResultsListItem extends Component {
             <Item className="creatibutors">
               <SearchItemCreators creators={creators} othersLink={viewLink} />
             </Item>
-            <Item.Description className="truncate-lines-2">
-              {descriptionStripped}
-            </Item.Description>
+            <Overridable
+              id={buildUID("RecordsResultsListItem.description", "", appName)}
+              descriptionStripped={descriptionStripped}
+              result={result}
+            >
+              <Item.Description className="truncate-lines-2">
+                {descriptionStripped}
+              </Item.Description>
+            </Overridable>
+
             <Item.Extra>
               {subjects.map((subject) => (
                 <Label key={subject.title_l10n} size="tiny">
