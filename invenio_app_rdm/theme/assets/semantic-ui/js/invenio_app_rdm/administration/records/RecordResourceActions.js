@@ -116,7 +116,7 @@ export class RecordResourceActions extends Component {
                 labelPosition="left"
               >
                 {icon && <Icon name={icon} />}
-                {actionConfig.text}
+                {actionConfig.text}...
               </Element>
             );
           }
@@ -135,7 +135,7 @@ export class RecordResourceActions extends Component {
                 labelPosition="left"
               >
                 {icon && <Icon name={icon} />}
-                {actionConfig.text}
+                {actionConfig.text}...
               </Element>
             );
           }
@@ -153,7 +153,7 @@ export class RecordResourceActions extends Component {
                 labelPosition="left"
               >
                 {icon && <Icon name={icon} />}
-                {actionConfig.text}
+                {actionConfig.text}...
               </Element>
             );
           }
