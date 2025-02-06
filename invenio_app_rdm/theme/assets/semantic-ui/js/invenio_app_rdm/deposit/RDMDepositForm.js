@@ -336,6 +336,11 @@ export class RDMDepositForm extends Component {
                           },
                           initialQueryState: {
                             filters: [["tags", "recommended"]],
+                            sortBy: "bestmatch",
+                            sortOrder: "asc",
+                            layout: "list",
+                            page: 1,
+                            size: 12,
                           },
                         }}
                         serializeLicenses={(result) => ({
