@@ -311,7 +311,7 @@ a.remove-default-style:hover {
   display: block;
   border-style: none;
   width:100%;
-  height:400px;
+  height:60vh;
 }
 
 
