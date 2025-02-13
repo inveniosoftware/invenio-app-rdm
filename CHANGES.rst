@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version v13.0.0b2.dev2 (released 2025-02-13)
+
+- Bump prerelease dependencies to stable.
+
 Version v13.0.0b2.dev1 (released 2025-01-23)
 
 Version v13.0.0b2.dev0 (released 2024-12-16)
