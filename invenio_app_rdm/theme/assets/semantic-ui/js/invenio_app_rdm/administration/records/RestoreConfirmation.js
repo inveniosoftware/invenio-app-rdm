@@ -1,6 +1,7 @@
 /*
  * // This file is part of Invenio-App-Rdm
  * // Copyright (C) 2023 CERN.
+ * // Copyright (C) 2024 KTH Royal Institute of Technology.
  * //
  * // Invenio-App-Rdm is free software; you can redistribute it and/or modify it
  * // under the terms of the MIT License; see LICENSE file for more details.
@@ -81,7 +82,7 @@ export class RestoreConfirmation extends Component {
         </Modal.Content>
         <Modal.Actions>
           <Button onClick={this.handleModalClose} floated="left">
-            Close
+            {i18next.t("Close")}
           </Button>
           <Button
             size="small"
