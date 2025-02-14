@@ -2,7 +2,7 @@
 #
 # Copyright (C) 2019-2021 CERN.
 # Copyright (C) 2019-2021 Northwestern University.
-# Copyright (C) 2024 Graz University of Technology.
+# Copyright (C) 2024-2025 Graz University of Technology.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -77,7 +77,9 @@ pytest_plugins = ("celery.contrib.pytest",)
 def extra_entry_points():
     """Register extra entry point."""
     return {
-        "invenio_base.blueprints": ["mock_module = mock_module.views:create_blueprint"],
+        "invenio_base.blueprints": [
+            "mock_module = tests.mock_module.views:create_blueprint"
+        ],
     }
 
 

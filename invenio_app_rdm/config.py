@@ -2,7 +2,7 @@
 #
 # Copyright (C) 2019-2025 CERN.
 # Copyright (C) 2019-2020 Northwestern University.
-# Copyright (C) 2021-2024 Graz University of Technology.
+# Copyright (C) 2021-2025 Graz University of Technology.
 # Copyright (C) 2022-2024 KTH Royal Institute of Technology.
 # Copyright (C) 2023      TU Wien
 #
@@ -184,7 +184,7 @@ def _(x):
 # =====
 # See https://flask.palletsprojects.com/en/1.1.x/config/
 
-APP_ALLOWED_HOSTS = ["0.0.0.0", "localhost", "127.0.0.1"]
+TRUSTED_HOSTS = ["0.0.0.0", "localhost", "127.0.0.1"]
 """Allowed hosts.
 
 Since HAProxy and Nginx route all requests no matter the host header
