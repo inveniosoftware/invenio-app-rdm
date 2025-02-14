@@ -178,7 +178,7 @@ def record_detail(
             )
         except ValidationError:
             abort(404)
-        # inject parent doi format for new drafts so we can show in preview
+        # inject parent doi format for new drafts so we can show in preview if parent doi is required
         if current_app.config["DATACITE_ENABLED"]:
             service = current_rdm_records.records_service
             datacite_provider = [
@@ -187,11 +187,27 @@ def record_detail(
                 if p == "doi" and "datacite" in v
             ]
             if datacite_provider:
-                datacite_provider = datacite_provider[0]
-                parent_doi = datacite_provider.client.generate_doi(
-                    record._record.parent
+                should_mint_parent_doi = True
+                is_doi_required = (
+                    current_app.config.get("RDM_PARENT_PERSISTENT_IDENTIFIERS", {})
+                    .get("doi", {})
+                    .get("required")
                 )
-                record_ui["ui"]["new_draft_parent_doi"] = parent_doi
+                if not is_doi_required:
+                    # check if the draft has a reserved doi and mint parent doi only in that case
+                    record_doi = record._record.pids.get("doi", {})
+                    is_doi_reserved = record_doi.get(
+                        "provider", ""
+                    ) == "datacite" and record_doi.get("identifier")
+                    if not is_doi_reserved:
+                        should_mint_parent_doi = False
+
+                if should_mint_parent_doi:
+                    datacite_provider = datacite_provider[0]
+                    parent_doi = datacite_provider.client.generate_doi(
+                        record._record.parent
+                    )
+                    record_ui["ui"]["new_draft_parent_doi"] = parent_doi
 
     # emit a record view stats event
     emitter = current_stats.get_event_emitter("record-view")

@@ -83,7 +83,6 @@ export class ImpersonateUserForm extends Component {
   render() {
     const { error, loading } = this.state;
     const { user } = this.props;
-    console.log({ user });
     return (
       <Formik
         onSubmit={this.handleSubmit}

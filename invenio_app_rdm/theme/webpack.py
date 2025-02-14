@@ -58,6 +58,7 @@ theme = WebpackThemeBundle(
                 "react-invenio-forms": "^4.0.0",
                 "react-searchkit": "^3.0.0",
                 "yup": "^0.32.0",
+                "json-diff-kit": "^1.0.30",
             },
             aliases={
                 # Define Semantic-UI theme configuration needed by
@@ -86,6 +87,10 @@ theme = WebpackThemeBundle(
                 {
                     "from": "../node_modules/tinymce/skins/ui/oxide/content.min.css",
                     "to": "../../static/dist/js/skins/ui/oxide",
+                },
+                {
+                    "from": "../node_modules/json-diff-kit/dist/viewer.css",
+                    "to": "../../static/css/json-diff-kit.css",
                 },
             ],
         ),

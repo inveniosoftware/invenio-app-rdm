@@ -10,6 +10,31 @@
 Changes
 =======
 
+Version v13.0.0b2.dev2 (released 2025-02-13)
+
+- Bump prerelease dependencies to stable.
+
+Version v13.0.0b2.dev1 (released 2025-01-23)
+
+Version v13.0.0b2.dev0 (released 2024-12-16)
+
+- setup: remove flask pin
+- setup: change to reusable workflows
+- setup: bump major dependencies
+
+Version v13.0.0b1.dev30 (released 2025-01-27)
+
+- administration: add record revision comparison
+
+Version v13.0.0b1.dev29 (released 2025-01-23)
+
+- preview: do not mint parent doi if doi is not reserved and doi is optional
+
+Version v13.0.0b1.dev28 (released 2025-01-21)
+
+- pids: pass optional DOI transitions in the upload form
+- deposit: force no caching in the response headers
+
 Version v13.0.0b1.dev27 (released 2025-01-16)
 
 - Revert "config: add record and membership comment notifications"

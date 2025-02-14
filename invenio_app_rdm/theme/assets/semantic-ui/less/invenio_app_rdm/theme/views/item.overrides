@@ -169,3 +169,7 @@
     align-self: center;
   }
 }
+
+.item > .content{
+  max-width: 100%
+}
