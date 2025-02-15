@@ -185,6 +185,8 @@ export const DashboardUploadsSearchLayout = DashboardSearchLayoutHOC({
     />
   ),
   appName: appName,
+  mineLabel: i18next.t("My uploads"),
+  showSharedDropdown: true,
 });
 
 const ContribSearchAppFacetsWithConfig = parametrize(ContribSearchAppFacets, {

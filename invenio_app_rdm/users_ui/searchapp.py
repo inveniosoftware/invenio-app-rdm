@@ -41,7 +41,10 @@ def search_app_context():
             current_app.config["RDM_SORT_OPTIONS"],
             "/api/user/requests",
             {"Accept": "application/json"},
-            initial_filters=[["is_open", "true"]],
+            initial_filters=[
+                ["is_open", "true"],
+                ["shared_with_me", "false"],
+            ],
             hidden_params=[["expand", "1"]],
         ),
     }
