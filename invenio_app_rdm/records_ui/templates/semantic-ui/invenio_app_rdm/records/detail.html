@@ -25,11 +25,11 @@
 {%- set title = record.metadata.title %}
 {%- set metadata = record.metadata %}
 
-{%- set can_manage_record = permissions is defined and (permissions.can_edit or permissions.can_review) %}
+{%- set can_curate_record = permissions is defined and (permissions.can_edit or permissions.can_review) %}
 
 <!-- preview_submission_request is set to true when coming from a community submission request -->
 {%- set is_preview_submission_request = preview_submission_request or false %}
-{%- set show_record_management_menu = can_manage_record and (not is_preview or is_preview_submission_request) %}
+{%- set show_record_management_menu = can_curate_record and (not is_preview or is_preview_submission_request) %}
 
 {%- if record.parent.access.settings %}
   {%- set allow_user_requests = not current_user.is_anonymous and record.parent.access.settings.allow_user_requests %}
@@ -175,7 +175,7 @@
 
               {%- block record_header_button -%}
 
-                {% if is_preview and not is_preview_submission_request and can_manage_record and is_draft %}
+                {% if is_preview and not is_preview_submission_request and can_curate_record and is_draft %}
                   <nav class="back-navigation rel-pb-2 pl-0"
                        aria-label="{{ _('Back-navigation') }}">
                     {%- set back_page = url_for('invenio_app_rdm_records.deposit_edit', pid_value=record.id) -%}
