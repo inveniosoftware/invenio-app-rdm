@@ -40,24 +40,34 @@ const statuses = {
   new_version_draft: { color: "neutral", title: i18next.t("New version draft") },
 };
 
+const executeRequest = (url, method = "GET") => {
+  return http({
+    url: url,
+    method: method,
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/vnd.inveniordm.v1+json",
+    },
+  });
+};
+
 export const RDMRecordResultsListItem = ({ result }) => {
   const editRecord = () => {
-    http
-      .post(
-        `/api/records/${result.id}/draft`,
-        {},
-        {
-          headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/vnd.inveniordm.v1+json",
-          },
-        }
-      )
+    executeRequest(`/api/records/${result.id}/draft`, "POST")
       .then(() => {
         window.location = `/uploads/${result.id}`;
       })
       .catch((error) => {
-        console.error(error.response.data);
+        if (error.response.status === 403) {
+          // try to see if user can preview the draft
+          executeRequest(`/api/records/${result.id}/draft`, "GET")
+            .then(() => {
+              window.location = `/records/${result.id}?preview=1`;
+            })
+            .catch((error) => {
+              console.error(error.response.data);
+            });
+        }
       });
   };
 
@@ -197,6 +207,11 @@ const DashboardResultViewWAppName = parametrize(DashboardResultView, {
   appName: appName,
 });
 
+const UploadsSearcBarElement = parametrize(RDMRecordSearchBarElement, {
+  showSharedDropdown: true,
+  mineLabel: i18next.t("My uploads"),
+});
+
 export const defaultComponents = {
   [`${appName}.BucketAggregation.element`]: ContribBucketAggregationElement,
   [`${appName}.BucketAggregationValues.element`]: ContribBucketAggregationValuesElement,
@@ -207,7 +222,7 @@ export const defaultComponents = {
   [`${appName}.SearchApp.facets`]: ContribSearchAppFacetsWithConfig,
   [`${appName}.SearchApp.layout`]: DashboardUploadsSearchLayout,
   [`${appName}.SearchApp.results`]: DashboardResultViewWAppName,
-  [`${appName}.SearchBar.element`]: RDMRecordSearchBarElement,
+  [`${appName}.SearchBar.element`]: UploadsSearcBarElement,
   [`${appName}.SearchFilters.Toggle.element`]: RDMToggleComponent,
 };
 const overriddenComponents = overrideStore.getAll();

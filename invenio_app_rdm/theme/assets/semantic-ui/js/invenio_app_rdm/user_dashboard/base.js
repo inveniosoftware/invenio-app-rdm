@@ -12,7 +12,6 @@ import {
   SearchAppResultsPane,
   InvenioSearchPagination,
 } from "@js/invenio_search_ui/components";
-import { SharedOrMyRequestsFilter } from "@js/invenio_requests/search";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import React from "react";
 import { ResultsList, SearchBar, Sort, buildUID } from "react-searchkit";
@@ -76,8 +75,6 @@ DashboardResultView.defaultProps = {
 export const DashboardSearchLayoutHOC = ({
   searchBarPlaceholder = "",
   appName = undefined,
-  mineLabel = "",
-  showSharedDropdown = false,
 }) => {
   const DashboardUploadsSearchLayout = (props) => {
     const [sidebarVisible, setSidebarVisible] = React.useState(false);
@@ -101,11 +98,6 @@ export const DashboardSearchLayoutHOC = ({
                   aria-label={i18next.t("Filter results")}
                 />
               </Grid.Column>
-              {showSharedDropdown && (
-                <Grid.Column width={3} floated="left">
-                  <SharedOrMyRequestsFilter mineLabel={mineLabel} />
-                </Grid.Column>
-              )}
               <Grid.Column
                 mobile={14}
                 tablet={10}
@@ -135,11 +127,6 @@ export const DashboardSearchLayoutHOC = ({
 
             {/* Desktop search header */}
             <Grid.Row className="computer only">
-              {showSharedDropdown && (
-                <Grid.Column width={3} floated="left">
-                  <SharedOrMyRequestsFilter mineLabel={mineLabel} />
-                </Grid.Column>
-              )}
               <Grid.Column width={8} floated="right">
                 <SearchBar placeholder={searchBarPlaceholder} />
               </Grid.Column>
