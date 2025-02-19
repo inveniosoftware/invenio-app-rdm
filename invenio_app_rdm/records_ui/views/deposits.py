@@ -444,6 +444,18 @@ def deposit_create(community=None):
         .get("doi", {})
         .get("required")
     )
+    record_permissions = get_record_permissions(
+        [
+            "manage",
+            "manage_files",
+            "delete_draft",
+            "manage_record_access",
+        ]
+    )
+    # Override manage permission as a new draft should give manage permissions to the record. Currently, the record
+    # owner generator allows only superusers to have manage permissions when record is None i.e. new record.
+    record_permissions["can_manage"] = True
+
     return render_community_theme_template(
         current_app.config["APP_RDM_DEPOSIT_FORM_TEMPLATE"],
         theme=community_theme,
@@ -461,14 +473,7 @@ def deposit_create(community=None):
         files=dict(default_preview=None, entries=[], links={}),
         preselectedCommunity=community,
         files_locked=False,
-        permissions=get_record_permissions(
-            [
-                "manage",
-                "manage_files",
-                "delete_draft",
-                "manage_record_access",
-            ]
-        ),
+        permissions=record_permissions,
     )
 
 
