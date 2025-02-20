@@ -11,7 +11,6 @@ import {
   SearchBar,
   MultipleOptionsSearchBarRSK,
 } from "@js/invenio_search_ui/components";
-import { SharedOrMyRequestsFilter } from "@js/invenio_requests/search";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import _get from "lodash/get";
 import _truncate from "lodash/truncate";
@@ -110,8 +109,6 @@ export const RDMRecordSearchBarElement = withState(
     onInputChange,
     updateQueryState,
     currentQueryState,
-    showSharedDropdown = false,
-    mineLabel = "",
   }) => {
     const placeholder = passedPlaceholder || i18next.t("Search");
 
@@ -129,9 +126,6 @@ export const RDMRecordSearchBarElement = withState(
     };
     return (
       <Input
-        {...(showSharedDropdown && {
-          label: <SharedOrMyRequestsFilter mineLabel={mineLabel} />,
-        })}
         action={{
           "icon": "search",
           "onClick": onBtnSearchClick,

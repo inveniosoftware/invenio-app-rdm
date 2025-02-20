@@ -73,7 +73,7 @@ export const LinksSearchItem = ({
       selfLink = `${record.links.record_html || record.links.self_html}?`;
     } else if (result?.permission === "preview") {
       // point to `/records/<id>?preview=1` even for published records
-      selfLink = `${record.links.record_html || record.links.self_html}?preview=1&`;
+      selfLink = `${record.links.preview_html}&`;
     } else if (result?.permission === "edit") {
       selfLink = `${record.links.self_html}?`;
     }

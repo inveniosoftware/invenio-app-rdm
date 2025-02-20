@@ -19,7 +19,6 @@ import {
   RDMRecordSearchBarElement,
   RDMToggleComponent,
 } from "../search/components";
-import { http } from "react-invenio-forms";
 import { DashboardResultView, DashboardSearchLayoutHOC } from "./base";
 import { createSearchAppInit } from "@js/invenio_search_ui";
 import { ComputerTabletUploadsItem } from "./uploads_items/ComputerTabletUploadsItem";
@@ -172,7 +171,7 @@ export const DashboardUploadsSearchLayout = DashboardSearchLayoutHOC({
   ),
   appName: appName,
   mineLabel: i18next.t("My uploads"),
-  showSharedDropdown: true,
+  showSharedFilters: true,
 });
 
 const ContribSearchAppFacetsWithConfig = parametrize(ContribSearchAppFacets, {
@@ -181,11 +180,6 @@ const ContribSearchAppFacetsWithConfig = parametrize(ContribSearchAppFacets, {
 
 const DashboardResultViewWAppName = parametrize(DashboardResultView, {
   appName: appName,
-});
-
-const UploadsSearcBarElement = parametrize(RDMRecordSearchBarElement, {
-  showSharedDropdown: true,
-  mineLabel: i18next.t("My uploads"),
 });
 
 export const defaultComponents = {
@@ -198,7 +192,7 @@ export const defaultComponents = {
   [`${appName}.SearchApp.facets`]: ContribSearchAppFacetsWithConfig,
   [`${appName}.SearchApp.layout`]: DashboardUploadsSearchLayout,
   [`${appName}.SearchApp.results`]: DashboardResultViewWAppName,
-  [`${appName}.SearchBar.element`]: UploadsSearcBarElement,
+  [`${appName}.SearchBar.element`]: RDMRecordSearchBarElement,
   [`${appName}.SearchFilters.Toggle.element`]: RDMToggleComponent,
 };
 const overriddenComponents = overrideStore.getAll();
