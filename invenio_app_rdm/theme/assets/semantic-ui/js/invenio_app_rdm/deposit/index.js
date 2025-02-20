@@ -26,6 +26,7 @@ ReactDOM.render(
       recordRestrictionGracePeriod={getInputFromDOM(
         "deposits-record-restriction-grace-period"
       )}
+      sectionsConfig={getInputFromDOM("deposits-sections-config")}
       allowRecordRestriction={getInputFromDOM("deposits-allow-record-restriction")}
       groupsEnabled={getInputFromDOM("config-groups-enabled")}
       allowEmptyFiles={getInputFromDOM("records-resources-allow-empty-files")}

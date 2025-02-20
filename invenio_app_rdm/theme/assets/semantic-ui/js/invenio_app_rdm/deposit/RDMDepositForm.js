@@ -109,6 +109,7 @@ export class RDMDepositForm extends Component {
       allowRecordRestriction,
       groupsEnabled,
       allowEmptyFiles,
+      sectionsConfig
     } = this.props;
 
     const customFieldsUI = this.config.custom_fields.ui;
@@ -167,7 +168,7 @@ export class RDMDepositForm extends Component {
                 noFiles={this.noFiles}
               >
                 <AccordionField
-                  includesPaths={["files.enabled"]}
+                  includesPaths={sectionsConfig["files"]}
                   active
                   label={i18next.t("Files")}
                   id="files-section"
@@ -203,16 +204,7 @@ export class RDMDepositForm extends Component {
                 vocabularies={this.vocabularies}
               >
                 <AccordionField
-                  includesPaths={[
-                    "metadata.resource_type",
-                    "metadata.title",
-                    "metadata.additional_titles",
-                    "metadata.publication_date",
-                    "metadata.creators",
-                    "metadata.description",
-                    "metadata.additional_descriptions",
-                    "metadata.rights",
-                  ]}
+                  includesPaths={sectionsConfig["basic-information"]}
                   active
                   label={i18next.t("Basic information")}
                   id="basic-information-section"
@@ -370,15 +362,7 @@ export class RDMDepositForm extends Component {
                 record={record}
               >
                 <AccordionField
-                  includesPaths={[
-                    "metadata.contributors",
-                    "metadata.subjects",
-                    "metadata.languages",
-                    "metadata.dates",
-                    "metadata.version",
-                    "metadata.publisher",
-                  ]}
-                  active
+                  includesPaths={sectionsConfig["recommended-information"]}
                   label={i18next.t("Recommended information")}
                   id="recommended-information-section"
                 >
@@ -469,7 +453,7 @@ export class RDMDepositForm extends Component {
                 ui={this.accordionStyle}
               >
                 <AccordionField
-                  includesPaths={["metadata.funding"]}
+                  includesPaths={sectionsConfig["funding"]}
                   active
                   label="Funding"
                   ui={this.accordionStyle}
@@ -563,7 +547,7 @@ export class RDMDepositForm extends Component {
                 vocabularies={this.vocabularies}
               >
                 <AccordionField
-                  includesPaths={["metadata.identifiers"]}
+                  includesPaths={sectionsConfig["alternate-identifiers"]}
                   active
                   label={i18next.t("Alternate identifiers")}
                   id="alternate-identifiers-section"
@@ -589,7 +573,7 @@ export class RDMDepositForm extends Component {
                 vocabularies={this.vocabularies}
               >
                 <AccordionField
-                  includesPaths={["metadata.related_identifiers"]}
+                  includesPaths={sectionsConfig["related-identifiers"]}
                   active
                   label={i18next.t("Related works")}
                   id="related-works-section"
@@ -612,7 +596,7 @@ export class RDMDepositForm extends Component {
                 vocabularies={this.vocabularies}
               >
                 <AccordionField
-                  includesPaths={["metadata.references"]}
+                  includesPaths={sectionsConfig["references"]}
                   active
                   label={i18next.t("References")}
                   id="references-section"
