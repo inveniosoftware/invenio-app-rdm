@@ -15,7 +15,7 @@ import { DisplayPartOfCommunities } from "../../components/DisplayPartOfCommunit
 
 export const ComputerTabletUploadsItem = ({
   result,
-  editRecord,
+  viewDraft,
   statuses,
   access,
   uiMetadata,
@@ -69,21 +69,23 @@ export const ComputerTabletUploadsItem = ({
             <i className={`icon ${accessStatusIcon}`} />
             {accessStatus}
           </Label>
-          <Button
-            compact
-            size="small"
-            floated="right"
-            onClick={() => editRecord()}
-            labelPosition="left"
-            icon="edit"
-            content={i18next.t("Edit")}
-          />
-          {isPublished && (
+
+          {isPublished ? (
             <Button
               compact
               size="small"
               floated="right"
               href={viewLink}
+              labelPosition="left"
+              icon="eye"
+              content={i18next.t("View")}
+            />
+          ) : (
+            <Button
+              compact
+              size="small"
+              floated="right"
+              onClick={() => viewDraft()}
               labelPosition="left"
               icon="eye"
               content={i18next.t("View")}
@@ -146,7 +148,7 @@ export const ComputerTabletUploadsItem = ({
 
 ComputerTabletUploadsItem.propTypes = {
   result: PropTypes.object.isRequired,
-  editRecord: PropTypes.func.isRequired,
+  viewDraft: PropTypes.func.isRequired,
   statuses: PropTypes.object.isRequired,
   access: PropTypes.object.isRequired,
   uiMetadata: PropTypes.object.isRequired,

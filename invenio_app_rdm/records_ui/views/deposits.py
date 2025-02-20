@@ -452,7 +452,7 @@ def deposit_create(community=None):
             "manage_record_access",
         ]
     )
-    # Override manage permission as a new draft should give manage permissions to the record. Currently, the record
+    # Override manage permission as a new draft should give manage permissions to the creator of the record. Currently, the record
     # owner generator allows only superusers to have manage permissions when record is None i.e. new record.
     record_permissions["can_manage"] = True
 
@@ -488,7 +488,12 @@ def deposit_edit(pid_value, draft=None, draft_files=None, files_locked=True):
     can_edit_draft = service.check_permission(
         g.identity, "update_draft", record=draft._record
     )
+    can_preview_draft = service.check_permission(
+        g.identity, "preview", record=draft._record
+    )
     if not can_edit_draft:
+        if can_preview_draft:
+            return redirect(f"/records/{pid_value}?preview=1")
         raise PermissionDeniedError()
 
     files_dict = None if draft_files is None else draft_files.to_dict()

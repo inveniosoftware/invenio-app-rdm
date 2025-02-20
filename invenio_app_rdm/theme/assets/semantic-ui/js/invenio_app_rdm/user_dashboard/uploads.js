@@ -40,35 +40,11 @@ const statuses = {
   new_version_draft: { color: "neutral", title: i18next.t("New version draft") },
 };
 
-const executeRequest = (url, method = "GET") => {
-  return http({
-    url: url,
-    method: method,
-    headers: {
-      "Content-Type": "application/json",
-      "Accept": "application/vnd.inveniordm.v1+json",
-    },
-  });
-};
-
 export const RDMRecordResultsListItem = ({ result }) => {
-  const editRecord = () => {
-    executeRequest(`/api/records/${result.id}/draft`, "POST")
-      .then(() => {
-        window.location = `/uploads/${result.id}`;
-      })
-      .catch((error) => {
-        if (error.response.status === 403) {
-          // try to see if user can preview the draft
-          executeRequest(`/api/records/${result.id}/draft`, "GET")
-            .then(() => {
-              window.location = `/records/${result.id}?preview=1`;
-            })
-            .catch((error) => {
-              console.error(error.response.data);
-            });
-        }
-      });
+  const viewDraft = () => {
+    // The upload view is responsible to redirect the user to the upload form or
+    // the preview page depending on the permissions they have.
+    window.location = `/uploads/${result.id}`;
   };
 
   const isPublished = result.is_published;
@@ -107,14 +83,14 @@ export const RDMRecordResultsListItem = ({ result }) => {
     <>
       <ComputerTabletUploadsItem
         result={result}
-        editRecord={editRecord}
+        viewDraft={viewDraft}
         statuses={statuses}
         access={access}
         uiMetadata={uiMetadata}
       />
       <MobileUploadsItem
         result={result}
-        editRecord={editRecord}
+        viewDraft={viewDraft}
         statuses={statuses}
         access={access}
         uiMetadata={uiMetadata}
