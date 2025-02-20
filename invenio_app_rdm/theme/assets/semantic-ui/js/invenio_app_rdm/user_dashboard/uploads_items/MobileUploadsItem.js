@@ -15,7 +15,7 @@ import { DisplayPartOfCommunities } from "../../components/DisplayPartOfCommunit
 
 export const MobileUploadsItem = ({
   result,
-  editRecord,
+  viewDraft,
   statuses,
   access,
   uiMetadata,
@@ -122,17 +122,17 @@ export const MobileUploadsItem = ({
         <Item.Extra>
           <Dropdown button text={i18next.t("Actions")} labeled className="icon">
             <Dropdown.Menu>
-              <Dropdown.Item
-                onClick={() => editRecord()}
-                labelposition="left"
-                icon="edit"
-                content={i18next.t("Edit")}
-              />
-
-              {isPublished && (
+              {isPublished ? (
                 <Dropdown.Item
                   labelposition="left"
                   href={viewLink}
+                  icon="eye"
+                  content={i18next.t("View")}
+                />
+              ) : (
+                <Dropdown.Item
+                  onClick={() => viewDraft()}
+                  labelposition="left"
                   icon="eye"
                   content={i18next.t("View")}
                 />
@@ -147,7 +147,7 @@ export const MobileUploadsItem = ({
 
 MobileUploadsItem.propTypes = {
   result: PropTypes.object.isRequired,
-  editRecord: PropTypes.func.isRequired,
+  viewDraft: PropTypes.func.isRequired,
   statuses: PropTypes.object.isRequired,
   access: PropTypes.object.isRequired,
   uiMetadata: PropTypes.object.isRequired,
