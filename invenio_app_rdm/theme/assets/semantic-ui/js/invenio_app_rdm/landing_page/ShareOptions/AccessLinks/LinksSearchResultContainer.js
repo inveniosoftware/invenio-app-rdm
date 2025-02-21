@@ -33,7 +33,7 @@ export const dropdownOptions = [
     title: i18next.t("Can preview drafts"),
     value: "preview",
     description: i18next.t(
-      "Can view drafts and restricted files of all versions of this record."
+      "Can view drafts, restricted files, and comment on associated draft requests of all versions of this record."
     ),
   },
   {
@@ -43,7 +43,7 @@ export const dropdownOptions = [
     title: i18next.t("Can edit"),
     value: "edit",
     description: i18next.t(
-      "Can edit drafts and view restricted files of all versions of this record."
+      "Can edit drafts, view restricted files, and comment on associated draft requests of all versions of this record."
     ),
   },
 ];

@@ -41,24 +41,10 @@ const statuses = {
 };
 
 export const RDMRecordResultsListItem = ({ result }) => {
-  const editRecord = () => {
-    http
-      .post(
-        `/api/records/${result.id}/draft`,
-        {},
-        {
-          headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/vnd.inveniordm.v1+json",
-          },
-        }
-      )
-      .then(() => {
-        window.location = `/uploads/${result.id}`;
-      })
-      .catch((error) => {
-        console.error(error.response.data);
-      });
+  const viewDraft = () => {
+    // The upload view is responsible to redirect the user to the upload form or
+    // the preview page depending on the permissions they have.
+    window.location = `/uploads/${result.id}`;
   };
 
   const isPublished = result.is_published;
@@ -97,14 +83,14 @@ export const RDMRecordResultsListItem = ({ result }) => {
     <>
       <ComputerTabletUploadsItem
         result={result}
-        editRecord={editRecord}
+        viewDraft={viewDraft}
         statuses={statuses}
         access={access}
         uiMetadata={uiMetadata}
       />
       <MobileUploadsItem
         result={result}
-        editRecord={editRecord}
+        viewDraft={viewDraft}
         statuses={statuses}
         access={access}
         uiMetadata={uiMetadata}
@@ -185,6 +171,8 @@ export const DashboardUploadsSearchLayout = DashboardSearchLayoutHOC({
     />
   ),
   appName: appName,
+  mineLabel: i18next.t("My uploads"),
+  showSharedDropdown: true,
 });
 
 const ContribSearchAppFacetsWithConfig = parametrize(ContribSearchAppFacets, {
@@ -193,6 +181,11 @@ const ContribSearchAppFacetsWithConfig = parametrize(ContribSearchAppFacets, {
 
 const DashboardResultViewWAppName = parametrize(DashboardResultView, {
   appName: appName,
+});
+
+const UploadsSearcBarElement = parametrize(RDMRecordSearchBarElement, {
+  showSharedDropdown: true,
+  mineLabel: i18next.t("My uploads"),
 });
 
 export const defaultComponents = {
@@ -205,7 +198,7 @@ export const defaultComponents = {
   [`${appName}.SearchApp.facets`]: ContribSearchAppFacetsWithConfig,
   [`${appName}.SearchApp.layout`]: DashboardUploadsSearchLayout,
   [`${appName}.SearchApp.results`]: DashboardResultViewWAppName,
-  [`${appName}.SearchBar.element`]: RDMRecordSearchBarElement,
+  [`${appName}.SearchBar.element`]: UploadsSearcBarElement,
   [`${appName}.SearchFilters.Toggle.element`]: RDMToggleComponent,
 };
 const overriddenComponents = overrideStore.getAll();

@@ -13,6 +13,7 @@ import {
   ContribBucketAggregationValuesElement,
   ContribSearchAppFacets,
 } from "@js/invenio_search_ui/components";
+import { i18next } from "@translations/invenio_app_rdm/i18next";
 import PropTypes from "prop-types";
 import React from "react";
 import { overrideStore, parametrize } from "react-overridable";
@@ -52,6 +53,12 @@ RequestsResultsItemTemplateDashboard.propTypes = {
 
 const RequestsSearchLayoutWithApp = parametrize(RequestsSearchLayout, {
   appName: appName,
+  showSharedDropdown: true,
+});
+
+const RequestsSearcBarElement = parametrize(RDMRecordSearchBarElement, {
+  showSharedDropdown: true,
+  mineLabel: i18next.t("My requests"),
 });
 
 export const defaultComponents = {
@@ -62,7 +69,7 @@ export const defaultComponents = {
   [`${appName}.ResultsGrid.item`]: () => null,
   [`${appName}.SearchApp.layout`]: RequestsSearchLayoutWithApp,
   [`${appName}.SearchApp.results`]: RequestsResults,
-  [`${appName}.SearchBar.element`]: RDMRecordSearchBarElement,
+  [`${appName}.SearchBar.element`]: RequestsSearcBarElement,
   [`${appName}.EmptyResults.element`]: RequestsEmptyResultsWithState,
   ...defaultContribComponents,
 };
