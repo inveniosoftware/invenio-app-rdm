@@ -99,6 +99,7 @@ export class RDMDepositForm extends Component {
 
   render() {
     const {
+      config,
       record,
       files,
       permissions,
@@ -108,41 +109,58 @@ export class RDMDepositForm extends Component {
       allowRecordRestriction,
       groupsEnabled,
       allowEmptyFiles,
+      sectionsConfig
     } = this.props;
+
     const customFieldsUI = this.config.custom_fields.ui;
+
     return (
-      <DepositFormApp
-        config={this.config}
+      <Overridable
+        id="InvenioAppRdm.Deposit.RDMDepositForm.layout"
         record={record}
-        preselectedCommunity={preselectedCommunity}
         files={files}
+        config={config}
         permissions={permissions}
+        preselectedCommunity={preselectedCommunity}
+        filesLocked={filesLocked}
+        recordRestrictionGracePeriod={recordRestrictionGracePeriod}
+        allowRecordRestriction={allowRecordRestriction}
+        groupsEnabled={groupsEnabled}
+        allowEmptyFiles={allowEmptyFiles}
+        customFieldsUI={customFieldsUI}
       >
-        <Overridable
-          id="InvenioAppRdm.Deposit.FormFeedback.container"
-          labels={this.config.custom_fields.error_labels}
-          fieldPath="message"
+        <DepositFormApp
+          config={this.config}
+          record={record}
+          preselectedCommunity={preselectedCommunity}
+          files={files}
+          permissions={permissions}
         >
-          <FormFeedback
-            fieldPath="message"
+          <Overridable
+            id="InvenioAppRdm.Deposit.FormFeedback.container"
             labels={this.config.custom_fields.error_labels}
-          />
-        </Overridable>
+            fieldPath="message"
+          >
+            <FormFeedback
+              fieldPath="message"
+              labels={this.config.custom_fields.error_labels}
+            />
+          </Overridable>
 
         <Overridable
           id="InvenioAppRdm.Deposit.CommunityHeader.container"
           record={record}
         >
           {!this.hide_community_selection && (
-            <CommunityHeader
-              imagePlaceholderLink="/static/images/square-placeholder.png"
-              record={record}
-            />
+              <CommunityHeader
+                imagePlaceholderLink="/static/images/square-placeholder.png"
+                record={record}
+              />
           )}
         </Overridable>
-        <Container id="rdm-deposit-form" className="rel-mt-1">
-          <Grid className="mt-25">
-            <Grid.Column mobile={16} tablet={16} computer={11}>
+          <Container id="rdm-deposit-form" className="rel-mt-1">
+            <Grid className="mt-25">
+              <Grid.Column mobile={16} tablet={16} computer={11}>
               <Overridable
                 id="InvenioAppRdm.Deposit.AccordionFieldFiles.container"
                 record={record}
@@ -150,9 +168,10 @@ export class RDMDepositForm extends Component {
                 noFiles={this.noFiles}
               >
                 <AccordionField
-                  includesPaths={["files.enabled"]}
+                  includesPaths={sectionsConfig["files"]}
                   active
                   label={i18next.t("Files")}
+                  id="files-section"
                 >
                   {this.noFiles && record.is_published && (
                     <div className="text-align-center pb-10">
@@ -185,18 +204,10 @@ export class RDMDepositForm extends Component {
                 vocabularies={this.vocabularies}
               >
                 <AccordionField
-                  includesPaths={[
-                    "metadata.resource_type",
-                    "metadata.title",
-                    "metadata.additional_titles",
-                    "metadata.publication_date",
-                    "metadata.creators",
-                    "metadata.description",
-                    "metadata.additional_descriptions",
-                    "metadata.rights",
-                  ]}
+                  includesPaths={sectionsConfig["basic-information"]}
                   active
                   label={i18next.t("Basic information")}
+                  id="basic-information-section"
                 >
                   <Overridable
                     id="InvenioAppRdm.Deposit.PIDField.container"
@@ -254,7 +265,7 @@ export class RDMDepositForm extends Component {
                       fieldPath="metadata.title"
                       recordUI={record.ui}
                       required
-                    />
+                  />
                   </Overridable>
 
                   <Overridable
@@ -274,7 +285,7 @@ export class RDMDepositForm extends Component {
                     fieldPath="metadata.creators"
                   >
                     <CreatibutorsField
-                      label={i18next.t("Creators")}
+                    label={i18next.t("Creators")}
                       labelIcon="user"
                       fieldPath="metadata.creators"
                       roleOptions={this.vocabularies.metadata.creators.role}
@@ -351,16 +362,9 @@ export class RDMDepositForm extends Component {
                 record={record}
               >
                 <AccordionField
-                  includesPaths={[
-                    "metadata.contributors",
-                    "metadata.subjects",
-                    "metadata.languages",
-                    "metadata.dates",
-                    "metadata.version",
-                    "metadata.publisher",
-                  ]}
-                  active
+                  includesPaths={sectionsConfig["recommended-information"]}
                   label={i18next.t("Recommended information")}
+                  id="recommended-information-section"
                 >
                   <Overridable
                     id="InvenioAppRdm.Deposit.ContributorsField.container"
@@ -439,8 +443,8 @@ export class RDMDepositForm extends Component {
                   <Overridable
                     id="InvenioAppRdm.Deposit.PublisherField.container"
                     fieldPath="metadata.publisher"
-                  >
-                    <PublisherField fieldPath="metadata.publisher" />
+                >
+                  <PublisherField fieldPath="metadata.publisher" />
                   </Overridable>
                 </AccordionField>
               </Overridable>
@@ -449,10 +453,11 @@ export class RDMDepositForm extends Component {
                 ui={this.accordionStyle}
               >
                 <AccordionField
-                  includesPaths={["metadata.funding"]}
+                  includesPaths={sectionsConfig["funding"]}
                   active
                   label="Funding"
                   ui={this.accordionStyle}
+                  id="funding-section"
                 >
                   <Overridable
                     id="InvenioAppRdm.Deposit.FundingField.container"
@@ -542,9 +547,10 @@ export class RDMDepositForm extends Component {
                 vocabularies={this.vocabularies}
               >
                 <AccordionField
-                  includesPaths={["metadata.identifiers"]}
+                  includesPaths={sectionsConfig["alternate-identifiers"]}
                   active
                   label={i18next.t("Alternate identifiers")}
+                  id="alternate-identifiers-section"
                 >
                   <Overridable
                     id="InvenioAppRdm.Deposit.IdentifiersField.container"
@@ -567,18 +573,19 @@ export class RDMDepositForm extends Component {
                 vocabularies={this.vocabularies}
               >
                 <AccordionField
-                  includesPaths={["metadata.related_identifiers"]}
+                  includesPaths={sectionsConfig["related-identifiers"]}
                   active
                   label={i18next.t("Related works")}
+                  id="related-works-section"
                 >
                   <Overridable
                     id="InvenioAppRdm.Deposit.RelatedWorksField.container"
                     fieldPath="metadata.related_identifiers"
                     vocabularies={this.vocabularies}
                   >
-                    <RelatedWorksField
-                      fieldPath="metadata.related_identifiers"
-                      options={this.vocabularies.metadata.identifiers}
+                  <RelatedWorksField
+                    fieldPath="metadata.related_identifiers"
+                    options={this.vocabularies.metadata.identifiers}
                       showEmptyValue
                     />
                   </Overridable>
@@ -589,9 +596,10 @@ export class RDMDepositForm extends Component {
                 vocabularies={this.vocabularies}
               >
                 <AccordionField
-                  includesPaths={["metadata.references"]}
+                  includesPaths={sectionsConfig["references"]}
                   active
                   label={i18next.t("References")}
+                  id="references-section"
                 >
                   <Overridable
                     id="InvenioAppRdm.Deposit.ReferencesField.container"
@@ -708,9 +716,10 @@ export class RDMDepositForm extends Component {
                 </Sticky>
               </Grid.Column>
             </Ref>
-          </Grid>
-        </Container>
-      </DepositFormApp>
+            </Grid>
+          </Container>
+        </DepositFormApp>
+      </Overridable>
     );
   }
 }

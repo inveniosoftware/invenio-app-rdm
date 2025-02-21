@@ -914,6 +914,28 @@ def github_link_render(record):
 
 APP_RDM_RECORDS_EXPORT_URL = "/records/<pid_value>/export/<export_format>"
 
+APP_RDM_DEPOSIT_FORM_SECTIONS_CONFIG = {
+    "files": ["files.enabled"],
+    "basic-information": [
+      "metadata.resource_type",
+      "metadata.title",
+      "metadata.additional_titles",
+      "metadata.publication_date",
+      "metadata.creators",
+      "metadata.description",
+      "metadata.additional_descriptions",
+      "metadata.rights"
+    ],
+    "recommended-information": [
+      "metadata.contributors",
+      "metadata.subjects",
+      "metadata.languages",
+      "metadata.dates",
+      "metadata.version",
+      "metadata.publisher",
+    ],
+    "related-works": ["metadata.related_identifiers"],
+}
 APP_RDM_DEPOSIT_FORM_DEFAULTS = {
     "publication_date": lambda: datetime.now().strftime("%Y-%m-%d"),
     "rights": [

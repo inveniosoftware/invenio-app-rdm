@@ -43,6 +43,8 @@
 
   <input type="hidden" name="deposits-record-restriction-grace-period"
           value='{{ config.RDM_RECORDS_RESTRICTION_GRACE_PERIOD.days | tojson }}'>
+  <input type="hidden" name="deposits-sections-config"
+          value='{{ config.APP_RDM_DEPOSIT_FORM_SECTIONS_CONFIG | tojson }}'>
   <input type="hidden" name="deposits-allow-record-restriction"
           value='{{ config.RDM_RECORDS_ALLOW_RESTRICTION_AFTER_GRACE_PERIOD | tojson }}'>
   <input type="hidden" name="config-groups-enabled"
