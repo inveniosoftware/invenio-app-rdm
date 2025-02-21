@@ -153,6 +153,7 @@ export class RDMDepositForm extends Component {
                   includesPaths={["files.enabled"]}
                   active
                   label={i18next.t("Files")}
+                  id="files-section"
                 >
                   {this.noFiles && record.is_published && (
                     <div className="text-align-center pb-10">
@@ -197,6 +198,7 @@ export class RDMDepositForm extends Component {
                   ]}
                   active
                   label={i18next.t("Basic information")}
+                  id="basic-information-section"
                 >
                   <Overridable
                     id="InvenioAppRdm.Deposit.PIDField.container"
@@ -361,6 +363,7 @@ export class RDMDepositForm extends Component {
                   ]}
                   active
                   label={i18next.t("Recommended information")}
+                  id="recommended-information-section"
                 >
                   <Overridable
                     id="InvenioAppRdm.Deposit.ContributorsField.container"
@@ -453,6 +456,7 @@ export class RDMDepositForm extends Component {
                   active
                   label="Funding"
                   ui={this.accordionStyle}
+                  id="funding-section"
                 >
                   <Overridable
                     id="InvenioAppRdm.Deposit.FundingField.container"
@@ -545,6 +549,7 @@ export class RDMDepositForm extends Component {
                   includesPaths={["metadata.identifiers"]}
                   active
                   label={i18next.t("Alternate identifiers")}
+                  id="alternate-identifiers-section"
                 >
                   <Overridable
                     id="InvenioAppRdm.Deposit.IdentifiersField.container"
@@ -570,6 +575,7 @@ export class RDMDepositForm extends Component {
                   includesPaths={["metadata.related_identifiers"]}
                   active
                   label={i18next.t("Related works")}
+                  id="related-works-section"
                 >
                   <Overridable
                     id="InvenioAppRdm.Deposit.RelatedWorksField.container"
@@ -592,6 +598,7 @@ export class RDMDepositForm extends Component {
                   includesPaths={["metadata.references"]}
                   active
                   label={i18next.t("References")}
+                  id="references-section"
                 >
                   <Overridable
                     id="InvenioAppRdm.Deposit.ReferencesField.container"
