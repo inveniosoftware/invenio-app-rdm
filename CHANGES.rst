@@ -10,6 +10,19 @@
 Changes
 =======
 
+Version v13.0.0b2.dev3 (released 2025-02-21)
+
+- views: FAIR signposting level 1 support
+- meta: FAIR signposting level 1 support (link rel item)
+- globals: site.overrides: Increase pdf preview iframe height
+- tests: fix mock module paths
+- tests: add __init__.py in all directories
+    * This is necessary for pytest v8.x to be able to detect all unique
+      tests.
+
+- tests: filter out excessive warnings
+- fix: flask changed to TRUSTED_HOSTS
+
 Version v13.0.0b2.dev2 (released 2025-02-13)
 
 - Bump prerelease dependencies to stable.
