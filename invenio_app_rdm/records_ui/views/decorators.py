@@ -11,7 +11,7 @@
 
 from functools import wraps
 
-from flask import g, make_response, redirect, request, session, url_for
+from flask import current_app, g, make_response, redirect, request, session, url_for
 from flask_login import login_required
 from invenio_communities.communities.resources.serializer import (
     UICommunityJSONSerializer,
@@ -19,6 +19,9 @@ from invenio_communities.communities.resources.serializer import (
 from invenio_communities.proxies import current_communities
 from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_rdm_records.proxies import current_rdm_records
+from invenio_rdm_records.resources.serializers.signposting import (
+    FAIRSignpostingProfileLvl1Serializer,
+)
 from invenio_records_resources.services.errors import PermissionDeniedError
 from sqlalchemy.orm.exc import NoResultFound
 
@@ -365,8 +368,51 @@ def pass_draft_community(f):
     return view
 
 
-def add_signposting(f):
-    """Add signposting link to view's response headers."""
+def _get_header(rel, value, link_type=None):
+    header = f'<{value}> ; rel="{rel}"'
+    if link_type:
+        header += f' ; type="{link_type}"'
+    return header
+
+
+def _get_signposting_collection(pid_value):
+    ui_url = record_url_for(pid_value=pid_value)
+    return _get_header("collection", ui_url, "text/html")
+
+
+def _get_signposting_describes(pid_value):
+    ui_url = record_url_for(pid_value=pid_value)
+    return _get_header("describes", ui_url, "text/html")
+
+
+def _get_signposting_linkset(pid_value):
+    api_url = record_url_for(_app="api", pid_value=pid_value)
+    return _get_header("linkset", api_url, "application/linkset+json")
+
+
+def add_signposting_landing_page(f):
+    """Add signposting links to the landing page view's response headers."""
+
+    @wraps(f)
+    def view(*args, **kwargs):
+        response = make_response(f(*args, **kwargs))
+
+        # Relies on other decorators having operated before it
+        record = kwargs["record"]
+
+        signposting_headers = FAIRSignpostingProfileLvl1Serializer().serialize_object(
+            record.to_dict()
+        )
+
+        response.headers["Link"] = signposting_headers
+
+        return response
+
+    return view
+
+
+def add_signposting_content_resources(f):
+    """Add signposting links to the content resources view's response headers."""
 
     @wraps(f)
     def view(*args, **kwargs):
@@ -374,11 +420,36 @@ def add_signposting(f):
 
         # Relies on other decorators having operated before it
         pid_value = kwargs["pid_value"]
-        signposting_link = record_url_for(_app="api", pid_value=pid_value)
 
-        response.headers["Link"] = (
-            f'<{signposting_link}> ; rel="linkset" ; type="application/linkset+json"'  # fmt: skip
-        )
+        signposting_headers = [
+            _get_signposting_collection(pid_value),
+            _get_signposting_linkset(pid_value),
+        ]
+
+        response.headers["Link"] = " , ".join(signposting_headers)
+
+        return response
+
+    return view
+
+
+def add_signposting_metadata_resources(f):
+    """Add signposting links to the metadata resources view's response headers."""
+
+    @wraps(f)
+    def view(*args, **kwargs):
+        response = make_response(f(*args, **kwargs))
+
+        # Relies on other decorators having operated before it
+        pid_value = kwargs["pid_value"]
+
+        signposting_headers = [
+            _get_signposting_describes(pid_value),
+            _get_signposting_linkset(pid_value),
+        ]
+
+        response.headers["Link"] = " , ".join(signposting_headers)
+
         return response
 
     return view
