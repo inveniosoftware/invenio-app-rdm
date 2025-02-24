@@ -28,6 +28,9 @@ Design decisions:
 - Generated urls are absolute for now
 """
 
+import unicodedata
+from urllib.parse import quote
+
 from flask import current_app
 
 
@@ -49,7 +52,14 @@ def record_url_for(_app="ui", pid_value=""):
 
 def download_url_for(pid_value="", filename=""):
     """Return url for download route."""
-    url_prefix = current_app.config.get(f"SITE_UI_URL", "")
+    url_prefix = current_app.config.get("SITE_UI_URL", "")
+
+    # see https://github.com/pallets/werkzeug/blob/main/src/werkzeug/utils.py#L456-L465
+    try:
+        filename.encode("ascii")
+    except UnicodeEncodeError:
+        # safe = RFC 5987 attr-char
+        filename = quote(filename, safe="!#$&+-.^_`|~")
 
     # We use [] so that this fails and brings to attention the configuration
     # problem if APP_RDM_ROUTES.record_file_download is missing
