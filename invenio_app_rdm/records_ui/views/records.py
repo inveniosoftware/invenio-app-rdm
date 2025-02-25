@@ -227,6 +227,7 @@ def record_detail(
         else None
     )
     theme = resolved_community.get("theme", {}) if resolved_community else None
+    logs = current_app.datastream_logger.search("audit", record.id)
 
     return render_community_theme_template(
         current_app.config.get("APP_RDM_RECORD_LANDING_PAGE_TEMPLATE"),
@@ -258,6 +259,7 @@ def record_detail(
         record_owner_id=(
             record_owner.get("id")
         ),  # record created with system_identity have not owners e.g demo
+        logs=logs,
     )
 
 
