@@ -172,7 +172,7 @@ export const DashboardUploadsSearchLayout = DashboardSearchLayoutHOC({
   ),
   appName: appName,
   mineLabel: i18next.t("My uploads"),
-  showSharedDropdown: true,
+  showSharedFilters: true,
 });
 
 const ContribSearchAppFacetsWithConfig = parametrize(ContribSearchAppFacets, {
@@ -184,7 +184,7 @@ const DashboardResultViewWAppName = parametrize(DashboardResultView, {
 });
 
 const UploadsSearcBarElement = parametrize(RDMRecordSearchBarElement, {
-  showSharedDropdown: true,
+  showSharedDropdown: false,
   mineLabel: i18next.t("My uploads"),
 });
 

@@ -8,7 +8,7 @@ import { i18next } from "@translations/invenio_app_rdm/i18next";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { withState } from "react-searchkit";
-import { Dropdown } from "semantic-ui-react";
+import { Dropdown, Button } from "semantic-ui-react";
 
 class SharedOrMineFilterComponent extends Component {
   constructor(props) {
@@ -41,9 +41,9 @@ class SharedOrMineFilterComponent extends Component {
     const { currentQueryState, updateQueryState, keepFiltersOnUpdate } = this.props;
     const { sharedWithMe } = this.state;
 
-    if (sharedWithMe === sharedWithMeStatus) {
-      return;
-    }
+    // if (sharedWithMe === sharedWithMeStatus) {
+    //   return;
+    // }
     this.setState({
       sharedWithMe: sharedWithMeStatus,
     });
@@ -62,15 +62,33 @@ class SharedOrMineFilterComponent extends Component {
       { key: "shared_with_me", text: sharedWithMeLabel, value: true },
     ];
     return (
-      <Dropdown
-        selection
-        options={options}
-        value={sharedWithMe}
-        onChange={(e, { value }) => {
-          this.retrieveSharedOrMine(value);
-        }}
-        compact
-      />
+      // <Dropdown
+      //   selection
+      //   options={options}
+      //   value={sharedWithMe}
+      //   onChange={(e, { value }) => {
+      //     this.retrieveSharedOrMine(value);
+      //   }}
+      //   compact
+      // />
+      <Button.Group basic>
+        <Button
+          active={sharedWithMe === false}
+          onClick={() => {
+            this.retrieveSharedOrMine(false);
+          }}
+        >
+          {i18next.t("My requests")}
+        </Button>
+        <Button
+          active={sharedWithMe === true}
+          onClick={() => {
+            this.retrieveSharedOrMine(true);
+          }}
+        >
+          {i18next.t("Shared with me")}
+        </Button>
+      </Button.Group>
     );
   }
 }

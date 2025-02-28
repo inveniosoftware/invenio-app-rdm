@@ -57,7 +57,7 @@ const RequestsSearchLayoutWithApp = parametrize(RequestsSearchLayout, {
 });
 
 const RequestsSearcBarElement = parametrize(RDMRecordSearchBarElement, {
-  showSharedDropdown: true,
+  showSharedDropdown: false,
   mineLabel: i18next.t("My requests"),
 });
 

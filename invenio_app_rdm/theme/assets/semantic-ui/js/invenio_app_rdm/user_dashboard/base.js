@@ -12,6 +12,8 @@ import {
   SearchAppResultsPane,
   InvenioSearchPagination,
 } from "@js/invenio_search_ui/components";
+import { SharedOrMineFilter } from "@js/invenio_app_rdm/components/SharedOrMineFilter";
+
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import React from "react";
 import { ResultsList, SearchBar, Sort, buildUID } from "react-searchkit";
@@ -75,6 +77,7 @@ DashboardResultView.defaultProps = {
 export const DashboardSearchLayoutHOC = ({
   searchBarPlaceholder = "",
   appName = undefined,
+  showSharedFilters = false,
 }) => {
   const DashboardUploadsSearchLayout = (props) => {
     const [sidebarVisible, setSidebarVisible] = React.useState(false);
@@ -127,11 +130,17 @@ export const DashboardSearchLayoutHOC = ({
 
             {/* Desktop search header */}
             <Grid.Row className="computer only">
-              <Grid.Column width={8} floated="right">
-                <SearchBar placeholder={searchBarPlaceholder} />
+              <Grid.Column width={4} className="computer only" />
+              <Grid.Column width={4} floated="right">
+                <SharedOrMineFilter />
               </Grid.Column>
+              {showSharedFilters && (
+                <Grid.Column width={5} floated="right">
+                  <SearchBar placeholder={searchBarPlaceholder} />
+                </Grid.Column>
+              )}
 
-              <Grid.Column width={4} textAlign="right">
+              <Grid.Column width={3} textAlign="right">
                 {config.sortOptions && (
                   <Sort
                     values={config.sortOptions}
