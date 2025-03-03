@@ -53,12 +53,6 @@ RequestsResultsItemTemplateDashboard.propTypes = {
 
 const RequestsSearchLayoutWithApp = parametrize(RequestsSearchLayout, {
   appName: appName,
-  showSharedDropdown: true,
-});
-
-const RequestsSearcBarElement = parametrize(RDMRecordSearchBarElement, {
-  showSharedDropdown: false,
-  mineLabel: i18next.t("My requests"),
 });
 
 export const defaultComponents = {
@@ -69,7 +63,7 @@ export const defaultComponents = {
   [`${appName}.ResultsGrid.item`]: () => null,
   [`${appName}.SearchApp.layout`]: RequestsSearchLayoutWithApp,
   [`${appName}.SearchApp.results`]: RequestsResults,
-  [`${appName}.SearchBar.element`]: RequestsSearcBarElement,
+  [`${appName}.SearchBar.element`]: RDMRecordSearchBarElement,
   [`${appName}.EmptyResults.element`]: RequestsEmptyResultsWithState,
   ...defaultContribComponents,
 };

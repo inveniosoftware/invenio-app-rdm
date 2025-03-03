@@ -444,17 +444,6 @@ def deposit_create(community=None):
         .get("doi", {})
         .get("required")
     )
-    record_permissions = get_record_permissions(
-        [
-            "manage",
-            "manage_files",
-            "delete_draft",
-            "manage_record_access",
-        ]
-    )
-    # Override manage permission as a new draft should give manage permissions to the creator of the record. Currently, the record
-    # owner generator allows only superusers to have manage permissions when record is None i.e. new record.
-    record_permissions["can_manage"] = True
 
     return render_community_theme_template(
         current_app.config["APP_RDM_DEPOSIT_FORM_TEMPLATE"],
@@ -473,7 +462,14 @@ def deposit_create(community=None):
         files=dict(default_preview=None, entries=[], links={}),
         preselectedCommunity=community,
         files_locked=False,
-        permissions=record_permissions,
+        permissions=get_record_permissions(
+            [
+                "manage",
+                "manage_files",
+                "delete_draft",
+                "manage_record_access",
+            ]
+        ),
     )
 
 
@@ -493,7 +489,7 @@ def deposit_edit(pid_value, draft=None, draft_files=None, files_locked=True):
     )
     if not can_edit_draft:
         if can_preview_draft:
-            return redirect(f"/records/{pid_value}?preview=1")
+            return redirect(draft["links"]["preview_html"])
         raise PermissionDeniedError()
 
     files_dict = None if draft_files is None else draft_files.to_dict()

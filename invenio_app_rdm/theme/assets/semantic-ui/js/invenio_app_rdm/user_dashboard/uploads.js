@@ -183,11 +183,6 @@ const DashboardResultViewWAppName = parametrize(DashboardResultView, {
   appName: appName,
 });
 
-const UploadsSearcBarElement = parametrize(RDMRecordSearchBarElement, {
-  showSharedDropdown: false,
-  mineLabel: i18next.t("My uploads"),
-});
-
 export const defaultComponents = {
   [`${appName}.BucketAggregation.element`]: ContribBucketAggregationElement,
   [`${appName}.BucketAggregationValues.element`]: ContribBucketAggregationValuesElement,
@@ -198,7 +193,7 @@ export const defaultComponents = {
   [`${appName}.SearchApp.facets`]: ContribSearchAppFacetsWithConfig,
   [`${appName}.SearchApp.layout`]: DashboardUploadsSearchLayout,
   [`${appName}.SearchApp.results`]: DashboardResultViewWAppName,
-  [`${appName}.SearchBar.element`]: UploadsSearcBarElement,
+  [`${appName}.SearchBar.element`]: RDMRecordSearchBarElement,
   [`${appName}.SearchFilters.Toggle.element`]: RDMToggleComponent,
 };
 const overriddenComponents = overrideStore.getAll();

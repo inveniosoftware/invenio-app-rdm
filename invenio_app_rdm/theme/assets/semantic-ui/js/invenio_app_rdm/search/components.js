@@ -30,7 +30,6 @@ import {
   Segment,
 } from "semantic-ui-react";
 import RecordsResultsListItem from "../components/RecordsResultsListItem";
-import { SharedOrMineFilter } from "../components/SharedOrMineFilter";
 import PropTypes from "prop-types";
 import { Trans } from "react-i18next";
 
@@ -110,8 +109,6 @@ export const RDMRecordSearchBarElement = withState(
     onInputChange,
     updateQueryState,
     currentQueryState,
-    showSharedDropdown = false,
-    mineLabel = "",
   }) => {
     const placeholder = passedPlaceholder || i18next.t("Search");
 
@@ -129,9 +126,6 @@ export const RDMRecordSearchBarElement = withState(
     };
     return (
       <Input
-        {...(showSharedDropdown && {
-          label: <SharedOrMineFilter mineLabel={mineLabel} />,
-        })}
         action={{
           "icon": "search",
           "onClick": onBtnSearchClick,
