@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version v12.0.14 (released 2025-03-03)
+
+- tasks: skip `FileInstance` objects with no URI for health check reports
+
 Version v12.0.13 (released 2025-01-14)
 
 - config: set OAI-PMH record index dynamically
