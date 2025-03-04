@@ -398,13 +398,25 @@ def add_signposting_landing_page(f):
         response = make_response(f(*args, **kwargs))
 
         # Relies on other decorators having operated before it
-        record = kwargs["record"]
+        if current_app.config[
+            "APP_RDM_RECORD_LANDING_PAGE_FAIR_SIGNPOSTING_LEVEL_1_ENABLED"
+        ]:
+            record = kwargs["record"]
 
-        signposting_headers = FAIRSignpostingProfileLvl1Serializer().serialize_object(
-            record.to_dict()
-        )
+            signposting_headers = (
+                FAIRSignpostingProfileLvl1Serializer().serialize_object(
+                    record.to_dict()
+                )
+            )
 
-        response.headers["Link"] = signposting_headers
+            response.headers["Link"] = signposting_headers
+        else:
+            pid_value = kwargs["pid_value"]
+            signposting_link = record_url_for(_app="api", pid_value=pid_value)
+
+            response.headers["Link"] = (
+                f'<{signposting_link}> ; rel="linkset" ; type="application/linkset+json"'  # fmt: skip
+            )
 
         return response
 
