@@ -1,6 +1,7 @@
 /*
  * // This file is part of Invenio-App-Rdm
  * // Copyright (C) 2025 CERN.
+ * // Copyright (C) 2025 Graz University of Technology.
  * //
  * // Invenio-App-Rdm is free software; you can redistribute it and/or modify it
  * // under the terms of the MIT License; see LICENSE file for more details.
@@ -28,6 +29,14 @@ export class CompareRevisions extends Component {
     };
   }
 
+  componentDidMount() {
+    this.fetchRevisions();
+  }
+
+  componentWillUnmount() {
+    this.cancellableAction && this.cancellableAction.cancel();
+  }
+
   async fetchRevisions() {
     const { resource } = this.props;
     this.setState({ loading: true });
@@ -48,14 +57,6 @@ export class CompareRevisions extends Component {
       this.setState({ error: error, loading: false });
       console.error(error);
     }
-  }
-
-  componentDidMount() {
-    this.fetchRevisions();
-  }
-
-  componentWillUnmount() {
-    this.cancellableAction && this.cancellableAction.cancel();
   }
 
   handleModalClose = () => {
@@ -100,7 +101,7 @@ export class CompareRevisions extends Component {
             </Modal.Content>
           )}
           <Modal.Content scrolling>
-            <RevisionsDiffViewer diff={this.state.diff} />
+            <RevisionsDiffViewer diff={diff} />
           </Modal.Content>
         </Modal.Content>
         <Modal.Actions>

@@ -1,6 +1,7 @@
 /*
  * // This file is part of Invenio-App-Rdm
  * // Copyright (C) 2025 CERN.
+ * // Copyright (C) 2025 Graz University of Technology.
  * //
  * // Invenio-App-Rdm is free software; you can redistribute it and/or modify it
  * // under the terms of the MIT License; see LICENSE file for more details.
@@ -80,4 +81,9 @@ CompareRevisionsDropdown.propTypes = {
   onCompare: PropTypes.func.isRequired,
   srcRevision: PropTypes.object,
   targetRevision: PropTypes.object,
+};
+
+CompareRevisionsDropdown.defaultProps = {
+  srcRevision: 0,
+  targetRevision: 0,
 };
