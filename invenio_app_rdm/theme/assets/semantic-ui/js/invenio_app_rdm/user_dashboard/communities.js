@@ -28,6 +28,7 @@ export const appName = "InvenioAppRdm.DashboardCommunities";
 export const DashboardCommunitiesSearchLayout = DashboardSearchLayoutHOC({
   searchBarPlaceholder: i18next.t("Search in my communities..."),
   appName: appName,
+  mineLabel: i18next.t("My communities"),
 });
 
 const DashboardResultViewWAppName = parametrize(DashboardResultView, {

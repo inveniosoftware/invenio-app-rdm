@@ -24,6 +24,9 @@ def search_app_context():
             "/api/user/records",
             {"Accept": "application/vnd.inveniordm.v1+json"},
             pagination_options=(10, 20),
+            initial_filters=[
+                ["shared_with_me", "false"],
+            ],
         ),
         "search_app_rdm_user_communities_config": partial(
             search_app_config,
@@ -41,7 +44,10 @@ def search_app_context():
             current_app.config["RDM_SORT_OPTIONS"],
             "/api/user/requests",
             {"Accept": "application/json"},
-            initial_filters=[["is_open", "true"]],
+            initial_filters=[
+                ["is_open", "true"],
+                ["shared_with_me", "false"],
+            ],
             hidden_params=[["expand", "1"]],
         ),
     }

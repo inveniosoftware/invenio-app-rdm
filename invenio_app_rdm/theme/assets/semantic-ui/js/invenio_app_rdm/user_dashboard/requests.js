@@ -13,6 +13,7 @@ import {
   ContribBucketAggregationValuesElement,
   ContribSearchAppFacets,
 } from "@js/invenio_search_ui/components";
+import { i18next } from "@translations/invenio_app_rdm/i18next";
 import PropTypes from "prop-types";
 import React from "react";
 import { overrideStore, parametrize } from "react-overridable";

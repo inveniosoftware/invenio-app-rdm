@@ -100,9 +100,6 @@ if (sidebarCommunitiesManageDiv) {
         recordUserCommunitySearchConfig={JSON.parse(
           sidebarCommunitiesManageDiv.dataset.recordUserCommunitySearchConfig
         )}
-        canManageRecord={JSON.parse(
-          sidebarCommunitiesManageDiv.dataset.canManageRecord
-        )}
         recordCommunitySearchConfig={recordCommunitySearchConfig}
         permissions={JSON.parse(sidebarCommunitiesManageDiv.dataset.permissions)}
         searchConfig={JSON.parse(pendingCommunitiesSearchConfig)}
@@ -117,9 +114,6 @@ if (sidebarCommunitiesManageDiv) {
           }
           recordUserCommunitySearchConfig={JSON.parse(
             sidebarCommunitiesManageDiv.dataset.recordUserCommunitySearchConfig
-          )}
-          canManageRecord={JSON.parse(
-            sidebarCommunitiesManageDiv.dataset.canManageRecord
           )}
           recordCommunitySearchConfig={recordCommunitySearchConfig}
           permissions={JSON.parse(sidebarCommunitiesManageDiv.dataset.permissions)}

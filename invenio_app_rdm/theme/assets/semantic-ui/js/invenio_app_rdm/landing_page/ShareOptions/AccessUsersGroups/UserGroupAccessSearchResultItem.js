@@ -25,7 +25,7 @@ export const accessDropdownOptions = [
     title: i18next.t("Can manage"),
     value: "manage",
     description: i18next.t(
-      "Can manage access, edit drafts and view restricted files of all versions of this record."
+      "Can manage access, edit drafts, view restricted files, and comment on associated draft requests of all versions of this record."
     ),
   },
 ];

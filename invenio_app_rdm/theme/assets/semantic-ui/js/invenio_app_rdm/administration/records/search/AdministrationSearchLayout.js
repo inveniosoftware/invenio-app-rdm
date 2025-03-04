@@ -22,11 +22,11 @@ export class AdministrationSearchLayout extends Component {
         <div className="auto-column-grid">
           <div className="flex column-mobile">
             <div className="mobile only rel-mb-1 flex align-items-center justify-space-between">
-              <RequestStatusFilter keepFiltersOnUpdate />
+              <RequestStatusFilter keepFiltersOnUpdate={true} />
             </div>
 
             <div className="tablet only computer only rel-mr-2">
-              <RequestStatusFilter keepFiltersOnUpdate />
+              <RequestStatusFilter keepFiltersOnUpdate={true} />
             </div>
             <div className="full-width">
               <SearchBar fluid />
