@@ -107,6 +107,8 @@ def execute_upgrade():
                         scheme="doi",
                         parent=True,
                     )
+        # Catch all commit for the parent
+        record.parent.commit()
 
     def update_record(record):
         # skipping deleted records because can't be committed
