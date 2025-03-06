@@ -155,6 +155,12 @@
 
 .generate-ck-editor-heights(30);
 
+.ui.form .error-label {
+  padding: 0.5rem 0.7rem !important;
+  background-color: @errorTextColor;
+  color: white;
+  margin-left: 1rem;
+}
 
 .ui.form .success.message,
 .ui.form .warning.message,
