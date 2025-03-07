@@ -45,6 +45,8 @@ import PropTypes from "prop-types";
 import Overridable from "react-overridable";
 import { ShareDraftButton } from "./ShareDraftButton";
 
+const FileUploaderField = window.invenio.files?.uploaderComponent || FileUploader;
+
 export class RDMDepositForm extends Component {
   constructor(props) {
     super(props);
@@ -167,7 +169,7 @@ export class RDMDepositForm extends Component {
                     filesLocked={filesLocked}
                     allowEmptyFiles={allowEmptyFiles}
                   >
-                    <FileUploader
+                    <FileUploaderField
                       isDraftRecord={!record.is_published}
                       quota={this.config.quota}
                       decimalSizeDisplay={this.config.decimal_size_display}
