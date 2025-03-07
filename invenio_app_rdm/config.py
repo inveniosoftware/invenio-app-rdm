@@ -935,10 +935,13 @@ APP_RDM_DEPOSIT_FORM_SECTIONS_CONFIG = {
         "metadata.version",
         "metadata.publisher",
     ],
+    "funding-section": ["metadata.funding"],
     "alternate-identifiers-section": ["metadata.identifiers"],
     "related-works-section": ["metadata.related_identifiers"],
+    "references-section": ["metadata.references"],
     "visibility-section": ["access.embargo.until"],
 }
+
 
 APP_RDM_DEPOSIT_FORM_DEFAULTS = {
     "publication_date": lambda: datetime.now().strftime("%Y-%m-%d"),
