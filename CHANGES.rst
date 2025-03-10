@@ -10,6 +10,12 @@
 Changes
 =======
 
+Version v13.0.0b2.dev4 (released 2025-03-10)
+
+- views: FAIR signposting level 1 support (config flag)
+- tasks: skip health checks for files that don't have a uri
+- views: signposting: files: fix filename encoding issues for downloads
+
 Version v13.0.0b2.dev3 (released 2025-02-21)
 
 - views: FAIR signposting level 1 support
