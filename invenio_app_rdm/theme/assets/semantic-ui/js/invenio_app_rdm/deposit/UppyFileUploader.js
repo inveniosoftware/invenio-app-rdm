@@ -8,10 +8,15 @@
 import { getInputFromDOM } from '@js/invenio_rdm_records';
 import { UppyDepositFileApiClient, UppyDepositFilesService, UppyUploader } from '@inveniosoftware/invenio-files-uppy';
 
-const {apiHeaders, default_transfer_type: defaultTransferType, fileUploadConcurrency} = getInputFromDOM("deposits-config");
+const {
+  apiHeaders,
+  default_transfer_type: defaultTransferType,
+  transfer_types: transferTypes,
+  fileUploadConcurrency
+} = getInputFromDOM("deposits-config");
 
 if (window.invenio) {
-  const uppyFilesApiClient = new UppyDepositFileApiClient({ apiHeaders }, defaultTransferType);
+  const uppyFilesApiClient = new UppyDepositFileApiClient({ apiHeaders }, defaultTransferType, transferTypes);
   const uppyFilesService = new UppyDepositFilesService(uppyFilesApiClient, fileUploadConcurrency);
 
   window.invenio.files = {
