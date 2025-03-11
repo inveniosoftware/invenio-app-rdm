@@ -10,6 +10,14 @@
 Changes
 =======
 
+Version v13.0.0b2.dev5 (released 2025-03-11)
+
+- dashboard: use always view button to redirect user to the upload
+    - If upload is published redirect user to published record
+    - If upload is draft redirect user to upload or preview depending on their permission
+- deposit: use permissions.can_manage for record community management
+- dashboard: split mine and shared with me uploads
+
 Version v13.0.0b2.dev4 (released 2025-03-10)
 
 - views: FAIR signposting level 1 support (config flag)
