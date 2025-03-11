@@ -10,6 +10,33 @@
 Changes
 =======
 
+Version v13.0.0b2.dev5 (released 2025-03-11)
+
+- dashboard: use always view button to redirect user to the upload
+    - If upload is published redirect user to published record
+    - If upload is draft redirect user to upload or preview depending on their permission
+- deposit: use permissions.can_manage for record community management
+- dashboard: split mine and shared with me uploads
+
+Version v13.0.0b2.dev4 (released 2025-03-10)
+
+- views: FAIR signposting level 1 support (config flag)
+- tasks: skip health checks for files that don't have a uri
+- views: signposting: files: fix filename encoding issues for downloads
+
+Version v13.0.0b2.dev3 (released 2025-02-21)
+
+- views: FAIR signposting level 1 support
+- meta: FAIR signposting level 1 support (link rel item)
+- globals: site.overrides: Increase pdf preview iframe height
+- tests: fix mock module paths
+- tests: add __init__.py in all directories
+    * This is necessary for pytest v8.x to be able to detect all unique
+      tests.
+
+- tests: filter out excessive warnings
+- fix: flask changed to TRUSTED_HOSTS
+
 Version v13.0.0b2.dev2 (released 2025-02-13)
 
 - Bump prerelease dependencies to stable.

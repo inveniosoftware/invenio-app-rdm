@@ -444,6 +444,7 @@ def deposit_create(community=None):
         .get("doi", {})
         .get("required")
     )
+
     return render_community_theme_template(
         current_app.config["APP_RDM_DEPOSIT_FORM_TEMPLATE"],
         theme=community_theme,
@@ -483,7 +484,12 @@ def deposit_edit(pid_value, draft=None, draft_files=None, files_locked=True):
     can_edit_draft = service.check_permission(
         g.identity, "update_draft", record=draft._record
     )
+    can_preview_draft = service.check_permission(
+        g.identity, "preview", record=draft._record
+    )
     if not can_edit_draft:
+        if can_preview_draft:
+            return redirect(draft["links"]["preview_html"])
         raise PermissionDeniedError()
 
     files_dict = None if draft_files is None else draft_files.to_dict()

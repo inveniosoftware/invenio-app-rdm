@@ -18,7 +18,10 @@ from .utils.files import send_integrity_report_email
 def file_integrity_report():
     """Send a report of uhealthy/missing files to system admins."""
     # First retry verifying files that errored during their last check
-    files = FileInstance.query.filter(FileInstance.last_check.is_(None))
+    files = FileInstance.query.filter(
+        FileInstance.last_check.is_(None),
+        FileInstance.uri.is_not(None),
+    )
     for f in files:
         try:
             f.clear_last_check()
@@ -32,7 +35,8 @@ def file_integrity_report():
         FileInstance.query.filter(
             sa.or_(
                 FileInstance.last_check.is_(None), FileInstance.last_check.is_(False)
-            )
+            ),
+            FileInstance.uri.is_not(None),
         )
         .order_by(FileInstance.created.desc())
         .all()
