@@ -13,9 +13,19 @@ import pytest
 
 
 @pytest.mark.parametrize("http_method", ["head", "get"])
+@pytest.mark.parametrize("level_1_enabled", [True, False])
 def test_link_in_landing_page_response_headers(
-    running_app, client, record_with_file, http_method
+    running_app, app, client, record_with_file, http_method, level_1_enabled
 ):
+    previous_config = app.config[
+        "APP_RDM_RECORD_LANDING_PAGE_FAIR_SIGNPOSTING_LEVEL_1_ENABLED"
+    ]
+
+    if level_1_enabled:
+        app.config["APP_RDM_RECORD_LANDING_PAGE_FAIR_SIGNPOSTING_LEVEL_1_ENABLED"] = (
+            True
+        )
+
     client_http_method = getattr(client, http_method)
     res = client_http_method(f"/records/{record_with_file.id}")
 
@@ -29,17 +39,27 @@ def test_link_in_landing_page_response_headers(
     # - a cite-as since it has no DOI.
     # - a license.
 
-    # There should be at least 10 export formats supported (e.g. "application/dcat+xml", "application/x-bibtex", etc.).
-    assert sum('; rel="describedby" ;' in header for header in link_headers) >= 10
-
-    # There should be at least one file in the record.
-    assert sum('; rel="item" ;' in header for header in link_headers) >= 1
-
-    # There should be at least one description of the type of the record (e.g. "https://schema.org/Photograph").
-    assert sum('; rel="type"' in header for header in link_headers) >= 1
-
     # There should be at least one link to a linkset (e.g. "application/linkset" and/or "application/linkset+json")
     assert sum('; rel="linkset" ;' in header for header in link_headers) >= 1
+
+    if level_1_enabled:
+        # There should be at least 10 export formats supported (e.g. "application/dcat+xml", "application/x-bibtex", etc.).
+        assert sum('; rel="describedby" ;' in header for header in link_headers) >= 10
+
+        # There should be at least one file in the record.
+        assert sum('; rel="item" ;' in header for header in link_headers) >= 1
+
+        # There should be at least one description of the type of the record (e.g. "https://schema.org/Photograph").
+        assert sum('; rel="type"' in header for header in link_headers) >= 1
+    else:
+        # The only link headers should be linkset headers.
+        assert sum('; rel="linkset" ;' in header for header in link_headers) == len(
+            link_headers
+        )
+
+    app.config["APP_RDM_RECORD_LANDING_PAGE_FAIR_SIGNPOSTING_LEVEL_1_ENABLED"] = (
+        previous_config
+    )
 
 
 @pytest.mark.parametrize("http_method", ["head", "get"])
