@@ -78,6 +78,7 @@ export const DashboardSearchLayoutHOC = ({
   searchBarPlaceholder = "",
   appName = undefined,
   showSharedFilters = false,
+  mineLabel = "",
 }) => {
   const DashboardUploadsSearchLayout = (props) => {
     const [sidebarVisible, setSidebarVisible] = React.useState(false);
@@ -113,7 +114,7 @@ export const DashboardSearchLayoutHOC = ({
 
             <Grid.Row className="tablet only">
               <Grid.Column tablet={6} floated="right">
-                <SharedOrMineFilter mineLabel={i18next.t("My uploads")} />
+                {showSharedFilters && <SharedOrMineFilter mineLabel={mineLabel} />}
               </Grid.Column>
               <Grid.Column tablet={10} textAlign="right">
                 {config.sortOptions && (
@@ -132,7 +133,7 @@ export const DashboardSearchLayoutHOC = ({
 
             <Grid.Row className="mobile only">
               <Grid.Column width={16}>
-                <SharedOrMineFilter mineLabel={i18next.t("My uploads")} />
+                {showSharedFilters && <SharedOrMineFilter mineLabel={mineLabel} />}
               </Grid.Column>
             </Grid.Row>
             <Grid.Row className="mobile only">
@@ -155,14 +156,14 @@ export const DashboardSearchLayoutHOC = ({
             {/* Desktop search header */}
             <Grid.Row className="computer only">
               <Grid.Column width={4} />
-              <Grid.Column width={4}>
-                <SharedOrMineFilter mineLabel={i18next.t("My uploads")} />
-              </Grid.Column>
               {showSharedFilters && (
-                <Grid.Column width={5} floated="right">
-                  <SearchBar placeholder={searchBarPlaceholder} />
+                <Grid.Column width={4}>
+                  <SharedOrMineFilter mineLabel={mineLabel} />
                 </Grid.Column>
               )}
+              <Grid.Column width={showSharedFilters ? 5 : 9} floated="right">
+                <SearchBar placeholder={searchBarPlaceholder} />
+              </Grid.Column>
 
               <Grid.Column width={3} textAlign="right">
                 {config.sortOptions && (

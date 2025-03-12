@@ -52,6 +52,7 @@ RequestsResultsItemTemplateDashboard.propTypes = {
 
 const RequestsSearchLayoutWithApp = parametrize(RequestsSearchLayout, {
   appName: appName,
+  showSharedFilters: true,
 });
 
 export const defaultComponents = {
