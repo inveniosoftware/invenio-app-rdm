@@ -20,6 +20,7 @@ import {
   DeleteButton,
   DepositStatusBox,
   FileUploader,
+  UppyUploader,
   FormFeedback,
   IdentifiersField,
   PIDField,
@@ -108,6 +109,7 @@ export class RDMDepositForm extends Component {
       allowRecordRestriction,
       groupsEnabled,
       allowEmptyFiles,
+      useUppy
     } = this.props;
     const customFieldsUI = this.config.custom_fields.ui;
     return (
@@ -117,6 +119,7 @@ export class RDMDepositForm extends Component {
         preselectedCommunity={preselectedCommunity}
         files={files}
         permissions={permissions}
+        useUppy={useUppy}
       >
         <Overridable
           id="InvenioAppRdm.Deposit.FormFeedback.container"
@@ -167,14 +170,25 @@ export class RDMDepositForm extends Component {
                     filesLocked={filesLocked}
                     allowEmptyFiles={allowEmptyFiles}
                   >
-                    <FileUploader
-                      isDraftRecord={!record.is_published}
-                      quota={this.config.quota}
-                      decimalSizeDisplay={this.config.decimal_size_display}
-                      showMetadataOnlyToggle={permissions?.can_manage_files}
-                      allowEmptyFiles={allowEmptyFiles}
-                      filesLocked={filesLocked}
-                    />
+                    {useUppy ? (
+                      <UppyUploader
+                        isDraftRecord={!record.is_published}
+                        quota={this.config.quota}
+                        decimalSizeDisplay={this.config.decimal_size_display}
+                        showMetadataOnlyToggle={permissions?.can_manage_files}
+                        allowEmptyFiles={allowEmptyFiles}
+                        filesLocked={filesLocked}
+                      />
+                    ) : (
+                      <FileUploader
+                        isDraftRecord={!record.is_published}
+                        quota={this.config.quota}
+                        decimalSizeDisplay={this.config.decimal_size_display}
+                        showMetadataOnlyToggle={permissions?.can_manage_files}
+                        allowEmptyFiles={allowEmptyFiles}
+                        filesLocked={filesLocked}
+                      />
+                    )}
                   </Overridable>
                 </AccordionField>
               </Overridable>
