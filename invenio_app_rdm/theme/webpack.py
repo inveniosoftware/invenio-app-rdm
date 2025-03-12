@@ -29,7 +29,6 @@ theme = WebpackThemeBundle(
                 "invenio-app-rdm-user-requests": "./js/invenio_app_rdm/user_dashboard/requests.js",
                 "invenio-app-rdm-community-records-search": "./js/invenio_app_rdm/communityRecordsSearch/index.js",
                 "invenio-app-rdm-collections-search": "./js/invenio_app_rdm/collectionRecordsSearch/index.js",
-                "invenio-app-rdm-files-uppy": "./js/invenio_app_rdm/deposit/UppyFileUploader.js",
                 "base-theme-rdm": "./js/invenio_app_rdm/theme.js",
                 "iiif-simple-previewer": "./less/invenio_app_rdm/previewer/iiif_simple.less",
                 "invenio-app-rdm-frontpage": "./js/invenio_app_rdm/frontpage/index.js",
@@ -40,6 +39,7 @@ theme = WebpackThemeBundle(
                 "invenio-drafts-administration": "./js/invenio_app_rdm/administration/drafts/index.js",
                 "invenio-domains-administration": "./js/invenio_app_rdm/administration/domains/index.js",
                 "invenio-communities-browse": "./js/invenio_app_rdm/subcommunity/browse.js",
+                "uppy-file-uploader": "./less/invenio_app_rdm/file_uploader/uppy.less",
             },
             dependencies={
                 "@babel/runtime": "^7.9.0",
@@ -60,10 +60,6 @@ theme = WebpackThemeBundle(
                 "react-searchkit": "^3.0.0",
                 "yup": "^0.32.0",
                 "json-diff-kit": "^1.0.30",
-                # TODO: Until the following NPM package is published to NPM:
-                # cd .venv/var/instance/assets && npm install --save $path_to_cloned invenio-files-uppy-js
-                # then put the path from package.json here:
-                "@inveniosoftware/invenio-files-uppy": "file:../../../../../../../invenio-files-uppy-js/dist",
             },
             aliases={
                 # Define Semantic-UI theme configuration needed by

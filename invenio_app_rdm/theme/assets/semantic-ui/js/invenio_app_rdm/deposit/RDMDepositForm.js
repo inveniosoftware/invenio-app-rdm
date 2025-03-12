@@ -20,6 +20,7 @@ import {
   DeleteButton,
   DepositStatusBox,
   FileUploader,
+  UppyUploader,
   FormFeedback,
   IdentifiersField,
   PIDField,
@@ -44,8 +45,6 @@ import { Card, Container, Grid, Ref, Sticky } from "semantic-ui-react";
 import PropTypes from "prop-types";
 import Overridable from "react-overridable";
 import { ShareDraftButton } from "./ShareDraftButton";
-
-const FileUploaderField = window.invenio.files?.uploaderComponent || FileUploader;
 
 export class RDMDepositForm extends Component {
   constructor(props) {
@@ -110,6 +109,7 @@ export class RDMDepositForm extends Component {
       allowRecordRestriction,
       groupsEnabled,
       allowEmptyFiles,
+      useUppy
     } = this.props;
     const customFieldsUI = this.config.custom_fields.ui;
     return (
@@ -119,6 +119,7 @@ export class RDMDepositForm extends Component {
         preselectedCommunity={preselectedCommunity}
         files={files}
         permissions={permissions}
+        useUppy={useUppy}
       >
         <Overridable
           id="InvenioAppRdm.Deposit.FormFeedback.container"
@@ -169,14 +170,25 @@ export class RDMDepositForm extends Component {
                     filesLocked={filesLocked}
                     allowEmptyFiles={allowEmptyFiles}
                   >
-                    <FileUploaderField
-                      isDraftRecord={!record.is_published}
-                      quota={this.config.quota}
-                      decimalSizeDisplay={this.config.decimal_size_display}
-                      showMetadataOnlyToggle={permissions?.can_manage_files}
-                      allowEmptyFiles={allowEmptyFiles}
-                      filesLocked={filesLocked}
-                    />
+                    {useUppy ? (
+                      <UppyUploader
+                        isDraftRecord={!record.is_published}
+                        quota={this.config.quota}
+                        decimalSizeDisplay={this.config.decimal_size_display}
+                        showMetadataOnlyToggle={permissions?.can_manage_files}
+                        allowEmptyFiles={allowEmptyFiles}
+                        filesLocked={filesLocked}
+                      />
+                    ) : (
+                      <FileUploader
+                        isDraftRecord={!record.is_published}
+                        quota={this.config.quota}
+                        decimalSizeDisplay={this.config.decimal_size_display}
+                        showMetadataOnlyToggle={permissions?.can_manage_files}
+                        allowEmptyFiles={allowEmptyFiles}
+                        filesLocked={filesLocked}
+                      />
+                    )}
                   </Overridable>
                 </AccordionField>
               </Overridable>
