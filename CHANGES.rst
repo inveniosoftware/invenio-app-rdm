@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version v13.0.0b2.dev6 (released 2025-03-12)
+
+- dashboard: enable shared filters for requests
+
 Version v13.0.0b2.dev5 (released 2025-03-11)
 
 - dashboard: use always view button to redirect user to the upload
