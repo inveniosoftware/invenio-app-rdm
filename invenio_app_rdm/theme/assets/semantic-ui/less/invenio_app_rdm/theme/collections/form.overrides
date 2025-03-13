@@ -155,11 +155,21 @@
 
 .generate-ck-editor-heights(30);
 
-.ui.form .error-label {
+.ui.form .accordion-label {
   padding: 0.5rem 0.7rem !important;
-  background-color: @errorTextColor;
-  color: white;
   margin-left: 1rem;
+  &.error {
+    background-color: @errorTextColor;
+    color: white;
+  }
+  &.info {
+    background-color: @infoBackgroundColor;
+    color: @infoTextColor;
+  }
+  &.warning {
+    background-color: @warningBackgroundColor;
+    color: @warningTextColor;
+  }
 }
 
 .ui.form .success.message,

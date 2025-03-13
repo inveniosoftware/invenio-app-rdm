@@ -935,6 +935,7 @@ APP_RDM_DEPOSIT_FORM_SECTIONS_CONFIG = {
         "metadata.version",
         "metadata.publisher",
     ],
+    "funding-section": ["metadata.funding"],
     "alternate-identifiers-section": ["metadata.identifiers"],
     "related-works-section": ["metadata.related_identifiers"],
     "visibility-section": ["access.embargo.until"],
