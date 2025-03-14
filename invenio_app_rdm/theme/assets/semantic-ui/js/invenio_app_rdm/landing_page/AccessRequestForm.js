@@ -1,3 +1,10 @@
+// This file is part of InvenioRDM
+// Copyright (C) 2024 CERN.
+// Copyright (C) 2024 KTH Royal Institute of Technology.
+//
+// Invenio RDM Records is free software; you can redistribute it and/or modify it
+// under the terms of the MIT License; see LICENSE file for more details.
+
 import _get from "lodash/get";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import isEmpty from "lodash/isEmpty";
@@ -149,7 +156,7 @@ export class AccessRequestForm extends Component {
                             <TextField
                               required
                               fieldPath="email"
-                              label="Your email address"
+                              label={i18next.t("Your email address")}
                               placeholder={i18next.t("Email address")}
                               icon="at"
                               iconPosition="left"
@@ -217,15 +224,17 @@ export class AccessRequestForm extends Component {
           }}
         </Formik>
         <Modal open={modalOpen}>
-          <Modal.Header>Email confirmation needed</Modal.Header>
+          <Modal.Header>{i18next.t("Email confirmation needed")}</Modal.Header>
           <Modal.Content>
             <Modal.Description>
-              We have sent you an email to verify your address. Please check the email
-              and follow the instructions to complete the access request.
+              {i18next.t("We have sent you an email to verify your address.")}
+              {i18next.t(`
+                Please check the email and follow the instructions to complete the access request.
+              `)}
             </Modal.Description>
           </Modal.Content>
           <Modal.Actions>
-            <Button onClick={this.handleModalClose}>Close</Button>
+            <Button onClick={this.handleModalClose}>{i18next.t("Close")}</Button>
           </Modal.Actions>
         </Modal>
       </>
