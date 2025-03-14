@@ -44,6 +44,7 @@ import { Card, Container, Grid, Ref, Sticky } from "semantic-ui-react";
 import PropTypes from "prop-types";
 import Overridable from "react-overridable";
 import { ShareDraftButton } from "./ShareDraftButton";
+import { depositFormSectionsConfig, severityChecksConfig } from "./config";
 
 export class RDMDepositForm extends Component {
   constructor(props) {
@@ -90,6 +91,9 @@ export class RDMDepositForm extends Component {
       this.noFiles = true;
     }
 
+    this.sectionsConfig = depositFormSectionsConfig;
+    this.severityChecks = severityChecksConfig;
+
     // hide community header for branded communities
     this.hide_community_selection = this.config.hide_community_selection || false;
   }
@@ -111,11 +115,11 @@ export class RDMDepositForm extends Component {
       allowEmptyFiles,
     } = this.props;
 
+    // Adding section id to custom fields UI, to be used for accordions
     const customFieldsUI = this.config.custom_fields.ui.map((section) => ({
       ...section,
       id: section.section.toLowerCase().replace(/\s+/g, "-") + "-section",
     }));
-    const sectionsConfig = this.config.sections_config;
 
     return (
       <Overridable
@@ -147,7 +151,7 @@ export class RDMDepositForm extends Component {
             <FormFeedback
               fieldPath="message"
               labels={this.config.custom_fields.error_labels}
-              sectionsConfig={sectionsConfig}
+              sectionsConfig={this.sectionsConfig}
             />
           </Overridable>
 
@@ -172,7 +176,8 @@ export class RDMDepositForm extends Component {
                   noFiles={this.noFiles}
                 >
                   <AccordionField
-                    includesPaths={sectionsConfig["files-section"]}
+                    includesPaths={this.sectionsConfig["files-section"]}
+                    severityChecks={this.severityChecks}
                     active
                     label={i18next.t("Files")}
                     id="files-section"
@@ -208,7 +213,8 @@ export class RDMDepositForm extends Component {
                   vocabularies={this.vocabularies}
                 >
                   <AccordionField
-                    includesPaths={sectionsConfig["basic-information-section"]}
+                    includesPaths={this.sectionsConfig["basic-information-section"]}
+                    severityChecks={this.severityChecks}
                     active
                     label={i18next.t("Basic information")}
                     id="basic-information-section"
@@ -366,7 +372,10 @@ export class RDMDepositForm extends Component {
                   record={record}
                 >
                   <AccordionField
-                    includesPaths={sectionsConfig["recommended-information-section"]}
+                    includesPaths={
+                      this.sectionsConfig["recommended-information-section"]
+                    }
+                    severityChecks={this.severityChecks}
                     label={i18next.t("Recommended information")}
                     id="recommended-information-section"
                   >
@@ -457,7 +466,8 @@ export class RDMDepositForm extends Component {
                   ui={this.accordionStyle}
                 >
                   <AccordionField
-                    includesPaths={sectionsConfig["funding-section"]}
+                    includesPaths={this.sectionsConfig["funding-section"]}
+                    severityChecks={this.severityChecks}
                     active
                     label="Funding"
                     ui={this.accordionStyle}
@@ -551,7 +561,8 @@ export class RDMDepositForm extends Component {
                   vocabularies={this.vocabularies}
                 >
                   <AccordionField
-                    includesPaths={sectionsConfig["alternate-identifiers-section"]}
+                    includesPaths={this.sectionsConfig["alternate-identifiers-section"]}
+                    severityChecks={this.severityChecks}
                     active
                     label={i18next.t("Alternate identifiers")}
                     id="alternate-identifiers-section"
@@ -577,7 +588,8 @@ export class RDMDepositForm extends Component {
                   vocabularies={this.vocabularies}
                 >
                   <AccordionField
-                    includesPaths={sectionsConfig["related-works-section"]}
+                    includesPaths={this.sectionsConfig["related-works-section"]}
+                    severityChecks={this.severityChecks}
                     active
                     label={i18next.t("Related works")}
                     id="related-works-section"
@@ -600,7 +612,8 @@ export class RDMDepositForm extends Component {
                   vocabularies={this.vocabularies}
                 >
                   <AccordionField
-                    includesPaths={sectionsConfig["references-section"]}
+                    includesPaths={this.sectionsConfig["references-section"]}
+                    severityChecks={this.severityChecks}
                     active
                     label={i18next.t("References")}
                     id="references-section"

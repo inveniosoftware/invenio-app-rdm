@@ -914,33 +914,6 @@ def github_link_render(record):
 
 APP_RDM_RECORDS_EXPORT_URL = "/records/<pid_value>/export/<export_format>"
 
-APP_RDM_DEPOSIT_FORM_SECTIONS_CONFIG = {
-    "files-section": ["files.enabled"],
-    "basic-information-section": [
-        "pids.doi",
-        "metadata.resource_type",
-        "metadata.title",
-        "metadata.additional_titles",
-        "metadata.publication_date",
-        "metadata.creators",
-        "metadata.description",
-        "metadata.additional_descriptions",
-        "metadata.rights",
-    ],
-    "recommended-information-section": [
-        "metadata.contributors",
-        "metadata.subjects",
-        "metadata.languages",
-        "metadata.dates",
-        "metadata.version",
-        "metadata.publisher",
-    ],
-    "funding-section": ["metadata.funding"],
-    "alternate-identifiers-section": ["metadata.identifiers"],
-    "related-works-section": ["metadata.related_identifiers"],
-    "visibility-section": ["access.embargo.until"],
-}
-
 APP_RDM_DEPOSIT_FORM_DEFAULTS = {
     "publication_date": lambda: datetime.now().strftime("%Y-%m-%d"),
     "rights": [

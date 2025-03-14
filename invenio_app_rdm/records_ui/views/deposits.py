@@ -359,7 +359,6 @@ def get_form_config(**kwargs):
         cf for cf in custom_fields["ui"] if not cf.get("hide_from_upload_form", False)
     ]
     quota = deepcopy(conf.get("APP_RDM_DEPOSIT_FORM_QUOTA", {}))
-    sections_config = deepcopy(conf.get("APP_RDM_DEPOSIT_FORM_SECTIONS_CONFIG", {}))
     record_quota = kwargs.pop("quota", None)
     if record_quota:
         quota["maxStorage"] = record_quota["quota_size"]
@@ -383,7 +382,6 @@ def get_form_config(**kwargs):
         ),
         user_communities_memberships=get_user_communities_memberships(),
         custom_fields=custom_fields,
-        sections_config=sections_config,
         publish_modal_extra=current_app.config.get(
             "APP_RDM_DEPOSIT_FORM_PUBLISH_MODAL_EXTRA"
         ),
