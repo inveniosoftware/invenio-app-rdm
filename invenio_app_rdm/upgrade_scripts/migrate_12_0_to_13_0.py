@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2023-2024 CERN.
-# Copyright (C) 2024 Graz University of Technology.
+# Copyright (C) 2024-2025 Graz University of Technology.
 #
 # Invenio-App-RDM is free software; you can redistribute it and/or modify
 # it under the terms of the MIT License; see LICENSE file for more details.
@@ -22,9 +22,31 @@ This script has been tested with following data:
 
 import sys
 
-from click import secho
+from click import echo, secho
 from invenio_db import db
 from invenio_rdm_records.records.api import RDMDraft, RDMRecord
+
+
+def update_funding_field(record):
+    try:
+        echo(f"Updating record: {record['id']}... ")
+        for funding in record.metadata.get("funding", []):
+            award = funding.get("award", {})
+            if award.get("title"):
+                award_title = award.get("title")
+                if "en" not in award_title:
+                    localization = (
+                        list(award_title.keys())[0]
+                        if len(award_title.keys()) == 1
+                        else None
+                    )
+                    funding["award"]["title"] = {"en": award_title[localization]}
+
+        secho("OK", fg="green")
+        return record
+    except Exception as e:
+        secho("Error {}".format(repr(e)), fg="red")
+        return None
 
 
 def execute_upgrade():
@@ -43,7 +65,8 @@ def execute_upgrade():
         try:
             secho(f"Updating record : {record.pid.pid_value}", fg="yellow")
 
-            # TODO: Add any record datamodel migration code here
+            record = update_funding_field(record)
+
             record.commit()
 
             secho(f"> Updated parent: {record.parent.pid.pid_value}", fg="green")
