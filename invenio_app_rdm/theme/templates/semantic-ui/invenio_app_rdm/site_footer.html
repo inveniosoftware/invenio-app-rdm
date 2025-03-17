@@ -1,12 +1,19 @@
+{#
+    -*- coding: utf-8 -*-
+    Copyright (C) 2022-2024 CERN.
+    Copyright (C) 2024 KTH Royal Institute of Technology.
+
+    Invenio App RDM is free software; you can redistribute it and/or modify it
+    under the terms of the MIT License; see LICENSE file for more details.
+#}
+
 <div class="footer-bottom sub-footer">
   <div class="ui container">
     <div class="ui grid">
       <div class="eight wide column left middle aligned">
         {%- block footer_bottom_left %}
-          {% trans invenio_rdm="http://inveniosoftware.org/products/rdm" %}
-            Powered by
-            <a
-              href="{{ invenio_rdm }}">InvenioRDM</a>{% endtrans %}
+          {{ _("Powered by") }}
+          <a href="http://inveniosoftware.org/products/rdm">{{ _("InvenioRDM") }}</a>
         {%- endblock footer_bottom_left %}
       </div>
       <div class="eight wide column right aligned">
