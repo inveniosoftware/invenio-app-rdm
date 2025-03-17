@@ -1,5 +1,6 @@
 // This file is part of InvenioRDM
 // Copyright (C) 2022-2024 CERN.
+// Copyright (C) 2024 KTH Royal Institute of Technology.
 //
 // Invenio RDM is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
@@ -26,7 +27,7 @@ class RecordsResultsListItem extends Component {
     const createdDate = _get(
       result,
       "ui.created_date_l10n_long",
-      "No creation date found."
+      i18next.t("No creation date found.")
     );
 
     const creators = result.ui.creators.creators;
@@ -34,21 +35,21 @@ class RecordsResultsListItem extends Component {
     const descriptionStripped = _get(
       result,
       "ui.description_stripped",
-      "No description"
+      i18next.t("No description")
     );
 
     const publicationDate = _get(
       result,
       "ui.publication_date_l10n_long",
-      "No publication date found."
+      i18next.t("No publication date found.")
     );
     const resourceType = _get(
       result,
       "ui.resource_type.title_l10n",
-      "No resource type"
+      i18next.t("No resource type")
     );
     const subjects = _get(result, "ui.subjects", []);
-    const title = _get(result, "metadata.title", "No title");
+    const title = _get(result, "metadata.title", i18next.t("No title"));
     const version = _get(result, "ui.version", null);
     const versions = _get(result, "versions");
     const uniqueViews = _get(result, "stats.all_versions.unique_views", 0);

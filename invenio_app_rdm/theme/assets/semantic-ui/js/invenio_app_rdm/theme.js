@@ -1,3 +1,10 @@
+// This file is part of InvenioRDM
+// Copyright (C) 2024 CERN.
+// Copyright (C) 2024 KTH Royal Institute of Technology.
+//
+// Invenio RDM Records is free software; you can redistribute it and/or modify it
+// under the terms of the MIT License; see LICENSE file for more details.
+
 import $ from "jquery";
 import { MultipleOptionsSearchBar } from "@js/invenio_search_ui/components";
 import { i18next } from "@translations/invenio_app_rdm/i18next";

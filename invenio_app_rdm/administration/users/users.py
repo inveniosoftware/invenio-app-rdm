@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2023 CERN.
+# Copyright (C) 2023-2024 CERN.
+# Copyright (C) 2024 KTH Royal Institute of Technology.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -52,9 +53,9 @@ class UsersListView(AdminResourceListView):
     extension_name = "invenio-users-resources"
     name = "users"
     resource_config = "users_resource"
-    title = "User management"
-    menu_label = "Users"
-    category = "User management"
+    title = _("User management")
+    menu_label = _("Users")
+    category = _("User management")
     pid_path = "id"
     icon = "users"
 
@@ -74,22 +75,22 @@ class UsersListView(AdminResourceListView):
     # TODO: missing permission based links in resource
     actions = {
         "approve": {
-            "text": "Approve",
+            "text": _("Approve"),
             "payload_schema": None,
             "order": 1,
         },
         "restore": {
-            "text": "Restore",
+            "text": _("Restore"),
             "payload_schema": None,
             "order": 2,
         },
         "block": {
-            "text": "Block",
+            "text": _("Block"),
             "payload_schema": None,
             "order": 2,
         },
         "Deactivate": {
-            "text": "Suspend",
+            "text": _("Suspend"),
             "payload_schema": None,
             "order": 2,
         },

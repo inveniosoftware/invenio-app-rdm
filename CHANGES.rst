@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version v12.0.15 (released 2025-03-17)
+
+- i18n: add missing translations
+
 Version v12.0.14 (released 2025-03-03)
 
 - tasks: skip `FileInstance` objects with no URI for health check reports
