@@ -47,13 +47,13 @@ div.affiliations.accordion div.title button.down {
 
     &.error {
       .title {
-        background-color: @red;
+        background-color: @red !important;
       }
 
       &.secondary.inverted {
         .title {
-          background: @secondaryInvertedRedBackground;
-          color: @secondaryInvertedColor;
+          background: @secondaryInvertedRedBackground !important;
+          color: @secondaryInvertedColor !important;
         }
 
       }

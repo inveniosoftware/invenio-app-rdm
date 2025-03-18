@@ -96,3 +96,21 @@ label.mobile-hidden {
     display: none;
   }
 }
+
+
+.ui.form .accordion-label {
+  padding: 0.5rem 0.7rem !important;
+  margin-left: 1rem;
+  &.error {
+    background-color: @errorTextColor;
+    color: white;
+  }
+  &.info {
+    background-color: @infoBackgroundColor;
+    color: @infoTextColor;
+  }
+  &.warning {
+    background-color: @warningBackgroundColor;
+    color: @warningTextColor;
+  }
+}
