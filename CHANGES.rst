@@ -10,6 +10,15 @@
 Changes
 =======
 
+Version v13.0.0b2.dev7 (released 2025-03-18)
+
+- deposit: refactor section config in RDMDepositForm
+    - added anchor ids, made form overridable
+    - added section path in config
+    - added styling for error messages
+    - added severity checks config
+    - added css for accordion labels
+
 Version v13.0.0b2.dev6 (released 2025-03-12)
 
 - dashboard: enable shared filters for requests
