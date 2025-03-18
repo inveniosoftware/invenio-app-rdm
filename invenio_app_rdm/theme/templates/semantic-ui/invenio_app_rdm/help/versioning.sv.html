@@ -1,0 +1,143 @@
+{#
+  Copyright (C) 2021-2023 CERN.
+  Copyright (C) 2024 KTH Royal Institute of Technology.
+
+  Invenio App RDM is free software; you can redistribute it and/or modify it
+  under the terms of the MIT License; see LICENSE file for more details.
+#}
+{%- set title = _("FAQ versioning") %}
+{%- extends config.BASE_TEMPLATE %}
+
+{%- block page_body %}
+  <div class="ui two column grid container rel-mt-2">
+    <div class="ui row">
+      <div class="ui sixteen wide column">
+        <h2 id="versioning">DOI-versionering</h2>
+      </div>
+      <div class="ui eight wide column">
+        <h5>
+          <p>Vad är DOI-versionering?</p>
+        </h5>
+        <p>DOI-versionering tillåter dig att:</p>
+        <ul>
+          <li>redigera/uppdatera postens filer efter att de har publicerats.</li>
+          <li>citera en specifik version av en post.</li>
+          <li>citera alla versioner av en post.</li>
+        </ul>
+        <h5>
+          <p>Hur fungerar DOI-versionering?</p>
+        </h5>
+        <p>
+          När du publicerar en uppladdning för första gången registrerar vi två DOI:er:
+        </p>
+        <ul>
+          <li>
+            en DOI som representerar den <strong>specifika versionen</strong> av din post.
+          </li>
+          <li>
+            en DOI som representerar <strong>alla versioner</strong> av din post.
+          </li>
+        </ul>
+        <p>Därefter registrerar vi en DOI för varje ny version av din uppladdning.</p>
+        <p>
+          Detta illustreras bäst med ett exempel på ett mjukvarupaket. Om mjukvaran har
+          släppts i två versioner (v1.0 och v1.1), så skulle följande DOI:er ha registrerats:
+        </p>
+        <ul>
+          <li><strong>v1.0 (specifik version):</strong> 10.1234/7s0da-05p39</li>
+          <li><strong>v1.1 (specifik version):</strong> 10.1234/chc5z-w0r30</li>
+          <li><strong>Koncept (alla versioner):</strong> 10.1234/3s67k-pd636</li>
+        </ul>
+        <p>
+          De första två DOI:erna för versionerna <strong>v1.0</strong> och
+          <strong>v.1.1</strong> representerar de specifika versionerna av mjukvaran.
+          Den sista DOI:n representerar alla versioner av den aktuella mjukvaran, dvs.
+          konceptet för mjukvarupaketet och alla dess versioner. Vi kallar dem därför
+          <strong>Versions-DOI:er</strong> och <strong>Koncept-DOI:er</strong>
+          (tekniskt sett är båda vanliga DOI:er).
+        </p>
+        <p>
+          Du kanske märker att versions-DOI:erna inte innehåller ett ".v1"-suffix. Läs
+          nedan för att förstå varför.
+        </p>
+        <h5>
+          <p>Vilken DOI ska jag använda vid citering?</p>
+        </h5>
+        <p>
+          Du bör normalt alltid använda DOI:n för den
+          <strong>specifika versionen</strong> av din post i referenser. Detta för att
+          säkerställa att andra forskare kan få tillgång till exakt den
+          <strong>forskningsartefakt</strong> som du använde för reproducerbarhet. Som
+          standard använder vi den specifika versionen för att generera referenser.
+        </p>
+        <p>
+          Du kan använda Koncept-DOI:n som representerar alla versioner i referenser när det
+          är lämpligt att referera till en forskningsartefakt som utvecklas över tid utan att ange specifik
+          version.
+        </p>
+        <h5>
+          <p>Vart leder Koncept-DOI:n?</p>
+        </h5>
+        <p>
+          Koncept-DOI:n leder till landningssidan för den senaste versionen av din post.
+        </p>
+      </div>
+      <div class="ui eight wide column">
+        <h5>
+          <p>
+            Jag vill bara ändra titeln på min uppladdning, får jag fortfarande en ny DOI?
+          </p>
+        </h5>
+        <p>
+          Nej, du kan fortsätta att redigera metadatan för din uppladdning utan att skapa en ny version
+          av en post. Du bör endast skapa en ny version om du vill uppdatera filerna i din post.
+        </p>
+
+        <h5>
+          <p>Varför har DOI:erna inte ett versionssuffix som ".v1"?</p>
+        </h5>
+        <p>
+          Att inkludera semantisk information som versionsnummer i en DOI är dålig praxis,
+          eftersom denna information kan ändras över tid medan DOI:er måste förbli
+          beständiga och inte får ändras.
+        </p>
+        <p>
+          Dessutom är DOI-versionering linjär, vilket innebär att versionsnumret kanske
+          inte är det verkliga versionsnumret för resursen. Ta till exempel mjukvara där
+          det är vanligt med punktversioner och att göra nya släpp i en icke-linjär ordning
+          (t.ex. först v1.0, sedan v1.1, sedan v2.0, sedan v1.2).
+        </p>
+        <p>
+          Versionssuffixet är heller inte en funktion i DOI-systemet, dvs. att lägga till .v2
+          till en DOI kommer inte att leda till version 2 av en resurs för någon DOI från
+          någon leverantör. Olika leverantörer använder också olika mönster såsom t.ex. .v2,
+          .2, /2.
+        </p>
+        <p>
+          Viktigast av allt, versionssuffix är inte maskinläsbara. Ett system som
+          förstår DOI:er kommer inte att veta att .v1 och .v2 av en DOI faktiskt är två
+          versioner av samma resurs.
+        </p>
+        <p>
+          En bättre lösning på detta problem är att semantiskt länka två DOI:er i metadatan
+          för en DOI. Detta säkerställer att olika system har ett maskinläsbart sätt att
+          upptäcka att två DOI:er är versioner av samma resurs.
+        </p>
+        <p>
+          Se även <a href="https://doi.org/10.5438/55E5-T5C0">Coola DOI:er</a> för
+          ytterligare information.
+        </p>
+
+        <h5>
+          <p>Duplicerar ni alla filer för varje ny version av en post?</p>
+        </h5>
+        <p>
+          Nej, om du ändrar en README-fil på 10 kb i ett dataset på 50 GB duplicerar vi
+          inte hela datasetet på 50 GB. InvenioRDM, den underliggande tekniska
+          plattformen, hanterar fil-lagringen effektivt så att vi bara lagrar de nya
+          extra 10 kb.
+        </p>
+      </div>
+    </div>
+  </div>
+{% endblock page_body %}

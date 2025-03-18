@@ -1,0 +1,254 @@
+{#
+  Copyright (C) 2021 CERN.
+  Copyright (C) 2024 KTH Royal Institute of Technology.
+
+  Invenio App RDM is free software; you can redistribute it and/or modify it
+  under the terms of the MIT License; see LICENSE file for more details.
+#}
+{%- set title = _("Search guide") %}
+{%- extends config.BASE_TEMPLATE %}
+
+{%- block page_body %}
+<div class="ui container mt-25">
+  <h1>Sökguide</h1>
+  <p>
+    Denna guide förklarar hur man skriver avancerade sökfrågor med hjälp av lättförståeliga exempel.
+  </p>
+  <h3>Enkel sökning (en eller flera termer)</h3>
+  <p>
+    <strong>Exempel:</strong>
+    <a href="/search?page=1&amp;size=20&amp;q=open%20science"
+      ><code>open science</code></a
+    >
+  </p>
+  <p>
+    Resultaten kommer att matcha poster som innehåller <em>termerna</em> <code>open</code>
+    <em>eller</em> <code>science</code> i <em>något fält</em>. Observera att grundord används, så exempelvis kommer <code>science</code> även att matcha
+    <code>sciences</code>. Sökresultaten rankas enligt en algoritm som tar hänsyn till dina söktermer.
+  </p>
+  <p>
+    Du kan kräva att <em>båda termerna är med</em> med hjälp av antingen
+    <code>+</code> eller <code>AND</code> operatorn:
+  </p>
+  <p>
+    <strong>Exempel:</strong>
+    <a href="/search?page=1&amp;size=20&amp;q=%2Bopen%20%2Bscience"
+      ><code>+open +science</code></a
+    >
+    eller
+    <a href="/search?page=1&amp;size=20&amp;q=open%20AND%20science"
+      ><code>open AND science</code></a
+    >
+  </p>
+  <p>
+    Du kan kräva att en eller flera termer <em>inte är med</em> med hjälp av antingen
+    <code>-</code> eller <code>NOT</code> operatorn:
+  </p>
+  <p>
+    <strong>Exempel:</strong>
+    <a href="/search?page=1&amp;size=20&amp;q=-open%20%2Bscience"
+      ><code>-open +science</code></a
+    >
+    eller
+    <a href="/search?page=1&amp;size=20&amp;q=NOT%20open%20AND%20science"
+      ><code>NOT open AND science</code></a
+    >
+  </p>
+  <h3>Frassökning</h3>
+  <p>
+    <strong>Exempel:</strong>
+    <a href="/search?page=1&amp;size=20&amp;q=%22open%20science%22"
+      ><code>"open science"</code></a
+    >
+  </p>
+  <p>
+    Resultaten kommer att matcha poster som innehåller <em>frasen</em>
+    <code>open science</code> i <em>något fält</em>.
+  </p>
+  <h3>Fältsökning</h3>
+  <p>
+    <strong>Exempel:</strong>
+    <a href="/search?page=1&amp;size=20&amp;q=metadata.title:open"
+      ><code>metadata.title:open</code></a
+    >
+  </p>
+  <p>
+    Resultaten kommer att matcha poster som innehåller <em>termen</em> <code>open</code> i
+    <em>fältet</em> <code>metadata.title</code>. Om du vill söka efter flera termer
+    i titeln måste du <strong>gruppera termerna</strong> med parentes:
+  </p>
+  <p>
+    <strong>Exempel:</strong>
+    <a href="/search?page=1&amp;size=20&amp;q=metadata.title:(open%20science%29"
+      ><code>metadata.title:(open science)</code></a
+    >
+  </p>
+  <p>
+    Se <a href="https://inveniordm.docs.cern.ch/reference/metadata/#metadata"
+      >InvenioRDM-dokumentationen</a
+    > för en fullständig lista över fält du kan söka i.
+  </p>
+  <h3>Kombinerad enkel-, fras- eller fältsökning</h3>
+  <p>
+    <strong>Exempel:</strong>
+    <a
+      href="/search?page=1&amp;size=20&amp;q=%2Bmetadata.title:%22open%20science%22%20-metadata.title:policy"
+      ><code>+metadata.title:"open science" -metadata.title:policy</code></a
+    >
+    eller t.ex.
+    <a href="/search?page=1&amp;size=20&amp;q=metadata.title:(-open%20%2Bscience%29"
+      ><code>metadata.title:(-open +science)</code></a
+    >
+  </p>
+  <p>
+    Du kan kombinera enkel-, fras- och fältsökning för att konstruera avancerade sökfrågor.
+  </p>
+  <h3>Intervallsökning</h3>
+  <p>
+    <strong>Exempel:</strong>
+    <a
+      href="/search?page=1&amp;size=20&amp;q=metadata.publication_date:%5B2017%20TO%202018%5D"
+      ><code>metadata.publication_date:[2017 TO 2018]</code></a
+    >
+    (notera att du måste skriva <code>TO</code> med versaler).
+  </p>
+  <p>
+    Resultaten kommer att matcha alla poster med ett publiceringsdatum mellan 2017-01-01 och
+    2018-01-01 (båda datumen inkluderade).
+  </p>
+  <p>Observera att partiella datum utökas till fullständiga datum, t.ex.:</p>
+  <ul>
+    <li>2017 utökas till 2017-01-01</li>
+    <li>2017-06 utökas till 2017-06-01</li>
+  </ul>
+  <p>
+    Använd hakparenteser (<code>[]</code>) för <em>inkluderande</em> intervall och
+    måsvingar (<code>{}</code>) för <em>exkluderande</em> intervall, t.ex.:
+  </p>
+  <ul>
+    <li>
+      <code>[2017 TO 2018}</code> är ekvivalent med
+      <code>[2017-01-01 TO 2017-12-31]</code> på grund av datumutökning och exklusivt övre gräns.
+    </li>
+  </ul>
+  <p>Exempel på andra intervall:</p>
+  <ul>
+    <li>
+      <code>metadata.publication_date:{* TO 2017-01-01}</code>: Alla dagar fram till 2017.
+    </li>
+    <li>
+      <code>metadata.publication_date:[2017-01-01 TO *]</code>: Alla dagar från 2017.
+    </li>
+  </ul>
+  <h3>Rankning/Sortering</h3>
+  <p>
+    Som standard sorteras alla sökningar enligt en intern rankningsalgoritm som poängsätter varje matchning mot din sökfråga. Både i användargränssnittet och REST API är det möjligt att sortera resultaten efter:
+  </p>
+  <ul>
+    <li>Senaste</li>
+    <li>Bästa matchning</li>
+    <li>Äldsta</li>
+    <li>Mest visade</li>
+    <li>Mest nedladdade</li>
+  </ul>
+  <h3>Reguljära uttryck</h3>
+  <p>
+    Reguljära uttryck är ett kraftfullt mönsterigenkänningsspråk som tillåter dig att
+    söka efter specifika mönster i ett fält. Till exempel, om vi vill hitta
+    alla poster med DOI-prefixet 10.5281 kan vi använda en sökning med reguljärt uttryck:
+  </p>
+  <p>
+    <strong>Exempel:</strong>
+    <a href="/search?page=1&amp;size=20&amp;q=metadata.subjects.identifier:%2F03yrm5c2%5B1%2C6%5D%2F"
+      ><code>metadata.subjects.identifier:/03yrm5c2[1,6]/</code></a
+    >
+  </p>
+  <p>
+    Var försiktig, det reguljära uttrycket måste matcha <em>hela</em> fältvärdet.
+    Se
+    <a
+      href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-regexp-query.html#regexp-syntax"
+      >syntax för reguljära uttryck</a
+    >
+    för ytterligare detaljer.
+  </p>
+  <h3>Fält som saknar värden</h3>
+  <p>
+    Det är möjligt att söka efter poster som antingen saknar ett värde eller har
+    ett värde i ett specifikt fält med hjälp av <code>_exists_</code> och
+    <code>not _exists_</code> i kombination med fältnamn.
+  </p>
+  <p>
+    <strong>Exempel:</strong>
+    <a href="/search?page=1&amp;size=20&amp;q=_missing_:metadata.additional_titles"
+      ><code>not _exists_:metadata.additional_titles</code></a
+    >
+    (alla poster utan metadata.additional_titles)
+  </p>
+  <p>
+    <strong>Exempel:</strong>
+    <a href="/search?page=1&amp;size=20&amp;q=_exists_:metadata.creators"
+      ><code>_exists_:metadata.creators</code></a
+    >
+    (alla poster med metadata.creators)
+  </p>
+  <h3>Avancerade söktekniker</h3>
+  <h4>Boosting</h4>
+  <p>
+    Du kan använda boost-operatorn <code>^</code> när en term är mer relevant
+    än en annan. Till exempel kan du söka efter alla poster med frasen
+    <em>open science</em> i antingen <em>titel-</em> eller
+    <em>beskrivnings-</em> fältet, men ranka poster med frasen i
+    <em>titel</em> fältet högre:
+  </p>
+  <p>
+    <strong>Exempel:</strong>
+    <a
+      href="/search?page=1&amp;size=20&amp;q=metadata.title:%22open%20science%22%5E5%20metadata.description:%22open%20science%22"
+      ><code>metadata.title:"open science"^5 metadata.description:"open science"</code></a
+    >
+  </p>
+  <h4>Fuzzy-sök</h4>
+  <p>
+    Du kan söka efter termer som är liknande men inte exakt samma som din sökterm
+    med hjälp av fuzzy-operatorn <code>~</code>.
+  </p>
+  <p>
+    <strong>Exempel:</strong>
+    <a href="/search?page=1&amp;size=20&amp;q=oepn~"><code>oepn~</code></a>
+  </p>
+  <p>
+    Resultaten kommer att matcha poster med termer liknande <code>oepn</code> vilket
+    till exempel även skulle matcha <code>open</code>.
+  </p>
+  <h4>Närhetssökningar</h4>
+  <p>
+    En frassökning med <code>"open science"</code> förväntar sig som standard att alla termer
+    är i exakt samma ordning, och skulle därmed till exempel inte matcha en post
+    som innehåller frasen <em>"open access and science"</em>. En närhetssökning
+    tillåter att termerna inte är i exakt följd och kan inkludera andra termer
+    emellan. Graden av flexibilitet specificeras av ett efterföljande heltal:
+  </p>
+  <p>
+    <strong>Exempel:</strong>
+    <a href="/search?page=1&amp;size=20&amp;q=%22open%20science%22~5"
+      ><code>"open science"~5</code></a
+    >
+  </p>
+  <h4>Wildcard-tecken</h4>
+  <p>
+    Du kan använda wildcard-tecken i söktermer för att ersätta ett enda tecken (med
+    <code>?</code> operatorn) eller noll eller fler tecken (med
+    <code>*</code> operatorn).
+  </p>
+  <p>
+    <strong>Exempel:</strong>
+    <a href="/search?page=1&amp;size=20&amp;q=ope%3F%20scien*"
+      ><code>ope? scien*</code></a
+    >
+  </p>
+  <p>
+    Wildcard-sökningar kan vara långsamma och bör normalt undvikas om möjligt.
+  </p>
+</div>
+{%- endblock page_body%}
