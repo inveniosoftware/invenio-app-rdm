@@ -155,7 +155,6 @@
 
 .generate-ck-editor-heights(30);
 
-
 .ui.form .success.message,
 .ui.form .warning.message,
 .ui.form .error.message {

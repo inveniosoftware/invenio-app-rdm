@@ -44,6 +44,7 @@ import { Card, Container, Grid, Ref, Sticky } from "semantic-ui-react";
 import PropTypes from "prop-types";
 import Overridable from "react-overridable";
 import { ShareDraftButton } from "./ShareDraftButton";
+import { depositFormSectionsConfig, severityChecksConfig } from "./config";
 
 export class RDMDepositForm extends Component {
   constructor(props) {
@@ -90,6 +91,9 @@ export class RDMDepositForm extends Component {
       this.noFiles = true;
     }
 
+    this.sectionsConfig = depositFormSectionsConfig;
+    this.severityChecks = severityChecksConfig;
+
     // hide community header for branded communities
     this.hide_community_selection = this.config.hide_community_selection || false;
   }
@@ -99,6 +103,7 @@ export class RDMDepositForm extends Component {
 
   render() {
     const {
+      config,
       record,
       files,
       permissions,
@@ -109,608 +114,630 @@ export class RDMDepositForm extends Component {
       groupsEnabled,
       allowEmptyFiles,
     } = this.props;
-    const customFieldsUI = this.config.custom_fields.ui;
+
+    // Adding section id to custom fields UI, to be used for accordions
+    const customFieldsUI = this.config.custom_fields.ui.map((section) => ({
+      ...section,
+      id: section.section.toLowerCase().replace(/\s+/g, "-") + "-section",
+    }));
+
     return (
-      <DepositFormApp
-        config={this.config}
+      <Overridable
+        id="InvenioAppRdm.Deposit.RDMDepositForm.layout"
         record={record}
-        preselectedCommunity={preselectedCommunity}
         files={files}
+        config={config}
         permissions={permissions}
+        preselectedCommunity={preselectedCommunity}
+        filesLocked={filesLocked}
+        recordRestrictionGracePeriod={recordRestrictionGracePeriod}
+        allowRecordRestriction={allowRecordRestriction}
+        groupsEnabled={groupsEnabled}
+        allowEmptyFiles={allowEmptyFiles}
+        customFieldsUI={customFieldsUI}
       >
-        <Overridable
-          id="InvenioAppRdm.Deposit.FormFeedback.container"
-          labels={this.config.custom_fields.error_labels}
-          fieldPath="message"
-        >
-          <FormFeedback
-            fieldPath="message"
-            labels={this.config.custom_fields.error_labels}
-          />
-        </Overridable>
-
-        <Overridable
-          id="InvenioAppRdm.Deposit.CommunityHeader.container"
+        <DepositFormApp
+          config={this.config}
           record={record}
+          preselectedCommunity={preselectedCommunity}
+          files={files}
+          permissions={permissions}
         >
-          {!this.hide_community_selection && (
-            <CommunityHeader
-              imagePlaceholderLink="/static/images/square-placeholder.png"
-              record={record}
+          <Overridable
+            id="InvenioAppRdm.Deposit.FormFeedback.container"
+            labels={this.config.custom_fields.error_labels}
+            fieldPath="message"
+          >
+            <FormFeedback
+              fieldPath="message"
+              labels={this.config.custom_fields.error_labels}
+              sectionsConfig={this.sectionsConfig}
             />
-          )}
-        </Overridable>
-        <Container id="rdm-deposit-form" className="rel-mt-1">
-          <Grid className="mt-25">
-            <Grid.Column mobile={16} tablet={16} computer={11}>
-              <Overridable
-                id="InvenioAppRdm.Deposit.AccordionFieldFiles.container"
+          </Overridable>
+
+          <Overridable
+            id="InvenioAppRdm.Deposit.CommunityHeader.container"
+            record={record}
+          >
+            {!this.hide_community_selection && (
+              <CommunityHeader
+                imagePlaceholderLink="/static/images/square-placeholder.png"
                 record={record}
-                config={this.config}
-                noFiles={this.noFiles}
-              >
-                <AccordionField
-                  includesPaths={["files.enabled"]}
-                  active
-                  label={i18next.t("Files")}
-                >
-                  {this.noFiles && record.is_published && (
-                    <div className="text-align-center pb-10">
-                      <em>{i18next.t("The record has no files.")}</em>
-                    </div>
-                  )}
-                  <Overridable
-                    id="InvenioAppRdm.Deposit.FileUploader.container"
-                    record={record}
-                    config={this.config}
-                    permissions={permissions}
-                    filesLocked={filesLocked}
-                    allowEmptyFiles={allowEmptyFiles}
-                  >
-                    <FileUploader
-                      isDraftRecord={!record.is_published}
-                      quota={this.config.quota}
-                      decimalSizeDisplay={this.config.decimal_size_display}
-                      showMetadataOnlyToggle={permissions?.can_manage_files}
-                      allowEmptyFiles={allowEmptyFiles}
-                      filesLocked={filesLocked}
-                    />
-                  </Overridable>
-                </AccordionField>
-              </Overridable>
-              <Overridable
-                id="InvenioAppRdm.Deposit.AccordionFieldBasicInformation.container"
-                config={this.config}
-                record={record}
-                vocabularies={this.vocabularies}
-              >
-                <AccordionField
-                  includesPaths={[
-                    "metadata.resource_type",
-                    "metadata.title",
-                    "metadata.additional_titles",
-                    "metadata.publication_date",
-                    "metadata.creators",
-                    "metadata.description",
-                    "metadata.additional_descriptions",
-                    "metadata.rights",
-                  ]}
-                  active
-                  label={i18next.t("Basic information")}
-                >
-                  <Overridable
-                    id="InvenioAppRdm.Deposit.PIDField.container"
-                    config={this.config}
-                    record={record}
-                  >
-                    <Fragment>
-                      {this.config.pids.map((pid) => (
-                        <Fragment key={pid.scheme}>
-                          <PIDField
-                            btnLabelDiscardPID={pid.btn_label_discard_pid}
-                            btnLabelGetPID={pid.btn_label_get_pid}
-                            canBeManaged={pid.can_be_managed}
-                            canBeUnmanaged={pid.can_be_unmanaged}
-                            optionalDOItransitions={pid.optional_doi_transitions}
-                            fieldPath={`pids.${pid.scheme}`}
-                            fieldLabel={pid.field_label}
-                            isEditingPublishedRecord={
-                              record.is_published === true // is_published is `null` at first upload
-                            }
-                            managedHelpText={pid.managed_help_text}
-                            pidLabel={pid.pid_label}
-                            pidPlaceholder={pid.pid_placeholder}
-                            pidType={pid.scheme}
-                            unmanagedHelpText={pid.unmanaged_help_text}
-                            doiDefaultSelection={pid.default_selected}
-                            required={this.config.is_doi_required}
-                            record={record}
-                          />
-                        </Fragment>
-                      ))}
-                    </Fragment>
-                  </Overridable>
-
-                  <Overridable
-                    id="InvenioAppRdm.Deposit.ResourceTypeField.container"
-                    vocabularies={this.vocabularies}
-                    fieldPath="metadata.resource_type"
-                  >
-                    <ResourceTypeField
-                      options={this.vocabularies.metadata.resource_type}
-                      fieldPath="metadata.resource_type"
-                      required
-                    />
-                  </Overridable>
-
-                  <Overridable
-                    id="InvenioAppRdm.Deposit.TitlesField.container"
-                    vocabularies={this.vocabularies}
-                    fieldPath="metadata.title"
-                    record={record}
-                  >
-                    <TitlesField
-                      options={this.vocabularies.metadata.titles}
-                      fieldPath="metadata.title"
-                      recordUI={record.ui}
-                      required
-                    />
-                  </Overridable>
-
-                  <Overridable
-                    id="InvenioAppRdm.Deposit.PublicationDateField.container"
-                    fieldPath="metadata.publication_date"
-                  >
-                    <PublicationDateField
-                      required
-                      fieldPath="metadata.publication_date"
-                    />
-                  </Overridable>
-
-                  <Overridable
-                    id="InvenioAppRdm.Deposit.CreatorsField.container"
-                    vocabularies={this.vocabularies}
-                    config={this.config}
-                    fieldPath="metadata.creators"
-                  >
-                    <CreatibutorsField
-                      label={i18next.t("Creators")}
-                      labelIcon="user"
-                      fieldPath="metadata.creators"
-                      roleOptions={this.vocabularies.metadata.creators.role}
-                      schema="creators"
-                      autocompleteNames={this.config.autocomplete_names}
-                      required
-                    />
-                  </Overridable>
-
-                  <Overridable
-                    id="InvenioAppRdm.Deposit.DescriptionsField.container"
-                    record={record}
-                    vocabularies={this.vocabularies}
-                    fieldPath="metadata.description"
-                  >
-                    <DescriptionsField
-                      fieldPath="metadata.description"
-                      options={this.vocabularies.metadata.descriptions}
-                      recordUI={_get(record, "ui", null)}
-                    />
-                  </Overridable>
-
-                  <Overridable
-                    id="InvenioAppRdm.Deposit.LicenseField.container"
-                    fieldPath="metadata.rights"
-                  >
-                    <LicenseField
-                      fieldPath="metadata.rights"
-                      searchConfig={{
-                        searchApi: {
-                          axios: {
-                            headers: {
-                              Accept: "application/vnd.inveniordm.v1+json",
-                            },
-                            url: "/api/vocabularies/licenses",
-                            withCredentials: false,
-                          },
-                        },
-                        initialQueryState: {
-                          filters: [["tags", "recommended"]],
-                        },
-                      }}
-                      serializeLicenses={(result) => ({
-                        title: result.title_l10n,
-                        description: result.description_l10n,
-                        id: result.id,
-                        link: result.props.url,
-                      })}
-                    />
-                  </Overridable>
-                  <Overridable
-                    id="InvenioAppRdm.Deposit.AccordionFieldBasicInformation.extra"
-                    record={record}
-                    files={files}
-                    permissions={permissions}
-                    preselectedCommunity={preselectedCommunity}
-                    filesLocked={filesLocked}
-                    recordRestrictionGracePeriod={recordRestrictionGracePeriod}
-                    allowRecordRestriction={allowRecordRestriction}
-                    groupsEnabled={groupsEnabled}
-                    allowEmptyFiles={allowEmptyFiles}
-                    customFieldsUI={customFieldsUI}
-                    config={this.config}
-                    vocabularies={this.vocabularies}
-                    noFiles={this.noFiles}
-                    hideCommunitySelection={this.hide_community_selection}
-                  />
-                </AccordionField>
-              </Overridable>
-              <Overridable
-                id="InvenioAppRdm.Deposit.AccordionFieldRecommendedInformation.container"
-                vocabularies={this.vocabularies}
-                config={this.config}
-                record={record}
-              >
-                <AccordionField
-                  includesPaths={[
-                    "metadata.contributors",
-                    "metadata.subjects",
-                    "metadata.languages",
-                    "metadata.dates",
-                    "metadata.version",
-                    "metadata.publisher",
-                  ]}
-                  active
-                  label={i18next.t("Recommended information")}
-                >
-                  <Overridable
-                    id="InvenioAppRdm.Deposit.ContributorsField.container"
-                    fieldPath="metadata.contributors"
-                    vocabularies={this.vocabularies}
-                    config={this.config}
-                  >
-                    <CreatibutorsField
-                      addButtonLabel={i18next.t("Add contributor")}
-                      label={i18next.t("Contributors")}
-                      labelIcon="user plus"
-                      fieldPath="metadata.contributors"
-                      roleOptions={this.vocabularies.metadata.contributors.role}
-                      schema="contributors"
-                      autocompleteNames={this.config.autocomplete_names}
-                      modal={{
-                        addLabel: "Add contributor",
-                        editLabel: "Edit contributor",
-                      }}
-                    />
-                  </Overridable>
-
-                  <Overridable
-                    id="InvenioAppRdm.Deposit.SubjectsField.container"
-                    vocabularies={this.vocabularies}
-                    fieldPath="metadata.subjects"
-                    record={record}
-                  >
-                    <SubjectsField
-                      fieldPath="metadata.subjects"
-                      initialOptions={_get(record, "ui.subjects", null)}
-                      limitToOptions={this.vocabularies.metadata.subjects.limit_to}
-                      searchOnFocus
-                    />
-                  </Overridable>
-
-                  <Overridable
-                    id="InvenioAppRdm.Deposit.LanguagesField.container"
-                    fieldPath="metadata.languages"
-                    record={record}
-                  >
-                    <LanguagesField
-                      fieldPath="metadata.languages"
-                      initialOptions={_get(record, "ui.languages", []).filter(
-                        (lang) => lang !== null
-                      )} // needed because dumped empty record from backend gives [null]
-                      serializeSuggestions={(suggestions) =>
-                        suggestions.map((item) => ({
-                          text: item.title_l10n,
-                          value: item.id,
-                          key: item.id,
-                        }))
-                      }
-                    />
-                  </Overridable>
-
-                  <Overridable
-                    id="InvenioAppRdm.Deposit.DateField.container"
-                    vocabularies={this.vocabularies}
-                    fieldPath="metadata.dates"
-                  >
-                    <DatesField
-                      fieldPath="metadata.dates"
-                      options={this.vocabularies.metadata.dates}
-                      showEmptyValue
-                    />
-                  </Overridable>
-
-                  <Overridable
-                    id="InvenioAppRdm.Deposit.VersionField.container"
-                    fieldPath="metadata.version"
-                  >
-                    <VersionField fieldPath="metadata.version" />
-                  </Overridable>
-
-                  <Overridable
-                    id="InvenioAppRdm.Deposit.PublisherField.container"
-                    fieldPath="metadata.publisher"
-                  >
-                    <PublisherField fieldPath="metadata.publisher" />
-                  </Overridable>
-                </AccordionField>
-              </Overridable>
-              <Overridable
-                id="InvenioAppRdm.Deposit.AccordionFieldFunding.container"
-                ui={this.accordionStyle}
-              >
-                <AccordionField
-                  includesPaths={["metadata.funding"]}
-                  active
-                  label="Funding"
-                  ui={this.accordionStyle}
-                >
-                  <Overridable
-                    id="InvenioAppRdm.Deposit.FundingField.container"
-                    fieldPath="metadata.funding"
-                  >
-                    <FundingField
-                      fieldPath="metadata.funding"
-                      searchConfig={{
-                        searchApi: {
-                          axios: {
-                            headers: {
-                              Accept: "application/vnd.inveniordm.v1+json",
-                            },
-                            url: "/api/awards",
-                            withCredentials: false,
-                          },
-                        },
-                        initialQueryState: {
-                          sortBy: "bestmatch",
-                          sortOrder: "asc",
-                          layout: "list",
-                          page: 1,
-                          size: 5,
-                        },
-                      }}
-                      label="Awards/Grants"
-                      labelIcon="money bill alternate outline"
-                      deserializeAward={(award) => {
-                        return {
-                          title: award.title_l10n,
-                          number: award.number,
-                          funder: award.funder ?? "",
-                          id: award.id,
-                          ...(award.identifiers && {
-                            identifiers: award.identifiers,
-                          }),
-                          ...(award.acronym && { acronym: award.acronym }),
-                        };
-                      }}
-                      deserializeFunder={(funder) => {
-                        return {
-                          id: funder.id,
-                          name: funder.name,
-                          ...(funder.title_l10n && { title: funder.title_l10n }),
-                          ...(funder.pid && { pid: funder.pid }),
-                          ...(funder.country && { country: funder.country }),
-                          ...(funder.country_name && {
-                            country_name: funder.country_name,
-                          }),
-                          ...(funder.identifiers && {
-                            identifiers: funder.identifiers,
-                          }),
-                        };
-                      }}
-                      computeFundingContents={(funding) => {
-                        let headerContent,
-                          descriptionContent,
-                          awardOrFunder = "";
-
-                        if (funding.funder) {
-                          const funderName =
-                            funding.funder?.name ??
-                            funding.funder?.title ??
-                            funding.funder?.id ??
-                            "";
-                          awardOrFunder = "funder";
-                          headerContent = funderName;
-                          descriptionContent = "";
-
-                          // there cannot be an award without a funder
-                          if (funding.award) {
-                            const { acronym, title } = funding.award;
-                            awardOrFunder = "award";
-                            descriptionContent = funderName;
-                            headerContent = acronym ? `${acronym} — ${title}` : title;
-                          }
-                        }
-
-                        return { headerContent, descriptionContent, awardOrFunder };
-                      }}
-                    />
-                  </Overridable>
-                </AccordionField>
-              </Overridable>
-              <Overridable
-                id="InvenioAppRdm.Deposit.AccordionFieldAlternateIdentifiers.container"
-                vocabularies={this.vocabularies}
-              >
-                <AccordionField
-                  includesPaths={["metadata.identifiers"]}
-                  active
-                  label={i18next.t("Alternate identifiers")}
-                >
-                  <Overridable
-                    id="InvenioAppRdm.Deposit.IdentifiersField.container"
-                    vocabularies={this.vocabularies}
-                    fieldPath="metadata.identifiers"
-                  >
-                    <IdentifiersField
-                      fieldPath="metadata.identifiers"
-                      label={i18next.t("Alternate identifiers")}
-                      labelIcon="barcode"
-                      schemeOptions={this.vocabularies.metadata.identifiers.scheme}
-                      showEmptyValue
-                    />
-                  </Overridable>
-                </AccordionField>
-              </Overridable>
-
-              <Overridable
-                id="InvenioAppRdm.Deposit.AccordionFieldRelatedWorks.container"
-                vocabularies={this.vocabularies}
-              >
-                <AccordionField
-                  includesPaths={["metadata.related_identifiers"]}
-                  active
-                  label={i18next.t("Related works")}
-                >
-                  <Overridable
-                    id="InvenioAppRdm.Deposit.RelatedWorksField.container"
-                    fieldPath="metadata.related_identifiers"
-                    vocabularies={this.vocabularies}
-                  >
-                    <RelatedWorksField
-                      fieldPath="metadata.related_identifiers"
-                      options={this.vocabularies.metadata.identifiers}
-                      showEmptyValue
-                    />
-                  </Overridable>
-                </AccordionField>
-              </Overridable>
-              <Overridable
-                id="InvenioAppRdm.Deposit.AccordionFieldReferences.container"
-                vocabularies={this.vocabularies}
-              >
-                <AccordionField
-                  includesPaths={["metadata.references"]}
-                  active
-                  label={i18next.t("References")}
-                >
-                  <Overridable
-                    id="InvenioAppRdm.Deposit.ReferencesField.container"
-                    fieldPath="metadata.references"
-                    vocabularies={this.vocabularies}
-                  >
-                    <ReferencesField fieldPath="metadata.references" showEmptyValue />
-                  </Overridable>
-                </AccordionField>
-              </Overridable>
-              {!_isEmpty(customFieldsUI) && (
+              />
+            )}
+          </Overridable>
+          <Container id="rdm-deposit-form" className="rel-mt-1">
+            <Grid className="mt-25">
+              <Grid.Column mobile={16} tablet={16} computer={11}>
                 <Overridable
-                  id="InvenioAppRdm.Deposit.CustomFields.container"
+                  id="InvenioAppRdm.Deposit.AccordionFieldFiles.container"
                   record={record}
-                  customFieldsUI={customFieldsUI}
+                  config={this.config}
+                  noFiles={this.noFiles}
                 >
-                  <CustomFields
-                    config={customFieldsUI}
-                    record={record}
-                    templateLoaders={[
-                      (widget) => import(`@templates/custom_fields/${widget}.js`),
-                      (widget) =>
-                        import(`@js/invenio_rdm_records/src/deposit/customFields`),
-                      (widget) => import(`react-invenio-forms`),
-                    ]}
-                    fieldPathPrefix="custom_fields"
-                  />
-                </Overridable>
-              )}
-            </Grid.Column>
-            <Ref innerRef={this.sidebarRef}>
-              <Grid.Column
-                mobile={16}
-                tablet={16}
-                computer={5}
-                className="deposit-sidebar"
-              >
-                <Sticky context={this.sidebarRef} offset={20}>
-                  <Overridable
-                    id="InvenioAppRdm.Deposit.CardDepositStatusBox.container"
-                    record={record}
-                    permissions={permissions}
-                    groupsEnabled={groupsEnabled}
+                  <AccordionField
+                    includesPaths={this.sectionsConfig["files-section"]}
+                    severityChecks={this.severityChecks}
+                    active
+                    label={i18next.t("Files")}
+                    id="files-section"
                   >
-                    <Card>
-                      <Card.Content>
-                        <DepositStatusBox />
-                      </Card.Content>
-                      <Card.Content>
-                        <Grid relaxed>
-                          <Grid.Column
-                            computer={8}
-                            mobile={16}
-                            className="pb-0 left-btn-col"
-                          >
-                            <SaveButton fluid />
-                          </Grid.Column>
-
-                          <Grid.Column
-                            computer={8}
-                            mobile={16}
-                            className="pb-0 right-btn-col"
-                          >
-                            <PreviewButton fluid />
-                          </Grid.Column>
-
-                          <Grid.Column width={16} className="pt-10">
-                            <PublishButton fluid record={record} />
-                          </Grid.Column>
-
-                          <Grid.Column width={16} className="pt-0">
-                            {(record.is_draft === null || permissions.can_manage) && (
-                              <ShareDraftButton
-                                record={record}
-                                permissions={permissions}
-                                groupsEnabled={groupsEnabled}
-                              />
-                            )}
-                          </Grid.Column>
-                        </Grid>
-                      </Card.Content>
-                    </Card>
-                  </Overridable>
-                  <Overridable
-                    id="InvenioAppRdm.Deposit.AccessRightField.container"
-                    fieldPath="access"
-                    record={record}
-                    permissions={permissions}
-                    recordRestrictionGracePeriod={recordRestrictionGracePeriod}
-                    allowRecordRestriction={allowRecordRestriction}
-                  >
-                    <AccessRightField
-                      label={i18next.t("Visibility")}
+                    {this.noFiles && record.is_published && (
+                      <div className="text-align-center pb-10">
+                        <em>{i18next.t("The record has no files.")}</em>
+                      </div>
+                    )}
+                    <Overridable
+                      id="InvenioAppRdm.Deposit.FileUploader.container"
                       record={record}
-                      labelIcon="shield"
-                      fieldPath="access"
-                      showMetadataAccess={permissions?.can_manage_record_access}
+                      config={this.config}
+                      permissions={permissions}
+                      filesLocked={filesLocked}
+                      allowEmptyFiles={allowEmptyFiles}
+                    >
+                      <FileUploader
+                        isDraftRecord={!record.is_published}
+                        quota={this.config.quota}
+                        decimalSizeDisplay={this.config.decimal_size_display}
+                        showMetadataOnlyToggle={permissions?.can_manage_files}
+                        allowEmptyFiles={allowEmptyFiles}
+                        filesLocked={filesLocked}
+                      />
+                    </Overridable>
+                  </AccordionField>
+                </Overridable>
+                <Overridable
+                  id="InvenioAppRdm.Deposit.AccordionFieldBasicInformation.container"
+                  config={this.config}
+                  record={record}
+                  vocabularies={this.vocabularies}
+                >
+                  <AccordionField
+                    includesPaths={this.sectionsConfig["basic-information-section"]}
+                    severityChecks={this.severityChecks}
+                    active
+                    label={i18next.t("Basic information")}
+                    id="basic-information-section"
+                  >
+                    <Overridable
+                      id="InvenioAppRdm.Deposit.PIDField.container"
+                      config={this.config}
+                      record={record}
+                    >
+                      <Fragment>
+                        {this.config.pids.map((pid) => (
+                          <Fragment key={pid.scheme}>
+                            <PIDField
+                              btnLabelDiscardPID={pid.btn_label_discard_pid}
+                              btnLabelGetPID={pid.btn_label_get_pid}
+                              canBeManaged={pid.can_be_managed}
+                              canBeUnmanaged={pid.can_be_unmanaged}
+                              optionalDOItransitions={pid.optional_doi_transitions}
+                              fieldPath={`pids.${pid.scheme}`}
+                              fieldLabel={pid.field_label}
+                              isEditingPublishedRecord={
+                                record.is_published === true // is_published is `null` at first upload
+                              }
+                              managedHelpText={pid.managed_help_text}
+                              pidLabel={pid.pid_label}
+                              pidPlaceholder={pid.pid_placeholder}
+                              pidType={pid.scheme}
+                              unmanagedHelpText={pid.unmanaged_help_text}
+                              doiDefaultSelection={pid.default_selected}
+                              required={this.config.is_doi_required}
+                              record={record}
+                            />
+                          </Fragment>
+                        ))}
+                      </Fragment>
+                    </Overridable>
+
+                    <Overridable
+                      id="InvenioAppRdm.Deposit.ResourceTypeField.container"
+                      vocabularies={this.vocabularies}
+                      fieldPath="metadata.resource_type"
+                    >
+                      <ResourceTypeField
+                        options={this.vocabularies.metadata.resource_type}
+                        fieldPath="metadata.resource_type"
+                        required
+                      />
+                    </Overridable>
+
+                    <Overridable
+                      id="InvenioAppRdm.Deposit.TitlesField.container"
+                      vocabularies={this.vocabularies}
+                      fieldPath="metadata.title"
+                      record={record}
+                    >
+                      <TitlesField
+                        options={this.vocabularies.metadata.titles}
+                        fieldPath="metadata.title"
+                        recordUI={record.ui}
+                        required
+                      />
+                    </Overridable>
+
+                    <Overridable
+                      id="InvenioAppRdm.Deposit.PublicationDateField.container"
+                      fieldPath="metadata.publication_date"
+                    >
+                      <PublicationDateField
+                        required
+                        fieldPath="metadata.publication_date"
+                      />
+                    </Overridable>
+
+                    <Overridable
+                      id="InvenioAppRdm.Deposit.CreatorsField.container"
+                      vocabularies={this.vocabularies}
+                      config={this.config}
+                      fieldPath="metadata.creators"
+                    >
+                      <CreatibutorsField
+                        label={i18next.t("Creators")}
+                        labelIcon="user"
+                        fieldPath="metadata.creators"
+                        roleOptions={this.vocabularies.metadata.creators.role}
+                        schema="creators"
+                        autocompleteNames={this.config.autocomplete_names}
+                        required
+                      />
+                    </Overridable>
+
+                    <Overridable
+                      id="InvenioAppRdm.Deposit.DescriptionsField.container"
+                      record={record}
+                      vocabularies={this.vocabularies}
+                      fieldPath="metadata.description"
+                    >
+                      <DescriptionsField
+                        fieldPath="metadata.description"
+                        options={this.vocabularies.metadata.descriptions}
+                        recordUI={_get(record, "ui", null)}
+                      />
+                    </Overridable>
+
+                    <Overridable
+                      id="InvenioAppRdm.Deposit.LicenseField.container"
+                      fieldPath="metadata.rights"
+                    >
+                      <LicenseField
+                        fieldPath="metadata.rights"
+                        searchConfig={{
+                          searchApi: {
+                            axios: {
+                              headers: {
+                                Accept: "application/vnd.inveniordm.v1+json",
+                              },
+                              url: "/api/vocabularies/licenses",
+                              withCredentials: false,
+                            },
+                          },
+                          initialQueryState: {
+                            filters: [["tags", "recommended"]],
+                          },
+                        }}
+                        serializeLicenses={(result) => ({
+                          title: result.title_l10n,
+                          description: result.description_l10n,
+                          id: result.id,
+                          link: result.props.url,
+                        })}
+                      />
+                    </Overridable>
+                    <Overridable
+                      id="InvenioAppRdm.Deposit.AccordionFieldBasicInformation.extra"
+                      record={record}
+                      files={files}
+                      permissions={permissions}
+                      preselectedCommunity={preselectedCommunity}
+                      filesLocked={filesLocked}
                       recordRestrictionGracePeriod={recordRestrictionGracePeriod}
                       allowRecordRestriction={allowRecordRestriction}
+                      groupsEnabled={groupsEnabled}
+                      allowEmptyFiles={allowEmptyFiles}
+                      customFieldsUI={customFieldsUI}
+                      config={this.config}
+                      vocabularies={this.vocabularies}
+                      noFiles={this.noFiles}
+                      hideCommunitySelection={this.hide_community_selection}
+                    />
+                  </AccordionField>
+                </Overridable>
+                <Overridable
+                  id="InvenioAppRdm.Deposit.AccordionFieldRecommendedInformation.container"
+                  vocabularies={this.vocabularies}
+                  config={this.config}
+                  record={record}
+                >
+                  <AccordionField
+                    includesPaths={
+                      this.sectionsConfig["recommended-information-section"]
+                    }
+                    severityChecks={this.severityChecks}
+                    label={i18next.t("Recommended information")}
+                    id="recommended-information-section"
+                  >
+                    <Overridable
+                      id="InvenioAppRdm.Deposit.ContributorsField.container"
+                      fieldPath="metadata.contributors"
+                      vocabularies={this.vocabularies}
+                      config={this.config}
+                    >
+                      <CreatibutorsField
+                        addButtonLabel={i18next.t("Add contributor")}
+                        label={i18next.t("Contributors")}
+                        labelIcon="user plus"
+                        fieldPath="metadata.contributors"
+                        roleOptions={this.vocabularies.metadata.contributors.role}
+                        schema="contributors"
+                        autocompleteNames={this.config.autocomplete_names}
+                        modal={{
+                          addLabel: "Add contributor",
+                          editLabel: "Edit contributor",
+                        }}
+                      />
+                    </Overridable>
+
+                    <Overridable
+                      id="InvenioAppRdm.Deposit.SubjectsField.container"
+                      vocabularies={this.vocabularies}
+                      fieldPath="metadata.subjects"
+                      record={record}
+                    >
+                      <SubjectsField
+                        fieldPath="metadata.subjects"
+                        initialOptions={_get(record, "ui.subjects", null)}
+                        limitToOptions={this.vocabularies.metadata.subjects.limit_to}
+                        searchOnFocus
+                      />
+                    </Overridable>
+
+                    <Overridable
+                      id="InvenioAppRdm.Deposit.LanguagesField.container"
+                      fieldPath="metadata.languages"
+                      record={record}
+                    >
+                      <LanguagesField
+                        fieldPath="metadata.languages"
+                        initialOptions={_get(record, "ui.languages", []).filter(
+                          (lang) => lang !== null
+                        )} // needed because dumped empty record from backend gives [null]
+                        serializeSuggestions={(suggestions) =>
+                          suggestions.map((item) => ({
+                            text: item.title_l10n,
+                            value: item.id,
+                            key: item.id,
+                          }))
+                        }
+                      />
+                    </Overridable>
+
+                    <Overridable
+                      id="InvenioAppRdm.Deposit.DateField.container"
+                      vocabularies={this.vocabularies}
+                      fieldPath="metadata.dates"
+                    >
+                      <DatesField
+                        fieldPath="metadata.dates"
+                        options={this.vocabularies.metadata.dates}
+                        showEmptyValue
+                      />
+                    </Overridable>
+
+                    <Overridable
+                      id="InvenioAppRdm.Deposit.VersionField.container"
+                      fieldPath="metadata.version"
+                    >
+                      <VersionField fieldPath="metadata.version" />
+                    </Overridable>
+
+                    <Overridable
+                      id="InvenioAppRdm.Deposit.PublisherField.container"
+                      fieldPath="metadata.publisher"
+                    >
+                      <PublisherField fieldPath="metadata.publisher" />
+                    </Overridable>
+                  </AccordionField>
+                </Overridable>
+                <Overridable
+                  id="InvenioAppRdm.Deposit.AccordionFieldFunding.container"
+                  ui={this.accordionStyle}
+                >
+                  <AccordionField
+                    includesPaths={this.sectionsConfig["funding-section"]}
+                    severityChecks={this.severityChecks}
+                    active
+                    label="Funding"
+                    ui={this.accordionStyle}
+                    id="funding-section"
+                  >
+                    <Overridable
+                      id="InvenioAppRdm.Deposit.FundingField.container"
+                      fieldPath="metadata.funding"
+                    >
+                      <FundingField
+                        fieldPath="metadata.funding"
+                        searchConfig={{
+                          searchApi: {
+                            axios: {
+                              headers: {
+                                Accept: "application/vnd.inveniordm.v1+json",
+                              },
+                              url: "/api/awards",
+                              withCredentials: false,
+                            },
+                          },
+                          initialQueryState: {
+                            sortBy: "bestmatch",
+                            sortOrder: "asc",
+                            layout: "list",
+                            page: 1,
+                            size: 5,
+                          },
+                        }}
+                        label="Awards/Grants"
+                        labelIcon="money bill alternate outline"
+                        deserializeAward={(award) => {
+                          return {
+                            title: award.title_l10n,
+                            number: award.number,
+                            funder: award.funder ?? "",
+                            id: award.id,
+                            ...(award.identifiers && {
+                              identifiers: award.identifiers,
+                            }),
+                            ...(award.acronym && { acronym: award.acronym }),
+                          };
+                        }}
+                        deserializeFunder={(funder) => {
+                          return {
+                            id: funder.id,
+                            name: funder.name,
+                            ...(funder.title_l10n && { title: funder.title_l10n }),
+                            ...(funder.pid && { pid: funder.pid }),
+                            ...(funder.country && { country: funder.country }),
+                            ...(funder.country_name && {
+                              country_name: funder.country_name,
+                            }),
+                            ...(funder.identifiers && {
+                              identifiers: funder.identifiers,
+                            }),
+                          };
+                        }}
+                        computeFundingContents={(funding) => {
+                          let headerContent,
+                            descriptionContent,
+                            awardOrFunder = "";
+
+                          if (funding.funder) {
+                            const funderName =
+                              funding.funder?.name ??
+                              funding.funder?.title ??
+                              funding.funder?.id ??
+                              "";
+                            awardOrFunder = "funder";
+                            headerContent = funderName;
+                            descriptionContent = "";
+
+                            // there cannot be an award without a funder
+                            if (funding.award) {
+                              const { acronym, title } = funding.award;
+                              awardOrFunder = "award";
+                              descriptionContent = funderName;
+                              headerContent = acronym ? `${acronym} — ${title}` : title;
+                            }
+                          }
+
+                          return { headerContent, descriptionContent, awardOrFunder };
+                        }}
+                      />
+                    </Overridable>
+                  </AccordionField>
+                </Overridable>
+                <Overridable
+                  id="InvenioAppRdm.Deposit.AccordionFieldAlternateIdentifiers.container"
+                  vocabularies={this.vocabularies}
+                >
+                  <AccordionField
+                    includesPaths={this.sectionsConfig["alternate-identifiers-section"]}
+                    severityChecks={this.severityChecks}
+                    active
+                    label={i18next.t("Alternate identifiers")}
+                    id="alternate-identifiers-section"
+                  >
+                    <Overridable
+                      id="InvenioAppRdm.Deposit.IdentifiersField.container"
+                      vocabularies={this.vocabularies}
+                      fieldPath="metadata.identifiers"
+                    >
+                      <IdentifiersField
+                        fieldPath="metadata.identifiers"
+                        label={i18next.t("Alternate identifiers")}
+                        labelIcon="barcode"
+                        schemeOptions={this.vocabularies.metadata.identifiers.scheme}
+                        showEmptyValue
+                      />
+                    </Overridable>
+                  </AccordionField>
+                </Overridable>
+
+                <Overridable
+                  id="InvenioAppRdm.Deposit.AccordionFieldRelatedWorks.container"
+                  vocabularies={this.vocabularies}
+                >
+                  <AccordionField
+                    includesPaths={this.sectionsConfig["related-works-section"]}
+                    severityChecks={this.severityChecks}
+                    active
+                    label={i18next.t("Related works")}
+                    id="related-works-section"
+                  >
+                    <Overridable
+                      id="InvenioAppRdm.Deposit.RelatedWorksField.container"
+                      fieldPath="metadata.related_identifiers"
+                      vocabularies={this.vocabularies}
+                    >
+                      <RelatedWorksField
+                        fieldPath="metadata.related_identifiers"
+                        options={this.vocabularies.metadata.identifiers}
+                        showEmptyValue
+                      />
+                    </Overridable>
+                  </AccordionField>
+                </Overridable>
+                <Overridable
+                  id="InvenioAppRdm.Deposit.AccordionFieldReferences.container"
+                  vocabularies={this.vocabularies}
+                >
+                  <AccordionField
+                    includesPaths={this.sectionsConfig["references-section"]}
+                    severityChecks={this.severityChecks}
+                    active
+                    label={i18next.t("References")}
+                    id="references-section"
+                  >
+                    <Overridable
+                      id="InvenioAppRdm.Deposit.ReferencesField.container"
+                      fieldPath="metadata.references"
+                      vocabularies={this.vocabularies}
+                    >
+                      <ReferencesField fieldPath="metadata.references" showEmptyValue />
+                    </Overridable>
+                  </AccordionField>
+                </Overridable>
+                {!_isEmpty(customFieldsUI) && (
+                  <Overridable
+                    id="InvenioAppRdm.Deposit.CustomFields.container"
+                    record={record}
+                    customFieldsUI={customFieldsUI}
+                  >
+                    <CustomFields
+                      config={customFieldsUI}
+                      record={record}
+                      templateLoaders={[
+                        (widget) => import(`@templates/custom_fields/${widget}.js`),
+                        (widget) =>
+                          import(`@js/invenio_rdm_records/src/deposit/customFields`),
+                        (widget) => import(`react-invenio-forms`),
+                      ]}
+                      fieldPathPrefix="custom_fields"
                     />
                   </Overridable>
-                  {permissions?.can_delete_draft && (
+                )}
+              </Grid.Column>
+              <Ref innerRef={this.sidebarRef}>
+                <Grid.Column
+                  mobile={16}
+                  tablet={16}
+                  computer={5}
+                  className="deposit-sidebar"
+                >
+                  <Sticky context={this.sidebarRef} offset={20}>
                     <Overridable
-                      id="InvenioAppRdm.Deposit.CardDeleteButton.container"
+                      id="InvenioAppRdm.Deposit.CardDepositStatusBox.container"
                       record={record}
+                      permissions={permissions}
+                      groupsEnabled={groupsEnabled}
                     >
                       <Card>
                         <Card.Content>
-                          <DeleteButton fluid />
+                          <DepositStatusBox />
+                        </Card.Content>
+                        <Card.Content>
+                          <Grid relaxed>
+                            <Grid.Column
+                              computer={8}
+                              mobile={16}
+                              className="pb-0 left-btn-col"
+                            >
+                              <SaveButton fluid />
+                            </Grid.Column>
+
+                            <Grid.Column
+                              computer={8}
+                              mobile={16}
+                              className="pb-0 right-btn-col"
+                            >
+                              <PreviewButton fluid />
+                            </Grid.Column>
+
+                            <Grid.Column width={16} className="pt-10">
+                              <PublishButton fluid record={record} />
+                            </Grid.Column>
+
+                            <Grid.Column width={16} className="pt-0">
+                              {(record.is_draft === null || permissions.can_manage) && (
+                                <ShareDraftButton
+                                  record={record}
+                                  permissions={permissions}
+                                  groupsEnabled={groupsEnabled}
+                                />
+                              )}
+                            </Grid.Column>
+                          </Grid>
                         </Card.Content>
                       </Card>
                     </Overridable>
-                  )}
-                </Sticky>
-              </Grid.Column>
-            </Ref>
-          </Grid>
-        </Container>
-      </DepositFormApp>
+                    <Overridable
+                      id="InvenioAppRdm.Deposit.AccessRightField.container"
+                      fieldPath="access"
+                      record={record}
+                      permissions={permissions}
+                      recordRestrictionGracePeriod={recordRestrictionGracePeriod}
+                      allowRecordRestriction={allowRecordRestriction}
+                    >
+                      <AccessRightField
+                        label={i18next.t("Visibility")}
+                        record={record}
+                        labelIcon="shield"
+                        fieldPath="access"
+                        showMetadataAccess={permissions?.can_manage_record_access}
+                        recordRestrictionGracePeriod={recordRestrictionGracePeriod}
+                        allowRecordRestriction={allowRecordRestriction}
+                        id="visibility-section"
+                      />
+                    </Overridable>
+                    {permissions?.can_delete_draft && (
+                      <Overridable
+                        id="InvenioAppRdm.Deposit.CardDeleteButton.container"
+                        record={record}
+                      >
+                        <Card>
+                          <Card.Content>
+                            <DeleteButton fluid />
+                          </Card.Content>
+                        </Card>
+                      </Overridable>
+                    )}
+                  </Sticky>
+                </Grid.Column>
+              </Ref>
+            </Grid>
+          </Container>
+        </DepositFormApp>
+      </Overridable>
     );
   }
 }
