@@ -9,8 +9,11 @@
 
 """Request views module."""
 
-from flask import g, render_template
+from uuid import UUID
+
+from flask import current_app, g, render_template
 from flask_login import current_user, login_required
+from invenio_checks.models import CheckConfig, CheckRun
 from invenio_communities.config import COMMUNITIES_ROLES
 from invenio_communities.members.services.request import CommunityInvitation
 from invenio_communities.proxies import current_identities_cache
@@ -162,6 +165,31 @@ def _resolve_record_or_draft_media_files(record, request):
     return None
 
 
+def _get_checks(community_id, record):
+    enabled = current_app.config.get("CHECKS_ENABLED", False)
+    if not enabled:
+        return None
+
+    # TODO communities can have mulitiple configs which we should collate
+    community_check_config = CheckConfig.query.filter_by(
+        community_id=community_id
+    ).first()
+
+    if not community_check_config:
+        return None
+
+    checks = (
+        CheckRun.query.filter(
+            CheckRun.config_id == community_check_config.id,
+            CheckRun.record_id == UUID(record.id),
+        )
+        .order_by(CheckRun.start_time.desc())
+        .first()
+    )
+
+    return checks
+
+
 @login_required
 @pass_request(expand=True)
 def user_dashboard_request_view(request, **kwargs):
@@ -182,6 +210,7 @@ def user_dashboard_request_view(request, **kwargs):
         record_ui = topic["record_ui"]  # None when draft
         record = topic["record"]  # None when draft
         is_draft = record_ui["is_draft"] if record_ui else False
+        # checks = _get_checks()
 
         files = _resolve_record_or_draft_files(record_ui, request)
         media_files = _resolve_record_or_draft_media_files(record_ui, request)
@@ -191,6 +220,7 @@ def user_dashboard_request_view(request, **kwargs):
             user_avatar=avatar,
             invenio_request=request.to_dict(),
             record=record_ui,
+            # checks=checks,
             permissions=topic["permissions"],
             is_preview=is_draft,  # preview only when draft
             is_draft=is_draft,
@@ -259,6 +289,7 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
         record_ui = topic["record_ui"]  # None when draft
         record = topic["record"]  # None when draft
         is_draft = record_ui["is_draft"] if record_ui else False
+        checks = _get_checks(community.id, record)
 
         permissions.update(topic["permissions"])
         files = _resolve_record_or_draft_files(record_ui, request)
@@ -270,6 +301,7 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
             invenio_request=request.to_dict(),
             record=record_ui,
             community=community_ui,
+            checks=checks,
             permissions=permissions,
             is_preview=is_draft,  # preview only when draft
             is_draft=is_draft,

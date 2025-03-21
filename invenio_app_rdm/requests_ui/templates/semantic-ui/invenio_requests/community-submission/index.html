@@ -64,6 +64,18 @@
           {{ _("Record") }}
         </a>
       {% endif %}
+      {% if checks %}
+        <a
+          role="tab"
+          class="item"
+          data-tab="checks"
+          aria-selected="false"
+          aria-controls="checks-tab-panel"
+          id="checks-tab"
+        >
+          {{ _("Checks") }}
+        </a>
+      {% endif %}
     </div>
 
     <div
@@ -88,6 +100,19 @@
         {% set use_theme_basic_template = false %}
         {% set preview_submission_request = true %}
         {% include "invenio_app_rdm/records/detail.html" %}
+      </div>
+    {% endif %}
+
+    {% if checks %}
+      <div
+        class="ui bottom attached tab segment borderless"
+        data-tab="checks"
+        role="tabpanel"
+        aria-labelledby="checks-tab"
+        id="checks-tab-panel"
+        hidden="hidden"
+      >
+        {{ _("Checks") }}
       </div>
     {% endif %}
   </div>
