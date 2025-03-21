@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version v13.0.0b2.dev8 (released 2025-03-21)
+
+- config: updated severity label text on deposit form
+
 Version v13.0.0b2.dev7 (released 2025-03-18)
 
 - deposit: refactor section config in RDMDepositForm
