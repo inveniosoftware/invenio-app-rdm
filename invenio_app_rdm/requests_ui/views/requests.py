@@ -92,7 +92,9 @@ def _resolve_topic_record(request):
             record = current_rdm_records_service.read_draft(
                 g.identity, pid, expand=True
             )
-            record_uuid = current_rdm_records_service.draft_cls.pid.resolve(pid, registered_only=False).id
+            record_uuid = current_rdm_records_service.draft_cls.pid.resolve(
+                pid, registered_only=False
+            ).id
     except (NoResultFound, PIDDoesNotExistError):
         # We catch PIDDoesNotExistError because a published record with
         # a soft-deleted draft will raise this error. The lines below
@@ -120,7 +122,12 @@ def _resolve_topic_record(request):
                 "read",
             ]
         )
-        return dict(permissions=permissions, record_ui=record_ui, record=record, record_uuid=record_uuid)
+        return dict(
+            permissions=permissions,
+            record_ui=record_ui,
+            record=record,
+            record_uuid=record_uuid,
+        )
 
     return dict(permissions={}, record_ui=None, record=None, record_uuid=None)
 
