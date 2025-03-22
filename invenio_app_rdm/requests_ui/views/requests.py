@@ -211,10 +211,12 @@ def user_dashboard_request_view(request, **kwargs):
 
     if has_record_topic:
         topic = _resolve_topic_record(request)
-        record_ui = topic["record_ui"]  # None when draft
-        record = topic["record"]  # None when draft
+        record_ui = topic["record_ui"]
+        record = topic["record"]
+        record_uuid = topic["record_uuid"]
         is_draft = record_ui["is_draft"] if record_ui else False
-        # checks = _get_checks()
+        community_id = request["receiver"]["community"]
+        checks = _get_checks(community_id, record_uuid)
 
         files = _resolve_record_or_draft_files(record_ui, request)
         media_files = _resolve_record_or_draft_media_files(record_ui, request)
@@ -224,7 +226,7 @@ def user_dashboard_request_view(request, **kwargs):
             user_avatar=avatar,
             invenio_request=request.to_dict(),
             record=record_ui,
-            # checks=checks,
+            checks=checks,
             permissions=topic["permissions"],
             is_preview=is_draft,  # preview only when draft
             is_draft=is_draft,
