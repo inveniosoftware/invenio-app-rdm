@@ -64,6 +64,7 @@
           {{ _("Record") }}
         </a>
       {% endif %}
+
       {% if checks %}
         <a
           role="tab"
@@ -73,7 +74,7 @@
           aria-controls="checks-tab-panel"
           id="checks-tab"
         >
-          {{ _("Checks") }}
+          {% include "invenio_checks/title.html" %}
         </a>
       {% endif %}
     </div>
@@ -88,6 +89,20 @@
       {{ super() }}
     </div>
 
+    {% if checks %}
+      <div
+        class="ui bottom attached tab segment borderless"
+        data-tab="checks"
+        role="tabpanel"
+        aria-labelledby="checks-tab"
+        id="checks-tab-panel"
+        hidden="hidden"
+      >
+        {% include "invenio_checks/details.html" %}
+      </div>
+    {% endif %}
+
+    {# The record tab content needs to be last since the HTML structure is complex and breaks following tab contents #}
     {% if record %}
       <div
         class="ui bottom attached tab segment borderless"
@@ -103,17 +118,5 @@
       </div>
     {% endif %}
 
-    {% if checks %}
-      <div
-        class="ui bottom attached tab segment borderless"
-        data-tab="checks"
-        role="tabpanel"
-        aria-labelledby="checks-tab"
-        id="checks-tab-panel"
-        hidden="hidden"
-      >
-        {{ _("Checks") }}
-      </div>
-    {% endif %}
   </div>
 {% endblock request_timeline %}
