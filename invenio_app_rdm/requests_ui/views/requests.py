@@ -57,6 +57,7 @@ def _resolve_topic_record(request):
         return dict(permissions={}, record_ui=None, record=None)
 
     record = None
+    record_uuid = None
     # parse the topic field to get the draft/record pid `record:abcd-efgh`
     entity = ResolverRegistry.resolve_entity_proxy(request["topic"])
     pid = entity._parse_ref_dict_id()
@@ -85,11 +86,13 @@ def _resolve_topic_record(request):
                     break
             # read published record
             record = current_rdm_records_service.read(g.identity, pid, expand=True)
+            record_uuid = current_rdm_records_service.record_cls.pid.resolve(pid).id
         else:
             # read draft
             record = current_rdm_records_service.read_draft(
                 g.identity, pid, expand=True
             )
+            record_uuid = current_rdm_records_service.draft_cls.pid.resolve(pid, registered_only=False).id
     except (NoResultFound, PIDDoesNotExistError):
         # We catch PIDDoesNotExistError because a published record with
         # a soft-deleted draft will raise this error. The lines below
@@ -117,9 +120,9 @@ def _resolve_topic_record(request):
                 "read",
             ]
         )
-        return dict(permissions=permissions, record_ui=record_ui, record=record)
+        return dict(permissions=permissions, record_ui=record_ui, record=record, record_uuid=record_uuid)
 
-    return dict(permissions={}, record_ui=None, record=None)
+    return dict(permissions={}, record_ui=None, record=None, record_uuid=None)
 
 
 def _resolve_record_or_draft_files(record, request):
@@ -164,7 +167,7 @@ def _resolve_record_or_draft_media_files(record, request):
     return None
 
 
-def _get_checks(community_id, record):
+def _get_checks(community_id, record_id):
     enabled = current_app.config.get("CHECKS_ENABLED", False)
     if not enabled:
         return None
@@ -182,7 +185,7 @@ def _get_checks(community_id, record):
     checks = (
         CheckRun.query.filter(
             CheckRun.config_id == community_check_config.id,
-            CheckRun.record_id == UUID(record.id),
+            CheckRun.record_id == record_id,
         )
         .order_by(CheckRun.start_time.desc())
         .first()
@@ -287,10 +290,11 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
 
     if is_draft_submission or is_record_inclusion:
         topic = _resolve_topic_record(request)
-        record_ui = topic["record_ui"]  # None when draft
-        record = topic["record"]  # None when draft
+        record_ui = topic["record_ui"]
+        record = topic["record"]
+        record_uuid = topic["record_uuid"]
         is_draft = record_ui["is_draft"] if record_ui else False
-        checks = _get_checks(community.id, record)
+        checks = _get_checks(community.id, record_uuid)
 
         permissions.update(topic["permissions"])
         files = _resolve_record_or_draft_files(record_ui, request)
