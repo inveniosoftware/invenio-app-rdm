@@ -13,7 +13,6 @@ from uuid import UUID
 
 from flask import current_app, g, render_template
 from flask_login import current_user, login_required
-from invenio_checks.models import CheckConfig, CheckRun
 from invenio_communities.config import COMMUNITIES_ROLES
 from invenio_communities.members.services.request import CommunityInvitation
 from invenio_communities.proxies import current_identities_cache
@@ -169,6 +168,8 @@ def _get_checks(community_id, record):
     enabled = current_app.config.get("CHECKS_ENABLED", False)
     if not enabled:
         return None
+
+    from invenio_checks.models import CheckConfig, CheckRun
 
     # TODO communities can have mulitiple configs which we should collate
     community_check_config = CheckConfig.query.filter_by(
