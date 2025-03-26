@@ -10,6 +10,11 @@
 Changes
 =======
 
+Version v13.0.0b2.dev10 (released 2025-03-26)
+
+- checks: add checks tab to requests
+- theme: fix responsive breakpoints for low resolution screens
+
 Version v13.0.0b2.dev9 (released 2025-03-21)
 
 - (Empty release to trigger fixed PyPI publish GitHub action)
