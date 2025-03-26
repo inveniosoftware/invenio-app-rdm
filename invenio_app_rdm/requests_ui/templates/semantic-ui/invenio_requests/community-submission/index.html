@@ -74,7 +74,7 @@
           aria-controls="checks-tab-panel"
           id="checks-tab"
         >
-          {% include "invenio_checks/requests/title.html" %}
+          <i class="{% include 'invenio_checks/requests/overall_severity_level.html' %}"></i> {{ _("Checks") }}
         </a>
       {% endif %}
     </div>
