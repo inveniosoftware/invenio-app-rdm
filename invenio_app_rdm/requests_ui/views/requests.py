@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2019-2024 CERN.
+# Copyright (C) 2019-2025 CERN.
 # Copyright (C) 2019-2022 Northwestern University.
 # Copyright (C)      2022 TU Wien.
 #
@@ -9,11 +9,11 @@
 
 """Request views module."""
 
-from flask import g, render_template
+from flask import current_app, g, render_template
 from flask_login import current_user, login_required
 from invenio_communities.config import COMMUNITIES_ROLES
 from invenio_communities.members.services.request import CommunityInvitation
-from invenio_communities.proxies import current_identities_cache
+from invenio_communities.proxies import current_communities, current_identities_cache
 from invenio_communities.subcommunities.services.request import (
     SubCommunityInvitationRequest,
     SubCommunityRequest,
@@ -31,6 +31,7 @@ from invenio_requests.customizations import AcceptAction
 from invenio_requests.resolvers.registry import ResolverRegistry
 from invenio_requests.views.decorators import pass_request
 from invenio_users_resources.proxies import current_user_resources
+from sqlalchemy import case
 from sqlalchemy.orm.exc import NoResultFound
 
 from ...records_ui.utils import get_external_resources
@@ -162,6 +163,78 @@ def _resolve_record_or_draft_media_files(record, request):
     return None
 
 
+def _resolve_checks(record, request, community=None):
+    """Resolve the checks for this draft/record related to the community and the request."""
+    # FIXME: Move this logic to invenio-checks
+
+    # Early exit if checks are not enabled.
+    enabled = current_app.config.get("CHECKS_ENABLED", False)
+
+    if not enabled:
+        return None
+
+    # Early exit if not draft submission nor record inclusion
+    request_type = request["type"]
+    is_draft_submission = request_type == CommunitySubmission.type_id
+    is_record_inclusion = request_type == CommunityInclusion.type_id
+
+    if not is_draft_submission and not is_record_inclusion:
+        return None
+
+    # Resolve the target community from the request if the community was not passed as an argument
+    if not community:
+        community_uuid = request["receiver"]["community"]
+        community = current_communities.service.read(
+            id_=community_uuid, identity=g.identity
+        )
+
+    # Collect the community UUID and the potential parent community UUID
+    communities = []
+    community_parent_id = community.to_dict().get("parent", {}).get("id")
+    if community_parent_id:
+        # Add the parent community first for later ordering of check configs
+        communities.append(community_parent_id)
+    communities.append(community.id)
+
+    # Resolve the record UUID
+    if is_record_inclusion:
+        record_uuid = current_rdm_records_service.record_cls.pid.resolve(
+            record["id"]
+        ).id
+    else:
+        record_uuid = current_rdm_records_service.draft_cls.pid.resolve(
+            record["id"], registered_only=False
+        ).id
+
+    # Early exit if no check config found for the communities
+    from invenio_checks.models import CheckConfig, CheckRun
+
+    check_configs = (
+        CheckConfig.query.filter(CheckConfig.community_id.in_(communities))
+        .order_by(
+            # Order by the communities (parent first if any) and then by check IDs for deterministic ordering
+            case((CheckConfig.community_id == communities[0], 0), else_=1),
+            CheckConfig.check_id,
+        )
+        .all()
+    )
+
+    if not check_configs:
+        return None
+
+    # Find check runs for the given check configs
+    check_config_ids = [check_config.id for check_config in check_configs]
+    checks = CheckRun.query.filter(
+        CheckRun.config_id.in_(check_config_ids),
+        CheckRun.record_id == record_uuid,
+    ).all()
+    # For a given record, there is one check run corresponding to one check config
+    # Order the check runs by the same order as the check configs for deterministic ordering
+    checks = sorted(checks, key=lambda check: check_config_ids.index(check.config_id))
+
+    return checks
+
+
 @login_required
 @pass_request(expand=True)
 def user_dashboard_request_view(request, **kwargs):
@@ -179,9 +252,10 @@ def user_dashboard_request_view(request, **kwargs):
 
     if has_record_topic:
         topic = _resolve_topic_record(request)
-        record_ui = topic["record_ui"]  # None when draft
-        record = topic["record"]  # None when draft
+        record_ui = topic["record_ui"]
+        record = topic["record"]
         is_draft = record_ui["is_draft"] if record_ui else False
+        checks = _resolve_checks(record, request)
 
         files = _resolve_record_or_draft_files(record_ui, request)
         media_files = _resolve_record_or_draft_media_files(record_ui, request)
@@ -191,6 +265,7 @@ def user_dashboard_request_view(request, **kwargs):
             user_avatar=avatar,
             invenio_request=request.to_dict(),
             record=record_ui,
+            checks=checks,
             permissions=topic["permissions"],
             is_preview=is_draft,  # preview only when draft
             is_draft=is_draft,
@@ -256,9 +331,10 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
 
     if is_draft_submission or is_record_inclusion:
         topic = _resolve_topic_record(request)
-        record_ui = topic["record_ui"]  # None when draft
-        record = topic["record"]  # None when draft
+        record_ui = topic["record_ui"]
+        record = topic["record"]
         is_draft = record_ui["is_draft"] if record_ui else False
+        checks = _resolve_checks(record, request, community)
 
         permissions.update(topic["permissions"])
         files = _resolve_record_or_draft_files(record_ui, request)
@@ -270,6 +346,7 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
             invenio_request=request.to_dict(),
             record=record_ui,
             community=community_ui,
+            checks=checks,
             permissions=permissions,
             is_preview=is_draft,  # preview only when draft
             is_draft=is_draft,

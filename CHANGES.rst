@@ -10,6 +10,23 @@
 Changes
 =======
 
+Version v13.0.0b2.dev11 (released 2025-03-26)
+
+- checks: add checks tab to requests (fix template inclusion)
+
+Version v13.0.0b2.dev10 (released 2025-03-26)
+
+- checks: add checks tab to requests
+- theme: fix responsive breakpoints for low resolution screens
+
+Version v13.0.0b2.dev9 (released 2025-03-21)
+
+- (Empty release to trigger fixed PyPI publish GitHub action)
+
+Version v13.0.0b2.dev8 (released 2025-03-21)
+
+- config: updated severity label text on deposit form
+
 Version v13.0.0b2.dev7 (released 2025-03-18)
 
 - deposit: refactor section config in RDMDepositForm
