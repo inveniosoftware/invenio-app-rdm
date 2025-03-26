@@ -103,21 +103,23 @@ def get_form_pids_config(record=None):
             "pid_placeholder": "Copy/paste your existing DOI here...",
             "can_be_managed": can_be_managed,
             "can_be_unmanaged": can_be_unmanaged,
-            "btn_label_discard_pid": _("Discard the reserved {scheme_label}.").format(
-                scheme_label=scheme_label
+            "btn_label_discard_pid": _(
+                "Discard the reserved %(scheme_label)s.", scheme_label=scheme_label
             ),
-            "btn_label_get_pid": _("Get a {scheme_label} now!").format(
-                scheme_label=scheme_label
+            "btn_label_get_pid": _(
+                "Get a %(scheme_label)s now!", scheme_label=scheme_label
             ),
             "managed_help_text": _(
-                "Reserve a {scheme_label} by pressing the button "
+                "Reserve a %(scheme_label)s by pressing the button "
                 "(so it can be included in files prior to upload). "
-                "The {scheme_label} is registered when your upload is published."
-            ).format(scheme_label=scheme_label),
+                "The %(scheme_label)s is registered when your upload is published.",
+                scheme_label=scheme_label,
+            ),
             "unmanaged_help_text": _(
-                "A {scheme_label} allows your upload to be easily and "
-                "unambiguously cited. Example: 10.1234/foo.bar"
-            ).format(scheme_label=scheme_label),
+                "A %(scheme_label)s allows your upload to be easily and "
+                "unambiguously cited. Example: 10.1234/foo.bar",
+                scheme_label=scheme_label,
+            ),
             "default_selected": default_selected,
             "optional_doi_transitions": optional_doi_transitions,
         }
