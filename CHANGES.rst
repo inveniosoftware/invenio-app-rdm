@@ -10,6 +10,12 @@
 Changes
 =======
 
+Version v13.0.0b3.dev0 (released 2025-03-26)
+
+- thesis: breaking change in thesis field (invenio-rdm-records)
+- thesis: add university and type field
+- imprint: add edition field
+
 Version v13.0.0b2.dev11 (released 2025-03-26)
 
 - checks: add checks tab to requests (fix template inclusion)
