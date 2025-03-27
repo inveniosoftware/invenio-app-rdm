@@ -1115,7 +1115,6 @@ IIIF_FORMATS_PIL_MAP = {
     "jp2": "jpeg2000",
     "jpeg": "jpeg",
     "jpg": "jpeg",
-    "pdf": "pdf",
     "png": "png",
     "tif": "tiff",
     "tiff": "tiff",
@@ -1141,6 +1140,9 @@ PREVIEWER_PREFERENCE = [
     "txt",
 ]
 """Preferred previewers."""
+
+RECORDS_RESOURCES_IMAGE_FORMATS = ["." + ext for ext in IIIF_FORMATS.keys()]
+"""RECORDS_RESOURCES_IMAGE_FORMATS must contain all possible IIIF formats to ensure their metadata is extracted."""
 
 # Invenio-Pages
 # =============
