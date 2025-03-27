@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version v13.0.0b2.dev12 (released 2025-03-27)
+
+- checks: add checks tab to requests (fix record ID retrieval)
+
 Version v13.0.0b2.dev11 (released 2025-03-26)
 
 - checks: add checks tab to requests (fix template inclusion)
