@@ -1,5 +1,5 @@
 ..
-    Copyright (C) 2019 CERN.
+    Copyright (C) 2019-2025 CERN.
     Copyright (C) 2019 Northwestern University.
 
     Invenio App RDM is free software; you can redistribute it and/or modify
@@ -44,4 +44,3 @@ interested.
    contributing
    changes
    license
-   authors

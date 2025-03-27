@@ -79,7 +79,14 @@ export class RecordCommunitySubmissionModal extends Component {
           ],
         };
       }
-      const response = await http.post(recordCommunityEndpoint, data);
+      // When adding communities to a record, it should simple return the json representation of the response
+      // no need to process the response with the schema serializer
+      const response = await http.post(recordCommunityEndpoint, data, {
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+        },
+      });
       this.handleSuccessSubmit(response.data);
     } catch (error) {
       console.error(error);
@@ -128,6 +135,7 @@ export class RecordCommunitySubmissionModal extends Component {
           apiConfigs={apiConfigs}
           handleClose={handleClose}
           record={record}
+          isInitialSubmission={false}
         />
         {confirmationModalOpen && (
           <SubmitReviewModal

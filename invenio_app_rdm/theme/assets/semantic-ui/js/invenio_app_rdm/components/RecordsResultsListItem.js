@@ -1,12 +1,11 @@
 // This file is part of InvenioRDM
-// Copyright (C) 2022 CERN.
+// Copyright (C) 2022-2024 CERN.
 //
 // Invenio RDM is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
 
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import _get from "lodash/get";
-import _truncate from "lodash/truncate";
 import React, { Component } from "react";
 import Overridable from "react-overridable";
 import { SearchItemCreators } from "../utils";
@@ -14,6 +13,7 @@ import PropTypes from "prop-types";
 import { Item, Label, Icon } from "semantic-ui-react";
 import { buildUID } from "react-searchkit";
 import { CompactStats } from "./CompactStats";
+import { DisplayPartOfCommunities } from "./DisplayPartOfCommunities";
 
 class RecordsResultsListItem extends Component {
   render() {
@@ -27,7 +27,8 @@ class RecordsResultsListItem extends Component {
       "ui.created_date_l10n_long",
       "No creation date found."
     );
-    const creators = result.ui.creators.creators.slice(0, 3);
+
+    const creators = result.ui.creators.creators;
 
     const descriptionStripped = _get(
       result,
@@ -82,8 +83,10 @@ class RecordsResultsListItem extends Component {
       >
         <Item key={key ?? result.id}>
           <Item.Content>
+            {/* FIXME: Uncomment to enable themed banner */}
+            {/* <DisplayVerifiedCommunity communities={result.parent?.communities} /> */}
             <Item.Extra className="labels-actions">
-              <Label horizontal size="small" className="primary">
+              <Label horizontal size="small" className="primary theme-primary">
                 {publicationDate} ({version})
               </Label>
               <Label horizontal size="small" className="neutral">
@@ -98,15 +101,22 @@ class RecordsResultsListItem extends Component {
                 {accessStatus}
               </Label>
             </Item.Extra>
-            <Item.Header as="h2">
+            <Item.Header as="h2" className="theme-primary-text">
               <a href={viewLink}>{title}</a>
             </Item.Header>
             <Item className="creatibutors">
-              <SearchItemCreators creators={creators} />
+              <SearchItemCreators creators={creators} othersLink={viewLink} />
             </Item>
-            <Item.Description>
-              {_truncate(descriptionStripped, { length: 350 })}
-            </Item.Description>
+            <Overridable
+              id={buildUID("RecordsResultsListItem.description", "", appName)}
+              descriptionStripped={descriptionStripped}
+              result={result}
+            >
+              <Item.Description className="truncate-lines-2">
+                {descriptionStripped}
+              </Item.Description>
+            </Overridable>
+
             <Item.Extra>
               {subjects.map((subject) => (
                 <Label key={subject.title_l10n} size="tiny">
@@ -116,6 +126,7 @@ class RecordsResultsListItem extends Component {
 
               <div className="flex justify-space-between align-items-end">
                 <small>
+                  <DisplayPartOfCommunities communities={result.parent?.communities} />
                   <p>
                     {createdDate && (
                       <>
@@ -128,7 +139,7 @@ class RecordsResultsListItem extends Component {
 
                     {publishingInformation && (
                       <>
-                        {i18next.t("Published in: {{publishInfo}}", {
+                        {i18next.t("Published in: {{- publishInfo }}", {
                           publishInfo: publishingInformation,
                         })}
                       </>

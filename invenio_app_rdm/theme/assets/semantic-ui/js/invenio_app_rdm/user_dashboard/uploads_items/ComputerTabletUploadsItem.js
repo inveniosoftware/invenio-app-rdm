@@ -1,5 +1,5 @@
 // This file is part of InvenioRDM
-// Copyright (C) 2022 CERN.
+// Copyright (C) 2022-2024 CERN.
 //
 // Invenio App RDM is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
@@ -7,15 +7,15 @@
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import React from "react";
 import PropTypes from "prop-types";
-import _truncate from "lodash/truncate";
 import _get from "lodash/get";
 import { Button, Icon, Item, Label } from "semantic-ui-react";
 import { SearchItemCreators } from "../../utils";
 import { CompactStats } from "../../components/CompactStats";
+import { DisplayPartOfCommunities } from "../../components/DisplayPartOfCommunities";
 
 export const ComputerTabletUploadsItem = ({
   result,
-  editRecord,
+  viewDraft,
   statuses,
   access,
   uiMetadata,
@@ -51,6 +51,8 @@ export const ComputerTabletUploadsItem = ({
         </Item.Content>
       </div>
       <Item.Content>
+        {/* FIXME: Uncomment to enable themed banner */}
+        {/* <DisplayVerifiedCommunity communities={result.parent?.communities} /> */}
         <Item.Extra className="labels-actions">
           {result.status in statuses && result.status !== "published" && (
             <Label horizontal size="small" className={statuses[result.status].color}>
@@ -67,21 +69,23 @@ export const ComputerTabletUploadsItem = ({
             <i className={`icon ${accessStatusIcon}`} />
             {accessStatus}
           </Label>
-          <Button
-            compact
-            size="small"
-            floated="right"
-            onClick={() => editRecord()}
-            labelPosition="left"
-            icon="edit"
-            content={i18next.t("Edit")}
-          />
-          {isPublished && (
+
+          {isPublished ? (
             <Button
               compact
               size="small"
               floated="right"
               href={viewLink}
+              labelPosition="left"
+              icon="eye"
+              content={i18next.t("View")}
+            />
+          ) : (
+            <Button
+              compact
+              size="small"
+              floated="right"
+              onClick={() => viewDraft()}
               labelPosition="left"
               icon="eye"
               content={i18next.t("View")}
@@ -98,10 +102,8 @@ export const ComputerTabletUploadsItem = ({
             <SearchItemCreators creators={creators} />
           </div>
         </Item.Meta>
-        <Item.Description>
-          {_truncate(descriptionStripped, {
-            length: 350,
-          })}
+        <Item.Description className="truncate-lines-2">
+          {descriptionStripped}
         </Item.Description>
         <Item.Extra>
           {subjects.map((subject) => (
@@ -112,6 +114,8 @@ export const ComputerTabletUploadsItem = ({
 
           <div className="flex justify-space-between align-items-end">
             <small>
+              <DisplayPartOfCommunities communities={result.parent?.communities} />
+
               {createdDate ? (
                 <>
                   {i18next.t("Uploaded on {{uploadDate}}", { uploadDate: createdDate })}
@@ -123,7 +127,7 @@ export const ComputerTabletUploadsItem = ({
                 <span>
                   {" "}
                   |{" "}
-                  {i18next.t("Published in: {{publishInfo}}", {
+                  {i18next.t("Published in: {{- publishInfo }}", {
                     publishInfo: publishingInformation,
                   })}
                 </span>
@@ -144,7 +148,7 @@ export const ComputerTabletUploadsItem = ({
 
 ComputerTabletUploadsItem.propTypes = {
   result: PropTypes.object.isRequired,
-  editRecord: PropTypes.func.isRequired,
+  viewDraft: PropTypes.func.isRequired,
   statuses: PropTypes.object.isRequired,
   access: PropTypes.object.isRequired,
   uiMetadata: PropTypes.object.isRequired,

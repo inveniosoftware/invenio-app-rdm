@@ -1,17 +1,38 @@
 
     {% if community %}
-    {% set options = [
-        {
-            "key": "communities",
-            "text": _("In this community"),
-            "value": url_for("invenio_app_rdm_communities.communities_detail", pid_value=community.slug),
-        },
-        {
-            "key": "records",
-            "text": _("All") + " " + config.THEME_SITENAME,
-            "value": url_for("invenio_search_ui.search"),
-        }]
-     %}
+        {% if collection %}
+          {% set root_collection=collection[collection.root] %}
+          {% set options = [
+            {
+              "key": "collections",
+              "text": _("In this collection"),
+              "value": url_for("invenio_app_rdm_communities.community_collection", pid_value=community.slug, collection_slug=root_collection.slug, tree_slug=tree.slug)
+            },
+            {
+                "key": "communities",
+                "text": _("In this community"),
+                "value": url_for("invenio_app_rdm_communities.communities_detail", pid_value=community.slug),
+            },
+            {
+                "key": "records",
+                "text": _("All") + " " + config.THEME_SITENAME,
+                "value": url_for("invenio_search_ui.search"),
+            }]
+          %}
+        {% else %}
+          {% set options = [
+            {
+                "key": "communities",
+                "text": _("In this community"),
+                "value": url_for("invenio_app_rdm_communities.communities_detail", pid_value=community.slug),
+            },
+            {
+                "key": "records",
+                "text": _("All") + " " + config.THEME_SITENAME,
+                "value": url_for("invenio_search_ui.search"),
+            }]
+          %}
+        {% endif %}
     {% else %}
     {% set options = [
               {

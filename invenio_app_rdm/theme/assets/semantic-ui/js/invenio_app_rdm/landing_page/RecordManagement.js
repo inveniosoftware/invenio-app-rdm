@@ -1,5 +1,5 @@
 // This file is part of InvenioRDM
-// Copyright (C) 2020-2021 CERN.
+// Copyright (C) 2020-2024 CERN.
 // Copyright (C) 2020-2021 Northwestern University.
 // Copyright (C) 2021 Graz University of Technology.
 //
@@ -12,7 +12,7 @@ import { Button, Grid, Icon, Message } from "semantic-ui-react";
 
 import { EditButton } from "./EditButton";
 import { ShareButton } from "./ShareOptions/ShareButton";
-import { NewVersionButton } from "@js/invenio_rdm_records/";
+import { NewVersionButton } from "@js/invenio_rdm_records";
 import PropTypes from "prop-types";
 import Overridable from "react-overridable";
 import { ManageButton } from "./ManageButton";
@@ -32,8 +32,8 @@ export class RecordManagement extends Component {
       isDraft,
       isPreviewSubmissionRequest,
       currentUserId,
-      accessLinksSearchConfig,
-      recordOwnerUsername,
+      recordOwnerID,
+      groupsEnabled,
     } = this.props;
     const { error } = this.state;
     const { id: recid } = record;
@@ -46,7 +46,7 @@ export class RecordManagement extends Component {
       <Grid columns={1} className="record-management">
         {permissions.can_moderate && (
           <Grid.Column className="pb-5">
-            <ManageButton recid={recid} recordOwnerUsername={recordOwnerUsername} />
+            <ManageButton recid={recid} recordOwnerID={recordOwnerID} />
           </Grid.Column>
         )}
         {permissions.can_edit && !isDraft && (
@@ -86,8 +86,8 @@ export class RecordManagement extends Component {
                 <ShareButton
                   disabled={!permissions.can_update_draft}
                   record={record}
-                  accessLinksSearchConfig={accessLinksSearchConfig}
                   permissions={permissions}
+                  groupsEnabled={groupsEnabled}
                 />
               )}
             </Grid.Column>
@@ -115,8 +115,8 @@ RecordManagement.propTypes = {
   record: PropTypes.object.isRequired,
   permissions: PropTypes.object.isRequired,
   isDraft: PropTypes.bool.isRequired,
+  groupsEnabled: PropTypes.bool.isRequired,
   isPreviewSubmissionRequest: PropTypes.bool.isRequired,
   currentUserId: PropTypes.string.isRequired,
-  recordOwnerUsername: PropTypes.object.isRequired,
-  accessLinksSearchConfig: PropTypes.object.isRequired,
+  recordOwnerID: PropTypes.string.isRequired,
 };

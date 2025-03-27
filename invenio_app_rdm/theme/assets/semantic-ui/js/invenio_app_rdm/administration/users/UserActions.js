@@ -1,6 +1,7 @@
 /*
  * This file is part of Invenio.
  * Copyright (C) 2022 CERN.
+ * Copyright (C) 2024 KTH Royal Institute of Technology.
  *
  * Invenio is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
@@ -60,6 +61,12 @@ export class UserActions extends Component {
         apiFunction: UserModerationApi.approveUser,
         notificationTitle: i18next.t("Approved"),
       },
+      activate: {
+        label: i18next.t("Activate"),
+        icon: "check",
+        apiFunction: UserModerationApi.activateUser,
+        notificationTitle: i18next.t("Activated"),
+      },
     }[action];
 
     if (actionConfig) {
@@ -78,7 +85,6 @@ export class UserActions extends Component {
       try {
         await this.cancellableAction.promise;
         addNotification(successNotification);
-        this.setState({ loading: false });
         successCallback();
       } catch (e) {
         addNotification({
@@ -86,6 +92,8 @@ export class UserActions extends Component {
           content: e.toString(),
           type: "error",
         });
+      } finally {
+        this.setState({ loading: false });
       }
     }
   };
@@ -106,12 +114,14 @@ export class UserActions extends Component {
     const isUserBlocked = !isEmpty(user.blocked_at);
     const isUserActive = user.active;
     const isUserVerified = !isEmpty(user.verified_at);
+    const isUserConfirmed = !isEmpty(user.confirmed_at);
 
     const actionItems = [
-      { key: "approve", label: "Verify", icon: "check" },
+      { key: "approve", label: "Verify", icon: "star" },
+      { key: "activate", label: "Activate", icon: "check" },
       { key: "restore", label: "Restore", icon: "undo" },
+      { key: "deactivate", label: "Deactivate", icon: "pause" },
       { key: "block", label: "Block", icon: "ban" },
-      { key: "deactivate", label: "Suspend", icon: "pause" },
     ];
 
     const filteredActions = actionItems.filter((actionItem) => {
@@ -119,6 +129,7 @@ export class UserActions extends Component {
         (actionItem.key === "restore" && (isUserBlocked || displayRestore)) ||
         (actionItem.key === "block" && (!isUserBlocked || displayBlock)) ||
         (actionItem.key === "deactivate" && (isUserActive || displaySuspend)) ||
+        (actionItem.key === "activate" && (!isUserActive || !isUserConfirmed)) ||
         (actionItem.key === "approve" &&
           (displayApprove || (isUserActive && !isUserVerified)))
       );
@@ -129,6 +140,9 @@ export class UserActions extends Component {
         <>
           {displayQuota && (
             <SetQuotaAction
+              headerText={i18next.t("Set default quota for {{email}}", {
+                email: user.email,
+              })}
               successCallback={successCallback}
               apiUrl={`/api/users/${user.id}/quota`}
               resource={user}
@@ -143,8 +157,9 @@ export class UserActions extends Component {
               user={user}
             />
           )}
+          <Dropdown.Divider />
           {filteredActions.map((actionItem) => (
-            <Button
+            <Dropdown.Item
               key={actionItem.key}
               onClick={() => this.handleAction(actionItem.key)}
               disabled={loading}
@@ -156,7 +171,7 @@ export class UserActions extends Component {
             >
               <Icon name={actionItem.icon} />
               {i18next.t(actionItem.label)}
-            </Button>
+            </Dropdown.Item>
           ))}
         </>
       );
@@ -165,16 +180,56 @@ export class UserActions extends Component {
     return (
       <div>
         {useDropdown ? (
-          <Dropdown
-            text="Actions"
-            icon="filter"
-            floating
-            labeled
-            button
-            className="icon"
-          >
-            <Dropdown.Menu>{generateActions()}</Dropdown.Menu>
-          </Dropdown>
+          <div>
+            {isUserActive && (
+              <Button
+                key="block"
+                onClick={() => this.handleAction("block")}
+                disabled={loading}
+                loading={loading}
+                icon
+                labelPosition="left"
+              >
+                <Icon name="ban" />
+                {i18next.t("Block")}
+              </Button>
+            )}
+            {!isUserActive && !isUserBlocked && (
+              <Button
+                key="activate"
+                onClick={() => this.handleAction("activate")}
+                disabled={loading}
+                loading={loading}
+                icon
+                labelPosition="left"
+              >
+                <Icon name="check" />
+                {i18next.t("Activate")}
+              </Button>
+            )}
+            {isUserBlocked && (
+              <Button
+                key="restore"
+                onClick={() => this.handleAction("restore")}
+                disabled={loading}
+                loading={loading}
+                icon
+                labelPosition="left"
+              >
+                <Icon name="undo" />
+                {i18next.t("Restore")}
+              </Button>
+            )}
+            <Dropdown
+              text={<Icon name="cog" />}
+              tooltip={i18next.t("Actions")}
+              button
+              className="icon"
+              direction="left"
+            >
+              <Dropdown.Menu>{generateActions()}</Dropdown.Menu>
+            </Dropdown>
+          </div>
         ) : (
           <Button.Group basic widths={5} compact className="margined">
             {generateActions()}

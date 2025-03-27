@@ -1,6 +1,6 @@
 /*
  * This file is part of Invenio.
- * Copyright (C) 2023 CERN.
+ * Copyright (C) 2023-2024 CERN.
  *
  * Invenio is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
@@ -13,11 +13,18 @@ import { timestampToRelativeTime } from "../../../utils";
 import { AccessDropdown } from "./AccessDropdown";
 import _truncate from "lodash/truncate";
 import { isEmpty } from "lodash";
-import { withCancel, http } from "react-invenio-forms";
+import { withCancel, http, ErrorMessage } from "react-invenio-forms";
 
-export const LinksSearchItem = ({ result, record, fetchData }) => {
+export const LinksSearchItem = ({
+  result,
+  record,
+  onItemAddedOrDeleted,
+  onPermissionChanged,
+  dropdownOptions,
+}) => {
   const [copied, setCopied] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(undefined);
   var cancellableAction = undefined;
 
   useEffect(() => {
@@ -34,9 +41,10 @@ export const LinksSearchItem = ({ result, record, fetchData }) => {
     try {
       await cancellableAction.promise;
       setLoading(false);
-      fetchData();
+      onItemAddedOrDeleted(record.links.access_links, "links");
     } catch (error) {
       setLoading(false);
+      setError(error);
       console.error(error);
     }
   };
@@ -58,64 +66,96 @@ export const LinksSearchItem = ({ result, record, fetchData }) => {
   }, [copied]);
 
   const copyAccessLink = () => {
-    const accessLink = `${record.links.self_html}?token=${result.token}`;
+    let selfLink = "";
+
+    if (result?.permission === "view") {
+      // point to `/records/<id>` even for drafts
+      selfLink = `${record.links.record_html || record.links.self_html}?`;
+    } else if (result?.permission === "preview") {
+      // point to `/records/<id>?preview=1` even for published records
+      selfLink = `${record.links.preview_html}&`;
+    } else if (result?.permission === "edit") {
+      selfLink = `${record.links.self_html}?`;
+    }
+
+    const accessLink = `${selfLink}token=${result.token}`;
     navigator.clipboard.writeText(accessLink);
     setCopied(true);
   };
 
   return (
     <Table.Row key={result.id}>
-      <Table.Cell width={3} data-label="Link title">
-        {isEmpty(result.description)
-          ? "-"
-          : _truncate(result.description, { length: 60 })}
-      </Table.Cell>
-      <Table.Cell width={3} data-label="Created">
-        {timestampToRelativeTime(result.created_at)}
-      </Table.Cell>
-      <Table.Cell width={3} data-label="Expires at">
-        {isEmpty(result.expires_at)
-          ? i18next.t("Never")
-          : `${timestampToRelativeTime(result.expires_at)} (${result.expires_at})`}
-      </Table.Cell>
-      <Table.Cell width={3} data-label="Access">
-        <AccessDropdown record={record} result={result} />
-      </Table.Cell>
-      <Table.Cell width={4}>
-        <Button
-          loading={loading}
-          disabled={loading}
-          onClick={handleDelete}
-          icon
-          labelPosition="left"
+      {error && (
+        <ErrorMessage
+          header={i18next.t("Something went wrong")}
+          content={error?.response?.data?.message || error.message}
+          icon="exclamation"
           negative
-          size="small"
-        >
-          <Icon name="trash" />
-          {i18next.t("Delete")}
-        </Button>
-        <Popup
-          position="top center"
-          content={i18next.t("Copied!")}
-          inverted
-          open={copied}
-          on="click"
-          size="small"
-          trigger={
+          size="mini"
+        />
+      )}
+
+      {!error && (
+        <>
+          <Table.Cell width={3} data-label="Link title">
+            {isEmpty(result.description)
+              ? "-"
+              : _truncate(result.description, { length: 60 })}
+          </Table.Cell>
+          <Table.Cell width={3} data-label="Created">
+            {timestampToRelativeTime(result.created_at)}
+          </Table.Cell>
+          <Table.Cell width={3} data-label="Expires at">
+            {isEmpty(result.expires_at)
+              ? i18next.t("Never")
+              : `${timestampToRelativeTime(result.expires_at)} (${result.expires_at})`}
+          </Table.Cell>
+          <Table.Cell width={3} data-label="Access">
+            <AccessDropdown
+              updateEndpoint={`${record.links.access_links}/${result.id}`}
+              dropdownOptions={dropdownOptions}
+              result={result}
+              onPermissionChanged={onPermissionChanged}
+              entityType="links"
+            />
+          </Table.Cell>
+          <Table.Cell width={4}>
             <Button
-              ref={copyButtonRef}
-              onClick={() => copyAccessLink(result?.id)}
-              aria-label={i18next.t("Copy link")}
-              size="small"
+              loading={loading}
+              disabled={loading}
+              onClick={handleDelete}
               icon
               labelPosition="left"
+              negative
+              size="small"
             >
-              <Icon name="copy outline" />
-              {i18next.t("Copy link")}
+              <Icon name="trash" />
+              {i18next.t("Delete")}
             </Button>
-          }
-        />
-      </Table.Cell>
+            <Popup
+              position="top center"
+              content={i18next.t("Copied!")}
+              inverted
+              open={copied}
+              on="click"
+              size="small"
+              trigger={
+                <Button
+                  ref={copyButtonRef}
+                  onClick={() => copyAccessLink(result?.id)}
+                  aria-label={i18next.t("Copy link")}
+                  size="small"
+                  icon
+                  labelPosition="left"
+                >
+                  <Icon name="copy outline" />
+                  {i18next.t("Copy link")}
+                </Button>
+              }
+            />
+          </Table.Cell>
+        </>
+      )}
     </Table.Row>
   );
 };
@@ -123,5 +163,7 @@ export const LinksSearchItem = ({ result, record, fetchData }) => {
 LinksSearchItem.propTypes = {
   result: PropTypes.object.isRequired,
   record: PropTypes.object.isRequired,
-  fetchData: PropTypes.func.isRequired,
+  onItemAddedOrDeleted: PropTypes.func.isRequired,
+  onPermissionChanged: PropTypes.func.isRequired,
+  dropdownOptions: PropTypes.array.isRequired,
 };

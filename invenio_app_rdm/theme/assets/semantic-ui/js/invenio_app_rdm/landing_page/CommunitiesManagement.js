@@ -1,5 +1,5 @@
 // This file is part of InvenioRDM
-// Copyright (C) 2023 CERN.
+// Copyright (C) 2023-2024 CERN.
 //
 // Invenio App RDM is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
@@ -88,7 +88,6 @@ export class CommunitiesManagement extends Component {
     const {
       recordCommunitySearchConfig,
       permissions,
-      canManageRecord,
       userCommunitiesMemberships,
       recordCommunityEndpoint,
       recordUserCommunitySearchConfig,
@@ -97,7 +96,7 @@ export class CommunitiesManagement extends Component {
     } = this.props;
     const { communities, loading, error, manageCommunitiesModalOpen } = this.state;
     return (
-      (!_isEmpty(communities) || canManageRecord) && (
+      (!_isEmpty(communities) || permissions.can_manage) && (
         <>
           <Header
             size="medium"
@@ -106,7 +105,7 @@ export class CommunitiesManagement extends Component {
             attached="top"
           >
             {i18next.t("Communities")}
-            {canManageRecord && (
+            {permissions.can_manage && (
               <CommunitiesManagementDropdown
                 actionSucceed={this.handleRefresh}
                 userCommunitiesMemberships={userCommunitiesMemberships}
@@ -126,6 +125,7 @@ export class CommunitiesManagement extends Component {
               error={error}
               loading={loading}
               maxDisplayedCommunities={MAX_COMMUNITIES}
+              branded={record.parent?.communities?.default}
             />
             <RecordCommunitiesListModal
               id="record-communities-list-modal"
@@ -165,7 +165,6 @@ CommunitiesManagement.propTypes = {
   recordCommunityEndpoint: PropTypes.string.isRequired,
   recordUserCommunitySearchConfig: PropTypes.object.isRequired,
   permissions: PropTypes.object.isRequired,
-  canManageRecord: PropTypes.bool.isRequired,
   userCommunitiesMemberships: PropTypes.object.isRequired,
   searchConfig: PropTypes.object.isRequired,
   record: PropTypes.object.isRequired,

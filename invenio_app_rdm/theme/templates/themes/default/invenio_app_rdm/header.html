@@ -1,0 +1,147 @@
+{#
+    -*- coding: utf-8 -*-
+    Copyright (C) 2019-2024 CERN.
+    Copyright (C) 2019-2020 Northwestern University.
+    Copyright (C) 2021 New York University.
+
+    Invenio App RDM is free software; you can redistribute it and/or modify it
+    under the terms of the MIT License; see LICENSE file for more details.
+#}
+
+<div>
+  <header class="theme header">
+    {%- block user_impersonation %}
+      {%- if '_impersonator_id' in session %}
+        <div class="ui negative flashed top attached manage m-0 big message">
+          <div class="ui container ">
+            <div class="header">
+              <i class="ui spy big icon"></i><strong>Impersonated session</strong>
+            </div>
+            You must logout after you finish with you inquiry!
+          </div>
+        </div>
+      {%- endif %}
+    {%- endblock user_impersonation %}
+
+    <div class="outer-navbar theme-default">
+      {%- block navbar %}
+        <div class="ui container invenio-header-container theme-default">
+          <nav id="invenio-nav" class="ui inverted menu borderless p-0">
+            <div class="item logo p-0">
+              {%- block navbar_header %}
+                {%- block brand %}
+                  {%- if config.THEME_LOGO %}
+                    <a class="logo-link" href="/">
+                      <img class="ui image rdm-logo"
+                           src="{{ url_for('static', filename=config.THEME_LOGO) }}"
+                           alt="{{ _(config.THEME_SITENAME) }} {{ _('home') }}"/>
+                    </a>
+                  {%- else %}
+                    <a class="logo" href="/">{{ _(config.THEME_SITENAME) }}</a>
+                  {%- endif %}
+                {%- endblock brand %}
+              {%- endblock navbar_header %}
+            </div>
+
+            <div id="rdm-burger-toggle">
+              <button
+                id="rdm-burger-menu-icon"
+                class="ui button transparent"
+                aria-label="{{ _('Menu') }}"
+                aria-haspopup="menu"
+                aria-expanded="false"
+                aria-controls="invenio-menu"
+              >
+                <span class="navicon" aria-hidden="true"></span>
+              </button>
+            </div>
+
+            <nav
+              id="invenio-menu"
+              aria-labelledby="rdm-burger-menu-icon"
+              class="ui fluid menu borderless mobile-hidden"
+            >
+              <button
+                id="rdm-close-burger-menu-icon"
+                class="ui button transparent"
+                aria-label="{{ _('Close menu') }}"
+              >
+                <span class="navicon" aria-hidden="true"></span>
+              </button>
+
+              {%- if config.THEME_SEARCHBAR %}
+                {%- block navbar_search %}
+                  {%- include "invenio_app_rdm/searchbar.html" %}
+                {%- endblock navbar_search %}
+              {%- endif %}
+
+              {%- block navbar_nav %}
+                {%- for item in current_menu.submenu('main').children|sort(attribute='order') if item.visible recursive %}
+                  {%- if item.children %}
+                    <div class="item">
+                      <div class="dropdown {{ ' active' if item.active else '' }}">
+                        <a role="button"
+                           class="dropdown-toggle"
+                           data-toggle="dropdown"
+                           aria-haspopup="menu"
+                           aria-expanded="false"
+                           href="{{ item.url }}"
+                        >
+                          {{ item.text|safe }}
+                          <b class="caret"></b>
+                        </a>
+                        <ul role="menu" class="dropdown-menu">
+                          {{ loop(item.children|sort(attribute='order')) }}
+                        </ul>
+                      </div>
+                    </div>
+                  {%- else %}
+                    <div class="{{ 'item active' if item.active else 'item' }}">
+                      <a href="{{ item.url }}">{{ item.text|safe }}</a>
+                    </div>
+                  {%- endif %}
+                {%- endfor %}
+
+                {% for item in current_menu.submenu('actions').children|sort(attribute='order') if item.visible recursive %}
+                  <div class="{{ 'item active' if item.active else 'item' }}">
+                    <a href="{{ item.url }}">{{ item.text|safe }}</a>
+                  </div>
+                {% endfor %}
+              {%- endblock navbar_nav %}
+
+              {%- block navbar_right %}
+                <div class="right menu item">
+                  {%- if config.ACCOUNTS and current_user.is_authenticated %}
+                    {% for item in current_menu.submenu('notifications').children|sort(attribute='order') if item.visible recursive %}
+                      <div class="{{ 'item active' if item.active else 'item' }} inbox">
+                        <a href="{{ item.url }}" aria-label="{{ _('Requests') }}">
+                          <i class="fitted inbox icon inverted"></i>
+                          <span
+                            class="mobile tablet only inline">{{ _("Inbox") }}</span>
+                        </a>
+                      </div>
+                    {% endfor %}
+                  {% endif %}
+                  {%- include config.THEME_HEADER_LOGIN_TEMPLATE %}
+                </div>
+              {%- endblock navbar_right %}
+            </nav>
+          </nav>
+        </div>
+      {%- endblock navbar %}
+    </div>
+
+    {%- block site_banner %}
+      {% from 'invenio_banners/banner.html' import banner %}
+      {{ banner() }}
+    {%- endblock site_banner %}
+
+    {%- block flashmessages %}
+      {%- from "invenio_theme/macros/messages.html" import flashed_messages with context -%}
+      {{ flashed_messages() }}
+    {%- endblock %}
+</header>
+
+{%- block breadcrumbs %}
+{%- endblock breadcrumbs %}
+</div>

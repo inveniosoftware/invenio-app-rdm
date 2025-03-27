@@ -1,6 +1,6 @@
 {#
     -*- coding: utf-8 -*-
-    Copyright (C) 2019-2020 CERN.
+    Copyright (C) 2019-2025 CERN.
     Copyright (C) 2019-2020 Northwestern University.
     Copyright (C) 2021 New York University.
 
@@ -23,10 +23,6 @@
       {%- endif %}
     {%- endblock user_impersonation %}
 
-    {%- block site_banner %}
-      {% from 'invenio_banners/banner.html' import banner %}
-      {{ banner() }}
-    {%- endblock site_banner %}
     <div class="outer-navbar">
       {%- block navbar %}
       <div class="ui container invenio-header-container">
@@ -130,8 +126,14 @@
             {%- endblock navbar_right %}
           </nav>
         </nav>
+      </div>
       {%- endblock navbar %}
     </div>
+
+    {%- block site_banner %}
+      {% from 'invenio_banners/banner.html' import banner %}
+      {{ banner() }}
+    {%- endblock site_banner %}
 
     {%- block flashmessages %}
       {%- from "invenio_theme/macros/messages.html" import flashed_messages with context -%}

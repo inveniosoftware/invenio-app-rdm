@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2019-2023 CERN.
+# Copyright (C) 2019-2025 CERN.
 # Copyright (C) 2019-2020 Northwestern University.
-# Copyright (C) 2021 Graz University of Technology.
-# Copyright (C) 2022 KTH Royal Institute of Technology
-# Copyright (C) 2023 TU Wien
+# Copyright (C) 2021-2025 Graz University of Technology.
+# Copyright (C) 2022-2024 KTH Royal Institute of Technology.
+# Copyright (C) 2023      TU Wien
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -33,6 +33,7 @@ WARNING: An instance should NOT install multiple flavour extensions since
 
 from datetime import datetime, timedelta
 
+import invenio_communities.notifications.builders as community_notifications
 from celery.schedules import crontab
 from flask_principal import Denial
 from flask_resources import HTTPJSONException, create_error_handler
@@ -52,12 +53,19 @@ from invenio_rdm_records.notifications.builders import (
     CommunityInclusionDeclineNotificationBuilder,
     CommunityInclusionExpireNotificationBuilder,
     CommunityInclusionSubmittedNotificationBuilder,
+    GrantUserAccessNotificationBuilder,
     GuestAccessRequestAcceptNotificationBuilder,
+    GuestAccessRequestCancelNotificationBuilder,
+    GuestAccessRequestDeclineNotificationBuilder,
     GuestAccessRequestSubmitNotificationBuilder,
+    GuestAccessRequestSubmittedNotificationBuilder,
     GuestAccessRequestTokenCreateNotificationBuilder,
     UserAccessRequestAcceptNotificationBuilder,
+    UserAccessRequestCancelNotificationBuilder,
+    UserAccessRequestDeclineNotificationBuilder,
     UserAccessRequestSubmitNotificationBuilder,
 )
+from invenio_rdm_records.proxies import current_rdm_records_service
 from invenio_rdm_records.requests.entity_resolvers import (
     EmailResolver,
     RDMRecordServiceResultResolver,
@@ -81,7 +89,12 @@ from invenio_requests.notifications.builders import (
 from invenio_requests.resources.requests.config import request_error_handlers
 from invenio_stats.aggregations import StatAggregator
 from invenio_stats.contrib.event_builders import build_file_unique_id
-from invenio_stats.processors import EventsIndexer, anonymize_user, flag_robots
+from invenio_stats.processors import (
+    EventsIndexer,
+    anonymize_user,
+    filter_robots,
+    flag_machines,
+)
 from invenio_stats.queries import TermsQuery
 from invenio_stats.tasks import StatsAggregationTask, StatsEventTask
 from invenio_vocabularies.config import (
@@ -89,11 +102,44 @@ from invenio_vocabularies.config import (
     VOCABULARIES_DATASTREAM_TRANSFORMERS,
     VOCABULARIES_DATASTREAM_WRITERS,
 )
+from invenio_vocabularies.contrib.affiliations.datastreams import (
+    VOCABULARIES_DATASTREAM_READERS as AFFILIATIONS_READERS,
+)
+from invenio_vocabularies.contrib.affiliations.datastreams import (
+    VOCABULARIES_DATASTREAM_TRANSFORMERS as AFFILIATIONS_TRANSFORMERS,
+)
+from invenio_vocabularies.contrib.affiliations.datastreams import (
+    VOCABULARIES_DATASTREAM_WRITERS as AFFILIATIONS_WRITERS,
+)
+from invenio_vocabularies.contrib.awards.datastreams import (
+    VOCABULARIES_DATASTREAM_READERS as AWARDS_READERS,
+)
 from invenio_vocabularies.contrib.awards.datastreams import (
     VOCABULARIES_DATASTREAM_TRANSFORMERS as AWARDS_TRANSFORMERS,
 )
 from invenio_vocabularies.contrib.awards.datastreams import (
     VOCABULARIES_DATASTREAM_WRITERS as AWARDS_WRITERS,
+)
+from invenio_vocabularies.contrib.common.openaire.datastreams import (
+    VOCABULARIES_DATASTREAM_READERS as COMMON_OPENAIRE_READERS,
+)
+from invenio_vocabularies.contrib.common.openaire.datastreams import (
+    VOCABULARIES_DATASTREAM_TRANSFORMERS as COMMON_OPENAIRE_TRANSFORMERS,
+)
+from invenio_vocabularies.contrib.common.openaire.datastreams import (
+    VOCABULARIES_DATASTREAM_WRITERS as COMMON_OPENAIRE_WRITERS,
+)
+from invenio_vocabularies.contrib.common.ror.datastreams import (
+    VOCABULARIES_DATASTREAM_READERS as COMMON_ROR_READERS,
+)
+from invenio_vocabularies.contrib.common.ror.datastreams import (
+    VOCABULARIES_DATASTREAM_TRANSFORMERS as COMMON_ROR_TRANSFORMERS,
+)
+from invenio_vocabularies.contrib.common.ror.datastreams import (
+    VOCABULARIES_DATASTREAM_WRITERS as COMMON_ROR_WRITERS,
+)
+from invenio_vocabularies.contrib.funders.datastreams import (
+    VOCABULARIES_DATASTREAM_READERS as FUNDERS_READERS,
 )
 from invenio_vocabularies.contrib.funders.datastreams import (
     VOCABULARIES_DATASTREAM_TRANSFORMERS as FUNDERS_TRANSFORMERS,
@@ -110,6 +156,16 @@ from invenio_vocabularies.contrib.names.datastreams import (
 from invenio_vocabularies.contrib.names.datastreams import (
     VOCABULARIES_DATASTREAM_WRITERS as NAMES_WRITERS,
 )
+from invenio_vocabularies.contrib.subjects.datastreams import (
+    VOCABULARIES_DATASTREAM_READERS as SUBJECTS_READERS,
+)
+from invenio_vocabularies.contrib.subjects.datastreams import (
+    VOCABULARIES_DATASTREAM_TRANSFORMERS as SUBJECTS_TRANSFORMERS,
+)
+from invenio_vocabularies.contrib.subjects.datastreams import (
+    VOCABULARIES_DATASTREAM_WRITERS as SUBJECTS_WRITERS,
+)
+from werkzeug.local import LocalProxy
 
 from .theme.views import notification_settings
 from .users.schemas import NotificationsUserSchema, UserPreferencesNotificationsSchema
@@ -128,7 +184,7 @@ def _(x):
 # =====
 # See https://flask.palletsprojects.com/en/1.1.x/config/
 
-APP_ALLOWED_HOSTS = ["0.0.0.0", "localhost", "127.0.0.1"]
+TRUSTED_HOSTS = ["0.0.0.0", "localhost", "127.0.0.1"]
 """Allowed hosts.
 
 Since HAProxy and Nginx route all requests no matter the host header
@@ -158,7 +214,7 @@ SESSION_COOKIE_SAMESITE = "Lax"
 # =============
 # https://flask-limiter.readthedocs.io/en/stable/#configuration
 
-RATELIMIT_STORAGE_URL = "redis://localhost:6379/3"
+RATELIMIT_STORAGE_URI = "redis://localhost:6379/3"
 """Storage for ratelimiter."""
 
 # Increase defaults
@@ -193,10 +249,10 @@ BABEL_DEFAULT_TIMEZONE = "Europe/Zurich"
 APP_THEME = ["semantic-ui"]
 """Application theme."""
 
-BASE_TEMPLATE = "invenio_theme/page.html"
+BASE_TEMPLATE = "invenio_app_rdm/page.html"
 """Global base template."""
 
-COVER_TEMPLATE = "invenio_theme/page_cover.html"
+COVER_TEMPLATE = "invenio_app_rdm/page_cover.html"
 """Cover page base template (used for e.g. login/sign-up)."""
 
 SETTINGS_TEMPLATE = "invenio_theme/page_settings.html"
@@ -219,6 +275,30 @@ THEME_FRONTPAGE_TEMPLATE = "invenio_app_rdm/frontpage.html"
 
 THEME_HEADER_LOGIN_TEMPLATE = "invenio_app_rdm/header_login.html"
 """Header login base template."""
+
+
+def _get_package_version():
+    from importlib.metadata import PackageNotFoundError, version
+
+    from packaging.version import Version
+
+    try:
+        package_version = version("invenio-app-rdm")
+        parsed_version = Version(package_version)
+        major_minor_version = (
+            f"InvenioRDM {parsed_version.major}.{parsed_version.minor}"
+        )
+        return major_minor_version
+    except PackageNotFoundError:
+        # default without any version
+        return "InvenioRDM"
+
+
+THEME_GENERATOR = _get_package_version()
+"""Generator meta tag to identify the software that generated the page.
+
+Set it to `None` to disable the tag.
+"""
 
 THEME_LOGO = "images/invenio-rdm.svg"
 """Theme logo."""
@@ -348,6 +428,10 @@ CELERY_BEAT_SCHEDULE = {
     "accounts_ips": {
         "task": "invenio_accounts.tasks.delete_ips",
         "schedule": timedelta(hours=6),
+    },
+    "update_domain_status": {
+        "task": "invenio_accounts.tasks.update_domain_status",
+        "schedule": timedelta(hours=4),
     },
     "draft_resources": {
         "task": ("invenio_drafts_resources.services.records.tasks.cleanup_drafts"),
@@ -579,10 +663,13 @@ OAISERVER_CREATED_KEY = "created"
 OAISERVER_RECORD_CLS = "invenio_rdm_records.records.api:RDMRecord"
 """Record retrieval class."""
 
-OAISERVER_RECORD_SETS_FETCHER = "invenio_oaiserver.utils:record_sets_fetcher"
+OAISERVER_RECORD_SETS_FETCHER = "invenio_oaiserver.percolator:find_sets_for_record"
 """Record's OAI sets function."""
 
-OAISERVER_RECORD_INDEX = "rdmrecords-records"
+OAISERVER_RECORD_INDEX = LocalProxy(
+    lambda: current_rdm_records_service.record_cls.index._name
+)
+
 """Specify a search index with records that should be exposed via OAI-PMH."""
 
 OAISERVER_GETRECORD_FETCHER = "invenio_rdm_records.oai:getrecord_fetcher"
@@ -621,25 +708,12 @@ ACCESS_CACHE = "invenio_cache:current_cache"
 SEARCH_HOSTS = [{"host": "localhost", "port": 9200}]
 """Search hosts."""
 
-# Invenio-Indexer
-# ===============
-# See https://invenio-indexer.readthedocs.io/en/latest/configuration.html
-
-INDEXER_DEFAULT_INDEX = "rdmrecords-records-record-v6.0.0"
-"""Default index to use if no schema is defined."""
-
 # Invenio-Base
 # ============
 # See https://invenio-base.readthedocs.io/en/latest/api.html#invenio_base.wsgi.wsgi_proxyfix  # noqa
 
 WSGI_PROXIES = 2
 """Correct number of proxies in front of your application."""
-
-# Invenio-Admin
-# =============
-
-# Admin interface is deprecated and should not be used.
-ADMIN_PERMISSION_FACTORY = "invenio_app_rdm.admin.permission_factory"
 
 # Invenio-REST
 # ============
@@ -652,14 +726,24 @@ REST_CSRF_ENABLED = True
 VOCABULARIES_DATASTREAM_READERS = {
     **VOCABULARIES_DATASTREAM_READERS,
     **NAMES_READERS,
+    **COMMON_OPENAIRE_READERS,
+    **COMMON_ROR_READERS,
+    **AWARDS_READERS,
+    **FUNDERS_READERS,
+    **AFFILIATIONS_READERS,
+    **SUBJECTS_READERS,
 }
 """Data Streams readers."""
 
 VOCABULARIES_DATASTREAM_TRANSFORMERS = {
     **VOCABULARIES_DATASTREAM_TRANSFORMERS,
     **NAMES_TRANSFORMERS,
-    **FUNDERS_TRANSFORMERS,
+    **COMMON_OPENAIRE_TRANSFORMERS,
+    **COMMON_ROR_TRANSFORMERS,
     **AWARDS_TRANSFORMERS,
+    **FUNDERS_TRANSFORMERS,
+    **AFFILIATIONS_TRANSFORMERS,
+    **SUBJECTS_TRANSFORMERS,
 }
 """Data Streams transformers."""
 
@@ -668,6 +752,10 @@ VOCABULARIES_DATASTREAM_WRITERS = {
     **NAMES_WRITERS,
     **FUNDERS_WRITERS,
     **AWARDS_WRITERS,
+    **AFFILIATIONS_WRITERS,
+    **COMMON_OPENAIRE_WRITERS,
+    **COMMON_ROR_WRITERS,
+    **SUBJECTS_WRITERS,
 }
 """Data Streams writers."""
 
@@ -773,19 +861,33 @@ APP_RDM_RECORD_EXPORTERS = {
         "content-type": "application/x-bibtex",
         "filename": "{id}.bib",
     },
-    "GeoJSON": {
+    "geojson": {
         "name": _("GeoJSON"),
         "serializer": ("invenio_rdm_records.resources.serializers:GeoJSONSerializer"),
         "params": {"options": {"indent": 2, "sort_keys": True}},
-        "content-type": "application/vnd.geojson+json",
+        "content-type": "application/vnd.geo+json",
         "filename": "{id}.geojson",
     },
-    "DCAT-AP": {
+    "dcat-ap": {
         "name": _("DCAT"),
         "serializer": "invenio_rdm_records.resources.serializers:DCATSerializer",
         "params": {},
         "content-type": "application/dcat+xml",
         "filename": "{id}.xml",
+    },
+    "codemeta": {
+        "name": _("Codemeta"),
+        "serializer": "invenio_rdm_records.resources.serializers:CodemetaSerializer",
+        "params": {},
+        "content-type": "application/ld+json",
+        "filename": "{id}.json",
+    },
+    "cff": {
+        "name": _("Citation File Format"),
+        "serializer": "invenio_rdm_records.resources.serializers:CFFSerializer",
+        "params": {},
+        "content-type": "application/x-yaml",
+        "filename": "{id}.yaml",
     },
 }
 
@@ -862,6 +964,8 @@ APP_RDM_DEPOSIT_FORM_PUBLISH_MODAL_EXTRA = ""
 
 APP_RDM_RECORD_LANDING_PAGE_TEMPLATE = "invenio_app_rdm/records/detail.html"
 
+APP_RDM_RECORD_LANDING_PAGE_FAIR_SIGNPOSTING_LEVEL_1_ENABLED = False
+
 APP_RDM_RECORD_THUMBNAIL_SIZES = [10, 50, 100, 250, 750, 1200]
 """Allowed record thumbnail sizes."""
 
@@ -892,6 +996,25 @@ APP_RDM_FILES_INTEGRITY_REPORT_SUBJECT = "Files integrity report"
 APP_RDM_ADMIN_EMAIL_RECIPIENT = "info@inveniosoftware.org"
 """Admin e-mail"""
 
+APP_RDM_IDENTIFIER_SCHEMES_UI = {
+    "orcid": {
+        "url_prefix": "http://orcid.org/",
+        "icon": "images/orcid.svg",
+        "label": "ORCID",
+    },
+    "ror": {
+        "url_prefix": "https://ror.org/",
+        "icon": "images/ror-icon.svg",
+        "label": "ROR",
+    },
+    "gnd": {
+        "url_prefix": "http://d-nb.info/gnd/",
+        "icon": "images/gnd-icon.svg",
+        "label": "GND",
+    },
+}
+"""Identifier Schemes UI config"""
+
 # Invenio-Communities
 # ===================
 
@@ -913,6 +1036,9 @@ COMMUNITIES_RECORDS_SEARCH = {
 }
 """Community requests search configuration (i.e list of community requests)"""
 
+COMMUNITIES_SHOW_BROWSE_MENU_ENTRY = False
+"""Toggle to show or hide the 'Browse' menu entry for communities."""
+
 # Invenio-RDM-Records
 # ===================
 
@@ -923,7 +1049,11 @@ RDM_REQUESTS_ROUTES = {
 }
 
 RDM_COMMUNITIES_ROUTES = {
-    "community-detail": "/communities/<pid_value>",
+    "community-detail": "/communities/<pid_value>/records",
+    "community-home": "/communities/<pid_value>/",
+    "community-browse": "/communities/<pid_value>/browse",
+    "community-static-page": "/communities/<pid_value>/pages/<path:page_slug>",
+    "community-collection": "/communities/<pid_value>/collections/<tree_slug>/<collection_slug>",
 }
 
 RDM_SEARCH_USER_COMMUNITIES = {
@@ -962,6 +1092,35 @@ IIIF_PREVIEW_TEMPLATE = "invenio_app_rdm/records/iiif_preview.html"
 
 IIIF_API_DECORATOR_HANDLER = None
 
+IIIF_SIMPLE_PREVIEWER_NATIVE_EXTENSIONS = ["gif", "png"]
+"""Images are converted to JPEG for preview, unless listed here."""
+
+IIIF_SIMPLE_PREVIEWER_SIZE = "!800,800"
+"""Size of image in IIIF preview window. Must be a valid IIIF Image API size parameter."""
+
+IIIF_FORMATS = {
+    "pdf": "application/pdf",
+    "gif": "image/gif",
+    "jp2": "image/jp2",
+    "jpeg": "image/jpeg",
+    "jpg": "image/jpeg",
+    "png": "image/png",
+    "tif": "image/tiff",
+    "tiff": "image/tiff",
+}
+"""Controls which formats are supported by the Flask-IIIF server."""
+
+IIIF_FORMATS_PIL_MAP = {
+    "gif": "gif",
+    "jp2": "jpeg2000",
+    "jpeg": "jpeg",
+    "jpg": "jpeg",
+    "png": "png",
+    "tif": "tiff",
+    "tiff": "tiff",
+}
+"""Mapping of IIIF formats to PIL-compatible formats."""
+
 # Invenio-Previewer
 # =================
 # See https://github.com/inveniosoftware/invenio-previewer/blob/master/invenio_previewer/config.py  # noqa
@@ -974,37 +1133,13 @@ PREVIEWER_PREFERENCE = [
     "json_prismjs",
     "xml_prismjs",
     "mistune",
+    "video_videojs",
+    "audio_videojs",
     "ipynb",
     "zip",
     "txt",
 ]
 """Preferred previewers."""
-
-
-IIIF_SIMPLE_PREVIEWER_NATIVE_EXTENSIONS = ["gif", "png"]
-"""Images are converted to JPEG for preview, unless listed here."""
-
-IIIF_SIMPLE_PREVIEWER_SIZE = "!800,800"
-"""Size of image in IIIF preview window. Must be a valid IIIF Image API size parameter."""
-
-IIIF_FORMATS = {
-    "gif": "image/gif",
-    "jp2": "image/jp2",
-    "jpeg": "image/jpeg",
-    "jpg": "image/jpeg",
-    "png": "image/png",
-    "tif": "image/tiff",
-    "tiff": "image/tiff",
-}
-IIIF_FORMATS_PIL_MAP = {
-    "gif": "gif",
-    "jp2": "jpeg2000",
-    "jpeg": "jpeg",
-    "jpg": "jpeg",
-    "png": "png",
-    "tif": "tiff",
-    "tiff": "tiff",
-}
 
 RECORDS_RESOURCES_IMAGE_FORMATS = ["." + ext for ext in IIIF_FORMATS.keys()]
 """RECORDS_RESOURCES_IMAGE_FORMATS must contain all possible IIIF formats to ensure their metadata is extracted."""
@@ -1021,9 +1156,21 @@ PAGES_TEMPLATES = [
 ]
 """List of available templates for pages."""
 
+APP_RDM_PAGES = {}
+"""Register static pages with predefined initial content from 'pages.yaml' file.
+
+Example:
+{
+    "about": "/about",
+    "terms": "/terms",
+    "privacy-policy": "/privacy-policy",
+}
+"""
+
 # Invenio-Stats
 # =============
 # See https://invenio-stats.readthedocs.io/en/latest/configuration.html
+
 
 STATS_EVENTS = {
     "file-download": {
@@ -1034,7 +1181,12 @@ STATS_EVENTS = {
         ],
         "cls": EventsIndexer,
         "params": {
-            "preprocessors": [flag_robots, anonymize_user, build_file_unique_id]
+            "preprocessors": [
+                filter_robots,
+                flag_machines,
+                anonymize_user,
+                build_file_unique_id,
+            ]
         },
     },
     "record-view": {
@@ -1046,7 +1198,12 @@ STATS_EVENTS = {
         ],
         "cls": EventsIndexer,
         "params": {
-            "preprocessors": [flag_robots, anonymize_user, build_record_unique_id],
+            "preprocessors": [
+                filter_robots,
+                flag_machines,
+                anonymize_user,
+                build_record_unique_id,
+            ],
         },
     },
 }
@@ -1204,10 +1361,19 @@ NOTIFICATIONS_BUILDERS = {
     GuestAccessRequestTokenCreateNotificationBuilder.type: GuestAccessRequestTokenCreateNotificationBuilder,
     GuestAccessRequestAcceptNotificationBuilder.type: GuestAccessRequestAcceptNotificationBuilder,
     GuestAccessRequestSubmitNotificationBuilder.type: GuestAccessRequestSubmitNotificationBuilder,
+    GuestAccessRequestSubmittedNotificationBuilder.type: GuestAccessRequestSubmittedNotificationBuilder,
+    GuestAccessRequestCancelNotificationBuilder.type: GuestAccessRequestCancelNotificationBuilder,
+    GuestAccessRequestDeclineNotificationBuilder.type: GuestAccessRequestDeclineNotificationBuilder,
     UserAccessRequestAcceptNotificationBuilder.type: UserAccessRequestAcceptNotificationBuilder,
     UserAccessRequestSubmitNotificationBuilder.type: UserAccessRequestSubmitNotificationBuilder,
+    UserAccessRequestDeclineNotificationBuilder.type: UserAccessRequestDeclineNotificationBuilder,
+    UserAccessRequestCancelNotificationBuilder.type: UserAccessRequestCancelNotificationBuilder,
+    # Grant user access
+    GrantUserAccessNotificationBuilder.type: GrantUserAccessNotificationBuilder,
     # Comment request event
     CommentRequestEventCreateNotificationBuilder.type: CommentRequestEventCreateNotificationBuilder,
+    community_notifications.SubComReqCommentNotificationBuilder.type: community_notifications.SubComReqCommentNotificationBuilder,
+    community_notifications.SubComInvCommentNotificationBuilder.type: community_notifications.SubComInvCommentNotificationBuilder,
     # Community inclusion
     CommunityInclusionAcceptNotificationBuilder.type: CommunityInclusionAcceptNotificationBuilder,
     CommunityInclusionCancelNotificationBuilder.type: CommunityInclusionCancelNotificationBuilder,
@@ -1220,6 +1386,15 @@ NOTIFICATIONS_BUILDERS = {
     CommunityInvitationDeclineNotificationBuilder.type: CommunityInvitationDeclineNotificationBuilder,
     CommunityInvitationExpireNotificationBuilder.type: CommunityInvitationExpireNotificationBuilder,
     CommunityInvitationSubmittedNotificationBuilder.type: CommunityInvitationSubmittedNotificationBuilder,
+    # Subcommunity request
+    community_notifications.SubCommunityCreate.type: community_notifications.SubCommunityCreate,
+    community_notifications.SubCommunityAccept.type: community_notifications.SubCommunityAccept,
+    community_notifications.SubCommunityDecline.type: community_notifications.SubCommunityDecline,
+    # Subcommunity invitation request
+    community_notifications.SubComInvitationCreate.type: community_notifications.SubComInvitationCreate,
+    community_notifications.SubComInvitationAccept.type: community_notifications.SubComInvitationAccept,
+    community_notifications.SubComInvitationDecline.type: community_notifications.SubComInvitationDecline,
+    community_notifications.SubComInvitationExpire.type: community_notifications.SubComInvitationExpire,
 }
 """Notification builders."""
 
@@ -1231,6 +1406,7 @@ NOTIFICATIONS_ENTITY_RESOLVERS = [
     ServiceResultResolver(service_id="communities", type_key="community"),
     ServiceResultResolver(service_id="requests", type_key="request"),
     ServiceResultResolver(service_id="request_events", type_key="request_event"),
+    ServiceResultResolver(service_id="groups", type_key="group"),
 ]
 """List of entity resolvers used by notification builders."""
 
@@ -1272,3 +1448,26 @@ REQUESTS_ERROR_HANDLERS = {
 #
 GITHUB_RELEASE_CLASS = RDMGithubRelease
 """Default RDM release class."""
+
+
+# Flask-Menu
+# ==========
+#
+USER_DASHBOARD_MENU_OVERRIDES = {}
+"""Overrides for "dashboard" menu."""
+
+
+# Invenio-Administration
+# ======================
+#
+from invenio_app_rdm import __version__
+
+ADMINISTRATION_DISPLAY_VERSIONS = [("invenio-app-rdm", f"v{__version__}")]
+"""Show the InvenioRDM version in the administration panel."""
+
+ADMINISTRATION_THEME_BASE_TEMPLATE = "invenio_app_rdm/administration_page.html"
+"""Administration base template."""
+
+
+APP_RDM_SUBCOMMUNITIES_LABEL = "Subcommunities"
+"""Label for the subcommunities in the community browse page."""

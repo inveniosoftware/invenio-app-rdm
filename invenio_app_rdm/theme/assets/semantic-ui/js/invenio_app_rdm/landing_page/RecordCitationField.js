@@ -1,19 +1,20 @@
 // This file is part of InvenioRDM
-// Copyright (C) 2021 CERN.
+// Copyright (C) 2021-2024 CERN.
 // Copyright (C) 2021 Graz University of Technology.
 // Copyright (C) 2021 TU Wien
 //
 // Invenio RDM Records is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
 
-import axios from "axios";
 import _debounce from "lodash/debounce";
+import _escape from "lodash/escape";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Placeholder, Dropdown, Message } from "semantic-ui-react";
 import { withCancel } from "react-invenio-forms";
 import { CopyButton } from "../components/CopyButton";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
+import { http } from "react-invenio-forms";
 
 export class RecordCitationField extends Component {
   constructor(props) {
@@ -54,7 +55,7 @@ export class RecordCitationField extends Component {
   fetchCitation = async (record, style, includeDeleted) => {
     const includeDeletedParam = includeDeleted === true ? "&include_deleted=1" : "";
     const url = `${record.links.self}?locale=${navigator.language}&style=${style}${includeDeletedParam}`;
-    return await axios(url, {
+    return await http.get(url, {
       headers: {
         Accept: "text/x-bibliography",
       },
@@ -100,10 +101,27 @@ export class RecordCitationField extends Component {
       };
     });
 
+    // convert links in text to clickable links (ignoring punctuations at the end)
+    const escapedCitation = _escape(citation); // escape html characters
+    const urlRegex = /(https?:\/\/[^\s,;]+(?=[^\s,;]*))/g;
+    const urlizedCitation = escapedCitation.replace(urlRegex, (url) => {
+      // remove trailing dot
+      let trailingDot = "";
+      if (url.endsWith(".")) {
+        trailingDot = ".";
+        url = url.slice(0, -1);
+      }
+      return `<a href="${url}" target="_blank">${url}</a>${trailingDot}`;
+    });
+
     return (
       <div>
         <div id="citation-text" className="wrap-overflowing-text rel-mb-2">
-          {loading ? this.placeholderLoader() : citation}
+          {loading ? (
+            this.placeholderLoader()
+          ) : (
+            <div dangerouslySetInnerHTML={{ __html: urlizedCitation }} />
+          )}
         </div>
 
         <div className="auto-column-grid no-wrap">

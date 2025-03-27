@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2020 CERN.
+# Copyright (C) 2020-2024 CERN.
 # Copyright (C) 2020 Northwestern University.
 # Copyright (C) 2022 Graz University of Technology.
 #
@@ -31,65 +31,11 @@ on:
         default: "Manual trigger"
 
 jobs:
-  Tests:
-    runs-on: ubuntu-20.04
-    strategy:
-      matrix:
-        python-version: [3.8, 3.9]
-        requirements-level: [pypi]
-        db-service: [postgresql13]
-        search-service: [opensearch2, elasticsearch7]
-        include:
-          - db-service: postgresql13
-            DB_EXTRAS: "postgresql"
-
-          - search-service: opensearch2
-            SEARCH_EXTRAS: "opensearch2"
-
-          - search-service: elasticsearch7
-            SEARCH_EXTRAS: "elasticsearch7"
-        node-version: [14.x]
-    env:
-      DB: ${{ matrix.db-service }}
-      SEARCH: ${{ matrix.search-service }}
-      EXTRAS: tests,${{ matrix.SEARCH_EXTRAS }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Run eslint test
-        run: ./run-js-linter.sh -i
-
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
-        with:
-          python-version: ${{ matrix.python-version }}
-
-      - name: Generate dependencies
-        run: |
-          pip install wheel requirements-builder
-          requirements-builder -e "$EXTRAS" --level=${{ matrix.requirements-level }} setup.py > .${{ matrix.requirements-level }}-${{ matrix.python-version }}-requirements.txt
-          cat .${{ matrix.requirements-level }}-${{ matrix.python-version }}-requirements.txt
-
-      - name: Cache pip
-        uses: actions/cache@v2
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('.${{ matrix.requirements-level }}-${{ matrix.python-version }}-requirements.txt') }}
-
-      - name: Install dependencies
-        run: |
-          pip install -r .${{ matrix.requirements-level }}-${{ matrix.python-version }}-requirements.txt
-          pip install ".[$EXTRAS]"
-          pip freeze
-          docker --version
-          docker-compose --version
-
-      - name: Run tests
-        run: |
-          ./run-tests.sh
+  Python:
+      uses: inveniosoftware/workflows/.github/workflows/tests-python.yml@master
+      with:
+        extras: "tests"
+  JS:
+    uses: inveniosoftware/workflows/.github/workflows/tests-js.yml@master
+    with:
+      translations-working-directory: ./invenio_app_rdm/theme/assets/semantic-ui/translations/invenio_app_rdm

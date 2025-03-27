@@ -90,6 +90,13 @@
     padding: @selectionVerticalPadding @selectionHorizontalPadding;
     border-radius: @selectionBorderRadius;
 
+    &.overflow-scroll {
+      .menu {
+        overflow-y: auto !important;
+        max-height: 15em;
+      }
+    }
+
     .menu {
       overflow-x: auto;
       overflow-y: hidden;
@@ -114,8 +121,10 @@
 
   @media screen and (max-width: @largestTabletScreen) {
     .ui.dropdown {
-      .menu {
-        min-width: @minWidthSmallerScreens;
+      &.action-menu-width {
+        .menu {
+          min-width: @minWidthSmallerScreens;
+        }
       }
 
       * {
@@ -152,4 +161,9 @@
     margin-left: 0 !important;
     color: @grey;
   }
+}
+
+.ui.inline.selection.dropdown .dropdown.icon{
+  // bug in SUI
+  margin: @selectionIconMargin !important;
 }

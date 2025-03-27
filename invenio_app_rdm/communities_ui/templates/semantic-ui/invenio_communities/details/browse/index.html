@@ -1,0 +1,59 @@
+{# -*- coding: utf-8 -*-
+
+This file is part of Invenio.
+Copyright (C) 2024 CERN.
+
+Invenio is free software; you can redistribute it and/or modify it
+under the terms of the MIT License; see LICENSE file for more details.
+#}
+
+{% extends "invenio_communities/details/base.html" %}
+{% from "invenio_communities/collections/macros.html" import render_depth_one_collection %}
+
+{% set active_community_header_menu_item= 'browse' %}
+{% set subcommunities_endpoint = community["links"]["subcommunities"] %}
+{% set community_slug = community["slug"] %}
+{% set can_have_children = community["children"]["allow"] %}
+
+{%- block javascript %}
+{{ super() }}
+{{ webpack['invenio-communities-browse.js'] }}
+{%- endblock %}
+
+{%- block page_body %}
+{{ super() }}
+{%- for tree_id, ctree in trees.items() -%}
+<div class="ui container theme-font rel-mt-3 rel-mb-2">
+  <h1 class="ui medium header mb-0 align-self-center">{{ ctree.title }}</h1>
+  <div class="ui divider mt-0"></div>
+  <div class="ui relaxed grid stackable">
+    {%- for collection in ctree.collections -%}
+    <div class="four wide column">
+      {{ render_depth_one_collection(community, ctree, collection) }}
+    </div>
+    {%- endfor -%}
+  </div>
+</div>
+{%- endfor -%}
+<div class="ui container theme-font communities-frontpage rel-mt-3 rel-mb-2">
+  <div class="flex">
+    <h1 class="ui medium header mb-0 align-self-center">{{ config.get("APP_RDM_SUBCOMMUNITIES_LABEL", _("Subcommunities")) }}</h1>
+    {% if can_have_children %}
+    <a class="align-self-center rel-ml-1"
+        href="{{url_for('invenio_communities.communities_subcommunities', pid_value=community_slug)}}">
+        {{ _('See all')}}
+    </a>
+    {% endif %}
+  </div>
+  <div class="ui divider mt-0"></div>
+  {% if can_have_children %}
+    <div id="subcommunities-container" data-api-endpoint='{{ subcommunities_endpoint }}'></div>
+  {% else %}
+    <div class="ui icon message"><i aria-hidden="true" class="info icon"></i>
+        <div class="content">
+            <div class="header">{{ _('This community has no subcommunities') }}</div>
+        </div>
+    </div>
+  {% endif %}
+</div>
+{%- endblock page_body %}

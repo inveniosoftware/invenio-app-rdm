@@ -251,6 +251,7 @@ show_alternate_identifiers, show_related_identifiers, show_funding, show_dates %
   {% endif %}
 
   {% if record.custom_fields %}
+
     {%- for section_cfg in custom_fields_ui %}
       {% set section_has_fields = namespace(value=false) %}
       {% set section_format = section_cfg.section | replace(" ", "-") %}
@@ -262,51 +263,33 @@ show_alternate_identifiers, show_related_identifiers, show_funding, show_dates %
       {% endfor %}
 
       {% if section_has_fields.value %}
-        {% if section_cfg.fields|length > 5 %}
-          <div class="ui fluid accordion padded grid rel-mb-1">
-            <div class="active title sixteen wide mobile four wide tablet three wide computer column">
-              <h3 class="ui header">
-                <div
-                  id="custom-fields-accordion-trigger"
-                  role="button"
-                  tabindex="0"
-                  aria-expanded="true"
-                  aria-controls="custom-fields-panel"
-                  class="trigger"
-                >
-                  <i class="caret right icon" aria-hidden="true"></i>{{ section_cfg.section }}
-                </div>
-              </h3>
-            </div>
-            <div
-              id="custom-fields-panel"
-              role="region"
-              aria-labelledby="custom-fields-accordion-trigger"
-              class="active content sixteen wide mobile twelve wide tablet thirteen wide computer column"
-            >
-              {%- for section_cfg in custom_fields_ui if section_cfg.section %}
-                {% set section_format = section_cfg.section | replace(" ", "-") %}
-                <dl class="details-list">
-                  {{ show_section_custom_fields(record.ui.custom_fields, section_cfg.fields) }}
-                </dl>
-              {%- endfor %}
-            </div>
+        <div class="ui fluid accordion padded grid rel-mb-1">
+          <div class="active title sixteen wide mobile four wide tablet three wide computer column">
+            <h3 class="ui header">
+              <div
+                id="custom-fields-accordion-trigger"
+                role="button"
+                tabindex="0"
+                aria-expanded="true"
+                aria-controls="custom-fields-panel"
+                class="trigger"
+              >
+                <i class="caret right icon" aria-hidden="true"></i>{{ section_cfg.section }}
+              </div>
+            </h3>
           </div>
-        {% else %}
-          <div class="ui grid">
-            <div class="sixteen wide mobile four wide tablet three wide computer column">
-              <h3 class="ui header">{{ section_cfg.section }}</h3>
-            </div>
-            <div class="sixteen wide mobile twelve wide tablet thirteen wide computer column">
-              {%- for section_cfg in custom_fields_ui if section_cfg.section %}
-                {% set section_format = section_cfg.section | replace(" ", "-") %}
-                <dl class="details-list">
-                  {{ show_section_custom_fields(record.ui.custom_fields, section_cfg.fields) }}
-                </dl>
-              {%- endfor %}
-            </div>
+          <div
+            id="custom-fields-panel"
+            role="region"
+            aria-labelledby="custom-fields-accordion-trigger"
+            class="active content sixteen wide mobile twelve wide tablet thirteen wide computer column"
+          >
+              {% set section_format = section_cfg.section | replace(" ", "-") %}
+              <dl class="details-list">
+                {{ show_section_custom_fields(record.ui.custom_fields, section_cfg.fields) }}
+              </dl>
           </div>
-        {% endif %}
+        </div>
         <div class="ui divider"></div>
       {% endif %}
     {%- endfor %}
@@ -351,3 +334,5 @@ show_alternate_identifiers, show_related_identifiers, show_funding, show_dates %
     <div class="ui divider"></div>
   {% endif %}
 {% endif %}
+
+{% block extras %}{% endblock %}

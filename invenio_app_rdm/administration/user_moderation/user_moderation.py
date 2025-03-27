@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2023 CERN.
+# Copyright (C) 2023-2024 CERN.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 """Invenio administration view module for user moderation."""
+
 from functools import partial
 
 from flask import current_app
@@ -123,8 +124,8 @@ class UserModerationListView(AdminResourceListView):
                 ["expand", "1"],
                 ["type", UserModerationRequest.type_id],
             ],
-            page=1,
-            size=15,
+            pagination_options=(20, 50),
+            default_size=20,
         )
 
 

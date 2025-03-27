@@ -1,6 +1,6 @@
 /*
  * This file is part of Invenio.
- * Copyright (C) 2023 CERN.
+ * Copyright (C) 2023-2024 CERN.
  *
  * Invenio is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
@@ -14,11 +14,38 @@ import { withCancel } from "react-invenio-forms";
 import { http } from "react-invenio-forms";
 import { CreateAccessLink } from "./CreateAccessLink";
 import { LinksSearchItem } from "./LinksSearchItem";
+import { dropdownOptionsGenerator } from "react-invenio-forms";
+import _cloneDeep from "lodash/cloneDeep";
 
 export const dropdownOptions = [
-  { key: "view", text: i18next.t("Can view"), value: "view" },
-  { key: "preview", text: i18next.t("Can preview"), value: "preview" },
-  { key: "edit", text: i18next.t("Can edit"), value: "edit" },
+  {
+    key: "view",
+    name: "view",
+    text: i18next.t("Can view"),
+    title: i18next.t("Can view"),
+    value: "view",
+    description: i18next.t("Can view restricted files of all versions of this record."),
+  },
+  {
+    key: "preview",
+    name: "preview",
+    text: i18next.t("Can preview drafts"),
+    title: i18next.t("Can preview drafts"),
+    value: "preview",
+    description: i18next.t(
+      "Can view drafts, restricted files, and comment on associated draft requests of all versions of this record."
+    ),
+  },
+  {
+    key: "edit",
+    name: "edit",
+    text: i18next.t("Can edit"),
+    title: i18next.t("Can edit"),
+    value: "edit",
+    description: i18next.t(
+      "Can edit drafts, view restricted files, and comment on associated draft requests of all versions of this record."
+    ),
+  },
 ];
 
 export class LinksSearchResultContainer extends Component {
@@ -71,7 +98,7 @@ export class LinksSearchResultContainer extends Component {
   };
 
   handleCreation = async (permission, expiresAt, description) => {
-    const { fetchData, record } = this.props;
+    const { onItemAddedOrDeleted, record } = this.props;
     this.setState({ loading: true });
     try {
       const data = {
@@ -81,7 +108,7 @@ export class LinksSearchResultContainer extends Component {
       };
       this.cancellableAction = withCancel(http.post(record.links.access_links, data));
       await this.cancellableAction.promise;
-      fetchData();
+      onItemAddedOrDeleted(record.links.access_links, "links");
       this.setState({ loading: false, error: undefined });
     } catch (error) {
       if (error === "UNMOUNTED") return;
@@ -93,8 +120,28 @@ export class LinksSearchResultContainer extends Component {
     }
   };
 
+  generateDropdownOptions = () => {
+    const { record } = this.props;
+
+    // "can view" option is disabled for drafts
+    const dropdownOptionsCopy = _cloneDeep(dropdownOptions);
+    if (record?.is_draft || record?.is_draft === null) {
+      const viewOption = dropdownOptionsCopy.find((item) => item.key === "view");
+      viewOption.text = i18next.t(
+        "Can view (view access link can be created only after the record is published)"
+      );
+    }
+
+    const options = dropdownOptionsGenerator(dropdownOptionsCopy);
+    if (record?.is_draft || record?.is_draft === null) {
+      const viewOption = options.find((item) => item.key === "view");
+      viewOption.disabled = true;
+    }
+    return options;
+  };
+
   render() {
-    const { results, record, fetchData } = this.props;
+    const { results, record, onItemAddedOrDeleted, onPermissionChanged } = this.props;
     const { loading, error } = this.state;
     return (
       <>
@@ -127,7 +174,13 @@ export class LinksSearchResultContainer extends Component {
                   key={result.id}
                   result={result}
                   record={record}
-                  fetchData={fetchData}
+                  onItemAddedOrDeleted={onItemAddedOrDeleted}
+                  onPermissionChanged={onPermissionChanged}
+                  dropdownOptions={
+                    result.permission === "view"
+                      ? dropdownOptionsGenerator(dropdownOptions)
+                      : this.generateDropdownOptions()
+                  }
                 />
               ))
             ) : (
@@ -143,7 +196,12 @@ export class LinksSearchResultContainer extends Component {
         </Table>
 
         <Table color="green">
-          <CreateAccessLink handleCreation={this.handleCreation} loading={loading} />
+          <CreateAccessLink
+            handleCreation={this.handleCreation}
+            loading={loading}
+            record={record}
+            dropdownOptions={this.generateDropdownOptions()}
+          />
         </Table>
       </>
     );
@@ -153,5 +211,6 @@ export class LinksSearchResultContainer extends Component {
 LinksSearchResultContainer.propTypes = {
   results: PropTypes.array.isRequired,
   record: PropTypes.object.isRequired,
-  fetchData: PropTypes.func.isRequired,
+  onItemAddedOrDeleted: PropTypes.func.isRequired,
+  onPermissionChanged: PropTypes.func.isRequired,
 };

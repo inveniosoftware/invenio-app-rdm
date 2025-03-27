@@ -1,5 +1,5 @@
 // This file is part of InvenioRDM
-// Copyright (C) 2022 CERN.
+// Copyright (C) 2022-2024 CERN.
 //
 // Invenio RDM is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
@@ -69,6 +69,7 @@ export class RecordsList extends Component {
       <Container>
         <Header as="h2">{title}</Header>
         {Array.from(Array(10)).map((item, index) => (
+          // eslint-disable-next-line react/no-array-index-key
           <div key={index}>
             <Placeholder fluid className="rel-mt-3">
               <Placeholder.Header>

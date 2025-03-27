@@ -1,6 +1,6 @@
 /*
  * This file is part of Invenio.
- * Copyright (C) 2023 CERN.
+ * Copyright (C) 2023-2024 CERN.
  *
  * Invenio is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
@@ -14,16 +14,18 @@ import { dropdownOptions } from "./LinksSearchResultContainer";
 export class CreateAccessLink extends Component {
   constructor(props) {
     super(props);
+    const { record } = this.props;
+    const isDraft = record?.is_draft || record?.is_draft === null;
     this.state = {
       description: undefined,
       expiresAt: undefined,
-      permission: dropdownOptions[0].key,
+      permission: isDraft ? dropdownOptions[1].key : dropdownOptions[0].key, // "can view" option is disabled for drafts
     };
   }
 
   render() {
     const { permission, expiresAt, description } = this.state;
-    const { handleCreation, loading } = this.props;
+    const { handleCreation, loading, dropdownOptions } = this.props;
     return (
       <Table.Row>
         <Table.Cell width={16}>
@@ -91,4 +93,6 @@ export class CreateAccessLink extends Component {
 CreateAccessLink.propTypes = {
   handleCreation: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
+  dropdownOptions: PropTypes.array.isRequired,
+  record: PropTypes.object.isRequired,
 };

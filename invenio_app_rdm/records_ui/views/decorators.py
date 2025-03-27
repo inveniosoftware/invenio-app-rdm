@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2019-2021 CERN.
+# Copyright (C) 2019-2025 CERN.
 # Copyright (C) 2019-2021 Northwestern University.
 # Copyright (C)      2021 TU Wien.
 #
@@ -11,15 +11,21 @@
 
 from functools import wraps
 
-from flask import g, redirect, request, url_for
+from flask import current_app, g, make_response, redirect, request, session, url_for
+from flask_login import login_required
 from invenio_communities.communities.resources.serializer import (
     UICommunityJSONSerializer,
 )
 from invenio_communities.proxies import current_communities
 from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_rdm_records.proxies import current_rdm_records
+from invenio_rdm_records.resources.serializers.signposting import (
+    FAIRSignpostingProfileLvl1Serializer,
+)
 from invenio_records_resources.services.errors import PermissionDeniedError
 from sqlalchemy.orm.exc import NoResultFound
+
+from invenio_app_rdm.urls import record_url_for
 
 
 def service():
@@ -75,10 +81,10 @@ def pass_draft(expand=False):
                     expand=expand,
                 )
                 kwargs["draft"] = draft
-                kwargs[
-                    "files_locked"
-                ] = record_service.config.lock_edit_published_files(
-                    record_service, g.identity, record=draft._record
+                kwargs["files_locked"] = (
+                    record_service.config.lock_edit_published_files(
+                        record_service, g.identity, draft=draft, record=draft._record
+                    )
                 )
                 return f(**kwargs)
             except PIDDoesNotExistError:
@@ -103,11 +109,7 @@ def pass_is_preview(f):
 
     @wraps(f)
     def view(**kwargs):
-        preview = request.args.get("preview")
-        is_preview = False
-        if preview == "1":
-            is_preview = True
-        kwargs["is_preview"] = is_preview
+        kwargs["is_preview"] = request.args.get("preview") == "1"
         return f(**kwargs)
 
     return view
@@ -334,7 +336,6 @@ def pass_draft_files(f):
             pid_value = kwargs.get("pid_value")
             files = draft_files_service().list_files(id_=pid_value, identity=g.identity)
             kwargs["draft_files"] = files
-
         except PermissionDeniedError:
             # this is handled here because we don't want a 404 on the landing
             # page when a user is allowed to read the metadata but not the
@@ -363,5 +364,146 @@ def pass_draft_community(f):
             )
 
         return f(**kwargs)
+
+    return view
+
+
+def _get_header(rel, value, link_type=None):
+    header = f'<{value}> ; rel="{rel}"'
+    if link_type:
+        header += f' ; type="{link_type}"'
+    return header
+
+
+def _get_signposting_collection(pid_value):
+    ui_url = record_url_for(pid_value=pid_value)
+    return _get_header("collection", ui_url, "text/html")
+
+
+def _get_signposting_describes(pid_value):
+    ui_url = record_url_for(pid_value=pid_value)
+    return _get_header("describes", ui_url, "text/html")
+
+
+def _get_signposting_linkset(pid_value):
+    api_url = record_url_for(_app="api", pid_value=pid_value)
+    return _get_header("linkset", api_url, "application/linkset+json")
+
+
+def add_signposting_landing_page(f):
+    """Add signposting links to the landing page view's response headers."""
+
+    @wraps(f)
+    def view(*args, **kwargs):
+        response = make_response(f(*args, **kwargs))
+
+        # Relies on other decorators having operated before it
+        if current_app.config[
+            "APP_RDM_RECORD_LANDING_PAGE_FAIR_SIGNPOSTING_LEVEL_1_ENABLED"
+        ]:
+            record = kwargs["record"]
+
+            signposting_headers = (
+                FAIRSignpostingProfileLvl1Serializer().serialize_object(
+                    record.to_dict()
+                )
+            )
+
+            response.headers["Link"] = signposting_headers
+        else:
+            pid_value = kwargs["pid_value"]
+            signposting_link = record_url_for(_app="api", pid_value=pid_value)
+
+            response.headers["Link"] = (
+                f'<{signposting_link}> ; rel="linkset" ; type="application/linkset+json"'  # fmt: skip
+            )
+
+        return response
+
+    return view
+
+
+def add_signposting_content_resources(f):
+    """Add signposting links to the content resources view's response headers."""
+
+    @wraps(f)
+    def view(*args, **kwargs):
+        response = make_response(f(*args, **kwargs))
+
+        # Relies on other decorators having operated before it
+        pid_value = kwargs["pid_value"]
+
+        signposting_headers = [
+            _get_signposting_collection(pid_value),
+            _get_signposting_linkset(pid_value),
+        ]
+
+        response.headers["Link"] = " , ".join(signposting_headers)
+
+        return response
+
+    return view
+
+
+def add_signposting_metadata_resources(f):
+    """Add signposting links to the metadata resources view's response headers."""
+
+    @wraps(f)
+    def view(*args, **kwargs):
+        response = make_response(f(*args, **kwargs))
+
+        # Relies on other decorators having operated before it
+        pid_value = kwargs["pid_value"]
+
+        signposting_headers = [
+            _get_signposting_describes(pid_value),
+            _get_signposting_linkset(pid_value),
+        ]
+
+        response.headers["Link"] = " , ".join(signposting_headers)
+
+        return response
+
+    return view
+
+
+def secret_link_or_login_required():
+    """Skip login redirection check for requests with secret links.
+
+    If access has been granted via a secret link, then permissions are checked
+    in the dedicated view.
+    """
+
+    def decorator(f):
+        @wraps(f)
+        def view(**kwargs):
+            secret_link_token_arg = "token"
+            session_token = session.get(secret_link_token_arg, None)
+            if session_token is None:
+                login_required(f)
+            return f(**kwargs)
+
+        return view
+
+    return decorator
+
+
+def no_cache_response(f):
+    """Add appropriate response headers to force no caching.
+
+    This decorator is used to prevent caching of the response in the browser. This is needed
+    in the deposit form as we initialize the form with the record metadata included in the html page
+    and we don't want the browser to cache this page so that the user always gets the latest version of the record.
+    """
+
+    @wraps(f)
+    def view(*args, **kwargs):
+        response = make_response(f(*args, **kwargs))
+
+        response.cache_control.no_cache = True
+        response.cache_control.no_store = True
+        response.cache_control.must_revalidate = True
+
+        return response
 
     return view

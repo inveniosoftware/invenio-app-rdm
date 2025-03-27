@@ -1,5 +1,5 @@
 // This file is part of InvenioRDM
-// Copyright (C) 2020-2022 CERN.
+// Copyright (C) 2020-2024 CERN.
 // Copyright (C) 2020-2021 Northwestern University.
 // Copyright (C) 2021 Graz University of Technology.
 // Copyright (C) 2021-2022 New York University.
@@ -191,7 +191,7 @@ RDMToggleComponent.propTypes = {
 };
 
 export const RDMCountComponent = ({ totalResults }) => {
-  return <Label>{totalResults.toLocaleString("en-US")}</Label>;
+  return <Label>{totalResults.toLocaleString(i18next.language)}</Label>;
 };
 
 RDMCountComponent.propTypes = {

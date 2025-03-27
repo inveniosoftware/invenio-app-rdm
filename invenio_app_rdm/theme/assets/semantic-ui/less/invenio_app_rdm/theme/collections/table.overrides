@@ -108,18 +108,23 @@
             }
 
             &[data-label]  {
-              display: inline-grid !important;
-              grid-template-columns: [col1-start] 30% [col2-start] 70% [end];
+              display: grid;
+              grid-template-columns: [col1-start] 20% [col2-start] 80% [end];
 
               &:before {
                 content: attr(data-label);
                 font-weight: bold;
                 margin-right: 1rem;
                 width: inherit;
+                grid-column: 1;
               }
 
               .ui.fitted.checkbox {
                 padding-top: .2rem;
+              }
+
+              > * {
+                grid-column: 2;
               }
             }
 
@@ -154,16 +159,16 @@
 
 @media all and (min-width: @computerBreakpoint) {
   table.fixed-header{
-    height: 45vh;              // <-- Select the height of the table
+    height: 47vh;              // <-- Select the height of the table
     display: block;
     width: 100% !important;
     tbody{
       overflow-y: scroll;
       height: 40vh;            //  <-- Select the height of the body
-      width: 100%;
+      width: 98%;
       position: absolute;
       tr {
-        width: calc(100% - 2em);
+        width: calc(100% - 0.5em);
         display: inline-table;
         table-layout: fixed;
       }

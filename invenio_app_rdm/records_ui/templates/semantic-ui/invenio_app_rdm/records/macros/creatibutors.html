@@ -1,5 +1,5 @@
 {#
-    Copyright (C) 2020 CERN.
+    Copyright (C) 2020-2024 CERN.
     Copyright (C) 2020 Northwestern University.
     Copyright (C) 2021 Graz University of Technology.
     Copyright (C) 2021-2022 New York University.
@@ -11,44 +11,48 @@
 {% macro creatibutor_icon(creatibutor) %}
   {% set identifier_found = namespace(value=False) %}
 
-  {% for scheme, identifier in creatibutor.person_or_org.identifiers|groupby("scheme") %}
-    {%- if scheme == "orcid" %}
-      {% set identifier_found.value = True %}
-      <a class="no-text-decoration" href="{{ identifier[0]['identifier']|pid_url('orcid') }}" aria-label="{{ creatibutor.person_or_org.name }}'s ORCID {{ _('profile') }}" title="{{ creatibutor.person_or_org.name }}'s ORCID {{ _('profile') }}">
-        <img class="ml-5 inline-id-icon" src="{{ url_for('static', filename='images/orcid.svg') }}" alt="ORCID icon"/>
-      </a>
-    {%- elif scheme == "ror" %}
-      {% set identifier_found.value = True %}
-      <a href="{{ identifier[0]['identifier']|pid_url('ror') }}" aria-label="{{ creatibutor.person_or_org.name }}'s ROR {{ _('profile') }}" title="{{ creatibutor.person_or_org.name }}'s ROR {{ _('profile') }}">
-        <img class="ml-5 inline-id-icon" src="{{ url_for('static', filename='images/ror-icon.svg') }}" alt="ROR icon"/>
-      </a>
-    {%- elif scheme == "gnd" %}
-      {% set identifier_found.value = True %}
-      <a href="{{ identifier[0]['identifier']|pid_url('gnd') }}" aria-label="{{ creatibutor.person_or_org.name }}'s GND {{ _('profile') }}" title="{{ creatibutor.person_or_org.name }}'s GND {{ _('profile') }}">
-        <img class="ml-5 inline-id-icon" src="{{ url_for('static', filename='images/gnd-icon.svg') }}" alt="GND icon"/>
-      </a>
-    {%- endif %}
-  {% endfor %}
+  {% if config.APP_RDM_IDENTIFIER_SCHEMES_UI %}
+    {% for scheme, details in config.APP_RDM_IDENTIFIER_SCHEMES_UI.items() %}
+      {% for identifier in creatibutor.person_or_org.identifiers|selectattr("scheme", "equalto", scheme) %}
+        {% set identifier_found.value = True %}
+        <a href="{{ identifier.identifier|pid_url(scheme) }}" 
+           aria-label="{{ creatibutor.person_or_org.name }}'s {{ details.label }} {{ _('profile') }}" 
+           title="{{ creatibutor.person_or_org.name }}'s {{ details.label }} {{ _('profile') }}">
+          <img class="ml-5 inline-id-icon" 
+               src="{{ url_for('static', filename=details.icon) }}" 
+               alt="{{ details.label }} icon"/>
+        </a>
+      {% endfor %}
+    {% endfor %}
+  {% endif %}
 
-  {# if no identifiers: distinguish btw people and organizations #}
-  {%- if not identifier_found.value and creatibutor.person_or_org.type == 'organizational'%}
-    <i class="group icon"></i>
-  {%- endif %}
+  {# Fallback for missing identifiers #}
+  {% if not identifier_found.value %}
+    {% if creatibutor.person_or_org.type == 'organizational' %}
+      <i class="group icon"></i>
+    {% else %}
+      <i class="user icon"></i>
+    {% endif %}
+  {% endif %}
 {% endmacro %}
 
 
-{% macro show_creatibutors(creatibutors, show_affiliations=False) %}
+
+{% macro show_creatibutors(creatibutors, show_affiliations=False, type="creators", show_role=False) %}
   {% for creatibutor in creatibutors %}
   <li class="creatibutor-wrap separated">
     <a class="ui creatibutor-link"
       {% if show_affiliations and creatibutor.affiliations %}
         data-tooltip="{{ creatibutor.affiliations|join('; ', attribute='1') }}"
       {% endif %}
-      href="{{url_for('invenio_search_ui.search', q='metadata.creators.person_or_org.name:"' + creatibutor.person_or_org.name + '"')}}"
+      href="{{url_for('invenio_search_ui.search', q='metadata.' + type + '.person_or_org.name:"' + creatibutor.person_or_org.name + '"')}}"
     >
 
       <span class="creatibutor-name">
         {{- creatibutor.person_or_org.name -}}
+        {% if show_role and creatibutor.role %}
+          ({{- creatibutor.role.title -}})
+        {%- endif -%}
       </span>
       {%- if creatibutor.affiliations -%}
       <sup class="font-tiny">
@@ -78,22 +82,32 @@
 
 <section class="ui sixteen wide column content" id="{{ group }}-affiliations" aria-label="{{ _('Affiliations for') }} {{ group }}">
   <ul>
-  {% for affiliation in affiliations %}
-      <li>
-          {{ affiliation[0] }}.
-
-          {% if affiliation[2] %}
+    {% for affiliation in affiliations %}
+    <li>
+      {{ affiliation[0] }}.
+  
+      {% if affiliation[2] %}
+        {% set scheme, identifier = (affiliation[2].split(':', 1) if ':' in affiliation[2] else ('ror', affiliation[2])) %}
+        {% set scheme_config = config.APP_RDM_IDENTIFIER_SCHEMES_UI.get(scheme) %}
+        
+        {% if scheme_config %}
           <a class="no-text-decoration"
-             href="https://ror.org/{{affiliation[2]}}"
-             aria-label="{{ affiliation[1] }}'s ROR {{ _('profile') }}"
-             title="{{ affiliation[1] }}'s ROR {{ _('profile') }}"
+             href="{{ scheme_config.url_prefix + identifier }}"
+             aria-label="{{ affiliation[1] }}'s {{ scheme_config.label }} {{ _('profile') }}"
+             title="{{ affiliation[1] }}'s {{ scheme_config.label }} {{ _('profile') }}"
           >
-              <img class="ml-5 inline-id-icon" src="{{ url_for('static', filename='images/ror-icon.svg') }}" alt="ROR icon"/>
+            <img class="ml-5 inline-id-icon"
+                 src="{{ url_for('static', filename=scheme_config.icon) }}"
+                 alt="{{ scheme_config.label }} icon"
+            />
           </a>
-          {%- endif %}
-          {{affiliation[1]}}
-        </li>
+        {% endif %}
+      {% endif %}
+  
+      {{ affiliation[1] }}
+    </li>
   {% endfor %}
+  
     </ul>
 </section>
 {% endmacro %}

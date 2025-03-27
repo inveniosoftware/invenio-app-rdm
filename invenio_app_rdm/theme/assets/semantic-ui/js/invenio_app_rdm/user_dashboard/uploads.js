@@ -19,7 +19,6 @@ import {
   RDMRecordSearchBarElement,
   RDMToggleComponent,
 } from "../search/components";
-import { http } from "react-invenio-forms";
 import { DashboardResultView, DashboardSearchLayoutHOC } from "./base";
 import { createSearchAppInit } from "@js/invenio_search_ui";
 import { ComputerTabletUploadsItem } from "./uploads_items/ComputerTabletUploadsItem";
@@ -41,24 +40,10 @@ const statuses = {
 };
 
 export const RDMRecordResultsListItem = ({ result }) => {
-  const editRecord = () => {
-    http
-      .post(
-        `/api/records/${result.id}/draft`,
-        {},
-        {
-          headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/vnd.inveniordm.v1+json",
-          },
-        }
-      )
-      .then(() => {
-        window.location = `/uploads/${result.id}`;
-      })
-      .catch((error) => {
-        console.error(error.response.data);
-      });
+  const viewDraft = () => {
+    // The upload view is responsible to redirect the user to the upload form or
+    // the preview page depending on the permissions they have.
+    window.location = `/uploads/${result.id}`;
   };
 
   const isPublished = result.is_published;
@@ -97,14 +82,14 @@ export const RDMRecordResultsListItem = ({ result }) => {
     <>
       <ComputerTabletUploadsItem
         result={result}
-        editRecord={editRecord}
+        viewDraft={viewDraft}
         statuses={statuses}
         access={access}
         uiMetadata={uiMetadata}
       />
       <MobileUploadsItem
         result={result}
-        editRecord={editRecord}
+        viewDraft={viewDraft}
         statuses={statuses}
         access={access}
         uiMetadata={uiMetadata}
@@ -185,6 +170,8 @@ export const DashboardUploadsSearchLayout = DashboardSearchLayoutHOC({
     />
   ),
   appName: appName,
+  mineLabel: i18next.t("My uploads"),
+  showSharedFilters: true,
 });
 
 const ContribSearchAppFacetsWithConfig = parametrize(ContribSearchAppFacets, {

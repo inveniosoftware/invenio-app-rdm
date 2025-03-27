@@ -48,6 +48,7 @@
 @highlightBackgroundColor: @highlightHeaderColor;
 @highlightBackgroundColorHover:  darken(saturate(@highlightHeaderColor, 20), 15, relative);
 @highlightLandingPageBackgroundColor: rgba(173, 206, 224, 0.52);
+@selectedColor: #ededed;
 
 
 @navbarBackgroundImage: linear-gradient(
@@ -60,6 +61,8 @@
 @versionActiveColor: #d9edf7;
 
 @mutedAccordionHeaderColor: #f5f5f5;
+@defaultBrandColor: #434C5E;
+
 
 /*-------------------
       Links
@@ -76,7 +79,7 @@
 --------------------*/
 @mobileBreakpoint            : 320px;
 @tabletBreakpoint            : 768px;
-@computerBreakpoint          : 1300px;
+@computerBreakpoint          : 1280px;
 @largeMonitorBreakpoint      : 1680px;
 @widescreenMonitorBreakpoint : 1920px;
 
@@ -137,3 +140,4 @@
   Separators
 ------------------*/
 @listSeparator: ";";
+@listCommaSeparator: ",";

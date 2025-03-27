@@ -1,7 +1,7 @@
 {# -*- coding: utf-8 -*-
 
   This file is part of Invenio.
-  Copyright (C) 2016-2023 CERN.
+  Copyright (C) 2016-2025 CERN.
 
   Invenio is free software; you can redistribute it and/or modify it
   under the terms of the MIT License; see LICENSE file for more details.
@@ -37,23 +37,22 @@
     class="ui container rdm-tab-container fluid rel-pt-2 ml-0-mobile mr-0-mobile"
     id="request-community-submission-tab-container"
   >
-    {% if record %}
-      <div
-        class="ui secondary pointing menu rdm-tab-menu"
-        id="request-community-submission-tab"
+    <div
+      class="ui secondary pointing menu rdm-tab-menu"
+      id="request-community-submission-tab"
+    >
+      <a
+        class="active item"
+        data-tab="conversation"
+        role="tab"
+        aria-selected="true"
+        aria-controls="conversation-tab-panel"
+        id="conversation-tab"
       >
-        <a
-          class="active item"
-          data-tab="conversation"
-          role="tab"
-          aria-selected="true"
-          aria-controls="conversation-tab-panel"
-          id="conversation-tab"
-        >
-          {{ _("Conversation") }}
-        </a>
+        {{ _("Conversation") }}
+      </a>
 
-
+      {% if record %}
         <a
           role="tab"
           class="item"
@@ -64,9 +63,21 @@
         >
           {{ _("Record") }}
         </a>
-      </div>
-    {% endif %}
+      {% endif %}
 
+      {% if checks %}
+        <a
+          role="tab"
+          class="item"
+          data-tab="checks"
+          aria-selected="false"
+          aria-controls="checks-tab-panel"
+          id="checks-tab"
+        >
+          <i class="{% include 'invenio_checks/requests/overall_severity_level.html' %}"></i> {{ _("Checks") }}
+        </a>
+      {% endif %}
+    </div>
 
     <div
       class="ui bottom attached tab segment active borderless p-0"
@@ -78,6 +89,20 @@
       {{ super() }}
     </div>
 
+    {% if checks %}
+      <div
+        class="ui bottom attached tab segment borderless"
+        data-tab="checks"
+        role="tabpanel"
+        aria-labelledby="checks-tab"
+        id="checks-tab-panel"
+        hidden="hidden"
+      >
+        {% include "invenio_checks/requests/details.html" %}
+      </div>
+    {% endif %}
+
+    {# The record tab content needs to be last since the HTML structure is complex and breaks following tab contents #}
     {% if record %}
       <div
         class="ui bottom attached tab segment borderless"
@@ -92,5 +117,6 @@
         {% include "invenio_app_rdm/records/detail.html" %}
       </div>
     {% endif %}
+
   </div>
 {% endblock request_timeline %}

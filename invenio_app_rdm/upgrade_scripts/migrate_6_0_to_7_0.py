@@ -13,7 +13,6 @@ If this script is executed at any other time, probably the best case scenario
 is that nothing happens!
 """
 
-
 from click import secho
 from invenio_db import db
 from invenio_rdm_records.proxies import current_rdm_records_service

@@ -28,11 +28,11 @@
 }
 
 .ui.unstackable.items > .item > .image.dashboard-header-avatar,
-.ui.unstackable.items > .item > .image.dashboard-header-avatar > img{
-// override default SUI for dashboard avatar
-    width: @userDashboardAvatarSize !important;
-    height: @userDashboardAvatarSize !important;
-    object-fit: contain;
+.ui.unstackable.items > .item > .image.dashboard-header-avatar > img {
+  // override default SUI for dashboard avatar
+  width: @userDashboardAvatarSize !important;
+  height: @userDashboardAvatarSize !important;
+  object-fit: contain;
 }
 
 
@@ -95,17 +95,28 @@
 
 .ui.items {
 
+
   &.link > .item:hover .content .header {
     color: @darkTextColor;
   }
 
   .item {
+    &.disabled {
+      color: @selectedColor !important;
+    }
 
     &.flex {
       display: flex !important;
     }
 
     .content {
+      .description.truncate-lines-2 {
+        display: -webkit-box !important;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
       .header {
         &.flex {
           display: flex;
@@ -157,4 +168,8 @@
   .ui.avatar.image {
     align-self: center;
   }
+}
+
+.item > .content{
+  max-width: 100%
 }

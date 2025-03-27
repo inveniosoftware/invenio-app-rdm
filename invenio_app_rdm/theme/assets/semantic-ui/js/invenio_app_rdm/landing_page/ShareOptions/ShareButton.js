@@ -1,5 +1,5 @@
 // This file is part of InvenioRDM
-// Copyright (C) 2021 CERN.
+// Copyright (C) 2021-2024 CERN.
 // Copyright (C) 2021 Northwestern University.
 // Copyright (C) 2021 Graz University of Technology.
 // Copyright (C) 2023 TU Wien.
@@ -13,12 +13,7 @@ import { ShareModal } from "./ShareModal";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import PropTypes from "prop-types";
 
-export const ShareButton = ({
-  disabled,
-  record,
-  accessLinksSearchConfig,
-  permissions,
-}) => {
+export const ShareButton = ({ disabled, record, permissions, groupsEnabled }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const handleOpen = () => setModalOpen(true);
   const handleClose = () => setModalOpen(false);
@@ -49,7 +44,7 @@ export const ShareButton = ({
         handleClose={handleClose}
         record={record}
         permissions={permissions}
-        accessLinksSearchConfig={accessLinksSearchConfig}
+        groupsEnabled={groupsEnabled}
       />
     </>
   );
@@ -58,8 +53,8 @@ export const ShareButton = ({
 ShareButton.propTypes = {
   disabled: PropTypes.bool,
   record: PropTypes.object.isRequired,
-  accessLinksSearchConfig: PropTypes.object.isRequired,
   permissions: PropTypes.object.isRequired,
+  groupsEnabled: PropTypes.bool.isRequired,
 };
 
 ShareButton.defaultProps = {

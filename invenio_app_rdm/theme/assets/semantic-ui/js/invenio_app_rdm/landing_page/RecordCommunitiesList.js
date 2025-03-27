@@ -1,5 +1,6 @@
 // This file is part of InvenioRDM
-// Copyright (C) 2023 CERN.
+// Copyright (C) 2023-2024 CERN.
+// Copyright (C) 2024 KTH Royal Institute of Technology.
 //
 // InvenioRDM is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
@@ -9,7 +10,16 @@ import _isEmpty from "lodash/isEmpty";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Image } from "react-invenio-forms";
-import { Item, Message, Placeholder, Header } from "semantic-ui-react";
+import {
+  Grid,
+  Item,
+  Message,
+  Popup,
+  Placeholder,
+  Header,
+  HeaderSubheader,
+  Icon,
+} from "semantic-ui-react";
 
 export class RecordCommunitiesList extends Component {
   render() {
@@ -47,16 +57,47 @@ export class RecordCommunitiesList extends Component {
       const communityItems = communities
         ?.slice(0, maxDisplayedCommunities)
         .map((community) => (
-          <Item key={community.id}>
-            <Image wrapped size="mini" src={community.links.logo} alt="" />
-            <Item.Content verticalAlign="middle">
-              <Item.Header as={Header}>
-                <Header as="a" href={community.links.self_html} size="small">
-                  {community.metadata.title}
-                </Header>
-              </Item.Header>
-            </Item.Content>
-          </Item>
+          <Grid key={community.id}>
+            <Grid.Row verticalAlign="middle">
+              <Grid.Column width={2}>
+                <Image wrapped size="mini" src={community.links.logo} alt="" />
+              </Grid.Column>
+              <Grid.Column width={14}>
+                <Item.Content>
+                  <Item.Header className="ui">
+                    <Header as="a" href={community.links.self_html} size="small">
+                      {community.metadata.title}
+                      {/* Show the icon for communities allowing children, and for subcommunities */}
+                      {(community.children?.allow ||
+                        community.parent !== undefined) && (
+                        <p className="ml-5 display-inline-block">
+                          <Popup
+                            content="Verified community"
+                            trigger={
+                              <Icon
+                                size="small"
+                                color="green"
+                                name="check circle outline"
+                              />
+                            }
+                            position="top center"
+                          />
+                        </p>
+                      )}
+                    </Header>
+                    {community.parent && (
+                      <HeaderSubheader>
+                        Part of{" "}
+                        <a href={`/communities/${community.parent.slug}`}>
+                          {community.parent.metadata.title}
+                        </a>
+                      </HeaderSubheader>
+                    )}
+                  </Item.Header>
+                </Item.Content>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
         ));
 
       Element = (

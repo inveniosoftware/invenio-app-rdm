@@ -1,5 +1,5 @@
 {#
-  Copyright (C) 2020-2021 CERN.
+  Copyright (C) 2020-2024 CERN.
   Copyright (C) 2020-2021 Northwestern University.
   Copyright (C) 2021-2023 TU Wien.
   Copyright (C) 2021 Graz University of Technology.
@@ -11,6 +11,13 @@
 
 {% if use_theme_basic_template|default(true) %}
   {%- extends config.BASE_TEMPLATE %}
+  {%- block css %}
+    {{ super() }}
+    {% if community and community.theme and community.theme.enabled  %}
+      <link rel="stylesheet" type="text/css"
+            href="/communities/{{ community.slug }}/community-theme-{{ community.revision_id }}.css">
+    {% endif %}
+  {%- endblock css %}
 {% endif %}
 
 {%- from "invenio_app_rdm/records/macros/files.html" import file_list_box, preview_file_box, media_file_list_box %}
@@ -18,11 +25,11 @@
 {%- set title = record.metadata.title %}
 {%- set metadata = record.metadata %}
 
-{%- set can_manage_record = permissions is defined and (permissions.can_edit or permissions.can_review) %}
+{%- set can_curate_record = permissions is defined and (permissions.can_edit or permissions.can_review) %}
 
 <!-- preview_submission_request is set to true when coming from a community submission request -->
 {%- set is_preview_submission_request = preview_submission_request or false %}
-{%- set show_record_management_menu = can_manage_record and (not is_preview or is_preview_submission_request) %}
+{%- set show_record_management_menu = can_curate_record and (not is_preview or is_preview_submission_request) %}
 
 {%- if record.parent.access.settings %}
   {%- set allow_user_requests = not current_user.is_anonymous and record.parent.access.settings.allow_user_requests %}
@@ -36,6 +43,9 @@
   {%- include "invenio_app_rdm/records/details/meta.html" %}
 {%- endblock head_meta %}
 
+
+
+
 {%- block page_body %}
   <section id="banners" class="banners" aria-label="{{ _('Information banner') }}">
 
@@ -43,29 +53,51 @@
     {% if not is_preview_submission_request %}
       {% if community %}
         {% set is_community_restricted = community.access.visibility == 'restricted' %}
-        <div class="ui fluid container page-subheader-outer with-submenu compact ml-0-mobile mr-0-mobile">
-          <div class="ui container page-subheader">
-            <div class="page-subheader-element">
-              <img
-                class="ui rounded image community-header-logo has-placeholder"
-                src="{{ community.links.logo }}"
-                alt=""
-              />
-            </div>
-            <div class="page-subheader-element">
-              <a
-                href="{{ url_for('invenio_app_rdm_communities.communities_detail', pid_value=community.slug) }}"> {{ community.metadata.title }}</a>
-              {% if is_community_restricted %}
-                <span class="ui label horizontal small access-status restricted rel-ml-1"
-                      title="{{ _('Community visibility') }}"
-                      data-tooltip="{{ _('The community is restricted to users with access.') }}"
-                      data-inverted="">
+        {% if community.theme and community.theme.enabled %}
+          {% include "invenio_communities/details/header.html" %}
+        {% else %}
+          <div
+            class="ui fluid container page-subheader-outer with-submenu compact ml-0-mobile mr-0-mobile">
+            <div class="ui container page-subheader">
+              <div class="page-subheader-element">
+                <img
+                  class="ui rounded image community-header-logo"
+                  src="{{ community.links.logo | resolve_community_logo(community.id) }}"
+                  alt=""
+                />
+              </div>
+              <div class="page-subheader-element">
+                <div class="ui header">
+                  <a
+                  href="{{ url_for('invenio_app_rdm_communities.communities_detail', pid_value=community.slug) }}" class="ui small header">
+                    {{ community.metadata.title }}
+                  </a>
+                  <!-- Show the icon for subcommunities -->
+                  {% if community.parent %}
+                    <p class="ml-2 mb-0 display-inline-block"><i class="green check circle outline icon"></i></p>
+                  {% endif %}
+                  {% if community.parent %}
+                    <div class="sub header">Part of
+                      <a
+                  href="{{ url_for('invenio_app_rdm_communities.communities_home', pid_value=community.parent.slug) }}">
+                   {{community.parent.metadata.title}}
+                  </a>
+                </div>
+                  {% endif %}
+                </div>
+                {% if is_community_restricted %}
+                  <span
+                    class="ui label horizontal small access-status restricted rel-ml-1"
+                    title="{{ _('Community visibility') }}"
+                    data-tooltip="{{ _('The community is restricted to users with access.') }}"
+                    data-inverted="">
                   <i class="icon ban" aria-hidden="true"></i> {{ _("Restricted") }}
                 </span>
-              {% endif %}
+                {% endif %}
+              </div>
             </div>
           </div>
-        </div>
+        {% endif %}
       {% endif %}
     {% endif %}
     <!-- /COMMUNITY HEADER -->
@@ -102,7 +134,8 @@
               <div class="row">
                 <p>
                   {% trans link_start=('<a href="' + record.links.latest_html + '"><b>')|safe, link_end='</b></a>'|safe %}
-                    There is a {{ link_start }}newer version{{ link_end }} of the record available.
+                    There is a {{ link_start }}newer version{{ link_end }} of the record
+                    available.
                   {% endtrans %}
                 </p>
               </div>
@@ -119,7 +152,8 @@
       <div class="two column row top-padded">
 
         {# Main content #}
-        <article class="sixteen wide tablet eleven wide computer column main-record-content">
+        <article
+          class="sixteen wide tablet eleven wide computer column main-record-content">
           {% if record.access.record == 'restricted' %}
             <section id="record-access-status"
                      class="ui {{ record.ui.access_status.message_class }} message rel-mt-1"
@@ -141,11 +175,13 @@
 
               {%- block record_header_button -%}
 
-                {% if is_preview and not is_preview_submission_request and can_manage_record and is_draft %}
-                  <nav class="back-navigation rel-pb-2 pl-0" aria-label="{{ _('Back-navigation') }}">
+                {% if is_preview and not is_preview_submission_request and can_curate_record and is_draft %}
+                  <nav class="back-navigation rel-pb-2 pl-0"
+                       aria-label="{{ _('Back-navigation') }}">
                     {%- set back_page = url_for('invenio_app_rdm_records.deposit_edit', pid_value=record.id) -%}
                     {%- set back_btn_label = _('Back to edit') -%}
-                    <a class="ui button labeled icon small compact" href="{{ back_page }}">
+                    <a class="ui button labeled icon small compact"
+                       href="{{ back_page }}">
                       <i class="ui icon angle left"></i> {{ back_btn_label }}</a>
                   </nav>
                 {% endif %}
@@ -153,7 +189,8 @@
               {% endblock record_header_button %}
 
               {% if show_record_management_menu %}
-                <section id="mobile-record-management" class="ui grid tablet only mobile only">
+                <section id="mobile-record-management"
+                         class="ui grid tablet only mobile only">
                   <div class="sixteen wide column right aligned">
                     <button id="manage-record-btn"
                             class="ui small basic icon button m-0"
@@ -175,7 +212,8 @@
                 </section>
               {% endif %}
 
-              <section id="record-info" aria-label="{{ _('Publication date and version number') }}">
+              <section id="record-info"
+                       aria-label="{{ _('Publication date and version number') }}">
                 <div class="ui grid middle aligned">
                   <div class="two column row">
                     <div class="left floated left aligned column">
@@ -203,9 +241,11 @@
                             aria-label="{{ _('Access status') }}"
                       >
                         {% if record.ui.access_status.icon %}
-                          <i class="icon {{ record.ui.access_status.icon }}" aria-hidden="true"></i>
+                          <i class="icon {{ record.ui.access_status.icon }}"
+                             aria-hidden="true"></i>
                         {% endif %}
-                        <span aria-label="{{ record.ui.access_status.description_l10n }}">
+                        <span
+                          aria-label="{{ record.ui.access_status.description_l10n }}">
                           {{ record.ui.access_status.title_l10n }}
                         </span>
                       </span>
@@ -219,11 +259,14 @@
 
             {# Title #}
             {%- block record_title -%}
-              <section id="record-title-section" aria-label="{{ _('Record title and creators') }}">
-                <h1 id="record-title" class="wrap-overflowing-text">{{ metadata.title }}</h1>
+              <section id="record-title-section"
+                       aria-label="{{ _('Record title and creators') }}">
+                <h1 id="record-title"
+                    class="wrap-overflowing-text">{{ metadata.title }}</h1>
 
                 {% if record.ui.creators or record.ui.contributors %}
-                  <section id="creatibutors" aria-label="{{ _('Creators and contributors') }}">
+                  <section id="creatibutors"
+                           aria-label="{{ _('Creators and contributors') }}">
                     {%- include "invenio_app_rdm/records/details/creatibutors.html" %}
                   </section>
                 {% endif %}
@@ -238,32 +281,43 @@
             {# Files #}
             {%- block record_files -%}
               {# record has files BUT passed files are empty. This happens when we display are request. #}
-              {%- if files and record.files.enabled -%}
-                <section id="record-files" class="rel-mt-2 rel-mb-3" aria-label="{{ _('Files') }}">
-                  <h2 id="files-heading">{{ _('Files') }}</h2>
+              {%- if record.files.enabled -%}
+                <section id="record-files" class="rel-mt-2 rel-mb-3"
+                         aria-label="{{ _('Files') }}">
                   {%- if permissions.can_read_files -%}
                     {# record has files AND user can see files #}
-                    {%- set files = files|order_entries %}
-
-                    {%- if files|has_previewable_files -%}
-                      {%-set preview_file = files|select_preview_file(default_preview=record.files.default_preview) %}
-                      {{ preview_file_box(preview_file, record.id, is_preview, record, include_deleted) }}
-                    {%- endif -%}
-                    {{ file_list_box(files, record.id, is_preview, include_deleted, record) }}
+                    {%- set files = files | order_entries | selectattr("status", "==", "completed") | list %}
+                    {%- if files|length > 0 -%}
+                      <h2 id="files-heading">{{ _('Files') }}</h2>
+                      {%- if files|has_previewable_files -%}
+                        {%-set preview_file = files|select_preview_file(default_preview=record.files.default_preview) %}
+                        {{ preview_file_box(preview_file, record.id, is_preview, record, include_deleted) }}
+                      {%- endif -%}
+                      {{ file_list_box(files, record.id, is_preview, include_deleted, record, permissions) }}
+                    {% endif %}
                   {% else %}
                     {# record has files BUT user does not have permission to see files #}
-                    <div class="ui accordion panel mb-10 {{ record.ui.access_status.id }}"
-                          href="#files-preview-accordion-panel">
-                      <h3 class="active title panel-heading {{ record.ui.access_status.id }} m-0">
-                        <div role="button" id="files-preview-accordion-trigger" tabindex="0" class="trigger" aria-controls="files-preview-accordion-panel">
+                    <div
+                      class="ui accordion panel mb-10 {{ record.ui.access_status.id }}"
+                      href="#files-preview-accordion-panel">
+                      <h3
+                        class="active title panel-heading {{ record.ui.access_status.id }} m-0">
+                        <div role="button" id="files-preview-accordion-trigger"
+                             tabindex="0" class="trigger"
+                             aria-controls="files-preview-accordion-panel">
                           {{ _("Files") }}
                           <i class="angle right icon" aria-hidden="true"></i>
                         </div>
                       </h3>
-                      <div role="region" id="files-preview-accordion-panel" aria-labelledby="files-preview-accordion-trigger" class="active content preview-container pt-0">
-                        <div class="ui {{ record.ui.access_status.message_class }} message file-box-message rel-pl-1 rel-pr-1">
-                          <i class="ui {{ record.ui.access_status.icon }} icon" aria-hidden="true"></i>
-                          <h4 class="inline">{{ record.ui.access_status.title_l10n }}</h4>
+                      <div role="region" id="files-preview-accordion-panel"
+                           aria-labelledby="files-preview-accordion-trigger"
+                           class="active content preview-container pt-0">
+                        <div
+                          class="ui {{ record.ui.access_status.message_class }} message file-box-message rel-pl-1 rel-pr-1">
+                          <i class="ui {{ record.ui.access_status.icon }} icon"
+                             aria-hidden="true"></i>
+                          <h4
+                            class="inline">{{ record.ui.access_status.title_l10n }}</h4>
                           <p>{{ record.ui.access_status.description_l10n }}</p>
 
                           {% if record.access.embargo.reason %}
@@ -285,9 +339,9 @@
                                 <p class="ui small header rel-mt-2 rel-mb-1">
                                   {{ _("You need to satisfy these conditions in order for this request to be accepted:") }}
                                 </p>
-                                <p class="rel-mb-2">
+                                <div class="rel-mt-2 rich-input-content">
                                   {{ accept_conditions_text | safe }}
-                                </p>
+                                </div>
                               {%- endif %}
 
                               {%- include "invenio_app_rdm/records/details/access-form.html" %}
@@ -306,16 +360,22 @@
               {# record has media files AND user can see files #}
               {# can_media_read_files is false when record is fully restricted and users can't see the landing page at all #}
               {%- if media_files and media_files.enabled and media_files.entries and permissions.can_media_read_files -%}
-                <section id="record-media-files" aria-label="{{ _('System files') }}">
-                  {%- set media_files = media_files|order_entries %}
-                  {{ media_file_list_box(media_files, record.id, is_preview, include_deleted, record) }}
-                </section>
+                {%- set any_visible = media_files.entries | selectattr('access.hidden', 'equalto', false) | list | length > 0 %}
+                {%- if any_visible %}
+                  <section id="record-media-files" aria-label="{{ _('System files') }}">
+                    {%- set media_files = media_files | order_entries | selectattr("status", "==", "completed") | list %}
+                    {%- if media_files|length > 0 -%}
+                      {{ media_file_list_box(media_files, record.id, is_preview, include_deleted, record, permissions) }}
+                    {%- endif %}
+                  </section>
+                {%- endif %}
               {%- endif %}
             {%- endblock record_media_files -%}
 
             {# Additional details #}
             {%- block record_details -%}
-              <section id="additional-details" class="rel-mt-2" aria-label="{{ _('Additional record details') }}">
+              <section id="additional-details" class="rel-mt-2"
+                       aria-label="{{ _('Additional record details') }}">
                 {%- include "invenio_app_rdm/records/details/details.html" %}
               </section>
             {%- endblock record_details -%}
@@ -328,7 +388,8 @@
         </article>
 
         {# Sidebar #}
-        <aside class="sixteen wide tablet five wide computer column sidebar" aria-label="{{ _('Record details') }}">
+        <aside class="sixteen wide tablet five wide computer column sidebar"
+               aria-label="{{ _('Record details') }}">
           {% block record_sidebar %}
             {%- include "invenio_app_rdm/records/details/side_bar.html" %}
           {% endblock record_sidebar %}
@@ -344,7 +405,8 @@
             {%- block jump -%}
               <div class="ui grid">
                 <div class="centered row rel-mt-1">
-                  <button id="jump-btn" class="jump-to-top ui button labeled icon" aria-label="{{ _('Jump to top of page') }}">
+                  <button id="jump-btn" class="jump-to-top ui button labeled icon"
+                          aria-label="{{ _('Jump to top of page') }}">
                     <i class="arrow alternate circle up outline icon"></i>
                     {{ _("Jump up") }}
                   </button>
@@ -366,9 +428,9 @@
     {% include config.THEME_JAVASCRIPT_TEMPLATE %}
   {% endif %}
   {%- block record_jsonld %}
-    {% set jsonld_serialization = record | transform_record('SchemaorgJSONLDSerializer', module=None, throws=true) %}
+    {% set jsonld_serialization = record | transform_record('SchemaorgJSONLDSerializer', throws=False) %}
     {%- if jsonld_serialization %}
-      <script type='application/ld+json'>{{ jsonld_serialization | safe }}</script>
+      <script type='application/ld+json'>{{ jsonld_serialization | tojson }}</script>
     {%- endif %}
   {%- endblock record_jsonld %}
 

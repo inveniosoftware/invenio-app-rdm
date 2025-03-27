@@ -1,0 +1,33 @@
+{#
+  Copyright (C) 2024 CERN.
+
+  Invenio App RDM is free software; you can redistribute it and/or modify it
+  under the terms of the MIT License; see LICENSE file for more details.
+#}
+{% extends config.THEME_ERROR_TEMPLATE %}
+
+{%- block message %}
+<div class="container centered rel-pt-2">
+  <h1 class="ui header inline-block">
+    <i class="icon lightning" aria-hidden="true"></i>
+    <div class="content">
+      {{_('Permission required')}}
+    </div>
+  </h1>
+  <p>
+    {{_('The record was previously accessible to the public but is now restricted to users with access.')}}
+    <br/>
+    {{_('The Digital Object Identifier (DOI) associated with this record remains active for reference.')}}
+  </p>
+
+  <div class="ui message compact text-align-left">
+    <div class="content">
+      {%- if record.pids.doi %}
+        <p>
+          <strong>{{ _("Identifier:") }}</strong> {{ record.pids.doi.identifier }}
+        </p>
+      {%- endif %}
+    </div>
+  </div>
+</div>
+{% endblock message %}

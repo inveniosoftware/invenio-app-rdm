@@ -1,14 +1,14 @@
 // This file is part of InvenioRDM
-// Copyright (C) 2023 CERN.
+// Copyright (C) 2023-2024 CERN.
 //
 // Invenio RDM Records is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
 
 import React, { Component } from "react";
-import { Modal, Loader, Button } from "semantic-ui-react";
+import { Modal, Loader } from "semantic-ui-react";
 import PropTypes from "prop-types";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
-
+import { ErrorMessage } from "react-invenio-forms";
 import { LinksSearchResultContainer } from "./LinksSearchResultContainer";
 import { withCancel } from "react-invenio-forms";
 import { http } from "react-invenio-forms";
@@ -17,31 +17,46 @@ export class LinksTab extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      results: undefined,
       loading: false,
       error: undefined,
     };
   }
 
   componentDidMount() {
-    this.fetchData();
+    this.fetchLinks();
   }
 
   componentWillUnmount() {
     this.cancellableAction && this.cancellableAction.cancel();
   }
 
-  fetchData = async () => {
-    const { record } = this.props;
+  onLinksAddedOrDeleted = async () => {
+    await this.fetchLinks(true);
+  };
+
+  onPermissionChanged = (id, permission) => {
+    const { results } = this.props;
+    results.forEach((result) => {
+      if (result.id === id) {
+        result.permission = permission;
+      }
+    });
+  };
+
+  fetchLinks = async (isDataChanged) => {
+    const { record, results, updateLinksState } = this.props;
+    if (results && !isDataChanged) return;
+
     this.setState({ loading: true });
     try {
       this.cancellableAction = withCancel(http.get(record.links.access_links));
       const response = await this.cancellableAction.promise;
+
       this.setState({
         loading: false,
         error: undefined,
-        results: response.data.hits.hits,
       });
+      updateLinksState(response.data.hits.hits, isDataChanged);
     } catch (error) {
       if (error === "UNMOUNTED") return;
       this.setState({
@@ -53,31 +68,30 @@ export class LinksTab extends Component {
   };
 
   render() {
-    const { results, loading, error } = this.state;
-    const { record, handleClose } = this.props;
+    const { record, results } = this.props;
+    const { loading, error } = this.state;
     return (
       <>
-        {error && error}
-        <Modal.Content>
-          {loading ? (
-            <Loader />
-          ) : (
+        {error && (
+          <ErrorMessage
+            header={i18next.t("Something went wrong")}
+            content={error?.response?.data?.message || error.message}
+            icon="exclamation"
+            negative
+            size="mini"
+          />
+        )}
+        <Modal.Content className="share-content">
+          {loading && <Loader />}
+          {!loading && results !== undefined && (
             <LinksSearchResultContainer
               results={results}
               record={record}
-              fetchData={this.fetchData}
+              onItemAddedOrDeleted={this.onLinksAddedOrDeleted}
+              onPermissionChanged={this.onPermissionChanged}
             />
           )}
         </Modal.Content>
-        <Modal.Actions className="ui clearing segment">
-          <Button
-            size="small"
-            onClick={handleClose}
-            content={i18next.t("Cancel")}
-            icon="remove"
-            className="left floated clearing"
-          />
-        </Modal.Actions>
       </>
     );
   }
@@ -85,5 +99,6 @@ export class LinksTab extends Component {
 
 LinksTab.propTypes = {
   record: PropTypes.string.isRequired,
-  handleClose: PropTypes.func.isRequired,
+  results: PropTypes.array.isRequired,
+  updateLinksState: PropTypes.func.isRequired,
 };

@@ -44,17 +44,34 @@ export class SetQuotaForm extends Component {
   handleSubmit = async (values) => {
     this.setState({ loading: true });
     const { addNotification } = this.context;
-    const { resource, actionSuccessCallback, apiUrl } = this.props;
-    const payload = { ...values };
-    this.cancellableAction = withCancel(http.post(apiUrl, payload));
+    const { resource, actionSuccessCallback, setQuotaInBytes, apiUrl } = this.props;
+    let { notes, quota_size: quotaSize, max_file_size: maxFileSize } = values;
+
+    const quotaInGb = !setQuotaInBytes && quotaSize;
+
+    if (!setQuotaInBytes) {
+      quotaSize *= 10 ** 9;
+      maxFileSize *= 10 ** 9;
+    }
+
+    this.cancellableAction = withCancel(
+      http.post(apiUrl, {
+        notes,
+        quota_size: quotaSize,
+        max_file_size: maxFileSize,
+      })
+    );
+
     try {
       await this.cancellableAction.promise;
       this.setState({ loading: false, error: undefined });
+
       addNotification({
         title: i18next.t("Success"),
-        content: i18next.t("Quota of {{id}} was set to {{quota}}", {
+        content: i18next.t("Quota of {{id}} was set to {{quota}} {{unit}}", {
           id: resource.id,
-          quota: payload.quota_size,
+          quota: quotaInGb || quotaSize,
+          unit: quotaInGb ? "GB" : "bytes",
         }),
         type: "success",
       });
@@ -86,6 +103,8 @@ export class SetQuotaForm extends Component {
 
   render() {
     const { error, loading } = this.state;
+    const { setQuotaInBytes } = this.props;
+
     return (
       <Formik
         onSubmit={this.handleSubmit}
@@ -99,13 +118,15 @@ export class SetQuotaForm extends Component {
           return (
             <>
               {error && (
-                <ErrorMessage
-                  header={i18next.t("Unable to set quota.")}
-                  content={i18next.t(error)}
-                  icon="exclamation"
-                  className="text-align-left"
-                  negative
-                />
+                <Modal.Content>
+                  <ErrorMessage
+                    header={i18next.t("Unable to set quota.")}
+                    content={i18next.t(error)}
+                    icon="exclamation"
+                    className="text-align-left"
+                    negative
+                  />
+                </Modal.Content>
               )}
               <Modal.Content>
                 <Form className="full-width">
@@ -113,26 +134,35 @@ export class SetQuotaForm extends Component {
                     <TextField
                       required
                       fieldPath="quota_size"
-                      label={i18next.t("Quota size")}
+                      label={i18next.t("Quota size ({{unit}})", {
+                        unit: setQuotaInBytes ? "bytes" : "GB",
+                      })}
                       placeholder={i18next.t("Enter quota size...")}
                       type="number"
                     />
                     <TextField
                       required
                       fieldPath="max_file_size"
-                      label={i18next.t("Max file size")}
+                      label={i18next.t("Max file size ({{unit}})", {
+                        unit: setQuotaInBytes ? "bytes" : "GB",
+                      })}
                       placeholder={i18next.t("Enter max file size...")}
                       type="number"
                     />
                   </Form.Field>
                   <Form.Field>
-                    <TextAreaField fieldPath="notes" label={i18next.t("Note")} fluid />
+                    <TextAreaField
+                      fieldPath="notes"
+                      label={i18next.t("Note")}
+                      fluid
+                      placeholder={i18next.t("Ticket 1234")}
+                    />
                   </Form.Field>
                 </Form>
               </Modal.Content>
               <Modal.Actions>
                 <Button onClick={this.handleModalClose} floated="left">
-                  Close
+                  {i18next.t("Close")}
                 </Button>
                 <Button
                   size="small"
@@ -158,4 +188,9 @@ SetQuotaForm.propTypes = {
   actionSuccessCallback: PropTypes.func.isRequired,
   actionCancelCallback: PropTypes.func.isRequired,
   apiUrl: PropTypes.string.isRequired,
+  setQuotaInBytes: PropTypes.bool,
+};
+
+SetQuotaForm.defaultProps = {
+  setQuotaInBytes: false,
 };

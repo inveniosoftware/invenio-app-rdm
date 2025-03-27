@@ -21,6 +21,10 @@ const APIRoutesGenerators = {
     return `/api/users/${_get(user, idKeyPath)}/approve`;
   },
 
+  activate: (user, idKeyPath = "id") => {
+    return `/api/users/${_get(user, idKeyPath)}/activate`;
+  },
+
   deactivate: (user, idKeyPath = "id") => {
     return `/api/users/${_get(user, idKeyPath)}/deactivate`;
   },

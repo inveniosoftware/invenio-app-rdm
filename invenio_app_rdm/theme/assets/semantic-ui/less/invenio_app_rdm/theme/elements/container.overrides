@@ -9,7 +9,6 @@
   margin-bottom: @defaultMargin;
 
   &.with-submenu {
-    padding-bottom: 0;
     margin-bottom: 0;
   }
 
@@ -18,9 +17,9 @@
   }
 
   &.compact {
-    height: 5em;
+    min-height: 5em;
     .ui.container.page-subheader {
-      height: 3em;
+      min-height: 3em;
     }
   }
 
@@ -98,4 +97,32 @@
 
 .ui.container.requests-feed-container {
   position: relative;
+}
+
+.ui.container.invenio-header-container.theme-default{
+      width: calc(@largeMonitorWidth + 10%);
+    @media screen and (max-width: @largestSmallMonitor) {
+      width: calc(@computerWidth + 10%);
+    }
+    @media screen and (max-width: @largestTabletScreen) {
+      width: calc(@tabletWidth + 10%);
+    }
+    @media screen and (max-width: @largestMobileScreen) {
+      width: calc(@mobileWidth + 5%);
+    }
+}
+
+.sub-footer.theme-default{
+  .ui.container {
+      width: calc(@largeMonitorWidth + 10%);
+    @media screen and (max-width: @largestSmallMonitor) {
+      width: calc(@computerWidth + 10%);
+    }
+    @media screen and (max-width: @largestTabletScreen) {
+      width: calc(@tabletWidth + 10%);
+    }
+    @media screen and (max-width: @largestMobileScreen) {
+      width: calc(@mobileWidth + 5%);
+    }
+  }
 }

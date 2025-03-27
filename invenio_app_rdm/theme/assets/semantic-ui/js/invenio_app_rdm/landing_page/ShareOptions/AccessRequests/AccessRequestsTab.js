@@ -82,23 +82,6 @@ export class AccessRequestsTab extends Component {
     return { ...settings };
   };
 
-  editorConfig = {
-    toolbar: [
-      "heading",
-      "|",
-      "bold",
-      "italic",
-      "link",
-      "bulletedList",
-      "numberedList",
-      "Indent",
-      "Outdent",
-      "blockQuote",
-      "Undo",
-      "Redo",
-    ],
-  };
-
   render() {
     const { loading, error, actionSuccess } = this.state;
     const { handleClose } = this.props;
@@ -112,7 +95,7 @@ export class AccessRequestsTab extends Component {
         {({ values, handleSubmit }) => {
           return (
             <>
-              <Modal.Content>
+              <Modal.Content className="share-content">
                 {error && (
                   <ErrorMessage
                     header={i18next.t("Unable to change the access request settings.")}
@@ -178,10 +161,7 @@ export class AccessRequestsTab extends Component {
                             )}
                           </label>
                           <Form.Field>
-                            <RichInputField
-                              fieldPath="accept_conditions_text"
-                              editorConfig={this.editorConfig}
-                            />
+                            <RichInputField fieldPath="accept_conditions_text" />
                           </Form.Field>
                         </Grid.Column>
                       </Grid.Row>
