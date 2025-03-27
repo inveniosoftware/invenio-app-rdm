@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version v13.0.0b3.dev1 (released 2025-03-27)
+
+- deposit: align licenses modal with funders modal
+
 Version v13.0.0b3.dev0 (released 2025-03-26)
 
 - thesis: breaking change in thesis field (invenio-rdm-records)
