@@ -53,9 +53,10 @@ def _resolve_topic_record(request):
     user_owns_request = str(creator_id) == str(current_user.id)
 
     if request["is_closed"] and not user_owns_request:
-        return dict(permissions={}, record_ui=None, record=None)
+        return dict(permissions={}, record_ui=None, record=None, record_uuid=None)
 
     record = None
+    record_uuid = None
     # parse the topic field to get the draft/record pid `record:abcd-efgh`
     entity = ResolverRegistry.resolve_entity_proxy(request["topic"])
     pid = entity._parse_ref_dict_id()
@@ -84,11 +85,15 @@ def _resolve_topic_record(request):
                     break
             # read published record
             record = current_rdm_records_service.read(g.identity, pid, expand=True)
+            record_uuid = current_rdm_records_service.record_cls.pid.resolve(pid).id
         else:
             # read draft
             record = current_rdm_records_service.read_draft(
                 g.identity, pid, expand=True
             )
+            record_uuid = current_rdm_records_service.draft_cls.pid.resolve(
+                pid, registered_only=False
+            ).id
     except (NoResultFound, PIDDoesNotExistError):
         # We catch PIDDoesNotExistError because a published record with
         # a soft-deleted draft will raise this error. The lines below
@@ -98,6 +103,7 @@ def _resolve_topic_record(request):
         try:
             # read published record
             record = current_rdm_records_service.read(g.identity, pid, expand=True)
+            record_uuid = current_rdm_records_service.record_cls.pid.resolve(pid).id
         except NoResultFound:
             # record tab not displayed when the record is not found
             # the request is probably not open anymore
@@ -116,9 +122,14 @@ def _resolve_topic_record(request):
                 "read",
             ]
         )
-        return dict(permissions=permissions, record_ui=record_ui, record=record)
+        return dict(
+            permissions=permissions,
+            record_ui=record_ui,
+            record=record,
+            record_uuid=record_uuid,
+        )
 
-    return dict(permissions={}, record_ui=None, record=None)
+    return dict(permissions={}, record_ui=None, record=None, record_uuid=None)
 
 
 def _resolve_record_or_draft_files(record, request):
@@ -163,7 +174,7 @@ def _resolve_record_or_draft_media_files(record, request):
     return None
 
 
-def _resolve_checks(record, request, community=None):
+def _resolve_checks(record_uuid, request, community=None):
     """Resolve the checks for this draft/record related to the community and the request."""
     # FIXME: Move this logic to invenio-checks
 
@@ -181,6 +192,10 @@ def _resolve_checks(record, request, community=None):
     if not is_draft_submission and not is_record_inclusion:
         return None
 
+    # Early exit if there is no record UUID (for instance for some closed requests)
+    if not record_uuid:
+        return None
+
     # Resolve the target community from the request if the community was not passed as an argument
     if not community:
         community_uuid = request["receiver"]["community"]
@@ -195,15 +210,6 @@ def _resolve_checks(record, request, community=None):
         # Add the parent community first for later ordering of check configs
         communities.append(community_parent_id)
     communities.append(community.id)
-
-    # Resolve the record UUID
-    record_pid = record["id"]
-    if is_record_inclusion:
-        record_uuid = current_rdm_records_service.record_cls.pid.resolve(record_pid).id
-    else:
-        record_uuid = current_rdm_records_service.draft_cls.pid.resolve(
-            record_pid, registered_only=False
-        ).id
 
     # Early exit if no check config found for the communities
     from invenio_checks.models import CheckConfig, CheckRun
@@ -253,8 +259,9 @@ def user_dashboard_request_view(request, **kwargs):
         topic = _resolve_topic_record(request)
         record_ui = topic["record_ui"]
         record = topic["record"]
+        record_uuid = topic["record_uuid"]
         is_draft = record_ui["is_draft"] if record_ui else False
-        checks = _resolve_checks(record_ui, request)
+        checks = _resolve_checks(record_uuid, request)
 
         files = _resolve_record_or_draft_files(record_ui, request)
         media_files = _resolve_record_or_draft_media_files(record_ui, request)
@@ -332,8 +339,9 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
         topic = _resolve_topic_record(request)
         record_ui = topic["record_ui"]
         record = topic["record"]
+        record_uuid = topic["record_uuid"]
         is_draft = record_ui["is_draft"] if record_ui else False
-        checks = _resolve_checks(record_ui, request, community)
+        checks = _resolve_checks(record_uuid, request, community)
 
         permissions.update(topic["permissions"])
         files = _resolve_record_or_draft_files(record_ui, request)
