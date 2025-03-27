@@ -3,6 +3,7 @@
     Copyright (C) 2020 Northwestern University.
     Copyright (C) 2021 Graz University of Technology.
     Copyright (C) 2021-2022 New York University.
+    Copyright (C) 2025 KTH Royal Institute of Technology.
 
     Invenio RDM Records is free software; you can redistribute it and/or modify
     it under the terms of the MIT License; see LICENSE file for more details.
@@ -15,11 +16,11 @@
     {% for scheme, details in config.APP_RDM_IDENTIFIER_SCHEMES_UI.items() %}
       {% for identifier in creatibutor.person_or_org.identifiers|selectattr("scheme", "equalto", scheme) %}
         {% set identifier_found.value = True %}
-        <a href="{{ identifier.identifier|pid_url(scheme) }}" 
-           aria-label="{{ creatibutor.person_or_org.name }}'s {{ details.label }} {{ _('profile') }}" 
+        <a href="{{ identifier.identifier|pid_url(scheme) }}"
+           aria-label="{{ creatibutor.person_or_org.name }}'s {{ details.label }} {{ _('profile') }}"
            title="{{ creatibutor.person_or_org.name }}'s {{ details.label }} {{ _('profile') }}">
-          <img class="ml-5 inline-id-icon" 
-               src="{{ url_for('static', filename=details.icon) }}" 
+          <img class="ml-5 inline-id-icon"
+               src="{{ url_for('static', filename=details.icon) }}"
                alt="{{ details.label }} icon"/>
         </a>
       {% endfor %}
@@ -39,7 +40,7 @@
 
 
 {% macro show_creatibutors(creatibutors, show_affiliations=False, type="creators", show_role=False) %}
-  {% for creatibutor in creatibutors %}
+  {% for creatibutor in creatibutors if creatibutor.person_or_org and creatibutor.person_or_org.name %}
   <li class="creatibutor-wrap separated">
     <a class="ui creatibutor-link"
       {% if show_affiliations and creatibutor.affiliations %}
@@ -85,11 +86,11 @@
     {% for affiliation in affiliations %}
     <li>
       {{ affiliation[0] }}.
-  
+
       {% if affiliation[2] %}
         {% set scheme, identifier = (affiliation[2].split(':', 1) if ':' in affiliation[2] else ('ror', affiliation[2])) %}
         {% set scheme_config = config.APP_RDM_IDENTIFIER_SCHEMES_UI.get(scheme) %}
-        
+
         {% if scheme_config %}
           <a class="no-text-decoration"
              href="{{ scheme_config.url_prefix + identifier }}"
@@ -103,11 +104,11 @@
           </a>
         {% endif %}
       {% endif %}
-  
+
       {{ affiliation[1] }}
     </li>
   {% endfor %}
-  
+
     </ul>
 </section>
 {% endmacro %}
