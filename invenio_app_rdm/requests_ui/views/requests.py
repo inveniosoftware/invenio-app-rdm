@@ -197,13 +197,12 @@ def _resolve_checks(record, request, community=None):
     communities.append(community.id)
 
     # Resolve the record UUID
+    record_pid = record["id"]
     if is_record_inclusion:
-        record_uuid = current_rdm_records_service.record_cls.pid.resolve(
-            record["id"]
-        ).id
+        record_uuid = current_rdm_records_service.record_cls.pid.resolve(record_pid).id
     else:
         record_uuid = current_rdm_records_service.draft_cls.pid.resolve(
-            record["id"], registered_only=False
+            record_pid, registered_only=False
         ).id
 
     # Early exit if no check config found for the communities
@@ -255,7 +254,7 @@ def user_dashboard_request_view(request, **kwargs):
         record_ui = topic["record_ui"]
         record = topic["record"]
         is_draft = record_ui["is_draft"] if record_ui else False
-        checks = _resolve_checks(record, request)
+        checks = _resolve_checks(record_ui, request)
 
         files = _resolve_record_or_draft_files(record_ui, request)
         media_files = _resolve_record_or_draft_media_files(record_ui, request)
@@ -334,7 +333,7 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
         record_ui = topic["record_ui"]
         record = topic["record"]
         is_draft = record_ui["is_draft"] if record_ui else False
-        checks = _resolve_checks(record, request, community)
+        checks = _resolve_checks(record_ui, request, community)
 
         permissions.update(topic["permissions"])
         files = _resolve_record_or_draft_files(record_ui, request)
