@@ -84,8 +84,6 @@ def get_form_pids_config():
                 "unambiguously cited. Example: 10.1234/foo.bar",
                 scheme_label=scheme_label,
             ),
-            "default_selected": default_selected,
-            "optional_doi_transitions": optional_doi_transitions,
         }
         pids_providers.append(pids_provider)
 
