@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version v12.0.16 (released 2025-03-29)
+
+- fix: remove usage of undefined variables
+
 Version v12.0.15 (released 2025-03-17)
 
 - i18n: add missing translations
