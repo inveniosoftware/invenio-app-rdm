@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version v13.0.0b3.dev2 (released 2025-03-29)
+
+- fix: restore messages index.js and remove unused imports
+
 Version v13.0.0b3.dev1 (released 2025-03-27)
 
 - deposit: align licenses modal with funders modal
