@@ -1,6 +1,7 @@
 {#
   Copyright (C) 2020-2025 CERN.
   Copyright (C) 2024 Northwestern University.
+  Copyright (C) 2024-2025 KTH Royal Institute of Technology.
 
   Invenio RDM Records is free software; you can redistribute it and/or modify
   it under the terms of the MIT License; see LICENSE file for more details.
@@ -59,18 +60,25 @@
 
 {% macro show_add_descriptions(add_descriptions) %}
   {% for add_description in add_descriptions %}
-    <section id="additional-description-{{ loop.index }}" class="rel-mt-2 rich-input-content"
-             aria-label="{{ _( add_description.type.title_l10n ) }}">
-      <h2>{{ add_description.type.title_l10n }} <span
-        class="text-muted language">{{ '(' + add_description.lang.title_l10n + ')' if add_description.lang }}</span>
+    {% set desc_type_defined = add_description.type is defined %}
+    {% set desc_text = add_description.description|default('') %}
+    <section
+      id="additional-description-{{ loop.index }}"
+      class="rel-mt-2 rich-input-content"
+      aria-label="{{ (add_description.type.title_l10n if desc_type_defined else _('Missing description type!')) }}"
+    >
+      <h2>
+        {{ add_description.type.title_l10n if desc_type_defined else _('Missing description type!') }}
+        <span class="text-muted language">
+          {{ '(' ~ add_description.lang.title_l10n ~ ')' if add_description.lang is defined else '' }}
+        </span>
       </h2>
-
-      {% if add_description.type.id == "notes" %}
+      {% if desc_type_defined and add_description.type.id == "notes" %}
         <div class="ui message warning">
-          {{ add_description.description | sanitize_html() | safe }}
+          {{ desc_text | sanitize_html() | safe }}
         </div>
       {% else %}
-        {{ add_description.description | sanitize_html() | safe }}
+        {{ desc_text | sanitize_html() | safe }}
       {% endif %}
     </section>
   {% endfor %}
@@ -79,10 +87,11 @@
 
 {% macro show_dates(dates) %}
   {% for date in dates %}
-    <dt class="ui tiny header">{{ date.type.title_l10n }}</dt>
+    {% set date_type_title = date.get('type', {}).get('title_l10n', _('Unknown date type')) %}
+    <dt class="ui tiny header">{{ date_type_title }}</dt>
     <dd>
-      <div>{{ date.date }}</div>
-      <div class="text-muted">{{ date.description }}</div>
+      <div>{{ date.date|default('') }}</div>
+      <div class="text-muted">{{ date.description|default('') }}</div>
     </dd>
   {% endfor %}
 {% endmacro %}
@@ -103,7 +112,7 @@
       {% if item.award.acronym %}
         {{ item.award.acronym }} –
       {% endif %}
-      
+
       {%- if item.award.title_l10n -%}
         {{ item.award.title_l10n }}
       {%- endif -%}
@@ -130,15 +139,13 @@
 {% macro show_references(references) %}
   <ul class="ui bulleted list details-list">
     {% for reference in references %}
-      {% set reference_string = reference.reference %}
-      {% if 'identifier' in reference %}
-        {% if 'scheme' in reference %}
+      {% set reference_string = reference.reference|default('') %}
+      {% if reference.get('identifier') %}
+        {% if reference.scheme is defined and reference.scheme %}
           {% set reference_scheme = reference.scheme | get_scheme_label %}
-          {% set reference_string = reference_string + ' ( ' + reference_scheme +
-          ' - ' + reference.identifier + ' )' %}
+          {% set reference_string = reference_string ~ ' (' ~ reference_scheme ~ ' - ' ~ reference.identifier ~ ')' %}
         {% else %}
-          {% set reference_string = reference_string + ' ( ' + reference.identifier +
-          ' )' %}
+          {% set reference_string = reference_string ~ ' (' ~ reference.identifier ~ ')' %}
         {% endif %}
       {% endif %}
       <li class="item">{{ reference_string | urlize }}</li>
@@ -150,20 +157,23 @@
 {% macro _identifiers_for_group(related_identifiers) %}
   {% for identifier in related_identifiers %}
     <dd>
-      {% if identifier.resource_type is defined %}
+      {% if identifier.resource_type is defined and identifier.resource_type.title_l10n is defined %}
         {{ identifier.resource_type.title_l10n }}:
       {% endif %}
 
-      {% set url = identifier.identifier|pid_url %}
+      {% set ident_val = identifier.identifier|default('') %}
+      {% set url = ident_val|pid_url %}
       {% if url %}
         <a href="{{ url }}" target="_blank" title="{{ _('Opens in new tab') }}">
-          {{ identifier.identifier }}
+          {{ ident_val }}
         </a>
       {% else %}
-        {{ identifier.identifier }}
+        {{ ident_val }}
       {% endif %}
 
-      {{ ' (' + identifier.scheme | get_scheme_label + ')' }}
+      {% if identifier.scheme is defined and identifier.scheme %}
+        {{ ' (' ~ (identifier.scheme|get_scheme_label) ~ ')' }}
+      {% endif %}
     </dd>
   {% endfor %}
 {% endmacro %}
@@ -171,7 +181,7 @@
 
 {% macro show_related_identifiers(related_identifiers) %}
   <dl class="details-list">
-    {%- for group in related_identifiers | groupby('relation_type.title_l10n') %}
+    {%- for group in (related_identifiers|selectattr("relation_type","defined")|list) | groupby('relation_type.title_l10n') %}
       <dt class="ui tiny header">{{ group.grouper }}</dt>
       {{ _identifiers_for_group(group.list) }}
     {%- endfor %}
