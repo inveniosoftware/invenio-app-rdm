@@ -46,6 +46,16 @@ def _show_browse_page():
     )
 
 
+def create_url_rule(rule, default_view_func):
+    """Generate rule from string or tuple."""
+    if isinstance(rule, tuple):
+        path, view_func = rule
+
+        return {"rule": path, "view_func": view_func}
+    else:
+        return {"rule": rule, "view_func": default_view_func}
+
+
 def create_ui_blueprint(app):
     """Register blueprint routes on app."""
     routes = app.config["RDM_COMMUNITIES_ROUTES"]
@@ -58,29 +68,24 @@ def create_ui_blueprint(app):
     )
 
     blueprint.add_url_rule(
-        routes["community-detail"],
-        view_func=communities_detail,
+        **create_url_rule(routes["community-detail"], communities_detail),
         strict_slashes=False,
     )
 
     blueprint.add_url_rule(
-        routes["community-home"],
-        view_func=communities_home,
+        **create_url_rule(routes["community-home"], communities_home)
     )
 
     blueprint.add_url_rule(
-        routes["community-browse"],
-        view_func=communities_browse,
+        **create_url_rule(routes["community-browse"], communities_browse)
     )
 
     blueprint.add_url_rule(
-        routes["community-static-page"],
-        view_func=community_static_page,
+        **create_url_rule(routes["community-static-page"], community_static_page)
     )
 
     blueprint.add_url_rule(
-        routes["community-collection"],
-        view_func=community_collection,
+        **create_url_rule(routes["community-collection"], community_collection)
     )
     # Register error handlers
     blueprint.register_error_handler(
