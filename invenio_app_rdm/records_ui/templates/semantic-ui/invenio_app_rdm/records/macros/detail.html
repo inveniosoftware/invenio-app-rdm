@@ -1,7 +1,7 @@
 {#
   Copyright (C) 2020-2025 CERN.
   Copyright (C) 2024 Northwestern University.
-  Copyright (C) 2024 KTH Royal Institute of Technology.
+  Copyright (C) 2024-2025 KTH Royal Institute of Technology.
 
   Invenio RDM Records is free software; you can redistribute it and/or modify
   it under the terms of the MIT License; see LICENSE file for more details.
@@ -87,7 +87,7 @@
 
 {% macro show_dates(dates) %}
   {% for date in dates %}
-    {% set date_type_title = date.type.title_l10n if (date.type is defined and date.type.title_l10n is defined) else _('Unknown date type') %}
+    {% set date_type_title = date.get('type', {}).get('title_l10n', _('Unknown date type')) %}
     <dt class="ui tiny header">{{ date_type_title }}</dt>
     <dd>
       <div>{{ date.date|default('') }}</div>
@@ -112,7 +112,7 @@
       {% if item.award.acronym %}
         {{ item.award.acronym }} –
       {% endif %}
-      
+
       {%- if item.award.title_l10n -%}
         {{ item.award.title_l10n }}
       {%- endif -%}
@@ -140,7 +140,7 @@
   <ul class="ui bulleted list details-list">
     {% for reference in references %}
       {% set reference_string = reference.reference|default('') %}
-      {% if reference.identifier is defined and reference.identifier %}
+      {% if reference.get('identifier') %}
         {% if reference.scheme is defined and reference.scheme %}
           {% set reference_scheme = reference.scheme | get_scheme_label %}
           {% set reference_string = reference_string ~ ' (' ~ reference_scheme ~ ' - ' ~ reference.identifier ~ ')' %}
@@ -157,11 +157,11 @@
 {% macro _identifiers_for_group(related_identifiers) %}
   {% for identifier in related_identifiers %}
     <dd>
-      {% if identifier.resource_type is defined %}
+      {% if identifier.resource_type is defined and identifier.resource_type.title_l10n is defined %}
         {{ identifier.resource_type.title_l10n }}:
       {% endif %}
 
-      {% set ident_val = identifier.identifier if identifier.identifier is defined else '' %}
+      {% set ident_val = identifier.identifier|default('') %}
       {% set url = ident_val|pid_url %}
       {% if url %}
         <a href="{{ url }}" target="_blank" title="{{ _('Opens in new tab') }}">
@@ -171,7 +171,7 @@
         {{ ident_val }}
       {% endif %}
 
-      {% if identifier.scheme is defined %}
+      {% if identifier.scheme is defined and identifier.scheme %}
         {{ ' (' ~ (identifier.scheme|get_scheme_label) ~ ')' }}
       {% endif %}
     </dd>
