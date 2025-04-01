@@ -167,6 +167,8 @@ from invenio_vocabularies.contrib.subjects.datastreams import (
 )
 from werkzeug.local import LocalProxy
 
+from .communities_ui.sitemap import SitemapSectionOfCommunities
+from .records_ui.sitemap import SitemapSectionOfRDMRecords
 from .theme.views import notification_settings
 from .users.schemas import NotificationsUserSchema, UserPreferencesNotificationsSchema
 
@@ -480,6 +482,10 @@ CELERY_BEAT_SCHEDULE = {
     "clean-access-request-tokens": {
         "task": "invenio_rdm_records.requests.access.tasks.clean_expired_request_access_tokens",
         "schedule": crontab(minute=4, hour=0),
+    },
+    "update_sitemap": {
+        "task": "invenio_sitemap.tasks.update_sitemap_cache",
+        "schedule": crontab(minute=0, hour=2),
     },
 }
 """Scheduled tasks configuration (aka cronjobs)."""
@@ -1471,3 +1477,12 @@ ADMINISTRATION_THEME_BASE_TEMPLATE = "invenio_app_rdm/administration_page.html"
 
 APP_RDM_SUBCOMMUNITIES_LABEL = "Subcommunities"
 """Label for the subcommunities in the community browse page."""
+
+
+# Invenio-Sitemap
+# ===============
+# See https://github.com/inveniosoftware/invenio-sitemap/blob/master/invenio_sitemap/config.py  # noqa
+SITEMAP_SECTIONS = [
+    SitemapSectionOfRDMRecords(),
+    SitemapSectionOfCommunities(),
+]

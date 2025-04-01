@@ -17,10 +17,10 @@ from flask_webpackext.manifest import (
     JinjaManifestEntry,
     JinjaManifestLoader,
 )
-from invenio_access.permissions import system_identity
 from invenio_app.factory import create_ui
-from invenio_rdm_records.proxies import current_rdm_records
 from invenio_search import current_search
+
+from ..file_input import FileInput
 
 
 #
@@ -66,40 +66,25 @@ def index_templates(running_app):
 
 
 @pytest.fixture()
-def record(running_app, minimal_record):
+def record(running_app, minimal_record, create_record):
     """Create and publish a record."""
-    s = current_rdm_records.records_service
-    draft = s.create(system_identity, minimal_record)
-    return s.publish(system_identity, draft.id)
+    return create_record(data=minimal_record)
 
 
 @pytest.fixture()
-def record_with_file(running_app, minimal_record):
+def record_with_file(running_app, minimal_record, create_record):
     """Create and publish a record with file."""
-    minimal_record["files"] = {"enabled": True}
-
-    record_service = current_rdm_records.records_service
-    file_service = record_service.draft_files
-
-    draft = record_service.create(system_identity, minimal_record)
     file_to_initialise = [
-        {
-            "key": "article.txt",
-            "checksum": "md5:c785060c866796cc2a1708c997154c8e",
-            "size": 17,  # 2kB
-            "metadata": {
-                "description": "Published article PDF.",
+        FileInput(
+            data={
+                "key": "article.txt",
+                "checksum": "md5:c785060c866796cc2a1708c997154c8e",
+                "size": 17,  # 2kB
+                "metadata": {
+                    "description": "Published article PDF.",
+                },
             },
-        }
+            content=BytesIO(b"test file content"),
+        )
     ]
-    file_service.init_files(system_identity, draft.id, file_to_initialise)
-    content = BytesIO(b"test file content")
-    file_service.set_file_content(
-        system_identity,
-        draft.id,
-        file_to_initialise[0]["key"],
-        content,
-        content.getbuffer().nbytes,
-    )
-    file_service.commit_file(system_identity, draft.id, "article.txt")
-    return record_service.publish(system_identity, draft.id)
+    return create_record(data=minimal_record, files=file_to_initialise)

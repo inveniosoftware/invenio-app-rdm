@@ -17,6 +17,7 @@ from invenio_db import db
 from invenio_i18n import get_locale
 from invenio_i18n import lazy_gettext as _
 from invenio_pages.views import create_page_view
+from invenio_sitemap import iterate_urls_of_sitemap_indices
 from invenio_users_resources.forms import NotificationsForm
 
 
@@ -44,6 +45,7 @@ def create_blueprint(app):
         static_folder="static",
     )
 
+    # blueprint.add_url_rule(routes["index"], view_func=index)
     blueprint.add_url_rule(**create_url_rule(routes["index"], default_view_func=index))
     blueprint.add_url_rule(
         **create_url_rule(routes["robots"], default_view_func=robots)
@@ -75,7 +77,11 @@ def index():
 
 def robots():
     """Robots.txt."""
-    return current_app.send_static_file("robots.txt")
+    # return current_app.send_static_file("robots.txt")
+    return render_template(
+        "invenio_app_rdm/robots.txt",
+        urls_of_sitemap_indices=iterate_urls_of_sitemap_indices(),
+    )
 
 
 def help_search():
