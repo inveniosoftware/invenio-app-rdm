@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version v12.0.17 (released 2025-04-1)
+
+- fix: handle undefined record attributes in templates
+
 Version v12.0.16 (released 2025-03-29)
 
 - fix: remove usage of undefined variables
