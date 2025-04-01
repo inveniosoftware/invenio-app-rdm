@@ -3,6 +3,7 @@
     Copyright (C) 2020 Northwestern University.
     Copyright (C) 2021 Graz University of Technology.
     Copyright (C) 2021-2022 New York University.
+    Copyright (C) 2025 KTH Royal Institute of Technology.
 
     Invenio RDM Records is free software; you can redistribute it and/or modify
     it under the terms of the MIT License; see LICENSE file for more details.
@@ -38,7 +39,7 @@
 
 
 {% macro show_creatibutors(creatibutors, show_affiliations=False, type="creators") %}
-  {% for creatibutor in creatibutors %}
+  {% for creatibutor in creatibutors if creatibutor.person_or_org and creatibutor.person_or_org.name %}
   <li class="creatibutor-wrap separated">
     <a class="ui creatibutor-link"
       {% if show_affiliations and creatibutor.affiliations %}
@@ -78,11 +79,15 @@
 
 <section class="ui sixteen wide column content" id="{{ group }}-affiliations" aria-label="{{ _('Affiliations for') }} {{ group }}">
   <ul>
-  {% for affiliation in affiliations %}
-      <li>
-          {{ affiliation[0] }}.
+    {% for affiliation in affiliations %}
+    <li>
+      {{ affiliation[0] }}.
 
-          {% if affiliation[2] %}
+      {% if affiliation[2] %}
+        {% set scheme, identifier = (affiliation[2].split(':', 1) if ':' in affiliation[2] else ('ror', affiliation[2])) %}
+        {% set scheme_config = config.APP_RDM_IDENTIFIER_SCHEMES_UI.get(scheme) %}
+
+        {% if scheme_config %}
           <a class="no-text-decoration"
              href="https://ror.org/{{affiliation[2]}}"
              aria-label="{{ affiliation[1] }}'s ROR {{ _('profile') }}"
@@ -90,10 +95,12 @@
           >
               <img class="ml-5 inline-id-icon" src="{{ url_for('static', filename='images/ror-icon.svg') }}" alt="ROR icon"/>
           </a>
-          {%- endif %}
-          {{affiliation[1]}}
-        </li>
-  {% endfor %}
-    </ul>
+        {% endif %}
+      {% endif %}
+
+      {{ affiliation[1] }}
+    </li>
+    {% endfor %}
+  </ul>
 </section>
 {% endmacro %}
