@@ -1,13 +1,16 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019-2025 CERN.
-# Copyright (C) 2019-2021 Northwestern University.
+# Copyright (C) 2019-2025 Northwestern University.
 # Copyright (C) 2024-2025 Graz University of Technology.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """Common pytest fixtures and plugins."""
+
+import copy
+from collections import namedtuple
 
 # Monkey patch Werkzeug 2.1
 # Flask-Login uses the safe_str_cmp method which has been removed in Werkzeug
@@ -26,8 +29,6 @@ except AttributeError:
     from werkzeug import security
 
     security.safe_str_cmp = hmac.compare_digest
-
-from collections import namedtuple
 
 import pytest
 from flask_security import login_user
@@ -65,6 +66,12 @@ def app_config(app_config):
 def subjects_service(app):
     """Subjects service."""
     return current_service_registry.get("subjects")
+
+
+@pytest.fixture(scope="module")
+def records_service(app):
+    """Records service."""
+    return current_service_registry.get("records")
 
 
 pytest_plugins = ("celery.contrib.pytest",)
@@ -168,10 +175,16 @@ def client_with_login(client, users):
     return client
 
 
+def create_vocabulary_type(id_, pid_type):
+    """Create vocabulary type."""
+    vocabulary_service = current_service_registry.get("vocabularies")
+    return vocabulary_service.create_type(system_identity, id_, pid_type)
+
+
 @pytest.fixture(scope="module")
 def resource_type_type(app):
     """Resource type vocabulary type."""
-    return vocabulary_service.create_type(system_identity, "resourcetypes", "rsrct")
+    return create_vocabulary_type("resourcetypes", "rsrct")
 
 
 @pytest.fixture(scope="module")
@@ -207,7 +220,7 @@ def resource_type_item(app, resource_type_type):
 @pytest.fixture(scope="module")
 def languages_type(app):
     """Language vocabulary type."""
-    return vocabulary_service.create_type(system_identity, "languages", "lng")
+    return create_vocabulary_type("languages", "lng")
 
 
 @pytest.fixture(scope="module")
@@ -260,13 +273,118 @@ def subject_item(app, subjects_mesh_scheme, subjects_service):
     return subj
 
 
+@pytest.fixture(scope="module")
+def communitytypes_type(app):
+    """Creates and retrieves a vocabulary type."""
+    return create_vocabulary_type("communitytypes", "comtyp")
+
+
+@pytest.fixture(scope="module")
+def communitytypes(communitytypes_type):
+    """Community types."""
+    vocabulary_service = current_service_registry.get("vocabularies")
+    type_dicts = [
+        {"id": "organization", "title": {"en": "Organization"}},
+        {"id": "event", "title": {"en": "Event"}},
+        {"id": "topic", "title": {"en": "Topic"}},
+        {"id": "project", "title": {"en": "Project"}},
+    ]
+    [t.update({"type": "communitytypes"}) for t in type_dicts]
+    types = [
+        vocabulary_service.create(identity=system_identity, data=t) for t in type_dicts
+    ]
+    vocabulary_service.indexer.refresh()
+    return types
+
+
+@pytest.fixture()
+def community_input():
+    """Community input dict."""
+    return {
+        "access": {
+            "visibility": "public",
+            "member_policy": "open",
+            "record_policy": "open",
+        },
+        "slug": "my_community_id",
+        "metadata": {
+            "title": "My Community",
+            # "description": "This is an example Community.",
+            "type": {"id": "event"},
+            # "curation_policy": "This is the kind of records we accept.",
+            # "website": "https://inveniosoftware.org/",
+        },
+    }
+
+
 RunningApp = namedtuple(
     "RunningApp",
-    ["app", "location", "resource_type_item", "language_item", "subject_item"],
+    [
+        "app",
+        "location",
+        "resource_type_item",
+        "language_item",
+        "subject_item",
+        "communitytypes",
+    ],
 )
 
 
 @pytest.fixture
-def running_app(app, location, resource_type_item, language_item, subject_item):
+def running_app(
+    app, location, resource_type_item, language_item, subject_item, communitytypes
+):
     """Fixture mimicking a running app."""
-    return RunningApp(app, location, resource_type_item, language_item, subject_item)
+    return RunningApp(
+        app, location, resource_type_item, language_item, subject_item, communitytypes
+    )
+
+
+@pytest.fixture()
+def create_record(running_app, minimal_record, records_service):
+    """Record creation and publication function fixture."""
+    files_service = records_service.draft_files
+
+    def _create_record(identity=None, data=minimal_record, files=None):
+        """Create and publish an RDMRecord.
+
+        Optionally assign it files.
+        """
+        idty = identity or system_identity
+        data_copy = copy.deepcopy(data)
+        if files:
+            data_copy["files"] = {"enabled": True}
+
+        draft_data = records_service.create(idty, data_copy)._record
+        pid_value_of_draft = draft_data.pid.pid_value
+        if files:
+            files_service.init_files(idty, pid_value_of_draft, [f.data for f in files])
+            for f in files:
+                files_service.set_file_content(
+                    idty,
+                    id_=pid_value_of_draft,
+                    file_key=f.data["key"],
+                    stream=f.content,
+                    content_length=f.content.getbuffer().nbytes,
+                )
+                files_service.commit_file(
+                    idty, id_=pid_value_of_draft, file_key=f.data["key"]
+                )
+
+        record_result = records_service.publish(idty, id_=pid_value_of_draft)
+        return record_result
+
+    return _create_record
+
+
+@pytest.fixture()
+def create_community(running_app, community_input):
+    """Community creation function fixture."""
+    community_service = current_service_registry.get("communities")
+
+    def _create_community(identity=None, data=community_input):
+        """Create a community."""
+        idty = identity or system_identity
+        return community_service.create(idty, data)
+
+    return _create_community

@@ -20,7 +20,7 @@ from flask_webpackext.manifest import (
 )
 from invenio_access.permissions import any_user, authenticated_user, system_identity
 from invenio_app.factory import create_ui
-from invenio_rdm_records.proxies import current_rdm_records
+from invenio_rdm_records.proxies import current_rdm_records_service
 from invenio_search import current_search
 
 
@@ -67,11 +67,9 @@ def index_templates(running_app):
 
 
 @pytest.fixture()
-def record(running_app, minimal_record):
+def record(running_app, minimal_record, create_record):
     """Create and publish a record."""
-    s = current_rdm_records.records_service
-    draft = s.create(system_identity, minimal_record)
-    return s.publish(system_identity, draft.id)
+    return create_record(data=minimal_record)
 
 
 @pytest.fixture()
@@ -83,7 +81,7 @@ def draft_with_file(running_app, minimal_record, users):
     user_identity = Identity(users["user1"].id)
     user_identity.provides.add(any_user)
     user_identity.provides.add(authenticated_user)
-    record_service = current_rdm_records.records_service
+    record_service = current_rdm_records_service
     file_service = record_service.draft_files
 
     draft = record_service.create(user_identity, minimal_record)
@@ -95,7 +93,7 @@ def draft_with_file(running_app, minimal_record, users):
             "metadata": {
                 "description": "Published article PDF.",
             },
-        }
+        },
     ]
     file_service.init_files(system_identity, draft.id, file_to_initialise)
     content = BytesIO(b"test file content")
@@ -113,5 +111,5 @@ def draft_with_file(running_app, minimal_record, users):
 @pytest.fixture()
 def record_with_file(draft_with_file):
     """Create and publish a record with file."""
-    record_service = current_rdm_records.records_service
+    record_service = current_rdm_records_service
     return record_service.publish(system_identity, draft_with_file.id)
