@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019-2025 CERN.
-# Copyright (C) 2019-2021 Northwestern University.
+# Copyright (C) 2019-2025 Northwestern University.
 # Copyright (C)      2021 TU Wien.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
@@ -13,6 +13,7 @@ from functools import wraps
 
 from flask import current_app, g, make_response, redirect, request, session, url_for
 from flask_login import login_required
+from invenio_base import invenio_url_for
 from invenio_communities.communities.resources.serializer import (
     UICommunityJSONSerializer,
 )
@@ -24,8 +25,6 @@ from invenio_rdm_records.resources.serializers.signposting import (
 )
 from invenio_records_resources.services.errors import PermissionDeniedError
 from sqlalchemy.orm.exc import NoResultFound
-
-from invenio_app_rdm.urls import record_url_for
 
 
 def service():
@@ -376,17 +375,21 @@ def _get_header(rel, value, link_type=None):
 
 
 def _get_signposting_collection(pid_value):
-    ui_url = record_url_for(pid_value=pid_value)
+    ui_url = invenio_url_for(
+        "invenio_app_rdm_records.record_detail", pid_value=pid_value
+    )
     return _get_header("collection", ui_url, "text/html")
 
 
 def _get_signposting_describes(pid_value):
-    ui_url = record_url_for(pid_value=pid_value)
+    ui_url = invenio_url_for(
+        "invenio_app_rdm_records.record_detail", pid_value=pid_value
+    )
     return _get_header("describes", ui_url, "text/html")
 
 
 def _get_signposting_linkset(pid_value):
-    api_url = record_url_for(_app="api", pid_value=pid_value)
+    api_url = invenio_url_for("records.read", pid_value=pid_value)
     return _get_header("linkset", api_url, "application/linkset+json")
 
 
@@ -412,7 +415,7 @@ def add_signposting_landing_page(f):
             response.headers["Link"] = signposting_headers
         else:
             pid_value = kwargs["pid_value"]
-            signposting_link = record_url_for(_app="api", pid_value=pid_value)
+            signposting_link = invenio_url_for("records.read", pid_value=pid_value)
 
             response.headers["Link"] = (
                 f'<{signposting_link}> ; rel="linkset" ; type="application/linkset+json"'  # fmt: skip
