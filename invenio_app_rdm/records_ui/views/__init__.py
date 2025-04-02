@@ -23,7 +23,8 @@ from invenio_records_resources.services.errors import (
     RecordPermissionDeniedError,
 )
 
-from ...theme.views import create_url_rule
+from invenio_app_rdm.views import create_url_rule
+
 from ..searchapp import search_app_context
 from .deposits import community_upload, deposit_create, deposit_edit
 from .filters import (
