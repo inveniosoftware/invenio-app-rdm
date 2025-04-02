@@ -78,7 +78,7 @@ export class UserGroupAccessSearchResultItem extends Component {
                 <Grid.Column>
                   <Item className="flex" key={result.id}>
                     <Image
-                      src={entity.links.avatar}
+                      src={entity.links?.avatar}
                       avatar
                       className="rel-ml-1"
                       alt=""
