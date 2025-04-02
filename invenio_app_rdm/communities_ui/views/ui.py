@@ -9,24 +9,21 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 """Communities UI blueprints module."""
 
-from flask import Blueprint, current_app, render_template, request
-from flask_login import current_user
-from invenio_communities.communities.resources.serializer import (
-    UICommunityJSONSerializer,
-)
+from flask import Blueprint, current_app, request
 from invenio_communities.errors import CommunityDeletedError
 from invenio_communities.views.ui import (
     not_found_error,
     record_permission_denied_error,
     record_tombstone_error,
 )
-from invenio_i18n import lazy_gettext as _
 from invenio_pidstore.errors import PIDDeletedError, PIDDoesNotExistError
 from invenio_rdm_records.collections import search_app_context as c_search_app_context
 from invenio_records_resources.services.errors import (
     PermissionDeniedError,
     RecordPermissionDeniedError,
 )
+
+from invenio_app_rdm.views import create_url_rule
 
 from ..searchapp import search_app_context
 from .communities import (
@@ -44,16 +41,6 @@ def _show_browse_page():
         current_app.config.get("COMMUNITIES_SHOW_BROWSE_MENU_ENTRY", False)
         and request.community["children"]["allow"]
     )
-
-
-def create_url_rule(rule, default_view_func):
-    """Generate rule from string or tuple."""
-    if isinstance(rule, tuple):
-        path, view_func = rule
-
-        return {"rule": path, "view_func": view_func}
-    else:
-        return {"rule": rule, "view_func": default_view_func}
 
 
 def create_ui_blueprint(app):
