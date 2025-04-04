@@ -37,32 +37,34 @@ class SearchResultItemComponent extends Component {
         } = this.props;
 
         const {
-            log_id,
-            timestamp,
-            event: { action, status },
-            resource: { type, id: resourceId },
+            id,
+            created,
+            action,
+            json: { resource_id, user: { name } },
+            resource_type,
+            user_id,
         } = result;
 
         return (
             <Table.Row>
-                <Table.Cell data-label={i18next.t("Log ID")}>{log_id}</Table.Cell>
-                <Table.Cell data-label={i18next.t("Status")}>
-                    <BoolFormatter
-                        value={status === "submitted"}
-                        icon="hourglass"
-                        color="yellow"
-                    />
-                    <BoolFormatter value={status === "declined"} icon="ban" color="red" />
-                    <BoolFormatter
-                        value={status === "accepted"}
-                        icon="check"
-                        color="green"
-                    />
+                <Table.Cell data-label={i18next.t("Log ID")}>
+                    <a target="_blank" rel="noreferrer noopener" href={result.links.self}>
+                        {id}
+                    </a>
                 </Table.Cell>
-                <Table.Cell data-label={i18next.t("Resource")}>{type}</Table.Cell>
-                <Table.Cell data-label={i18next.t("Resource ID")}>{resourceId}</Table.Cell>
+                <Table.Cell data-label={i18next.t("Resource")}>{resource_type}</Table.Cell>
+                <Table.Cell data-label={i18next.t("Resource ID")}>
+                <a href={`/administration/${resource_type}s?q=id:${resource_id}`}>
+                    {resource_id}
+                </a>
+                </Table.Cell>
                 <Table.Cell data-label={i18next.t("Action")}>{action}</Table.Cell>
-                <Table.Cell data-label={i18next.t("Date")}>{timestamp}</Table.Cell>
+                <Table.Cell data-label={i18next.t("User ID")}>
+                <a href={`/administration/users?q=id:${user_id}`}>
+                    {name}
+                </a>
+                </Table.Cell>
+                <Table.Cell data-label={i18next.t("Date")}>{created}</Table.Cell>
             </Table.Row>
         );
     }
