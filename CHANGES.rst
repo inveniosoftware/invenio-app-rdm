@@ -10,6 +10,13 @@
 Changes
 =======
 
+Version v13.0.0b3.dev3 (released 2025-04-04)
+
+- fix: Handle undefined record attributes in templates to avoid rendering errors (#2932)
+- communities_ui: make routes + views configurable
+- views: extract create_url_rule utility and plan for deprecation
+
+
 Version v13.0.0b3.dev2 (released 2025-03-29)
 
 - fix: restore messages index.js and remove unused imports
