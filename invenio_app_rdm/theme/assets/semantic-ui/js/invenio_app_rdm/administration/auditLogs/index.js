@@ -20,8 +20,6 @@ const overridenComponents = {
   "SearchApp.facets": SearchFacets,
 };
 
-console.error("overridenComponentsswdsfedgrvfbhtnfgrefdwfgdeqwfegrhngfsdfdgfhgnggfsdfdgfhgnffswdfdghnfgdesw");
-
 createSearchAppInit(
   overridenComponents,
   true,

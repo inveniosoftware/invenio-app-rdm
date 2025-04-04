@@ -7,12 +7,8 @@
 
 """Invenio administration view module for audit logs."""
 
-from functools import partial
-from flask import current_app
-
 from invenio_administration.views.base import AdminResourceListView
 from invenio_i18n import lazy_gettext as _
-from invenio_search_ui.searchconfig import search_app_config
 
 class AuditLogListView(AdminResourceListView):
     """Audit logs admin search view."""
@@ -37,34 +33,42 @@ class AuditLogListView(AdminResourceListView):
     display_edit = False
 
     item_field_list = {
-        "_id": {
-            "text": "Log ID",
+        "id": {
+            "text": _("Log ID"),
             "order": 1,
             "width": 3,
         },
-        "status": {
-            "text": "Status",
+        "resource_type": {
+            "text": _("Resource"),
             "order": 2,
-            "width": 2,
         },
-        "resource.type": {
-            "text": "Resource",
+        "resource_id": { # Link to resource in the `resource_type` admin panel
+            "text": _("Resource ID"),
             "order": 3,
         },
-        "resource.id": {
-            "text": "Resource ID",
+        "action": {
+            "text": _("Action"),
             "order": 4,
         },
-        "event.action": {
-            "text": "Action",
+        "user_id": { # Link to user in user admin panel
+            "text": _("User ID"),
             "order": 5,
+            "width": 2,
         },
-        "timestamp": {
-            "text": "Date",
+        "created": {
+            "text": _("Timestamp"),
             "order": 6,
-            "width": 3,
+            "width": 7,
         },
     }
+
+    # actions = { # TODO: Add view button
+    #     "view": {
+    #         "text": _("View Raw Logs"),
+    #         "payload_schema": None,
+    #         "order": 1,
+    #     },
+    # }
 
     search_config_name = "AUDIT_LOGS_SEARCH"
     search_facets_config_name = "AUDIT_LOGS_FACETS"

@@ -6,86 +6,64 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import { BoolFormatter, Actions } from "@js/invenio_administration";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Table } from "semantic-ui-react";
 import { withState } from "react-searchkit";
-import { AdminUIRoutes } from "@js/invenio_administration/src/routes";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 
 class SearchResultItemComponent extends Component {
-    componentDidMount() {
-        console.error("result", this.props.result);
-    }
+  componentDidMount() {
+    console.error("result", this.props.result);
+  }
 
-    refreshAfterAction = () => {
-        const { updateQueryState, currentQueryState } = this.props;
-        updateQueryState(currentQueryState);
-    };
+  refreshAfterAction = () => {
+    const { updateQueryState, currentQueryState } = this.props;
+    updateQueryState(currentQueryState);
+  };
 
-    render() {
-        const {
-            result,
-            idKeyPath,
-            listUIEndpoint,
-            resourceHasActions,
-            resourceName,
-            displayEdit,
-            displayDelete,
-            actions,
-        } = this.props;
+  render() {
+    const { result } = this.props;
 
-        const {
-            log_id,
-            timestamp,
-            event: { action, status },
-            resource: { type, id: resourceId },
-        } = result;
+    const {
+      id,
+      created,
+      action,
+      json: {
+        resource_id: resourceId,
+        user: { name },
+      },
+      resource_type: resourceType,
+      user_id: userId,
+    } = result;
 
-        return (
-            <Table.Row>
-                <Table.Cell data-label={i18next.t("Log ID")}>{log_id}</Table.Cell>
-                <Table.Cell data-label={i18next.t("Status")}>
-                    <BoolFormatter
-                        value={status === "submitted"}
-                        icon="hourglass"
-                        color="yellow"
-                    />
-                    <BoolFormatter value={status === "declined"} icon="ban" color="red" />
-                    <BoolFormatter
-                        value={status === "accepted"}
-                        icon="check"
-                        color="green"
-                    />
-                </Table.Cell>
-                <Table.Cell data-label={i18next.t("Resource")}>{type}</Table.Cell>
-                <Table.Cell data-label={i18next.t("Resource ID")}>{resourceId}</Table.Cell>
-                <Table.Cell data-label={i18next.t("Action")}>{action}</Table.Cell>
-                <Table.Cell data-label={i18next.t("Date")}>{timestamp}</Table.Cell>
-            </Table.Row>
-        );
-    }
+    return (
+      <Table.Row>
+        <Table.Cell data-label={i18next.t("Log ID")}>
+          <a target="_blank" rel="noreferrer noopener" href={result.links.self}>
+            {id}
+          </a>
+        </Table.Cell>
+        <Table.Cell data-label={i18next.t("Resource")}>{resourceType}</Table.Cell>
+        <Table.Cell data-label={i18next.t("Resource ID")}>
+          <a href={`/administration/${resourceType}s?q=id:${resourceId}`}>
+            {resourceId}
+          </a>
+        </Table.Cell>
+        <Table.Cell data-label={i18next.t("Action")}>{action}</Table.Cell>
+        <Table.Cell data-label={i18next.t("User ID")}>
+          <a href={`/administration/users?q=id:${userId}`}>{name ? name : userId}</a>
+        </Table.Cell>
+        <Table.Cell data-label={i18next.t("Date")}>{created}</Table.Cell>
+      </Table.Row>
+    );
+  }
 }
 
 SearchResultItemComponent.propTypes = {
-    result: PropTypes.object.isRequired,
-    idKeyPath: PropTypes.string.isRequired,
-    listUIEndpoint: PropTypes.string.isRequired,
-    resourceHasActions: PropTypes.bool,
-    resourceName: PropTypes.string.isRequired,
-    displayEdit: PropTypes.bool,
-    displayDelete: PropTypes.bool,
-    actions: PropTypes.object,
-    updateQueryState: PropTypes.func.isRequired,
-    currentQueryState: PropTypes.object.isRequired,
-};
-
-SearchResultItemComponent.defaultProps = {
-    displayEdit: true,
-    displayDelete: true,
-    actions: {},
-    resourceHasActions: false,
+  result: PropTypes.object.isRequired,
+  updateQueryState: PropTypes.func.isRequired,
+  currentQueryState: PropTypes.object.isRequired,
 };
 
 export const SearchResultItemLayout = withState(SearchResultItemComponent);
