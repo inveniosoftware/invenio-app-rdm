@@ -23,7 +23,6 @@ from invenio_i18n.ext import current_i18n
 from invenio_rdm_records.proxies import current_rdm_records
 from invenio_rdm_records.records.api import get_files_quota
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
-from invenio_rdm_records.services.components.pids import _get_optional_doi_transitions
 from invenio_rdm_records.services.schemas import RDMRecordSchema
 from invenio_rdm_records.services.schemas.utils import dump_empty
 from invenio_records_resources.services.errors import PermissionDeniedError
@@ -75,14 +74,15 @@ def get_form_pids_config(record=None):
             previous_published_record = (
                 service.record_cls.get_latest_published_by_parent(record.parent)
             )
-            optional_doi_transitions = _get_optional_doi_transitions(
-                previous_published_record
+            validate_optional_doi = current_app.config["RDM_OPTIONAL_DOI_VALIDATOR"]
+            optional_doi_transitions = validate_optional_doi(
+                record, previous_published_record, errors=[]
             )
             if optional_doi_transitions:
                 optional_doi_transitions["message"] = optional_doi_transitions.get(
                     "message"
                 ).format(sitename=sitename)
-                if set(optional_doi_transitions.get("allowed_providers", [])) - set(
+                if set(optional_doi_transitions["allowed_providers"]) - set(
                     ["external", "not_needed"]
                 ):
                     # In case we have locally managed provider as an allowed one, we need to
