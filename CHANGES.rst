@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version v12.0.18 (released 2025-04-09)
+
+- fix: add identifier schemes UI configuration
+
 Version v12.0.17 (released 2025-04-1)
 
 - fix: handle undefined record attributes in templates
