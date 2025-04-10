@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version v13.0.0b3.dev4 (released 2025-04-10)
+
+- deposits: use optional doi validator method
+
 Version v13.0.0b3.dev3 (released 2025-04-04)
 
 - fix: Handle undefined record attributes in templates to avoid rendering errors (#2932)
