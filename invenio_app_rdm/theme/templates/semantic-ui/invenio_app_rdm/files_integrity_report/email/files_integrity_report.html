@@ -3,12 +3,11 @@
 #
 # Copyright (C) 2022 CERN.
 # Copyright (C) 2024 KTH Royal Institute of Technology.
+# Copyright (C) 2025 Northwestern University.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 -#}
-
-{% set BASE_URL = config.SITE_UI_URL %}
 
 {{ _("The following files were flagged as 'unhealthy'. This means that the checksum check failed or timed out. Please take any action if needed.") }}
 
@@ -23,10 +22,10 @@
 {{ _("Last check date: %s") | format(entry.file.last_check_at) }}
 {{ _("Last check FAILED with result: %s") | format(entry.file.last_check) }}
 {%- if 'record' in entry %}
-{{ _("Record: %s/records/%s") | format(BASE_URL, entry.record.id) }}
+{{ _("Record: %s") | format(invenio_url_for("invenio_app_rdm_records.record_detail", pid_value=entry.record.id)) }}
 {%- endif %}
 {%- if 'draft' in entry %}
-{{ _("Draft: %s/uploads/%s") | format(BASE_URL, entry.draft.id) }}
+{{ _("Draft: %s") | format(invenio_url_for("invenio_app_rdm_records.deposit_edit", pid_value=entry.draft.id)) }}
 {%- endif %}
 {{ "-" * 80 }}
 {% endfor %}
