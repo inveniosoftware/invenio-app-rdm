@@ -7,6 +7,7 @@
 
 @import "@uppy/core/dist/style.min.css";
 @import "@uppy/dashboard/dist/style.min.css";
+@import "@uppy/image-editor/dist/style.min.css";
 // TODO: styling for custom dashboardless Uppy UI
 // @import "@uppy/drag-drop/dist/style.css";
 // @import "@uppy/progress-bar/dist/style.css";
@@ -26,8 +27,24 @@
   border-radius: 0 0 5px 5px;
 }
 
+.uppy-DashboardTab[data-uppy-acquirer-id="MyDevice"] {
+  // .sr-only
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  word-wrap: normal;
+  border: 0;
+}
+
 .uppy-Dashboard-innerWrap {
   height: 300px;
+
+  &:has(#uppy-DashboardContent-panel--editor) {
+    height: 500px;
+  }
 }
 
 .uppy-DashboardContent-bar, .uppy-StatusBar {
