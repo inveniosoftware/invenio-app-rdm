@@ -7,15 +7,45 @@
 
 @import "@uppy/core/dist/style.min.css";
 @import "@uppy/dashboard/dist/style.min.css";
+// TODO: styling for custom dashboardless Uppy UI
+// @import "@uppy/drag-drop/dist/style.css";
+// @import "@uppy/progress-bar/dist/style.css";
 
 .uppy-Dashboard-AddFiles {
-  padding: 1rem;
+  padding: 1.2rem;
+}
+.uppy-Dashboard-AddFiles-info {
+  display: block;
 }
 
-.uppy-Dashboard-AddFiles-title {
-  padding-top: 1rem !important;
+.uppy-Dashboard-note {
+  padding-top: 3rem;
+}
+
+.uppy-Dashboard-inner {
+  border-radius: 0 0 5px 5px;
+}
+
+.uppy-Dashboard-innerWrap {
+  height: 300px;
 }
 
 .uppy-DashboardContent-bar, .uppy-StatusBar {
   z-index: 10;
 }
+
+// TODO: styling for custom dashboardless Uppy UI
+// .uppy-DragDrop--isDragDropSupported {
+//   // TODO: figure out why this is undefined here
+//   // border: @dashedBorder;
+//   // border-radius: @defaultBorderRadius;
+//   // background: @highlightHeaderColor none;
+//   border: 0;
+//   background-color: transparent;
+// }
+
+// .uppy-DragDrop-browse {
+//   color: #005b9e;
+//   // TODO: why @linkColor is undefined in this context?
+//   // color: @linkColor;
+// }
