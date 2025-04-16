@@ -101,7 +101,7 @@ export class RecordCitationField extends Component {
       };
     });
 
-    // convert links in text to clickable links (ignoring punctuations at the end)
+    // convert links in text to clickable links (ignoring punctuation at the end)
     const escapedCitation = _escape(citation); // escape html characters
     const urlRegex = /(https?:\/\/[^\s,;]+(?=[^\s,;]*))/g;
     const urlizedCitation = escapedCitation.replace(urlRegex, (url) => {
