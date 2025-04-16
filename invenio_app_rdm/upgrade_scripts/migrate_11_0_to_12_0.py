@@ -172,7 +172,7 @@ def execute_upgrade():
     success = not errors
 
     if success:
-        secho("Commiting to DB", nl=True)
+        secho("Committing to DB", nl=True)
         db.session.commit()
         secho(
             "Data migration completed, please rebuild the search indices now.",

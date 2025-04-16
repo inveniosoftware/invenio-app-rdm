@@ -88,7 +88,7 @@ def pid_url(identifier, scheme=None, url_scheme="https"):
 
 def has_previewable_files(files):
     """Check if any of the files is previewable."""
-    # 'splitext' inclues the dot of the file extension in the
+    # 'splitext' includes the dot of the file extension in the
     # extension, we have to get rid of that
     extensions = [splitext(f["key"])[-1].strip(".").lower() for f in files]
     return any([is_previewable(ext) for ext in extensions])

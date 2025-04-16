@@ -121,7 +121,7 @@ Version v13.0.0b1.dev27 (released 2025-01-16)
 
 - Revert "config: add record and membership comment notifications"
     * This is actually a breaking change since it introduces a new
-      set of notification templates that will potentialy not be
+      set of notification templates that will potentially not be
       styled if overridden in an instance's overlay.
 
 Version v13.0.0b1.dev26 (released 2025-01-16)
@@ -227,7 +227,7 @@ Version v13.0.0b1.dev5 (released 2024-09-25)
 - theme: fix accordion rotation
 - template: mathjax remove from javascript block
 - templates: add mathjax only to parent template
-- landing page: support different MathJax delimeters
+- landing page: support different MathJax delimiters
     * closes https://github.com/CERNDocumentServer/cds-rdm/issues/133
 - search-result: namespace overridable id for community search results
 - search-result: provide key to part of community array element
