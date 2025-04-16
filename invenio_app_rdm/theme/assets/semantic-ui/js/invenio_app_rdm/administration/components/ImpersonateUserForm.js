@@ -50,7 +50,7 @@ export class ImpersonateUserForm extends Component {
       addNotification({
         title: i18next.t("Success"),
         content: i18next.t(
-          "User impersonated succesfully! You will be redirected in frontpage soon.",
+          "User impersonated successfully! You will be redirected in frontpage soon.",
           {
             id: user.id,
           }

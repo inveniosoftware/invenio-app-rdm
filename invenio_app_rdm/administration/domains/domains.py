@@ -94,7 +94,7 @@ class FormMixin:
             "text": _("Category"),
             "description": _("A label to categorise the domain."),
             "options": [
-                # TODO: Needs to be dynmaically loaded from domain category table.
+                # TODO: Needs to be dynamically loaded from domain category table.
                 {"title_l10n": "Organization", "id": "organization"},
                 {"title_l10n": "Company", "id": "company"},
                 {"title_l10n": "Mail provider", "id": "mailprovider"},

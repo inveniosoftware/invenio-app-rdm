@@ -53,7 +53,7 @@ export const LinksSearchItem = ({
   const copyButtonRef = React.createRef();
 
   useEffect(() => {
-    copyButtonRef.current?.focus(); // Accessiblity: focus the copy-button when modal opens
+    copyButtonRef.current?.focus(); // Accessibility: focus the copy-button when modal opens
   }, [copyButtonRef]);
 
   useEffect(() => {

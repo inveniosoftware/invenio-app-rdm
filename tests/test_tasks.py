@@ -44,7 +44,7 @@ def test_task_file_integrity_report(app, invalid_file_instance):
 
 
 def test_integrity_report_invalid_template(app, invalid_file_instance):
-    """Test non-existant e-mail template."""
+    """Test non-existent e-mail template."""
     assert invalid_file_instance.last_check is False
 
     mail = app.extensions.get("mail")

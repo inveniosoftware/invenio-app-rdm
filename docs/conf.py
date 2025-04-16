@@ -319,5 +319,5 @@ intersphinx_mapping = {
     "werkzeug": ("https://werkzeug.palletsprojects.com/", None),
 }
 
-# Autodoc configuraton.
+# Autodoc configuration.
 autoclass_content = "both"

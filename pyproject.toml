@@ -1,3 +1,10 @@
 [build-system]
 requires = ["setuptools", "wheel", "babel>2.8"]
 build-backend = "setuptools.build_meta"
+
+[tool.codespell]
+# Ref: https://github.com/codespell-project/codespell#using-a-config-file
+skip = '.git*,*.svg,package-lock.json,translations.json,translations,*.??.html'
+check-hidden = true
+# ignore-regex = ''
+# ignore-words-list = ''

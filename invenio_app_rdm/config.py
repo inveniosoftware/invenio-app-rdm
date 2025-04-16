@@ -508,7 +508,7 @@ SQLALCHEMY_ECHO = False
 SQLALCHEMY_ENGINE_OPTIONS = {
     "pool_pre_ping": False,
     "pool_recycle": 3600,
-    # set a more agressive timeout to ensure http requests don't wait for long
+    # set a more aggressive timeout to ensure http requests don't wait for long
     "pool_timeout": 10,
 }
 """SQLAlchemy engine options.
@@ -699,7 +699,7 @@ CACHE_TYPE = "flask_caching.backends.redis"
 # See https://invenio-access.readthedocs.io/en/latest/configuration.html
 
 ACCESS_CACHE = "invenio_cache:current_cache"
-"""Use the cache for permmissions caching."""
+"""Use the cache for permissions caching."""
 
 # Invenio-Search
 # ==============
@@ -922,7 +922,7 @@ APP_RDM_DEPOSIT_FORM_DEFAULTS = {
             "title": "Creative Commons Attribution 4.0 International",
             "description": (
                 "The Creative Commons Attribution license allows "
-                "re-distribution and re-use of a licensed work "
+                "re-distribution and reuse of a licensed work "
                 "on the condition that the creator is "
                 "appropriately credited."
             ),

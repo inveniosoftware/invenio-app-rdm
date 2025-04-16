@@ -102,7 +102,7 @@ def send_integrity_report_email(files):
     """Sends an e-mail with a report on the provided files.
 
     APP configs ('MAIL_DEFAULT_SENDER', 'APP_RDM_ADMIN_EMAIL_RECIPIENT') must be set.
-    Oherwise a warning is logged.
+    Otherwise a warning is logged.
     """
     try:
         if files:
