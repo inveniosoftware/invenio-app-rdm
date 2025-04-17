@@ -352,7 +352,12 @@ export class RDMDepositForm extends Component {
                         })}
                       />
                     </Overridable>
-                    <CopyrightsField fieldPath="metadata.copyrights" />
+                    <Overridable
+                      id="InvenioAppRdm.Deposit.CopyrightsField.container"
+                      fieldPath="metadata.copyright"
+                    >
+                      <CopyrightsField fieldPath="metadata.copyright" />
+                    </Overridable>
                     <Overridable
                       id="InvenioAppRdm.Deposit.AccordionFieldBasicInformation.extra"
                       record={record}
