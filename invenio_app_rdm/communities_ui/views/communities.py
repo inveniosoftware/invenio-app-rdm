@@ -9,6 +9,12 @@
 """Request views module."""
 
 from flask import abort, g, redirect, request, url_for
+from invenio_collections.errors import (
+    CollectionNotFound,
+    CollectionTreeNotFound,
+    LogoNotFoundError,
+)
+from invenio_collections.proxies import current_collections
 from invenio_communities.views.communities import (
     HEADER_PERMISSIONS,
     _get_roles_can_invite,
@@ -18,11 +24,6 @@ from invenio_communities.views.communities import (
 from invenio_communities.views.decorators import pass_community
 from invenio_pages.proxies import current_pages_service
 from invenio_pages.records.errors import PageNotFoundError
-from invenio_rdm_records.collections import (
-    CollectionNotFound,
-    CollectionTreeNotFound,
-    LogoNotFoundError,
-)
 from invenio_rdm_records.proxies import (
     current_community_records_service,
     current_rdm_records,
@@ -54,7 +55,7 @@ def communities_detail(pid_value, community, community_ui):
 def communities_home(pid_value, community, community_ui):
     """Community home page."""
     query_params = request.args
-    collections_service = current_rdm_records.collections_service
+    collections_service = current_collections.service
     permissions = community.has_permissions_to(HEADER_PERMISSIONS)
     if not permissions["can_read"]:
         raise PermissionDeniedError()
@@ -124,7 +125,7 @@ def communities_browse(pid_value, community, community_ui):
     """Community browse page."""
     permissions = community.has_permissions_to(HEADER_PERMISSIONS)
 
-    collections_service = current_rdm_records.collections_service
+    collections_service = current_collections.service
 
     trees_ui = collections_service.list_trees(
         g.identity, community_id=community.id, depth=2
@@ -167,7 +168,7 @@ def community_collection(
     community, community_ui, pid_value, tree_slug=None, collection_slug=None
 ):
     """Render a community collection page."""
-    collections_service = current_rdm_records.collections_service
+    collections_service = current_collections.service
     try:
         collection = collections_service.read(
             identity=g.identity,
