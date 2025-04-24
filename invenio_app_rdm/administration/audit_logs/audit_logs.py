@@ -10,6 +10,7 @@
 from invenio_administration.views.base import AdminResourceListView
 from invenio_i18n import lazy_gettext as _
 
+
 class AuditLogListView(AdminResourceListView):
     """Audit logs admin search view."""
 
@@ -42,7 +43,7 @@ class AuditLogListView(AdminResourceListView):
             "text": _("Resource"),
             "order": 2,
         },
-        "resource_id": { # Link to resource in the `resource_type` admin panel
+        "resource_id": {  # Link to resource in the `resource_type` admin panel
             "text": _("Resource ID"),
             "order": 3,
         },
@@ -50,7 +51,7 @@ class AuditLogListView(AdminResourceListView):
             "text": _("Action"),
             "order": 4,
         },
-        "user_id": { # Link to user in user admin panel
+        "user_id": {  # Link to user in user admin panel
             "text": _("User ID"),
             "order": 5,
             "width": 2,
@@ -73,4 +74,3 @@ class AuditLogListView(AdminResourceListView):
     search_config_name = "AUDIT_LOGS_SEARCH"
     search_facets_config_name = "AUDIT_LOGS_FACETS"
     search_sort_config_name = "AUDIT_LOGS_SORT_OPTIONS"
-

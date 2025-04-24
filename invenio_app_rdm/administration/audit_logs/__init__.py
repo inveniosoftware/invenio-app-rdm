@@ -9,4 +9,4 @@
 
 from .audit_logs import AuditLogListView
 
-__all__ = ("AuditLogListView")
+__all__ = "AuditLogListView"
