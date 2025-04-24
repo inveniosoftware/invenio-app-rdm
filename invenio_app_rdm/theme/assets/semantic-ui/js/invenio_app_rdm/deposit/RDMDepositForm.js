@@ -43,6 +43,7 @@ import { FundingField } from "@js/invenio_vocabularies";
 import { Card, Container, Grid, Ref, Sticky } from "semantic-ui-react";
 import PropTypes from "prop-types";
 import Overridable from "react-overridable";
+import { CopyrightsField } from "@js/invenio_rdm_records/src/deposit/fields/CopyrightsField/CopyrightsField";
 import { ShareDraftButton } from "./ShareDraftButton";
 import { depositFormSectionsConfig, severityChecksConfig } from "./config";
 
@@ -350,6 +351,12 @@ export class RDMDepositForm extends Component {
                           link: result.props.url,
                         })}
                       />
+                    </Overridable>
+                    <Overridable
+                      id="InvenioAppRdm.Deposit.CopyrightsField.container"
+                      fieldPath="metadata.copyright"
+                    >
+                      <CopyrightsField fieldPath="metadata.copyright" />
                     </Overridable>
                     <Overridable
                       id="InvenioAppRdm.Deposit.AccordionFieldBasicInformation.extra"
