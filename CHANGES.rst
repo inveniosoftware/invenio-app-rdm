@@ -10,6 +10,11 @@
 Changes
 =======
 
+Version v13.0.0b3.dev5 (released 2025-04-25)
+
+- deposit: add copyright field
+- landing page: bugfix for user avatars
+
 Version v13.0.0b3.dev4 (released 2025-04-10)
 
 - deposits: use optional doi validator method
