@@ -29,12 +29,8 @@ class SearchResultItemComponent extends Component {
       id,
       created,
       action,
-      json: {
-        resource_id: resourceId,
-        user: { name },
-      },
-      resource_type: resourceType,
-      user_id: userId,
+      resource: { id: resourceId, type: resourceType },
+      user: { id: userId, name: userName },
     } = result;
 
     return (
@@ -52,7 +48,9 @@ class SearchResultItemComponent extends Component {
         </Table.Cell>
         <Table.Cell data-label={i18next.t("Action")}>{action}</Table.Cell>
         <Table.Cell data-label={i18next.t("User ID")}>
-          <a href={`/administration/users?q=id:${userId}`}>{name ? name : userId}</a>
+          <a href={`/administration/users?q=id:${userId}`}>
+            {userName ? userName : userId}
+          </a>
         </Table.Cell>
         <Table.Cell data-label={i18next.t("Date")}>{created}</Table.Cell>
       </Table.Row>

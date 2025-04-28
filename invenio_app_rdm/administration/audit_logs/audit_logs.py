@@ -39,11 +39,11 @@ class AuditLogListView(AdminResourceListView):
             "order": 1,
             "width": 3,
         },
-        "resource_type": {
+        "resource.type": {
             "text": _("Resource"),
             "order": 2,
         },
-        "resource_id": {  # Link to resource in the `resource_type` admin panel
+        "resource.id": {  # Link to resource in the `resource_type` admin panel
             "text": _("Resource ID"),
             "order": 3,
         },
@@ -51,7 +51,7 @@ class AuditLogListView(AdminResourceListView):
             "text": _("Action"),
             "order": 4,
         },
-        "user_id": {  # Link to user in user admin panel
+        "user.id": {  # Link to user in user admin panel
             "text": _("User ID"),
             "order": 5,
             "width": 2,
@@ -62,14 +62,6 @@ class AuditLogListView(AdminResourceListView):
             "width": 7,
         },
     }
-
-    # actions = { # TODO: Add view button
-    #     "view": {
-    #         "text": _("View Raw Logs"),
-    #         "payload_schema": None,
-    #         "order": 1,
-    #     },
-    # }
 
     search_config_name = "AUDIT_LOGS_SEARCH"
     search_facets_config_name = "AUDIT_LOGS_FACETS"
