@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version v12.0.19 (released 2025-04-28)
+
+- records-ui: add error handler returning 404 on `NoResultFound` exceptions
+
 Version v12.0.18 (released 2025-04-09)
 
 - fix: add identifier schemes UI configuration
