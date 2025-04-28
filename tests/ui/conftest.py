@@ -12,12 +12,13 @@
 from io import BytesIO
 
 import pytest
+from flask_principal import Identity
 from flask_webpackext.manifest import (
     JinjaManifest,
     JinjaManifestEntry,
     JinjaManifestLoader,
 )
-from invenio_access.permissions import system_identity
+from invenio_access.permissions import any_user, authenticated_user, system_identity
 from invenio_app.factory import create_ui
 from invenio_rdm_records.proxies import current_rdm_records
 from invenio_search import current_search
@@ -74,14 +75,18 @@ def record(running_app, minimal_record):
 
 
 @pytest.fixture()
-def record_with_file(running_app, minimal_record):
-    """Create and publish a record with file."""
+def draft_with_file(running_app, minimal_record, users):
+    """Create a draft with a file."""
     minimal_record["files"] = {"enabled": True}
 
+    # Use a user's identity to make sure the record has an owner
+    user_identity = Identity(users["user1"].id)
+    user_identity.provides.add(any_user)
+    user_identity.provides.add(authenticated_user)
     record_service = current_rdm_records.records_service
     file_service = record_service.draft_files
 
-    draft = record_service.create(system_identity, minimal_record)
+    draft = record_service.create(user_identity, minimal_record)
     file_to_initialise = [
         {
             "key": "article.txt",
@@ -102,4 +107,11 @@ def record_with_file(running_app, minimal_record):
         content.getbuffer().nbytes,
     )
     file_service.commit_file(system_identity, draft.id, "article.txt")
-    return record_service.publish(system_identity, draft.id)
+    return draft
+
+
+@pytest.fixture()
+def record_with_file(draft_with_file):
+    """Create and publish a record with file."""
+    record_service = current_rdm_records.records_service
+    return record_service.publish(system_identity, draft_with_file.id)
