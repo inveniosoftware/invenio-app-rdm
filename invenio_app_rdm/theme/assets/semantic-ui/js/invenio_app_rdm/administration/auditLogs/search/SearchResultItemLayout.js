@@ -30,7 +30,7 @@ class SearchResultItemComponent extends Component {
       created,
       action,
       resource: { id: resourceId, type: resourceType },
-      user: { id: userId, name: userName },
+      user: { id: userId, email: userEmail },
     } = result;
 
     return (
@@ -47,9 +47,9 @@ class SearchResultItemComponent extends Component {
           </a>
         </Table.Cell>
         <Table.Cell data-label={i18next.t("Action")}>{action}</Table.Cell>
-        <Table.Cell data-label={i18next.t("User ID")}>
+        <Table.Cell data-label={i18next.t("User")}>
           <a href={`/administration/users?q=id:${userId}`}>
-            {userName ? userName : userId}
+            {userId} ({userEmail})
           </a>
         </Table.Cell>
         <Table.Cell data-label={i18next.t("Date")}>{created}</Table.Cell>

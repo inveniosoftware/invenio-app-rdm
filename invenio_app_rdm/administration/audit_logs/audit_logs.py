@@ -38,23 +38,27 @@ class AuditLogListView(AdminResourceListView):
             "text": _("Log ID"),
             "order": 1,
             "width": 3,
+            "width": 3,
         },
         "resource.type": {
             "text": _("Resource"),
             "order": 2,
+            "width": 2,
         },
         "resource.id": {  # Link to resource in the `resource_type` admin panel
             "text": _("Resource ID"),
             "order": 3,
+            "width": 2,
         },
         "action": {
             "text": _("Action"),
             "order": 4,
+            "width": 2,
         },
         "user.id": {  # Link to user in user admin panel
-            "text": _("User ID"),
+            "text": _("User"),
             "order": 5,
-            "width": 2,
+            "width": 3,
         },
         "created": {
             "text": _("Timestamp"),
