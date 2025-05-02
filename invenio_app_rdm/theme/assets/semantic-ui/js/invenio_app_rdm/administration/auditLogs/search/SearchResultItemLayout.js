@@ -8,7 +8,8 @@
 
 import PropTypes from "prop-types";
 import React, { Component } from "react";
-import { Table } from "semantic-ui-react";
+import { Item, Table } from "semantic-ui-react";
+import { Image } from "react-invenio-forms";
 import { withState } from "react-searchkit";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 
@@ -48,9 +49,12 @@ class SearchResultItemComponent extends Component {
         </Table.Cell>
         <Table.Cell data-label={i18next.t("Action")}>{action}</Table.Cell>
         <Table.Cell data-label={i18next.t("User")}>
-          <a href={`/administration/users?q=id:${userId}`}>
-            {userId} ({userEmail})
-          </a>
+          <Item className="flex" key={userId}>
+            <Image src={`/api/users/${userId}/avatar.svg`} avatar loadFallbackFirst />
+            <a href={`/administration/users?q=id:${userId}`}>
+              {userEmail} ({userId})
+            </a>
+          </Item>
         </Table.Cell>
         <Table.Cell data-label={i18next.t("Date")}>{created}</Table.Cell>
       </Table.Row>
