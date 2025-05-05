@@ -481,7 +481,7 @@ export class RDMDepositForm extends Component {
                     includesPaths={this.sectionsConfig["funding-section"]}
                     severityChecks={this.severityChecks}
                     active
-                    label="Funding"
+                    label={i18next.t("Funding")}
                     ui={this.accordionStyle}
                     id="funding-section"
                   >
