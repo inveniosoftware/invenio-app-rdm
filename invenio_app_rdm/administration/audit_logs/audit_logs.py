@@ -6,6 +6,7 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """Invenio administration view module for audit logs."""
+from flask import current_app
 
 from invenio_administration.views.base import AdminResourceListView
 from invenio_i18n import lazy_gettext as _
@@ -70,3 +71,8 @@ class AuditLogListView(AdminResourceListView):
     search_config_name = "AUDIT_LOGS_SEARCH"
     search_facets_config_name = "AUDIT_LOGS_FACETS"
     search_sort_config_name = "AUDIT_LOGS_SORT_OPTIONS"
+
+    @staticmethod
+    def disabled():
+        """Disable the view on demand."""
+        return not current_app.config["AUDIT_LOGS_ENABLED"]
