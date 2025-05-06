@@ -309,3 +309,12 @@
       class="fa fa-external-link"></i> {{ _('Conference website') }}</a></dd>
   {%- endif %}
 {% endmacro %}
+
+
+{% macro show_detail_thesis(title, thesis) %}
+  <dt class="ui tiny header">
+    {{ title }}
+  </dt>
+  <dd>{{ thesis | safe }}
+  </dd>
+{% endmacro %}
