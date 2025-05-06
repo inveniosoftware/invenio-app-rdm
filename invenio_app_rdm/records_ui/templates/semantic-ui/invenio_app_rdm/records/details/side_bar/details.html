@@ -9,7 +9,7 @@
 #}
 
 {%- from "invenio_app_rdm/records/macros/detail.html" import
-  list_languages, show_dates, show_detail, show_detail_conference %}
+  list_languages, show_dates, show_detail, show_detail_conference, show_detail_thesis %}
 
 {%- set id_doi = record.pids.get('doi', {}).get('identifier') %}
 
@@ -26,7 +26,7 @@
       {{ show_detail(_('Publisher'), metadata.publisher) if metadata.publisher }}
       {{ show_detail(_('Published in'), record.ui.publishing_information.journal) if record.ui.get('publishing_information', {}).get('journal') }}
       {{ show_detail(_('Imprint'), record.ui.publishing_information.imprint) if record.ui.get('publishing_information', {}).get('imprint') }}
-      {{ show_detail(_('Awarding university'), record.ui.publishing_information.thesis) if record.ui.get('publishing_information', {}).get('thesis', {}) }}
+      {{ show_detail_thesis(_('Thesis'), record.ui.publishing_information.thesis) if record.ui.get('publishing_information', {}).get('thesis', {}) }}
       {{ show_detail(_('Conference'), show_detail_conference(record.ui.conference)) if record.ui.conference }}
       {{ show_detail(_('Languages'), list_languages(record.ui.languages)) if record.ui.languages }}
       {{ show_detail(_('Formats'), ", ".join(metadata.formats)) if metadata.formats }}
