@@ -391,6 +391,17 @@ def get_form_config(**kwargs):
     )
 
 
+def get_actual_files_quota(draft):
+    """Report the actual effective quota from the draft's bucket, if available."""
+    if draft is not None and draft.bucket is not None:
+        return {
+            "quota_size": draft.bucket.quota_size,
+            "max_file_size": draft.bucket.max_file_size,
+        }
+
+    return get_files_quota(draft)
+
+
 def get_search_url():
     """Get the search URL."""
     # TODO: this should not be used
@@ -453,7 +464,7 @@ def deposit_create(community=None):
         forms_config=get_form_config(
             dashboard_routes=dashboard_routes,
             createUrl="/api/records",
-            quota=get_files_quota(),
+            quota=get_actual_files_quota(None),
             hide_community_selection=community_use_jinja_header,
             is_doi_required=is_doi_required,
         ),
@@ -529,7 +540,7 @@ def deposit_edit(pid_value, draft=None, draft_files=None, files_locked=True):
         apiUrl=f"/api/records/{pid_value}/draft",
         dashboard_routes=dashboard_routes,
         # maybe quota should be serialized into the record e.g for admins
-        quota=get_files_quota(draft._record),
+        quota=get_actual_files_quota(draft._record),
         # hide react community component
         hide_community_selection=community_use_jinja_header,
         is_doi_required=is_doi_required,
