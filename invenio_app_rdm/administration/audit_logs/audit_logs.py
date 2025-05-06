@@ -7,7 +7,6 @@
 
 """Invenio administration view module for audit logs."""
 from flask import current_app
-
 from invenio_administration.views.base import AdminResourceListView
 from invenio_i18n import lazy_gettext as _
 
