@@ -10,6 +10,15 @@
 Changes
 =======
 
+Version v13.0.0b3.dev6 (released 2025-05-07)
+
+- records-ui: add error handler for NoResultFound exceptions
+- tests: add tests for draft file download with and without preview flag
+- i18n: mark string for translation
+- urls: integrate link generation (invenio_url_for)
+- templates: add thesis details display
+- administration: Add Audit Logs Admin Panel UI (experimental feature, behind a flag)
+
 Version v13.0.0b3.dev5 (released 2025-04-25)
 
 - deposit: add copyright field
