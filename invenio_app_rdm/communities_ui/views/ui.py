@@ -10,6 +10,7 @@
 """Communities UI blueprints module."""
 
 from flask import Blueprint, current_app, request
+from invenio_collections.searchapp import search_app_context as c_search_app_context
 from invenio_communities.errors import CommunityDeletedError
 from invenio_communities.views.ui import (
     not_found_error,
@@ -17,7 +18,6 @@ from invenio_communities.views.ui import (
     record_tombstone_error,
 )
 from invenio_pidstore.errors import PIDDeletedError, PIDDoesNotExistError
-from invenio_rdm_records.collections import search_app_context as c_search_app_context
 from invenio_records_resources.services.errors import (
     PermissionDeniedError,
     RecordPermissionDeniedError,
