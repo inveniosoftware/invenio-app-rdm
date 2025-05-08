@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version <next>
+
+- deposit: show actual effective quota for the draft rather than config values, if available
+
 Version v13.0.0b3.dev7 (released 2025-05-08)
 
 - fix: community request page missing context variable
