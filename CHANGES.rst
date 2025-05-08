@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version v13.0.0b3.dev7 (released 2025-05-08)
+
+- fix: community request page missing context variable
+
 Version v13.0.0b3.dev6 (released 2025-05-07)
 
 - records-ui: add error handler for NoResultFound exceptions
