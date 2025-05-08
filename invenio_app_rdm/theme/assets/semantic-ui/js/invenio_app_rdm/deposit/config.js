@@ -6,7 +6,7 @@
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 
 const depositFormSectionsConfig = {
-  "files-section": ["files.enabled"],
+  "files-section": ["files.enabled", "files.entries"],
   "basic-information-section": [
     "pids.doi",
     "metadata.resource_type",
