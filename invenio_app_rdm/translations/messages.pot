@@ -7,9 +7,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: invenio-app-rdm 12.0.15\n"
+"Project-Id-Version: invenio-app-rdm 12.1.0\n"
 "Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
-"POT-Creation-Date: 2025-03-27 16:30+0000\n"
+"POT-Creation-Date: 2025-05-13 22:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -79,27 +79,27 @@ msgstr ""
 msgid "Citation File Format"
 msgstr ""
 
-#: invenio_app_rdm/config.py:996
+#: invenio_app_rdm/config.py:1015
 msgid "APA"
 msgstr ""
 
-#: invenio_app_rdm/config.py:997
+#: invenio_app_rdm/config.py:1016
 msgid "Harvard"
 msgstr ""
 
-#: invenio_app_rdm/config.py:998
+#: invenio_app_rdm/config.py:1017
 msgid "MLA"
 msgstr ""
 
-#: invenio_app_rdm/config.py:999
+#: invenio_app_rdm/config.py:1018
 msgid "Vancouver"
 msgstr ""
 
-#: invenio_app_rdm/config.py:1000
+#: invenio_app_rdm/config.py:1019
 msgid "Chicago"
 msgstr ""
 
-#: invenio_app_rdm/config.py:1001
+#: invenio_app_rdm/config.py:1020
 msgid "IEEE"
 msgstr ""
 
@@ -871,8 +871,8 @@ msgstr ""
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/licenses.html:14
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/licenses.html:16
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:162
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:191
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:170
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:201
 #: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/macros/request_header.html:61
 #: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/user-access-request/index.html:43
 msgid "Opens in new tab"
@@ -923,32 +923,41 @@ msgstr ""
 msgid "Versions"
 msgstr ""
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:17
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:22
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:27
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:88
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:89
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:18
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:23
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:28
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:93
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:94
 msgid "profile"
 msgstr ""
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:71
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:75
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:72
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:76
 msgid "Show affiliations"
 msgstr ""
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:72
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:73
 msgid "Hide affiliations"
 msgstr ""
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:79
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:80
 msgid "Affiliations for"
 msgstr ""
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:119
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:68
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:71
+msgid "Missing description type!"
+msgstr ""
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:90
+msgid "Unknown date type"
+msgstr ""
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:128
 msgid "Open external link"
 msgstr ""
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:297
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:307
 msgid "Conference website"
 msgstr ""
 
@@ -1032,7 +1041,7 @@ msgid ""
 "cited. Example: 10.1234/foo.bar"
 msgstr ""
 
-#: invenio_app_rdm/records_ui/views/deposits.py:197
+#: invenio_app_rdm/records_ui/views/deposits.py:195
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/searchbar.html:11
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/searchbar.html:19
 msgid "All"
