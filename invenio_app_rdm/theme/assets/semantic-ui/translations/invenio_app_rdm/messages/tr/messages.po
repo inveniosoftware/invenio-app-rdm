@@ -1,0 +1,952 @@
+# 
+# Translators:
+# Hakan Bayindir <hbayindir@gmail.com>, 2024
+# Berat Aldemir <berataldemir@gmail.com>, 2024
+# Ben Translation and Interpreting Services <info@bentercume.com>, 2025
+# BEN TERCÜME, 2025
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2025-03-27T16:30:16.192Z\n"
+"PO-Revision-Date: 2021-07-14 16:07+0000\n"
+"Last-Translator: BEN TERCÜME, 2025\n"
+"Language-Team: Turkish (https://app.transifex.com/inveniosoftware/teams/23537/tr/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: tr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"mime-version: 1.0\n"
+
+msgid "Basic information"
+msgstr "Temel bilgiler"
+
+msgid "Impersonate user"
+msgstr "Kullanıcıyı taklit et"
+
+msgid "Impersonate"
+msgstr "Taklit et"
+
+msgid "You must accept this."
+msgstr "Bunu kabul etmelisiniz."
+
+msgid "Success"
+msgstr "Başarı"
+
+msgid ""
+"User impersonated succesfully! You will be redirected in frontpage soon."
+msgstr ""
+"Kullanıcı başarıyla taklit edildi! Yakında ana sayfaya yönlendirileceksiniz."
+
+msgid "Unable to impersonate user."
+msgstr "Kullanıcı taklit edilemiyor."
+
+msgid ""
+"Please read carefully and confirm the following statements before you "
+"proceed."
+msgstr ""
+"Lütfen devam etmeden önce aşağıdaki ifadeleri dikkatlice okuyun ve "
+"onaylayın."
+
+msgid "You are about to impersonate user <bold>{{email}}(id: {{id}})</bold>."
+msgstr ""
+"<bold>{{email}}(id: {{id}})</bold>kullanıcısını taklit etmek üzeresiniz."
+
+msgid "You <bold>MUST</bold> logout after completing your inquiry."
+msgstr ""
+"Sorgulamanızı tamamladıktan sonra <bold>MUTLAKA</bold> çıkış yapmalısınız."
+
+msgid "Close"
+msgstr "Kapat"
+
+msgid "Set Quota"
+msgstr "Kota Belirle"
+
+msgid "Set quota in bytes"
+msgstr "Bayt olarak kota belirle"
+
+msgid "Note"
+msgstr "Not"
+
+msgid ""
+"This is the default quota that will be applied to any NEW records created by"
+" this user – it will NOT update quota of existing records."
+msgstr ""
+"Bu kota, bu kullanıcı tarafından oluşturulacak tüm YENİ kayıtlara "
+"uygulanacak olan varsayılan kotadır - mevcut kayıtların kotasını "
+"GÜNCELLEMEZ."
+
+msgid "Quota of {{id}} was set to {{quota}} {{unit}}"
+msgstr "{{id}} kotası {{quota}} {{unit}} olarak ayarlandı"
+
+msgid "Unable to set quota."
+msgstr "Kota ayarlanamıyor."
+
+msgid "Quota size ({{unit}})"
+msgstr "Kota boyutu ({{unit}})"
+
+msgid "Enter quota size..."
+msgstr "Kota boyutunu girin..."
+
+msgid "Max file size ({{unit}})"
+msgstr "Maksimum dosya boyutu ({{unit}})"
+
+msgid "Enter max file size..."
+msgstr "Maksimum dosya boyutunu girin..."
+
+msgid "Ticket 1234"
+msgstr "Talep 1234"
+
+msgid "Set quota"
+msgstr "Kota belirle"
+
+msgid "Domain"
+msgstr "Etki Alanı"
+
+msgid "Flagged"
+msgstr "İşaretli"
+
+msgid "Organization"
+msgstr "Kuruluş"
+
+msgid "Company"
+msgstr "Şirket"
+
+msgid "Mail provider"
+msgstr "E-posta servis sağlayıcısı"
+
+msgid "Spammer"
+msgstr "Spam gönderen"
+
+msgid "TLD"
+msgstr "TLD"
+
+msgid "Status"
+msgstr "Durum"
+
+msgid "New"
+msgstr "Yeni"
+
+msgid "Moderated"
+msgstr "Denetlenmiş"
+
+msgid "Verified"
+msgstr "Doğrulanmış"
+
+msgid "Blocked"
+msgstr "Engellenmiş"
+
+msgid "Users"
+msgstr "Kullanıcılar"
+
+msgid "Active"
+msgstr "Aktif"
+
+msgid "Inactive"
+msgstr "Aktif olmayan"
+
+msgid "Confirmed"
+msgstr "Onaylı"
+
+msgid "Links"
+msgstr "Bağlantılar"
+
+msgid "Set quota for record {{recordId}}"
+msgstr "{{recordId}} kaydı için kota belirleyin"
+
+msgid "Delete record"
+msgstr "Kaydı sil"
+
+msgid "Restore record"
+msgstr "Kaydı geri yükle"
+
+msgid "Unavailability statement"
+msgstr "Kullanılamama bildirimi"
+
+msgid "Record {{id}} was restored."
+msgstr "{{id}} kaydı geri yüklendi."
+
+msgid "Unable to restore."
+msgstr "Geri yüklenemiyor."
+
+msgid "Are you sure you want to restore #{{id}}"
+msgstr "#{{id}} kaydını geri yüklemek istediğinizden emin misiniz?"
+
+msgid "Published"
+msgstr "Yayınlanmış"
+
+msgid "Deleted"
+msgstr "Silinen"
+
+msgid "Scheduled for purge"
+msgstr "Silinmek üzere zamanlandı"
+
+msgid "Empty draft title"
+msgstr "Boş taslak başlığı"
+
+msgid "version"
+msgstr "sürüm"
+
+msgid "Owner"
+msgstr "Sahip"
+
+msgid "Created"
+msgstr "Oluşturuldu"
+
+msgid "Files"
+msgstr "Dosyalar"
+
+msgid "Stats"
+msgstr "İstatistikler"
+
+msgid "Record {{id}} was deleted."
+msgstr "{{id}} kaydı silindi."
+
+msgid "Unable to delete"
+msgstr "Silinemiyor"
+
+msgid "Public"
+msgstr "Herkese açık"
+
+msgid "Hidden"
+msgstr "Gizli"
+
+msgid ""
+"The tombstone is set to hidden but your record is public. Best practice is "
+"to provide a public tombstone when deactivating public records."
+msgstr ""
+"Mezar taşı belirteci gizli olarak ayarlanmış ancak kaydınız herkese açık. En"
+" iyi uygulama, herkese açık kayıtları devre dışı bırakırken herkese açık bir"
+" mezar taşı sağlamaktır."
+
+msgid ""
+"RISK INFORMATION LEAKAGE: The tombstone is set to public but your record is "
+"restricted. Please make sure no restricted information is shared in the "
+"tombstone below."
+msgstr ""
+"BİLGİSİ SIZINTISI RİSKİ: Mezar taşı belirteci herkese açık olarak ayarlanmış"
+" ancak kaydınızdaki bilgiler kısıtlanmış. Lütfen aşağıdaki mezar taşında "
+"kısıtlanmış bilgilerin paylaşılmadığından emin olun."
+
+msgid "Bibliographic citation"
+msgstr "Bibliyografik referans"
+
+msgid ""
+"Input citation text. Blank field will be filled with APA citation by "
+"default."
+msgstr ""
+"Referans metnini girin. Boş alan varsayılan olarak APA referansı ile "
+"doldurulacaktır."
+
+msgid "Public note"
+msgstr "Herkese açık not"
+
+msgid "User {{name}} was approved."
+msgstr "{{name}} adlı kullanıcı onaylandı."
+
+msgid "User {{name}} is blocked."
+msgstr "{{name}} adlı kullanıcı engellendi."
+
+msgid "Error"
+msgstr "Hata"
+
+msgid "User"
+msgstr "Kullanıcı"
+
+msgid "Email"
+msgstr "E-posta"
+
+msgid "Email domain"
+msgstr "E-posta etki alanı"
+
+msgid "Actions"
+msgstr "Eylemler"
+
+msgid "Records"
+msgstr "Kayıtlar"
+
+msgid "Username"
+msgstr "Kullanıcı adı"
+
+msgid "GitHub"
+msgstr "GitHub"
+
+msgid "Updated"
+msgstr "Güncellendi"
+
+msgid "Restore"
+msgstr "Geri yükle"
+
+msgid "Restored"
+msgstr "Geri yüklendi"
+
+msgid "Block"
+msgstr "Engelle"
+
+msgid "Suspend"
+msgstr "Askıya al"
+
+msgid "Suspended"
+msgstr "Askıya alındı"
+
+msgid "Approve"
+msgstr "Onayla"
+
+msgid "Approved"
+msgstr "Onaylandı"
+
+msgid "Activate"
+msgstr "Aktive et"
+
+msgid "Activated"
+msgstr "Aktive edildi"
+
+msgid "Set default quota for {{email}}"
+msgstr "{{email}} için varsayılan kotayı ayarla"
+
+msgid "Filter results"
+msgstr "Sonuçları filtrele"
+
+msgid "Search records in community..."
+msgstr "Topluluktaki kayıtları ara..."
+
+msgid "Sort by"
+msgstr "Şuna göre sırala:"
+
+msgid " results found"
+msgid_plural " results found"
+msgstr[0] "adet sonuç bulundu"
+msgstr[1] "adet sonuç bulundu"
+
+msgid "Search records..."
+msgstr "Kayıtları ara..."
+
+msgid "Search"
+msgstr "Ara"
+
+msgid "Views"
+msgstr "Görüntüleme"
+
+msgid "Downloads"
+msgstr "İndirilenler"
+
+msgid "Copy to clipboard"
+msgstr "Panoya kopyala"
+
+msgid "Copied!"
+msgstr "Kopyalandı!"
+
+msgid "Part of "
+msgstr "Şunun parçası:"
+
+msgid "No creation date found."
+msgstr "Oluşturulma tarihi bulunamadı."
+
+msgid "No description"
+msgstr "Açıklama yok"
+
+msgid "No publication date found."
+msgstr "Yayın tarihi bulunamadı."
+
+msgid "No resource type"
+msgstr "Kaynak türü yok"
+
+msgid "No title"
+msgstr "Başlık yok"
+
+msgid "Uploaded on {{uploadDate}}"
+msgstr "Karşıya yüklenme tarihi: {{uploadDate}}"
+
+msgid "Published in: {{publishInfo}}"
+msgstr "Yayınlanma bilgisi: {{publishInfo}}"
+
+msgid "{{count}} more versions exist for this record"
+msgid_plural "{{count}} more versions exist for this record"
+msgstr[0] "Bu kayıt için {{count}} adet daha sürüm var"
+msgstr[1] "Bu kayıt için {{count}} adet daha sürüm var"
+
+msgid "Person"
+msgstr "Kişi"
+
+msgid "The record has no files."
+msgstr "Bu kayıt hiç dosya içermemekte."
+
+msgid "Creators"
+msgstr "Oluşturanlar"
+
+msgid "Recommended information"
+msgstr "Önerilen bilgiler"
+
+msgid "Add contributor"
+msgstr "Katkıda bulunan kişi ekle"
+
+msgid "Contributors"
+msgstr "Katkıda Bulunan Kişiler"
+
+msgid "Edit contributor"
+msgstr ""
+
+msgid "Funding"
+msgstr "Finansman"
+
+msgid "Awards/Grants"
+msgstr "Ödüller/Hibeler"
+
+msgid "Alternate identifiers"
+msgstr "Alternatif tanımlayıcılar"
+
+msgid "Related works"
+msgstr "İlgili çalışmalar"
+
+msgid "References"
+msgstr "Referanslar"
+
+msgid "Visibility"
+msgstr "Görünürlük"
+
+msgid "More"
+msgstr "Daha fazla"
+
+msgid "Unable to request the access."
+msgstr "Erişim yetkisi talebinde bulunulamıyor."
+
+msgid "Your email address"
+msgstr ""
+
+msgid "Email address"
+msgstr "E-posta adresi"
+
+msgid "Your full name"
+msgstr "Tam adınız"
+
+msgid "Full name"
+msgstr "Tam ad"
+
+msgid "Request message"
+msgstr "Mesaj talep et"
+
+msgid ""
+"I agree to that my full name and email address is shared with the owners of "
+"the record"
+msgstr ""
+"Tam adımın ve e-posta adresimin kayıt sahipleriyle paylaşılmasını kabul "
+"ediyorum"
+
+msgid "Request access"
+msgstr "Erişim talebi"
+
+msgid "Email confirmation needed"
+msgstr ""
+
+msgid "We have sent you an email to verify your address."
+msgstr ""
+
+msgid ""
+"\n"
+"                Please check the email and follow the instructions to complete the access request.\n"
+"              "
+msgstr ""
+
+msgid "An error occurred while fetching communities."
+msgstr "Topluluklar getirilirken bir hata oluştu."
+
+msgid "Communities"
+msgstr "Topluluklar"
+
+msgid "View all {{count}} communities"
+msgid_plural "View all {{count}} communities"
+msgstr[0] "Tüm {{count}} topluluğu görüntüle"
+msgstr[1] "Tüm {{count}} topluluğu görüntüle"
+
+msgid "Submit to community"
+msgstr "Topluluğa gönder"
+
+msgid "Pending submissions"
+msgstr "Bekleyen gönderimler"
+
+msgid "Manage communities"
+msgstr "Toplulukları yönetin"
+
+msgid "Community management menu dropdown"
+msgstr "Topluluk yönetimi aşağı açılır menüsü"
+
+msgid "Edit"
+msgstr "Düzenle"
+
+msgid "Export selection"
+msgstr "Seçimi dışa aktar"
+
+msgid "Download file"
+msgstr "Dosya indir"
+
+msgid "Export"
+msgstr "Dışa Aktar"
+
+msgid "Manage"
+msgstr "Yönet"
+
+msgid "Manage record"
+msgstr "Kaydı yönet"
+
+msgid "Manage user"
+msgstr "Kullanıcıyı yönet"
+
+msgid "Remove branding"
+msgstr "Markalamayı kaldır"
+
+msgid "{{communityTitle}} is a default branding for this record"
+msgstr "{{communityTitle}} bu kayıt için varsayılan bir markalamadır"
+
+msgid ""
+"Remove this community from appearing on top of the record details page."
+msgstr ""
+"Bu topluluğun kayıt ayrıntıları sayfasının en üstünde görünmesini "
+"engelleyin."
+
+msgid "Set branding"
+msgstr "Markalamayı ayarla"
+
+msgid "Set {{communityTitle}} as a default branding for this record"
+msgstr ""
+"Bu kayıt için varsayılan markalama olarak {{communityTitle}}'ı ayarlayın"
+
+msgid "Set this community to appear on the top of the record details page."
+msgstr ""
+"Bu topluluğu, kayıt ayrıntıları sayfasının en üstünde görünecek şekilde "
+"ayarlayın."
+
+msgid "Pending communities"
+msgstr "Bekleyen topluluklar"
+
+msgid "Search for pending submissions to communities..."
+msgstr "Topluluklara iletilmiş beklemede kalan gönderileri arayın..."
+
+msgid "An error occurred while generating the citation."
+msgstr "Referans oluşturulurken bir hata oluştu."
+
+msgid "Style"
+msgstr "Stil"
+
+msgid "This record is not included in any communities yet."
+msgstr "Bu kayıt henüz hiçbir topluluğa dahil edilmedi."
+
+msgid "Search for community..."
+msgstr "Topluluk arayın..."
+
+msgid "Record submitted"
+msgstr "Kayıt gönderildi"
+
+msgid "Review requested"
+msgstr "İnceleme talep edildi"
+
+msgid "Search in all communities"
+msgstr "Tüm topluluklarda ara"
+
+msgid "Search in my communities"
+msgstr "Benim topluluklarımda ara"
+
+msgid "Select a community"
+msgstr "Bir topluluk seçin"
+
+msgid "Version {{- version}}"
+msgstr "Sürüm {{- version}}"
+
+msgid "Preview"
+msgstr "Gözden geçir"
+
+msgid "Only published versions are displayed."
+msgstr "Yalnızca yayınlanmış sürümler görüntüleniyor."
+
+msgid "An error occurred while fetching the versions."
+msgstr "Sürümler getirilirken bir hata oluştu."
+
+msgid "View all {{count}} versions"
+msgid_plural "View all {{count}} versions"
+msgstr[0] "Tüm {{count}} sürümü görüntüle"
+msgstr[1] "Tüm {{count}} sürümü görüntüle"
+
+msgid ""
+"<0><0>Cite all versions?</0> You can cite all versions by using the DOI "
+"<3></3>. This DOI represents all versions, and will always resolve to the "
+"latest one. <5>Read more</5>.</0>"
+msgstr ""
+"<0><0>Tüm sürümleri alıntıla?</0> DOI kullanarak tüm sürümleri "
+"alıntılayabilirsiniz. <3></3>. Bu DOI, tüm sürümleri temsil eder ve her "
+"zaman en son sürüme çözümlenir. <5>Daha fazlasını okuyun.</5>.</0>"
+
+msgid ""
+"<0><0>Cite all versions?</0> You can cite all versions by using the DOI . "
+"The DOI is registered when the first version is published. <4>Read "
+"more</4>.</0>"
+msgstr ""
+"<0><0>Tüm sürümleri alıntıla?</0> DOI kullanarak tüm versiyonları "
+"alıntılayabilirsiniz. DOI, ilk versiyon yayınlandığında kaydedilir. Dah "
+"fazlasını okuyun</4>.</0>"
+
+msgid "Remove"
+msgstr "Kaldır"
+
+msgid "Remove {{communityTitle}} from this record"
+msgstr "{{communityTitle}} topluluk başlığını bu kayıttan kaldır"
+
+msgid "Remove community"
+msgstr "Topluluğu kaldır"
+
+msgid "Are you sure you want to remove the record from the community?"
+msgstr "Kaydı topluluktan kaldırmak istediğinizden emin misiniz?"
+
+msgid "I understand the consequences:"
+msgstr "Sonuçlarını anlıyorum:"
+
+msgid ""
+"The record can only be re-included in the community by going through a new "
+"review by the community curators."
+msgstr ""
+"Kaydın, topluluğa yeniden dahil edilebilmesi ancak topluluk küratörleri "
+"tarafından yeniden incelenmesiyle mümkündür."
+
+msgid "Something went wrong"
+msgstr "Bir şeyler ters gitti"
+
+msgid "Cancel removal"
+msgstr "Kaldırmayı iptal et"
+
+msgid "Cancel"
+msgstr "İptal"
+
+msgid "Confirm removal"
+msgstr "Kaldırmayı onayla"
+
+msgid ""
+"Members of the community <1>\"<1>{{communityTitle}}</1>\"</1> will <4>lose "
+"their access</4> to the record."
+msgstr ""
+" <1>\"<1>{{communityTitle}}</1>\"</1> topluluğunun üyeleri kayda <4>erişim "
+"yetkilerini kaybedecek</4>."
+
+msgid "Select permissions"
+msgstr "İzinleri seçin"
+
+msgid "Short name for your link (optional)."
+msgstr "Bağlantınız için kısa adlandırma (isteğe bağlı)."
+
+msgid "Expiration date format: YYYY-MM-DD"
+msgstr "Son kullanma tarihi biçimi: YYYY-AA-GG"
+
+msgid "Expiration date: YYYY-MM-DD or never if blank (optional)."
+msgstr ""
+"Son kullanma tarihi: YYYY-AA-GG veya boşsa hiçbir zaman (isteğe bağlı)."
+
+msgid "Create a new link"
+msgstr "Yeni bir bağlantı oluştur"
+
+msgid "Link title"
+msgstr "Bağlantı başlığı"
+
+msgid "Expires at"
+msgstr ""
+
+msgid "Never"
+msgstr "Hiçbir zaman"
+
+msgid "Access"
+msgstr "Erişim"
+
+msgid "Delete"
+msgstr "Sil"
+
+msgid "Copy link"
+msgstr "Bağlantıyı kopyala"
+
+msgid "Can view"
+msgstr "Görüntüleyebilir"
+
+msgid "Can view restricted files of all versions of this record."
+msgstr "Bu kaydın tüm sürümlerinin kısıtlanmış dosyalarını görüntüleyebilir."
+
+msgid "Can preview drafts"
+msgstr "Taslakları önizleyebilir"
+
+msgid "Can view drafts and restricted files of all versions of this record."
+msgstr ""
+"Bu kaydın tüm sürümlerinin taslaklarını ve kısıtlanmış dosyalarını "
+"görüntüleyebilir."
+
+msgid "Can edit"
+msgstr "Düzenleyebilir"
+
+msgid ""
+"Can edit drafts and view restricted files of all versions of this record."
+msgstr ""
+"Bu kaydın tüm sürümlerinin taslaklarını düzenleyebilir ve kısıtlanmış "
+"dosyalarını görüntüleyebilir."
+
+msgid ""
+"Can view (view access link can be created only after the record is "
+"published)"
+msgstr ""
+"Görüntüleyebilir (görüntüleme erişim bağlantısı yalnızca kayıt "
+"yayınlandıktan sonra oluşturulabilir)"
+
+msgid "Expires"
+msgstr "Süresi dolar"
+
+msgid "This record has no links generated yet."
+msgstr "Bu kayıt için henüz hiçbir bağlantı oluşturulmadı."
+
+msgid "Unable to change the access request settings."
+msgstr "Erişim yetkisi talebi ayarları değiştirilemiyor."
+
+msgid "Allow authenticated users to request access to restricted files."
+msgstr ""
+"Kimliği doğrulanmış kullanıcıların kısıtlı dosyalara erişim yetkisi "
+"talebinde bulunmasına izin verin."
+
+msgid "Allow non-authenticated users to request access to restricted files."
+msgstr ""
+"Kimliği doğrulanmamış kullanıcıların kısıtlı dosyalara erişim yetkisi "
+"talebinde bulunmasına izin verin."
+
+msgid "Accept conditions"
+msgstr "Şartları kabul edin"
+
+msgid "Advanced options"
+msgstr "Gelişmiş seçenekler"
+
+msgid "Save"
+msgstr "Kaydet"
+
+msgid "No user has access to this record yet."
+msgstr "Bu kayda henüz hiçbir kullanıcının erişim yetkisi yok."
+
+msgid "People with access"
+msgstr "Erişim yetkisi olan kişiler"
+
+msgid "No group has access to this record yet."
+msgstr "Bu kayda henüz hiçbir grubun erişim yetkisi yok."
+
+msgid "Groups with access"
+msgstr "Erişim yetkisi olan gruplar"
+
+msgid "You"
+msgstr "Siz"
+
+msgid "Add people"
+msgstr "Kişileri ekle"
+
+msgid "No selected users"
+msgstr "Hiçbir kullanıcı seçilmedi"
+
+msgid ""
+"Search for users to grant access (only users with a public profile can be "
+"invited)"
+msgstr ""
+"Erişim yetkisi vermek için kullanıcıları arayın (yalnızca profili herkese "
+"açık kullanıcılar davet edilebilir)"
+
+msgid "Search by email, full name or username"
+msgstr "E-posta, tam ad veya kullanıcı adı ile arama yapın"
+
+msgid "users"
+msgstr "kullanıcılar"
+
+msgid "Add groups"
+msgstr "Grupları ekle"
+
+msgid "Group"
+msgstr "Grup"
+
+msgid "No selected groups"
+msgstr "Hiçbir grup seçilmedi"
+
+msgid "Search for groups"
+msgstr "Grupları ara"
+
+msgid "groups"
+msgstr "gruplar"
+
+msgid "Add"
+msgstr "Ekle"
+
+msgid "Notify people"
+msgstr "Bildirim gönder"
+
+msgid "Notification message"
+msgstr "Bildirim mesajı"
+
+msgid "You are about to add"
+msgstr "Şu grubu/grupları eklemek üzeresiniz:"
+
+msgid "Access already granted"
+msgstr "Erişim yetkisi zaten verilmiş"
+
+msgid "Can manage"
+msgstr "Yönetebilir"
+
+msgid ""
+"Can manage access, edit drafts and view restricted files of all versions of "
+"this record."
+msgstr ""
+"Bu kaydın tüm sürümlerine erişim yetkisini ayarlayabilir, taslakları "
+"düzenleyebilir ve kısıtlı dosyaları görüntüleyebilir."
+
+msgid "You don't have permissions to share this record."
+msgstr "Bu kaydı paylaşma izniniz yok."
+
+msgid "Share"
+msgstr "Paylaş"
+
+msgid "People"
+msgstr "Kişiler"
+
+msgid "Groups"
+msgstr "Gruplar"
+
+msgid "Settings"
+msgstr "Ayarlar"
+
+msgid "Share access"
+msgstr "Erişim yetkisini paylaşın"
+
+msgid "Link expiration"
+msgstr "Bağlantının son kullanma tarihi"
+
+msgid "In 1 month"
+msgstr "1 ay sonra"
+
+msgid "In 2 months"
+msgstr "2 ay sonra"
+
+msgid "In 6 months"
+msgstr "6 ay sonra"
+
+msgid "In 1 year"
+msgstr "1 yıl sonra"
+
+msgid "Invalid date format."
+msgstr "Geçersiz tarih biçimi."
+
+msgid "Access link expiration date cannot be in the past."
+msgstr "Erişim bağlantısının son kullanma tarihi geçmişte olamaz."
+
+msgid "Access request"
+msgstr "Erişim yetkisi talebi"
+
+msgid "Unable to change the expiration request settings."
+msgstr "Son kullanma tarihi isteği ayarları değiştirilemiyor."
+
+msgid "Expiration date: "
+msgstr "Son kullanma tarihi:"
+
+msgid ""
+"Format: YYYY-MM-DD. Granted access will expire on the given date. Leave "
+"empty to set no expiration limit."
+msgstr ""
+"Biçim: YYYY-AA-GG. Verilen erişim yetkisinin süresi belirtilen tarihte "
+"dolacaktır. Son kullanma tarihi koymamak için boş bırakın."
+
+msgid "Link expiration date:"
+msgstr "Bağlantının son kullanma tarihi:"
+
+msgid "We couldn't find any matches for {{- search}}"
+msgstr "{{- search}} için herhangi bir eşleşme bulamadık"
+
+msgid "Start over"
+msgstr "Baştan başla"
+
+msgid "ProTip"
+msgstr "Faydalı tavsiye"
+
+msgid "Search guide"
+msgstr "Arama kılavuzu"
+
+msgid ""
+"<0>For more tips, check out our <2>search guide</2> for defining advanced "
+"search queries.</0>"
+msgstr ""
+"<0>Daha fazla tavsiye için gelişmiş arama sorgularını tanımlamaya yönelik "
+"<2>arama kılavuzumuza</2></0> göz atın."
+
+msgid "Search in my communities..."
+msgstr "Topluluklarımda ara..."
+
+msgid "View"
+msgstr "Görüntüle"
+
+msgid "Published in: {{publishedIn}}"
+msgstr "Yayınlandı: {{published In}}"
+
+msgid "In review"
+msgstr "İnceleme aşamasında"
+
+msgid "Declined"
+msgstr "Reddedildi"
+
+msgid "Expired"
+msgstr "Süresi doldu"
+
+msgid "Draft"
+msgstr "Taslak"
+
+msgid "New version draft"
+msgstr "Yeni sürüm taslağı"
+
+msgid "open"
+msgstr "açık"
+
+msgid "Open"
+msgstr "Açık"
+
+msgid "unlock"
+msgstr "kilidini kaldır"
+
+msgid "Get started!"
+msgstr "Başlayalım!"
+
+msgid "Make your first upload!"
+msgstr "İlk yüklemenizi yapın!"
+
+msgid "New upload"
+msgstr "Yeni Yükleme"
+
+msgid "Search in my uploads..."
+msgstr "Karşıya yüklemelerimde ara…"
+
+msgid "ORCID profile"
+msgstr "ORCID profili"
+
+msgid "ORCID logo"
+msgstr ""
+
+msgid "ROR profile"
+msgstr "ROR profili"
+
+msgid "ROR logo"
+msgstr ""
+
+msgid "GND profile"
+msgstr "GND profili"
+
+msgid "GND logo"
+msgstr ""
+
+msgid "No name"
+msgstr ""
+
+msgid "and {{count}} other"
+msgid_plural "and {{count}} other"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "and {{count}} others"
+msgid_plural "and {{count}} others"
+msgstr[0] ""
+msgstr[1] ""
+
+msgctxt ""
+"date:[2017-01-01 TO *]</0> will give you all the publications from 2017 "
+"until today.</0>"
+msgid "<0><0>metadata.publication"
+msgstr ""
+"<0><0>metadata.publication_date:[2017-01-01 TO *]</0> size 2017'den bugüne "
+"kadar olan tüm yayınları verecektir.</0>"

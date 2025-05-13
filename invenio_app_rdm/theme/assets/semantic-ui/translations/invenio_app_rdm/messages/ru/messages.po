@@ -1,0 +1,958 @@
+# 
+# Translators:
+# Tibor Simko <tibor.simko@cern.ch>, 2024
+# Anna Sakoyan, 2025
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2025-03-27T16:30:16.192Z\n"
+"PO-Revision-Date: 2021-07-14 16:07+0000\n"
+"Last-Translator: Anna Sakoyan, 2025\n"
+"Language-Team: Russian (https://app.transifex.com/inveniosoftware/teams/23537/ru/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"mime-version: 1.0\n"
+
+msgid "Basic information"
+msgstr "Основная информация"
+
+msgid "Impersonate user"
+msgstr "Имперсонировать пользователя"
+
+msgid "Impersonate"
+msgstr "Имперсонировать"
+
+msgid "You must accept this."
+msgstr "Вы должны принять это."
+
+msgid "Success"
+msgstr "Успешно"
+
+msgid ""
+"User impersonated succesfully! You will be redirected in frontpage soon."
+msgstr ""
+"Пользователь успешно имперсонирован! Вы скоро будете перенаправлены на "
+"стартовую страницу."
+
+msgid "Unable to impersonate user."
+msgstr "Невозможно имперсонировать пользователя."
+
+msgid ""
+"Please read carefully and confirm the following statements before you "
+"proceed."
+msgstr ""
+"Пожалуйста, прочтите внимательно и подтвердите следующие положения, прежде "
+"чем продолжать."
+
+msgid "You are about to impersonate user <bold>{{email}}(id: {{id}})</bold>."
+msgstr ""
+"Вы собираетесь имперсонировать пользователя <bold>{{email}}(id: "
+"{{id}})</bold>."
+
+msgid "You <bold>MUST</bold> logout after completing your inquiry."
+msgstr ""
+"Вы <bold>ДОЛЖНЫ</bold> выйти, после того как выясните то, что вам нужно."
+
+msgid "Close"
+msgstr "Закрыть"
+
+msgid "Set Quota"
+msgstr "Установить квоту"
+
+msgid "Set quota in bytes"
+msgstr "Установить квоту в байтах"
+
+msgid "Note"
+msgstr "Примечание"
+
+msgid ""
+"This is the default quota that will be applied to any NEW records created by"
+" this user – it will NOT update quota of existing records."
+msgstr ""
+"Это квота по умолчанию, она будет применяться к любым НОВЫМ записям, "
+"созданным этим пользователем, но она НЕ изменит квоту существующих записей."
+
+msgid "Quota of {{id}} was set to {{quota}} {{unit}}"
+msgstr "Квота для {{id}} была установлена на {{quota}} {{unit}}"
+
+msgid "Unable to set quota."
+msgstr "Невозможно установить квоту."
+
+msgid "Quota size ({{unit}})"
+msgstr "Размер квоты ({{unit}})"
+
+msgid "Enter quota size..."
+msgstr "Ввести размер квоты"
+
+msgid "Max file size ({{unit}})"
+msgstr "Максимальный размер файла ({{unit}})"
+
+msgid "Enter max file size..."
+msgstr "Введите максимальный размер файла..."
+
+msgid "Ticket 1234"
+msgstr ""
+
+msgid "Set quota"
+msgstr "Установить квоту"
+
+msgid "Domain"
+msgstr "Домен"
+
+msgid "Flagged"
+msgstr "Отмечено"
+
+msgid "Organization"
+msgstr "Организация"
+
+msgid "Company"
+msgstr "Компания"
+
+msgid "Mail provider"
+msgstr "Провайдер электронной почты"
+
+msgid "Spammer"
+msgstr ""
+
+msgid "TLD"
+msgstr "Домен верхнего уровня"
+
+msgid "Status"
+msgstr "Статус"
+
+msgid "New"
+msgstr "Новый"
+
+msgid "Moderated"
+msgstr "Модерация пройдена"
+
+msgid "Verified"
+msgstr "Проверено"
+
+msgid "Blocked"
+msgstr "Заблокировано"
+
+msgid "Users"
+msgstr "Пользователи"
+
+msgid "Active"
+msgstr "Активен"
+
+msgid "Inactive"
+msgstr "Неактивен"
+
+msgid "Confirmed"
+msgstr "Подтверждено"
+
+msgid "Links"
+msgstr "Ссылки"
+
+msgid "Set quota for record {{recordId}}"
+msgstr "Установить квоту для записи {{recordId}}"
+
+msgid "Delete record"
+msgstr "Удалить запись"
+
+msgid "Restore record"
+msgstr "Восстановить запись"
+
+msgid "Unavailability statement"
+msgstr "Заявление о недоступности"
+
+msgid "Record {{id}} was restored."
+msgstr "Запись {{id}} была восстановлена."
+
+msgid "Unable to restore."
+msgstr "Невозможно восстановить."
+
+msgid "Are you sure you want to restore #{{id}}"
+msgstr "Вы уверены, что хотите восстановить #{{id}}?"
+
+msgid "Published"
+msgstr "Опубликовано"
+
+msgid "Deleted"
+msgstr "Удалено"
+
+msgid "Scheduled for purge"
+msgstr "Ожидает очистки"
+
+msgid "Empty draft title"
+msgstr "Черновик без заголовка"
+
+msgid "version"
+msgstr "версия"
+
+msgid "Owner"
+msgstr "Владелец"
+
+msgid "Created"
+msgstr "Создано"
+
+msgid "Files"
+msgstr "Файлы"
+
+msgid "Stats"
+msgstr "Статистика"
+
+msgid "Record {{id}} was deleted."
+msgstr "Запись {{id}} была удалена."
+
+msgid "Unable to delete"
+msgstr "Невозможно удалить"
+
+msgid "Public"
+msgstr "Публичное"
+
+msgid "Hidden"
+msgstr "Скрытый"
+
+msgid ""
+"The tombstone is set to hidden but your record is public. Best practice is "
+"to provide a public tombstone when deactivating public records."
+msgstr ""
+"Маркер удаленной записи сейчас скрыт, но ваша запись публична. Хорошим тоном"
+" считается оставлять публичную отметку, когда открытые записи "
+"деактивируются. "
+
+msgid ""
+"RISK INFORMATION LEAKAGE: The tombstone is set to public but your record is "
+"restricted. Please make sure no restricted information is shared in the "
+"tombstone below."
+msgstr ""
+"РИСК УТЕЧКИ ИНФОРМАЦИИ: маркер существующей записи публичен, а ваша запись "
+"имеет ограниченный доступ. Пожалуйста, убедитесь в том, что никакая "
+"информация ограниченной доступности на выводится в маркировке ниже."
+
+msgid "Bibliographic citation"
+msgstr "Библиографическая ссылка"
+
+msgid ""
+"Input citation text. Blank field will be filled with APA citation by "
+"default."
+msgstr ""
+"Введите текст библиографической ссылки. Пустое поле по умолчанию будет "
+"оформлено по стандарту APA."
+
+msgid "Public note"
+msgstr "Публичное примечание"
+
+msgid "User {{name}} was approved."
+msgstr "Пользователь {{name}} был одобрен."
+
+msgid "User {{name}} is blocked."
+msgstr "Пользователь {{name}} заблокирован."
+
+msgid "Error"
+msgstr "Ошибка"
+
+msgid "User"
+msgstr "Пользователь"
+
+msgid "Email"
+msgstr "Электронная почта"
+
+msgid "Email domain"
+msgstr "Домен электронной почты"
+
+msgid "Actions"
+msgstr "Действия"
+
+msgid "Records"
+msgstr "Записи"
+
+msgid "Username"
+msgstr "Имя пользователя"
+
+msgid "GitHub"
+msgstr "GitHub"
+
+msgid "Updated"
+msgstr "Обновлено"
+
+msgid "Restore"
+msgstr "Восстановить"
+
+msgid "Restored"
+msgstr "Восстановлено"
+
+msgid "Block"
+msgstr "Заблокировать"
+
+msgid "Suspend"
+msgstr "Приостановить"
+
+msgid "Suspended"
+msgstr "Приостановлено"
+
+msgid "Approve"
+msgstr "Одобрить"
+
+msgid "Approved"
+msgstr "Одобренные"
+
+msgid "Activate"
+msgstr "Активировать"
+
+msgid "Activated"
+msgstr "Активировано"
+
+msgid "Set default quota for {{email}}"
+msgstr "Установить квоту для {{email}}"
+
+msgid "Filter results"
+msgstr "Фильтрация результатов"
+
+msgid "Search records in community..."
+msgstr "Поиск по записям в сообществе..."
+
+msgid "Sort by"
+msgstr "Сортировка"
+
+msgid " results found"
+msgid_plural " results found"
+msgstr[0] "результат найден"
+msgstr[1] "результата найдено"
+msgstr[2] "результатов найдено"
+msgstr[3] "результатов найдено"
+
+msgid "Search records..."
+msgstr "Искать записи..."
+
+msgid "Search"
+msgstr "Искать"
+
+msgid "Views"
+msgstr "Просмотров"
+
+msgid "Downloads"
+msgstr "Загрузки"
+
+msgid "Copy to clipboard"
+msgstr "Скопировано в буфер"
+
+msgid "Copied!"
+msgstr "Скопировано!"
+
+msgid "Part of "
+msgstr "Относится к "
+
+msgid "No creation date found."
+msgstr "Дата создания не найдена."
+
+msgid "No description"
+msgstr "Нет описания"
+
+msgid "No publication date found."
+msgstr "Дата публикации не найдена."
+
+msgid "No resource type"
+msgstr "Тип ресурса отсутствует"
+
+msgid "No title"
+msgstr "Нет названия"
+
+msgid "Uploaded on {{uploadDate}}"
+msgstr "Загружено {{uploadDate}}"
+
+msgid "Published in: {{publishInfo}}"
+msgstr "Опубликовано в: {{publishInfo}}"
+
+msgid "{{count}} more versions exist for this record"
+msgid_plural "{{count}} more versions exist for this record"
+msgstr[0] "для этой записи есть еще {{count}} версия"
+msgstr[1] "для этой записи есть еще {{count}} версии"
+msgstr[2] "для этой записи есть еще {{count}} версий"
+msgstr[3] "для этой записи есть еще {{count}} версий"
+
+msgid "Person"
+msgstr ""
+
+msgid "The record has no files."
+msgstr "У этой записи нет файлов."
+
+msgid "Creators"
+msgstr "Создатели"
+
+msgid "Recommended information"
+msgstr "Рекомендуемая информация"
+
+msgid "Add contributor"
+msgstr "Добавить соавтора"
+
+msgid "Contributors"
+msgstr "Соавторы"
+
+msgid "Edit contributor"
+msgstr ""
+
+msgid "Funding"
+msgstr "Финансирование"
+
+msgid "Awards/Grants"
+msgstr "Награды/гранты"
+
+msgid "Alternate identifiers"
+msgstr "Альтернативные идентификаторы"
+
+msgid "Related works"
+msgstr "Связанные работы"
+
+msgid "References"
+msgstr "Ссылки"
+
+msgid "Visibility"
+msgstr "Видимость"
+
+msgid "More"
+msgstr "Еще"
+
+msgid "Unable to request the access."
+msgstr "Невозможно запросить доступ."
+
+msgid "Your email address"
+msgstr ""
+
+msgid "Email address"
+msgstr "Адрес электронной почты"
+
+msgid "Your full name"
+msgstr "Ваше полное имя"
+
+msgid "Full name"
+msgstr "Полное имя"
+
+msgid "Request message"
+msgstr "Сообщение запроса"
+
+msgid ""
+"I agree to that my full name and email address is shared with the owners of "
+"the record"
+msgstr ""
+"Я соглашаюсь на то, чтобы мои полное имя и адрес электронной почты были "
+"раскрыты владельцу записи"
+
+msgid "Request access"
+msgstr "Запросить доступ"
+
+msgid "Email confirmation needed"
+msgstr ""
+
+msgid "We have sent you an email to verify your address."
+msgstr ""
+
+msgid ""
+"\n"
+"                Please check the email and follow the instructions to complete the access request.\n"
+"              "
+msgstr ""
+
+msgid "An error occurred while fetching communities."
+msgstr "При выдаче сообществ возникла ошибка"
+
+msgid "Communities"
+msgstr "Сообщества"
+
+msgid "View all {{count}} communities"
+msgid_plural "View all {{count}} communities"
+msgstr[0] "Смотреть {{count}} сообщество"
+msgstr[1] "Смотреть {{count}} сообщества"
+msgstr[2] "Смотреть {{count}} сообществ"
+msgstr[3] "Смотреть {{count}} сообществ"
+
+msgid "Submit to community"
+msgstr "Отправить в сообщество"
+
+msgid "Pending submissions"
+msgstr "Предложения в ожидании согласования"
+
+msgid "Manage communities"
+msgstr "Управление сообществами"
+
+msgid "Community management menu dropdown"
+msgstr "Меню управления сообществом"
+
+msgid "Edit"
+msgstr "Редактировать"
+
+msgid "Export selection"
+msgstr "Экспортировать выбранное"
+
+msgid "Download file"
+msgstr "Скачать файл"
+
+msgid "Export"
+msgstr "Экспортировать"
+
+msgid "Manage"
+msgstr "Управление"
+
+msgid "Manage record"
+msgstr "Управление записью"
+
+msgid "Manage user"
+msgstr "Управление пользователем"
+
+msgid "Remove branding"
+msgstr "Убрать маркировку"
+
+msgid "{{communityTitle}} is a default branding for this record"
+msgstr "{{communityTitle}} – это маркировка этой записи по умолчанию"
+
+msgid ""
+"Remove this community from appearing on top of the record details page."
+msgstr ""
+"Сделать так, чтобы это сообщество не выводилось вверху страницы с "
+"подробностями по этой записи."
+
+msgid "Set branding"
+msgstr "Установить маркировку"
+
+msgid "Set {{communityTitle}} as a default branding for this record"
+msgstr ""
+"Установить {{communityTitle}} в качестве бренда/маркировки этой записи"
+
+msgid "Set this community to appear on the top of the record details page."
+msgstr ""
+"Сделать так, чтобы это сообщество выводилось вверху страницы с подробностями"
+" по этой записи."
+
+msgid "Pending communities"
+msgstr ""
+
+msgid "Search for pending submissions to communities..."
+msgstr "Искать по материалам, ожидающим согласования в сообществе..."
+
+msgid "An error occurred while generating the citation."
+msgstr "В процессе генерции библиографической ссылки возникла ошибка."
+
+msgid "Style"
+msgstr "Стиль"
+
+msgid "This record is not included in any communities yet."
+msgstr "Эта запись еще не включена ни в какие сообщества."
+
+msgid "Search for community..."
+msgstr "Искать сообщество..."
+
+msgid "Record submitted"
+msgstr "Запись отправлена"
+
+msgid "Review requested"
+msgstr "Направлен запрос на проверку"
+
+msgid "Search in all communities"
+msgstr "Искать по всем сообществам"
+
+msgid "Search in my communities"
+msgstr "Искать в моем сообществе"
+
+msgid "Select a community"
+msgstr "Выбрать сообщество"
+
+msgid "Version {{- version}}"
+msgstr "Версия {{- version}}"
+
+msgid "Preview"
+msgstr "Предварительный просмотр"
+
+msgid "Only published versions are displayed."
+msgstr "Отображаются только опубликованные версии."
+
+msgid "An error occurred while fetching the versions."
+msgstr "При выводе версий произошла ошибка."
+
+msgid "View all {{count}} versions"
+msgid_plural "View all {{count}} versions"
+msgstr[0] "Просмотреть {{count}} версию"
+msgstr[1] "Просмотреть все {{count}} версии"
+msgstr[2] "Просмотреть все {{count}} версий"
+msgstr[3] "Просмотреть все {{count}} версий"
+
+msgid ""
+"<0><0>Cite all versions?</0> You can cite all versions by using the DOI "
+"<3></3>. This DOI represents all versions, and will always resolve to the "
+"latest one. <5>Read more</5>.</0>"
+msgstr ""
+"<0><0>Цитировать все версии?</0> Вы можете сослаться на все версии с помощью"
+" DOI <3></3>. Это DOI представляет все версии и всегда будет выводить на "
+"последнюю. <5>Подробнее</5>.</0>"
+
+msgid ""
+"<0><0>Cite all versions?</0> You can cite all versions by using the DOI . "
+"The DOI is registered when the first version is published. <4>Read "
+"more</4>.</0>"
+msgstr ""
+"<0><0>Цитировать все версии?</0> Вы можете сослаться на все версии с помощью"
+" DOI. Это DOI регистрируется, когда первая версия опубликована. "
+"<4>Подробнее</4>.</0>"
+
+msgid "Remove"
+msgstr "Убрать"
+
+msgid "Remove {{communityTitle}} from this record"
+msgstr "Убрать {{communityTitle}} из этой записи"
+
+msgid "Remove community"
+msgstr "Убрать сообщество"
+
+msgid "Are you sure you want to remove the record from the community?"
+msgstr "Вы уверены, что хотите убрать запись из сообщества?"
+
+msgid "I understand the consequences:"
+msgstr "Я понимаю последствия:"
+
+msgid ""
+"The record can only be re-included in the community by going through a new "
+"review by the community curators."
+msgstr ""
+"Чтобы снова включить запись в сообщество, придется заново провести ее через "
+"процедуру согласования с кураторами этого сообщества."
+
+msgid "Something went wrong"
+msgstr "Что-то пошло не так"
+
+msgid "Cancel removal"
+msgstr "Отменить удаление"
+
+msgid "Cancel"
+msgstr "Отменить"
+
+msgid "Confirm removal"
+msgstr "Подтвердить удаление"
+
+msgid ""
+"Members of the community <1>\"<1>{{communityTitle}}</1>\"</1> will <4>lose "
+"their access</4> to the record."
+msgstr ""
+"Участники сообщества <1>\"<1>{{communityTitle}}</1>\"</1> <4>потеряют "
+"доступ</4> к этой записи."
+
+msgid "Select permissions"
+msgstr "Выберите права"
+
+msgid "Short name for your link (optional)."
+msgstr "Краткое наименование для вашей ссылки (опционально)."
+
+msgid "Expiration date format: YYYY-MM-DD"
+msgstr "Формат даты истечения срока: ГГГГ-ММ-ДД"
+
+msgid "Expiration date: YYYY-MM-DD or never if blank (optional)."
+msgstr ""
+
+msgid "Create a new link"
+msgstr "Создать новую ссылку"
+
+msgid "Link title"
+msgstr "Название ссылки"
+
+msgid "Expires at"
+msgstr ""
+
+msgid "Never"
+msgstr "Никогда"
+
+msgid "Access"
+msgstr "Доступ"
+
+msgid "Delete"
+msgstr "Удалить"
+
+msgid "Copy link"
+msgstr "Копировать ссылку"
+
+msgid "Can view"
+msgstr "Может просматривать"
+
+msgid "Can view restricted files of all versions of this record."
+msgstr ""
+"Может просматривать файлы, находящиеся в ограниченном доступе, во всех "
+"версиях этой записи."
+
+msgid "Can preview drafts"
+msgstr "Может предварительно просматривать черновики"
+
+msgid "Can view drafts and restricted files of all versions of this record."
+msgstr "Может просматривать черновики и файлы во всех версиях этой записи."
+
+msgid "Can edit"
+msgstr "Может редактировать"
+
+msgid ""
+"Can edit drafts and view restricted files of all versions of this record."
+msgstr "Может редактировать черновики и файлы во всех версиях этой записи."
+
+msgid ""
+"Can view (view access link can be created only after the record is "
+"published)"
+msgstr ""
+"Может просматривать (ссылка на просмотровый доступ может быть создана только"
+" после того, как запись опубликована)"
+
+msgid "Expires"
+msgstr "Истекает"
+
+msgid "This record has no links generated yet."
+msgstr "Для этой записи еще нет сгенерированных ссылок."
+
+msgid "Unable to change the access request settings."
+msgstr "Невозможно изменить настройки запроса на доступ."
+
+msgid "Allow authenticated users to request access to restricted files."
+msgstr ""
+"Разрешить авторизованным пользователям запрашивать доступ к файлам с "
+"ограниченным доступом."
+
+msgid "Allow non-authenticated users to request access to restricted files."
+msgstr ""
+"Разрешить неавторизованным пользователям запрашивать доступ к файлам с "
+"ограниченным доступом."
+
+msgid "Accept conditions"
+msgstr "Принять условия"
+
+msgid "Advanced options"
+msgstr "Продвинутые настройки"
+
+msgid "Save"
+msgstr "Сохранить"
+
+msgid "No user has access to this record yet."
+msgstr "Ни у одного пользователя пока нет доступа к этой записи."
+
+msgid "People with access"
+msgstr "Люди с доступом"
+
+msgid "No group has access to this record yet."
+msgstr "Ни у одной группы пока нет доступа к этой записи."
+
+msgid "Groups with access"
+msgstr "Группы с доступом"
+
+msgid "You"
+msgstr "Вы"
+
+msgid "Add people"
+msgstr "Добавить людей"
+
+msgid "No selected users"
+msgstr "Не выбрано ни одного пользователя"
+
+msgid ""
+"Search for users to grant access (only users with a public profile can be "
+"invited)"
+msgstr ""
+"Искать пользователей для предоставления доступа (пригласить можно только "
+"пользователей с публичным профилем)"
+
+msgid "Search by email, full name or username"
+msgstr "Искать по адресу электронной почты, полному имени или юзернейму."
+
+msgid "users"
+msgstr "пользователи"
+
+msgid "Add groups"
+msgstr "Добавить группы"
+
+msgid "Group"
+msgstr "Группа"
+
+msgid "No selected groups"
+msgstr "Не выбрано ни одной группы"
+
+msgid "Search for groups"
+msgstr "Искать группы"
+
+msgid "groups"
+msgstr "группы"
+
+msgid "Add"
+msgstr "Добавить"
+
+msgid "Notify people"
+msgstr "Уведомить людей"
+
+msgid "Notification message"
+msgstr "Текст уведомления"
+
+msgid "You are about to add"
+msgstr "Вы собираетесь добавить"
+
+msgid "Access already granted"
+msgstr "Доступ уже предоставлен"
+
+msgid "Can manage"
+msgstr "Может управлять"
+
+msgid ""
+"Can manage access, edit drafts and view restricted files of all versions of "
+"this record."
+msgstr ""
+"Может управлять доступом, редактировать черновики и просматривать файлы, "
+"находящиеся в ограниченном доступе, во всех версиях этой записи."
+
+msgid "You don't have permissions to share this record."
+msgstr "У вас нет прав делиться этой записью."
+
+msgid "Share"
+msgstr "Поделиться"
+
+msgid "People"
+msgstr "Люди"
+
+msgid "Groups"
+msgstr "Группы"
+
+msgid "Settings"
+msgstr "Настройки"
+
+msgid "Share access"
+msgstr "Поделиться доступом"
+
+msgid "Link expiration"
+msgstr "Срок истечения действия ссылки"
+
+msgid "In 1 month"
+msgstr "Через 1 месяц"
+
+msgid "In 2 months"
+msgstr "Через 2 месяца"
+
+msgid "In 6 months"
+msgstr "Через 6 месяцев"
+
+msgid "In 1 year"
+msgstr "Через 1 год"
+
+msgid "Invalid date format."
+msgstr "Невалидный формат даты."
+
+msgid "Access link expiration date cannot be in the past."
+msgstr "Срок прекращения действия ссылки не может быть в прошлом."
+
+msgid "Access request"
+msgstr "Запрос на доступ"
+
+msgid "Unable to change the expiration request settings."
+msgstr ""
+
+msgid "Expiration date: "
+msgstr "Срок прекращения действия:"
+
+msgid ""
+"Format: YYYY-MM-DD. Granted access will expire on the given date. Leave "
+"empty to set no expiration limit."
+msgstr ""
+"Формат: ГГГГ-ММ-ДД. Предоставленный доступ будет закрыт заданного числа. "
+"Оставьте незаполненным, если хотите дать бессрочный доступ."
+
+msgid "Link expiration date:"
+msgstr "Дата прекращения действия ссылки:"
+
+msgid "We couldn't find any matches for {{- search}}"
+msgstr "Мы не смогли найти никаких соответствий для {{- search}}"
+
+msgid "Start over"
+msgstr "Начать заново"
+
+msgid "ProTip"
+msgstr "Полезный совет"
+
+msgid "Search guide"
+msgstr "Руководство по поиску"
+
+msgid ""
+"<0>For more tips, check out our <2>search guide</2> for defining advanced "
+"search queries.</0>"
+msgstr ""
+"<0>За дополнительной информацией обратитесь к нашему <2>руководству по "
+"поиску </2> для справки по продвинутым поисковым запросам.</0>"
+
+msgid "Search in my communities..."
+msgstr "Искать в моих сообществах..."
+
+msgid "View"
+msgstr "Просмотр"
+
+msgid "Published in: {{publishedIn}}"
+msgstr "Опубликовано в: {{publishedIn}}"
+
+msgid "In review"
+msgstr "На согласовании"
+
+msgid "Declined"
+msgstr "Отклонено"
+
+msgid "Expired"
+msgstr "Устарело"
+
+msgid "Draft"
+msgstr "Черновик"
+
+msgid "New version draft"
+msgstr "Черновик новой версии"
+
+msgid "open"
+msgstr "открыть"
+
+msgid "Open"
+msgstr "Открыто"
+
+msgid "unlock"
+msgstr "разблокировать"
+
+msgid "Get started!"
+msgstr "Начать!"
+
+msgid "Make your first upload!"
+msgstr "Загрузите свой первый файл!"
+
+msgid "New upload"
+msgstr "Новая загрузка"
+
+msgid "Search in my uploads..."
+msgstr "Искать в моих загрузках"
+
+msgid "ORCID profile"
+msgstr "Профиль ORCID"
+
+msgid "ORCID logo"
+msgstr ""
+
+msgid "ROR profile"
+msgstr "Профиль ROR"
+
+msgid "ROR logo"
+msgstr ""
+
+msgid "GND profile"
+msgstr "Профиль GND"
+
+msgid "GND logo"
+msgstr ""
+
+msgid "No name"
+msgstr ""
+
+msgid "and {{count}} other"
+msgid_plural "and {{count}} other"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+msgid "and {{count}} others"
+msgid_plural "and {{count}} others"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+msgctxt ""
+"date:[2017-01-01 TO *]</0> will give you all the publications from 2017 "
+"until today.</0>"
+msgid "<0><0>metadata.publication"
+msgstr ""

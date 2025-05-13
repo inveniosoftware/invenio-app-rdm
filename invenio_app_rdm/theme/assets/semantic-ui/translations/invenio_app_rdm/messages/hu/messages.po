@@ -1,0 +1,952 @@
+# 
+# Translators:
+# Tibor Simko <tibor.simko@cern.ch>, 2021
+# Dorottya Szemigán, 2024
+# Júlia Babos, 2025
+# Dora Szauter, 2025
+# Andrea Dömötör, 2025
+# j k, 2025
+# Zoltán Kanász-Nagy, 2025
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2025-03-27T16:30:16.192Z\n"
+"PO-Revision-Date: 2021-07-14 16:07+0000\n"
+"Last-Translator: Zoltán Kanász-Nagy, 2025\n"
+"Language-Team: Hungarian (https://app.transifex.com/inveniosoftware/teams/23537/hu/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: hu\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"mime-version: 1.0\n"
+
+msgid "Basic information"
+msgstr "Alapvető információ"
+
+msgid "Impersonate user"
+msgstr "Felhasználó azonosítása"
+
+msgid "Impersonate"
+msgstr "Azonosít"
+
+msgid "You must accept this."
+msgstr "El kell fogadnia ezt."
+
+msgid "Success"
+msgstr "Siker"
+
+msgid ""
+"User impersonated succesfully! You will be redirected in frontpage soon."
+msgstr ""
+"Felhasználó sikeres azonosítása! Hamarosan visszairányítjuk a főoldalra."
+
+msgid "Unable to impersonate user."
+msgstr "A felhasználó azonosítása sikertelen."
+
+msgid ""
+"Please read carefully and confirm the following statements before you "
+"proceed."
+msgstr ""
+"Mielőtt továbblépne, kérjük, olvassa el figyelmesen és hagyja jóvá a "
+"következő pontokat."
+
+msgid "You are about to impersonate user <bold>{{email}}(id: {{id}})</bold>."
+msgstr ""
+"A <bold>{{email}}(id: {{id}})</bold> felhasználó azonosítása következik."
+
+msgid "You <bold>MUST</bold> logout after completing your inquiry."
+msgstr "A lekérdezés befejezése után ki <bold>KELL</bold> jelentkeznie."
+
+msgid "Close"
+msgstr "Bezárás"
+
+msgid "Set Quota"
+msgstr "Kvóta beállítása"
+
+msgid "Set quota in bytes"
+msgstr "Kvóta beállítása byte-ban"
+
+msgid "Note"
+msgstr "Jegyzet"
+
+msgid ""
+"This is the default quota that will be applied to any NEW records created by"
+" this user – it will NOT update quota of existing records."
+msgstr ""
+"Ez az alapértelmezett kvóta, amely az adott felhasználó által létrehozott "
+"minden ÚJ rekordra vonatkozik - a meglévő rekordok kvótáját NEM frissíti."
+
+msgid "Quota of {{id}} was set to {{quota}} {{unit}}"
+msgstr " {{id}} kvótája {{quota}} {{unit}}-ra módosult."
+
+msgid "Unable to set quota."
+msgstr "Kvóta beállítása sikertelen."
+
+msgid "Quota size ({{unit}})"
+msgstr "A kvóta mérete ({{unit}})"
+
+msgid "Enter quota size..."
+msgstr "Adja meg a kvóta méretét..."
+
+msgid "Max file size ({{unit}})"
+msgstr "Maximális fájlméret ({{unit}})"
+
+msgid "Enter max file size..."
+msgstr "Adja meg a maximális fájlméretet..."
+
+msgid "Ticket 1234"
+msgstr "1234-es jegy"
+
+msgid "Set quota"
+msgstr "Kvóta beállítása"
+
+msgid "Domain"
+msgstr "Domain"
+
+msgid "Flagged"
+msgstr "Megjelölve"
+
+msgid "Organization"
+msgstr "Szervezet"
+
+msgid "Company"
+msgstr "Szervezet"
+
+msgid "Mail provider"
+msgstr "E-mail szolgáltató"
+
+msgid "Spammer"
+msgstr "Spamküldő"
+
+msgid "TLD"
+msgstr "TLD"
+
+msgid "Status"
+msgstr "Állapot"
+
+msgid "New"
+msgstr "Új"
+
+msgid "Moderated"
+msgstr "Moderálva"
+
+msgid "Verified"
+msgstr "Ellenőrizve"
+
+msgid "Blocked"
+msgstr "Letiltva"
+
+msgid "Users"
+msgstr "Felhasználók"
+
+msgid "Active"
+msgstr "Aktív"
+
+msgid "Inactive"
+msgstr "Inaktív"
+
+msgid "Confirmed"
+msgstr "Megerősítve"
+
+msgid "Links"
+msgstr "Linkek"
+
+msgid "Set quota for record {{recordId}}"
+msgstr "Kvóta beállítása a rekordhoz {{recordId}}"
+
+msgid "Delete record"
+msgstr "Rekord törlése"
+
+msgid "Restore record"
+msgstr "Rekord visszaállítása"
+
+msgid "Unavailability statement"
+msgstr "Elérhetetlenségi nyilatkozat"
+
+msgid "Record {{id}} was restored."
+msgstr "Rekord {{id}} visszaállítva."
+
+msgid "Unable to restore."
+msgstr "Nem állítható vissza."
+
+msgid "Are you sure you want to restore #{{id}}"
+msgstr "Biztosan vissza akarja állítani a/az #{{id}}-t?"
+
+msgid "Published"
+msgstr "Publikálva"
+
+msgid "Deleted"
+msgstr "Törölve"
+
+msgid "Scheduled for purge"
+msgstr "Törlésre ütemezve"
+
+msgid "Empty draft title"
+msgstr "Üres vázlatcím"
+
+msgid "version"
+msgstr "verzió"
+
+msgid "Owner"
+msgstr "Tulajdonos"
+
+msgid "Created"
+msgstr "Létrehozva"
+
+msgid "Files"
+msgstr "Fájlok"
+
+msgid "Stats"
+msgstr "Statisztikák"
+
+msgid "Record {{id}} was deleted."
+msgstr "Rekord {{id}} törölve."
+
+msgid "Unable to delete"
+msgstr "Nem törölhető"
+
+msgid "Public"
+msgstr "Nyilvános"
+
+msgid "Hidden"
+msgstr "Elrejtve"
+
+msgid ""
+"The tombstone is set to hidden but your record is public. Best practice is "
+"to provide a public tombstone when deactivating public records."
+msgstr ""
+"A rekord törölt verziója rejtett, miközben az új rekord nyilvános. Javasolt "
+"a törölt verzió nyilvánossá tétele az új rekord deaktiválásakor."
+
+msgid ""
+"RISK INFORMATION LEAKAGE: The tombstone is set to public but your record is "
+"restricted. Please make sure no restricted information is shared in the "
+"tombstone below."
+msgstr ""
+"INFORMÁCIÓSZIVÁRGÁS VESZÉLYE: A rekord törölt verziója nyilvános, miközben "
+"az új rekord korlátozott. Kérjük, ellenőrizze, hogy a törölt rekord ne "
+"tartalmazzon védett adatot."
+
+msgid "Bibliographic citation"
+msgstr "Bibliográfiai hivatkozás"
+
+msgid ""
+"Input citation text. Blank field will be filled with APA citation by "
+"default."
+msgstr ""
+"Beviteli hivatkozás szövege. Az üres mezőt alapértelmezés szerint APA "
+"hivatkozási stílussal tölti ki a rendszer."
+
+msgid "Public note"
+msgstr "Nyilvános jegyzet"
+
+msgid "User {{name}} was approved."
+msgstr "{{név}} felhasználó jóváhagyásra került."
+
+msgid "User {{name}} is blocked."
+msgstr "{{name}} felhasználó le lett tiltva."
+
+msgid "Error"
+msgstr "Hiba"
+
+msgid "User"
+msgstr "Felhasználó"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Email domain"
+msgstr "Email domain"
+
+msgid "Actions"
+msgstr "Tevékenységek"
+
+msgid "Records"
+msgstr "Rekordok"
+
+msgid "Username"
+msgstr "Felhasználónév"
+
+msgid "GitHub"
+msgstr "GitHub"
+
+msgid "Updated"
+msgstr "Frissítve"
+
+msgid "Restore"
+msgstr "Visszaállítás"
+
+msgid "Restored"
+msgstr "Visszaállítva"
+
+msgid "Block"
+msgstr "Letiltás"
+
+msgid "Suspend"
+msgstr "Felfüggesztés"
+
+msgid "Suspended"
+msgstr "Felfüggesztve"
+
+msgid "Approve"
+msgstr "Jóváhagyás"
+
+msgid "Approved"
+msgstr "Jóváhagyva"
+
+msgid "Activate"
+msgstr "Aktivál"
+
+msgid "Activated"
+msgstr "Aktiválva"
+
+msgid "Set default quota for {{email}}"
+msgstr "Alapértelmezett kvóta beállítása {{email}} számára"
+
+msgid "Filter results"
+msgstr "Találatok szűrése"
+
+msgid "Search records in community..."
+msgstr "Rekordok keresése a közösségben..."
+
+msgid "Sort by"
+msgstr "Rendezési elv"
+
+msgid " results found"
+msgid_plural " results found"
+msgstr[0] "találat"
+msgstr[1] "találat"
+
+msgid "Search records..."
+msgstr "Rekordok keresése..."
+
+msgid "Search"
+msgstr "Keresés"
+
+msgid "Views"
+msgstr "Megtekintések"
+
+msgid "Downloads"
+msgstr "Letöltések"
+
+msgid "Copy to clipboard"
+msgstr "Másolás a vágólapra"
+
+msgid "Copied!"
+msgstr "Másolva!"
+
+msgid "Part of "
+msgstr "Része ennek "
+
+msgid "No creation date found."
+msgstr "Létrehozási dátum nem található."
+
+msgid "No description"
+msgstr "Nincs leírás"
+
+msgid "No publication date found."
+msgstr "Publikálási dátum nem található."
+
+msgid "No resource type"
+msgstr "Nincs forrástípus"
+
+msgid "No title"
+msgstr "Nincs cím"
+
+msgid "Uploaded on {{uploadDate}}"
+msgstr "Feltöltve: {{uploadDate}}"
+
+msgid "Published in: {{publishInfo}}"
+msgstr "Publikálva: {{publishInfo}}"
+
+msgid "{{count}} more versions exist for this record"
+msgid_plural "{{count}} more versions exist for this record"
+msgstr[0] "{{count}} további verzió érhető el ehhez a rekordhoz"
+msgstr[1] "{{count}} további verzió érhető el ehhez a rekordhoz"
+
+msgid "Person"
+msgstr "Személy"
+
+msgid "The record has no files."
+msgstr "A rekordhoz nem tartoznak fájlok. "
+
+msgid "Creators"
+msgstr "Készítők"
+
+msgid "Recommended information"
+msgstr "Ajánlott információ"
+
+msgid "Add contributor"
+msgstr "Közreműködő hozzáadása"
+
+msgid "Contributors"
+msgstr "Közreműködők"
+
+msgid "Edit contributor"
+msgstr "Közreműködő szerkesztése"
+
+msgid "Funding"
+msgstr "Finanszírozás"
+
+msgid "Awards/Grants"
+msgstr "Díjak/Támogatások"
+
+msgid "Alternate identifiers"
+msgstr "Alternatív azonosítók"
+
+msgid "Related works"
+msgstr "Kapcsolódó munkák"
+
+msgid "References"
+msgstr "Hivatkozások"
+
+msgid "Visibility"
+msgstr "Láthatóság"
+
+msgid "More"
+msgstr "Még több"
+
+msgid "Unable to request the access."
+msgstr "Hozzáférés kérése sikertelen."
+
+msgid "Your email address"
+msgstr "Az Ön e-mail címe"
+
+msgid "Email address"
+msgstr "Email cím"
+
+msgid "Your full name"
+msgstr "Az Ön teljes neve"
+
+msgid "Full name"
+msgstr "Teljes név"
+
+msgid "Request message"
+msgstr "Üzenet kérése"
+
+msgid ""
+"I agree to that my full name and email address is shared with the owners of "
+"the record"
+msgstr ""
+"Hozzájárulok, hogy a teljes nevemet és e-mail címemet megosszák a rekord "
+"tulajdonosaival"
+
+msgid "Request access"
+msgstr "Hozzáférés kérése"
+
+msgid "Email confirmation needed"
+msgstr "E-mailes megerősítés szükséges"
+
+msgid "We have sent you an email to verify your address."
+msgstr "Küldtünk Önnek egy e-mailt, hogy ellenőrizze a címét."
+
+msgid ""
+"\n"
+"                Please check the email and follow the instructions to complete the access request.\n"
+"              "
+msgstr ""
+"\n"
+"                Kérjük, ellenőrizze az e-mailt, és kövesse az utasításokat a hozzáférési kérelem kitöltéséhez.\n"
+"              "
+
+msgid "An error occurred while fetching communities."
+msgstr "A közösségek lekérdezése során hiba történt."
+
+msgid "Communities"
+msgstr "Közösségek"
+
+msgid "View all {{count}} communities"
+msgid_plural "View all {{count}} communities"
+msgstr[0] "Mind a(z) {{count}} közösség megtekintése"
+msgstr[1] "Mind a(z) {{count}} közösség megtekintése"
+
+msgid "Submit to community"
+msgstr "Benyújtás közösséghez"
+
+msgid "Pending submissions"
+msgstr "Függőben lévő beküldések"
+
+msgid "Manage communities"
+msgstr "Közösségek kezelése"
+
+msgid "Community management menu dropdown"
+msgstr "Közösségi menedzsment legördülő menüje"
+
+msgid "Edit"
+msgstr "Szerkesztés"
+
+msgid "Export selection"
+msgstr "Kijelölés exportálása"
+
+msgid "Download file"
+msgstr "Fájl letöltése"
+
+msgid "Export"
+msgstr "Exportálás"
+
+msgid "Manage"
+msgstr "Kezelés"
+
+msgid "Manage record"
+msgstr "Rekord kezelése"
+
+msgid "Manage user"
+msgstr "Felhasználó kezelése"
+
+msgid "Remove branding"
+msgstr "Branding eltávolítása"
+
+msgid "{{communityTitle}} is a default branding for this record"
+msgstr "A rekordhoz tartozó alapértelmezett megjelenés: {{communityTitle}}"
+
+msgid ""
+"Remove this community from appearing on top of the record details page."
+msgstr "Távolítsa el ezt a közösséget a rekord adatlapjának tetejéről."
+
+msgid "Set branding"
+msgstr "Branding beállítása"
+
+msgid "Set {{communityTitle}} as a default branding for this record"
+msgstr ""
+"{{communityTitle}} beállítása alapértelmezett megjelenítésként ehhez a "
+"rekordhoz. "
+
+msgid "Set this community to appear on the top of the record details page."
+msgstr "Jelenítse meg ezt a közösséget a rekord adatlapjának tetején."
+
+msgid "Pending communities"
+msgstr "Függőben lévő közösségek"
+
+msgid "Search for pending submissions to communities..."
+msgstr "A közösségekhez küldött függőben lévő beadások keresése..."
+
+msgid "An error occurred while generating the citation."
+msgstr "Hiba történt az idézés generálása közben."
+
+msgid "Style"
+msgstr "Stílus"
+
+msgid "This record is not included in any communities yet."
+msgstr "Ez a rekord még nem szerepel egyetlen közösségben sem."
+
+msgid "Search for community..."
+msgstr "Közösség keresése..."
+
+msgid "Record submitted"
+msgstr "Rekord beküldve"
+
+msgid "Review requested"
+msgstr "Elbírálás kérése"
+
+msgid "Search in all communities"
+msgstr "Keresés az összes közösségben"
+
+msgid "Search in my communities"
+msgstr "Keresés a saját közösségeimben"
+
+msgid "Select a community"
+msgstr "Közösség kiválasztása"
+
+msgid "Version {{- version}}"
+msgstr "{{- version}} verzió"
+
+msgid "Preview"
+msgstr "Előnézet"
+
+msgid "Only published versions are displayed."
+msgstr "Csak a közzétett verziókat jelenítettük meg."
+
+msgid "An error occurred while fetching the versions."
+msgstr "A verziók lekérdezése során hiba történt."
+
+msgid "View all {{count}} versions"
+msgid_plural "View all {{count}} versions"
+msgstr[0] "Mind a(z) {{count}} verzió megtekintése"
+msgstr[1] "Mind a(z) {{count}} verzió megtekintése"
+
+msgid ""
+"<0><0>Cite all versions?</0> You can cite all versions by using the DOI "
+"<3></3>. This DOI represents all versions, and will always resolve to the "
+"latest one. <5>Read more</5>.</0>"
+msgstr ""
+"<0><0>Összes változat idézése?</0> Az összes változatot idézheti a "
+"DOI<3></3> használatával. Ez a DOI az összes verziót tartalmazza, és mindig "
+"a legutolsó verzióra fog mutatni.<5> Bővebben</5>.</0>"
+
+msgid ""
+"<0><0>Cite all versions?</0> You can cite all versions by using the DOI . "
+"The DOI is registered when the first version is published. <4>Read "
+"more</4>.</0>"
+msgstr ""
+"<0><0>Összes változat idézése?</0> Az összes változatot idézheti a DOI "
+"használatával. A DOI-t az első változat közzétételekor regisztrálják. <4> "
+"Bővebben</4>.</0>"
+
+msgid "Remove"
+msgstr "Eltávolítás"
+
+msgid "Remove {{communityTitle}} from this record"
+msgstr "A {{communityTitle}} törlése ebből a rekordból"
+
+msgid "Remove community"
+msgstr "Közösség eltávolítása"
+
+msgid "Are you sure you want to remove the record from the community?"
+msgstr "Biztosan el akarja távolítani a rekordot a közösségből?"
+
+msgid "I understand the consequences:"
+msgstr "Megértettem a következményeket:"
+
+msgid ""
+"The record can only be re-included in the community by going through a new "
+"review by the community curators."
+msgstr ""
+"A rekordot csak akkor lehet újra felvenni a közösségbe, ha a közösség "
+"kurátorai újból átnézik."
+
+msgid "Something went wrong"
+msgstr "Valami hiba történt."
+
+msgid "Cancel removal"
+msgstr "Eltávolítás visszavonása"
+
+msgid "Cancel"
+msgstr "Mégsem"
+
+msgid "Confirm removal"
+msgstr "Eltávolítás megerősítése"
+
+msgid ""
+"Members of the community <1>\"<1>{{communityTitle}}</1>\"</1> will <4>lose "
+"their access</4> to the record."
+msgstr ""
+"A <1>„<1>{{communityTitle}}</1>”</1> közösség tagjai <4>elveszítik "
+"hozzáférésüket</4> a rekordhoz."
+
+msgid "Select permissions"
+msgstr "Engedélyek kiválasztása"
+
+msgid "Short name for your link (optional)."
+msgstr "Rövid név a linkhez (opcionális)"
+
+msgid "Expiration date format: YYYY-MM-DD"
+msgstr "Lejárati dátum formátuma: ÉÉÉÉ-HH-NN"
+
+msgid "Expiration date: YYYY-MM-DD or never if blank (optional)."
+msgstr "Lejárati dátum: ÉÉÉÉ-HH-NN vagy üres mező esetén soha (opcionális)"
+
+msgid "Create a new link"
+msgstr "Új link létrehozása"
+
+msgid "Link title"
+msgstr "Link címe"
+
+msgid "Expires at"
+msgstr "Lejár:"
+
+msgid "Never"
+msgstr "Soha"
+
+msgid "Access"
+msgstr "Hozzáférés"
+
+msgid "Delete"
+msgstr "Törlés"
+
+msgid "Copy link"
+msgstr "Link másolása"
+
+msgid "Can view"
+msgstr "Megtekintheti"
+
+msgid "Can view restricted files of all versions of this record."
+msgstr "Megtekintheti a rekord összes verziójának korlátozott fájljait."
+
+msgid "Can preview drafts"
+msgstr "Előnézet megtekintése vázlatokból"
+
+msgid "Can view drafts and restricted files of all versions of this record."
+msgstr ""
+"Megtekintheti a vázlatokat és a rekord összes verziójának korlátozott "
+"fájljait."
+
+msgid "Can edit"
+msgstr "Szerkesztheti"
+
+msgid ""
+"Can edit drafts and view restricted files of all versions of this record."
+msgstr ""
+"Szerkesztheti a vázlatokat, és megtekintheti az összes verzió korlátozott "
+"fájljait."
+
+msgid ""
+"Can view (view access link can be created only after the record is "
+"published)"
+msgstr ""
+"Megtekintheti (a megtekintési hivatkozás csak a közzététel után hozható "
+"létre)"
+
+msgid "Expires"
+msgstr "Lejár"
+
+msgid "This record has no links generated yet."
+msgstr "Ehhez a rekordhoz még nem generáltak linkeket."
+
+msgid "Unable to change the access request settings."
+msgstr "Nem lehet módosítani a hozzáférési kérelem beállításait."
+
+msgid "Allow authenticated users to request access to restricted files."
+msgstr ""
+"Engedélyezi a hitelesített felhasználóknak a korlátozott fájlokhoz való "
+"hozzáférés kérését."
+
+msgid "Allow non-authenticated users to request access to restricted files."
+msgstr ""
+"Engedélyezi a nem hitelesített felhasználóknak a hozzáférés kérését a "
+"korlátozott fájlokhoz."
+
+msgid "Accept conditions"
+msgstr "Feltételek elfogadása"
+
+msgid "Advanced options"
+msgstr "További lehetőségek"
+
+msgid "Save"
+msgstr "Mentés"
+
+msgid "No user has access to this record yet."
+msgstr "Ehhez a rekordhoz még egy felhasználónak sincs hozzáférése."
+
+msgid "People with access"
+msgstr "Hozzáféréssel rendelkező emberek"
+
+msgid "No group has access to this record yet."
+msgstr "Ehhez a rekordhoz még egy csoportnak sincs hozzáférése."
+
+msgid "Groups with access"
+msgstr "Hozzáféréssel rendelkező csoportok"
+
+msgid "You"
+msgstr "Ön"
+
+msgid "Add people"
+msgstr "Emberek hozzáadása"
+
+msgid "No selected users"
+msgstr "Nincsenek felhasználók kiválasztva"
+
+msgid ""
+"Search for users to grant access (only users with a public profile can be "
+"invited)"
+msgstr ""
+"Felhasználók keresése hozzáférés megadásához (csak nyilvános profillal "
+"rendelkező felhasználók hívhatók meg)"
+
+msgid "Search by email, full name or username"
+msgstr "Keresés email, teljes név vagy felhasználónév alapján"
+
+msgid "users"
+msgstr "felhasználók"
+
+msgid "Add groups"
+msgstr "Csoportok hozzáadása"
+
+msgid "Group"
+msgstr "Csoport"
+
+msgid "No selected groups"
+msgstr "Nincsenek kijelölt csoportok"
+
+msgid "Search for groups"
+msgstr "Csoportok keresése"
+
+msgid "groups"
+msgstr "csoportok"
+
+msgid "Add"
+msgstr "Hozzáadás"
+
+msgid "Notify people"
+msgstr "Emberek értesítése"
+
+msgid "Notification message"
+msgstr "Értesítés szövege"
+
+msgid "You are about to add"
+msgstr "Hamarosan hozzáadja"
+
+msgid "Access already granted"
+msgstr "A hozzáférés már engedélyezve van"
+
+msgid "Can manage"
+msgstr "Kezelheti"
+
+msgid ""
+"Can manage access, edit drafts and view restricted files of all versions of "
+"this record."
+msgstr ""
+"Kezelheti a hozzáférést, szerkesztheti a vázlatokat, és megtekintheti az "
+"összes verzió korlátozott fájljait."
+
+msgid "You don't have permissions to share this record."
+msgstr "Nincs jogosultsága a rekord megosztására."
+
+msgid "Share"
+msgstr "Megosztás"
+
+msgid "People"
+msgstr "Emberek"
+
+msgid "Groups"
+msgstr "Csoportok"
+
+msgid "Settings"
+msgstr "Beállítások"
+
+msgid "Share access"
+msgstr "Hozzáférés megosztása"
+
+msgid "Link expiration"
+msgstr "Hivatkozás lejárata"
+
+msgid "In 1 month"
+msgstr "1 hónap múlva"
+
+msgid "In 2 months"
+msgstr "2 hónap múlva"
+
+msgid "In 6 months"
+msgstr "6 hónap múlva"
+
+msgid "In 1 year"
+msgstr "1 év múlva"
+
+msgid "Invalid date format."
+msgstr "Érvénytelen dátumformátum."
+
+msgid "Access link expiration date cannot be in the past."
+msgstr "A hozzáférési link lejárati dátuma nem lehet múltbeli."
+
+msgid "Access request"
+msgstr "Hozzáférés igénylése"
+
+msgid "Unable to change the expiration request settings."
+msgstr "Nem sikerült módosítani a lejárati beállításokat."
+
+msgid "Expiration date: "
+msgstr "Lejárat dátuma:"
+
+msgid ""
+"Format: YYYY-MM-DD. Granted access will expire on the given date. Leave "
+"empty to set no expiration limit."
+msgstr ""
+"Formátum: ÉÉÉÉ-HH-NN. A megadott napon a hozzáférés lejár. Hagyja üresen, ha"
+" nem szeretne lejárati időt megadni."
+
+msgid "Link expiration date:"
+msgstr "Hivatkozás lejárati dátuma:"
+
+msgid "We couldn't find any matches for {{- search}}"
+msgstr "Nincs találat a következőre: {{- search}}"
+
+msgid "Start over"
+msgstr "Újrakezdés"
+
+msgid "ProTip"
+msgstr "ProTip"
+
+msgid "Search guide"
+msgstr "Keresési útmutató"
+
+msgid ""
+"<0>For more tips, check out our <2>search guide</2> for defining advanced "
+"search queries.</0>"
+msgstr ""
+"<0>További tippekért tekintse meg a <2>keresési útmutatónkat</2> az "
+"összetett keresési lekérdezések megadásához.</0>"
+
+msgid "Search in my communities..."
+msgstr "Keresés a közösségeimben..."
+
+msgid "View"
+msgstr "Megtekintés"
+
+msgid "Published in: {{publishedIn}}"
+msgstr "Publikálva: {{publishedIn}}"
+
+msgid "In review"
+msgstr "Bírálás alatt"
+
+msgid "Declined"
+msgstr "Elutasítva"
+
+msgid "Expired"
+msgstr "Lejárt"
+
+msgid "Draft"
+msgstr "Piszkozat"
+
+msgid "New version draft"
+msgstr "Piszkozat új verzióhoz"
+
+msgid "open"
+msgstr "megnyit"
+
+msgid "Open"
+msgstr "Megnyitás"
+
+msgid "unlock"
+msgstr "felold"
+
+msgid "Get started!"
+msgstr "Kezdjük!"
+
+msgid "Make your first upload!"
+msgstr "Tegye meg az első feltöltését!"
+
+msgid "New upload"
+msgstr "Új feltöltés"
+
+msgid "Search in my uploads..."
+msgstr "Keresés a feltöltéseim között..."
+
+msgid "ORCID profile"
+msgstr "ORCID profil"
+
+msgid "ORCID logo"
+msgstr "ORCID logó"
+
+msgid "ROR profile"
+msgstr "ROR profil"
+
+msgid "ROR logo"
+msgstr "ROR logó"
+
+msgid "GND profile"
+msgstr "GND profil"
+
+msgid "GND logo"
+msgstr "GND logó"
+
+msgid "No name"
+msgstr "Név nélküli"
+
+msgid "and {{count}} other"
+msgid_plural "and {{count}} other"
+msgstr[0] "és további {{count}}"
+msgstr[1] "és további {{count}}"
+
+msgid "and {{count}} others"
+msgid_plural "and {{count}} others"
+msgstr[0] "és további {{count}}"
+msgstr[1] "és további {{count}}"
+
+msgctxt ""
+"date:[2017-01-01 TO *]</0> will give you all the publications from 2017 "
+"until today.</0>"
+msgid "<0><0>metadata.publication"
+msgstr ""
+"<0><0>metadata.publication_date:[2017-01-01 TO *]</0> lekérdezéssel 2017. "
+"január 1-jétől kezdődően a mai napig bezárólag minden publikáció listázásra "
+"kerül.</0>"

@@ -1,0 +1,951 @@
+# 
+# Translators:
+# Tibor Simko <tibor.simko@cern.ch>, 2024
+# Bessem Aamira <bessemamira@gmail.com>, 2025
+# Salaheddine Ben Ali <salaheddine.benali@cnudst.tn>, 2025
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2025-03-27T16:30:16.192Z\n"
+"PO-Revision-Date: 2021-07-14 16:07+0000\n"
+"Last-Translator: Salaheddine Ben Ali <salaheddine.benali@cnudst.tn>, 2025\n"
+"Language-Team: Arabic (https://app.transifex.com/inveniosoftware/teams/23537/ar/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"mime-version: 1.0\n"
+
+msgid "Basic information"
+msgstr "المعلومات الأساسية"
+
+msgid "Impersonate user"
+msgstr "محاكاة لشخصيّة المستخدم"
+
+msgid "Impersonate"
+msgstr "محاكاة"
+
+msgid "You must accept this."
+msgstr "يجب أن تقبل بهذا."
+
+msgid "Success"
+msgstr "نجاح العمليّة"
+
+msgid ""
+"User impersonated succesfully! You will be redirected in frontpage soon."
+msgstr ""
+"تمت محاكاة شخصية المستخدم بنجاح! سيتم إعادة توجيهك إلى الصفحة الرئيسية."
+
+msgid "Unable to impersonate user."
+msgstr "محاكاة شخصيّة المستخدم ليست ممكنة."
+
+msgid ""
+"Please read carefully and confirm the following statements before you "
+"proceed."
+msgstr "يرجى قراءة البيانات التّالية بعناية والتّأكّد منها قبل المواصلة."
+
+msgid "You are about to impersonate user <bold>{{email}}(id: {{id}})</bold>."
+msgstr "أنت على وشك محاكاة شخصية المستخدم <bold>{{email}}(id: {{id}})</bold>."
+
+msgid "You <bold>MUST</bold> logout after completing your inquiry."
+msgstr "أنت <bold>ملزم</bold> بتسجيل الخروج بعد الانتهاء من استفسارك."
+
+msgid "Close"
+msgstr "غلق"
+
+msgid "Set Quota"
+msgstr "حدّد الكوتا Quota"
+
+msgid "Set quota in bytes"
+msgstr "حدّد الكوتا بحساب الـ bytes"
+
+msgid "Note"
+msgstr "ملاحظة"
+
+msgid ""
+"This is the default quota that will be applied to any NEW records created by"
+" this user – it will NOT update quota of existing records."
+msgstr ""
+"هذه هي الكوتا الجزافيّة التي سيتم تطبيقها على أي تسجيلات جديدة ينشئها هذا "
+"المستخدم - ولن يتم تحديث حصة التّسجيلات الموجودة سابقا."
+
+msgid "Quota of {{id}} was set to {{quota}} {{unit}}"
+msgstr "الكوتا {{id}} حدّدت بـ  {{quota}} {{unit}}"
+
+msgid "Unable to set quota."
+msgstr "تحديد الكوتا  ليس ممكنا."
+
+msgid "Quota size ({{unit}})"
+msgstr "حجم الكوتا ({{unit}})"
+
+msgid "Enter quota size..."
+msgstr "أكتب حجم الكوتا"
+
+msgid "Max file size ({{unit}})"
+msgstr "أقص حجم لملف ({{unit}})"
+
+msgid "Enter max file size..."
+msgstr "أكتب أقصى حجم لملف"
+
+msgid "Ticket 1234"
+msgstr "بطاقة 1234"
+
+msgid "Set quota"
+msgstr "ثبّت الكوتا"
+
+msgid "Domain"
+msgstr "النّطاق"
+
+msgid "Flagged"
+msgstr "معلّم"
+
+msgid "Organization"
+msgstr "منظمة"
+
+msgid "Company"
+msgstr "شركة"
+
+msgid "Mail provider"
+msgstr "مزوّد خدمة البريد"
+
+msgid "Spammer"
+msgstr "سبامر"
+
+msgid "TLD"
+msgstr "ت. ل. د. TLD"
+
+msgid "Status"
+msgstr "الحالة"
+
+msgid "New"
+msgstr "جديد"
+
+msgid "Moderated"
+msgstr "خاضع للإشراف"
+
+msgid "Verified"
+msgstr "تم التّحقق"
+
+msgid "Blocked"
+msgstr "محظور"
+
+msgid "Users"
+msgstr "المستخدمين"
+
+msgid "Active"
+msgstr "مفعٌل"
+
+msgid "Inactive"
+msgstr "غير نشط"
+
+msgid "Confirmed"
+msgstr "مؤكّد"
+
+msgid "Links"
+msgstr "روابط"
+
+msgid "Set quota for record {{recordId}}"
+msgstr "ثبّت الكوتا للتّسجيلة {{recordId}}"
+
+msgid "Delete record"
+msgstr "إحذف التسجيلة"
+
+msgid "Restore record"
+msgstr "إسترجع التسجيلة"
+
+msgid "Unavailability statement"
+msgstr "بيان عدم التوفر"
+
+msgid "Record {{id}} was restored."
+msgstr "وقع إسترجع التسجيلة {{id}}"
+
+msgid "Unable to restore."
+msgstr "الإسترجاع غير ممكن"
+
+msgid "Are you sure you want to restore #{{id}}"
+msgstr "هل أنت متأكد من أنك تريد إسترجاع #{{id}}"
+
+msgid "Published"
+msgstr "نشرت"
+
+msgid "Deleted"
+msgstr "تمّ الحذف"
+
+msgid "Scheduled for purge"
+msgstr "برنامج التطهير"
+
+msgid "Empty draft title"
+msgstr "فراغ بمسودة العنوان"
+
+msgid "version"
+msgstr "إصدار"
+
+msgid "Owner"
+msgstr "المالك"
+
+msgid "Created"
+msgstr "تمّ الإنشاء"
+
+msgid "Files"
+msgstr "الملفّات"
+
+msgid "Stats"
+msgstr "إحصائيّات"
+
+msgid "Record {{id}} was deleted."
+msgstr "تمّ فسخ التّسجيلة {{id}}"
+
+msgid "Unable to delete"
+msgstr "الفسخ غير ممكن"
+
+msgid "Public"
+msgstr "مشاع"
+
+msgid "Hidden"
+msgstr "مخفي"
+
+msgid ""
+"The tombstone is set to hidden but your record is public. Best practice is "
+"to provide a public tombstone when deactivating public records."
+msgstr ""
+"تم ضبط علامة tombstone على أنها مخفية، لكن سجلك مشاع للعموم. من الأفضل توفير"
+" علامة tombstone مشاعة عند إلغاء تنشيط السجلات المشاعة."
+
+msgid ""
+"RISK INFORMATION LEAKAGE: The tombstone is set to public but your record is "
+"restricted. Please make sure no restricted information is shared in the "
+"tombstone below."
+msgstr ""
+"تسريب معلومات خطرة: علامة tombstone مُتاحة للعامة، لكن سجلك مقيّد. يُرجى "
+"التأكد من عدم مشاركة أي معلومات مقيّدة في علامة tombstone أدناه."
+
+msgid "Bibliographic citation"
+msgstr "إستشهاد بيبليوغرافي"
+
+msgid ""
+"Input citation text. Blank field will be filled with APA citation by "
+"default."
+msgstr "أدخل نص الاستشهاد. سيتم ملء الحقل الفارغ باستشهاد APA تلقائيا."
+
+msgid "Public note"
+msgstr "ملاحظ للعموم"
+
+msgid "User {{name}} was approved."
+msgstr "وقع قبول {{name}} المستخدم"
+
+msgid "User {{name}} is blocked."
+msgstr "وقع حظر {{name}} المستخدم"
+
+msgid "Error"
+msgstr "خطأ"
+
+msgid "User"
+msgstr "مستخدم"
+
+msgid "Email"
+msgstr "البريد الإلكتروني"
+
+msgid "Email domain"
+msgstr "نطاق البريد الإلكتروني"
+
+msgid "Actions"
+msgstr "العمليات"
+
+msgid "Records"
+msgstr "التسجيلات"
+
+msgid "Username"
+msgstr "اسم المستخدم"
+
+msgid "GitHub"
+msgstr "جيت هوب GitHub"
+
+msgid "Updated"
+msgstr "محينة"
+
+msgid "Restore"
+msgstr "إسترجع"
+
+msgid "Restored"
+msgstr "تم الاسترجاع "
+
+msgid "Block"
+msgstr "حظر"
+
+msgid "Suspend"
+msgstr "علّق"
+
+msgid "Suspended"
+msgstr "معلّق"
+
+msgid "Approve"
+msgstr "قبول"
+
+msgid "Approved"
+msgstr "مقبول"
+
+msgid "Activate"
+msgstr "تفعيل"
+
+msgid "Activated"
+msgstr "مفعٌل"
+
+msgid "Set default quota for {{email}}"
+msgstr "حدّد كوتا إفتراضيّة لـ {{email}}"
+
+msgid "Filter results"
+msgstr "تنقية النتائج"
+
+msgid "Search records in community..."
+msgstr "البحث في سجلات المجتمع..."
+
+msgid "Sort by"
+msgstr "مرتبة حسب"
+
+msgid " results found"
+msgid_plural " results found"
+msgstr[0] "تم العثور على النتائج"
+msgstr[1] "تم العثور على النتائج"
+msgstr[2] "تم العثور على النتائج"
+msgstr[3] "تم العثور على النتائج"
+msgstr[4] "تم العثور على النتائج"
+msgstr[5] "تم العثور على النتائج"
+
+msgid "Search records..."
+msgstr "البحث عن تسجيلات..."
+
+msgid "Search"
+msgstr "بحث"
+
+msgid "Views"
+msgstr "عروض"
+
+msgid "Downloads"
+msgstr "تنزيلات"
+
+msgid "Copy to clipboard"
+msgstr "نسخ إلى لوخة المفاتيح"
+
+msgid "Copied!"
+msgstr "تم النسخ!"
+
+msgid "Part of "
+msgstr "جزء من"
+
+msgid "No creation date found."
+msgstr "لا وجود لأي تاريخ إنشاء."
+
+msgid "No description"
+msgstr "بلا وصف"
+
+msgid "No publication date found."
+msgstr "لا وجود لتاريخ نشر."
+
+msgid "No resource type"
+msgstr "نوع مورد غير مبين"
+
+msgid "No title"
+msgstr "لا يوجد عنوان"
+
+msgid "Uploaded on {{uploadDate}}"
+msgstr "محمّل في {{uploadDate}}"
+
+msgid "Published in: {{publishInfo}}"
+msgstr "نشر في: {{publishInfo}}"
+
+msgid "{{count}} more versions exist for this record"
+msgid_plural "{{count}} more versions exist for this record"
+msgstr[0] "هناك {{count}} إصدارات أخرى موجودة لهذه التسجيلة"
+msgstr[1] "هناك {{count}} إصدارات أخرى موجودة لهذه التسجيلة"
+msgstr[2] "هناك {{count}} إصدارات أخرى موجودة لهذه التسجيلة"
+msgstr[3] "هناك {{count}} إصدارات أخرى موجودة لهذه التسجيلة"
+msgstr[4] "هناك {{count}} إصدارات أخرى موجودة لهذه التسجيلة"
+msgstr[5] "هناك {{count}} إصدارات أخرى موجودة لهذه التسجيلة"
+
+msgid "Person"
+msgstr "شخص"
+
+msgid "The record has no files."
+msgstr "التّسجيلة لا تحتوي على ملفّات."
+
+msgid "Creators"
+msgstr "المنشؤون"
+
+msgid "Recommended information"
+msgstr "معلومات موصى بها"
+
+msgid "Add contributor"
+msgstr "أضف مساهم"
+
+msgid "Contributors"
+msgstr "المساهمون"
+
+msgid "Edit contributor"
+msgstr "أضف مساهم"
+
+msgid "Funding"
+msgstr "التّمويل"
+
+msgid "Awards/Grants"
+msgstr "الجوائز/المنح"
+
+msgid "Alternate identifiers"
+msgstr "معرفات بديلة"
+
+msgid "Related works"
+msgstr "أعمال ذات علاقة"
+
+msgid "References"
+msgstr "مراجع"
+
+msgid "Visibility"
+msgstr "مرئيّة"
+
+msgid "More"
+msgstr "المزيد"
+
+msgid "Unable to request the access."
+msgstr "لا يمكن طلب الدّخول."
+
+msgid "Your email address"
+msgstr "عنوان بريدك الإلكتروني"
+
+msgid "Email address"
+msgstr "عنوان البريد الإلكتروني"
+
+msgid "Your full name"
+msgstr "إسمك بالكامل"
+
+msgid "Full name"
+msgstr "الإسم الكامل"
+
+msgid "Request message"
+msgstr "طلب رسالة"
+
+msgid ""
+"I agree to that my full name and email address is shared with the owners of "
+"the record"
+msgstr ""
+"أوافق على مشاركة إسمي الكامل وعنوان بريدي الإلكتروني مع مالكي التّسجيلة"
+
+msgid "Request access"
+msgstr "طلب دخول"
+
+msgid "Email confirmation needed"
+msgstr "تأكيد البريد الإلكتروني مفروض"
+
+msgid "We have sent you an email to verify your address."
+msgstr "لقد أرسلنا لك بريدًا إلكترونيًا للتحقق من عنوانك."
+
+msgid ""
+"\n"
+"                Please check the email and follow the instructions to complete the access request.\n"
+"              "
+msgstr ""
+"\n"
+"لقد أرسلنا لك بريدًا إلكترونيًا للتحقق من عنوانك."
+
+msgid "An error occurred while fetching communities."
+msgstr "حدث خطأ أثناء معالجة المجتمعات."
+
+msgid "Communities"
+msgstr "المجتمعات"
+
+msgid "View all {{count}} communities"
+msgid_plural "View all {{count}} communities"
+msgstr[0] "عرض جميع {{count}} المجتمعات"
+msgstr[1] "عرض جميع {{count}} المجتمعات"
+msgstr[2] "عرض جميع {{count}} المجتمعات"
+msgstr[3] "عرض جميع {{count}} المجتمعات"
+msgstr[4] "عرض جميع {{count}} المجتمعات"
+msgstr[5] "عرض جميع {{count}} المجتمعات "
+
+msgid "Submit to community"
+msgstr "قدّم للمجتمع"
+
+msgid "Pending submissions"
+msgstr "العروض المعلّقة"
+
+msgid "Manage communities"
+msgstr "إدارة المجموعات"
+
+msgid "Community management menu dropdown"
+msgstr "قائمة إدارة المجتمع"
+
+msgid "Edit"
+msgstr "تعديل"
+
+msgid "Export selection"
+msgstr "صدّر ما وقع تحديده"
+
+msgid "Download file"
+msgstr "تنزيل الملف"
+
+msgid "Export"
+msgstr "تصدير"
+
+msgid "Manage"
+msgstr "إدارة"
+
+msgid "Manage record"
+msgstr "التّصرّف في التسجيلة"
+
+msgid "Manage user"
+msgstr "إدارة المستخدم"
+
+msgid "Remove branding"
+msgstr "حذف الوسام"
+
+msgid "{{communityTitle}} is a default branding for this record"
+msgstr "{{communityTitle}} هو وسام تلقائي لهذه التّسجيلة"
+
+msgid ""
+"Remove this community from appearing on top of the record details page."
+msgstr "حجب ظهور هذا المجتمع في أعلى صفحة تفاصيل التّسجيلة."
+
+msgid "Set branding"
+msgstr "حدّد الوسام"
+
+msgid "Set {{communityTitle}} as a default branding for this record"
+msgstr "حدّد {{communityTitle}} كوسام تلقائي لهذه التّسجيلة"
+
+msgid "Set this community to appear on the top of the record details page."
+msgstr "ثبّت هذا المجتمع للظهور في أعلى صفحة تفاصيل التّسجيلة."
+
+msgid "Pending communities"
+msgstr "المجتمعات المعلّقة"
+
+msgid "Search for pending submissions to communities..."
+msgstr "البحث عن المقترحات المعلّقة المرسلة للمجتمعات..."
+
+msgid "An error occurred while generating the citation."
+msgstr "حدث خطأ أثناء إنشاء الاستشهاد."
+
+msgid "Style"
+msgstr "أسلوب"
+
+msgid "This record is not included in any communities yet."
+msgstr "هذه التّسجيلة غير مدرجة بعد في أحد المجتمعات."
+
+msgid "Search for community..."
+msgstr "البحث عن مجتمع..."
+
+msgid "Record submitted"
+msgstr "أرسلت التّسجيلة"
+
+msgid "Review requested"
+msgstr "بحاجة للتّقييم"
+
+msgid "Search in all communities"
+msgstr "البحث في كل المجتمعات"
+
+msgid "Search in my communities"
+msgstr "البحث في مجتمعاتي"
+
+msgid "Select a community"
+msgstr "إختر مجتمعا"
+
+msgid "Version {{- version}}"
+msgstr "إصدار {{- version}}"
+
+msgid "Preview"
+msgstr "معاينة"
+
+msgid "Only published versions are displayed."
+msgstr " يمكن الإطلاع على الإصدار المنشور فقط."
+
+msgid "An error occurred while fetching the versions."
+msgstr "حدث خطأ أثناء معالجة الإصدار."
+
+msgid "View all {{count}} versions"
+msgid_plural "View all {{count}} versions"
+msgstr[0] "عرض جميع {{count}} الإصدارات"
+msgstr[1] "عرض جميع {{count}} الإصدارات"
+msgstr[2] "عرض جميع {{count}} الإصدارات"
+msgstr[3] "عرض جميع {{count}} الإصدارات"
+msgstr[4] "عرض جميع {{count}} الإصدارات"
+msgstr[5] "عرض جميع {{count}} الإصدارات"
+
+msgid ""
+"<0><0>Cite all versions?</0> You can cite all versions by using the DOI "
+"<3></3>. This DOI represents all versions, and will always resolve to the "
+"latest one. <5>Read more</5>.</0>"
+msgstr ""
+"<0><0>هل تريد الاستشهاد بجميع الإصدارات؟</0> يمكنك الاستشهاد بجميع الإصدارات"
+" باستخدام DOI<3></3>. يمثل هذا الـ DOI  جميع الإصدارات، وسيُرجع دائمًا إلى "
+"الإصدار الأحدث. <5>إقرأ المزيد</5>.</0>"
+
+msgid ""
+"<0><0>Cite all versions?</0> You can cite all versions by using the DOI . "
+"The DOI is registered when the first version is published. <4>Read "
+"more</4>.</0>"
+msgstr ""
+"<0><0>هل تريد الاستشهاد بجميع الإصدارات؟</0> يمكنك الاستشهاد بجميع الإصدارات"
+" باستخدام DOI. هذا الـ DOI  قد سجّل عند نشر الإصدار الأوّل. <4>إقرأ "
+"المزيد</4>.</0>"
+
+msgid "Remove"
+msgstr "حذف"
+
+msgid "Remove {{communityTitle}} from this record"
+msgstr "إحذف {{communityTitle}} من هذه التّسجيلة"
+
+msgid "Remove community"
+msgstr "حذف المجتمع"
+
+msgid "Are you sure you want to remove the record from the community?"
+msgstr "هل انت متأكد من حذف التّسجيلة من هذا المجتمع؟"
+
+msgid "I understand the consequences:"
+msgstr "أنا أتفهّم النتائج:"
+
+msgid ""
+"The record can only be re-included in the community by going through a new "
+"review by the community curators."
+msgstr ""
+"يمكن إعادة إدراج التّسجيلة في المجتمع من خلال إجراء مراجعة جديدة من قِبل "
+"أمناء المجتمع."
+
+msgid "Something went wrong"
+msgstr "هناك خطأ ما."
+
+msgid "Cancel removal"
+msgstr "إلغاء الحذف"
+
+msgid "Cancel"
+msgstr "إلغاء"
+
+msgid "Confirm removal"
+msgstr "تأكيد الحذف"
+
+msgid ""
+"Members of the community <1>\"<1>{{communityTitle}}</1>\"</1> will <4>lose "
+"their access</4> to the record."
+msgstr ""
+"أعضاء المجتمع<1> \"<1>{{communityTitle}}</1>\"</1> <4>سيفقدون إمكانية "
+"الوصول</4> إلى التسجيلة."
+
+msgid "Select permissions"
+msgstr "إختر الأذون"
+
+msgid "Short name for your link (optional)."
+msgstr "إسم مختصر لرابطك (اختياري)."
+
+msgid "Expiration date format: YYYY-MM-DD"
+msgstr "صيغة تاريخ انتهاء الصلاحية: YYYY-MM-DD"
+
+msgid "Expiration date: YYYY-MM-DD or never if blank (optional)."
+msgstr "تاريخ انتهاء الصلاحية: YYYY-MM-DD أو \"أبدًا\" إذا كان فارغًا (اختياري)."
+
+msgid "Create a new link"
+msgstr "إنشاء رابط جديد"
+
+msgid "Link title"
+msgstr "عنوان الرابط"
+
+msgid "Expires at"
+msgstr "ينتهي في:"
+
+msgid "Never"
+msgstr "أبدا"
+
+msgid "Access"
+msgstr "ولوج"
+
+msgid "Delete"
+msgstr "حذف"
+
+msgid "Copy link"
+msgstr "نسخ الرابط"
+
+msgid "Can view"
+msgstr "يمكن الإطلاع"
+
+msgid "Can view restricted files of all versions of this record."
+msgstr "يمكن عرض الملفات المقيدة لجميع إصدارات هذه التسجيلة."
+
+msgid "Can preview drafts"
+msgstr "يمكن معاينة المسودات"
+
+msgid "Can view drafts and restricted files of all versions of this record."
+msgstr "يمكن عرض المسودات و الملفات المقيدة لجميع إصدارات هذه التسجيلة."
+
+msgid "Can edit"
+msgstr "يمكن التعديل"
+
+msgid ""
+"Can edit drafts and view restricted files of all versions of this record."
+msgstr "يمكن فتح المسودات و الملفات المقيدة لجميع إصدارات هذه التسجيلة."
+
+msgid ""
+"Can view (view access link can be created only after the record is "
+"published)"
+msgstr "يمكن العرض (يمكن إنشاء رابط الوصول للعرض فقط بعد نشر التسجيلة)"
+
+msgid "Expires"
+msgstr "تنتهي"
+
+msgid "This record has no links generated yet."
+msgstr "لم يتم إنشاء أي روابط لهذه التسجيلة بعد."
+
+msgid "Unable to change the access request settings."
+msgstr "غير قادر على تغيير إعدادات طلب الوصول."
+
+msgid "Allow authenticated users to request access to restricted files."
+msgstr "السماح للمستخدمين المعتمدين بطلب الوصول إلى الملفات المقيدة."
+
+msgid "Allow non-authenticated users to request access to restricted files."
+msgstr "السماح للمستخدمين من غير المعتمدين بطلب الوصول إلى الملفات المقيدة."
+
+msgid "Accept conditions"
+msgstr "قبول الشروط"
+
+msgid "Advanced options"
+msgstr "خيارات متقدمة"
+
+msgid "Save"
+msgstr "حفظ"
+
+msgid "No user has access to this record yet."
+msgstr "لا يوجد مستخدم لديه حق الوصول إلى هذه التسجيلة حتى الآن."
+
+msgid "People with access"
+msgstr "الأشخاص الذين لديهم إمكانية الوصول"
+
+msgid "No group has access to this record yet."
+msgstr "لا يوجد فريق لديه حق الوصول إلى هذه التسجيلة حتى الآن."
+
+msgid "Groups with access"
+msgstr "الفرق التي لديها إمكانية الوصول"
+
+msgid "You"
+msgstr "انت"
+
+msgid "Add people"
+msgstr "إضافة أشخاص"
+
+msgid "No selected users"
+msgstr "لا يوجد مستخدمين مختارين"
+
+msgid ""
+"Search for users to grant access (only users with a public profile can be "
+"invited)"
+msgstr ""
+"ابحث عن المستخدمين لمنحهم حق الوصول (يمكن دعوة المستخدمين الذين لديهم ملف "
+"تعريف مشاع فقط)"
+
+msgid "Search by email, full name or username"
+msgstr "البحث بعنوان البريد الإكتروني، الإسم الكامل أو إسم المستخدم"
+
+msgid "users"
+msgstr "المستخدمين"
+
+msgid "Add groups"
+msgstr "أضف مجموعات"
+
+msgid "Group"
+msgstr "فريق"
+
+msgid "No selected groups"
+msgstr "لا توجد فرق مختارة"
+
+msgid "Search for groups"
+msgstr "البحث عن مجموعات"
+
+msgid "groups"
+msgstr "الفرق"
+
+msgid "Add"
+msgstr "إضافة"
+
+msgid "Notify people"
+msgstr "إشعار الأشخاص"
+
+msgid "Notification message"
+msgstr "رسالة الإشعار"
+
+msgid "You are about to add"
+msgstr "أنت على وشك إضافة"
+
+msgid "Access already granted"
+msgstr "تم منح الوصول بالفعل"
+
+msgid "Can manage"
+msgstr "يمكن إدارتها"
+
+msgid ""
+"Can manage access, edit drafts and view restricted files of all versions of "
+"this record."
+msgstr ""
+"يمكنك إدارة الوصول وتحرير المسودات وعرض الملفات المقيدة لجميع إصدارات هذه "
+"التسجيلة."
+
+msgid "You don't have permissions to share this record."
+msgstr "غير مخول لك مشاركة السجل."
+
+msgid "Share"
+msgstr "شارك"
+
+msgid "People"
+msgstr "الجمهور"
+
+msgid "Groups"
+msgstr "الفرق"
+
+msgid "Settings"
+msgstr "إعدادات"
+
+msgid "Share access"
+msgstr "مشاركة الوصول"
+
+msgid "Link expiration"
+msgstr "إنتهاء صلاحية الرابط"
+
+msgid "In 1 month"
+msgstr "غي غضون 1 شهر"
+
+msgid "In 2 months"
+msgstr "غي غضون 2 أشهر"
+
+msgid "In 6 months"
+msgstr "غي غضون 6 أشهر"
+
+msgid "In 1 year"
+msgstr "غي غضون 1 سنة"
+
+msgid "Invalid date format."
+msgstr "تنسيق التاريخ غير صالح."
+
+msgid "Access link expiration date cannot be in the past."
+msgstr "لا يمكن أن يكون تاريخ انتهاء صلاحية رابط الوصول في الماضي."
+
+msgid "Access request"
+msgstr "طلب الولوج"
+
+msgid "Unable to change the expiration request settings."
+msgstr "غير قادر على تغيير إعدادات طلب انتهاء الصلاحية."
+
+msgid "Expiration date: "
+msgstr "تاريخ انتهاء الصلاحية:"
+
+msgid ""
+"Format: YYYY-MM-DD. Granted access will expire on the given date. Leave "
+"empty to set no expiration limit."
+msgstr ""
+"التنسيق: YYYY-MM-DD. سيتم انتهاء صلاحية الوصول الممنوح في التاريخ المحدد. "
+"اتركه فارغًا كإعداد لـ \"لا يوجد حد لانتهاء الصلاحية\"."
+
+msgid "Link expiration date:"
+msgstr "تاريخ إنتهاء صلاحية الرابط:"
+
+msgid "We couldn't find any matches for {{- search}}"
+msgstr "لم نتمكن من العثور على أي تطابقات لـ {{- بحث}}"
+
+msgid "Start over"
+msgstr "إبدا من جديد"
+
+msgid "ProTip"
+msgstr "نصيحة محترف"
+
+msgid "Search guide"
+msgstr "دليل البحث"
+
+msgid ""
+"<0>For more tips, check out our <2>search guide</2> for defining advanced "
+"search queries.</0>"
+msgstr ""
+"<0>لمزيد من النصائح، راجع <2>دليل البحث الخاص بنا</2> لتحديد استعلامات البحث"
+" المتقدمة advanced search queries.</0>"
+
+msgid "Search in my communities..."
+msgstr "البحث في مجتمعاتي..."
+
+msgid "View"
+msgstr "عرض"
+
+msgid "Published in: {{publishedIn}}"
+msgstr "نشر في: {{publishedIn}}"
+
+msgid "In review"
+msgstr "بصدد التقييم"
+
+msgid "Declined"
+msgstr "مرفوضة"
+
+msgid "Expired"
+msgstr "منتهي الصلاحية"
+
+msgid "Draft"
+msgstr "مسودة"
+
+msgid "New version draft"
+msgstr "مسودّة إصدار جديدة"
+
+msgid "open"
+msgstr "مفتوح"
+
+msgid "Open"
+msgstr "مفتوح"
+
+msgid "unlock"
+msgstr "إلغاء القفل"
+
+msgid "Get started!"
+msgstr "لتبدأ الآن!"
+
+msgid "Make your first upload!"
+msgstr "قم بأولى إيداعاتك!"
+
+msgid "New upload"
+msgstr "إيداع جديد"
+
+msgid "Search in my uploads..."
+msgstr "البحث في التحميلات خاصّتي..."
+
+msgid "ORCID profile"
+msgstr "الملف الشخصي أوركيد ORCID"
+
+msgid "ORCID logo"
+msgstr "شعار أوركيد ORCID "
+
+msgid "ROR profile"
+msgstr "الملف الشّخصي ROR"
+
+msgid "ROR logo"
+msgstr "شعار رور ROR"
+
+msgid "GND profile"
+msgstr "الملف الشخصي GND"
+
+msgid "GND logo"
+msgstr "شعار ج ن د GND"
+
+msgid "No name"
+msgstr "لا يوجد اسم"
+
+msgid "and {{count}} other"
+msgid_plural "and {{count}} other"
+msgstr[0] "و {{count}} أخرى"
+msgstr[1] "و {{count}} أخرى"
+msgstr[2] "و {{count}} أخرى"
+msgstr[3] "و {{count}} أخرى"
+msgstr[4] "و {{count}} أخرى"
+msgstr[5] "و {{count}} أخرى"
+
+msgid "and {{count}} others"
+msgid_plural "and {{count}} others"
+msgstr[0] "و {{count}} آخرين"
+msgstr[1] "و {{count}} آخرين"
+msgstr[2] "و {{count}} آخرين"
+msgstr[3] "و {{count}} آخرين"
+msgstr[4] "و {{count}} آخرين"
+msgstr[5] "و {{count}} آخرين"
+
+msgctxt ""
+"date:[2017-01-01 TO *]</0> will give you all the publications from 2017 "
+"until today.</0>"
+msgid "<0><0>metadata.publication"
+msgstr ""
+"<0><0>metadata.publication_date:[2017-01-01 TO *]</0>سيقدم لكم جميع "
+"الإصدارات من عام 2017 حتى اليوم.</0>"

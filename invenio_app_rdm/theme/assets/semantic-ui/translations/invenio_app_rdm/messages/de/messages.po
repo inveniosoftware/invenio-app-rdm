@@ -1,0 +1,966 @@
+# 
+# Translators:
+# Zacharias Zacharodimos <zacharias.zacharodimos@cern.ch>, 2022
+# Alizee Pace <alizee.pace@gmail.com>, 2024
+# David Eckhard <dabombeeer@gmail.com>, 2024
+# Tibor Simko <tibor.simko@cern.ch>, 2024
+# Frank Berkemeier, 2024
+# Alexander Gruber <alexander.gruber@tugraz.at>, 2025
+# Mojib Wali <mojib.wali@tugraz.at>, 2025
+# c960a0736ea0fb7507bb1c3555e7d33f_88b575f <3cef15c38ce2563e884ec389656c9161_1006830>, 2025
+# Hermann Schranzhofer <hermann.schranzhofer@tugraz.at>, 2025
+# Sarah Wiechers, 2025
+# Adienne Karsten-Welker, 2025
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2025-03-27T16:30:16.192Z\n"
+"PO-Revision-Date: 2021-07-14 16:07+0000\n"
+"Last-Translator: Adienne Karsten-Welker, 2025\n"
+"Language-Team: German (https://app.transifex.com/inveniosoftware/teams/23537/de/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"mime-version: 1.0\n"
+
+msgid "Basic information"
+msgstr "Allgemeine Informationen"
+
+msgid "Impersonate user"
+msgstr "Sich als ein*e andere*r Benutzer*in ausgeben"
+
+msgid "Impersonate"
+msgstr "Sich als ein*e andere*r Benutzer*in ausgeben"
+
+msgid "You must accept this."
+msgstr "Sie müssen dies akzeptieren."
+
+msgid "Success"
+msgstr "Erfolg"
+
+msgid ""
+"User impersonated succesfully! You will be redirected in frontpage soon."
+msgstr ""
+"Sie haben sich erfolgreich als ein*e andere*r Benutzer*in ausgegeben und "
+"angemeldet. Sie werden in Kürze auf die Startseite weitergeleitet."
+
+msgid "Unable to impersonate user."
+msgstr "Es ist nicht möglich, sich als ein*e andere*r Benutzer*in auszugeben."
+
+msgid ""
+"Please read carefully and confirm the following statements before you "
+"proceed."
+msgstr ""
+"Bitte lesen und bestätigen Sie den folgenden Text, bevor Sie fortfahren."
+
+msgid "You are about to impersonate user <bold>{{email}}(id: {{id}})</bold>."
+msgstr ""
+"Sie sind dabei, sich als ein*e andere*r Benutzer*in <bold>{{email}}(id: "
+"{{id}})</bold> auszugeben."
+
+msgid "You <bold>MUST</bold> logout after completing your inquiry."
+msgstr "Sie <bold>MÜSSEN</bold> sich nach Abschluss Ihrer Anfrage abmelden."
+
+msgid "Close"
+msgstr "Schließen"
+
+msgid "Set Quota"
+msgstr "Quota setzen"
+
+msgid "Set quota in bytes"
+msgstr "Quota in Bytes setzen"
+
+msgid "Note"
+msgstr "Bemerkung"
+
+msgid ""
+"This is the default quota that will be applied to any NEW records created by"
+" this user – it will NOT update quota of existing records."
+msgstr ""
+"Dies ist die Standard-Quota, die auf alle neu erstellten Einträge dieses "
+"Benutzers angewendet wird – sie wird NICHT die Quota von bereits "
+"existierenden Einträgen ersetzen."
+
+msgid "Quota of {{id}} was set to {{quota}} {{unit}}"
+msgstr "Quota von {{id}} wurde auf {{quota}} {{unit}} gesetzt"
+
+msgid "Unable to set quota."
+msgstr "Es ist nicht möglich, die Quota zu setzen."
+
+msgid "Quota size ({{unit}})"
+msgstr "Größe der Quota ({{unit}})"
+
+msgid "Enter quota size..."
+msgstr "Größe der Quota eingeben..."
+
+msgid "Max file size ({{unit}})"
+msgstr "Maximale Dateigröße ({{unit}})"
+
+msgid "Enter max file size..."
+msgstr "Maximale Dateigröße eingeben..."
+
+msgid "Ticket 1234"
+msgstr "Ticket 1234"
+
+msgid "Set quota"
+msgstr "Quota setzen"
+
+msgid "Domain"
+msgstr "Domain"
+
+msgid "Flagged"
+msgstr "Markiert"
+
+msgid "Organization"
+msgstr "Organisation"
+
+msgid "Company"
+msgstr "Firma"
+
+msgid "Mail provider"
+msgstr "E-Mail-Provider"
+
+msgid "Spammer"
+msgstr "Spammer"
+
+msgid "TLD"
+msgstr "TLD"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "New"
+msgstr "Neu"
+
+msgid "Moderated"
+msgstr "Moderiert"
+
+msgid "Verified"
+msgstr "Verifiziert"
+
+msgid "Blocked"
+msgstr "Gesperrt"
+
+msgid "Users"
+msgstr "Benutzer*innen"
+
+msgid "Active"
+msgstr "Aktiv"
+
+msgid "Inactive"
+msgstr "Inaktiv"
+
+msgid "Confirmed"
+msgstr "Bestätigt"
+
+msgid "Links"
+msgstr "Links"
+
+msgid "Set quota for record {{recordId}}"
+msgstr "Quota für den Eintrag {{recordId}} setzen"
+
+msgid "Delete record"
+msgstr "Eintrag löschen"
+
+msgid "Restore record"
+msgstr "Eintrag wiederherstellen"
+
+msgid "Unavailability statement"
+msgstr "Nichtverfügbarkeits-Erklärung"
+
+msgid "Record {{id}} was restored."
+msgstr "Eintrag {{id}} wurde wiederhergestellt."
+
+msgid "Unable to restore."
+msgstr "Es ist nicht möglich, den Eintrag wiederherzustellen."
+
+msgid "Are you sure you want to restore #{{id}}"
+msgstr ""
+"Sind Sie sicher, dass Sie den Eintrag #{{id}} wiederherstellen möchten?"
+
+msgid "Published"
+msgstr "Veröffentlicht"
+
+msgid "Deleted"
+msgstr "Gelöscht"
+
+msgid "Scheduled for purge"
+msgstr "Zur Sperrung vorgesehen"
+
+msgid "Empty draft title"
+msgstr "Leerer Entwurfstitel"
+
+msgid "version"
+msgstr "Version"
+
+msgid "Owner"
+msgstr "Besitzer*in"
+
+msgid "Created"
+msgstr "Erstellt"
+
+msgid "Files"
+msgstr "Dateien"
+
+msgid "Stats"
+msgstr "Statistiken"
+
+msgid "Record {{id}} was deleted."
+msgstr "Eintrag {{id}} wurde gelöscht."
+
+msgid "Unable to delete"
+msgstr "Es ist nicht möglich, den Eintrag zu löschen."
+
+msgid "Public"
+msgstr "Öffentlich"
+
+msgid "Hidden"
+msgstr "Verborgen"
+
+msgid ""
+"The tombstone is set to hidden but your record is public. Best practice is "
+"to provide a public tombstone when deactivating public records."
+msgstr ""
+"Es sollte möglichst immer eine öffentlich erreichbare Tombstone-Seite "
+"erstellt werden, wenn Sie einen publizierten Eintrag deaktivieren."
+
+msgid ""
+"RISK INFORMATION LEAKAGE: The tombstone is set to public but your record is "
+"restricted. Please make sure no restricted information is shared in the "
+"tombstone below."
+msgstr ""
+"RISIKO EINES INFORMATIONS-LECKS: Die Tombstone-Seite ist öffentlich "
+"sichtbar, aber Ihr Eintrag ist nur eingeschränkt sichtbar. Stellen Sie "
+"sicher, dass keine vertraulichen Informationen auf der Tombstone-Seite "
+"vorhanden sind."
+
+msgid "Bibliographic citation"
+msgstr "Bibliographische Zitation"
+
+msgid ""
+"Input citation text. Blank field will be filled with APA citation by "
+"default."
+msgstr ""
+"Geben Sie einen Zitationstext ein. Ein leeres Feld wird mit einer APA-"
+"Zitation gefüllt."
+
+msgid "Public note"
+msgstr "Öffentlich sichtbare Bemerkung"
+
+msgid "User {{name}} was approved."
+msgstr "Benutzer*in {{name}} wurde akzeptiert."
+
+msgid "User {{name}} is blocked."
+msgstr "Benutzer*in {{name}} wurde gesperrt."
+
+msgid "Error"
+msgstr "Fehler"
+
+msgid "User"
+msgstr "Benutzer*in"
+
+msgid "Email"
+msgstr "E-Mail"
+
+msgid "Email domain"
+msgstr "E-Mail-Domain"
+
+msgid "Actions"
+msgstr "Aktionen"
+
+msgid "Records"
+msgstr "Einträge"
+
+msgid "Username"
+msgstr "Kontoname"
+
+msgid "GitHub"
+msgstr "GitHub"
+
+msgid "Updated"
+msgstr "Aktualisiert"
+
+msgid "Restore"
+msgstr "Wiederherstellen"
+
+msgid "Restored"
+msgstr "Wiederhergestellt"
+
+msgid "Block"
+msgstr "Sperren"
+
+msgid "Suspend"
+msgstr "Sperren"
+
+msgid "Suspended"
+msgstr "Gesperrt"
+
+msgid "Approve"
+msgstr "Akzeptieren"
+
+msgid "Approved"
+msgstr "Akzeptiert"
+
+msgid "Activate"
+msgstr "Aktivieren"
+
+msgid "Activated"
+msgstr "Aktiviert"
+
+msgid "Set default quota for {{email}}"
+msgstr "Standard-Quota für {{email}} setzen"
+
+msgid "Filter results"
+msgstr "Ergebnisse filtern"
+
+msgid "Search records in community..."
+msgstr "Einträge in dieser Community suchen..."
+
+msgid "Sort by"
+msgstr "Sortieren nach"
+
+msgid " results found"
+msgid_plural " results found"
+msgstr[0] " Ergebnisse gefunden"
+msgstr[1] " Ergebnisse gefunden"
+
+msgid "Search records..."
+msgstr "Einträge suchen..."
+
+msgid "Search"
+msgstr "Suchen"
+
+msgid "Views"
+msgstr "Ansichten"
+
+msgid "Downloads"
+msgstr "Downloads"
+
+msgid "Copy to clipboard"
+msgstr "In die Zwischenablage kopieren"
+
+msgid "Copied!"
+msgstr "Kopiert!"
+
+msgid "Part of "
+msgstr "Teil von "
+
+msgid "No creation date found."
+msgstr "Kein Erstellungsdatum gefunden."
+
+msgid "No description"
+msgstr "Keine Beschreibung"
+
+msgid "No publication date found."
+msgstr "Kein Veröffentlichungsdatum gefunden."
+
+msgid "No resource type"
+msgstr "Kein Ressource-Typ"
+
+msgid "No title"
+msgstr "Ohne Titel"
+
+msgid "Uploaded on {{uploadDate}}"
+msgstr "Hochgeladen am {{uploadDate}}"
+
+msgid "Published in: {{publishInfo}}"
+msgstr "Veröffentlicht in: {{publishInfo}}"
+
+msgid "{{count}} more versions exist for this record"
+msgid_plural "{{count}} more versions exist for this record"
+msgstr[0] "Es existiert {{count}} weitere Version dieses Eintrags"
+msgstr[1] "Es existieren {{count}} weitere Versionen dieses Eintrags"
+
+msgid "Person"
+msgstr "Person"
+
+msgid "The record has no files."
+msgstr "Der Eintrag enthält keine Dateien."
+
+msgid "Creators"
+msgstr "Ersteller*innen"
+
+msgid "Recommended information"
+msgstr "Empfohlene Informationen"
+
+msgid "Add contributor"
+msgstr "Mitwirkende hinzufügen"
+
+msgid "Contributors"
+msgstr "Mitwirkende"
+
+msgid "Edit contributor"
+msgstr "Mitwirkende*n bearbeiten"
+
+msgid "Funding"
+msgstr "Förderung"
+
+msgid "Awards/Grants"
+msgstr "Auszeichnungen/Stipendien"
+
+msgid "Alternate identifiers"
+msgstr "Alternative IDs"
+
+msgid "Related works"
+msgstr "Verwandte Arbeiten"
+
+msgid "References"
+msgstr "Referenzen"
+
+msgid "Visibility"
+msgstr "Sichtbarkeit"
+
+msgid "More"
+msgstr "Mehr"
+
+msgid "Unable to request the access."
+msgstr "Es ist nicht möglich, Zugriff zu beantragen."
+
+msgid "Your email address"
+msgstr "Ihre E-Mail-Adresse"
+
+msgid "Email address"
+msgstr "E-Mail-Adresse"
+
+msgid "Your full name"
+msgstr "Ihr vollständiger Name"
+
+msgid "Full name"
+msgstr "Vollständiger Name"
+
+msgid "Request message"
+msgstr "Ihre Nachricht"
+
+msgid ""
+"I agree to that my full name and email address is shared with the owners of "
+"the record"
+msgstr ""
+"Ich stimme zu, dass mein vollständiger Name und meine E-Mail-Adresse mit den"
+" Besitzer*innen des Eintrags geteilt werden."
+
+msgid "Request access"
+msgstr "Zugriff beantragen"
+
+msgid "Email confirmation needed"
+msgstr "E-Mail-Bestätigung erforderlich"
+
+msgid "We have sent you an email to verify your address."
+msgstr ""
+"Wir haben Ihnen eine E-Mail gesendet, um Ihre Adresse zu verifizieren."
+
+msgid ""
+"\n"
+"                Please check the email and follow the instructions to complete the access request.\n"
+"              "
+msgstr ""
+"\n"
+"                Bitte überprüfen Sie die E-Mail und folgen Sie den Anweisungen, um die Zugriffsanforderung abzuschließen.\n"
+"              "
+
+msgid "An error occurred while fetching communities."
+msgstr ""
+"Es ist ein Fehler aufgetreten, während die Communities geladen wurden."
+
+msgid "Communities"
+msgstr "Communitys"
+
+msgid "View all {{count}} communities"
+msgid_plural "View all {{count}} communities"
+msgstr[0] "Alle {{count}} Communities ansehen"
+msgstr[1] "Alle {{count}} Communitys ansehen"
+
+msgid "Submit to community"
+msgstr "Einreichen in die Community"
+
+msgid "Pending submissions"
+msgstr "Einreichungen in der Warteschlange"
+
+msgid "Manage communities"
+msgstr "Communitys verwalten"
+
+msgid "Community management menu dropdown"
+msgstr "Dropdown-Menü für die Community-Verwaltung"
+
+msgid "Edit"
+msgstr "Editieren"
+
+msgid "Export selection"
+msgstr "Auswahl exportieren"
+
+msgid "Download file"
+msgstr "Datei herunterladen"
+
+msgid "Export"
+msgstr "Exportieren"
+
+msgid "Manage"
+msgstr "Verwalten"
+
+msgid "Manage record"
+msgstr "Eintrag verwalten"
+
+msgid "Manage user"
+msgstr "Benutzer*innen verwalten"
+
+msgid "Remove branding"
+msgstr "Branding entfernen"
+
+msgid "{{communityTitle}} is a default branding for this record"
+msgstr "{{communityTitle}} ist ein Standard-Branding für diesen Eintrag"
+
+msgid ""
+"Remove this community from appearing on top of the record details page."
+msgstr ""
+"Die Anzeige dieser Community auf der Landing-Page des Eintrags deaktivieren."
+
+msgid "Set branding"
+msgstr "Branding setzen"
+
+msgid "Set {{communityTitle}} as a default branding for this record"
+msgstr ""
+"Setzen Sie {{communityTitle}} als Standard-Branding für diesen Eintrag"
+
+msgid "Set this community to appear on the top of the record details page."
+msgstr ""
+"Die Anzeige dieser Community auf der Landing-Page des Eintrags aktivieren."
+
+msgid "Pending communities"
+msgstr "Ausstehende Communitys"
+
+msgid "Search for pending submissions to communities..."
+msgstr "Suche nach ausstehenden Einreichungen in Communitys ..."
+
+msgid "An error occurred while generating the citation."
+msgstr "Beim Anlegen der Zitation ist ein Fehler aufgetreten."
+
+msgid "Style"
+msgstr "Stil"
+
+msgid "This record is not included in any communities yet."
+msgstr "Dieser Eintrag ist noch nicht Teil einer Community."
+
+msgid "Search for community..."
+msgstr "Suche nach Community ..."
+
+msgid "Record submitted"
+msgstr "Eintrag eingereicht"
+
+msgid "Review requested"
+msgstr "Überprüfung beantragt"
+
+msgid "Search in all communities"
+msgstr "Suche in allen Communitys"
+
+msgid "Search in my communities"
+msgstr "Suche in meinen Communitys"
+
+msgid "Select a community"
+msgstr "Wählen Sie eine Community"
+
+msgid "Version {{- version}}"
+msgstr "Version {{- version}}"
+
+msgid "Preview"
+msgstr "Vorschau"
+
+msgid "Only published versions are displayed."
+msgstr "Es werden nur veröffentlichte Versionen angezeigt."
+
+msgid "An error occurred while fetching the versions."
+msgstr "Es ist ein Fehler aufgetreten, während die Versionen geladen wurden."
+
+msgid "View all {{count}} versions"
+msgid_plural "View all {{count}} versions"
+msgstr[0] "Alle {{count}} Versionen ansehen"
+msgstr[1] "Alle {{count}} Versionen ansehen"
+
+msgid ""
+"<0><0>Cite all versions?</0> You can cite all versions by using the DOI "
+"<3></3>. This DOI represents all versions, and will always resolve to the "
+"latest one. <5>Read more</5>.</0>"
+msgstr ""
+"<0><0>Alle Versionen zitieren?</0> Sie können alle Versionen zitieren, indem"
+" Sie die DOI <3></3> verwenden. Diese DOI repräsentiert alle Versionen und "
+"wird immer auf die neueste Version verweisen. <5>Weitere "
+"Informationen</5>.</0>"
+
+msgid ""
+"<0><0>Cite all versions?</0> You can cite all versions by using the DOI . "
+"The DOI is registered when the first version is published. <4>Read "
+"more</4>.</0>"
+msgstr ""
+"<0><0>Alle Versionen zitieren?</0> Sie können alle Versionen zitieren, indem"
+" Sie die DOI . Die DOI wird registriert, sobald die erste Version des "
+"Eintrags veröffentlicht wird. <4>Weitere Informationen</4>.</0>"
+
+msgid "Remove"
+msgstr "Entfernen"
+
+msgid "Remove {{communityTitle}} from this record"
+msgstr "Entfernen Sie {{communityTitle}} aus diesem Eintrag"
+
+msgid "Remove community"
+msgstr "Community entfernen"
+
+msgid "Are you sure you want to remove the record from the community?"
+msgstr ""
+"Sind Sie sicher, dass Sie den Eintrag aus der Community entfernen möchten?"
+
+msgid "I understand the consequences:"
+msgstr "Ich verstehe die Auswirkungen:"
+
+msgid ""
+"The record can only be re-included in the community by going through a new "
+"review by the community curators."
+msgstr ""
+"Der Eintrag kann nur wieder in die Community aufgenommen werden, nachdem ein"
+" neuer Review-Prozess durchgeführt wurde."
+
+msgid "Something went wrong"
+msgstr "Etwas ist etwas schief gelaufen"
+
+msgid "Cancel removal"
+msgstr "Löschvorgang abbrechen"
+
+msgid "Cancel"
+msgstr "Abbrechen"
+
+msgid "Confirm removal"
+msgstr "Löschen bestätigen"
+
+msgid ""
+"Members of the community <1>\"<1>{{communityTitle}}</1>\"</1> will <4>lose "
+"their access</4> to the record."
+msgstr ""
+"Mitglieder der Community <1>\"<1>{{communityTitle}}</1>\"</1> werden "
+"<4>keinen Zugriff</4> mehr auf den Eintrag haben."
+
+msgid "Select permissions"
+msgstr "Berechtigungen auswählen"
+
+msgid "Short name for your link (optional)."
+msgstr "Kurzname für Ihren Link (optional)."
+
+msgid "Expiration date format: YYYY-MM-DD"
+msgstr "Format des Ablaufdatums: YYYY-MM-DD"
+
+msgid "Expiration date: YYYY-MM-DD or never if blank (optional)."
+msgstr "Ablaufdatum: YYYY-MM-DD oder nie, falls leer (optional)."
+
+msgid "Create a new link"
+msgstr "Neuen Link erstellen"
+
+msgid "Link title"
+msgstr "Link-Titel"
+
+msgid "Expires at"
+msgstr "Läuft ab am"
+
+msgid "Never"
+msgstr "Nie"
+
+msgid "Access"
+msgstr "Zugriff"
+
+msgid "Delete"
+msgstr "Löschen"
+
+msgid "Copy link"
+msgstr "Link kopieren"
+
+msgid "Can view"
+msgstr "Sichtrechte"
+
+msgid "Can view restricted files of all versions of this record."
+msgstr ""
+"Kann zugriffsbeschränkte Dateien aller Versionen dieses Eintrags einsehen."
+
+msgid "Can preview drafts"
+msgstr "Kann Entwürfe einsehen"
+
+msgid "Can view drafts and restricted files of all versions of this record."
+msgstr ""
+"Kann Entwürfe und zugriffsbeschränkte Dateien aller Versionen dieses "
+"Eintrags einsehen."
+
+msgid "Can edit"
+msgstr "Bearbeitungsrechte"
+
+msgid ""
+"Can edit drafts and view restricted files of all versions of this record."
+msgstr ""
+"Kann Entwürfe und zugriffsbeschränkte Dateien aller Versionen dieses "
+"Eintrags bearbeiten."
+
+msgid ""
+"Can view (view access link can be created only after the record is "
+"published)"
+msgstr ""
+"Kann Einträge einsehen (Link für den Zugriff kann erst erstellt werden, "
+"nachdem der Eintrag veröffentlicht wurde)"
+
+msgid "Expires"
+msgstr "Ablaufdatum"
+
+msgid "This record has no links generated yet."
+msgstr "Dieser Eintrag hat noch keine Links."
+
+msgid "Unable to change the access request settings."
+msgstr "Es ist nicht möglich, die Zugriffs-Einstellungen zu ändern."
+
+msgid "Allow authenticated users to request access to restricted files."
+msgstr ""
+"Authentifizierten Benutzer*innen den Zugriff auf zugriffsbeschränkte Dateien"
+" erlauben."
+
+msgid "Allow non-authenticated users to request access to restricted files."
+msgstr ""
+"Nicht-Authentifizierten Benutzer*innen den Zugriff auf zugriffsbeschränkte "
+"Dateien erlauben."
+
+msgid "Accept conditions"
+msgstr "Bedingungen akzeptieren"
+
+msgid "Advanced options"
+msgstr "Erweiterte Optionen"
+
+msgid "Save"
+msgstr "Speichern"
+
+msgid "No user has access to this record yet."
+msgstr "Noch kein*e Benutzer*in hat Zugriff auf diesen Eintrag."
+
+msgid "People with access"
+msgstr "Personen mit Zugriff"
+
+msgid "No group has access to this record yet."
+msgstr "Bisher hat keine Gruppe Zugriff auf diesen Eintrag."
+
+msgid "Groups with access"
+msgstr "Gruppen mit Zugriff"
+
+msgid "You"
+msgstr "Sie"
+
+msgid "Add people"
+msgstr "Personen hinzufügen"
+
+msgid "No selected users"
+msgstr "Keine ausgewählten Personen"
+
+msgid ""
+"Search for users to grant access (only users with a public profile can be "
+"invited)"
+msgstr ""
+"Suche nach Personen, denen Zugriff gewährt werden soll (nur Personen mit "
+"einem öffentlichen Profil können eingeladen werden)"
+
+msgid "Search by email, full name or username"
+msgstr "Suche anhand von E-Mail, vollständigem Namen oder Kontonamen"
+
+msgid "users"
+msgstr "Benutzer*innen"
+
+msgid "Add groups"
+msgstr "Gruppen hinzufügen"
+
+msgid "Group"
+msgstr "Gruppe"
+
+msgid "No selected groups"
+msgstr "Keine ausgewählten Gruppen"
+
+msgid "Search for groups"
+msgstr "Suche nach Gruppen"
+
+msgid "groups"
+msgstr "Gruppen"
+
+msgid "Add"
+msgstr "Hinzufügen"
+
+msgid "Notify people"
+msgstr "User Benachrichtigen"
+
+msgid "Notification message"
+msgstr "Benachrichtigungs-Nachricht"
+
+msgid "You are about to add"
+msgstr "Sie sind dabei, Folgendes hinzuzufügen"
+
+msgid "Access already granted"
+msgstr "Zugriff bereits gewährt"
+
+msgid "Can manage"
+msgstr "Kann verwalten"
+
+msgid ""
+"Can manage access, edit drafts and view restricted files of all versions of "
+"this record."
+msgstr ""
+"Kann Zugriffsrechte verwalten, Entwürfe bearbeiten und eingeschränkte "
+"Dateien aller Versionen dieses Eintrags einsehen."
+
+msgid "You don't have permissions to share this record."
+msgstr "Sie haben nicht die Berechtigung diesen Eintrag zu teilen."
+
+msgid "Share"
+msgstr "Teilen"
+
+msgid "People"
+msgstr "Personen"
+
+msgid "Groups"
+msgstr "Gruppen"
+
+msgid "Settings"
+msgstr "Einstellungen"
+
+msgid "Share access"
+msgstr "Zugriff teilen"
+
+msgid "Link expiration"
+msgstr "Linkablaufdatum"
+
+msgid "In 1 month"
+msgstr "In einem Monat"
+
+msgid "In 2 months"
+msgstr "In zwei Monaten"
+
+msgid "In 6 months"
+msgstr "In sechs Monaten"
+
+msgid "In 1 year"
+msgstr "In einem Jahr"
+
+msgid "Invalid date format."
+msgstr "Ungültiges Datumsformat."
+
+msgid "Access link expiration date cannot be in the past."
+msgstr ""
+"Das Ablaufdatum des Zugriffs-Links darf nicht in der Vergangenheit liegen."
+
+msgid "Access request"
+msgstr "Zugriffsanfrage"
+
+msgid "Unable to change the expiration request settings."
+msgstr "Es ist nicht möglich, die Ablaufzeit der Zugriffsanfrage zu ändern."
+
+msgid "Expiration date: "
+msgstr "Ablaufdatum: "
+
+msgid ""
+"Format: YYYY-MM-DD. Granted access will expire on the given date. Leave "
+"empty to set no expiration limit."
+msgstr ""
+"Format: YYYY-MM-DD. Der Zugriff wird am angegebenen Datum ablaufen. Lassen "
+"Sie das Feld leer, um keine Ablaufzeit festzulegen."
+
+msgid "Link expiration date:"
+msgstr "Ablaufdatum des Links:"
+
+msgid "We couldn't find any matches for {{- search}}"
+msgstr "Wir konnten keine Treffer für {{- search}} finden"
+
+msgid "Start over"
+msgstr "Neu beginnen"
+
+msgid "ProTip"
+msgstr "ProTipp"
+
+msgid "Search guide"
+msgstr "Suchanleitung"
+
+msgid ""
+"<0>For more tips, check out our <2>search guide</2> for defining advanced "
+"search queries.</0>"
+msgstr ""
+"<0>Weitere Tipps finden Sie in unserer <2>Suchanleitung</2> für erweiterte "
+"Suchanfragen.</0>"
+
+msgid "Search in my communities..."
+msgstr "Suche in meinen Communitys"
+
+msgid "View"
+msgstr "Ansicht"
+
+msgid "Published in: {{publishedIn}}"
+msgstr "Veröffentlicht in: {{publishedIn}}"
+
+msgid "In review"
+msgstr "In Begutachtung"
+
+msgid "Declined"
+msgstr "Abgelehnt"
+
+msgid "Expired"
+msgstr "Abgelaufen"
+
+msgid "Draft"
+msgstr "Entwurf"
+
+msgid "New version draft"
+msgstr "Entwurf einer neuen Version"
+
+msgid "open"
+msgstr "Offen"
+
+msgid "Open"
+msgstr "Offen"
+
+msgid "unlock"
+msgstr "entsperren"
+
+msgid "Get started!"
+msgstr "Los!"
+
+msgid "Make your first upload!"
+msgstr "Erstellen Sie Ihren ersten Eintrag!"
+
+msgid "New upload"
+msgstr "Neuer Eintrag"
+
+msgid "Search in my uploads..."
+msgstr "Suche in meinen Uploads..."
+
+msgid "ORCID profile"
+msgstr "ORCID Profil"
+
+msgid "ORCID logo"
+msgstr "ORCID-Logo"
+
+msgid "ROR profile"
+msgstr "ROR Profil"
+
+msgid "ROR logo"
+msgstr "ROR-Logo"
+
+msgid "GND profile"
+msgstr "GND Profil"
+
+msgid "GND logo"
+msgstr "GND-Logo"
+
+msgid "No name"
+msgstr "Kein Name"
+
+msgid "and {{count}} other"
+msgid_plural "and {{count}} other"
+msgstr[0] "und {{count}} andere"
+msgstr[1] "und {{count}} anderer"
+
+msgid "and {{count}} others"
+msgid_plural "and {{count}} others"
+msgstr[0] "und {{count}} andere"
+msgstr[1] "und {{count}} anderer"
+
+msgctxt ""
+"date:[2017-01-01 TO *]</0> will give you all the publications from 2017 "
+"until today.</0>"
+msgid "<0><0>metadata.publication"
+msgstr ""
+"<0><0>metadata.publication_date:[2017-01-01 TO *] </0>liefert als Ergebnis "
+"alle Publikationen von 2017 bis heute zurück.</0>"

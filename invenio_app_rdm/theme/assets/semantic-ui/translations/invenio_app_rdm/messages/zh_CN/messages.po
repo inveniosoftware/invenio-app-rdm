@@ -1,0 +1,891 @@
+# 
+# Translators:
+# Tibor Simko <tibor.simko@cern.ch>, 2024
+# Weizheng Lu, 2025
+# Kalven Richie, 2025
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2025-03-27T16:30:16.192Z\n"
+"PO-Revision-Date: 2021-07-14 16:07+0000\n"
+"Last-Translator: Kalven Richie, 2025\n"
+"Language-Team: Chinese (China) (https://app.transifex.com/inveniosoftware/teams/23537/zh_CN/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"mime-version: 1.0\n"
+
+msgid "Basic information"
+msgstr "基本信息"
+
+msgid "Impersonate user"
+msgstr ""
+
+msgid "Impersonate"
+msgstr ""
+
+msgid "You must accept this."
+msgstr ""
+
+msgid "Success"
+msgstr ""
+
+msgid ""
+"User impersonated succesfully! You will be redirected in frontpage soon."
+msgstr ""
+
+msgid "Unable to impersonate user."
+msgstr ""
+
+msgid ""
+"Please read carefully and confirm the following statements before you "
+"proceed."
+msgstr ""
+
+msgid "You are about to impersonate user <bold>{{email}}(id: {{id}})</bold>."
+msgstr ""
+
+msgid "You <bold>MUST</bold> logout after completing your inquiry."
+msgstr ""
+
+msgid "Close"
+msgstr "关闭"
+
+msgid "Set Quota"
+msgstr ""
+
+msgid "Set quota in bytes"
+msgstr ""
+
+msgid "Note"
+msgstr "注意"
+
+msgid ""
+"This is the default quota that will be applied to any NEW records created by"
+" this user – it will NOT update quota of existing records."
+msgstr ""
+
+msgid "Quota of {{id}} was set to {{quota}} {{unit}}"
+msgstr ""
+
+msgid "Unable to set quota."
+msgstr ""
+
+msgid "Quota size ({{unit}})"
+msgstr ""
+
+msgid "Enter quota size..."
+msgstr ""
+
+msgid "Max file size ({{unit}})"
+msgstr ""
+
+msgid "Enter max file size..."
+msgstr ""
+
+msgid "Ticket 1234"
+msgstr ""
+
+msgid "Set quota"
+msgstr ""
+
+msgid "Domain"
+msgstr ""
+
+msgid "Flagged"
+msgstr ""
+
+msgid "Organization"
+msgstr "组织"
+
+msgid "Company"
+msgstr ""
+
+msgid "Mail provider"
+msgstr ""
+
+msgid "Spammer"
+msgstr ""
+
+msgid "TLD"
+msgstr ""
+
+msgid "Status"
+msgstr "状态"
+
+msgid "New"
+msgstr "新的"
+
+msgid "Moderated"
+msgstr ""
+
+msgid "Verified"
+msgstr ""
+
+msgid "Blocked"
+msgstr ""
+
+msgid "Users"
+msgstr "用户"
+
+msgid "Active"
+msgstr "活跃的"
+
+msgid "Inactive"
+msgstr ""
+
+msgid "Confirmed"
+msgstr ""
+
+msgid "Links"
+msgstr ""
+
+msgid "Set quota for record {{recordId}}"
+msgstr ""
+
+msgid "Delete record"
+msgstr ""
+
+msgid "Restore record"
+msgstr ""
+
+msgid "Unavailability statement"
+msgstr ""
+
+msgid "Record {{id}} was restored."
+msgstr ""
+
+msgid "Unable to restore."
+msgstr ""
+
+msgid "Are you sure you want to restore #{{id}}"
+msgstr ""
+
+msgid "Published"
+msgstr "已发布"
+
+msgid "Deleted"
+msgstr "已删除"
+
+msgid "Scheduled for purge"
+msgstr ""
+
+msgid "Empty draft title"
+msgstr ""
+
+msgid "version"
+msgstr "版本"
+
+msgid "Owner"
+msgstr "拥有者"
+
+msgid "Created"
+msgstr "创建于"
+
+msgid "Files"
+msgstr "文件"
+
+msgid "Stats"
+msgstr ""
+
+msgid "Record {{id}} was deleted."
+msgstr ""
+
+msgid "Unable to delete"
+msgstr ""
+
+msgid "Public"
+msgstr "公开"
+
+msgid "Hidden"
+msgstr "隐藏的"
+
+msgid ""
+"The tombstone is set to hidden but your record is public. Best practice is "
+"to provide a public tombstone when deactivating public records."
+msgstr ""
+
+msgid ""
+"RISK INFORMATION LEAKAGE: The tombstone is set to public but your record is "
+"restricted. Please make sure no restricted information is shared in the "
+"tombstone below."
+msgstr ""
+
+msgid "Bibliographic citation"
+msgstr ""
+
+msgid ""
+"Input citation text. Blank field will be filled with APA citation by "
+"default."
+msgstr ""
+
+msgid "Public note"
+msgstr ""
+
+msgid "User {{name}} was approved."
+msgstr ""
+
+msgid "User {{name}} is blocked."
+msgstr ""
+
+msgid "Error"
+msgstr "错误"
+
+msgid "User"
+msgstr "用户"
+
+msgid "Email"
+msgstr "电邮"
+
+msgid "Email domain"
+msgstr ""
+
+msgid "Actions"
+msgstr "动作"
+
+msgid "Records"
+msgstr "记录"
+
+msgid "Username"
+msgstr "帐号"
+
+msgid "GitHub"
+msgstr "GitHub"
+
+msgid "Updated"
+msgstr "已更新"
+
+msgid "Restore"
+msgstr ""
+
+msgid "Restored"
+msgstr ""
+
+msgid "Block"
+msgstr ""
+
+msgid "Suspend"
+msgstr ""
+
+msgid "Suspended"
+msgstr ""
+
+msgid "Approve"
+msgstr "赞成"
+
+msgid "Approved"
+msgstr "已批核"
+
+msgid "Activate"
+msgstr "激活"
+
+msgid "Activated"
+msgstr ""
+
+msgid "Set default quota for {{email}}"
+msgstr ""
+
+msgid "Filter results"
+msgstr "筛选结果"
+
+msgid "Search records in community..."
+msgstr "在社区中搜索记录..."
+
+msgid "Sort by"
+msgstr "排序方式"
+
+msgid " results found"
+msgid_plural " results found"
+msgstr[0] ""
+
+msgid "Search records..."
+msgstr ""
+
+msgid "Search"
+msgstr "搜索"
+
+msgid "Views"
+msgstr "意见"
+
+msgid "Downloads"
+msgstr ""
+
+msgid "Copy to clipboard"
+msgstr "复制到剪切板"
+
+msgid "Copied!"
+msgstr "成功复制！"
+
+msgid "Part of "
+msgstr ""
+
+msgid "No creation date found."
+msgstr "找不到创建日期。"
+
+msgid "No description"
+msgstr "无描述"
+
+msgid "No publication date found."
+msgstr "找不到发布日期。"
+
+msgid "No resource type"
+msgstr "没有资源类型"
+
+msgid "No title"
+msgstr "无标题"
+
+msgid "Uploaded on {{uploadDate}}"
+msgstr ""
+
+msgid "Published in: {{publishInfo}}"
+msgstr ""
+
+msgid "{{count}} more versions exist for this record"
+msgid_plural "{{count}} more versions exist for this record"
+msgstr[0] ""
+
+msgid "Person"
+msgstr "人"
+
+msgid "The record has no files."
+msgstr "本数据记录没有文件"
+
+msgid "Creators"
+msgstr "创建者"
+
+msgid "Recommended information"
+msgstr "建议信息"
+
+msgid "Add contributor"
+msgstr "添加贡献者"
+
+msgid "Contributors"
+msgstr "贡献者"
+
+msgid "Edit contributor"
+msgstr ""
+
+msgid "Funding"
+msgstr "资助基金"
+
+msgid "Awards/Grants"
+msgstr ""
+
+msgid "Alternate identifiers"
+msgstr "其他的唯一标识符"
+
+msgid "Related works"
+msgstr "相关的工作"
+
+msgid "References"
+msgstr "参考"
+
+msgid "Visibility"
+msgstr "可见性"
+
+msgid "More"
+msgstr ""
+
+msgid "Unable to request the access."
+msgstr ""
+
+msgid "Your email address"
+msgstr ""
+
+msgid "Email address"
+msgstr "电邮"
+
+msgid "Your full name"
+msgstr ""
+
+msgid "Full name"
+msgstr "全称"
+
+msgid "Request message"
+msgstr ""
+
+msgid ""
+"I agree to that my full name and email address is shared with the owners of "
+"the record"
+msgstr ""
+
+msgid "Request access"
+msgstr ""
+
+msgid "Email confirmation needed"
+msgstr ""
+
+msgid "We have sent you an email to verify your address."
+msgstr ""
+
+msgid ""
+"\n"
+"                Please check the email and follow the instructions to complete the access request.\n"
+"              "
+msgstr ""
+
+msgid "An error occurred while fetching communities."
+msgstr ""
+
+msgid "Communities"
+msgstr "群组"
+
+msgid "View all {{count}} communities"
+msgid_plural "View all {{count}} communities"
+msgstr[0] ""
+
+msgid "Submit to community"
+msgstr ""
+
+msgid "Pending submissions"
+msgstr ""
+
+msgid "Manage communities"
+msgstr ""
+
+msgid "Community management menu dropdown"
+msgstr ""
+
+msgid "Edit"
+msgstr "编辑"
+
+msgid "Export selection"
+msgstr ""
+
+msgid "Download file"
+msgstr ""
+
+msgid "Export"
+msgstr "导出"
+
+msgid "Manage"
+msgstr "管理"
+
+msgid "Manage record"
+msgstr "管理数据记录"
+
+msgid "Manage user"
+msgstr ""
+
+msgid "Remove branding"
+msgstr ""
+
+msgid "{{communityTitle}} is a default branding for this record"
+msgstr ""
+
+msgid ""
+"Remove this community from appearing on top of the record details page."
+msgstr ""
+
+msgid "Set branding"
+msgstr ""
+
+msgid "Set {{communityTitle}} as a default branding for this record"
+msgstr ""
+
+msgid "Set this community to appear on the top of the record details page."
+msgstr ""
+
+msgid "Pending communities"
+msgstr ""
+
+msgid "Search for pending submissions to communities..."
+msgstr ""
+
+msgid "An error occurred while generating the citation."
+msgstr "在生成注解时遇到错误。"
+
+msgid "Style"
+msgstr "风格"
+
+msgid "This record is not included in any communities yet."
+msgstr ""
+
+msgid "Search for community..."
+msgstr ""
+
+msgid "Record submitted"
+msgstr ""
+
+msgid "Review requested"
+msgstr ""
+
+msgid "Search in all communities"
+msgstr "在所有社区中搜索"
+
+msgid "Search in my communities"
+msgstr "在我的社区中搜索"
+
+msgid "Select a community"
+msgstr "选择社区"
+
+msgid "Version {{- version}}"
+msgstr ""
+
+msgid "Preview"
+msgstr "预览"
+
+msgid "Only published versions are displayed."
+msgstr "只有发布的版本可以展示。"
+
+msgid "An error occurred while fetching the versions."
+msgstr ""
+
+msgid "View all {{count}} versions"
+msgid_plural "View all {{count}} versions"
+msgstr[0] ""
+
+msgid ""
+"<0><0>Cite all versions?</0> You can cite all versions by using the DOI "
+"<3></3>. This DOI represents all versions, and will always resolve to the "
+"latest one. <5>Read more</5>.</0>"
+msgstr ""
+
+msgid ""
+"<0><0>Cite all versions?</0> You can cite all versions by using the DOI . "
+"The DOI is registered when the first version is published. <4>Read "
+"more</4>.</0>"
+msgstr ""
+
+msgid "Remove"
+msgstr "移除"
+
+msgid "Remove {{communityTitle}} from this record"
+msgstr ""
+
+msgid "Remove community"
+msgstr ""
+
+msgid "Are you sure you want to remove the record from the community?"
+msgstr ""
+
+msgid "I understand the consequences:"
+msgstr ""
+
+msgid ""
+"The record can only be re-included in the community by going through a new "
+"review by the community curators."
+msgstr ""
+
+msgid "Something went wrong"
+msgstr ""
+
+msgid "Cancel removal"
+msgstr ""
+
+msgid "Cancel"
+msgstr "取消"
+
+msgid "Confirm removal"
+msgstr ""
+
+msgid ""
+"Members of the community <1>\"<1>{{communityTitle}}</1>\"</1> will <4>lose "
+"their access</4> to the record."
+msgstr ""
+
+msgid "Select permissions"
+msgstr ""
+
+msgid "Short name for your link (optional)."
+msgstr ""
+
+msgid "Expiration date format: YYYY-MM-DD"
+msgstr ""
+
+msgid "Expiration date: YYYY-MM-DD or never if blank (optional)."
+msgstr ""
+
+msgid "Create a new link"
+msgstr ""
+
+msgid "Link title"
+msgstr ""
+
+msgid "Expires at"
+msgstr ""
+
+msgid "Never"
+msgstr ""
+
+msgid "Access"
+msgstr "访问"
+
+msgid "Delete"
+msgstr "删除"
+
+msgid "Copy link"
+msgstr "复制链接"
+
+msgid "Can view"
+msgstr "可以查看"
+
+msgid "Can view restricted files of all versions of this record."
+msgstr ""
+
+msgid "Can preview drafts"
+msgstr ""
+
+msgid "Can view drafts and restricted files of all versions of this record."
+msgstr ""
+
+msgid "Can edit"
+msgstr "可修改"
+
+msgid ""
+"Can edit drafts and view restricted files of all versions of this record."
+msgstr ""
+
+msgid ""
+"Can view (view access link can be created only after the record is "
+"published)"
+msgstr ""
+
+msgid "Expires"
+msgstr "到期"
+
+msgid "This record has no links generated yet."
+msgstr ""
+
+msgid "Unable to change the access request settings."
+msgstr ""
+
+msgid "Allow authenticated users to request access to restricted files."
+msgstr ""
+
+msgid "Allow non-authenticated users to request access to restricted files."
+msgstr ""
+
+msgid "Accept conditions"
+msgstr ""
+
+msgid "Advanced options"
+msgstr ""
+
+msgid "Save"
+msgstr "保存"
+
+msgid "No user has access to this record yet."
+msgstr ""
+
+msgid "People with access"
+msgstr ""
+
+msgid "No group has access to this record yet."
+msgstr ""
+
+msgid "Groups with access"
+msgstr ""
+
+msgid "You"
+msgstr "你"
+
+msgid "Add people"
+msgstr ""
+
+msgid "No selected users"
+msgstr ""
+
+msgid ""
+"Search for users to grant access (only users with a public profile can be "
+"invited)"
+msgstr ""
+
+msgid "Search by email, full name or username"
+msgstr "通过电子邮件、全名或用户名搜索"
+
+msgid "users"
+msgstr ""
+
+msgid "Add groups"
+msgstr "添加组"
+
+msgid "Group"
+msgstr "组别"
+
+msgid "No selected groups"
+msgstr ""
+
+msgid "Search for groups"
+msgstr "搜索组别"
+
+msgid "groups"
+msgstr ""
+
+msgid "Add"
+msgstr "添加"
+
+msgid "Notify people"
+msgstr ""
+
+msgid "Notification message"
+msgstr ""
+
+msgid "You are about to add"
+msgstr ""
+
+msgid "Access already granted"
+msgstr ""
+
+msgid "Can manage"
+msgstr ""
+
+msgid ""
+"Can manage access, edit drafts and view restricted files of all versions of "
+"this record."
+msgstr ""
+
+msgid "You don't have permissions to share this record."
+msgstr "你没有权限分享本数据记录。"
+
+msgid "Share"
+msgstr "分享"
+
+msgid "People"
+msgstr "人数"
+
+msgid "Groups"
+msgstr "组别"
+
+msgid "Settings"
+msgstr "设置"
+
+msgid "Share access"
+msgstr ""
+
+msgid "Link expiration"
+msgstr ""
+
+msgid "In 1 month"
+msgstr ""
+
+msgid "In 2 months"
+msgstr ""
+
+msgid "In 6 months"
+msgstr ""
+
+msgid "In 1 year"
+msgstr ""
+
+msgid "Invalid date format."
+msgstr ""
+
+msgid "Access link expiration date cannot be in the past."
+msgstr ""
+
+msgid "Access request"
+msgstr ""
+
+msgid "Unable to change the expiration request settings."
+msgstr ""
+
+msgid "Expiration date: "
+msgstr ""
+
+msgid ""
+"Format: YYYY-MM-DD. Granted access will expire on the given date. Leave "
+"empty to set no expiration limit."
+msgstr ""
+
+msgid "Link expiration date:"
+msgstr ""
+
+msgid "We couldn't find any matches for {{- search}}"
+msgstr ""
+
+msgid "Start over"
+msgstr "重新开始"
+
+msgid "ProTip"
+msgstr "提示建议"
+
+msgid "Search guide"
+msgstr "搜索指南"
+
+msgid ""
+"<0>For more tips, check out our <2>search guide</2> for defining advanced "
+"search queries.</0>"
+msgstr ""
+
+msgid "Search in my communities..."
+msgstr ""
+
+msgid "View"
+msgstr "查看"
+
+msgid "Published in: {{publishedIn}}"
+msgstr ""
+
+msgid "In review"
+msgstr "检查中"
+
+msgid "Declined"
+msgstr "拒绝"
+
+msgid "Expired"
+msgstr "已过期"
+
+msgid "Draft"
+msgstr "草稿"
+
+msgid "New version draft"
+msgstr "新版本草稿"
+
+msgid "open"
+msgstr ""
+
+msgid "Open"
+msgstr "开放"
+
+msgid "unlock"
+msgstr ""
+
+msgid "Get started!"
+msgstr "开始！"
+
+msgid "Make your first upload!"
+msgstr "进行首次上传!"
+
+msgid "New upload"
+msgstr "新建上传"
+
+msgid "Search in my uploads..."
+msgstr ""
+
+msgid "ORCID profile"
+msgstr "ORCID信息"
+
+msgid "ORCID logo"
+msgstr ""
+
+msgid "ROR profile"
+msgstr "ROR信息"
+
+msgid "ROR logo"
+msgstr ""
+
+msgid "GND profile"
+msgstr "GND信息"
+
+msgid "GND logo"
+msgstr ""
+
+msgid "No name"
+msgstr ""
+
+msgid "and {{count}} other"
+msgid_plural "and {{count}} other"
+msgstr[0] ""
+
+msgid "and {{count}} others"
+msgid_plural "and {{count}} others"
+msgstr[0] ""
+
+msgctxt ""
+"date:[2017-01-01 TO *]</0> will give you all the publications from 2017 "
+"until today.</0>"
+msgid "<0><0>metadata.publication"
+msgstr ""

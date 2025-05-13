@@ -1,0 +1,951 @@
+# 
+# Translators:
+# yyones, 2024
+# Tibor Simko <tibor.simko@cern.ch>, 2024
+# Rim Sharif, 2025
+# Sam Arbid, 2025
+# Mattias Vesterlund, 2025
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2025-03-27T16:30:16.192Z\n"
+"PO-Revision-Date: 2021-07-14 16:07+0000\n"
+"Last-Translator: Mattias Vesterlund, 2025\n"
+"Language-Team: Swedish (https://app.transifex.com/inveniosoftware/teams/23537/sv/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sv\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"mime-version: 1.0\n"
+
+msgid "Basic information"
+msgstr "Basinformation"
+
+msgid "Impersonate user"
+msgstr "Imitera användare"
+
+msgid "Impersonate"
+msgstr "Imitera"
+
+msgid "You must accept this."
+msgstr "Du måste acceptera detta."
+
+msgid "Success"
+msgstr "Framgång"
+
+msgid ""
+"User impersonated succesfully! You will be redirected in frontpage soon."
+msgstr ""
+"Användaren imiterades framgångsrikt! Du kommer att omdirigeras till "
+"förstasidan snart."
+
+msgid "Unable to impersonate user."
+msgstr "Kunde inte imitera användare"
+
+msgid ""
+"Please read carefully and confirm the following statements before you "
+"proceed."
+msgstr "Läs noga igenom och bekräfta följande text innan du fortsätter."
+
+msgid "You are about to impersonate user <bold>{{email}}(id: {{id}})</bold>."
+msgstr ""
+"Du är på väg att imitera användaren <bold>{{email}}(id: {{id}})</bold>."
+
+msgid "You <bold>MUST</bold> logout after completing your inquiry."
+msgstr "Du <bold>MÅSTE</bold> logga ut efter att du avslutat din förfrågan. "
+
+msgid "Close"
+msgstr "Stäng"
+
+msgid "Set Quota"
+msgstr "Ställ in Lagringskvot"
+
+msgid "Set quota in bytes"
+msgstr "Ställ in lagringskvot i bytes"
+
+msgid "Note"
+msgstr "Notering"
+
+msgid ""
+"This is the default quota that will be applied to any NEW records created by"
+" this user – it will NOT update quota of existing records."
+msgstr ""
+"Detta är den standardkvot som kommer att tillämpas på alla NYA poster som "
+"skapas av den här användaren - den kommer INTE att uppdatera lagringskvoten "
+"för befintliga poster."
+
+msgid "Quota of {{id}} was set to {{quota}} {{unit}}"
+msgstr "Lagringskvoten för {{id}} sattes till {{quota}} {{unit}}"
+
+msgid "Unable to set quota."
+msgstr "Kunde inte ställa in lagringskvot."
+
+msgid "Quota size ({{unit}})"
+msgstr "Storlek på lagringskvot ({{unit}})"
+
+msgid "Enter quota size..."
+msgstr "Ange storlek på lagringskvoten..."
+
+msgid "Max file size ({{unit}})"
+msgstr "Maximal filstorlek ({{unit}})"
+
+msgid "Enter max file size..."
+msgstr "Ange maximal filstorlek..."
+
+msgid "Ticket 1234"
+msgstr "Ticket 1234"
+
+msgid "Set quota"
+msgstr "Ställ in lagringskvot"
+
+msgid "Domain"
+msgstr "Domän"
+
+msgid "Flagged"
+msgstr "Flaggad"
+
+msgid "Organization"
+msgstr "Organisation"
+
+msgid "Company"
+msgstr "Företag"
+
+msgid "Mail provider"
+msgstr "E-post leverantör"
+
+msgid "Spammer"
+msgstr "Spammare"
+
+msgid "TLD"
+msgstr "TLD"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "New"
+msgstr "Ny"
+
+msgid "Moderated"
+msgstr "Modererad"
+
+msgid "Verified"
+msgstr "Verifierad"
+
+msgid "Blocked"
+msgstr "Blockerad"
+
+msgid "Users"
+msgstr "Användare"
+
+msgid "Active"
+msgstr "Aktiv"
+
+msgid "Inactive"
+msgstr "Inaktiv"
+
+msgid "Confirmed"
+msgstr "Bekräftad"
+
+msgid "Links"
+msgstr "Länkar"
+
+msgid "Set quota for record {{recordId}}"
+msgstr "Ställ in lagringskvot för posten {{recordId}}"
+
+msgid "Delete record"
+msgstr "Radera post"
+
+msgid "Restore record"
+msgstr "Återställ post"
+
+msgid "Unavailability statement"
+msgstr "Meddelande om otillgänglighet"
+
+msgid "Record {{id}} was restored."
+msgstr "Posten {{id}} återställdes."
+
+msgid "Unable to restore."
+msgstr "Kunde inte återställa."
+
+msgid "Are you sure you want to restore #{{id}}"
+msgstr "Är du säker på att du vill återställa #{{id}}"
+
+msgid "Published"
+msgstr "Publicerad"
+
+msgid "Deleted"
+msgstr "Raderad"
+
+msgid "Scheduled for purge"
+msgstr "Schemalagd för utrensning"
+
+msgid "Empty draft title"
+msgstr "Tom titel på utkast"
+
+msgid "version"
+msgstr "version"
+
+msgid "Owner"
+msgstr "Ägare"
+
+msgid "Created"
+msgstr "Skapad"
+
+msgid "Files"
+msgstr "Filer"
+
+msgid "Stats"
+msgstr "Statistik"
+
+msgid "Record {{id}} was deleted."
+msgstr "Posten {{id}} raderades."
+
+msgid "Unable to delete"
+msgstr "Kunde inte radera"
+
+msgid "Public"
+msgstr "Offentlig"
+
+msgid "Hidden"
+msgstr "Dold"
+
+msgid ""
+"The tombstone is set to hidden but your record is public. Best practice is "
+"to provide a public tombstone when deactivating public records."
+msgstr ""
+"Gravstenssidan (tombstone page) är satt som dold men posten är offentlig. "
+"God praxis är att  tillhandahålla en offentlig gravstenssida när du "
+"avaktiverar offentliga poster."
+
+msgid ""
+"RISK INFORMATION LEAKAGE: The tombstone is set to public but your record is "
+"restricted. Please make sure no restricted information is shared in the "
+"tombstone below."
+msgstr ""
+"RISK FÖR INFORMATIONSLÄCKAGE: Gravstenssidan (tombstone page) är inställd på"
+" offentligt tillgänglig men din post är åtkomstbegränsad. Se till att ingen "
+"sekretessbelagd information delas i gravstenen nedan."
+
+msgid "Bibliographic citation"
+msgstr "Bibliografisk citering"
+
+msgid ""
+"Input citation text. Blank field will be filled with APA citation by "
+"default."
+msgstr ""
+"Skriv in citeringstext. Tomt fält kommer att fyllas i med en APA-formatterad"
+" citering."
+
+msgid "Public note"
+msgstr "Offentligt meddelande"
+
+msgid "User {{name}} was approved."
+msgstr "Användaren {{name}} godkändes."
+
+msgid "User {{name}} is blocked."
+msgstr "Användaren {{name}} är blockerad."
+
+msgid "Error"
+msgstr "Fel"
+
+msgid "User"
+msgstr "Användare"
+
+msgid "Email"
+msgstr "E-post"
+
+msgid "Email domain"
+msgstr "Epost-domän"
+
+msgid "Actions"
+msgstr "Åtgärder"
+
+msgid "Records"
+msgstr "Poster"
+
+msgid "Username"
+msgstr "Användarnamn"
+
+msgid "GitHub"
+msgstr "GitHub"
+
+msgid "Updated"
+msgstr "Uppdaterad"
+
+msgid "Restore"
+msgstr "Återställ"
+
+msgid "Restored"
+msgstr "Återställd"
+
+msgid "Block"
+msgstr "Blockera"
+
+msgid "Suspend"
+msgstr "Stäng av"
+
+msgid "Suspended"
+msgstr "Avstängd"
+
+msgid "Approve"
+msgstr "Godkänn"
+
+msgid "Approved"
+msgstr "Godkänd"
+
+msgid "Activate"
+msgstr "Aktivera"
+
+msgid "Activated"
+msgstr "Aktiverad"
+
+msgid "Set default quota for {{email}}"
+msgstr "Ange standardkvot för {{email}}"
+
+msgid "Filter results"
+msgstr "Filtrera resultat"
+
+msgid "Search records in community..."
+msgstr "Sök poster i community..."
+
+msgid "Sort by"
+msgstr "Sortera efter"
+
+msgid " results found"
+msgid_plural " results found"
+msgstr[0] "resultat hittades"
+msgstr[1] "resultat hittades"
+
+msgid "Search records..."
+msgstr "Sök poster..."
+
+msgid "Search"
+msgstr "Sök"
+
+msgid "Views"
+msgstr "Visningar"
+
+msgid "Downloads"
+msgstr "Nedladdningar"
+
+msgid "Copy to clipboard"
+msgstr "Kopiera till urklipp"
+
+msgid "Copied!"
+msgstr "Kopierade!"
+
+msgid "Part of "
+msgstr "Del av"
+
+msgid "No creation date found."
+msgstr "Inget datum för skapande hittades."
+
+msgid "No description"
+msgstr "Ingen beskrivning"
+
+msgid "No publication date found."
+msgstr "Inget publiceringsdatum hittades."
+
+msgid "No resource type"
+msgstr "Ingen resurstyp"
+
+msgid "No title"
+msgstr "Ingen titel"
+
+msgid "Uploaded on {{uploadDate}}"
+msgstr "Uppladdad den {{uploadDate}}"
+
+msgid "Published in: {{publishInfo}}"
+msgstr "Publicerad i: {{publishInfo}}"
+
+msgid "{{count}} more versions exist for this record"
+msgid_plural "{{count}} more versions exist for this record"
+msgstr[0] "{{count}} fler versioner finns för denna post"
+msgstr[1] "{{count}} fler versioner finns för denna post"
+
+msgid "Person"
+msgstr "Person"
+
+msgid "The record has no files."
+msgstr "Posten har inga filer."
+
+msgid "Creators"
+msgstr "Skapare"
+
+msgid "Recommended information"
+msgstr "Rekommenderad information"
+
+msgid "Add contributor"
+msgstr "Lägg till medverkande"
+
+msgid "Contributors"
+msgstr "Medverkande"
+
+msgid "Edit contributor"
+msgstr "Redigera medverkande"
+
+msgid "Funding"
+msgstr "Finansiering"
+
+msgid "Awards/Grants"
+msgstr "Projektbidrag/Anslag"
+
+msgid "Alternate identifiers"
+msgstr "Alternativa identifierare"
+
+msgid "Related works"
+msgstr "Relaterade arbeten"
+
+msgid "References"
+msgstr "Referenser"
+
+msgid "Visibility"
+msgstr "Synlighet"
+
+msgid "More"
+msgstr "Mer"
+
+msgid "Unable to request the access."
+msgstr "Det gick inte att begära åtkomst."
+
+msgid "Your email address"
+msgstr "Din epost-adress"
+
+msgid "Email address"
+msgstr "Epost-adress"
+
+msgid "Your full name"
+msgstr "Ditt fullständiga namn"
+
+msgid "Full name"
+msgstr "Fullständigt namn"
+
+msgid "Request message"
+msgstr "Meddelande för förfrågan"
+
+msgid ""
+"I agree to that my full name and email address is shared with the owners of "
+"the record"
+msgstr ""
+"Jag samtycker till att mitt fullständiga namn och min e-postadress delas med"
+" ägarna till posten"
+
+msgid "Request access"
+msgstr "Begär åtkomst"
+
+msgid "Email confirmation needed"
+msgstr "E-postbekräftelse krävs"
+
+msgid "We have sent you an email to verify your address."
+msgstr ""
+"Vi har skickat ett meddelande till dig för att verifiera din e-postadress."
+
+msgid ""
+"\n"
+"                Please check the email and follow the instructions to complete the access request.\n"
+"              "
+msgstr ""
+"\n"
+"                Vänligen kontrollera e-postmeddelandet och följ instruktionerna för att slutföra åtkomstbegäran.\n"
+"              "
+
+msgid "An error occurred while fetching communities."
+msgstr "Ett fel inträffade vid hämtning av communities."
+
+msgid "Communities"
+msgstr "Communities"
+
+msgid "View all {{count}} communities"
+msgid_plural "View all {{count}} communities"
+msgstr[0] "Visa alla {{count}} communities"
+msgstr[1] "Visa alla {{count}} communities"
+
+msgid "Submit to community"
+msgstr "Skicka till community"
+
+msgid "Pending submissions"
+msgstr "Pågående inlämningar"
+
+msgid "Manage communities"
+msgstr "Hantera communities"
+
+msgid "Community management menu dropdown"
+msgstr "Rullgardinsmeny för communityhantering"
+
+msgid "Edit"
+msgstr "Redigera"
+
+msgid "Export selection"
+msgstr "Exportera urval"
+
+msgid "Download file"
+msgstr "Nedladdning fil"
+
+msgid "Export"
+msgstr "Exportera"
+
+msgid "Manage"
+msgstr " Hantera"
+
+msgid "Manage record"
+msgstr "Hantera post"
+
+msgid "Manage user"
+msgstr "Hantera användare"
+
+msgid "Remove branding"
+msgstr "Ta bort märkning"
+
+msgid "{{communityTitle}} is a default branding for this record"
+msgstr "{{communityTitle}} är en standardmärkning för den här posten"
+
+msgid ""
+"Remove this community from appearing on top of the record details page."
+msgstr ""
+"Ta bort denna community från att visas högst upp på postens infromationsida."
+" "
+
+msgid "Set branding"
+msgstr "Ange märkning"
+
+msgid "Set {{communityTitle}} as a default branding for this record"
+msgstr "Ange {{communityTitle}} som standardmärkning för den här posten"
+
+msgid "Set this community to appear on the top of the record details page."
+msgstr ""
+"Ställ in att denna community ska visas högst upp på sidan med detaljer om "
+"posten."
+
+msgid "Pending communities"
+msgstr "Väntande communities"
+
+msgid "Search for pending submissions to communities..."
+msgstr "Sök efter pågående inlämningar till communities..."
+
+msgid "An error occurred while generating the citation."
+msgstr "Ett fel uppstod när citatet genererades."
+
+msgid "Style"
+msgstr "Stil"
+
+msgid "This record is not included in any communities yet."
+msgstr "Posten ingår inte i några communities ännu."
+
+msgid "Search for community..."
+msgstr "Sök efter community..."
+
+msgid "Record submitted"
+msgstr "Post inskickad"
+
+msgid "Review requested"
+msgstr "Granskning begärd"
+
+msgid "Search in all communities"
+msgstr "Sök i alla communities"
+
+msgid "Search in my communities"
+msgstr "Sök i mina communities"
+
+msgid "Select a community"
+msgstr "Välj en community"
+
+msgid "Version {{- version}}"
+msgstr "Version {{- version}}"
+
+msgid "Preview"
+msgstr "Förhandsgranska"
+
+msgid "Only published versions are displayed."
+msgstr "Endast publicerade versioner visas."
+
+msgid "An error occurred while fetching the versions."
+msgstr "Ett fel uppstod när versionerna hämtades."
+
+msgid "View all {{count}} versions"
+msgid_plural "View all {{count}} versions"
+msgstr[0] "Visa alla {{count}} versioner"
+msgstr[1] "Visa alla {{count}} versioner"
+
+msgid ""
+"<0><0>Cite all versions?</0> You can cite all versions by using the DOI "
+"<3></3>. This DOI represents all versions, and will always resolve to the "
+"latest one. <5>Read more</5>.</0>"
+msgstr ""
+"<0><0>Citera alla versioner?</0> Du kan citera alla versioner genom att "
+"använda DOI:n <3></3>. Denna DOI representerar alla versioner och kommer "
+"alltid att hänvisa till den senaste. <5>Läs mer</5>.</0>"
+
+msgid ""
+"<0><0>Cite all versions?</0> You can cite all versions by using the DOI . "
+"The DOI is registered when the first version is published. <4>Read "
+"more</4>.</0>"
+msgstr ""
+"<0><0>Citera alla versioner?</0> Du kan citera alla versioner genom att "
+"använda DOI:n . DOI:n registreras när den första versionen publiceras. "
+"<4>Läs mer</4>.</0>"
+
+msgid "Remove"
+msgstr "Ta bort"
+
+msgid "Remove {{communityTitle}} from this record"
+msgstr "Ta bort {{communityTitle}} från den här posten"
+
+msgid "Remove community"
+msgstr "Ta bort community"
+
+msgid "Are you sure you want to remove the record from the community?"
+msgstr "Är du säker på att du vill ta bort posten från communityn?"
+
+msgid "I understand the consequences:"
+msgstr "Jag förstår följderna:"
+
+msgid ""
+"The record can only be re-included in the community by going through a new "
+"review by the community curators."
+msgstr ""
+"Posten kan endast återinkluderas i communityn genom att genomgå en ny "
+"granskning av communityns granskare."
+
+msgid "Something went wrong"
+msgstr "Något gick fel"
+
+msgid "Cancel removal"
+msgstr "Avbryt borttagning"
+
+msgid "Cancel"
+msgstr "Avbryt"
+
+msgid "Confirm removal"
+msgstr "Bekräfta borttagning"
+
+msgid ""
+"Members of the community <1>\"<1>{{communityTitle}}</1>\"</1> will <4>lose "
+"their access</4> to the record."
+msgstr ""
+"Medlemmar av communityn <1>\"<1>{{communityTitle}}</1>\"</1> kommer "
+"<4>förlora sin åtkomst </4> till posten."
+
+msgid "Select permissions"
+msgstr "Välj behörigheter"
+
+msgid "Short name for your link (optional)."
+msgstr "Kort namn för din länk (valfritt)."
+
+msgid "Expiration date format: YYYY-MM-DD"
+msgstr "Format för utgångsdatum: ÅÅÅÅ-MM-DD"
+
+msgid "Expiration date: YYYY-MM-DD or never if blank (optional)."
+msgstr "Utgångsdatum: ÅÅÅÅ-MM-DD eller aldrig om fältet är tomt (valfritt)."
+
+msgid "Create a new link"
+msgstr "Skapa en ny länk"
+
+msgid "Link title"
+msgstr "Länktitel"
+
+msgid "Expires at"
+msgstr "Upphör att gälla"
+
+msgid "Never"
+msgstr "Aldrig"
+
+msgid "Access"
+msgstr "Tillgång"
+
+msgid "Delete"
+msgstr "Radera"
+
+msgid "Copy link"
+msgstr "Kopiera länk"
+
+msgid "Can view"
+msgstr "Kan visa"
+
+msgid "Can view restricted files of all versions of this record."
+msgstr "Kan se filer med begränsad åtkomst för alla versioner av posten."
+
+msgid "Can preview drafts"
+msgstr "Kan förhandsgranska utkast"
+
+msgid "Can view drafts and restricted files of all versions of this record."
+msgstr ""
+"Kan visa utkast och filer med begränsad åtkomst för alla versioner av "
+"posten."
+
+msgid "Can edit"
+msgstr "Kan redigera"
+
+msgid ""
+"Can edit drafts and view restricted files of all versions of this record."
+msgstr ""
+"Kan redigera utkast och visa filer med begränsad åtkomst för alla versioner "
+"av posten."
+
+msgid ""
+"Can view (view access link can be created only after the record is "
+"published)"
+msgstr ""
+"Kan visa (visningslänk kan skapas först efter att posten har publicerats)"
+
+msgid "Expires"
+msgstr "Upphör att gälla"
+
+msgid "This record has no links generated yet."
+msgstr "Inga länkar har ännu genererats för den här posten."
+
+msgid "Unable to change the access request settings."
+msgstr "Det går inte att ändra inställningarna för åtkomstbegäran."
+
+msgid "Allow authenticated users to request access to restricted files."
+msgstr ""
+"Tillåt autentiserade användare att begära åtkomst till begränsade filer."
+
+msgid "Allow non-authenticated users to request access to restricted files."
+msgstr ""
+"Tillåt icke-autentiserade användare att begära åtkomst till begränsade "
+"filer."
+
+msgid "Accept conditions"
+msgstr "Acceptera villkor"
+
+msgid "Advanced options"
+msgstr "Avancerade inställningar"
+
+msgid "Save"
+msgstr "Spara"
+
+msgid "No user has access to this record yet."
+msgstr "Ingen användare har åtkomst till denna post ännu."
+
+msgid "People with access"
+msgstr "Personer med åtkomst"
+
+msgid "No group has access to this record yet."
+msgstr "Ingen grupp har åtkomst till denna post ännu."
+
+msgid "Groups with access"
+msgstr "Grupper med åtkomst"
+
+msgid "You"
+msgstr "Du"
+
+msgid "Add people"
+msgstr "Lägg till personer"
+
+msgid "No selected users"
+msgstr "Inga användare valda"
+
+msgid ""
+"Search for users to grant access (only users with a public profile can be "
+"invited)"
+msgstr ""
+"Sök efter användare att tilldela åtkomst (endast användare med en offentlig "
+"profil kan bjudas in)"
+
+msgid "Search by email, full name or username"
+msgstr "Sök med e-post, fullständigt namn eller användarnamn"
+
+msgid "users"
+msgstr "användare"
+
+msgid "Add groups"
+msgstr "Lägg till grupper"
+
+msgid "Group"
+msgstr "Grupp"
+
+msgid "No selected groups"
+msgstr "Inga grupper valda"
+
+msgid "Search for groups"
+msgstr "Sök efter grupper"
+
+msgid "groups"
+msgstr "grupper"
+
+msgid "Add"
+msgstr "Lägg till"
+
+msgid "Notify people"
+msgstr "Meddela personer"
+
+msgid "Notification message"
+msgstr "Aviseringsmeddelande"
+
+msgid "You are about to add"
+msgstr "Du är på väg att lägga till"
+
+msgid "Access already granted"
+msgstr "Åtkomst redan beviljad"
+
+msgid "Can manage"
+msgstr "Kan hantera"
+
+msgid ""
+"Can manage access, edit drafts and view restricted files of all versions of "
+"this record."
+msgstr ""
+"Kan hantera åtkomst, redigera utkast och visa filer med begränsad åtkomst "
+"för alla versioner av posten."
+
+msgid "You don't have permissions to share this record."
+msgstr "Du har inte behörighet att dela denna post."
+
+msgid "Share"
+msgstr "Dela"
+
+msgid "People"
+msgstr "Personer"
+
+msgid "Groups"
+msgstr "Grupper"
+
+msgid "Settings"
+msgstr "Inställningar"
+
+msgid "Share access"
+msgstr "Dela åtkomst"
+
+msgid "Link expiration"
+msgstr "Länkens utgångsdatum"
+
+msgid "In 1 month"
+msgstr "Inom 1 månad"
+
+msgid "In 2 months"
+msgstr "Inom 2 månader"
+
+msgid "In 6 months"
+msgstr "Inom 6 månader"
+
+msgid "In 1 year"
+msgstr "Inom 1 år"
+
+msgid "Invalid date format."
+msgstr "Ogiltigt datumformat."
+
+msgid "Access link expiration date cannot be in the past."
+msgstr "Åtkomstlänkens utgångsdatum får inte ha passerat."
+
+msgid "Access request"
+msgstr "Åtkomstbegäran"
+
+msgid "Unable to change the expiration request settings."
+msgstr "Det går inte att ändra inställningarna för begäran om utgångsdatum."
+
+msgid "Expiration date: "
+msgstr "Utgångsdatum:"
+
+msgid ""
+"Format: YYYY-MM-DD. Granted access will expire on the given date. Leave "
+"empty to set no expiration limit."
+msgstr ""
+"Format: ÅÅÅÅ-MM-DD. Beviljad åtkomst upphör att gälla på det angivna "
+"datumet. Lämna fältet tomt för att inte ange något utgångsdatum."
+
+msgid "Link expiration date:"
+msgstr "Länkens utgångsdatum:"
+
+msgid "We couldn't find any matches for {{- search}}"
+msgstr "Vi kunde inte hitta några träffar för {{- search}}"
+
+msgid "Start over"
+msgstr "Börja om"
+
+msgid "ProTip"
+msgstr "ProTip"
+
+msgid "Search guide"
+msgstr "Sökguide"
+
+msgid ""
+"<0>For more tips, check out our <2>search guide</2> for defining advanced "
+"search queries.</0>"
+msgstr ""
+"<0>Om du vill ha fler tips kan du kolla in vår <2>sökguide</2> för att "
+"konstruera avancerade sökfrågor.</0>"
+
+msgid "Search in my communities..."
+msgstr "Sök i mina communities..."
+
+msgid "View"
+msgstr "Visa"
+
+msgid "Published in: {{publishedIn}}"
+msgstr "Publicerad i: {{publishedIn}}"
+
+msgid "In review"
+msgstr "Under granskning"
+
+msgid "Declined"
+msgstr "Avslagen"
+
+msgid "Expired"
+msgstr "Utgånget"
+
+msgid "Draft"
+msgstr "Utkast"
+
+msgid "New version draft"
+msgstr "Utkast till ny version"
+
+msgid "open"
+msgstr "öppna"
+
+msgid "Open"
+msgstr "Öppen"
+
+msgid "unlock"
+msgstr "låsa upp"
+
+msgid "Get started!"
+msgstr "Kom igång!"
+
+msgid "Make your first upload!"
+msgstr "Gör din första uppladdning!"
+
+msgid "New upload"
+msgstr "Ny uppladdning"
+
+msgid "Search in my uploads..."
+msgstr "Sök i mina uppladdningar..."
+
+msgid "ORCID profile"
+msgstr "ORCID-profil"
+
+msgid "ORCID logo"
+msgstr "ORCID logo"
+
+msgid "ROR profile"
+msgstr "ROR-profil"
+
+msgid "ROR logo"
+msgstr "ROR logo"
+
+msgid "GND profile"
+msgstr "GND-profil"
+
+msgid "GND logo"
+msgstr "GND logo"
+
+msgid "No name"
+msgstr "Inget namn"
+
+msgid "and {{count}} other"
+msgid_plural "and {{count}} other"
+msgstr[0] "och {{count}} andra"
+msgstr[1] "och {{count}} andra"
+
+msgid "and {{count}} others"
+msgid_plural "and {{count}} others"
+msgstr[0] "och {{count}} andra"
+msgstr[1] "och {{count}} andra"
+
+msgctxt ""
+"date:[2017-01-01 TO *]</0> will give you all the publications from 2017 "
+"until today.</0>"
+msgid "<0><0>metadata.publication"
+msgstr ""
+"<0><0>metadata.publication_date:[2017-01-01 TO *]</0> ger alla publiceringar"
+" från 2017 till och med idag.</0>"
