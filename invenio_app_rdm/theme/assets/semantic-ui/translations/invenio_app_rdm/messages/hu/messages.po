@@ -337,7 +337,7 @@ msgid "Copied!"
 msgstr "Másolva!"
 
 msgid "Part of "
-msgstr "Része ennek"
+msgstr "Része ennek "
 
 msgid "No creation date found."
 msgstr "Létrehozási dátum nem található."
