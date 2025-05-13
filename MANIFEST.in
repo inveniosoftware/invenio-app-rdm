@@ -54,3 +54,4 @@ recursive-include invenio_app_rdm *.py
 recursive-include docker *.cfg *.conf *.crt *.ini *.key *.pem *.sh
 recursive-include tests *.py *.yaml *.html
 include .git-blame-ignore-revs
+recursive-include invenio_app_rdm *.js

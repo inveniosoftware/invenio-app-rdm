@@ -33,9 +33,7 @@ async function compileAndCreateFileForLanguage(parentPath, lang) {
     const poContent = readFileSync(poFilePath);
     const result = await gettextToI18next(lang, poContent, options);
     writeFileSync(jsonFilePath, result);
-    console.log(
-      `✅ Successfully converted ${lang}/${PO_FILENAME} to ${JSON_FILENAME}`
-    );
+    console.log(`✅ Successfully converted ${lang}/${PO_FILENAME} to ${JSON_FILENAME}`);
     return true;
   } catch (error) {
     console.error(`❌ Error processing ${lang}:`, error.message);
@@ -75,20 +73,14 @@ async function processAllLanguages() {
 
   const processedLangs = [];
   for (const lang of directories) {
-    const success = await compileAndCreateFileForLanguage(
-      PACKAGE_MESSAGES_PATH,
-      lang
-    );
+    const success = await compileAndCreateFileForLanguage(PACKAGE_MESSAGES_PATH, lang);
     if (success) processedLangs.push(lang);
   }
   return processedLangs;
 }
 
 async function handleLanguageCommand(lang) {
-  const success = await compileAndCreateFileForLanguage(
-    PACKAGE_MESSAGES_PATH,
-    lang
-  );
+  const success = await compileAndCreateFileForLanguage(PACKAGE_MESSAGES_PATH, lang);
   if (!success) process.exit(1);
 
   const directories = readdirSync(PACKAGE_MESSAGES_PATH, {
