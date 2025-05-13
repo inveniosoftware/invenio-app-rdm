@@ -1,5 +1,4 @@
 {
-  "Basic information": "Basic information",
   "Impersonate user": "Impersonate user",
   "Impersonate": "Impersonate",
   "You must accept this.": "You must accept this.",
@@ -108,6 +107,7 @@
   "{{count}} more versions exist for this record_plural": "{{count}} more versions exist for this record",
   "Person": "Person",
   "The record has no files.": "The record has no files.",
+  "Basic information": "Basic information",
   "Creators": "Creators",
   "Recommended information": "Recommended information",
   "Add contributor": "Add contributor",
@@ -252,7 +252,6 @@
   "Start over": "Start over",
   "ProTip": "ProTip",
   "Search guide": "Search guide",
-  "<0><0>metadata.publication_date:[2017-01-01 TO *]</0> will give you all the publications from 2017 until today.</0>": "<0><0>metadata.publication_date:[2017-01-01 TO *]</0> will give you all the publications from 2017 until today.</0>",
   "<0>For more tips, check out our <2>search guide</2> for defining advanced search queries.</0>": "<0>For more tips, check out our <2>search guide</2> for defining advanced search queries.</0>",
   "Search in my communities...": "Search in my communities...",
   "View": "View",
@@ -279,5 +278,6 @@
   "and {{count}} other": "and {{count}} other",
   "and {{count}} other_plural": "and {{count}} other",
   "and {{count}} others": "and {{count}} others",
-  "and {{count}} others_plural": "and {{count}} others"
+  "and {{count}} others_plural": "and {{count}} others",
+  "<0><0>metadata.publication_date:[2017-01-01 TO *]</0> will give you all the publications from 2017 until today.</0>": "<0><0>metadata.publication_date:[2017-01-01 TO *]</0> will give you all the publications from 2017 until today.</0>"
 }
