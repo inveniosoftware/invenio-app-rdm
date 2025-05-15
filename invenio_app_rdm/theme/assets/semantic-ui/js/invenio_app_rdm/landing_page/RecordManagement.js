@@ -98,6 +98,7 @@ export class RecordManagement extends Component {
           isPreviewSubmissionRequest={isPreviewSubmissionRequest}
           record={record}
           currentUserId={currentUserId}
+          permissions={permissions}
         />
         {error && (
           <Grid.Row className="record-management">
