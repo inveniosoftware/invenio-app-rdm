@@ -53,7 +53,10 @@ class StaticPages(FixtureMixin):
             data = {
                 "url": url,
                 "title": entry.get("title", ""),
-                "content": self.page_data(entry["template"]),
+                # content is optional as it can be added later from the administration panel
+                "content": (
+                    self.page_data(entry["template"]) if entry.get("template") else ""
+                ),
                 "description": entry.get("description", ""),
                 "template_name": current_app.config["PAGES_DEFAULT_TEMPLATE"],
             }
