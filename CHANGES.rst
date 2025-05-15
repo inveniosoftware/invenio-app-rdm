@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version v13.0.0b3.dev9 (released 2025-05-15)
+
+- recordManagment: pass permissiosn down to overridable
+
 Version v13.0.0b3.dev8 (released 2025-05-15)
 
 - MathJax: use async typesetting
