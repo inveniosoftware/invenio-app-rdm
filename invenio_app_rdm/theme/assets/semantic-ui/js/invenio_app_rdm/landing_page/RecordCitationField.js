@@ -36,6 +36,10 @@ export class RecordCitationField extends Component {
     this.cancellableFetchCitation?.cancel();
   }
 
+  async componentDidUpdate() {
+    await window.MathJax?.typesetPromise();
+  }
+
   placeholderLoader = () => {
     return (
       <Placeholder>
