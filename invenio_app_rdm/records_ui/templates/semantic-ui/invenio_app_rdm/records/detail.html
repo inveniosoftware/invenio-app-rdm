@@ -201,13 +201,14 @@
                       <i class="cog icon"></i> {{ _('Manage record') }}
                     </button>
                   </div>
-
                   <div id="recordManagementMobile"
                        role="dialog"
                        class="ui flowing popup transition hidden"
+                       {%- block record_manage_data_attributes -%}
                        data-record='{{ record | tojson }}'
                        data-permissions='{{ permissions | tojson }}'
                        data-is-draft="{{ is_draft | tojson }}"
+                       {%- endblock record_manage_data_attributes -%}
                   >
                   </div>
                 </section>
