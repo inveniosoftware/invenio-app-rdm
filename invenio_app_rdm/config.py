@@ -481,6 +481,10 @@ CELERY_BEAT_SCHEDULE = {
         "task": "invenio_rdm_records.requests.access.tasks.clean_expired_request_access_tokens",
         "schedule": crontab(minute=4, hour=0),
     },
+    "delete-job-logs": {
+        "task": "invenio_jobs.logging.tasks.delete_logs",
+        "schedule": crontab(minute=5, hour=0),
+    },
 }
 """Scheduled tasks configuration (aka cronjobs)."""
 
