@@ -10,6 +10,11 @@
 Changes
 =======
 
+Version v13.0.0b3.dev10 (released 2025-05-16)
+
+- fixtures: make content template optional
+- MathJax: add typesetting to the citations box
+
 Version v13.0.0b3.dev9 (released 2025-05-15)
 
 - recordManagment: pass permissiosn down to overridable
