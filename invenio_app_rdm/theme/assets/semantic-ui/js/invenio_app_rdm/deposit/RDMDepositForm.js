@@ -20,6 +20,7 @@ import {
   DeleteButton,
   DepositStatusBox,
   FileUploader,
+  UppyUploader,
   FormFeedback,
   IdentifiersField,
   PIDField,
@@ -114,6 +115,7 @@ export class RDMDepositForm extends Component {
       allowRecordRestriction,
       groupsEnabled,
       allowEmptyFiles,
+      useUppy
     } = this.props;
 
     // Adding section id to custom fields UI, to be used for accordions
@@ -121,6 +123,7 @@ export class RDMDepositForm extends Component {
       ...section,
       id: section.section.toLowerCase().replace(/\s+/g, "-") + "-section",
     }));
+    const UploaderField = useUppy ? UppyUploader : FileUploader;
 
     return (
       <Overridable
@@ -136,6 +139,7 @@ export class RDMDepositForm extends Component {
         groupsEnabled={groupsEnabled}
         allowEmptyFiles={allowEmptyFiles}
         customFieldsUI={customFieldsUI}
+        useUppy={useUppy}
       >
         <DepositFormApp
           config={this.config}
@@ -143,6 +147,7 @@ export class RDMDepositForm extends Component {
           preselectedCommunity={preselectedCommunity}
           files={files}
           permissions={permissions}
+          useUppy={useUppy}
         >
           <Overridable
             id="InvenioAppRdm.Deposit.FormFeedback.container"
@@ -196,7 +201,7 @@ export class RDMDepositForm extends Component {
                       filesLocked={filesLocked}
                       allowEmptyFiles={allowEmptyFiles}
                     >
-                      <FileUploader
+                      <UploaderField
                         isDraftRecord={!record.is_published}
                         quota={this.config.quota}
                         decimalSizeDisplay={this.config.decimal_size_display}
