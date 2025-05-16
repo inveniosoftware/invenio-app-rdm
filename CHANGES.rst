@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version v13.0.0b3.dev11 (released 2025-05-16)
+
+- deposit-ui: add "files.entries" to files section
+
 Version v13.0.0b3.dev10 (released 2025-05-16)
 
 - fixtures: make content template optional
