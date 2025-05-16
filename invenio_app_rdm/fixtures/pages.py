@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2022-2024 CERN.
+# Copyright (C) 2025 Graz University of Technology.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify
 # it under the terms of the MIT License; see LICENSE file for more details.
@@ -12,6 +13,7 @@ from pathlib import Path
 from flask import current_app
 from invenio_access.permissions import system_identity
 from invenio_db import db
+from invenio_i18n import get_locale
 from invenio_pages.proxies import current_pages_service
 from invenio_pages.records.errors import PageNotFoundError
 from invenio_rdm_records.fixtures.fixture import FixtureMixin
@@ -47,8 +49,9 @@ class StaticPages(FixtureMixin):
     def create(self, entry):
         """Load a single page."""
         url = entry["url"]
+        lang = get_locale()
         try:
-            current_pages_service.read_by_url(system_identity, url)
+            current_pages_service.read_by_url(system_identity, url, lang.language)
         except PageNotFoundError:
             data = {
                 "url": url,
