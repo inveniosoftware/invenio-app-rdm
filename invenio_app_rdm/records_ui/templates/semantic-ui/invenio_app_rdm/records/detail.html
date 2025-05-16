@@ -201,13 +201,15 @@
                       <i class="cog icon"></i> {{ _('Manage record') }}
                     </button>
                   </div>
-
                   <div id="recordManagementMobile"
                        role="dialog"
                        class="ui flowing popup transition hidden"
                        data-record='{{ record | tojson }}'
                        data-permissions='{{ permissions | tojson }}'
                        data-is-draft="{{ is_draft | tojson }}"
+                       {% if config.RDM_DETAIL_SIDE_BAR_MANAGE_ATTRIBUTES_EXTENSION_TEMPLATE %}
+                        {% include config.RDM_DETAIL_SIDE_BAR_MANAGE_ATTRIBUTES_EXTENSION_TEMPLATE %}
+                       {% endif %}
                   >
                   </div>
                 </section>
