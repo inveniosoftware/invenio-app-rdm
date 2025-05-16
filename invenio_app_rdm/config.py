@@ -1475,3 +1475,7 @@ ADMINISTRATION_THEME_BASE_TEMPLATE = "invenio_app_rdm/administration_page.html"
 
 APP_RDM_SUBCOMMUNITIES_LABEL = "Subcommunities"
 """Label for the subcommunities in the community browse page."""
+
+
+RDM_DETAIL_SIDE_BAR_MANAGE_ATTRIBUTES_EXTENSION_TEMPLATE = None
+"""Side bar manage attributes extension template."""
