@@ -167,6 +167,8 @@ from invenio_vocabularies.contrib.subjects.datastreams import (
 )
 from werkzeug.local import LocalProxy
 
+from invenio_config.env import build_broker_url, build_db_uri, build_redis_url
+
 from .theme.views import notification_settings
 from .users.schemas import NotificationsUserSchema, UserPreferencesNotificationsSchema
 
@@ -214,7 +216,7 @@ SESSION_COOKIE_SAMESITE = "Lax"
 # =============
 # https://flask-limiter.readthedocs.io/en/stable/#configuration
 
-RATELIMIT_STORAGE_URI = "redis://localhost:6379/3"
+RATELIMIT_STORAGE_URI = build_redis_url(db=3)
 """Storage for ratelimiter."""
 
 # Increase defaults
@@ -380,7 +382,7 @@ COLLECT_STORAGE = "flask_collect.storage.file"
 # See https://invenio-accounts.readthedocs.io/en/latest/configuration.html
 # See https://flask-security.readthedocs.io/en/3.0.0/configuration.html
 
-ACCOUNTS_SESSION_REDIS_URL = "redis://localhost:6379/1"
+ACCOUNTS_SESSION_REDIS_URL = build_redis_url(db=1)
 """Redis session storage URL."""
 
 ACCOUNTS_USERINFO_HEADERS = True
@@ -413,7 +415,7 @@ USERPROFILES_EXTEND_SECURITY_FORMS = True
 # See docs.celeryproject.org/en/latest/userguide/configuration.html
 # See https://flask-celeryext.readthedocs.io/en/latest/
 
-BROKER_URL = "amqp://guest:guest@localhost:5672/"
+BROKER_URL = build_broker_url()
 """URL of message broker for Celery 3 (default is RabbitMQ)."""
 
 CELERY_BEAT_SCHEDULE = {
@@ -487,16 +489,14 @@ CELERY_BEAT_SCHEDULE = {
 CELERY_BROKER_URL = BROKER_URL
 """Same as BROKER_URL to support Celery 4."""
 
-CELERY_RESULT_BACKEND = "redis://localhost:6379/2"
+CELERY_RESULT_BACKEND = build_redis_url(db=2)
 """URL of backend for result storage (default is Redis)."""
 
 # Flask-SQLAlchemy
 # ================
 # See https://flask-sqlalchemy.palletsprojects.com/en/2.x/config/
 
-SQLALCHEMY_DATABASE_URI = (
-    "postgresql+psycopg2://invenio-app-rdm:invenio-app-rdm@localhost/invenio-app-rdm"
-)
+SQLALCHEMY_DATABASE_URI = build_db_uri()
 """Database URI including user and password.
 
 Default value is provided to make module testing easier.
@@ -688,7 +688,7 @@ DEBUG_TB_INTERCEPT_REDIRECTS = False
 # =============
 # See https://flask-caching.readthedocs.io/en/latest/index.html#configuring-flask-caching  # noqa
 
-CACHE_REDIS_URL = "redis://localhost:6379/0"
+CACHE_REDIS_URL = build_redis_url()
 """URL to connect to Redis server."""
 
 CACHE_TYPE = "flask_caching.backends.redis"
