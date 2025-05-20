@@ -10,6 +10,11 @@
 Changes
 =======
 
+Version v13.0.0b3.dev12 (released 2025-05-16)
+
+- jinja: add config attributes to record detail
+- beat: add delete job logs recurrent task
+
 Version v13.0.0b3.dev11 (released 2025-05-16)
 
 - deposit-ui: add "files.entries" to files section
