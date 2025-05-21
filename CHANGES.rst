@@ -10,7 +10,11 @@
 Changes
 =======
 
-Version v13.0.0b3.dev12 (released 2025-05-16)
+Version v13.0.0b3.dev13 (released 2025-05-21)
+
+- jinja: remove hardcoded template imports
+
+Version v13.0.0b3.dev12 (released 2025-05-21)
 
 - jinja: add config attributes to record detail
 - beat: add delete job logs recurrent task
