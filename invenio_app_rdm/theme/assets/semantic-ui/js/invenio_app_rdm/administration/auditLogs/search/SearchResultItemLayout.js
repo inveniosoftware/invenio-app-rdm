@@ -15,7 +15,8 @@ import { i18next } from "@translations/invenio_app_rdm/i18next";
 
 class SearchResultItemComponent extends Component {
   componentDidMount() {
-    console.error("result", this.props.result);
+    const { result } = this.props;
+    console.error("result", result);
   }
 
   refreshAfterAction = () => {
