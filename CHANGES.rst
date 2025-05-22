@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version v13.0.0b3.dev14 (released 2025-05-23)
+
+- views: pass record object to record details
+
 Version v13.0.0b3.dev13 (released 2025-05-21)
 
 - jinja: remove hardcoded template imports
