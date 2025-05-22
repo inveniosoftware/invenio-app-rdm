@@ -233,7 +233,8 @@ def record_detail(
     return render_community_theme_template(
         current_app.config.get("APP_RDM_RECORD_LANDING_PAGE_TEMPLATE"),
         theme=theme,
-        record=record_ui,
+        record=record,
+        record_ui=record_ui,
         files=files_dict,
         media_files=media_files_dict,
         user_communities_memberships=get_user_communities_memberships(),
