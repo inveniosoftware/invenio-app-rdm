@@ -1476,6 +1476,8 @@ ADMINISTRATION_THEME_BASE_TEMPLATE = "invenio_app_rdm/administration_page.html"
 APP_RDM_SUBCOMMUNITIES_LABEL = "Subcommunities"
 """Label for the subcommunities in the community browse page."""
 
+APP_RDM_DEPOSIT_NG_FILES_UI_ENABLED = False
+"""Feature toggle to enable the new Uppy uploader for the deposit form."""
 
 RDM_DETAIL_SIDE_BAR_MANAGE_ATTRIBUTES_EXTENSION_TEMPLATE = None
 """Side bar manage attributes extension template."""
