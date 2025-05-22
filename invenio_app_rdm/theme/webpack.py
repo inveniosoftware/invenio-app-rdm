@@ -60,6 +60,7 @@ theme = WebpackThemeBundle(
                 "react-searchkit": "^3.0.0",
                 "yup": "^0.32.0",
                 "json-diff-kit": "^1.0.30",
+                "react-json-view": "^1.21.3",
             },
             aliases={
                 # Define Semantic-UI theme configuration needed by
