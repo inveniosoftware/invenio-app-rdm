@@ -7,7 +7,7 @@
     it under the terms of the MIT License; see LICENSE file for more details.
 #}
 
-<div id="recordCitation" data-record='{{ record | tojson }}'
+<div id="recordCitation" data-record='{{ record_ui | tojson }}'
   data-styles='{{ config.get("RDM_CITATION_STYLES") | tojson }}'
   data-defaultstyle='{{ config.get("RDM_CITATION_STYLES_DEFAULT") | tojson }}'
   data-include-deleted='{{ include_deleted | tojson }}'>
