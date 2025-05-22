@@ -74,7 +74,7 @@ export class RevisionsDiffViewer extends Component {
 
 RevisionsDiffViewer.propTypes = {
   diff: PropTypes.object,
-  viewerProps: PropTypes.object.isRequired,
+  viewerProps: PropTypes.object,
 };
 
 RevisionsDiffViewer.defaultProps = {

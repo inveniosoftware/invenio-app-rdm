@@ -9,6 +9,7 @@ import { createSearchAppInit } from "@js/invenio_search_ui";
 import { NotificationController } from "@js/invenio_administration";
 import { SearchResultItemLayout } from "./search";
 import { SearchFacets } from "@js/invenio_administration";
+import { AuditLogActions } from "./AuditLogActions";
 
 const domContainer = document.getElementById("invenio-search-config");
 
@@ -18,6 +19,7 @@ const overridenComponents = {
   ...defaultComponents,
   "InvenioAdministration.SearchResultItem.layout": SearchResultItemLayout,
   "SearchApp.facets": SearchFacets,
+  "InvenioAdministration.ResourceActions": AuditLogActions,
 };
 
 createSearchAppInit(

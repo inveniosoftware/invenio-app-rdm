@@ -40,7 +40,8 @@
   "devDependencies": {
     "i18next-conv": "^10.2.0",
     "i18next-scanner": "^3.0.0",
-    "react-i18next": "^11.11.3"
+    "react-i18next": "^11.11.3",
+    "react-json-view": "^1.21.3"
   },
   "scripts": {
     "extract_messages": "i18next-scanner --config i18next-scanner.config.js '../../js/**/*.{js,jsx}'",
