@@ -20,7 +20,7 @@ from invenio_communities.proxies import current_communities
 from invenio_communities.views.communities import render_community_theme_template
 from invenio_i18n import lazy_gettext as _
 from invenio_i18n.ext import current_i18n
-from invenio_rdm_records.proxies import current_rdm_records
+from invenio_rdm_records.proxies import current_rdm_records, current_rdm_records_service
 from invenio_rdm_records.records.api import get_files_quota
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
 from invenio_rdm_records.services.schemas import RDMRecordSchema
@@ -32,6 +32,7 @@ from invenio_vocabularies.records.models import VocabularyScheme
 from marshmallow_utils.fields.babel import gettext_from_dict
 from sqlalchemy.orm import load_only
 
+from ...utils.checks import resolve_checks
 from ..utils import set_default_value
 from .decorators import (
     no_cache_response,
@@ -548,11 +549,25 @@ def deposit_edit(pid_value, draft=None, draft_files=None, files_locked=True):
             if doi_provider_config:
                 doi_provider_config[0]["default_selected"] = "no"
 
+    errors = []
+    record_uuid = current_rdm_records_service.draft_cls.pid.resolve(
+        pid_value, registered_only=False
+    ).id
+    request = draft.data.get("parent", {}).get("review")
+    if request and record_uuid:
+        checks = resolve_checks(record_uuid, request) or []
+        errors = [
+            err
+            for check in checks
+            for err in (check.result.get("errors") if check.result else [])
+        ]
+
     return render_community_theme_template(
         current_app.config["APP_RDM_DEPOSIT_FORM_TEMPLATE"],
         theme=community_theme,
         forms_config=form_config,
         record=record,
+        errors=errors,
         community=community,
         community_use_jinja_header=community_use_jinja_header,
         files=files_dict,
