@@ -270,7 +270,8 @@ def user_dashboard_request_view(request, **kwargs):
             base_template="invenio_app_rdm/users/base.html",
             user_avatar=avatar,
             invenio_request=request.to_dict(),
-            record=record_ui,
+            record_ui=record_ui,
+            record=record,
             checks=checks,
             permissions=topic["permissions"],
             is_preview=is_draft,  # preview only when draft
