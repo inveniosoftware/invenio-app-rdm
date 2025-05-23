@@ -34,36 +34,40 @@ class AuditLogListView(AdminResourceListView):
     display_edit = False
 
     item_field_list = {
-        "id": {
-            "text": _("Log ID"),
-            "order": 1,
-            "width": 3,
-            "width": 3,
-        },
         "resource.type": {
             "text": _("Resource"),
-            "order": 2,
+            "order": 1,
             "width": 2,
         },
-        "resource.id": {  # Link to resource in the `resource_type` admin panel
+        "resource.id": {
             "text": _("Resource ID"),
-            "order": 3,
-            "width": 2,
+            "order": 2,
         },
         "action": {
             "text": _("Action"),
-            "order": 4,
-            "width": 2,
+            "order": 3,
         },
-        "user.id": {  # Link to user in user admin panel
+        "user.id": {
             "text": _("User"),
-            "order": 5,
-            "width": 3,
+            "order": 4,
         },
         "created": {
-            "text": _("Timestamp"),
-            "order": 6,
-            "width": 7,
+            "text": _("Created"),
+            "order": 5,
+        },
+    }
+
+    actions = {
+        "view_log": {
+            "text": _("View Log"),
+            "payload_schema": None,
+            "order": 1,
+        },
+        "view_changes": {
+            "text": _("View Changes"),
+            "payload_schema": None,
+            "order": 2,
+            "show_for": ["record.publish"],
         },
     }
 

@@ -10,6 +10,10 @@
 Changes
 =======
 
+Versino v13.0.0b3.dev16 (released 2025-05-23)
+
+- administration: audit_logs: Add View Changes and View Log button and modals
+
 Version v13.0.0b3.dev15 (released 2025-05-23)
 
 - Revert "views: pass record object to record details"
