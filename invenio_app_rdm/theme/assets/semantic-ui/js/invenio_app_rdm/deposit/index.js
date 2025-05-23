@@ -18,6 +18,7 @@ ReactDOM.render(
   <OverridableContext.Provider value={overriddenComponents}>
     <RDMDepositForm
       record={getInputFromDOM("deposits-record")}
+      errors={getInputFromDOM("deposits-errors")}
       preselectedCommunity={getInputFromDOM("deposits-draft-community")}
       files={getInputFromDOM("deposits-record-files")}
       config={getInputFromDOM("deposits-config")}
