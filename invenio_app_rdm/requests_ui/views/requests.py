@@ -209,6 +209,7 @@ def user_dashboard_request_view(request, **kwargs):
             permissions=topic["permissions"],
             is_preview=is_draft,  # preview only when draft
             is_draft=is_draft,
+            has_draft=record._record.has_draft,
             request_is_accepted=request_is_accepted,
             files=files,
             media_files=media_files,
@@ -292,6 +293,7 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
             permissions=permissions,
             is_preview=is_draft,  # preview only when draft
             is_draft=is_draft,
+            has_draft=record._record.has_draft,
             request_is_accepted=request_is_accepted,
             files=files,
             media_files=media_files,
