@@ -65,12 +65,18 @@ def resolve_checks(record_uuid, request, community=None):
 
     # Find check runs for the given check configs
     check_config_ids = [check_config.id for check_config in check_configs]
-    checks = CheckRun.query.filter(
-        CheckRun.config_id.in_(check_config_ids),
-        CheckRun.record_id == record_uuid,
-    ).all()
-    # For a given record, there is one check run corresponding to one check config
-    # Order the check runs by the same order as the check configs for deterministic ordering
-    checks = sorted(checks, key=lambda check: check_config_ids.index(check.config_id))
 
-    return checks
+    check_runs = (
+        CheckRun.query.filter(
+            CheckRun.config_id.in_(check_config_ids), CheckRun.record_id == record_uuid
+        )
+        .order_by(CheckRun.is_draft.desc(), CheckRun.revision_id.desc())
+        .all()
+    )
+
+    # Keep only the first run per config_id (already ordered by relevance)
+    latest_checks = {}
+    for run in check_runs:
+        latest_checks.setdefault(run.config_id, run)  # Only set first occurrence
+
+    return [latest_checks[cid] for cid in check_config_ids if cid in latest_checks]
