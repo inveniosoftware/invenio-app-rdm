@@ -31,6 +31,11 @@
            value='{{ files_locked | tojson }}'>
   {%- endif %}
 
+  {%- if errors %}
+  <input id="deposits-errors" type="hidden" name="deposits-errors"
+         value='{{ errors | tojson }}'>
+  {%- endif %}
+
   {%- if preselectedCommunity %}
     <input id="deposits-draft-community" type="hidden" name="deposits-draft-community"
            value='{{ preselectedCommunity | tojson }}'>
@@ -54,6 +59,7 @@
     <input type="hidden" name="deposits-config"
            value='{{ forms_config | tojson }}'>
   {%- endif %}
+  
 
   {%- if permissions %}
     <input id="deposits-record-permissions" type="hidden"
