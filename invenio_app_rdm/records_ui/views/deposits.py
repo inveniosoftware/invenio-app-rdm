@@ -25,6 +25,7 @@ from invenio_rdm_records.records.api import get_files_quota
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
 from invenio_rdm_records.services.schemas import RDMRecordSchema
 from invenio_rdm_records.services.schemas.utils import dump_empty
+from invenio_records_resources.proxies import current_transfer_registry
 from invenio_records_resources.services.errors import PermissionDeniedError
 from invenio_search.engine import dsl
 from invenio_vocabularies.proxies import current_service as vocabulary_service
@@ -387,6 +388,8 @@ def get_form_config(**kwargs):
         publish_modal_extra=current_app.config.get(
             "APP_RDM_DEPOSIT_FORM_PUBLISH_MODAL_EXTRA"
         ),
+        default_transfer_type=current_transfer_registry.default_transfer_type,
+        transfer_types=list(current_transfer_registry.get_transfer_types()),
         **kwargs,
     )
 
