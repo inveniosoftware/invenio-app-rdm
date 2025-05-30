@@ -216,7 +216,7 @@ export class RDMDepositForm extends Component {
                   <AccordionField
                     includesPaths={this.sectionsConfig["basic-information-section"]}
                     severityChecks={this.severityChecks}
-                    active
+                    active={false}
                     label={i18next.t("Basic information")}
                     id="basic-information-section"
                   >
