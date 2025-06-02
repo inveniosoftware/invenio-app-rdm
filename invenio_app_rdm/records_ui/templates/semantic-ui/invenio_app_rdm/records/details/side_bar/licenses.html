@@ -19,8 +19,8 @@
   {% endif %}
 {% endmacro %}
 
-{% set rights = record.ui.get('rights', []) %}
-{% set copyrights = record.get('metadata', {}).get('copyright') %}
+{% set rights = record_ui["ui"].get('rights', []) %}
+{% set copyrights = record_ui.get('metadata', {}).get('copyright') %}
 {% if rights or copyrights %}
   <div class="sidebar-container">
     <h2 class="ui medium top attached header mt-0">{{ _('Rights') }}</h2>

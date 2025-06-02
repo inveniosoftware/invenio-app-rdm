@@ -33,7 +33,7 @@
     </div>
   {% endif %}
   <div id="access-request-form-root"
-       data-record='{{ record | tojson }}'
+       data-record='{{ record_ui | tojson }}'
        data-user-anonymous='{{ current_user.is_anonymous | tojson }}'
        data-user-full-name='{{ full_name | tojson }}'
        data-user-email='{{ email | tojson }}'>

@@ -20,9 +20,9 @@
       {%- for fmt, val in config.get("APP_RDM_RECORD_EXPORTERS", {}).items() -%}
         {%- set name = val.get("name", fmt) -%}
         {% if is_preview %}
-          {%- set export_url = url_for('invenio_app_rdm_records.record_export', pid_value=record.id, export_format=fmt, preview=1) -%}
+          {%- set export_url = url_for('invenio_app_rdm_records.record_export', pid_value=record_ui["id"], export_format=fmt, preview=1) -%}
         {% else %}
-          {%- set export_url = url_for('invenio_app_rdm_records.record_export', pid_value=record.id, export_format=fmt) -%}
+          {%- set export_url = url_for('invenio_app_rdm_records.record_export', pid_value=record_ui["id"], export_format=fmt) -%}
         {% endif %}
 
         {% set formats = formats.append({ 'name': name, 'export_url': export_url }) %}
