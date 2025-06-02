@@ -11,7 +11,7 @@
 {%- from "invenio_app_rdm/records/macros/detail.html" import
   list_languages, show_dates, show_detail, show_detail_conference, show_detail_thesis %}
 
-{%- set id_doi = record.pids.get('doi', {}).get('identifier') %}
+{%- set id_doi = record_ui["pids"].get('doi', {}).get('identifier') %}
 
 <div class="sidebar-container">
   <h2 class="ui medium top attached header mt-0">{{ _('Details')}}</h2>
@@ -21,14 +21,14 @@
       {% if id_doi %}
         {%- include "invenio_app_rdm/records/details/doi.html" %}
       {% endif %}
-      {{ show_detail(_('Resource type'), record.ui.resource_type.title_l10n) if record.ui.resource_type }}
-      {{ show_detail(_('Publication date'), record.ui.publication_date_l10n) if record.ui.publication_date_l10n }}
+      {{ show_detail(_('Resource type'), record_ui["ui"]["resource_type"]["title_l10n"]) if record_ui["ui"]["resource_type"] }}
+      {{ show_detail(_('Publication date'), record_ui["ui"]["publication_date_l10n"]) if record_ui["ui"]["publication_date_l10n"] }}
       {{ show_detail(_('Publisher'), metadata.publisher) if metadata.publisher }}
-      {{ show_detail(_('Published in'), record.ui.publishing_information.journal) if record.ui.get('publishing_information', {}).get('journal') }}
-      {{ show_detail(_('Imprint'), record.ui.publishing_information.imprint) if record.ui.get('publishing_information', {}).get('imprint') }}
-      {{ show_detail_thesis(_('Thesis'), record.ui.publishing_information.thesis) if record.ui.get('publishing_information', {}).get('thesis', {}) }}
-      {{ show_detail(_('Conference'), show_detail_conference(record.ui.conference)) if record.ui.conference }}
-      {{ show_detail(_('Languages'), list_languages(record.ui.languages)) if record.ui.languages }}
+      {{ show_detail(_('Published in'), record_ui["ui"]["publishing_information"]["journal"]) if record_ui["ui"].get('publishing_information', {}).get('journal') }}
+      {{ show_detail(_('Imprint'), record_ui["ui"]["publishing_information"]["imprint"]) if record_ui["ui"].get('publishing_information', {}).get('imprint') }}
+      {{ show_detail_thesis(_('Thesis'), record_ui["ui"]["publishing_information"]["thesis"]) if record_ui["ui"].get('publishing_information', {}).get('thesis', {}) }}
+      {{ show_detail(_('Conference'), show_detail_conference(record_ui["ui"]["conference"])) if record_ui["ui"]["conference"] }}
+      {{ show_detail(_('Languages'), list_languages(record_ui["ui"]["languages"])) if record_ui["ui"]["languages"] }}
       {{ show_detail(_('Formats'), ", ".join(metadata.formats)) if metadata.formats }}
       {{ show_detail(_('Sizes'), ", ".join(metadata.sizes)) if metadata.sizes }}
     </dl>

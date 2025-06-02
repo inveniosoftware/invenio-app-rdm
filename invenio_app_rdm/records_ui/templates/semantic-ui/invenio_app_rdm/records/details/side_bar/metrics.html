@@ -8,7 +8,7 @@
   it under the terms of the MIT License; see LICENSE file for more details.
 #}
 
-{%  if record.stats %}
+{%  if record_ui["stats"] %}
 <section id="metrics" aria-label="{{ _('Metrics') }}" class="ui segment rdm-sidebar sidebar-container">
   {%- include "invenio_app_rdm/records/details/stats.html" %}
 </section>

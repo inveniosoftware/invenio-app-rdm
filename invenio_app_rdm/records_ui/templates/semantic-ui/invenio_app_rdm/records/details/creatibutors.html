@@ -10,29 +10,29 @@
 {%- from "invenio_app_rdm/records/macros/creatibutors.html" import affiliations_accordion, show_creatibutors %}
 
 <div class="ui grid">
-  {% if record.ui.creators and record.ui.creators.creators %}
+  {% if record_ui["ui"]["creators"] and record_ui["ui"]["creators"]["creators"] %}
     <div class="row ui accordion affiliations">
       <div class="sixteen wide mobile twelve wide tablet thirteen wide computer column">
           <h3 class="sr-only">{{ _('Creators') }}</h3>
           <ul class="creatibutors">
-            {{ show_creatibutors(record.ui.creators.creators, show_affiliations=True, show_role=True) }}
+            {{ show_creatibutors(record_ui["ui"]["creators"]["creators"], show_affiliations=True, show_role=True) }}
           </ul>
       </div>
 
         {# Todo: get full list of all affiliations (both creators & contributors) e.g.
-        record.ui.affiliation and merge to one accordion #}
-        {% if record.ui.creators and record.ui.creators.affiliations %}
-          {{ affiliations_accordion('creators', record.ui.creators.affiliations)}}
+        record_ui["ui"]["affiliation"] and merge to one accordion #}
+        {% if record_ui["ui"]["creators"] and record_ui["ui"]["creators"]["affiliations"] %}
+          {{ affiliations_accordion('creators', record_ui["ui"]["creators"]["affiliations"])}}
         {% endif %}
 
     </div>
   {% endif %}
 
-  {% if record.ui.contributors and record.ui.contributors.contributors %}
+  {% if record_ui["ui"]["contributors"] and record_ui["ui"]["contributors"]["contributors"] %}
     <div class="row ui accordion affiliations">
       <div class="sixteen wide mobile twelve wide tablet thirteen wide computer column">
           <h3>{{ _('Contributors') }}</h3>
-          {%- for group in record.ui.contributors.contributors|groupby('role.title')%}
+          {%- for group in record_ui["ui"]["contributors"]["contributors"]|groupby('role.title')%}
           <div>
             <h3 class="creatibutors-header ui small header">{{group.grouper}}{%- if group.list|length > 1 -%}s{%- endif -%}:</h3>
             <ul class="creatibutors">
@@ -42,8 +42,8 @@
           {%- endfor %}
       </div>
 
-      {% if record.ui.contributors and record.ui.contributors.affiliations %}
-        {{ affiliations_accordion('contributors', record.ui.contributors.affiliations)}}
+      {% if record_ui["ui"]["contributors"] and record_ui["ui"]["contributors"]["affiliations"] %}
+        {{ affiliations_accordion('contributors', record_ui["ui"]["contributors"]["affiliations"])}}
       {% endif %}
 
     </div>

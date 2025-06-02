@@ -7,8 +7,8 @@
 {% from "invenio_app_rdm/records/macros/stats_popup.html" import stats_popup %}
 
 <div class="ui tiny two statistics rel-mt-1">
-  {% set all_versions = record.stats.all_versions %}
-  {% set this_version = record.stats.this_version %}
+  {% set all_versions = record_ui["stats"]["all_versions"] %}
+  {% set this_version = record_ui["stats"]["this_version"] %}
 
   <div class="ui statistic">
     <div class="value">{{ all_versions.unique_views|compact_number(max_value=1_000_000) }}</div>

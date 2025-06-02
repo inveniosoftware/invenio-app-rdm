@@ -7,7 +7,7 @@
   it under the terms of the MIT License; see LICENSE file for more details.
 #}
 
-{%- set subjects = record.metadata.subjects -%}
+{%- set subjects = record_ui["metadata"]["subjects"] -%}
 
 {% if subjects %}
   {% set keywords = subjects|rejectattr("scheme")|list %}

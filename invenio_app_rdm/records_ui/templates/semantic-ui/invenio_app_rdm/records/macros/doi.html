@@ -5,7 +5,7 @@
   it under the terms of the MIT License; see LICENSE file for more details.
 #}
 
-{% macro show_doi(doi_value, record, badge_id="record-doi-badge", modal_id="doi-modal", subheader=None, parent_doi=false) %}
+{% macro show_doi(doi_value, record_ui, badge_id="record-doi-badge", modal_id="doi-modal", subheader=None, parent_doi=false) %}
   <dt class="ui tiny header">{{_('DOI')}}
     {% if subheader %}
       <i><span class="doi sub header">{{subheader}}</span></i></dt>
@@ -27,7 +27,7 @@
           <pre>{{ doi_value }}</pre>
         </h4>
         {% from "semantic-ui/invenio_formatter/macros/badges.html" import badges_formats_list %}
-        {{ badges_formats_list(url_for('invenio_formatter_badges.badge', title='DOI', value=doi_value, ext='svg', _external=True, _scheme='https'), record.links.parent_doi if parent_doi else record.links.doi) }}
+        {{ badges_formats_list(url_for('invenio_formatter_badges.badge', title='DOI', value=doi_value, ext='svg', _external=True, _scheme='https'), record_ui["links"]["parent_doi"] if parent_doi else record_ui["links"]["doi"]) }}
       </div>
     </div>
   </dd>

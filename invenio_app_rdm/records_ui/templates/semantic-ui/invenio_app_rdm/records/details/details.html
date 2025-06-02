@@ -12,35 +12,35 @@
 show_alternate_identifiers, show_related_identifiers, show_funding, show_dates %}
 
 {% set hasContent = namespace(value=false) %}
-{% set hasContent.value = record.ui.additional_titles or
+{% set hasContent.value = record_ui["ui"]["additional_titles"] or
                     metadata.identifiers or
-                    record.ui.related_identifiers or
+                    record_ui["ui"]["related_identifiers"] or
                     metadata.funding or
-                    record.ui.dates or
+                    record_ui["ui"]["dates"] or
                     metadata.references
 %}
 
 {# Check if custom field has values if no other content #}
-{% if record.ui.custom_fields and not hasContent.value %}
+{% if record_ui["ui"]["custom_fields"] and not hasContent.value %}
   {% for section_cfg in custom_fields_ui %}
     {% for field_cfg in section_cfg.fields %}
-      {% if record.custom_fields.get(field_cfg.field) %}
+      {% if record_ui["custom_fields"].get(field_cfg.field) %}
         {% set hasContent.value = true %}
       {% endif %}
     {% endfor %}
   {% endfor %}
 {% endif %}
 
-{% set rights = record.ui.get('rights') %}
-{% set funding = record.ui.get('funding') %}
+{% set rights = record_ui["ui"].get('rights') %}
+{% set funding = record_ui["ui"].get('funding') %}
 
 {% if hasContent.value %}
   <h2 id="record-details-heading">{{ _('Additional details') }}</h2>
 
   <div class="ui divider"></div>
 
-  {% if record.ui.additional_titles %}
-    {% if record.ui.additional_titles|length > 5 %}
+  {% if record_ui["ui"]["additional_titles"] %}
+    {% if record_ui["ui"]["additional_titles"]|length > 5 %}
       <div class="ui fluid accordion padded grid rel-mb-1">
         <div class="active title sixteen wide mobile four wide tablet three wide computer column">
           <h3 class="ui header">
@@ -63,7 +63,7 @@ show_alternate_identifiers, show_related_identifiers, show_funding, show_dates %
           class="active content sixteen wide mobile twelve wide tablet thirteen wide computer column"
         >
           <dl class="details-list">
-            {{ show_add_titles(record.ui.additional_titles) }}
+            {{ show_add_titles(record_ui["ui"]["additional_titles"]) }}
           </dl>
         </div>
       </div>
@@ -74,7 +74,7 @@ show_alternate_identifiers, show_related_identifiers, show_funding, show_dates %
         </div>
         <div class="sixteen wide mobile twelve wide tablet thirteen wide computer column">
           <dl class="details-list">
-            {{ show_add_titles(record.ui.additional_titles) }}
+            {{ show_add_titles(record_ui["ui"]["additional_titles"]) }}
           </dl>
         </div>
       </div>
@@ -125,8 +125,8 @@ show_alternate_identifiers, show_related_identifiers, show_funding, show_dates %
     <div class="ui divider"></div>
   {% endif %}
 
-  {% if record.ui.related_identifiers %}
-    {% if record.ui.related_identifiers|length > 5 %}
+  {% if record_ui["ui"]["related_identifiers"] %}
+    {% if record_ui["ui"]["related_identifiers"]|length > 5 %}
       <div class="ui fluid accordion padded grid rel-mb-1">
         <div class="active title sixteen wide mobile four wide tablet three wide computer column">
           <h3 class="ui header">
@@ -148,7 +148,7 @@ show_alternate_identifiers, show_related_identifiers, show_funding, show_dates %
           aria-labelledby="related-works-accordion-trigger"
           class="active content sixteen wide mobile twelve wide tablet thirteen wide computer column"
         >
-          {{ show_related_identifiers(record.ui.related_identifiers) }}
+          {{ show_related_identifiers(record_ui["ui"]["related_identifiers"]) }}
         </div>
       </div>
     {% else %}
@@ -157,7 +157,7 @@ show_alternate_identifiers, show_related_identifiers, show_funding, show_dates %
           <h3 class="ui header">{{ _('Related works') }}</h3>
         </div>
         <div class="sixteen wide mobile twelve wide tablet thirteen wide computer column">
-          {{ show_related_identifiers(record.ui.related_identifiers) }}
+          {{ show_related_identifiers(record_ui["ui"]["related_identifiers"]) }}
         </div>
       </div>
     {% endif %}
@@ -207,8 +207,8 @@ show_alternate_identifiers, show_related_identifiers, show_funding, show_dates %
     <div class="ui divider"></div>
   {% endif %}
 
-  {% if record.ui.dates %}
-    {% if record.ui.dates|length > 5 %}
+  {% if record_ui["ui"]["dates"] %}
+    {% if record_ui["ui"]["dates"]|length > 5 %}
       <div class="ui fluid accordion padded grid rel-mb-1">
         <div class="active title sixteen wide mobile four wide tablet three wide computer column">
           <h3 class="ui header">
@@ -231,7 +231,7 @@ show_alternate_identifiers, show_related_identifiers, show_funding, show_dates %
           class="active content sixteen wide mobile twelve wide tablet thirteen wide computer column"
         >
           <dl class="details-list">
-            {{ show_dates(record.ui.dates) }}
+            {{ show_dates(record_ui["ui"]["dates"]) }}
           </dl>
         </div>
       </div>
@@ -242,7 +242,7 @@ show_alternate_identifiers, show_related_identifiers, show_funding, show_dates %
         </div>
         <div class="sixteen wide mobile twelve wide tablet thirteen wide computer column">
           <dl class="details-list">
-            {{ show_dates(record.ui.dates) }}
+            {{ show_dates(record_ui["ui"]["dates"]) }}
           </dl>
         </div>
       </div>
@@ -250,14 +250,14 @@ show_alternate_identifiers, show_related_identifiers, show_funding, show_dates %
     <div class="ui divider"></div>
   {% endif %}
 
-  {% if record.custom_fields %}
+  {% if record_ui["custom_fields"] %}
 
     {%- for section_cfg in custom_fields_ui %}
       {% set section_has_fields = namespace(value=false) %}
       {% set section_format = section_cfg.section | replace(" ", "-") %}
       {# Show the section if at least one of its fields is in record #}
       {% for field_cfg in section_cfg.fields %}
-        {% if record.custom_fields.get(field_cfg.field) %}
+        {% if record_ui["custom_fields"].get(field_cfg.field) %}
           {% set section_has_fields.value = true %}
         {% endif %}
       {% endfor %}
@@ -286,7 +286,7 @@ show_alternate_identifiers, show_related_identifiers, show_funding, show_dates %
           >
               {% set section_format = section_cfg.section | replace(" ", "-") %}
               <dl class="details-list">
-                {{ show_section_custom_fields(record.ui.custom_fields, section_cfg.fields) }}
+                {{ show_section_custom_fields(record_ui["ui"]["custom_fields"], section_cfg.fields) }}
               </dl>
           </div>
         </div>
