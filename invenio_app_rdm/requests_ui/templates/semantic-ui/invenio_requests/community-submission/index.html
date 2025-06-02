@@ -52,7 +52,7 @@
         {{ _("Conversation") }}
       </a>
 
-      {% if record %}
+      {% if record_ui %}
         <a
           role="tab"
           class="item"
@@ -103,7 +103,7 @@
     {% endif %}
 
     {# The record tab content needs to be last since the HTML structure is complex and breaks following tab contents #}
-    {% if record %}
+    {% if record_ui %}
       <div
         class="ui bottom attached tab segment borderless"
         data-tab="record"
