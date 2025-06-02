@@ -10,7 +10,12 @@
 Changes
 =======
 
-Versino v13.0.0b3.dev16 (released 2025-05-23)
+Version v13.0.0b3.dev17 (released 2025-06-02)
+
+- Move collections implementaiton to Invenio-Collections
+- Integrate Invenio-Sitemap
+
+Version v13.0.0b3.dev16 (released 2025-05-23)
 
 - administration: audit_logs: Add View Changes and View Log button and modals
 
