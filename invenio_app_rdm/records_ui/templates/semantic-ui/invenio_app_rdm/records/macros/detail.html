@@ -162,7 +162,7 @@
       {% endif %}
 
       {% set ident_val = identifier.identifier|default('') %}
-      {% set url = ident_val|pid_url %}
+      {% set url = ident_val|pid_url(scheme=identifier.scheme) %}
       {% if url %}
         <a href="{{ url }}" target="_blank" title="{{ _('Opens in new tab') }}">
           {{ ident_val }}
