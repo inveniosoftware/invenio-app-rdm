@@ -10,6 +10,11 @@
 Changes
 =======
 
+Version v13.0.0b3.dev18 (released 2025-06-02)
+
+- installation: add collections dependency
+- views: rename record_ui correctly
+
 Version v13.0.0b3.dev17 (released 2025-06-02)
 
 - Move collections implementaiton to Invenio-Collections
