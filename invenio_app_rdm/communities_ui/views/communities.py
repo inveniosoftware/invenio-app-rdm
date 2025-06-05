@@ -22,11 +22,11 @@ from invenio_communities.views.communities import (
     render_community_theme_template,
 )
 from invenio_communities.views.decorators import pass_community
+from invenio_i18n import get_locale
 from invenio_pages.proxies import current_pages_service
 from invenio_pages.records.errors import PageNotFoundError
 from invenio_rdm_records.proxies import (
     current_community_records_service,
-    current_rdm_records,
 )
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
 from invenio_records_resources.services.errors import PermissionDeniedError
@@ -149,7 +149,12 @@ def community_static_page(pid_value, community, community_ui, **kwargs):
         raise PermissionDeniedError()
 
     try:
-        page = current_pages_service.read_by_url(g.identity, request.path).to_dict()
+        lang = get_locale()
+        page = current_pages_service.read_by_url(
+            g.identity,
+            request.path,
+            lang=lang.language,
+        ).to_dict()
 
     except PageNotFoundError:
         abort(404)
