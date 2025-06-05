@@ -553,6 +553,7 @@ def deposit_edit(pid_value, draft=None, draft_files=None, files_locked=True):
         theme=community_theme,
         forms_config=form_config,
         record=record,
+        errors=record.get("errors"),
         community=community,
         community_use_jinja_header=community_use_jinja_header,
         files=files_dict,
