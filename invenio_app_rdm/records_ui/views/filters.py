@@ -160,12 +160,12 @@ def namespace_url(field):
     """Get custom field namespace url."""
     namespace_array = field.split(":")
     namespace = namespace_array[0]
-    namespace_value = namespace_array[1]
     namespaces = current_app.config.get("RDM_NAMESPACES")
 
     if not namespaces.get(namespace):
         return None
 
+    namespace_value = namespace_array[1]
     return namespaces[namespace] + namespace_value
 
 
