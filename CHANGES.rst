@@ -11,6 +11,11 @@ Changes
 =======
 
 
+Version v13.0.0b4.dev1 (released 2025-06-10)
+
+- communities-ui: pass locale language when rendering static pages
+- deposit UI: add overridable hook for a separate section
+
 Version v13.0.0b4.dev0 (released 2025-06-04)
 
 - setup: bump major dependencies
