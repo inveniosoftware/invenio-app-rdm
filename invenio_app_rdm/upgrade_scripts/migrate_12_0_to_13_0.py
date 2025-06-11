@@ -43,7 +43,17 @@ def execute_upgrade():
         try:
             secho(f"Updating record : {record.pid.pid_value}", fg="yellow")
 
-            # TODO: Add any record datamodel migration code here
+            #
+            # Record datamodel migration
+            #
+
+            # Custom fields
+            custom_fields = record.get("custom_fields", {})
+
+            # Thesis field
+            if university := custom_fields.pop("thesis:university", None):
+                custom_fields["thesis:thesis"] = {"university": university}
+
             record.commit()
 
             secho(f"> Updated parent: {record.parent.pid.pid_value}", fg="green")
