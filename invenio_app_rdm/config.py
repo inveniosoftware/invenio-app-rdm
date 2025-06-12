@@ -818,7 +818,7 @@ APP_RDM_RECORD_EXPORTERS = {
     "json-ld": {
         "name": _("JSON-LD"),
         "serializer": (
-            "invenio_rdm_records.resources.serializers:" "SchemaorgJSONLDSerializer"
+            "invenio_rdm_records.resources.serializers:SchemaorgJSONLDSerializer"
         ),
         "content-type": "application/ld+json",
         "filename": "{id}.json",
@@ -866,7 +866,7 @@ APP_RDM_RECORD_EXPORTERS = {
     },
     "bibtex": {
         "name": _("BibTeX"),
-        "serializer": ("invenio_rdm_records.resources.serializers:" "BibtexSerializer"),
+        "serializer": ("invenio_rdm_records.resources.serializers:BibtexSerializer"),
         "params": {},
         "content-type": "application/x-bibtex",
         "filename": "{id}.bib",
