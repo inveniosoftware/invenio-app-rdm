@@ -672,6 +672,7 @@ export class RDMDepositForm extends Component {
                         (widget) => import(`react-invenio-forms`),
                       ]}
                       fieldPathPrefix="custom_fields"
+                      severityChecks={this.severityChecks}
                     />
                   </Overridable>
                 )}
