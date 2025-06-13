@@ -10,6 +10,27 @@
 Changes
 =======
 
+Version v13.0.0r1 (released 2025-06-13)
+
+- feat(ui): automatic checks for communities (feature flag)
+- feat(ui): FAIR signposting
+- feat(ui): collections
+- feat(ui): records/requests sharing
+- feat(api): multipart file upload over the API
+- feat(admin): jobs to wrap task in the administration interface (feature flag)
+- feat(admin): compare revisions between different records revisions
+- feat(admin): audit logs (feature flag)
+- feat(api): sitemap
+- i18n: option to create translation bundles for python and javascript
+- impr(metadata): thesis handling
+- impr(ui): Mathjax usage
+- impr(ui): visualization of validation errors
+- conf: make it possible to configure DOI as optional
+- remove: invenio-admin dependency
+- maint: upgrade to flask>=3.0
+- maint: upgrade to sqlalchemy>=2.0
+- dev: configurable use of new tools: uv, rspack, pnpm
+
 Version v13.0.0b4.dev2 (released 2025-06-13)
 
 - checks: integrate into community requests flow
