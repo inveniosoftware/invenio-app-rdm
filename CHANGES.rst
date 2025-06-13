@@ -10,6 +10,17 @@
 Changes
 =======
 
+Version v13.0.0b4.dev2 (released 2025-06-13)
+
+- checks: integrate into community requests flow
+- deposit-ui: pass draft errors to form
+- landing page: text-break references
+- ui: fixed caret trigger in stats
+
+- deposit: report actual file quota rather than configured values
+    * previously, the deposit form would show values from the configuration
+      that might be different from the actually effective quota
+
 
 Version v13.0.0b4.dev1 (released 2025-06-10)
 
