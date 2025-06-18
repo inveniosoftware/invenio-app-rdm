@@ -25,11 +25,11 @@
   <div class="sidebar-container">
     <h2 class="ui medium top attached header mt-0">{{ _('Rights') }}</h2>
     <div id="licenses" class="ui segment bottom attached rdm-sidebar">
+      <dl class="details-list">
       {% if rights %}
-        <h4>License</h4>
-        <ul class="details-list m-0 p-0">
+        <dt class="ui tiny header">License</dt>
           {%- for license in rights -%}
-            <li id="license-{{ license.id }}-{{ loop.index }}" class="has-popup">
+            <dd id="license-{{ license.id }}-{{ loop.index }}" class="has-popup">
               <div id="title-{{ license.id }}-{{ loop.index }}"
                    class="license clickable"
                    tabindex="0"
@@ -45,7 +45,6 @@
                        alt="{{ license.id }} icon"/>
                 </span>
                 {% endif %}
-
                 <span class="title-text">
                 {{ license.title_l10n }}
               </span>
@@ -57,7 +56,6 @@
               >
                 <i role="button" tabindex="0" class="close icon text-muted"
                    aria-label="{{ _('Close') }}"></i>
-
                 <div id="license-description-{{ loop.index }}" class="description">
                 <span class="text-muted">
                   {{ license.description_l10n or _('No further description.') }}
@@ -65,18 +63,16 @@
                   {{ license_link(license) }}
                 </div>
               </div>
-            </li>
+            </dd>
           {% endfor %}
-
-        </ul>
       {% endif %}
       {% if copyrights %}
-        <h4>Copyrights</h4>
-        <div id="copyrights">
+        <dt class="ui tiny header">Copyright</dt>
+        <dd id="copyrights">
           {{ copyrights }}
-        </div>
+        </dd>
       {% endif %}
+      </dl>
     </div>
-
   </div>
 {% endif %}
