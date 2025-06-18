@@ -32,7 +32,7 @@ $(".dropdown.export").dropdown({
   },
 });
 
-const $licensesPopup = $("#licenses li.has-popup .license.clickable");
+const $licensesPopup = $("#licenses dd.has-popup .license.clickable");
 
 // Licenses description popup
 $licensesPopup.popup({
@@ -49,18 +49,18 @@ $licensesPopup.popup({
 
 $licensesPopup.on("keydown", function (event) {
   if (event.key === "Enter") {
-    $("#licenses li.has-popup .license.clickable").popup("hide");
+    $("#licenses dd.has-popup .license.clickable").popup("hide");
     $(event.target).popup("show");
   }
 });
 
 $("#licenses .licenses-description .close.icon").on({
   click: function () {
-    $("#licenses li.has-popup .license.clickable").popup("hide");
+    $("#licenses dd.has-popup .license.clickable").popup("hide");
   },
   keydown: function (event) {
     if (event.key === "Enter") {
-      $("#licenses li.has-popup .license.clickable").popup("hide");
+      $("#licenses dd.has-popup .license.clickable").popup("hide");
     }
   },
 });
