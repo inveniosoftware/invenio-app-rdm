@@ -1,254 +1,616 @@
 # Translations template for invenio-app-rdm.
-# Copyright (C) 2022 CERN
+# Copyright (C) 2025 CERN
 # This file is distributed under the same license as the invenio-app-rdm
 # project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
 # 
 # Translators:
-# Tibor Simko <tibor.simko@cern.ch>, 2020
 # Dorottya Szemigán, 2023
-# Andrea Dömötör, 2023
+# Tibor Simko <tibor.simko@cern.ch>, 2024
+# Andrea Dömötör, 2025
+# Franciska Fekete, 2025
+# Júlia Babos, 2025
+# j k, 2025
+# Zoltán Kanász-Nagy, 2025
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: invenio-app-rdm 10.0.0\n"
+"Project-Id-Version: invenio-app-rdm 12.0.15\n"
 "Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
-"POT-Creation-Date: 2022-10-12 08:49+0200\n"
+"POT-Creation-Date: 2025-03-27 16:30+0000\n"
 "PO-Revision-Date: 2020-07-07 14:12+0000\n"
-"Last-Translator: Andrea Dömötör, 2023\n"
+"Last-Translator: Zoltán Kanász-Nagy, 2025\n"
 "Language-Team: Hungarian (https://app.transifex.com/inveniosoftware/teams/23537/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.10.3\n"
+"Generated-By: Babel 2.17.0\n"
 "Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: invenio_app_rdm/config.py:159
+#: invenio_app_rdm/config.py:219
 msgid "The turn-key research data management repository"
 msgstr "A kész kutatási adatkezelési tárház"
 
-#: invenio_app_rdm/config.py:174
+#: invenio_app_rdm/config.py:258
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/site_footer.html:16
 msgid "InvenioRDM"
 msgstr "InvenioRDM"
 
-#: invenio_app_rdm/config.py:234
+#: invenio_app_rdm/config.py:353
 msgid "Welcome to Invenio App RDM!"
 msgstr "Az Invenio App RDM üdvözli Önt!"
 
-#: invenio_app_rdm/config.py:553
+#: invenio_app_rdm/config.py:750
 msgid "JSON"
 msgstr "JSON"
 
-#: invenio_app_rdm/config.py:559
+#: invenio_app_rdm/config.py:757
+msgid "JSON-LD"
+msgstr "JSON-LD"
+
+#: invenio_app_rdm/config.py:765
 msgid "CSL"
 msgstr "CSL"
 
-#: invenio_app_rdm/config.py:567
+#: invenio_app_rdm/config.py:772
 msgid "DataCite JSON"
 msgstr "DataCite JSON"
 
-#: invenio_app_rdm/config.py:575
+#: invenio_app_rdm/config.py:781
 msgid "DataCite XML"
 msgstr "DataCite XML"
 
-#: invenio_app_rdm/config.py:583
+#: invenio_app_rdm/config.py:790
 msgid "Dublin Core XML"
 msgstr "Dublin Core XML"
 
-#: invenio_app_rdm/config.py:643
+#: invenio_app_rdm/config.py:799
+msgid "MARCXML"
+msgstr "MARCXML"
+
+#: invenio_app_rdm/config.py:806
+msgid "BibTeX"
+msgstr "BibTeX"
+
+#: invenio_app_rdm/config.py:813
+msgid "GeoJSON"
+msgstr "GeoJSON"
+
+#: invenio_app_rdm/config.py:820
+msgid "DCAT"
+msgstr "DCAT"
+
+#: invenio_app_rdm/config.py:827
+msgid "Codemeta"
+msgstr "Codemeta"
+
+#: invenio_app_rdm/config.py:834
+msgid "Citation File Format"
+msgstr "Idézési fájl formátuma"
+
+#: invenio_app_rdm/config.py:996
 msgid "APA"
 msgstr "APA"
 
-#: invenio_app_rdm/config.py:644
+#: invenio_app_rdm/config.py:997
 msgid "Harvard"
 msgstr "Harvard"
 
-#: invenio_app_rdm/config.py:645
+#: invenio_app_rdm/config.py:998
 msgid "MLA"
 msgstr "MLA"
 
-#: invenio_app_rdm/config.py:646
+#: invenio_app_rdm/config.py:999
 msgid "Vancouver"
 msgstr "Vancouver"
 
-#: invenio_app_rdm/config.py:647
+#: invenio_app_rdm/config.py:1000
 msgid "Chicago"
 msgstr "Chicago"
 
-#: invenio_app_rdm/config.py:648
+#: invenio_app_rdm/config.py:1001
 msgid "IEEE"
 msgstr "IEEE"
 
-#: invenio_app_rdm/communities_ui/templates/semantic-ui/invenio_communities/details/index.html:12
-msgid "Search "
-msgstr "Keresés"
+#: invenio_app_rdm/ext.py:57
+msgid "My dashboard"
+msgstr "Irányítópult"
 
-#: invenio_app_rdm/communities_ui/views/ui.py:66
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_frontpage.html:36
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_frontpage.html:37
-msgid "Search"
-msgstr "Keresés"
-
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/deposit.html:9
-msgid "New version"
-msgstr "Új verzió"
-
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/deposit.html:11
-#: invenio_app_rdm/theme/views.py:44
+#: invenio_app_rdm/ext.py:63
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/deposit.html:14
+#: invenio_app_rdm/users_ui/templates/semantic-ui/invenio_app_rdm/users/header.html:28
 msgid "New upload"
 msgstr "Új feltöltés"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/deposit.html:13
+#: invenio_app_rdm/ext.py:77
+#: invenio_app_rdm/users_ui/templates/semantic-ui/invenio_app_rdm/users/uploads.html:8
+msgid "Uploads"
+msgstr "Feltöltések"
+
+#: invenio_app_rdm/ext.py:82
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/communities.html:15
+#: invenio_app_rdm/users_ui/templates/semantic-ui/invenio_app_rdm/users/communities.html:8
+msgid "Communities"
+msgstr "Közösségek"
+
+#: invenio_app_rdm/ext.py:87
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header.html:118
+#: invenio_app_rdm/theme/templates/themes/default/invenio_app_rdm/header.html:117
+#: invenio_app_rdm/users_ui/templates/semantic-ui/invenio_app_rdm/users/requests.html:8
+msgid "Requests"
+msgstr "Kérések"
+
+#: invenio_app_rdm/ext.py:110
+msgid "Home"
+msgstr "Főoldal"
+
+#: invenio_app_rdm/administration/records/records.py:26
+#: invenio_app_rdm/administration/records/records.py:27
+#: invenio_app_rdm/ext.py:118
+msgid "Records"
+msgstr "Rekordok"
+
+#: invenio_app_rdm/ext.py:125
+msgid "Submit"
+msgstr "Elküld"
+
+#: invenio_app_rdm/administration/domains/domains.py:41
+#: invenio_app_rdm/administration/domains/domains.py:42
+msgid "Domains"
+msgstr "Domainek"
+
+#: invenio_app_rdm/administration/domains/domains.py:43
+msgid "Site management"
+msgstr "Oldalkezelés"
+
+#: invenio_app_rdm/administration/domains/domains.py:47
+#: invenio_app_rdm/administration/domains/domains.py:74
+#: invenio_app_rdm/administration/domains/domains.py:144
+msgid "Domain"
+msgstr "Domain"
+
+#: invenio_app_rdm/administration/domains/domains.py:48
+msgid "TLD"
+msgstr "TLD"
+
+#: invenio_app_rdm/administration/domains/domains.py:49
+#: invenio_app_rdm/administration/domains/domains.py:80
+#: invenio_app_rdm/administration/domains/domains.py:146
+#: invenio_app_rdm/administration/user_moderation/user_moderation.py:68
+#: invenio_app_rdm/administration/users/users.py:24
+#: invenio_app_rdm/administration/users/users.py:35
+#: invenio_app_rdm/theme/templates/themes/default/invenio_app_rdm/site_footer.html:28
+msgid "Status"
+msgstr "Állapot"
+
+#: invenio_app_rdm/administration/domains/domains.py:50
+#: invenio_app_rdm/administration/domains/domains.py:153
+#: invenio_app_rdm/administration/users/users.py:57
+msgid "Users"
+msgstr "Felhasználók"
+
+#: invenio_app_rdm/administration/domains/domains.py:51
+#: invenio_app_rdm/administration/domains/domains.py:154
+#: invenio_app_rdm/administration/users/users.py:37
+msgid "Active"
+msgstr "Aktív"
+
+#: invenio_app_rdm/administration/domains/domains.py:52
+#: invenio_app_rdm/administration/domains/domains.py:155
+msgid "Inactive"
+msgstr "Inaktív"
+
+#: invenio_app_rdm/administration/domains/domains.py:53
+#: invenio_app_rdm/administration/domains/domains.py:156
+msgid "Confirmed"
+msgstr "Megerősítve"
+
+#: invenio_app_rdm/administration/domains/domains.py:54
+#: invenio_app_rdm/administration/domains/domains.py:157
+msgid "Verified"
+msgstr "Ellenőrizve"
+
+#: invenio_app_rdm/administration/domains/domains.py:55
+#: invenio_app_rdm/administration/domains/domains.py:158
+msgid "Blocked"
+msgstr "Letiltva"
+
+#: invenio_app_rdm/administration/domains/domains.py:75
+msgid "Domain name (all lowercase)"
+msgstr "Domain neve (kisbetűvel)"
+
+#: invenio_app_rdm/administration/domains/domains.py:82
+msgid ""
+"Status of the domain. One of new (domain needs review), moderated (users in "
+"domain require moderation), verified (users in domain does not require "
+"moderation) or blocked (users cannot register using this domain)."
+msgstr ""
+"A domain állapota. Lehet: új (ellenőrzést igényel), moderált (a felhasználók"
+" ellenőrzés alatt állnak), ellenőrzött (a felhasználók nem igényelnek "
+"ellenőrzést) vagy letiltott (ezzel a domainnel nem lehet regisztrálni)."
+
+#: invenio_app_rdm/administration/domains/domains.py:94
+#: invenio_app_rdm/administration/domains/domains.py:147
+msgid "Category"
+msgstr "Kategória"
+
+#: invenio_app_rdm/administration/domains/domains.py:95
+msgid "A label to categorise the domain."
+msgstr "Címke a domain kategorizálásához."
+
+#: invenio_app_rdm/administration/domains/domains.py:107
+#: invenio_app_rdm/administration/domains/domains.py:148
+msgid "Flagged"
+msgstr "Megjelölve"
+
+#: invenio_app_rdm/administration/domains/domains.py:109
+msgid "Used by automatic processes to flag the domain as requiring review."
+msgstr ""
+"Automatikus folyamatok használják a domain ellenőrzést igénylőként való "
+"megjelölésére."
+
+#: invenio_app_rdm/administration/domains/domains.py:114
+#: invenio_app_rdm/administration/domains/domains.py:149
+msgid "Source of flag"
+msgstr "A megjelölés forrása"
+
+#: invenio_app_rdm/administration/domains/domains.py:115
+msgid "Which source flagged the domain."
+msgstr "Melyik forrás jelölte meg a domaint."
+
+#: invenio_app_rdm/administration/domains/domains.py:125
+msgid "Create domain"
+msgstr "Domain létrehozása"
+
+#: invenio_app_rdm/administration/domains/domains.py:133
+msgid "Edit domain"
+msgstr "Domain szerkesztése"
+
+#: invenio_app_rdm/administration/domains/domains.py:141
+msgid "Domain details"
+msgstr "Domain részletei"
+
+#: invenio_app_rdm/administration/domains/domains.py:145
+msgid "Top-level domain"
+msgstr "Felső szintű domain (TLD)"
+
+#: invenio_app_rdm/administration/domains/domains.py:150
+#: invenio_app_rdm/administration/records/records.py:41
+#: invenio_app_rdm/administration/records/records.py:120
+#: invenio_app_rdm/administration/user_moderation/user_moderation.py:172
+#: invenio_app_rdm/administration/users/users.py:25
+#: invenio_app_rdm/administration/users/users.py:41
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/technical_metadata.html:10
+msgid "Created"
+msgstr "Létrehozva"
+
+#: invenio_app_rdm/administration/domains/domains.py:151
+#: invenio_app_rdm/administration/users/users.py:26
+#: invenio_app_rdm/administration/users/users.py:42
+msgid "Updated"
+msgstr "Frissítve"
+
+#: invenio_app_rdm/administration/domains/domains.py:152
+msgid "Organisation"
+msgstr "Szervezet"
+
+#: invenio_app_rdm/administration/records/records.py:28
+#: invenio_app_rdm/administration/records/records.py:107
+msgid "Records & files"
+msgstr "Rekordok és fájlok"
+
+#: invenio_app_rdm/administration/records/records.py:39
+#: invenio_app_rdm/administration/records/records.py:118
+msgid "Title"
+msgstr "Cím"
+
+#: invenio_app_rdm/administration/records/records.py:40
+#: invenio_app_rdm/administration/records/records.py:119
+msgid "Owner"
+msgstr "Tulajdonos"
+
+#: invenio_app_rdm/administration/records/records.py:42
+#: invenio_app_rdm/administration/records/records.py:121
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:271
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:276
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:293
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:142
+msgid "Files"
+msgstr "Fájlok"
+
+#: invenio_app_rdm/administration/records/records.py:43
+#: invenio_app_rdm/administration/records/records.py:122
+msgid "Stats"
+msgstr "Statisztikák"
+
+#: invenio_app_rdm/administration/records/records.py:48
+msgid "Delete record"
+msgstr "Rekord törlése"
+
+#: invenio_app_rdm/administration/records/records.py:53
+msgid "Restore record"
+msgstr "Rekord visszaállítása"
+
+#: invenio_app_rdm/administration/records/records.py:105
+#: invenio_app_rdm/administration/records/records.py:106
+msgid "Drafts"
+msgstr "Piszkozatok"
+
+#: invenio_app_rdm/administration/records/records.py:127
+msgid "Set quota"
+msgstr "Kvóta beállítása"
+
+#: invenio_app_rdm/administration/user_moderation/user_moderation.py:29
+#: invenio_app_rdm/administration/user_moderation/user_moderation.py:30
+#: invenio_app_rdm/administration/user_moderation/user_moderation.py:31
+msgid "Moderation"
+msgstr "Moderáció"
+
+#: invenio_app_rdm/administration/user_moderation/user_moderation.py:45
+#: invenio_app_rdm/administration/user_moderation/user_moderation.py:168
+#: invenio_app_rdm/administration/users/users.py:21
+msgid "User"
+msgstr "Felhasználó"
+
+#: invenio_app_rdm/administration/user_moderation/user_moderation.py:51
+#: invenio_app_rdm/administration/users/users.py:23
+#: invenio_app_rdm/administration/users/users.py:33
+msgid "Email"
+msgstr "Email"
+
+#: invenio_app_rdm/administration/user_moderation/user_moderation.py:57
+msgid "Email domain"
+msgstr "Email domain"
+
+#: invenio_app_rdm/administration/user_moderation/user_moderation.py:63
+msgid "Activity"
+msgstr "Aktivitás"
+
+#: invenio_app_rdm/administration/user_moderation/user_moderation.py:76
+#: invenio_app_rdm/administration/users/users.py:78
+msgid "Approve"
+msgstr "Jóváhagyás"
+
+#: invenio_app_rdm/administration/user_moderation/user_moderation.py:81
+#: invenio_app_rdm/administration/users/users.py:88
+msgid "Block"
+msgstr "Letiltás"
+
+#: invenio_app_rdm/administration/user_moderation/user_moderation.py:141
+msgid "User moderation"
+msgstr "Felhasználó moderáció"
+
+#: invenio_app_rdm/administration/user_moderation/user_moderation.py:164
+#: invenio_app_rdm/administration/users/users.py:31
+msgid "ID"
+msgstr "ID"
+
+#: invenio_app_rdm/administration/user_moderation/user_moderation.py:173
+msgid "Open"
+msgstr "Megnyitás"
+
+#: invenio_app_rdm/administration/users/users.py:22
+#: invenio_app_rdm/administration/users/users.py:32
+msgid "Username"
+msgstr "Felhasználónév"
+
+#: invenio_app_rdm/administration/users/users.py:34
+msgid "Domain "
+msgstr "Domain "
+
+#: invenio_app_rdm/administration/users/users.py:36
+msgid "Visibility"
+msgstr "Láthatóság"
+
+#: invenio_app_rdm/administration/users/users.py:38
+msgid "Confirmed at"
+msgstr "Megerősítve ekkor:"
+
+#: invenio_app_rdm/administration/users/users.py:39
+msgid "Verified at"
+msgstr "Ellenőrizve ekkor:"
+
+#: invenio_app_rdm/administration/users/users.py:40
+msgid "Blocked at"
+msgstr "Letiltva ekkor:"
+
+#: invenio_app_rdm/administration/users/users.py:56
+#: invenio_app_rdm/administration/users/users.py:58
+msgid "User management"
+msgstr "Felhasználókezelés"
+
+#: invenio_app_rdm/administration/users/users.py:83
+msgid "Restore"
+msgstr "Visszaállítás"
+
+#: invenio_app_rdm/administration/users/users.py:93
+msgid "Suspend"
+msgstr "Felfüggesztés"
+
+#: invenio_app_rdm/administration/users/users.py:129
+msgid "User details"
+msgstr "Felhasználó adatai"
+
+#: invenio_app_rdm/communities_ui/templates/semantic-ui/invenio_communities/records/index.html:12
+msgid "Search "
+msgstr "Keresés"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/deposit.html:12
+msgid "New version"
+msgstr "Új verzió"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/deposit.html:16
 msgid "Edit upload"
 msgstr "Feltöltés szerkesztése"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:29
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:51
 msgid "Information banner"
 msgstr "Információs sáv"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:58
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:76
 msgid "Community visibility"
 msgstr "Közösségi láthatóság"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:59
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:77
 msgid "The community is restricted to users with access."
 msgstr ""
 "A közösség korlátozva van a hozzáféréssel rendelkező felhasználók számára."
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:61
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:79
 msgid "Restricted"
 msgstr "Korlátozott hozzáférés"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:77
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:19
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:84
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:96
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:24
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:121
 msgid "Preview"
 msgstr "Előnézet"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:81
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:100
 msgid "You are previewing a published record."
 msgstr "Ez egy közzétett rekord előnézete."
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:83
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:102
 msgid "You are previewing changes that have not yet been published."
 msgstr "Az előnézet változtatásai még nincsenek közzétéve."
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:85
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:104
 msgid "You are previewing a new record that has not yet been published."
 msgstr "Ez egy még nem közzétett új rekord előnézete."
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:87
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:106
 msgid ""
 "You are previewing a new record version that has not yet been published."
 msgstr "Ez egy még nem közzétett új rekordverzió előnézete."
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:102
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:121
 #, python-format
 msgid ""
 "\n"
-"                    There is a %(link_start)snewer version%(link_end)s of the record available.\n"
+"                    There is a %(link_start)snewer version%(link_end)s of the record\n"
+"                    available.\n"
 "                  "
 msgstr ""
 "\n"
-"A rekordhoz elérhető egy %(link_start)súj verzió %(link_end)s"
+"                    Egy %(link_start)sújabb verziója%(link_end)s a rekordnak\n"
+"                    elérhető.\n"
+"                  "
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:124
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:145
 msgid "Record access information"
 msgstr "Rekord hozzáférési információk"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:131
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:262
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:115
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:152
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:309
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:155
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:185
 msgid "Reason"
 msgstr "Indoklás"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:143
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:165
 msgid "Back-navigation"
 msgstr "Visszanavigálás"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:145
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:167
 msgid "Back to edit"
 msgstr "Vissza a szerkesztéshez"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:161
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:185
 msgid "Manage record"
 msgstr "Rekord kezelése"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:176
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:201
 msgid "Publication date and version number"
 msgstr "Publikálás dátuma és verziószám"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:180
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:205
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:25
 msgid "Publication date"
 msgstr "Publikálás dátuma"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:181
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:206
 msgid "Published"
 msgstr "Publikálva"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:184
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:209
+#, python-brace-format
 msgid "Version {version_number}"
 msgstr "{version_number} verzió"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:189
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:216
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:24
 msgid "Resource type"
 msgstr "Forrástípus"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:192
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:226
 msgid "Access status"
 msgstr "Hozzáférési státusz"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:211
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:248
 msgid "Record title and creators"
 msgstr "Rekord címe és készítői"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:215
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:254
 msgid "Creators and contributors"
 msgstr "Készítők és közreműködők"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:224
-msgid "Record citations"
-msgstr "Rekord idézések"
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:315
+msgid "Request access"
+msgstr "Hozzáférés kérése"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:235
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:238
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:252
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:105
-msgid "Files"
-msgstr "Fájlok"
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:317
+msgid ""
+"If you would like to request access to these files, please fill out the form"
+" below."
+msgstr ""
+"Ha hozzá szeretne férni ezekhez a fájlokhoz, kérjük, töltse ki az alábbi "
+"űrlapot."
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:277
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:325
+msgid ""
+"You need to satisfy these conditions in order for this request to be "
+"accepted:"
+msgstr "Az alábbi feltételek teljesülése szükséges a kérés elfogadásához:"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:350
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:171
+msgid "System files"
+msgstr "Rendszerfájlok"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:363
 msgid "Additional record details"
 msgstr "További rekord adatok"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:290
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:16
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:377
 msgid "Record details"
 msgstr "Rekord adatok"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:303
-msgid "Upload information"
-msgstr "Információ feltöltése"
-
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:306
-msgid "Created"
-msgstr "Létrehozva"
-
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:312
-msgid "Modified"
-msgstr "Módosítva"
-
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:329
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:394
 msgid "Jump to top of page"
 msgstr "Ugrás az oldal tetejére"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:331
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:396
 msgid "Jump up"
 msgstr "Ugrás fel"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/draft_not_found.html:10
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/draft_not_found.html:14
+msgid "Draft not found"
+msgstr "Piszkozat nem található"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/draft_not_found.html:15
+msgid ""
+"This record has already been published and is not currently being edited, so"
+" no draft exists."
+msgstr ""
+"Ez a rekord már közzé lett téve, és jelenleg nem áll szerkesztés alatt, így "
+"nem létezik hozzá piszkozat."
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/draft_not_found.html:16
+msgid "Go to published record"
+msgstr "Ugrás a közzétett rekordra"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/export.html:18
 msgid "Back to details"
@@ -258,45 +620,121 @@ msgstr "Vissza a részletekhez"
 msgid "Preview for"
 msgstr "Előnézet ehhez:"
 
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/restricted_with_doi_tombstone.html:14
+msgid "Permission required"
+msgstr "Engedély szükséges"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/restricted_with_doi_tombstone.html:18
+msgid ""
+"The record was previously accessible to the public but is now restricted to "
+"users with access."
+msgstr ""
+"A rekord korábban nyilvánosan elérhető volt, de jelenleg csak a "
+"hozzáféréssel rendelkező felhasználók számára érhető el."
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/restricted_with_doi_tombstone.html:20
+msgid ""
+"The Digital Object Identifier (DOI) associated with this record remains "
+"active for reference."
+msgstr ""
+"A rekordhoz tartozó digitális objektumazonosító (DOI) továbbra is aktív és "
+"hivatkozásként használható."
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/restricted_with_doi_tombstone.html:27
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/tombstone.html:55
+msgid "Identifier:"
+msgstr "Azonosító:"
+
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/search.html:8
 msgid "Search results"
 msgstr "Keresési eredmények"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/tombstone.html:9
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/tombstone.html:10
 msgid "Tombstone"
 msgstr "Helyettesítő oldal"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/tombstone.html:12
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/tombstone.html:11
+msgid "Reason unknown"
+msgstr "Ismeretlen ok"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/tombstone.html:21
 msgid "Gone"
 msgstr "Véglegesen törölve"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/tombstone.html:14
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/tombstone.html:26
 #, python-format
 msgid ""
 "\n"
-"    The record  you are trying to access was removed from %(sitename)s. The\n"
-"    metadata of the record is kept for archival purposes.\n"
-"  "
+"      The record you are trying to access was removed from %(sitename)s. The\n"
+"      metadata of the record is kept for archival purposes."
 msgstr ""
 "\n"
-"A megnyitni kívánt rekordot eltávolították a(z) %(sitename)soldalról. A rekord metaadatait archiválási célból megőriztük."
+"      A rekord, amelyhez hozzá próbál férni, el lett távolítva a(z) %(sitename)s oldalról. A\n"
+"      rekord metaadatai archiválási célból megmaradnak."
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/tombstone.html:21
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/tombstone.html:35
 msgid "Reason for removal:"
 msgstr "Eltávolítás oka:"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/creatibutors.html:16
-#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/macros/request_header.html:62
-msgid "Creators list"
-msgstr "Készítők listája"
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/tombstone.html:38
+msgid "Removed by:"
+msgstr "Eltávolította:"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/creatibutors.html:17
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/tombstone.html:42
+msgid "Removal note:"
+msgstr "Eltávolítási megjegyzés:"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/tombstone.html:46
+msgid "Date of removal:"
+msgstr "Eltávolítás dátuma:"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/tombstone.html:50
+msgid "Citation:"
+msgstr "Idézés:"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/access-form.html:16
+msgid "You are currently not logged in"
+msgstr "Jelenleg nincs bejelentkezve"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/access-form.html:16
+msgid "Do you have an account?"
+msgstr "Van felhasználói fiókja?"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/access-form.html:17
+msgid "Log in here"
+msgstr "Jelentkezzen be itt"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/access-form.html:22
+msgid "You are logged in as"
+msgstr "Be van jelentkezve mint"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/access-form.html:30
+msgid "Not you?"
+msgstr "Nem Ön?"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/access-form.html:31
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:113
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:145
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:153
+msgid "Log out"
+msgstr "Kijelentkezés"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/access-form.html:31
+msgid "to switch account."
+msgstr "fiók váltásához."
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/contact.html:11
+msgid "Send message"
+msgstr "Üzenet küldése"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/creatibutors.html:16
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/macros/request_header.html:73
 msgid "Creators"
 msgstr "Készítők"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/creatibutors.html:36
-msgid "Contributors list"
-msgstr "Közreműködők listája"
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/creatibutors.html:34
+msgid "Contributors"
+msgstr "Közreműködők"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/description.html:14
 msgid "Record description"
@@ -306,56 +744,111 @@ msgstr "Rekord leírás"
 msgid "Description"
 msgstr "Leírás"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:28
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:38
 msgid "Additional details"
 msgstr "További részletek"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:43
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:55
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:73
 msgid "Additional titles"
 msgstr "További címek"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:59
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:98
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:116
 msgid "Identifiers"
 msgstr "Azonosítók"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:74
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:141
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:157
 msgid "Related works"
 msgstr "Kapcsolódó munkák"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:89
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:180
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:198
 msgid "Funding"
 msgstr "Finanszírozás"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:104
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:223
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:241
 msgid "Dates"
 msgstr "Dátumok"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:119
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:117
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:311
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:327
 msgid "References"
 msgstr "Hivatkozások"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/doi.html:13
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/doi.html:25
-msgid "DOI"
-msgstr "DOI"
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:17
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:55
+msgid "Views"
+msgstr "Megtekintések"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/doi.html:16
-msgid "Get the DOI badge!"
-msgstr "Szerezze meg a DOI jelvényt!"
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:25
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:75
+msgid "Downloads"
+msgstr "Letöltések"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/doi.html:22
-msgid "DOI Badge"
-msgstr "DOI jelvény"
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:36
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:39
+msgid "Show more details"
+msgstr "További részletek megjelenítése"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:37
+msgid "Show less details"
+msgstr "Kevesebb részlet megjelenítése"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:48
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:70
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:90
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:112
+msgid "All versions"
+msgstr "Összes verzió"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:49
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:71
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:91
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:113
+msgid "This version"
+msgstr "Ez a verzió"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:62
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:82
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:102
+msgid "More info"
+msgstr "További információ"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:67
+msgid "Total views"
+msgstr "Összes megtekintés"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:87
+msgid "Total downloads"
+msgstr "Összes letöltés"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:95
+msgid "Data volume"
+msgstr "Adatmennyiség"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:107
+msgid "Total data volume"
+msgstr "Teljes adatmennyiség"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:119
+msgid "More info on how stats are collected."
+msgstr "További információ a statisztikák gyűjtéséről."
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/subjects.html:15
 msgid "Keywords"
 msgstr "Kulcsszavak"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/subjects.html:21
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/subjects.html:37
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/subjects.html:22
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/subjects.html:39
 msgid "Search results for "
 msgstr "Keresési eredmények erre:"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/citations.html:2
+msgid "Citation"
+msgstr "Idézés"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:17
 msgid "Details"
@@ -366,55 +859,96 @@ msgid "Publisher"
 msgstr "Kiadó"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:27
+msgid "Published in"
+msgstr "Megjelent:"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:28
+msgid "Imprint"
+msgstr "Impresszum"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:29
+msgid "Awarding university"
+msgstr "Az adományozó egyetem"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:30
+msgid "Conference"
+msgstr "Konferencia"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:31
 msgid "Languages"
 msgstr "Nyelvek"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:28
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:32
 msgid "Formats"
 msgstr "Formátumok"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:29
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:33
 msgid "Sizes"
 msgstr "Méretek"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/export.html:13
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/export.html:14
 msgid "Export"
 msgstr "Exportálás"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/keywords_subjects.html:12
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/external_resources.html:9
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/external_resources.html:10
+msgid "External resources"
+msgstr "Külső források"
+
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/keywords_subjects.html:13
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/keywords_subjects.html:14
 msgid "Keywords and subjects"
 msgstr "Kulcsszavak és témák"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/licenses.html:13
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/licenses.html:15
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:133
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:160
-#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/macros/request_header.html:51
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/licenses.html:14
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/licenses.html:16
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:162
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:191
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/macros/request_header.html:61
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/user-access-request/index.html:43
 msgid "Opens in new tab"
 msgstr "Új lapon nyílik meg"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/licenses.html:22
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/licenses.html:14
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/licenses.html:16
+msgid "Read more"
+msgstr "Tudjon meg többet!"
+
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/licenses.html:23
 msgid "Rights"
 msgstr "Jogok"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/licenses.html:52
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/licenses.html:54
 msgid "Close"
 msgstr "Bezárás"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/licenses.html:56
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/licenses.html:58
 msgid "No further description."
 msgstr "Nincs további leírás."
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/locations.html:14
+msgid "Geographic locations"
+msgstr "Földrajzi helyszínek"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/manage_menu.html:10
 msgid "Record management"
 msgstr "Rekord kezelése"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/versions.html:11
-msgid "Record versions"
-msgstr "Rekord verziók"
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/metrics.html:12
+msgid "Metrics"
+msgstr "Mérőszámok"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/technical_metadata.html:5
+msgid "Upload information"
+msgstr "Információ feltöltése"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/technical_metadata.html:8
+msgid "Technical metadata"
+msgstr "Technikai metaadatok"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/technical_metadata.html:15
+msgid "Modified"
+msgstr "Módosítva"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/versions.html:12
 msgid "Versions"
@@ -441,28 +975,44 @@ msgstr "Affiliációk elrejtése"
 msgid "Affiliations for"
 msgstr "Affiliációk hozzá:"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:102
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:119
 msgid "Open external link"
 msgstr "Külső link megnyitása"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:34
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:297
+msgid "Conference website"
+msgstr "Konferencia weboldala"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/doi.html:9
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/doi.html:24
+msgid "DOI"
+msgstr "DOI"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/doi.html:15
+msgid "Get the DOI badge!"
+msgstr "Szerezze meg a DOI jelvényt!"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/doi.html:21
+msgid "DOI Badge"
+msgstr "DOI jelvény"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:44
 msgid "File preview"
 msgstr "Fájl előnézet"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:52
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:76
 msgid "Name"
 msgstr "Név"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:53
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:77
 msgid "Size"
 msgstr "Méret"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:54
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:41
-msgid "Actions"
-msgstr "Tevékenységek"
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:82
+msgid "Download all"
+msgstr "Összes letöltése"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:74
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:111
 msgid ""
 "This is the file fingerprint (checksum), which can be used to verify the "
 "file integrity."
@@ -470,317 +1020,383 @@ msgstr ""
 "Ez a fájl ujjlenyomata (ellenőrző összeg), amely a fájl integritásának "
 "ellenőrzésére használható."
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:89
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:125
 msgid "Download"
 msgstr "Letöltés"
 
-#: invenio_app_rdm/records_ui/views/deposits.py:57
-msgid "Discard the reserved {scheme_label}."
-msgstr "Lefoglalt {scheme_label} elvetése."
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/locations.html:55
+msgid "Unknown"
+msgstr "Ismeretlen"
 
-#: invenio_app_rdm/records_ui/views/deposits.py:60
-msgid "Get a {scheme_label} now!"
-msgstr "Szerezzen egy {scheme_label}-t most!"
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/stats_popup.html:9
+msgid "See the full number"
+msgstr "Teljes szám megtekintése"
 
-#: invenio_app_rdm/records_ui/views/deposits.py:63
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/version.html:13
+msgid "Version"
+msgstr "Verzió"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/version.html:14
+msgid "No DOI available"
+msgstr "Nem elérhető DOI"
+
+#: invenio_app_rdm/records_ui/views/deposits.py:71
+#, python-format
+msgid "Discard the reserved %(scheme_label)s."
+msgstr "A lefoglalt %(scheme_label)s elvetése."
+
+#: invenio_app_rdm/records_ui/views/deposits.py:74
+#, python-format
+msgid "Get a %(scheme_label)s now!"
+msgstr "Szerezzen be egy %(scheme_label)s-t most!"
+
+#: invenio_app_rdm/records_ui/views/deposits.py:77
+#, python-format
 msgid ""
-"Reserve a {scheme_label} by pressing the button (so it can be included in "
-"files prior to upload). The {scheme_label} is registered when your upload is"
-" published."
+"Reserve a %(scheme_label)s by pressing the button (so it can be included in "
+"files prior to upload). The %(scheme_label)s is registered when your upload "
+"is published."
 msgstr ""
-"Foglaljon le egy {scheme_label}-t a gomb megnyomásával (így a feltöltés "
-"előtt belekerülhet a fájlokba). A(z) {scheme_label} a feltöltés "
+"Foglaljon le egy %(scheme_label)s-t a gomb megnyomásával (így a feltöltés "
+"előtt belekerülhet a fájlokba). A(z) %(scheme_label)s a feltöltés "
 "közzétételekor regisztrálásra kerül."
 
-#: invenio_app_rdm/records_ui/views/deposits.py:68
+#: invenio_app_rdm/records_ui/views/deposits.py:83
+#, python-format
 msgid ""
-"A {scheme_label} allows your upload to be easily and unambiguously cited. "
+"A %(scheme_label)s allows your upload to be easily and unambiguously cited. "
 "Example: 10.1234/foo.bar"
 msgstr ""
-"A {scheme_label} lehetővé teszi a feltöltései egyszerű és egyértelmű hivatkozását.\n"
-"Például: 10.1234/foo.bar"
+"A %(scheme_label)s lehetővé teszi a feltöltései egyszerű és egyértelmű "
+"hivatkozását. Például: 10.1234/foo.bar"
 
-#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/community-invitation/community_dashboard.html:18
+#: invenio_app_rdm/records_ui/views/deposits.py:197
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/searchbar.html:11
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/searchbar.html:19
+msgid "All"
+msgstr "Összes"
+
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/community-invitation/community_dashboard.html:21
 msgid "Back to invitations"
 msgstr "Vissza a meghívókhoz"
 
-#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/community-invitation/user_dashboard.html:16
-#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/macros/request_header.html:41
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/community-invitation/user_dashboard.html:19
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/community-submission/index.html:31
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/guest-access-request/index.html:34
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/user-access-request/index.html:28
 msgid "Back to requests"
 msgstr "Vissza a kérésekhez"
 
-#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/community-submission/index.html:42
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/community-submission/index.html:52
 msgid "Conversation"
 msgstr "Beszélgetés"
 
-#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/community-submission/index.html:54
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/community-submission/index.html:64
 msgid "Record"
 msgstr "Rekord"
 
-#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/macros/request_header.html:19
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/guest-access-request/index.html:13
+msgid "Access request"
+msgstr "Hozzáférés igénylése"
+
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/macros/request_header.html:25
 msgid "View Community"
 msgstr "Közösség megtekintése"
 
-#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/macros/request_header.html:53
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/macros/request_header.html:63
 msgid "View record"
 msgstr "Rekord megtekintése"
 
-#: invenio_app_rdm/theme/views.py:39
-msgid "My dashboard"
-msgstr "Irányítópult"
+#: invenio_app_rdm/theme/views.py:132
+msgid "Notification preferences were updated."
+msgstr "Az értesítési beállítások frissítve lettek."
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:18
 msgid "About InvenioRDM"
 msgstr "Az InvenioRDM-ről"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:19
-#, python-format
-msgid ""
-"\n"
-"              <p><a href=\"%(invenio_rdm)s\">Product page</a></p>\n"
-"              "
-msgstr ""
-"\n"
-"<p><a href=\"%(invenio_rdm)s\">Termékoldal</a></p>"
+msgid "Product page"
+msgstr "Termékoldal"
+
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:20
+msgid "Features"
+msgstr "Funkciók"
+
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:21
+msgid "Roadmap"
+msgstr "Ütemterv"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:22
-#, python-format
-msgid ""
-"\n"
-"              <p><a href=\"%(invenio_rdm_features)s\">Features</a></p>\n"
-"              "
-msgstr ""
-"\n"
-"<p><a href=\"%(invenio_rdm_features)s\">Funkciók</a></p>"
+msgid "Demo site"
+msgstr "Demóoldal"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:25
-#, python-format
-msgid ""
-"\n"
-"              <p><a href=\"%(invenio_rdm_roadmap)s\">Roadmap</a></p>\n"
-"              "
-msgstr ""
-"\n"
-"              <p><a href=\"%(invenio_rdm_roadmap)s\">Oldaltérkép</a></p>\n"
-"              "
-
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:28
-#, python-format
-msgid ""
-"\n"
-"              <p><a href=\"%(invenio_rdm_demo_site)s\">Demo site</a></p>\n"
-"              "
-msgstr ""
-"\n"
-"              <p><a href=\"%(invenio_rdm_demo_site)s\">Demo oldal</a></p>\n"
-"              "
-
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:33
 msgid "Get involved"
 msgstr "Vegyen részt"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:34
-#, python-format
-msgid ""
-"\n"
-"              <p><a href=\"%(invenio_rdm_gh)s\">GitHub</a></p>\n"
-"              "
-msgstr ""
-"\n"
-"              <p><a href=\"%(invenio_rdm_gh)s\">GitHub</a></p>\n"
-"              "
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:26
+msgid "GitHub"
+msgstr "GitHub"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:37
-#, python-format
-msgid ""
-"\n"
-"              <p><a href=\"%(invenio_rdm_milestones)s\">Project Milestones</a></p>\n"
-"              "
-msgstr ""
-"\n"
-"              <p><a href=\"%(invenio_rdm_milestones)s\">Projekt Mérföldkövek</a></p>\n"
-"              "
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:27
+msgid "Project Milestones"
+msgstr "Projekt mérföldkövek"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:40
-#, python-format
-msgid ""
-"\n"
-"              <p><a href=\"%(invenio_rdm_docs_site)s\">Documentation</a></p>\n"
-"              "
-msgstr ""
-"\n"
-"              <p><a href=\"%(invenio_rdm_docs_site)s\">Dokumentáció</a></p>\n"
-"              "
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:28
+msgid "Documentation"
+msgstr "Dokumentáció"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:45
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:31
 msgid "Community"
 msgstr "Közösség"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:46
-#, python-format
-msgid ""
-"\n"
-"              <p><a href=\"%(invenio_rdm_chatroom)s\">Chatroom</a></p>\n"
-"              "
-msgstr ""
-"\n"
-"              <p><a href=\"%(invenio_rdm_chatroom)s\">Chatszoba</a></p>\n"
-"              "
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:32
+msgid "Chatroom"
+msgstr "Chatszoba"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:49
-#, python-format
-msgid ""
-"\n"
-"              <p><a href=\"%(invenio_rdm_talk)s\">Forum</a></p>\n"
-"              "
-msgstr ""
-"\n"
-"              <p><a href=\"%(invenio_rdm_talk)s\">Fórum</a></p>\n"
-"              "
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:33
+msgid "Forum"
+msgstr "Fórum"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:52
-#, python-format
-msgid ""
-"\n"
-"              <p><a href=\"%(invenio_events)s\">Events & training</a></p>\n"
-"              "
-msgstr ""
-"\n"
-"              <p><a href=\"%(invenio_events)s\">Események és képzések</a></p>\n"
-"              "
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:34
+msgid "Events & training"
+msgstr "Események és képzések"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:72
-#, python-format
-msgid ""
-"Powered by <a\n"
-"              href=\"%(invenio_rdm)s\">InvenioRDM</a>"
-msgstr ""
-"Powered by <a\n"
-"              href=\"%(invenio_rdm)s\">InvenioRDM</a>"
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header.html:19
+msgid "Impersonated session"
+msgstr "Más felhasználó nevében indított munkamenet"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/frontpage.html:19
-msgid "You've successfully installed InvenioRDM!"
-msgstr "Sikeresen telepítette az InvenioRDM-et!"
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header.html:21
+msgid "You must logout after you finish with you inquiry!"
+msgstr "Kérjük, jelentkezzen ki a lekérdezés befejezése után!"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/frontpage.html:21
-msgid "What is ahead?"
-msgstr "Mi következik?"
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header.html:38
+#: invenio_app_rdm/theme/templates/themes/default/invenio_app_rdm/header.html:37
+msgid "home"
+msgstr "főoldal"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/frontpage.html:27
-msgid "Configure"
-msgstr "Konfigurálás"
-
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/frontpage.html:29
-#, python-format
-msgid ""
-"\n"
-"            Configure the datamodel, resource types, permissions and much more to make it suit your needs! For more\n"
-"            information on how to do it visit the <a href=\"%(configuration_link)s\" target=\"_blank\">configuration\n"
-"            section in the docs</a>.\n"
-"          "
-msgstr ""
-"\n"
-"Konfigurálja az adatmodellt, az erőforrástípusokat, az engedélyeket és még sok mást, hogy megfeleljen az Ön igényeinek! További \n"
-"információért tekintse meg a dokumentáció <a href=\"%(configuration_link)s\" target=\"_blank\">konfigurációról\n"
-" szóló részét</a>!"
-
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/frontpage.html:38
-msgid "Customize"
-msgstr "Testreszabás"
-
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/frontpage.html:40
-#, python-format
-msgid ""
-"\n"
-"              Customize the layout and adapt the styling to match your institution's. See how to do so <a\n"
-"              href=\"%(configuration_link)s\" target=\"_blank\">here</a>.\n"
-"            "
-msgstr ""
-"\n"
-"Állítson be saját elrendezést, és igazítsa a stílust az intézményéhez! <a\n"
-"              href=\"%(configuration_link)s\" target=\"_blank\">Itt</a> megtudhatja, hogyan működik ez."
-
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/frontpage.html:48
-msgid "Run it!"
-msgstr "Futtatás"
-
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/frontpage.html:50
-#, python-format
-msgid ""
-"\n"
-"          <a href=\"%(deployment_link)s\" target=\"_blank\">Run</a> your\n"
-"          InvenioRDM instance locally or in containers.\n"
-"          "
-msgstr ""
-"\n"
-"<a href=\"%(deployment_link)s\" target=\"_blank\">Futtassa</a> a saját\n"
-"InvenioRDM példányát helyben vagy tárolókban."
-
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/frontpage.html:63
-msgid "Docs"
-msgstr "Dokumentumok"
-
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/frontpage.html:68
-msgid "Code"
-msgstr "Kód"
-
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header.html:37
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header.html:51
+#: invenio_app_rdm/theme/templates/themes/default/invenio_app_rdm/header.html:50
 msgid "Menu"
 msgstr "Menü"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header.html:55
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header.html:68
+#: invenio_app_rdm/theme/templates/themes/default/invenio_app_rdm/header.html:67
 msgid "Close menu"
 msgstr "Menü bezárása"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header.html:103
-#: invenio_app_rdm/users_ui/templates/semantic-ui/invenio_app_rdm/users/requests.html:8
-#: invenio_app_rdm/users_ui/views/ui.py:83
-msgid "Requests"
-msgstr "Kérések"
-
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header.html:105
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header.html:120
+#: invenio_app_rdm/theme/templates/themes/default/invenio_app_rdm/header.html:120
 msgid "Inbox"
 msgstr "Bejövő üzenetek"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:17
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_frontpage.html:36
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_frontpage.html:37
+msgid "Search"
+msgstr "Keresés"
+
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:18
 msgid "Log in"
 msgstr "Bejelentkezés"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:21
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:22
 msgid "Sign up"
 msgstr "Regisztráció"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:59
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:100
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:39
+msgid "Quick create"
+msgstr "Gyors létrehozás"
+
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:56
+msgid "Actions"
+msgstr "Tevékenységek"
+
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:77
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:120
 msgid "My account"
 msgstr "Fiókom"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:94
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:123
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:130
-msgid "Log out"
-msgstr "Kijelentkezés"
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:12
+msgid "You've successfully installed InvenioRDM!"
+msgstr "Sikeresen telepítette az InvenioRDM-et!"
+
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:14
+msgid "What is ahead?"
+msgstr "Mi következik?"
+
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:24
+msgid "Configure"
+msgstr "Konfigurálás"
+
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:27
+msgid ""
+"Configure the datamodel, resource types, permissions and much more to make "
+"it suit your needs! For more information on how to do it visit the"
+msgstr ""
+"Konfigurálja az adatmodellt, forrástípusokat, jogosultságokat és egyebeket, "
+"hogy az megfeleljen az Ön igényeinek! További információért látogasson el a "
+
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:29
+msgid "configuration section in the docs"
+msgstr "dokumentáció konfigurációs szekciójába"
+
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:41
+msgid "Customize"
+msgstr "Testreszabás"
+
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:44
+msgid ""
+"Customize the layout and adapt the styling to match your institution's. See "
+"how to do so"
+msgstr ""
+"Testreszabhatja az elrendezést és a stílust, hogy az illeszkedjen az "
+"intézménye arculatához. Útmutató "
+
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:46
+msgid "here"
+msgstr "itt"
+
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:57
+msgid "Run it!"
+msgstr "Futtatás"
+
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:59
+msgid "Run your InvenioRDM instance locally or in containers."
+msgstr "Futtassa az InvenioRDM példányát helyileg vagy konténerekben."
+
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:61
+msgid "Run"
+msgstr "Futtatás"
+
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:75
+msgid "Docs"
+msgstr "Dokumentumok"
+
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:84
+msgid "Code"
+msgstr "Kód"
+
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:91
+msgid "To disable this section, add"
+msgstr "Ennek a szakasznak a letiltásához adja hozzá"
+
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:93
+msgid "to your invenio.cfg file."
+msgstr "az invenio.cfg fájlhoz."
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/searchbar.html:6
 msgid "In this community"
 msgstr "Ebben a közösségben"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/searchbar.html:11
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/searchbar.html:19
-msgid "All"
-msgstr "Összes"
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/searchbar.html:30
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/searchbar.html:31
+msgid "Search records"
+msgstr "Rekordok keresése"
+
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/site_footer.html:15
+#: invenio_app_rdm/theme/templates/themes/default/invenio_app_rdm/site_footer.html:15
+msgid "Powered by"
+msgstr "Üzemeltető:"
+
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/files_integrity_report/email/files_integrity_report.html:13
+msgid ""
+"The following files were flagged as 'unhealthy'. This means that the "
+"checksum check failed or timed out. Please take any action if needed."
+msgstr ""
+"A következő fájlok 'hibásként' lettek megjelölve. Ez azt jelenti, hogy az "
+"ellenőrző összeg ellenőrzése sikertelen volt vagy időtúllépéssel zárult. "
+"Kérjük, tegyen lépéseket, ha szükséges."
+
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/files_integrity_report/email/files_integrity_report.html:16
+#, python-format
+msgid "ID: %s"
+msgstr "ID: %s"
+
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/files_integrity_report/email/files_integrity_report.html:17
+#, python-format
+msgid "URI: %s"
+msgstr "URI: %s"
+
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/files_integrity_report/email/files_integrity_report.html:19
+#, python-format
+msgid "Name: %s"
+msgstr "Név: %s"
+
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/files_integrity_report/email/files_integrity_report.html:21
+#, python-format
+msgid "Created: %s"
+msgstr "Létrehozva: %s"
+
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/files_integrity_report/email/files_integrity_report.html:22
+#, python-format
+msgid "Checksum: %s"
+msgstr "Ellenőrző összeg: %s"
+
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/files_integrity_report/email/files_integrity_report.html:23
+#, python-format
+msgid "Last check date: %s"
+msgstr "Utolsó ellenőrzés dátuma: %s"
+
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/files_integrity_report/email/files_integrity_report.html:24
+#, python-format
+msgid "Last check FAILED with result: %s"
+msgstr "Az utolsó ellenőrzés SIKERTELEN volt, eredmény: %s"
+
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/files_integrity_report/email/files_integrity_report.html:26
+#, python-format
+msgid "Record: %s/records/%s"
+msgstr "Rekord: %s/records/%s"
+
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/files_integrity_report/email/files_integrity_report.html:29
+#, python-format
+msgid "Draft: %s/uploads/%s"
+msgstr "Piszkozat: %s/uploads/%s"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/help/search.de.html:9
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/help/search.en.html:8
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/help/search.sv.html:8
 msgid "Search guide"
-msgstr "Keresési segédlet"
+msgstr "Keresési útmutató"
 
-#: invenio_app_rdm/users_ui/templates/semantic-ui/invenio_app_rdm/users/communities.html:8
-#: invenio_app_rdm/users_ui/views/ui.py:78
-msgid "Communities"
-msgstr "Közösségek"
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/help/statistics.en.html:8
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/help/statistics.sv.html:8
+msgid "FAQ statistics"
+msgstr "GYIK statisztikák"
 
-#: invenio_app_rdm/users_ui/templates/semantic-ui/invenio_app_rdm/users/uploads.html:8
-#: invenio_app_rdm/users_ui/views/ui.py:73
-msgid "Uploads"
-msgstr "Feltöltések"
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/help/versioning.en.html:8
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/help/versioning.sv.html:8
+msgid "FAQ versioning"
+msgstr "GYIK verziókövetés"
+
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/macros/records_list.html:10
+msgid "Recent uploads"
+msgstr "Legutóbbi feltöltések"
+
+#: invenio_app_rdm/theme/templates/themes/default/invenio_app_rdm/site_footer.html:22
+msgid "Verified community"
+msgstr "Ellenőrzött közösség"
+
+#: invenio_app_rdm/theme/templates/themes/default/invenio_app_rdm/site_footer.html:29
+msgid "Privacy policy"
+msgstr "Adatvédelmi irányelvek"
+
+#: invenio_app_rdm/theme/templates/themes/default/invenio_app_rdm/site_footer.html:30
+msgid "Terms of use"
+msgstr "Felhasználási feltételek"
+
+#: invenio_app_rdm/theme/templates/themes/default/invenio_app_rdm/site_footer.html:31
+msgid "Support"
+msgstr "Támogatás"
+
+#: invenio_app_rdm/users_ui/templates/semantic-ui/invenio_app_rdm/users/header.html:18
+msgid "Your dashboard"
+msgstr "Irányítópult"
+
+#: invenio_app_rdm/users_ui/templates/semantic-ui/invenio_app_rdm/users/header.html:18
+msgid "Anonymous user"
+msgstr "Névtelen felhasználó"
+
+#: invenio_app_rdm/users_ui/templates/semantic-ui/invenio_app_rdm/users/header.html:35
+msgid "New community"
+msgstr "Új közösség"

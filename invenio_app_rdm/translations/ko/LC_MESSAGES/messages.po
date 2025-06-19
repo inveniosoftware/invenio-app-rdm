@@ -5,10 +5,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
 # 
 # Translators:
-# Zacharias Zacharodimos <zacharias.zacharodimos@cern.ch>, 2021
-# Mojib Wali <mojib.wali@tugraz.at>, 2022
-# Tibor Simko <tibor.simko@cern.ch>, 2025
-# Theodoros Theodoropoulos, 2025
+# Minjae Kwon, 2024
 # 
 #, fuzzy
 msgid ""
@@ -17,14 +14,14 @@ msgstr ""
 "Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
 "POT-Creation-Date: 2025-03-27 16:30+0000\n"
 "PO-Revision-Date: 2020-07-07 14:12+0000\n"
-"Last-Translator: Theodoros Theodoropoulos, 2025\n"
-"Language-Team: Greek (https://app.transifex.com/inveniosoftware/teams/23537/el/)\n"
+"Last-Translator: Minjae Kwon, 2024\n"
+"Language-Team: Korean (https://app.transifex.com/inveniosoftware/teams/23537/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.17.0\n"
-"Language: el\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: ko\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: invenio_app_rdm/config.py:219
 msgid "The turn-key research data management repository"
@@ -119,7 +116,7 @@ msgstr ""
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/deposit.html:14
 #: invenio_app_rdm/users_ui/templates/semantic-ui/invenio_app_rdm/users/header.html:28
 msgid "New upload"
-msgstr "Νέα μεταφόρτωση"
+msgstr ""
 
 #: invenio_app_rdm/ext.py:77
 #: invenio_app_rdm/users_ui/templates/semantic-ui/invenio_app_rdm/users/uploads.html:8
@@ -130,18 +127,18 @@ msgstr ""
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/communities.html:15
 #: invenio_app_rdm/users_ui/templates/semantic-ui/invenio_app_rdm/users/communities.html:8
 msgid "Communities"
-msgstr "Κοινότητες"
+msgstr ""
 
 #: invenio_app_rdm/ext.py:87
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header.html:118
 #: invenio_app_rdm/theme/templates/themes/default/invenio_app_rdm/header.html:117
 #: invenio_app_rdm/users_ui/templates/semantic-ui/invenio_app_rdm/users/requests.html:8
 msgid "Requests"
-msgstr "Αιτήσεις"
+msgstr ""
 
 #: invenio_app_rdm/ext.py:110
 msgid "Home"
-msgstr "Αρχική Σελίδα"
+msgstr ""
 
 #: invenio_app_rdm/administration/records/records.py:26
 #: invenio_app_rdm/administration/records/records.py:27
@@ -151,7 +148,7 @@ msgstr ""
 
 #: invenio_app_rdm/ext.py:125
 msgid "Submit"
-msgstr "Υποβολή"
+msgstr ""
 
 #: invenio_app_rdm/administration/domains/domains.py:41
 #: invenio_app_rdm/administration/domains/domains.py:42
@@ -180,13 +177,13 @@ msgstr ""
 #: invenio_app_rdm/administration/users/users.py:35
 #: invenio_app_rdm/theme/templates/themes/default/invenio_app_rdm/site_footer.html:28
 msgid "Status"
-msgstr "Κατάσταση"
+msgstr "상태"
 
 #: invenio_app_rdm/administration/domains/domains.py:50
 #: invenio_app_rdm/administration/domains/domains.py:153
 #: invenio_app_rdm/administration/users/users.py:57
 msgid "Users"
-msgstr "Χρήστες"
+msgstr ""
 
 #: invenio_app_rdm/administration/domains/domains.py:51
 #: invenio_app_rdm/administration/domains/domains.py:154
@@ -276,7 +273,7 @@ msgstr ""
 #: invenio_app_rdm/administration/users/users.py:41
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/technical_metadata.html:10
 msgid "Created"
-msgstr "Δημιουργήθηκε"
+msgstr ""
 
 #: invenio_app_rdm/administration/domains/domains.py:151
 #: invenio_app_rdm/administration/users/users.py:26
@@ -296,12 +293,12 @@ msgstr ""
 #: invenio_app_rdm/administration/records/records.py:39
 #: invenio_app_rdm/administration/records/records.py:118
 msgid "Title"
-msgstr "Τίτλος"
+msgstr ""
 
 #: invenio_app_rdm/administration/records/records.py:40
 #: invenio_app_rdm/administration/records/records.py:119
 msgid "Owner"
-msgstr "Ιδιοκτήτης"
+msgstr ""
 
 #: invenio_app_rdm/administration/records/records.py:42
 #: invenio_app_rdm/administration/records/records.py:121
@@ -310,7 +307,7 @@ msgstr "Ιδιοκτήτης"
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:293
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:142
 msgid "Files"
-msgstr "Αρχεία"
+msgstr ""
 
 #: invenio_app_rdm/administration/records/records.py:43
 #: invenio_app_rdm/administration/records/records.py:122
@@ -344,13 +341,13 @@ msgstr ""
 #: invenio_app_rdm/administration/user_moderation/user_moderation.py:168
 #: invenio_app_rdm/administration/users/users.py:21
 msgid "User"
-msgstr "Χρήστης"
+msgstr ""
 
 #: invenio_app_rdm/administration/user_moderation/user_moderation.py:51
 #: invenio_app_rdm/administration/users/users.py:23
 #: invenio_app_rdm/administration/users/users.py:33
 msgid "Email"
-msgstr "Email"
+msgstr "이메일"
 
 #: invenio_app_rdm/administration/user_moderation/user_moderation.py:57
 msgid "Email domain"
@@ -363,7 +360,7 @@ msgstr ""
 #: invenio_app_rdm/administration/user_moderation/user_moderation.py:76
 #: invenio_app_rdm/administration/users/users.py:78
 msgid "Approve"
-msgstr "Έγκριση"
+msgstr ""
 
 #: invenio_app_rdm/administration/user_moderation/user_moderation.py:81
 #: invenio_app_rdm/administration/users/users.py:88
@@ -377,7 +374,7 @@ msgstr ""
 #: invenio_app_rdm/administration/user_moderation/user_moderation.py:164
 #: invenio_app_rdm/administration/users/users.py:31
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #: invenio_app_rdm/administration/user_moderation/user_moderation.py:173
 msgid "Open"
@@ -386,7 +383,7 @@ msgstr ""
 #: invenio_app_rdm/administration/users/users.py:22
 #: invenio_app_rdm/administration/users/users.py:32
 msgid "Username"
-msgstr "Όνομα"
+msgstr ""
 
 #: invenio_app_rdm/administration/users/users.py:34
 msgid "Domain "
@@ -427,15 +424,15 @@ msgstr ""
 
 #: invenio_app_rdm/communities_ui/templates/semantic-ui/invenio_communities/records/index.html:12
 msgid "Search "
-msgstr "Αναζήτηση"
+msgstr ""
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/deposit.html:12
 msgid "New version"
-msgstr "Νέα εκδοχή"
+msgstr ""
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/deposit.html:16
 msgid "Edit upload"
-msgstr "Τροποποίηση μεταφόρτωσης"
+msgstr ""
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:51
 msgid "Information banner"
@@ -451,7 +448,7 @@ msgstr ""
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:79
 msgid "Restricted"
-msgstr "Περιορισμένο"
+msgstr ""
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:96
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:24
@@ -515,7 +512,7 @@ msgstr ""
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:205
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:25
 msgid "Publication date"
-msgstr "Ημ/νία έκδοσης"
+msgstr ""
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:206
 msgid "Published"
@@ -718,11 +715,11 @@ msgstr ""
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/description.html:15
 msgid "Description"
-msgstr "Περιγραφή"
+msgstr ""
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:38
 msgid "Additional details"
-msgstr "Επιπλέον λεπτομέρειες"
+msgstr ""
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:55
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:73
@@ -752,12 +749,12 @@ msgstr ""
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:311
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:327
 msgid "References"
-msgstr "Αριθμοί αναφοράς"
+msgstr ""
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:17
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:55
 msgid "Views"
-msgstr "Θεάσεις"
+msgstr ""
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:25
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:75
@@ -815,7 +812,7 @@ msgstr ""
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/subjects.html:15
 msgid "Keywords"
-msgstr "Λέξεις κλειδιά"
+msgstr ""
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/subjects.html:22
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/subjects.html:39
@@ -832,7 +829,7 @@ msgstr ""
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:26
 msgid "Publisher"
-msgstr "Εκδότης"
+msgstr ""
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:27
 msgid "Published in"
@@ -864,7 +861,7 @@ msgstr ""
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/export.html:14
 msgid "Export"
-msgstr "Εξαγωγή"
+msgstr ""
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/external_resources.html:9
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/external_resources.html:10
@@ -888,7 +885,7 @@ msgstr ""
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/licenses.html:14
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/licenses.html:16
 msgid "Read more"
-msgstr "Διαβάστε περισσότερα"
+msgstr ""
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/licenses.html:23
 msgid "Rights"
@@ -978,7 +975,7 @@ msgstr ""
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:76
 msgid "Name"
-msgstr "Όνομα"
+msgstr "이름"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:77
 msgid "Size"
@@ -996,7 +993,7 @@ msgstr ""
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:125
 msgid "Download"
-msgstr "Κατέβασμα"
+msgstr ""
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/locations.html:55
 msgid "Unknown"
@@ -1043,7 +1040,7 @@ msgstr ""
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/searchbar.html:11
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/searchbar.html:19
 msgid "All"
-msgstr "Όλα"
+msgstr ""
 
 #: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/community-invitation/community_dashboard.html:21
 msgid "Back to invitations"
@@ -1062,7 +1059,7 @@ msgstr ""
 
 #: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/community-submission/index.html:64
 msgid "Record"
-msgstr "Εγγραφή"
+msgstr ""
 
 #: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/guest-access-request/index.html:13
 msgid "Access request"
@@ -1118,7 +1115,7 @@ msgstr ""
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:31
 msgid "Community"
-msgstr "Κοινότητα"
+msgstr ""
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:32
 msgid "Chatroom"
@@ -1148,7 +1145,7 @@ msgstr ""
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header.html:51
 #: invenio_app_rdm/theme/templates/themes/default/invenio_app_rdm/header.html:50
 msgid "Menu"
-msgstr "Μενού"
+msgstr ""
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header.html:68
 #: invenio_app_rdm/theme/templates/themes/default/invenio_app_rdm/header.html:67
@@ -1163,15 +1160,15 @@ msgstr ""
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_frontpage.html:36
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_frontpage.html:37
 msgid "Search"
-msgstr "Αναζήτηση"
+msgstr "검색"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:18
 msgid "Log in"
-msgstr ""
+msgstr "로그인"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:22
 msgid "Sign up"
-msgstr ""
+msgstr "가입"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:39
 msgid "Quick create"
@@ -1179,7 +1176,7 @@ msgstr ""
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:56
 msgid "Actions"
-msgstr "Ενέργειες"
+msgstr ""
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:77
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:120
@@ -1220,7 +1217,7 @@ msgstr ""
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:46
 msgid "here"
-msgstr "εδώ"
+msgstr ""
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:57
 msgid "Run it!"
@@ -1232,7 +1229,7 @@ msgstr ""
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:61
 msgid "Run"
-msgstr "Εκτέλεση"
+msgstr ""
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:75
 msgid "Docs"
@@ -1240,7 +1237,7 @@ msgstr ""
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:84
 msgid "Code"
-msgstr "Κώδικας"
+msgstr ""
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:91
 msgid "To disable this section, add"
@@ -1262,7 +1259,7 @@ msgstr ""
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/site_footer.html:15
 #: invenio_app_rdm/theme/templates/themes/default/invenio_app_rdm/site_footer.html:15
 msgid "Powered by"
-msgstr "Βασίζεται στο"
+msgstr ""
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/files_integrity_report/email/files_integrity_report.html:13
 msgid ""
@@ -1361,4 +1358,4 @@ msgstr ""
 
 #: invenio_app_rdm/users_ui/templates/semantic-ui/invenio_app_rdm/users/header.html:35
 msgid "New community"
-msgstr "Νέα κοινότητα"
+msgstr ""

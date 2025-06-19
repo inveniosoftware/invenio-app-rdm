@@ -1,44 +1,41 @@
 # 
 # Translators:
-# Tibor Simko <tibor.simko@cern.ch>, 2024
-# Karolina, 2024
+# Minjae Kwon, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2025-03-27T16:30:16.192Z\n"
 "PO-Revision-Date: 2021-07-14 16:07+0000\n"
-"Last-Translator: Karolina, 2024\n"
-"Language-Team: Polish (https://app.transifex.com/inveniosoftware/teams/23537/pl/)\n"
+"Last-Translator: Minjae Kwon, 2024\n"
+"Language-Team: Korean (https://app.transifex.com/inveniosoftware/teams/23537/ko/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pl\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"Language: ko\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "mime-version: 1.0\n"
 
 msgid "Basic information"
-msgstr "Informacje podstawowe"
+msgstr ""
 
 msgid "Impersonate user"
-msgstr "Upozoruj tożsamość użytkownika"
+msgstr ""
 
 msgid "Impersonate"
 msgstr ""
 
 msgid "You must accept this."
-msgstr "Jesteś zobowiązany to zaakceptować."
+msgstr ""
 
 msgid "Success"
-msgstr "Zakończono pomyślnie"
+msgstr ""
 
 msgid ""
 "User impersonated succesfully! You will be redirected in frontpage soon."
 msgstr ""
-"Pomyślnie upozorowano tożsamość użytkownika. Zostaniesz niedługo "
-"przekierowany do strony głównej."
 
 msgid "Unable to impersonate user."
-msgstr "Upozorowanie tożsamości użytkownika jest niemożliwe."
+msgstr ""
 
 msgid ""
 "Please read carefully and confirm the following statements before you "
@@ -61,7 +58,7 @@ msgid "Set quota in bytes"
 msgstr ""
 
 msgid "Note"
-msgstr "Notatka"
+msgstr ""
 
 msgid ""
 "This is the default quota that will be applied to any NEW records created by"
@@ -114,10 +111,10 @@ msgid "TLD"
 msgstr ""
 
 msgid "Status"
-msgstr "Status"
+msgstr "상태"
 
 msgid "New"
-msgstr ""
+msgstr "신규"
 
 msgid "Moderated"
 msgstr ""
@@ -129,7 +126,7 @@ msgid "Blocked"
 msgstr ""
 
 msgid "Users"
-msgstr "Użytkownicy"
+msgstr ""
 
 msgid "Active"
 msgstr ""
@@ -168,7 +165,7 @@ msgid "Published"
 msgstr ""
 
 msgid "Deleted"
-msgstr "usunięty"
+msgstr "삭제됨"
 
 msgid "Scheduled for purge"
 msgstr ""
@@ -177,10 +174,10 @@ msgid "Empty draft title"
 msgstr ""
 
 msgid "version"
-msgstr "wersja"
+msgstr ""
 
 msgid "Owner"
-msgstr "Właściciel"
+msgstr ""
 
 msgid "Created"
 msgstr ""
@@ -232,25 +229,25 @@ msgid "User {{name}} is blocked."
 msgstr ""
 
 msgid "Error"
-msgstr "Błąd"
+msgstr ""
 
 msgid "User"
-msgstr "Użytkownik"
+msgstr ""
 
 msgid "Email"
-msgstr "Email"
+msgstr "이메일"
 
 msgid "Email domain"
 msgstr ""
 
 msgid "Actions"
-msgstr "Działania"
+msgstr ""
 
 msgid "Records"
 msgstr ""
 
 msgid "Username"
-msgstr "Nazwa użytkownika"
+msgstr ""
 
 msgid "GitHub"
 msgstr ""
@@ -274,13 +271,13 @@ msgid "Suspended"
 msgstr ""
 
 msgid "Approve"
-msgstr "Zatwierdź"
+msgstr ""
 
 msgid "Approved"
-msgstr "Zatwierdzone"
+msgstr ""
 
 msgid "Activate"
-msgstr ""
+msgstr "활성화"
 
 msgid "Activated"
 msgstr ""
@@ -300,15 +297,12 @@ msgstr ""
 msgid " results found"
 msgid_plural " results found"
 msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
 
 msgid "Search records..."
 msgstr ""
 
 msgid "Search"
-msgstr "Szukaj"
+msgstr "검색"
 
 msgid "Views"
 msgstr ""
@@ -349,9 +343,6 @@ msgstr ""
 msgid "{{count}} more versions exist for this record"
 msgid_plural "{{count}} more versions exist for this record"
 msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
 
 msgid "Person"
 msgstr ""
@@ -387,7 +378,7 @@ msgid "Related works"
 msgstr ""
 
 msgid "References"
-msgstr "Bibliografia"
+msgstr ""
 
 msgid "Visibility"
 msgstr ""
@@ -402,7 +393,7 @@ msgid "Your email address"
 msgstr ""
 
 msgid "Email address"
-msgstr "Adres email"
+msgstr ""
 
 msgid "Your full name"
 msgstr ""
@@ -442,9 +433,6 @@ msgstr ""
 msgid "View all {{count}} communities"
 msgid_plural "View all {{count}} communities"
 msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
 
 msgid "Submit to community"
 msgstr ""
@@ -459,7 +447,7 @@ msgid "Community management menu dropdown"
 msgstr ""
 
 msgid "Edit"
-msgstr "Edytuj"
+msgstr ""
 
 msgid "Export selection"
 msgstr ""
@@ -546,9 +534,6 @@ msgstr ""
 msgid "View all {{count}} versions"
 msgid_plural "View all {{count}} versions"
 msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
 
 msgid ""
 "<0><0>Cite all versions?</0> You can cite all versions by using the DOI "
@@ -563,7 +548,7 @@ msgid ""
 msgstr ""
 
 msgid "Remove"
-msgstr "Usuń"
+msgstr ""
 
 msgid "Remove {{communityTitle}} from this record"
 msgstr ""
@@ -589,7 +574,7 @@ msgid "Cancel removal"
 msgstr ""
 
 msgid "Cancel"
-msgstr "Anuluj"
+msgstr ""
 
 msgid "Confirm removal"
 msgstr ""
@@ -627,7 +612,7 @@ msgid "Access"
 msgstr ""
 
 msgid "Delete"
-msgstr "Usuń"
+msgstr ""
 
 msgid "Copy link"
 msgstr ""
@@ -657,7 +642,7 @@ msgid ""
 msgstr ""
 
 msgid "Expires"
-msgstr "Wygasa"
+msgstr ""
 
 msgid "This record has no links generated yet."
 msgstr ""
@@ -678,7 +663,7 @@ msgid "Advanced options"
 msgstr ""
 
 msgid "Save"
-msgstr "Zapisz"
+msgstr ""
 
 msgid "No user has access to this record yet."
 msgstr ""
@@ -716,7 +701,7 @@ msgid "Add groups"
 msgstr ""
 
 msgid "Group"
-msgstr "Grupa"
+msgstr ""
 
 msgid "No selected groups"
 msgstr ""
@@ -728,7 +713,7 @@ msgid "groups"
 msgstr ""
 
 msgid "Add"
-msgstr "Dodaj"
+msgstr ""
 
 msgid "Notify people"
 msgstr ""
@@ -760,7 +745,7 @@ msgid "People"
 msgstr ""
 
 msgid "Groups"
-msgstr "Grupy"
+msgstr ""
 
 msgid "Settings"
 msgstr ""
@@ -827,7 +812,7 @@ msgid "Search in my communities..."
 msgstr ""
 
 msgid "View"
-msgstr ""
+msgstr "보복"
 
 msgid "Published in: {{publishedIn}}"
 msgstr ""
@@ -892,16 +877,10 @@ msgstr ""
 msgid "and {{count}} other"
 msgid_plural "and {{count}} other"
 msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
 
 msgid "and {{count}} others"
 msgid_plural "and {{count}} others"
 msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
 
 msgctxt ""
 "date:[2017-01-01 TO *]</0> will give you all the publications from 2017 "
