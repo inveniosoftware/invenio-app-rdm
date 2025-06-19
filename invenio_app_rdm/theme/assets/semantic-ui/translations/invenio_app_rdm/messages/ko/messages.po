@@ -1,18 +1,18 @@
 #
 # Translators:
-# Tibor Simko <tibor.simko@cern.ch>, 2024
+# Minjae Kwon, 2024
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2025-03-27T16:30:16.192Z\n"
 "PO-Revision-Date: 2021-07-14 16:07+0000\n"
-"Last-Translator: Tibor Simko <tibor.simko@cern.ch>, 2024\n"
-"Language-Team: Lithuanian (https://app.transifex.com/inveniosoftware/teams/23537/lt/)\n"
+"Last-Translator: Minjae Kwon, 2024\n"
+"Language-Team: Korean (https://app.transifex.com/inveniosoftware/teams/23537/ko/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: lt\n"
-"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);\n"
+"Language: ko\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "mime-version: 1.0\n"
 
 msgid "Basic information"
@@ -58,7 +58,7 @@ msgid "Set quota in bytes"
 msgstr ""
 
 msgid "Note"
-msgstr "Pastaba"
+msgstr ""
 
 msgid ""
 "This is the default quota that will be applied to any NEW records created by"
@@ -111,10 +111,10 @@ msgid "TLD"
 msgstr ""
 
 msgid "Status"
-msgstr "Statusas"
+msgstr "상태"
 
 msgid "New"
-msgstr "Naujas"
+msgstr "신규"
 
 msgid "Moderated"
 msgstr ""
@@ -126,7 +126,7 @@ msgid "Blocked"
 msgstr ""
 
 msgid "Users"
-msgstr "Vartotojai"
+msgstr ""
 
 msgid "Active"
 msgstr ""
@@ -165,7 +165,7 @@ msgid "Published"
 msgstr ""
 
 msgid "Deleted"
-msgstr ""
+msgstr "삭제됨"
 
 msgid "Scheduled for purge"
 msgstr ""
@@ -174,16 +174,16 @@ msgid "Empty draft title"
 msgstr ""
 
 msgid "version"
-msgstr "versija"
+msgstr ""
 
 msgid "Owner"
-msgstr "Savininkas"
+msgstr ""
 
 msgid "Created"
 msgstr ""
 
 msgid "Files"
-msgstr "Failai"
+msgstr ""
 
 msgid "Stats"
 msgstr ""
@@ -229,25 +229,25 @@ msgid "User {{name}} is blocked."
 msgstr ""
 
 msgid "Error"
-msgstr "Klaida"
+msgstr ""
 
 msgid "User"
-msgstr "Vartotojas"
+msgstr ""
 
 msgid "Email"
-msgstr "Elektroninis paštas"
+msgstr "이메일"
 
 msgid "Email domain"
 msgstr ""
 
 msgid "Actions"
-msgstr "Veiksmai"
+msgstr ""
 
 msgid "Records"
 msgstr ""
 
 msgid "Username"
-msgstr "Vartotojo vardas"
+msgstr ""
 
 msgid "GitHub"
 msgstr ""
@@ -271,13 +271,13 @@ msgid "Suspended"
 msgstr ""
 
 msgid "Approve"
-msgstr "Patvirtinti"
+msgstr ""
 
 msgid "Approved"
-msgstr "Patvirtinti"
+msgstr ""
 
 msgid "Activate"
-msgstr ""
+msgstr "활성화"
 
 msgid "Activated"
 msgstr ""
@@ -297,18 +297,15 @@ msgstr ""
 msgid " results found"
 msgid_plural " results found"
 msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
 
 msgid "Search records..."
 msgstr ""
 
 msgid "Search"
-msgstr "Ieškoti"
+msgstr "검색"
 
 msgid "Views"
-msgstr "Peržiūros"
+msgstr ""
 
 msgid "Downloads"
 msgstr ""
@@ -346,9 +343,6 @@ msgstr ""
 msgid "{{count}} more versions exist for this record"
 msgid_plural "{{count}} more versions exist for this record"
 msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
 
 msgid "Person"
 msgstr ""
@@ -384,7 +378,7 @@ msgid "Related works"
 msgstr ""
 
 msgid "References"
-msgstr "Nuorodos"
+msgstr ""
 
 msgid "Visibility"
 msgstr ""
@@ -399,7 +393,7 @@ msgid "Your email address"
 msgstr ""
 
 msgid "Email address"
-msgstr "El.paštas"
+msgstr ""
 
 msgid "Your full name"
 msgstr ""
@@ -439,9 +433,6 @@ msgstr ""
 msgid "View all {{count}} communities"
 msgid_plural "View all {{count}} communities"
 msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
 
 msgid "Submit to community"
 msgstr ""
@@ -456,7 +447,7 @@ msgid "Community management menu dropdown"
 msgstr ""
 
 msgid "Edit"
-msgstr "Redaguoti"
+msgstr ""
 
 msgid "Export selection"
 msgstr ""
@@ -543,9 +534,6 @@ msgstr ""
 msgid "View all {{count}} versions"
 msgid_plural "View all {{count}} versions"
 msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
 
 msgid ""
 "<0><0>Cite all versions?</0> You can cite all versions by using the DOI "
@@ -560,7 +548,7 @@ msgid ""
 msgstr ""
 
 msgid "Remove"
-msgstr "Pašalinti"
+msgstr ""
 
 msgid "Remove {{communityTitle}} from this record"
 msgstr ""
@@ -586,7 +574,7 @@ msgid "Cancel removal"
 msgstr ""
 
 msgid "Cancel"
-msgstr "Atšaukti"
+msgstr ""
 
 msgid "Confirm removal"
 msgstr ""
@@ -621,10 +609,10 @@ msgid "Never"
 msgstr ""
 
 msgid "Access"
-msgstr "Prieiga"
+msgstr ""
 
 msgid "Delete"
-msgstr "Ištrinti"
+msgstr ""
 
 msgid "Copy link"
 msgstr ""
@@ -675,7 +663,7 @@ msgid "Advanced options"
 msgstr ""
 
 msgid "Save"
-msgstr "Išsaugoti"
+msgstr ""
 
 msgid "No user has access to this record yet."
 msgstr ""
@@ -713,7 +701,7 @@ msgid "Add groups"
 msgstr ""
 
 msgid "Group"
-msgstr "Grupė"
+msgstr ""
 
 msgid "No selected groups"
 msgstr ""
@@ -725,7 +713,7 @@ msgid "groups"
 msgstr ""
 
 msgid "Add"
-msgstr "Pridėti"
+msgstr ""
 
 msgid "Notify people"
 msgstr ""
@@ -757,7 +745,7 @@ msgid "People"
 msgstr ""
 
 msgid "Groups"
-msgstr "Grupės"
+msgstr ""
 
 msgid "Settings"
 msgstr ""
@@ -824,7 +812,7 @@ msgid "Search in my communities..."
 msgstr ""
 
 msgid "View"
-msgstr ""
+msgstr "보복"
 
 msgid "Published in: {{publishedIn}}"
 msgstr ""
@@ -889,16 +877,10 @@ msgstr ""
 msgid "and {{count}} other"
 msgid_plural "and {{count}} other"
 msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
 
 msgid "and {{count}} others"
 msgid_plural "and {{count}} others"
 msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
 
 msgctxt ""
 "date:[2017-01-01 TO *]</0> will give you all the publications from 2017 "

@@ -78,7 +78,7 @@ export class SetQuotaAction extends Component {
               <p>
                 <strong>{i18next.t("Note")}:</strong>{" "}
                 {i18next.t(
-                  "This is the default quota that will be applied to any NEW records created by this user – it will NOT update quota of existing records."
+                  "This is the default quota that will be applied to any NEW records created by this user - it will NOT update quota of existing records."
                 )}
               </p>
             </Modal.Content>
