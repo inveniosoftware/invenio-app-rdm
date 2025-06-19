@@ -1,11 +1,11 @@
-# 
+#
 # Translators:
 # Alizee Pace <alizee.pace@gmail.com>, 2024
 # Tibor Simko <tibor.simko@cern.ch>, 2024
 # Ignacio Estevo, 2024
 # Zacharias Zacharodimos <zacharias.zacharodimos@cern.ch>, 2025
 # Jesús Martín <jesusmartin@sallep.net>, 2025
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
@@ -70,7 +70,7 @@ msgstr "Nota"
 
 msgid ""
 "This is the default quota that will be applied to any NEW records created by"
-" this user – it will NOT update quota of existing records."
+" this user - it will NOT update quota of existing records."
 msgstr ""
 "Esta es la cuota predeterminada que se aplicará a cualquier registro NUEVO "
 "creado por este usuario; NO actualizará la cuota de los registros "

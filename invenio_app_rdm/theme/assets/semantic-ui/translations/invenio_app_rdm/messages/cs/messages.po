@@ -1,11 +1,11 @@
-# 
+#
 # Translators:
 # Tibor Simko <tibor.simko@cern.ch>, 2024
 # Jiří Kunčar <jiri.kuncar@gmail.com>, 2025
 # Ivan Masár <helix84@centrum.sk>, 2025
 # Mirek Simek <miroslav.simek@gmail.com>, 2025
 # daniela.hornickova, 2025
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
@@ -71,10 +71,10 @@ msgstr "Poznámka"
 
 msgid ""
 "This is the default quota that will be applied to any NEW records created by"
-" this user – it will NOT update quota of existing records."
+" this user - it will NOT update quota of existing records."
 msgstr ""
 "Toto je výchozí kvóta, která bude použita pro VŠECHNY NOVÉ záznamy vytvořené"
-" tímto uživatelem – NEAKTUALIZUJE kvótu existujících záznamů."
+" tímto uživatelem - NEAKTUALIZUJE kvótu existujících záznamů."
 
 msgid "Quota of {{id}} was set to {{quota}} {{unit}}"
 msgstr "Kvóta uživatele {{id}} byla nastavena na {{quota}} {{unit}}"

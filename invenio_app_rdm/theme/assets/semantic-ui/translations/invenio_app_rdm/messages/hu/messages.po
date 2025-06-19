@@ -1,4 +1,4 @@
-# 
+#
 # Translators:
 # Tibor Simko <tibor.simko@cern.ch>, 2021
 # Dorottya Szemigán, 2024
@@ -7,7 +7,7 @@
 # Andrea Dömötör, 2025
 # j k, 2025
 # Zoltán Kanász-Nagy, 2025
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
@@ -72,7 +72,7 @@ msgstr "Jegyzet"
 
 msgid ""
 "This is the default quota that will be applied to any NEW records created by"
-" this user – it will NOT update quota of existing records."
+" this user - it will NOT update quota of existing records."
 msgstr ""
 "Ez az alapértelmezett kvóta, amely az adott felhasználó által létrehozott "
 "minden ÚJ rekordra vonatkozik - a meglévő rekordok kvótáját NEM frissíti."

@@ -1,9 +1,9 @@
-# 
+#
 # Translators:
 # Tibor Simko <tibor.simko@cern.ch>, 2024
 # Bessem Aamira <bessemamira@gmail.com>, 2025
 # Salaheddine Ben Ali <salaheddine.benali@cnudst.tn>, 2025
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
@@ -65,7 +65,7 @@ msgstr "ملاحظة"
 
 msgid ""
 "This is the default quota that will be applied to any NEW records created by"
-" this user – it will NOT update quota of existing records."
+" this user - it will NOT update quota of existing records."
 msgstr ""
 "هذه هي الكوتا الجزافيّة التي سيتم تطبيقها على أي تسجيلات جديدة ينشئها هذا "
 "المستخدم - ولن يتم تحديث حصة التّسجيلات الموجودة سابقا."

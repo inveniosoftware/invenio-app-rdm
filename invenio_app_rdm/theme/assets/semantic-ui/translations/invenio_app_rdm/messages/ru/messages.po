@@ -1,8 +1,8 @@
-# 
+#
 # Translators:
 # Tibor Simko <tibor.simko@cern.ch>, 2024
 # Anna Sakoyan, 2025
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
@@ -70,7 +70,7 @@ msgstr "Примечание"
 
 msgid ""
 "This is the default quota that will be applied to any NEW records created by"
-" this user – it will NOT update quota of existing records."
+" this user - it will NOT update quota of existing records."
 msgstr ""
 "Это квота по умолчанию, она будет применяться к любым НОВЫМ записям, "
 "созданным этим пользователем, но она НЕ изменит квоту существующих записей."
@@ -500,7 +500,7 @@ msgid "Remove branding"
 msgstr "Убрать маркировку"
 
 msgid "{{communityTitle}} is a default branding for this record"
-msgstr "{{communityTitle}} – это маркировка этой записи по умолчанию"
+msgstr "{{communityTitle}} - это маркировка этой записи по умолчанию"
 
 msgid ""
 "Remove this community from appearing on top of the record details page."

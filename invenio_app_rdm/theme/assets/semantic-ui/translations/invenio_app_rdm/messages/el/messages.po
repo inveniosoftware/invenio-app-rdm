@@ -1,10 +1,10 @@
-# 
+#
 # Translators:
 # Zacharias Zacharodimos <zacharias.zacharodimos@cern.ch>, 2022
 # Mojib Wali <mojib.wali@tugraz.at>, 2024
 # Theodoros Theodoropoulos, 2024
 # Tibor Simko <tibor.simko@cern.ch>, 2024
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
@@ -65,7 +65,7 @@ msgstr "Σημείωση"
 
 msgid ""
 "This is the default quota that will be applied to any NEW records created by"
-" this user – it will NOT update quota of existing records."
+" this user - it will NOT update quota of existing records."
 msgstr ""
 
 msgid "Quota of {{id}} was set to {{quota}} {{unit}}"

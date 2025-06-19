@@ -1,11 +1,11 @@
-# 
+#
 # Translators:
 # yyones, 2024
 # Tibor Simko <tibor.simko@cern.ch>, 2024
 # Rim Sharif, 2025
 # Mattias Vesterlund, 2025
 # Sam Arbid, 2025
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
@@ -69,7 +69,7 @@ msgstr "Notering"
 
 msgid ""
 "This is the default quota that will be applied to any NEW records created by"
-" this user – it will NOT update quota of existing records."
+" this user - it will NOT update quota of existing records."
 msgstr ""
 "Detta är den standardkvot som kommer att tillämpas på alla NYA poster som "
 "skapas av den här användaren - den kommer INTE att uppdatera lagringskvoten "

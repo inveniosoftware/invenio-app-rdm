@@ -1,10 +1,10 @@
-# 
+#
 # Translators:
 # Hakan Bayindir <hbayindir@gmail.com>, 2024
 # Berat Aldemir <berataldemir@gmail.com>, 2024
 # Ben Translation and Interpreting Services <info@bentercume.com>, 2025
 # BEN TERCÜME, 2025
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
@@ -70,7 +70,7 @@ msgstr "Not"
 
 msgid ""
 "This is the default quota that will be applied to any NEW records created by"
-" this user – it will NOT update quota of existing records."
+" this user - it will NOT update quota of existing records."
 msgstr ""
 "Bu kota, bu kullanıcı tarafından oluşturulacak tüm YENİ kayıtlara "
 "uygulanacak olan varsayılan kotadır - mevcut kayıtların kotasını "

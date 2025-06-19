@@ -1,9 +1,9 @@
-# 
+#
 # Translators:
 # Tibor Simko <tibor.simko@cern.ch>, 2024
 # Alizee Pace <alizee.pace@gmail.com>, 2025
 # Keziah Okyere, 2025
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
@@ -71,10 +71,10 @@ msgstr "Note"
 
 msgid ""
 "This is the default quota that will be applied to any NEW records created by"
-" this user – it will NOT update quota of existing records."
+" this user - it will NOT update quota of existing records."
 msgstr ""
 "Il s'agit du quota par défaut qui sera appliqué à tous les enregistrements "
-"NEW créés par cet utilisateur – il ne mettra PAS à jour le quota des "
+"NEW créés par cet utilisateur - il ne mettra PAS à jour le quota des "
 "enregistrements existants."
 
 msgid "Quota of {{id}} was set to {{quota}} {{unit}}"
