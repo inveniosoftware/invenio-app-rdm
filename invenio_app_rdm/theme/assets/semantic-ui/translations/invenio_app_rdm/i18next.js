@@ -1,4 +1,4 @@
-// This file is part of React-Invenio-Deposit
+// This file is part of invenio-app-rdm.
 // Copyright (C) 2021 Graz University of Technology.
 //
 // Invenio-app-rdm is free software; you can redistribute it and/or modify it
