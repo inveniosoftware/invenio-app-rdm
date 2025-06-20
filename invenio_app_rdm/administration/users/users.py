@@ -97,11 +97,6 @@ class UsersListView(AdminResourceListView):
         },
     }
 
-    @staticmethod
-    def disabled():
-        """Disable the view on demand."""
-        return not current_app.config["USERS_RESOURCES_ADMINISTRATION_ENABLED"]
-
     def init_search_config(self):
         """Build search view config."""
         return partial(
