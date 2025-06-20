@@ -112,7 +112,8 @@ def communities_home(pid_value, community, community_ui):
         return render_community_theme_template(
             "invenio_communities/details/home/index.html",
             theme=community_ui.get("theme", {}),
-            community=community_ui,
+            community=community,
+            community_ui=community_ui,
             permissions=permissions,
             records=records_ui,
             metrics=metrics,
@@ -133,7 +134,8 @@ def communities_browse(pid_value, community, community_ui):
     return render_community_theme_template(
         "invenio_communities/details/browse/index.html",
         theme=community_ui.get("theme", {}),
-        community=community_ui,
+        community=community,
+        community_ui=community_ui,
         permissions=permissions,
         roles_can_update=_get_roles_can_update(community.id),
         roles_can_invite=_get_roles_can_invite(community.id),
@@ -162,8 +164,9 @@ def community_static_page(pid_value, community, community_ui, **kwargs):
     return render_community_theme_template(
         page["template_name"],
         theme=community_ui.get("theme", {}),
+        community=community,
+        community_ui=community_ui,
         page=page,
-        community=community_ui,
         permissions=permissions,
     )
 
@@ -192,11 +195,12 @@ def community_collection(
     collection_ui = collection.to_dict()
     return render_community_theme_template(
         "invenio_communities/collections/collection.html",
+        theme=community_ui.get("theme", {}),
+        community=community,
+        community_ui=community_ui,
         collection=collection_ui,
         # TODO _collection should not be accessed from here
         tree=collection._collection.collection_tree,
         logo=logo,
-        community=community,
         permissions=community.has_permissions_to(HEADER_PERMISSIONS),
-        theme=community_ui.get("theme", {}),
     )
