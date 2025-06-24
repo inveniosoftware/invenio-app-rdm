@@ -10,7 +10,14 @@
 Changes
 =======
 
-Version v13.0.0r1 (released 2025-06-13)
+Version v13.0.0rc2 (released 2025-06-24)
+
+- communities-ui: pass serialized `community_ui` to Jinja templates
+- config: add Celery beat schedule for updating collections size
+- admin: always show users admin panel
+- fix: pass severityChecks to CustomFields
+
+Version v13.0.0rc1 (released 2025-06-13)
 
 - feat(ui): automatic checks for communities (feature flag)
 - feat(ui): FAIR signposting
