@@ -11,7 +11,6 @@ import React, { useEffect, useState } from "react";
 import { Grid, Icon, Message, Placeholder, List, Divider } from "semantic-ui-react";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import PropTypes from "prop-types";
-import { Trans } from "react-i18next";
 import { withCancel, http, ErrorMessage } from "react-invenio-forms";
 
 const deserializeRecord = (record) => ({
@@ -179,28 +178,28 @@ export const RecordVersionsList = ({ record, isPreview }) => {
       {recordParentDOI ? (
         <List.Item className="parent-doi pr-0">
           <List.Content floated="left">
-            <Trans>
-              <p className="text-muted">
-                <strong>Cite all versions?</strong> You can cite all versions by using
-                the DOI{" "}
-                <a href={recordDeserialized.links.parent_doi}>{recordParentDOI}</a>.
-                This DOI represents all versions, and will always resolve to the latest
-                one. <a href="/help/versioning">Read more</a>.
-              </p>
-            </Trans>
+            <p className="text-muted">
+              <strong>{i18next.t("Cite all versions?")}</strong>{" "}
+              {i18next.t("You can cite all versions by using the DOI")}{" "}
+              <a href={recordDeserialized.links.parent_doi}>{recordParentDOI}</a>.{" "}
+              {i18next.t(
+                "This DOI represents all versions, and will always resolve to the latest one."
+              )}{" "}
+              <a href="/help/versioning">{i18next.t("Read more")}</a>.
+            </p>
           </List.Content>
         </List.Item>
       ) : recordDraftParentDOIFormat ? (
         // new drafts without registered parent dois yet
         <List.Item className="parent-doi pr-0">
           <List.Content floated="left">
-            <Trans>
-              <p className="text-muted">
-                <strong>Cite all versions?</strong> You can cite all versions by using
-                the DOI {recordDraftParentDOIFormat}. The DOI is registered when the
-                first version is published. <a href="/help/versioning">Read more</a>.
-              </p>
-            </Trans>
+            <p className="text-muted">
+              <strong>{i18next.t("Cite all versions?")}</strong>{" "}
+              {i18next.t("You can cite all versions by using the DOI")}{" "}
+              {recordDraftParentDOIFormat}.{" "}
+              {i18next.t("The DOI is registered when the first version is published.")}{" "}
+              <a href="/help/versioning">{i18next.t("Read more")}</a>.
+            </p>
           </List.Content>
         </List.Item>
       ) : null}
