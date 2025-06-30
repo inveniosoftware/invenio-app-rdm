@@ -207,6 +207,6 @@ def transform_record(record, serializer, module=None, throws=True, **kwargs):
         if throws:
             raise Exception("No serializer found.")
     except Exception:
-        current_app.logger.error("Record transformation failed.")
+        current_app.logger.exception("Record transformation failed.")
         if throws:
             raise
