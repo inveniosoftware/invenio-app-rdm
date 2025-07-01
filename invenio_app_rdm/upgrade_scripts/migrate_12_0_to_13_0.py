@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2023-2024 CERN.
-# Copyright (C) 2024 Graz University of Technology.
+# Copyright (C) 2024-2025 Graz University of Technology.
 #
 # Invenio-App-RDM is free software; you can redistribute it and/or modify
 # it under the terms of the MIT License; see LICENSE file for more details.
@@ -20,11 +20,95 @@ This script has been tested with following data:
     - internal_notes
 """
 
-import sys
-
 from click import secho
+from invenio_access.permissions import system_identity
 from invenio_db import db
-from invenio_rdm_records.records.api import RDMDraft, RDMRecord
+from invenio_rdm_records.proxies import current_rdm_records_service as records_service
+from invenio_search.engine import dsl
+
+
+def run_upgrade(has, migrate):
+    """Run upgrade."""
+    record_success_counter = 0
+    record_error_counter = 0
+    draft_success_counter = 0
+    draft_error_counter = 0
+
+    # Handle published records
+    published_records = records_service.search(
+        system_identity,
+        params={"allversions": True, "include_deleted": True},
+        extra_filter=has,
+    )
+    for result in published_records.hits:
+        record = records_service.record_cls.pid.resolve(result["id"])
+        try:
+            migrate(record)
+            record_success_counter += 1
+        except Exception as error:
+            secho(f"> Error {repr(error)}", fg="red")
+            error = f"Record {record.pid.pid_value} failed to update"
+            record_error_counter += 1
+
+    # Handle draft records
+    draft_records = records_service.search_drafts(
+        system_identity,
+        params={"allversions": True},
+        extra_filter=has,
+    )
+    for result in draft_records.hits:
+        draft = records_service.draft_cls.pid.resolve(
+            result["id"],
+            registered_only=False,
+        )
+        try:
+            migrate(draft)
+            draft_success_counter += 1
+        except Exception as error:
+            secho(f"> Error {repr(error)}", fg="red")
+            error = f"Draft {draft.pid.pid_value} failed to update"
+            draft_error_counter += 1
+
+    if draft_error_counter > 0 or record_error_counter > 0:
+        db.session.rollback()
+        secho(
+            f"{record_error_counter} records had failures and {draft_error_counter} drafts had failures",
+            fg="red",
+        )
+        secho(
+            "The changes have been rolled back. Please fix the above listed errors and try the upgrade again",
+            fg="yellow",
+            err=True,
+        )
+    elif draft_success_counter > 0 or record_success_counter > 0:
+        db.session.commit()
+        secho(
+            f"{record_success_counter} records have been updated and {draft_error_counter} drafts have been updated",
+            fg="green",
+        )
+    else:
+        secho("nothing has been updated")
+
+
+def run_upgrade_for_thesis():
+    """Run upgrade for thesis."""
+
+    def migrate_thesis_university(record_or_draft):
+        custom_fields = record_or_draft.get("custom_fields", {})
+        university = custom_fields.get("thesis:university")
+        if university and "thesis:thesis" not in custom_fields:
+            custom_fields["thesis:thesis"] = {"university": university}
+
+        record_or_draft.commit()
+
+    # Common query filter
+    has_thesis = dsl.Q("exists", field="custom_fields.thesis:university")
+
+    secho("run upgrade for thesis has been started", fg="green")
+
+    run_upgrade(has_thesis, migrate_thesis_university)
+
+    secho("run upgrade for thesis has been finished", fg="green")
 
 
 def execute_upgrade():
@@ -33,83 +117,18 @@ def execute_upgrade():
     Please read the disclaimer on this module before thinking about executing
     this function!
     THIS MODULE IS WORK IN PROGRESS, UNTIL official v13 release
+
+    NOTE:
+    since the data upgrade steps are more selective now, the approach how to do
+    it has been changed. now the records/drafts which should be updated are
+    searched by a filter and then the updates are applied to those
+    records/drafts explicitly. this should improve speed and should make it
+    easier to upgrade large instances
+
     """
-
-    def update_record(record):
-        # skipping deleted records because can't be committed
-        if record.is_deleted:
-            return
-
-        try:
-            secho(f"Updating record : {record.pid.pid_value}", fg="yellow")
-
-            #
-            # Record datamodel migration
-            #
-
-            # Custom fields
-            custom_fields = record.get("custom_fields", {})
-
-            # Thesis field
-            if university := custom_fields.pop("thesis:university", None):
-                custom_fields["thesis:thesis"] = {"university": university}
-
-            record.commit()
-
-            secho(f"> Updated parent: {record.parent.pid.pid_value}", fg="green")
-            secho(f"> Updated record: {record.pid.pid_value}\n", fg="green")
-            return None
-        except Exception as e:
-            secho(f"> Error {repr(e)}", fg="red")
-            error = f"Record {record.pid.pid_value} failed to update"
-            return error
-
     secho("Starting data migration...", fg="green")
 
-    # Migrating records and drafts
-    errors = []
-    for record_metadata in RDMRecord.model_cls.query.all():
-        record = RDMRecord(record_metadata.data, model=record_metadata)
-        error = update_record(record)
-
-        if error:
-            errors.append(error)
-
-    for draft_metadata in RDMDraft.model_cls.query.all():
-        draft = RDMDraft(draft_metadata.data, model=draft_metadata)
-        error = update_record(draft)
-        if error:
-            errors.append(error)
-
-    success = not errors
-
-    if success:
-        secho("Commiting to DB", nl=True)
-        db.session.commit()
-        secho(
-            "Data migration completed, please rebuild the search indices now.",
-            fg="green",
-        )
-
-    else:
-        secho("Rollback", nl=True)
-        db.session.rollback()
-        secho(
-            "Upgrade aborted due to the following errors:",
-            fg="red",
-            err=True,
-        )
-
-        for error in errors:
-            secho(error, fg="red", err=True)
-
-        msg = (
-            "The changes have been rolled back. "
-            "Please fix the above listed errors and try the upgrade again",
-        )
-        secho(msg, fg="yellow", err=True)
-
-        sys.exit(1)
+    run_upgrade_for_thesis()
 
 
 # if the script is executed on its own, perform the upgrade
