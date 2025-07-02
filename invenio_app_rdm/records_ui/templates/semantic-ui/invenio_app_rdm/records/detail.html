@@ -21,7 +21,7 @@
   {%- endblock css %}
 {% endif %}
 
-{%- from "invenio_app_rdm/records/macros/files.html" import file_list_box, preview_file_box, media_file_list_box %}
+{%- from "invenio_app_rdm/records/macros/files.html" import file_list_box, preview_file_box, media_file_list_box with context %}
 
 {%- set title = record_ui["metadata"]["title"] %}
 {%- set metadata = record_ui["metadata"] %}
