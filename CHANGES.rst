@@ -10,6 +10,21 @@
 Changes
 =======
 
+Version v13.0.0rc3 (released 2025-07-02)
+
+- deposit-ui: uppy uploader ui feature
+- i18n: run js compile_catalog
+- i18n: run js extract msgs
+- i18n: components.js replace Trans with i18next comp
+- i18n: RemoveFromCommunityAction replace Trans with i18next comp
+- i18n: RecordVersionList replace Trans with i18next comp
+- i18n: ImpersonateUserForm replace Trans with i18next comp
+- i18n: CommunityRecordsSearchAppLayout replace Trans with i18next comp
+- chore: replace en dash (–) with ASCII dash (-) in source files
+- i18n: refactor compileCatalog script
+- i18n: Force pull languages
+- i18n: extract py msgs
+
 Version v13.0.0rc2 (released 2025-06-24)
 
 - communities-ui: pass serialized `community_ui` to Jinja templates
