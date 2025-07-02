@@ -21,6 +21,7 @@ ReactDOM.render(
       preselectedCommunity={getInputFromDOM("deposits-draft-community")}
       files={getInputFromDOM("deposits-record-files")}
       config={getInputFromDOM("deposits-config")}
+      useUppy={getInputFromDOM("deposits-use-uppy-ui")}
       permissions={getInputFromDOM("deposits-record-permissions")}
       filesLocked={getInputFromDOM("deposits-record-locked-files")}
       recordRestrictionGracePeriod={getInputFromDOM(

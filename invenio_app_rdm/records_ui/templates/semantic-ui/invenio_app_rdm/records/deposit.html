@@ -5,6 +5,9 @@
   {%- block css %}
   {{ super() }}
   <link rel="stylesheet" type="text/css" href="/communities/{{community.slug}}/community-theme-{{ community.revision_id }}.css">
+  {%- if config.APP_RDM_DEPOSIT_NG_FILES_UI_ENABLED %}
+  {{ webpack['uppy-file-uploader.css'] }}
+  {%- endif %}
   {%- endblock %}
 {%- endif %}
 
@@ -49,6 +52,8 @@
           value='{{ config.USERS_RESOURCES_GROUPS_ENABLED | tojson }}'>
   <input type="hidden" name="records-resources-allow-empty-files"
           value='{{ config.RECORDS_RESOURCES_ALLOW_EMPTY_FILES | tojson }}'>
+  <input type="hidden" name="deposits-use-uppy-ui"
+          value='{{ config.APP_RDM_DEPOSIT_NG_FILES_UI_ENABLED | tojson }}'>
 
   {%- if forms_config %}
     <input type="hidden" name="deposits-config"

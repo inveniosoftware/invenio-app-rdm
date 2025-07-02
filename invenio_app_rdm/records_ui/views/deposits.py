@@ -25,6 +25,8 @@ from invenio_rdm_records.records.api import get_files_quota
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
 from invenio_rdm_records.services.schemas import RDMRecordSchema
 from invenio_rdm_records.services.schemas.utils import dump_empty
+from invenio_rdm_records.views import file_transfer_type
+from invenio_records_resources.proxies import current_transfer_registry
 from invenio_records_resources.services.errors import PermissionDeniedError
 from invenio_search.engine import dsl
 from invenio_vocabularies.proxies import current_service as vocabulary_service
@@ -361,6 +363,7 @@ def get_form_config(**kwargs):
         cf for cf in custom_fields["ui"] if not cf.get("hide_from_upload_form", False)
     ]
     quota = deepcopy(conf.get("APP_RDM_DEPOSIT_FORM_QUOTA", {}))
+    max_file_size = conf.get("RDM_FILES_DEFAULT_MAX_FILE_SIZE", None)
     record_quota = kwargs.pop("quota", None)
     if record_quota:
         quota["maxStorage"] = record_quota["quota_size"]
@@ -375,7 +378,7 @@ def get_form_config(**kwargs):
         current_locale=str(current_i18n.locale),
         default_locale=conf.get("BABEL_DEFAULT_LOCALE", "en"),
         pids=get_form_pids_config(record=record),
-        quota=quota,
+        quota=dict(**quota, maxFileSize=max_file_size),
         decimal_size_display=conf.get("APP_RDM_DISPLAY_DECIMAL_FILE_SIZES", True),
         links=dict(
             user_dashboard_request=conf["RDM_REQUESTS_ROUTES"][
@@ -387,6 +390,9 @@ def get_form_config(**kwargs):
         publish_modal_extra=current_app.config.get(
             "APP_RDM_DEPOSIT_FORM_PUBLISH_MODAL_EXTRA"
         ),
+        default_transfer_type=current_transfer_registry.default_transfer_type,
+        enabled_transfer_types=list(current_transfer_registry.get_transfer_types()),
+        transfer_types=file_transfer_type()["transfer_types"],
         **kwargs,
     )
 
