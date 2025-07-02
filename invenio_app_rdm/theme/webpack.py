@@ -40,6 +40,7 @@ theme = WebpackThemeBundle(
                 "invenio-domains-administration": "./js/invenio_app_rdm/administration/domains/index.js",
                 "invenio-audit-logs-administration": "./js/invenio_app_rdm/administration/auditLogs/index.js",
                 "invenio-communities-browse": "./js/invenio_app_rdm/subcommunity/browse.js",
+                "uppy-file-uploader": "./less/invenio_app_rdm/file_uploader/uppy.less",
             },
             dependencies={
                 "@babel/runtime": "^7.9.0",
