@@ -928,6 +928,13 @@ def github_link_render(record):
 
 APP_RDM_RECORDS_EXPORT_URL = "/records/<pid_value>/export/<export_format>"
 
+APP_RDM_DEPOSIT_NG_FILES_UI_ENABLED = False
+"""
+Feature toggle to enable the next-generation (NG) file uploader UI in the deposit form.
+
+When enabled, the deposit form will use the new Uppy.io-based file uploader, replacing the current file upload interface.
+"""
+
 APP_RDM_DEPOSIT_FORM_DEFAULTS = {
     "publication_date": lambda: datetime.now().strftime("%Y-%m-%d"),
     "rights": [
@@ -1485,7 +1492,6 @@ ADMINISTRATION_THEME_BASE_TEMPLATE = "invenio_app_rdm/administration_page.html"
 
 APP_RDM_SUBCOMMUNITIES_LABEL = "Subcommunities"
 """Label for the subcommunities in the community browse page."""
-
 
 RDM_DETAIL_SIDE_BAR_MANAGE_ATTRIBUTES_EXTENSION_TEMPLATE = None
 """Side bar manage attributes extension template."""
