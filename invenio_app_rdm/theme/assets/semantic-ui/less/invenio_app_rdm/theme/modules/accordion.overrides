@@ -3,6 +3,15 @@
   &.tab-menu-accordion {
     transform: none;
   }
+
+  transform: rotate(90deg);
+}
+
+.ui.accordion .title .icon.icon:not(.button) {
+  transition: transform 0.1s ease;
+  width: auto;
+  height: auto;
+  vertical-align: baseline;
 }
 
 /* use these classes to change accordion title when up/down */
