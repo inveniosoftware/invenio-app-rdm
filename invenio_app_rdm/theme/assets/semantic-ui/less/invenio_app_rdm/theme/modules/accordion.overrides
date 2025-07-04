@@ -1,17 +1,17 @@
-.ui.accordion .active.title .icon:not(.button),
-.ui.accordion .accordion .active.title .icon:not(.button) {
+.ui.accordion:not(.invenio-accordion-field) .active.title .icon:not(.button),
+.ui.accordion:not(.invenio-accordion-field) .accordion .active.title .icon:not(.button) {
   &.tab-menu-accordion {
     transform: none;
   }
 
-  transform: rotate(90deg);
+  transform: @activeIconTransform;
 }
 
-.ui.accordion .title .icon.icon:not(.button) {
-  transition: transform 0.1s ease;
+.ui.accordion:not(.invenio-accordion-field) .title .icon,
+.ui.accordion:not(.invenio-accordion-field) .accordion .title .icon {
+  transition: @iconTransition;
   width: auto;
   height: auto;
-  vertical-align: baseline;
 }
 
 /* use these classes to change accordion title when up/down */
