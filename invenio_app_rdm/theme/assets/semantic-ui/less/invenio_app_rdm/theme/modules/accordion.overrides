@@ -1,5 +1,5 @@
-.ui.accordion:not(.invenio-accordion-field) .active.title .icon:not(.button),
-.ui.accordion:not(.invenio-accordion-field) .accordion .active.title .icon:not(.button) {
+.ui.accordion .active.title .icon:not(.button),
+.ui.accordion .accordion .active.title .icon:not(.button) {
   &.tab-menu-accordion {
     transform: none;
   }
@@ -7,8 +7,8 @@
   transform: @activeIconTransform;
 }
 
-.ui.accordion:not(.invenio-accordion-field) .title .icon,
-.ui.accordion:not(.invenio-accordion-field) .accordion .title .icon {
+.ui.accordion .title .icon,
+.ui.accordion .accordion .title .icon {
   transition: @iconTransition;
   width: auto;
   height: auto;
