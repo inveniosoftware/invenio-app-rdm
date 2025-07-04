@@ -37,7 +37,9 @@ def init_config(app):
         app.config["RDM_PERSISTENT_IDENTIFIERS"].get("doi", {}).get("required")
     )
     parent_doi_required = (
-        app.config["RDM_PARENT_PERSISTENT_IDENTIFIERS"].get("doi", {}).get("required")
+        app.config["RDM_PARENT_PERSISTENT_IDENTIFIERS"]
+        .get("doi", {})
+        .get("required", False)
     )
 
     if record_doi_required != parent_doi_required:
