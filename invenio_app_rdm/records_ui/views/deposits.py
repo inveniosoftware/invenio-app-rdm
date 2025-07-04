@@ -3,7 +3,7 @@
 # Copyright (C) 2019-2025 CERN.
 # Copyright (C) 2019-2021 Northwestern University.
 # Copyright (C)      2021 TU Wien.
-# Copyright (C) 2022-2024 KTH Royal Institute of Technology
+# Copyright (C) 2022-2025 KTH Royal Institute of Technology
 # Copyright (C) 2023-2024 Graz University of Technology.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
@@ -100,9 +100,9 @@ def get_form_pids_config(record=None):
 
         pids_provider = {
             "scheme": scheme,
-            "field_label": "Digital Object Identifier",
-            "pid_label": "DOI",
-            "pid_placeholder": "Copy/paste your existing DOI here...",
+            "field_label": _("Digital Object Identifier"),
+            "pid_label": _("DOI"),
+            "pid_placeholder": _("Copy/paste your existing DOI here..."),
             "can_be_managed": can_be_managed,
             "can_be_unmanaged": can_be_unmanaged,
             "btn_label_discard_pid": _(
