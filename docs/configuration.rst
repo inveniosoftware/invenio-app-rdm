@@ -9,4 +9,4 @@
 Configuration
 =============
 
-See https://inveniordm.docs.cern.ch/reference/configuration/
+See https://inveniordm.docs.cern.ch/operate/customize/configuration/
