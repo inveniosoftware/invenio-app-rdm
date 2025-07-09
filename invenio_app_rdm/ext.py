@@ -33,13 +33,11 @@ def finalize_app(app):
 
 def init_config(app):
     """Initialize configuration."""
-    record_doi_required = (
+    record_doi_required = bool(
         app.config["RDM_PERSISTENT_IDENTIFIERS"].get("doi", {}).get("required")
     )
-    parent_doi_required = (
-        app.config["RDM_PARENT_PERSISTENT_IDENTIFIERS"]
-        .get("doi", {})
-        .get("required", False)
+    parent_doi_required = bool(
+        app.config["RDM_PARENT_PERSISTENT_IDENTIFIERS"].get("doi", {}).get("required")
     )
 
     if record_doi_required != parent_doi_required:
