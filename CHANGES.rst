@@ -10,6 +10,17 @@
 Changes
 =======
 
+Version v13.0.0rc4 (released 2025-07-10)
+
+- pid-config: cast to bool RDM_(PARENT)_PERSISTENT_IDENTIFIERS required check
+- fix: default parent_doi_required to False
+- links: update doc links to updated ones
+- i18n: localize DOI labels
+- css: remove .invenio-accordion-field qualifier
+- css: use SemanticUI variables and fix class names
+- ui: ensure accordion caret icons rotate when opened/closed
+- config: add Data Package export format
+
 Version v13.0.0rc3 (released 2025-07-02)
 
 - deposit-ui: uppy uploader ui feature
