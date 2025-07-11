@@ -12,6 +12,10 @@ $("#record-doi-badge").on("click", function () {
   $("#doi-modal").modal("show");
 });
 
+$("#record-conceptdoi-badge").on("click", function () {
+  $("#conceptdoi-modal").modal("show");
+});
+
 $(".preview-link").on("click", function (event) {
   $("#preview-file-title").html(event.target.dataset.fileKey);
 });
