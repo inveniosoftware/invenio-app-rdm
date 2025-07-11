@@ -52,7 +52,6 @@ theme = WebpackThemeBundle(
                 "luxon": "^1.23.0",
                 "path": "^0.12.7",
                 "prop-types": "^15.7.2",
-                "react-copy-to-clipboard": "^5.0.0",
                 "react-dnd": "^11.1.0",
                 "react-dnd-html5-backend": "^11.1.0",
                 "react-dropzone": "^11.0.0",
