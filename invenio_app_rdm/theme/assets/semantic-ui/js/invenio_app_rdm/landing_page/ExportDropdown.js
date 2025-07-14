@@ -56,9 +56,7 @@ export class ExportDropdown extends Component {
           </Button>
         </Grid.Column>
         <Grid.Column width={2} className="pl-0">
-          <CopyButton
-            url={selectedFormatUrl}
-          />
+          <CopyButton url={selectedFormatUrl} />
         </Grid.Column>
       </Grid>
     );
