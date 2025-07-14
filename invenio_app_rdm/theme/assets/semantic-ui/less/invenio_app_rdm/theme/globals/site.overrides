@@ -553,4 +553,9 @@ dl.details-list {
   }
 }
 
-
+.details-doi-section {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
