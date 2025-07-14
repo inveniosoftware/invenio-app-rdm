@@ -7,6 +7,7 @@
 
 import $ from "jquery";
 import { MultipleOptionsSearchBar } from "@js/invenio_search_ui/components";
+import { CopyButton } from "@js/invenio_app_rdm/components/CopyButton";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import ReactDOM from "react-dom";
 import React from "react";
@@ -153,3 +154,11 @@ if (window.invenio) {
     }
   };
 }
+
+// Copy Buttons for DOI
+document.querySelectorAll(".copy-doi-button").forEach((element) => {
+  ReactDOM.render(
+    <CopyButton text={element.dataset.value} size={element.dataset.size} />,
+    element
+  );
+});
