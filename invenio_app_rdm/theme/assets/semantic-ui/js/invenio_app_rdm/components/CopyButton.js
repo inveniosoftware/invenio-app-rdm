@@ -10,12 +10,9 @@ import { Button, Popup } from "semantic-ui-react";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 
 class SimpleCopyButton extends React.Component {
-
   fetchUrl = async (url) => {
-    const response = await fetch(url);
-    const text = await response.text();
-    return text;
-  }
+    return await (await fetch(url)).text();
+  };
 
   handleClick = async () => {
     const { url, text, onCopy } = this.props;
@@ -26,18 +23,19 @@ class SimpleCopyButton extends React.Component {
 
     await navigator.clipboard.writeText(textToCopy);
     onCopy(text);
-  }
+  };
 
   render() {
-    const { hoverState } = this.props;
+    const { hoverState, size } = this.props;
 
     return (
       <Button
         className="copy"
         basic
+        size={size}
         icon="copy"
         aria-label={i18next.t("Copy to clipboard")}
-        onClick={this.handleClick} // Handle click to update text if needed, otherwise use text from props
+        onClick={this.handleClick} // Handle click to fetch from url if url passed, otherwise use text from props
         onMouseEnter={hoverState}
         onMouseLeave={hoverState}
       />
@@ -50,11 +48,13 @@ SimpleCopyButton.propTypes = {
   onCopy: PropTypes.func.isRequired,
   url: PropTypes.func,
   hoverState: PropTypes.func,
+  size: PropTypes.string,
 };
 
 SimpleCopyButton.defaultProps = {
   hoverState: null,
   url: null,
+  size: "medium",
 };
 
 export class CopyButton extends Component {
@@ -99,7 +99,7 @@ export class CopyButton extends Component {
   };
 
   render() {
-    const { popUpPosition, text, url } = this.props;
+    const { popUpPosition, text, url, size } = this.props;
     const { confirmationPopupMsg, confirmationPopupIsOpen, hoverPopupIsOpen } =
       this.state;
 
@@ -118,6 +118,7 @@ export class CopyButton extends Component {
               onCopy={this.onCopy}
               url={url}
               hoverState={this.hoverStateHandler}
+              size={size}
             />
           }
         />
@@ -130,10 +131,12 @@ CopyButton.propTypes = {
   popUpPosition: PropTypes.string,
   text: PropTypes.string,
   url: PropTypes.func,
+  size: PropTypes.string,
 };
 
 CopyButton.defaultProps = {
   popUpPosition: "right center",
   text: "",
   url: "",
+  size: "medium",
 };
