@@ -182,6 +182,7 @@ def user_dashboard_request_view(request, **kwargs):
     has_record_topic = has_topic and "record" in request["topic"]
     has_community_topic = has_topic and "community" in request["topic"]
     is_record_inclusion = request_type == CommunityInclusion.type_id
+    request_permissions = request.has_permissions_to(["action_accept"])
 
     if has_record_topic:
         topic = _resolve_topic_record(request)
@@ -209,7 +210,7 @@ def user_dashboard_request_view(request, **kwargs):
             record_ui=record_ui,
             record=record,
             checks=checks,
-            permissions=topic["permissions"],
+            permissions={**topic["permissions"], **request_permissions},
             is_preview=is_draft,  # preview only when draft
             is_draft=is_draft,
             is_published=is_published,
@@ -231,7 +232,7 @@ def user_dashboard_request_view(request, **kwargs):
             user_avatar=avatar,
             invenio_request=request.to_dict(),
             request_is_accepted=request_is_accepted,
-            permissions={},
+            permissions={**request_permissions},
             include_deleted=False,
         )
 
@@ -244,7 +245,7 @@ def user_dashboard_request_view(request, **kwargs):
         user_avatar=avatar,
         record=record,
         record_ui=record_ui,
-        permissions=topic["permissions"],
+        permissions={**topic["permissions"], **request_permissions},
         invenio_request=request.to_dict(),
         request_is_accepted=request_is_accepted,
         include_deleted=False,
