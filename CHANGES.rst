@@ -10,6 +10,17 @@
 Changes
 =======
 
+Version v13.0.0rc5 (released 2025-07-17)
+
+- migration: optimize script
+- upgrade_scripts: handle thesis custom field migration
+- version: bumped invenio-s3 version to include multipart upload
+- templates: macros: doi: Add copy button for DOIs
+- semantic-ui: components: CopyButton: add size prop
+- semantic-ui: landing_page: ExportButton: Add copy button
+- semantic-ui: componenets: add url fetching in copy button
+- semantic-ui: landing_page: add click event for cite all versions
+
 Version v13.0.0rc4 (released 2025-07-10)
 
 - pid-config: cast to bool RDM_(PARENT)_PERSISTENT_IDENTIFIERS required check
