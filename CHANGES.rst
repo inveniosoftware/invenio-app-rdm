@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version v13.0.0rc6 (released 2025-07-18)
+
+- fix: package.json and package-lock mismatch
+
 Version v13.0.0rc5 (released 2025-07-17)
 
 - migration: optimize script
