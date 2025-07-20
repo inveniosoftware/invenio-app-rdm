@@ -12,7 +12,7 @@ import { OverridableContext, overrideStore } from "react-overridable";
 const recordsListContainer = document.getElementById("records-list");
 const title = recordsListContainer.dataset.title;
 const fetchUrl = recordsListContainer.dataset.fetchUrl;
-const appName = "InvenioAppRDM.RecordsList";
+const appName = "InvenioAppRdm.RecordsList";
 
 ReactDOM.render(
   <OverridableContext.Provider value={overrideStore.components}>
