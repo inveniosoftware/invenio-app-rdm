@@ -28,7 +28,7 @@ $(".dropdown.export").dropdown({
   },
 });
 
-const $licensesPopup = $("#licenses dd.has-popup .license.clickable");
+const $licensesPopup = $("#licenses .has-popup .license.clickable");
 
 // Licenses description popup
 $licensesPopup.popup({
@@ -45,18 +45,18 @@ $licensesPopup.popup({
 
 $licensesPopup.on("keydown", function (event) {
   if (event.key === "Enter") {
-    $("#licenses dd.has-popup .license.clickable").popup("hide");
+    $licensesPopup.popup("hide");
     $(event.target).popup("show");
   }
 });
 
 $("#licenses .licenses-description .close.icon").on({
   click: function () {
-    $("#licenses dd.has-popup .license.clickable").popup("hide");
+    $licensesPopup.popup("hide");
   },
   keydown: function (event) {
     if (event.key === "Enter") {
-      $("#licenses dd.has-popup .license.clickable").popup("hide");
+      $licensesPopup.popup("hide");
     }
   },
 });
