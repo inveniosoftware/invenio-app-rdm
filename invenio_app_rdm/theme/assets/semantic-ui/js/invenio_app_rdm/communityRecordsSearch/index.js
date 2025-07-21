@@ -56,10 +56,8 @@ const defaultComponents = {
   [`${appName}.SearchFilters.Toggle.element`]: RDMToggleComponent,
 };
 
-const overriddenComponents = overrideStore.getAll();
-
 createSearchAppInit(
-  { ...defaultComponents, ...overriddenComponents },
+  { ...defaultComponents, ...overrideStore.components },
   true,
   "invenio-search-config",
   true
