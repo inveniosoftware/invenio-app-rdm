@@ -10,6 +10,11 @@
 Changes
 =======
 
+Version v13.0.0 (released 2025-07-23)
+
+- Official release of InvenioRDM v13. Contains all pre-release changes. See
+  [release notes](https://inveniordm.docs.cern.ch/releases/v13/version-v13.0.0/)
+
 Version v13.0.0rc9 (released 2025-07-23)
 
 - fix(migration): wrong variable used
