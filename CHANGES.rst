@@ -10,6 +10,13 @@
 Changes
 =======
 
+Version v13.0.0rc7 (released 2025-07-22)
+
+- fix: license due to copy pasting
+- fix: import `overridable-registry.js` in `records_list` macro
+- templates: added default_static_page for communties
+- ui: log serialization exceptions
+
 Version v13.0.0rc6 (released 2025-07-21)
 
 - fix: package.json and package-lock mismatch
