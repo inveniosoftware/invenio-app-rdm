@@ -83,11 +83,13 @@ def run_upgrade(has, migrate):
     elif draft_success_counter > 0 or record_success_counter > 0:
         db.session.commit()
         secho(
-            f"{record_success_counter} records have been updated and {draft_error_counter} drafts have been updated",
+            f"Migration completed: {record_success_counter} records have been updated and {draft_error_counter} drafts have been updated",
             fg="green",
         )
     else:
-        secho("nothing has been updated")
+        secho(
+            "Migration completed: no records or drafts required updating.", fg="green"
+        )
 
 
 def run_upgrade_for_thesis():
@@ -104,11 +106,11 @@ def run_upgrade_for_thesis():
     # Common query filter
     has_thesis = dsl.Q("exists", field="custom_fields.thesis:university")
 
-    secho("run upgrade for thesis has been started", fg="green")
+    secho("Thesis upgrade has started.", fg="green")
 
     run_upgrade(has_thesis, migrate_thesis_university)
 
-    secho("run upgrade for thesis has been finished", fg="green")
+    secho("Thesis upgrade has finished.", fg="green")
 
 
 def execute_upgrade():
