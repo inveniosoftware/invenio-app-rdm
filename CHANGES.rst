@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version v13.0.0rc9 (released 2025-07-23)
+
+- fix(migration): wrong variable used
+
 Version v13.0.0rc8 (released 2025-07-23)
 
 - migration: improve text in v13 upgrade script
