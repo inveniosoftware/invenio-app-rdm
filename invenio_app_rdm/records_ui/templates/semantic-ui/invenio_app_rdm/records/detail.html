@@ -399,6 +399,30 @@
       </div>
     </div>
 
+    <div class="ui container" style="
+        padding-right: 600px !important;
+        padding-left: 100px !important;
+    ">
+      <div class="ui segment">
+        <h3 class="ui header">Activity Log</h3>
+        <div class="ui small feed">
+          {% for event in logs %}
+            <div class="event" style="padding: 0em; border: 1px solid #d4d4d5">
+              <div class="label">
+                <i class="small circle icon" style="font-size: .75em !important; vertical-align: bottom;"></i>
+              </div>
+              <div class="content">
+                <div class="summary">
+                  <a class="user">User {{ event["_source"]["user"]["id"] }}</a> {{ event["_source"]["message"] }}
+                  <div class="date">{{ event["_source"]["@timestamp"] }}</div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
     <div class="ui container">
       <div class="ui relaxed grid">
         <div class="two column row">
