@@ -72,7 +72,7 @@ def run_upgrade(has, migrate):
     if draft_error_counter > 0 or record_error_counter > 0:
         db.session.rollback()
         secho(
-            f"{record_error_counter} records had failures and {draft_error_counter} drafts had failures",
+            f"Migration failed: {record_error_counter} records had failures and {draft_error_counter} drafts had failures",
             fg="red",
         )
         secho(
@@ -83,7 +83,7 @@ def run_upgrade(has, migrate):
     elif draft_success_counter > 0 or record_success_counter > 0:
         db.session.commit()
         secho(
-            f"Migration completed: {record_success_counter} records have been updated and {draft_error_counter} drafts have been updated",
+            f"Migration completed: {record_success_counter} records have been updated and {draft_success_counter} drafts have been updated",
             fg="green",
         )
     else:
