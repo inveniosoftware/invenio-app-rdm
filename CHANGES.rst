@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version v13.0.0rc8 (released 2025-07-23)
+
+- migration: improve text in v13 upgrade script
+
 Version v13.0.0rc7 (released 2025-07-22)
 
 - fix: license due to copy pasting
