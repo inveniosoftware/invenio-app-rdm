@@ -1,0 +1,7 @@
+.ui.search > .results .result {
+    .requests-avatar-container .image {
+        float: left;
+        height: 1em;
+        width: unset;
+    }
+}
