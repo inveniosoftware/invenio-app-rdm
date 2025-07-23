@@ -84,10 +84,12 @@ def get_form_pids_config(record=None):
                 optional_doi_transitions["message"] = optional_doi_transitions.get(
                     "message"
                 ).format(sitename=sitename)
-                if set(optional_doi_transitions["allowed_providers"]) - set(
-                    ["external", "not_needed"]
+                if (
+                    "external" not in optional_doi_transitions["allowed_providers"]
+                    and "not_needed"
+                    not in optional_doi_transitions["allowed_providers"]
                 ):
-                    # In case we have locally managed provider as an allowed one, we need to
+                    # In case we have locally managed provider(s) as allowed ones, we need to
                     # select it by default. That is relevant for the case when the
                     # user creates a new version of the record and the previous version
                     # had a datacite DOI.
