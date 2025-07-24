@@ -18,7 +18,6 @@ import Overridable, { OverridableContext, overrideStore } from "react-overridabl
 
 const recordManagementAppDiv = document.getElementById("recordManagement");
 const recordManagementMobile = document.getElementById("recordManagementMobile");
-
 const recordVersionsAppDiv = document.getElementById("recordVersions");
 const recordCitationAppDiv = document.getElementById("recordCitation");
 const recordExportDownloadDiv = document.getElementById("recordExportDownload");
