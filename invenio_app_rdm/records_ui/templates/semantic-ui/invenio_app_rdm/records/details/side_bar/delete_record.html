@@ -1,0 +1,22 @@
+{#
+  Copyright (C) 2025 CERN.
+
+  Invenio-app-rdm is free software; you can redistribute it and/or modify
+  it under the terms of the MIT License; see LICENSE file for more details.
+#}
+
+{%- if config.get("RECORD_DELETION_REQUEST") or config.get("RECORD_DELETION_IMMEDIATE") -%}
+    <section id="record-delete-menu" aria-label="{{ _('Record deletion') }}"
+        class="ui grid segment computer only sidebar-container rdm-sidebar">
+        <div class="column" id="recordDeletion" data-record='{{ record_ui | tojson }}'
+            data-permissions='{{ permissions | tojson }}' data-is-draft="{{ is_draft | tojson }}"
+            data-is-preview-submission-request="{{ is_preview_submission_request | tojson }}"
+            data-current-user-id="{{ current_user.id }}" data-record-owner-id='{{ record_owner_id }}'
+            <div class="ui placeholder">
+                <div class="header">
+                    <div class="full line"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+{%- endif -%}

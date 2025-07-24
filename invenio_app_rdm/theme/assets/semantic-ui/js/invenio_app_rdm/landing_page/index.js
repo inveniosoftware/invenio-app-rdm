@@ -1,5 +1,5 @@
 // This file is part of InvenioRDM
-// Copyright (C) 2020-2024 CERN.
+// Copyright (C) 2020-2025 CERN.
 // Copyright (C) 2020-2021 Northwestern University.
 // Copyright (C) 2021 Graz University of Technology.
 // Copyright (C) 2023 TU Wien.
@@ -10,6 +10,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { RecordManagement } from "./RecordManagement";
+import { RecordDeletion } from "./RecordDeletion";
 import { RecordVersionsList } from "./RecordVersionsList";
 import { RecordCitationField } from "./RecordCitationField";
 import { ExportDropdown } from "./ExportDropdown";
@@ -18,6 +19,7 @@ import Overridable, { OverridableContext, overrideStore } from "react-overridabl
 
 const recordManagementAppDiv = document.getElementById("recordManagement");
 const recordManagementMobile = document.getElementById("recordManagementMobile");
+const recordDeletionAppDiv = document.getElementById("recordDeletion");
 
 const recordVersionsAppDiv = document.getElementById("recordVersions");
 const recordCitationAppDiv = document.getElementById("recordCitation");
@@ -78,6 +80,45 @@ if (recordExportDownloadDiv) {
   ReactDOM.render(
     <ExportDropdown formats={JSON.parse(recordExportDownloadDiv.dataset.formats)} />,
     recordExportDownloadDiv
+  );
+}
+
+if (recordDeletionAppDiv) {
+  renderRecordDeletion(recordDeletionAppDiv);
+}
+
+function renderRecordDeletion(element) {
+  ReactDOM.render(
+    <OverridableContext.Provider value={overriddenComponents}>
+      <RecordDeletion
+        record={JSON.parse(recordDeletionAppDiv.dataset.record)}
+        permissions={JSON.parse(recordDeletionAppDiv.dataset.permissions)}
+        isDraft={JSON.parse(recordDeletionAppDiv.dataset.isDraft)}
+        isPreviewSubmissionRequest={JSON.parse(
+          recordDeletionAppDiv.dataset.isPreviewSubmissionRequest
+        )}
+        currentUserId={recordDeletionAppDiv.dataset.currentUserId}
+        recordOwnerID={recordDeletionAppDiv.dataset.recordOwnerId}
+        deletionRedirectionConfig={[
+          {
+            label: "I want to change the metadata (title, description, etc)",
+            name: "metadataChange",
+            message: "You can edit the record <a href='/'>here</a>",
+          },
+          {
+            label: "I forgot to submit to a community",
+            name: "communitySubmit",
+            message: "You can submit a published record to a community <a href='/'>here</a>",
+          },
+          {
+            label: "I want to get a Zenodo DOI for this record",
+            name: "doiRequest",
+            message: "Contact us on support",
+          },
+        ]}
+      />
+    </OverridableContext.Provider>,
+    element
   );
 }
 
