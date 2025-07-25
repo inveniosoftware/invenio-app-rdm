@@ -335,6 +335,8 @@ def load_custom_fields():
             # for each custom field. This is the label shown at the top of the upload
             # form
             field_error_label = field.get("props", {}).get("label")
+            # Add the field ID to the props to allow overriding the React widgets of custom fields
+            field["props"]["id"] = field["field"]
             if field_error_label:
                 error_labels[f"custom_fields.{field['field']}"] = field_error_label
             if getattr(field_instance, "relation_cls", None):
