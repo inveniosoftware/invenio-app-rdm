@@ -5,6 +5,7 @@
 // under the terms of the MIT License; see LICENSE file for more details.
 
 import React from "react";
+import PropTypes from "prop-types";
 import { Radio, FormField, TableRow, TableCell } from "semantic-ui-react";
 
 const DeletionRadioGroup = ({ index, row, state, onStateChange }) => {
