@@ -47,6 +47,7 @@ import Overridable from "react-overridable";
 import { CopyrightsField } from "@js/invenio_rdm_records/src/deposit/fields/CopyrightsField/CopyrightsField";
 import { ShareDraftButton } from "./ShareDraftButton";
 import { depositFormSectionsConfig, severityChecksConfig } from "./config";
+import { RecordDeletion } from "../components/RecordDeletion";
 
 export class RDMDepositForm extends Component {
   constructor(props) {
@@ -760,7 +761,17 @@ export class RDMDepositForm extends Component {
                       >
                         <Card>
                           <Card.Content>
-                            <DeleteButton fluid />
+                            <Grid relaxed>
+                              <Grid.Column width={16}>
+                                <DeleteButton fluid />
+                              </Grid.Column>
+
+                              {record.is_published && (
+                                <Grid.Column width={16} className="pt-0">
+                                  <RecordDeletion />
+                                </Grid.Column>
+                              )}
+                            </Grid>
                           </Card.Content>
                         </Card>
                       </Overridable>
