@@ -34,6 +34,7 @@ export class RecordManagement extends Component {
       currentUserId,
       recordOwnerID,
       groupsEnabled,
+      recordDeletionChecklist,
     } = this.props;
     const { error } = this.state;
     const { id: recid } = record;
@@ -52,6 +53,7 @@ export class RecordManagement extends Component {
               recid={recid}
               recordOwnerID={recordOwnerID}
               permissions={permissions}
+              recordDeletionChecklist={recordDeletionChecklist}
             />
           </Grid.Column>
         )}
@@ -126,4 +128,9 @@ RecordManagement.propTypes = {
   isPreviewSubmissionRequest: PropTypes.bool.isRequired,
   currentUserId: PropTypes.string.isRequired,
   recordOwnerID: PropTypes.string.isRequired,
+  recordDeletionChecklist: PropTypes.array,
+};
+
+RecordManagement.defaultProps = {
+  recordDeletionChecklist: [],
 };

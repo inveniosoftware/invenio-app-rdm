@@ -113,6 +113,7 @@ export class RDMDepositForm extends Component {
       filesLocked,
       recordRestrictionGracePeriod,
       allowRecordRestriction,
+      recordDeletionChecklist,
       groupsEnabled,
       allowEmptyFiles,
       useUppy,
@@ -136,6 +137,7 @@ export class RDMDepositForm extends Component {
         filesLocked={filesLocked}
         recordRestrictionGracePeriod={recordRestrictionGracePeriod}
         allowRecordRestriction={allowRecordRestriction}
+        recordDeletionChecklist={recordDeletionChecklist}
         groupsEnabled={groupsEnabled}
         allowEmptyFiles={allowEmptyFiles}
         customFieldsUI={customFieldsUI}
@@ -768,7 +770,9 @@ export class RDMDepositForm extends Component {
 
                               {record.is_published && (
                                 <Grid.Column width={16} className="pt-0">
-                                  <RecordDeletion />
+                                  <RecordDeletion
+                                    recordDeletionChecklist={recordDeletionChecklist}
+                                  />
                                 </Grid.Column>
                               )}
                             </Grid>
@@ -792,6 +796,7 @@ RDMDepositForm.propTypes = {
   config: PropTypes.object.isRequired,
   recordRestrictionGracePeriod: PropTypes.number.isRequired,
   allowRecordRestriction: PropTypes.bool.isRequired,
+  recordDeletionChecklist: PropTypes.array,
   record: PropTypes.object.isRequired,
   preselectedCommunity: PropTypes.object,
   files: PropTypes.object,
@@ -808,4 +813,5 @@ RDMDepositForm.defaultProps = {
   filesLocked: false,
   allowEmptyFiles: true,
   useUppy: false,
+  recordDeletionChecklist: [],
 };
