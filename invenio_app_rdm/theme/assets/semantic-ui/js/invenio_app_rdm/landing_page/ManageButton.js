@@ -10,8 +10,9 @@ import { i18next } from "@translations/invenio_app_rdm/i18next";
 import PropTypes from "prop-types";
 import { http } from "react-invenio-forms";
 import { APIRoutes } from "../administration/users/api/routes";
+import { RecordDeletion } from "../components/RecordDeletion";
 
-export const ManageButton = ({ recid, recordOwnerID }) => {
+export const ManageButton = ({ recid, recordOwnerID, permissions }) => {
   return (
     <Dropdown
       fluid
@@ -23,22 +24,55 @@ export const ManageButton = ({ recid, recordOwnerID }) => {
       className="icon text-align-center"
     >
       <Dropdown.Menu>
-        <Dropdown.Item
-          as="a"
-          href={`/administration/records?q=id:${recid}`}
-          target="_blank"
-          key="manage_record"
-          text={i18next.t("Manage record")}
-        />
-        <Dropdown.Item
-          as="a"
-          href={`/administration/users?q=id:${recordOwnerID}`}
-          target="_blank"
-          key="manage_user"
-          text={i18next.t("Manage user")}
-        />
-        <Dropdown.Divider />
-        {recordOwnerID && <BlockUserItem recordOwnerID={recordOwnerID} />}
+        {(permissions.can_immediately_delete || permissions.can_request_deletion) && (
+          <>
+            <Dropdown.Item>
+              <RecordDeletion
+                permissions={permissions}
+                deletionRedirectionConfig={[
+                  {
+                    label: "I want to change the metadata (title, description, etc)",
+                    name: "metadataChange",
+                    message: "You can edit the record <a href='/'>here</a>",
+                  },
+                  {
+                    label: "I forgot to submit to a community",
+                    name: "communitySubmit",
+                    message:
+                      "You can submit a published record to a community <a href='/'>here</a>",
+                  },
+                  {
+                    label: "I want to get a Zenodo DOI for this record",
+                    name: "doiRequest",
+                    message: "Contact us on support",
+                  },
+                ]}
+              />
+            </Dropdown.Item>
+
+            {permissions.can_moderate && <Dropdown.Divider />}
+          </>
+        )}
+        {permissions.can_moderate && (
+          <>
+            <Dropdown.Item
+              as="a"
+              href={`/administration/records?q=id:${recid}`}
+              target="_blank"
+              key="manage_record"
+              text={i18next.t("Manage record")}
+            />
+            <Dropdown.Item
+              as="a"
+              href={`/administration/users?q=id:${recordOwnerID}`}
+              target="_blank"
+              key="manage_user"
+              text={i18next.t("Manage user")}
+            />
+            <Dropdown.Divider />
+            {recordOwnerID && <BlockUserItem recordOwnerID={recordOwnerID} />}
+          </>
+        )}
       </Dropdown.Menu>
     </Dropdown>
   );
@@ -47,6 +81,7 @@ export const ManageButton = ({ recid, recordOwnerID }) => {
 ManageButton.propTypes = {
   recid: PropTypes.string.isRequired,
   recordOwnerID: PropTypes.string.isRequired,
+  permissions: PropTypes.object.isRequired,
 };
 
 const BlockUserItem = ({ recordOwnerID }) => {
