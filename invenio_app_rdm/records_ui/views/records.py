@@ -243,6 +243,8 @@ def record_detail(
                 "view",
                 "media_read_files",
                 "moderate",
+                "request_deletion",
+                "immediately_delete",
             ]
         ),
         custom_fields_ui=custom_fields["ui"],
