@@ -18,6 +18,7 @@ import Overridable, { OverridableContext, overrideStore } from "react-overridabl
 
 const recordManagementAppDiv = document.getElementById("recordManagement");
 const recordManagementMobile = document.getElementById("recordManagementMobile");
+
 const recordVersionsAppDiv = document.getElementById("recordVersions");
 const recordCitationAppDiv = document.getElementById("recordCitation");
 const recordExportDownloadDiv = document.getElementById("recordExportDownload");
@@ -45,6 +46,9 @@ function renderRecordManagement(element) {
         currentUserId={recordManagementAppDiv.dataset.currentUserId}
         recordOwnerID={recordManagementAppDiv.dataset.recordOwnerId}
         groupsEnabled={JSON.parse(recordManagementAppDiv.dataset.groupsEnabled)}
+        recordDeletionChecklist={JSON.parse(
+          recordManagementAppDiv.dataset.recordDeletionChecklist
+        )}
       />
     </OverridableContext.Provider>,
     element

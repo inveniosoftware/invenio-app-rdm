@@ -36,12 +36,12 @@ import DeletionRadioGroup from "./DeletionRadioGroup";
 export class DeletionModal extends Component {
   constructor(props) {
     super(props);
-    const { record, deletionRedirectionConfig } = this.props;
+    const { record, recordDeletionChecklist } = this.props;
     this.state = {
       record: record,
       loading: false,
       error: undefined,
-      checkboxes: Array(deletionRedirectionConfig.length).fill(undefined),
+      checkboxes: Array(recordDeletionChecklist.length).fill(undefined),
     };
   }
 
@@ -91,7 +91,7 @@ export class DeletionModal extends Component {
   };
 
   render() {
-    const { open, handleClose, deletionRedirectionConfig } = this.props;
+    const { open, handleClose, recordDeletionChecklist } = this.props;
     const { loading, error, checkboxes } = this.state;
 
     return (
@@ -99,7 +99,7 @@ export class DeletionModal extends Component {
         id="InvenioAppRDM.RecordDeletionModal.Layout"
         handleClose={handleClose}
         handleSubmit={this.handleSubmit}
-        deletionRedirectionConfig={deletionRedirectionConfig}
+        recordDeletionChecklist={recordDeletionChecklist}
         open={open}
       >
         <Modal
@@ -127,11 +127,11 @@ export class DeletionModal extends Component {
             </Overridable>
             <Overridable
               id="InvenioAppRDM.RecordDeletionModal.Table"
-              deletionRedirectionConfig={deletionRedirectionConfig}
+              recordDeletionChecklist={recordDeletionChecklist}
               handleRadioUpdate={this.handleRadioUpdate}
               checkboxes={checkboxes}
             >
-              {deletionRedirectionConfig.length > 0 && (
+              {recordDeletionChecklist.length > 0 && (
                 <Table basic="very" unstackable>
                   <TableHeader>
                     <TableRow>
@@ -141,7 +141,7 @@ export class DeletionModal extends Component {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {deletionRedirectionConfig.map((row, index) => (
+                    {recordDeletionChecklist.map((row, index) => (
                       <DeletionRadioGroup
                         index={index}
                         row={row}
@@ -264,9 +264,9 @@ DeletionModal.propTypes = {
   open: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
   permissions: PropTypes.object.isRequired,
-  deletionRedirectionConfig: PropTypes.array,
+  recordDeletionChecklist: PropTypes.array.isRequired,
 };
 
 DeletionModal.defaultProps = {
-  deletionRedirectionConfig: [],
+  recordDeletionChecklist: [],
 };
