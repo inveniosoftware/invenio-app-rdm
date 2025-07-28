@@ -12,7 +12,12 @@ import { http } from "react-invenio-forms";
 import { APIRoutes } from "../administration/users/api/routes";
 import { RecordDeletion } from "../components/RecordDeletion";
 
-export const ManageButton = ({ recid, recordOwnerID, permissions }) => {
+export const ManageButton = ({
+  recid,
+  recordOwnerID,
+  permissions,
+  recordDeletionChecklist,
+}) => {
   return (
     <Dropdown
       fluid
@@ -29,24 +34,7 @@ export const ManageButton = ({ recid, recordOwnerID, permissions }) => {
             <Dropdown.Item>
               <RecordDeletion
                 permissions={permissions}
-                deletionRedirectionConfig={[
-                  {
-                    label: "I want to change the metadata (title, description, etc)",
-                    name: "metadataChange",
-                    message: "You can edit the record <a href='/'>here</a>",
-                  },
-                  {
-                    label: "I forgot to submit to a community",
-                    name: "communitySubmit",
-                    message:
-                      "You can submit a published record to a community <a href='/'>here</a>",
-                  },
-                  {
-                    label: "I want to get a Zenodo DOI for this record",
-                    name: "doiRequest",
-                    message: "Contact us on support",
-                  },
-                ]}
+                recordDeletionChecklist={recordDeletionChecklist}
               />
             </Dropdown.Item>
 
@@ -82,6 +70,12 @@ ManageButton.propTypes = {
   recid: PropTypes.string.isRequired,
   recordOwnerID: PropTypes.string.isRequired,
   permissions: PropTypes.object.isRequired,
+  recordDeletionChecklist: PropTypes.array,
+};
+
+ManageButton.defaultProps = {
+  allowEmptyFiles: true,
+  recordDeletionChecklist: [],
 };
 
 const BlockUserItem = ({ recordOwnerID }) => {
