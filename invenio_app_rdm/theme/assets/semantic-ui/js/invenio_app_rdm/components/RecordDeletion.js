@@ -28,7 +28,6 @@ export const RecordDeletion = ({
         trigger={
           <Button
             fluid
-            basic
             onClick={handleOpen}
             disabled={disabled}
             className="negative"

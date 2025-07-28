@@ -131,26 +131,28 @@ export class DeletionModal extends Component {
               handleRadioUpdate={this.handleRadioUpdate}
               checkboxes={checkboxes}
             >
-              <Table basic="very" unstackable>
-                <TableHeader>
-                  <TableRow>
-                    <TableHeaderCell />
-                    <TableHeaderCell>Yes</TableHeaderCell>
-                    <TableHeaderCell>No</TableHeaderCell>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {deletionRedirectionConfig.map((row, index) => (
-                    <DeletionRadioGroup
-                      index={index}
-                      row={row}
-                      key={row.name}
-                      state={checkboxes}
-                      onStateChange={this.handleRadioUpdate}
-                    />
-                  ))}
-                </TableBody>
-              </Table>
+              {deletionRedirectionConfig.length > 0 && (
+                <Table basic="very" unstackable>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHeaderCell />
+                      <TableHeaderCell>Yes</TableHeaderCell>
+                      <TableHeaderCell>No</TableHeaderCell>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {deletionRedirectionConfig.map((row, index) => (
+                      <DeletionRadioGroup
+                        index={index}
+                        row={row}
+                        key={row.name}
+                        state={checkboxes}
+                        onStateChange={this.handleRadioUpdate}
+                      />
+                    ))}
+                  </TableBody>
+                </Table>
+              )}
             </Overridable>
             <Overridable
               id="InvenioAppRDM.RecordDeletionModal.Formik"
