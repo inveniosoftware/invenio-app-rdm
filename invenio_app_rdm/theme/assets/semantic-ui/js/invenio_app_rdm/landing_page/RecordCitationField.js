@@ -32,12 +32,12 @@ export class RecordCitationField extends Component {
     this.getCitation(recordLinks, defaultStyle, includeDeleted);
   }
 
-  componentWillUnmount() {
-    this.cancellableFetchCitation?.cancel();
-  }
-
   async componentDidUpdate() {
     await window.MathJax?.typesetPromise();
+  }
+
+  componentWillUnmount() {
+    this.cancellableFetchCitation?.cancel();
   }
 
   placeholderLoader = () => {
