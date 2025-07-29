@@ -75,23 +75,10 @@ export class DeletionModal extends Component {
     this.cancellableAction = withCancel(
       http.post(record.links.request_deletion, payload)
     );
-
-    try {
-      const response = await this.cancellableAction.promise;
-      this.setState({ loading: false, error: undefined });
-    } catch (error) {
-      if (error === "UNMOUNTED") return;
-
-      this.setState({
-        error: error?.response?.data?.message || error?.message,
-        loading: false,
-      });
-      console.error(error);
-    }
   };
 
   render() {
-    const { open, handleClose, recordDeletionChecklist } = this.props;
+    const { open, handleClose, recordDeletionChecklist, options } = this.props;
     const { loading, error, checkboxes } = this.state;
 
     return (
@@ -174,33 +161,7 @@ export class DeletionModal extends Component {
                         fieldPath="reason"
                         name="reason"
                         label={i18next.t("I want to delete this record because")}
-                        options={[
-                          {
-                            key: "duplicate",
-                            text: "Duplicate of another record",
-                            value: "duplicate",
-                          },
-                          {
-                            key: "retracted",
-                            text: "Retraction/Withdrawal of a record",
-                            value: "retracted",
-                          },
-                          {
-                            key: "test-record",
-                            text: "Test upload of a record",
-                            value: "test-record",
-                          },
-                          {
-                            key: "copyright",
-                            text: "Copyright infringement",
-                            value: "copyright",
-                          },
-                          {
-                            key: "personal-data",
-                            text: "Personal data issue",
-                            value: "personal-data",
-                          },
-                        ]}
+                        options={options}
                         required
                         disabled={checkboxes.some((x) => x || x === undefined)}
                       />
@@ -263,8 +224,8 @@ DeletionModal.propTypes = {
   record: PropTypes.object.isRequired,
   open: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
-  permissions: PropTypes.object.isRequired,
-  recordDeletionChecklist: PropTypes.array.isRequired,
+  recordDeletionChecklist: PropTypes.array,
+  options: PropTypes.array.isRequired,
 };
 
 DeletionModal.defaultProps = {

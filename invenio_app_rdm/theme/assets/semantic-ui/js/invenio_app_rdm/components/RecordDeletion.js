@@ -15,6 +15,7 @@ export const RecordDeletion = ({
   record,
   permissions,
   recordDeletionChecklist,
+  options,
 }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const handleOpen = () => setModalOpen(true);
@@ -44,6 +45,7 @@ export const RecordDeletion = ({
         record={record}
         permissions={permissions}
         recordDeletionChecklist={recordDeletionChecklist}
+        options={options}
       />
     </>
   );
@@ -54,6 +56,7 @@ RecordDeletion.propTypes = {
   record: PropTypes.object.isRequired,
   permissions: PropTypes.object.isRequired,
   recordDeletionChecklist: PropTypes.array,
+  options: PropTypes.array.isRequired,
 };
 
 RecordDeletion.defaultProps = {
