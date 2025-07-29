@@ -772,6 +772,7 @@ export class RDMDepositForm extends Component {
                                 <Grid.Column width={16} className="pt-0">
                                   <RecordDeletion
                                     recordDeletionChecklist={recordDeletionChecklist}
+                                    options={this.vocabularies.metadata.removal_reasons}
                                   />
                                 </Grid.Column>
                               )}
@@ -807,11 +808,11 @@ RDMDepositForm.propTypes = {
 };
 
 RDMDepositForm.defaultProps = {
+  recordDeletionChecklist: [],
   preselectedCommunity: undefined,
-  permissions: null,
   files: null,
+  permissions: null,
   filesLocked: false,
   allowEmptyFiles: true,
   useUppy: false,
-  recordDeletionChecklist: [],
 };
