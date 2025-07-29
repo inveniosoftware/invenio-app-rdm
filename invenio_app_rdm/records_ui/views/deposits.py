@@ -207,10 +207,13 @@ class VocabulariesOptions:
             for hit in subset_resource_types.to_dict()["hits"]["hits"]
         ]
 
-    def _dump_vocabulary_w_basic_fields(self, vocabulary_type):
+    def _dump_vocabulary_w_basic_fields(self, vocabulary_type, extra_filter=None):
         """Dump vocabulary with id and title field."""
         results = vocabulary_service.read_all(
-            g.identity, fields=["id", "title"], type=vocabulary_type
+            g.identity,
+            fields=["id", "title"],
+            type=vocabulary_type,
+            extra_filter=extra_filter,
         )
         return [
             {
@@ -303,6 +306,13 @@ class VocabulariesOptions:
             "scheme": self.identifier_schemes(),
         }
 
+    def removal_reasons(self):
+        """Dump removal reasons vocabulary."""
+        self._vocabularies["removal_reasons"] = self._dump_vocabulary_w_basic_fields(
+            "removalreasons", extra_filter=dsl.Q("term", tags="deletion-request")
+        )
+        return self._vocabularies["removal_reasons"]
+
     def dump(self):
         """Dump into dict."""
         # TODO: Nest vocabularies inside "metadata" key so that frontend dumber
@@ -314,6 +324,7 @@ class VocabulariesOptions:
         self.contributor_roles()
         self.subjects()
         self.identifiers()
+        self.removal_reasons()
         # We removed
         # vocabularies["relation_type"] = _dump_relation_types_vocabulary()
         return self._vocabularies
