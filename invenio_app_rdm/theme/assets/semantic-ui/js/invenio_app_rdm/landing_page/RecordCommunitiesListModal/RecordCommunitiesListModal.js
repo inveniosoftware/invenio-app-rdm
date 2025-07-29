@@ -13,9 +13,9 @@ import { RecordCommunitiesSearch } from "./RecordCommunitiesSearch";
 export class RecordCommunitiesListModal extends Component {
   constructor(props) {
     super(props);
-    const { record } = this.props;
+    const { recordParent } = this.props;
     this.state = {
-      recordParent: record.parent,
+      recordParent: recordParent,
     };
   }
 
@@ -77,7 +77,7 @@ RecordCommunitiesListModal.propTypes = {
   handleOnClose: PropTypes.func.isRequired,
   handleOnOpen: PropTypes.func.isRequired,
   permissions: PropTypes.object.isRequired,
-  record: PropTypes.object.isRequired,
+  recordParent: PropTypes.object.isRequired,
 };
 
 RecordCommunitiesListModal.defaultProps = {
