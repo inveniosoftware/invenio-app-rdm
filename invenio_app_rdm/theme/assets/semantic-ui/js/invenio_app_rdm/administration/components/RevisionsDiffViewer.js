@@ -24,20 +24,6 @@ export class RevisionsDiffViewer extends Component {
       ignoreCaseForKey: false,
       recursiveEqual: true,
     });
-
-    this.viewerProps = {
-      indent: 4,
-      lineNumbers: true,
-      highlightInlineDiff: true,
-      inlineDiffOptions: {
-        mode: "word",
-        wordSeparator: " ",
-      },
-      hideUnchangedLines: true,
-      syntaxHighlight: false,
-      virtual: true,
-    };
-
     this.state = {
       currentDiff: undefined,
     };
@@ -58,13 +44,13 @@ export class RevisionsDiffViewer extends Component {
   };
 
   render() {
-    const { currentDiff } = this.state;
+    const { currentDiff, viewerProps } = this.state;
 
     return currentDiff ? (
       <Grid>
         <Grid.Column width={16}>
           <Container fluid>
-            <Viewer diff={currentDiff} {...this.viewerProps} />
+            <Viewer diff={currentDiff} {...viewerProps} />
           </Container>
         </Grid.Column>
       </Grid>
@@ -79,4 +65,16 @@ RevisionsDiffViewer.propTypes = {
 
 RevisionsDiffViewer.defaultProps = {
   diff: {},
+  viewerProps: {
+    indent: 4,
+    lineNumbers: true,
+    highlightInlineDiff: true,
+    inlineDiffOptions: {
+      mode: "word",
+      wordSeparator: " ",
+    },
+    hideUnchangedLines: true,
+    syntaxHighlight: false,
+    virtual: true,
+  },
 };

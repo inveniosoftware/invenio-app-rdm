@@ -24,6 +24,14 @@ export class ViewRecentChanges extends Component {
     };
   }
 
+  componentDidMount() {
+    this.fetchPreviousRevision();
+  }
+
+  componentWillUnmount() {
+    this.cancellableAction && this.cancellableAction.cancel();
+  }
+
   async fetchPreviousRevision() {
     const { resource } = this.props;
     const {
@@ -58,14 +66,6 @@ export class ViewRecentChanges extends Component {
       this.setState({ error: error, loading: false });
       console.error(error);
     }
-  }
-
-  componentDidMount() {
-    this.fetchPreviousRevision();
-  }
-
-  componentWillUnmount() {
-    this.cancellableAction && this.cancellableAction.cancel();
   }
 
   handleModalClose = () => {

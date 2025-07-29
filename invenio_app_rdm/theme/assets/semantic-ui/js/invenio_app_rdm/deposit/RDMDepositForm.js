@@ -796,4 +796,5 @@ RDMDepositForm.defaultProps = {
   files: null,
   filesLocked: false,
   allowEmptyFiles: true,
+  useUppy: false,
 };
