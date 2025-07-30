@@ -36,16 +36,17 @@ import DeletionRadioGroup from "./DeletionRadioGroup";
 export class DeletionModal extends Component {
   constructor(props) {
     super(props);
-    const { record, recordDeletionChecklist } = this.props;
+    const { recordDeletionChecklist } = this.props;
     this.state = {
-      record: record,
       loading: false,
       error: undefined,
       checkboxes: Array(recordDeletionChecklist.length).fill(undefined),
+      messages: [],
     };
   }
 
   handleRadioUpdate = (index, value) => {
+    const { recordDeletionChecklist } = this.props;
     const { checkboxes } = this.state;
     const nextCheckboxes = checkboxes.map((c, i) => {
       if (i === index) {
@@ -54,7 +55,11 @@ export class DeletionModal extends Component {
         return c;
       }
     });
-    this.setState({ checkboxes: nextCheckboxes });
+    const filteredChecklist = recordDeletionChecklist.filter((_, index) => {
+      return nextCheckboxes[index];
+    });
+    const newMessages = filteredChecklist.map(x => x["message"])
+    this.setState({ checkboxes: nextCheckboxes, messages: newMessages });
   };
 
   deletionRequestSchema = Yup.object({
@@ -78,8 +83,8 @@ export class DeletionModal extends Component {
   };
 
   render() {
-    const { open, handleClose, recordDeletionChecklist, options } = this.props;
-    const { loading, error, checkboxes } = this.state;
+    const { record, open, handleClose, recordDeletionChecklist, options } = this.props;
+    const { loading, error, checkboxes, messages } = this.state;
 
     return (
       <Overridable
@@ -104,7 +109,11 @@ export class DeletionModal extends Component {
             <Overridable id="InvenioAppRDM.RecordDeletionModal.Message">
               <Message negative>
                 <p>
-                  Deleting this record will delete <b>2</b> files.
+                  Deleting this record will delete{" "}
+                  <b>
+                    {record.files.count} file{record.files.count !== 1 ? "s" : ""}
+                  </b>
+                  .
                 </p>
                 <p>
                   <b>Zenodo DOIs cannot be reused</b> and the DOI will resolve to a{" "}
@@ -119,26 +128,41 @@ export class DeletionModal extends Component {
               checkboxes={checkboxes}
             >
               {recordDeletionChecklist.length > 0 && (
-                <Table basic="very" unstackable>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHeaderCell />
-                      <TableHeaderCell>Yes</TableHeaderCell>
-                      <TableHeaderCell>No</TableHeaderCell>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {recordDeletionChecklist.map((row, index) => (
-                      <DeletionRadioGroup
-                        index={index}
-                        row={row}
-                        key={row.name}
-                        state={checkboxes}
-                        onStateChange={this.handleRadioUpdate}
-                      />
-                    ))}
-                  </TableBody>
-                </Table>
+                <>
+                  <Table basic="very" unstackable>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHeaderCell />
+                        <TableHeaderCell>Yes</TableHeaderCell>
+                        <TableHeaderCell>No</TableHeaderCell>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {recordDeletionChecklist.map((row, index) => (
+                        <DeletionRadioGroup
+                          index={index}
+                          row={row}
+                          key={row.name}
+                          state={checkboxes}
+                          onStateChange={this.handleRadioUpdate}
+                        />
+                      ))}
+                    </TableBody>
+                  </Table>
+                  {messages.length > 0 && (
+                    <Message info>
+                      {messages.length == 1 ? (
+                        messages[0]
+                      ) : (
+                        <Message.List>
+                          {messages.map((message) => (
+                            <Message.Item key={message}>{message}</Message.Item>
+                          ))}
+                        </Message.List>
+                      )}
+                    </Message>
+                  )}
+                </>
               )}
             </Overridable>
             <Overridable

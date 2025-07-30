@@ -50,7 +50,7 @@ export class RecordManagement extends Component {
           permissions.can_moderate) && (
           <Grid.Column className="pb-5">
             <ManageButton
-              recid={recid}
+              record={record}
               recordOwnerID={recordOwnerID}
               permissions={permissions}
               recordDeletionChecklist={recordDeletionChecklist}

@@ -771,6 +771,7 @@ export class RDMDepositForm extends Component {
                               {record.is_published && (
                                 <Grid.Column width={16} className="pt-0">
                                   <RecordDeletion
+                                    record={record}
                                     recordDeletionChecklist={recordDeletionChecklist}
                                     options={this.vocabularies.metadata.removal_reasons}
                                   />
