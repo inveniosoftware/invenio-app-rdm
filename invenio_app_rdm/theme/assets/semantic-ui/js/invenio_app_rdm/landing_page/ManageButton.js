@@ -32,7 +32,7 @@ const fetchOptions = async () => {
 };
 
 export const ManageButton = ({
-  recid,
+  record,
   recordOwnerID,
   permissions,
   recordDeletionChecklist,
@@ -58,6 +58,7 @@ export const ManageButton = ({
           <>
             <Dropdown.Item>
               <RecordDeletion
+                record={record}
                 permissions={permissions}
                 recordDeletionChecklist={recordDeletionChecklist}
                 options={options}
@@ -71,7 +72,7 @@ export const ManageButton = ({
           <>
             <Dropdown.Item
               as="a"
-              href={`/administration/records?q=id:${recid}`}
+              href={`/administration/records?q=id:${record["id"]}`}
               target="_blank"
               key="manage_record"
               text={i18next.t("Manage record")}
@@ -93,7 +94,7 @@ export const ManageButton = ({
 };
 
 ManageButton.propTypes = {
-  recid: PropTypes.string.isRequired,
+  record: PropTypes.object.isRequired,
   recordOwnerID: PropTypes.string.isRequired,
   permissions: PropTypes.object.isRequired,
   recordDeletionChecklist: PropTypes.array,

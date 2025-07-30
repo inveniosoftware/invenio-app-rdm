@@ -40,9 +40,9 @@ export const RecordDeletion = ({
         }
       />
       <DeletionModal
+        record={record}
         open={modalOpen}
         handleClose={handleClose}
-        record={record}
         permissions={permissions}
         recordDeletionChecklist={recordDeletionChecklist}
         options={options}
