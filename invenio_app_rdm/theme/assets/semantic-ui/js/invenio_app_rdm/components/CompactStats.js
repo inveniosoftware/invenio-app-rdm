@@ -10,11 +10,10 @@ import React from "react";
 import { Icon, Label, Popup } from "semantic-ui-react";
 
 export const CompactStats = ({ uniqueViews, uniqueDownloads }) => {
-
   const userLang = i18next.language;
   const formatted = {
     uniqueViews: new Intl.NumberFormat(userLang).format(uniqueViews),
-    uniqueDownloads: new Intl.NumberFormat(userLang).format(uniqueDownloads)
+    uniqueDownloads: new Intl.NumberFormat(userLang).format(uniqueDownloads),
   };
 
   return (
