@@ -10,6 +10,13 @@
 Changes
 =======
 
+Version v13.0.1 (released 2025-07-31)
+
+- fix(deposits): update doi default option only if managed
+    * Fix logic for selecting default DOI option in deposit form when creating new versions
+    * Only set managed DOI provider as default when external and not_needed are not in allowed providers
+    * Improves user experience when versioning records with DataCite DOIs
+
 Version v13.0.0 (released 2025-07-23)
 
 - Official release of InvenioRDM v13. Contains all pre-release changes. See
