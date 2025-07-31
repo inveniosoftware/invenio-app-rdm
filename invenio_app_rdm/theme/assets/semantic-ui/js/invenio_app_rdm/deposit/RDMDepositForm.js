@@ -47,6 +47,7 @@ import Overridable from "react-overridable";
 import { CopyrightsField } from "@js/invenio_rdm_records/src/deposit/fields/CopyrightsField/CopyrightsField";
 import { ShareDraftButton } from "./ShareDraftButton";
 import { depositFormSectionsConfig, severityChecksConfig } from "./config";
+import { RecordDeletion } from "../components/RecordDeletion";
 
 export class RDMDepositForm extends Component {
   constructor(props) {
@@ -112,6 +113,7 @@ export class RDMDepositForm extends Component {
       filesLocked,
       recordRestrictionGracePeriod,
       allowRecordRestriction,
+      recordDeletionChecklist,
       groupsEnabled,
       allowEmptyFiles,
       useUppy,
@@ -135,6 +137,7 @@ export class RDMDepositForm extends Component {
         filesLocked={filesLocked}
         recordRestrictionGracePeriod={recordRestrictionGracePeriod}
         allowRecordRestriction={allowRecordRestriction}
+        recordDeletionChecklist={recordDeletionChecklist}
         groupsEnabled={groupsEnabled}
         allowEmptyFiles={allowEmptyFiles}
         customFieldsUI={customFieldsUI}
@@ -760,7 +763,21 @@ export class RDMDepositForm extends Component {
                       >
                         <Card>
                           <Card.Content>
-                            <DeleteButton fluid />
+                            <Grid relaxed>
+                              <Grid.Column width={16}>
+                                <DeleteButton fluid />
+                              </Grid.Column>
+
+                              {record.is_published && (
+                                <Grid.Column width={16} className="pt-0">
+                                  <RecordDeletion
+                                    record={record}
+                                    recordDeletionChecklist={recordDeletionChecklist}
+                                    options={this.vocabularies.metadata.removal_reasons}
+                                  />
+                                </Grid.Column>
+                              )}
+                            </Grid>
                           </Card.Content>
                         </Card>
                       </Overridable>
@@ -781,6 +798,7 @@ RDMDepositForm.propTypes = {
   config: PropTypes.object.isRequired,
   recordRestrictionGracePeriod: PropTypes.number.isRequired,
   allowRecordRestriction: PropTypes.bool.isRequired,
+  recordDeletionChecklist: PropTypes.array,
   record: PropTypes.object.isRequired,
   preselectedCommunity: PropTypes.object,
   files: PropTypes.object,
@@ -791,9 +809,11 @@ RDMDepositForm.propTypes = {
 };
 
 RDMDepositForm.defaultProps = {
+  recordDeletionChecklist: [],
   preselectedCommunity: undefined,
-  permissions: null,
   files: null,
+  permissions: null,
   filesLocked: false,
   allowEmptyFiles: true,
+  useUppy: false,
 };
