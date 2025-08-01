@@ -10,6 +10,12 @@
 Changes
 =======
 
+Version v14.0.0b0.dev0 (released 2025-08-01)
+
+- setup: bump invenio-communities and invenio-rdm-records 
+- theme: add search overrides for reviewers search results
+- requests: add request action_accept permissions to UI
+
 Version v13.0.0b4.dev2 (released 2025-06-13)
 
 - checks: integrate into community requests flow
