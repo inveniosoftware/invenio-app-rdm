@@ -36,17 +36,17 @@ import DeletionRadioGroup from "./DeletionRadioGroup";
 export class DeletionModal extends Component {
   constructor(props) {
     super(props);
-    const { recordDeletionChecklist } = this.props;
+    const { recordDeletion } = this.props;
     this.state = {
       loading: false,
       error: undefined,
-      checkboxes: Array(recordDeletionChecklist.length).fill(undefined),
+      checkboxes: Array(recordDeletion["checklist"].length).fill(undefined),
       messages: [],
     };
   }
 
   handleRadioUpdate = (index, value) => {
-    const { recordDeletionChecklist } = this.props;
+    const { recordDeletion } = this.props;
     const { checkboxes } = this.state;
     const nextCheckboxes = checkboxes.map((c, i) => {
       if (i === index) {
@@ -55,10 +55,10 @@ export class DeletionModal extends Component {
         return c;
       }
     });
-    const filteredChecklist = recordDeletionChecklist.filter((_, index) => {
+    const filteredChecklist = recordDeletion["checklist"].filter((_, index) => {
       return nextCheckboxes[index];
     });
-    const newMessages = filteredChecklist.map(x => x["message"])
+    const newMessages = filteredChecklist.map((x) => x["message"]);
     this.setState({ checkboxes: nextCheckboxes, messages: newMessages });
   };
 
@@ -76,22 +76,37 @@ export class DeletionModal extends Component {
       reason: values.reason,
       comment: values.comment,
     };
-
-    this.cancellableAction = withCancel(
-      http.post(record.links.request_deletion, payload)
-    );
+    if ("request_deletion" in record.links) {
+      this.cancellableAction = withCancel(
+        http.post(record.links.request_deletion, payload)
+      );
+    } else {
+      this.setState({ error: "Could not submit deletion request", loading: false });
+    }
   };
 
   render() {
-    const { record, open, handleClose, recordDeletionChecklist, options } = this.props;
+    const { open, handleClose, recordDeletion, options } = this.props;
     const { loading, error, checkboxes, messages } = this.state;
+
+    const { checklist } = recordDeletion;
+
+    const immediateDeletionAllowed =
+      recordDeletion["recordDeletion"]["immediate_deletion"]["allowed"];
+
+    const deletionButtonText = immediateDeletionAllowed
+      ? i18next.t("Delete record immediately")
+      : i18next.t("Request record deletion");
+
+    const files = recordDeletion["context"]["files"];
+    const internalDoi = recordDeletion["context"]["internalDoi"];
 
     return (
       <Overridable
         id="InvenioAppRDM.RecordDeletionModal.Layout"
         handleClose={handleClose}
         handleSubmit={this.handleSubmit}
-        recordDeletionChecklist={recordDeletionChecklist}
+        recordDeletion={recordDeletion}
         open={open}
       >
         <Modal
@@ -111,25 +126,28 @@ export class DeletionModal extends Component {
                 <p>
                   Deleting this record will delete{" "}
                   <b>
-                    {record.files.count} file{record.files.count !== 1 ? "s" : ""}
+                    {files} file{files !== 1 ? "s" : ""}
                   </b>
                   .
                 </p>
-                <p>
-                  <b>Zenodo DOIs cannot be reused</b> and the DOI will resolve to a{" "}
-                  <a href="/">tombstone page</a>
-                </p>
+                {internalDoi && (
+                  <p>
+                    The <b>DOI cannot be reused</b> and the DOI will resolve to a
+                    tombstone page
+                  </p>
+                )}
               </Message>
             </Overridable>
             <Overridable
               id="InvenioAppRDM.RecordDeletionModal.Table"
-              recordDeletionChecklist={recordDeletionChecklist}
+              recordDeletion={recordDeletion}
               handleRadioUpdate={this.handleRadioUpdate}
               checkboxes={checkboxes}
             >
-              {recordDeletionChecklist.length > 0 && (
+              {checklist.length > 0 && (
                 <>
-                  <Table basic="very" unstackable>
+                  <b>Record deletion checklist:</b>
+                  <Table basic="very" unstackable className="mt-0">
                     <TableHeader>
                       <TableRow>
                         <TableHeaderCell />
@@ -138,7 +156,7 @@ export class DeletionModal extends Component {
                       </TableRow>
                     </TableHeader>
                     <TableBody>
-                      {recordDeletionChecklist.map((row, index) => (
+                      {checklist.map((row, index) => (
                         <DeletionRadioGroup
                           index={index}
                           row={row}
@@ -151,7 +169,7 @@ export class DeletionModal extends Component {
                   </Table>
                   {messages.length > 0 && (
                     <Message info>
-                      {messages.length == 1 ? (
+                      {messages.length === 1 ? (
                         messages[0]
                       ) : (
                         <Message.List>
@@ -213,7 +231,7 @@ export class DeletionModal extends Component {
                         className="left"
                       />
                       <Button
-                        content={i18next.t("Delete record immediately")}
+                        content={deletionButtonText}
                         className="negative right floated"
                         icon="trash alternate outline"
                         labelPosition="left"
@@ -232,9 +250,14 @@ export class DeletionModal extends Component {
           </ModalContent>
           <Overridable id="InvenioAppRDM.RecordDeletionModal.ModalActions">
             <ModalActions>
-              <p size="tiny">
-                Zenodo has a <a href="/">30 day grace period</a>. 28 days remain to
-                delete this record immediately
+              <p className="text-align-left font-size-small">
+                {immediateDeletionAllowed
+                  ? recordDeletion["recordDeletion"]["immediate_deletion"]["policy"][
+                      "description"
+                    ]
+                  : recordDeletion["recordDeletion"]["request_deletion"]["policy"][
+                      "description"
+                    ]}
               </p>
             </ModalActions>
           </Overridable>
@@ -248,10 +271,6 @@ DeletionModal.propTypes = {
   record: PropTypes.object.isRequired,
   open: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
-  recordDeletionChecklist: PropTypes.array,
+  recordDeletion: PropTypes.object.isRequired,
   options: PropTypes.array.isRequired,
-};
-
-DeletionModal.defaultProps = {
-  recordDeletionChecklist: [],
 };
