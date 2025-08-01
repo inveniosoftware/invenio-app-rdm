@@ -26,6 +26,7 @@ from invenio_i18n.ext import current_i18n
 from invenio_rdm_records.proxies import current_rdm_records
 from invenio_rdm_records.records.api import get_files_quota
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
+from invenio_rdm_records.services.config import RDMRecordDeletionPolicy
 from invenio_rdm_records.services.schemas import RDMRecordSchema
 from invenio_rdm_records.services.schemas.utils import dump_empty
 from invenio_rdm_records.views import file_transfer_type
@@ -533,10 +534,41 @@ def deposit_edit(pid_value, draft=None, draft_files=None, files_locked=True):
     record = ui_serializer.dump_obj(draft.to_dict())
 
     published_record = None
-    # if editing draft of a published record
-    if record.get("status") == "published":
-        _record = service.read(g.identity, id_=record["id"]).to_dict()
-        published_record = ui_serializer.dump_obj(_record)
+    if record["is_published"]:
+        published_record_result = service.read(g.identity, id_=record["id"]).to_dict()
+        published_record = ui_serializer.dump_obj(published_record_result)
+
+        rec_del = RDMRecordDeletionPolicy().evaluate(
+            g.identity, published_record._record
+        )
+        immediate, request = rec_del["immediate_deletion"], rec_del["request_deletion"]
+        rd_enabled = immediate.enabled or request.enabled
+        rd_valid_user = (
+            rec_del["immediate_deletion"].valid_user
+            or rec_del["request_deletion"].valid_user
+        )
+        rd_allowed = immediate.allowed or request.allowed
+
+        if rd_allowed:
+            record_deletion = {
+                "enabled": rd_enabled,
+                "valid_user": rd_valid_user,
+                "allowed": rd_allowed,
+                "recordDeletion": rec_del,
+                "checklist": current_app.config["RDM_RECORD_DELETION_CHECKLIST"],
+                "context": {
+                    "files": draft._record.files.count,
+                    "internalDoi": draft._record.pids["doi"]["provider"] != "external",
+                },
+            }
+        else:
+            record_deletion = {
+                "enabled": rd_enabled,
+                "valid_user": rd_valid_user,
+                "allowed": rd_allowed,
+            }
+    else:
+        record_deletion = {}
 
     community_ui = None
     community_theme = None
@@ -611,6 +643,7 @@ def deposit_edit(pid_value, draft=None, draft_files=None, files_locked=True):
                 "manage_record_access",
             ]
         ),
+        record_deletion=record_deletion,
     )
 
 
