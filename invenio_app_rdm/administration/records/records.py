@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2023-2024 CERN.
+# Copyright (C) 2023-2025 CERN.
 # Copyright (C) 2023 Graz University of Technology.
 # Copyright (C) 2024 KTH Royal Institute of Technology.
 #
-# invenio-administration is free software; you can redistribute it and/or
+# Invenio-app-rdm is free software; you can redistribute it and/or
 # modify it under the terms of the MIT License; see LICENSE file for more
 # details.
 
-"""Invenio administration OAI-PMH view module."""
+"""Invenio administration records and drafts list views."""
 
 from functools import partial
 
@@ -19,7 +19,7 @@ from invenio_search_ui.searchconfig import search_app_config
 
 
 class RecordAdminListView(AdminResourceListView):
-    """Configuration for OAI-PMH sets list view."""
+    """Configuration for the records list view."""
 
     api_endpoint = "/records"
     name = "records"
@@ -27,10 +27,11 @@ class RecordAdminListView(AdminResourceListView):
     search_request_headers = {"Accept": "application/vnd.inveniordm.v1+json"}
     title = _("Records")
     menu_label = _("Records")
-    category = _("Records & files")
+    category = _("Deposits")
     icon = "file"
     template = "invenio_app_rdm/administration/records/records.html"
     extension_name = "invenio-rdm-records"
+    order = 1
 
     display_search = True
     display_delete = False
@@ -103,7 +104,7 @@ class RecordAdminListView(AdminResourceListView):
 
 
 class DraftAdminListView(AdminResourceListView):
-    """Configuration for OAI-PMH sets list view."""
+    """Configuration for the drafts list view."""
 
     api_endpoint = "/user/records"
     name = "drafts"
@@ -111,10 +112,11 @@ class DraftAdminListView(AdminResourceListView):
     search_request_headers = {"Accept": "application/vnd.inveniordm.v1+json"}
     title = _("Drafts")
     menu_label = _("Drafts")
-    category = _("Records & files")
+    category = _("Deposits")
     icon = "upload"
     template = "invenio_app_rdm/administration/records/drafts.html"
     extension_name = "invenio-rdm-records"
+    order = 2
 
     display_search = True
     display_delete = False
