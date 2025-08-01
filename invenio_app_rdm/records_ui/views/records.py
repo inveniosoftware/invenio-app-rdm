@@ -29,6 +29,7 @@ from invenio_rdm_records.records.systemfields.access.access_settings import (
     AccessSettings,
 )
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
+from invenio_rdm_records.services.config import RDMRecordDeletionPolicy
 from invenio_stats.proxies import current_stats
 from invenio_users_resources.proxies import current_user_resources
 from marshmallow import ValidationError
@@ -156,6 +157,36 @@ def record_detail(
         record._record.parent["access"]["settings"] = AccessSettings({}).dump()
 
     record_ui = UIJSONSerializer().dump_obj(record.to_dict())
+
+    rec_del = RDMRecordDeletionPolicy().evaluate(g.identity, record._record)
+
+    immediate, request = rec_del["immediate_deletion"], rec_del["request_deletion"]
+    rd_enabled = immediate.enabled or request.enabled
+    rd_valid_user = (
+        rec_del["immediate_deletion"].valid_user
+        or rec_del["request_deletion"].valid_user
+    )
+    rd_allowed = immediate.allowed or request.allowed
+
+    if rd_allowed:
+        record_deletion = {
+            "enabled": rd_enabled,
+            "valid_user": rd_valid_user,
+            "allowed": rd_allowed,
+            "recordDeletion": rec_del,
+            "checklist": current_app.config["RDM_RECORD_DELETION_CHECKLIST"],
+            "context": {
+                "files": record._record.files.count,
+                "internalDoi": record._record.pids["doi"]["provider"] != "external",
+            },
+        }
+    else:
+        record_deletion = {
+            "enabled": rd_enabled,
+            "valid_user": rd_valid_user,
+            "allowed": rd_allowed,
+        }
+
     is_draft = record_ui["is_draft"]
     custom_fields = load_custom_fields()
     # keep only landing page configurable custom fields
@@ -255,6 +286,7 @@ def record_detail(
         community_ui=resolved_community_ui,
         external_resources=get_external_resources(record),
         user_avatar=avatar,
+        record_deletion=record_deletion,
     )
 
 

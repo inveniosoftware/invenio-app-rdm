@@ -48,8 +48,7 @@
           value='{{ config.RDM_RECORDS_RESTRICTION_GRACE_PERIOD.days | tojson }}'>
   <input type="hidden" name="deposits-allow-record-restriction"
           value='{{ config.RDM_RECORDS_ALLOW_RESTRICTION_AFTER_GRACE_PERIOD | tojson }}'>
-  <input type="hidden" name="deposits-record-deletion-checklist"
-          value='{{ config.RECORD_DELETION_CHECKLIST | tojson }}'>
+  <input type="hidden" name="deposits-record-deletion" value='{{ record_deletion | tojson }}'>
   <input type="hidden" name="config-groups-enabled"
           value='{{ config.USERS_RESOURCES_GROUPS_ENABLED | tojson }}'>
   <input type="hidden" name="records-resources-allow-empty-files"
