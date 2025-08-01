@@ -46,9 +46,7 @@ function renderRecordManagement(element) {
         currentUserId={recordManagementAppDiv.dataset.currentUserId}
         recordOwnerID={recordManagementAppDiv.dataset.recordOwnerId}
         groupsEnabled={JSON.parse(recordManagementAppDiv.dataset.groupsEnabled)}
-        recordDeletionChecklist={JSON.parse(
-          recordManagementAppDiv.dataset.recordDeletionChecklist
-        )}
+        recordDeletion={JSON.parse(recordManagementAppDiv.dataset.recordDeletion)}
       />
     </OverridableContext.Provider>,
     element
