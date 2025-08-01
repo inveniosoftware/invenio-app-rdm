@@ -14,7 +14,7 @@ export const RecordDeletion = ({
   disabled,
   record,
   permissions,
-  recordDeletionChecklist,
+  recordDeletion,
   options,
 }) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -24,19 +24,21 @@ export const RecordDeletion = ({
   return (
     <>
       <Popup
-        content={i18next.t("You don't have permissions to delete this record.")}
+        content={i18next.t("It is not possible to delete this record.")}
         disabled={!disabled}
         trigger={
-          <Button
-            fluid
-            onClick={handleOpen}
-            disabled={disabled}
-            className="negative"
-            aria-haspopup="dialog"
-            icon="trash outline alternate"
-            labelPosition="left"
-            content={i18next.t("Delete record")}
-          />
+          <span>
+            <Button
+              fluid
+              onClick={handleOpen}
+              disabled={disabled}
+              className="negative"
+              aria-haspopup="dialog"
+              icon="trash outline alternate"
+              labelPosition="left"
+              content={i18next.t("Delete record")}
+            />
+          </span>
         }
       />
       <DeletionModal
@@ -44,7 +46,7 @@ export const RecordDeletion = ({
         open={modalOpen}
         handleClose={handleClose}
         permissions={permissions}
-        recordDeletionChecklist={recordDeletionChecklist}
+        recordDeletion={recordDeletion}
         options={options}
       />
     </>
@@ -55,11 +57,10 @@ RecordDeletion.propTypes = {
   disabled: PropTypes.bool,
   record: PropTypes.object.isRequired,
   permissions: PropTypes.object.isRequired,
-  recordDeletionChecklist: PropTypes.array,
+  recordDeletion: PropTypes.object.isRequired,
   options: PropTypes.array.isRequired,
 };
 
 RecordDeletion.defaultProps = {
   disabled: false,
-  recordDeletionChecklist: [],
 };

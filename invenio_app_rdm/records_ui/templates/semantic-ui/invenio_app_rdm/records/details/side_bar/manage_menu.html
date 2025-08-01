@@ -18,7 +18,7 @@ it under the terms of the MIT License; see LICENSE file for more details.
          data-is-preview-submission-request="{{ is_preview_submission_request | tojson }}"
          data-current-user-id="{{ current_user.id }}"
          data-groups-enabled='{{ config.USERS_RESOURCES_GROUPS_ENABLED | tojson }}'
-         data-record-deletion-checklist='{{ config.RECORD_DELETION_CHECKLIST | tojson }}'
+         data-record-deletion='{{ record_deletion | tojson }}'
          {% if config.RDM_DETAIL_SIDE_BAR_MANAGE_ATTRIBUTES_EXTENSION_TEMPLATE %}
           {% include config.RDM_DETAIL_SIDE_BAR_MANAGE_ATTRIBUTES_EXTENSION_TEMPLATE %}
          {% endif %}

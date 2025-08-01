@@ -35,7 +35,7 @@ export const ManageButton = ({
   record,
   recordOwnerID,
   permissions,
-  recordDeletionChecklist,
+  recordDeletion,
 }) => {
   const [options, setOptions] = useState([]);
 
@@ -54,14 +54,15 @@ export const ManageButton = ({
       className="icon text-align-center"
     >
       <Dropdown.Menu>
-        {(permissions.can_immediately_delete || permissions.can_request_deletion) && (
+        {recordDeletion["valid_user"] && (
           <>
             <Dropdown.Item>
               <RecordDeletion
                 record={record}
                 permissions={permissions}
-                recordDeletionChecklist={recordDeletionChecklist}
+                recordDeletion={recordDeletion}
                 options={options}
+                disabled={!recordDeletion["allowed"]}
               />
             </Dropdown.Item>
 
@@ -97,11 +98,7 @@ ManageButton.propTypes = {
   record: PropTypes.object.isRequired,
   recordOwnerID: PropTypes.string.isRequired,
   permissions: PropTypes.object.isRequired,
-  recordDeletionChecklist: PropTypes.array,
-};
-
-ManageButton.defaultProps = {
-  recordDeletionChecklist: [],
+  recordDeletion: PropTypes.object.isRequired,
 };
 
 const BlockUserItem = ({ recordOwnerID }) => {

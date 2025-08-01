@@ -113,7 +113,7 @@ export class RDMDepositForm extends Component {
       filesLocked,
       recordRestrictionGracePeriod,
       allowRecordRestriction,
-      recordDeletionChecklist,
+      recordDeletion,
       groupsEnabled,
       allowEmptyFiles,
       useUppy,
@@ -137,7 +137,7 @@ export class RDMDepositForm extends Component {
         filesLocked={filesLocked}
         recordRestrictionGracePeriod={recordRestrictionGracePeriod}
         allowRecordRestriction={allowRecordRestriction}
-        recordDeletionChecklist={recordDeletionChecklist}
+        recordDeletion={recordDeletion}
         groupsEnabled={groupsEnabled}
         allowEmptyFiles={allowEmptyFiles}
         customFieldsUI={customFieldsUI}
@@ -772,8 +772,10 @@ export class RDMDepositForm extends Component {
                                 <Grid.Column width={16} className="pt-0">
                                   <RecordDeletion
                                     record={record}
-                                    recordDeletionChecklist={recordDeletionChecklist}
+                                    permissions={permissions}
+                                    recordDeletion={recordDeletion}
                                     options={this.vocabularies.metadata.removal_reasons}
+                                    disabled={!recordDeletion["allowed"]}
                                   />
                                 </Grid.Column>
                               )}
@@ -798,7 +800,7 @@ RDMDepositForm.propTypes = {
   config: PropTypes.object.isRequired,
   recordRestrictionGracePeriod: PropTypes.number.isRequired,
   allowRecordRestriction: PropTypes.bool.isRequired,
-  recordDeletionChecklist: PropTypes.array,
+  recordDeletion: PropTypes.object.isRequired,
   record: PropTypes.object.isRequired,
   preselectedCommunity: PropTypes.object,
   files: PropTypes.object,
@@ -809,7 +811,6 @@ RDMDepositForm.propTypes = {
 };
 
 RDMDepositForm.defaultProps = {
-  recordDeletionChecklist: [],
   preselectedCommunity: undefined,
   files: null,
   permissions: null,
