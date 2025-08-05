@@ -15,6 +15,9 @@ from copy import deepcopy
 
 from flask import current_app, g, redirect
 from flask_login import login_required
+from invenio_communities.communities.resources.serializer import (
+    UICommunityJSONSerializer,
+)
 from invenio_communities.errors import CommunityDeletedError
 from invenio_communities.proxies import current_communities
 from invenio_communities.views.communities import render_community_theme_template
@@ -446,7 +449,7 @@ def new_record():
 @login_required
 @no_cache_response
 @pass_draft_community
-def deposit_create(community=None):
+def deposit_create(community=None, community_ui=None):
     """Create a new deposit."""
     can_create = current_rdm_records.records_service.check_permission(
         g.identity, "create"
@@ -479,6 +482,7 @@ def deposit_create(community=None):
         searchbar_config=dict(searchUrl=get_search_url()),
         record=new_record(),
         community=community,
+        community_ui=community_ui,
         community_use_jinja_header=community_use_jinja_header,
         files=dict(default_preview=None, entries=[], links={}),
         preselectedCommunity=community,
@@ -531,6 +535,7 @@ def deposit_edit(pid_value, draft=None, draft_files=None, files_locked=True):
                 id_=community["id"], identity=g.identity
             )
             community_theme = community.to_dict().get("theme", {})
+            community_ui = UICommunityJSONSerializer().dump_obj(community.to_dict())
         except CommunityDeletedError:
             pass
 
@@ -573,6 +578,7 @@ def deposit_edit(pid_value, draft=None, draft_files=None, files_locked=True):
         forms_config=form_config,
         record=record,
         community=community,
+        community_ui=community_ui,
         community_use_jinja_header=community_use_jinja_header,
         files=files_dict,
         searchbar_config=dict(searchUrl=get_search_url()),
