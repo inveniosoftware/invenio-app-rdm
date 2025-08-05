@@ -358,7 +358,8 @@ def pass_draft_community(f):
         comid = request.args.get("community")
         if comid:
             community = current_communities.service.read(id_=comid, identity=g.identity)
-            kwargs["community"] = UICommunityJSONSerializer().dump_obj(
+            kwargs["community"] = community
+            kwargs["community_ui"] = UICommunityJSONSerializer().dump_obj(
                 community.to_dict()
             )
 
