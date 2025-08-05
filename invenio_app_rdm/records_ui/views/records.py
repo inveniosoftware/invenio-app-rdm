@@ -223,7 +223,7 @@ def record_detail(
         .get("owned_by", {})
     )
     resolved_community, _ = get_record_community(record_ui)
-    resolved_community = (
+    resolved_community_ui = (
         UICommunityJSONSerializer().dump_obj(resolved_community.to_dict())
         if resolved_community
         else None
@@ -256,6 +256,7 @@ def record_detail(
         include_deleted=include_deleted,
         is_draft=is_draft,
         community=resolved_community,
+        community_ui=resolved_community_ui,
         external_resources=get_external_resources(record),
         user_avatar=avatar,
         record_owner_id=(
