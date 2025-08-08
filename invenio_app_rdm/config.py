@@ -1181,6 +1181,7 @@ PAGES_DEFAULT_TEMPLATE = "invenio_app_rdm/default_static_page.html"
 
 PAGES_TEMPLATES = [
     ("invenio_app_rdm/default_static_page.html", "Default"),
+    ("invenio_communities/default_static_page.html", "Community"),
 ]
 """List of available templates for pages."""
 
