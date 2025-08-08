@@ -27,13 +27,13 @@ class UserModerationListView(AdminResourceListView):
     name = "moderation"
     resource_config = "requests_resource"
     request_headers = {"Accept": "application/vnd.inveniordm.v1+json"}
-    title = _("Moderation")
-    menu_label = _("Moderation")
+    title = _("User Moderation")
+    menu_label = _("Users")
     category = _("Moderation")
     pid_path = "id"
     icon = "users"
     template = "invenio_app_rdm/administration/user_moderation.html"
-    order = 1
+    order = 2
 
     display_search = True
     display_delete = False
