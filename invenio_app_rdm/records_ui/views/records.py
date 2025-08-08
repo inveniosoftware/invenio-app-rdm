@@ -222,7 +222,7 @@ def record_detail(
         if resolved_community
         else None
     )
-    theme = resolved_community.get("theme", {}) if resolved_community else None
+    theme = resolved_community_ui.get("theme", {}) if resolved_community else None
 
     return render_community_theme_template(
         current_app.config.get("APP_RDM_RECORD_LANDING_PAGE_TEMPLATE"),
