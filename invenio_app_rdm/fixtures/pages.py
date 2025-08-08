@@ -68,6 +68,9 @@ class StaticPages(FixtureMixin):
                     ),
                     "lang": lang[0],
                     "description": entry.get("description", ""),
-                    "template_name": current_app.config["PAGES_DEFAULT_TEMPLATE"],
+                    "template_name": entry.get(
+                        "template_name",
+                        current_app.config["PAGES_DEFAULT_TEMPLATE"],
+                    ),
                 }
                 current_pages_service.create(system_identity, data)
