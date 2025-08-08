@@ -1,5 +1,5 @@
 // This file is part of InvenioRDM
-// Copyright (C) 2021-2024 CERN.
+// Copyright (C) 2021-2025 CERN.
 // Copyright (C) 2021 Graz University of Technology.
 // Copyright (C) 2021 TU Wien
 //

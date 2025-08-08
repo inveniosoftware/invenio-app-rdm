@@ -10,9 +10,28 @@
 Changes
 =======
 
+Version v14.0.0b0.dev2 (released 2025-08-08)
+
+- fix(views): use correct community value
+    * After the change in 33f1b0d2, values passed to the UI or used for
+      accessing UI-related attributes (e.g. the "theme"), must come from
+      the community UI-serialized value instead of the service result item.
+- fix(pages): add community base template as a valid option
+- feat(fixtures): allow specifying `template_name` in page fixtures
+- ui: refactor record injecting in JS components
+    - inject only record links in citations cmps
+    - remove dependency between citations and communities cmps which
+      they were sharing the same record injection
+- fix(deposits): pass missing community_ui to community theme templates
+    * also introduce more explicit distinctions between community and
+      community_ui variables
+- UI: set order of entries and rename category to deposits
+- UI: make external resources section consistent with details
+- UI: make rights section consistent with details
+
 Version v14.0.0b0.dev1 (released 2025-08-01)
 
-- setup: bump invenio-communities and invenio-rdm-records 
+- setup: bump invenio-communities and invenio-rdm-records
 - theme: add search overrides for reviewers search results
 - requests: add request action_accept permissions to UI
 - theme: update package-lock.json for compiling catalog for frontend tests
