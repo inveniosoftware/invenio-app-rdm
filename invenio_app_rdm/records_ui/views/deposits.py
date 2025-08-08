@@ -459,7 +459,7 @@ def deposit_create(community=None, community_ui=None):
 
     community_theme = None
     if community is not None:
-        community_theme = community.get("theme", {})
+        community_theme = community_ui.get("theme", {})
 
     community_use_jinja_header = bool(community_theme)
     dashboard_routes = current_app.config["APP_RDM_USER_DASHBOARD_ROUTES"]
@@ -485,7 +485,7 @@ def deposit_create(community=None, community_ui=None):
         community_ui=community_ui,
         community_use_jinja_header=community_use_jinja_header,
         files=dict(default_preview=None, entries=[], links={}),
-        preselectedCommunity=community,
+        preselectedCommunity=community_ui,
         files_locked=False,
         permissions=get_record_permissions(
             [
@@ -521,6 +521,7 @@ def deposit_edit(pid_value, draft=None, draft_files=None, files_locked=True):
     ui_serializer = UIJSONSerializer()
     record = ui_serializer.dump_obj(draft.to_dict())
 
+    community_ui = None
     community_theme = None
     community = record.get("expanded", {}).get("parent", {}).get("review", {}).get(
         "receiver"
