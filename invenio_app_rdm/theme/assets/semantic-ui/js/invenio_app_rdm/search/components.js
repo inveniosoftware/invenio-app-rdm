@@ -204,7 +204,7 @@ export const RDMEmptyResults = ({ queryString, searchPath, resetQuery }) => {
         <Grid.Column width={12} textAlign="center">
           <Header as="h2">
             {i18next.t("We couldn't find any matches for {{- search}}", {
-              search: (queryString && `'${queryString}'`) || "your search",
+              search: (queryString && `'${queryString}'`) || i18next.t("your search"),
             })}
           </Header>
         </Grid.Column>
