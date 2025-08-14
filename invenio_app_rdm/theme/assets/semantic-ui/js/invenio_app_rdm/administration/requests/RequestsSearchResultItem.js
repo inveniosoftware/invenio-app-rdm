@@ -11,7 +11,6 @@ import React, { Component } from "react";
 import { Table } from "semantic-ui-react";
 import { withState } from "react-searchkit";
 import { AdminUIRoutes } from "@js/invenio_administration/src/routes.js";
-import Formatter from "@js/invenio_administration/src/components/Formatter.js";
 import { UserListItemCompact, toRelativeTime } from "react-invenio-forms";
 
 class SearchResultItemComponent extends Component {
@@ -21,7 +20,7 @@ class SearchResultItemComponent extends Component {
   };
 
   render() {
-    const { result, columns, idKeyPath, resourceSchema, listUIEndpoint } = this.props;
+    const { result, columns, idKeyPath, listUIEndpoint } = this.props;
     return (
       <Table.Row>
         <Table.Cell
@@ -30,11 +29,9 @@ class SearchResultItemComponent extends Component {
           className="word-break-all"
         >
           <a href={AdminUIRoutes.detailsView(listUIEndpoint, result, idKeyPath)}>
-            <Formatter
-              result={result}
-              resourceSchema={resourceSchema}
-              property={columns[0][0]}
-            />
+            {/* TODO we need a better way to get the (translatable) label of a request type
+            https://github.com/inveniosoftware/invenio-requests/issues/414 */}
+            {result.type === "record-deletion" && "Record deletion"}
           </a>
         </Table.Cell>
         <Table.Cell
@@ -54,11 +51,12 @@ class SearchResultItemComponent extends Component {
           data-label={columns[2][1]["text"]}
           className="word-break-all"
         >
-          <Formatter
-            result={result}
-            resourceSchema={resourceSchema}
-            property={columns[2][0]}
+          <UserListItemCompact
+            user={result.expanded.last_reply.created_by}
+            id={result.last_reply.created_by.user}
+            // TODO linkToDetailView= filter by user?
           />
+          {toRelativeTime(result.last_reply.created)}
         </Table.Cell>
       </Table.Row>
     );
@@ -71,7 +69,6 @@ SearchResultItemComponent.propTypes = {
   updateQueryState: PropTypes.func.isRequired,
   currentQueryState: PropTypes.object.isRequired,
   idKeyPath: PropTypes.string.isRequired,
-  resourceSchema: PropTypes.object.isRequired,
   listUIEndpoint: PropTypes.string.isRequired,
 };
 

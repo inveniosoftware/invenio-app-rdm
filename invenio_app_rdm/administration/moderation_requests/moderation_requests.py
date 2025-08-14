@@ -8,14 +8,17 @@
 
 from functools import partial
 
-from flask import current_app
+from flask import current_app, g
+from flask_login import current_user
 from invenio_administration.views.base import (
     AdminResourceDetailView,
     AdminResourceListView,
 )
 from invenio_i18n import lazy_gettext as _
 from invenio_rdm_records.requests import RecordDeletion
+from invenio_requests.proxies import current_requests
 from invenio_search_ui.searchconfig import search_app_config
+from invenio_users_resources.proxies import current_user_resources
 
 
 class ModerationRequestListView(AdminResourceListView):
@@ -47,7 +50,7 @@ class ModerationRequestListView(AdminResourceListView):
     item_field_list = {
         "type": {"text": _("Type"), "order": 1, "width": 3},
         "created": {"text": _("Created"), "order": 2, "width": 3},
-        "last-reply": {"text": _("Last reply"), "order": 3, "width": 3},
+        "last_reply": {"text": _("Last reply"), "order": 3, "width": 3},
     }
 
     @property
@@ -91,3 +94,68 @@ class ModerationRequestListView(AdminResourceListView):
             pagination_options=(20, 50),
             default_size=20,
         )
+
+
+class ModerationRequestDetailView(AdminResourceDetailView):
+    """Configuration for moderation request detail view."""
+
+    url = "/requests/<pid_value>"
+    extension_name = "invenio-requests"
+    api_endpoint = "/requests"
+    name = "request_details"
+    resource_config = "requests_resource"
+    title = _("Request details")
+    display_delete = False
+    display_edit = False
+
+    pid_path = "id"
+    request_headers = {"Accept": "application/json"}
+    template = "invenio_app_rdm/administration/requests_details.html"
+
+    @classmethod
+    def get_service_schema(cls):
+        """Get marshmallow schema of the assigned service."""
+        request_type = cls.resource.service.request_type_registry.lookup(
+            "record-deletion"
+        )
+        # handle dynamic schema class declaration for requests
+        schema_cls = request_type.marshmallow_schema()
+        schema = schema_cls()
+        return schema
+
+    def get_context(self, pid_value=None):
+        """Create details view context."""
+        name = self.name
+        schema = self.get_service_schema()
+        serialized_schema = self._schema_to_json(schema)
+        fields = self.item_field_list
+        request = current_requests.requests_service.read(
+            id_=pid_value, identity=g.identity, expand=True
+        ).to_dict()
+        avatar = current_user_resources.users_service.links_item_tpl.expand(
+            g.identity, current_user
+        )["avatar"]
+        permissions = []
+        return {
+            "invenio_request": request,
+            "user_avatar": avatar,
+            "permissions": permissions,
+            "request_headers": self.request_headers,
+            "name": name,
+            "resource_schema": serialized_schema,
+            "fields": fields,
+            "exclude_fields": self.item_field_exclude_list,
+            "ui_config": self.item_field_list,
+            "pid": pid_value,
+            "api_endpoint": self.get_api_endpoint(),
+            "title": self.title,
+            "list_endpoint": self.get_list_view_endpoint(),
+            "actions": self.serialize_actions(),
+            "pid_path": self.pid_path,
+            "display_edit": self.display_edit,
+            "display_delete": self.display_delete,
+            "list_ui_endpoint": self.get_list_view_endpoint(),
+            "resource_name": (
+                self.resource_name if self.resource_name else self.pid_path
+            ),
+        }
