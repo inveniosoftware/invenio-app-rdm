@@ -12,7 +12,7 @@ from io import BytesIO
 import pytest
 from invenio_access.permissions import system_identity
 from invenio_db import db
-from invenio_files_rest.models import Bucket, FileInstance, Location, ObjectVersion
+from invenio_files_rest.models import FileInstance
 from invenio_rdm_records.proxies import current_rdm_records
 
 from invenio_app_rdm.tasks import file_integrity_report
@@ -66,7 +66,7 @@ def draft_with_file_instance(running_app, minimal_record):
 def draft_with_invalid_file_instance(draft_with_file_instance):
     # Force an invalid checksum
     draft, f = draft_with_file_instance
-    f.checksum = "invalid"
+    f.checksum = "invalid:invalid-checksum"
     f.verify_checksum()
     db.session.commit()
 
