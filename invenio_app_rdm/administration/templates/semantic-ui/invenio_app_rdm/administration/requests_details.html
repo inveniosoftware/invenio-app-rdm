@@ -1,0 +1,81 @@
+{#
+Copyright (C) 2025 CERN.
+
+Invenio App RDM is free software; you can redistribute it and/or modify it
+under the terms of the MIT License; see LICENSE file for more details.
+#}
+
+{% extends admin_base_template %}
+
+{% from "invenio_requests/macros/request_header.html" import invitation_request_header %}
+
+{% set title = invenio_request.title %}
+
+{% block page_title %}{% endblock page_title %}
+
+{% block admin_page_content %}
+  {% set title = _("Request ") %}
+  {{ super() }}
+  {%- block request_body %}
+    <div class="ui container request-detail-page">
+      {%- block request_header %}
+        {% set back_button_url = url_for("administration.requests") %}
+        {{
+            invitation_request_header(
+                back_button_url=back_button_url,
+                back_button_text=_("Back to requests"),
+                request=invenio_request,
+                accepted=request_is_accepted
+            )
+        }}
+      {%- endblock request_header %}
+    {%- block request_timeline %}
+    <div id="request-detail"
+         data-record='{{ invenio_request | tojson }}'
+         data-default-query-config='{{ dict(size=config["REQUESTS_TIMELINE_PAGE_SIZE"]) | tojson }}'
+         data-user-avatar='{{ user_avatar | tojson }}'
+         data-permissions='{{ permissions | tojson }}'
+         data-config='{{ dict(allowGroupReviewers=config["USERS_RESOURCES_GROUPS_ENABLED"], enableReviewers=config["REQUESTS_REVIEWERS_ENABLED"], maxReviewers=config["REQUESTS_REVIEWERS_MAX_NUMBER"]) | tojson }}'
+    >{# react app root #}
+      <div class="ui grid">
+        <div class="stretched row">
+          <div class="thirteen wide column">
+            <div class="ui">
+              <div class="ui fluid placeholder">
+                <div class="image header">
+                  <div class="line"></div>
+                  <div class="line"></div>
+                </div>
+                <div class="paragraph">
+                  {% for i in range(6) %}
+                    <div class="line"></div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="three wide column">
+            {% for i in range(6) %}
+              <div class="ui fluid placeholder">
+                <div class="image header">
+                  <div class="line"></div>
+                  <div class="line"></div>
+                </div>
+              </div>
+              <div class="ui divider"></div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+    {%- endblock request_timeline %}
+
+    </div>
+  {% endblock request_body %}
+{% endblock admin_page_content %}
+
+{% block javascript %}
+  {{ super() }}
+  {% include config.THEME_JAVASCRIPT_TEMPLATE %}
+  {{ webpack['invenio-requests-base.js'] }}
+{% endblock %}
