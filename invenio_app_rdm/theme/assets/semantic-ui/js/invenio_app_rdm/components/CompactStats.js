@@ -10,6 +10,12 @@ import React from "react";
 import { Icon, Label, Popup } from "semantic-ui-react";
 
 export const CompactStats = ({ uniqueViews, uniqueDownloads }) => {
+  const userLang = i18next.language;
+  const formatted = {
+    uniqueViews: new Intl.NumberFormat(userLang).format(uniqueViews),
+    uniqueDownloads: new Intl.NumberFormat(userLang).format(uniqueDownloads),
+  };
+
   return (
     <>
       {uniqueViews != null && (
@@ -19,7 +25,7 @@ export const CompactStats = ({ uniqueViews, uniqueDownloads }) => {
           trigger={
             <Label className="transparent">
               <Icon name="eye" />
-              {uniqueViews}
+              {formatted.uniqueViews}
             </Label>
           }
         />
@@ -31,7 +37,7 @@ export const CompactStats = ({ uniqueViews, uniqueDownloads }) => {
           trigger={
             <Label className="transparent">
               <Icon name="download" />
-              {uniqueDownloads}
+              {formatted.uniqueDownloads}
             </Label>
           }
         />
