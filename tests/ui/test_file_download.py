@@ -7,6 +7,8 @@
 # it under the terms of the MIT License; see LICENSE file for more details.
 
 from flask import url_for
+from invenio_access.permissions import system_identity
+from invenio_rdm_records.proxies import current_rdm_records_service as service
 
 
 def test_file_download_with_and_without_preview_flag(
@@ -71,3 +73,34 @@ def test_nonexistent_file_returns_404(client_with_login, draft_with_file):
     assert (
         response.status_code == 404
     ), "Non-existent file with preview flag should return 404"
+
+
+def test_deleted_record_file_redirects(client, record_with_file):
+    """Test that accessing files from deleted records redirects to tombstone."""
+    record_id = record_with_file.id
+    file_name = "article.txt"
+
+    # Check that the file is properly accessible before the deletion
+    file_url = url_for(
+        "invenio_app_rdm_records.record_file_download",
+        pid_value=record_id,
+        filename=file_name,
+    )
+    response = client.get(file_url)
+    assert response.status_code == 200
+
+    # Delete the record
+    service.delete_record(system_identity, record_id, {})
+
+    # Check that accessing the file now redirects to the record page
+    response = client.get(file_url)
+    assert response.status_code == 302
+    expected_record_url = url_for(
+        "invenio_app_rdm_records.record_detail",
+        pid_value=record_id,
+    )
+    assert response.location.endswith(expected_record_url)
+
+    # Check that the record page shows the tombstone
+    response = client.get(response.location)
+    assert response.status_code == 410
