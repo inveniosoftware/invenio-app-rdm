@@ -23,6 +23,7 @@ from invenio_rdm_records.proxies import current_rdm_records
 from invenio_rdm_records.resources.serializers.signposting import (
     FAIRSignpostingProfileLvl1Serializer,
 )
+from invenio_rdm_records.services.errors import RecordDeletedException
 from invenio_records_resources.services.errors import PermissionDeniedError
 from sqlalchemy.orm.exc import NoResultFound
 
@@ -224,16 +225,28 @@ def pass_file_item(is_media=False):
             )
             record_service = media_files_service if is_media else files_service
 
-            if is_preview:
-                try:
-                    item = draft_service().get_file_content(**read_kwargs)
-                except NoResultFound:
+            try:
+                if is_preview:
+                    try:
+                        item = draft_service().get_file_content(**read_kwargs)
+                    except NoResultFound:
+                        item = record_service().get_file_content(**read_kwargs)
+                else:
                     item = record_service().get_file_content(**read_kwargs)
-            else:
-                item = record_service().get_file_content(**read_kwargs)
 
-            kwargs["file_item"] = item
-            return f(**kwargs)
+                kwargs["file_item"] = item
+                return f(**kwargs)
+
+            except RecordDeletedException:
+                # Redirect to the record page which has proper tombstone handling
+                return redirect(
+                    url_for(
+                        "invenio_app_rdm_records.record_detail",
+                        pid_value=pid_value,
+                    ),
+                    # Use 302 (temporary) instead of 301 since records can be restored
+                    code=302,
+                )
 
         return view
 
