@@ -123,7 +123,7 @@ To access its content, please download it and open it locally.') }}
               <a href="{{ file_url_download }}">{{ file.key }}</a>
             </div>
             {%- if not is_remote_file %}
-            <small class="ui text-muted font-tiny">{{ file.checksum }}
+            <small class="ui text-muted font-tiny">{{ file.checksum or _("Checksum not yet calculated.") }}
             <div class="ui icon inline-block" data-tooltip="{{_('This is the file fingerprint (checksum), which can be used to verify the file integrity.')}}">
               <i class="question circle checksum icon"></i>
             </div>
