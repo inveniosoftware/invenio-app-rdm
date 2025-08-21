@@ -4,8 +4,8 @@
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
-"""User moderation administration module."""
+"""Requests moderation administration module."""
 
-from .moderation_requests import ModerationRequestDetailView, ModerationRequestListView
+from .requests import ModerationRequestDetailView, ModerationRequestListView
 
 __all__ = ("ModerationRequestListView", "ModerationRequestDetailView")
