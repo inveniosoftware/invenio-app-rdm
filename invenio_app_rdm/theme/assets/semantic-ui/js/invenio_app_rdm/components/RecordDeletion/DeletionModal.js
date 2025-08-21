@@ -8,7 +8,7 @@ import { i18next } from "@translations/invenio_app_rdm/i18next";
 import { Formik } from "formik";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
-import Overridable from "react-overridable";
+
 import {
   ErrorMessage,
   http,
@@ -76,12 +76,20 @@ export class DeletionModal extends Component {
     this.setState({ checkboxState: nextCheckboxState });
   };
 
-  deletionRequestSchema = Yup.object({
-    reason: Yup.string().required("Required"),
-    comment: Yup.string()
-      .min(25, "Please write at least 25 characters")
-      .required("Required"),
-  });
+  deletionRequestSchema = (immediateDeletionAllowed) => {
+    if (immediateDeletionAllowed) {
+      return Yup.object({
+        reason: Yup.string().required("Required"),
+      });
+    } else {
+      return Yup.object({
+        reason: Yup.string().required("Required"),
+        comment: Yup.string()
+          .min(25, "Please write at least 25 characters")
+          .required("Required"),
+      });
+    }
+  };
 
   handleSubmit = async (values) => {
     this.setState({ loading: true });
@@ -94,6 +102,20 @@ export class DeletionModal extends Component {
       this.cancellableAction = withCancel(
         http.post(record.links.request_deletion, payload)
       );
+      try {
+        const response = await this.cancellableAction.promise;
+        const data = response.data;
+
+        if (response.status === 200) {
+          window.location.reload();
+        } else if (response.status === 201) {
+          window.location.href = data.links.self_html;
+        }
+      } catch (error) {
+        // TODO add error/validation handling
+        console.error(error);
+      }
+      this.setState({ loading: false });
     } else {
       this.setState({ error: "Could not submit deletion request", loading: false });
     }
@@ -121,206 +143,180 @@ export class DeletionModal extends Component {
       checklistState.some((x) => x === true || x === undefined);
 
     return (
-      <Overridable
-        id="InvenioAppRDM.RecordDeletionModal.Layout"
-        handleClose={handleClose}
-        handleSubmit={this.handleSubmit}
-        recordDeletion={recordDeletion}
+      <Modal
         open={open}
+        closeIcon
+        onClose={handleClose}
+        role="dialog"
+        aria-modal="true"
+        tab-index="-1"
+        size="tiny"
+        closeOnDimmerClick={false}
+        onClick={(e) => e.stopPropagation()} // prevent interaction with dropdown
+        onKeyDown={(e) => e.stopPropagation()} // prevent interaction with dropdown
       >
-        <Modal
-          open={open}
-          closeIcon
-          onClose={handleClose}
-          role="dialog"
-          aria-modal="true"
-          tab-index="-1"
-          size="tiny"
-          closeOnDimmerClick={false}
-          onClick={(e) => e.stopPropagation()} // prevent interaction with dropdown
-          onKeyDown={(e) => e.stopPropagation()} // prevent interaction with dropdown
+        <ModalHeader>Delete record</ModalHeader>
+        <Formik
+          onSubmit={this.handleSubmit}
+          validationSchema={this.deletionRequestSchema(immediateDeletionAllowed)}
+          initialValues={{ reason: "", comment: "" }}
+          validateOnChange={false}
+          validateOnBlur={false}
         >
-          <ModalHeader>Delete record</ModalHeader>
-          <ModalContent>
-            <Overridable id="InvenioAppRDM.RecordDeletionModal.Message">
-              <>
-                {immediateDeletionAllowed ? (
-                  <p>
-                    {
-                      recordDeletion["recordDeletion"]["immediate_deletion"]["policy"][
-                        "description"
-                      ]
-                    }
-                  </p>
-                ) : (
-                  <p>
-                    {
-                      recordDeletion["recordDeletion"]["request_deletion"]["policy"][
-                        "description"
-                      ]
-                    }
-                  </p>
-                )}
-                <Message negative>
-                  By deleting this record you acknowledge that: <br />
-                  <Checkbox
-                    label={
-                      /* eslint-disable-next-line jsx-a11y/label-has-associated-control */
-                      <label>
-                        <strong>
-                          {files} file{files !== 1 ? "s" : ""}
-                        </strong>{" "}
-                        will be deleted.
-                      </label>
-                    }
-                    className="mt-5 mb-5"
-                    onChange={() => this.handleCheckboxUpdate(0)}
-                  />
-                  <br />
-                  {internalDoi ? (
-                    <Checkbox
-                      label={
-                        /* eslint-disable-next-line jsx-a11y/label-has-associated-control */
-                        <label>
-                          The <strong>DOI cannot be reused</strong> and the DOI will
-                          resolve to a tombstone page with record's citation
-                        </label>
-                      }
-                      className="mb-5"
-                      onChange={() => this.handleCheckboxUpdate(1)}
-                    />
-                  ) : (
-                    <Checkbox
-                      label={
-                        /* eslint-disable-next-line jsx-a11y/label-has-associated-control */
-                        <label>
-                          A tombstone page with the citation will replace the record
-                          page
-                        </label>
-                      }
-                      className="mb-5"
-                      onChange={() => this.handleCheckboxUpdate(1)}
-                    />
-                  )}
-                </Message>
-              </>
-            </Overridable>
-            <Overridable
-              id="InvenioAppRDM.RecordDeletionModal.Table"
-              recordDeletion={recordDeletion}
-              handleRadioUpdate={this.handleRadioUpdate}
-              checklistState={checklistState}
-            >
-              {checklist.length > 0 && (
+          {({ handleSubmit }) => (
+            <Form>
+              <ModalContent>
                 <>
-                  <strong>Record deletion checklist:</strong>
-                  <Table basic="very" unstackable className="mt-0">
-                    <TableHeader>
-                      <TableRow>
-                        <TableHeaderCell />
-                        <TableHeaderCell>Yes</TableHeaderCell>
-                        <TableHeaderCell>No</TableHeaderCell>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {checklist.map((row, index) => (
-                        <DeletionRadioGroup
-                          index={index}
-                          row={row}
-                          key={row.name}
-                          state={checklistState}
-                          onStateChange={this.handleRadioUpdate}
-                        />
-                      ))}
-                    </TableBody>
-                  </Table>
-                  {messages.length > 0 && (
-                    <Message info>
-                      {messages.length === 1 ? (
-                        <p dangerouslySetInnerHTML={{ __html: messages[0] }} />
-                      ) : (
-                        <Message.List>
-                          {messages.map((message) => (
-                            <Message.Item key={message}>
-                              <p dangerouslySetInnerHTML={{ __html: message }} />
-                            </Message.Item>
-                          ))}
-                        </Message.List>
-                      )}
-                    </Message>
+                  {immediateDeletionAllowed ? (
+                    <p>
+                      {
+                        recordDeletion["recordDeletion"]["immediate_deletion"][
+                          "policy"
+                        ]["description"]
+                      }
+                    </p>
+                  ) : (
+                    <p>
+                      {
+                        recordDeletion["recordDeletion"]["request_deletion"]["policy"][
+                          "description"
+                        ]
+                      }
+                    </p>
                   )}
-                </>
-              )}
-            </Overridable>
-            <Overridable
-              id="InvenioAppRDM.RecordDeletionModal.Formik"
-              handleSubmit={this.handleSubmit}
-              deletionRequestSchema={this.deletionRequestSchema}
-            >
-              <Formik
-                onSubmit={this.handleSubmit}
-                validationSchema={this.deletionRequestSchema}
-                initialValues={{ reason: "", comment: "" }}
-                validateOnChange={false}
-                validateOnBlur={false}
-              >
-                {() => {
-                  return (
-                    <Form>
-                      <SelectField
-                        fluid
-                        fieldPath="reason"
-                        name="reason"
-                        label={i18next.t("I want to delete this record because")}
-                        options={options}
-                        required
-                        disabled={formDisabled}
+                  <Message negative>
+                    By deleting this record you acknowledge that: <br />
+                    <Checkbox
+                      label={
+                        /* eslint-disable-next-line jsx-a11y/label-has-associated-control */
+                        <label>
+                          <strong>
+                            {files} file{files !== 1 ? "s" : ""}
+                          </strong>{" "}
+                          will be deleted.
+                        </label>
+                      }
+                      className="mt-5 mb-5"
+                      onChange={() => this.handleCheckboxUpdate(0)}
+                    />
+                    <br />
+                    {internalDoi ? (
+                      <Checkbox
+                        label={
+                          /* eslint-disable-next-line jsx-a11y/label-has-associated-control */
+                          <label>
+                            The <strong>DOI cannot be reused</strong> and the DOI will
+                            resolve to a tombstone page with record's citation
+                          </label>
+                        }
+                        className="mb-5"
+                        onChange={() => this.handleCheckboxUpdate(1)}
                       />
+                    ) : (
+                      <Checkbox
+                        label={
+                          /* eslint-disable-next-line jsx-a11y/label-has-associated-control */
+                          <label>
+                            A tombstone page with the citation will replace the record
+                            page
+                          </label>
+                        }
+                        className="mb-5"
+                        onChange={() => this.handleCheckboxUpdate(1)}
+                      />
+                    )}
+                  </Message>
+                </>
+                {checklist.length > 0 && (
+                  <>
+                    <strong>Record deletion checklist:</strong>
+                    <Table basic="very" unstackable className="mt-0">
+                      <TableHeader>
+                        <TableRow>
+                          <TableHeaderCell />
+                          <TableHeaderCell>Yes</TableHeaderCell>
+                          <TableHeaderCell>No</TableHeaderCell>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {checklist.map((row, index) => (
+                          <DeletionRadioGroup
+                            index={index}
+                            row={row}
+                            key={row.name}
+                            state={checklistState}
+                            onStateChange={this.handleRadioUpdate}
+                          />
+                        ))}
+                      </TableBody>
+                    </Table>
+                    {messages.length > 0 && (
+                      <Message info>
+                        {messages.length === 1 ? (
+                          <p dangerouslySetInnerHTML={{ __html: messages[0] }} />
+                        ) : (
+                          <Message.List>
+                            {messages.map((message) => (
+                              <Message.Item key={message}>
+                                <p dangerouslySetInnerHTML={{ __html: message }} />
+                              </Message.Item>
+                            ))}
+                          </Message.List>
+                        )}
+                      </Message>
+                    )}
+                  </>
+                )}
+                <SelectField
+                  fluid
+                  fieldPath="reason"
+                  name="reason"
+                  label={i18next.t("I want to delete this record because")}
+                  options={options}
+                  required
+                  disabled={formDisabled}
+                />
 
-                      {!immediateDeletionAllowed && (
-                        <TextAreaField
-                          fieldPath="comment"
-                          name="comment"
-                          label={i18next.t("Detailed justification")}
-                          required
-                          placeholder="Your justification will not be shared publicly"
-                          disabled={formDisabled}
-                        />
-                      )}
-                      {error && (
-                        <ErrorMessage
-                          header={i18next.t("Unable to request deletion.")}
-                          content={i18next.t(error)}
-                          icon="exclamation"
-                          className="text-align-left"
-                          negative
-                        />
-                      )}
-                    </Form>
-                  );
-                }}
-              </Formik>
-            </Overridable>
-          </ModalContent>
-          <Overridable id="InvenioAppRDM.RecordDeletionModal.ModalActions">
-            <ModalActions>
-              <Button
-                onClick={handleClose}
-                content={i18next.t("Close")}
-                floated="left"
-              />
-              <Button
-                content={deletionButtonText}
-                className={deletionButtonClass}
-                icon="trash alternate outline"
-                onClick={(event) => this.handleSubmit(event)}
-                loading={loading}
-                disabled={formDisabled || loading}
-              />
-            </ModalActions>
-          </Overridable>
-        </Modal>
-      </Overridable>
+                {!immediateDeletionAllowed && (
+                  <TextAreaField
+                    fieldPath="comment"
+                    name="comment"
+                    label={i18next.t("Detailed justification")}
+                    required
+                    placeholder="Your justification will not be shared publicly"
+                    disabled={formDisabled}
+                  />
+                )}
+                {error && (
+                  <ErrorMessage
+                    header={i18next.t("Unable to request deletion.")}
+                    content={i18next.t(error)}
+                    icon="exclamation"
+                    className="text-align-left"
+                    negative
+                  />
+                )}
+              </ModalContent>
+              <ModalActions>
+                <Button
+                  onClick={handleClose}
+                  content={i18next.t("Close")}
+                  floated="left"
+                />
+                <Button
+                  content={deletionButtonText}
+                  className={deletionButtonClass}
+                  icon="trash alternate outline"
+                  type="submit"
+                  onClick={(event) => handleSubmit(event)}
+                  loading={loading}
+                  disabled={formDisabled || loading}
+                />
+              </ModalActions>
+            </Form>
+          )}
+        </Formik>
+      </Modal>
     );
   }
 }
