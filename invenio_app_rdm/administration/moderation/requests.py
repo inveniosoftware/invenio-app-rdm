@@ -4,7 +4,7 @@
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
-"""Invenio administration view module for user moderation."""
+"""Invenio administration view module for requests moderation."""
 
 from functools import partial
 
@@ -22,7 +22,7 @@ from invenio_users_resources.proxies import current_user_resources
 
 
 class ModerationRequestListView(AdminResourceListView):
-    """User moderation admin search view."""
+    """Requests moderation admin search view."""
 
     api_endpoint = "/requests"
     extension_name = "invenio-requests"
