@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-03-27T16:30:16.192Z\n"
+"POT-Creation-Date: 2025-07-22T14:13:07.642Z\n"
 "PO-Revision-Date: 2021-07-14 16:07+0000\n"
 "Last-Translator: Minjae Kwon, 2024\n"
 "Language-Team: Korean (https://app.transifex.com/inveniosoftware/teams/23537/ko/)\n"
@@ -15,7 +15,34 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "mime-version: 1.0\n"
 
-msgid "Basic information"
+msgid "Recent changes"
+msgstr ""
+
+msgid "Audit Log Details"
+msgstr ""
+
+msgid "Resource"
+msgstr ""
+
+msgid "Resource ID"
+msgstr ""
+
+msgid "Action"
+msgstr ""
+
+msgid "User"
+msgstr ""
+
+msgid "Created"
+msgstr ""
+
+msgid "No revision ID found."
+msgstr ""
+
+msgid "Unable to fetch revisions."
+msgstr ""
+
+msgid "Cancel revision comparison"
 msgstr ""
 
 msgid "Impersonate user"
@@ -42,10 +69,16 @@ msgid ""
 "proceed."
 msgstr ""
 
-msgid "You are about to impersonate user <bold>{{email}}(id: {{id}})</bold>."
+msgid "You are about to impersonate user "
 msgstr ""
 
-msgid "You <bold>MUST</bold> logout after completing your inquiry."
+msgid "You "
+msgstr ""
+
+msgid "MUST"
+msgstr ""
+
+msgid " logout after completing your inquiry."
 msgstr ""
 
 msgid "Close"
@@ -62,7 +95,7 @@ msgstr ""
 
 msgid ""
 "This is the default quota that will be applied to any NEW records created by"
-" this user – it will NOT update quota of existing records."
+" this user - it will NOT update quota of existing records."
 msgstr ""
 
 msgid "Quota of {{id}} was set to {{quota}} {{unit}}"
@@ -143,6 +176,9 @@ msgstr ""
 msgid "Set quota for record {{recordId}}"
 msgstr ""
 
+msgid "Compare revisions"
+msgstr ""
+
 msgid "Delete record"
 msgstr ""
 
@@ -179,7 +215,7 @@ msgstr ""
 msgid "Owner"
 msgstr ""
 
-msgid "Created"
+msgid "System"
 msgstr ""
 
 msgid "Files"
@@ -231,9 +267,6 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-msgid "User"
-msgstr ""
-
 msgid "Email"
 msgstr "이메일"
 
@@ -253,6 +286,12 @@ msgid "GitHub"
 msgstr ""
 
 msgid "Updated"
+msgstr ""
+
+msgid "Drafts"
+msgstr ""
+
+msgid "Moderation"
 msgstr ""
 
 msgid "Restore"
@@ -291,12 +330,11 @@ msgstr ""
 msgid "Search records in community..."
 msgstr ""
 
-msgid "Sort by"
+msgid "results found"
 msgstr ""
 
-msgid " results found"
-msgid_plural " results found"
-msgstr[0] ""
+msgid "Sort by"
+msgstr ""
 
 msgid "Search records..."
 msgstr ""
@@ -337,17 +375,25 @@ msgstr ""
 msgid "Uploaded on {{uploadDate}}"
 msgstr ""
 
-msgid "Published in: {{publishInfo}}"
+msgid "Published in: {{- publishInfo }}"
 msgstr ""
 
-msgid "{{count}} more versions exist for this record"
-msgid_plural "{{count}} more versions exist for this record"
-msgstr[0] ""
+msgid "Recommendation"
+msgstr ""
+
+msgid "This check is recommended but not mandatory."
+msgstr ""
+
+msgid "This check indicates a critical issue that must be addressed."
+msgstr ""
 
 msgid "Person"
 msgstr ""
 
 msgid "The record has no files."
+msgstr ""
+
+msgid "Basic information"
 msgstr ""
 
 msgid "Creators"
@@ -430,10 +476,6 @@ msgstr ""
 msgid "Communities"
 msgstr ""
 
-msgid "View all {{count}} communities"
-msgid_plural "View all {{count}} communities"
-msgstr[0] ""
-
 msgid "Submit to community"
 msgstr ""
 
@@ -465,6 +507,15 @@ msgid "Manage record"
 msgstr ""
 
 msgid "Manage user"
+msgstr ""
+
+msgid "Block user"
+msgstr ""
+
+msgid "Block User"
+msgstr ""
+
+msgid "Blocking the user will delete all existing records of the user."
 msgstr ""
 
 msgid "Remove branding"
@@ -501,6 +552,9 @@ msgstr ""
 msgid "This record is not included in any communities yet."
 msgstr ""
 
+msgid "Part of"
+msgstr ""
+
 msgid "Search for community..."
 msgstr ""
 
@@ -531,20 +585,20 @@ msgstr ""
 msgid "An error occurred while fetching the versions."
 msgstr ""
 
-msgid "View all {{count}} versions"
-msgid_plural "View all {{count}} versions"
-msgstr[0] ""
+msgid "Cite all versions?"
+msgstr ""
 
-msgid ""
-"<0><0>Cite all versions?</0> You can cite all versions by using the DOI "
-"<3></3>. This DOI represents all versions, and will always resolve to the "
-"latest one. <5>Read more</5>.</0>"
+msgid "You can cite all versions by using the DOI"
 msgstr ""
 
 msgid ""
-"<0><0>Cite all versions?</0> You can cite all versions by using the DOI . "
-"The DOI is registered when the first version is published. <4>Read "
-"more</4>.</0>"
+"This DOI represents all versions, and will always resolve to the latest one."
+msgstr ""
+
+msgid "Read more"
+msgstr ""
+
+msgid "The DOI is registered when the first version is published."
 msgstr ""
 
 msgid "Remove"
@@ -562,6 +616,18 @@ msgstr ""
 msgid "I understand the consequences:"
 msgstr ""
 
+msgid "Members of the community "
+msgstr ""
+
+msgid " will "
+msgstr ""
+
+msgid "lose their access"
+msgstr ""
+
+msgid " to the record."
+msgstr ""
+
 msgid ""
 "The record can only be re-included in the community by going through a new "
 "review by the community curators."
@@ -577,11 +643,6 @@ msgid "Cancel"
 msgstr ""
 
 msgid "Confirm removal"
-msgstr ""
-
-msgid ""
-"Members of the community <1>\"<1>{{communityTitle}}</1>\"</1> will <4>lose "
-"their access</4> to the record."
 msgstr ""
 
 msgid "Select permissions"
@@ -626,14 +687,17 @@ msgstr ""
 msgid "Can preview drafts"
 msgstr ""
 
-msgid "Can view drafts and restricted files of all versions of this record."
+msgid ""
+"Can view drafts, restricted files, and comment on associated draft requests "
+"of all versions of this record."
 msgstr ""
 
 msgid "Can edit"
 msgstr ""
 
 msgid ""
-"Can edit drafts and view restricted files of all versions of this record."
+"Can edit drafts, view restricted files, and comment on associated draft "
+"requests of all versions of this record."
 msgstr ""
 
 msgid ""
@@ -731,8 +795,8 @@ msgid "Can manage"
 msgstr ""
 
 msgid ""
-"Can manage access, edit drafts and view restricted files of all versions of "
-"this record."
+"Can manage access, edit drafts, view restricted files, and comment on "
+"associated draft requests of all versions of this record."
 msgstr ""
 
 msgid "You don't have permissions to share this record."
@@ -800,21 +864,40 @@ msgstr ""
 msgid "ProTip"
 msgstr ""
 
+msgid "will give you all the publications from 2025 until today."
+msgstr ""
+
+msgid "For more tips, check out our "
+msgstr ""
+
 msgid "Search guide"
 msgstr ""
 
-msgid ""
-"<0>For more tips, check out our <2>search guide</2> for defining advanced "
-"search queries.</0>"
+msgid "search guide"
+msgstr ""
+
+msgid "for defining advanced search queries."
+msgstr ""
+
+msgid "This community has no subcommunities"
+msgstr ""
+
+msgid "Logging in..."
+msgstr ""
+
+msgid "Logging out..."
 msgstr ""
 
 msgid "Search in my communities..."
 msgstr ""
 
+msgid "My communities"
+msgstr ""
+
 msgid "View"
 msgstr "보복"
 
-msgid "Published in: {{publishedIn}}"
+msgid "Published in: {{- publishedIn }}"
 msgstr ""
 
 msgid "In review"
@@ -853,6 +936,9 @@ msgstr ""
 msgid "Search in my uploads..."
 msgstr ""
 
+msgid "My uploads"
+msgstr ""
+
 msgid "ORCID profile"
 msgstr ""
 
@@ -872,18 +958,4 @@ msgid "GND logo"
 msgstr ""
 
 msgid "No name"
-msgstr ""
-
-msgid "and {{count}} other"
-msgid_plural "and {{count}} other"
-msgstr[0] ""
-
-msgid "and {{count}} others"
-msgid_plural "and {{count}} others"
-msgstr[0] ""
-
-msgctxt ""
-"date:[2017-01-01 TO *]</0> will give you all the publications from 2017 "
-"until today.</0>"
-msgid "<0><0>metadata.publication"
 msgstr ""

@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-03-27T16:30:16.192Z\n"
+"POT-Creation-Date: 2025-07-22T14:13:07.642Z\n"
 "PO-Revision-Date: 2021-07-14 16:07+0000\n"
 "Last-Translator: BEN TERCÜME, 2025\n"
 "Language-Team: Turkish (https://app.transifex.com/inveniosoftware/teams/23537/tr/)\n"
@@ -18,8 +18,35 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "mime-version: 1.0\n"
 
-msgid "Basic information"
-msgstr "Temel bilgiler"
+msgid "Recent changes"
+msgstr ""
+
+msgid "Audit Log Details"
+msgstr ""
+
+msgid "Resource"
+msgstr ""
+
+msgid "Resource ID"
+msgstr ""
+
+msgid "Action"
+msgstr "Eylem"
+
+msgid "User"
+msgstr "Kullanıcı"
+
+msgid "Created"
+msgstr "Oluşturuldu"
+
+msgid "No revision ID found."
+msgstr ""
+
+msgid "Unable to fetch revisions."
+msgstr ""
+
+msgid "Cancel revision comparison"
+msgstr ""
 
 msgid "Impersonate user"
 msgstr "Kullanıcıyı taklit et"
@@ -48,13 +75,17 @@ msgstr ""
 "Lütfen devam etmeden önce aşağıdaki ifadeleri dikkatlice okuyun ve "
 "onaylayın."
 
-msgid "You are about to impersonate user <bold>{{email}}(id: {{id}})</bold>."
+msgid "You are about to impersonate user "
 msgstr ""
-"<bold>{{email}}(id: {{id}})</bold>kullanıcısını taklit etmek üzeresiniz."
 
-msgid "You <bold>MUST</bold> logout after completing your inquiry."
+msgid "You "
 msgstr ""
-"Sorgulamanızı tamamladıktan sonra <bold>MUTLAKA</bold> çıkış yapmalısınız."
+
+msgid "MUST"
+msgstr ""
+
+msgid " logout after completing your inquiry."
+msgstr ""
 
 msgid "Close"
 msgstr "Kapat"
@@ -70,11 +101,8 @@ msgstr "Not"
 
 msgid ""
 "This is the default quota that will be applied to any NEW records created by"
-" this user – it will NOT update quota of existing records."
+" this user - it will NOT update quota of existing records."
 msgstr ""
-"Bu kota, bu kullanıcı tarafından oluşturulacak tüm YENİ kayıtlara "
-"uygulanacak olan varsayılan kotadır - mevcut kayıtların kotasını "
-"GÜNCELLEMEZ."
 
 msgid "Quota of {{id}} was set to {{quota}} {{unit}}"
 msgstr "{{id}} kotası {{quota}} {{unit}} olarak ayarlandı"
@@ -154,6 +182,9 @@ msgstr "Bağlantılar"
 msgid "Set quota for record {{recordId}}"
 msgstr "{{recordId}} kaydı için kota belirleyin"
 
+msgid "Compare revisions"
+msgstr ""
+
 msgid "Delete record"
 msgstr "Kaydı sil"
 
@@ -190,8 +221,8 @@ msgstr "sürüm"
 msgid "Owner"
 msgstr "Sahip"
 
-msgid "Created"
-msgstr "Oluşturuldu"
+msgid "System"
+msgstr "Sistem"
 
 msgid "Files"
 msgstr "Dosyalar"
@@ -250,9 +281,6 @@ msgstr "{{name}} adlı kullanıcı engellendi."
 msgid "Error"
 msgstr "Hata"
 
-msgid "User"
-msgstr "Kullanıcı"
-
 msgid "Email"
 msgstr "E-posta"
 
@@ -273,6 +301,12 @@ msgstr "GitHub"
 
 msgid "Updated"
 msgstr "Güncellendi"
+
+msgid "Drafts"
+msgstr ""
+
+msgid "Moderation"
+msgstr ""
 
 msgid "Restore"
 msgstr "Geri yükle"
@@ -310,13 +344,11 @@ msgstr "Sonuçları filtrele"
 msgid "Search records in community..."
 msgstr "Topluluktaki kayıtları ara..."
 
+msgid "results found"
+msgstr ""
+
 msgid "Sort by"
 msgstr "Şuna göre sırala:"
-
-msgid " results found"
-msgid_plural " results found"
-msgstr[0] "adet sonuç bulundu"
-msgstr[1] "adet sonuç bulundu"
 
 msgid "Search records..."
 msgstr "Kayıtları ara..."
@@ -357,19 +389,26 @@ msgstr "Başlık yok"
 msgid "Uploaded on {{uploadDate}}"
 msgstr "Karşıya yüklenme tarihi: {{uploadDate}}"
 
-msgid "Published in: {{publishInfo}}"
-msgstr "Yayınlanma bilgisi: {{publishInfo}}"
+msgid "Published in: {{- publishInfo }}"
+msgstr ""
 
-msgid "{{count}} more versions exist for this record"
-msgid_plural "{{count}} more versions exist for this record"
-msgstr[0] "Bu kayıt için {{count}} adet daha sürüm var"
-msgstr[1] "Bu kayıt için {{count}} adet daha sürüm var"
+msgid "Recommendation"
+msgstr ""
+
+msgid "This check is recommended but not mandatory."
+msgstr ""
+
+msgid "This check indicates a critical issue that must be addressed."
+msgstr ""
 
 msgid "Person"
 msgstr "Kişi"
 
 msgid "The record has no files."
 msgstr "Bu kayıt hiç dosya içermemekte."
+
+msgid "Basic information"
+msgstr "Temel bilgiler"
 
 msgid "Creators"
 msgstr "Oluşturanlar"
@@ -453,11 +492,6 @@ msgstr "Topluluklar getirilirken bir hata oluştu."
 msgid "Communities"
 msgstr "Topluluklar"
 
-msgid "View all {{count}} communities"
-msgid_plural "View all {{count}} communities"
-msgstr[0] "Tüm {{count}} topluluğu görüntüle"
-msgstr[1] "Tüm {{count}} topluluğu görüntüle"
-
 msgid "Submit to community"
 msgstr "Topluluğa gönder"
 
@@ -490,6 +524,15 @@ msgstr "Kaydı yönet"
 
 msgid "Manage user"
 msgstr "Kullanıcıyı yönet"
+
+msgid "Block user"
+msgstr ""
+
+msgid "Block User"
+msgstr ""
+
+msgid "Blocking the user will delete all existing records of the user."
+msgstr ""
 
 msgid "Remove branding"
 msgstr "Markalamayı kaldır"
@@ -530,6 +573,9 @@ msgstr "Stil"
 msgid "This record is not included in any communities yet."
 msgstr "Bu kayıt henüz hiçbir topluluğa dahil edilmedi."
 
+msgid "Part of"
+msgstr ""
+
 msgid "Search for community..."
 msgstr "Topluluk arayın..."
 
@@ -560,28 +606,21 @@ msgstr "Yalnızca yayınlanmış sürümler görüntüleniyor."
 msgid "An error occurred while fetching the versions."
 msgstr "Sürümler getirilirken bir hata oluştu."
 
-msgid "View all {{count}} versions"
-msgid_plural "View all {{count}} versions"
-msgstr[0] "Tüm {{count}} sürümü görüntüle"
-msgstr[1] "Tüm {{count}} sürümü görüntüle"
+msgid "Cite all versions?"
+msgstr ""
+
+msgid "You can cite all versions by using the DOI"
+msgstr ""
 
 msgid ""
-"<0><0>Cite all versions?</0> You can cite all versions by using the DOI "
-"<3></3>. This DOI represents all versions, and will always resolve to the "
-"latest one. <5>Read more</5>.</0>"
+"This DOI represents all versions, and will always resolve to the latest one."
 msgstr ""
-"<0><0>Tüm sürümleri alıntıla?</0> DOI kullanarak tüm sürümleri "
-"alıntılayabilirsiniz. <3></3>. Bu DOI, tüm sürümleri temsil eder ve her "
-"zaman en son sürüme çözümlenir. <5>Daha fazlasını okuyun.</5>.</0>"
 
-msgid ""
-"<0><0>Cite all versions?</0> You can cite all versions by using the DOI . "
-"The DOI is registered when the first version is published. <4>Read "
-"more</4>.</0>"
+msgid "Read more"
+msgstr "Devamını okuyun"
+
+msgid "The DOI is registered when the first version is published."
 msgstr ""
-"<0><0>Tüm sürümleri alıntıla?</0> DOI kullanarak tüm versiyonları "
-"alıntılayabilirsiniz. DOI, ilk versiyon yayınlandığında kaydedilir. Dah "
-"fazlasını okuyun</4>.</0>"
 
 msgid "Remove"
 msgstr "Kaldır"
@@ -597,6 +636,18 @@ msgstr "Kaydı topluluktan kaldırmak istediğinizden emin misiniz?"
 
 msgid "I understand the consequences:"
 msgstr "Sonuçlarını anlıyorum:"
+
+msgid "Members of the community "
+msgstr ""
+
+msgid " will "
+msgstr ""
+
+msgid "lose their access"
+msgstr ""
+
+msgid " to the record."
+msgstr ""
 
 msgid ""
 "The record can only be re-included in the community by going through a new "
@@ -616,13 +667,6 @@ msgstr "İptal"
 
 msgid "Confirm removal"
 msgstr "Kaldırmayı onayla"
-
-msgid ""
-"Members of the community <1>\"<1>{{communityTitle}}</1>\"</1> will <4>lose "
-"their access</4> to the record."
-msgstr ""
-" <1>\"<1>{{communityTitle}}</1>\"</1> topluluğunun üyeleri kayda <4>erişim "
-"yetkilerini kaybedecek</4>."
 
 msgid "Select permissions"
 msgstr "İzinleri seçin"
@@ -667,19 +711,18 @@ msgstr "Bu kaydın tüm sürümlerinin kısıtlanmış dosyalarını görüntül
 msgid "Can preview drafts"
 msgstr "Taslakları önizleyebilir"
 
-msgid "Can view drafts and restricted files of all versions of this record."
+msgid ""
+"Can view drafts, restricted files, and comment on associated draft requests "
+"of all versions of this record."
 msgstr ""
-"Bu kaydın tüm sürümlerinin taslaklarını ve kısıtlanmış dosyalarını "
-"görüntüleyebilir."
 
 msgid "Can edit"
 msgstr "Düzenleyebilir"
 
 msgid ""
-"Can edit drafts and view restricted files of all versions of this record."
+"Can edit drafts, view restricted files, and comment on associated draft "
+"requests of all versions of this record."
 msgstr ""
-"Bu kaydın tüm sürümlerinin taslaklarını düzenleyebilir ve kısıtlanmış "
-"dosyalarını görüntüleyebilir."
 
 msgid ""
 "Can view (view access link can be created only after the record is "
@@ -784,11 +827,9 @@ msgid "Can manage"
 msgstr "Yönetebilir"
 
 msgid ""
-"Can manage access, edit drafts and view restricted files of all versions of "
-"this record."
+"Can manage access, edit drafts, view restricted files, and comment on "
+"associated draft requests of all versions of this record."
 msgstr ""
-"Bu kaydın tüm sürümlerine erişim yetkisini ayarlayabilir, taslakları "
-"düzenleyebilir ve kısıtlı dosyaları görüntüleyebilir."
 
 msgid "You don't have permissions to share this record."
 msgstr "Bu kaydı paylaşma izniniz yok."
@@ -857,24 +898,41 @@ msgstr "Baştan başla"
 msgid "ProTip"
 msgstr "Faydalı tavsiye"
 
+msgid "will give you all the publications from 2025 until today."
+msgstr ""
+
+msgid "For more tips, check out our "
+msgstr ""
+
 msgid "Search guide"
 msgstr "Arama kılavuzu"
 
-msgid ""
-"<0>For more tips, check out our <2>search guide</2> for defining advanced "
-"search queries.</0>"
+msgid "search guide"
 msgstr ""
-"<0>Daha fazla tavsiye için gelişmiş arama sorgularını tanımlamaya yönelik "
-"<2>arama kılavuzumuza</2></0> göz atın."
+
+msgid "for defining advanced search queries."
+msgstr ""
+
+msgid "This community has no subcommunities"
+msgstr ""
+
+msgid "Logging in..."
+msgstr ""
+
+msgid "Logging out..."
+msgstr ""
 
 msgid "Search in my communities..."
 msgstr "Topluluklarımda ara..."
 
+msgid "My communities"
+msgstr "Topluluklarım"
+
 msgid "View"
 msgstr "Görüntüle"
 
-msgid "Published in: {{publishedIn}}"
-msgstr "Yayınlandı: {{published In}}"
+msgid "Published in: {{- publishedIn }}"
+msgstr ""
 
 msgid "In review"
 msgstr "İnceleme aşamasında"
@@ -912,6 +970,9 @@ msgstr "Yeni Yükleme"
 msgid "Search in my uploads..."
 msgstr "Karşıya yüklemelerimde ara…"
 
+msgid "My uploads"
+msgstr ""
+
 msgid "ORCID profile"
 msgstr "ORCID profili"
 
@@ -932,21 +993,3 @@ msgstr ""
 
 msgid "No name"
 msgstr ""
-
-msgid "and {{count}} other"
-msgid_plural "and {{count}} other"
-msgstr[0] ""
-msgstr[1] ""
-
-msgid "and {{count}} others"
-msgid_plural "and {{count}} others"
-msgstr[0] ""
-msgstr[1] ""
-
-msgctxt ""
-"date:[2017-01-01 TO *]</0> will give you all the publications from 2017 "
-"until today.</0>"
-msgid "<0><0>metadata.publication"
-msgstr ""
-"<0><0>metadata.publication_date:[2017-01-01 TO *]</0> size 2017'den bugüne "
-"kadar olan tüm yayınları verecektir.</0>"

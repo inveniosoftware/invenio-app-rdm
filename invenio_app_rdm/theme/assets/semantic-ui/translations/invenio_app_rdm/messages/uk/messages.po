@@ -1,15 +1,15 @@
 # 
 # Translators:
 # Tibor Simko <tibor.simko@cern.ch>, 2021
-# Vasyl Ostrovskyi <vasyusya@yahoo.com>, 2025
 # Vitalii Kindrat, 2025
+# Vasyl Ostrovskyi <vasyusya@yahoo.com>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-03-27T16:30:16.192Z\n"
+"POT-Creation-Date: 2025-07-22T14:13:07.642Z\n"
 "PO-Revision-Date: 2021-07-14 16:07+0000\n"
-"Last-Translator: Vitalii Kindrat, 2025\n"
+"Last-Translator: Vasyl Ostrovskyi <vasyusya@yahoo.com>, 2025\n"
 "Language-Team: Ukrainian (https://app.transifex.com/inveniosoftware/teams/23537/uk/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -17,8 +17,35 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 "mime-version: 1.0\n"
 
-msgid "Basic information"
-msgstr "Загальна інформація"
+msgid "Recent changes"
+msgstr ""
+
+msgid "Audit Log Details"
+msgstr ""
+
+msgid "Resource"
+msgstr ""
+
+msgid "Resource ID"
+msgstr ""
+
+msgid "Action"
+msgstr ""
+
+msgid "User"
+msgstr ""
+
+msgid "Created"
+msgstr "Створено"
+
+msgid "No revision ID found."
+msgstr ""
+
+msgid "Unable to fetch revisions."
+msgstr ""
+
+msgid "Cancel revision comparison"
+msgstr ""
 
 msgid "Impersonate user"
 msgstr ""
@@ -44,10 +71,16 @@ msgid ""
 "proceed."
 msgstr ""
 
-msgid "You are about to impersonate user <bold>{{email}}(id: {{id}})</bold>."
+msgid "You are about to impersonate user "
 msgstr ""
 
-msgid "You <bold>MUST</bold> logout after completing your inquiry."
+msgid "You "
+msgstr ""
+
+msgid "MUST"
+msgstr ""
+
+msgid " logout after completing your inquiry."
 msgstr ""
 
 msgid "Close"
@@ -64,7 +97,7 @@ msgstr ""
 
 msgid ""
 "This is the default quota that will be applied to any NEW records created by"
-" this user – it will NOT update quota of existing records."
+" this user - it will NOT update quota of existing records."
 msgstr ""
 
 msgid "Quota of {{id}} was set to {{quota}} {{unit}}"
@@ -145,6 +178,9 @@ msgstr ""
 msgid "Set quota for record {{recordId}}"
 msgstr ""
 
+msgid "Compare revisions"
+msgstr ""
+
 msgid "Delete record"
 msgstr ""
 
@@ -181,8 +217,8 @@ msgstr ""
 msgid "Owner"
 msgstr "Власник"
 
-msgid "Created"
-msgstr "Створено"
+msgid "System"
+msgstr ""
 
 msgid "Files"
 msgstr "Файли"
@@ -233,9 +269,6 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-msgid "User"
-msgstr ""
-
 msgid "Email"
 msgstr "Електронна пошта"
 
@@ -255,6 +288,12 @@ msgid "GitHub"
 msgstr ""
 
 msgid "Updated"
+msgstr ""
+
+msgid "Drafts"
+msgstr ""
+
+msgid "Moderation"
 msgstr ""
 
 msgid "Restore"
@@ -293,15 +332,11 @@ msgstr "Фільтрувати результати"
 msgid "Search records in community..."
 msgstr "Шукати записи у спільноті..."
 
+msgid "results found"
+msgstr ""
+
 msgid "Sort by"
 msgstr "Впорядкувати за"
-
-msgid " results found"
-msgid_plural " results found"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
 
 msgid "Search records..."
 msgstr "Шукати записи..."
@@ -342,21 +377,26 @@ msgstr "Не вказано назву"
 msgid "Uploaded on {{uploadDate}}"
 msgstr ""
 
-msgid "Published in: {{publishInfo}}"
+msgid "Published in: {{- publishInfo }}"
 msgstr ""
 
-msgid "{{count}} more versions exist for this record"
-msgid_plural "{{count}} more versions exist for this record"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgid "Recommendation"
+msgstr ""
+
+msgid "This check is recommended but not mandatory."
+msgstr ""
+
+msgid "This check indicates a critical issue that must be addressed."
+msgstr ""
 
 msgid "Person"
 msgstr "Особа"
 
 msgid "The record has no files."
 msgstr "Запис на містить файлів"
+
+msgid "Basic information"
+msgstr "Загальна інформація"
 
 msgid "Creators"
 msgstr "Автори"
@@ -438,13 +478,6 @@ msgstr ""
 msgid "Communities"
 msgstr "Спільноти"
 
-msgid "View all {{count}} communities"
-msgid_plural "View all {{count}} communities"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-
 msgid "Submit to community"
 msgstr ""
 
@@ -476,6 +509,15 @@ msgid "Manage record"
 msgstr "Керувати записом"
 
 msgid "Manage user"
+msgstr ""
+
+msgid "Block user"
+msgstr ""
+
+msgid "Block User"
+msgstr ""
+
+msgid "Blocking the user will delete all existing records of the user."
 msgstr ""
 
 msgid "Remove branding"
@@ -512,6 +554,9 @@ msgstr "Стиль"
 msgid "This record is not included in any communities yet."
 msgstr ""
 
+msgid "Part of"
+msgstr ""
+
 msgid "Search for community..."
 msgstr ""
 
@@ -542,23 +587,20 @@ msgstr "Показуються лише опубліковані версії."
 msgid "An error occurred while fetching the versions."
 msgstr ""
 
-msgid "View all {{count}} versions"
-msgid_plural "View all {{count}} versions"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgid "Cite all versions?"
+msgstr ""
 
-msgid ""
-"<0><0>Cite all versions?</0> You can cite all versions by using the DOI "
-"<3></3>. This DOI represents all versions, and will always resolve to the "
-"latest one. <5>Read more</5>.</0>"
+msgid "You can cite all versions by using the DOI"
 msgstr ""
 
 msgid ""
-"<0><0>Cite all versions?</0> You can cite all versions by using the DOI . "
-"The DOI is registered when the first version is published. <4>Read "
-"more</4>.</0>"
+"This DOI represents all versions, and will always resolve to the latest one."
+msgstr ""
+
+msgid "Read more"
+msgstr "Детальніше"
+
+msgid "The DOI is registered when the first version is published."
 msgstr ""
 
 msgid "Remove"
@@ -576,6 +618,18 @@ msgstr ""
 msgid "I understand the consequences:"
 msgstr ""
 
+msgid "Members of the community "
+msgstr ""
+
+msgid " will "
+msgstr ""
+
+msgid "lose their access"
+msgstr ""
+
+msgid " to the record."
+msgstr ""
+
 msgid ""
 "The record can only be re-included in the community by going through a new "
 "review by the community curators."
@@ -591,11 +645,6 @@ msgid "Cancel"
 msgstr "Скасувати"
 
 msgid "Confirm removal"
-msgstr ""
-
-msgid ""
-"Members of the community <1>\"<1>{{communityTitle}}</1>\"</1> will <4>lose "
-"their access</4> to the record."
 msgstr ""
 
 msgid "Select permissions"
@@ -640,14 +689,17 @@ msgstr ""
 msgid "Can preview drafts"
 msgstr ""
 
-msgid "Can view drafts and restricted files of all versions of this record."
+msgid ""
+"Can view drafts, restricted files, and comment on associated draft requests "
+"of all versions of this record."
 msgstr ""
 
 msgid "Can edit"
 msgstr "Дозвіл на редагування"
 
 msgid ""
-"Can edit drafts and view restricted files of all versions of this record."
+"Can edit drafts, view restricted files, and comment on associated draft "
+"requests of all versions of this record."
 msgstr ""
 
 msgid ""
@@ -746,8 +798,8 @@ msgid "Can manage"
 msgstr ""
 
 msgid ""
-"Can manage access, edit drafts and view restricted files of all versions of "
-"this record."
+"Can manage access, edit drafts, view restricted files, and comment on "
+"associated draft requests of all versions of this record."
 msgstr ""
 
 msgid "You don't have permissions to share this record."
@@ -815,21 +867,40 @@ msgstr "Розпочати заново"
 msgid "ProTip"
 msgstr "Порада"
 
+msgid "will give you all the publications from 2025 until today."
+msgstr ""
+
+msgid "For more tips, check out our "
+msgstr "Для отримання інших порад перегляньте"
+
 msgid "Search guide"
 msgstr "Посібник з пошуку"
 
-msgid ""
-"<0>For more tips, check out our <2>search guide</2> for defining advanced "
-"search queries.</0>"
+msgid "search guide"
+msgstr "посібник з пошуку"
+
+msgid "for defining advanced search queries."
+msgstr ""
+
+msgid "This community has no subcommunities"
+msgstr ""
+
+msgid "Logging in..."
+msgstr ""
+
+msgid "Logging out..."
 msgstr ""
 
 msgid "Search in my communities..."
 msgstr "Шукати в моїх спільнотах..."
 
+msgid "My communities"
+msgstr "Мої спільноти"
+
 msgid "View"
 msgstr "Переглянути"
 
-msgid "Published in: {{publishedIn}}"
+msgid "Published in: {{- publishedIn }}"
 msgstr ""
 
 msgid "In review"
@@ -868,6 +939,9 @@ msgstr "Нове завантаження"
 msgid "Search in my uploads..."
 msgstr "Шукати в моїх завантаженнях..."
 
+msgid "My uploads"
+msgstr ""
+
 msgid "ORCID profile"
 msgstr "Профіль ORCID"
 
@@ -887,24 +961,4 @@ msgid "GND logo"
 msgstr ""
 
 msgid "No name"
-msgstr ""
-
-msgid "and {{count}} other"
-msgid_plural "and {{count}} other"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-
-msgid "and {{count}} others"
-msgid_plural "and {{count}} others"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-
-msgctxt ""
-"date:[2017-01-01 TO *]</0> will give you all the publications from 2017 "
-"until today.</0>"
-msgid "<0><0>metadata.publication"
 msgstr ""

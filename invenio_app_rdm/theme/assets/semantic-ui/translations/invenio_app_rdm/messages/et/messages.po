@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-03-27T16:30:16.192Z\n"
+"POT-Creation-Date: 2025-07-22T14:13:07.642Z\n"
 "PO-Revision-Date: 2021-07-14 16:07+0000\n"
 "Last-Translator: Martin Jantson <martinjantson97@gmail.com>, 2025\n"
 "Language-Team: Estonian (https://app.transifex.com/inveniosoftware/teams/23537/et/)\n"
@@ -16,8 +16,35 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "mime-version: 1.0\n"
 
-msgid "Basic information"
-msgstr "Põhiandmed"
+msgid "Recent changes"
+msgstr ""
+
+msgid "Audit Log Details"
+msgstr ""
+
+msgid "Resource"
+msgstr ""
+
+msgid "Resource ID"
+msgstr ""
+
+msgid "Action"
+msgstr "Toiming"
+
+msgid "User"
+msgstr "Kasutaja"
+
+msgid "Created"
+msgstr "Loodud"
+
+msgid "No revision ID found."
+msgstr ""
+
+msgid "Unable to fetch revisions."
+msgstr ""
+
+msgid "Cancel revision comparison"
+msgstr ""
 
 msgid "Impersonate user"
 msgstr ""
@@ -43,10 +70,16 @@ msgid ""
 "proceed."
 msgstr ""
 
-msgid "You are about to impersonate user <bold>{{email}}(id: {{id}})</bold>."
+msgid "You are about to impersonate user "
 msgstr ""
 
-msgid "You <bold>MUST</bold> logout after completing your inquiry."
+msgid "You "
+msgstr ""
+
+msgid "MUST"
+msgstr ""
+
+msgid " logout after completing your inquiry."
 msgstr ""
 
 msgid "Close"
@@ -63,7 +96,7 @@ msgstr "Märge"
 
 msgid ""
 "This is the default quota that will be applied to any NEW records created by"
-" this user – it will NOT update quota of existing records."
+" this user - it will NOT update quota of existing records."
 msgstr ""
 
 msgid "Quota of {{id}} was set to {{quota}} {{unit}}"
@@ -144,6 +177,9 @@ msgstr ""
 msgid "Set quota for record {{recordId}}"
 msgstr ""
 
+msgid "Compare revisions"
+msgstr ""
+
 msgid "Delete record"
 msgstr ""
 
@@ -180,8 +216,8 @@ msgstr "versioon"
 msgid "Owner"
 msgstr "Omanik"
 
-msgid "Created"
-msgstr "Loodud"
+msgid "System"
+msgstr ""
 
 msgid "Files"
 msgstr "Failid"
@@ -232,9 +268,6 @@ msgstr ""
 msgid "Error"
 msgstr "Viga"
 
-msgid "User"
-msgstr "Kasutaja"
-
 msgid "Email"
 msgstr "E-mail"
 
@@ -255,6 +288,12 @@ msgstr "GitHub"
 
 msgid "Updated"
 msgstr "Uuendatud"
+
+msgid "Drafts"
+msgstr ""
+
+msgid "Moderation"
+msgstr ""
 
 msgid "Restore"
 msgstr ""
@@ -292,13 +331,11 @@ msgstr "Filtreeri tulemusi"
 msgid "Search records in community..."
 msgstr "Otsi grupist kirjeid..."
 
+msgid "results found"
+msgstr ""
+
 msgid "Sort by"
 msgstr "Sorteeri"
-
-msgid " results found"
-msgid_plural " results found"
-msgstr[0] ""
-msgstr[1] ""
 
 msgid "Search records..."
 msgstr "Otsi kirjeid..."
@@ -339,19 +376,26 @@ msgstr "Pealkiri puudub"
 msgid "Uploaded on {{uploadDate}}"
 msgstr ""
 
-msgid "Published in: {{publishInfo}}"
+msgid "Published in: {{- publishInfo }}"
 msgstr ""
 
-msgid "{{count}} more versions exist for this record"
-msgid_plural "{{count}} more versions exist for this record"
-msgstr[0] ""
-msgstr[1] ""
+msgid "Recommendation"
+msgstr ""
+
+msgid "This check is recommended but not mandatory."
+msgstr ""
+
+msgid "This check indicates a critical issue that must be addressed."
+msgstr ""
 
 msgid "Person"
 msgstr "Isik"
 
 msgid "The record has no files."
 msgstr "Antud kirjel failid puuduvad."
+
+msgid "Basic information"
+msgstr "Põhiandmed"
 
 msgid "Creators"
 msgstr "Loojad"
@@ -433,11 +477,6 @@ msgstr ""
 msgid "Communities"
 msgstr "Grupid"
 
-msgid "View all {{count}} communities"
-msgid_plural "View all {{count}} communities"
-msgstr[0] ""
-msgstr[1] ""
-
 msgid "Submit to community"
 msgstr ""
 
@@ -469,6 +508,15 @@ msgid "Manage record"
 msgstr "Halda kirjet"
 
 msgid "Manage user"
+msgstr ""
+
+msgid "Block user"
+msgstr ""
+
+msgid "Block User"
+msgstr ""
+
+msgid "Blocking the user will delete all existing records of the user."
 msgstr ""
 
 msgid "Remove branding"
@@ -505,6 +553,9 @@ msgstr "Stiil"
 msgid "This record is not included in any communities yet."
 msgstr ""
 
+msgid "Part of"
+msgstr ""
+
 msgid "Search for community..."
 msgstr ""
 
@@ -535,21 +586,20 @@ msgstr "Kuvatakse ainult avaldatud versioonid."
 msgid "An error occurred while fetching the versions."
 msgstr ""
 
-msgid "View all {{count}} versions"
-msgid_plural "View all {{count}} versions"
-msgstr[0] ""
-msgstr[1] ""
+msgid "Cite all versions?"
+msgstr ""
 
-msgid ""
-"<0><0>Cite all versions?</0> You can cite all versions by using the DOI "
-"<3></3>. This DOI represents all versions, and will always resolve to the "
-"latest one. <5>Read more</5>.</0>"
+msgid "You can cite all versions by using the DOI"
 msgstr ""
 
 msgid ""
-"<0><0>Cite all versions?</0> You can cite all versions by using the DOI . "
-"The DOI is registered when the first version is published. <4>Read "
-"more</4>.</0>"
+"This DOI represents all versions, and will always resolve to the latest one."
+msgstr ""
+
+msgid "Read more"
+msgstr "Loe rohkem"
+
+msgid "The DOI is registered when the first version is published."
 msgstr ""
 
 msgid "Remove"
@@ -567,6 +617,18 @@ msgstr ""
 msgid "I understand the consequences:"
 msgstr ""
 
+msgid "Members of the community "
+msgstr ""
+
+msgid " will "
+msgstr ""
+
+msgid "lose their access"
+msgstr ""
+
+msgid " to the record."
+msgstr ""
+
 msgid ""
 "The record can only be re-included in the community by going through a new "
 "review by the community curators."
@@ -582,11 +644,6 @@ msgid "Cancel"
 msgstr "Tühista"
 
 msgid "Confirm removal"
-msgstr ""
-
-msgid ""
-"Members of the community <1>\"<1>{{communityTitle}}</1>\"</1> will <4>lose "
-"their access</4> to the record."
 msgstr ""
 
 msgid "Select permissions"
@@ -631,14 +688,17 @@ msgstr ""
 msgid "Can preview drafts"
 msgstr ""
 
-msgid "Can view drafts and restricted files of all versions of this record."
+msgid ""
+"Can view drafts, restricted files, and comment on associated draft requests "
+"of all versions of this record."
 msgstr ""
 
 msgid "Can edit"
 msgstr "Saab muuta"
 
 msgid ""
-"Can edit drafts and view restricted files of all versions of this record."
+"Can edit drafts, view restricted files, and comment on associated draft "
+"requests of all versions of this record."
 msgstr ""
 
 msgid ""
@@ -736,8 +796,8 @@ msgid "Can manage"
 msgstr ""
 
 msgid ""
-"Can manage access, edit drafts and view restricted files of all versions of "
-"this record."
+"Can manage access, edit drafts, view restricted files, and comment on "
+"associated draft requests of all versions of this record."
 msgstr ""
 
 msgid "You don't have permissions to share this record."
@@ -805,21 +865,40 @@ msgstr "Alusta uuesti"
 msgid "ProTip"
 msgstr "Profinipp"
 
+msgid "will give you all the publications from 2025 until today."
+msgstr ""
+
+msgid "For more tips, check out our "
+msgstr "Rohkemate nõuannete jaoks vaata meie"
+
 msgid "Search guide"
 msgstr "Otsingu juhend"
 
-msgid ""
-"<0>For more tips, check out our <2>search guide</2> for defining advanced "
-"search queries.</0>"
+msgid "search guide"
+msgstr "otsingu juhendit"
+
+msgid "for defining advanced search queries."
+msgstr ""
+
+msgid "This community has no subcommunities"
+msgstr ""
+
+msgid "Logging in..."
+msgstr ""
+
+msgid "Logging out..."
 msgstr ""
 
 msgid "Search in my communities..."
 msgstr "Otsi minu kogukondadest..."
 
+msgid "My communities"
+msgstr "Minu grupid"
+
 msgid "View"
 msgstr "Vaata"
 
-msgid "Published in: {{publishedIn}}"
+msgid "Published in: {{- publishedIn }}"
 msgstr ""
 
 msgid "In review"
@@ -858,6 +937,9 @@ msgstr "Uus üleslaadimine"
 msgid "Search in my uploads..."
 msgstr "Otsi minu üleslaadimistest..."
 
+msgid "My uploads"
+msgstr ""
+
 msgid "ORCID profile"
 msgstr "ORCID profiil"
 
@@ -877,20 +959,4 @@ msgid "GND logo"
 msgstr ""
 
 msgid "No name"
-msgstr ""
-
-msgid "and {{count}} other"
-msgid_plural "and {{count}} other"
-msgstr[0] ""
-msgstr[1] ""
-
-msgid "and {{count}} others"
-msgid_plural "and {{count}} others"
-msgstr[0] ""
-msgstr[1] ""
-
-msgctxt ""
-"date:[2017-01-01 TO *]</0> will give you all the publications from 2017 "
-"until today.</0>"
-msgid "<0><0>metadata.publication"
 msgstr ""

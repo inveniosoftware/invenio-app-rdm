@@ -2,16 +2,16 @@
 # Translators:
 # Jiří Kunčar <jiri.kuncar@gmail.com>, 2024
 # Tibor Simko <tibor.simko@cern.ch>, 2024
-# Alizee Pace <alizee.pace@gmail.com>, 2025
 # Zacharias Zacharodimos <zacharias.zacharodimos@cern.ch>, 2025
 # Fare Fare <fare@polito.it>, 2025
+# Alizee Pace <alizee.pace@gmail.com>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-03-27T16:30:16.192Z\n"
+"POT-Creation-Date: 2025-07-22T14:13:07.642Z\n"
 "PO-Revision-Date: 2021-07-14 16:07+0000\n"
-"Last-Translator: Fare Fare <fare@polito.it>, 2025\n"
+"Last-Translator: Alizee Pace <alizee.pace@gmail.com>, 2025\n"
 "Language-Team: Italian (https://app.transifex.com/inveniosoftware/teams/23537/it/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,7 +19,34 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 "mime-version: 1.0\n"
 
-msgid "Basic information"
+msgid "Recent changes"
+msgstr ""
+
+msgid "Audit Log Details"
+msgstr ""
+
+msgid "Resource"
+msgstr ""
+
+msgid "Resource ID"
+msgstr ""
+
+msgid "Action"
+msgstr "Azione"
+
+msgid "User"
+msgstr "Utente"
+
+msgid "Created"
+msgstr "Creato"
+
+msgid "No revision ID found."
+msgstr ""
+
+msgid "Unable to fetch revisions."
+msgstr ""
+
+msgid "Cancel revision comparison"
 msgstr ""
 
 msgid "Impersonate user"
@@ -46,10 +73,16 @@ msgid ""
 "proceed."
 msgstr ""
 
-msgid "You are about to impersonate user <bold>{{email}}(id: {{id}})</bold>."
+msgid "You are about to impersonate user "
 msgstr ""
 
-msgid "You <bold>MUST</bold> logout after completing your inquiry."
+msgid "You "
+msgstr ""
+
+msgid "MUST"
+msgstr ""
+
+msgid " logout after completing your inquiry."
 msgstr ""
 
 msgid "Close"
@@ -66,7 +99,7 @@ msgstr "Nota"
 
 msgid ""
 "This is the default quota that will be applied to any NEW records created by"
-" this user – it will NOT update quota of existing records."
+" this user - it will NOT update quota of existing records."
 msgstr ""
 
 msgid "Quota of {{id}} was set to {{quota}} {{unit}}"
@@ -147,6 +180,9 @@ msgstr ""
 msgid "Set quota for record {{recordId}}"
 msgstr ""
 
+msgid "Compare revisions"
+msgstr ""
+
 msgid "Delete record"
 msgstr ""
 
@@ -183,8 +219,8 @@ msgstr "versione"
 msgid "Owner"
 msgstr "Proprietario"
 
-msgid "Created"
-msgstr "Creato"
+msgid "System"
+msgstr ""
 
 msgid "Files"
 msgstr "File"
@@ -235,9 +271,6 @@ msgstr ""
 msgid "Error"
 msgstr "Errore"
 
-msgid "User"
-msgstr "Utente"
-
 msgid "Email"
 msgstr "Email"
 
@@ -257,6 +290,12 @@ msgid "GitHub"
 msgstr "GitHub"
 
 msgid "Updated"
+msgstr ""
+
+msgid "Drafts"
+msgstr ""
+
+msgid "Moderation"
 msgstr ""
 
 msgid "Restore"
@@ -295,14 +334,11 @@ msgstr ""
 msgid "Search records in community..."
 msgstr ""
 
-msgid "Sort by"
+msgid "results found"
 msgstr ""
 
-msgid " results found"
-msgid_plural " results found"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgid "Sort by"
+msgstr ""
 
 msgid "Search records..."
 msgstr ""
@@ -343,19 +379,25 @@ msgstr "Senza titolo"
 msgid "Uploaded on {{uploadDate}}"
 msgstr ""
 
-msgid "Published in: {{publishInfo}}"
+msgid "Published in: {{- publishInfo }}"
 msgstr ""
 
-msgid "{{count}} more versions exist for this record"
-msgid_plural "{{count}} more versions exist for this record"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgid "Recommendation"
+msgstr ""
+
+msgid "This check is recommended but not mandatory."
+msgstr ""
+
+msgid "This check indicates a critical issue that must be addressed."
+msgstr ""
 
 msgid "Person"
 msgstr ""
 
 msgid "The record has no files."
+msgstr ""
+
+msgid "Basic information"
 msgstr ""
 
 msgid "Creators"
@@ -438,12 +480,6 @@ msgstr ""
 msgid "Communities"
 msgstr "Comunità"
 
-msgid "View all {{count}} communities"
-msgid_plural "View all {{count}} communities"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
 msgid "Submit to community"
 msgstr ""
 
@@ -475,6 +511,15 @@ msgid "Manage record"
 msgstr "Gestisci record"
 
 msgid "Manage user"
+msgstr ""
+
+msgid "Block user"
+msgstr ""
+
+msgid "Block User"
+msgstr ""
+
+msgid "Blocking the user will delete all existing records of the user."
 msgstr ""
 
 msgid "Remove branding"
@@ -511,6 +556,9 @@ msgstr ""
 msgid "This record is not included in any communities yet."
 msgstr ""
 
+msgid "Part of"
+msgstr ""
+
 msgid "Search for community..."
 msgstr ""
 
@@ -541,22 +589,20 @@ msgstr ""
 msgid "An error occurred while fetching the versions."
 msgstr ""
 
-msgid "View all {{count}} versions"
-msgid_plural "View all {{count}} versions"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgid "Cite all versions?"
+msgstr ""
 
-msgid ""
-"<0><0>Cite all versions?</0> You can cite all versions by using the DOI "
-"<3></3>. This DOI represents all versions, and will always resolve to the "
-"latest one. <5>Read more</5>.</0>"
+msgid "You can cite all versions by using the DOI"
 msgstr ""
 
 msgid ""
-"<0><0>Cite all versions?</0> You can cite all versions by using the DOI . "
-"The DOI is registered when the first version is published. <4>Read "
-"more</4>.</0>"
+"This DOI represents all versions, and will always resolve to the latest one."
+msgstr ""
+
+msgid "Read more"
+msgstr "Per saperne di più"
+
+msgid "The DOI is registered when the first version is published."
 msgstr ""
 
 msgid "Remove"
@@ -574,6 +620,18 @@ msgstr ""
 msgid "I understand the consequences:"
 msgstr ""
 
+msgid "Members of the community "
+msgstr ""
+
+msgid " will "
+msgstr ""
+
+msgid "lose their access"
+msgstr ""
+
+msgid " to the record."
+msgstr ""
+
 msgid ""
 "The record can only be re-included in the community by going through a new "
 "review by the community curators."
@@ -589,11 +647,6 @@ msgid "Cancel"
 msgstr "Annulla"
 
 msgid "Confirm removal"
-msgstr ""
-
-msgid ""
-"Members of the community <1>\"<1>{{communityTitle}}</1>\"</1> will <4>lose "
-"their access</4> to the record."
 msgstr ""
 
 msgid "Select permissions"
@@ -638,14 +691,17 @@ msgstr ""
 msgid "Can preview drafts"
 msgstr ""
 
-msgid "Can view drafts and restricted files of all versions of this record."
+msgid ""
+"Can view drafts, restricted files, and comment on associated draft requests "
+"of all versions of this record."
 msgstr ""
 
 msgid "Can edit"
 msgstr ""
 
 msgid ""
-"Can edit drafts and view restricted files of all versions of this record."
+"Can edit drafts, view restricted files, and comment on associated draft "
+"requests of all versions of this record."
 msgstr ""
 
 msgid ""
@@ -743,8 +799,8 @@ msgid "Can manage"
 msgstr ""
 
 msgid ""
-"Can manage access, edit drafts and view restricted files of all versions of "
-"this record."
+"Can manage access, edit drafts, view restricted files, and comment on "
+"associated draft requests of all versions of this record."
 msgstr ""
 
 msgid "You don't have permissions to share this record."
@@ -812,21 +868,40 @@ msgstr ""
 msgid "ProTip"
 msgstr ""
 
+msgid "will give you all the publications from 2025 until today."
+msgstr ""
+
+msgid "For more tips, check out our "
+msgstr ""
+
 msgid "Search guide"
 msgstr ""
 
-msgid ""
-"<0>For more tips, check out our <2>search guide</2> for defining advanced "
-"search queries.</0>"
+msgid "search guide"
+msgstr ""
+
+msgid "for defining advanced search queries."
+msgstr ""
+
+msgid "This community has no subcommunities"
+msgstr ""
+
+msgid "Logging in..."
+msgstr ""
+
+msgid "Logging out..."
 msgstr ""
 
 msgid "Search in my communities..."
 msgstr ""
 
+msgid "My communities"
+msgstr "Le mie comunità"
+
 msgid "View"
 msgstr "Visualizzazione"
 
-msgid "Published in: {{publishedIn}}"
+msgid "Published in: {{- publishedIn }}"
 msgstr ""
 
 msgid "In review"
@@ -865,6 +940,9 @@ msgstr "Nuovo caricamento"
 msgid "Search in my uploads..."
 msgstr ""
 
+msgid "My uploads"
+msgstr ""
+
 msgid "ORCID profile"
 msgstr ""
 
@@ -884,22 +962,4 @@ msgid "GND logo"
 msgstr ""
 
 msgid "No name"
-msgstr ""
-
-msgid "and {{count}} other"
-msgid_plural "and {{count}} other"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-msgid "and {{count}} others"
-msgid_plural "and {{count}} others"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-msgctxt ""
-"date:[2017-01-01 TO *]</0> will give you all the publications from 2017 "
-"until today.</0>"
-msgid "<0><0>metadata.publication"
 msgstr ""
