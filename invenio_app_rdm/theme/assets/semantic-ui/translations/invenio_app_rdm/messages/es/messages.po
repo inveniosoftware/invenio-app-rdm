@@ -1,15 +1,15 @@
 # 
 # Translators:
 # Alizee Pace <alizee.pace@gmail.com>, 2024
-# Tibor Simko <tibor.simko@cern.ch>, 2024
-# Ignacio Estevo, 2024
+# Tibor Simko <tibor.simko@cern.ch>, 2025
+# Ignacio Estevo, 2025
 # Zacharias Zacharodimos <zacharias.zacharodimos@cern.ch>, 2025
 # Jesús Martín <jesusmartin@sallep.net>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-03-27T16:30:16.192Z\n"
+"POT-Creation-Date: 2025-07-22T14:13:07.642Z\n"
 "PO-Revision-Date: 2021-07-14 16:07+0000\n"
 "Last-Translator: Jesús Martín <jesusmartin@sallep.net>, 2025\n"
 "Language-Team: Spanish (https://app.transifex.com/inveniosoftware/teams/23537/es/)\n"
@@ -19,8 +19,35 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 "mime-version: 1.0\n"
 
-msgid "Basic information"
-msgstr "Información básica"
+msgid "Recent changes"
+msgstr ""
+
+msgid "Audit Log Details"
+msgstr ""
+
+msgid "Resource"
+msgstr ""
+
+msgid "Resource ID"
+msgstr ""
+
+msgid "Action"
+msgstr "Acción"
+
+msgid "User"
+msgstr "Usuario"
+
+msgid "Created"
+msgstr "Creado"
+
+msgid "No revision ID found."
+msgstr ""
+
+msgid "Unable to fetch revisions."
+msgstr ""
+
+msgid "Cancel revision comparison"
+msgstr ""
 
 msgid "Impersonate user"
 msgstr "Entrar con la identidad del usuario"
@@ -49,12 +76,17 @@ msgid ""
 msgstr ""
 "Lea atentamente y confirme las siguientes afirmaciones antes de continuar."
 
-msgid "You are about to impersonate user <bold>{{email}}(id: {{id}})</bold>."
+msgid "You are about to impersonate user "
 msgstr ""
-"Está a punto de suplantar al usuario <bold>{{email}}(id: {{id}})</bold>."
 
-msgid "You <bold>MUST</bold> logout after completing your inquiry."
-msgstr "<bold>DEBE</bold> cerrar la sesión después de completar su consulta."
+msgid "You "
+msgstr ""
+
+msgid "MUST"
+msgstr ""
+
+msgid " logout after completing your inquiry."
+msgstr ""
 
 msgid "Close"
 msgstr "Cerrar"
@@ -70,11 +102,8 @@ msgstr "Nota"
 
 msgid ""
 "This is the default quota that will be applied to any NEW records created by"
-" this user – it will NOT update quota of existing records."
+" this user - it will NOT update quota of existing records."
 msgstr ""
-"Esta es la cuota predeterminada que se aplicará a cualquier registro NUEVO "
-"creado por este usuario; NO actualizará la cuota de los registros "
-"existentes."
 
 msgid "Quota of {{id}} was set to {{quota}} {{unit}}"
 msgstr "La cuota de {{id}} se estableció en {{quota}} {{unit}}"
@@ -154,6 +183,9 @@ msgstr "Enlaces"
 msgid "Set quota for record {{recordId}}"
 msgstr "Establecer cuota para el registro {{recordId}}"
 
+msgid "Compare revisions"
+msgstr ""
+
 msgid "Delete record"
 msgstr "Eliminar registro"
 
@@ -190,8 +222,8 @@ msgstr "versión"
 msgid "Owner"
 msgstr "Propietario"
 
-msgid "Created"
-msgstr "Creado"
+msgid "System"
+msgstr "Sistema"
 
 msgid "Files"
 msgstr "Archivos"
@@ -251,9 +283,6 @@ msgstr "El usuario {{name}} está bloqueado."
 msgid "Error"
 msgstr "Error"
 
-msgid "User"
-msgstr "Usuario"
-
 msgid "Email"
 msgstr "Email"
 
@@ -274,6 +303,12 @@ msgstr "GitHub"
 
 msgid "Updated"
 msgstr "Actualizado"
+
+msgid "Drafts"
+msgstr ""
+
+msgid "Moderation"
+msgstr ""
 
 msgid "Restore"
 msgstr "Restaurar"
@@ -311,14 +346,11 @@ msgstr "Filtrar Resultados"
 msgid "Search records in community..."
 msgstr "Buscar registros en la comunidad..."
 
+msgid "results found"
+msgstr ""
+
 msgid "Sort by"
 msgstr "Ordenado por"
-
-msgid " results found"
-msgid_plural " results found"
-msgstr[0] "resultado encontrado"
-msgstr[1] "resultados encontrados"
-msgstr[2] "resultados encontrados"
 
 msgid "Search records..."
 msgstr "Buscar registros..."
@@ -359,20 +391,26 @@ msgstr "Sin título"
 msgid "Uploaded on {{uploadDate}}"
 msgstr "Cargado el {{uploadDate}}"
 
-msgid "Published in: {{publishInfo}}"
-msgstr "Publicado en: {{publishInfo}}"
+msgid "Published in: {{- publishInfo }}"
+msgstr ""
 
-msgid "{{count}} more versions exist for this record"
-msgid_plural "{{count}} more versions exist for this record"
-msgstr[0] "Existe {{count}} versión más para este registro"
-msgstr[1] "Existen {{count}} versiones más para este registro"
-msgstr[2] "Existen {{count}} versiones más para este registro"
+msgid "Recommendation"
+msgstr ""
+
+msgid "This check is recommended but not mandatory."
+msgstr ""
+
+msgid "This check indicates a critical issue that must be addressed."
+msgstr ""
 
 msgid "Person"
 msgstr "Persona"
 
 msgid "The record has no files."
 msgstr "El registro no tiene archivos."
+
+msgid "Basic information"
+msgstr "Información básica"
 
 msgid "Creators"
 msgstr "Creadores"
@@ -456,12 +494,6 @@ msgstr "Se produjo un error al obtener las comunidades."
 msgid "Communities"
 msgstr "Comunidades"
 
-msgid "View all {{count}} communities"
-msgid_plural "View all {{count}} communities"
-msgstr[0] "Ver {{count}} comunidad"
-msgstr[1] "Ver todas las {{count}} comunidades"
-msgstr[2] "Ver todas las {{count}} comunidades"
-
 msgid "Submit to community"
 msgstr "Enviar a la comunidad"
 
@@ -494,6 +526,15 @@ msgstr "Gestionar registro"
 
 msgid "Manage user"
 msgstr "Administrar usuario"
+
+msgid "Block user"
+msgstr ""
+
+msgid "Block User"
+msgstr ""
+
+msgid "Blocking the user will delete all existing records of the user."
+msgstr ""
 
 msgid "Remove branding"
 msgstr "Eliminar la marca"
@@ -534,6 +575,9 @@ msgstr "Estilo"
 msgid "This record is not included in any communities yet."
 msgstr "Este registro todavía no está incluido en ninguna comunidad."
 
+msgid "Part of"
+msgstr ""
+
 msgid "Search for community..."
 msgstr "Buscar comunidad..."
 
@@ -564,29 +608,21 @@ msgstr "Solo se muestran las versiones publicadas."
 msgid "An error occurred while fetching the versions."
 msgstr "Se produjo un error al obtener las versiones."
 
-msgid "View all {{count}} versions"
-msgid_plural "View all {{count}} versions"
-msgstr[0] "Ver {{count}} versión"
-msgstr[1] "Ver todas las {{count}} versiones"
-msgstr[2] "Ver todas las {{count}} versiones"
+msgid "Cite all versions?"
+msgstr ""
+
+msgid "You can cite all versions by using the DOI"
+msgstr ""
 
 msgid ""
-"<0><0>Cite all versions?</0> You can cite all versions by using the DOI "
-"<3></3>. This DOI represents all versions, and will always resolve to the "
-"latest one. <5>Read more</5>.</0>"
+"This DOI represents all versions, and will always resolve to the latest one."
 msgstr ""
-"<0><0>¿Citar todas las versiones?</0> Puede citar todas las versiones "
-"utilizando el DOI <3></3>. Dicho DOI representa a las versiones y siempre se"
-" resolverá en la última. <5>Leer más</5>.</0>"
 
-msgid ""
-"<0><0>Cite all versions?</0> You can cite all versions by using the DOI . "
-"The DOI is registered when the first version is published. <4>Read "
-"more</4>.</0>"
+msgid "Read more"
+msgstr "Leer más"
+
+msgid "The DOI is registered when the first version is published."
 msgstr ""
-"<0><0>¿Citar todas las versiones?</0> Puede citar todas las versiones "
-"utilizando el DOI. El DOI se registra cuando se publica la primera "
-"versión.<4>Leer más</4>.</0>"
 
 msgid "Remove"
 msgstr "Retirar"
@@ -602,6 +638,18 @@ msgstr "¿Está seguro de querer eliminar el registro de la comunidad?"
 
 msgid "I understand the consequences:"
 msgstr "Entiendo las consecuencias:"
+
+msgid "Members of the community "
+msgstr ""
+
+msgid " will "
+msgstr ""
+
+msgid "lose their access"
+msgstr ""
+
+msgid " to the record."
+msgstr ""
 
 msgid ""
 "The record can only be re-included in the community by going through a new "
@@ -621,13 +669,6 @@ msgstr "Cancelar"
 
 msgid "Confirm removal"
 msgstr "Confirmar eliminación"
-
-msgid ""
-"Members of the community <1>\"<1>{{communityTitle}}</1>\"</1> will <4>lose "
-"their access</4> to the record."
-msgstr ""
-"Los miembros de la comunidad <1>\"<1>{{communityTitle}}</1>\"</1><4> "
-"perderán su acceso</4> al registro."
 
 msgid "Select permissions"
 msgstr "Seleccionar permisos"
@@ -673,19 +714,18 @@ msgstr ""
 msgid "Can preview drafts"
 msgstr "Puede obtener una vista previa de los borradores"
 
-msgid "Can view drafts and restricted files of all versions of this record."
+msgid ""
+"Can view drafts, restricted files, and comment on associated draft requests "
+"of all versions of this record."
 msgstr ""
-"Puede ver borradores y archivos restringidos de todas las versiones de este "
-"registro."
 
 msgid "Can edit"
 msgstr "Puede editar"
 
 msgid ""
-"Can edit drafts and view restricted files of all versions of this record."
+"Can edit drafts, view restricted files, and comment on associated draft "
+"requests of all versions of this record."
 msgstr ""
-"Puede editar borradores y ver archivos restringidos de todas las versiones "
-"de este registro."
 
 msgid ""
 "Can view (view access link can be created only after the record is "
@@ -790,11 +830,9 @@ msgid "Can manage"
 msgstr "Puede administrar"
 
 msgid ""
-"Can manage access, edit drafts and view restricted files of all versions of "
-"this record."
+"Can manage access, edit drafts, view restricted files, and comment on "
+"associated draft requests of all versions of this record."
 msgstr ""
-"Puede administrar el acceso, editar borradores y ver archivos restringidos "
-"de todas las versiones de este registro."
 
 msgid "You don't have permissions to share this record."
 msgstr "No tiene permisos para compartir este registro."
@@ -863,24 +901,41 @@ msgstr "Empezar de nuevo"
 msgid "ProTip"
 msgstr "Consejo"
 
+msgid "will give you all the publications from 2025 until today."
+msgstr ""
+
+msgid "For more tips, check out our "
+msgstr "Para más consejos, consulta nuestra "
+
 msgid "Search guide"
 msgstr "Guía de búsqueda"
 
-msgid ""
-"<0>For more tips, check out our <2>search guide</2> for defining advanced "
-"search queries.</0>"
+msgid "search guide"
+msgstr "guía de búsqueda"
+
+msgid "for defining advanced search queries."
 msgstr ""
-"<0>Para obtener más sugerencias, consulte <2>nuestra guía de búsqueda</2> "
-"para definir consultas de búsqueda avanzadas.</0>"
+
+msgid "This community has no subcommunities"
+msgstr ""
+
+msgid "Logging in..."
+msgstr ""
+
+msgid "Logging out..."
+msgstr ""
 
 msgid "Search in my communities..."
 msgstr "Buscar en mis comunidades..."
 
+msgid "My communities"
+msgstr "Mis comunidades"
+
 msgid "View"
 msgstr "Ver"
 
-msgid "Published in: {{publishedIn}}"
-msgstr "Publicado en: {{publishedIn}}"
+msgid "Published in: {{- publishedIn }}"
+msgstr ""
 
 msgid "In review"
 msgstr "En revisión"
@@ -918,6 +973,9 @@ msgstr "Nueva subida"
 msgid "Search in my uploads..."
 msgstr "Buscar en mis subidas..."
 
+msgid "My uploads"
+msgstr ""
+
 msgid "ORCID profile"
 msgstr "Perfil de ORCID"
 
@@ -938,23 +996,3 @@ msgstr ""
 
 msgid "No name"
 msgstr ""
-
-msgid "and {{count}} other"
-msgid_plural "and {{count}} other"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-msgid "and {{count}} others"
-msgid_plural "and {{count}} others"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-msgctxt ""
-"date:[2017-01-01 TO *]</0> will give you all the publications from 2017 "
-"until today.</0>"
-msgid "<0><0>metadata.publication"
-msgstr ""
-"<0><0>metadata.publication_date:[2017-01-01 TO *] </0>le brindará todas las "
-"publicaciones desde 2017 hasta hoy.</0>"

@@ -5,13 +5,14 @@
 # Rim Sharif, 2025
 # Mattias Vesterlund, 2025
 # Sam Arbid, 2025
+# Lina Andrén, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-03-27T16:30:16.192Z\n"
+"POT-Creation-Date: 2025-07-22T14:13:07.642Z\n"
 "PO-Revision-Date: 2021-07-14 16:07+0000\n"
-"Last-Translator: Sam Arbid, 2025\n"
+"Last-Translator: Lina Andrén, 2025\n"
 "Language-Team: Swedish (https://app.transifex.com/inveniosoftware/teams/23537/sv/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,8 +20,35 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "mime-version: 1.0\n"
 
-msgid "Basic information"
-msgstr "Basinformation"
+msgid "Recent changes"
+msgstr "Senast gjorda ändringar"
+
+msgid "Audit Log Details"
+msgstr "Detaljer för granskningslogg"
+
+msgid "Resource"
+msgstr "Resurs"
+
+msgid "Resource ID"
+msgstr "Resurs-ID"
+
+msgid "Action"
+msgstr "Åtgärd"
+
+msgid "User"
+msgstr "Användare"
+
+msgid "Created"
+msgstr "Skapad"
+
+msgid "No revision ID found."
+msgstr "Inget revisions-ID hittades."
+
+msgid "Unable to fetch revisions."
+msgstr "Kunde inte hämta revisioner."
+
+msgid "Cancel revision comparison"
+msgstr "Avbryt revisionsjämförelse"
 
 msgid "Impersonate user"
 msgstr "Imitera användare"
@@ -41,19 +69,24 @@ msgstr ""
 "förstasidan snart."
 
 msgid "Unable to impersonate user."
-msgstr "Kunde inte imitera användare"
+msgstr "Kunde inte imitera användare."
 
 msgid ""
 "Please read carefully and confirm the following statements before you "
 "proceed."
 msgstr "Läs noga igenom och bekräfta följande text innan du fortsätter."
 
-msgid "You are about to impersonate user <bold>{{email}}(id: {{id}})</bold>."
-msgstr ""
-"Du är på väg att imitera användaren <bold>{{email}}(id: {{id}})</bold>."
+msgid "You are about to impersonate user "
+msgstr "Du är på väg att imitera användaren "
 
-msgid "You <bold>MUST</bold> logout after completing your inquiry."
-msgstr "Du <bold>MÅSTE</bold> logga ut efter att du avslutat din förfrågan. "
+msgid "You "
+msgstr "Du "
+
+msgid "MUST"
+msgstr "MÅSTE"
+
+msgid " logout after completing your inquiry."
+msgstr " logga ut efter att ha slutfört din förfrågan."
 
 msgid "Close"
 msgstr "Stäng"
@@ -69,7 +102,7 @@ msgstr "Notering"
 
 msgid ""
 "This is the default quota that will be applied to any NEW records created by"
-" this user – it will NOT update quota of existing records."
+" this user - it will NOT update quota of existing records."
 msgstr ""
 "Detta är den standardkvot som kommer att tillämpas på alla NYA poster som "
 "skapas av den här användaren - den kommer INTE att uppdatera lagringskvoten "
@@ -153,6 +186,9 @@ msgstr "Länkar"
 msgid "Set quota for record {{recordId}}"
 msgstr "Ställ in lagringskvot för posten {{recordId}}"
 
+msgid "Compare revisions"
+msgstr "Jämför revisioner"
+
 msgid "Delete record"
 msgstr "Radera post"
 
@@ -189,8 +225,8 @@ msgstr "version"
 msgid "Owner"
 msgstr "Ägare"
 
-msgid "Created"
-msgstr "Skapad"
+msgid "System"
+msgstr "System"
 
 msgid "Files"
 msgstr "Filer"
@@ -249,9 +285,6 @@ msgstr "Användaren {{name}} är blockerad."
 msgid "Error"
 msgstr "Fel"
 
-msgid "User"
-msgstr "Användare"
-
 msgid "Email"
 msgstr "E-post"
 
@@ -272,6 +305,12 @@ msgstr "GitHub"
 
 msgid "Updated"
 msgstr "Uppdaterad"
+
+msgid "Drafts"
+msgstr "Utkast"
+
+msgid "Moderation"
+msgstr "Moderering"
 
 msgid "Restore"
 msgstr "Återställ"
@@ -309,13 +348,11 @@ msgstr "Filtrera resultat"
 msgid "Search records in community..."
 msgstr "Sök poster i community..."
 
+msgid "results found"
+msgstr "resultat hittades"
+
 msgid "Sort by"
 msgstr "Sortera efter"
-
-msgid " results found"
-msgid_plural " results found"
-msgstr[0] "resultat hittades"
-msgstr[1] "resultat hittades"
 
 msgid "Search records..."
 msgstr "Sök poster..."
@@ -356,19 +393,26 @@ msgstr "Ingen titel"
 msgid "Uploaded on {{uploadDate}}"
 msgstr "Uppladdad den {{uploadDate}}"
 
-msgid "Published in: {{publishInfo}}"
-msgstr "Publicerad i: {{publishInfo}}"
+msgid "Published in: {{- publishInfo }}"
+msgstr "Publicerad i: {{- publishInfo }}"
 
-msgid "{{count}} more versions exist for this record"
-msgid_plural "{{count}} more versions exist for this record"
-msgstr[0] "{{count}} fler versioner finns för denna post"
-msgstr[1] "{{count}} fler versioner finns för denna post"
+msgid "Recommendation"
+msgstr "Rekommendation"
+
+msgid "This check is recommended but not mandatory."
+msgstr "Denna kontroll är rekommenderad men inte obligatorisk."
+
+msgid "This check indicates a critical issue that must be addressed."
+msgstr "Denna kontroll indikerar ett kritiskt problem som måste åtgärdas."
 
 msgid "Person"
 msgstr "Person"
 
 msgid "The record has no files."
 msgstr "Posten har inga filer."
+
+msgid "Basic information"
+msgstr "Basinformation"
 
 msgid "Creators"
 msgstr "Skapare"
@@ -456,11 +500,6 @@ msgstr "Ett fel inträffade vid hämtning av communities."
 msgid "Communities"
 msgstr "Communities"
 
-msgid "View all {{count}} communities"
-msgid_plural "View all {{count}} communities"
-msgstr[0] "Visa alla {{count}} communities"
-msgstr[1] "Visa alla {{count}} communities"
-
 msgid "Submit to community"
 msgstr "Skicka till community"
 
@@ -486,13 +525,24 @@ msgid "Export"
 msgstr "Exportera"
 
 msgid "Manage"
-msgstr " Hantera"
+msgstr "Hantera"
 
 msgid "Manage record"
 msgstr "Hantera post"
 
 msgid "Manage user"
 msgstr "Hantera användare"
+
+msgid "Block user"
+msgstr "Blockera användare"
+
+msgid "Block User"
+msgstr "Blockera användare"
+
+msgid "Blocking the user will delete all existing records of the user."
+msgstr ""
+"Att blockera  användaren medför att alla befintliga poster som tillhör "
+"användaren raderas."
 
 msgid "Remove branding"
 msgstr "Ta bort märkning"
@@ -503,8 +553,7 @@ msgstr "{{communityTitle}} är en standardmärkning för den här posten"
 msgid ""
 "Remove this community from appearing on top of the record details page."
 msgstr ""
-"Ta bort denna community från att visas högst upp på postens infromationsida."
-" "
+"Ta bort denna community från att visas högst upp på postens informationsida."
 
 msgid "Set branding"
 msgstr "Ange märkning"
@@ -531,6 +580,9 @@ msgstr "Stil"
 
 msgid "This record is not included in any communities yet."
 msgstr "Posten ingår inte i några communities ännu."
+
+msgid "Part of"
+msgstr "Del av"
 
 msgid "Search for community..."
 msgstr "Sök efter community..."
@@ -562,28 +614,23 @@ msgstr "Endast publicerade versioner visas."
 msgid "An error occurred while fetching the versions."
 msgstr "Ett fel uppstod när versionerna hämtades."
 
-msgid "View all {{count}} versions"
-msgid_plural "View all {{count}} versions"
-msgstr[0] "Visa alla {{count}} versioner"
-msgstr[1] "Visa alla {{count}} versioner"
+msgid "Cite all versions?"
+msgstr "Citera alla versioner?"
+
+msgid "You can cite all versions by using the DOI"
+msgstr "Du kan citera alla versioner genom att använda DOI"
 
 msgid ""
-"<0><0>Cite all versions?</0> You can cite all versions by using the DOI "
-"<3></3>. This DOI represents all versions, and will always resolve to the "
-"latest one. <5>Read more</5>.</0>"
+"This DOI represents all versions, and will always resolve to the latest one."
 msgstr ""
-"<0><0>Citera alla versioner?</0> Du kan citera alla versioner genom att "
-"använda DOI:n <3></3>. Denna DOI representerar alla versioner och kommer "
-"alltid att hänvisa till den senaste. <5>Läs mer</5>.</0>"
+"Denna DOI representerar alla versioner och kommer alltid att peka på den "
+"senaste versionen."
 
-msgid ""
-"<0><0>Cite all versions?</0> You can cite all versions by using the DOI . "
-"The DOI is registered when the first version is published. <4>Read "
-"more</4>.</0>"
-msgstr ""
-"<0><0>Citera alla versioner?</0> Du kan citera alla versioner genom att "
-"använda DOI:n . DOI:n registreras när den första versionen publiceras. "
-"<4>Läs mer</4>.</0>"
+msgid "Read more"
+msgstr "Läs mer"
+
+msgid "The DOI is registered when the first version is published."
+msgstr "DOI registreras när den första versionen publiceras."
 
 msgid "Remove"
 msgstr "Ta bort"
@@ -599,6 +646,18 @@ msgstr "Är du säker på att du vill ta bort posten från communityn?"
 
 msgid "I understand the consequences:"
 msgstr "Jag förstår följderna:"
+
+msgid "Members of the community "
+msgstr "Medlemmar i communityn "
+
+msgid " will "
+msgstr " kommer att "
+
+msgid "lose their access"
+msgstr "förlora åtkomst"
+
+msgid " to the record."
+msgstr " till posten."
 
 msgid ""
 "The record can only be re-included in the community by going through a new "
@@ -618,13 +677,6 @@ msgstr "Avbryt"
 
 msgid "Confirm removal"
 msgstr "Bekräfta borttagning"
-
-msgid ""
-"Members of the community <1>\"<1>{{communityTitle}}</1>\"</1> will <4>lose "
-"their access</4> to the record."
-msgstr ""
-"Medlemmar av communityn <1>\"<1>{{communityTitle}}</1>\"</1> kommer "
-"<4>förlora sin åtkomst </4> till posten."
 
 msgid "Select permissions"
 msgstr "Välj behörigheter"
@@ -668,19 +720,22 @@ msgstr "Kan se filer med begränsad åtkomst för alla versioner av posten."
 msgid "Can preview drafts"
 msgstr "Kan förhandsgranska utkast"
 
-msgid "Can view drafts and restricted files of all versions of this record."
+msgid ""
+"Can view drafts, restricted files, and comment on associated draft requests "
+"of all versions of this record."
 msgstr ""
-"Kan visa utkast och filer med begränsad åtkomst för alla versioner av "
-"posten."
+"Kan visa utkast, filer med begränsad åtkomst och kommentera tillhörande "
+"utkastförfrågningar för alla versioner av denna post."
 
 msgid "Can edit"
 msgstr "Kan redigera"
 
 msgid ""
-"Can edit drafts and view restricted files of all versions of this record."
+"Can edit drafts, view restricted files, and comment on associated draft "
+"requests of all versions of this record."
 msgstr ""
-"Kan redigera utkast och visa filer med begränsad åtkomst för alla versioner "
-"av posten."
+"Kan redigera utkast, visa filer med begränsad åtkomst och kommentera "
+"tillhörande utkastförfrågningar för alla versioner av denna post."
 
 msgid ""
 "Can view (view access link can be created only after the record is "
@@ -783,11 +838,11 @@ msgid "Can manage"
 msgstr "Kan hantera"
 
 msgid ""
-"Can manage access, edit drafts and view restricted files of all versions of "
-"this record."
+"Can manage access, edit drafts, view restricted files, and comment on "
+"associated draft requests of all versions of this record."
 msgstr ""
-"Kan hantera åtkomst, redigera utkast och visa filer med begränsad åtkomst "
-"för alla versioner av posten."
+"Kan hantera åtkomst, redigera utkast, visa filer med begränsad åtkomst och "
+"kommentera tillhörande utkastförfrågningar för alla versioner av denna post."
 
 msgid "You don't have permissions to share this record."
 msgstr "Du har inte behörighet att dela denna post."
@@ -835,7 +890,7 @@ msgid "Unable to change the expiration request settings."
 msgstr "Det går inte att ändra inställningarna för begäran om utgångsdatum."
 
 msgid "Expiration date: "
-msgstr "Utgångsdatum:"
+msgstr "Utgångsdatum: "
 
 msgid ""
 "Format: YYYY-MM-DD. Granted access will expire on the given date. Leave "
@@ -856,24 +911,41 @@ msgstr "Börja om"
 msgid "ProTip"
 msgstr "ProTip"
 
+msgid "will give you all the publications from 2025 until today."
+msgstr "ger dig alla publikationer från 2025 fram till idag."
+
+msgid "For more tips, check out our "
+msgstr "För fler tips, kolla in vår "
+
 msgid "Search guide"
 msgstr "Sökguide"
 
-msgid ""
-"<0>For more tips, check out our <2>search guide</2> for defining advanced "
-"search queries.</0>"
-msgstr ""
-"<0>Om du vill ha fler tips kan du kolla in vår <2>sökguide</2> för att "
-"konstruera avancerade sökfrågor.</0>"
+msgid "search guide"
+msgstr "sökguide"
+
+msgid "for defining advanced search queries."
+msgstr "för att definiera avancerade sökfrågor."
+
+msgid "This community has no subcommunities"
+msgstr "Detta community har inga subcommunities"
+
+msgid "Logging in..."
+msgstr "Loggar in..."
+
+msgid "Logging out..."
+msgstr "Loggar ut..."
 
 msgid "Search in my communities..."
 msgstr "Sök i mina communities..."
 
+msgid "My communities"
+msgstr "Mina communities"
+
 msgid "View"
 msgstr "Visa"
 
-msgid "Published in: {{publishedIn}}"
-msgstr "Publicerad i: {{publishedIn}}"
+msgid "Published in: {{- publishedIn }}"
+msgstr "Publicerad i: {{- publishedIn }}"
 
 msgid "In review"
 msgstr "Under granskning"
@@ -911,6 +983,9 @@ msgstr "Ny uppladdning"
 msgid "Search in my uploads..."
 msgstr "Sök i mina uppladdningar..."
 
+msgid "My uploads"
+msgstr "Mina uppladdningar"
+
 msgid "ORCID profile"
 msgstr "ORCID-profil"
 
@@ -931,21 +1006,3 @@ msgstr "GND logo"
 
 msgid "No name"
 msgstr "Inget namn"
-
-msgid "and {{count}} other"
-msgid_plural "and {{count}} other"
-msgstr[0] "och {{count}} andra"
-msgstr[1] "och {{count}} andra"
-
-msgid "and {{count}} others"
-msgid_plural "and {{count}} others"
-msgstr[0] "och {{count}} andra"
-msgstr[1] "och {{count}} andra"
-
-msgctxt ""
-"date:[2017-01-01 TO *]</0> will give you all the publications from 2017 "
-"until today.</0>"
-msgid "<0><0>metadata.publication"
-msgstr ""
-"<0><0>metadata.publication_date:[2017-01-01 TO *]</0> ger alla publiceringar"
-" från 2017 till och med idag.</0>"
