@@ -28,7 +28,9 @@ from click import secho
 from invenio_access.permissions import system_identity
 from invenio_db import db
 from invenio_rdm_records.proxies import current_rdm_records_service as records_service
+from invenio_search import current_search_client as search_client
 from invenio_search.engine import dsl
+from invenio_search.utils import prefix_index
 from invenio_vocabularies.contrib.affiliations.api import Affiliation
 from invenio_vocabularies.contrib.names.api import Name
 from sqlalchemy import select
@@ -184,6 +186,28 @@ def run_upgrade_for_names():
         secho("Names upgrade succeeded.", fg="green")
 
 
+def run_upgrade_for_event_stats_mappings():
+    """Update the live event stats mappings to add missing fields."""
+    secho("Event stats mappings upgrade has started.", fg="green")
+
+    # Find the latest mappings for views and download stats events
+    for event_type in ("record-view", "file-download"):
+        try:
+            events_index = prefix_index(f"events-stats-{event_type}-*")
+            res = search_client.indices.get(events_index)
+            last_two_indices = sorted(res.keys())[-2:]
+            for index in last_two_indices:
+                res = search_client.indices.put_mapping(
+                    index=index,
+                    body={"properties": {"is_machine": {"type": "boolean"}}},
+                )
+        except Exception as e:
+            secho(f"Mapping update for {event_type} failed with '{repr(e)}'.", fg="red")
+            trace = traceback.format_exc()
+            secho(f"Traceback {trace}", fg="red")
+    secho("Event stats mappings upgrade succeeded.", fg="green")
+
+
 def execute_upgrade():
     """Execute the upgrade from InvenioRDM 12.0 to 13.0.0.
 
@@ -203,6 +227,7 @@ def execute_upgrade():
     run_upgrade_for_thesis()
     run_upgrade_for_affiliations()
     run_upgrade_for_names()
+    run_upgrade_for_event_stats_mappings()
 
 
 # if the script is executed on its own, perform the upgrade
