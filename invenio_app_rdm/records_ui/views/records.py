@@ -38,7 +38,7 @@ from invenio_app_rdm.records_ui.previewer.iiif_simple import (
     previewable_extensions as image_extensions,
 )
 
-from ..utils import get_external_resources
+from ..utils import get_existing_deletion_request, get_external_resources
 from .decorators import (
     add_signposting_content_resources,
     add_signposting_landing_page,
@@ -167,6 +167,7 @@ def record_detail(
         or rec_del["request_deletion"].valid_user
     )
     rd_allowed = immediate.allowed or request.allowed
+    existing_request = get_existing_deletion_request(record.id)
 
     if rd_allowed:
         record_deletion = {
@@ -186,6 +187,9 @@ def record_detail(
             "valid_user": rd_valid_user,
             "allowed": rd_allowed,
         }
+    record_deletion["existing_request"] = (
+        existing_request["links"]["self_html"] if existing_request else None
+    )
 
     is_draft = record_ui["is_draft"]
     custom_fields = load_custom_fields()

@@ -28,16 +28,31 @@ export const RecordDeletion = ({
         disabled={!disabled}
         trigger={
           <span>
-            <Button
-              fluid
-              onClick={handleOpen}
-              disabled={disabled}
-              className="negative"
-              aria-haspopup="dialog"
-              icon="trash outline alternate"
-              labelPosition="left"
-              content={i18next.t("Delete record")}
-            />
+            {recordDeletion.existing_request ? (
+              <Button
+                fluid
+                as="a"
+                href={recordDeletion.existing_request}
+                disabled={disabled}
+                className="basic"
+                color="red"
+                aria-haspopup="dialog"
+                icon="external alternate"
+                labelPosition="left"
+                content={i18next.t("View deletion request")}
+              />
+            ) : (
+              <Button
+                fluid
+                onClick={handleOpen}
+                disabled={disabled}
+                className="negative"
+                aria-haspopup="dialog"
+                icon="trash outline alternate"
+                labelPosition="left"
+                content={i18next.t("Delete record")}
+              />
+            )}
           </span>
         }
       />
