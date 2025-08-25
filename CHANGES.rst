@@ -10,6 +10,34 @@
 Changes
 =======
 
+Version v13.0.2 (released 2025-08-25)
+
+- i18n: pulled translations
+- fix(file-list): display fallback message if file checksum is not available
+- feat(upgrade_scripts): add event stats mapping update for v13
+    * Adds the recently added `is_machine` field to the record views and
+      file downloads event stats mappings. Only updates the latest two
+      indices, since they might still be actively receiving/processing
+      events.
+- fix(views): redirect deleted record file downloads
+    * When accessing a file download of a deleted record, return a 302
+      redirect to the record page. This is to make sure that we display the
+      record's "410 Gone" tombstone page response.
+- i18n: wrap search results not found message (#3159)
+    Updated the message displayed when no search results are found to
+    include a localized version of "your search"
+- fix(views): use correct community value
+    * After the change in 33f1b0d2, values passed to the UI or used for
+      accessing UI-related attributes (e.g. the "theme"), must come from
+      the community UI-serialized value instead of the service result item.
+- fix(pages): add community base template as a valid option
+- feat(fixtures): allow specifying `template_name` in page fixtures
+- fix(v13-migration): update name entries
+- fix(v13-migration): update affiliation entries
+- fix(deposits): pass missing community_ui to community theme templates
+    * also introduce more explicit distinctions between community and
+      community_ui variables
+
 Version v13.0.1 (released 2025-07-31)
 
 - fix(deposits): update doi default option only if managed

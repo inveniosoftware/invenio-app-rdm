@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2022-2024 CERN.
+# Copyright (C) 2022-2025 CERN.
 # Copyright (C) 2025 Northwestern University.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
