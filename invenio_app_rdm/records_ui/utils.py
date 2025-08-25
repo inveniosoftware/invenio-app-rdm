@@ -12,9 +12,13 @@
 from itertools import chain
 
 from flask import current_app
+from invenio_access.permissions import system_identity
+from invenio_rdm_records.requests.record_deletion import RecordDeletion
 from invenio_records.dictutils import dict_set
 from invenio_records.errors import MissingModelError
 from invenio_records_files.api import FileObject
+from invenio_requests.proxies import current_requests_service
+from invenio_search.api import dsl
 
 
 def previewer_record_file_factory(pid, record, filename):
@@ -88,3 +92,20 @@ def dump_external_resource(
         },
         "template": template,
     }
+
+
+def get_existing_deletion_request(record_id):
+    """Return existing open deletion requests for the record."""
+    existing_requests = current_requests_service.search(
+        system_identity,
+        extra_filter=dsl.Q(
+            "bool",
+            must=[
+                dsl.Q("term", **{"topic.record": record_id}),
+                dsl.Q("term", **{"type": RecordDeletion.type_id}),
+                dsl.Q("term", **{"is_open": True}),
+            ],
+        ),
+    )
+    if existing_requests.total > 0:
+        return list(existing_requests)[0]

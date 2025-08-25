@@ -38,7 +38,7 @@ from invenio_vocabularies.records.models import VocabularyScheme
 from marshmallow_utils.fields.babel import gettext_from_dict
 from sqlalchemy.orm import load_only
 
-from ..utils import set_default_value
+from ..utils import get_existing_deletion_request, set_default_value
 from .decorators import (
     no_cache_response,
     pass_draft,
@@ -548,6 +548,7 @@ def deposit_edit(pid_value, draft=None, draft_files=None, files_locked=True):
             or rec_del["request_deletion"].valid_user
         )
         rd_allowed = immediate.allowed or request.allowed
+        existing_request = get_existing_deletion_request(record.get("id"))
 
         if rd_allowed:
             record_deletion = {
@@ -567,6 +568,9 @@ def deposit_edit(pid_value, draft=None, draft_files=None, files_locked=True):
                 "valid_user": rd_valid_user,
                 "allowed": rd_allowed,
             }
+        record_deletion["existing_request"] = (
+            existing_request["links"]["self_html"] if existing_request else None
+        )
     else:
         record_deletion = {}
 
