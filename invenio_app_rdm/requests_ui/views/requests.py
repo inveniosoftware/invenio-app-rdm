@@ -26,6 +26,7 @@ from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_rdm_records.proxies import current_rdm_records_service
 from invenio_rdm_records.requests import CommunityInclusion, CommunitySubmission
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
+from invenio_rdm_records.services.errors import RecordDeletedException
 from invenio_rdm_records.services.generators import CommunityInclusionNeed
 from invenio_records_resources.services.errors import PermissionDeniedError
 from invenio_requests.customizations import AcceptAction
@@ -98,7 +99,7 @@ def _resolve_topic_record(request):
         try:
             # read published record
             record = current_rdm_records_service.read(g.identity, pid, expand=True)
-        except NoResultFound:
+        except (NoResultFound, RecordDeletedException):
             # record tab not displayed when the record is not found
             # the request is probably not open anymore
             pass
