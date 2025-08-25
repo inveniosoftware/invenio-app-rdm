@@ -176,12 +176,12 @@
   <p>
     Det är möjligt att söka efter poster som antingen saknar ett värde eller har
     ett värde i ett specifikt fält med hjälp av <code>_exists_</code> och
-    <code>not _exists_</code> i kombination med fältnamn.
+    <code>NOT _exists_</code> i kombination med fältnamn.
   </p>
   <p>
     <strong>Exempel:</strong>
-    <a href="/search?page=1&amp;size=20&amp;q=_missing_:metadata.additional_titles"
-      ><code>not _exists_:metadata.additional_titles</code></a
+    <a href="/search?page=1&amp;size=20&amp;q=NOT%20_exists_:metadata.additional_titles"
+      ><code>NOT _exists_:metadata.additional_titles</code></a
     >
     (alla poster utan metadata.additional_titles)
   </p>

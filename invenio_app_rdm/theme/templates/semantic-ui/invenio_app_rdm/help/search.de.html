@@ -156,13 +156,13 @@
   <h3>Fehlende Werte</h3>
   <p>
     Es ist möglich, mit den Feldnamen <code>_exists_</code> und
-    <code>_missing_</code> nach Datensätzen zu suchen,
+    <code>NOT _exists_</code> nach Datensätzen zu suchen,
     in denen entweder ein Wert fehlt oder die einen Wert in einem bestimmten Feld haben.
   </p>
   <p>
     <strong>Beispiel:</strong>
     <a
-      href="/search?page=1&amp;size=20&amp;q=_missing_:metadata.additional_titles"><code>_missing_:metadata.additional_titles</code></a>
+      href="/search?page=1&amp;size=20&amp;q=NOT%20_exists_:metadata.additional_titles"><code>NOT _exists_:metadata.additional_titles</code></a>
     (alle Datensätze ohne metadata.additional_titles)
   </p>
   <p>
