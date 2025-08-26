@@ -10,6 +10,12 @@
 Changes
 =======
 
+Version v14.0.0b0.dev3 (released 2025-08-26)
+
+- fix(community-requests): request permissions were missing from UI
+    * The community requests page was not showing the request reviewers section
+      because the permissions were not passed to the template.
+
 Version v14.0.0b0.dev2 (released 2025-08-08)
 
 - fix(views): use correct community value
