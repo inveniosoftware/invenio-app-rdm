@@ -275,6 +275,9 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
     permissions = community.has_permissions_to(
         ["update", "read", "search_requests", "search_invites", "submit_record"]
     )
+    request_permissions = request.has_permissions_to(["action_accept"])
+    # Add request specific permissions so that reviewers can be selected from community curators
+    permissions.update(request_permissions)
 
     if is_draft_submission or is_record_inclusion:
         topic = _resolve_topic_record(request)
