@@ -521,6 +521,12 @@ def deposit_edit(pid_value, draft=None, draft_files=None, files_locked=True):
     ui_serializer = UIJSONSerializer()
     record = ui_serializer.dump_obj(draft.to_dict())
 
+    published_record = None
+    # if editing draft of a published record
+    if record.get("status") == "published":
+        _record = service.read(g.identity, id_=record["id"]).to_dict()
+        published_record = ui_serializer.dump_obj(_record)
+
     community_ui = None
     community_theme = None
     community = record.get("expanded", {}).get("parent", {}).get("review", {}).get(
@@ -559,6 +565,7 @@ def deposit_edit(pid_value, draft=None, draft_files=None, files_locked=True):
         hide_community_selection=community_use_jinja_header,
         is_doi_required=is_doi_required,
         record=draft._record,
+        published_record=published_record,
     )
 
     if is_doi_required and not record.get("pids", {}).get("doi"):
