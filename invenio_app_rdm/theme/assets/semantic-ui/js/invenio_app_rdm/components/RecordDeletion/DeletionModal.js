@@ -38,14 +38,23 @@ export class DeletionModal extends Component {
   constructor(props) {
     super(props);
     const { recordDeletion } = this.props;
-    this.state = {
+    this.initState = {
       loading: false,
       error: undefined,
       checklistState: Array(recordDeletion["checklist"].length).fill(undefined),
       checkboxState: Array(2).fill(false), // TODO dynamic count of number of checkboxes
       messages: [],
     };
+    this.state = { ...this.initState };
   }
+
+  handleClose = () => {
+    this.setState({
+      ...this.initState,
+    });
+    const { handleClose } = this.props;
+    handleClose();
+  };
 
   handleRadioUpdate = (index, value) => {
     const { recordDeletion } = this.props;
@@ -122,7 +131,7 @@ export class DeletionModal extends Component {
   };
 
   render() {
-    const { open, handleClose, recordDeletion, options } = this.props;
+    const { open, recordDeletion, options } = this.props;
     const { loading, error, checklistState, checkboxState, messages } = this.state;
 
     const { checklist } = recordDeletion;
@@ -146,7 +155,7 @@ export class DeletionModal extends Component {
       <Modal
         open={open}
         closeIcon
-        onClose={handleClose}
+        onClose={this.handleClose}
         role="dialog"
         aria-modal="true"
         tab-index="-1"
@@ -299,7 +308,7 @@ export class DeletionModal extends Component {
               </ModalContent>
               <ModalActions>
                 <Button
-                  onClick={handleClose}
+                  onClick={this.handleClose}
                   content={i18next.t("Close")}
                   floated="left"
                 />

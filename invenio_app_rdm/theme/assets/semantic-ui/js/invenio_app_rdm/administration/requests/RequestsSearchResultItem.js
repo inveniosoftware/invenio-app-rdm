@@ -12,6 +12,7 @@ import { Table } from "semantic-ui-react";
 import { withState } from "react-searchkit";
 import { AdminUIRoutes } from "@js/invenio_administration/src/routes.js";
 import { UserListItemCompact, toRelativeTime } from "react-invenio-forms";
+import { i18next } from "@translations/invenio_app_rdm/i18next";
 
 class SearchResultItemComponent extends Component {
   refreshAfterAction = () => {
@@ -51,12 +52,17 @@ class SearchResultItemComponent extends Component {
           data-label={columns[2][1]["text"]}
           className="word-break-all"
         >
-          <UserListItemCompact
-            user={result.expanded.last_reply.created_by}
-            id={result.last_reply.created_by.user}
-            // TODO linkToDetailView= filter by user?
-          />
-          {toRelativeTime(result.last_reply.created)}
+          {result.expanded.last_reply ? (
+            <>
+              <UserListItemCompact
+                user={result.expanded.last_reply.created_by}
+                id={result.last_reply.created_by.user}
+              />
+              {toRelativeTime(result.last_reply.created)}
+            </>
+          ) : (
+            i18next.t("No replies")
+          )}
         </Table.Cell>
       </Table.Row>
     );
