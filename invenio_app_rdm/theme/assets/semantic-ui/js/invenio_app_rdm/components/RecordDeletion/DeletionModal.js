@@ -122,10 +122,11 @@ export class DeletionModal extends Component {
           window.location.href = data.links.self_html;
         }
       } catch (error) {
-        // TODO add error/validation handling
+        this.setState({ error: error });
         console.error(error);
+      } finally {
+        this.setState({ loading: false });
       }
-      this.setState({ loading: false });
     } else {
       this.setState({ error: "Could not submit deletion request", loading: false });
     }
