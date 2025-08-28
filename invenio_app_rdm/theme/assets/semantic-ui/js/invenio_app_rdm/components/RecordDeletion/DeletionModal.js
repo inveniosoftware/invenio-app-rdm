@@ -38,10 +38,11 @@ export class DeletionModal extends Component {
   constructor(props) {
     super(props);
     const { recordDeletion } = this.props;
+    const checklistLength = recordDeletion["checklist"]?.length || 0;
     this.initState = {
       loading: false,
       error: undefined,
-      checklistState: Array(recordDeletion["checklist"].length).fill(undefined),
+      checklistState: Array(checklistLength).fill(undefined),
       checkboxState: Array(2).fill(false), // TODO dynamic count of number of checkboxes
       messages: [],
     };
@@ -135,6 +136,10 @@ export class DeletionModal extends Component {
     const { loading, error, checklistState, checkboxState, messages } = this.state;
 
     const { checklist } = recordDeletion;
+
+    if (!("recordDeletion" in recordDeletion)) {
+        return null;
+    }
 
     const immediateDeletionAllowed =
       recordDeletion["recordDeletion"]["immediate_deletion"]["allowed"];
