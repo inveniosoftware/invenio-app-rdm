@@ -30,11 +30,11 @@
           {# only display the header for the receiver #}
           {%- set back_button_url = url_for("invenio_app_rdm_users.requests") %}
           {{ inclusion_request_header(
-        back_button_url=back_button_url,
-        back_button_text=_("Back to requests"),
-        request=invenio_request,
-        accepted=request_is_accepted
-      ) }}
+            back_button_url=back_button_url,
+            back_button_text=_("Back to requests"),
+            request=invenio_request,
+            accepted=request_is_accepted
+          ) }}
 
         {%- else %}
           <div class="ui grid rel-mt-2">

@@ -7,7 +7,7 @@ under the terms of the MIT License; see LICENSE file for more details.
 
 {% extends admin_base_template %}
 
-{% from "invenio_requests/macros/request_header.html" import invitation_request_header %}
+{% from "invenio_requests/macros/request_header.html" import inclusion_request_header %}
 
 {% set title = invenio_request.title %}
 
@@ -21,14 +21,22 @@ under the terms of the MIT License; see LICENSE file for more details.
       {%- block request_header %}
         {% set back_button_url = url_for("administration.requests") %}
         {{
-            invitation_request_header(
+            inclusion_request_header(
                 back_button_url=back_button_url,
                 back_button_text=_("Back to requests"),
                 request=invenio_request,
                 accepted=request_is_accepted
             )
         }}
+
+        <div class="twelve wide column mt-10">
+          <p><strong>Reason:</strong> {{ invenio_request["payload"]["reason"] }}</p>
+          <p><strong>Justification:</strong> {{ invenio_request["payload"]["comment"] }}</p>
+        </div>
+
+        <div class="ui divider"></div>
       {%- endblock request_header %}
+
     {%- block request_timeline %}
     <div id="request-detail"
          data-record='{{ invenio_request | tojson }}'
