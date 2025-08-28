@@ -139,7 +139,7 @@ export class DeletionModal extends Component {
     const { checklist } = recordDeletion;
 
     if (!("recordDeletion" in recordDeletion)) {
-        return null;
+      return null;
     }
 
     const immediateDeletionAllowed =
