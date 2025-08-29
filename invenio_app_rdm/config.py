@@ -87,6 +87,7 @@ from invenio_requests.notifications.builders import (
     CommentRequestEventCreateNotificationBuilder,
 )
 from invenio_requests.resources.requests.config import request_error_handlers
+from invenio_requests.services.requests import facets
 from invenio_stats.aggregations import StatAggregator
 from invenio_stats.contrib.event_builders import build_file_unique_id
 from invenio_stats.processors import (
@@ -1511,3 +1512,40 @@ SITEMAP_SECTIONS = [
     SitemapSectionOfRDMRecords(),
     SitemapSectionOfCommunities(),
 ]
+
+
+# Moderation requests search configuration
+# ========================================
+APP_RDM_MODERATION_REQUEST_SEARCH = {
+    "facets": ["status", "is_open"],
+    "sort": ["bestmatch", "newest", "oldest"],
+}
+"""Moderation requests search configuration."""
+
+APP_RDM_MODERATION_REQUEST_SORT_OPTIONS = {
+    "bestmatch": dict(
+        title=_("Best match"),
+        fields=["_score"],
+    ),
+    "newest": dict(
+        title=_("Newest"),
+        fields=["-created"],
+    ),
+    "oldest": dict(
+        title=_("Oldest"),
+        fields=["created"],
+    ),
+}
+"""Definitions of available record sort options."""
+
+
+APP_RDM_MODERATION_REQUEST_FACETS = {
+    "status": {
+        "facet": facets.status,
+        "ui": {
+            "field": "status",
+        },
+    },
+    "is_open": {"facet": facets.is_open, "ui": {"field": "is_open"}},
+}
+"""Available facets defined for this module."""

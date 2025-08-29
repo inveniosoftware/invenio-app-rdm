@@ -26,6 +26,7 @@ from invenio_i18n.ext import current_i18n
 from invenio_rdm_records.proxies import current_rdm_records
 from invenio_rdm_records.records.api import get_files_quota
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
+from invenio_rdm_records.services.config import RDMRecordDeletionPolicy
 from invenio_rdm_records.services.schemas import RDMRecordSchema
 from invenio_rdm_records.services.schemas.utils import dump_empty
 from invenio_rdm_records.views import file_transfer_type
@@ -37,7 +38,7 @@ from invenio_vocabularies.records.models import VocabularyScheme
 from marshmallow_utils.fields.babel import gettext_from_dict
 from sqlalchemy.orm import load_only
 
-from ..utils import set_default_value
+from ..utils import get_existing_deletion_request, set_default_value
 from .decorators import (
     no_cache_response,
     pass_draft,
@@ -207,10 +208,13 @@ class VocabulariesOptions:
             for hit in subset_resource_types.to_dict()["hits"]["hits"]
         ]
 
-    def _dump_vocabulary_w_basic_fields(self, vocabulary_type):
+    def _dump_vocabulary_w_basic_fields(self, vocabulary_type, extra_filter=None):
         """Dump vocabulary with id and title field."""
         results = vocabulary_service.read_all(
-            g.identity, fields=["id", "title"], type=vocabulary_type
+            g.identity,
+            fields=["id", "title"],
+            type=vocabulary_type,
+            extra_filter=extra_filter,
         )
         return [
             {
@@ -303,6 +307,13 @@ class VocabulariesOptions:
             "scheme": self.identifier_schemes(),
         }
 
+    def removal_reasons(self):
+        """Dump removal reasons vocabulary."""
+        self._vocabularies["removal_reasons"] = self._dump_vocabulary_w_basic_fields(
+            "removalreasons", extra_filter=dsl.Q("term", tags="deletion-request")
+        )
+        return self._vocabularies["removal_reasons"]
+
     def dump(self):
         """Dump into dict."""
         # TODO: Nest vocabularies inside "metadata" key so that frontend dumber
@@ -314,6 +325,7 @@ class VocabulariesOptions:
         self.contributor_roles()
         self.subjects()
         self.identifiers()
+        self.removal_reasons()
         # We removed
         # vocabularies["relation_type"] = _dump_relation_types_vocabulary()
         return self._vocabularies
@@ -521,6 +533,43 @@ def deposit_edit(pid_value, draft=None, draft_files=None, files_locked=True):
     ui_serializer = UIJSONSerializer()
     record = ui_serializer.dump_obj(draft.to_dict())
 
+    if record["is_published"]:
+        published_record = service.record_cls.pid.resolve(draft._record.pid.pid_value)
+        rec_del = RDMRecordDeletionPolicy().evaluate(g.identity, published_record)
+
+        immediate, request = rec_del["immediate_deletion"], rec_del["request_deletion"]
+        rd_enabled = immediate.enabled or request.enabled
+        rd_valid_user = (
+            rec_del["immediate_deletion"].valid_user
+            or rec_del["request_deletion"].valid_user
+        )
+        rd_allowed = immediate.allowed or request.allowed
+        existing_request = get_existing_deletion_request(record.get("id"))
+
+        if rd_allowed:
+            record_deletion = {
+                "enabled": rd_enabled,
+                "valid_user": rd_valid_user,
+                "allowed": rd_allowed,
+                "recordDeletion": rec_del,
+                "checklist": current_app.config["RDM_RECORD_DELETION_CHECKLIST"],
+                "context": {
+                    "files": draft._record.files.count,
+                    "internalDoi": draft._record.pids["doi"]["provider"] != "external",
+                },
+            }
+        else:
+            record_deletion = {
+                "enabled": rd_enabled,
+                "valid_user": rd_valid_user,
+                "allowed": rd_allowed,
+            }
+        record_deletion["existing_request"] = (
+            existing_request["links"]["self_html"] if existing_request else None
+        )
+    else:
+        record_deletion = {}
+
     community_ui = None
     community_theme = None
     community = record.get("expanded", {}).get("parent", {}).get("review", {}).get(
@@ -593,6 +642,7 @@ def deposit_edit(pid_value, draft=None, draft_files=None, files_locked=True):
                 "manage_record_access",
             ]
         ),
+        record_deletion=record_deletion,
     )
 
 
