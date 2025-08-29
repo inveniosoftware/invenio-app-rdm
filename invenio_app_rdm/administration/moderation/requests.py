@@ -43,9 +43,9 @@ class ModerationRequestListView(AdminResourceListView):
     display_edit = False
     display_read = False
 
-    search_config_name = "REQUESTS_MODERATION_REQUEST_SEARCH"
-    search_facets_config_name = "REQUESTS_MODERATION_REQUEST_FACETS"
-    search_sort_config_name = "REQUESTS_MODERATION_REQUEST_SORT_OPTIONS"
+    search_config_name = "APP_RDM_MODERATION_REQUEST_SEARCH"
+    search_facets_config_name = "APP_RDM_MODERATION_REQUEST_FACETS"
+    search_sort_config_name = "APP_RDM_MODERATION_REQUEST_SORT_OPTIONS"
 
     item_field_list = {
         "type": {"text": _("Type"), "order": 1, "width": 3},
@@ -109,7 +109,6 @@ class ModerationRequestDetailView(AdminResourceDetailView):
     display_edit = False
 
     pid_path = "id"
-    request_headers = {"Accept": "application/json"}
     template = "invenio_app_rdm/administration/requests_details.html"
 
     @classmethod
