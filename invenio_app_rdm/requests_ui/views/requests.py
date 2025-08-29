@@ -22,6 +22,7 @@ from invenio_communities.subcommunities.services.request import (
 from invenio_communities.utils import identity_cache_key
 from invenio_communities.views.communities import render_community_theme_template
 from invenio_communities.views.decorators import pass_community
+from invenio_i18n.ext import current_i18n
 from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_rdm_records.proxies import current_rdm_records_service
 from invenio_rdm_records.requests import CommunityInclusion, CommunitySubmission
@@ -33,6 +34,8 @@ from invenio_requests.customizations import AcceptAction
 from invenio_requests.resolvers.registry import ResolverRegistry
 from invenio_requests.views.decorators import pass_request
 from invenio_users_resources.proxies import current_user_resources
+from invenio_vocabularies.proxies import current_service as vocabulary_service
+from marshmallow_utils.fields.babel import gettext_from_dict
 from sqlalchemy.orm.exc import NoResultFound
 
 from ...records_ui.utils import get_external_resources
@@ -202,6 +205,17 @@ def user_dashboard_request_view(request, **kwargs):
                 checks = ChecksAPI.get_runs(record._record, is_draft=True)
             else:
                 checks = ChecksAPI.get_runs(record._record)
+
+        if request_type == "record-deletion":
+            reason_title = vocabulary_service.read(
+                g.identity,
+                ("removalreasons", request["payload"]["reason"]),
+            ).to_dict()
+            request["payload"]["reason_label"] = gettext_from_dict(
+                reason_title["title"],
+                current_i18n.locale,
+                current_app.config.get("BABEL_DEFAULT_LOCALE", "en"),
+            )
 
         return render_template(
             f"invenio_requests/{request_type}/index.html",

@@ -15,10 +15,13 @@ from invenio_administration.views.base import (
     AdminResourceListView,
 )
 from invenio_i18n import lazy_gettext as _
+from invenio_i18n.ext import current_i18n
 from invenio_rdm_records.requests import RecordDeletion
 from invenio_requests.proxies import current_requests
 from invenio_search_ui.searchconfig import search_app_config
 from invenio_users_resources.proxies import current_user_resources
+from invenio_vocabularies.proxies import current_service as vocabulary_service
+from marshmallow_utils.fields.babel import gettext_from_dict
 
 
 class ModerationRequestListView(AdminResourceListView):
@@ -135,6 +138,18 @@ class ModerationRequestDetailView(AdminResourceDetailView):
             g.identity, current_user
         )["avatar"]
         permissions = []
+        if "reason" in request["payload"]:
+            reason_title = vocabulary_service.read(
+                g.identity,
+                ("removalreasons", request["payload"]["reason"]),
+            ).to_dict()
+
+            request["payload"]["reason_label"] = gettext_from_dict(
+                reason_title["title"],
+                current_i18n.locale,
+                current_app.config.get("BABEL_DEFAULT_LOCALE", "en"),
+            )
+
         return {
             "invenio_request": request,
             "user_avatar": avatar,
