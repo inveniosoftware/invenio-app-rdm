@@ -768,7 +768,7 @@ export class RDMDepositForm extends Component {
                                 <DeleteButton fluid />
                               </Grid.Column>
 
-                              {record.is_published && (
+                              {record.is_published && recordDeletion["enabled"] && (
                                 <Grid.Column width={16} className="pt-0">
                                   <RecordDeletion
                                     record={record}
