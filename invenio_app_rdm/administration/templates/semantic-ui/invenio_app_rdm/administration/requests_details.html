@@ -1,0 +1,113 @@
+{#
+Copyright (C) 2025 CERN.
+
+Invenio App RDM is free software; you can redistribute it and/or modify it
+under the terms of the MIT License; see LICENSE file for more details.
+#}
+
+{% extends admin_base_template %}
+
+{% from "invenio_requests/macros/request_header.html" import inclusion_request_header %}
+
+{% set title = invenio_request.title %}
+
+{% block page_title %}{% endblock page_title %}
+
+{% block admin_page_content %}
+  {% set title = _("Request ") %}
+  {{ super() }}
+  {%- block request_body %}
+    <div class="ui container request-detail-page">
+      {%- block request_header %}
+        {% set back_button_url = url_for("administration.requests") %}
+        {{
+            inclusion_request_header(
+                back_button_url=back_button_url,
+                back_button_text=_("Back to requests"),
+                request=invenio_request,
+                accepted=request_is_accepted
+            )
+        }}
+
+        <div class="twelve wide column mt-10">
+          <p><strong>{{ _("Reason:") }}</strong> {{ invenio_request["payload"]["reason_label"] }}</p>
+          <p><strong>{{ _("Justification:") }}</strong> {{ invenio_request["payload"]["comment"] }}</p>
+        </div>
+      {%- endblock request_header %}
+
+    {%- block request_timeline %}
+      <div class="ui container rdm-tab-container fluid rel-pt-2 ml-0-mobile mr-0-mobile"
+        id="request-request-deletion-tab-container">
+        <div class="ui secondary pointing menu rdm-tab-menu" id="request-deletion-request-tab">
+          <a class="active item" data-tab="conversation" role="tab" aria-selected="true"
+            aria-controls="conversation-tab-panel" id="conversation-tab">
+            {{ _("Conversation") }}
+          </a>
+      
+          {% if record_ui %}
+          <a role="tab" class="item" data-tab="record" aria-selected="false" aria-controls="record-tab-panel" id="record-tab">
+            {{ _("Record") }}
+          </a>
+          {% endif %}
+        </div>
+      <div class="ui bottom attached tab segment active borderless p-0" data-tab="conversation" role="tabpanel"
+        aria-labelledby="conversation-tab" id="conversation-tab-panel">
+        <div id="request-detail"
+            data-record='{{ invenio_request | tojson }}'
+            data-default-query-config='{{ dict(size=config["REQUESTS_TIMELINE_PAGE_SIZE"]) | tojson }}'
+            data-user-avatar='{{ user_avatar | tojson }}'
+            data-permissions='{{ permissions | tojson }}'
+            data-config='{{ dict(allowGroupReviewers=config["USERS_RESOURCES_GROUPS_ENABLED"], enableReviewers=config["REQUESTS_REVIEWERS_ENABLED"], maxReviewers=config["REQUESTS_REVIEWERS_MAX_NUMBER"]) | tojson }}'
+        >{# react app root #}
+          <div class="ui grid">
+            <div class="stretched row">
+              <div class="thirteen wide column">
+                <div class="ui">
+                  <div class="ui fluid placeholder">
+                    <div class="image header">
+                      <div class="line"></div>
+                      <div class="line"></div>
+                    </div>
+                    <div class="paragraph">
+                      {% for i in range(6) %}
+                        <div class="line"></div>
+                      {% endfor %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="three wide column">
+                {% for i in range(6) %}
+                  <div class="ui fluid placeholder">
+                    <div class="image header">
+                      <div class="line"></div>
+                      <div class="line"></div>
+                    </div>
+                  </div>
+                  <div class="ui divider"></div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {# The record tab content needs to be last since the HTML structure is complex and breaks following tab contents #}
+      {% if record_ui %}
+        <div class="ui bottom attached tab segment borderless" data-tab="record" role="tabpanel" aria-labelledby="record-tab"
+          id="record-tab-panel" hidden="hidden">
+          {% set use_theme_basic_template = false %}
+          {% set preview_submission_request = true %}
+          {% include config.APP_RDM_RECORD_LANDING_PAGE_TEMPLATE %}
+        </div>
+      {% endif %}
+      </div>
+    {%- endblock request_timeline %}
+  {% endblock request_body %}
+{% endblock admin_page_content %}
+
+{% block javascript %}
+  {{ super() }}
+  {% include config.THEME_JAVASCRIPT_TEMPLATE %}
+  {{ webpack['invenio-requests-base.js'] }}
+{% endblock %}
