@@ -10,6 +10,13 @@
 Changes
 =======
 
+Version v14.0.0b0.dev4 (released 2025-09-01)
+
+- views(deposit): pass to the form config the published record if we edit one
+    * The published record is used to compare published DOI but it can be
+      used also to compare with the published state of an editing draft.
+- help: correct search instructions for missing fields
+
 Version v14.0.0b0.dev3 (released 2025-08-26)
 
 - fix(community-requests): request permissions were missing from UI
