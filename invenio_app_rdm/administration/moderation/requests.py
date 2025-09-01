@@ -15,10 +15,24 @@ from invenio_administration.views.base import (
     AdminResourceListView,
 )
 from invenio_i18n import lazy_gettext as _
+from invenio_i18n.ext import current_i18n
+from invenio_rdm_records.proxies import current_rdm_records_service
 from invenio_rdm_records.requests import RecordDeletion
+from invenio_rdm_records.resources.serializers import UIJSONSerializer
 from invenio_requests.proxies import current_requests
 from invenio_search_ui.searchconfig import search_app_config
 from invenio_users_resources.proxies import current_user_resources
+from invenio_vocabularies.proxies import current_service as vocabulary_service
+from marshmallow_utils.fields.babel import gettext_from_dict
+
+from invenio_app_rdm.requests_ui.views.requests import (
+    _resolve_record_or_draft_files,
+    _resolve_record_or_draft_media_files,
+)
+
+from ...records_ui.views.deposits import (
+    get_user_communities_memberships,
+)
 
 
 class ModerationRequestListView(AdminResourceListView):
@@ -135,10 +149,38 @@ class ModerationRequestDetailView(AdminResourceDetailView):
             g.identity, current_user
         )["avatar"]
         permissions = []
+        record = current_rdm_records_service.read(
+            g.identity, request["topic"]["record"], expand=True
+        )
+        record_ui = UIJSONSerializer().dump_obj(record.to_dict())
+
+        files = _resolve_record_or_draft_files(record_ui, request)
+        media_files = _resolve_record_or_draft_media_files(record_ui, request)
+
+        if "reason" in request["payload"]:
+            reason_title = vocabulary_service.read(
+                g.identity,
+                ("removalreasons", request["payload"]["reason"]),
+            ).to_dict()
+
+            request["payload"]["reason_label"] = gettext_from_dict(
+                reason_title["title"],
+                current_i18n.locale,
+                current_app.config.get("BABEL_DEFAULT_LOCALE", "en"),
+            )
+
         return {
             "invenio_request": request,
+            "record": record,
+            "record_ui": record_ui,
+            "files": files,
+            "media_files": media_files,
             "user_avatar": avatar,
             "permissions": permissions,
+            "is_preview": False,
+            "is_draft": False,
+            "is_published": True,
+            "include_deleted": False,
             "request_headers": self.request_headers,
             "name": name,
             "resource_schema": serialized_schema,
@@ -157,4 +199,5 @@ class ModerationRequestDetailView(AdminResourceDetailView):
             "resource_name": (
                 self.resource_name if self.resource_name else self.pid_path
             ),
+            "user_communities_memberships": get_user_communities_memberships(),
         }
