@@ -19,6 +19,7 @@ import {
 import {
   Button,
   Checkbox,
+  Icon,
   Form,
   Message,
   Modal,
@@ -145,6 +146,9 @@ export class DeletionModal extends Component {
     const immediateDeletionAllowed =
       recordDeletion["recordDeletion"]["immediate_deletion"]["allowed"];
 
+    const modalHeaderText = immediateDeletionAllowed
+      ? i18next.t("Delete record")
+      : i18next.t("Request deletion");
     const deletionButtonText = immediateDeletionAllowed
       ? i18next.t("Delete immediately")
       : i18next.t("Request deletion");
@@ -170,7 +174,7 @@ export class DeletionModal extends Component {
         onClick={(e) => e.stopPropagation()} // prevent interaction with dropdown
         onKeyDown={(e) => e.stopPropagation()} // prevent interaction with dropdown
       >
-        <ModalHeader>Delete record</ModalHeader>
+        <ModalHeader>{modalHeaderText}</ModalHeader>
         <Formik
           onSubmit={this.handleSubmit}
           validationSchema={this.deletionRequestSchema(immediateDeletionAllowed)}
@@ -200,7 +204,9 @@ export class DeletionModal extends Component {
                     </p>
                   )}
                   <Message negative>
-                    By deleting this record you acknowledge that: <br />
+                    <Icon name="warning sign" />
+                    {i18next.t("By deleting this record you acknowledge that:")}
+                    <br />
                     <Checkbox
                       label={
                         /* eslint-disable-next-line jsx-a11y/label-has-associated-control */
@@ -208,7 +214,7 @@ export class DeletionModal extends Component {
                           <strong>
                             {files} file{files !== 1 ? "s" : ""}
                           </strong>{" "}
-                          will be deleted.
+                          {i18next.t("will be deleted.")}
                         </label>
                       }
                       className="mt-5 mb-5"
@@ -220,8 +226,10 @@ export class DeletionModal extends Component {
                         label={
                           /* eslint-disable-next-line jsx-a11y/label-has-associated-control */
                           <label>
-                            The <strong>DOI cannot be reused</strong> and the DOI will
-                            resolve to a tombstone page with record's citation
+                            <strong>{i18next.t("The DOI cannot be reused")}</strong>{" "}
+                            {i18next.t(
+                              "and the DOI will resolve to a tombstone page with the record's citation (including title, author/s, publication year and publisher)"
+                            )}
                           </label>
                         }
                         className="mb-5"
@@ -232,8 +240,9 @@ export class DeletionModal extends Component {
                         label={
                           /* eslint-disable-next-line jsx-a11y/label-has-associated-control */
                           <label>
-                            A tombstone page with the citation will replace the record
-                            page
+                            {i18next.t(
+                              "A tombstone page with the citation will replace the record page"
+                            )}
                           </label>
                         }
                         className="mb-5"
@@ -244,13 +253,13 @@ export class DeletionModal extends Component {
                 </>
                 {checklist.length > 0 && (
                   <>
-                    <strong>Record deletion checklist:</strong>
+                    <strong>{i18next.t("Record deletion checklist:")}</strong>
                     <Table basic="very" unstackable className="mt-0">
                       <TableHeader>
                         <TableRow>
                           <TableHeaderCell />
-                          <TableHeaderCell>Yes</TableHeaderCell>
-                          <TableHeaderCell>No</TableHeaderCell>
+                          <TableHeaderCell>{i18next.t("Yes")}</TableHeaderCell>
+                          <TableHeaderCell>{i18next.t("No")}</TableHeaderCell>
                         </TableRow>
                       </TableHeader>
                       <TableBody>
@@ -286,7 +295,7 @@ export class DeletionModal extends Component {
                   fluid
                   fieldPath="reason"
                   name="reason"
-                  label={i18next.t("I want to delete this record because")}
+                  label={i18next.t("I want to delete this record because:")}
                   options={options}
                   required
                   disabled={formDisabled}
@@ -296,9 +305,11 @@ export class DeletionModal extends Component {
                   <TextAreaField
                     fieldPath="comment"
                     name="comment"
-                    label={i18next.t("Detailed justification")}
+                    label={i18next.t("Detailed justification:")}
                     required
-                    placeholder="Your justification will not be shared publicly"
+                    placeholder={i18next.t(
+                      "Your justification will not be shared publicly"
+                    )}
                     disabled={formDisabled}
                   />
                 )}
