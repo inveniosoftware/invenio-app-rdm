@@ -93,7 +93,7 @@ def _resolve_topic_record(request):
             record = current_rdm_records_service.read_draft(
                 g.identity, pid, expand=True
             )
-    except (NoResultFound, PIDDoesNotExistError):
+    except (NoResultFound, PIDDoesNotExistError, RecordDeletedException):
         # We catch PIDDoesNotExistError because a published record with
         # a soft-deleted draft will raise this error. The lines below
         # will catch the case that a id does not exists and raise a
