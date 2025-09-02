@@ -78,7 +78,7 @@ from invenio_rdm_records.services.errors import (
     InvalidAccessRestrictions,
     InvalidCommunityVisibility,
 )
-from invenio_rdm_records.services.github.release import RDMGithubRelease
+from invenio_rdm_records.services.github.release import RDMVCSRelease
 from invenio_rdm_records.services.permissions import RDMRequestsPermissionPolicy
 from invenio_rdm_records.services.stats import permissions_policy_lookup_factory
 from invenio_rdm_records.services.tasks import StatsRDMReindexTask
@@ -1472,10 +1472,10 @@ REQUESTS_ERROR_HANDLERS = {
 }
 
 
-# Invenio-Github
+# Invenio-VCS
 # =================
 #
-GITHUB_RELEASE_CLASS = RDMGithubRelease
+VCS_RELEASE_CLASS = RDMVCSRelease
 """Default RDM release class."""
 
 
