@@ -73,12 +73,13 @@
           {{ '(' ~ add_description.lang.title_l10n ~ ')' if add_description.lang is defined else '' }}
         </span>
       </h2>
+      {# additional description data is being sanitized by marshmallow in the backend #}
       {% if desc_type_defined and add_description.type.id == "notes" %}
         <div class="ui message warning">
-          {{ desc_text | sanitize_html() | safe }}
+          {{ desc_text | safe }}
         </div>
       {% else %}
-        {{ desc_text | sanitize_html() | safe }}
+        {{ desc_text | safe }}
       {% endif %}
     </section>
   {% endfor %}
