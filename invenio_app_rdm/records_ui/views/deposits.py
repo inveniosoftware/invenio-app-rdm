@@ -552,7 +552,11 @@ def deposit_edit(pid_value, draft=None, draft_files=None, files_locked=True):
                 "valid_user": rd_valid_user,
                 "allowed": rd_allowed,
                 "recordDeletion": rec_del,
-                "checklist": current_app.config["RDM_RECORD_DELETION_CHECKLIST"],
+                "checklist": (
+                    current_app.config["RDM_IMMEDIATE_RECORD_DELETION_CHECKLIST"]
+                    if immediate.allowed
+                    else current_app.config["RDM_REQUEST_RECORD_DELETION_CHECKLIST"]
+                ),
                 "context": {
                     "files": draft._record.files.count,
                     "internalDoi": draft._record.pids["doi"]["provider"] != "external",
