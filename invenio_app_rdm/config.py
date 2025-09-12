@@ -64,6 +64,8 @@ from invenio_rdm_records.notifications.builders import (
     UserAccessRequestCancelNotificationBuilder,
     UserAccessRequestDeclineNotificationBuilder,
     UserAccessRequestSubmitNotificationBuilder,
+    RecordDeletionAcceptNotificationBuilder,
+    RecordDeletionDeclineNotificationBuilder,
 )
 from invenio_rdm_records.proxies import current_rdm_records_service
 from invenio_rdm_records.requests.entity_resolvers import (
@@ -1425,6 +1427,9 @@ NOTIFICATIONS_BUILDERS = {
     community_notifications.SubComInvitationAccept.type: community_notifications.SubComInvitationAccept,
     community_notifications.SubComInvitationDecline.type: community_notifications.SubComInvitationDecline,
     community_notifications.SubComInvitationExpire.type: community_notifications.SubComInvitationExpire,
+    # Record deletion
+    RecordDeletionAcceptNotificationBuilder.type: RecordDeletionAcceptNotificationBuilder,
+    RecordDeletionDeclineNotificationBuilder.type: RecordDeletionDeclineNotificationBuilder,
 }
 """Notification builders."""
 
@@ -1518,7 +1523,7 @@ SITEMAP_SECTIONS = [
 # ========================================
 APP_RDM_MODERATION_REQUEST_SEARCH = {
     "facets": ["status", "is_open"],
-    "sort": ["bestmatch", "newest", "oldest"],
+    "sort": ["bestmatch", "newest", "oldest", "last_replied"],
 }
 """Moderation requests search configuration."""
 
@@ -1534,6 +1539,10 @@ APP_RDM_MODERATION_REQUEST_SORT_OPTIONS = {
     "oldest": dict(
         title=_("Oldest"),
         fields=["created"],
+    ),
+    "last_replied": dict(
+        title=_("Last replied"),
+        fields=["last_reply.created"],
     ),
 }
 """Definitions of available record sort options."""
