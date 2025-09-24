@@ -60,12 +60,12 @@ from invenio_rdm_records.notifications.builders import (
     GuestAccessRequestSubmitNotificationBuilder,
     GuestAccessRequestSubmittedNotificationBuilder,
     GuestAccessRequestTokenCreateNotificationBuilder,
+    RecordDeletionAcceptNotificationBuilder,
+    RecordDeletionDeclineNotificationBuilder,
     UserAccessRequestAcceptNotificationBuilder,
     UserAccessRequestCancelNotificationBuilder,
     UserAccessRequestDeclineNotificationBuilder,
     UserAccessRequestSubmitNotificationBuilder,
-    RecordDeletionAcceptNotificationBuilder,
-    RecordDeletionDeclineNotificationBuilder,
 )
 from invenio_rdm_records.proxies import current_rdm_records_service
 from invenio_rdm_records.requests.entity_resolvers import (
