@@ -10,6 +10,13 @@
 Changes
 =======
 
+Version v14.0.0b1.dev0 (released 2025-09-24)
+
+- feat(administration): add Requests view
+- feat: add record deletion requests
+  - Allows to configure record deletion policies for immediate deletion
+    or going through a request flow on the record landing page.
+
 Version v14.0.0b0.dev4 (released 2025-09-01)
 
 - views(deposit): pass to the form config the published record if we edit one
