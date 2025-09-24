@@ -1,5 +1,5 @@
 ..
-    Copyright (C) 2019-2024 CERN.
+    Copyright (C) 2019-2025 CERN.
     Copyright (C) 2019-2024 Northwestern University.
     Copyright (C) 2021-2024 TU Wien.
     Copyright (C) 2021-2025 Graz University of Technology.
@@ -10,12 +10,16 @@
 Changes
 =======
 
+Version v14.0.0b1.dev1 (released 2025-09-24)
+
+- Fixed CHANGES.rst formatting
+
 Version v14.0.0b1.dev0 (released 2025-09-24)
 
 - feat(administration): add Requests view
 - feat: add record deletion requests
-  - Allows to configure record deletion policies for immediate deletion
-    or going through a request flow on the record landing page.
+    * Allows to configure record deletion policies for immediate deletion
+      or going through a request flow on the record landing page.
 
 Version v14.0.0b0.dev4 (released 2025-09-01)
 
