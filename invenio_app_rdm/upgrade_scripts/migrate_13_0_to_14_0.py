@@ -21,6 +21,8 @@ This script has been tested with following data:
 
 from click import secho
 from invenio_access.permissions import system_identity
+from invenio_db import db
+from invenio_drafts_resources.services.records.errors import DraftNotCreatedError
 from invenio_rdm_records.proxies import current_rdm_records_service as records_service
 from invenio_search.engine import dsl
 
@@ -28,7 +30,7 @@ from invenio_search.engine import dsl
 def run_upgrade(has, migrate_record, migrate_draft):
     """Run upgrade."""
     # Handle published records
-    published_records = records_service.search(
+    published_records = records_service.scan(
         system_identity,
         params={"allversions": True, "include_deleted": True},
         extra_filter=has,
@@ -41,12 +43,16 @@ def run_upgrade(has, migrate_record, migrate_draft):
             error = f"Record {result['id']} failed to update"
 
     # Handle draft records
-    draft_records = records_service.search_drafts(
+    draft_records = records_service._search(
         system_identity,
         params={"allversions": True},
+        search_preference=None,
+        record_cls=records_service.draft_cls,
+        search_opts=records_service.config.search_drafts,
         extra_filter=has,
-    )
-    for result in draft_records.hits:
+        permission_action="read_draft",
+    ).scan()
+    for result in draft_records:
         try:
             migrate_draft(result)
         except Exception as error:
@@ -59,71 +65,68 @@ def run_update_for_resource_type():
 
     def migrate_resource_type_in_record(hit_result):
         """
-        Update resource type from event to publication-dissertation.
+        Update resource type from publication-thesis to publication-dissertation.
         We go through the service layer to automatically trigger the DOI update and re-indexing.
         """
         print(f"Updating resource type for {hit_result['id']}")
-        record = records_service.read_latest(system_identity, hit_result["id"])
-        if record.data["metadata"]["resource_type"]["id"] != "event":
+        record = records_service.read(
+            system_identity, hit_result["id"], include_deleted=True
+        )
+        if record.data["metadata"]["resource_type"]["id"] != "publication-thesis":
             secho(
-                f"Skipping record <{record.id}> because it doesn't have resource-type 'event'!",
+                f"Skipping record <{record.id}> because it doesn't have resource-type 'publication-thesis'!",
                 fg="yellow",
             )
             return
 
-        draft = records_service.edit(system_identity, record.id)
-        if draft.data["metadata"] != record.data["metadata"]:
-            secho(
-                f"Record <{record.id}> has an existing draft <{draft.id}> with different metadata! Updating record with record's metadata and re-creating draft with new metadata.",
-                fg="yellow",
-            )
-            # Store the existing draft metadata
-            new_draft_metadata = draft.data["metadata"]
-            # Delete the existing draft
-            is_draft_deleted = records_service.delete_draft(system_identity, draft.id)
-            if not is_draft_deleted:
-                secho(f"Failed to delete draft <{draft.id}>! Skipping...", fg="red")
-                return
-            # Create a temporary draft with the record's metadata and update the resource type
-            temp_draft = records_service.edit(system_identity, record.id)
-            temp_draft.data["metadata"]["resource_type"][
-                "id"
-            ] = "publication-dissertation"
-            updated_draft = records_service.update_draft(
-                system_identity, temp_draft.id, temp_draft.data
-            )
-            updated_record = records_service.publish(system_identity, updated_draft.id)
-
-            # Create a new draft with the existing draft's metadata and update the resource type again
-            new_draft = records_service.edit(system_identity, record.id)
-            new_draft.data["metadata"] = new_draft_metadata
-            new_draft.data["metadata"]["resource_type"][
-                "id"
-            ] = "publication-dissertation"
-            updated_draft = records_service.update_draft(
-                system_identity, new_draft.id, new_draft.data
-            )
-        else:
-            # If the draft has the same metadata as the record, just update the resource type
+        try:
+            draft = records_service.read_draft(system_identity, record.id)
+            # Step 1: Update the resource type in the draft
             draft.data["metadata"]["resource_type"]["id"] = "publication-dissertation"
             updated_draft = records_service.update_draft(
                 system_identity, draft.id, draft.data
             )
-            updated_record = records_service.publish(system_identity, updated_draft.id)
-        secho(
-            f"Record <{updated_record.id}> has been updated successfully.", fg="green"
-        )
+
+            # Step 2: Update the resource type in the record via low-level API
+            # We need to make sure we don't publish the record with different metadata
+            secho(
+                f"Record <{record.id}> has an existing draft <{draft.id}>! Updating record via low-level API.",
+                fg="yellow",
+            )
+            # Update the record directly without affecting the draft
+            record._record["metadata"]["resource_type"][
+                "id"
+            ] = "publication-dissertation"
+            # Save the record changes and reindex
+            record._record.commit()
+            db.session.commit()
+            records_service.indexer.index(record._record)
+            # Update DOI metadata if record has DOI
+            if record.pids.get("doi", None):
+                records_service.pids.register_or_update(
+                    system_identity, record.id, "doi", parent=False
+                )
+        except DraftNotCreatedError:
+            # If the draft didn't exist, we simply edit and publish the record
+            draft = records_service.edit(system_identity, record.id)
+            draft.data["metadata"]["resource_type"]["id"] = "publication-dissertation"
+            updated_draft = records_service.update_draft(
+                system_identity, draft.id, draft.data
+            )
+            record = records_service.publish(system_identity, updated_draft.id)
+
+        secho(f"Record <{record.id}> has been updated successfully.", fg="green")
 
     def migrate_resource_type_in_draft(hit_result):
         """
-        Update resource type from event to publication-dissertation.
+        Update resource type from publication-thesis to publication-dissertation.
         We go through the service layer to automatically trigger the DOI update and re-indexing.
         """
         print(f"Updating resource type for {hit_result['id']}")
         draft = records_service.edit(system_identity, hit_result["id"])
-        if draft.data["metadata"]["resource_type"]["id"] != "event":
+        if draft.data["metadata"]["resource_type"]["id"] != "publication-thesis":
             secho(
-                f"Skipping draft <{draft.id}> because it doesn't have resource-type 'event'!",
+                f"Skipping draft <{draft.id}> because it doesn't have resource-type 'publication-thesis'!",
                 fg="yellow",
             )
             return
@@ -135,7 +138,9 @@ def run_update_for_resource_type():
         secho(f"Draft <{updated_draft.id}> has been updated successfully.", fg="green")
 
     # Common query filter
-    has_resource_type = dsl.Q("query_string", query="metadata.resource_type.id:event")
+    has_resource_type = dsl.Q(
+        "query_string", query="metadata.resource_type.id:publication-thesis"
+    )
 
     secho("Resource type update has started.", fg="green")
 
