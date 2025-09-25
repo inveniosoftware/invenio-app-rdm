@@ -81,13 +81,7 @@ def run_update_for_resource_type():
 
         try:
             draft = records_service.read_draft(system_identity, record.id)
-            # Step 1: Update the resource type in the draft
-            draft.data["metadata"]["resource_type"]["id"] = "publication-dissertation"
-            updated_draft = records_service.update_draft(
-                system_identity, draft.id, draft.data
-            )
-
-            # Step 2: Update the resource type in the record via low-level API
+            # Step 1: Update the resource type in the record via low-level API
             # We need to make sure we don't publish the record with different metadata
             secho(
                 f"Record <{record.id}> has an existing draft <{draft.id}>! Updating record via low-level API.",
@@ -106,6 +100,13 @@ def run_update_for_resource_type():
                 records_service.pids.register_or_update(
                     system_identity, record.id, "doi", parent=False
                 )
+            # Step 2: Update the resource type in the draft
+            draft = records_service.edit(system_identity, draft.id)
+            draft.data["metadata"]["resource_type"]["id"] = "publication-dissertation"
+            draft._record.fork_version_id = record._record.revision_id
+            updated_draft = records_service.update_draft(
+                system_identity, draft.id, draft.data
+            )
         except DraftNotCreatedError:
             # If the draft didn't exist, we simply edit and publish the record
             draft = records_service.edit(system_identity, record.id)
