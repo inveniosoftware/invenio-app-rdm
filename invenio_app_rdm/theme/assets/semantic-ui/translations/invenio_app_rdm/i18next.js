@@ -10,6 +10,8 @@ import LanguageDetector from "i18next-browser-languagedetector";
 import { translations } from "./messages";
 import { initReactI18next } from "react-i18next";
 
+const { languages } = require("./package.json").config;
+
 const options = {
   fallbackLng: "en", // fallback keys
   returnEmptyString: false,
@@ -33,5 +35,15 @@ const options = {
 
 const i18next = i18n.createInstance();
 i18next.use(LanguageDetector).use(initReactI18next).init(options);
+
+
+languages.forEach(async (lng) => {
+  try {
+    const overridenTranslations =  require(`@overriden_translations/${lng}/LC_MESSAGES/translations.json`);
+    i18next.addResourceBundle(lng, "translation", overridenTranslations);
+  } catch (e) {
+    console.log("No overridden translations found for language", lng);
+  }
+});
 
 export { i18next };
