@@ -10,6 +10,11 @@
 Changes
 =======
 
+Version v13.0.3 (released 2025-09-25)
+
+- help: correct search instructions for missing fields
+- deposit: pass to the form config the published record if we edit one 
+
 Version v13.0.2 (released 2025-08-25)
 
 - i18n: pulled translations
