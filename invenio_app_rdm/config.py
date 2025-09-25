@@ -1095,7 +1095,7 @@ RDM_SEARCH_USER_COMMUNITIES = {
 
 RDM_SEARCH_USER_REQUESTS = {
     "facets": ["type", "status"],
-    "sort": ["bestmatch", "newest", "oldest"],
+    "sort": ["bestmatch", "newest", "oldest", "newestactivity", "oldestactivity"],
 }
 """User requests search configuration (i.e list of user requests)"""
 
@@ -1523,7 +1523,7 @@ SITEMAP_SECTIONS = [
 # ========================================
 APP_RDM_MODERATION_REQUEST_SEARCH = {
     "facets": ["status", "is_open"],
-    "sort": ["bestmatch", "newest", "oldest", "last_replied"],
+    "sort": ["bestmatch", "newest", "oldest", "newestactivity", "oldestactivity"],
 }
 """Moderation requests search configuration."""
 
@@ -1540,9 +1540,13 @@ APP_RDM_MODERATION_REQUEST_SORT_OPTIONS = {
         title=_("Oldest"),
         fields=["created"],
     ),
-    "last_replied": dict(
-        title=_("Last replied"),
-        fields=["last_reply.created"],
+    "newestactivity": dict(
+        title=_("Newest activity"),
+        fields=["-last_activity_at"],
+    ),
+    "oldestactivity": dict(
+        title=_("Oldest activity"),
+        fields=["last_activity_at"],
     ),
 }
 """Definitions of available record sort options."""
