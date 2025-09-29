@@ -539,7 +539,7 @@ def deposit_edit(pid_value, draft=None, draft_files=None, files_locked=True):
         published_record = ui_serializer.dump_obj(published_record_result)
 
         rec_del = RDMRecordDeletionPolicy().evaluate(
-            g.identity, published_record._record
+            g.identity, published_record_result._record
         )
         immediate, request = rec_del["immediate_deletion"], rec_del["request_deletion"]
         rd_enabled = immediate.enabled or request.enabled
