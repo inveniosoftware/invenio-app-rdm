@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version v14.0.0b1.dev2 (released 2025-09-29)
+
+- fix(deposit-ui): use API record for evaluating deletion policy
+
 Version v14.0.0b1.dev1 (released 2025-09-24)
 
 - Fixed CHANGES.rst formatting
