@@ -10,6 +10,12 @@
 Changes
 =======
 
+Version v14.0.0b1.dev3 (released 2025-10-01)
+
+- fix(deposit-ui): read expanded published record
+    * The UI serializer requires the expanded record service result.
+- feat(config): add last activity sort option
+
 Version v14.0.0b1.dev2 (released 2025-09-29)
 
 - fix(deposit-ui): use API record for evaluating deletion policy
