@@ -535,8 +535,10 @@ def deposit_edit(pid_value, draft=None, draft_files=None, files_locked=True):
 
     published_record = None
     if record["is_published"]:
-        published_record_result = service.read(g.identity, id_=record["id"]).to_dict()
-        published_record = ui_serializer.dump_obj(published_record_result)
+        published_record_result = service.read(
+            g.identity, id_=record["id"], expand=True
+        )
+        published_record = ui_serializer.dump_obj(published_record_result.to_dict())
 
         rec_del = RDMRecordDeletionPolicy().evaluate(
             g.identity, published_record_result._record
