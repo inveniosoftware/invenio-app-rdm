@@ -10,6 +10,11 @@
 Changes
 =======
 
+Version v14.0.0b1.dev4 (released 2025-10-03)
+
+- installation: relax invenio-collections dependency requirements
+    * see https://github.com/inveniosoftware/invenio-app-rdm/issues/3194
+
 Version v14.0.0b1.dev3 (released 2025-10-01)
 
 - fix(deposit-ui): read expanded published record
