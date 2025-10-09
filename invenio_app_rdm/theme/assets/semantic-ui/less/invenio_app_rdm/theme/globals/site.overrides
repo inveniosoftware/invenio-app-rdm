@@ -559,3 +559,9 @@ dl.details-list {
   align-items: center;
   justify-content: space-between;
 }
+
+#preview-file-title,
+td.ten.wide a {
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
