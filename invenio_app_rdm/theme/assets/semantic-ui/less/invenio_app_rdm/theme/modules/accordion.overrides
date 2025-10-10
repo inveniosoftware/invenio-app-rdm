@@ -40,7 +40,7 @@ div.affiliations.accordion div.title button.down {
   &.invenio-accordion-field {
     margin-bottom: 2rem;
 
-    .title {
+    .title:not(.ui) {
       background-color: @brandColor;
       color: @white;
       padding: 1em;
