@@ -303,8 +303,11 @@ export class RDMDepositForm extends Component {
                       fieldPath="metadata.creators"
                     >
                       <CreatibutorsField
-                        label={i18next.t("Creators")}
+                        label={i18next.t("Authors/Creators")}
                         labelIcon="user"
+                        addButtonHelpText={i18next.t(
+                          "Use the Authors/Creators field for names that should appear in the citation. Use the Contributors field below for other names."
+                        )}
                         fieldPath="metadata.creators"
                         roleOptions={this.vocabularies.metadata.creators.role}
                         schema="creators"
@@ -423,6 +426,9 @@ export class RDMDepositForm extends Component {
                     >
                       <CreatibutorsField
                         addButtonLabel={i18next.t("Add contributor")}
+                        addButtonHelpText={i18next.t(
+                          "Contributors are not included in the citation, but are shown on the record page."
+                        )}
                         label={i18next.t("Contributors")}
                         labelIcon="user plus"
                         fieldPath="metadata.contributors"
