@@ -51,6 +51,9 @@
   {% if record_deletion %}
     <input type="hidden" name="deposits-record-deletion" value='{{ record_deletion | tojson }}'>
   {% endif %}
+  {% if file_modification %}
+    <input type="hidden" name="deposits-file-modification" value='{{ file_modification | tojson }}'>
+  {% endif %}
   <input type="hidden" name="config-groups-enabled"
           value='{{ config.USERS_RESOURCES_GROUPS_ENABLED | tojson }}'>
   <input type="hidden" name="records-resources-allow-empty-files"
