@@ -37,7 +37,11 @@ from invenio_vocabularies.records.models import VocabularyScheme
 from marshmallow_utils.fields.babel import gettext_from_dict
 from sqlalchemy.orm import load_only
 
-from ..utils import evaluate_record_deletion, set_default_value
+from ..utils import (
+    evaluate_file_modification,
+    evaluate_record_deletion,
+    set_default_value,
+)
 from .decorators import (
     no_cache_response,
     pass_draft,
@@ -541,9 +545,11 @@ def deposit_edit(pid_value, draft=None, draft_files=None, files_locked=True):
         )
         published_record = ui_serializer.dump_obj(published_record_result.to_dict())
 
-        record_deletion = evaluate_record_deletion(published_record_result, draft)
+        record_deletion = evaluate_record_deletion(published_record_result)
+        file_modification = evaluate_file_modification(published_record_result)
     else:
         record_deletion = {}
+        file_modification = {}
 
     community_ui = None
     community_theme = None
@@ -619,6 +625,7 @@ def deposit_edit(pid_value, draft=None, draft_files=None, files_locked=True):
             ]
         ),
         record_deletion=record_deletion,
+        file_modification=file_modification,
     )
 
 
