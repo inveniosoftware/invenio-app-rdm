@@ -29,6 +29,7 @@ ReactDOM.render(
       )}
       allowRecordRestriction={getInputFromDOM("deposits-allow-record-restriction")}
       recordDeletion={getInputFromDOM("deposits-record-deletion")}
+      fileModification={getInputFromDOM("deposits-file-modification")}
       groupsEnabled={getInputFromDOM("config-groups-enabled")}
       allowEmptyFiles={getInputFromDOM("records-resources-allow-empty-files")}
       isDoiRequired={getInputFromDOM("deposits-is-doi-required")}

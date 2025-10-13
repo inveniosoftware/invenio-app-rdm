@@ -15,7 +15,10 @@ from flask import current_app
 from invenio_access.permissions import system_identity
 from invenio_rdm_records.records.api import RDMRecord
 from invenio_rdm_records.requests.record_deletion import RecordDeletion
-from invenio_rdm_records.services.config import RDMRecordDeletionPolicy
+from invenio_rdm_records.services.config import (
+    FileModificationPolicyEvaluator,
+    RDMRecordDeletionPolicy,
+)
 from invenio_records.dictutils import dict_set
 from invenio_records.errors import MissingModelError
 from invenio_records_files.api import FileObject
@@ -119,10 +122,7 @@ def evaluate_record_deletion(record: RDMRecord, identity):
 
     immediate, request = rec_del["immediate_deletion"], rec_del["request_deletion"]
     rd_enabled = immediate.enabled or request.enabled
-    rd_valid_user = (
-        rec_del["immediate_deletion"].valid_user
-        or rec_del["request_deletion"].valid_user
-    )
+    rd_valid_user = immediate.valid_user or request.valid_user
     rd_allowed = immediate.allowed or request.allowed
     existing_request = get_existing_deletion_request(record.id)
 
@@ -138,8 +138,8 @@ def evaluate_record_deletion(record: RDMRecord, identity):
                 else current_app.config["RDM_REQUEST_RECORD_DELETION_CHECKLIST"]
             ),
             "context": {
-                "files": record.files.count,
-                "internalDoi": record.pids["doi"]["provider"] != "external",
+                "files": record["files"]["count"],
+                "internalDoi": record["pids"]["doi"]["provider"] != "external",
             },
         }
     else:
@@ -153,3 +153,22 @@ def evaluate_record_deletion(record: RDMRecord, identity):
     )
 
     return record_deletion
+
+
+def evaluate_file_modification(record, identity):
+    """Evaluate whether a given record file's can be edited by an identity."""
+    file_mod = FileModificationPolicyEvaluator().evaluate(identity, record._record)
+
+    file_mod = file_mod["immediate_file_modification"]
+    fm_allowed = file_mod.allowed
+
+    file_modification = {
+        "enabled": file_mod.enabled,
+        "valid_user": file_mod.valid_user,
+        "allowed": fm_allowed,
+    }
+    if fm_allowed:
+        file_modification["fileModification"] = file_mod
+        file_modification["context"] = {}
+
+    return file_modification
