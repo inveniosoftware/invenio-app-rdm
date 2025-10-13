@@ -114,6 +114,7 @@ export class RDMDepositForm extends Component {
       recordRestrictionGracePeriod,
       allowRecordRestriction,
       recordDeletion,
+      fileModification,
       groupsEnabled,
       allowEmptyFiles,
       useUppy,
@@ -138,6 +139,7 @@ export class RDMDepositForm extends Component {
         recordRestrictionGracePeriod={recordRestrictionGracePeriod}
         allowRecordRestriction={allowRecordRestriction}
         recordDeletion={recordDeletion}
+        fileModification={fileModification}
         groupsEnabled={groupsEnabled}
         allowEmptyFiles={allowEmptyFiles}
         customFieldsUI={customFieldsUI}
@@ -210,6 +212,7 @@ export class RDMDepositForm extends Component {
                         allowEmptyFiles={allowEmptyFiles}
                         filesLocked={filesLocked}
                         fileUploadConcurrency={config.fileUploadConcurrency}
+                        fileModification={fileModification}
                       />
                     </Overridable>
                   </AccordionField>
@@ -810,6 +813,7 @@ RDMDepositForm.propTypes = {
   recordRestrictionGracePeriod: PropTypes.number.isRequired,
   allowRecordRestriction: PropTypes.bool.isRequired,
   recordDeletion: PropTypes.object.isRequired,
+  fileModification: PropTypes.object.isRequired,
   record: PropTypes.object.isRequired,
   preselectedCommunity: PropTypes.object,
   files: PropTypes.object,
