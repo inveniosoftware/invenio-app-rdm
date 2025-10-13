@@ -76,17 +76,17 @@ export class AccessRequestTimelineEdit extends Component {
   initFormValues = () => {
     const {
       request: {
-        payload: { secret_link_expiration },
+        payload: { secret_link_expiration: secretLinkExpiration },
       },
     } = this.props;
 
-    if (parseInt(secret_link_expiration) === 0) {
+    if (parseInt(secretLinkExpiration) === 0 || secretLinkExpiration === "NaN") {
       return {
         secret_link_expiration: "",
       };
     }
     const dateFromDays = DateTime.now().plus({
-      days: parseInt(secret_link_expiration),
+      days: parseInt(secretLinkExpiration),
     });
     return {
       secret_link_expiration: dateFromDays.toISODate(),
