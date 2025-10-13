@@ -189,17 +189,15 @@ export class DeletionModal extends Component {
                   {immediateDeletionAllowed ? (
                     <p>
                       {
-                        recordDeletion["recordDeletion"]["immediate_deletion"][
-                          "policy"
-                        ]["description"]
+                        recordDeletion.recordDeletion?.immediate_deletion?.policy
+                          ?.description
                       }
                     </p>
                   ) : (
                     <p>
                       {
-                        recordDeletion["recordDeletion"]["request_deletion"]["policy"][
-                          "description"
-                        ]
+                        recordDeletion.recordDeletion?.request_deletion?.policy
+                          ?.description
                       }
                     </p>
                   )}
