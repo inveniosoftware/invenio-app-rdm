@@ -20,7 +20,7 @@ export class AccessRequestTimelineRead extends Component {
     } = this.props;
 
     const expirationDate =
-      secretLinkExpiration === 0
+      parseInt(secretLinkExpiration) === 0
         ? i18next.t("Never")
         : DateTime.fromISO(updated)
             .plus({
