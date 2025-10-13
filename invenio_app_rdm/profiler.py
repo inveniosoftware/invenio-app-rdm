@@ -26,6 +26,7 @@ from flask import (
     session,
     url_for,
 )
+from invenio_administration.permissions import administration_permission
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Session
 from sqlalchemy.pool import SingletonThreadPool
@@ -142,6 +143,8 @@ class Profiler:
 
     def __init__(self, app=None):
         """Extension initialization."""
+        if not current_app.config["APP_RDM_PROFILER_ENABLED"]:
+            return
         if app:
             self.init_app(app)
 
@@ -157,7 +160,7 @@ class Profiler:
             if active_session:
                 endpoint_ignored = any(
                     re.match(e, request.endpoint)
-                    for e in current_app.config["PROFILER_IGNORED_ENDPOINTS"]
+                    for e in current_app.config["APP_RDM_PROFILER_IGNORED_ENDPOINTS"]
                 )
                 if endpoint_ignored:
                     return
@@ -190,11 +193,21 @@ class Profiler:
 
     def init_config(self, app):
         """Initialize configuration."""
-        app.config.setdefault("PROFILER_STORAGE", Path(app.instance_path) / "profiler")
-        app.config.setdefault("PROFILER_ACTIVE_SESSION_LIFETIME", timedelta(minutes=60))
-        app.config.setdefault("PROFILER_ACTIVE_SESSION_REFRESH", timedelta(minutes=30))
-        app.config.setdefault("PROFILER_IGNORED_ENDPOINTS", ["static", r"profiler\..+"])
-        app.config.setdefault("PROFILER_PERMISSION", lambda: True)
+        app.config.setdefault(
+            "APP_RDM_PROFILER_STORAGE", Path(app.instance_path) / "profiler"
+        )
+        app.config.setdefault(
+            "APP_RDM_PROFILER_ACTIVE_SESSION_LIFETIME", timedelta(minutes=60)
+        )
+        app.config.setdefault(
+            "APP_RDM_PROFILER_ACTIVE_SESSION_REFRESH", timedelta(minutes=30)
+        )
+        app.config.setdefault(
+            "APP_RDM_PROFILER_IGNORED_ENDPOINTS", ["static", r"profiler\..+"]
+        )
+        app.config.setdefault(
+            "APP_RDM_PROFILER_PERMISSION", lambda: administration_permission.can()
+        )
 
     @property
     def active_session(self):
@@ -275,7 +288,7 @@ class Profiler:
         return query.filter(SessionRequest.id == request_id).scalar()
 
     def _db_session(self, session_id=None):
-        """SQLAlchemy session for the SQLite file of a profiling session."""
+        """Sqlalchemy session for the SQLite file of a profiling session."""
         db_path = self.storage_dir / f"{session_id or g.profiler_session_id}.db"
         db_path.parent.mkdir(parents=True, exist_ok=True)
         engine = sa.create_engine(f"sqlite:///{db_path}", poolclass=SingletonThreadPool)
