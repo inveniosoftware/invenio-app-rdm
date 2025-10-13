@@ -46,7 +46,7 @@ export class AccessRequestTimelineEdit extends Component {
       links: { self: selfLink },
     } = request;
     const { secret_link_expiration: secretLinkExpiration } = values;
-    if (secretLinkExpiration === null) {
+    if (secretLinkExpiration === null || secretLinkExpiration === "") {
       payload["secret_link_expiration"] = "0";
     } else {
       const date = DateTime.fromISO(secretLinkExpiration);
