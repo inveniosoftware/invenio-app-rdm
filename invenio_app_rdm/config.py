@@ -38,6 +38,7 @@ from celery.schedules import crontab
 from flask_principal import Denial
 from flask_resources import HTTPJSONException, create_error_handler
 from invenio_access.permissions import any_user
+from invenio_administration.permissions import administration_permission
 from invenio_communities.communities.resources.config import community_error_handlers
 from invenio_communities.notifications.builders import (
     CommunityInvitationAcceptNotificationBuilder,
@@ -1562,3 +1563,10 @@ APP_RDM_MODERATION_REQUEST_FACETS = {
     "is_open": {"facet": facets.is_open, "ui": {"field": "is_open"}},
 }
 """Available facets defined for this module."""
+
+# Profiler
+APP_RDM_PROFILER_ENABLED = False
+"""Enable the profiler."""
+
+APP_RDM_PROFILER_PERMISSION = lambda: administration_permission.can()
+"""Permission function for the profiler."""
