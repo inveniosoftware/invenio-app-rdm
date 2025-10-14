@@ -84,7 +84,7 @@ export class AccessRequestsTab extends Component {
 
   render() {
     const { loading, error, actionSuccess } = this.state;
-    const { handleClose } = this.props;
+    const { handleClose, isAccessLinksExpirationRequired } = this.props;
     return (
       <Formik
         onSubmit={this.handleSubmit}
@@ -175,6 +175,9 @@ export class AccessRequestsTab extends Component {
                             <AccessRequestExpirationSelect
                               inline
                               value={values.secret_link_expiration}
+                              isAccessLinksExpirationRequired={
+                                isAccessLinksExpirationRequired
+                              }
                             />
                           </Form.Field>
                         </Grid.Column>
@@ -227,4 +230,5 @@ AccessRequestsTab.propTypes = {
   record: PropTypes.string.isRequired,
   successCallback: PropTypes.func.isRequired,
   handleClose: PropTypes.func.isRequired,
+  isAccessLinksExpirationRequired: PropTypes.bool.isRequired,
 };
