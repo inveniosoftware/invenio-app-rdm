@@ -10,6 +10,19 @@
 Changes
 =======
 
+Version v14.0.0b1.dev5 (released 2025-10-14)
+
+- fix(community-submission): add missing var in side bar template
+- fix(guest-access-request): handle broken expiration date payload value
+    * this extra check prevents the request timeline UI from breaking when a
+      request payload has a broken value, to make recovery easier
+    * also, make eslint happy with a camel case variable name
+- fix(guest-access-request): handle more possible expiration date values
+    * when the expiration date gets submitted, the value of the empty input
+      field is typically the empty string rather than `null`
+    * on the reading side, handle the case that the expiration date is set
+      as a string value (since request payloads are generally strings)
+
 Version v14.0.0b1.dev4 (released 2025-10-03)
 
 - installation: relax invenio-collections dependency requirements
