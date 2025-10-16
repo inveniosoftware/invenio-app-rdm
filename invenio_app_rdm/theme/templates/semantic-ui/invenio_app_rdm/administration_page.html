@@ -7,7 +7,11 @@
   under the terms of the MIT License; see LICENSE file for more details.
 #}
 
-{%- extends "invenio_theme/page.html" -%}
+{% if base_template|default(false) %}
+  {%- extends base_template %}
+{% else %}
+  {%- extends config.BASE_TEMPLATE %}
+{% endif %}
 
 {%- block css %}
   {{ super()}}
