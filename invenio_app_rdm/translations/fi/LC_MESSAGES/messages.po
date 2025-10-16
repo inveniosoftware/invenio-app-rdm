@@ -5,11 +5,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
 # 
 # Translators:
-# Alizee Pace <alizee.pace@gmail.com>, 2024
-# Ignacio Estevo, 2025
-# Zacharias Zacharodimos <zacharias.zacharodimos@cern.ch>, 2025
-# Tibor Simko <tibor.simko@cern.ch>, 2025
-# Jesús Martín <jesusmartin@sallep.net>, 2025
+# Matti Lassila <matti.lassila@gmail.com>, 2025
 # 
 #, fuzzy
 msgid ""
@@ -18,18 +14,18 @@ msgstr ""
 "Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
 "POT-Creation-Date: 2025-07-22 14:12+0000\n"
 "PO-Revision-Date: 2020-07-07 14:12+0000\n"
-"Last-Translator: Jesús Martín <jesusmartin@sallep.net>, 2025\n"
-"Language-Team: Spanish (https://app.transifex.com/inveniosoftware/teams/23537/es/)\n"
+"Last-Translator: Matti Lassila <matti.lassila@gmail.com>, 2025\n"
+"Language-Team: Finnish (https://app.transifex.com/inveniosoftware/teams/23537/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.17.0\n"
-"Language: es\n"
-"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+"Language: fi\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: invenio_app_rdm/config.py:269
 msgid "The turn-key research data management repository"
-msgstr "El repositorio de gestión de datos de investigación preconfigurado"
+msgstr "Avaimet käteen -tutkimusdatanhallintavaranto"
 
 #: invenio_app_rdm/config.py:308
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/site_footer.html:16
@@ -38,7 +34,7 @@ msgstr "InvenioRDM"
 
 #: invenio_app_rdm/config.py:403
 msgid "Welcome to Invenio App RDM!"
-msgstr "¡Bienvenido a Invenio RDM!"
+msgstr "Tervetuloa Invenio App RDM:ään!"
 
 #: invenio_app_rdm/config.py:816
 msgid "JSON"
@@ -86,11 +82,11 @@ msgstr "Codemeta"
 
 #: invenio_app_rdm/config.py:900
 msgid "Citation File Format"
-msgstr "Formato de Archivo de Cita"
+msgstr "Viitetiedostomuoto"
 
 #: invenio_app_rdm/config.py:907
 msgid "Data Package JSON"
-msgstr ""
+msgstr "Data Package JSON"
 
 #: invenio_app_rdm/config.py:1102
 msgid "APA"
@@ -118,69 +114,69 @@ msgstr "IEEE"
 
 #: invenio_app_rdm/ext.py:73
 msgid "My dashboard"
-msgstr "Mi panel"
+msgstr "Ylläpito"
 
 #: invenio_app_rdm/ext.py:79
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/deposit.html:17
 #: invenio_app_rdm/users_ui/templates/semantic-ui/invenio_app_rdm/users/header.html:28
 msgid "New upload"
-msgstr "Nuevo envío"
+msgstr "Uusi aineisto"
 
 #: invenio_app_rdm/ext.py:93
 #: invenio_app_rdm/users_ui/templates/semantic-ui/invenio_app_rdm/users/uploads.html:8
 msgid "Uploads"
-msgstr "Envíos"
+msgstr "Aineistot"
 
 #: invenio_app_rdm/ext.py:98
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/communities.html:14
 #: invenio_app_rdm/users_ui/templates/semantic-ui/invenio_app_rdm/users/communities.html:8
 msgid "Communities"
-msgstr "Comunidades"
+msgstr "Yhteisöt"
 
 #: invenio_app_rdm/ext.py:103
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header.html:118
 #: invenio_app_rdm/theme/templates/themes/default/invenio_app_rdm/header.html:117
 #: invenio_app_rdm/users_ui/templates/semantic-ui/invenio_app_rdm/users/requests.html:8
 msgid "Requests"
-msgstr "Peticiones"
+msgstr "Pyynnöt"
 
 #: invenio_app_rdm/ext.py:126
 msgid "Home"
-msgstr "Página principal"
+msgstr "Etusivu"
 
 #: invenio_app_rdm/communities_ui/templates/semantic-ui/invenio_communities/collections/collection.html:38
 #: invenio_app_rdm/ext.py:134
 msgid "Browse"
-msgstr "Explorar"
+msgstr "Selaa"
 
 #: invenio_app_rdm/administration/records/records.py:28
 #: invenio_app_rdm/administration/records/records.py:29
 #: invenio_app_rdm/ext.py:142
 msgid "Records"
-msgstr "Registros"
+msgstr "Tietueet"
 
 #: invenio_app_rdm/ext.py:149
 msgid "Submit"
-msgstr "Enviar"
+msgstr "Lähetä"
 
 #: invenio_app_rdm/administration/audit_logs/audit_logs.py:38
 msgid "Resource"
-msgstr ""
+msgstr "Resurssi"
 
 #: invenio_app_rdm/administration/audit_logs/audit_logs.py:43
 msgid "Resource ID"
-msgstr ""
+msgstr "Resurssin tunniste"
 
 #: invenio_app_rdm/administration/audit_logs/audit_logs.py:47
 msgid "Action"
-msgstr "Acción"
+msgstr "Toiminto"
 
 #: invenio_app_rdm/administration/audit_logs/audit_logs.py:51
 #: invenio_app_rdm/administration/user_moderation/user_moderation.py:46
 #: invenio_app_rdm/administration/user_moderation/user_moderation.py:169
 #: invenio_app_rdm/administration/users/users.py:22
 msgid "User"
-msgstr "Usuario"
+msgstr "Käyttäjä"
 
 #: invenio_app_rdm/administration/audit_logs/audit_logs.py:55
 #: invenio_app_rdm/administration/domains/domains.py:150
@@ -191,34 +187,34 @@ msgstr "Usuario"
 #: invenio_app_rdm/administration/users/users.py:42
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/technical_metadata.html:10
 msgid "Created"
-msgstr "Creado"
+msgstr "Luotu"
 
 #: invenio_app_rdm/administration/audit_logs/audit_logs.py:62
 msgid "View Log"
-msgstr ""
+msgstr "Näytä loki"
 
 #: invenio_app_rdm/administration/audit_logs/audit_logs.py:67
 msgid "View Changes"
-msgstr ""
+msgstr "Näytä muutokset"
 
 #: invenio_app_rdm/administration/domains/domains.py:41
 #: invenio_app_rdm/administration/domains/domains.py:42
 msgid "Domains"
-msgstr "Dominios"
+msgstr "Verkkotunnukset"
 
 #: invenio_app_rdm/administration/domains/domains.py:43
 msgid "Site management"
-msgstr "Gestión del sitio"
+msgstr "Sivuston hallinta"
 
 #: invenio_app_rdm/administration/domains/domains.py:47
 #: invenio_app_rdm/administration/domains/domains.py:74
 #: invenio_app_rdm/administration/domains/domains.py:144
 msgid "Domain"
-msgstr "Dominio"
+msgstr "Verkkotunnus"
 
 #: invenio_app_rdm/administration/domains/domains.py:48
 msgid "TLD"
-msgstr "TLD"
+msgstr "Ylätason verkkotunnus"
 
 #: invenio_app_rdm/administration/domains/domains.py:49
 #: invenio_app_rdm/administration/domains/domains.py:80
@@ -228,43 +224,43 @@ msgstr "TLD"
 #: invenio_app_rdm/administration/users/users.py:36
 #: invenio_app_rdm/theme/templates/themes/default/invenio_app_rdm/site_footer.html:28
 msgid "Status"
-msgstr "Estado"
+msgstr "Tila"
 
 #: invenio_app_rdm/administration/domains/domains.py:50
 #: invenio_app_rdm/administration/domains/domains.py:153
 #: invenio_app_rdm/administration/users/users.py:58
 msgid "Users"
-msgstr "Usuarios"
+msgstr "Käyttäjät"
 
 #: invenio_app_rdm/administration/domains/domains.py:51
 #: invenio_app_rdm/administration/domains/domains.py:154
 #: invenio_app_rdm/administration/users/users.py:38
 msgid "Active"
-msgstr "Activo"
+msgstr "Aktiivinen"
 
 #: invenio_app_rdm/administration/domains/domains.py:52
 #: invenio_app_rdm/administration/domains/domains.py:155
 msgid "Inactive"
-msgstr "No activo"
+msgstr "Ei aktiivinen"
 
 #: invenio_app_rdm/administration/domains/domains.py:53
 #: invenio_app_rdm/administration/domains/domains.py:156
 msgid "Confirmed"
-msgstr "Confirmado"
+msgstr "Vahvistettu"
 
 #: invenio_app_rdm/administration/domains/domains.py:54
 #: invenio_app_rdm/administration/domains/domains.py:157
 msgid "Verified"
-msgstr "Verificado"
+msgstr "Tarkistettu"
 
 #: invenio_app_rdm/administration/domains/domains.py:55
 #: invenio_app_rdm/administration/domains/domains.py:158
 msgid "Blocked"
-msgstr "Bloqueado"
+msgstr "Estetty"
 
 #: invenio_app_rdm/administration/domains/domains.py:75
 msgid "Domain name (all lowercase)"
-msgstr "Nombre de dominio (todo en minúsculas)"
+msgstr "Verkkotunnus (vain pieniä kirjaimia)"
 
 #: invenio_app_rdm/administration/domains/domains.py:82
 msgid ""
@@ -272,80 +268,81 @@ msgid ""
 "domain require moderation), verified (users in domain does not require "
 "moderation) or blocked (users cannot register using this domain)."
 msgstr ""
-"Estado del dominio. Puede ser nuevo (el dominio necesita revisión), moderado"
-" (los usuarios del dominio requieren moderación), verificado (los usuarios "
-"del dominio no requieren moderación) o bloqueado (los usuarios no pueden "
-"registrarse usando este dominio)."
+"Verkkotunnuksen tila. Vaihtoehdot: new (verkkotunnus tarvitsee "
+"tarkistuksen), moderated (verkkotunnuksen käyttäjät edellyttävät "
+"moderointia), verified (verkkotunnuksen käyttäjät eivät edellytä "
+"moderointia) tai blocked (käyttäjät eivät voi rekisteröityä tällä "
+"verkkotunnuksella)."
 
 #: invenio_app_rdm/administration/domains/domains.py:94
 #: invenio_app_rdm/administration/domains/domains.py:147
 msgid "Category"
-msgstr "Categoría"
+msgstr "Luokka"
 
 #: invenio_app_rdm/administration/domains/domains.py:95
 msgid "A label to categorise the domain."
-msgstr "Una etiqueta para categorizar el dominio."
+msgstr "Tunniste verkkotunnuksen luokitteluun."
 
 #: invenio_app_rdm/administration/domains/domains.py:107
 #: invenio_app_rdm/administration/domains/domains.py:148
 msgid "Flagged"
-msgstr "Marcado"
+msgstr "Lippumerkitty"
 
 #: invenio_app_rdm/administration/domains/domains.py:109
 msgid "Used by automatic processes to flag the domain as requiring review."
 msgstr ""
-"Utilizado por procesos automáticos para marcar el dominio como que requiere "
-"revisión."
+"Automaattisten prosessien käyttämä verkkotunnuksen merkitsemiseksi "
+"tarkistusta vaativaksi."
 
 #: invenio_app_rdm/administration/domains/domains.py:114
 #: invenio_app_rdm/administration/domains/domains.py:149
 msgid "Source of flag"
-msgstr "Fuente de la marca"
+msgstr "Liputuksen lähde"
 
 #: invenio_app_rdm/administration/domains/domains.py:115
 msgid "Which source flagged the domain."
-msgstr "Qué fuente marcó el dominio."
+msgstr "Mikä lähde liputti verkkotunnuksen."
 
 #: invenio_app_rdm/administration/domains/domains.py:125
 msgid "Create domain"
-msgstr "Crear dominio"
+msgstr "Luo verkkotunnus"
 
 #: invenio_app_rdm/administration/domains/domains.py:133
 msgid "Edit domain"
-msgstr "Editar dominio"
+msgstr "Muokkaa verkkotunnusta"
 
 #: invenio_app_rdm/administration/domains/domains.py:141
 msgid "Domain details"
-msgstr "Detalles del dominio"
+msgstr "Verkkotunnuksen tiedot"
 
 #: invenio_app_rdm/administration/domains/domains.py:145
 msgid "Top-level domain"
-msgstr "Dominio de nivel superior"
+msgstr "Ylätason verkkotunnus"
 
 #: invenio_app_rdm/administration/domains/domains.py:151
 #: invenio_app_rdm/administration/users/users.py:27
 #: invenio_app_rdm/administration/users/users.py:43
 msgid "Updated"
-msgstr "Actualizado"
+msgstr "Päivitetty"
 
 #: invenio_app_rdm/administration/domains/domains.py:152
 msgid "Organisation"
-msgstr "Organización"
+msgstr "Organisaatio"
 
 #: invenio_app_rdm/administration/records/records.py:30
 #: invenio_app_rdm/administration/records/records.py:114
 msgid "Records & files"
-msgstr ""
+msgstr "Tietueet ja tiedostot"
 
 #: invenio_app_rdm/administration/records/records.py:41
 #: invenio_app_rdm/administration/records/records.py:125
 msgid "Title"
-msgstr "Título"
+msgstr "Nimeke"
 
 #: invenio_app_rdm/administration/records/records.py:42
 #: invenio_app_rdm/administration/records/records.py:126
 msgid "Owner"
-msgstr "Propietario"
+msgstr "Omistaja"
 
 #: invenio_app_rdm/administration/records/records.py:44
 #: invenio_app_rdm/administration/records/records.py:128
@@ -354,188 +351,185 @@ msgstr "Propietario"
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:310
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:159
 msgid "Files"
-msgstr "Archivos"
+msgstr "Tiedostot"
 
 #: invenio_app_rdm/administration/records/records.py:45
 #: invenio_app_rdm/administration/records/records.py:129
 msgid "Stats"
-msgstr "Estadísticas"
+msgstr "Tilastot"
 
 #: invenio_app_rdm/administration/records/records.py:50
 msgid "Delete record"
-msgstr "Eliminar registro"
+msgstr "Poista tietue"
 
 #: invenio_app_rdm/administration/records/records.py:55
 msgid "Restore record"
-msgstr "Restaurar registro"
+msgstr "Palauta tietue"
 
 #: invenio_app_rdm/administration/records/records.py:60
 msgid "Compare revisions"
-msgstr ""
+msgstr "Vertaile versioita"
 
 #: invenio_app_rdm/administration/records/records.py:112
 #: invenio_app_rdm/administration/records/records.py:113
 msgid "Drafts"
-msgstr ""
+msgstr "Luonnokset"
 
 #: invenio_app_rdm/administration/records/records.py:134
 msgid "Set quota"
-msgstr "Establecer cuota"
+msgstr "Aseta kiintiö"
 
 #: invenio_app_rdm/administration/user_moderation/user_moderation.py:30
 #: invenio_app_rdm/administration/user_moderation/user_moderation.py:31
 #: invenio_app_rdm/administration/user_moderation/user_moderation.py:32
 msgid "Moderation"
-msgstr ""
+msgstr "Moderointi"
 
 #: invenio_app_rdm/administration/user_moderation/user_moderation.py:52
 #: invenio_app_rdm/administration/users/users.py:24
 #: invenio_app_rdm/administration/users/users.py:34
 msgid "Email"
-msgstr "Email"
+msgstr "Sähköposti"
 
 #: invenio_app_rdm/administration/user_moderation/user_moderation.py:58
 msgid "Email domain"
-msgstr "Dominio del correo"
+msgstr "Sähköpostin verkkotunnus"
 
 #: invenio_app_rdm/administration/user_moderation/user_moderation.py:64
 msgid "Activity"
-msgstr ""
+msgstr "Aktiivisuus"
 
 #: invenio_app_rdm/administration/user_moderation/user_moderation.py:77
 #: invenio_app_rdm/administration/users/users.py:79
 msgid "Approve"
-msgstr "Aprobar"
+msgstr "Hyväksy"
 
 #: invenio_app_rdm/administration/user_moderation/user_moderation.py:82
 #: invenio_app_rdm/administration/users/users.py:89
 msgid "Block"
-msgstr "Bloquear"
+msgstr "Estä"
 
 #: invenio_app_rdm/administration/user_moderation/user_moderation.py:142
 msgid "User moderation"
-msgstr "Moderación de usuarios"
+msgstr "Käyttäjien moderointi"
 
 #: invenio_app_rdm/administration/user_moderation/user_moderation.py:165
 #: invenio_app_rdm/administration/users/users.py:32
 msgid "ID"
-msgstr "ID"
+msgstr "Tunnus"
 
 #: invenio_app_rdm/administration/user_moderation/user_moderation.py:174
 msgid "Open"
-msgstr "Abrir"
+msgstr "Avaa"
 
 #: invenio_app_rdm/administration/users/users.py:23
 #: invenio_app_rdm/administration/users/users.py:33
 msgid "Username"
-msgstr "Nombre de usuario"
+msgstr "Käyttäjätunnus"
 
 #: invenio_app_rdm/administration/users/users.py:35
 msgid "Domain "
-msgstr "Dominio"
+msgstr "Verkkotunnus "
 
 #: invenio_app_rdm/administration/users/users.py:37
 msgid "Visibility"
-msgstr "Visibilidad"
+msgstr "Näkyvyys"
 
 #: invenio_app_rdm/administration/users/users.py:39
 msgid "Confirmed at"
-msgstr "Confirmado en"
+msgstr "Vahvistettu ajankohtana"
 
 #: invenio_app_rdm/administration/users/users.py:40
 msgid "Verified at"
-msgstr "Verificado en"
+msgstr "Tarkistettu ajankohtana"
 
 #: invenio_app_rdm/administration/users/users.py:41
 msgid "Blocked at"
-msgstr "Bloqueado en"
+msgstr "Estetty ajankohtana"
 
 #: invenio_app_rdm/administration/users/users.py:57
 #: invenio_app_rdm/administration/users/users.py:59
 msgid "User management"
-msgstr ""
+msgstr "Käyttäjähallinta"
 
 #: invenio_app_rdm/administration/users/users.py:84
 msgid "Restore"
-msgstr "Restaurar"
+msgstr "Palauta"
 
 #: invenio_app_rdm/administration/users/users.py:94
 msgid "Suspend"
-msgstr "Suspender"
+msgstr "Keskeytä"
 
 #: invenio_app_rdm/administration/users/users.py:125
 msgid "User details"
-msgstr "Detalles de usuario"
+msgstr "Käyttäjän tiedot"
 
 #: invenio_app_rdm/communities_ui/templates/semantic-ui/invenio_communities/details/browse/index.html:40
 msgid "Subcommunities"
-msgstr "Subcomunidades"
+msgstr "Alayhteisöt"
 
 #: invenio_app_rdm/communities_ui/templates/semantic-ui/invenio_communities/details/browse/index.html:44
 msgid "See all"
-msgstr "Ver todos"
+msgstr "Näytä kaikki"
 
 #: invenio_app_rdm/communities_ui/templates/semantic-ui/invenio_communities/details/browse/index.html:54
 msgid "This community has no subcommunities"
-msgstr ""
+msgstr "Tällä yhteisöllä ei ole alayhteisöjä"
 
 #: invenio_app_rdm/communities_ui/templates/semantic-ui/invenio_communities/records/index.html:12
 msgid "Search "
-msgstr "Búsqueda"
+msgstr "Haku "
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/deposit.html:15
 msgid "New version"
-msgstr "Nueva versión"
+msgstr "Uusi versio"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/deposit.html:19
 msgid "Edit upload"
-msgstr "Editar envío"
+msgstr "Muokkaa latausta"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:51
 msgid "Information banner"
-msgstr "Banner informativo"
+msgstr "Tiedotebanneri"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:80
 msgid "Part of"
-msgstr ""
+msgstr "Osa"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:91
 msgid "Community visibility"
-msgstr "Visibilidad de la comunidad"
+msgstr "Yhteisön näkyvyys"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:92
 msgid "The community is restricted to users with access."
-msgstr "La comunidad está restringida a usuarios con acceso."
+msgstr "Yhteisö on rajattu vain käyttöoikeuden omaaville käyttäjille."
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:94
 msgid "Restricted"
-msgstr "Restringido"
+msgstr "Rajoitettu"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:111
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:24
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:138
 msgid "Preview"
-msgstr "Previsualizar"
+msgstr "Esikatselu"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:115
 msgid "You are previewing a published record."
-msgstr "Está previsualizando un registro publicado."
+msgstr "Esikatselet julkaistua tietuetta."
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:117
 msgid "You are previewing changes that have not yet been published."
-msgstr "Está usted visualizando cambios que no han sido todavía publicados."
+msgstr "Esikatselet muutoksia, joita ei ole vielä julkaistu."
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:119
 msgid "You are previewing a new record that has not yet been published."
-msgstr ""
-"Está usted visualizando un nuevo registro que no ha sido todavía publicado."
+msgstr "Esikatselet uutta tietuetta, jota ei ole vielä julkaistu."
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:121
 msgid ""
 "You are previewing a new record version that has not yet been published."
-msgstr ""
-"Está usted visualizando la versión de un nuevo registro que no ha sido "
-"todavía publicado."
+msgstr "Esikatselet tietueen uutta versiota, jota ei ole vielä julkaistu."
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:136
 #, python-format
@@ -546,171 +540,170 @@ msgid ""
 "                  "
 msgstr ""
 "\n"
-"Hay una %(link_start)s versión más reciente%(link_end)s del registro disponible"
+"                    Tietueesta on saatavilla %(link_start)suudempi versio%(link_end)s.\n"
+"                  "
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:160
 msgid "Record access information"
-msgstr "Registrar información de acceso"
+msgstr "Tietueen käyttöoikeustiedot"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:167
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:326
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:172
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:202
 msgid "Reason"
-msgstr "Motivo"
+msgstr "Syy"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:180
 msgid "Back-navigation"
-msgstr "Navegación hacia atrás"
+msgstr "Takaisinsiirtyminen"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:182
 msgid "Back to edit"
-msgstr "Volver a edición"
+msgstr "Palaa muokkaamaan"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:200
 msgid "Manage record"
-msgstr "Gestionar registro"
+msgstr "Hallitse tietuetta"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:218
 msgid "Publication date and version number"
-msgstr "Fecha de publicación y número de versión"
+msgstr "Julkaisupäivä ja versionumero"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:222
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:25
 msgid "Publication date"
-msgstr "Fecha de publicación"
+msgstr "Julkaisupäivä"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:223
 msgid "Published"
-msgstr "Publicado"
+msgstr "Julkaistu"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:226
 #, python-brace-format
 msgid "Version {version_number}"
-msgstr "Versión {version_number}"
+msgstr "Versio {version_number}"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:233
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:24
 msgid "Resource type"
-msgstr "Tipo de recurso"
+msgstr "Aineistotyyppi"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:243
 msgid "Access status"
-msgstr "Estado de acceso"
+msgstr "Käyttöoikeustila"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:265
 msgid "Record title and creators"
-msgstr "Título del registro y creadores"
+msgstr "Tietueen nimeke ja tekijät"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:271
 msgid "Creators and contributors"
-msgstr "Creadores y colaboradores"
+msgstr "Tekijät ja avustajat"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:332
 msgid "Request access"
-msgstr "Solicitar acceso"
+msgstr "Pyydä käyttöoikeutta"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:334
 msgid ""
 "If you would like to request access to these files, please fill out the form"
 " below."
 msgstr ""
-"Si desea solicitar acceso a estos archivos, complete el formulario a "
-"continuación."
+"Jos haluat pyytää pääsyä näihin tiedostoihin, täytä alla oleva lomake."
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:342
 msgid ""
 "You need to satisfy these conditions in order for this request to be "
 "accepted:"
-msgstr ""
-"Necesita cumplir con estas condiciones para que esta solicitud sea aceptada:"
+msgstr "Pyyntö hyväksytään vain, jos seuraavat ehdot täyttyvät:"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:367
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:188
 msgid "System files"
-msgstr "Archivos del sistema"
+msgstr "Järjestelmätiedostot"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:380
 msgid "Additional record details"
-msgstr "Detalles adicionales del registro"
+msgstr "Lisätietoja tietueesta"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:394
 msgid "Record details"
-msgstr "Detalles del registro"
+msgstr "Tietueen tiedot"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:411
 msgid "Jump to top of page"
-msgstr "Ir a la parte superior de la página"
+msgstr "Siirry sivun alkuun"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:413
 msgid "Jump up"
-msgstr "Saltar"
+msgstr "Ylös"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/draft_not_found.html:10
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/draft_not_found.html:14
 msgid "Draft not found"
-msgstr "Borrador no encontrado"
+msgstr "Luonnosta ei löytynyt"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/draft_not_found.html:15
 msgid ""
 "This record has already been published and is not currently being edited, so"
 " no draft exists."
 msgstr ""
-"Este registro ya ha sido publicado y no se está editando actualmente, por lo"
-" que no existe un borrador."
+"Tämä tietue on jo julkaistu eikä sitä tällä hetkellä muokata, joten "
+"luonnosta ei ole olemassa."
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/draft_not_found.html:16
 msgid "Go to published record"
-msgstr "Ir al registro publicado"
+msgstr "Siirry julkaistuun tietueeseen"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/export.html:18
 msgid "Back to details"
-msgstr "Volver a los detalles"
+msgstr "Takaisin tietoihin"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/iiif_preview.html:13
 msgid "Preview for"
-msgstr "Vista previa de"
+msgstr "Esikatselu kohteelle"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/restricted_with_doi_tombstone.html:14
 msgid "Permission required"
-msgstr "Permiso requerido"
+msgstr "Käyttöoikeus vaaditaan"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/restricted_with_doi_tombstone.html:18
 msgid ""
 "The record was previously accessible to the public but is now restricted to "
 "users with access."
 msgstr ""
-"El registro estuvo previamente accesible al público, pero ahora está "
-"restringido a usuarios con acceso."
+"Tietue oli aiemmin julkisesti saatavilla, mutta on nyt rajattu "
+"käyttöoikeuden omaaville käyttäjille."
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/restricted_with_doi_tombstone.html:20
 msgid ""
 "The Digital Object Identifier (DOI) associated with this record remains "
 "active for reference."
 msgstr ""
-"El Identificador de Objeto Digital (DOI) asociado con este registro "
-"permanece activo para referencia."
+"Tietueeseen liitetty DOI-tunniste (Digital Object Identifier) on edelleen "
+"aktiivinen viittausta varten."
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/restricted_with_doi_tombstone.html:27
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/tombstone.html:55
 msgid "Identifier:"
-msgstr "Identificador:"
+msgstr "Tunniste:"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/search.html:8
 msgid "Search results"
-msgstr "Resultados de la búsqueda"
+msgstr "Hakutulokset"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/tombstone.html:10
 msgid "Tombstone"
-msgstr "Cementerio"
+msgstr "Poistoviesti"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/tombstone.html:11
 msgid "Reason unknown"
-msgstr "Motivo desconocido"
+msgstr "Syy tuntematon"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/tombstone.html:21
 msgid "Gone"
-msgstr "Quitado"
+msgstr "Poistettu"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/tombstone.html:26
 #, python-format
@@ -720,47 +713,48 @@ msgid ""
 "      metadata of the record is kept for archival purposes."
 msgstr ""
 "\n"
-"El registro que estás intentando acceder fue eliminado de %(sitename)s. Los metadatos del registro se conservan con fines archivísticos."
+"      Yrittämäsi tietue on poistettu palvelusta %(sitename)s.\n"
+"      Tietueen metatiedot säilytetään arkistointitarkoituksiin."
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/tombstone.html:35
 msgid "Reason for removal:"
-msgstr "Motivo de la eliminación:"
+msgstr "Poistamisen syy:"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/tombstone.html:38
 msgid "Removed by:"
-msgstr "Eliminado por:"
+msgstr "Poistanut:"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/tombstone.html:42
 msgid "Removal note:"
-msgstr "Nota de eliminación:"
+msgstr "Poistomerkintä:"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/tombstone.html:46
 msgid "Date of removal:"
-msgstr "Fecha de eliminación:"
+msgstr "Poistopäivä:"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/tombstone.html:50
 msgid "Citation:"
-msgstr "Cita:"
+msgstr "Viittaus:"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/access-form.html:16
 msgid "You are currently not logged in"
-msgstr ""
+msgstr "Et ole kirjautunut sisään"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/access-form.html:16
 msgid "Do you have an account?"
-msgstr ""
+msgstr "Onko sinulla tili?"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/access-form.html:17
 msgid "Log in here"
-msgstr ""
+msgstr "Kirjaudu tästä"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/access-form.html:22
 msgid "You are logged in as"
-msgstr "Estás conectado como"
+msgstr "Olet kirjautunut käyttäjänä"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/access-form.html:30
 msgid "Not you?"
-msgstr ""
+msgstr "Etkö ole sinä?"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/access-form.html:31
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:114
@@ -770,188 +764,188 @@ msgstr ""
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:158
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:161
 msgid "Log out"
-msgstr "Salir"
+msgstr "Kirjaudu ulos"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/access-form.html:31
 msgid "to switch account."
-msgstr ""
+msgstr "vaihtaaksesi tiliä."
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/contact.html:11
 msgid "Send message"
-msgstr ""
+msgstr "Lähetä viesti"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/creatibutors.html:16
 #: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/macros/request_header.html:73
 msgid "Creators"
-msgstr "Creadores"
+msgstr "Tekijät"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/creatibutors.html:34
 msgid "Contributors"
-msgstr "Colaboradores"
+msgstr "Avustajat"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/description.html:14
 msgid "Record description"
-msgstr "Descripción del registro"
+msgstr "Tietueen kuvaus"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/description.html:15
 msgid "Description"
-msgstr "Descripción"
+msgstr "Kuvaus"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:38
 msgid "Additional details"
-msgstr "Detalles adicionales"
+msgstr "Lisätiedot"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:55
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:73
 msgid "Additional titles"
-msgstr "Títulos adicionales"
+msgstr "Muut nimekkeet"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:98
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:116
 msgid "Identifiers"
-msgstr "Identificadores"
+msgstr "Tunnisteet"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:141
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:157
 msgid "Related works"
-msgstr "Trabajos relacionados"
+msgstr "Liittyvät teokset"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:180
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:198
 msgid "Funding"
-msgstr "Financiación"
+msgstr "Rahoitus"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:223
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:241
 msgid "Dates"
-msgstr "Fechas"
+msgstr "Päivämäärät"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:311
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:327
 msgid "References"
-msgstr "Referencias"
+msgstr "Viitteet"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:17
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:53
 msgid "Views"
-msgstr "Vistas"
+msgstr "Katselukerrat"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:25
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:73
 msgid "Downloads"
-msgstr "Descargas"
+msgstr "Lataukset"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:34
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:37
 msgid "Show more details"
-msgstr "Mostrar más detalles"
+msgstr "Näytä lisää tietoja"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:35
 msgid "Show less details"
-msgstr "Mostrar menos detalles"
+msgstr "Näytä vähemmän tietoja"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:46
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:68
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:88
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:110
 msgid "All versions"
-msgstr "Todas las versiones"
+msgstr "Kaikki versiot"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:47
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:69
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:89
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:111
 msgid "This version"
-msgstr "Esta versión"
+msgstr "Tämä versio"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:60
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:80
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:100
 msgid "More info"
-msgstr "Más información"
+msgstr "Lisätietoja"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:65
 msgid "Total views"
-msgstr "Total de vistas"
+msgstr "Katselukertoja yhteensä"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:85
 msgid "Total downloads"
-msgstr "Total de descargas"
+msgstr "Latauksia yhteensä"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:93
 msgid "Data volume"
-msgstr "Volumen de datos"
+msgstr "Datan määrä"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:105
 msgid "Total data volume"
-msgstr "Total de volumen de datos"
+msgstr "Datan kokonaismäärä"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:117
 msgid "More info on how stats are collected."
-msgstr "Más información sobre como se recopilan las estadísticas"
+msgstr "Lisätietoja tilastojen keräämisestä."
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/subjects.html:15
 msgid "Keywords"
-msgstr "Palabras clave"
+msgstr "Avainsanat"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/subjects.html:22
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/subjects.html:39
 msgid "Search results for "
-msgstr "Buscar resultados para"
+msgstr "Hakutulokset haulle "
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/citations.html:2
 msgid "Citation"
-msgstr "Citación"
+msgstr "Viittaus"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:17
 msgid "Details"
-msgstr "Detalles"
+msgstr "Tiedot"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:26
 msgid "Publisher"
-msgstr "Editor"
+msgstr "Julkaisija"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:27
 msgid "Published in"
-msgstr "Publicado en"
+msgstr "Julkaistu teoksessa"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:28
 msgid "Imprint"
-msgstr "Información de publicación"
+msgstr "Julkaisutiedot"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:29
 msgid "Thesis"
-msgstr "Tesis"
+msgstr "Opinnäyte"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:30
 msgid "Conference"
-msgstr "Conferencia"
+msgstr "Konferenssi"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:31
 msgid "Languages"
-msgstr "Idiomas"
+msgstr "Kielet"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:32
 msgid "Formats"
-msgstr "Formatos"
+msgstr "Formaatit"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:33
 msgid "Sizes"
-msgstr "Tamaños"
+msgstr "Koot"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/export.html:14
 msgid "Export"
-msgstr "Exportar"
+msgstr "Vie"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/external_resources.html:9
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/external_resources.html:10
 msgid "External resources"
-msgstr "Fuentes externas"
+msgstr "Ulkoiset resurssit"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/keywords_subjects.html:13
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/keywords_subjects.html:14
 msgid "Keywords and subjects"
-msgstr "Palabras clave y temas"
+msgstr "Avainsanat ja asiasanat"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/licenses.html:15
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/licenses.html:18
@@ -960,89 +954,89 @@ msgstr "Palabras clave y temas"
 #: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/macros/request_header.html:61
 #: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/user-access-request/index.html:43
 msgid "Opens in new tab"
-msgstr "Se abre en una pestaña nueva"
+msgstr "Avautuu uuteen välilehteen"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/licenses.html:15
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/licenses.html:18
 msgid "Read more"
-msgstr "Leer más"
+msgstr "Lue lisää"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/licenses.html:26
 msgid "Rights"
-msgstr "Derechos"
+msgstr "Oikeudet"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/licenses.html:59
 msgid "Close"
-msgstr "Cerrar"
+msgstr "Sulje"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/licenses.html:63
 msgid "No further description."
-msgstr "Sin más descripción."
+msgstr "Ei lisäkuvausta."
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/locations.html:14
 msgid "Geographic locations"
-msgstr "Ubicaciones geográficas"
+msgstr "Maantieteelliset sijainnit"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/manage_menu.html:10
 msgid "Record management"
-msgstr "Gestión de registros"
+msgstr "Tietueen hallinta"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/metrics.html:12
 msgid "Metrics"
-msgstr "Metricas"
+msgstr "Mittarit"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/technical_metadata.html:5
 msgid "Upload information"
-msgstr "Subir información"
+msgstr "Aineiston tiedot"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/technical_metadata.html:8
 msgid "Technical metadata"
-msgstr "Metadatos técnicos"
+msgstr "Tekniset metatiedot"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/technical_metadata.html:15
 msgid "Modified"
-msgstr "Modificado"
+msgstr "Muokattu"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/versions.html:12
 msgid "Versions"
-msgstr "Versiones"
+msgstr "Versiot"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:20
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:21
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:97
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:98
 msgid "profile"
-msgstr "perfil"
+msgstr "profiili"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:76
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:80
 msgid "Show affiliations"
-msgstr "Mostrar afiliaciones"
+msgstr "Näytä affiliaatiot"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:77
 msgid "Hide affiliations"
-msgstr "Ocultar afiliaciones"
+msgstr "Piilota affiliaatiot"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:84
 msgid "Affiliations for"
-msgstr "Afiliaciones para"
+msgstr "Affiliaatiot:"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:68
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:71
 msgid "Missing description type!"
-msgstr ""
+msgstr "Kuvaustyyppi puuttuu!"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:90
 msgid "Unknown date type"
-msgstr ""
+msgstr "Tuntematon päivämäärätyyppi"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:130
 msgid "Open external link"
-msgstr "Abrir enlace externo"
+msgstr "Avaa ulkoinen linkki"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:309
 msgid "Conference website"
-msgstr "Sitio web de la conferencia"
+msgstr "Konferenssin verkkosivusto"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/doi.html:10
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/doi.html:26
@@ -1052,87 +1046,89 @@ msgstr "DOI"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/doi.html:17
 msgid "Get the DOI badge!"
-msgstr "Conseguir la tarjeta DOI"
+msgstr "Hanki DOI-merkki!"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/doi.html:23
 msgid "DOI Badge"
-msgstr "Tarjeta DOI"
+msgstr "DOI-merkki"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:45
 msgid "File preview"
-msgstr "Vista previa del archivo"
+msgstr "Tiedoston esikatselu"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:60
 msgid "This file cannot be previewed"
-msgstr ""
+msgstr "Tätä tiedostoa ei voi esikatsella"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:63
 msgid ""
 "This file is an external reference and not stored directly in this repository.\n"
 "To access its content, please download it and open it locally."
 msgstr ""
+"Tämä tiedosto on ulkoinen viite eikä sitä ole tallennettu suoraan tähän arkistoon.\n"
+"Saadaksesi sisällön käyttöön, lataa tiedosto ja avaa se paikallisesti."
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:90
 msgid "Name"
-msgstr "Nombre"
+msgstr "Nimi"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:91
 msgid "Size"
-msgstr "Tamaño"
+msgstr "Koko"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:96
 msgid "Download all"
-msgstr "Descargar todos"
+msgstr "Lataa kaikki"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:127
 msgid ""
 "This is the file fingerprint (checksum), which can be used to verify the "
 "file integrity."
 msgstr ""
-"Esta es la huella digital del archivo (suma de comprobación), que se puede "
-"utilizar para verificar la integridad del archivo."
+"Tämä on tiedoston sormenjälki (tarkistussumma), jolla voidaan varmistaa "
+"tiedoston eheys."
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:133
 msgid "N/A (external)"
-msgstr ""
+msgstr "Ei saatavilla (ulkoinen)"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:142
 msgid "Download"
-msgstr "Descargar"
+msgstr "Lataa"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/locations.html:55
 msgid "Unknown"
-msgstr "Desconocido"
+msgstr "Tuntematon"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/stats_popup.html:9
 msgid "See the full number"
-msgstr "Ver el número completo"
+msgstr "Näytä koko numero"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/version.html:13
 msgid "Version"
-msgstr "Version"
+msgstr "Versio"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/version.html:14
 msgid "No DOI available"
-msgstr ""
+msgstr "DOI ei saatavilla"
 
 #: invenio_app_rdm/records_ui/views/deposits.py:103
 msgid "Digital Object Identifier"
-msgstr ""
+msgstr "Digitaalinen objekti -tunniste (DOI)"
 
 #: invenio_app_rdm/records_ui/views/deposits.py:105
 msgid "Copy/paste your existing DOI here..."
-msgstr ""
+msgstr "Kopioi/liitä olemassa oleva DOI tähän..."
 
 #: invenio_app_rdm/records_ui/views/deposits.py:109
 #, python-format
 msgid "Discard the reserved %(scheme_label)s."
-msgstr ""
+msgstr "Hylkää varattu %(scheme_label)s."
 
 #: invenio_app_rdm/records_ui/views/deposits.py:112
 #, python-format
 msgid "Get a %(scheme_label)s now!"
-msgstr ""
+msgstr "Hanki %(scheme_label)s heti!"
 
 #: invenio_app_rdm/records_ui/views/deposits.py:115
 #, python-format
@@ -1141,6 +1137,9 @@ msgid ""
 "files prior to upload). The %(scheme_label)s is registered when your upload "
 "is published."
 msgstr ""
+"Varaa %(scheme_label)s painamalla painiketta (jotta se voidaan sisällyttää "
+"tiedostoihin ennen latausta). %(scheme_label)s rekisteröidään, kun "
+"latauksesi julkaistaan."
 
 #: invenio_app_rdm/records_ui/views/deposits.py:121
 #, python-format
@@ -1148,17 +1147,19 @@ msgid ""
 "A %(scheme_label)s allows your upload to be easily and unambiguously cited. "
 "Example: 10.1234/foo.bar"
 msgstr ""
+"%(scheme_label)s mahdollistaa latauksesi helpon ja yksiselitteisen "
+"viittaamisen. Esimerkki: 10.1234/foo.bar"
 
 #: invenio_app_rdm/records_ui/views/deposits.py:233
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/searchbar.html:18
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/searchbar.html:31
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/searchbar.html:40
 msgid "All"
-msgstr "Todas"
+msgstr "Kaikki"
 
 #: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/community-invitation/community_dashboard.html:21
 msgid "Back to invitations"
-msgstr "Volver a las invitaciones"
+msgstr "Takaisin kutsuihin"
 
 #: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/community-invitation/user_dashboard.html:19
 #: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/community-submission/index.html:31
@@ -1167,59 +1168,59 @@ msgstr "Volver a las invitaciones"
 #: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/subcommunity/index.html:29
 #: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/user-access-request/index.html:28
 msgid "Back to requests"
-msgstr "Volver a las solicitudes"
+msgstr "Takaisin pyyntöihin"
 
 #: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/community-submission/index.html:52
 msgid "Conversation"
-msgstr "Conversación"
+msgstr "Keskustelu"
 
 #: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/community-submission/index.html:64
 msgid "Record"
-msgstr "Registro"
+msgstr "Tietue"
 
 #: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/community-submission/index.html:77
 msgid "Checks"
-msgstr ""
+msgstr "Tarkistukset"
 
 #: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/guest-access-request/index.html:13
 msgid "Access request"
-msgstr "Solicitud de acceso"
+msgstr "Käyttöoikeuspyyntö"
 
 #: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/macros/request_header.html:25
 msgid "View Community"
-msgstr "Ver Comunidad"
+msgstr "Näytä yhteisö"
 
 #: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/macros/request_header.html:63
 msgid "View record"
-msgstr "Ver registro"
+msgstr "Näytä tietue"
 
 #: invenio_app_rdm/theme/views.py:128
 msgid "Notification preferences were updated."
-msgstr "Las preferencias de notificación fueron actualizadas"
+msgstr "Ilmoitusasetukset päivitettiin."
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:18
 msgid "About InvenioRDM"
-msgstr "Acerca de InvenioRDM"
+msgstr "Tietoa InvenioRDM:stä"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:19
 msgid "Product page"
-msgstr ""
+msgstr "Tuotesivu"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:20
 msgid "Features"
-msgstr "Características"
+msgstr "Ominaisuudet"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:21
 msgid "Roadmap"
-msgstr ""
+msgstr "Tiekartta"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:22
 msgid "Demo site"
-msgstr ""
+msgstr "Demosivusto"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:25
 msgid "Get involved"
-msgstr "Participar"
+msgstr "Osallistu"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:26
 msgid "GitHub"
@@ -1227,261 +1228,268 @@ msgstr "GitHub"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:27
 msgid "Project Milestones"
-msgstr ""
+msgstr "Projektin virstanpylväät"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:28
 msgid "Documentation"
-msgstr "Documentación"
+msgstr "Dokumentaatio"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:31
 msgid "Community"
-msgstr "Comunidad"
+msgstr "Yhteisö"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:32
 msgid "Chatroom"
-msgstr ""
+msgstr "Chat"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:33
 msgid "Forum"
-msgstr ""
+msgstr "Foorumi"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:34
 msgid "Events & training"
-msgstr ""
+msgstr "Tapahtumat ja koulutus"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header.html:19
 msgid "Impersonated session"
-msgstr ""
+msgstr "Esittäytymistila (impersonointi)"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header.html:21
 msgid "You must logout after you finish with you inquiry!"
-msgstr ""
+msgstr "Sinun on kirjauduttava ulos, kun olet saanut selvityksesi valmiiksi!"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header.html:38
 #: invenio_app_rdm/theme/templates/themes/default/invenio_app_rdm/header.html:37
 msgid "home"
-msgstr "Página principal"
+msgstr "etusivu"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header.html:51
 #: invenio_app_rdm/theme/templates/themes/default/invenio_app_rdm/header.html:50
 msgid "Menu"
-msgstr "Menú"
+msgstr "Valikko"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header.html:68
 #: invenio_app_rdm/theme/templates/themes/default/invenio_app_rdm/header.html:67
 msgid "Close menu"
-msgstr "Cerrar menú"
+msgstr "Sulje valikko"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header.html:120
 #: invenio_app_rdm/theme/templates/themes/default/invenio_app_rdm/header.html:120
 msgid "Inbox"
-msgstr "Bandeja de entrada"
+msgstr "Saapuneet"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_frontpage.html:36
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_frontpage.html:37
 msgid "Search"
-msgstr "Buscar"
+msgstr "Haku"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:16
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:19
 msgid "Log in"
-msgstr "Entrar"
+msgstr "Kirjaudu sisään"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:24
 msgid "Sign up"
-msgstr "Registrarse"
+msgstr "Luo tili"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:41
 msgid "Quick create"
-msgstr "Creación rápida"
+msgstr "Pikaluonti"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:58
 msgid "Actions"
-msgstr "Acciones"
+msgstr "Toiminnot"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:79
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:124
 msgid "My account"
-msgstr "Mi cuenta"
+msgstr "Tilini"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:13
 msgid "You've successfully installed InvenioRDM!"
-msgstr "¡Ha instalado correctamente InvenioRDM!"
+msgstr "InvenioRDM on asennettu onnistuneesti!"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:15
 msgid "What is ahead?"
-msgstr "¿Qué hay por delante?"
+msgstr "Mitä seuraavaksi?"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:25
 msgid "Configure"
-msgstr "Configurar"
+msgstr "Määritä"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:28
 msgid ""
 "Configure the datamodel, resource types, permissions and much more to make "
 "it suit your needs! For more information on how to do it visit the"
 msgstr ""
+"Määritä tietomalli, resurssityypit, käyttöoikeudet ja paljon muuta, jotta "
+"järjestelmä vastaa tarpeitasi! Lisätietoja saat vierailemalla"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:30
 msgid "configuration section in the docs"
-msgstr ""
+msgstr "konfigurointiosio dokumentaatiossa"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:42
 msgid "Customize"
-msgstr "Personalizar"
+msgstr "Mukauta"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:45
 msgid ""
 "Customize the layout and adapt the styling to match your institution's. See "
 "how to do so"
 msgstr ""
+"Mukauta asettelu ja sovita tyyli organisaatiosi ilmeeseen. Katso miten se "
+"tehdään"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:47
 msgid "here"
-msgstr "aquí"
+msgstr "täältä"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:58
 msgid "Use it!"
-msgstr ""
+msgstr "Käytä sitä!"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:60
 msgid "Use and explore your InvenioRDM instance."
-msgstr ""
+msgstr "Käytä ja tutki InvenioRDM-instanssiasi."
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:62
 msgid "Use"
-msgstr ""
+msgstr "Käyttö"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:76
 msgid "Docs"
-msgstr "Documentos"
+msgstr "Dokumentaatio"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:85
 msgid "Code"
-msgstr "Código"
+msgstr "Koodi"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:92
 msgid "To disable this section, add"
-msgstr "Para desactivar esta sección, agrega"
+msgstr "Poista tämä osio käytöstä lisäämällä"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:94
 msgid "to your invenio.cfg file."
-msgstr "A su archivo invenio.cfg"
+msgstr "invenio.cfg-tiedostoon."
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/searchbar.html:8
 msgid "In this collection"
-msgstr ""
+msgstr "Tässä kokoelmassa"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/searchbar.html:13
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/searchbar.html:26
 msgid "In this community"
-msgstr "En esta comunidad"
+msgstr "Tässä yhteisössä"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/searchbar.html:51
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/searchbar.html:52
 msgid "Search records"
-msgstr "Buscar registros"
+msgstr "Hae tietueita"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/site_footer.html:15
 #: invenio_app_rdm/theme/templates/themes/default/invenio_app_rdm/site_footer.html:15
 msgid "Powered by"
-msgstr "Powered by"
+msgstr "Moottorina"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/files_integrity_report/email/files_integrity_report.html:12
 msgid ""
 "The following files were flagged as 'unhealthy'. This means that the "
 "checksum check failed or timed out. Please take any action if needed."
 msgstr ""
+"Seuraavat tiedostot merkittiin ‘virheellisiksi’. Tämä tarkoittaa, että "
+"tarkistussumman tarkistus epäonnistui tai aikakatkaistiin. Ryhdy "
+"tarvittaessa toimenpiteisiin."
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/files_integrity_report/email/files_integrity_report.html:15
 #, python-brace-format
 msgid "ID: {}"
-msgstr ""
+msgstr "Tunnus: {}"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/files_integrity_report/email/files_integrity_report.html:16
 #, python-brace-format
 msgid "URI: {}"
-msgstr ""
+msgstr "URI: {}"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/files_integrity_report/email/files_integrity_report.html:18
 #, python-brace-format
 msgid "Name: {}"
-msgstr ""
+msgstr "Nimi: {}"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/files_integrity_report/email/files_integrity_report.html:20
 #, python-brace-format
 msgid "Created: {}"
-msgstr ""
+msgstr "Luotu: {}"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/files_integrity_report/email/files_integrity_report.html:21
 #, python-brace-format
 msgid "Checksum: {}"
-msgstr ""
+msgstr "Tarkistussumma: {}"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/files_integrity_report/email/files_integrity_report.html:22
 #, python-brace-format
 msgid "Last check date: {}"
-msgstr ""
+msgstr "Viimeisin tarkistuspäivä: {}"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/files_integrity_report/email/files_integrity_report.html:23
 #, python-brace-format
 msgid "Last check FAILED with result: {}"
-msgstr ""
+msgstr "Viimeisin tarkistus EPÄONNISTUI tuloksella: {}"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/files_integrity_report/email/files_integrity_report.html:25
 #, python-brace-format
 msgid "Record: {}"
-msgstr ""
+msgstr "Tietue: {}"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/files_integrity_report/email/files_integrity_report.html:28
 #, python-brace-format
 msgid "Draft: {}"
-msgstr ""
+msgstr "Luonnos: {}"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/help/search.de.html:9
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/help/search.en.html:8
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/help/search.sv.html:8
 msgid "Search guide"
-msgstr "Guía de búsqueda"
+msgstr "Hakuopas"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/help/statistics.en.html:8
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/help/statistics.sv.html:8
 msgid "FAQ statistics"
-msgstr "Preguntas frecuentes sobre Estadísticas"
+msgstr "Tilastojen UKK"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/help/versioning.en.html:8
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/help/versioning.sv.html:8
 msgid "FAQ versioning"
-msgstr "Preguntas frecuentes de Versionado"
+msgstr "Versioinnin UKK"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/macros/records_list.html:10
 msgid "Recent uploads"
-msgstr ""
+msgstr "Viimeisimmät lataukset"
 
 #: invenio_app_rdm/theme/templates/themes/default/invenio_app_rdm/site_footer.html:22
 msgid "Verified community"
-msgstr ""
+msgstr "Vahvistettu yhteisö"
 
 #: invenio_app_rdm/theme/templates/themes/default/invenio_app_rdm/site_footer.html:29
 msgid "Privacy policy"
-msgstr "PolÍtica de privacidad"
+msgstr "Tietosuojakäytäntö"
 
 #: invenio_app_rdm/theme/templates/themes/default/invenio_app_rdm/site_footer.html:30
 msgid "Terms of use"
-msgstr "Terminos de uso"
+msgstr "Käyttöehdot"
 
 #: invenio_app_rdm/theme/templates/themes/default/invenio_app_rdm/site_footer.html:31
 msgid "Support"
-msgstr "Soporte"
+msgstr "Tuki"
 
 #: invenio_app_rdm/users_ui/templates/semantic-ui/invenio_app_rdm/users/header.html:18
 msgid "Your dashboard"
-msgstr "Su panel de control"
+msgstr "Ylläpito"
 
 #: invenio_app_rdm/users_ui/templates/semantic-ui/invenio_app_rdm/users/header.html:18
 msgid "Anonymous user"
-msgstr "Usuario anonimo"
+msgstr "Anonyymi käyttäjä"
 
 #: invenio_app_rdm/users_ui/templates/semantic-ui/invenio_app_rdm/users/header.html:35
 msgid "New community"
-msgstr "Nueva comunidad"
+msgstr "Uusi yhteisö"
