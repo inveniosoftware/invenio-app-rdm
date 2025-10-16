@@ -10,10 +10,15 @@
 Changes
 =======
 
+Version v13.0.4 (released 2025-10-16)
+
+- guest access requests: handle values in JS that appear in use but were not handled correctly before
+- admin: use configured base template for administration panel instead of hard-coded value
+
 Version v13.0.3 (released 2025-09-25)
 
 - help: correct search instructions for missing fields
-- deposit: pass to the form config the published record if we edit one 
+- deposit: pass to the form config the published record if we edit one
 
 Version v13.0.2 (released 2025-08-25)
 
