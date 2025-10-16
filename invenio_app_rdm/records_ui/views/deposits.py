@@ -289,23 +289,30 @@ class VocabulariesOptions:
         """Dump linkable resource type vocabulary."""
         return self._resource_types(dsl.Q("term", tags="linkable"))
 
-    def identifier_schemes(self):
-        """Dump identifiers scheme (fake) vocabulary.
-
-        "Fake" because identifiers scheme is not a vocabulary.
-        """
+    def _dump_identifier_schemes(self, config_key):
+        """Dump identifier schemes from a given config key."""
         return [
             {"text": get_scheme_label(scheme), "value": scheme}
-            for scheme in current_app.config.get("RDM_RECORDS_IDENTIFIERS_SCHEMES", {})
+            for scheme in current_app.config.get(config_key, {})
         ]
 
-    def identifiers(self):
-        """Dump related identifiers vocabulary."""
-        self._vocabularies["identifiers"] = {
+    def _dump_identifiers(self, vocab_key, config_key):
+        """Dump identifiers vocabulary for a given vocab/config key pair."""
+        self._vocabularies[vocab_key] = {
             "relations": self.relation_types(),
             "resource_type": self.linkable_resource_types(),
-            "scheme": self.identifier_schemes(),
+            "scheme": self._dump_identifier_schemes(config_key),
         }
+
+    def identifiers(self):
+        """Dump identifiers vocabulary."""
+        self._dump_identifiers("identifiers", "RDM_RECORDS_IDENTIFIERS_SCHEMES")
+
+    def related_identifiers(self):
+        """Dump related identifiers vocabulary."""
+        self._dump_identifiers(
+            "related_identifiers", "RDM_RECORDS_RELATED_IDENTIFIERS_SCHEMES"
+        )
 
     def removal_reasons(self):
         """Dump removal reasons vocabulary."""
@@ -325,6 +332,7 @@ class VocabulariesOptions:
         self.contributor_roles()
         self.subjects()
         self.identifiers()
+        self.related_identifiers()
         self.removal_reasons()
         # We removed
         # vocabularies["relation_type"] = _dump_relation_types_vocabulary()
