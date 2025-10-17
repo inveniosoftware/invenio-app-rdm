@@ -1,19 +1,19 @@
 # 
 # Translators:
 # Tibor Simko <tibor.simko@cern.ch>, 2021
-# Dorottya Szemigán, 2024
 # Júlia Babos, 2025
 # Dora Szauter, 2025
 # Zoltán Kanász-Nagy, 2025
 # j k, 2025
 # Andrea Dömötör, 2025
+# Dorottya Szemigán, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2025-07-22T14:13:07.642Z\n"
 "PO-Revision-Date: 2021-07-14 16:07+0000\n"
-"Last-Translator: Andrea Dömötör, 2025\n"
+"Last-Translator: Dorottya Szemigán, 2025\n"
 "Language-Team: Hungarian (https://app.transifex.com/inveniosoftware/teams/23537/hu/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -28,10 +28,10 @@ msgid "Audit Log Details"
 msgstr ""
 
 msgid "Resource"
-msgstr ""
+msgstr "Erőforrás"
 
 msgid "Resource ID"
-msgstr ""
+msgstr "Erőforrásazonosító"
 
 msgid "Action"
 msgstr "Tevékenység"
@@ -186,7 +186,7 @@ msgid "Set quota for record {{recordId}}"
 msgstr "Kvóta beállítása a rekordhoz {{recordId}}"
 
 msgid "Compare revisions"
-msgstr ""
+msgstr "Változatok összehasonlítása"
 
 msgid "Delete record"
 msgstr "Rekord törlése"
@@ -347,7 +347,7 @@ msgid "Search records in community..."
 msgstr "Rekordok keresése a közösségben..."
 
 msgid "results found"
-msgstr ""
+msgstr "talált eredmények"
 
 msgid "Sort by"
 msgstr "Rendezési elv"
@@ -915,7 +915,7 @@ msgid "for defining advanced search queries."
 msgstr ""
 
 msgid "This community has no subcommunities"
-msgstr ""
+msgstr "Ennek a közösségnek nincs alcsoportja."
 
 msgid "Logging in..."
 msgstr ""

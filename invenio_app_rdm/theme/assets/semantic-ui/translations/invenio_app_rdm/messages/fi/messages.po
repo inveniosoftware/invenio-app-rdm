@@ -1,0 +1,994 @@
+# 
+# Translators:
+# Matti Lassila <matti.lassila@gmail.com>, 2025
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2025-07-22T14:13:07.642Z\n"
+"PO-Revision-Date: 2021-07-14 16:07+0000\n"
+"Last-Translator: Matti Lassila <matti.lassila@gmail.com>, 2025\n"
+"Language-Team: Finnish (https://app.transifex.com/inveniosoftware/teams/23537/fi/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fi\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"mime-version: 1.0\n"
+
+msgid "Recent changes"
+msgstr "Viimeaikaiset muutokset"
+
+msgid "Audit Log Details"
+msgstr "Tarkastuslokin tiedot"
+
+msgid "Resource"
+msgstr "Resurssi"
+
+msgid "Resource ID"
+msgstr "Resurssin tunnus"
+
+msgid "Action"
+msgstr "Toiminto"
+
+msgid "User"
+msgstr "Käyttäjä"
+
+msgid "Created"
+msgstr "Luotu"
+
+msgid "No revision ID found."
+msgstr "Muutosversiotunnusta ei löytynyt."
+
+msgid "Unable to fetch revisions."
+msgstr "Versioita ei voitu hakea."
+
+msgid "Cancel revision comparison"
+msgstr "Peruuta versiovertailu"
+
+msgid "Impersonate user"
+msgstr "Esitä käyttäjää"
+
+msgid "Impersonate"
+msgstr "Esitä käyttäjää"
+
+msgid "You must accept this."
+msgstr "Sinun on hyväksyttävä tämä."
+
+msgid "Success"
+msgstr "Onnistui"
+
+msgid ""
+"User impersonated succesfully! You will be redirected in frontpage soon."
+msgstr "Käyttäjän esittäminen onnistui! Sinut ohjataan pian etusivulle."
+
+msgid "Unable to impersonate user."
+msgstr "Käyttäjän esittäminen ei onnistu."
+
+msgid ""
+"Please read carefully and confirm the following statements before you "
+"proceed."
+msgstr "Lue huolellisesti ja vahvista seuraavat väitteet ennen jatkamista."
+
+msgid "You are about to impersonate user "
+msgstr "Olet aikeissa esittää käyttäjää "
+
+msgid "You "
+msgstr "Sinä "
+
+msgid "MUST"
+msgstr "ON PAKKO"
+
+msgid " logout after completing your inquiry."
+msgstr " kirjautua ulos, kun olet saanut selvityksesi valmiiksi."
+
+msgid "Close"
+msgstr "Sulje"
+
+msgid "Set Quota"
+msgstr "Aseta kiintiö"
+
+msgid "Set quota in bytes"
+msgstr "Aseta kiintiö tavuina"
+
+msgid "Note"
+msgstr "Huomautus"
+
+msgid ""
+"This is the default quota that will be applied to any NEW records created by"
+" this user - it will NOT update quota of existing records."
+msgstr ""
+"Tämä on oletuskiintiö, joka sovelletaan kaikkiin käyttäjän luomiin uusiin "
+"aineistoihin. Kiintiötä ei sovelleta jo tallennettuihin aineistoihin."
+
+msgid "Quota of {{id}} was set to {{quota}} {{unit}}"
+msgstr "Kohteen {{id}} kiintiö asetettiin arvoon {{quota}} {{unit}}"
+
+msgid "Unable to set quota."
+msgstr "Kiintiötä ei voitu asettaa."
+
+msgid "Quota size ({{unit}})"
+msgstr "Kiintiön koko ({{unit}})"
+
+msgid "Enter quota size..."
+msgstr "Anna kiintiön koko..."
+
+msgid "Max file size ({{unit}})"
+msgstr "Tiedoston enimmäiskoko ({{unit}})"
+
+msgid "Enter max file size..."
+msgstr "Anna tiedoston enimmäiskoko..."
+
+msgid "Ticket 1234"
+msgstr "Tiketti 1234"
+
+msgid "Set quota"
+msgstr "Aseta kiintiö"
+
+msgid "Domain"
+msgstr "Verkkotunnus"
+
+msgid "Flagged"
+msgstr "Merkitty"
+
+msgid "Organization"
+msgstr "Organisaatio"
+
+msgid "Company"
+msgstr "Yritys"
+
+msgid "Mail provider"
+msgstr "Sähköpostipalveluntarjoaja"
+
+msgid "Spammer"
+msgstr "Roskapostittaja"
+
+msgid "TLD"
+msgstr "TLD"
+
+msgid "Status"
+msgstr "Tila"
+
+msgid "New"
+msgstr "Uusi"
+
+msgid "Moderated"
+msgstr "Moderoitu"
+
+msgid "Verified"
+msgstr "Vahvistettu"
+
+msgid "Blocked"
+msgstr "Estetty"
+
+msgid "Users"
+msgstr "Käyttäjät"
+
+msgid "Active"
+msgstr "Aktiivinen"
+
+msgid "Inactive"
+msgstr "Epäaktiivinen"
+
+msgid "Confirmed"
+msgstr "Vahvistettu"
+
+msgid "Links"
+msgstr "Linkit"
+
+msgid "Set quota for record {{recordId}}"
+msgstr "Aseta kiintiö tietueelle {{recordId}}"
+
+msgid "Compare revisions"
+msgstr "Vertaile versioita"
+
+msgid "Delete record"
+msgstr "Poista tietue"
+
+msgid "Restore record"
+msgstr "Palauta tietue"
+
+msgid "Unavailability statement"
+msgstr "Ei-saatavuusilmoitus"
+
+msgid "Record {{id}} was restored."
+msgstr "Tietue {{id}} palautettiin."
+
+msgid "Unable to restore."
+msgstr "Palauttaminen ei onnistu."
+
+msgid "Are you sure you want to restore #{{id}}"
+msgstr "Haluatko varmasti palauttaa #{{id}}"
+
+msgid "Published"
+msgstr "Julkaistu"
+
+msgid "Deleted"
+msgstr "Poistettu"
+
+msgid "Scheduled for purge"
+msgstr "Ajastettu pysyvään poistoon"
+
+msgid "Empty draft title"
+msgstr "Tyhjä luonnoksen otsikko"
+
+msgid "version"
+msgstr "versio"
+
+msgid "Owner"
+msgstr "Omistaja"
+
+msgid "System"
+msgstr "Järjestelmä"
+
+msgid "Files"
+msgstr "Tiedostot"
+
+msgid "Stats"
+msgstr "Tilastot"
+
+msgid "Record {{id}} was deleted."
+msgstr "Tietue {{id}} poistettiin."
+
+msgid "Unable to delete"
+msgstr "Poistaminen ei onnistu"
+
+msgid "Public"
+msgstr "Julkinen"
+
+msgid "Hidden"
+msgstr "Piilotettu"
+
+msgid ""
+"The tombstone is set to hidden but your record is public. Best practice is "
+"to provide a public tombstone when deactivating public records."
+msgstr ""
+"Poistoviesti on asetettu piilotetuksi, mutta tietueesi on julkinen. Hyvä "
+"käytäntö on jättää näkyville julkinen poistoviesti kun aiemmin julkisia "
+"tietueita laitetaan piiloon."
+
+msgid ""
+"RISK INFORMATION LEAKAGE: The tombstone is set to public but your record is "
+"restricted. Please make sure no restricted information is shared in the "
+"tombstone below."
+msgstr ""
+"RISKI TIETOJEN VUOTAMISESTA: Poistoviesti on asetettu julkiseksi, mutta "
+"alkuperäinen tietue on ollut rajoitettu. Varmista ettei tietue sisällä "
+"rajoitetun käytön tietoja."
+
+msgid "Bibliographic citation"
+msgstr "Bibliografinen viite"
+
+msgid ""
+"Input citation text. Blank field will be filled with APA citation by "
+"default."
+msgstr ""
+"Anna viitteen teksti. Tyhjä kenttä täytetään oletuksena APA-viitteellä."
+
+msgid "Public note"
+msgstr "Julkinen huomautus"
+
+msgid "User {{name}} was approved."
+msgstr "Käyttäjä {{name}} hyväksyttiin."
+
+msgid "User {{name}} is blocked."
+msgstr "Käyttäjä {{name}} on estetty."
+
+msgid "Error"
+msgstr "Virhe"
+
+msgid "Email"
+msgstr "Sähköposti"
+
+msgid "Email domain"
+msgstr "Sähköpostiverkkotunnus"
+
+msgid "Actions"
+msgstr "Toiminnot"
+
+msgid "Records"
+msgstr "Tietueet"
+
+msgid "Username"
+msgstr "Käyttäjätunnus"
+
+msgid "GitHub"
+msgstr "GitHub"
+
+msgid "Updated"
+msgstr "Päivitetty"
+
+msgid "Drafts"
+msgstr "Luonnokset"
+
+msgid "Moderation"
+msgstr "Moderointi"
+
+msgid "Restore"
+msgstr "Palauta"
+
+msgid "Restored"
+msgstr "Palautettu"
+
+msgid "Block"
+msgstr "Estä"
+
+msgid "Suspend"
+msgstr "Keskeytä"
+
+msgid "Suspended"
+msgstr "Keskeytetty"
+
+msgid "Approve"
+msgstr "Hyväksy"
+
+msgid "Approved"
+msgstr "Hyväksytty"
+
+msgid "Activate"
+msgstr "Aktivoi"
+
+msgid "Activated"
+msgstr "Aktivoitu"
+
+msgid "Set default quota for {{email}}"
+msgstr "Aseta oletuskiintiö osoitteelle {{email}}"
+
+msgid "Filter results"
+msgstr "Suodata tuloksia"
+
+msgid "Search records in community..."
+msgstr "Hae tietueita yhteisöstä..."
+
+msgid "results found"
+msgstr "tulosta löytyi"
+
+msgid "Sort by"
+msgstr "Lajittele"
+
+msgid "Search records..."
+msgstr "Hae tietueita..."
+
+msgid "Search"
+msgstr "Haku"
+
+msgid "Views"
+msgstr "Katselukerrat"
+
+msgid "Downloads"
+msgstr "Lataukset"
+
+msgid "Copy to clipboard"
+msgstr "Kopioi leikepöydälle"
+
+msgid "Copied!"
+msgstr "Kopioitu!"
+
+msgid "Part of "
+msgstr "Osa "
+
+msgid "No creation date found."
+msgstr "Luontipäivää ei löytynyt."
+
+msgid "No description"
+msgstr "Ei kuvausta"
+
+msgid "No publication date found."
+msgstr "Julkaisupäivää ei löytynyt."
+
+msgid "No resource type"
+msgstr "Ei resurssityyppiä"
+
+msgid "No title"
+msgstr "Ei otsikkoa"
+
+msgid "Uploaded on {{uploadDate}}"
+msgstr "Ladattu {{uploadDate}}"
+
+msgid "Published in: {{- publishInfo }}"
+msgstr "Julkaistu: {{- publishInfo }}"
+
+msgid "Recommendation"
+msgstr "Suositus"
+
+msgid "This check is recommended but not mandatory."
+msgstr "Tarkistus on suositeltava muttei pakollinen."
+
+msgid "This check indicates a critical issue that must be addressed."
+msgstr "Tämä tarkistus osoittaa kriittisen ongelman, joka on korjattava."
+
+msgid "Person"
+msgstr "Henkilö"
+
+msgid "The record has no files."
+msgstr "Tietueella ei ole tiedostoja."
+
+msgid "Basic information"
+msgstr "Perustiedot"
+
+msgid "Creators"
+msgstr "Tekijät"
+
+msgid "Recommended information"
+msgstr "Suositeltavat tiedot"
+
+msgid "Add contributor"
+msgstr "Lisää avustaja"
+
+msgid "Contributors"
+msgstr "Avustajat"
+
+msgid "Edit contributor"
+msgstr "Muokkaa avustajaa"
+
+msgid "Funding"
+msgstr "Rahoitus"
+
+msgid "Awards/Grants"
+msgstr "Apurahat/rahoitukset"
+
+msgid "Alternate identifiers"
+msgstr "Vaihtoehtoiset tunnisteet"
+
+msgid "Related works"
+msgstr "Aiheeseen liittyvät teokset"
+
+msgid "References"
+msgstr "Lähteet"
+
+msgid "Visibility"
+msgstr "Näkyvyys"
+
+msgid "More"
+msgstr "Lisää"
+
+msgid "Unable to request the access."
+msgstr "Pääsyn pyytäminen ei onnistu."
+
+msgid "Your email address"
+msgstr "Sähköpostiosoitteesi"
+
+msgid "Email address"
+msgstr "Sähköpostiosoite"
+
+msgid "Your full name"
+msgstr "Koko nimesi"
+
+msgid "Full name"
+msgstr "Koko nimi"
+
+msgid "Request message"
+msgstr "Pyyntöviesti"
+
+msgid ""
+"I agree to that my full name and email address is shared with the owners of "
+"the record"
+msgstr ""
+"Hyväksyn, että koko nimeni ja sähköpostiosoitteeni jaetaan tietueen "
+"omistajille"
+
+msgid "Request access"
+msgstr "Pyydä pääsyä"
+
+msgid "Email confirmation needed"
+msgstr "Sähköpostivahvistus tarvitaan"
+
+msgid "We have sent you an email to verify your address."
+msgstr "Lähetimme sinulle sähköpostin osoitteesi vahvistamiseksi."
+
+msgid ""
+"\n"
+"                Please check the email and follow the instructions to complete the access request.\n"
+"              "
+msgstr ""
+"\n"
+"                Tarkista sähköposti ja noudata ohjeita päästäksesi pyyntösi loppuun.\n"
+"              "
+
+msgid "An error occurred while fetching communities."
+msgstr "Yhteisöjä haettaessa tapahtui virhe."
+
+msgid "Communities"
+msgstr "Yhteisöt"
+
+msgid "Submit to community"
+msgstr "Lähetä yhteisöön"
+
+msgid "Pending submissions"
+msgstr "Odottavat lähetykset"
+
+msgid "Manage communities"
+msgstr "Hallitse yhteisöjä"
+
+msgid "Community management menu dropdown"
+msgstr "Yhteisön hallintavalikon avattava valikko"
+
+msgid "Edit"
+msgstr "Muokkaa"
+
+msgid "Export selection"
+msgstr "Vie valinta"
+
+msgid "Download file"
+msgstr "Lataa tiedosto"
+
+msgid "Export"
+msgstr "Vie"
+
+msgid "Manage"
+msgstr "Hallitse"
+
+msgid "Manage record"
+msgstr "Hallitse tietuetta"
+
+msgid "Manage user"
+msgstr "Hallitse käyttäjää"
+
+msgid "Block user"
+msgstr "Estä käyttäjä"
+
+msgid "Block User"
+msgstr "Estä käyttäjä"
+
+msgid "Blocking the user will delete all existing records of the user."
+msgstr ""
+"Käyttäjän estäminen poistaa kaikki käyttäjän olemassa olevat tietueet."
+
+msgid "Remove branding"
+msgstr "Poista brändäys"
+
+msgid "{{communityTitle}} is a default branding for this record"
+msgstr "{{communityTitle}} on tämän tietueen oletusbrändäys"
+
+msgid ""
+"Remove this community from appearing on top of the record details page."
+msgstr "Poista tämä yhteisö näkymästä tietueen tietosivun yläreunassa."
+
+msgid "Set branding"
+msgstr "Aseta brändäys"
+
+msgid "Set {{communityTitle}} as a default branding for this record"
+msgstr "Aseta {{communityTitle}} tämän tietueen oletusbrändäykseksi"
+
+msgid "Set this community to appear on the top of the record details page."
+msgstr "Aseta tämä yhteisö näkymään tietuesivun yläosassa."
+
+msgid "Pending communities"
+msgstr "Odottavat yhteisöt"
+
+msgid "Search for pending submissions to communities..."
+msgstr "Hae yhteisöihin odottavia lähetyksiä..."
+
+msgid "An error occurred while generating the citation."
+msgstr "Viitteen luomisessa tapahtui virhe."
+
+msgid "Style"
+msgstr "Tyyli"
+
+msgid "This record is not included in any communities yet."
+msgstr "Tätä tietuetta ei ole vielä liitetty mihinkään yhteisöön."
+
+msgid "Part of"
+msgstr "Osa"
+
+msgid "Search for community..."
+msgstr "Hae yhteisöä..."
+
+msgid "Record submitted"
+msgstr "Tietue lähetetty"
+
+msgid "Review requested"
+msgstr "Arviointi pyydetty"
+
+msgid "Search in all communities"
+msgstr "Hae kaikista yhteisöistä"
+
+msgid "Search in my communities"
+msgstr "Hae omista yhteisöistäni"
+
+msgid "Select a community"
+msgstr "Valitse yhteisö"
+
+msgid "Version {{- version}}"
+msgstr "Versio {{- version}}"
+
+msgid "Preview"
+msgstr "Esikatselu"
+
+msgid "Only published versions are displayed."
+msgstr "Vain julkaistut versiot näytetään."
+
+msgid "An error occurred while fetching the versions."
+msgstr "Versioita haettaessa tapahtui virhe."
+
+msgid "Cite all versions?"
+msgstr "Viitataanko kaikkiin versioihin?"
+
+msgid "You can cite all versions by using the DOI"
+msgstr "Voit viitata kaikkiin versioihin käyttämällä DOI-tunnusta"
+
+msgid ""
+"This DOI represents all versions, and will always resolve to the latest one."
+msgstr ""
+"Tämä DOI edustaa kaikkia versioita ja ohjautuu aina uusimpaan versioon."
+
+msgid "Read more"
+msgstr "Lue lisää"
+
+msgid "The DOI is registered when the first version is published."
+msgstr "DOI rekisteröidään, kun ensimmäinen versio julkaistaan."
+
+msgid "Remove"
+msgstr "Poista"
+
+msgid "Remove {{communityTitle}} from this record"
+msgstr "Poista {{communityTitle}} tästä tietueesta"
+
+msgid "Remove community"
+msgstr "Poista yhteisö"
+
+msgid "Are you sure you want to remove the record from the community?"
+msgstr "Haluatko varmasti poistaa tietueen yhteisöstä?"
+
+msgid "I understand the consequences:"
+msgstr "Ymmärrän seuraukset:"
+
+msgid "Members of the community "
+msgstr "Yhteisön jäsenet "
+
+msgid " will "
+msgstr " "
+
+msgid "lose their access"
+msgstr "menettävät pääsynsä"
+
+msgid " to the record."
+msgstr " tietueeseen."
+
+msgid ""
+"The record can only be re-included in the community by going through a new "
+"review by the community curators."
+msgstr ""
+"Tietue voidaan liittää uudelleen yhteisöön vain käymällä läpi uusi arviointi"
+" yhteisön kuraattoreiden toimesta."
+
+msgid "Something went wrong"
+msgstr "Jokin meni pieleen"
+
+msgid "Cancel removal"
+msgstr "Peruuta poistaminen"
+
+msgid "Cancel"
+msgstr "Peruuta"
+
+msgid "Confirm removal"
+msgstr "Vahvista poistaminen"
+
+msgid "Select permissions"
+msgstr "Valitse käyttöoikeudet"
+
+msgid "Short name for your link (optional)."
+msgstr "Lyhyt nimi linkillesi (valinnainen)."
+
+msgid "Expiration date format: YYYY-MM-DD"
+msgstr "Viimeinen voimassaolopäivä: YYYY-MM-DD"
+
+msgid "Expiration date: YYYY-MM-DD or never if blank (optional)."
+msgstr "Päättymispäivä: YYYY-MM-DD tai ei koskaan, jos tyhjä (valinnainen)."
+
+msgid "Create a new link"
+msgstr "Luo uusi linkki"
+
+msgid "Link title"
+msgstr "Linkin otsikko"
+
+msgid "Expires at"
+msgstr "Vanhenee"
+
+msgid "Never"
+msgstr "Ei koskaan"
+
+msgid "Access"
+msgstr "Pääsy"
+
+msgid "Delete"
+msgstr "Poista"
+
+msgid "Copy link"
+msgstr "Kopioi linkki"
+
+msgid "Can view"
+msgstr "Voi katsella"
+
+msgid "Can view restricted files of all versions of this record."
+msgstr ""
+"Voi katsella tämän tietueen kaikkien versioiden rajoitettuja tiedostoja."
+
+msgid "Can preview drafts"
+msgstr "Voi esikatsella luonnoksia"
+
+msgid ""
+"Can view drafts, restricted files, and comment on associated draft requests "
+"of all versions of this record."
+msgstr ""
+"Voi katsella luonnoksia ja rajoitettuja tiedostoja sekä kommentoida tähän "
+"tietueeseen liittyviä luonnospyyntöjä kaikissa versioissa."
+
+msgid "Can edit"
+msgstr "Voi muokata"
+
+msgid ""
+"Can edit drafts, view restricted files, and comment on associated draft "
+"requests of all versions of this record."
+msgstr ""
+"Voi muokata luonnoksia, katsella rajoitettuja tiedostoja ja kommentoida "
+"tähän tietueeseen liittyviä luonnospyyntöjä kaikissa versioissa."
+
+msgid ""
+"Can view (view access link can be created only after the record is "
+"published)"
+msgstr ""
+"Voi katsella (katselulinkki voidaan luoda vasta, kun tietue on julkaistu)"
+
+msgid "Expires"
+msgstr "Vanhenee"
+
+msgid "This record has no links generated yet."
+msgstr "Tälle tietueelle ei ole vielä luotu linkkejä."
+
+msgid "Unable to change the access request settings."
+msgstr "Pyyntöjen asetuksia ei voida muuttaa."
+
+msgid "Allow authenticated users to request access to restricted files."
+msgstr ""
+"Salli todennettujen käyttäjien pyytää pääsyä rajoitettuihin tiedostoihin."
+
+msgid "Allow non-authenticated users to request access to restricted files."
+msgstr ""
+"Salli todennuksen ulkopuolisten käyttäjien pyytää pääsyä rajoitettuihin "
+"tiedostoihin."
+
+msgid "Accept conditions"
+msgstr "Hyväksy ehdot"
+
+msgid "Advanced options"
+msgstr "Lisäasetukset"
+
+msgid "Save"
+msgstr "Tallenna"
+
+msgid "No user has access to this record yet."
+msgstr "Kenelläkään käyttäjällä ei vielä ole pääsyä tähän tietueeseen."
+
+msgid "People with access"
+msgstr "Pääsyoikeutetut henkilöt"
+
+msgid "No group has access to this record yet."
+msgstr "Millään ryhmällä ei vielä ole pääsyä tähän tietueeseen."
+
+msgid "Groups with access"
+msgstr "Pääsyoikeutetut ryhmät"
+
+msgid "You"
+msgstr "Sinä"
+
+msgid "Add people"
+msgstr "Lisää henkilöitä"
+
+msgid "No selected users"
+msgstr "Ei valittuja käyttäjiä"
+
+msgid ""
+"Search for users to grant access (only users with a public profile can be "
+"invited)"
+msgstr ""
+"Etsi käyttäjiä, joille myönnetään pääsy (vain julkisen profiilin omaavat "
+"käyttäjät voidaan kutsua)"
+
+msgid "Search by email, full name or username"
+msgstr "Hae sähköpostilla, koko nimellä tai käyttäjätunnuksella"
+
+msgid "users"
+msgstr "käyttäjää"
+
+msgid "Add groups"
+msgstr "Lisää ryhmiä"
+
+msgid "Group"
+msgstr "Ryhmä"
+
+msgid "No selected groups"
+msgstr "Ei valittuja ryhmiä"
+
+msgid "Search for groups"
+msgstr "Hae ryhmiä"
+
+msgid "groups"
+msgstr "ryhmää"
+
+msgid "Add"
+msgstr "Lisää"
+
+msgid "Notify people"
+msgstr "Ilmoita henkilöille"
+
+msgid "Notification message"
+msgstr "Ilmoitusviesti"
+
+msgid "You are about to add"
+msgstr "Olet lisäämässä"
+
+msgid "Access already granted"
+msgstr "Pääsy on jo myönnetty"
+
+msgid "Can manage"
+msgstr "Voi hallita"
+
+msgid ""
+"Can manage access, edit drafts, view restricted files, and comment on "
+"associated draft requests of all versions of this record."
+msgstr ""
+"Voi hallita pääsyä, muokata luonnoksia, katsella rajoitettuja tiedostoja ja "
+"kommentoida tähän tietueeseen liittyviä luonnospyyntöjä kaikissa versioissa."
+
+msgid "You don't have permissions to share this record."
+msgstr "Sinulla ei ole oikeuksia jakaa tätä tietuetta."
+
+msgid "Share"
+msgstr "Jaa"
+
+msgid "People"
+msgstr "Henkilöt"
+
+msgid "Groups"
+msgstr "Ryhmät"
+
+msgid "Settings"
+msgstr "Asetukset"
+
+msgid "Share access"
+msgstr "Jaa pääsy"
+
+msgid "Link expiration"
+msgstr "Linkin vanheneminen"
+
+msgid "In 1 month"
+msgstr "Kuukauden kuluttua"
+
+msgid "In 2 months"
+msgstr "Kahden kuukauden kuluttua"
+
+msgid "In 6 months"
+msgstr "Kuuden kuukauden kuluttua"
+
+msgid "In 1 year"
+msgstr "Vuoden kuluttua"
+
+msgid "Invalid date format."
+msgstr "Virheellinen päivämäärämuoto."
+
+msgid "Access link expiration date cannot be in the past."
+msgstr "Pääsylinkin vanhenemispäivä ei voi olla menneisyydessä."
+
+msgid "Access request"
+msgstr "Pyyntö pääsyyn"
+
+msgid "Unable to change the expiration request settings."
+msgstr "Vanhenemista koskevia asetuksia ei voi muuttaa."
+
+msgid "Expiration date: "
+msgstr "Päättymispäivä: "
+
+msgid ""
+"Format: YYYY-MM-DD. Granted access will expire on the given date. Leave "
+"empty to set no expiration limit."
+msgstr ""
+"Muoto: YYYY-MM-DD. Myönnetty pääsy päättyy annettuna päivänä. Jätä tyhjäksi,"
+" jos et halua asettaa päättymisrajaa."
+
+msgid "Link expiration date:"
+msgstr "Linkin vanhenemispäivä:"
+
+msgid "We couldn't find any matches for {{- search}}"
+msgstr "Emme löytäneet osumia haulle {{- search}}"
+
+msgid "Start over"
+msgstr "Aloita alusta"
+
+msgid "ProTip"
+msgstr "Vinkki"
+
+msgid "will give you all the publications from 2025 until today."
+msgstr "antaa kaikki julkaisut vuodesta 2025 tähän päivään."
+
+msgid "For more tips, check out our "
+msgstr "Lisää vinkkejä löydät "
+
+msgid "Search guide"
+msgstr "Hakuoppaasta"
+
+msgid "search guide"
+msgstr "hakuoppaasta"
+
+msgid "for defining advanced search queries."
+msgstr "edistyneiden hakulausekkeiden määrittämiseen."
+
+msgid "This community has no subcommunities"
+msgstr "Tällä yhteisöllä ei ole alayhteisöjä"
+
+msgid "Logging in..."
+msgstr "Kirjaudutaan sisään..."
+
+msgid "Logging out..."
+msgstr "Kirjaudutaan ulos..."
+
+msgid "Search in my communities..."
+msgstr "Hae omista yhteisöistäni..."
+
+msgid "My communities"
+msgstr "Omat yhteisöni"
+
+msgid "View"
+msgstr "Näytä"
+
+msgid "Published in: {{- publishedIn }}"
+msgstr "Julkaistu: {{- publishedIn }}"
+
+msgid "In review"
+msgstr "Arvioitavana"
+
+msgid "Declined"
+msgstr "Hylätty"
+
+msgid "Expired"
+msgstr "Vanhentunut"
+
+msgid "Draft"
+msgstr "Luonnos"
+
+msgid "New version draft"
+msgstr "Uuden version luonnos"
+
+msgid "open"
+msgstr "avoin"
+
+msgid "Open"
+msgstr "Avaa"
+
+msgid "unlock"
+msgstr "poista lukitus"
+
+msgid "Get started!"
+msgstr "Aloita!"
+
+msgid "Make your first upload!"
+msgstr "Tee ensimmäinen latauksesi!"
+
+msgid "New upload"
+msgstr "Uusi lataus"
+
+msgid "Search in my uploads..."
+msgstr "Hae omista latauksistani..."
+
+msgid "My uploads"
+msgstr "Omat lataukseni"
+
+msgid "ORCID profile"
+msgstr "ORCID-profiili"
+
+msgid "ORCID logo"
+msgstr "ORCID-logo"
+
+msgid "ROR profile"
+msgstr "ROR-profiili"
+
+msgid "ROR logo"
+msgstr "ROR-logo"
+
+msgid "GND profile"
+msgstr "GND-profiili"
+
+msgid "GND logo"
+msgstr "GND-logo"
+
+msgid "No name"
+msgstr "Ei nimeä"

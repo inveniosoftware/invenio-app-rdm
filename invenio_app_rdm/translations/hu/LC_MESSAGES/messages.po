@@ -11,8 +11,8 @@
 # j k, 2025
 # Zoltán Kanász-Nagy, 2025
 # Dora Szauter, 2025
-# Dorottya Szemigán, 2025
 # Andrea Dömötör, 2025
+# Dorottya Szemigán, 2025
 # 
 #, fuzzy
 msgid ""
@@ -21,7 +21,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
 "POT-Creation-Date: 2025-07-22 14:12+0000\n"
 "PO-Revision-Date: 2020-07-07 14:12+0000\n"
-"Last-Translator: Andrea Dömötör, 2025\n"
+"Last-Translator: Dorottya Szemigán, 2025\n"
 "Language-Team: Hungarian (https://app.transifex.com/inveniosoftware/teams/23537/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -93,7 +93,7 @@ msgstr "Idézési fájl formátuma"
 
 #: invenio_app_rdm/config.py:907
 msgid "Data Package JSON"
-msgstr ""
+msgstr "Adatcsomag JSON"
 
 #: invenio_app_rdm/config.py:1102
 msgid "APA"
@@ -168,11 +168,11 @@ msgstr "Elküld"
 
 #: invenio_app_rdm/administration/audit_logs/audit_logs.py:38
 msgid "Resource"
-msgstr ""
+msgstr "Erőforrás"
 
 #: invenio_app_rdm/administration/audit_logs/audit_logs.py:43
 msgid "Resource ID"
-msgstr ""
+msgstr "Erőforrásazonosító"
 
 #: invenio_app_rdm/administration/audit_logs/audit_logs.py:47
 msgid "Action"
@@ -198,11 +198,11 @@ msgstr "Létrehozva"
 
 #: invenio_app_rdm/administration/audit_logs/audit_logs.py:62
 msgid "View Log"
-msgstr ""
+msgstr "Napló megtekintése"
 
 #: invenio_app_rdm/administration/audit_logs/audit_logs.py:67
 msgid "View Changes"
-msgstr ""
+msgstr "Változások megtekintése"
 
 #: invenio_app_rdm/administration/domains/domains.py:41
 #: invenio_app_rdm/administration/domains/domains.py:42
@@ -373,7 +373,7 @@ msgstr "Rekord visszaállítása"
 
 #: invenio_app_rdm/administration/records/records.py:60
 msgid "Compare revisions"
-msgstr ""
+msgstr "Változatok összehasonlítása"
 
 #: invenio_app_rdm/administration/records/records.py:112
 #: invenio_app_rdm/administration/records/records.py:113
@@ -479,7 +479,7 @@ msgstr "Összes megtekintése"
 
 #: invenio_app_rdm/communities_ui/templates/semantic-ui/invenio_communities/details/browse/index.html:54
 msgid "This community has no subcommunities"
-msgstr ""
+msgstr "Ennek a közösségnek nincs alcsoportja."
 
 #: invenio_app_rdm/communities_ui/templates/semantic-ui/invenio_communities/records/index.html:12
 msgid "Search "

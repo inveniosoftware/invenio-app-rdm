@@ -1,15 +1,15 @@
 # 
 # Translators:
 # Tibor Simko <tibor.simko@cern.ch>, 2025
-# Salaheddine Ben Ali <salaheddine.benali@cnudst.tn>, 2025
 # Bessem Aamira <bessemamira@gmail.com>, 2025
+# Salaheddine Ben Ali <salaheddine.benali@cnudst.tn>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2025-07-22T14:13:07.642Z\n"
 "PO-Revision-Date: 2021-07-14 16:07+0000\n"
-"Last-Translator: Bessem Aamira <bessemamira@gmail.com>, 2025\n"
+"Last-Translator: Salaheddine Ben Ali <salaheddine.benali@cnudst.tn>, 2025\n"
 "Language-Team: Arabic (https://app.transifex.com/inveniosoftware/teams/23537/ar/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -24,10 +24,10 @@ msgid "Audit Log Details"
 msgstr ""
 
 msgid "Resource"
-msgstr ""
+msgstr "مورد"
 
 msgid "Resource ID"
-msgstr ""
+msgstr "معرّف المورد"
 
 msgid "Action"
 msgstr "نشاط"
@@ -180,7 +180,7 @@ msgid "Set quota for record {{recordId}}"
 msgstr "ثبّت الكوتا للتّسجيلة {{recordId}}"
 
 msgid "Compare revisions"
-msgstr ""
+msgstr "مقارنة المراجعات"
 
 msgid "Delete record"
 msgstr "إحذف التسجيلة"
@@ -563,7 +563,7 @@ msgid "This record is not included in any communities yet."
 msgstr "هذه التّسجيلة غير مدرجة بعد في أحد المجتمعات."
 
 msgid "Part of"
-msgstr ""
+msgstr "جزء من"
 
 msgid "Search for community..."
 msgstr "البحث عن مجتمع..."
@@ -896,7 +896,7 @@ msgid "for defining advanced search queries."
 msgstr ""
 
 msgid "This community has no subcommunities"
-msgstr ""
+msgstr "هذا المجتمع ليس به مجتمعات فرعيّة."
 
 msgid "Logging in..."
 msgstr ""
