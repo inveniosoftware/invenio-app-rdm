@@ -71,10 +71,11 @@ RecordDeletion.propTypes = {
   disabled: PropTypes.bool,
   record: PropTypes.object.isRequired,
   permissions: PropTypes.object.isRequired,
-  recordDeletion: PropTypes.object.isRequired,
+  recordDeletion: PropTypes.object,
   options: PropTypes.array.isRequired,
 };
 
 RecordDeletion.defaultProps = {
   disabled: false,
+  recordDeletion: {},
 };

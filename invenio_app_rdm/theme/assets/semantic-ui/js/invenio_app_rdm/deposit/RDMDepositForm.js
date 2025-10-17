@@ -806,8 +806,8 @@ RDMDepositForm.propTypes = {
   config: PropTypes.object.isRequired,
   recordRestrictionGracePeriod: PropTypes.number.isRequired,
   allowRecordRestriction: PropTypes.bool.isRequired,
-  recordDeletion: PropTypes.object.isRequired,
-  fileModification: PropTypes.object.isRequired,
+  recordDeletion: PropTypes.object,
+  fileModification: PropTypes.object,
   record: PropTypes.object.isRequired,
   preselectedCommunity: PropTypes.object,
   files: PropTypes.object,
@@ -824,4 +824,6 @@ RDMDepositForm.defaultProps = {
   filesLocked: false,
   allowEmptyFiles: true,
   useUppy: false,
+  recordDeletion: {},
+  fileModification: {},
 };
