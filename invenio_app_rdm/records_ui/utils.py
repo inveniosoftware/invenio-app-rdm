@@ -11,9 +11,14 @@
 
 from itertools import chain
 
-from flask import current_app
+from flask import current_app, g
 from invenio_access.permissions import system_identity
+from invenio_rdm_records.records.api import RDMRecord
 from invenio_rdm_records.requests.record_deletion import RecordDeletion
+from invenio_rdm_records.services.config import (
+    FileModificationPolicyEvaluator,
+    RDMRecordDeletionPolicy,
+)
 from invenio_records.dictutils import dict_set
 from invenio_records.errors import MissingModelError
 from invenio_records_files.api import FileObject
@@ -109,3 +114,61 @@ def get_existing_deletion_request(record_id):
     )
     if existing_requests.total > 0:
         return list(existing_requests)[0]
+
+
+def evaluate_record_deletion(record: RDMRecord):
+    """Evaluate whether a given record can be deleted by an identity."""
+    rec_del = RDMRecordDeletionPolicy().evaluate(g.identity, record._record)
+
+    immediate, request = rec_del["immediate_deletion"], rec_del["request_deletion"]
+    rd_enabled = immediate.enabled or request.enabled
+    rd_valid_user = immediate.valid_user or request.valid_user
+    rd_allowed = immediate.allowed or request.allowed
+    existing_request = get_existing_deletion_request(record.id)
+
+    if rd_allowed:
+        record_deletion = {
+            "enabled": rd_enabled,
+            "valid_user": rd_valid_user,
+            "allowed": rd_allowed,
+            "recordDeletion": rec_del,
+            "checklist": (
+                current_app.config["RDM_IMMEDIATE_RECORD_DELETION_CHECKLIST"]
+                if immediate.allowed
+                else current_app.config["RDM_REQUEST_RECORD_DELETION_CHECKLIST"]
+            ),
+            "context": {
+                "files": record["files"]["count"],
+                "internalDoi": record["pids"]["doi"]["provider"] != "external",
+            },
+        }
+    else:
+        record_deletion = {
+            "enabled": rd_enabled,
+            "valid_user": rd_valid_user,
+            "allowed": rd_allowed,
+        }
+    record_deletion["existing_request"] = (
+        existing_request["links"]["self_html"] if existing_request else None
+    )
+
+    return record_deletion
+
+
+def evaluate_file_modification(record):
+    """Evaluate whether a given record file's can be edited by an identity."""
+    file_mod = FileModificationPolicyEvaluator().evaluate(g.identity, record._record)
+
+    file_mod = file_mod["immediate_file_modification"]
+    fm_allowed = file_mod.allowed
+
+    file_modification = {
+        "enabled": file_mod.enabled,
+        "valid_user": file_mod.valid_user,
+        "allowed": fm_allowed,
+    }
+    if fm_allowed:
+        file_modification["fileModification"] = file_mod
+        file_modification["context"] = {}
+
+    return file_modification
