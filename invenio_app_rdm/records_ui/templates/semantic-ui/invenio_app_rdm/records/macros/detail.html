@@ -212,17 +212,28 @@
   {% endfor %}
 {% endmacro %}
 
+
+{% macro _vocabulary_search_url(field, value, field_cfg) %}
+  {% if field_cfg.landing_page_search_attr and field_cfg.landing_page_search_attr in field_cfg %}
+    {% set search_text = value[field_cfg.landing_page_search_attr] %}
+  {% else %}
+    {% set search_text = value.title_l10n %}
+  {% endif %}
+  {% set search_url = field | custom_fields_search(search_text, field_cfg) %}
+  {% if search_url %}
+    <a href="{{ search_url }}">{{ value.title_l10n | safe }}</a>
+  {% else %}
+    {{ value.title_l10n }}
+  {% endif %}
+{% endmacro %}
+
+
 {% macro list_vocabulary_values(field, values, field_cfg) %}
-  {% if values.title_l10n is defined %}
-    {% set search_url = field | custom_fields_search(values.title_l10n, field_cfg) %}
-    {% if search_url %}
-      <a href="{{ search_url }}">{{ values.title_l10n | safe }}</a>
-    {% else %}
-      {{ values.title_l10n }}
-    {% endif %}
+  {% if values is mapping %}
+    {{ _vocabulary_search_url(field, values, field_cfg) }}
   {% else %}
     {% for value in values %}
-      {{ value.title_l10n }}{{ ", " if not loop.last }}
+      {{ _vocabulary_search_url(field, value, field_cfg) }}{{ ", " if not loop.last }}
     {% endfor %}
   {% endif %}
 {% endmacro %}
