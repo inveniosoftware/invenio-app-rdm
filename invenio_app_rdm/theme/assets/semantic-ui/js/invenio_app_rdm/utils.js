@@ -119,3 +119,12 @@ export function SearchItemCreators({ creators, className, othersLink }) {
  */
 export const timestampToRelativeTime = (timestamp) =>
   DateTime.fromISO(timestamp).setLocale(i18next.language).toRelative();
+
+/**
+ * Returns a string-formatted number in the user's locale (e.g. 1,000 in en-GB but 1.000 in de-DE)
+ *
+ * @param {Number} number
+ * @returns string
+ */
+export const localizedFormatNumber = (number) =>
+  new Intl.NumberFormat(i18next.language).format(number);
