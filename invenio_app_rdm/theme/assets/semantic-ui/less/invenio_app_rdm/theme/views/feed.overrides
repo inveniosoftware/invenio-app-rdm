@@ -2,6 +2,10 @@
 
   .requests-event-item {
     box-sizing: border-box;
+
+    &.selected .event, &:target .event {
+      outline: 2px solid @primaryColor;
+    }
   }
 
   .requests-event-container {
