@@ -10,6 +10,15 @@
 Changes
 =======
 
+Version v14.0.0b2.dev0 (released 2025-10-21)
+
+- installation: bump invenio-rdm-records
+- upgrade_scripts: Add v13 to v14 migration script
+- ui: add new related identifiers to vocabulary
+- ui: format numbers in CompactStats
+- fix(macros): Fix custom fields vocabularies links on landing page
+- fix(admin): use configured base template instead of hard-coded value
+
 Version v14.0.0b1.dev5 (released 2025-10-14)
 
 - fix(community-submission): add missing var in side bar template
