@@ -31,7 +31,13 @@ from invenio_search.engine import dsl
 
 
 def run_upgrade(has, migrate_record, migrate_draft):
-    """Run upgrade."""
+    """Run upgrade on selected records and drafts.
+
+    Args:
+        has (dsl.Q): Query filter to select records/drafts to update.
+        migrate_record (callable): Function to migrate a record.
+        migrate_draft (callable): Function to migrate a draft.
+    """
     # Handle published records
     published_records = records_service.scan(
         identity=system_identity,
@@ -41,7 +47,6 @@ def run_upgrade(has, migrate_record, migrate_draft):
     for result in published_records.hits:
         try:
             migrate_record(result)
-            time.sleep(0.5)  # Small delay to allow index refresh
         except Exception as error:
             secho(f"> Error {repr(error)}", fg="red")
             error = f"Record {result['id']} failed to update"
@@ -60,7 +65,6 @@ def run_upgrade(has, migrate_record, migrate_draft):
     for result in draft_records:
         try:
             migrate_draft(result)
-            time.sleep(0.5)  # Small delay to allow index refresh
         except Exception as error:
             secho(f"> Error {repr(error)}", fg="red")
             error = f"Draft {result['id']} failed to update"
@@ -146,7 +150,7 @@ def run_update_for_resource_type():
         )
         secho(f"Draft <{updated_draft.id}> has been updated successfully.", fg="green")
 
-    # Common query filter
+    # Query records/drafts with resource type publication-thesis
     has_resource_type = dsl.Q(
         "query_string", query="metadata.resource_type.id:publication-thesis"
     )

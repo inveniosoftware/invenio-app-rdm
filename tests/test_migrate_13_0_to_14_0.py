@@ -9,6 +9,7 @@
 
 import pytest
 from invenio_access.permissions import system_identity
+from invenio_rdm_records.records.api import RDMDraft, RDMRecord
 from invenio_search.engine import dsl
 from invenio_vocabularies.proxies import current_service as vocabulary_service
 
@@ -244,6 +245,10 @@ class TestMigration13To14:
 
         # Run the complete migration
         execute_upgrade()
+
+        # Refresh indices before searching and testing
+        RDMDraft.index.refresh()
+        RDMRecord.index.refresh()
 
         # Verify all thesis records were migrated
         thesis_records = records_service.search(
