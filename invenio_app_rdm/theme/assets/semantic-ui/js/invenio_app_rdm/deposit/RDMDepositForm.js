@@ -637,7 +637,7 @@ export class RDMDepositForm extends Component {
                     >
                       <RelatedWorksField
                         fieldPath="metadata.related_identifiers"
-                        options={this.vocabularies.metadata.identifiers}
+                        options={this.vocabularies.metadata.related_identifiers}
                         showEmptyValue
                       />
                     </Overridable>
