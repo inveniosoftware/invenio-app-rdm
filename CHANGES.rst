@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version v14.0.0b2.dev1 (released 2025-10-21)
+
+- deposit-form: updated related works options vocab
+
 Version v14.0.0b2.dev0 (released 2025-10-21)
 
 - installation: bump invenio-rdm-records
