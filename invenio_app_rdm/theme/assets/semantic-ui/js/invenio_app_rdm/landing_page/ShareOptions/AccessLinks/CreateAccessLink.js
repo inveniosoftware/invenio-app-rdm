@@ -25,7 +25,17 @@ export class CreateAccessLink extends Component {
 
   render() {
     const { permission, expiresAt, description } = this.state;
-    const { handleCreation, loading, dropdownOptions } = this.props;
+    const {
+      hasLinkExpirationError,
+      handleCreation,
+      loading,
+      dropdownOptions,
+      isAccessLinksExpirationRequired,
+    } = this.props;
+    const linkExpirationDateHelptext =
+      isAccessLinksExpirationRequired === true
+        ? i18next.t("Expiration date: YYYY-MM-DD (required).")
+        : i18next.t("Expiration date: YYYY-MM-DD or never if blank (optional).");
     return (
       <Table.Row>
         <Table.Cell width={16}>
@@ -45,6 +55,7 @@ export class CreateAccessLink extends Component {
             </Grid.Column>
             <Grid.Column width={4}>
               <Input
+                className={`${hasLinkExpirationError ? "error" : ""}`}
                 id="access-request-expires-at"
                 onChange={(e, data) => {
                   this.setState({ expiresAt: data.value });
@@ -56,7 +67,7 @@ export class CreateAccessLink extends Component {
                 htmlFor="access-request-expires-at"
                 className="helptext mb-0 mt-10"
               >
-                {i18next.t("Expiration date: YYYY-MM-DD or never if blank (optional).")}
+                {linkExpirationDateHelptext}
               </label>
             </Grid.Column>
             <Grid.Column width={4}>
@@ -95,4 +106,6 @@ CreateAccessLink.propTypes = {
   loading: PropTypes.bool.isRequired,
   dropdownOptions: PropTypes.array.isRequired,
   record: PropTypes.object.isRequired,
+  hasLinkExpirationError: PropTypes.bool.isRequired,
+  isAccessLinksExpirationRequired: PropTypes.bool.isRequired,
 };
