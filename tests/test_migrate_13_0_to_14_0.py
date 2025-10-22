@@ -20,6 +20,7 @@ from invenio_app_rdm.upgrade_scripts.migrate_13_0_to_14_0 import execute_upgrade
 def thesis_resource_type(app, db):
     """Create publication-thesis and publication-dissertation resource types for testing."""
     vocabulary_service.create_type(system_identity, "resourcetypes", "rsrct")
+    vocabulary_service.create_type(system_identity, "relationtypes", "rlt")
     db.session.commit()
     vocabulary_service.create(
         system_identity,
@@ -103,6 +104,15 @@ def thesis_resource_type(app, db):
             },
             "tags": ["depositable", "linkable"],
             "type": "resourcetypes",
+        },
+    )
+    vocabulary_service.create(
+        system_identity,
+        {
+            "id": "isversionof",
+            "props": {"datacite": "IsVersionOf"},
+            "title": {"en": "Is version of"},
+            "type": "relationtypes",
         },
     )
     db.session.commit()
@@ -235,6 +245,7 @@ class TestMigration13To14:
         )
 
         # 6. Deleted record (should not be affected)
+        thesis_record_data["metadata"]["resource_type"]["id"] = "publication-thesis"
         draft_to_delete = records_service.create(system_identity, thesis_record_data)
         draft_to_delete.data["metadata"]["title"] = "Title in record to delete"
         draft_to_delete = records_service.update_draft(
@@ -242,6 +253,35 @@ class TestMigration13To14:
         )
         record_to_delete = records_service.publish(system_identity, draft_to_delete.id)
         records_service.delete(system_identity, record_to_delete.id)
+
+        # 7. Thesis record with related identifiers
+        thesis_record_data["metadata"]["resource_type"]["id"] = "publication-thesis"
+        draft_with_related_identifiers = records_service.create(
+            system_identity, thesis_record_data
+        )
+        draft_with_related_identifiers.data["metadata"][
+            "title"
+        ] = "Test Thesis Record with Related Identifiers"
+        draft_with_related_identifiers.data["metadata"]["related_identifiers"] = [
+            {
+                "identifier": "https://inveniordm.web.cern.ch",
+                "scheme": "url",
+                "relation_type": {
+                    "id": "isversionof",
+                },
+                "resource_type": {
+                    "id": "publication-thesis",
+                },
+            }
+        ]
+        draft_with_related_identifiers = records_service.update_draft(
+            system_identity,
+            draft_with_related_identifiers.id,
+            draft_with_related_identifiers.data,
+        )
+        record_with_related_identifiers = records_service.publish(
+            system_identity, draft_with_related_identifiers.id
+        )
 
         # Run the complete migration
         execute_upgrade()
@@ -319,4 +359,19 @@ class TestMigration13To14:
         assert (
             old_version_draft.data["metadata"]["title"]
             == "Updated Title in Old Version Draft"
+        )
+
+        # Verify record with related identifiers was also migrated
+        record_with_related_identifiers = records_service.read(
+            system_identity, record_with_related_identifiers.id
+        )
+        assert (
+            record_with_related_identifiers.data["metadata"]["resource_type"]["id"]
+            == "publication-dissertation"
+        )
+        assert (
+            record_with_related_identifiers.data["metadata"]["related_identifiers"][0][
+                "resource_type"
+            ]["id"]
+            == "publication-dissertation"
         )
