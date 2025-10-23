@@ -79,7 +79,7 @@ export class AccessRequestsTab extends Component {
     if (!_has(settings, "secret_link_expiration")) {
       settings["secret_link_expiration"] = 0;
     }
-    if (settings["secret_link_expiration"] === 0 && isAccessLinksExpirationRequired) {
+    else if (settings["secret_link_expiration"] === 0 && isAccessLinksExpirationRequired) {
       settings["secret_link_expiration"] = 30;
     }
     return { ...settings };
