@@ -26,64 +26,76 @@ from invenio_db import db
 from invenio_drafts_resources.resources.records.errors import DraftNotCreatedError
 from invenio_rdm_records.proxies import current_rdm_records_service as records_service
 from invenio_rdm_records.records.api import RDMDraft, RDMRecord
-from invenio_search.engine import dsl
+from invenio_search.api import RecordsSearchV2
 
 
-def run_upgrade(has, migrate_record, migrate_draft):
+def run_upgrade(migrate_record, migrate_draft):
     """Run upgrade on selected records and drafts.
 
     Args:
-        has (dsl.Q): Query filter to select records/drafts to update.
         migrate_record (callable): Function to migrate a record.
         migrate_draft (callable): Function to migrate a draft.
     """
-    # Refresh indices to ensure the latest data is used
-    RDMDraft.index.refresh()
-    RDMRecord.index.refresh()
+    errored_record_ids = []
+    errored_draft_ids = []
 
     # Handle published records
-    published_records = records_service.scan(
-        identity=system_identity,
-        params={"allversions": True},
-        extra_filter=has,
-    )
-    for result in published_records.hits:
+    published_records = (
+        RecordsSearchV2(index=records_service.record_cls.index._name)
+        .filter("term", deletion_status="P")
+        .filter(
+            "query_string",
+            query="metadata.resource_type.id:publication-thesis OR metadata.related_identifiers.resource_type.id:publication-thesis",
+        )
+        .source(["id"])
+        .scan()
+    )  # Only need to fetch the record IDs to make the query faster
+    # Convert the search results to a list to avoid keeping the scroll context open, as it errors out after 15 minutes
+    published_record_ids = [result["id"] for result in published_records]
+    for record_id in published_record_ids:
         try:
-            migrate_record(result)
+            migrate_record(record_id)
         except Exception as error:
             secho(f"> Error {repr(error)}", fg="red")
-            error = f"Record {result['id']} failed to update"
+            secho(f"Record {record_id} failed to update", fg="red")
+            errored_record_ids.append((record_id, error))
 
     # Handle draft records
-    draft_records = records_service._search(
-        identity=system_identity,
-        action="scan",
-        params={"allversions": True},
-        search_preference=None,
-        record_cls=records_service.draft_cls,
-        search_opts=records_service.config.search_drafts,
-        extra_filter=has,
-        permission_action="read_draft",
-    ).scan()
-    for result in draft_records:
+    draft_records = (
+        RecordsSearchV2(index=records_service.draft_cls.index._name)
+        .filter("term", has_draft=False)
+        .filter(
+            "query_string",
+            query="metadata.resource_type.id:publication-thesis OR metadata.related_identifiers.resource_type.id:publication-thesis",
+        )
+        .source(["id"])
+        .scan()
+    )
+    # Convert the search results to a list to avoid keeping the scroll context open, as it errors out after 15 minutes
+    draft_record_ids = [result["id"] for result in draft_records]
+    for draft_id in draft_record_ids:
         try:
-            migrate_draft(result)
+            migrate_draft(draft_id)
         except Exception as error:
             secho(f"> Error {repr(error)}", fg="red")
-            error = f"Draft {result['id']} failed to update"
+            secho(f"Draft {draft_id} failed to update", fg="red")
+            errored_draft_ids.append((draft_id, error))
+
+    print(f"Errored record IDs:", *errored_record_ids, sep="\n")
+    print(f"Errored draft IDs:", *errored_draft_ids, sep="\n")
 
 
 def run_update_for_resource_type():
     """Run update for resource type."""
 
-    def migrate_resource_type_in_record(hit_result):
+    def migrate_resource_type_in_record(record_id):
         """
         Update resource type from publication-thesis to publication-dissertation.
 
         We go through the service layer to automatically trigger the DOI update and re-indexing.
         """
-        secho(f"Updating resource type for record {hit_result['id']}", fg="yellow")
-        record = records_service.read(system_identity, hit_result["id"])
+        secho(f"Updating resource type for record {record_id}", fg="yellow")
+        record = records_service.read(system_identity, record_id)
         if record.data["metadata"]["resource_type"][
             "id"
         ] != "publication-thesis" and not any(
@@ -115,7 +127,7 @@ def run_update_for_resource_type():
                 record._record["metadata"]["resource_type"][
                     "id"
                 ] = "publication-dissertation"
-            for related_identifier in record.data["metadata"].get(
+            for related_identifier in record._record["metadata"].get(
                 "related_identifiers", []
             ):
                 if (
@@ -126,14 +138,17 @@ def run_update_for_resource_type():
                         "id"
                     ] = "publication-dissertation"
             # Save the record changes and reindex
+            secho(
+                f"Record <{record.id}> has been updated... committing changes.",
+                fg="green",
+            )
             record._record.commit()
-            secho(f"Record {record.id} has been updated successfully.", fg="green")
             # Step 2: Update the resource type in the draft
-            if draft.data["metadata"]["resource_type"]["id"] == "publication-thesis":
-                draft.data["metadata"]["resource_type"][
+            if draft._record["metadata"]["resource_type"]["id"] == "publication-thesis":
+                draft._record["metadata"]["resource_type"][
                     "id"
                 ] = "publication-dissertation"
-            for related_identifier in draft.data["metadata"].get(
+            for related_identifier in draft._record["metadata"].get(
                 "related_identifiers", []
             ):
                 if (
@@ -150,7 +165,7 @@ def run_update_for_resource_type():
             db.session.commit()
             records_service.indexer.index(record._record)
             records_service.indexer.index(draft._record)
-            secho(f"Draft {draft.id} has been updated successfully.", fg="green")
+            secho(f"Draft <{draft.id}> has been updated successfully.", fg="green")
             # Update DOI metadata if record has DOI
             if hasattr(record, "pids") and record.pids.get("doi", None):
                 records_service.pids.register_or_update(
@@ -184,14 +199,14 @@ def run_update_for_resource_type():
 
         secho(f"Record <{record.id}> has been updated successfully.", fg="green")
 
-    def migrate_resource_type_in_draft(hit_result):
+    def migrate_resource_type_in_draft(draft_id):
         """
         Update resource type from publication-thesis to publication-dissertation.
 
         We go through the service layer to automatically trigger the DOI update and re-indexing.
         """
-        secho(f"Updating resource type for draft {hit_result['id']}", fg="yellow")
-        draft = records_service.edit(system_identity, hit_result["id"])
+        secho(f"Updating resource type for draft {draft_id}", fg="yellow")
+        draft = records_service.edit(system_identity, draft_id)
         if draft.data["metadata"]["resource_type"][
             "id"
         ] != "publication-thesis" and not any(
@@ -220,16 +235,9 @@ def run_update_for_resource_type():
         )
         secho(f"Draft <{updated_draft.id}> has been updated successfully.", fg="green")
 
-    # Query records/drafts with resource type publication-thesis
-    has_resource_type = dsl.Q(
-        "query_string",
-        query="metadata.resource_type.id:publication-thesis OR metadata.related_identifiers.resource_type.id:publication-thesis",
-    )
-
     secho("Resource type update has started.", fg="green")
 
     run_upgrade(
-        has_resource_type,
         migrate_resource_type_in_record,
         migrate_resource_type_in_draft,
     )
