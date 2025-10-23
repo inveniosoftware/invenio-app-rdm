@@ -283,6 +283,10 @@ class TestMigration13To14:
             system_identity, draft_with_related_identifiers.id
         )
 
+        # Refresh indices to ensure the latest data is used
+        RDMDraft.index.refresh()
+        RDMRecord.index.refresh()
+
         # Run the complete migration
         execute_upgrade()
 
