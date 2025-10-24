@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version v14.0.0b2.dev2 (released 2025-10-24)
+
+- upgrade_scripts: v14: optimize scan to avoid scroll context overhead
+
 Version v14.0.0b2.dev1 (released 2025-10-21)
 
 - deposit-form: updated related works options vocab
