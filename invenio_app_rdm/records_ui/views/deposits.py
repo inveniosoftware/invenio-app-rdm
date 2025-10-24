@@ -26,7 +26,6 @@ from invenio_i18n.ext import current_i18n
 from invenio_rdm_records.proxies import current_rdm_records
 from invenio_rdm_records.records.api import get_files_quota
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
-from invenio_rdm_records.services.config import RDMRecordDeletionPolicy
 from invenio_rdm_records.services.schemas import RDMRecordSchema
 from invenio_rdm_records.services.schemas.utils import dump_empty
 from invenio_rdm_records.views import file_transfer_type
@@ -38,7 +37,7 @@ from invenio_vocabularies.records.models import VocabularyScheme
 from marshmallow_utils.fields.babel import gettext_from_dict
 from sqlalchemy.orm import load_only
 
-from ..utils import get_existing_deletion_request, set_default_value
+from ..utils import evaluate_record_deletion, set_default_value
 from .decorators import (
     no_cache_response,
     pass_draft,
@@ -542,43 +541,7 @@ def deposit_edit(pid_value, draft=None, draft_files=None, files_locked=True):
         )
         published_record = ui_serializer.dump_obj(published_record_result.to_dict())
 
-        rec_del = RDMRecordDeletionPolicy().evaluate(
-            g.identity, published_record_result._record
-        )
-        immediate, request = rec_del["immediate_deletion"], rec_del["request_deletion"]
-        rd_enabled = immediate.enabled or request.enabled
-        rd_valid_user = (
-            rec_del["immediate_deletion"].valid_user
-            or rec_del["request_deletion"].valid_user
-        )
-        rd_allowed = immediate.allowed or request.allowed
-        existing_request = get_existing_deletion_request(record.get("id"))
-
-        if rd_allowed:
-            record_deletion = {
-                "enabled": rd_enabled,
-                "valid_user": rd_valid_user,
-                "allowed": rd_allowed,
-                "recordDeletion": rec_del,
-                "checklist": (
-                    current_app.config["RDM_IMMEDIATE_RECORD_DELETION_CHECKLIST"]
-                    if immediate.allowed
-                    else current_app.config["RDM_REQUEST_RECORD_DELETION_CHECKLIST"]
-                ),
-                "context": {
-                    "files": draft._record.files.count,
-                    "internalDoi": draft._record.pids["doi"]["provider"] != "external",
-                },
-            }
-        else:
-            record_deletion = {
-                "enabled": rd_enabled,
-                "valid_user": rd_valid_user,
-                "allowed": rd_allowed,
-            }
-        record_deletion["existing_request"] = (
-            existing_request["links"]["self_html"] if existing_request else None
-        )
+        record_deletion = evaluate_record_deletion(published_record_result, g.identity)
     else:
         record_deletion = {}
 
