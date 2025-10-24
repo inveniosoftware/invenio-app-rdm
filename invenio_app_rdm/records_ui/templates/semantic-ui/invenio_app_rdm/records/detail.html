@@ -262,13 +262,13 @@
             {# Title #}
             {%- block record_title -%}
               <section id="record-title-section"
-                       aria-label="{{ _('Record title and creators') }}">
+                       aria-label="{{ _('Record title, authors and contributors') }}">
                 <h1 id="record-title"
                     class="wrap-overflowing-text">{{ metadata.title }}</h1>
 
                 {% if record_ui["ui"]["creators"] or record_ui["ui"]["contributors"] %}
                   <section id="creatibutors"
-                           aria-label="{{ _('Creators and contributors') }}">
+                           aria-label="{{ _('Authors and contributors') }}">
                     {%- include "invenio_app_rdm/records/details/creatibutors.html" %}
                   </section>
                 {% endif %}
