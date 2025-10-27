@@ -109,27 +109,27 @@ export class DeletionModal extends Component {
       reason: values.reason,
       comment: values.comment,
     };
-    if ("request_deletion" in record.links) {
-      this.cancellableAction = withCancel(
-        http.post(record.links.request_deletion, payload)
-      );
-      try {
-        const response = await this.cancellableAction.promise;
-        const data = response.data;
-
-        if (response.status === 200) {
-          window.location.reload();
-        } else if (response.status === 201) {
-          window.location.href = data.links.self_html;
-        }
-      } catch (error) {
-        this.setState({ error: error });
-        console.error(error);
-      } finally {
-        this.setState({ loading: false });
-      }
-    } else {
+    if (!("request_deletion" in record.links)) {
       this.setState({ error: "Could not submit deletion request", loading: false });
+      return;
+    }
+    this.cancellableAction = withCancel(
+      http.post(record.links.request_deletion, payload)
+    );
+    try {
+      const response = await this.cancellableAction.promise;
+      const data = response.data;
+
+      if (response.status === 200) {
+        window.location.reload();
+      } else if (response.status === 201) {
+        window.location.href = data.links.self_html;
+      }
+    } catch (error) {
+      this.setState({ error: error });
+      console.error(error);
+    } finally {
+      this.setState({ loading: false });
     }
   };
 
