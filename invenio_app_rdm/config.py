@@ -62,6 +62,8 @@ from invenio_rdm_records.notifications.builders import (
     GuestAccessRequestTokenCreateNotificationBuilder,
     RecordDeletionAcceptNotificationBuilder,
     RecordDeletionDeclineNotificationBuilder,
+    RepositoryReleaseFailureNotificationBuilder,
+    RepositoryReleaseSuccessNotificationBuilder,
     UserAccessRequestAcceptNotificationBuilder,
     UserAccessRequestCancelNotificationBuilder,
     UserAccessRequestDeclineNotificationBuilder,
@@ -1430,6 +1432,9 @@ NOTIFICATIONS_BUILDERS = {
     # Record deletion
     RecordDeletionAcceptNotificationBuilder.type: RecordDeletionAcceptNotificationBuilder,
     RecordDeletionDeclineNotificationBuilder.type: RecordDeletionDeclineNotificationBuilder,
+    # VCS repository releases
+    RepositoryReleaseSuccessNotificationBuilder.type: RepositoryReleaseSuccessNotificationBuilder,
+    RepositoryReleaseFailureNotificationBuilder.type: RepositoryReleaseFailureNotificationBuilder,
 }
 """Notification builders."""
 
