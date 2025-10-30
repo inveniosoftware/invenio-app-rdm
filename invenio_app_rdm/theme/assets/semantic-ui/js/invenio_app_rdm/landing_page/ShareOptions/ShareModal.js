@@ -85,9 +85,21 @@ export class ShareModal extends Component {
     this.setState({ record: updatedRecord });
   };
 
+  checkIfIsAccessLinksExpirationRequired = () => {
+    return (
+      document.getElementById("deposits-share-btn-require-link-expiration")?.dataset
+        ?.shareBtnRequireLinkExpiration === "true" ||
+      document.getElementById("detail-share-btn-require-link-expiration")?.dataset
+        ?.shareBtnRequireLinkExpiration === "true" ||
+      false
+    );
+  };
+
   panes = (record, permissions) => {
     const { handleClose, groupsEnabled } = this.props;
     const { linksResults, groupsResults, usersResults } = this.state;
+    const isAccessLinksExpirationRequired =
+      this.checkIfIsAccessLinksExpirationRequired();
 
     let numUsers = 0;
     let numGroups = 0;
@@ -161,6 +173,7 @@ export class ShareModal extends Component {
               results={linksResults}
               record={record}
               updateLinksState={this.updateLinksState}
+              isAccessLinksExpirationRequired={isAccessLinksExpirationRequired}
             />
           </Tab.Pane>
         ),
@@ -178,6 +191,7 @@ export class ShareModal extends Component {
               record={record}
               handleClose={handleClose}
               successCallback={this.handleRecordUpdate}
+              isAccessLinksExpirationRequired={isAccessLinksExpirationRequired}
             />
           </Tab.Pane>
         ),
