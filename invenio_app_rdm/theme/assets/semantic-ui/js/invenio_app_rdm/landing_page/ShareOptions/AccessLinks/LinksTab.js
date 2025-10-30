@@ -68,7 +68,7 @@ export class LinksTab extends Component {
   };
 
   render() {
-    const { record, results } = this.props;
+    const { record, results, isAccessLinksExpirationRequired } = this.props;
     const { loading, error } = this.state;
     return (
       <>
@@ -89,6 +89,7 @@ export class LinksTab extends Component {
               record={record}
               onItemAddedOrDeleted={this.onLinksAddedOrDeleted}
               onPermissionChanged={this.onPermissionChanged}
+              isAccessLinksExpirationRequired={isAccessLinksExpirationRequired}
             />
           )}
         </Modal.Content>
@@ -101,4 +102,5 @@ LinksTab.propTypes = {
   record: PropTypes.string.isRequired,
   results: PropTypes.array.isRequired,
   updateLinksState: PropTypes.func.isRequired,
+  isAccessLinksExpirationRequired: PropTypes.bool.isRequired,
 };

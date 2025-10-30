@@ -48,6 +48,9 @@
 
 
 {%- block page_body %}
+<span id="detail-share-btn-require-link-expiration"
+        data-share-btn-require-link-expiration='{{ config.RDM_RECORDS_REQUIRE_SECRET_LINKS_EXPIRATION | tojson }}'>
+
   <section id="banners" class="banners" aria-label="{{ _('Information banner') }}">
     <!-- COMMUNITY HEADER: hide it when displaying the submission request -->
     {% if not is_preview_submission_request %}

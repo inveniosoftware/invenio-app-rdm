@@ -69,6 +69,9 @@
            value='{{ permissions | tojson }}'>
   {%- endif %}
 
+<input type="hidden" id="deposits-share-btn-require-link-expiration"
+        data-share-btn-require-link-expiration='{{ config.RDM_RECORDS_REQUIRE_SECRET_LINKS_EXPIRATION | tojson }}'>
+
   <div id="deposit-form"></div>
 
 {%- endblock page_body %}
