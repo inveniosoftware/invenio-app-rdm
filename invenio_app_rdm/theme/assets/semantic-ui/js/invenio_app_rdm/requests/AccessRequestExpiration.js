@@ -6,8 +6,10 @@ import { SelectField } from "react-invenio-forms";
 export class AccessRequestExpirationSelect extends Component {
   constructor(props) {
     super(props);
-    const { expirationOptions } = props;
-    this.expirationOptions = expirationOptions;
+    const { expirationOptions, isAccessLinksExpirationRequired } = props;
+    this.expirationOptions = isAccessLinksExpirationRequired
+      ? expirationOptions.filter((option) => option.value !== "0")
+      : expirationOptions;
   }
 
   handleOnChange = ({ data, formikProps }) => {
@@ -16,7 +18,9 @@ export class AccessRequestExpirationSelect extends Component {
 
   render() {
     const { inline, expirationOptions, value } = this.props;
-    const expirationSetting = value ? value.toString() : expirationOptions[0].value;
+    const expirationSetting = value
+      ? value.toString()
+      : this.expirationOptions[0].value;
     return (
       <SelectField
         label={i18next.t("Link expiration")}
@@ -41,6 +45,7 @@ AccessRequestExpirationSelect.propTypes = {
   ),
   inline: PropTypes.bool,
   value: PropTypes.string,
+  isAccessLinksExpirationRequired: PropTypes.bool.isRequired,
 };
 
 AccessRequestExpirationSelect.defaultProps = {
