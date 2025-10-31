@@ -9,6 +9,7 @@
 
 """Utility functions."""
 
+from datetime import datetime, timedelta, timezone
 from itertools import chain
 
 from flask import current_app
@@ -167,8 +168,14 @@ def evaluate_file_modification(record, identity):
         "valid_user": file_mod.valid_user,
         "allowed": fm_allowed,
     }
+
     if fm_allowed:
         file_modification["fileModification"] = file_mod
-        file_modification["context"] = {}
+        created = record._record.created.replace(tzinfo=timezone.utc)
+        modification_until = created + current_app.config.get(
+            "RDM_FILE_MODIFICATION_PERIOD"
+        )
+        days_until = (modification_until - datetime.now(timezone.utc)).days
+        file_modification["context"] = {"days_until": days_until}
 
     return file_modification

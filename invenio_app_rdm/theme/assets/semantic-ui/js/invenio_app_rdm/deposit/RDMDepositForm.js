@@ -48,6 +48,7 @@ import { CopyrightsField } from "@js/invenio_rdm_records/src/deposit/fields/Copy
 import { ShareDraftButton } from "./ShareDraftButton";
 import { depositFormSectionsConfig, severityChecksConfig } from "./config";
 import { RecordDeletion } from "../components/RecordDeletion";
+import { FileModificationUntil } from "../components/FileModificationUntil";
 
 export class RDMDepositForm extends Component {
   constructor(props) {
@@ -183,12 +184,25 @@ export class RDMDepositForm extends Component {
                   record={record}
                   config={this.config}
                   noFiles={this.noFiles}
+                  fileModification={fileModification}
+                  filesLocked={filesLocked}
                 >
                   <AccordionField
                     includesPaths={this.sectionsConfig["files-section"]}
                     severityChecks={this.severityChecks}
                     active
-                    label={i18next.t("Files")}
+                    label={
+                      <>
+                        {i18next.t("Files")}
+                        {record.is_published && (
+                          <FileModificationUntil
+                            fileModification={fileModification}
+                            filesLocked={filesLocked}
+                            record={record}
+                          />
+                        )}
+                      </>
+                    }
                     id="files-section"
                   >
                     {this.noFiles && record.is_published && (
