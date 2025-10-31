@@ -98,7 +98,11 @@ ManageButton.propTypes = {
   record: PropTypes.object.isRequired,
   recordOwnerID: PropTypes.string.isRequired,
   permissions: PropTypes.object.isRequired,
-  recordDeletion: PropTypes.object.isRequired,
+  recordDeletion: PropTypes.object,
+};
+
+ManageButton.defaultProps = {
+  recordDeletion: {},
 };
 
 const BlockUserItem = ({ recordOwnerID }) => {

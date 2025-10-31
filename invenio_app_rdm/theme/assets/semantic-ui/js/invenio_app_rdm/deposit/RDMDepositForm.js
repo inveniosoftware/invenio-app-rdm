@@ -48,6 +48,7 @@ import { CopyrightsField } from "@js/invenio_rdm_records/src/deposit/fields/Copy
 import { ShareDraftButton } from "./ShareDraftButton";
 import { depositFormSectionsConfig, severityChecksConfig } from "./config";
 import { RecordDeletion } from "../components/RecordDeletion";
+import { FileModificationUntil } from "../components/FileModificationUntil";
 
 export class RDMDepositForm extends Component {
   constructor(props) {
@@ -114,6 +115,7 @@ export class RDMDepositForm extends Component {
       recordRestrictionGracePeriod,
       allowRecordRestriction,
       recordDeletion,
+      fileModification,
       groupsEnabled,
       allowEmptyFiles,
       useUppy,
@@ -138,6 +140,7 @@ export class RDMDepositForm extends Component {
         recordRestrictionGracePeriod={recordRestrictionGracePeriod}
         allowRecordRestriction={allowRecordRestriction}
         recordDeletion={recordDeletion}
+        fileModification={fileModification}
         groupsEnabled={groupsEnabled}
         allowEmptyFiles={allowEmptyFiles}
         customFieldsUI={customFieldsUI}
@@ -181,12 +184,23 @@ export class RDMDepositForm extends Component {
                   record={record}
                   config={this.config}
                   noFiles={this.noFiles}
+                  fileModification={fileModification}
+                  filesLocked={filesLocked}
                 >
                   <AccordionField
                     includesPaths={this.sectionsConfig["files-section"]}
                     severityChecks={this.severityChecks}
                     active
-                    label={i18next.t("Files")}
+                    label={
+                      <>
+                        {i18next.t("Files")}
+                        <FileModificationUntil
+                          fileModification={fileModification}
+                          filesLocked={filesLocked}
+                          record={record}
+                        />
+                      </>
+                    }
                     id="files-section"
                   >
                     {this.noFiles && record.is_published && (
@@ -210,6 +224,7 @@ export class RDMDepositForm extends Component {
                         allowEmptyFiles={allowEmptyFiles}
                         filesLocked={filesLocked}
                         fileUploadConcurrency={config.fileUploadConcurrency}
+                        fileModification={fileModification}
                       />
                     </Overridable>
                   </AccordionField>
@@ -806,7 +821,8 @@ RDMDepositForm.propTypes = {
   config: PropTypes.object.isRequired,
   recordRestrictionGracePeriod: PropTypes.number.isRequired,
   allowRecordRestriction: PropTypes.bool.isRequired,
-  recordDeletion: PropTypes.object.isRequired,
+  recordDeletion: PropTypes.object,
+  fileModification: PropTypes.object,
   record: PropTypes.object.isRequired,
   preselectedCommunity: PropTypes.object,
   files: PropTypes.object,
@@ -823,4 +839,6 @@ RDMDepositForm.defaultProps = {
   filesLocked: false,
   allowEmptyFiles: true,
   useUppy: false,
+  recordDeletion: {},
+  fileModification: {},
 };
