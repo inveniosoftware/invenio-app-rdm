@@ -11,7 +11,7 @@
 
 from functools import partial
 
-from flask import current_app
+from flask import abort, current_app
 from invenio_administration.views.base import (
     AdminResourceCreateView,
     AdminResourceDetailView,
@@ -19,6 +19,8 @@ from invenio_administration.views.base import (
 )
 from invenio_i18n import lazy_gettext as _
 from invenio_search_ui.searchconfig import search_app_config
+
+from .permissions import can_access_user_administration
 
 USERS_ITEM_LIST = {
     "user": {"text": _("User"), "order": 2, "width": 3},
@@ -38,11 +40,12 @@ USERS_ITEM_DETAIL = {
     "status": {"text": _("Status"), "order": 6, "width": 1},
     "visibility": {"text": _("Visibility"), "order": 7, "width": 1},
     "active": {"text": _("Active"), "order": 8, "width": 1},
-    "confirmed_at": {"text": _("Confirmed at"), "order": 9, "width": 1},
-    "verified_at": {"text": _("Verified at"), "order": 10, "width": 1},
-    "blocked_at": {"text": _("Blocked at"), "order": 11, "width": 1},
-    "created": {"text": _("Created"), "order": 12, "width": 2},
-    "updated": {"text": _("Updated"), "order": 13, "width": 2},
+    "roles": {"text": _("Roles"), "order": 9, "width": 2},
+    "confirmed_at": {"text": _("Confirmed at"), "order": 10, "width": 1},
+    "verified_at": {"text": _("Verified at"), "order": 11, "width": 1},
+    "blocked_at": {"text": _("Blocked at"), "order": 12, "width": 1},
+    "created": {"text": _("Created"), "order": 13, "width": 2},
+    "updated": {"text": _("Updated"), "order": 14, "width": 2},
 }
 
 USERS_DEFAULT_FORM_ITEMS = {
@@ -54,7 +57,17 @@ USERS_DEFAULT_FORM_ITEMS = {
 # List of the columns displayed on the user list, user details, and user create form
 
 
-class UsersListView(AdminResourceListView):
+class UserAdminAccessMixin:
+    """Mixin asserting only user admins identities access user views."""
+
+    def dispatch_request(self, *args, **kwargs):
+        """Override Flask view to add permission check."""
+        if not can_access_user_administration():
+            abort(403)
+        return super().dispatch_request(*args, **kwargs)
+
+
+class UsersListView(UserAdminAccessMixin, AdminResourceListView):
     """Configuration for users sets list view."""
 
     api_endpoint = "/users/all"
@@ -122,7 +135,7 @@ class UsersListView(AdminResourceListView):
         )
 
 
-class UsersDetailView(AdminResourceDetailView):
+class UsersDetailView(UserAdminAccessMixin, AdminResourceDetailView):
     """Configuration for users sets detail view."""
 
     url = "/users/<pid_value>"
