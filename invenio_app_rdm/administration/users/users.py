@@ -36,11 +36,12 @@ USERS_ITEM_DETAIL = {
     "status": {"text": _("Status"), "order": 6, "width": 1},
     "visibility": {"text": _("Visibility"), "order": 7, "width": 1},
     "active": {"text": _("Active"), "order": 8, "width": 1},
-    "confirmed_at": {"text": _("Confirmed at"), "order": 9, "width": 1},
-    "verified_at": {"text": _("Verified at"), "order": 10, "width": 1},
-    "blocked_at": {"text": _("Blocked at"), "order": 11, "width": 1},
-    "created": {"text": _("Created"), "order": 12, "width": 2},
-    "updated": {"text": _("Updated"), "order": 13, "width": 2},
+    "roles": {"text": _("Roles"), "order": 9, "width": 2},
+    "confirmed_at": {"text": _("Confirmed at"), "order": 10, "width": 1},
+    "verified_at": {"text": _("Verified at"), "order": 11, "width": 1},
+    "blocked_at": {"text": _("Blocked at"), "order": 12, "width": 1},
+    "created": {"text": _("Created"), "order": 13, "width": 2},
+    "updated": {"text": _("Updated"), "order": 14, "width": 2},
 }
 
 
