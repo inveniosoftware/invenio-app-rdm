@@ -10,6 +10,11 @@
 Changes
 =======
 
+Version v14.0.0b2.dev3 (released 2025-11-04)
+
+- feat(share links): handle optional/required expiration date
+- feat(form): rename creators to authors and help text
+
 Version v14.0.0b2.dev2 (released 2025-10-24)
 
 - upgrade_scripts: v14: optimize scan to avoid scroll context overhead
