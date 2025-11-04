@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2020-2024 CERN.
-# Copyright (C) 2020 Northwestern University.
+# Copyright (C) 2025 Northwestern University.
 # Copyright (C) 2022 Graz University of Technology.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
@@ -35,6 +35,8 @@ jobs:
       uses: inveniosoftware/workflows/.github/workflows/tests-python.yml@master
       with:
         extras: "tests"
+        python-version: '["3.9", "3.11", "3.14"]'
+
   JS:
     uses: inveniosoftware/workflows/.github/workflows/tests-js.yml@master
     with:
