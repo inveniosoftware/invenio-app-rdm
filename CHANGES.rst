@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version v14.0.0b3.dev0 (released 2025-XX-XX)
+
+- setup: bump major version of `invenio-oauthclient`
+
 Version v14.0.0b2.dev4 (released 2025-11-05)
 
 - refactor(config): Update DataCite serializer for schema v4.5
