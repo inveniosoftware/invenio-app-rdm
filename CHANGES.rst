@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version v14.0.0b2.dev4 (released 2025-11-05)
+
+- refactor(config): Update DataCite serializer for schema v4.5
+
 Version v14.0.0b2.dev3 (released 2025-11-04)
 
 - feat(share links): handle optional/required expiration date
