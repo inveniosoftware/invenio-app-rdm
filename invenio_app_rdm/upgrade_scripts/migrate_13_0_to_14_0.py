@@ -25,7 +25,6 @@ from invenio_access.permissions import system_identity
 from invenio_db import db
 from invenio_drafts_resources.resources.records.errors import DraftNotCreatedError
 from invenio_rdm_records.proxies import current_rdm_records_service as records_service
-from invenio_rdm_records.records.api import RDMDraft, RDMRecord
 from invenio_search.api import RecordsSearchV2
 
 
@@ -42,7 +41,6 @@ def run_upgrade(migrate_record, migrate_draft):
     # Handle published records
     published_records = (
         RecordsSearchV2(index=records_service.record_cls.index._name)
-        .filter("term", deletion_status="P")
         .filter(
             "query_string",
             query="metadata.resource_type.id:publication-thesis OR metadata.related_identifiers.resource_type.id:publication-thesis",
