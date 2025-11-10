@@ -25,7 +25,9 @@
 
     <div class="twelve wide column mt-10">
       <p><strong>{{ _("Reason:") }}</strong> {{ invenio_request["payload"]["reason_label"] }}</p>
-      <p><strong>{{ _("Justification:") }}</strong> {{ invenio_request["payload"]["comment"] }}</p>
+      {%- if invenio_request["payload"]["comment"] %}
+        <p><strong>{{ _("Justification:") }}</strong> {{ invenio_request["payload"]["comment"] }}</p>
+      {%- endif %}
     </div>
 {%- endblock request_header %}
 
