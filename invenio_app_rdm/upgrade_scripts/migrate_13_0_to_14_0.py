@@ -25,6 +25,7 @@ from invenio_access.permissions import system_identity
 from invenio_db import db
 from invenio_drafts_resources.resources.records.errors import DraftNotCreatedError
 from invenio_rdm_records.proxies import current_rdm_records_service as records_service
+from invenio_rdm_records.services.errors import RecordDeletedException
 from invenio_search.api import RecordsSearchV2
 
 
@@ -93,7 +94,7 @@ def run_update_for_resource_type():
         We go through the service layer to automatically trigger the DOI update and re-indexing.
         """
         secho(f"Updating resource type for record {record_id}", fg="yellow")
-        record = records_service.read(system_identity, record_id)
+        record = records_service.read(system_identity, record_id, include_deleted=True)
         if record.data["metadata"]["resource_type"][
             "id"
         ] != "publication-thesis" and not any(
@@ -194,6 +195,10 @@ def run_update_for_resource_type():
                 system_identity, draft.id, draft.data
             )
             record = records_service.publish(system_identity, updated_draft.id)
+        except RecordDeletedException:
+            # If the draft was deleted, we ignore it
+            # In the future, we should add include_deleted to read_draft and update the draft metadata in these cases
+            secho(f"Draft <{draft.id}> has been deleted, skipping...", fg="yellow")
 
         secho(f"Record <{record.id}> has been updated successfully.", fg="green")
 
