@@ -33,7 +33,6 @@ export const RecordDeletion = ({
                 fluid
                 as="a"
                 href={recordDeletion.existing_request}
-                disabled={disabled}
                 className="basic"
                 color="red"
                 aria-haspopup="dialog"
