@@ -774,7 +774,10 @@ export class RDMDepositForm extends Component {
                                     record={record}
                                     permissions={permissions}
                                     recordDeletion={recordDeletion}
-                                    options={this.vocabularies.metadata.removal_reasons}
+                                    options={
+                                      this.vocabularies.metadata
+                                        .deletion_request_removal_reasons
+                                    }
                                     disabled={!recordDeletion["allowed"]}
                                   />
                                 </Grid.Column>
