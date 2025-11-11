@@ -313,12 +313,14 @@ class VocabulariesOptions:
             "related_identifiers", "RDM_RECORDS_RELATED_IDENTIFIERS_SCHEMES"
         )
 
-    def removal_reasons(self):
-        """Dump removal reasons vocabulary."""
-        self._vocabularies["removal_reasons"] = self._dump_vocabulary_w_basic_fields(
-            "removalreasons", extra_filter=dsl.Q("term", tags="deletion-request")
+    def deletion_request_removal_reasons(self):
+        """Dump deletion request removal reasons vocabulary."""
+        self._vocabularies["deletion_request_removal_reasons"] = (
+            self._dump_vocabulary_w_basic_fields(
+                "removalreasons", extra_filter=dsl.Q("term", tags="deletion-request")
+            )
         )
-        return self._vocabularies["removal_reasons"]
+        return self._vocabularies["deletion_request_removal_reasons"]
 
     def dump(self):
         """Dump into dict."""
@@ -332,7 +334,7 @@ class VocabulariesOptions:
         self.subjects()
         self.identifiers()
         self.related_identifiers()
-        self.removal_reasons()
+        self.deletion_request_removal_reasons()
         # We removed
         # vocabularies["relation_type"] = _dump_relation_types_vocabulary()
         return self._vocabularies
