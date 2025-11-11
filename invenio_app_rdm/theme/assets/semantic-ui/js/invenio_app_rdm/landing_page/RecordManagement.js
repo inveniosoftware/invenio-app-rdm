@@ -35,6 +35,7 @@ export class RecordManagement extends Component {
       recordOwnerID,
       groupsEnabled,
       recordDeletion,
+      recordDeletionOptions,
     } = this.props;
     const { error } = this.state;
     const { id: recid } = record;
@@ -52,6 +53,7 @@ export class RecordManagement extends Component {
               recordOwnerID={recordOwnerID}
               permissions={permissions}
               recordDeletion={recordDeletion}
+              recordDeletionOptions={recordDeletionOptions}
             />
           </Grid.Column>
         )}
@@ -127,4 +129,5 @@ RecordManagement.propTypes = {
   currentUserId: PropTypes.string.isRequired,
   recordOwnerID: PropTypes.string.isRequired,
   recordDeletion: PropTypes.object.isRequired,
+  recordDeletionOptions: PropTypes.object.isRequired,
 };

@@ -274,6 +274,30 @@ def subject_item(app, subjects_mesh_scheme, subjects_service):
 
 
 @pytest.fixture(scope="module")
+def removal_reason_type(app):
+    """Removal reason vocabulary type."""
+    return create_vocabulary_type("removalreasons", "rem")
+
+
+@pytest.fixture(scope="module")
+def removal_reason_item(app, removal_reason_type):
+    """Removal reason vocabulary record."""
+    rem = vocabulary_service.create(
+        system_identity,
+        {
+            "id": "test-record",
+            "title": {"en": "Test upload of a record"},
+            "type": "removalreasons",
+            "tags": ["deletion-request"],
+        },
+    )
+
+    Vocabulary.index.refresh()
+
+    return rem
+
+
+@pytest.fixture(scope="module")
 def communitytypes_type(app):
     """Creates and retrieves a vocabulary type."""
     return create_vocabulary_type("communitytypes", "comtyp")
@@ -325,6 +349,7 @@ RunningApp = namedtuple(
         "resource_type_item",
         "language_item",
         "subject_item",
+        "removal_reason_item",
         "communitytypes",
     ],
 )
@@ -332,11 +357,23 @@ RunningApp = namedtuple(
 
 @pytest.fixture
 def running_app(
-    app, location, resource_type_item, language_item, subject_item, communitytypes
+    app,
+    location,
+    resource_type_item,
+    language_item,
+    subject_item,
+    removal_reason_item,
+    communitytypes,
 ):
     """Fixture mimicking a running app."""
     return RunningApp(
-        app, location, resource_type_item, language_item, subject_item, communitytypes
+        app,
+        location,
+        resource_type_item,
+        language_item,
+        subject_item,
+        removal_reason_item,
+        communitytypes,
     )
 
 
