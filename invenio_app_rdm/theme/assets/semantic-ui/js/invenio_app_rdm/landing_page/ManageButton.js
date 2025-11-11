@@ -4,7 +4,7 @@
 // Invenio RDM Records is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Dropdown, Modal, Button, Message } from "semantic-ui-react";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import PropTypes from "prop-types";
@@ -12,37 +12,13 @@ import { http } from "react-invenio-forms";
 import { APIRoutes } from "../administration/users/api/routes";
 import { RecordDeletion } from "../components/RecordDeletion";
 
-const fetchOptions = async () => {
-  const url = "/api/vocabularies/removalreasons?q=tags:deletion-request";
-  const req = http.get(url);
-  try {
-    const response = await req;
-    const data = response.data.hits.hits;
-
-    const options = data.map((x) => {
-      return {
-        text: x["title_l10n"],
-        value: x["id"],
-      };
-    });
-    return options;
-  } catch (e) {
-    console.error(e);
-  }
-};
-
 export const ManageButton = ({
   record,
   recordOwnerID,
   permissions,
   recordDeletion,
+  recordDeletionOptions,
 }) => {
-  const [options, setOptions] = useState([]);
-
-  useEffect(() => {
-    fetchOptions().then(setOptions);
-  }, []);
-
   return (
     <Dropdown
       fluid
@@ -61,7 +37,7 @@ export const ManageButton = ({
                 record={record}
                 permissions={permissions}
                 recordDeletion={recordDeletion}
-                options={options}
+                options={recordDeletionOptions}
                 disabled={!recordDeletion["allowed"]}
               />
             </Dropdown.Item>
@@ -99,6 +75,7 @@ ManageButton.propTypes = {
   recordOwnerID: PropTypes.string.isRequired,
   permissions: PropTypes.object.isRequired,
   recordDeletion: PropTypes.object.isRequired,
+  recordDeletionOptions: PropTypes.object.isRequired,
 };
 
 const BlockUserItem = ({ recordOwnerID }) => {
