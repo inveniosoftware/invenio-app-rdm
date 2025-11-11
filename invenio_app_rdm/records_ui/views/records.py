@@ -52,7 +52,11 @@ from .decorators import (
     pass_record_media_files,
     pass_record_or_draft,
 )
-from .deposits import get_user_communities_memberships, load_custom_fields
+from .deposits import (
+    VocabulariesOptions,
+    get_user_communities_memberships,
+    load_custom_fields,
+)
 
 
 def get_record_community(record):
@@ -159,6 +163,13 @@ def record_detail(
 
     record_deletion = evaluate_record_deletion(record, g.identity)
 
+    # The deletion options are only needed if the user is allowed to delete the given record.
+    record_deletion_options = (
+        VocabulariesOptions().deletion_request_removal_reasons()
+        if record_deletion["allowed"]
+        else []
+    )
+
     is_draft = record_ui["is_draft"]
     custom_fields = load_custom_fields()
     # keep only landing page configurable custom fields
@@ -259,6 +270,7 @@ def record_detail(
         external_resources=get_external_resources(record),
         user_avatar=avatar,
         record_deletion=record_deletion,
+        record_deletion_options=record_deletion_options,
     )
 
 

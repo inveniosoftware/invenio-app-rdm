@@ -20,8 +20,10 @@ it under the terms of the MIT License; see LICENSE file for more details.
          data-groups-enabled='{{ config.USERS_RESOURCES_GROUPS_ENABLED | tojson }}'
          {% if record_deletion %}
             data-record-deletion='{{ record_deletion | tojson }}'
+            data-record-deletion-options='{{ record_deletion_options | tojson }}'
          {% else %}
             data-record-deletion='{{ {} | tojson }}'
+            data-record-deletion-options='{{ [] | tojson }}'
          {% endif %}
          {% if config.RDM_DETAIL_SIDE_BAR_MANAGE_ATTRIBUTES_EXTENSION_TEMPLATE %}
           {% include config.RDM_DETAIL_SIDE_BAR_MANAGE_ATTRIBUTES_EXTENSION_TEMPLATE %}
