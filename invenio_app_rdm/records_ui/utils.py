@@ -97,7 +97,7 @@ def dump_external_resource(
 
 
 def get_existing_deletion_request(record_id):
-    """Return existing open deletion requests for the record."""
+    """Return the self HTML link of the existing open deletion request for the record."""
     existing_requests = current_requests_service.search(
         system_identity,
         extra_filter=dsl.Q(
@@ -110,7 +110,7 @@ def get_existing_deletion_request(record_id):
         ),
     )
     if existing_requests.total > 0:
-        return list(existing_requests)[0]
+        return list(existing_requests)[0]["links"]["self_html"]
 
 
 def evaluate_record_deletion(record: RDMRecord, identity):
@@ -124,7 +124,6 @@ def evaluate_record_deletion(record: RDMRecord, identity):
         or rec_del["request_deletion"].valid_user
     )
     rd_allowed = immediate.allowed or request.allowed
-    existing_request = get_existing_deletion_request(record.id)
 
     if rd_allowed:
         record_deletion = {
@@ -149,7 +148,10 @@ def evaluate_record_deletion(record: RDMRecord, identity):
             "allowed": rd_allowed,
         }
     record_deletion["existing_request"] = (
-        existing_request["links"]["self_html"] if existing_request else None
+        # We show existing requests to valid users (even if they are not allowed to delete a record anymore).
+        get_existing_deletion_request(record.id)
+        if rd_valid_user
+        else None
     )
 
     return record_deletion
