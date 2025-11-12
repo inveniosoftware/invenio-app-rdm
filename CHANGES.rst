@@ -10,7 +10,7 @@
 Changes
 =======
 
-Version v14.0.0b3.dev0 (released 2025-XX-XX)
+Version v14.0.0b3.dev0 (released 2025-11-12)
 
 - setup: bump major version of `invenio-oauthclient`
 
