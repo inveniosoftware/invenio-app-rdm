@@ -161,15 +161,14 @@ def evaluate_file_modification(record, identity):
     file_mod = FileModificationPolicyEvaluator().evaluate(identity, record._record)
 
     file_mod = file_mod["immediate_file_modification"]
-    fm_allowed = file_mod.allowed
 
     file_modification = {
         "enabled": file_mod.enabled,
         "valid_user": file_mod.valid_user,
-        "allowed": fm_allowed,
+        "allowed": file_mod.allowed,
     }
 
-    if fm_allowed:
+    if file_mod.allowed:
         file_modification["fileModification"] = file_mod
         created = record._record.created.replace(tzinfo=timezone.utc)
         modification_until = created + current_app.config.get(
