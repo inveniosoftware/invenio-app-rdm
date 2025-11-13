@@ -10,6 +10,17 @@
 Changes
 =======
 
+Version v14.0.0b1.dev6 (released 2025-11-13)
+
+- tombstone: add deletion policy
+- fix(deletion-request): never disable the existing deletion request link
+- fix(deletion-request): fetch existing request only for valid users
+- fix(deletion-request): removal reasons in landing page data attribute
+- vocab: add deletion_request prefix to removal_reasons vocabulary
+- ui: added related identifiers to vocabulary
+- views: remove unused data attributes from recordManagementMobile
+- requests: ui: only show justification if present
+
 Version v14.0.0b1.dev5 (released 2025-10-14)
 
 - fix(community-submission): add missing var in side bar template
