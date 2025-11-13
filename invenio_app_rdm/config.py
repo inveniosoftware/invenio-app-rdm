@@ -1562,3 +1562,7 @@ APP_RDM_MODERATION_REQUEST_FACETS = {
     "is_open": {"facet": facets.is_open, "ui": {"field": "is_open"}},
 }
 """Available facets defined for this module."""
+
+# Profiler
+APP_RDM_PROFILER_ENABLED = False
+"""Enable the profiler."""
