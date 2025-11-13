@@ -24,7 +24,7 @@ class RoleAdminMixin:
     extension_name = "invenio-users-resources"
 
     api_endpoint = "/groups"
-    pid_path = "name"
+    pid_path = "id"
 
     create_view_name = "roles_create"
     list_view_name = "roles"
