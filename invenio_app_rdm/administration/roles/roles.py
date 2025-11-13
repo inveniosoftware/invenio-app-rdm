@@ -50,6 +50,7 @@ class RolesListView(RoleAdminMixin, AdminResourceListView):
     order = 30
 
     item_field_list = {
+        "id": {"text": _("ID"), "order": 0, "width": 1},
         "name": {"text": _("Name"), "order": 1, "width": 3},
         "description": {"text": _("Description"), "order": 2, "width": 5},
         "is_managed": {"text": _("Managed"), "order": 3, "width": 1},
@@ -67,6 +68,7 @@ class RolesDetailView(RoleAdminMixin, AdminResourceDetailView):
     title = _("Role details")
 
     item_field_list = {
+        "id": {"text": _("ID"), "order": 0},
         "name": {"text": _("Name"), "order": 1},
         "description": {"text": _("Description"), "order": 2},
         "is_managed": {"text": _("Managed"), "order": 3},
