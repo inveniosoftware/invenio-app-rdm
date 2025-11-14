@@ -30,9 +30,7 @@ class SearchResultItemComponent extends Component {
           className="word-break-all"
         >
           <a href={AdminUIRoutes.detailsView(listUIEndpoint, result, idKeyPath)}>
-            {/* TODO we need a better way to get the (translatable) label of a request type
-            https://github.com/inveniosoftware/invenio-requests/issues/414 */}
-            {result.type === "record-deletion" && "Record deletion"}
+            {result.title}
           </a>
         </Table.Cell>
         <Table.Cell
@@ -43,7 +41,7 @@ class SearchResultItemComponent extends Component {
           <UserListItemCompact
             user={result.expanded.created_by}
             id={result.created_by.user}
-            // TODO linkToDetailView= filter by user?
+            linkToDetailView={`/administration/requests?q=created_by.user:${result.created_by.user}`}
           />
           {toRelativeTime(result.created)}
         </Table.Cell>
