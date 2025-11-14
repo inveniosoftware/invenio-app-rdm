@@ -81,11 +81,7 @@ def pass_draft(expand=False):
                     expand=expand,
                 )
                 kwargs["draft"] = draft
-                kwargs["files_locked"] = (
-                    record_service.config.lock_edit_published_files(
-                        record_service, g.identity, draft=draft, record=draft._record
-                    )
-                )
+                kwargs["files_locked"] = draft._record.files.bucket.locked
                 return f(**kwargs)
             except PIDDoesNotExistError:
                 # Redirect to /records/:id because users are interchangeably
