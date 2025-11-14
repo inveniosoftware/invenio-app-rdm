@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version v14.0.0b1.dev7 (released 2025-11-14)
+
+- fix(views): pass API record to evaluate record deletion
+
 Version v14.0.0b1.dev6 (released 2025-11-13)
 
 - tombstone: add deletion policy
