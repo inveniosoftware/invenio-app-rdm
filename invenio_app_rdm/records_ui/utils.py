@@ -149,7 +149,9 @@ def evaluate_record_deletion(record: RDMRecord, identity):
         }
     record_deletion["existing_request"] = (
         # We show existing requests to valid users (even if they are not allowed to delete a record anymore).
-        get_existing_deletion_request(record.pid.pid_value) if rd_valid_user else None
+        get_existing_deletion_request(record.pid.pid_value)
+        if rd_valid_user
+        else None
     )
 
     return record_deletion
