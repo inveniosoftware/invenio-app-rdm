@@ -115,7 +115,7 @@ def get_existing_deletion_request(record_id):
 
 def evaluate_record_deletion(record: RDMRecord, identity):
     """Evaluate whether a given record can be deleted by an identity."""
-    rec_del = RDMRecordDeletionPolicy().evaluate(identity, record._record)
+    rec_del = RDMRecordDeletionPolicy().evaluate(identity, record)
 
     immediate, request = rec_del["immediate_deletion"], rec_del["request_deletion"]
     rd_enabled = immediate.enabled or request.enabled
@@ -138,7 +138,7 @@ def evaluate_record_deletion(record: RDMRecord, identity):
             ),
             "context": {
                 "files": record.files.count,
-                "internalDoi": record.pids["doi"]["provider"] != "external",
+                "internalDoi": record.pids.get("doi", {}).get("provider") != "external",
             },
         }
     else:
@@ -149,9 +149,7 @@ def evaluate_record_deletion(record: RDMRecord, identity):
         }
     record_deletion["existing_request"] = (
         # We show existing requests to valid users (even if they are not allowed to delete a record anymore).
-        get_existing_deletion_request(record.id)
-        if rd_valid_user
-        else None
+        get_existing_deletion_request(record.pid.pid_value) if rd_valid_user else None
     )
 
     return record_deletion
