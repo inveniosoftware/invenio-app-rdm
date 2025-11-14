@@ -551,7 +551,9 @@ def deposit_edit(pid_value, draft=None, draft_files=None, files_locked=True):
         )
         published_record = ui_serializer.dump_obj(published_record_result.to_dict())
 
-        record_deletion = evaluate_record_deletion(published_record_result, g.identity)
+        record_deletion = evaluate_record_deletion(
+            published_record_result._record, g.identity
+        )
     else:
         record_deletion = {}
 

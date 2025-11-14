@@ -161,7 +161,7 @@ def record_detail(
 
     record_ui = UIJSONSerializer().dump_obj(record.to_dict())
 
-    record_deletion = evaluate_record_deletion(record, g.identity)
+    record_deletion = evaluate_record_deletion(record._record, g.identity)
 
     # The deletion options are only needed if the user is allowed to delete the given record.
     record_deletion_options = (
