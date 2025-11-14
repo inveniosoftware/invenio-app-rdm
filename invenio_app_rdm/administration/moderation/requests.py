@@ -51,7 +51,7 @@ class ModerationRequestListView(AdminResourceListView):
     search_sort_config_name = "APP_RDM_MODERATION_REQUEST_SORT_OPTIONS"
 
     item_field_list = {
-        "type": {"text": _("Type"), "order": 1, "width": 3},
+        "title": {"text": _("Title"), "order": 1, "width": 3},
         "created": {"text": _("Created"), "order": 2, "width": 3},
         "last_reply": {"text": _("Last reply"), "order": 3, "width": 3},
     }
