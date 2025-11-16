@@ -2,6 +2,15 @@
          Invenio App RDM Site Overrides
 ***********************************************/
 
+/* Import IRANSans Font */
+@import (less) "../fonts.less";
+
+/* Import Turquoise Theme */
+@import (less) "../turquoise-theme.less";
+
+/* Import RTL Styles */
+@import (less) "../rtl.less";
+
 @import "../../landing_page/creatibutors.less";
 @import "../../landing_page/licenses.less";
 
@@ -558,4 +567,33 @@ dl.details-list {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+/* Persian/RTL Typography and Layout Enhancements */
+
+/* Better line height for Persian text */
+[dir="rtl"],
+html[lang="fa"],
+html[lang="fa-IR"] {
+  line-height: 1.8 !important;
+  letter-spacing: 0.01em;
+}
+
+/* Ensure proper font rendering for Persian text */
+html[lang="fa"],
+html[lang="fa-IR"],
+[dir="rtl"] {
+  font-family: 'IRANSans', 'Vazirmatn', 'Tahoma', 'Arial', sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Fix Semantic UI defaults for RTL */
+[dir="rtl"] .ui.button,
+[dir="rtl"] .ui.input input,
+[dir="rtl"] .ui.form input,
+[dir="rtl"] .ui.form textarea,
+[dir="rtl"] .ui.dropdown {
+  font-family: 'IRANSans', 'Vazirmatn', sans-serif !important;
 }

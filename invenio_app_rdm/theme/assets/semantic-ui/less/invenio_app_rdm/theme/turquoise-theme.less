@@ -1,0 +1,256 @@
+/*
+ * Turquoise Theme Color Scheme
+ * Persian/Iranian Cultural Theme (فیروزه‌ای)
+ */
+
+/* Turquoise Color Palette */
+@turquoise-primary: #1ABC9C;        /* Primary Turquoise */
+@turquoise-dark: #16A085;           /* Dark Turquoise */
+@turquoise-light: #48C9B0;          /* Light Turquoise */
+@turquoise-pale: #A8E6CF;           /* Pale Turquoise */
+@turquoise-accent: #0E8A6D;         /* Accent Turquoise */
+@turquoise-bg: #E8F8F5;             /* Background Turquoise */
+@turquoise-hover: #17A589;          /* Hover State */
+
+/* Persian Cultural Complementary Colors */
+@persian-gold: #D4AF37;             /* Persian Gold */
+@persian-blue: #4A90E2;             /* Persian Blue */
+@persian-red: #E74C3C;              /* Persian Red (for warnings) */
+
+/* Override Semantic UI Primary Color */
+@primaryColor: @turquoise-primary;
+@linkColor: @turquoise-dark;
+@linkHoverColor: @turquoise-accent;
+
+/* Button Styles */
+.ui.primary.button,
+.ui.primary.buttons .button {
+  background-color: @turquoise-primary;
+  color: #ffffff;
+  text-shadow: none;
+  background-image: none;
+
+  &:hover {
+    background-color: @turquoise-hover;
+  }
+
+  &:active,
+  &:focus {
+    background-color: @turquoise-dark;
+  }
+}
+
+/* Links */
+a {
+  color: @turquoise-dark;
+
+  &:hover {
+    color: @turquoise-accent;
+  }
+}
+
+/* Headers */
+.ui.header {
+  color: @turquoise-dark;
+}
+
+/* Menu */
+.ui.menu {
+  .active.item {
+    background-color: @turquoise-bg;
+    color: @turquoise-dark !important;
+    border-color: @turquoise-primary !important;
+  }
+
+  .item:hover {
+    background-color: @turquoise-bg;
+    color: @turquoise-dark;
+  }
+}
+
+/* Top Navigation Bar */
+.ui.inverted.menu {
+  background-color: @turquoise-dark;
+
+  .item {
+    color: #ffffff;
+
+    &:hover {
+      background-color: @turquoise-accent;
+    }
+
+    &.active {
+      background-color: @turquoise-accent;
+    }
+  }
+}
+
+/* Segments */
+.ui.segment.primary,
+.ui.primary.segment {
+  border-top-color: @turquoise-primary;
+}
+
+/* Labels */
+.ui.label.primary,
+.ui.primary.label {
+  background-color: @turquoise-primary;
+  border-color: @turquoise-primary;
+  color: #ffffff;
+}
+
+/* Progress Bars */
+.ui.progress.primary .bar {
+  background-color: @turquoise-primary;
+}
+
+/* Form Inputs Focus */
+.ui.form input:focus,
+.ui.form textarea:focus,
+.ui.input input:focus {
+  border-color: @turquoise-primary;
+  background: #ffffff;
+}
+
+/* Checkbox and Radio */
+.ui.checkbox input:checked ~ .box:before,
+.ui.checkbox input:checked ~ label:before {
+  background: @turquoise-primary;
+  border-color: @turquoise-primary;
+}
+
+/* Dropdown */
+.ui.selection.dropdown:focus,
+.ui.selection.dropdown.active {
+  border-color: @turquoise-primary;
+}
+
+.ui.selection.dropdown .menu > .item.selected {
+  background: @turquoise-bg;
+  color: @turquoise-dark;
+}
+
+/* Cards */
+.ui.card > .content > .header,
+.ui.cards > .card > .content > .header {
+  color: @turquoise-dark;
+}
+
+.ui.card:hover,
+.ui.cards > .card:hover {
+  border-color: @turquoise-light;
+  box-shadow: 0 1px 3px 0 @turquoise-pale, 0 0 0 1px @turquoise-light;
+}
+
+/* Pagination */
+.ui.pagination.menu .active.item {
+  background-color: @turquoise-primary;
+  color: #ffffff;
+
+  &:hover {
+    background-color: @turquoise-hover;
+  }
+}
+
+/* Table */
+.ui.table thead tr:first-child > th {
+  background: @turquoise-bg;
+  color: @turquoise-dark;
+}
+
+/* Message */
+.ui.message.primary {
+  background-color: @turquoise-bg;
+  color: @turquoise-dark;
+  box-shadow: 0 0 0 1px @turquoise-light inset, 0 0 0 0 transparent;
+}
+
+/* Loader */
+.ui.loader:before {
+  border-color: rgba(26, 188, 156, 0.15);
+}
+
+.ui.loader:after {
+  border-color: @turquoise-primary transparent transparent;
+}
+
+/* Sidebar */
+.ui.sidebar {
+  background: #ffffff;
+  border-right: 1px solid @turquoise-pale;
+}
+
+/* Modal Header */
+.ui.modal > .header {
+  background: @turquoise-bg;
+  color: @turquoise-dark;
+}
+
+/* Tabs */
+.ui.tabular.menu .item {
+  color: @turquoise-dark;
+
+  &.active {
+    background: #ffffff;
+    color: @turquoise-primary;
+    border-color: @turquoise-primary;
+    border-bottom-color: #ffffff;
+  }
+
+  &:hover {
+    background: @turquoise-bg;
+  }
+}
+
+/* Search */
+.ui.search > .results {
+  .result:hover,
+  .category .result:hover {
+    background: @turquoise-bg;
+  }
+}
+
+/* Statistic */
+.ui.statistic > .value,
+.ui.statistics .statistic > .value {
+  color: @turquoise-primary;
+}
+
+/* Steps */
+.ui.steps .step.active {
+  .title {
+    color: @turquoise-dark;
+  }
+
+  &:after {
+    background-color: @turquoise-primary;
+  }
+}
+
+/* Breadcrumb */
+.ui.breadcrumb a {
+  color: @turquoise-dark;
+
+  &:hover {
+    color: @turquoise-accent;
+  }
+}
+
+/* Rating */
+.ui.rating .icon.active,
+.ui.rating .icon.selected {
+  color: @persian-gold;
+}
+
+/* Ribbon */
+.ui.ribbon.label {
+  &.primary {
+    background-color: @turquoise-primary;
+    border-color: @turquoise-dark;
+  }
+}
+
+/* Icon */
+.ui.primary.icon {
+  color: @turquoise-primary;
+}

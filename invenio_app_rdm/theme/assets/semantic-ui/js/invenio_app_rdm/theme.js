@@ -11,6 +11,7 @@ import { CopyButton } from "@js/invenio_app_rdm/components/CopyButton";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import ReactDOM from "react-dom";
 import React from "react";
+import PersianUtils from "./persian_utils";
 
 /* Expand and collapse navbar  */
 const toggleIcon = $("#rdm-burger-menu-icon");
@@ -162,3 +163,8 @@ document.querySelectorAll(".copy-doi-button").forEach((element) => {
     element
   );
 });
+
+// Initialize Persian utilities for RTL and Persian numerals
+if (PersianUtils.isPersianLocale()) {
+  PersianUtils.enablePersianInputsGlobally();
+}

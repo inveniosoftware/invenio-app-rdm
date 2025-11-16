@@ -10,6 +10,8 @@
 
 {%- extends "invenio_theme/page.html" -%}
 
+{%- block html_attrs %}dir="{{ text_direction }}" lang="{{ current_locale }}"{% endblock %}
+
 {%- block body_inner %}
 
   {%- block page_header %}

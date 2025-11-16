@@ -1,0 +1,648 @@
+/*
+ * RTL (Right-to-Left) Styling
+ * Full support for Persian, Arabic, Hebrew, and other RTL languages
+ */
+
+/* Base RTL Styles */
+[dir="rtl"],
+html[dir="rtl"],
+body[dir="rtl"],
+html[lang="fa"],
+html[lang="ar"],
+html[lang="he"],
+html[lang="ur"] {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Reset text-align for RTL */
+[dir="rtl"] {
+  text-align: right;
+
+  .ui.header,
+  .ui.text,
+  p,
+  div,
+  span {
+    text-align: right;
+  }
+
+  /* Left-aligned content should stay left (like code blocks) */
+  pre,
+  code,
+  .code,
+  .left-aligned {
+    direction: ltr;
+    text-align: left;
+  }
+}
+
+/* Menu RTL */
+[dir="rtl"] {
+  .ui.menu {
+    direction: rtl;
+
+    .item {
+      &:before {
+        right: auto;
+        left: 0;
+      }
+    }
+
+    /* Dropdown menus */
+    .dropdown.item .menu {
+      right: 0;
+      left: auto;
+    }
+  }
+
+  /* Vertical menu */
+  .ui.vertical.menu {
+    .item {
+      &:before {
+        left: 0;
+        right: auto;
+      }
+
+      > .icon {
+        float: right;
+        margin-left: 0.5em;
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+/* Button RTL */
+[dir="rtl"] {
+  .ui.button {
+    > .icon {
+      margin-left: 0.5em;
+      margin-right: 0;
+    }
+
+    &.icon.left {
+      padding-right: 0;
+      padding-left: 1.5em;
+
+      > .icon {
+        margin-right: 0;
+        margin-left: auto;
+      }
+    }
+
+    &.labeled.icon {
+      padding-right: 0 !important;
+      padding-left: 4.07142857em !important;
+
+      > .icon {
+        left: auto;
+        right: 0;
+      }
+    }
+  }
+}
+
+/* Form RTL */
+[dir="rtl"] {
+  .ui.form {
+    .field {
+      > label {
+        text-align: right;
+      }
+    }
+
+    .inline.field > label,
+    .inline.fields .field > label {
+      text-align: right;
+      margin-left: 0.5em;
+      margin-right: 0;
+    }
+
+    .required.field > label:after,
+    .required.fields .field > label:after {
+      margin-right: 0.2em;
+      margin-left: 0;
+    }
+  }
+
+  /* Input icons */
+  .ui.icon.input > i.icon {
+    right: auto;
+    left: 0;
+  }
+
+  .ui.left.icon.input > input {
+    padding-right: 0.67857143em !important;
+    padding-left: 2.67142857em !important;
+  }
+
+  /* Checkbox */
+  .ui.checkbox {
+    label {
+      padding-right: 1.85714em;
+      padding-left: 0;
+    }
+
+    input {
+      right: 0;
+      left: auto;
+    }
+
+    .box:before,
+    label:before {
+      right: 0;
+      left: auto;
+    }
+
+    .box:after,
+    label:after {
+      right: 0;
+      left: auto;
+    }
+  }
+
+  /* Radio */
+  .ui.radio.checkbox {
+    .box:before,
+    label:before {
+      right: 0;
+      left: auto;
+    }
+
+    .box:after,
+    label:after {
+      right: 0.21428571em;
+      left: auto;
+    }
+  }
+}
+
+/* Dropdown RTL */
+[dir="rtl"] {
+  .ui.dropdown {
+    > .dropdown.icon {
+      margin-left: 0;
+      margin-right: 1em;
+    }
+
+    .menu {
+      right: 0;
+      left: auto;
+      text-align: right;
+
+      .item {
+        text-align: right;
+      }
+    }
+
+    &.selection {
+      padding-right: 1em;
+      padding-left: 2.5em;
+
+      .dropdown.icon {
+        right: auto;
+        left: 1em;
+        padding: 0;
+      }
+    }
+  }
+
+  /* Search dropdown */
+  .ui.search.dropdown {
+    > input.search {
+      padding-right: 1em;
+      padding-left: 2.5em;
+    }
+
+    > .dropdown.icon {
+      right: auto;
+      left: 1em;
+    }
+  }
+}
+
+/* Table RTL */
+[dir="rtl"] {
+  .ui.table {
+    text-align: right;
+
+    th,
+    td {
+      text-align: right;
+
+      &:first-child {
+        border-radius: 0 0.28571429rem 0 0;
+      }
+
+      &:last-child {
+        border-radius: 0.28571429rem 0 0 0;
+      }
+    }
+  }
+
+  /* Sortable table */
+  .ui.sortable.table thead th {
+    &:after {
+      right: auto;
+      left: 0.5em;
+    }
+  }
+}
+
+/* List RTL */
+[dir="rtl"] {
+  .ui.list {
+    .list > .item:after,
+    > .item:after {
+      right: 0;
+      left: auto;
+    }
+
+    .list > .item > .icon,
+    > .item > .icon {
+      padding-left: 0.25em;
+      padding-right: 0;
+    }
+
+    .list > .item > .image,
+    > .item > .image {
+      margin-left: 0.5em;
+      margin-right: 0;
+    }
+  }
+
+  /* Bulleted list */
+  .ui.bulleted.list .list > .item:before,
+  .ui.bulleted.list > .item:before {
+    right: -1em;
+    left: auto;
+  }
+
+  /* Ordered list */
+  .ui.ordered.list .list > .item:before,
+  .ui.ordered.list > .item:before {
+    right: 0;
+    left: auto;
+    text-align: left;
+    margin-right: -1.25em;
+    margin-left: 0;
+  }
+}
+
+/* Message RTL */
+[dir="rtl"] {
+  .ui.message {
+    > .close.icon {
+      left: 0.5em;
+      right: auto;
+    }
+
+    > .icon {
+      margin-left: 0.6em;
+      margin-right: 0;
+    }
+  }
+}
+
+/* Card RTL */
+[dir="rtl"] {
+  .ui.card,
+  .ui.cards > .card {
+    > .content {
+      > .header,
+      > .meta,
+      > .description {
+        text-align: right;
+      }
+
+      > .header {
+        > .icon {
+          float: right;
+          margin-left: 0.5em;
+          margin-right: 0;
+        }
+      }
+    }
+  }
+}
+
+/* Modal RTL */
+[dir="rtl"] {
+  .ui.modal {
+    > .close {
+      left: 1rem;
+      right: auto;
+    }
+
+    > .header,
+    > .content,
+    > .actions {
+      text-align: right;
+    }
+  }
+}
+
+/* Breadcrumb RTL */
+[dir="rtl"] {
+  .ui.breadcrumb {
+    .divider {
+      transform: scaleX(-1);
+    }
+
+    a.section,
+    .section {
+      float: right;
+    }
+  }
+}
+
+/* Pagination RTL */
+[dir="rtl"] {
+  .ui.pagination.menu {
+    .item {
+      &:before {
+        transform: scaleX(-1);
+      }
+    }
+  }
+}
+
+/* Sidebar RTL */
+[dir="rtl"] {
+  .ui.sidebar {
+    &.left {
+      right: 0;
+      left: auto;
+      transform: translate3d(100%, 0, 0);
+
+      &.visible {
+        transform: translate3d(0, 0, 0);
+      }
+    }
+
+    &.right {
+      right: auto;
+      left: 0;
+      transform: translate3d(-100%, 0, 0);
+
+      &.visible {
+        transform: translate3d(0, 0, 0);
+      }
+    }
+  }
+
+  .pusher {
+    &.dimmed:after {
+      right: 0;
+      left: auto;
+    }
+  }
+}
+
+/* Steps RTL */
+[dir="rtl"] {
+  .ui.steps {
+    direction: rtl;
+
+    .step {
+      &:after {
+        transform: scaleX(-1);
+      }
+
+      > .icon,
+      > .content {
+        float: right;
+      }
+
+      > .content {
+        margin-right: 0.5em;
+        margin-left: 0;
+      }
+    }
+  }
+}
+
+/* Grid RTL */
+[dir="rtl"] {
+  .ui.grid {
+    direction: rtl;
+
+    > .column:not(.row),
+    > .row > .column {
+      float: right;
+    }
+  }
+}
+
+/* Segment RTL */
+[dir="rtl"] {
+  .ui.segment {
+    > .icon {
+      float: right;
+      margin-left: 0.5em;
+      margin-right: 0;
+    }
+  }
+}
+
+/* Search RTL */
+[dir="rtl"] {
+  .ui.search {
+    > .icon {
+      right: auto;
+      left: 0;
+    }
+
+    > .results {
+      right: 0;
+      left: auto;
+      text-align: right;
+
+      .result {
+        text-align: right;
+
+        .image {
+          float: right;
+          margin-left: 1em;
+          margin-right: 0;
+        }
+      }
+    }
+  }
+}
+
+/* Label RTL */
+[dir="rtl"] {
+  .ui.label {
+    &.left.pointing:before {
+      right: auto;
+      left: -0.71428571em;
+      transform: scaleX(-1);
+    }
+
+    &.right.pointing:before {
+      right: -0.71428571em;
+      left: auto;
+      transform: scaleX(-1);
+    }
+
+    > .icon {
+      margin-left: 0.5em;
+      margin-right: 0;
+    }
+
+    > .delete.icon {
+      margin-left: 0.5em;
+      margin-right: 0;
+    }
+  }
+
+  /* Ribbon label */
+  .ui.ribbon.label {
+    right: calc(-1rem - 1.2em);
+    left: auto;
+    margin-left: 0;
+    margin-right: -1rem;
+    padding-right: calc(1rem + 1.2em);
+    padding-left: 1.2em;
+
+    &:after {
+      right: 0;
+      left: auto;
+      border-right-color: transparent !important;
+      border-left-color: inherit !important;
+      border-right-width: 0 !important;
+      border-left-width: 1.2em !important;
+    }
+  }
+}
+
+/* Statistic RTL */
+[dir="rtl"] {
+  .ui.statistic,
+  .ui.statistics .statistic {
+    text-align: center;
+
+    > .label,
+    > .value {
+      text-align: center;
+    }
+  }
+}
+
+/* Accordion RTL */
+[dir="rtl"] {
+  .ui.accordion {
+    .title {
+      .dropdown.icon {
+        float: left;
+        margin-left: 0;
+        margin-right: 0.25rem;
+      }
+    }
+  }
+}
+
+/* Progress RTL */
+[dir="rtl"] {
+  .ui.progress {
+    .label {
+      text-align: center;
+    }
+  }
+}
+
+/* Rating RTL */
+[dir="rtl"] {
+  .ui.rating {
+    direction: ltr;
+    /* Keep stars left-to-right for consistency */
+  }
+}
+
+/* Popup RTL */
+[dir="rtl"] {
+  .ui.popup {
+    text-align: right;
+
+    &:before {
+      right: 50%;
+      left: auto;
+      margin-right: -0.71428571em;
+      margin-left: 0;
+    }
+  }
+}
+
+/* Tab RTL */
+[dir="rtl"] {
+  .ui.tabular.menu .item {
+    border-right: none;
+    border-left: 1px solid transparent;
+
+    &.active {
+      border-right-width: 0;
+      border-left-width: 1px;
+    }
+  }
+}
+
+/* Feed RTL */
+[dir="rtl"] {
+  .ui.feed {
+    text-align: right;
+
+    > .event {
+      > .label {
+        float: right;
+        margin-left: 1em;
+        margin-right: 0;
+      }
+
+      > .content {
+        margin-right: 3.5em;
+        margin-left: 0;
+      }
+    }
+  }
+}
+
+/* Comment RTL */
+[dir="rtl"] {
+  .ui.comments {
+    .comment {
+      .avatar {
+        float: right;
+        margin-left: 0.5em;
+        margin-right: 0;
+      }
+
+      .content {
+        margin-right: 3.5em;
+        margin-left: 0;
+      }
+    }
+  }
+}
+
+/* Item RTL */
+[dir="rtl"] {
+  .ui.items {
+    > .item {
+      > .image {
+        float: right;
+        margin-left: 1.5em;
+        margin-right: 0;
+      }
+
+      > .content {
+        text-align: right;
+
+        > .header {
+          text-align: right;
+        }
+      }
+    }
+  }
+}
