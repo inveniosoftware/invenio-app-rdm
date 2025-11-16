@@ -15,6 +15,10 @@ from flask_menu import current_menu
 from invenio_i18n import lazy_gettext as _
 
 from .communities_ui.views.ui import _show_browse_page
+from .utils.template_filters import (
+    register_context_processors,
+    register_template_filters,
+)
 
 
 def _is_branded_community():
@@ -29,6 +33,16 @@ def finalize_app(app):
     """Finalize app."""
     init_menu(app)
     init_config(app)
+    init_persian_rtl_support(app)
+
+
+def init_persian_rtl_support(app):
+    """Initialize Persian calendar and RTL support."""
+    # Register Jinja2 template filters for Persian calendar and numerals
+    register_template_filters(app)
+
+    # Register context processors for RTL and calendar detection
+    register_context_processors(app)
 
 
 def init_config(app):

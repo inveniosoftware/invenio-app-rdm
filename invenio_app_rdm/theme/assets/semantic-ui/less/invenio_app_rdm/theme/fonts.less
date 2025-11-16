@@ -1,0 +1,76 @@
+/*
+ * IRANSans Font Family Declaration
+ * Persian/Farsi Typography Support
+ */
+
+/* IRANSans Font Family - Using Google Fonts or CDN */
+@import url('https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css');
+@import url('https://cdn.jsdelivr.net/gh/rastikerdar/iran-sans@v5.0.0/dist/font-face.css');
+
+/* Fallback: Local font declarations if needed */
+@font-face {
+  font-family: 'IRANSans';
+  font-style: normal;
+  font-weight: 300;
+  src: url('https://cdn.jsdelivr.net/gh/rastikerdar/iran-sans@v5.0.0/dist/font-face/IRANSans-Light.woff2') format('woff2'),
+       url('https://cdn.jsdelivr.net/gh/rastikerdar/iran-sans@v5.0.0/dist/font-face/IRANSans-Light.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'IRANSans';
+  font-style: normal;
+  font-weight: 400;
+  src: url('https://cdn.jsdelivr.net/gh/rastikerdar/iran-sans@v5.0.0/dist/font-face/IRANSans.woff2') format('woff2'),
+       url('https://cdn.jsdelivr.net/gh/rastikerdar/iran-sans@v5.0.0/dist/font-face/IRANSans.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'IRANSans';
+  font-style: normal;
+  font-weight: 500;
+  src: url('https://cdn.jsdelivr.net/gh/rastikerdar/iran-sans@v5.0.0/dist/font-face/IRANSans-Medium.woff2') format('woff2'),
+       url('https://cdn.jsdelivr.net/gh/rastikerdar/iran-sans@v5.0.0/dist/font-face/IRANSans-Medium.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'IRANSans';
+  font-style: normal;
+  font-weight: 700;
+  src: url('https://cdn.jsdelivr.net/gh/rastikerdar/iran-sans@v5.0.0/dist/font-face/IRANSans-Bold.woff2') format('woff2'),
+       url('https://cdn.jsdelivr.net/gh/rastikerdar/iran-sans@v5.0.0/dist/font-face/IRANSans-Bold.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'IRANSans';
+  font-style: normal;
+  font-weight: 900;
+  src: url('https://cdn.jsdelivr.net/gh/rastikerdar/iran-sans@v5.0.0/dist/font-face/IRANSans-Black.woff2') format('woff2'),
+       url('https://cdn.jsdelivr.net/gh/rastikerdar/iran-sans@v5.0.0/dist/font-face/IRANSans-Black.woff') format('woff');
+}
+
+/* Apply IRANSans for Persian/Farsi content */
+html[lang="fa"],
+html[lang="fa-IR"],
+body[lang="fa"],
+body[lang="fa-IR"],
+.fa,
+.persian,
+[dir="rtl"] {
+  font-family: 'IRANSans', 'Vazirmatn', 'Tahoma', 'Arial', sans-serif !important;
+}
+
+/* Ensure proper font rendering for Persian text */
+html[lang="fa"] *,
+html[lang="fa-IR"] *,
+[dir="rtl"] * {
+  font-family: 'IRANSans', 'Vazirmatn', 'Tahoma', 'Arial', sans-serif;
+}
+
+/* Better rendering for Persian typography */
+html[lang="fa"],
+html[lang="fa-IR"],
+[dir="rtl"] {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}

@@ -1562,3 +1562,28 @@ APP_RDM_MODERATION_REQUEST_FACETS = {
     "is_open": {"facet": facets.is_open, "ui": {"field": "is_open"}},
 }
 """Available facets defined for this module."""
+
+
+# Persian Calendar and RTL Support
+# =================================
+
+RTL_LOCALES = ["fa", "ar", "he", "ur"]
+"""List of locales that use Right-to-Left text direction."""
+
+DEFAULT_PERSIAN_CALENDAR = "jalali"
+"""Default calendar system for Persian locale (jalali, gregorian, hijri)."""
+
+DEFAULT_ARABIC_CALENDAR = "hijri"
+"""Default calendar system for Arabic locale (hijri, gregorian, jalali)."""
+
+SUPPORTED_CALENDARS = ["jalali", "gregorian", "hijri"]
+"""List of supported calendar systems."""
+
+PERSIAN_CALENDAR_DEFAULT_FORMAT = "%Y/%m/%d"
+"""Default date format for Persian calendar."""
+
+PERSIAN_DATETIME_DEFAULT_FORMAT = "%Y/%m/%d %H:%M"
+"""Default datetime format for Persian calendar."""
+
+USE_PERSIAN_NUMERALS = True
+"""Automatically convert numerals to Persian numerals for Persian locale."""

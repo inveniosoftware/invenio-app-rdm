@@ -6,8 +6,9 @@
     Brand Colors
 --------------------*/
 
-@primaryColor: #0377cd;
-@secondaryColor: #fb8273;
+/* Turquoise Theme for Persian/Iranian Cultural Theme */
+@primaryColor: #1ABC9C;
+@secondaryColor: #16A085;
 @featuredListBackgroundColor: #4899DB;
 @primaryDarkenColor: #0267b2;
 
@@ -34,8 +35,8 @@
 @embargoed-components-background-color: #fbf8ee;
 @embargoed-components-border-color: #c9ba9b;
 
-@footerLightColor: #0377cd;
-@footerDarkColor: #0047a8;
+@footerLightColor: #1ABC9C;
+@footerDarkColor: #16A085;
 @subFooterColor: @footerDarkColor;
 @footerTextLightColor: #ffffff;
 @footerTextDarkColor: #ffffff;
@@ -53,11 +54,11 @@
 
 @navbarBackgroundImage: linear-gradient(
   12deg,
-  rgba(3, 119, 205, 1),
-  rgba(3, 119, 205, 1) 15%,
-  rgba(251, 130, 115, 0.69)
+  rgba(26, 188, 156, 1),
+  rgba(26, 188, 156, 1) 15%,
+  rgba(72, 201, 176, 0.69)
 );
-@navbarBackgroundColor: rgba(3, 119, 205, 1);
+@navbarBackgroundColor: rgba(26, 188, 156, 1);
 @versionActiveColor: #d9edf7;
 
 @mutedAccordionHeaderColor: #f5f5f5;
@@ -68,9 +69,9 @@
       Links
 --------------------*/
 
-@linkColor: #005b9e;
+@linkColor: #16A085;
 @linkUnderline: none;
-@linkHoverColor: darken(saturate(@linkColor, 20), 15, relative);
+@linkHoverColor: #0E8A6D;
 @linkHoverUnderline: underline;
 
 
@@ -87,12 +88,15 @@
       Fonts
 --------------------*/
 
+/* Persian/Farsi Font Support */
+@fontName: 'IRANSans', 'Vazirmatn', 'Helvetica', 'Arial', sans-serif;
+@headerFont: 'IRANSans', 'Vazirmatn', 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+@pageFont: 'IRANSans', 'Vazirmatn', 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
 
 @fontSizeBase: 14px;
 @font-size-small: 12px;
 @font-size-tiny: 10px;
 @font-size-massive: 36px;
-@fontName: 'Helvetica';
 
 
 /*-------------------
