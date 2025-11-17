@@ -138,7 +138,7 @@ class ModerationRequestDetailView(AdminResourceDetailView):
             g.identity, current_user
         )["avatar"]
         permissions = []
-        if "reason" in request["payload"]:
+        if "reason" in request.get("payload", {}):
             reason_title = vocabulary_service.read(
                 g.identity,
                 ("removalreasons", request["payload"]["reason"]),
