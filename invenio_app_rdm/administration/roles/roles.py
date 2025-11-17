@@ -7,7 +7,7 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """Administration views for managing roles."""
-
+from flask import abort
 from invenio_administration.views.base import (
     AdminResourceCreateView,
     AdminResourceDetailView,
@@ -15,6 +15,8 @@ from invenio_administration.views.base import (
     AdminResourceListView,
 )
 from invenio_i18n import lazy_gettext as _
+
+from ..users.permissions import can_access_user_administration
 
 
 class RoleAdminMixin:
@@ -37,6 +39,12 @@ class RoleAdminMixin:
     search_config_name = "USERS_RESOURCES_GROUPS_ADMIN_SEARCH"
     search_sort_config_name = "USERS_RESOURCES_GROUPS_ADMIN_SORT_OPTIONS"
     search_facets_config_name = "USERS_RESOURCES_GROUPS_ADMIN_FACETS"
+
+    def dispatch_request(self, **kwargs):
+        """Deny direct navigation to unauthorized users."""
+        if not can_access_user_administration():
+            abort(403)
+        return super().get(**kwargs)
 
 
 class RolesListView(RoleAdminMixin, AdminResourceListView):
