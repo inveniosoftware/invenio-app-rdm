@@ -58,8 +58,8 @@ class RolesListView(RoleAdminMixin, AdminResourceListView):
     order = 30
 
     item_field_list = {
-        "id": {"text": _("ID"), "order": 0, "width": 1},
-        "name": {"text": _("Name"), "order": 1, "width": 3},
+        "name": {"text": _("Name"), "order": 0, "width": 3},
+        "id": {"text": _("ID"), "order": 1, "width": 3},
         "description": {"text": _("Description"), "order": 2, "width": 5},
         "is_managed": {"text": _("Managed"), "order": 3, "width": 1},
         "created": {"text": _("Created"), "order": 4, "width": 2},
