@@ -82,6 +82,16 @@
 
     .text {
       width: auto;
+
+      &.extra blockquote {
+        margin-left: 0.5rem;
+        padding-left: 0.75rem;
+        color: @mutedTextColor;
+
+        & > blockquote {
+          margin-left: 0;
+        }
+      }
     }
 
     &.requests-action-event {
@@ -164,6 +174,7 @@
     border-left: @extraTextPointer;
     font-size: @extraTextFontSize;
     line-height: @extraTextLineHeight;
+
   }
 
   /*--------------
@@ -237,4 +248,11 @@
   }
 }
 
+.ui.popup.requests-event-body-popup {
+  padding: 0;
+  border: none;
 
+  .ui.button {
+    margin: 0;
+  }
+}
