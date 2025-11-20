@@ -150,7 +150,9 @@ def evaluate_record_deletion(record: RDMRecord, identity):
         }
     record_deletion["existing_request"] = (
         # We show existing requests to valid users (even if they are not allowed to delete a record anymore).
-        get_existing_deletion_request(record.pid.pid_value) if rd_valid_user else None
+        get_existing_deletion_request(record.pid.pid_value)
+        if rd_valid_user
+        else None
     )
 
     return record_deletion
@@ -161,15 +163,14 @@ def evaluate_file_modification(record, identity):
     file_mod = FileModificationPolicyEvaluator().evaluate(identity, record)
 
     file_mod = file_mod["immediate_file_modification"]
-    fm_allowed = file_mod.allowed
 
     file_modification = {
         "enabled": file_mod.enabled,
         "valid_user": file_mod.valid_user,
-        "allowed": fm_allowed,
+        "allowed": file_mod.allowed,
     }
 
-    if fm_allowed:
+    if file_mod.allowed:
         file_modification["fileModification"] = file_mod
         created = record.created.replace(tzinfo=timezone.utc)
         modification_until = created + current_app.config.get(
