@@ -16,7 +16,10 @@ export class FileModificationUntil extends Component {
       return null;
     }
 
-    if (!filesLocked && record.is_published && fileModification.context?.days_until) {
+    const isPublished = record.is_published;
+    const filesUnlocked = !filesLocked;
+    const daysUntil = fileModification.context?.days_until;
+    if (isPublished && filesUnlocked && daysUntil) {
       return (
         <>
           {" "}
