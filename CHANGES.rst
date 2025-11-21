@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version v14.0.0b3.dev3 (released 2025-11-21)
+
+- feat(css): request comment deep links
+
 Version v14.0.0b3.dev2 (released 2025-11-21)
 
 - fix: revert mapping.js symlink
