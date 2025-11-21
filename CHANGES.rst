@@ -10,6 +10,26 @@
 Changes
 =======
 
+Version v14.0.0b3.dev1 (released 2025-11-21)
+
+- UI: add info message about remaining days to publish changes
+- request: add file mod request template
+- fix: set files_locked to `bucket.locked` rather than permission
+    * currently the permission is whether you can unlock the files
+    * but the files are only unlocked when you create the draft
+    * as such as an admin when you edit a published draft, if it was
+      created by a user it will look like the files are unlocked but
+      this is false
+- feat: pass file modification eval to deposit form
+- fix: align selector with semantic-ui
+- fix(views): pass API record to evaluate record deletion
+- fix(record-ui): do not sanitize additional description in template
+- admin: requests details view improvements
+    - Replace `Record deletion` by `Deletion request for "Record name"`
+    - Link showing all requests for a given user
+- tombstone: add deletion policy
+- Update release date for version v14.0.0b3.dev0
+
 Version v14.0.0b3.dev0 (released 2025-11-12)
 
 - setup: bump major version of `invenio-oauthclient`
