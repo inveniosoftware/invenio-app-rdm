@@ -10,6 +10,13 @@
 Changes
 =======
 
+Version v14.0.0b1.dev8 (released 2025-11-21)
+
+- UI: add info message about remaining days to publish changes
+- request: add file mod request template
+- fix: set files_locked to .locked rather than permission
+- feat: pass file modification eval to deposit form
+
 Version v14.0.0b1.dev7 (released 2025-11-14)
 
 - fix(views): pass API record to evaluate record deletion
