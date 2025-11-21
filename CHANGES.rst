@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version v14.0.0b3.dev2 (released 2025-11-21)
+
+- fix: revert mapping.js symlink
+
 Version v14.0.0b3.dev1 (released 2025-11-21)
 
 - UI: add info message about remaining days to publish changes
