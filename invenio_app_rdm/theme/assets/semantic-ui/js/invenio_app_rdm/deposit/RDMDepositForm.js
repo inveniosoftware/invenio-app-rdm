@@ -501,7 +501,6 @@ export class RDMDepositForm extends Component {
                       <DatesField
                         fieldPath="metadata.dates"
                         options={this.vocabularies.metadata.dates}
-                        showEmptyValue
                       />
                     </Overridable>
 
@@ -636,7 +635,6 @@ export class RDMDepositForm extends Component {
                         label={i18next.t("Alternate identifiers")}
                         labelIcon="barcode"
                         schemeOptions={this.vocabularies.metadata.identifiers.scheme}
-                        showEmptyValue
                       />
                     </Overridable>
                   </AccordionField>
@@ -661,7 +659,6 @@ export class RDMDepositForm extends Component {
                       <RelatedWorksField
                         fieldPath="metadata.related_identifiers"
                         options={this.vocabularies.metadata.related_identifiers}
-                        showEmptyValue
                       />
                     </Overridable>
                   </AccordionField>
@@ -682,7 +679,7 @@ export class RDMDepositForm extends Component {
                       fieldPath="metadata.references"
                       vocabularies={this.vocabularies}
                     >
-                      <ReferencesField fieldPath="metadata.references" showEmptyValue />
+                      <ReferencesField fieldPath="metadata.references" />
                     </Overridable>
                   </AccordionField>
                 </Overridable>
