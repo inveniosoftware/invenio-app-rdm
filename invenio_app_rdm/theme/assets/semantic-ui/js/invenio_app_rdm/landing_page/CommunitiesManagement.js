@@ -93,6 +93,7 @@ export class CommunitiesManagement extends Component {
       recordUserCommunitySearchConfig,
       searchConfig,
       record,
+      recordRequests,
     } = this.props;
     const { communities, loading, error, manageCommunitiesModalOpen } = this.state;
     return (
@@ -126,6 +127,7 @@ export class CommunitiesManagement extends Component {
               loading={loading}
               maxDisplayedCommunities={MAX_COMMUNITIES}
               branded={record.parent?.communities?.default}
+              recordRequests={recordRequests}
             />
             <RecordCommunitiesListModal
               id="record-communities-list-modal"
@@ -168,4 +170,9 @@ CommunitiesManagement.propTypes = {
   userCommunitiesMemberships: PropTypes.object.isRequired,
   searchConfig: PropTypes.object.isRequired,
   record: PropTypes.object.isRequired,
+  recordRequests: PropTypes.object,
+};
+
+CommunitiesManagement.defaultProps = {
+  recordRequests: {},
 };
