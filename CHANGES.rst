@@ -10,6 +10,13 @@
 Changes
 =======
 
+Version v14.0.0b1.dev9 (released 2025-11-24)
+
+- details: fix: do not sanitize additional description in template
+- admin: requests details view improvements
+    - Replace `Record deletion` by `Deletion request for "Record name"`
+    - Link showing all requests for a given user
+
 Version v14.0.0b1.dev8 (released 2025-11-21)
 
 - UI: add info message about remaining days to publish changes
