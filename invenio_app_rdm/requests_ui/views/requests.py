@@ -186,7 +186,9 @@ def user_dashboard_request_view(request, **kwargs):
     has_record_topic = has_topic and "record" in request["topic"]
     has_community_topic = has_topic and "community" in request["topic"]
     is_record_inclusion = request_type == CommunityInclusion.type_id
-    request_permissions = request.has_permissions_to(["action_accept"])
+    request_permissions = request.has_permissions_to(
+        ["action_accept", "lock_request", "create_comment"]
+    )
 
     if has_record_topic:
         topic = _resolve_topic_record(request)
@@ -290,7 +292,9 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
     permissions = community.has_permissions_to(
         ["update", "read", "search_requests", "search_invites", "submit_record"]
     )
-    request_permissions = request.has_permissions_to(["action_accept"])
+    request_permissions = request.has_permissions_to(
+        ["action_accept", "lock_request", "create_comment"]
+    )
     # Add request specific permissions so that reviewers can be selected from community curators
     permissions.update(request_permissions)
 

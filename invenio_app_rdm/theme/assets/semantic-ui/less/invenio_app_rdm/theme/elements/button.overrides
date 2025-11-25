@@ -76,3 +76,10 @@
     }
   }
 }
+
+/* lock request */
+.ui.button.request-lock-button {
+  text-align: left;
+  background-color: transparent;
+  padding-left: 0;
+}
