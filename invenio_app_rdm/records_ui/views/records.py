@@ -130,6 +130,7 @@ def get_record_requests(record, identity):
                 ),
             ],
         ),
+        params={"sort": "oldest"},
     )
 
     return {r["receiver"]["community"]: r["id"] for r in record_requests}
