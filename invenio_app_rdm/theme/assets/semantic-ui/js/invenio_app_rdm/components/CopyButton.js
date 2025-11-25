@@ -46,7 +46,7 @@ class SimpleCopyButton extends React.Component {
 SimpleCopyButton.propTypes = {
   text: PropTypes.string.isRequired,
   onCopy: PropTypes.func.isRequired,
-  url: PropTypes.func,
+  url: PropTypes.string,
   hoverState: PropTypes.func,
   size: PropTypes.string,
 };
@@ -130,7 +130,7 @@ export class CopyButton extends Component {
 CopyButton.propTypes = {
   popUpPosition: PropTypes.string,
   text: PropTypes.string,
-  url: PropTypes.func,
+  url: PropTypes.string,
   size: PropTypes.string,
 };
 

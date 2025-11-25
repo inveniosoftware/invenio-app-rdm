@@ -173,7 +173,7 @@ export class CommunitiesManagementDropdown extends Component {
 CommunitiesManagementDropdown.propTypes = {
   userCommunitiesMemberships: PropTypes.object.isRequired,
   recordCommunityEndpoint: PropTypes.string.isRequired,
-  recordCommunitySearchConfig: PropTypes.string.isRequired,
+  recordCommunitySearchConfig: PropTypes.object.isRequired,
   recordUserCommunitySearchConfig: PropTypes.string.isRequired,
   toggleManageCommunitiesModal: PropTypes.func.isRequired,
   actionSucceed: PropTypes.func,
