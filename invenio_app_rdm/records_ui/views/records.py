@@ -28,6 +28,7 @@ from invenio_rdm_records.proxies import current_rdm_records
 from invenio_rdm_records.records.systemfields.access.access_settings import (
     AccessSettings,
 )
+from invenio_rdm_records.requests import CommunityInclusion, CommunitySubmission
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
 from invenio_requests.proxies import current_requests_service
 from invenio_search.api import dsl
@@ -116,8 +117,20 @@ def get_record_requests(record, identity):
         identity,
         extra_filter=dsl.Q(
             "bool",
-            must=[dsl.Q("term", **{"topic.record": record["id"]})],
+            must=[
+                dsl.Q("term", **{"topic.record": record["id"]}),
+                dsl.Q(
+                    "terms",
+                    **{
+                        "type": [
+                            CommunityInclusion.type_id,
+                            CommunitySubmission.type_id,
+                        ]
+                    },
+                ),
+            ],
         ),
+        params={"sort": "oldest"},
     )
 
     return {r["receiver"]["community"]: r["id"] for r in record_requests}
