@@ -112,7 +112,7 @@ export class RecordCommunitiesList extends Component {
                       // building request link as the self_html of the request is
                       // /requests/<uuid> which doesn't resolve as missing
                       // /communities/ or /me/. We prefer /communities/ here
-                      href={`${community.links.self_html}/requests/${
+                      href={`${community.links.self_html}requests/${
                         recordRequests[community.id]
                       }`}
                     />
