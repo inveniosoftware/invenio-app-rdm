@@ -19,7 +19,15 @@ export class FileModificationUntil extends Component {
     const isPublished = record.is_published;
     const filesUnlocked = !filesLocked;
     const daysUntil = fileModification.context?.days_until;
-    if (isPublished && filesUnlocked && daysUntil) {
+    if (isPublished && filesUnlocked && daysUntil !== undefined) {
+      if (daysUntil <= 0) {
+        return (
+          <>
+            {" "}
+            {i18next.t("– You are past the allowed period to edit files.")}
+          </>
+        );
+      }
       return (
         <>
           {" "}
