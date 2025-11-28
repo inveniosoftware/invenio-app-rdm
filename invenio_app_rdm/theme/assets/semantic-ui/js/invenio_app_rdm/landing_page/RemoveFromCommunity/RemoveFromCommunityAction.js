@@ -91,7 +91,7 @@ export class RemoveFromCommunityAction extends Component {
     return (
       <>
         <Button
-          size="tiny"
+          size="mini"
           negative
           labelPosition="left"
           icon="trash"
