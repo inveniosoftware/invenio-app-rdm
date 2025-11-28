@@ -107,8 +107,8 @@ export class RecordCommunitiesList extends Component {
                       compact
                       size="mini"
                       floated="right"
-                      icon="eye"
-                      content={i18next.t("Request")}
+                      icon="discussions"
+                      content={i18next.t("Submission")}
                       // building request link as the self_html of the request is
                       // /requests/<uuid> which doesn't resolve as missing
                       // /communities/ or /me/. We prefer /communities/ here
