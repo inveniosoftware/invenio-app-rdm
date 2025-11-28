@@ -3,8 +3,10 @@
   .requests-event-item {
     box-sizing: border-box;
 
-    &.selected .event, &:target .event {
-      outline: 2px solid @primaryColor;
+    &.selected, &:target {
+      & > .requests-event-container > .requests-event-inner-container > .event {
+        outline: 2px solid @primaryColor;
+      }
     }
   }
 
@@ -12,7 +14,7 @@
     position: relative;
     padding: @defaultPadding 0;
 
-    &::before {
+    &:not(.reply)::before {
       position: absolute;
       top: 0;
       bottom: 0;
@@ -31,11 +33,36 @@
       padding-top: 0;
     }
 
+    &.reply {
+      padding: (@eventPadding / 2) @eventPadding;
+
+      &:hover {
+        background-color: @whiteHover;
+      }
+
+      .requests-avatar-container {
+        margin-top: 0;
+      }
+
+      .content {
+        margin: 0;
+      }
+
+      .event {
+        background: none;
+      }
+    }
+
+    .timeline-comment-editor-container {
+      padding: @eventPadding;
+      padding-top: 0;
+    }
   }
 
   .requests-avatar-container {
     padding-right: 0.5em;
     margin-top: 1rem;
+    position: relative;
 
     @media screen and (max-width: @largestMobileScreen) {
       margin-top: 0;
@@ -44,6 +71,56 @@
     img {
       max-height: 40px;
       width: auto;
+    }
+
+    &.has-line::before {
+      content: "";
+      position: absolute;
+      display: block;
+      top: 0;
+      bottom: 0;
+      // Half the width of the avatar minus the width of the line
+      left: calc(1em - 2px);
+      width: 2px;
+      background-color: @borderColor;
+      // Full height of the comment + the margin of the next comment
+      height: calc(100% + 1rem);
+
+      @media screen and (max-width: @largestMobileScreen) {
+        & {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .requests-reply-top-divider {
+    margin-bottom: 0;
+    border-bottom: none !important;
+  }
+
+  .requests-reply-container {
+    padding-top: 0.5rem;
+    background-color: #f9f9f9;
+  }
+
+  .requests-comment-fake-reply {
+    display: flex;
+    align-items: center;
+    padding: @eventPadding;
+    padding-top: 0;
+
+    .requests-avatar-container {
+      margin-top: 0;
+    }
+
+    .requests-comment-fake-reply-input {
+      width: 100%;
+
+      &:disabled {
+        // This is overriden to `opacity: 1 !important` in the Invenio Theme so we need a clearer visual effect
+        opacity: 0.45 !important;
+      }
     }
   }
 
@@ -72,7 +149,6 @@
     flex: 1;
     border: @defaultBorder;
     border-radius: @defaultBorderRadius;
-    padding: 0.5 * @defaultPadding;
     background-color: @white;
     position: relative;
 
@@ -94,6 +170,10 @@
       }
     }
 
+    .button.requests-reply-expand {
+      margin-left: @eventPadding;
+    }
+
     &.requests-action-event {
       border: 0;
       display: flex;
@@ -103,6 +183,17 @@
         margin-right: 0.5 * @defaultMargin;
       }
     }
+
+    &.requests-reply-event {
+      border: none;
+      padding: 0;
+      margin-left: 0.5rem;
+    }
+
+    p.requests-event-body-deleted {
+      font-style: italic;
+      color: @mutedTextColor;
+    }
   }
 
   .requests-action-event-icon {
@@ -111,6 +202,66 @@
 
     .icon {
       background-color: @white;
+    }
+  }
+
+  .requests-comment-fake-reply {
+    display: flex;
+    align-items: center;
+
+    .requests-avatar-container {
+      margin-top: 0;
+    }
+  }
+
+  .requests-reply-count {
+    background-color: @primaryColor;
+    color: white;
+    padding: 2px 4px;
+    border-radius: @defaultBorderRadius;
+    font-weight: normal;
+    // Default font Helvetica has non-standard metrics so doesn't look middle-aligned on Firefox
+    font-family: sans-serif;
+    font-size: 0.75rem;
+  }
+
+  .requests-reply-caret {
+    margin-left: 2px !important;
+    // The button styles add a right margin when the `right` class is added, despite that just being
+    // part of the icon name.
+    margin-right: 0 !important;
+  }
+
+  .requests-reply-load-more {
+    // Padding + width of avatar + padding on right-side of avatar + margin on left-side of main content
+    margin-left: calc(@eventPadding + 28px + 1em + 0.5rem);
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    position: relative;
+    color: @linkColor;
+    font-weight: normal;
+
+    &::before {
+      content: "";
+      position: absolute;
+      display: block;
+      top: 0;
+      bottom: 0;
+      // Margin on left-side of main content, padding on right-side of avatar, half width of line
+      left: calc(-1rem - 1em);
+      width: 2px;
+      background: linear-gradient(to bottom, white, @borderColor);
+      // Full height of the comment + the margin of the next comment
+      height: calc(100% + 1rem);
+    }
+
+    @media screen and (max-width: @largestMobileScreen) {
+      & {
+        margin: 0.5rem @eventPadding;
+        &::before {
+          display: none;
+        }
+      }
     }
   }
 }
@@ -132,6 +283,10 @@
     width: @userImageWidth;
     height: @userImageHeight;
     vertical-align: @userImageVerticalAlign;
+  }
+
+  .event > .content {
+    margin: @eventPadding;
   }
 
   /*--------------
