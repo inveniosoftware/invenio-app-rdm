@@ -112,3 +112,25 @@
     padding-right: 0 !important;
   }
 }
+
+.ui.grid {
+  .zigzag {
+    position: relative;
+    width: 100%;
+    padding-top:23px;
+    height: 1px;
+    border:0;
+  }
+
+  .zigzag:before {
+      content:"";
+      display:block;
+      position: relative;
+      top: -21px;
+      height: 22px;
+      background: linear-gradient( 45deg, transparent 46px, gray 47px, transparent 45px) 0 0,
+                  linear-gradient(-45deg, transparent 46px, gray 47px, transparent 45px) 0 0;
+      background-repeat: repeat-x;
+      background-size:30px 51px;
+  }
+}
