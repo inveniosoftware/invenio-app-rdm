@@ -429,6 +429,12 @@
 
   }
 
+  /* User uploaded images within text */
+  .event > .content .extra.text img {
+    max-width: 100%;
+    height: auto;
+  }
+
   /*--------------
         Meta
   ---------------*/
