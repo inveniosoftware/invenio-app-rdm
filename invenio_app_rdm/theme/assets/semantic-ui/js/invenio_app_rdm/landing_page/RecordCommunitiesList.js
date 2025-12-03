@@ -66,7 +66,7 @@ export class RecordCommunitiesList extends Component {
                 <Grid.Column width={2}>
                   <Image wrapped size="mini" src={community.links.logo} alt="" />
                 </Grid.Column>
-                <Grid.Column width={viewRequest ? 8 : 14}>
+                <Grid.Column width={14}>
                   <Item.Content>
                     <Item.Header className="ui">
                       <Header as="a" href={community.links.self_html} size="small">
@@ -97,27 +97,28 @@ export class RecordCommunitiesList extends Component {
                           </a>
                         </HeaderSubheader>
                       )}
+                      {viewRequest && (
+                        <div>
+                          <small>
+                            <b>
+                              <a
+                                // building request link as the self_html of the request is
+                                // /requests/<uuid> which doesn't resolve as missing
+                                // /communities/ or /me/. We prefer /communities/ here
+                                href={`${community.links.self_html}requests/${
+                                  recordRequests[community.id]
+                                }`}
+                              >
+                                <Icon name="discussions" className="mr-5" />
+                                {i18next.t("View comments")}
+                              </a>
+                            </b>
+                          </small>
+                        </div>
+                      )}
                     </Item.Header>
                   </Item.Content>
                 </Grid.Column>
-                {viewRequest && (
-                  <Grid.Column width={6}>
-                    <Button
-                      basic
-                      compact
-                      size="mini"
-                      floated="right"
-                      icon="discussions"
-                      content={i18next.t("Submission")}
-                      // building request link as the self_html of the request is
-                      // /requests/<uuid> which doesn't resolve as missing
-                      // /communities/ or /me/. We prefer /communities/ here
-                      href={`${community.links.self_html}requests/${
-                        recordRequests[community.id]
-                      }`}
-                    />
-                  </Grid.Column>
-                )}
               </Grid.Row>
             </Grid>
           );
