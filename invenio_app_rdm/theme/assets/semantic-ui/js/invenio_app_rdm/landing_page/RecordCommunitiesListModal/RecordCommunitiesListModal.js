@@ -32,6 +32,7 @@ export class RecordCommunitiesListModal extends Component {
       handleOnClose,
       trigger,
       permissions,
+      recordRequests,
     } = this.props;
     const { recordParent } = this.state;
 
@@ -59,6 +60,7 @@ export class RecordCommunitiesListModal extends Component {
           permissions={permissions}
           recordParent={recordParent}
           updateRecordCallback={this.handleRecordUpdate}
+          recordRequests={recordRequests}
         />
 
         <Modal.Actions>
@@ -78,9 +80,11 @@ RecordCommunitiesListModal.propTypes = {
   handleOnOpen: PropTypes.func.isRequired,
   permissions: PropTypes.object.isRequired,
   recordParent: PropTypes.object.isRequired,
+  recordRequests: PropTypes.object,
 };
 
 RecordCommunitiesListModal.defaultProps = {
   modalOpen: false,
   trigger: undefined,
+  recordRequests: {},
 };

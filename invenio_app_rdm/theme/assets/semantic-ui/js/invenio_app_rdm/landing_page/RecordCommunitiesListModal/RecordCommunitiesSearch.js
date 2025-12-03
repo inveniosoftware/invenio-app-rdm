@@ -30,8 +30,13 @@ export class RecordCommunitiesSearch extends Component {
   };
 
   render() {
-    const { recordCommunityEndpoint, permissions, recordParent, updateRecordCallback } =
-      this.props;
+    const {
+      recordCommunityEndpoint,
+      permissions,
+      recordParent,
+      updateRecordCallback,
+      recordRequests,
+    } = this.props;
     const overriddenComponents = {
       [`${appName}.ResultsList.item`]: parametrize(RecordCommunitiesSearchItem, {
         recordCommunityEndpoint: recordCommunityEndpoint,
@@ -39,6 +44,7 @@ export class RecordCommunitiesSearch extends Component {
         updateRecordCallback: updateRecordCallback,
         permissions: permissions,
         recordParent: recordParent,
+        recordRequests: recordRequests,
       }),
     };
 
@@ -95,4 +101,9 @@ RecordCommunitiesSearch.propTypes = {
   updateRecordCallback: PropTypes.func.isRequired,
   permissions: PropTypes.object.isRequired,
   recordParent: PropTypes.object.isRequired,
+  recordRequests: PropTypes.object,
+};
+
+RecordCommunitiesSearch.defaultProps = {
+  recordRequests: {},
 };

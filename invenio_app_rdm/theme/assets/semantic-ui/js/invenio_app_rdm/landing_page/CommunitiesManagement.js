@@ -138,6 +138,7 @@ export class CommunitiesManagement extends Component {
               recordCommunityEndpoint={recordCommunityEndpoint}
               permissions={permissions}
               recordParent={record.parent}
+              recordRequests={recordRequests}
             />
 
             {!loading && communities?.length > MAX_COMMUNITIES && (
