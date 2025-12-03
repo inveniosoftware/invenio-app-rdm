@@ -11,7 +11,6 @@ import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Image } from "react-invenio-forms";
 import {
-  Button,
   Grid,
   Item,
   Message,
@@ -63,10 +62,10 @@ export class RecordCommunitiesList extends Component {
           return (
             <Grid key={community.id}>
               <Grid.Row verticalAlign="middle">
-                <Grid.Column width={2}>
+                <Grid.Column width={3}>
                   <Image wrapped size="mini" src={community.links.logo} alt="" />
                 </Grid.Column>
-                <Grid.Column width={14}>
+                <Grid.Column width={13} className="pl-0">
                   <Item.Content>
                     <Item.Header className="ui">
                       <Header as="a" href={community.links.self_html} size="small">
