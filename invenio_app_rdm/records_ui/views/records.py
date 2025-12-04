@@ -15,6 +15,7 @@ from pathlib import Path
 
 from flask import abort, current_app, g, redirect, render_template, request, url_for
 from flask_login import current_user
+from flask_principal import AnonymousIdentity
 from invenio_base.utils import obj_or_import_string
 from invenio_communities.communities.resources.serializer import (
     UICommunityJSONSerializer,
@@ -112,6 +113,9 @@ def get_record_requests(record, identity):
     )
     if not can_review:
         return {}
+
+    if type(identity) is AnonymousIdentity:
+        return {}  # secret link users do not have permissions to search requests
 
     record_requests = current_requests_service.search(
         identity,
