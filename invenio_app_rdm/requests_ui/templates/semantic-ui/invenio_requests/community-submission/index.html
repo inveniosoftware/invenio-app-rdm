@@ -19,8 +19,15 @@
 {%- block request_header %}
   {% if is_user_dashboard %}
     {% set back_button_url = url_for("invenio_app_rdm_users.requests") %}
-  {% else %}
+  {% elif community %}
     {% set back_button_url = url_for("invenio_communities.communities_requests", pid_value=community.id) %}
+  {% else %}
+    {#
+        if you access from a secret link there is no dashboard or community
+            /access/requests/<id>?token=<token>
+        back button is not rendered if there is no URL
+    #}
+    {% set back_button_url = "" %}
   {% endif %}
   {% from "invenio_requests/macros/request_header.html" import inclusion_request_header %}
   {{ inclusion_request_header(
