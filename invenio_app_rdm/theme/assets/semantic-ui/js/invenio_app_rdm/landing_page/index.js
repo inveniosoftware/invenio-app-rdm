@@ -101,6 +101,7 @@ if (sidebarCommunitiesManageDiv) {
   );
   const permissions = JSON.parse(sidebarCommunitiesManageDiv.dataset.permissions);
   const record = JSON.parse(sidebarCommunitiesManageDiv.dataset.record);
+  const recordRequests = JSON.parse(sidebarCommunitiesManageDiv.dataset.recordRequests);
   ReactDOM.render(
     <OverridableContext.Provider value={overriddenComponents}>
       <Overridable
@@ -112,6 +113,7 @@ if (sidebarCommunitiesManageDiv) {
         permissions={permissions}
         searchConfig={pendingCommunitiesSearchConfig}
         record={record}
+        recordRequests={recordRequests}
       >
         <CommunitiesManagement
           userCommunitiesMemberships={userCommunitiesMemberships}
@@ -121,6 +123,7 @@ if (sidebarCommunitiesManageDiv) {
           permissions={permissions}
           searchConfig={pendingCommunitiesSearchConfig}
           record={record}
+          recordRequests={recordRequests}
         />
       </Overridable>
     </OverridableContext.Provider>,

@@ -28,7 +28,10 @@ from invenio_rdm_records.proxies import current_rdm_records
 from invenio_rdm_records.records.systemfields.access.access_settings import (
     AccessSettings,
 )
+from invenio_rdm_records.requests import CommunityInclusion, CommunitySubmission
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
+from invenio_requests.proxies import current_requests_service
+from invenio_search.api import dsl
 from invenio_stats.proxies import current_stats
 from invenio_users_resources.proxies import current_user_resources
 from marshmallow import ValidationError
@@ -97,6 +100,43 @@ def get_record_community(record):
             return None, community_id
     else:
         return None, None
+
+
+def get_record_requests(record, identity):
+    """Return all requests that concern this record.
+
+    Output: {<Community-UUID>: <Request-UUID>}
+    """
+    can_review = current_rdm_records.records_service.check_permission(
+        identity, "review", record=record._record
+    )
+    if not can_review:
+        return {}
+
+    if identity.id == None:
+        return {}  # secret link users do not have permissions to search requests
+
+    record_requests = current_requests_service.search(
+        identity,
+        extra_filter=dsl.Q(
+            "bool",
+            must=[
+                dsl.Q("term", **{"topic.record": record["id"]}),
+                dsl.Q(
+                    "terms",
+                    **{
+                        "type": [
+                            CommunityInclusion.type_id,
+                            CommunitySubmission.type_id,
+                        ]
+                    },
+                ),
+            ],
+        ),
+        params={"sort": "oldest"},
+    )
+
+    return {r["receiver"]["community"]: r["id"] for r in record_requests}
 
 
 class PreviewFile:
@@ -238,6 +278,8 @@ def record_detail(
     )
     theme = resolved_community_ui.get("theme", {}) if resolved_community else None
 
+    record_requests = get_record_requests(record, g.identity)
+
     return render_community_theme_template(
         current_app.config.get("APP_RDM_RECORD_LANDING_PAGE_TEMPLATE"),
         theme=theme,
@@ -267,6 +309,7 @@ def record_detail(
         is_draft=is_draft,
         community=resolved_community,
         community_ui=resolved_community_ui,
+        record_requests=record_requests,
         external_resources=get_external_resources(record),
         user_avatar=avatar,
         record_deletion=record_deletion,

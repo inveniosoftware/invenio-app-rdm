@@ -9,6 +9,7 @@
   data-pending-communities-search-config='{{ search_app_rdm_record_requests_config(app_id="InvenioAppRdm.RecordRequests", endpoint=record_ui["links"]["requests"]) | tojson }}'
   data-permissions='{{ permissions | tojson }}'
   data-record='{{ record_ui | tojson }}'
+  data-record-requests='{{ record_requests | default({}) | tojson }}'
   class='sidebar-container'
 >
 

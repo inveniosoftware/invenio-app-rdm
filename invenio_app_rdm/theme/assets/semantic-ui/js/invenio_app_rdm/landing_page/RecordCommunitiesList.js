@@ -23,7 +23,8 @@ import {
 
 export class RecordCommunitiesList extends Component {
   render() {
-    const { communities, loading, error, maxDisplayedCommunities } = this.props;
+    const { communities, loading, error, maxDisplayedCommunities, recordRequests } =
+      this.props;
     let Element = null;
 
     if (loading) {
@@ -56,49 +57,71 @@ export class RecordCommunitiesList extends Component {
     } else if (communities?.length > 0) {
       const communityItems = communities
         ?.slice(0, maxDisplayedCommunities)
-        .map((community) => (
-          <Grid key={community.id}>
-            <Grid.Row verticalAlign="middle">
-              <Grid.Column width={2}>
-                <Image wrapped size="mini" src={community.links.logo} alt="" />
-              </Grid.Column>
-              <Grid.Column width={14}>
-                <Item.Content>
-                  <Item.Header className="ui">
-                    <Header as="a" href={community.links.self_html} size="small">
-                      {community.metadata.title}
-                      {/* Show the icon for communities allowing children, and for subcommunities */}
-                      {(community.children?.allow ||
-                        community.parent !== undefined) && (
-                        <p className="ml-5 display-inline-block">
-                          <Popup
-                            content="Verified community"
-                            trigger={
-                              <Icon
-                                size="small"
-                                color="green"
-                                name="check circle outline"
-                              />
-                            }
-                            position="top center"
-                          />
-                        </p>
+        .map((community) => {
+          const viewRequest = community.id in recordRequests;
+          return (
+            <Grid key={community.id}>
+              <Grid.Row verticalAlign="middle">
+                <Grid.Column width={3}>
+                  <Image wrapped size="mini" src={community.links.logo} alt="" />
+                </Grid.Column>
+                <Grid.Column width={13} className="pl-0">
+                  <Item.Content>
+                    <Item.Header className="ui">
+                      <Header as="a" href={community.links.self_html} size="small">
+                        {community.metadata.title}
+                        {/* Show the icon for communities allowing children, and for subcommunities */}
+                        {(community.children?.allow ||
+                          community.parent !== undefined) && (
+                          <p className="ml-5 display-inline-block">
+                            <Popup
+                              content="Verified community"
+                              trigger={
+                                <Icon
+                                  size="small"
+                                  color="green"
+                                  name="check circle outline"
+                                />
+                              }
+                              position="top center"
+                            />
+                          </p>
+                        )}
+                      </Header>
+                      {community.parent && (
+                        <HeaderSubheader>
+                          {i18next.t("Part of")}{" "}
+                          <a href={`/communities/${community.parent.slug}`}>
+                            {i18next.t(community.parent.metadata.title)}
+                          </a>
+                        </HeaderSubheader>
                       )}
-                    </Header>
-                    {community.parent && (
-                      <HeaderSubheader>
-                        {i18next.t("Part of")}{" "}
-                        <a href={`/communities/${community.parent.slug}`}>
-                          {i18next.t(community.parent.metadata.title)}
-                        </a>
-                      </HeaderSubheader>
-                    )}
-                  </Item.Header>
-                </Item.Content>
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-        ));
+                      {viewRequest && (
+                        <div>
+                          <small>
+                            <b>
+                              <a
+                                // building request link as the self_html of the request is
+                                // /requests/<uuid> which doesn't resolve as missing
+                                // /communities/ or /me/. We prefer /communities/ here
+                                href={`${community.links.self_html}requests/${
+                                  recordRequests[community.id]
+                                }`}
+                              >
+                                <Icon name="discussions" className="mr-5" />
+                                {i18next.t("View comments")}
+                              </a>
+                            </b>
+                          </small>
+                        </div>
+                      )}
+                    </Item.Header>
+                  </Item.Content>
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+          );
+        });
 
       Element = (
         <>
@@ -116,10 +139,12 @@ RecordCommunitiesList.propTypes = {
   communities: PropTypes.array,
   loading: PropTypes.bool,
   error: PropTypes.string,
+  recordRequests: PropTypes.object,
 };
 
 RecordCommunitiesList.defaultProps = {
   communities: undefined,
   loading: false,
   error: "",
+  recordRequests: {},
 };
