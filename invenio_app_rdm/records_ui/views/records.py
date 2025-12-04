@@ -113,6 +113,9 @@ def get_record_requests(record, identity):
     if not can_review:
         return {}
 
+    if identity.id == None:
+        return {}  # secret link users do not have permissions to search requests
+
     record_requests = current_requests_service.search(
         identity,
         extra_filter=dsl.Q(
