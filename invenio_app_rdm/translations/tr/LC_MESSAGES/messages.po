@@ -10,6 +10,7 @@
 # Furkan Kalkan <furkan.kalkan3@gmail.com>, 2024
 # Ben Translation and Interpreting Services <info@bentercume.com>, 2025
 # BEN TERCÜME, 2025
+# Eylül-1 -, 2025
 # 
 #, fuzzy
 msgid ""
@@ -18,7 +19,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
 "POT-Creation-Date: 2025-07-22 14:12+0000\n"
 "PO-Revision-Date: 2020-07-07 14:12+0000\n"
-"Last-Translator: BEN TERCÜME, 2025\n"
+"Last-Translator: Eylül-1 -, 2025\n"
 "Language-Team: Turkish (https://app.transifex.com/inveniosoftware/teams/23537/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -90,7 +91,7 @@ msgstr "Referans Dosyası Biçimi"
 
 #: invenio_app_rdm/config.py:907
 msgid "Data Package JSON"
-msgstr ""
+msgstr "Veri Paketi JSON"
 
 #: invenio_app_rdm/config.py:1102
 msgid "APA"
@@ -142,7 +143,7 @@ msgstr "Topluluklar"
 #: invenio_app_rdm/theme/templates/themes/default/invenio_app_rdm/header.html:117
 #: invenio_app_rdm/users_ui/templates/semantic-ui/invenio_app_rdm/users/requests.html:8
 msgid "Requests"
-msgstr "Talepler"
+msgstr "İstekler"
 
 #: invenio_app_rdm/ext.py:126
 msgid "Home"
@@ -165,11 +166,11 @@ msgstr "Gönder"
 
 #: invenio_app_rdm/administration/audit_logs/audit_logs.py:38
 msgid "Resource"
-msgstr ""
+msgstr "Kaynak"
 
 #: invenio_app_rdm/administration/audit_logs/audit_logs.py:43
 msgid "Resource ID"
-msgstr ""
+msgstr "Kaynak Kimliği"
 
 #: invenio_app_rdm/administration/audit_logs/audit_logs.py:47
 msgid "Action"
@@ -195,11 +196,11 @@ msgstr "Oluşturulma"
 
 #: invenio_app_rdm/administration/audit_logs/audit_logs.py:62
 msgid "View Log"
-msgstr ""
+msgstr "Günlüğü Görüntüle"
 
 #: invenio_app_rdm/administration/audit_logs/audit_logs.py:67
 msgid "View Changes"
-msgstr ""
+msgstr "Değişiklikleri Görüntüle"
 
 #: invenio_app_rdm/administration/domains/domains.py:41
 #: invenio_app_rdm/administration/domains/domains.py:42
@@ -336,7 +337,7 @@ msgstr "Kuruluş"
 #: invenio_app_rdm/administration/records/records.py:30
 #: invenio_app_rdm/administration/records/records.py:114
 msgid "Records & files"
-msgstr ""
+msgstr "Kayıtlar ve dosyalar"
 
 #: invenio_app_rdm/administration/records/records.py:41
 #: invenio_app_rdm/administration/records/records.py:125
@@ -372,12 +373,12 @@ msgstr "Kaydı geri yükle"
 
 #: invenio_app_rdm/administration/records/records.py:60
 msgid "Compare revisions"
-msgstr ""
+msgstr "Revizyonları karşılaştır"
 
 #: invenio_app_rdm/administration/records/records.py:112
 #: invenio_app_rdm/administration/records/records.py:113
 msgid "Drafts"
-msgstr ""
+msgstr "Taslaklar"
 
 #: invenio_app_rdm/administration/records/records.py:134
 msgid "Set quota"
@@ -387,7 +388,7 @@ msgstr "Kota belirle"
 #: invenio_app_rdm/administration/user_moderation/user_moderation.py:31
 #: invenio_app_rdm/administration/user_moderation/user_moderation.py:32
 msgid "Moderation"
-msgstr ""
+msgstr "Denetim"
 
 #: invenio_app_rdm/administration/user_moderation/user_moderation.py:52
 #: invenio_app_rdm/administration/users/users.py:24
@@ -401,7 +402,7 @@ msgstr "E-posta etki alanı"
 
 #: invenio_app_rdm/administration/user_moderation/user_moderation.py:64
 msgid "Activity"
-msgstr ""
+msgstr "Etkinlik"
 
 #: invenio_app_rdm/administration/user_moderation/user_moderation.py:77
 #: invenio_app_rdm/administration/users/users.py:79
@@ -454,7 +455,7 @@ msgstr "Engellenme zamanı"
 #: invenio_app_rdm/administration/users/users.py:57
 #: invenio_app_rdm/administration/users/users.py:59
 msgid "User management"
-msgstr ""
+msgstr "Kullanıcı yönetimi"
 
 #: invenio_app_rdm/administration/users/users.py:84
 msgid "Restore"
@@ -470,7 +471,7 @@ msgstr "Kullanıcı bilgileri"
 
 #: invenio_app_rdm/communities_ui/templates/semantic-ui/invenio_communities/details/browse/index.html:40
 msgid "Subcommunities"
-msgstr ""
+msgstr "Alt topluluklar"
 
 #: invenio_app_rdm/communities_ui/templates/semantic-ui/invenio_communities/details/browse/index.html:44
 msgid "See all"
@@ -478,7 +479,7 @@ msgstr "Tümünü görüntüle"
 
 #: invenio_app_rdm/communities_ui/templates/semantic-ui/invenio_communities/details/browse/index.html:54
 msgid "This community has no subcommunities"
-msgstr ""
+msgstr "Bu toplulukta alt topluluk bulunmamaktadır"
 
 #: invenio_app_rdm/communities_ui/templates/semantic-ui/invenio_communities/records/index.html:12
 msgid "Search "
@@ -498,7 +499,7 @@ msgstr "Bilgilendirme ana başlığı"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:80
 msgid "Part of"
-msgstr ""
+msgstr "Şunun parçası:"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:91
 msgid "Community visibility"
@@ -607,14 +608,14 @@ msgstr "Oluşturanlar ve katkıda bulunanlar"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:332
 msgid "Request access"
-msgstr "Erişim yetkisi talebi"
+msgstr "Erişim yetkisi isteği"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:334
 msgid ""
 "If you would like to request access to these files, please fill out the form"
 " below."
 msgstr ""
-"Bu dosyalara erişim yetkisi talebinde bulunmak istiyorsanız lütfen aşağıdaki"
+"Bu dosyalara erişim yetkisi isteğinde bulunmak istiyorsanız lütfen aşağıdaki"
 " formu doldurun."
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:342
@@ -622,7 +623,7 @@ msgid ""
 "You need to satisfy these conditions in order for this request to be "
 "accepted:"
 msgstr ""
-"Bu talebin kabul edilebilmesi için şu koşulları sağlamanız gerekmektedir:"
+"Bu isteğin kabul edilebilmesi için şu koşulları sağlamanız gerekmektedir:"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:367
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:188
@@ -720,7 +721,7 @@ msgid ""
 msgstr ""
 "\n"
 "Erişmeye çalıştığınız kayıt %(sitename)s sitesinden kaldırıldı. Kaydın\n"
-"meta verileri arşivleme amacıyla saklanmaktadır."
+"üst verileri arşivleme amacıyla saklanmaktadır."
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/tombstone.html:35
 msgid "Reason for removal:"
@@ -744,15 +745,15 @@ msgstr "Alıntı:"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/access-form.html:16
 msgid "You are currently not logged in"
-msgstr ""
+msgstr "Şu anda oturum açmamış durumdasınız"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/access-form.html:16
 msgid "Do you have an account?"
-msgstr ""
+msgstr "Hesabınız var mı?"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/access-form.html:17
 msgid "Log in here"
-msgstr ""
+msgstr "Buradan giriş yapın"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/access-form.html:22
 msgid "You are logged in as"
@@ -760,7 +761,7 @@ msgstr "Şu isimle oturum açtınız:"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/access-form.html:30
 msgid "Not you?"
-msgstr ""
+msgstr "Siz değil misiniz?"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/access-form.html:31
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:114
@@ -774,11 +775,11 @@ msgstr "Çıkış yap"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/access-form.html:31
 msgid "to switch account."
-msgstr ""
+msgstr "hesabı değiştirin."
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/contact.html:11
 msgid "Send message"
-msgstr ""
+msgstr "Mesaj gönder"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/creatibutors.html:16
 #: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/macros/request_header.html:73
@@ -997,7 +998,7 @@ msgstr "Yükleme Bilgileri"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/technical_metadata.html:8
 msgid "Technical metadata"
-msgstr "Teknik meta veriler"
+msgstr "Teknik üst veriler"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/technical_metadata.html:15
 msgid "Modified"
@@ -1025,16 +1026,16 @@ msgstr "Bağlı olunan kurum/kuruluşları sakla"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:84
 msgid "Affiliations for"
-msgstr "Şunlar için bağlantılar:"
+msgstr "Bağlı olunan kurum/kuruluşlar:"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:68
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:71
 msgid "Missing description type!"
-msgstr ""
+msgstr "Açıklama türü eksik!"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:90
 msgid "Unknown date type"
-msgstr ""
+msgstr "Bilinmeyen tarih türü"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:130
 msgid "Open external link"
@@ -1064,13 +1065,15 @@ msgstr "Dosya önizleme"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:60
 msgid "This file cannot be previewed"
-msgstr ""
+msgstr "Bu dosya önizlenemez"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:63
 msgid ""
 "This file is an external reference and not stored directly in this repository.\n"
 "To access its content, please download it and open it locally."
 msgstr ""
+"Bu dosya harici bir referanstır ve doğrudan bu depoda saklanmamaktadır.\n"
+"İçeriğine erişmek için lütfen indirin ve yerel olarak açın."
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:90
 msgid "Name"
@@ -1094,7 +1097,7 @@ msgstr ""
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:133
 msgid "N/A (external)"
-msgstr ""
+msgstr "yok (harici)"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:142
 msgid "Download"
@@ -1114,25 +1117,25 @@ msgstr "Sürüm"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/version.html:14
 msgid "No DOI available"
-msgstr ""
+msgstr "DOI mevcut değil"
 
 #: invenio_app_rdm/records_ui/views/deposits.py:103
 msgid "Digital Object Identifier"
-msgstr ""
+msgstr "Dijital Nesne Tanımlayıcı"
 
 #: invenio_app_rdm/records_ui/views/deposits.py:105
 msgid "Copy/paste your existing DOI here..."
-msgstr ""
+msgstr "Mevcut DOI'nizi buraya kopyalayıp yapıştırın..."
 
 #: invenio_app_rdm/records_ui/views/deposits.py:109
 #, python-format
 msgid "Discard the reserved %(scheme_label)s."
-msgstr ""
+msgstr "Ayrılmış %(scheme_label)s şemasını atın."
 
 #: invenio_app_rdm/records_ui/views/deposits.py:112
 #, python-format
 msgid "Get a %(scheme_label)s now!"
-msgstr ""
+msgstr "Hemen bir %(scheme_label)s şeması edinin!"
 
 #: invenio_app_rdm/records_ui/views/deposits.py:115
 #, python-format
@@ -1141,6 +1144,9 @@ msgid ""
 "files prior to upload). The %(scheme_label)s is registered when your upload "
 "is published."
 msgstr ""
+"Düğmeye basarak bir %(scheme_label)s ayırın (böylece yüklemeden önce "
+"dosyalara dâhil edilebilir). %(scheme_label)s şeması, yüklemeniz "
+"yayınlandığında kaydedilir."
 
 #: invenio_app_rdm/records_ui/views/deposits.py:121
 #, python-format
@@ -1148,6 +1154,8 @@ msgid ""
 "A %(scheme_label)s allows your upload to be easily and unambiguously cited. "
 "Example: 10.1234/foo.bar"
 msgstr ""
+"%(scheme_label)s yüklemenizin kolay ve net bir şekilde alıntılanmasını "
+"sağlar. Örneğin: 10.1234/foo.bar"
 
 #: invenio_app_rdm/records_ui/views/deposits.py:233
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/searchbar.html:18
@@ -1167,7 +1175,7 @@ msgstr "Davetiyelere geri dön"
 #: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/subcommunity/index.html:29
 #: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/user-access-request/index.html:28
 msgid "Back to requests"
-msgstr "Taleplere geri dön"
+msgstr "İsteklere geri dön"
 
 #: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/community-submission/index.html:52
 msgid "Conversation"
@@ -1179,11 +1187,11 @@ msgstr "Kayıt"
 
 #: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/community-submission/index.html:77
 msgid "Checks"
-msgstr ""
+msgstr "Kontroller"
 
 #: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/guest-access-request/index.html:13
 msgid "Access request"
-msgstr "Erişim yetkisi talebi"
+msgstr "Erişim yetkisi isteği"
 
 #: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/macros/request_header.html:25
 msgid "View Community"
@@ -1203,19 +1211,19 @@ msgstr "InvenioRDM Hakkında"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:19
 msgid "Product page"
-msgstr ""
+msgstr "Ürün sayfası"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:20
 msgid "Features"
-msgstr ""
+msgstr "Özellikler"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:21
 msgid "Roadmap"
-msgstr ""
+msgstr "Yol haritası"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:22
 msgid "Demo site"
-msgstr ""
+msgstr "Demo site"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:25
 msgid "Get involved"
@@ -1227,11 +1235,11 @@ msgstr "GitHub"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:27
 msgid "Project Milestones"
-msgstr ""
+msgstr "Proje Kilometre Taşları"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:28
 msgid "Documentation"
-msgstr ""
+msgstr "Dokümantasyon"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:31
 msgid "Community"
@@ -1239,23 +1247,23 @@ msgstr "Topluluk"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:32
 msgid "Chatroom"
-msgstr ""
+msgstr "Sohbet odası"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:33
 msgid "Forum"
-msgstr ""
+msgstr "Forum"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:34
 msgid "Events & training"
-msgstr ""
+msgstr "Etkinlikler ve eğitimler"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header.html:19
 msgid "Impersonated session"
-msgstr ""
+msgstr "Taklit oturum"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header.html:21
 msgid "You must logout after you finish with you inquiry!"
-msgstr ""
+msgstr "Sorgulamanızı tamamladıktan sonra oturumu kapatmalısınız!"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header.html:38
 #: invenio_app_rdm/theme/templates/themes/default/invenio_app_rdm/header.html:37
@@ -1321,10 +1329,12 @@ msgid ""
 "Configure the datamodel, resource types, permissions and much more to make "
 "it suit your needs! For more information on how to do it visit the"
 msgstr ""
+"Veri modelini, kaynak türlerini, izinleri ve daha fazlasını ihtiyaçlarınıza "
+"göre yapılandırın! Nasıl yapılacağı hakkında daha fazla bilgi almak için"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:30
 msgid "configuration section in the docs"
-msgstr ""
+msgstr "belgelerdeki yapılandırma bölümünü ziyaret edin."
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:42
 msgid "Customize"
@@ -1335,6 +1345,8 @@ msgid ""
 "Customize the layout and adapt the styling to match your institution's. See "
 "how to do so"
 msgstr ""
+"Düzeni özelleştirin ve kurumunuzun stiline uyacak şekilde uyarlayın. Nasıl "
+"yapılacağını öğrenin"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:47
 msgid "here"
@@ -1342,15 +1354,15 @@ msgstr "burada"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:58
 msgid "Use it!"
-msgstr ""
+msgstr "Kullanın!"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:60
 msgid "Use and explore your InvenioRDM instance."
-msgstr ""
+msgstr "InvenioRDM örneğini kullanın ve keşfedin."
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:62
 msgid "Use"
-msgstr ""
+msgstr "Kullan"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:76
 msgid "Docs"
@@ -1362,16 +1374,15 @@ msgstr "Kaynak Kodu"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:92
 msgid "To disable this section, add"
-msgstr ""
-"Bu bölümü devre dışı bırakmak için şu kodu invenio.cfg dosyasına ekleyin:"
+msgstr "Bu bölümü devre dışı bırakmak için"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:94
 msgid "to your invenio.cfg file."
-msgstr " "
+msgstr "şu kodu invenio.cfg dosyasına ekleyin:"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/searchbar.html:8
 msgid "In this collection"
-msgstr ""
+msgstr "Bu koleksiyonda"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/searchbar.html:13
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/searchbar.html:26
@@ -1393,51 +1404,54 @@ msgid ""
 "The following files were flagged as 'unhealthy'. This means that the "
 "checksum check failed or timed out. Please take any action if needed."
 msgstr ""
+"Aşağıdaki dosyalar 'sağlıksız' olarak işaretlendi. Bu, sağlama toplamı "
+"kontrolünün başarısız olduğu veya zaman aşımına uğradığı anlamına gelir. "
+"Lütfen gerekli işlemleri yapın."
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/files_integrity_report/email/files_integrity_report.html:15
 #, python-brace-format
 msgid "ID: {}"
-msgstr ""
+msgstr "Kimlik: {}"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/files_integrity_report/email/files_integrity_report.html:16
 #, python-brace-format
 msgid "URI: {}"
-msgstr ""
+msgstr "URI: {}"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/files_integrity_report/email/files_integrity_report.html:18
 #, python-brace-format
 msgid "Name: {}"
-msgstr ""
+msgstr "Adı: {}"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/files_integrity_report/email/files_integrity_report.html:20
 #, python-brace-format
 msgid "Created: {}"
-msgstr ""
+msgstr "Oluşturulma: {}"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/files_integrity_report/email/files_integrity_report.html:21
 #, python-brace-format
 msgid "Checksum: {}"
-msgstr ""
+msgstr "Sağlama toplamı: {}"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/files_integrity_report/email/files_integrity_report.html:22
 #, python-brace-format
 msgid "Last check date: {}"
-msgstr ""
+msgstr "Son kontrol tarihi: {}"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/files_integrity_report/email/files_integrity_report.html:23
 #, python-brace-format
 msgid "Last check FAILED with result: {}"
-msgstr ""
+msgstr "Son kontrol BAŞARISIZ sonuçlandı: {}"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/files_integrity_report/email/files_integrity_report.html:25
 #, python-brace-format
 msgid "Record: {}"
-msgstr ""
+msgstr "Kayıt: {}"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/files_integrity_report/email/files_integrity_report.html:28
 #, python-brace-format
 msgid "Draft: {}"
-msgstr ""
+msgstr "Taslak: {}"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/help/search.de.html:9
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/help/search.en.html:8
@@ -1457,11 +1471,11 @@ msgstr "SSS sürümleme"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/macros/records_list.html:10
 msgid "Recent uploads"
-msgstr ""
+msgstr "Son yüklemeler"
 
 #: invenio_app_rdm/theme/templates/themes/default/invenio_app_rdm/site_footer.html:22
 msgid "Verified community"
-msgstr ""
+msgstr "Doğrulanmış topluluk"
 
 #: invenio_app_rdm/theme/templates/themes/default/invenio_app_rdm/site_footer.html:29
 msgid "Privacy policy"
