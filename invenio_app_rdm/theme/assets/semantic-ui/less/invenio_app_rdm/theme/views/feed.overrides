@@ -114,6 +114,9 @@
     }
   }
 }
+.ui.feed.last-page .requests-event-item:first-child .requests-event-container {
+  padding-top: @defaultPadding;
+}
 
 .ui.feed {
   // override SUI defaults  to bypass immediate parent rule for feed
