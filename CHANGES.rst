@@ -10,6 +10,17 @@
 Changes
 =======
 
+Version v14.0.0b3.dev4 (released 2025-12-08)
+
+- fix: ensure that pages render if accessed via secret link
+- UI: change button icon and text
+- chore: drill recordRequests into the modal
+- fix: restrict to only community sub/inc reqs
+- frontend: add direct link to request if user has access
+- feat(css): styles for quote replies
+- fix(requests_ui): Inject lock_request and create_comment permissions
+- fix: correct types
+
 Version v14.0.0b3.dev3 (released 2025-11-21)
 
 - feat(css): request comment deep links
