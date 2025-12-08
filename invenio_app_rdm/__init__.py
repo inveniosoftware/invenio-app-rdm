@@ -18,6 +18,6 @@
 #
 # See PEP 0440 for details - https://www.python.org/dev/peps/pep-0440
 
-__version__ = "13.0.5"
+__version__ = "13.0.6"
 
 __all__ = ("__version__",)
