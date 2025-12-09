@@ -302,6 +302,7 @@ def record_detail(
                 "moderate",
                 "request_deletion",
                 "immediately_delete",
+                "remove_community",
             ]
         ),
         custom_fields_ui=custom_fields["ui"],
