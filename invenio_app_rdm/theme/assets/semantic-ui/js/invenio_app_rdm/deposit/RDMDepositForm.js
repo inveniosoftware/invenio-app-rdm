@@ -180,6 +180,23 @@ export class RDMDepositForm extends Component {
             <Grid className="mt-25">
               <Grid.Column mobile={16} tablet={16} computer={11}>
                 <Overridable
+                  id="InvenioAppRdm.Deposit.Files.before.container"
+                  record={record}
+                  files={files}
+                  permissions={permissions}
+                  preselectedCommunity={preselectedCommunity}
+                  filesLocked={filesLocked}
+                  recordRestrictionGracePeriod={recordRestrictionGracePeriod}
+                  allowRecordRestriction={allowRecordRestriction}
+                  groupsEnabled={groupsEnabled}
+                  allowEmptyFiles={allowEmptyFiles}
+                  customFieldsUI={customFieldsUI}
+                  config={this.config}
+                  vocabularies={this.vocabularies}
+                  noFiles={this.noFiles}
+                  hideCommunitySelection={this.hide_community_selection}
+                />
+                <Overridable
                   id="InvenioAppRdm.Deposit.AccordionFieldFiles.container"
                   record={record}
                   config={this.config}
@@ -231,6 +248,23 @@ export class RDMDepositForm extends Component {
                     </Overridable>
                   </AccordionField>
                 </Overridable>
+                <Overridable
+                  id="InvenioAppRdm.Deposit.Files.after.container"
+                  record={record}
+                  files={files}
+                  permissions={permissions}
+                  preselectedCommunity={preselectedCommunity}
+                  filesLocked={filesLocked}
+                  recordRestrictionGracePeriod={recordRestrictionGracePeriod}
+                  allowRecordRestriction={allowRecordRestriction}
+                  groupsEnabled={groupsEnabled}
+                  allowEmptyFiles={allowEmptyFiles}
+                  customFieldsUI={customFieldsUI}
+                  config={this.config}
+                  vocabularies={this.vocabularies}
+                  noFiles={this.noFiles}
+                  hideCommunitySelection={this.hide_community_selection}
+                />
                 <Overridable
                   id="InvenioAppRdm.Deposit.AccordionFieldBasicInformation.container"
                   config={this.config}
