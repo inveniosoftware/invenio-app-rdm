@@ -10,6 +10,12 @@
 Changes
 =======
 
+Version v14.0.0b4.dev0 (released 2025-12-12)
+
+- chore(setup): bump major versions
+- feat: add empty Overridable container before and after the files accordion
+- assets: added css for hidden comment line and last page first comment
+
 Version v14.0.0b3.dev4 (released 2025-12-08)
 
 - fix: ensure that pages render if accessed via secret link
