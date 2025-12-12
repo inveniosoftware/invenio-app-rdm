@@ -191,6 +191,9 @@ export class RDMDepositForm extends Component {
                     includesPaths={this.sectionsConfig["files-section"]}
                     severityChecks={this.severityChecks}
                     active
+                    // NOTE: This is needed because the `FormFeedbackSummary` component
+                    // doesn't work when there are multiple elements under the `label` prop.
+                    data-label={i18next.t("Files")}
                     label={
                       <>
                         {i18next.t("Files")}
