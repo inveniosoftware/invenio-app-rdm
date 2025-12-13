@@ -10,6 +10,11 @@
 Changes
 =======
 
+Version v14.0.0b4.dev1 (released 2025-12-13)
+
+- feat(css): styles for threaded replies
+- feat(views-request): include `can_reply_comment` in template permissions dict
+
 Version v14.0.0b4.dev0 (released 2025-12-12)
 
 - chore(setup): bump major versions
