@@ -92,7 +92,8 @@ class ModerationRequestListView(AdminResourceListView):
             initial_filters=[["is_open", "true"]],
             hidden_params=[
                 ["expand", "1"],
-                ["type", RecordDeletion.type_id],
+                ["type", current_app.config.get("RDM_MODERATION_REQUEST_TYPES", [])],
+                ["_type", current_app.config.get("RDM_MODERATION_REQUEST_TYPES", [])],
             ],
             pagination_options=(20, 50),
             default_size=20,
