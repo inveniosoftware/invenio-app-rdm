@@ -31,8 +31,13 @@
 {%- endmacro %}
 
 
-{% macro preview_file_box(file, pid, is_preview, record, include_deleted) %}
+{% macro preview_file_box(file, pid, is_preview, record, include_deleted, display_name=None) %}
   {%- set is_remote_file = file.transfer.type == transfer_types.REMOTE %}
+  {%- if display_name %}
+    {%- set human_readable_file_name = display_name(file) or file.key %}
+  {%- else %}
+    {%- set human_readable_file_name = file.key %}
+  {%- endif %}
   <div class="ui accordion panel mb-10 {{record.ui.access_status.id}}" href="#files-preview-accordion-panel">
     <h3 class="active title panel-heading {{ record.ui.access_status.id }} m-0">
       <div
@@ -44,7 +49,7 @@
         class="trigger"
         aria-label="{{ _('File preview') }}"
       >
-        <span id="preview-file-title">{{ file.key }}</span>
+        <span id="preview-file-title">{{ human_readable_file_name }}</span>
         <i class="angle right icon" aria-hidden="true"></i>
       </div>
     </h3>
@@ -82,7 +87,8 @@ To access its content, please download it and open it locally.') }}
     download_endpoint='invenio_app_rdm_records.record_file_download',
     preview_endpoint='invenio_app_rdm_records.record_file_preview',
     is_media=false,
-    permissions=None
+    permissions=None,
+    display_name=None
 ) %}
   <table class="ui striped table files fluid {{record.ui.access_status.id}}">
     <thead>
@@ -108,6 +114,11 @@ To access its content, please download it and open it locally.') }}
     {% for file in files %}
       {% if not file.access.hidden %}
         {%- set is_remote_file = file.transfer.type == transfer_types.REMOTE %}
+        {%- if display_name %}
+          {%- set human_readable_file_name = display_name(file) or file.key %}
+        {%- else %}
+          {%- set human_readable_file_name = file.key %}
+        {%- endif %}
         {% if is_preview %}
           {%- set file_url_download = url_for(download_endpoint, pid_value=pid, filename=file.key, download=1, preview=1) %}
           {%- set file_url_preview = url_for(preview_endpoint, pid_value=pid, filename=file.key, preview=1, include_deleted=include_deleted_value) %}
@@ -120,7 +131,7 @@ To access its content, please download it and open it locally.') }}
         <tr>
           <td class="ten wide">
             <div>
-              <a href="{{ file_url_download }}">{{ file.key }}</a>
+              <a href="{{ file_url_download }}">{{ human_readable_file_name }}</a>
             </div>
             {%- if not is_remote_file %}
             <small class="ui text-muted font-tiny">{{ file.checksum or _("Checksum not yet calculated.") }}
@@ -151,7 +162,7 @@ To access its content, please download it and open it locally.') }}
 {%- endmacro %}
 
 
-{% macro file_list_box(files, pid, is_preview, include_deleted, record, permissions) %}
+{% macro file_list_box(files, pid, is_preview, include_deleted, record, permissions, display_name=None) %}
   {%- set binary_sizes = not config.APP_RDM_DISPLAY_DECIMAL_FILE_SIZES %}
   <div class="ui accordion panel mb-10 {{ record.ui.access_status.id }}" href="#files-list-accordion-panel">
     <h3 class="active title panel-heading {{ record.ui.access_status.id }} m-0">
@@ -174,13 +185,13 @@ To access its content, please download it and open it locally.') }}
         </div>
       {% endif %}
       <div>
-        {{ file_list(files, pid, is_preview, include_deleted, record=record,download_endpoint="invenio_app_rdm_records.record_file_download", permissions=permissions) }}
+        {{ file_list(files, pid, is_preview, include_deleted, record=record,download_endpoint="invenio_app_rdm_records.record_file_download", permissions=permissions, display_name=display_name) }}
       </div>
     </div>
   </div>
 {%- endmacro %}
 
-{% macro media_file_list_box(files, pid, is_preview, include_deleted, record, permissions) %}
+{% macro media_file_list_box(files, pid, is_preview, include_deleted, record, permissions, display_name=None) %}
   {%- set binary_sizes = not config.APP_RDM_DISPLAY_DECIMAL_FILE_SIZES %}
   <div class="ui accordion panel mb-10 {{ record.access.record }}" href="#media-files-preview-accordion-panel">
     <h3 class="active title panel-heading {{ record.access.record }} m-0">
@@ -204,7 +215,7 @@ To access its content, please download it and open it locally.') }}
         </div>
       {% endif %}
       <div>
-        {{ file_list(files, pid, is_preview, include_deleted, record=record, with_preview=false, download_endpoint="invenio_app_rdm_records.record_media_file_download", is_media=true, permissions=permissions) }}
+        {{ file_list(files, pid, is_preview, include_deleted, record=record, with_preview=false, download_endpoint="invenio_app_rdm_records.record_media_file_download", is_media=true, permissions=permissions, display_name=display_name) }}
       </div>
     </div>
   </div>
