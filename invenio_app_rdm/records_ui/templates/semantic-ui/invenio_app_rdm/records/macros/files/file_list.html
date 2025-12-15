@@ -1,0 +1,95 @@
+{#
+  Copyright (C) 2020-2025 CERN.
+  Copyright (C) 2023 Northwestern University.
+  Copyright (C) 2021 Graz University of Technology.
+  Copyright (C) 2021 TU Wien.
+  Copyright (C) New York University.
+
+  Invenio RDM Records is free software; you can redistribute it and/or modify
+  it under the terms of the MIT License; see LICENSE file for more details.
+#}
+
+{%- macro file_list(
+    files, pid, is_preview, include_deleted,
+    record=None,
+    with_preview=true,
+    download_endpoint='invenio_app_rdm_records.record_file_download',
+    preview_endpoint='invenio_app_rdm_records.record_file_preview',
+    is_media=false,
+    permissions=None
+    ) %}
+    <table class="ui striped table files fluid {{ record.ui.access_status.id }}">
+        <thead>
+            <tr>
+                <th>{{ _("Name") }}</th>
+                <th>{{ _("Size") }}</th>
+                <th class>
+                    {%- if config.RDM_ARCHIVE_DOWNLOAD_ENABLED %}
+                        {% set archive_download_url = record.links.archive_media if is_media else record.links.archive %}
+                        <a role="button"
+                           class="ui compact mini button right floated archive-link"
+                           href="{{ archive_download_url }}">
+                            <i class="file archive icon button" aria-hidden="true"></i> {{ _("Download all") }}
+                        </a>
+                    {%- endif %}
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {%- set binary_sizes = not config.APP_RDM_DISPLAY_DECIMAL_FILE_SIZES %}
+            {%- set include_deleted_value = 0 -%}
+            {% if include_deleted %}
+                {%- set include_deleted_value = 1 -%}
+            {% endif %}
+            {% for file in files %}
+                {% if not file.access.hidden %}
+                    {%- set is_remote_file = file.transfer.type == transfer_types.REMOTE %}
+                    {% if is_preview %}
+                        {%- set file_url_download = url_for(download_endpoint, pid_value=pid, filename=file.key, download=1, preview=1) %}
+                        {%- set file_url_preview = url_for(preview_endpoint, pid_value=pid, filename=file.key, preview=1, include_deleted=include_deleted_value) %}
+                    {% else %}
+                        {%- set file_url_download = url_for(download_endpoint, pid_value=pid, filename=file.key, download=1) %}
+                        {%- set file_url_preview = url_for(preview_endpoint, pid_value=pid, filename=file.key, include_deleted=include_deleted_value) %}
+                    {% endif %}
+                    {%- set file_type = file.key.split('.')[-1] %}
+                    <tr>
+                        <td class="ten wide">
+                            <div>
+                                <a href="{{ file_url_download }}">{{ file.key }}</a>
+                            </div>
+                            {%- if not is_remote_file %}
+                                <small class="ui text-muted font-tiny">{{ file.checksum or _("Checksum not yet calculated.") }}
+                                    <div class="ui icon inline-block"
+                                         data-tooltip="{{ _("This is the file fingerprint (checksum), which can be used to verify the file integrity.") }}">
+                                        <i class="question circle checksum icon"></i>
+                                    </div>
+                                </small>
+                            {%- endif %}
+                        </td>
+                        <td>
+                            {%- if is_remote_file %}{{ _("N/A (external)") }}{%- else -%}{{ file.size|filesizeformat(binary=binary_sizes) }}{%- endif %}
+                            </td>
+                            <td class="right aligned">
+                                <span>
+                                    {% if with_preview and file_type|lower is previewable and not is_remote_file %}
+                                        <a role="button"
+                                           class="ui compact mini button preview-link"
+                                           href="{{ file_url_preview }}"
+                                           target="preview-iframe"
+                                           data-file-key="{{ file.key }}">
+                                            <i class="eye icon" aria-hidden="true"></i>{{ _("Preview") }}
+                                        </a>
+                                    {% endif %}
+                                    <a role="button"
+                                       class="ui compact mini button"
+                                       href="{{ file_url_download }}">
+                                        <i class="download icon" aria-hidden="true"></i>{{ _("Download") }}
+                                    </a>
+                                </span>
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    {%- endmacro %}

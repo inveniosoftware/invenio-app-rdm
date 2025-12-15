@@ -1,0 +1,51 @@
+{#
+  Copyright (C) 2020-2025 CERN.
+  Copyright (C) 2023 Northwestern University.
+  Copyright (C) 2021 Graz University of Technology.
+  Copyright (C) 2021 TU Wien.
+  Copyright (C) New York University.
+
+  Invenio RDM Records is free software; you can redistribute it and/or modify
+  it under the terms of the MIT License; see LICENSE file for more details.
+#}
+
+{% from "invenio_app_rdm/records/macros/files/preview_file.html" import preview_file with context %}
+
+{% macro preview_file_box(file, pid, is_preview, record, include_deleted) %}
+    {%- set is_remote_file = file.transfer.type == transfer_types.REMOTE %}
+    <div class="ui accordion panel mb-10 {{ record.ui.access_status.id }}"
+         href="#files-preview-accordion-panel">
+        <h3 class="active title panel-heading {{ record.ui.access_status.id }} m-0">
+            <div role="button"
+                 id="files-preview-accordion-trigger"
+                 aria-controls="files-preview-accordion-panel"
+                 aria-expanded="true"
+                 tabindex="0"
+                 class="trigger"
+                 aria-label="{{ _("File preview") }}">
+                <span id="preview-file-title">{{ file.key }}</span>
+                <i class="angle right icon" aria-hidden="true"></i>
+            </div>
+        </h3>
+        <div role="region"
+             id="files-preview-accordion-panel"
+             aria-labelledby="files-preview-accordion-trigger"
+             class="active content preview-container pt-0 {{ record.ui.access_status.id }}">
+            {%- if is_remote_file %}
+                <div class="ui info message">
+                    <div class="header">{{ _("This file cannot be previewed") }}</div>
+                    <ul class="list">
+                        <li>
+                            {{ _('This file is an external reference and not stored directly in this repository.
+                                                        To access its content, please download it and open it locally.') }}
+                        </li>
+                    </ul>
+                </div>
+            {%- else %}
+                <div>
+                    {{ preview_file('invenio_app_rdm_records.record_file_preview', pid_value=pid, filename=file.key, is_preview=is_preview, include_deleted=include_deleted) }}
+                </div>
+            {%- endif %}
+        </div>
+    </div>
+{%- endmacro %}

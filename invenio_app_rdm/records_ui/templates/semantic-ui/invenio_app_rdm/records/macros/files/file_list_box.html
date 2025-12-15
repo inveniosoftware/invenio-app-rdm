@@ -1,0 +1,49 @@
+{#
+  Copyright (C) 2020-2025 CERN.
+  Copyright (C) 2023 Northwestern University.
+  Copyright (C) 2021 Graz University of Technology.
+  Copyright (C) 2021 TU Wien.
+  Copyright (C) New York University.
+
+  Invenio RDM Records is free software; you can redistribute it and/or modify
+  it under the terms of the MIT License; see LICENSE file for more details.
+#}
+
+{% from "invenio_app_rdm/records/macros/files/file_list.html" import file_list with context %}
+
+{% macro file_list_box(files, pid, is_preview, include_deleted, record, permissions) %}
+    {%- set binary_sizes = not config.APP_RDM_DISPLAY_DECIMAL_FILE_SIZES %}
+    <div class="ui accordion panel mb-10 {{ record.ui.access_status.id }}"
+         href="#files-list-accordion-panel">
+        <h3 class="active title panel-heading {{ record.ui.access_status.id }} m-0">
+            <div role="button"
+                 id="files-list-accordion-trigger"
+                 aria-controls="files-list-accordion-panel"
+                 aria-expanded="true"
+                 tabindex="0"
+                 class="trigger">
+                {{ _("Files") }}
+                <small class="text-muted">
+                    {% if files %}({{ files|map(attribute='size', default=0) |sum()|filesizeformat(binary=binary_sizes) }}){% endif %}
+                </small>
+                <i class="angle right icon" aria-hidden="true"></i>
+            </div>
+        </h3>
+        <div role="region"
+             id="files-list-accordion-panel"
+             aria-labelledby="files-list-accordion-trigger"
+             class="active content pt-0">
+            {% if record.access.files == 'restricted' %}
+                <div class="ui {{ record.ui.access_status.message_class }} message file-box-message">
+                    <i class="ui {{ record.ui.access_status.icon }} icon" aria-hidden="true"></i>
+                    <h4 class="inline">{{ record.ui.access_status.title_l10n }}</h4>
+                    <p>{{ record.ui.access_status.description_l10n }}</p>
+                    {% if record.access.embargo.reason %}<p>{{ _("Reason") }}: {{ record.access.embargo.reason }}</p>{% endif %}
+                </div>
+            {% endif %}
+            <div>
+                {{ file_list(files, pid, is_preview, include_deleted, record=record,download_endpoint="invenio_app_rdm_records.record_file_download", permissions=permissions) }}
+            </div>
+        </div>
+    </div>
+{%- endmacro %}

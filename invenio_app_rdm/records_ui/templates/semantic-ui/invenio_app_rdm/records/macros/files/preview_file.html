@@ -1,0 +1,28 @@
+{#
+  Copyright (C) 2020-2025 CERN.
+  Copyright (C) 2023 Northwestern University.
+  Copyright (C) 2021 Graz University of Technology.
+  Copyright (C) 2021 TU Wien.
+  Copyright (C) New York University.
+
+  Invenio RDM Records is free software; you can redistribute it and/or modify
+  it under the terms of the MIT License; see LICENSE file for more details.
+#}
+
+{%- macro preview_file(preview_endpoint, pid_value, filename, is_preview, include_deleted, id='preview-iframe' ) %}
+    {%- set include_deleted_value = 0 -%}
+    {% if include_deleted %}
+        {%- set include_deleted_value = 1 -%}
+    {% endif %}
+    {% if is_preview %}
+        {%- set preview_url = url_for(preview_endpoint, pid_value=pid_value, filename=filename, preview=1, include_deleted=include_deleted_value) -%}
+    {% else %}
+        {%- set preview_url = url_for(preview_endpoint, pid_value=pid_value, filename=filename, include_deleted=include_deleted_value) -%}
+    {% endif %}
+    <iframe title="{{ _("Preview") }}"
+            class="preview-iframe"
+            id="{{ id }}"
+            name="{{ id }}"
+            src="{{ preview_url }}">
+    </iframe>
+{%- endmacro %}
