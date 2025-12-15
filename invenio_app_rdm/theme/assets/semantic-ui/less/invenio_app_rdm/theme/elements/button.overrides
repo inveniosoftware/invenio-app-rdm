@@ -86,17 +86,28 @@
 
 .ui.button.text-only {
   padding: @verticalPadding @textOnlyHorizontalPadding;
+  border: none !important;
   transform: translateX(-@textOnlyHorizontalPadding);
 
+  &.basic {
+    box-shadow: none !important;
+  }
+
   &:not(:hover):not(:active):not(:focus) {
-    background: none;
+    background: none !important;
   }
 
   &:hover:not(:active), &:focus:not(:active) {
-    background-color: @backgroundColor;
+    background-color: @backgroundColor !important;
+    box-shadow: none !important;
   }
 
-  &:active {
-    background-color: @hoverBackgroundColor;
+  &:active, &:active:focus {
+    background-color: @hoverBackgroundColor !important;
+    box-shadow: none !important;
+  }
+
+  &.centered {
+    transform: none;
   }
 }
