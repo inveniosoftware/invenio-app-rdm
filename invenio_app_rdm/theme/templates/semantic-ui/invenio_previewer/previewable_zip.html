@@ -1,0 +1,91 @@
+{# -*- coding: utf-8 -*-
+
+  This file is part of Invenio.
+  Copyright (C) 2025 CESNET i.a.l.e.
+
+  Invenio is free software; you can redistribute it and/or modify it
+  under the terms of the MIT License; see LICENSE file for more details.
+#}
+
+{%- extends config.PREVIEWER_ABSTRACT_TEMPLATE %}
+
+{%- block head %}
+{{super()}}
+<script src="{{ url_for('static', filename='js/fullscreen.js') }}" defer></script>
+{%- endblock %}
+
+{%- block panel %}
+{% if error %}
+  <div class="ui top attached negative message"><i class="exclamation icon"></i>{{ _(error) }}</div>
+{% else %}
+  <div class="ui equal width grid">
+    <div class="row">
+      <div class="no-padding fourteen wide column"><h4 class="blue-bg ui attached inverted header"><span><i class="file archive outline icon"></i> {{ file.filename }}</span></h4></div>
+      <div class="no-padding right aligned two wide column stretched"><h4 class="blue-bg ui attached inverted header"><span><i id="fullScreenMode" title="{{ _('Full screen') }}" class="expand arrows alternate link icon inverted"></i></span></h4></div>
+    </div>
+  </div>
+  {%- if limit_reached %}
+  <div class="ui attached negative message">
+    <i class="exclamation icon"></i>
+    {{ _('The previewer is not showing all the files.') }}
+  </div>
+  {%- endif %}
+  <div class="ui basic segment">
+    <ul class="tree list-unstyled">
+      {%- for t in tree recursive %}
+      {%- set folder_identifier = t.id %}
+      {%- if t.links is defined %}
+        {%- set file_url_download = t.links.content if t.links.content is defined else None %}
+        {%- set file_url_preview = t.links.preview if t.links.preview is defined else None %}
+      {%- endif %}
+      <li>
+        {%- if t.type != 'folder' %}
+        <div class="ui equal width grid">
+          <div class="row">
+            <div class="no-padding left floated column"><span><i class="file outline icon"></i></i> {{ t.name }}</span></div>
+            <div class="no-padding right aligned column">{{ t.size|filesizeformat }}</div>
+            <div class="no-padding right aligned column stretched">
+              <span>
+                {% if file_url_preview %}
+                <button class="ui compact mini button preview-link" id="{{t.id}}" data-container-file-key="{{file.filename}}" data-file-key="{{t.name}}" data-preview-url="{{file_url_preview}}">
+                  <i class="eye icon" aria-hidden="true"></i>{{_("Preview")}}
+                </button>
+                {% endif %}
+                {% if file_url_download %} 
+                <a role="button" class="ui compact mini button" href="{{file_url_download}}">
+                  <i class="download icon" aria-hidden="true"></i>{{_('Download')}}
+                </a>
+                {% endif %}
+              </span>
+            </div>
+          </div>
+        </div>
+        {%- else %}
+        <div class="ui equal width grid">
+          <div class="row">
+            <div class="no-padding left floated column">
+              <span>
+                <i class="folder icon"></i> <a href="#tree_{{ folder_identifier }}">{{ t.name }} </a>
+              </span>
+            </div>
+            <div class="no-padding right aligned column">
+              {%- if config.RDM_ARCHIVE_DOWNLOAD_ENABLED and file_url_download %}
+              <a role="button" class="ui compact mini button right floated archive-link" href="{{file_url_download}}">
+                <i class="file archive icon button" aria-hidden="true"></i> {{_("Download all")}}
+              </a>
+              {%- endif %}
+            </div>
+          </div>
+        </div>
+        {%- endif %}
+        {%- if t.children -%}
+        <ul id="tree_{{ folder_identifier }}">
+          {{ loop(t.children) }}
+        </ul>
+        {%- endif %}
+      </li>
+      {%- endfor %}
+    </ul>
+   </div>
+  {%- endif %}
+{%- endblock %}
