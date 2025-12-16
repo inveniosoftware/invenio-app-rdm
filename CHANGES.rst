@@ -10,6 +10,11 @@
 Changes
 =======
 
+Version v14.0.0b4.dev2 (released 2025-12-16)
+
+- semantic-ui: feed.overrides: Add placeholder css
+- fix: css padding for preview msg
+
 Version v14.0.0b4.dev1 (released 2025-12-13)
 
 - feat(css): styles for threaded replies
