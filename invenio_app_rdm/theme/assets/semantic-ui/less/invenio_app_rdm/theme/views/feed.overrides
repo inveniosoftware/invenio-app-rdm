@@ -117,7 +117,7 @@
     .requests-comment-fake-reply-input {
       width: 100%;
 
-      &:disabled {
+      input:disabled {
         // This is overriden to `opacity: 1 !important` in the Invenio Theme so we need a clearer visual effect
         opacity: 0.45 !important;
       }
