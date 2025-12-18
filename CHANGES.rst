@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version v14.0.0b4.dev3 (released 2025-12-18)
+
+- fix(feed): styling for disabled reply input
+
 Version v14.0.0b4.dev2 (released 2025-12-16)
 
 - semantic-ui: feed.overrides: Add placeholder css
