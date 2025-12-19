@@ -11,6 +11,10 @@
 Changes
 =======
 
+Version v13.0.7 (released 2025-12-19)
+
+- fix: use UUID type for request identifiers
+
 Version v13.0.6 (released 2025-12-08)
 
 - i18n: pulled translations
