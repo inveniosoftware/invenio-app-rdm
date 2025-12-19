@@ -3,7 +3,7 @@
 # Copyright (C) 2019-2025 CERN.
 # Copyright (C) 2019-2020 Northwestern University.
 # Copyright (C) 2021-2025 Graz University of Technology.
-# Copyright (C) 2022-2024 KTH Royal Institute of Technology.
+# Copyright (C) 2022-2025 KTH Royal Institute of Technology.
 # Copyright (C) 2023      TU Wien
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
@@ -1071,9 +1071,9 @@ COMMUNITIES_SHOW_BROWSE_MENU_ENTRY = False
 # ===================
 
 RDM_REQUESTS_ROUTES = {
-    "user-dashboard-request-details": "/me/requests/<request_pid_value>",
-    "community-dashboard-request-details": "/communities/<pid_value>/requests/<request_pid_value>",
-    "community-dashboard-invitation-details": "/communities/<pid_value>/invitations/<request_pid_value>",
+    "user-dashboard-request-details": "/me/requests/<uuid:request_pid_value>",
+    "community-dashboard-request-details": "/communities/<pid_value>/requests/<uuid:request_pid_value>",
+    "community-dashboard-invitation-details": "/communities/<pid_value>/invitations/<uuid:request_pid_value>",
 }
 
 RDM_COMMUNITIES_ROUTES = {
