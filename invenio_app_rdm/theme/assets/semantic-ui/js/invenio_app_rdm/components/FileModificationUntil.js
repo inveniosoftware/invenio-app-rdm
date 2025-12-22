@@ -21,12 +21,7 @@ export class FileModificationUntil extends Component {
     const daysUntil = fileModification.context?.days_until;
     if (isPublished && filesUnlocked && daysUntil !== undefined) {
       if (daysUntil <= 0) {
-        return (
-          <>
-            {" "}
-            {i18next.t("– You are past the allowed period to edit files.")}
-          </>
-        );
+        return <> {i18next.t("– You are past the allowed period to edit files.")}</>;
       }
       return (
         <>
