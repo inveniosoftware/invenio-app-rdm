@@ -475,8 +475,10 @@ def draft_not_found_error(error):
 
 def record_tombstone_error(error):
     """Tombstone page."""
-    # the RecordDeletedError will have the following properties,
-    # while the PIDDeletedError won't
+    # Handles both RecordDeletedException and PIDDeletedError:
+    # - RecordDeletedException: always has record and result_item attributes
+    # - PIDDeletedError: has a record attribute that can be None if the underlying
+    #   record object doesn't exist (e.g. deleted draft, or purged record)
     record = getattr(error, "record", None)
     if (record_ui := getattr(error, "result_item", None)) is not None:
         if record is None:
@@ -484,11 +486,12 @@ def record_tombstone_error(error):
 
         record_ui = UIJSONSerializer().dump_obj(record_ui.to_dict())
 
-    # render a 404 page if the tombstone isn't visible
-    if not record.tombstone.is_visible:
+    # Return 404 if there's no record (e.g. deleted draft, purged record) or if the
+    # tombstone is not visible (e.g. admin chose to hide it)
+    if not (record and record.tombstone.is_visible):
         return not_found_error(error)
 
-    # we only render a tombstone page if there is a record with a visible tombstone
+    # Only render a tombstone page if there is a record with a visible tombstone
     return (
         render_template(
             "invenio_app_rdm/records/tombstone.html",
