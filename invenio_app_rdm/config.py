@@ -725,13 +725,6 @@ ACCESS_CACHE = "invenio_cache:current_cache"
 SEARCH_HOSTS = [{"host": "localhost", "port": 9200}]
 """Search hosts."""
 
-# Invenio-Base
-# ============
-# See https://invenio-base.readthedocs.io/en/latest/api.html#invenio_base.wsgi.wsgi_proxyfix  # noqa
-
-WSGI_PROXIES = 2
-"""Correct number of proxies in front of your application."""
-
 # Invenio-REST
 # ============
 
