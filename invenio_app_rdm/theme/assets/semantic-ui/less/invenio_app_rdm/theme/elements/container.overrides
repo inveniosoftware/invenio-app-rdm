@@ -82,6 +82,7 @@
       width: 100% !important; // Overwriting semantic-ui's !important. Please don't remove.
     }
   }
+
   &.ml-0-mobile {
     @media screen and (max-width: @largestMobileScreen) {
       margin-left: 0 !important;
@@ -92,6 +93,10 @@
     @media screen and (max-width: @largestMobileScreen) {
       margin-right: 0 !important;
     }
+  }
+
+  &.max-w-3\/5 {
+    max-width: 60% !important;
   }
 }
 
