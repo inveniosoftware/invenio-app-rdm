@@ -83,7 +83,6 @@ from invenio_rdm_records.services.errors import (
 from invenio_rdm_records.services.permissions import RDMRequestsPermissionPolicy
 from invenio_rdm_records.services.stats import permissions_policy_lookup_factory
 from invenio_rdm_records.services.tasks import StatsRDMReindexTask
-from invenio_rdm_records.services.vcs.release import RDMVCSRelease
 from invenio_records_resources.references.entity_resolvers import ServiceResultResolver
 from invenio_requests.notifications.builders import (
     CommentRequestEventCreateNotificationBuilder,
@@ -1481,13 +1480,6 @@ REQUESTS_ERROR_HANDLERS = {
         )
     ),
 }
-
-
-# Invenio-VCS
-# =================
-#
-VCS_RELEASE_CLASS = RDMVCSRelease
-"""Default RDM release class."""
 
 
 # Flask-Menu
