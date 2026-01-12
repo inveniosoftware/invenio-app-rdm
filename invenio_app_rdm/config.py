@@ -87,6 +87,7 @@ from invenio_rdm_records.services.tasks import StatsRDMReindexTask
 from invenio_records_resources.references.entity_resolvers import ServiceResultResolver
 from invenio_requests.notifications.builders import (
     CommentRequestEventCreateNotificationBuilder,
+    CommentRequestEventReplyNotificationBuilder,
 )
 from invenio_requests.resources.requests.config import request_error_handlers
 from invenio_requests.services.requests import facets
@@ -1404,6 +1405,7 @@ NOTIFICATIONS_BUILDERS = {
     GrantUserAccessNotificationBuilder.type: GrantUserAccessNotificationBuilder,
     # Comment request event
     CommentRequestEventCreateNotificationBuilder.type: CommentRequestEventCreateNotificationBuilder,
+    CommentRequestEventReplyNotificationBuilder.type: CommentRequestEventReplyNotificationBuilder,
     community_notifications.SubComReqCommentNotificationBuilder.type: community_notifications.SubComReqCommentNotificationBuilder,
     community_notifications.SubComInvCommentNotificationBuilder.type: community_notifications.SubComInvCommentNotificationBuilder,
     # Community inclusion
