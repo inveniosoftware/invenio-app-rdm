@@ -51,6 +51,7 @@ from .decorators import (
     pass_include_deleted,
     pass_is_iframe,
     pass_is_preview,
+    pass_preview_file,
     pass_record_files,
     pass_record_from_pid,
     pass_record_latest,
@@ -189,12 +190,19 @@ class PreviewFile:
 
 @pass_is_preview
 @pass_include_deleted
+@pass_preview_file
 @pass_record_or_draft(expand=True)
 @pass_record_files
 @pass_record_media_files
 @add_signposting_landing_page
 def record_detail(
-    pid_value, record, files, media_files, is_preview=False, include_deleted=False
+    pid_value,
+    record,
+    files,
+    media_files,
+    is_preview=False,
+    include_deleted=False,
+    preview_file=None,
 ):
     """Record detail page (aka landing page)."""
     files_dict = None if files is None else files.to_dict()
@@ -205,6 +213,9 @@ def record_detail(
         record._record.parent["access"]["settings"] = AccessSettings({}).dump()
 
     record_ui = UIJSONSerializer().dump_obj(record.to_dict())
+
+    if preview_file:
+        record_ui["files"]["default_preview"] = preview_file
 
     record_deletion = evaluate_record_deletion(record._record, g.identity)
 
