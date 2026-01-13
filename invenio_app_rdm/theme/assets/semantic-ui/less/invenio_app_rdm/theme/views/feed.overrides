@@ -156,6 +156,39 @@
       margin-top: .5rem;
     }
 
+    .collapsible-comment {
+      display: block;
+      position: relative;
+      overflow: hidden;
+      transition: max-height 300ms ease;
+
+      &.overflowing::after {
+        position: absolute;
+        bottom: 0px;
+        height: 200px;
+        width: 100%;
+        content: "";
+        background: linear-gradient(transparent, white);
+      }
+
+      .show-more {
+        position: absolute;
+        background: none;
+        border: none;
+        cursor: pointer;
+        bottom: 0px;
+        left: 50%;
+        right: 50%;
+        transform: translate(-50%, -50%);
+        width: 100px;
+        z-index: 1000;
+
+        &:hover {
+            text-decoration: underline;
+          }
+      }
+    }
+
     .text {
       width: auto;
 
