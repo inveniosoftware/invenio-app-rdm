@@ -1173,6 +1173,9 @@ PREVIEWER_PREFERENCE = [
 ]
 """Preferred previewers."""
 
+PREVIEWER_ABSTRACT_TEMPLATE = "invenio_previewer/rdm_abstract_previewer.html"
+"""Override the abstract template with an RDM-specific one."""
+
 RECORDS_RESOURCES_IMAGE_FORMATS = ["." + ext for ext in IIIF_FORMATS.keys()]
 """RECORDS_RESOURCES_IMAGE_FORMATS must contain all possible IIIF formats to ensure their metadata is extracted."""
 

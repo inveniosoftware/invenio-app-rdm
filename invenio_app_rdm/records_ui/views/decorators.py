@@ -111,6 +111,19 @@ def pass_is_preview(f):
     return view
 
 
+def pass_is_iframe(f):
+    """Decorate a view to check if it's being requested from inside an iframe."""
+
+    @wraps(f)
+    def view(**kwargs):
+        # See https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Sec-Fetch-Dest
+        header_value = request.headers.get("Sec-Fetch-Dest")
+        kwargs["is_iframe"] = header_value == "iframe"
+        return f(**kwargs)
+
+    return view
+
+
 # TODO to be improved as a request arg schema (following the REST views)
 def pass_include_deleted(f):
     """Decorate a view to check if it's a include deleted."""
