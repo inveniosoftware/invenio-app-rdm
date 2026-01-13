@@ -49,6 +49,7 @@ from .decorators import (
     pass_file_item,
     pass_file_metadata,
     pass_include_deleted,
+    pass_is_iframe,
     pass_is_preview,
     pass_record_files,
     pass_record_from_pid,
@@ -147,7 +148,9 @@ class PreviewFile:
     `invenio_previewer.api.PreviewFile`.
     """
 
-    def __init__(self, file_item, record_pid_value, record=None, url=None):
+    def __init__(
+        self, file_item, record_pid_value, record=None, url=None, is_iframe=False
+    ):
         """Create a new PreviewFile."""
         self.file = file_item
         self.data = file_item.data
@@ -160,6 +163,7 @@ class PreviewFile:
             pid_value=record_pid_value,
             filename=self.filename,
         )
+        self.is_iframe = is_iframe
 
     def is_local(self):
         """Check if file is local."""
@@ -347,6 +351,7 @@ def record_export(
 @pass_include_deleted
 @pass_record_or_draft(expand=False)
 @pass_file_metadata
+@pass_is_iframe
 def record_file_preview(
     pid_value,
     record=None,
@@ -354,6 +359,7 @@ def record_file_preview(
     file_metadata=None,
     is_preview=False,
     include_deleted=False,
+    is_iframe=False,
     **kwargs,
 ):
     """Render a preview of the specified file."""
@@ -365,7 +371,7 @@ def record_file_preview(
     )
 
     # Find a suitable previewer
-    fileobj = PreviewFile(file_metadata, pid_value, record, url)
+    fileobj = PreviewFile(file_metadata, pid_value, record, url, is_iframe)
     # Try to see if specific previewer preference is set for the file
     file_previewer = (file_metadata.data.get("metadata") or {}).get("previewer")
     if file_previewer:
