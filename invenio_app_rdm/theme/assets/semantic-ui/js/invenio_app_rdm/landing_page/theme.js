@@ -16,22 +16,25 @@ $("#record-conceptdoi-badge").on("click", function () {
   $("#conceptdoi-modal").modal("show");
 });
 
-$(".preview-link").on("click", function (event) {
-  const fileKey = event.target.dataset.fileKey;
-  $("#preview-file-title").html(fileKey);
+$("#file-list-table")
+  .find(".preview-link")
+  .on("click", function (event) {
+    const fileKey = event.target.dataset.fileKey;
+    $("#preview-file-title").text(fileKey);
 
-  event.preventDefault(); // Prevent default link navigation for back button to navigate the record and not the iframe
+    event.preventDefault(); // Prevent default link navigation for back button to navigate the record and not the iframe
 
-  const newUrl = window.location.pathname + "?preview_file=" + fileKey;
-  window.history.replaceState(null, "", newUrl);
+    const newUrl = new URL(window.location);
+    newUrl.searchParams.set("preview_file", fileKey); // .set method automatically encodes the value
+    window.history.replaceState(null, "", newUrl);
 
-  // Update iframe with the updated URL to the preview file without adding to browser history
-  const previewUrl = $(this).attr("href");
-  const iframe = document.getElementById("preview-iframe");
-  if (iframe && iframe.contentWindow) {
-    iframe.contentWindow.location.replace(previewUrl);
-  }
-});
+    // Update iframe with the updated URL to the preview file without adding to browser history
+    const previewUrl = $(this).attr("href");
+    const iframe = document.getElementById("preview-iframe");
+    if (iframe && iframe.contentWindow) {
+      iframe.contentWindow.location.replace(previewUrl);
+    }
+  });
 
 // Export dropdown on landing page
 $(".dropdown.export").dropdown({
