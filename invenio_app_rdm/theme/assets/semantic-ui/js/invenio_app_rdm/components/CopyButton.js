@@ -1,5 +1,5 @@
 // This file is part of InvenioRDM
-// Copyright (C) 2021 CERN.
+// Copyright (C) 2021-2026 CERN.
 //
 // Invenio RDM Records is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
@@ -26,18 +26,19 @@ class SimpleCopyButton extends React.Component {
   };
 
   render() {
-    const { hoverState, size } = this.props;
+    const { hoverState, className, popupText, ...uiProps } = this.props;
 
     return (
       <Button
-        className="copy"
+        className={`copy ${className || ''}`}
         basic
-        size={size}
+        size="medium"
         icon="copy"
         aria-label={i18next.t("Copy to clipboard")}
         onClick={this.handleClick} // Handle click to fetch from url if url passed, otherwise use text from props
         onMouseEnter={hoverState}
         onMouseLeave={hoverState}
+        {...uiProps}
       />
     );
   }
@@ -48,13 +49,11 @@ SimpleCopyButton.propTypes = {
   onCopy: PropTypes.func.isRequired,
   url: PropTypes.string,
   hoverState: PropTypes.func,
-  size: PropTypes.string,
 };
 
 SimpleCopyButton.defaultProps = {
   hoverState: null,
   url: null,
-  size: "medium",
 };
 
 export class CopyButton extends Component {
@@ -99,7 +98,7 @@ export class CopyButton extends Component {
   };
 
   render() {
-    const { popUpPosition, text, url, size } = this.props;
+    const { popUpPosition, text, url, ...uiProps } = this.props;
     const { confirmationPopupMsg, confirmationPopupIsOpen, hoverPopupIsOpen } =
       this.state;
 
@@ -118,7 +117,7 @@ export class CopyButton extends Component {
               onCopy={this.onCopy}
               url={url}
               hoverState={this.hoverStateHandler}
-              size={size}
+              {...uiProps}
             />
           }
         />
@@ -131,12 +130,10 @@ CopyButton.propTypes = {
   popUpPosition: PropTypes.string,
   text: PropTypes.string,
   url: PropTypes.string,
-  size: PropTypes.string,
 };
 
 CopyButton.defaultProps = {
   popUpPosition: "right center",
   text: "",
   url: "",
-  size: "medium",
 };
