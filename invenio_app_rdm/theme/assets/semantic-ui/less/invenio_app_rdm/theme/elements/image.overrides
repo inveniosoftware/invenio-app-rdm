@@ -113,3 +113,36 @@
 .image.avatar.tiny {
   height: @lineHeight;
 }
+
+// Collection logo styles with fallback
+.collection-logo-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+  flex-shrink: 0;
+
+  .collection-logo {
+    width: 45px;
+    height: 45px;
+    max-height: 45px;
+    object-fit: contain;
+    display: block;
+  }
+
+  .collection-logo-fallback {
+    width: 45px;
+    height: 45px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+
+    i.icon {
+      margin: 0;
+      font-size: 24px;
+      color: rgba(0, 0, 0, 0.4);
+    }
+  }
+}
