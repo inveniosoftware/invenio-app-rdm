@@ -6,8 +6,15 @@
     <div class="ui grid">
       <div class="twelve wide column middle aligned left floated">
         <div class="flex align-items-center">
-          <img class="computer only rel-mr-1" src="{{ logo_url }}" width="45" height="auto" alt=""
-            onerror="null;"/>
+          <div class="collection-logo-wrapper computer only">
+            <img class="collection-logo"
+                 src="{{ logo_url }}"
+                 alt="{{ root_collection.title }}"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div class="collection-logo-fallback" style="display:none;">
+              <i class="folder open outline icon"></i>
+            </div>
+          </div>
           <h4 class="theme-primary-text mt-0">
             <a
               href='{{ url_for("invenio_app_rdm_communities.community_collection", pid_value=community.slug, collection_slug=root_collection.slug, tree_slug=tree.slug )}}'>
