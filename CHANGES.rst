@@ -10,6 +10,14 @@
 Changes
 =======
 
+Version v14.0.0b4.dev4 (released 2025-12-15)
+
+- refactor(ui): support custom file display name resolver
+- fix: use UUID type for request identifiers
+- feat(comment-replies): add single threading on comments
+- fix(moderation.requests): handle empty payload key not in request
+- feat(previewer): show message for outdated records
+
 Version v14.0.0b4.dev3 (released 2025-12-18)
 
 - fix(feed): styling for disabled reply input
