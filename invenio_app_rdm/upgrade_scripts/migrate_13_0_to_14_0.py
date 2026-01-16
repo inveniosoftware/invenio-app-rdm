@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2025 CERN.
+# Copyright (C) 2026 Graz University of Technology.
 #
 # Invenio-App-RDM is free software; you can redistribute it and/or modify
 # it under the terms of the MIT License; see LICENSE file for more details.
@@ -79,8 +80,15 @@ def run_upgrade(migrate_record, migrate_draft):
             secho(f"Draft {draft_id} failed to update", fg="red")
             errored_draft_ids.append((draft_id, error))
 
-    print(f"Errored record IDs:", *errored_record_ids, sep="\n")
-    print(f"Errored draft IDs:", *errored_draft_ids, sep="\n")
+    if len(errored_record_ids) > 0:
+        secho(f"Errored record IDs: {errored_record_ids}", fg="red")
+    else:
+        secho("records have been updated successfully", fg="green")
+
+    if len(errored_draft_ids) > 0:
+        secho(f"Errored draft IDs: {errored_draft_ids}", fg="red")
+    else:
+        secho("drafts have been updated successfully", fg="green")
 
 
 def run_update_for_resource_type():
