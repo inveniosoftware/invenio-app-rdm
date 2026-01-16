@@ -1,4 +1,5 @@
 # SPDX-FileCopyrightText: 2025 CERN.
+# SPDX-FileCopyrightText: 2026 Graz University of Technology.
 # SPDX-License-Identifier: MIT
 
 """Record migration script from InvenioRDM 13.0 to 14.0.
@@ -76,8 +77,15 @@ def run_upgrade(migrate_record, migrate_draft):
             secho(f"Draft {draft_id} failed to update", fg="red")
             errored_draft_ids.append((draft_id, error))
 
-    print("Errored record IDs:", *errored_record_ids, sep="\n")
-    print("Errored draft IDs:", *errored_draft_ids, sep="\n")
+    if len(errored_record_ids) > 0:
+        secho(f"Errored record IDs: {errored_record_ids}", fg="red")
+    else:
+        secho("records have been updated successfully", fg="green")
+
+    if len(errored_draft_ids) > 0:
+        secho(f"Errored draft IDs: {errored_draft_ids}", fg="red")
+    else:
+        secho("drafts have been updated successfully", fg="green")
 
 
 def run_update_for_resource_type():
