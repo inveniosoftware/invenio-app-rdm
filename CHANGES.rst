@@ -11,6 +11,10 @@
 Changes
 =======
 
+Version v13.0.8 (released 2026-01-16)
+
+- fix(landing_page): use text instead of html for fileKey
+
 Version v13.0.7 (released 2025-12-19)
 
 - fix: use UUID type for request identifiers
