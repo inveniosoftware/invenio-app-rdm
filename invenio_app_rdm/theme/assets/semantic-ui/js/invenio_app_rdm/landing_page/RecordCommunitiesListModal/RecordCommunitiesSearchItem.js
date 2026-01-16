@@ -12,7 +12,10 @@ export class RecordCommunitiesSearchItem extends Component {
       updateRecordCallback,
       recordCommunityEndpoint,
       recordParent,
-      permissions: { can_manage: canManage },
+      permissions: {
+        can_manage: canManage,
+        can_remove_community_from_record: canRemoveCommunity,
+      },
       recordRequests,
     } = this.props;
 
@@ -25,11 +28,13 @@ export class RecordCommunitiesSearchItem extends Component {
           updateRecordCallback={updateRecordCallback}
           isCommunityDefault={isCommunityDefault}
         />
-        <RemoveFromCommunityAction
-          result={result}
-          recordCommunityEndpoint={recordCommunityEndpoint}
-          successCallback={successCallback}
-        />
+        {canRemoveCommunity && (
+          <RemoveFromCommunityAction
+            result={result}
+            recordCommunityEndpoint={recordCommunityEndpoint}
+            successCallback={successCallback}
+          />
+        )}
       </>
     );
     return (
