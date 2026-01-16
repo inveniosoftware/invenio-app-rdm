@@ -17,7 +17,7 @@ $("#record-conceptdoi-badge").on("click", function () {
 });
 
 $(".preview-link").on("click", function (event) {
-  $("#preview-file-title").html(event.target.dataset.fileKey);
+  $("#preview-file-title").text(event.target.dataset.fileKey);
 });
 
 // Export dropdown on landing page
