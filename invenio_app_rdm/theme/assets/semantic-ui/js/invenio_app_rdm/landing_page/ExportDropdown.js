@@ -32,33 +32,27 @@ export class ExportDropdown extends Component {
     });
 
     return (
-      <Grid>
-        <Grid.Column width={10}>
-          <Dropdown
-            aria-label={i18next.t("Export selection")}
-            selection
-            fluid
-            selectOnNavigation={false}
-            options={exportOptions}
-            onChange={(event, data) => this.setState({ selectedFormatUrl: data.value })}
-            defaultValue={selectedFormatUrl}
-          />
-        </Grid.Column>
-        <Grid.Column width={4} className="pl-0">
-          <Button
-            as="a"
-            role="button"
-            fluid
-            href={selectedFormatUrl}
-            title={i18next.t("Download file")}
-          >
-            {i18next.t("Export")}
-          </Button>
-        </Grid.Column>
-        <Grid.Column width={2} className="pl-0">
-          <CopyButton url={selectedFormatUrl} />
-        </Grid.Column>
-      </Grid>
+      <div className="auto-column-grid no-wrap">
+        <Dropdown
+          aria-label={i18next.t("Export selection")}
+          selection
+          fluid
+          selectOnNavigation={false}
+          options={exportOptions}
+          onChange={(event, data) => this.setState({ selectedFormatUrl: data.value })}
+          defaultValue={selectedFormatUrl}
+        />
+        <Button
+          as="a"
+          role="button"
+          fluid
+          href={selectedFormatUrl}
+          title={i18next.t("Download file")}
+        >
+          {i18next.t("Export")}
+        </Button>
+        <CopyButton url={selectedFormatUrl} />
+      </div>
     );
   }
 }
