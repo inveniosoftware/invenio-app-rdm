@@ -38,6 +38,7 @@ This script has been tested with following data:
   - drafts visible
   - records visible
 """
+
 import sys
 
 from click import secho
