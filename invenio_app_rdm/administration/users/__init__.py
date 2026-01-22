@@ -7,6 +7,10 @@
 
 """Invenio administration module for user resources."""
 
-from .users import UsersDetailView, UsersListView
+from .users import UsersDetailView, UsersEditView, UsersListView
 
-__all__ = ("UsersDetailView", "UsersListView")
+__all__ = (
+    "UsersDetailView",
+    "UsersEditView",
+    "UsersListView",
+)
