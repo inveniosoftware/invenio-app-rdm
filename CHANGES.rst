@@ -10,7 +10,11 @@
 Changes
 =======
 
-Version v14.0.0b4.dev4 (released 2026-01-21)
+Version v14.0.0b4.dev6 released 2026-01-22)
+
+- fix(ExportDropdown): Fix css spacing and responsiveness
+
+Version v14.0.0b4.dev5 (released 2026-01-21)
 
 - feat(CopyButton): Pass remaining props to customize UI & functionality
 - refactor(RecordVersionsList): Make version items overridable
