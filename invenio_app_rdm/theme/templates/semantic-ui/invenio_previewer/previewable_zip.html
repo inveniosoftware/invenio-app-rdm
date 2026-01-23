@@ -51,7 +51,7 @@
                   <i class="eye icon" aria-hidden="true"></i>{{_("Preview")}}
                 </button>
                 {% endif %}
-                {% if file_url_download %} 
+                {% if file_url_download %}
                 <a role="button" class="ui compact mini button" href="{{file_url_download}}">
                   <i class="download icon" aria-hidden="true"></i>{{_('Download')}}
                 </a>
@@ -77,11 +77,6 @@
             </div>
           </div>
         </div>
-        {%- endif %}
-        {%- if t.children -%}
-        <ul id="tree_{{ folder_identifier }}">
-          {{ loop(t.children) }}
-        </ul>
         {%- endif %}
       </li>
       {%- endfor %}

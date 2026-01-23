@@ -460,7 +460,7 @@ def record_container_item_preview(
         listing = json.load(f)
 
     parts = list(PurePosixPath(path).parts)
-    entry = find_container_item(listing.get("children", {}).values(), parts)
+    entry = find_container_item(listing.get("items", {}), parts)
     if entry is None:
         abort(404)
 
@@ -485,20 +485,12 @@ def record_container_item_preview(
 
 
 def find_container_item(container_item_metadata, path_parts):
-    """Recursively find entry in TOC based on path parts."""
+    """Find a container item in TOC based on path parts."""
     if not path_parts:
         return None
 
-    key = path_parts[0]
-    for sub_item in container_item_metadata:
-        if sub_item["key"] == key:
-            if len(path_parts) == 1:
-                return sub_item
-            elif sub_item.get("children"):
-                return find_container_item(
-                    sub_item["children"].values(), path_parts[1:]
-                )
-    return None
+    container_item_id = "/".join(path_parts)
+    return container_item_metadata.get(container_item_id)
 
 
 @pass_is_preview

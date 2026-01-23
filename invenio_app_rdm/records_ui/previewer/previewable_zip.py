@@ -14,7 +14,7 @@ from invenio_base import invenio_url_for
 from invenio_previewer.proxies import current_previewer
 from invenio_previewer.views import is_container_item_previewable
 
-from invenio_app_rdm.records_ui.views.records import ContainerItemPreview
+from ..views.records import ContainerItemPreview
 
 previewable_extensions = ["zip"]
 
@@ -40,7 +40,7 @@ def convert_zip_list_container(tree, record_id, container_filename):
             "name": key,
             "type": "item",  # previewer later decides if it's folder
             "id": f"item{next(counter)}",
-            "children": {},
+            "items": {},
         }
 
         # Copy metadata fields if they exist
@@ -63,9 +63,9 @@ def convert_zip_list_container(tree, record_id, container_filename):
             return converted
 
         # Case 2: Folder
-        children = node.get("children", {})
-        for child_key, child_node in children.items():
-            converted["children"][child_key] = convert_node(
+        items = node.get("items", {})
+        for child_key, child_node in items.items():
+            converted["items"][child_key] = convert_node(
                 child_key, child_node, counter
             )
 
@@ -81,24 +81,24 @@ def convert_zip_list_container(tree, record_id, container_filename):
     counter = counter_gen()
 
     # Root folder
-    root = {"type": "folder", "id": -1, "children": {}}
+    root = {"type": "folder", "id": -1, "items": {}}
 
-    # Convert children of root
-    for key, child in tree.get("children", {}).items():
-        root["children"][key] = convert_node(key, child, counter)
+    # Convert items of root
+    for key, child in tree.get("items", {}).items():
+        root["items"][key] = convert_node(key, child, counter)
 
     return root
 
 
-def children_to_list(node):
-    """Organize children structure."""
-    if node["type"] == "item" and len(node["children"]) == 0:
-        del node["children"]
+def items_to_list(node):
+    """Organize items structure."""
+    if node["type"] == "item" and len(node["items"]) == 0:
+        del node["items"]
     else:
         node["type"] = "folder"
-        node["children"] = list(node["children"].values())
-        node["children"].sort(key=lambda x: x["name"])
-        node["children"] = map(children_to_list, node["children"])
+        node["items"] = list(node["items"].values())
+        node["items"].sort(key=lambda x: x["name"])
+        node["items"] = map(items_to_list, node["items"])
     return node
 
 
@@ -122,7 +122,7 @@ def preview(file):
     converted_tree = convert_zip_list_container(
         tree_raw, file.record["id"], file.filename
     )
-    tree_list = children_to_list(converted_tree)["children"]
+    tree_list = items_to_list(converted_tree)["items"]
     return render_template(
         "invenio_previewer/previewable_zip.html",
         file=file,
