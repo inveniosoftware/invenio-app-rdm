@@ -1,6 +1,9 @@
-{# Copyright (C) 2023 CERN. Invenio RDM Records is free software; you can redistribute
-it and/or modify it under the terms of the MIT License; see LICENSE file for more
-details. #}
+{#
+  Copyright (C) 2023 CERN.
+  Copyright (C) 2024 KTH Royal Institute of Technology.
+  Invenio RDM Records is free software; you can redistribute it and/or modify
+  it under the terms of the MIT License; see LICENSE file for more details.
+-#}
 
 {% from "invenio_accounts/_macros.html" import render_field, form_errors %}
 
@@ -10,8 +13,8 @@ details. #}
     {% set full_name = None %}
     <p class="rel-mb-2">
       <i aria-hidden="true" class="user secret icon"></i>
-      <strong>You are currently not logged in</strong>. Do you have an account?
-      <a href="/login/">Log in here</a>
+      <strong>{{ _("You are currently not logged in") }}</strong>. {{ _("Do you have an account?") }}
+      <a href="/login/">{{ _("Log in here") }}</a>
     </p>
   {% else %}
     {% set email = current_user.email %}
@@ -24,13 +27,13 @@ details. #}
       </div>
 
       <p class="mt-0 mb-10">
-        Not you?
-        <a href="{{ url_for('security.login') }}">Log out</a> to switch account.
+        {{ _("Not you?") }}
+        <a href="{{ url_for('security.login') }}">{{ _("Log out") }}</a> {{ _("to switch account.") }}
       </p>
     </div>
   {% endif %}
   <div id="access-request-form-root"
-       data-record='{{ record | tojson }}'
+       data-record='{{ record_ui | tojson }}'
        data-user-anonymous='{{ current_user.is_anonymous | tojson }}'
        data-user-full-name='{{ full_name | tojson }}'
        data-user-email='{{ email | tojson }}'>

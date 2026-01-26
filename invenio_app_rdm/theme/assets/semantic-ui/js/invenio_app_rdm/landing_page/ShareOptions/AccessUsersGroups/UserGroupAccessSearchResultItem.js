@@ -25,7 +25,7 @@ export const accessDropdownOptions = [
     title: i18next.t("Can manage"),
     value: "manage",
     description: i18next.t(
-      "Can manage access, edit drafts and view restricted files of all versions of this record."
+      "Can manage access, edit drafts, view restricted files, and comment on associated draft requests of all versions of this record."
     ),
   },
 ];
@@ -78,7 +78,7 @@ export class UserGroupAccessSearchResultItem extends Component {
                 <Grid.Column>
                   <Item className="flex" key={result.id}>
                     <Image
-                      src={entity.links.avatar}
+                      src={entity.links?.avatar}
                       avatar
                       className="rel-ml-1"
                       alt=""

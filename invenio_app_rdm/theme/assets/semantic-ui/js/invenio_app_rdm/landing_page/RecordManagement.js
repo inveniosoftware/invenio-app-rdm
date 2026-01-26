@@ -1,5 +1,5 @@
 // This file is part of InvenioRDM
-// Copyright (C) 2020-2024 CERN.
+// Copyright (C) 2020-2025 CERN.
 // Copyright (C) 2020-2021 Northwestern University.
 // Copyright (C) 2021 Graz University of Technology.
 //
@@ -32,8 +32,10 @@ export class RecordManagement extends Component {
       isDraft,
       isPreviewSubmissionRequest,
       currentUserId,
-      recordOwnerUsername,
+      recordOwnerID,
       groupsEnabled,
+      recordDeletion,
+      recordDeletionOptions,
     } = this.props;
     const { error } = this.state;
     const { id: recid } = record;
@@ -44,9 +46,15 @@ export class RecordManagement extends Component {
 
     return (
       <Grid columns={1} className="record-management">
-        {permissions.can_moderate && (
+        {(recordDeletion["valid_user"] || permissions.can_moderate) && (
           <Grid.Column className="pb-5">
-            <ManageButton recid={recid} recordOwnerUsername={recordOwnerUsername} />
+            <ManageButton
+              record={record}
+              recordOwnerID={recordOwnerID}
+              permissions={permissions}
+              recordDeletion={recordDeletion}
+              recordDeletionOptions={recordDeletionOptions}
+            />
           </Grid.Column>
         )}
         {permissions.can_edit && !isDraft && (
@@ -98,6 +106,7 @@ export class RecordManagement extends Component {
           isPreviewSubmissionRequest={isPreviewSubmissionRequest}
           record={record}
           currentUserId={currentUserId}
+          permissions={permissions}
         />
         {error && (
           <Grid.Row className="record-management">
@@ -118,5 +127,11 @@ RecordManagement.propTypes = {
   groupsEnabled: PropTypes.bool.isRequired,
   isPreviewSubmissionRequest: PropTypes.bool.isRequired,
   currentUserId: PropTypes.string.isRequired,
-  recordOwnerUsername: PropTypes.object.isRequired,
+  recordOwnerID: PropTypes.string.isRequired,
+  recordDeletion: PropTypes.object,
+  recordDeletionOptions: PropTypes.array.isRequired,
+};
+
+RecordManagement.defaultProps = {
+  recordDeletion: {},
 };

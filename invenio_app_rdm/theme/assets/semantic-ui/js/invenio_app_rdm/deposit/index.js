@@ -1,5 +1,5 @@
 // This file is part of InvenioRDM
-// Copyright (C) 2020-2024 CERN.
+// Copyright (C) 2020-2025 CERN.
 // Copyright (C) 2020-2022 Northwestern University.
 // Copyright (C) 2022-2024 KTH Royal Institute of Technology.
 //
@@ -21,14 +21,18 @@ ReactDOM.render(
       preselectedCommunity={getInputFromDOM("deposits-draft-community")}
       files={getInputFromDOM("deposits-record-files")}
       config={getInputFromDOM("deposits-config")}
+      useUppy={getInputFromDOM("deposits-use-uppy-ui")}
       permissions={getInputFromDOM("deposits-record-permissions")}
       filesLocked={getInputFromDOM("deposits-record-locked-files")}
       recordRestrictionGracePeriod={getInputFromDOM(
         "deposits-record-restriction-grace-period"
       )}
       allowRecordRestriction={getInputFromDOM("deposits-allow-record-restriction")}
+      recordDeletion={getInputFromDOM("deposits-record-deletion")}
+      fileModification={getInputFromDOM("deposits-file-modification")}
       groupsEnabled={getInputFromDOM("config-groups-enabled")}
       allowEmptyFiles={getInputFromDOM("records-resources-allow-empty-files")}
+      isDoiRequired={getInputFromDOM("deposits-is-doi-required")}
     />
   </OverridableContext.Provider>,
   document.getElementById("deposit-form")

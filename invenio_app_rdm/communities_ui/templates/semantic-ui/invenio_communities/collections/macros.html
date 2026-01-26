@@ -1,0 +1,43 @@
+{% macro render_depth_one_collection(community, tree, collection) %}
+{% set root_collection=collection[collection.root] %}
+<div class="ui mt-0 mb-0 rel-ml-1">
+  <div class="content rel-mb-1">
+    {% set logo_url = url_for("static", filename="images/collections/" ~ root_collection.slug ~ ".jpg") %}
+    <div class="ui grid">
+      <div class="twelve wide column middle aligned left floated">
+        <div class="flex align-items-center">
+          <img class="computer only rel-mr-1" src="{{ logo_url }}" width="45" height="auto" alt=""
+            onerror="null;"/>
+          <h4 class="theme-primary-text mt-0">
+            <a
+              href='{{ url_for("invenio_app_rdm_communities.community_collection", pid_value=community.slug, collection_slug=root_collection.slug, tree_slug=tree.slug )}}'>
+              {{ root_collection.title }}
+            </a>
+          </h4>
+        </div>
+      </div>
+      <div class="four wide column collection-number middle aligned left floated">
+        <label class="ui small label middle aligned">{{ "{:,}".format(root_collection.num_records) }}</label>
+      </div>
+    </div>
+
+
+  </div>
+  {%- if root_collection.children -%}
+  <div class="content">
+    {%- for child_id in root_collection.children -%}
+    {% set child_collection = collection[child_id] %}
+    <div class="ui container mb-0 mt-0 rel-ml-1">
+      <h5 class="theme-primary-text">
+        <a href='{{ url_for("invenio_app_rdm_communities.community_collection", pid_value=community.slug,
+          collection_slug=child_collection.slug, tree_slug=tree.slug )}}'>
+          {{ child_collection.title }}
+        </a>
+        <label class="ui tiny text-muted">{{ "(" ~ "{:,}".format(child_collection.num_records) ~ ")"}}</label>
+      </h5>
+    </div>
+    {%- endfor -%}
+  </div>
+  {%- endif -%}
+</div>
+{%- endmacro %}

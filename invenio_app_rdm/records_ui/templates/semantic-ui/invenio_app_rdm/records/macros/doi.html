@@ -5,16 +5,18 @@
   it under the terms of the MIT License; see LICENSE file for more details.
 #}
 
-{% macro show_doi(doi_value, record, badge_id="record-doi-badge", modal_id="doi-modal", subheader=None, parent_doi=false) %}
+{% macro show_doi(doi_value, record_ui, badge_id="record-doi-badge", modal_id="doi-modal", subheader=None, parent_doi=false) %}
+  {%- set doi_link = record_ui["links"]["doi"] if not parent_doi else record_ui["links"]["parent_doi"] %}
   <dt class="ui tiny header">{{_('DOI')}}
     {% if subheader %}
-      <i><span class="doi sub header">{{subheader}}</span></i></dt>
+      <i><span class="doi sub header">{{subheader}}</span></i>
     {% endif %}
+  </dt>
   <dd>
-    <span class="get-badge" data-toggle="tooltip" data-placement="bottom" style="cursor: pointer;"
-      title="{{ _('Get the DOI badge!') }}">
-      <img id='{{badge_id}}' data-target="[data-modal='{{ doi_value }}']"
+    <span class="get-badge details-doi-section" data-toggle="tooltip" data-placement="bottom">
+      <img id='{{badge_id}}' data-target="[data-modal='{{ doi_value }}']" title="{{ _('Get the DOI badge!') }}"
         src="{{ url_for('invenio_formatter_badges.badge', title='DOI', value=doi_value, ext='svg') }}" alt="{{ doi_value }}" />
+      <div id="copy-button-{{ badge_id }}" class="copy-doi-button" data-value={{ doi_link }} data-size="mini"></div>
     </span>
 
     <div id="{{modal_id}}" class="ui modal fade badge-modal" data-modal="{{ doi_value }}">
@@ -27,7 +29,7 @@
           <pre>{{ doi_value }}</pre>
         </h4>
         {% from "semantic-ui/invenio_formatter/macros/badges.html" import badges_formats_list %}
-        {{ badges_formats_list(url_for('invenio_formatter_badges.badge', title='DOI', value=doi_value, ext='svg', _external=True, _scheme='https'), record.links.parent_doi if parent_doi else record.links.doi) }}
+        {{ badges_formats_list(url_for('invenio_formatter_badges.badge', title='DOI', value=doi_value, ext='svg', _external=True, _scheme='https'), doi_link) }}
       </div>
     </div>
   </dd>

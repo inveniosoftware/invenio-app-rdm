@@ -7,7 +7,6 @@
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import React from "react";
 import PropTypes from "prop-types";
-import _truncate from "lodash/truncate";
 import _get from "lodash/get";
 import { Dropdown, Icon, Item, Label } from "semantic-ui-react";
 import { SearchItemCreators } from "../../utils";
@@ -16,7 +15,7 @@ import { DisplayPartOfCommunities } from "../../components/DisplayPartOfCommunit
 
 export const MobileUploadsItem = ({
   result,
-  editRecord,
+  viewDraft,
   statuses,
   access,
   uiMetadata,
@@ -77,10 +76,8 @@ export const MobileUploadsItem = ({
             <SearchItemCreators creators={creators} />
           </div>
         </Item.Meta>
-        <Item.Description>
-          {_truncate(descriptionStripped, {
-            length: 100,
-          })}
+        <Item.Description className="truncate-lines-2">
+          {descriptionStripped}
         </Item.Description>
         <Item.Extra>
           <Item.Extra>
@@ -105,7 +102,7 @@ export const MobileUploadsItem = ({
               <small>
                 {publishingInformation && (
                   <span>
-                    {i18next.t("Published in: {{publishedIn}}", {
+                    {i18next.t("Published in: {{- publishedIn }}", {
                       publishedIn: publishingInformation,
                     })}
                   </span>
@@ -125,17 +122,17 @@ export const MobileUploadsItem = ({
         <Item.Extra>
           <Dropdown button text={i18next.t("Actions")} labeled className="icon">
             <Dropdown.Menu>
-              <Dropdown.Item
-                onClick={() => editRecord()}
-                labelPosition="left"
-                icon="edit"
-                content={i18next.t("Edit")}
-              />
-
-              {isPublished && (
+              {isPublished ? (
                 <Dropdown.Item
-                  labelPosition="left"
+                  labelposition="left"
                   href={viewLink}
+                  icon="eye"
+                  content={i18next.t("View")}
+                />
+              ) : (
+                <Dropdown.Item
+                  onClick={() => viewDraft()}
+                  labelposition="left"
                   icon="eye"
                   content={i18next.t("View")}
                 />
@@ -150,7 +147,7 @@ export const MobileUploadsItem = ({
 
 MobileUploadsItem.propTypes = {
   result: PropTypes.object.isRequired,
-  editRecord: PropTypes.func.isRequired,
+  viewDraft: PropTypes.func.isRequired,
   statuses: PropTypes.object.isRequired,
   access: PropTypes.object.isRequired,
   uiMetadata: PropTypes.object.isRequired,

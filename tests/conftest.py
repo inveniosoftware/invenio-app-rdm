@@ -1,12 +1,16 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2019-2021 CERN.
-# Copyright (C) 2019-2021 Northwestern University.
+# Copyright (C) 2019-2025 CERN.
+# Copyright (C) 2019-2025 Northwestern University.
+# Copyright (C) 2024-2025 Graz University of Technology.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """Common pytest fixtures and plugins."""
+
+import copy
+from collections import namedtuple
 
 # Monkey patch Werkzeug 2.1
 # Flask-Login uses the safe_str_cmp method which has been removed in Werkzeug
@@ -26,10 +30,6 @@ except AttributeError:
 
     security.safe_str_cmp = hmac.compare_digest
 
-import shutil
-import tempfile
-from collections import namedtuple
-
 import pytest
 from flask_security import login_user
 from flask_security.utils import hash_password
@@ -40,7 +40,6 @@ from invenio_accounts.proxies import current_datastore
 from invenio_accounts.testutils import login_user_via_session
 from invenio_app.factory import create_app as _create_app
 from invenio_db import db
-from invenio_files_rest.models import Bucket, FileInstance, Location, ObjectVersion
 from invenio_records_resources.proxies import current_service_registry
 from invenio_vocabularies.contrib.subjects.api import Subject
 from invenio_vocabularies.proxies import current_service as vocabulary_service
@@ -69,6 +68,12 @@ def subjects_service(app):
     return current_service_registry.get("subjects")
 
 
+@pytest.fixture(scope="module")
+def records_service(app):
+    """Records service."""
+    return current_service_registry.get("records")
+
+
 pytest_plugins = ("celery.contrib.pytest",)
 
 
@@ -76,7 +81,9 @@ pytest_plugins = ("celery.contrib.pytest",)
 def extra_entry_points():
     """Register extra entry point."""
     return {
-        "invenio_base.blueprints": ["mock_module = mock_module.views:create_blueprint"],
+        "invenio_base.blueprints": [
+            "mock_module = tests.mock_module.views:create_blueprint"
+        ],
     }
 
 
@@ -124,8 +131,8 @@ def users(app, db):
         user2 = datastore.create_user(
             email="user2@test.com", password=hashed_password, active=True
         )
-        # Give role to admin
-        db.session.add(ActionUsers(action="admin-access", user=user1))
+        # Give role to administration-access
+        db.session.add(ActionUsers(action="administration-access", user=user1))
     db.session.commit()
     return {
         "user1": user1,
@@ -138,18 +145,20 @@ def roles(app, db):
     """Create some roles."""
     with db.session.begin_nested():
         datastore = app.extensions["security"].datastore
-        role1 = datastore.create_role(name="admin", description="admin role")
+        role1 = datastore.create_role(
+            name="administration", description="administration role"
+        )
         role2 = datastore.create_role(name="test", description="tests are coming")
 
     db.session.commit()
-    return {"admin": role1, "test": role2}
+    return {"administration": role1, "test": role2}
 
 
 @pytest.fixture()
-def admin_user(users, roles):
-    """Give admin rights to a user."""
+def administration_user(users, roles):
+    """Give administration rights to a user."""
     user = users["user1"]
-    role = roles["admin"]
+    role = roles["administration"]
     current_datastore.add_role_to_user(user, role)
     action = current_access.actions["superuser-access"]
     db.session.add(ActionUsers.allow(action, user_id=user.id))
@@ -166,10 +175,16 @@ def client_with_login(client, users):
     return client
 
 
+def create_vocabulary_type(id_, pid_type):
+    """Create vocabulary type."""
+    vocabulary_service = current_service_registry.get("vocabularies")
+    return vocabulary_service.create_type(system_identity, id_, pid_type)
+
+
 @pytest.fixture(scope="module")
 def resource_type_type(app):
     """Resource type vocabulary type."""
-    return vocabulary_service.create_type(system_identity, "resourcetypes", "rsrct")
+    return create_vocabulary_type("resourcetypes", "rsrct")
 
 
 @pytest.fixture(scope="module")
@@ -205,7 +220,7 @@ def resource_type_item(app, resource_type_type):
 @pytest.fixture(scope="module")
 def languages_type(app):
     """Language vocabulary type."""
-    return vocabulary_service.create_type(system_identity, "languages", "lng")
+    return create_vocabulary_type("languages", "lng")
 
 
 @pytest.fixture(scope="module")
@@ -258,51 +273,155 @@ def subject_item(app, subjects_mesh_scheme, subjects_service):
     return subj
 
 
+@pytest.fixture(scope="module")
+def removal_reason_type(app):
+    """Removal reason vocabulary type."""
+    return create_vocabulary_type("removalreasons", "rem")
+
+
+@pytest.fixture(scope="module")
+def removal_reason_item(app, removal_reason_type):
+    """Removal reason vocabulary record."""
+    rem = vocabulary_service.create(
+        system_identity,
+        {
+            "id": "test-record",
+            "title": {"en": "Test upload of a record"},
+            "type": "removalreasons",
+            "tags": ["deletion-request"],
+        },
+    )
+
+    Vocabulary.index.refresh()
+
+    return rem
+
+
+@pytest.fixture(scope="module")
+def communitytypes_type(app):
+    """Creates and retrieves a vocabulary type."""
+    return create_vocabulary_type("communitytypes", "comtyp")
+
+
+@pytest.fixture(scope="module")
+def communitytypes(communitytypes_type):
+    """Community types."""
+    vocabulary_service = current_service_registry.get("vocabularies")
+    type_dicts = [
+        {"id": "organization", "title": {"en": "Organization"}},
+        {"id": "event", "title": {"en": "Event"}},
+        {"id": "topic", "title": {"en": "Topic"}},
+        {"id": "project", "title": {"en": "Project"}},
+    ]
+    [t.update({"type": "communitytypes"}) for t in type_dicts]
+    types = [
+        vocabulary_service.create(identity=system_identity, data=t) for t in type_dicts
+    ]
+    vocabulary_service.indexer.refresh()
+    return types
+
+
+@pytest.fixture()
+def community_input():
+    """Community input dict."""
+    return {
+        "access": {
+            "visibility": "public",
+            "member_policy": "open",
+            "record_policy": "open",
+        },
+        "slug": "my_community_id",
+        "metadata": {
+            "title": "My Community",
+            # "description": "This is an example Community.",
+            "type": {"id": "event"},
+            # "curation_policy": "This is the kind of records we accept.",
+            # "website": "https://inveniosoftware.org/",
+        },
+    }
+
+
 RunningApp = namedtuple(
     "RunningApp",
-    ["app", "location", "resource_type_item", "language_item", "subject_item"],
+    [
+        "app",
+        "location",
+        "resource_type_item",
+        "language_item",
+        "subject_item",
+        "removal_reason_item",
+        "communitytypes",
+    ],
 )
 
 
 @pytest.fixture
-def running_app(app, location, resource_type_item, language_item, subject_item):
+def running_app(
+    app,
+    location,
+    resource_type_item,
+    language_item,
+    subject_item,
+    removal_reason_item,
+    communitytypes,
+):
     """Fixture mimicking a running app."""
-    return RunningApp(app, location, resource_type_item, language_item, subject_item)
+    return RunningApp(
+        app,
+        location,
+        resource_type_item,
+        language_item,
+        subject_item,
+        removal_reason_item,
+        communitytypes,
+    )
 
 
-@pytest.yield_fixture()
-def dummy_location(db):
-    """File system location."""
-    tmppath = tempfile.mkdtemp()
+@pytest.fixture()
+def create_record(running_app, minimal_record, records_service):
+    """Record creation and publication function fixture."""
+    files_service = records_service.draft_files
 
-    loc = Location(name="testloc", uri=tmppath, default=True)
-    db.session.add(loc)
-    db.session.commit()
+    def _create_record(identity=None, data=minimal_record, files=None):
+        """Create and publish an RDMRecord.
 
-    yield loc
+        Optionally assign it files.
+        """
+        idty = identity or system_identity
+        data_copy = copy.deepcopy(data)
+        if files:
+            data_copy["files"] = {"enabled": True}
 
-    shutil.rmtree(tmppath)
+        draft_data = records_service.create(idty, data_copy)._record
+        pid_value_of_draft = draft_data.pid.pid_value
+        if files:
+            files_service.init_files(idty, pid_value_of_draft, [f.data for f in files])
+            for f in files:
+                files_service.set_file_content(
+                    idty,
+                    id_=pid_value_of_draft,
+                    file_key=f.data["key"],
+                    stream=f.content,
+                    content_length=f.content.getbuffer().nbytes,
+                )
+                files_service.commit_file(
+                    idty, id_=pid_value_of_draft, file_key=f.data["key"]
+                )
+
+        record_result = records_service.publish(idty, id_=pid_value_of_draft)
+        return record_result
+
+    return _create_record
 
 
-@pytest.fixture
-def invalid_file_instance(db, dummy_location):
-    """Creates a file instance."""
-    # Create a Bucket and ObjectVersion
-    b1 = Bucket.create(location=dummy_location)
-    with open("README.rst", "rb") as fp:
-        obj = ObjectVersion.create(b1, "README.rst", stream=fp)
-    db.session.commit()
-    file_id = obj.file_id
+@pytest.fixture()
+def create_community(running_app, community_input):
+    """Community creation function fixture."""
+    community_service = current_service_registry.get("communities")
 
-    # Get FileInstance from file ID
-    f = FileInstance.query.get(file_id)
+    def _create_community(identity=None, data=community_input):
+        """Create a community."""
+        idty = identity or system_identity
+        return community_service.create(idty, data)
 
-    # Force an invalid checksum
-    f.checksum = "invalid"
-    f.verify_checksum()
-    db.session.commit()
-
-    # Retrieve the file instance (with updated last_check)
-    f = FileInstance.query.get(file_id)
-
-    return f
+    return _create_community

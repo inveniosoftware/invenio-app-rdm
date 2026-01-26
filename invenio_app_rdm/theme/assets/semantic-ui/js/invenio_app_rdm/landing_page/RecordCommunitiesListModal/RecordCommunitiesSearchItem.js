@@ -13,6 +13,7 @@ export class RecordCommunitiesSearchItem extends Component {
       recordCommunityEndpoint,
       recordParent,
       permissions: { can_manage: canManage },
+      recordRequests,
     } = this.props;
 
     const isCommunityDefault = recordParent?.communities?.default === result?.id;
@@ -36,6 +37,7 @@ export class RecordCommunitiesSearchItem extends Component {
         actions={actions}
         result={result}
         isCommunityDefault={isCommunityDefault}
+        recordRequests={recordRequests}
       />
     );
   }
@@ -48,4 +50,9 @@ RecordCommunitiesSearchItem.propTypes = {
   updateRecordCallback: PropTypes.func.isRequired,
   permissions: PropTypes.object.isRequired,
   recordParent: PropTypes.object.isRequired,
+  recordRequests: PropTypes.object,
+};
+
+RecordCommunitiesSearchItem.defaultProps = {
+  recordRequests: {},
 };

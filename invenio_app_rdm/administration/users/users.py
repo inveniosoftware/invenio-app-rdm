@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2023-2024 CERN.
+# Copyright (C) 2024 KTH Royal Institute of Technology.
 # Copyright (C) 2024 Ubiquity Press.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
@@ -60,9 +61,9 @@ class UsersListView(AdminResourceListView):
     extension_name = "invenio-users-resources"
     name = "users"
     resource_config = "users_resource"
-    title = "User management"
-    menu_label = "Users"
-    category = "User management"
+    title = _("User management")
+    menu_label = _("Users")
+    category = _("User management")
     pid_path = "id"
     icon = "users"
 
@@ -84,31 +85,26 @@ class UsersListView(AdminResourceListView):
     # TODO: missing permission based links in resource
     actions = {
         "approve": {
-            "text": "Approve",
+            "text": _("Approve"),
             "payload_schema": None,
             "order": 1,
         },
         "restore": {
-            "text": "Restore",
+            "text": _("Restore"),
             "payload_schema": None,
             "order": 2,
         },
         "block": {
-            "text": "Block",
+            "text": _("Block"),
             "payload_schema": None,
             "order": 2,
         },
         "Deactivate": {
-            "text": "Suspend",
+            "text": _("Suspend"),
             "payload_schema": None,
             "order": 2,
         },
     }
-
-    @staticmethod
-    def disabled():
-        """Disable the view on demand."""
-        return not current_app.config["USERS_RESOURCES_ADMINISTRATION_ENABLED"]
 
     def init_search_config(self):
         """Build search view config."""
@@ -121,8 +117,8 @@ class UsersListView(AdminResourceListView):
             headers=self.get_search_request_headers(),
             initial_filters=[["is_active", 1]],
             hidden_params=[],
-            page=1,
-            size=15,
+            pagination_options=(20, 50),
+            default_size=20,
         )
 
 

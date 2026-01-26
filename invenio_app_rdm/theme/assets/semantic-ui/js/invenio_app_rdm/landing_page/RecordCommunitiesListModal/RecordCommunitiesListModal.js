@@ -1,5 +1,5 @@
 // This file is part of InvenioRDM
-// Copyright (C) 2023 CERN.
+// Copyright (C) 2023-2025 CERN.
 //
 // InvenioRDM is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
@@ -13,9 +13,9 @@ import { RecordCommunitiesSearch } from "./RecordCommunitiesSearch";
 export class RecordCommunitiesListModal extends Component {
   constructor(props) {
     super(props);
-    const { record } = this.props;
+    const { recordParent } = this.props;
     this.state = {
-      recordParent: record.parent,
+      recordParent: recordParent,
     };
   }
 
@@ -32,6 +32,7 @@ export class RecordCommunitiesListModal extends Component {
       handleOnClose,
       trigger,
       permissions,
+      recordRequests,
     } = this.props;
     const { recordParent } = this.state;
 
@@ -59,6 +60,7 @@ export class RecordCommunitiesListModal extends Component {
           permissions={permissions}
           recordParent={recordParent}
           updateRecordCallback={this.handleRecordUpdate}
+          recordRequests={recordRequests}
         />
 
         <Modal.Actions>
@@ -77,10 +79,12 @@ RecordCommunitiesListModal.propTypes = {
   handleOnClose: PropTypes.func.isRequired,
   handleOnOpen: PropTypes.func.isRequired,
   permissions: PropTypes.object.isRequired,
-  record: PropTypes.object.isRequired,
+  recordParent: PropTypes.object.isRequired,
+  recordRequests: PropTypes.object,
 };
 
 RecordCommunitiesListModal.defaultProps = {
   modalOpen: false,
   trigger: undefined,
+  recordRequests: {},
 };

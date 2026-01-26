@@ -91,7 +91,7 @@ export class RecordCommunitySubmissionModal extends Component {
     } catch (error) {
       console.error(error);
       this.setState({
-        error: error.response.data.errors[0].message,
+        error: error["message"],
       });
     } finally {
       this.setState({ loading: false });

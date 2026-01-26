@@ -1,5 +1,5 @@
 {#
-  Copyright (C) 2020 CERN.
+  Copyright (C) 2020-2025 CERN.
   Copyright (C) 2020 Northwestern University.
   Copyright (C) 2021 New York University.
 
@@ -15,9 +15,9 @@
     <h2 id="description-heading" class="sr-only">{{ _('Description') }}</h2>
     {# description data is being sanitized by marshmallow in the backend #}
     <div style="word-wrap: break-word;">
-      <p>{{ description | safe }}</p>
+      {{ description | safe }}
     </div>
   </section>
 {% endif %}
 
-{{ show_add_descriptions(record.ui.additional_descriptions) if record.ui.additional_descriptions }}
+{{ show_add_descriptions(record_ui["ui"]["additional_descriptions"]) if record_ui["ui"]["additional_descriptions"] }}

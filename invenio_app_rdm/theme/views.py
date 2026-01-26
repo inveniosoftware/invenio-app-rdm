@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019-2024 CERN.
-# Copyright (C) 2019-2020 Northwestern University.
+# Copyright (C) 2019-2025 Northwestern University.
 # Copyright (C)      2021 TU Wien.
 # Copyright (C) 2023-2024 Graz University of Technology.
 # Copyright (C)      2024 KTH Royal Institute of Technology.
@@ -17,17 +17,10 @@ from invenio_db import db
 from invenio_i18n import get_locale
 from invenio_i18n import lazy_gettext as _
 from invenio_pages.views import create_page_view
+from invenio_sitemap import iterate_urls_of_sitemap_indices
 from invenio_users_resources.forms import NotificationsForm
 
-
-def create_url_rule(rule, default_view_func):
-    """Generate rule from string or tuple."""
-    if isinstance(rule, tuple):
-        path, view_func = rule
-
-        return {"rule": path, "view_func": view_func}
-    else:
-        return {"rule": rule, "view_func": default_view_func}
+from invenio_app_rdm.views import create_url_rule
 
 
 #
@@ -75,7 +68,10 @@ def index():
 
 def robots():
     """Robots.txt."""
-    return current_app.send_static_file("robots.txt")
+    return render_template(
+        "invenio_app_rdm/robots.txt",
+        urls_of_sitemap_indices=iterate_urls_of_sitemap_indices(),
+    )
 
 
 def help_search():

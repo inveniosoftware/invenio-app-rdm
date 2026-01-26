@@ -1,14 +1,1009 @@
-# 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2021-07-15T07:37:20.488Z\n"
-"PO-Revision-Date: 2021-07-15T07:37:20.488Z\n"
+"mime-version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: en\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"mime-version: 1.0\n"
+"POT-Creation-Date: 2025-06-30T21:08:07.238Z\n"
+"PO-Revision-Date: 2025-06-30T21:08:07.241Z\n"
+"Language: en\n"
+
+msgid "Recent changes"
+msgstr "Recent changes"
+
+msgid "Audit Log Details"
+msgstr "Audit Log Details"
+
+msgid "Resource"
+msgstr "Resource"
+
+msgid "Resource ID"
+msgstr "Resource ID"
+
+msgid "Action"
+msgstr "Action"
+
+msgid "User"
+msgstr "User"
+
+msgid "Created"
+msgstr "Created"
+
+msgid "No revision ID found."
+msgstr "No revision ID found."
+
+msgid "Unable to fetch revisions."
+msgstr "Unable to fetch revisions."
+
+msgid "Cancel revision comparison"
+msgstr "Cancel revision comparison"
+
+msgid "Impersonate user"
+msgstr "Impersonate user"
+
+msgid "Impersonate"
+msgstr "Impersonate"
+
+msgid "You must accept this."
+msgstr "You must accept this."
+
+msgid "Success"
+msgstr "Success"
+
+msgid "User impersonated succesfully! You will be redirected in frontpage soon."
+msgstr "User impersonated succesfully! You will be redirected in frontpage soon."
+
+msgid "Unable to impersonate user."
+msgstr "Unable to impersonate user."
+
+msgid ""
+"Please read carefully and confirm the following statements before you "
+"proceed."
+msgstr ""
+"Please read carefully and confirm the following statements before you "
+"proceed."
+
+msgid "You are about to impersonate user "
+msgstr "You are about to impersonate user "
+
+msgid "You "
+msgstr "You "
+
+msgid "MUST"
+msgstr "MUST"
+
+msgid " logout after completing your inquiry."
+msgstr " logout after completing your inquiry."
+
+msgid "Close"
+msgstr "Close"
+
+msgid "Set Quota"
+msgstr "Set Quota"
+
+msgid "Set quota in bytes"
+msgstr "Set quota in bytes"
+
+msgid "Note"
+msgstr "Note"
+
+msgid ""
+"This is the default quota that will be applied to any NEW records created "
+"by this user - it will NOT update quota of existing records."
+msgstr ""
+"This is the default quota that will be applied to any NEW records created "
+"by this user - it will NOT update quota of existing records."
+
+msgid "Quota of {{id}} was set to {{quota}} {{unit}}"
+msgstr "Quota of {{id}} was set to {{quota}} {{unit}}"
+
+msgid "Unable to set quota."
+msgstr "Unable to set quota."
+
+msgid "Quota size ({{unit}})"
+msgstr "Quota size ({{unit}})"
+
+msgid "Enter quota size..."
+msgstr "Enter quota size..."
+
+msgid "Max file size ({{unit}})"
+msgstr "Max file size ({{unit}})"
+
+msgid "Enter max file size..."
+msgstr "Enter max file size..."
+
+msgid "Ticket 1234"
+msgstr "Ticket 1234"
+
+msgid "Set quota"
+msgstr "Set quota"
+
+msgid "Domain"
+msgstr "Domain"
+
+msgid "Flagged"
+msgstr "Flagged"
+
+msgid "Organization"
+msgstr "Organization"
+
+msgid "Company"
+msgstr "Company"
+
+msgid "Mail provider"
+msgstr "Mail provider"
+
+msgid "Spammer"
+msgstr "Spammer"
+
+msgid "TLD"
+msgstr "TLD"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "New"
+msgstr "New"
+
+msgid "Moderated"
+msgstr "Moderated"
+
+msgid "Verified"
+msgstr "Verified"
+
+msgid "Blocked"
+msgstr "Blocked"
+
+msgid "Users"
+msgstr "Users"
+
+msgid "Active"
+msgstr "Active"
+
+msgid "Inactive"
+msgstr "Inactive"
+
+msgid "Confirmed"
+msgstr "Confirmed"
+
+msgid "Links"
+msgstr "Links"
+
+msgid "Set quota for record {{recordId}}"
+msgstr "Set quota for record {{recordId}}"
+
+msgid "Compare revisions"
+msgstr "Compare revisions"
+
+msgid "Delete record"
+msgstr "Delete record"
+
+msgid "Restore record"
+msgstr "Restore record"
+
+msgid "Unavailability statement"
+msgstr "Unavailability statement"
+
+msgid "Record {{id}} was restored."
+msgstr "Record {{id}} was restored."
+
+msgid "Unable to restore."
+msgstr "Unable to restore."
+
+msgid "Are you sure you want to restore #{{id}}"
+msgstr "Are you sure you want to restore #{{id}}"
+
+msgid "Published"
+msgstr "Published"
+
+msgid "Deleted"
+msgstr "Deleted"
+
+msgid "Scheduled for purge"
+msgstr "Scheduled for purge"
+
+msgid "Empty draft title"
+msgstr "Empty draft title"
+
+msgid "version"
+msgstr "version"
+
+msgid "Owner"
+msgstr "Owner"
+
+msgid "System"
+msgstr "System"
+
+msgid "Files"
+msgstr "Files"
+
+msgid "Stats"
+msgstr "Stats"
+
+msgid "Record {{id}} was deleted."
+msgstr "Record {{id}} was deleted."
+
+msgid "Unable to delete"
+msgstr "Unable to delete"
+
+msgid "Public"
+msgstr "Public"
+
+msgid "Hidden"
+msgstr "Hidden"
+
+msgid ""
+"The tombstone is set to hidden but your record is public. Best practice is "
+"to provide a public tombstone when deactivating public records."
+msgstr ""
+"The tombstone is set to hidden but your record is public. Best practice is "
+"to provide a public tombstone when deactivating public records."
+
+msgid ""
+"RISK INFORMATION LEAKAGE: The tombstone is set to public but your record is "
+"restricted. Please make sure no restricted information is shared in the "
+"tombstone below."
+msgstr ""
+"RISK INFORMATION LEAKAGE: The tombstone is set to public but your record is "
+"restricted. Please make sure no restricted information is shared in the "
+"tombstone below."
+
+msgid "Bibliographic citation"
+msgstr "Bibliographic citation"
+
+msgid ""
+"Input citation text. Blank field will be filled with APA citation by "
+"default."
+msgstr ""
+"Input citation text. Blank field will be filled with APA citation by "
+"default."
+
+msgid "Public note"
+msgstr "Public note"
+
+msgid "User {{name}} was approved."
+msgstr "User {{name}} was approved."
+
+msgid "User {{name}} is blocked."
+msgstr "User {{name}} is blocked."
+
+msgid "Error"
+msgstr "Error"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Email domain"
+msgstr "Email domain"
+
+msgid "Actions"
+msgstr "Actions"
+
+msgid "Records"
+msgstr "Records"
+
+msgid "Username"
+msgstr "Username"
+
+msgid "GitHub"
+msgstr "GitHub"
+
+msgid "Updated"
+msgstr "Updated"
+
+msgid "Drafts"
+msgstr "Drafts"
+
+msgid "Moderation"
+msgstr "Moderation"
+
+msgid "Restore"
+msgstr "Restore"
+
+msgid "Restored"
+msgstr "Restored"
+
+msgid "Block"
+msgstr "Block"
+
+msgid "Suspend"
+msgstr "Suspend"
+
+msgid "Suspended"
+msgstr "Suspended"
+
+msgid "Approve"
+msgstr "Approve"
+
+msgid "Approved"
+msgstr "Approved"
+
+msgid "Activate"
+msgstr "Activate"
+
+msgid "Activated"
+msgstr "Activated"
+
+msgid "Set default quota for {{email}}"
+msgstr "Set default quota for {{email}}"
+
+msgid "Filter results"
+msgstr "Filter results"
+
+msgid "Search records in community..."
+msgstr "Search records in community..."
+
+msgid "results found"
+msgstr "results found"
+
+msgid "Sort by"
+msgstr "Sort by"
+
+msgid "Search records..."
+msgstr "Search records..."
+
+msgid "Search"
+msgstr "Search"
+
+msgid "Views"
+msgstr "Views"
+
+msgid "Downloads"
+msgstr "Downloads"
+
+msgid "Copy to clipboard"
+msgstr "Copy to clipboard"
+
+msgid "Copied!"
+msgstr "Copied!"
+
+msgid "Part of "
+msgstr "Part of "
+
+msgid "No creation date found."
+msgstr "No creation date found."
+
+msgid "No description"
+msgstr "No description"
+
+msgid "No publication date found."
+msgstr "No publication date found."
+
+msgid "No resource type"
+msgstr "No resource type"
+
+msgid "No title"
+msgstr "No title"
+
+msgid "Uploaded on {{uploadDate}}"
+msgstr "Uploaded on {{uploadDate}}"
+
+msgid "Published in: {{- publishInfo }}"
+msgstr "Published in: {{- publishInfo }}"
+
+msgid "{{count}} more versions exist for this record"
+msgid_plural "{{count}} more versions exist for this record"
+msgstr[0] "{{count}} more versions exist for this record"
+msgstr[1] "{{count}} more versions exist for this record"
+
+msgid "Recommendation"
+msgstr "Recommendation"
+
+msgid "This check is recommended but not mandatory."
+msgstr "This check is recommended but not mandatory."
+
+msgid "This check indicates a critical issue that must be addressed."
+msgstr "This check indicates a critical issue that must be addressed."
+
+msgid "Person"
+msgstr "Person"
+
+msgid "The record has no files."
+msgstr "The record has no files."
 
 msgid "Basic information"
 msgstr "Basic information"
+
+msgid "Creators"
+msgstr "Creators"
+
+msgid "Recommended information"
+msgstr "Recommended information"
+
+msgid "Add contributor"
+msgstr "Add contributor"
+
+msgid "Contributors"
+msgstr "Contributors"
+
+msgid "Edit contributor"
+msgstr "Edit contributor"
+
+msgid "Funding"
+msgstr "Funding"
+
+msgid "Awards/Grants"
+msgstr "Awards/Grants"
+
+msgid "Alternate identifiers"
+msgstr "Alternate identifiers"
+
+msgid "Related works"
+msgstr "Related works"
+
+msgid "References"
+msgstr "References"
+
+msgid "Visibility"
+msgstr "Visibility"
+
+msgid "More"
+msgstr "More"
+
+msgid "Unable to request the access."
+msgstr "Unable to request the access."
+
+msgid "Your email address"
+msgstr "Your email address"
+
+msgid "Email address"
+msgstr "Email address"
+
+msgid "Your full name"
+msgstr "Your full name"
+
+msgid "Full name"
+msgstr "Full name"
+
+msgid "Request message"
+msgstr "Request message"
+
+msgid ""
+"I agree to that my full name and email address is shared with the owners of "
+"the record"
+msgstr ""
+"I agree to that my full name and email address is shared with the owners of "
+"the record"
+
+msgid "Request access"
+msgstr "Request access"
+
+msgid "Email confirmation needed"
+msgstr "Email confirmation needed"
+
+msgid "We have sent you an email to verify your address."
+msgstr "We have sent you an email to verify your address."
+
+msgid ""
+"\n"
+"                Please check the email and follow the instructions to "
+"complete the access request.\n"
+"              "
+msgstr ""
+"\n"
+"                Please check the email and follow the instructions to "
+"complete the access request.\n"
+"              "
+
+msgid "An error occurred while fetching communities."
+msgstr "An error occurred while fetching communities."
+
+msgid "Communities"
+msgstr "Communities"
+
+msgid "View all {{count}} communities"
+msgid_plural "View all {{count}} communities"
+msgstr[0] "View all {{count}} communities"
+msgstr[1] "View all {{count}} communities"
+
+msgid "Submit to community"
+msgstr "Submit to community"
+
+msgid "Pending submissions"
+msgstr "Pending submissions"
+
+msgid "Manage communities"
+msgstr "Manage communities"
+
+msgid "Community management menu dropdown"
+msgstr "Community management menu dropdown"
+
+msgid "Edit"
+msgstr "Edit"
+
+msgid "Export selection"
+msgstr "Export selection"
+
+msgid "Download file"
+msgstr "Download file"
+
+msgid "Export"
+msgstr "Export"
+
+msgid "Manage"
+msgstr "Manage"
+
+msgid "Manage record"
+msgstr "Manage record"
+
+msgid "Manage user"
+msgstr "Manage user"
+
+msgid "Block user"
+msgstr "Block user"
+
+msgid "Block User"
+msgstr "Block User"
+
+msgid "Blocking the user will delete all existing records of the user."
+msgstr "Blocking the user will delete all existing records of the user."
+
+msgid "Remove branding"
+msgstr "Remove branding"
+
+msgid "{{communityTitle}} is a default branding for this record"
+msgstr "{{communityTitle}} is a default branding for this record"
+
+msgid "Remove this community from appearing on top of the record details page."
+msgstr "Remove this community from appearing on top of the record details page."
+
+msgid "Set branding"
+msgstr "Set branding"
+
+msgid "Set {{communityTitle}} as a default branding for this record"
+msgstr "Set {{communityTitle}} as a default branding for this record"
+
+msgid "Set this community to appear on the top of the record details page."
+msgstr "Set this community to appear on the top of the record details page."
+
+msgid "Pending communities"
+msgstr "Pending communities"
+
+msgid "Search for pending submissions to communities..."
+msgstr "Search for pending submissions to communities..."
+
+msgid "An error occurred while generating the citation."
+msgstr "An error occurred while generating the citation."
+
+msgid "Style"
+msgstr "Style"
+
+msgid "This record is not included in any communities yet."
+msgstr "This record is not included in any communities yet."
+
+msgid "Part of"
+msgstr "Part of"
+
+msgid "Search for community..."
+msgstr "Search for community..."
+
+msgid "Record submitted"
+msgstr "Record submitted"
+
+msgid "Review requested"
+msgstr "Review requested"
+
+msgid "Search in all communities"
+msgstr "Search in all communities"
+
+msgid "Search in my communities"
+msgstr "Search in my communities"
+
+msgid "Select a community"
+msgstr "Select a community"
+
+msgid "Version {{- version}}"
+msgstr "Version {{- version}}"
+
+msgid "Preview"
+msgstr "Preview"
+
+msgid "Only published versions are displayed."
+msgstr "Only published versions are displayed."
+
+msgid "An error occurred while fetching the versions."
+msgstr "An error occurred while fetching the versions."
+
+msgid "View all {{count}} versions"
+msgid_plural "View all {{count}} versions"
+msgstr[0] "View all {{count}} versions"
+msgstr[1] "View all {{count}} versions"
+
+msgid "Cite all versions?"
+msgstr "Cite all versions?"
+
+msgid "You can cite all versions by using the DOI"
+msgstr "You can cite all versions by using the DOI"
+
+msgid "This DOI represents all versions, and will always resolve to the latest one."
+msgstr "This DOI represents all versions, and will always resolve to the latest one."
+
+msgid "Read more"
+msgstr "Read more"
+
+msgid "The DOI is registered when the first version is published."
+msgstr "The DOI is registered when the first version is published."
+
+msgid "Remove"
+msgstr "Remove"
+
+msgid "Remove {{communityTitle}} from this record"
+msgstr "Remove {{communityTitle}} from this record"
+
+msgid "Remove community"
+msgstr "Remove community"
+
+msgid "Are you sure you want to remove the record from the community?"
+msgstr "Are you sure you want to remove the record from the community?"
+
+msgid "I understand the consequences:"
+msgstr "I understand the consequences:"
+
+msgid "Members of the community "
+msgstr "Members of the community "
+
+msgid " will "
+msgstr " will "
+
+msgid "lose their access"
+msgstr "lose their access"
+
+msgid " to the record."
+msgstr " to the record."
+
+msgid ""
+"The record can only be re-included in the community by going through a new "
+"review by the community curators."
+msgstr ""
+"The record can only be re-included in the community by going through a new "
+"review by the community curators."
+
+msgid "Something went wrong"
+msgstr "Something went wrong"
+
+msgid "Cancel removal"
+msgstr "Cancel removal"
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "Confirm removal"
+msgstr "Confirm removal"
+
+msgid "Select permissions"
+msgstr "Select permissions"
+
+msgid "Short name for your link (optional)."
+msgstr "Short name for your link (optional)."
+
+msgid "Expiration date format: YYYY-MM-DD"
+msgstr "Expiration date format: YYYY-MM-DD"
+
+msgid "Expiration date: YYYY-MM-DD or never if blank (optional)."
+msgstr "Expiration date: YYYY-MM-DD or never if blank (optional)."
+
+msgid "Create a new link"
+msgstr "Create a new link"
+
+msgid "Link title"
+msgstr "Link title"
+
+msgid "Expires at"
+msgstr "Expires at"
+
+msgid "Never"
+msgstr "Never"
+
+msgid "Access"
+msgstr "Access"
+
+msgid "Delete"
+msgstr "Delete"
+
+msgid "Copy link"
+msgstr "Copy link"
+
+msgid "Can view"
+msgstr "Can view"
+
+msgid "Can view restricted files of all versions of this record."
+msgstr "Can view restricted files of all versions of this record."
+
+msgid "Can preview drafts"
+msgstr "Can preview drafts"
+
+msgid ""
+"Can view drafts, restricted files, and comment on associated draft requests "
+"of all versions of this record."
+msgstr ""
+"Can view drafts, restricted files, and comment on associated draft requests "
+"of all versions of this record."
+
+msgid "Can edit"
+msgstr "Can edit"
+
+msgid ""
+"Can edit drafts, view restricted files, and comment on associated draft "
+"requests of all versions of this record."
+msgstr ""
+"Can edit drafts, view restricted files, and comment on associated draft "
+"requests of all versions of this record."
+
+msgid ""
+"Can view (view access link can be created only after the record is "
+"published)"
+msgstr ""
+"Can view (view access link can be created only after the record is "
+"published)"
+
+msgid "Expires"
+msgstr "Expires"
+
+msgid "This record has no links generated yet."
+msgstr "This record has no links generated yet."
+
+msgid "Unable to change the access request settings."
+msgstr "Unable to change the access request settings."
+
+msgid "Allow authenticated users to request access to restricted files."
+msgstr "Allow authenticated users to request access to restricted files."
+
+msgid "Allow non-authenticated users to request access to restricted files."
+msgstr "Allow non-authenticated users to request access to restricted files."
+
+msgid "Accept conditions"
+msgstr "Accept conditions"
+
+msgid "Advanced options"
+msgstr "Advanced options"
+
+msgid "Save"
+msgstr "Save"
+
+msgid "No user has access to this record yet."
+msgstr "No user has access to this record yet."
+
+msgid "People with access"
+msgstr "People with access"
+
+msgid "No group has access to this record yet."
+msgstr "No group has access to this record yet."
+
+msgid "Groups with access"
+msgstr "Groups with access"
+
+msgid "You"
+msgstr "You"
+
+msgid "Add people"
+msgstr "Add people"
+
+msgid "No selected users"
+msgstr "No selected users"
+
+msgid ""
+"Search for users to grant access (only users with a public profile can be "
+"invited)"
+msgstr ""
+"Search for users to grant access (only users with a public profile can be "
+"invited)"
+
+msgid "Search by email, full name or username"
+msgstr "Search by email, full name or username"
+
+msgid "users"
+msgstr "users"
+
+msgid "Add groups"
+msgstr "Add groups"
+
+msgid "Group"
+msgstr "Group"
+
+msgid "No selected groups"
+msgstr "No selected groups"
+
+msgid "Search for groups"
+msgstr "Search for groups"
+
+msgid "groups"
+msgstr "groups"
+
+msgid "Add"
+msgstr "Add"
+
+msgid "Notify people"
+msgstr "Notify people"
+
+msgid "Notification message"
+msgstr "Notification message"
+
+msgid "You are about to add"
+msgstr "You are about to add"
+
+msgid "Access already granted"
+msgstr "Access already granted"
+
+msgid "Can manage"
+msgstr "Can manage"
+
+msgid ""
+"Can manage access, edit drafts, view restricted files, and comment on "
+"associated draft requests of all versions of this record."
+msgstr ""
+"Can manage access, edit drafts, view restricted files, and comment on "
+"associated draft requests of all versions of this record."
+
+msgid "You don't have permissions to share this record."
+msgstr "You don't have permissions to share this record."
+
+msgid "Share"
+msgstr "Share"
+
+msgid "People"
+msgstr "People"
+
+msgid "Groups"
+msgstr "Groups"
+
+msgid "Settings"
+msgstr "Settings"
+
+msgid "Share access"
+msgstr "Share access"
+
+msgid "Link expiration"
+msgstr "Link expiration"
+
+msgid "In 1 month"
+msgstr "In 1 month"
+
+msgid "In 2 months"
+msgstr "In 2 months"
+
+msgid "In 6 months"
+msgstr "In 6 months"
+
+msgid "In 1 year"
+msgstr "In 1 year"
+
+msgid "Invalid date format."
+msgstr "Invalid date format."
+
+msgid "Access link expiration date cannot be in the past."
+msgstr "Access link expiration date cannot be in the past."
+
+msgid "Access request"
+msgstr "Access request"
+
+msgid "Unable to change the expiration request settings."
+msgstr "Unable to change the expiration request settings."
+
+msgid "Expiration date: "
+msgstr "Expiration date: "
+
+msgid ""
+"Format: YYYY-MM-DD. Granted access will expire on the given date. Leave "
+"empty to set no expiration limit."
+msgstr ""
+"Format: YYYY-MM-DD. Granted access will expire on the given date. Leave "
+"empty to set no expiration limit."
+
+msgid "Link expiration date:"
+msgstr "Link expiration date:"
+
+msgid "We couldn't find any matches for {{- search}}"
+msgstr "We couldn't find any matches for {{- search}}"
+
+msgid "Start over"
+msgstr "Start over"
+
+msgid "ProTip"
+msgstr "ProTip"
+
+msgid "will give you all the publications from 2025 until today."
+msgstr "will give you all the publications from 2025 until today."
+
+msgid "For more tips, check out our "
+msgstr "For more tips, check out our "
+
+msgid "Search guide"
+msgstr "Search guide"
+
+msgid "search guide"
+msgstr "search guide"
+
+msgid "for defining advanced search queries."
+msgstr "for defining advanced search queries."
+
+msgid "This community has no subcommunities"
+msgstr "This community has no subcommunities"
+
+msgid "Logging in..."
+msgstr "Logging in..."
+
+msgid "Logging out..."
+msgstr "Logging out..."
+
+msgid "Search in my communities..."
+msgstr "Search in my communities..."
+
+msgid "My communities"
+msgstr "My communities"
+
+msgid "View"
+msgstr "View"
+
+msgid "Published in: {{- publishedIn }}"
+msgstr "Published in: {{- publishedIn }}"
+
+msgid "In review"
+msgstr "In review"
+
+msgid "Declined"
+msgstr "Declined"
+
+msgid "Expired"
+msgstr "Expired"
+
+msgid "Draft"
+msgstr "Draft"
+
+msgid "New version draft"
+msgstr "New version draft"
+
+msgid "open"
+msgstr "open"
+
+msgid "Open"
+msgstr "Open"
+
+msgid "unlock"
+msgstr "unlock"
+
+msgid "Get started!"
+msgstr "Get started!"
+
+msgid "Make your first upload!"
+msgstr "Make your first upload!"
+
+msgid "New upload"
+msgstr "New upload"
+
+msgid "Search in my uploads..."
+msgstr "Search in my uploads..."
+
+msgid "My uploads"
+msgstr "My uploads"
+
+msgid "ORCID profile"
+msgstr "ORCID profile"
+
+msgid "ORCID logo"
+msgstr "ORCID logo"
+
+msgid "ROR profile"
+msgstr "ROR profile"
+
+msgid "ROR logo"
+msgstr "ROR logo"
+
+msgid "GND profile"
+msgstr "GND profile"
+
+msgid "GND logo"
+msgstr "GND logo"
+
+msgid "No name"
+msgstr "No name"
+
+msgid "and {{count}} other"
+msgid_plural "and {{count}} other"
+msgstr[0] "and {{count}} other"
+msgstr[1] "and {{count}} other"
+
+msgid "and {{count}} others"
+msgid_plural "and {{count}} others"
+msgstr[0] "and {{count}} others"
+msgstr[1] "and {{count}} others"

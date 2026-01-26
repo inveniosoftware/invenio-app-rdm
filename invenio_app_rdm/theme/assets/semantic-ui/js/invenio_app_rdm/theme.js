@@ -1,5 +1,13 @@
+// This file is part of InvenioRDM
+// Copyright (C) 2024 CERN.
+// Copyright (C) 2024 KTH Royal Institute of Technology.
+//
+// Invenio RDM Records is free software; you can redistribute it and/or modify it
+// under the terms of the MIT License; see LICENSE file for more details.
+
 import $ from "jquery";
 import { MultipleOptionsSearchBar } from "@js/invenio_search_ui/components";
+import { CopyButton } from "@js/invenio_app_rdm/components/CopyButton";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import ReactDOM from "react-dom";
 import React from "react";
@@ -117,13 +125,15 @@ if (headerSearchbar) {
 }
 
 // Login Logout Button
-const $authButton = $(".auth-button");
-const $authIcon = $(".auth-icon");
+const $authButton = $("#invenio-nav.ui.menu").find(".auth-button");
+const $authIcon = $authButton.find(".auth-icon");
 
 const handleAuthButtonClick = () => {
   $authButton.attr(
     "aria-label",
-    $authIcon.hasClass("sign-in") ? "Logging in..." : "Logging out..."
+    $authIcon.hasClass("sign-in")
+      ? i18next.t("Logging in...")
+      : i18next.t("Logging out...")
   );
   $authButton.attr("aria-busy", "true");
   $authButton.addClass("disabled");
@@ -135,10 +145,20 @@ $authButton.on({ click: handleAuthButtonClick });
 const invenioConfig = JSON.parse(document.body.dataset.invenioConfig);
 const isMathJaxEnabled = invenioConfig?.isMathJaxEnabled;
 if (window.invenio) {
-  window.invenio.onSearchResultsRendered = () => {
+  window.invenio.onSearchResultsRendered = async () => {
     if (isMathJaxEnabled) {
       // Re-render mathematical content on the page using MathJax.
-      return window.MathJax?.typeset();
+      // The promise is required to make sure that MathJax is fully loaded before
+      // typesetting, and potentially autoloading extra extensions.
+      await window.MathJax.typesetPromise();
     }
   };
 }
+
+// Copy Buttons for DOI
+document.querySelectorAll(".copy-doi-button").forEach((element) => {
+  ReactDOM.render(
+    <CopyButton text={element.dataset.value} size={element.dataset.size} />,
+    element
+  );
+});

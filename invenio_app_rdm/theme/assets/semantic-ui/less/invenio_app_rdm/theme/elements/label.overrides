@@ -28,6 +28,18 @@
   &.transparent {
     background-color: transparent;
   }
+
+  &.info {
+    border: 1px solid @infoBorderColor;
+    background-color: @infoBackgroundColor;
+    color: @infoTextColor;
+  }
+
+  &.warning {
+    border: 1px solid @warningColor;
+    background-color: @warningBackgroundColor;
+    color: @warningColor;
+  }
 }
 
 .subject {
@@ -48,9 +60,9 @@ a.subject:hover {
 
 label.helptext {
   display: block;
-  color: @mutedTextColor;
-  font-weight: normal;
-  font-size: 0.9em;
+  color: @mutedTextColor !important;
+  font-weight: normal !important;
+  font-size: 0.9em !important;
   margin-top: -0.8em; // counterweight Form field bottom margin
   margin-bottom: @defaultMargin;
 }
@@ -82,5 +94,23 @@ label.helptext {
 label.mobile-hidden {
   @media all and (max-width: @largestMobileScreen) {
     display: none;
+  }
+}
+
+
+.ui.form .accordion-label {
+  padding: 0.5rem 0.7rem !important;
+  margin-left: 1rem;
+  &.error {
+    background-color: @errorTextColor;
+    color: white;
+  }
+  &.info {
+    background-color: @infoBackgroundColor;
+    color: @infoTextColor;
+  }
+  &.warning {
+    background-color: @warningBackgroundColor;
+    color: @warningTextColor;
   }
 }

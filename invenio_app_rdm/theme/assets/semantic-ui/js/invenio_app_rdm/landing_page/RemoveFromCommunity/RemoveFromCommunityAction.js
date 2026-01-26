@@ -8,7 +8,6 @@
 import React, { Component } from "react";
 import { Button, Modal, Message, Icon, Checkbox } from "semantic-ui-react";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
-import { Trans } from "react-i18next";
 import { http, ErrorMessage } from "react-invenio-forms";
 import PropTypes from "prop-types";
 
@@ -92,7 +91,7 @@ export class RemoveFromCommunityAction extends Component {
     return (
       <>
         <Button
-          size="tiny"
+          size="mini"
           negative
           labelPosition="left"
           icon="trash"
@@ -124,10 +123,11 @@ export class RemoveFromCommunityAction extends Component {
                   label={
                     /* eslint-disable-next-line jsx-a11y/label-has-associated-control */
                     <label>
-                      <Trans>
-                        Members of the community <b>"{{ communityTitle }}"</b> will{" "}
-                        <u>lose their access</u> to the record.
-                      </Trans>
+                      {i18next.t("Members of the community ")}
+                      <b>"{communityTitle}"</b>
+                      {i18next.t(" will ")}
+                      <u>{i18next.t("lose their access")}</u>
+                      {i18next.t(" to the record.")}
                     </label>
                   }
                   checked={checkboxMembers}

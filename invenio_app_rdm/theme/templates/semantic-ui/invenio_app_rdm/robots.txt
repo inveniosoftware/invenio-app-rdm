@@ -1,0 +1,15 @@
+User-agent: *
+Disallow: /search
+Disallow: /api
+Disallow: /administration
+Disallow: /account
+Disallow: /uploads
+Disallow: /me
+Disallow: /login
+Disallow: /logout
+Disallow: /records/*/preview
+Crawl-delay: 10
+
+{%- for url_of_sitemap_index in urls_of_sitemap_indices %}
+Sitemap: {{ url_of_sitemap_index }}
+{%- endfor %}

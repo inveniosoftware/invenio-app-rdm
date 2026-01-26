@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2019-2024 CERN.
-# Copyright (C) 2019-2021 Northwestern University.
+# Copyright (C) 2019-2025 CERN.
+# Copyright (C) 2019-2025 Northwestern University.
 # Copyright (C)      2021 TU Wien.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
@@ -11,18 +11,21 @@
 
 from functools import wraps
 
-from flask import g, make_response, redirect, request, session, url_for
+from flask import current_app, g, make_response, redirect, request, session, url_for
 from flask_login import login_required
+from invenio_base import invenio_url_for
 from invenio_communities.communities.resources.serializer import (
     UICommunityJSONSerializer,
 )
 from invenio_communities.proxies import current_communities
 from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_rdm_records.proxies import current_rdm_records
+from invenio_rdm_records.resources.serializers.signposting import (
+    FAIRSignpostingProfileLvl1Serializer,
+)
+from invenio_rdm_records.services.errors import RecordDeletedException
 from invenio_records_resources.services.errors import PermissionDeniedError
 from sqlalchemy.orm.exc import NoResultFound
-
-from invenio_app_rdm.urls import record_url_for
 
 
 def service():
@@ -78,11 +81,7 @@ def pass_draft(expand=False):
                     expand=expand,
                 )
                 kwargs["draft"] = draft
-                kwargs["files_locked"] = (
-                    record_service.config.lock_edit_published_files(
-                        record_service, g.identity, draft=draft, record=draft._record
-                    )
-                )
+                kwargs["files_locked"] = draft._record.files.bucket.locked
                 return f(**kwargs)
             except PIDDoesNotExistError:
                 # Redirect to /records/:id because users are interchangeably
@@ -107,6 +106,30 @@ def pass_is_preview(f):
     @wraps(f)
     def view(**kwargs):
         kwargs["is_preview"] = request.args.get("preview") == "1"
+        return f(**kwargs)
+
+    return view
+
+
+def pass_is_iframe(f):
+    """Decorate a view to check if it's being requested from inside an iframe."""
+
+    @wraps(f)
+    def view(**kwargs):
+        # See https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Sec-Fetch-Dest
+        header_value = request.headers.get("Sec-Fetch-Dest")
+        kwargs["is_iframe"] = header_value == "iframe"
+        return f(**kwargs)
+
+    return view
+
+
+def pass_preview_file(f):
+    """Decorate a view to pass the preview file."""
+
+    @wraps(f)
+    def view(**kwargs):
+        kwargs["preview_file"] = request.args.get("preview_file")
         return f(**kwargs)
 
     return view
@@ -156,6 +179,7 @@ def pass_record_or_draft(expand=False):
         def view(**kwargs):
             pid_value = kwargs.get("pid_value")
             is_preview = kwargs.get("is_preview")
+            preview_file = kwargs.get("preview_file")
             include_deleted = kwargs.get("include_deleted", False)
             read_kwargs = {
                 "id_": pid_value,
@@ -164,23 +188,8 @@ def pass_record_or_draft(expand=False):
             }
 
             if is_preview:
-                try:
-                    record = service().read_draft(**read_kwargs)
-                except NoResultFound:
-                    try:
-                        record = service().read(
-                            include_deleted=include_deleted, **read_kwargs
-                        )
-                    except NoResultFound:
-                        # If the parent pid is being used we can get the id of the latest record and redirect
-                        latest_version = service().read_latest(**read_kwargs)
-                        return redirect(
-                            url_for(
-                                "invenio_app_rdm_records.record_detail",
-                                pid_value=latest_version.id,
-                                preview=1,
-                            )
-                        )
+                # read_draft internally handles NoResultFound and renders an error page
+                record = service().read_draft(**read_kwargs)
             else:
                 try:
                     record = service().read(
@@ -193,6 +202,7 @@ def pass_record_or_draft(expand=False):
                         url_for(
                             "invenio_app_rdm_records.record_detail",
                             pid_value=latest_version.id,
+                            preview_file=preview_file,
                         )
                     )
             kwargs["record"] = record
@@ -222,16 +232,28 @@ def pass_file_item(is_media=False):
             )
             record_service = media_files_service if is_media else files_service
 
-            if is_preview:
-                try:
-                    item = draft_service().get_file_content(**read_kwargs)
-                except NoResultFound:
+            try:
+                if is_preview:
+                    try:
+                        item = draft_service().get_file_content(**read_kwargs)
+                    except NoResultFound:
+                        item = record_service().get_file_content(**read_kwargs)
+                else:
                     item = record_service().get_file_content(**read_kwargs)
-            else:
-                item = record_service().get_file_content(**read_kwargs)
 
-            kwargs["file_item"] = item
-            return f(**kwargs)
+                kwargs["file_item"] = item
+                return f(**kwargs)
+
+            except RecordDeletedException:
+                # Redirect to the record page which has proper tombstone handling
+                return redirect(
+                    url_for(
+                        "invenio_app_rdm_records.record_detail",
+                        pid_value=pid_value,
+                    ),
+                    # Use 302 (temporary) instead of 301 since records can be restored
+                    code=302,
+                )
 
         return view
 
@@ -356,7 +378,8 @@ def pass_draft_community(f):
         comid = request.args.get("community")
         if comid:
             community = current_communities.service.read(id_=comid, identity=g.identity)
-            kwargs["community"] = UICommunityJSONSerializer().dump_obj(
+            kwargs["community"] = community
+            kwargs["community_ui"] = UICommunityJSONSerializer().dump_obj(
                 community.to_dict()
             )
 
@@ -365,8 +388,67 @@ def pass_draft_community(f):
     return view
 
 
-def add_signposting(f):
-    """Add signposting link to view's response headers."""
+def _get_header(rel, value, link_type=None):
+    header = f'<{value}> ; rel="{rel}"'
+    if link_type:
+        header += f' ; type="{link_type}"'
+    return header
+
+
+def _get_signposting_collection(pid_value):
+    ui_url = invenio_url_for(
+        "invenio_app_rdm_records.record_detail", pid_value=pid_value
+    )
+    return _get_header("collection", ui_url, "text/html")
+
+
+def _get_signposting_describes(pid_value):
+    ui_url = invenio_url_for(
+        "invenio_app_rdm_records.record_detail", pid_value=pid_value
+    )
+    return _get_header("describes", ui_url, "text/html")
+
+
+def _get_signposting_linkset(pid_value):
+    api_url = invenio_url_for("records.read", pid_value=pid_value)
+    return _get_header("linkset", api_url, "application/linkset+json")
+
+
+def add_signposting_landing_page(f):
+    """Add signposting links to the landing page view's response headers."""
+
+    @wraps(f)
+    def view(*args, **kwargs):
+        response = make_response(f(*args, **kwargs))
+
+        # Relies on other decorators having operated before it
+        if current_app.config[
+            "APP_RDM_RECORD_LANDING_PAGE_FAIR_SIGNPOSTING_LEVEL_1_ENABLED"
+        ]:
+            record = kwargs["record"]
+
+            signposting_headers = (
+                FAIRSignpostingProfileLvl1Serializer().serialize_object(
+                    record.to_dict()
+                )
+            )
+
+            response.headers["Link"] = signposting_headers
+        else:
+            pid_value = kwargs["pid_value"]
+            signposting_link = invenio_url_for("records.read", pid_value=pid_value)
+
+            response.headers["Link"] = (
+                f'<{signposting_link}> ; rel="linkset" ; type="application/linkset+json"'  # fmt: skip
+            )
+
+        return response
+
+    return view
+
+
+def add_signposting_content_resources(f):
+    """Add signposting links to the content resources view's response headers."""
 
     @wraps(f)
     def view(*args, **kwargs):
@@ -374,11 +456,36 @@ def add_signposting(f):
 
         # Relies on other decorators having operated before it
         pid_value = kwargs["pid_value"]
-        signposting_link = record_url_for(_app="api", pid_value=pid_value)
 
-        response.headers["Link"] = (
-            f'<{signposting_link}> ; rel="linkset" ; type="application/linkset+json"'  # fmt: skip
-        )
+        signposting_headers = [
+            _get_signposting_collection(pid_value),
+            _get_signposting_linkset(pid_value),
+        ]
+
+        response.headers["Link"] = " , ".join(signposting_headers)
+
+        return response
+
+    return view
+
+
+def add_signposting_metadata_resources(f):
+    """Add signposting links to the metadata resources view's response headers."""
+
+    @wraps(f)
+    def view(*args, **kwargs):
+        response = make_response(f(*args, **kwargs))
+
+        # Relies on other decorators having operated before it
+        pid_value = kwargs["pid_value"]
+
+        signposting_headers = [
+            _get_signposting_describes(pid_value),
+            _get_signposting_linkset(pid_value),
+        ]
+
+        response.headers["Link"] = " , ".join(signposting_headers)
+
         return response
 
     return view
@@ -403,3 +510,24 @@ def secret_link_or_login_required():
         return view
 
     return decorator
+
+
+def no_cache_response(f):
+    """Add appropriate response headers to force no caching.
+
+    This decorator is used to prevent caching of the response in the browser. This is needed
+    in the deposit form as we initialize the form with the record metadata included in the html page
+    and we don't want the browser to cache this page so that the user always gets the latest version of the record.
+    """
+
+    @wraps(f)
+    def view(*args, **kwargs):
+        response = make_response(f(*args, **kwargs))
+
+        response.cache_control.no_cache = True
+        response.cache_control.no_store = True
+        response.cache_control.must_revalidate = True
+
+        return response
+
+    return view

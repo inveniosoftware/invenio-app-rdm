@@ -1,5 +1,5 @@
 // This file is part of InvenioRDM
-// Copyright (C) 2023 CERN.
+// Copyright (C) 2023-2025 CERN.
 //
 // Invenio App RDM is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
@@ -46,7 +46,7 @@ export class AccessRequestTimelineEdit extends Component {
       links: { self: selfLink },
     } = request;
     const { secret_link_expiration: secretLinkExpiration } = values;
-    if (secretLinkExpiration === null) {
+    if (secretLinkExpiration === null || secretLinkExpiration === "") {
       payload["secret_link_expiration"] = "0";
     } else {
       const date = DateTime.fromISO(secretLinkExpiration);
@@ -76,17 +76,17 @@ export class AccessRequestTimelineEdit extends Component {
   initFormValues = () => {
     const {
       request: {
-        payload: { secret_link_expiration },
+        payload: { secret_link_expiration: secretLinkExpiration },
       },
     } = this.props;
 
-    if (parseInt(secret_link_expiration) === 0) {
+    if (parseInt(secretLinkExpiration) === 0 || secretLinkExpiration === "NaN") {
       return {
         secret_link_expiration: "",
       };
     }
     const dateFromDays = DateTime.now().plus({
-      days: parseInt(secret_link_expiration),
+      days: parseInt(secretLinkExpiration),
     });
     return {
       secret_link_expiration: dateFromDays.toISODate(),

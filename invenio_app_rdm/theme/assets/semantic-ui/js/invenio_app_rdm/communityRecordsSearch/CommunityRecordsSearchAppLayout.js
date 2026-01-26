@@ -9,7 +9,6 @@ import { Count, Sort } from "react-searchkit";
 import { Button, Container, Grid } from "semantic-ui-react";
 import { GridResponsiveSidebarColumn } from "react-invenio-forms";
 import PropTypes from "prop-types";
-import { Trans } from "react-i18next";
 
 export const CommunityRecordsSearchAppLayout = ({ config, appName }) => {
   const [sidebarVisible, setSidebarVisible] = React.useState(false);
@@ -35,9 +34,9 @@ export const CommunityRecordsSearchAppLayout = ({ config, appName }) => {
             <Grid.Column width={4} textAlign="left">
               <Count
                 label={(cmp) => (
-                  <Trans key="communityRecordsSearch" count={cmp}>
-                    {cmp} results found
-                  </Trans>
+                  <>
+                    {cmp} {i18next.t("results found")}
+                  </>
                 )}
               />
             </Grid.Column>

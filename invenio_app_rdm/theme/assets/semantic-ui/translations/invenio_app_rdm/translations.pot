@@ -5,15 +5,45 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-08-06T08:47:06.414Z\n"
-"PO-Revision-Date: 2024-08-06T08:47:06.414Z\n"
+"POT-Creation-Date: 2025-06-30T21:08:07.188Z\n"
+"PO-Revision-Date: 2025-06-30T21:08:07.188Z\n"
 "Language: en\n"
 
-msgid "Basic information"
-msgstr "Basic information"
+msgid "Recent changes"
+msgstr "Recent changes"
+
+msgid "Audit Log Details"
+msgstr "Audit Log Details"
+
+msgid "Resource"
+msgstr "Resource"
+
+msgid "Resource ID"
+msgstr "Resource ID"
+
+msgid "Action"
+msgstr "Action"
+
+msgid "User"
+msgstr "User"
+
+msgid "Created"
+msgstr "Created"
+
+msgid "No revision ID found."
+msgstr "No revision ID found."
+
+msgid "Unable to fetch revisions."
+msgstr "Unable to fetch revisions."
+
+msgid "Cancel revision comparison"
+msgstr "Cancel revision comparison"
 
 msgid "Impersonate user"
 msgstr "Impersonate user"
+
+msgid "Impersonate"
+msgstr "Impersonate"
 
 msgid "You must accept this."
 msgstr "You must accept this."
@@ -34,14 +64,20 @@ msgstr ""
 "Please read carefully and confirm the following statements before you "
 "proceed."
 
-msgid "You are about to impersonate user <bold>{{email}}(id: {{id}})</bold>."
-msgstr "You are about to impersonate user <bold>{{email}}(id: {{id}})</bold>."
+msgid "You are about to impersonate user "
+msgstr "You are about to impersonate user "
 
-msgid "You <bold>MUST</bold> logout after completing your inquiry."
-msgstr "You <bold>MUST</bold> logout after completing your inquiry."
+msgid "You "
+msgstr "You "
 
-msgid "Impersonate"
-msgstr "Impersonate"
+msgid "MUST"
+msgstr "MUST"
+
+msgid " logout after completing your inquiry."
+msgstr " logout after completing your inquiry."
+
+msgid "Close"
+msgstr "Close"
 
 msgid "Set Quota"
 msgstr "Set Quota"
@@ -54,10 +90,10 @@ msgstr "Note"
 
 msgid ""
 "This is the default quota that will be applied to any NEW records created "
-"by this user – it will NOT update quota of existing records."
+"by this user - it will NOT update quota of existing records."
 msgstr ""
 "This is the default quota that will be applied to any NEW records created "
-"by this user – it will NOT update quota of existing records."
+"by this user - it will NOT update quota of existing records."
 
 msgid "Quota of {{id}} was set to {{quota}} {{unit}}"
 msgstr "Quota of {{id}} was set to {{quota}} {{unit}}"
@@ -79,9 +115,6 @@ msgstr "Enter max file size..."
 
 msgid "Ticket 1234"
 msgstr "Ticket 1234"
-
-msgid "Close"
-msgstr "Close"
 
 msgid "Set quota"
 msgstr "Set quota"
@@ -140,6 +173,9 @@ msgstr "Links"
 msgid "Set quota for record {{recordId}}"
 msgstr "Set quota for record {{recordId}}"
 
+msgid "Compare revisions"
+msgstr "Compare revisions"
+
 msgid "Delete record"
 msgstr "Delete record"
 
@@ -176,8 +212,8 @@ msgstr "version"
 msgid "Owner"
 msgstr "Owner"
 
-msgid "Created"
-msgstr "Created"
+msgid "System"
+msgstr "System"
 
 msgid "Files"
 msgstr "Files"
@@ -190,6 +226,12 @@ msgstr "Record {{id}} was deleted."
 
 msgid "Unable to delete"
 msgstr "Unable to delete"
+
+msgid "Public"
+msgstr "Public"
+
+msgid "Hidden"
+msgstr "Hidden"
 
 msgid ""
 "The tombstone is set to hidden but your record is public. Best practice is "
@@ -229,9 +271,6 @@ msgstr "User {{name}} is blocked."
 msgid "Error"
 msgstr "Error"
 
-msgid "User"
-msgstr "User"
-
 msgid "Email"
 msgstr "Email"
 
@@ -241,6 +280,9 @@ msgstr "Email domain"
 msgid "Actions"
 msgstr "Actions"
 
+msgid "Records"
+msgstr "Records"
+
 msgid "Username"
 msgstr "Username"
 
@@ -249,6 +291,12 @@ msgstr "GitHub"
 
 msgid "Updated"
 msgstr "Updated"
+
+msgid "Drafts"
+msgstr "Drafts"
+
+msgid "Moderation"
+msgstr "Moderation"
 
 msgid "Restore"
 msgstr "Restore"
@@ -286,13 +334,11 @@ msgstr "Filter results"
 msgid "Search records in community..."
 msgstr "Search records in community..."
 
+msgid "results found"
+msgstr "results found"
+
 msgid "Sort by"
 msgstr "Sort by"
-
-msgid " results found"
-msgid_plural " results found"
-msgstr[0] " results found"
-msgstr[1] " results found"
 
 msgid "Search records..."
 msgstr "Search records..."
@@ -315,19 +361,49 @@ msgstr "Copied!"
 msgid "Part of "
 msgstr "Part of "
 
+msgid "No creation date found."
+msgstr "No creation date found."
+
+msgid "No description"
+msgstr "No description"
+
+msgid "No publication date found."
+msgstr "No publication date found."
+
+msgid "No resource type"
+msgstr "No resource type"
+
+msgid "No title"
+msgstr "No title"
+
 msgid "Uploaded on {{uploadDate}}"
 msgstr "Uploaded on {{uploadDate}}"
 
-msgid "Published in: {{publishInfo}}"
-msgstr "Published in: {{publishInfo}}"
+msgid "Published in: {{- publishInfo }}"
+msgstr "Published in: {{- publishInfo }}"
 
 msgid "{{count}} more versions exist for this record"
 msgid_plural "{{count}} more versions exist for this record"
 msgstr[0] "{{count}} more versions exist for this record"
 msgstr[1] "{{count}} more versions exist for this record"
 
+msgid "Recommendation"
+msgstr "Recommendation"
+
+msgid "This check is recommended but not mandatory."
+msgstr "This check is recommended but not mandatory."
+
+msgid "This check indicates a critical issue that must be addressed."
+msgstr "This check indicates a critical issue that must be addressed."
+
+msgid "Person"
+msgstr "Person"
+
 msgid "The record has no files."
 msgstr "The record has no files."
+
+msgid "Basic information"
+msgstr "Basic information"
 
 msgid "Creators"
 msgstr "Creators"
@@ -340,6 +416,15 @@ msgstr "Add contributor"
 
 msgid "Contributors"
 msgstr "Contributors"
+
+msgid "Edit contributor"
+msgstr "Edit contributor"
+
+msgid "Funding"
+msgstr "Funding"
+
+msgid "Awards/Grants"
+msgstr "Awards/Grants"
 
 msgid "Alternate identifiers"
 msgstr "Alternate identifiers"
@@ -358,6 +443,9 @@ msgstr "More"
 
 msgid "Unable to request the access."
 msgstr "Unable to request the access."
+
+msgid "Your email address"
+msgstr "Your email address"
 
 msgid "Email address"
 msgstr "Email address"
@@ -380,6 +468,23 @@ msgstr ""
 
 msgid "Request access"
 msgstr "Request access"
+
+msgid "Email confirmation needed"
+msgstr "Email confirmation needed"
+
+msgid "We have sent you an email to verify your address."
+msgstr "We have sent you an email to verify your address."
+
+msgid ""
+"\n"
+"                Please check the email and follow the instructions to "
+"complete the access request.\n"
+"              "
+msgstr ""
+"\n"
+"                Please check the email and follow the instructions to "
+"complete the access request.\n"
+"              "
 
 msgid "An error occurred while fetching communities."
 msgstr "An error occurred while fetching communities."
@@ -425,6 +530,15 @@ msgstr "Manage record"
 msgid "Manage user"
 msgstr "Manage user"
 
+msgid "Block user"
+msgstr "Block user"
+
+msgid "Block User"
+msgstr "Block User"
+
+msgid "Blocking the user will delete all existing records of the user."
+msgstr "Blocking the user will delete all existing records of the user."
+
 msgid "Remove branding"
 msgstr "Remove branding"
 
@@ -457,6 +571,9 @@ msgstr "Style"
 
 msgid "This record is not included in any communities yet."
 msgstr "This record is not included in any communities yet."
+
+msgid "Part of"
+msgstr "Part of"
 
 msgid "Search for community..."
 msgstr "Search for community..."
@@ -493,23 +610,20 @@ msgid_plural "View all {{count}} versions"
 msgstr[0] "View all {{count}} versions"
 msgstr[1] "View all {{count}} versions"
 
-msgid ""
-"<0><0>Cite all versions?</0> You can cite all versions by using the DOI "
-"<3></3>. This DOI represents all versions, and will always resolve to the "
-"latest one. <5>Read more</5>.</0>"
-msgstr ""
-"<0><0>Cite all versions?</0> You can cite all versions by using the DOI "
-"<3></3>. This DOI represents all versions, and will always resolve to the "
-"latest one. <5>Read more</5>.</0>"
+msgid "Cite all versions?"
+msgstr "Cite all versions?"
 
-msgid ""
-"<0><0>Cite all versions?</0> You can cite all versions by using the DOI . "
-"The DOI is registered when the first version is published. <4>Read "
-"more</4>.</0>"
-msgstr ""
-"<0><0>Cite all versions?</0> You can cite all versions by using the DOI . "
-"The DOI is registered when the first version is published. <4>Read "
-"more</4>.</0>"
+msgid "You can cite all versions by using the DOI"
+msgstr "You can cite all versions by using the DOI"
+
+msgid "This DOI represents all versions, and will always resolve to the latest one."
+msgstr "This DOI represents all versions, and will always resolve to the latest one."
+
+msgid "Read more"
+msgstr "Read more"
+
+msgid "The DOI is registered when the first version is published."
+msgstr "The DOI is registered when the first version is published."
 
 msgid "Remove"
 msgstr "Remove"
@@ -525,6 +639,18 @@ msgstr "Are you sure you want to remove the record from the community?"
 
 msgid "I understand the consequences:"
 msgstr "I understand the consequences:"
+
+msgid "Members of the community "
+msgstr "Members of the community "
+
+msgid " will "
+msgstr " will "
+
+msgid "lose their access"
+msgstr "lose their access"
+
+msgid " to the record."
+msgstr " to the record."
 
 msgid ""
 "The record can only be re-included in the community by going through a new "
@@ -545,13 +671,6 @@ msgstr "Cancel"
 msgid "Confirm removal"
 msgstr "Confirm removal"
 
-msgid ""
-"Members of the community <1>\"<1>{{communityTitle}}</1>\"</1> will <4>lose "
-"their access</4> to the record."
-msgstr ""
-"Members of the community <1>\"<1>{{communityTitle}}</1>\"</1> will <4>lose "
-"their access</4> to the record."
-
 msgid "Select permissions"
 msgstr "Select permissions"
 
@@ -567,8 +686,17 @@ msgstr "Expiration date: YYYY-MM-DD or never if blank (optional)."
 msgid "Create a new link"
 msgstr "Create a new link"
 
+msgid "Link title"
+msgstr "Link title"
+
+msgid "Expires at"
+msgstr "Expires at"
+
 msgid "Never"
 msgstr "Never"
+
+msgid "Access"
+msgstr "Access"
 
 msgid "Delete"
 msgstr "Delete"
@@ -585,14 +713,22 @@ msgstr "Can view restricted files of all versions of this record."
 msgid "Can preview drafts"
 msgstr "Can preview drafts"
 
-msgid "Can view drafts and restricted files of all versions of this record."
-msgstr "Can view drafts and restricted files of all versions of this record."
+msgid ""
+"Can view drafts, restricted files, and comment on associated draft requests "
+"of all versions of this record."
+msgstr ""
+"Can view drafts, restricted files, and comment on associated draft requests "
+"of all versions of this record."
 
 msgid "Can edit"
 msgstr "Can edit"
 
-msgid "Can edit drafts and view restricted files of all versions of this record."
-msgstr "Can edit drafts and view restricted files of all versions of this record."
+msgid ""
+"Can edit drafts, view restricted files, and comment on associated draft "
+"requests of all versions of this record."
+msgstr ""
+"Can edit drafts, view restricted files, and comment on associated draft "
+"requests of all versions of this record."
 
 msgid ""
 "Can view (view access link can be created only after the record is "
@@ -601,14 +737,8 @@ msgstr ""
 "Can view (view access link can be created only after the record is "
 "published)"
 
-msgid "Link title"
-msgstr "Link title"
-
 msgid "Expires"
 msgstr "Expires"
-
-msgid "Access"
-msgstr "Access"
 
 msgid "This record has no links generated yet."
 msgstr "This record has no links generated yet."
@@ -699,11 +829,11 @@ msgid "Can manage"
 msgstr "Can manage"
 
 msgid ""
-"Can manage access, edit drafts and view restricted files of all versions of "
-"this record."
+"Can manage access, edit drafts, view restricted files, and comment on "
+"associated draft requests of all versions of this record."
 msgstr ""
-"Can manage access, edit drafts and view restricted files of all versions of "
-"this record."
+"Can manage access, edit drafts, view restricted files, and comment on "
+"associated draft requests of all versions of this record."
 
 msgid "You don't have permissions to share this record."
 msgstr "You don't have permissions to share this record."
@@ -772,27 +902,41 @@ msgstr "Start over"
 msgid "ProTip"
 msgstr "ProTip"
 
+msgid "will give you all the publications from 2025 until today."
+msgstr "will give you all the publications from 2025 until today."
+
+msgid "For more tips, check out our "
+msgstr "For more tips, check out our "
+
 msgid "Search guide"
 msgstr "Search guide"
 
-msgid ""
-"<0>For more tips, check out our <2>search guide</2> for defining advanced "
-"search queries.</0>"
-msgstr ""
-"<0>For more tips, check out our <2>search guide</2> for defining advanced "
-"search queries.</0>"
+msgid "search guide"
+msgstr "search guide"
+
+msgid "for defining advanced search queries."
+msgstr "for defining advanced search queries."
+
+msgid "This community has no subcommunities"
+msgstr "This community has no subcommunities"
+
+msgid "Logging in..."
+msgstr "Logging in..."
+
+msgid "Logging out..."
+msgstr "Logging out..."
 
 msgid "Search in my communities..."
 msgstr "Search in my communities..."
 
+msgid "My communities"
+msgstr "My communities"
+
 msgid "View"
 msgstr "View"
 
-msgid "No creation date found."
-msgstr "No creation date found."
-
-msgid "Published in: {{publishedIn}}"
-msgstr "Published in: {{publishedIn}}"
+msgid "Published in: {{- publishedIn }}"
+msgstr "Published in: {{- publishedIn }}"
 
 msgid "In review"
 msgstr "In review"
@@ -818,18 +962,6 @@ msgstr "Open"
 msgid "unlock"
 msgstr "unlock"
 
-msgid "No description"
-msgstr "No description"
-
-msgid "No title"
-msgstr "No title"
-
-msgid "No publication date found."
-msgstr "No publication date found."
-
-msgid "No resource type"
-msgstr "No resource type"
-
 msgid "Get started!"
 msgstr "Get started!"
 
@@ -842,19 +974,36 @@ msgstr "New upload"
 msgid "Search in my uploads..."
 msgstr "Search in my uploads..."
 
+msgid "My uploads"
+msgstr "My uploads"
+
 msgid "ORCID profile"
 msgstr "ORCID profile"
+
+msgid "ORCID logo"
+msgstr "ORCID logo"
 
 msgid "ROR profile"
 msgstr "ROR profile"
 
+msgid "ROR logo"
+msgstr "ROR logo"
+
 msgid "GND profile"
 msgstr "GND profile"
 
-msgctxt ""
-"date:[2017-01-01 TO *]</0> will give you all the publications from 2017 "
-"until today.</0>"
-msgid "<0><0>metadata.publication"
-msgstr ""
-"<0><0>metadata.publication_date:[2017-01-01 TO *]</0> will give you all the "
-"publications from 2017 until today.</0>"
+msgid "GND logo"
+msgstr "GND logo"
+
+msgid "No name"
+msgstr "No name"
+
+msgid "and {{count}} other"
+msgid_plural "and {{count}} other"
+msgstr[0] "and {{count}} other"
+msgstr[1] "and {{count}} other"
+
+msgid "and {{count}} others"
+msgid_plural "and {{count}} others"
+msgstr[0] "and {{count}} others"
+msgstr[1] "and {{count}} others"

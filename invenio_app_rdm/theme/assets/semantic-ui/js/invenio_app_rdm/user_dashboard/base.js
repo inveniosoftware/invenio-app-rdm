@@ -12,6 +12,8 @@ import {
   SearchAppResultsPane,
   InvenioSearchPagination,
 } from "@js/invenio_search_ui/components";
+import { SharedOrMineFilter } from "@js/invenio_requests/components/SharedOrMineFilter";
+
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import React from "react";
 import { ResultsList, SearchBar, Sort, buildUID } from "react-searchkit";
@@ -75,6 +77,8 @@ DashboardResultView.defaultProps = {
 export const DashboardSearchLayoutHOC = ({
   searchBarPlaceholder = "",
   appName = undefined,
+  showSharedFilters = false,
+  mineLabel = "",
 }) => {
   const DashboardUploadsSearchLayout = (props) => {
     const [sidebarVisible, setSidebarVisible] = React.useState(false);
@@ -100,7 +104,7 @@ export const DashboardSearchLayoutHOC = ({
               </Grid.Column>
               <Grid.Column
                 mobile={14}
-                tablet={10}
+                tablet={14}
                 verticalAlign="middle"
                 floated="right"
               >
@@ -108,8 +112,32 @@ export const DashboardSearchLayoutHOC = ({
               </Grid.Column>
             </Grid.Row>
 
-            <Grid.Row className="mobile tablet only">
-              <Grid.Column width={16} textAlign="right">
+            <Grid.Row className="tablet only">
+              <Grid.Column tablet={6} floated="right">
+                {showSharedFilters && <SharedOrMineFilter mineLabel={mineLabel} />}
+              </Grid.Column>
+              <Grid.Column tablet={10} textAlign="right">
+                {config.sortOptions && (
+                  <Sort
+                    values={config.sortOptions}
+                    label={(cmp) => (
+                      <>
+                        <label className="mr-10">{i18next.t("Sort by")}</label>
+                        {cmp}
+                      </>
+                    )}
+                  />
+                )}
+              </Grid.Column>
+            </Grid.Row>
+
+            <Grid.Row className="mobile only">
+              <Grid.Column width={16}>
+                {showSharedFilters && <SharedOrMineFilter mineLabel={mineLabel} />}
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row className="mobile only">
+              <Grid.Column textAlign="right">
                 {config.sortOptions && (
                   <Sort
                     values={config.sortOptions}
@@ -127,11 +155,17 @@ export const DashboardSearchLayoutHOC = ({
 
             {/* Desktop search header */}
             <Grid.Row className="computer only">
-              <Grid.Column width={8} floated="right">
+              <Grid.Column width={4} />
+              {showSharedFilters && (
+                <Grid.Column width={4}>
+                  <SharedOrMineFilter mineLabel={mineLabel} />
+                </Grid.Column>
+              )}
+              <Grid.Column width={showSharedFilters ? 5 : 9} floated="right">
                 <SearchBar placeholder={searchBarPlaceholder} />
               </Grid.Column>
 
-              <Grid.Column width={4} textAlign="right">
+              <Grid.Column width={3} textAlign="right">
                 {config.sortOptions && (
                   <Sort
                     values={config.sortOptions}

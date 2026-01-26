@@ -33,6 +33,19 @@ def finalize_app(app):
 
 def init_config(app):
     """Initialize configuration."""
+    record_doi_required = bool(
+        app.config["RDM_PERSISTENT_IDENTIFIERS"].get("doi", {}).get("required")
+    )
+    parent_doi_required = bool(
+        app.config["RDM_PARENT_PERSISTENT_IDENTIFIERS"].get("doi", {}).get("required")
+    )
+
+    if record_doi_required != parent_doi_required:
+        raise Exception(
+            "Config variables RDM_PERSISTENT_IDENTIFIERS.doi.required and "
+            "RDM_PARENT_PERSISTENT_IDENTIFIERS.doi.required must be set to the same value."
+        )
+
     if "COMMUNITIES_GROUPS_ENABLED" in app.config:
         warnings.warn(
             "COMMUNITIES_GROUPS_ENABLED config variable is deprecated. Please use USERS_RESOURCES_GROUPS_ENABLED "
@@ -117,7 +130,7 @@ def init_menu(app):
         **dict(icon="home", permissions="can_read"),
     )
     communities.submenu("browse").register(
-        endpoint="invenio_communities.communities_browse",
+        endpoint="invenio_app_rdm_communities.communities_browse",
         text=_("Browse"),
         order=15,
         visible_when=_show_browse_page,

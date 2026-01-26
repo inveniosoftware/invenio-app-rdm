@@ -3,6 +3,7 @@
 // Copyright (C) 2021 New York University.
 // Copyright (C) 2022 data-futures.
 // Copyright (C) 2023 Northwestern University.
+// Copyright (C) 2024 KTH Royal Institute of Technology.
 //
 // Invenio RDM Records is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
@@ -27,19 +28,19 @@ export function SearchItemCreators({ creators, className, othersLink }) {
         link = `https://orcid.org/${identifier}`;
         linkTitle = i18next.t("ORCID profile");
         icon = "/static/images/orcid.svg";
-        alt = "ORCID logo";
+        alt = i18next.t("ORCID logo");
         break;
       case "ror":
         link = `https://ror.org/${identifier}`;
         linkTitle = i18next.t("ROR profile");
         icon = "/static/images/ror-icon.svg";
-        alt = "ROR logo";
+        alt = i18next.t("ROR logo");
         break;
       case "gnd":
         link = `https://d-nb.info/gnd/${identifier}`;
         linkTitle = i18next.t("GND profile");
         icon = "/static/images/gnd-icon.svg";
-        alt = "GND logo";
+        alt = i18next.t("GND logo");
         break;
       default:
         return null;
@@ -61,13 +62,13 @@ export function SearchItemCreators({ creators, className, othersLink }) {
 
   function getIcons(creator) {
     let ids = _get(creator, "person_or_org.identifiers", []);
-    let creatorName = _get(creator, "person_or_org.name", "No name");
+    let creatorName = _get(creator, "person_or_org.name", i18next.t("No name"));
     let icons = ids.map((c) => makeIcon(c.scheme, c.identifier, creatorName));
     return icons;
   }
 
   function getLink(creator) {
-    let creatorName = _get(creator, "person_or_org.name", "No name");
+    let creatorName = _get(creator, "person_or_org.name", i18next.t("No name"));
     let link = (
       <a
         className="creatibutor-link"
@@ -92,9 +93,9 @@ export function SearchItemCreators({ creators, className, othersLink }) {
   if (0 < numExtra) {
     let text;
     if (numExtra === 1) {
-      text = "and {{count}} other";
+      text = i18next.t("and {{count}} other", { count: numExtra });
     } else {
-      text = "and {{count}} others";
+      text = i18next.t("and {{count}} others", { count: numExtra });
     }
     result.push(
       <span className={spanClass} key={text}>
@@ -118,3 +119,12 @@ export function SearchItemCreators({ creators, className, othersLink }) {
  */
 export const timestampToRelativeTime = (timestamp) =>
   DateTime.fromISO(timestamp).setLocale(i18next.language).toRelative();
+
+/**
+ * Returns a string-formatted number in the user's locale (e.g. 1,000 in en-GB but 1.000 in de-DE)
+ *
+ * @param {Number} number
+ * @returns string
+ */
+export const localizedFormatNumber = (number) =>
+  new Intl.NumberFormat(i18next.language).format(number);

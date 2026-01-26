@@ -311,7 +311,7 @@ a.remove-default-style:hover {
   display: block;
   border-style: none;
   width:100%;
-  height:400px;
+  height:60vh;
 }
 
 
@@ -543,4 +543,19 @@ dl.details-list {
       transform: translateX(-75%) scale(1) !important;
     }
   }
+}
+
+
+.collection-header > .ui.medium.header, h4 {
+  font-weight: @bold;
+  .content {
+    vertical-align: sub;
+  }
+}
+
+.details-doi-section {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }

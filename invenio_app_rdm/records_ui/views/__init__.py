@@ -22,8 +22,10 @@ from invenio_records_resources.services.errors import (
     PermissionDeniedError,
     RecordPermissionDeniedError,
 )
+from sqlalchemy.orm.exc import NoResultFound
 
-from ...theme.views import create_url_rule
+from invenio_app_rdm.views import create_url_rule
+
 from ..searchapp import search_app_context
 from .deposits import community_upload, deposit_create, deposit_edit
 from .filters import (
@@ -160,6 +162,7 @@ def create_blueprint(app):
     blueprint.register_error_handler(PIDUnregistered, not_found_error)
     blueprint.register_error_handler(KeyError, not_found_error)
     blueprint.register_error_handler(FileKeyNotFoundError, not_found_error)
+    blueprint.register_error_handler(NoResultFound, not_found_error)
     blueprint.register_error_handler(DraftNotCreatedError, draft_not_found_error)
     blueprint.register_error_handler(
         PermissionDeniedError, record_permission_denied_error

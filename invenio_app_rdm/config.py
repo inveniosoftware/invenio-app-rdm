@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2019-2024 CERN.
+# Copyright (C) 2019-2025 CERN.
 # Copyright (C) 2019-2020 Northwestern University.
-# Copyright (C) 2021      Graz University of Technology.
-# Copyright (C) 2022-2024 KTH Royal Institute of Technology.
+# Copyright (C) 2021-2025 Graz University of Technology.
+# Copyright (C) 2022-2025 KTH Royal Institute of Technology.
 # Copyright (C) 2023      TU Wien
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
@@ -60,6 +60,8 @@ from invenio_rdm_records.notifications.builders import (
     GuestAccessRequestSubmitNotificationBuilder,
     GuestAccessRequestSubmittedNotificationBuilder,
     GuestAccessRequestTokenCreateNotificationBuilder,
+    RecordDeletionAcceptNotificationBuilder,
+    RecordDeletionDeclineNotificationBuilder,
     UserAccessRequestAcceptNotificationBuilder,
     UserAccessRequestCancelNotificationBuilder,
     UserAccessRequestDeclineNotificationBuilder,
@@ -85,8 +87,10 @@ from invenio_rdm_records.services.tasks import StatsRDMReindexTask
 from invenio_records_resources.references.entity_resolvers import ServiceResultResolver
 from invenio_requests.notifications.builders import (
     CommentRequestEventCreateNotificationBuilder,
+    CommentRequestEventReplyNotificationBuilder,
 )
 from invenio_requests.resources.requests.config import request_error_handlers
+from invenio_requests.services.requests import facets
 from invenio_stats.aggregations import StatAggregator
 from invenio_stats.contrib.event_builders import build_file_unique_id
 from invenio_stats.processors import (
@@ -119,6 +123,15 @@ from invenio_vocabularies.contrib.awards.datastreams import (
 )
 from invenio_vocabularies.contrib.awards.datastreams import (
     VOCABULARIES_DATASTREAM_WRITERS as AWARDS_WRITERS,
+)
+from invenio_vocabularies.contrib.common.openaire.datastreams import (
+    VOCABULARIES_DATASTREAM_READERS as COMMON_OPENAIRE_READERS,
+)
+from invenio_vocabularies.contrib.common.openaire.datastreams import (
+    VOCABULARIES_DATASTREAM_TRANSFORMERS as COMMON_OPENAIRE_TRANSFORMERS,
+)
+from invenio_vocabularies.contrib.common.openaire.datastreams import (
+    VOCABULARIES_DATASTREAM_WRITERS as COMMON_OPENAIRE_WRITERS,
 )
 from invenio_vocabularies.contrib.common.ror.datastreams import (
     VOCABULARIES_DATASTREAM_READERS as COMMON_ROR_READERS,
@@ -158,6 +171,8 @@ from invenio_vocabularies.contrib.subjects.datastreams import (
 )
 from werkzeug.local import LocalProxy
 
+from .communities_ui.sitemap import SitemapSectionOfCommunities
+from .records_ui.sitemap import SitemapSectionOfRDMRecords
 from .theme.views import notification_settings
 from .users.schemas import NotificationsUserSchema, UserPreferencesNotificationsSchema
 
@@ -175,7 +190,7 @@ def _(x):
 # =====
 # See https://flask.palletsprojects.com/en/1.1.x/config/
 
-APP_ALLOWED_HOSTS = ["0.0.0.0", "localhost", "127.0.0.1"]
+TRUSTED_HOSTS = ["0.0.0.0", "localhost", "127.0.0.1"]
 """Allowed hosts.
 
 Since HAProxy and Nginx route all requests no matter the host header
@@ -243,7 +258,7 @@ APP_THEME = ["semantic-ui"]
 BASE_TEMPLATE = "invenio_app_rdm/page.html"
 """Global base template."""
 
-COVER_TEMPLATE = "invenio_theme/page_cover.html"
+COVER_TEMPLATE = "invenio_app_rdm/page_cover.html"
 """Cover page base template (used for e.g. login/sign-up)."""
 
 SETTINGS_TEMPLATE = "invenio_theme/page_settings.html"
@@ -420,6 +435,10 @@ CELERY_BEAT_SCHEDULE = {
         "task": "invenio_accounts.tasks.delete_ips",
         "schedule": timedelta(hours=6),
     },
+    "update_domain_status": {
+        "task": "invenio_accounts.tasks.update_domain_status",
+        "schedule": timedelta(hours=4),
+    },
     "draft_resources": {
         "task": ("invenio_drafts_resources.services.records.tasks.cleanup_drafts"),
         "schedule": timedelta(minutes=60),
@@ -467,6 +486,18 @@ CELERY_BEAT_SCHEDULE = {
     "clean-access-request-tokens": {
         "task": "invenio_rdm_records.requests.access.tasks.clean_expired_request_access_tokens",
         "schedule": crontab(minute=4, hour=0),
+    },
+    "delete-job-logs": {
+        "task": "invenio_jobs.logging.tasks.delete_logs",
+        "schedule": crontab(minute=5, hour=0),
+    },
+    "update_sitemap": {
+        "task": "invenio_sitemap.tasks.update_sitemap_cache",
+        "schedule": crontab(minute=0, hour=2),
+    },
+    "update-collections-size": {
+        "task": "invenio_collections.tasks.update_collections_size",
+        "schedule": timedelta(hours=1),
     },
 }
 """Scheduled tasks configuration (aka cronjobs)."""
@@ -621,7 +652,7 @@ OAISERVER_METADATA_FORMATS = {
     },
     "datacite": {
         "serializer": "invenio_rdm_records.oai:datacite_etree",
-        "schema": "http://schema.datacite.org/meta/kernel-4.3/metadata.xsd",
+        "schema": "http://schema.datacite.org/meta/kernel-4.5/metadata.xsd",
         "namespace": "http://datacite.org/schema/kernel-4",
     },
     "oai_datacite": {
@@ -631,7 +662,7 @@ OAISERVER_METADATA_FORMATS = {
     },
     "datacite4": {
         "serializer": "invenio_rdm_records.oai:datacite_etree",
-        "schema": "http://schema.datacite.org/meta/kernel-4.3/metadata.xsd",
+        "schema": "http://schema.datacite.org/meta/kernel-4.5/metadata.xsd",
         "namespace": "http://datacite.org/schema/kernel-4",
     },
     "oai_datacite4": {
@@ -695,27 +726,12 @@ ACCESS_CACHE = "invenio_cache:current_cache"
 SEARCH_HOSTS = [{"host": "localhost", "port": 9200}]
 """Search hosts."""
 
-# Invenio-Indexer
-# ===============
-# See https://invenio-indexer.readthedocs.io/en/latest/configuration.html
-
-# We want that indexers are always explicit about the index they are indexing to.
-# NOTE: Can be removed when https://github.com/inveniosoftware/invenio-indexer/pull/158 is merged and released.
-INDEXER_DEFAULT_INDEX = None
-"""Default index to use if no schema is defined."""
-
 # Invenio-Base
 # ============
 # See https://invenio-base.readthedocs.io/en/latest/api.html#invenio_base.wsgi.wsgi_proxyfix  # noqa
 
 WSGI_PROXIES = 2
 """Correct number of proxies in front of your application."""
-
-# Invenio-Admin
-# =============
-
-# Admin interface is deprecated and should not be used.
-ADMIN_PERMISSION_FACTORY = "invenio_app_rdm.admin.permission_factory"
 
 # Invenio-REST
 # ============
@@ -728,6 +744,7 @@ REST_CSRF_ENABLED = True
 VOCABULARIES_DATASTREAM_READERS = {
     **VOCABULARIES_DATASTREAM_READERS,
     **NAMES_READERS,
+    **COMMON_OPENAIRE_READERS,
     **COMMON_ROR_READERS,
     **AWARDS_READERS,
     **FUNDERS_READERS,
@@ -739,6 +756,7 @@ VOCABULARIES_DATASTREAM_READERS = {
 VOCABULARIES_DATASTREAM_TRANSFORMERS = {
     **VOCABULARIES_DATASTREAM_TRANSFORMERS,
     **NAMES_TRANSFORMERS,
+    **COMMON_OPENAIRE_TRANSFORMERS,
     **COMMON_ROR_TRANSFORMERS,
     **AWARDS_TRANSFORMERS,
     **FUNDERS_TRANSFORMERS,
@@ -753,6 +771,7 @@ VOCABULARIES_DATASTREAM_WRITERS = {
     **FUNDERS_WRITERS,
     **AWARDS_WRITERS,
     **AFFILIATIONS_WRITERS,
+    **COMMON_OPENAIRE_WRITERS,
     **COMMON_ROR_WRITERS,
     **SUBJECTS_WRITERS,
 }
@@ -807,7 +826,7 @@ APP_RDM_RECORD_EXPORTERS = {
     "json-ld": {
         "name": _("JSON-LD"),
         "serializer": (
-            "invenio_rdm_records.resources.serializers:" "SchemaorgJSONLDSerializer"
+            "invenio_rdm_records.resources.serializers:SchemaorgJSONLDSerializer"
         ),
         "content-type": "application/ld+json",
         "filename": "{id}.json",
@@ -822,7 +841,7 @@ APP_RDM_RECORD_EXPORTERS = {
     "datacite-json": {
         "name": _("DataCite JSON"),
         "serializer": (
-            "invenio_rdm_records.resources.serializers:DataCite43JSONSerializer"
+            "invenio_rdm_records.resources.serializers:DataCite45JSONSerializer"
         ),
         "params": {"options": {"indent": 2, "sort_keys": True}},
         "content-type": "application/vnd.datacite.datacite+json",
@@ -831,7 +850,7 @@ APP_RDM_RECORD_EXPORTERS = {
     "datacite-xml": {
         "name": _("DataCite XML"),
         "serializer": (
-            "invenio_rdm_records.resources.serializers:DataCite43XMLSerializer"
+            "invenio_rdm_records.resources.serializers:DataCite45XMLSerializer"
         ),
         "params": {},
         "content-type": "application/vnd.datacite.datacite+xml",
@@ -855,7 +874,7 @@ APP_RDM_RECORD_EXPORTERS = {
     },
     "bibtex": {
         "name": _("BibTeX"),
-        "serializer": ("invenio_rdm_records.resources.serializers:" "BibtexSerializer"),
+        "serializer": ("invenio_rdm_records.resources.serializers:BibtexSerializer"),
         "params": {},
         "content-type": "application/x-bibtex",
         "filename": "{id}.bib",
@@ -888,6 +907,13 @@ APP_RDM_RECORD_EXPORTERS = {
         "content-type": "application/x-yaml",
         "filename": "{id}.yaml",
     },
+    "datapackage": {
+        "name": _("Data Package JSON"),
+        "serializer": "invenio_rdm_records.resources.serializers:DataPackageSerializer",
+        "params": {},
+        "content-type": "application/ld+json",
+        "filename": "{id}.json",
+    },
 }
 
 APP_RDM_RECORD_LANDING_PAGE_EXTERNAL_LINKS = []
@@ -912,6 +938,13 @@ def github_link_render(record):
 """
 
 APP_RDM_RECORDS_EXPORT_URL = "/records/<pid_value>/export/<export_format>"
+
+APP_RDM_DEPOSIT_NG_FILES_UI_ENABLED = False
+"""
+Feature toggle to enable the next-generation (NG) file uploader UI in the deposit form.
+
+When enabled, the deposit form will use the new Uppy.io-based file uploader, replacing the current file upload interface.
+"""
 
 APP_RDM_DEPOSIT_FORM_DEFAULTS = {
     "publication_date": lambda: datetime.now().strftime("%Y-%m-%d"),
@@ -963,6 +996,8 @@ APP_RDM_DEPOSIT_FORM_PUBLISH_MODAL_EXTRA = ""
 
 APP_RDM_RECORD_LANDING_PAGE_TEMPLATE = "invenio_app_rdm/records/detail.html"
 
+APP_RDM_RECORD_LANDING_PAGE_FAIR_SIGNPOSTING_LEVEL_1_ENABLED = False
+
 APP_RDM_RECORD_THUMBNAIL_SIZES = [10, 50, 100, 250, 750, 1200]
 """Allowed record thumbnail sizes."""
 
@@ -993,6 +1028,25 @@ APP_RDM_FILES_INTEGRITY_REPORT_SUBJECT = "Files integrity report"
 APP_RDM_ADMIN_EMAIL_RECIPIENT = "info@inveniosoftware.org"
 """Admin e-mail"""
 
+APP_RDM_IDENTIFIER_SCHEMES_UI = {
+    "orcid": {
+        "url_prefix": "http://orcid.org/",
+        "icon": "images/orcid.svg",
+        "label": "ORCID",
+    },
+    "ror": {
+        "url_prefix": "https://ror.org/",
+        "icon": "images/ror-icon.svg",
+        "label": "ROR",
+    },
+    "gnd": {
+        "url_prefix": "http://d-nb.info/gnd/",
+        "icon": "images/gnd-icon.svg",
+        "label": "GND",
+    },
+}
+"""Identifier Schemes UI config"""
+
 # Invenio-Communities
 # ===================
 
@@ -1021,9 +1075,9 @@ COMMUNITIES_SHOW_BROWSE_MENU_ENTRY = False
 # ===================
 
 RDM_REQUESTS_ROUTES = {
-    "user-dashboard-request-details": "/me/requests/<request_pid_value>",
-    "community-dashboard-request-details": "/communities/<pid_value>/requests/<request_pid_value>",
-    "community-dashboard-invitation-details": "/communities/<pid_value>/invitations/<request_pid_value>",
+    "user-dashboard-request-details": "/me/requests/<uuid:request_pid_value>",
+    "community-dashboard-request-details": "/communities/<pid_value>/requests/<uuid:request_pid_value>",
+    "community-dashboard-invitation-details": "/communities/<pid_value>/invitations/<uuid:request_pid_value>",
 }
 
 RDM_COMMUNITIES_ROUTES = {
@@ -1042,7 +1096,7 @@ RDM_SEARCH_USER_COMMUNITIES = {
 
 RDM_SEARCH_USER_REQUESTS = {
     "facets": ["type", "status"],
-    "sort": ["bestmatch", "newest", "oldest"],
+    "sort": ["bestmatch", "newest", "oldest", "newestactivity", "oldestactivity"],
 }
 """User requests search configuration (i.e list of user requests)"""
 
@@ -1093,7 +1147,6 @@ IIIF_FORMATS_PIL_MAP = {
     "jp2": "jpeg2000",
     "jpeg": "jpeg",
     "jpg": "jpeg",
-    "pdf": "pdf",
     "png": "png",
     "tif": "tiff",
     "tiff": "tiff",
@@ -1120,6 +1173,12 @@ PREVIEWER_PREFERENCE = [
 ]
 """Preferred previewers."""
 
+PREVIEWER_ABSTRACT_TEMPLATE = "invenio_previewer/rdm_abstract_previewer.html"
+"""Override the abstract template with an RDM-specific one."""
+
+RECORDS_RESOURCES_IMAGE_FORMATS = ["." + ext for ext in IIIF_FORMATS.keys()]
+"""RECORDS_RESOURCES_IMAGE_FORMATS must contain all possible IIIF formats to ensure their metadata is extracted."""
+
 # Invenio-Pages
 # =============
 # See https://invenio-pages.readthedocs.io/en/latest/configuration.html
@@ -1129,6 +1188,7 @@ PAGES_DEFAULT_TEMPLATE = "invenio_app_rdm/default_static_page.html"
 
 PAGES_TEMPLATES = [
     ("invenio_app_rdm/default_static_page.html", "Default"),
+    ("invenio_communities/default_static_page.html", "Community"),
 ]
 """List of available templates for pages."""
 
@@ -1348,6 +1408,9 @@ NOTIFICATIONS_BUILDERS = {
     GrantUserAccessNotificationBuilder.type: GrantUserAccessNotificationBuilder,
     # Comment request event
     CommentRequestEventCreateNotificationBuilder.type: CommentRequestEventCreateNotificationBuilder,
+    CommentRequestEventReplyNotificationBuilder.type: CommentRequestEventReplyNotificationBuilder,
+    community_notifications.SubComReqCommentNotificationBuilder.type: community_notifications.SubComReqCommentNotificationBuilder,
+    community_notifications.SubComInvCommentNotificationBuilder.type: community_notifications.SubComInvCommentNotificationBuilder,
     # Community inclusion
     CommunityInclusionAcceptNotificationBuilder.type: CommunityInclusionAcceptNotificationBuilder,
     CommunityInclusionCancelNotificationBuilder.type: CommunityInclusionCancelNotificationBuilder,
@@ -1364,6 +1427,14 @@ NOTIFICATIONS_BUILDERS = {
     community_notifications.SubCommunityCreate.type: community_notifications.SubCommunityCreate,
     community_notifications.SubCommunityAccept.type: community_notifications.SubCommunityAccept,
     community_notifications.SubCommunityDecline.type: community_notifications.SubCommunityDecline,
+    # Subcommunity invitation request
+    community_notifications.SubComInvitationCreate.type: community_notifications.SubComInvitationCreate,
+    community_notifications.SubComInvitationAccept.type: community_notifications.SubComInvitationAccept,
+    community_notifications.SubComInvitationDecline.type: community_notifications.SubComInvitationDecline,
+    community_notifications.SubComInvitationExpire.type: community_notifications.SubComInvitationExpire,
+    # Record deletion
+    RecordDeletionAcceptNotificationBuilder.type: RecordDeletionAcceptNotificationBuilder,
+    RecordDeletionDeclineNotificationBuilder.type: RecordDeletionDeclineNotificationBuilder,
 }
 """Notification builders."""
 
@@ -1433,3 +1504,66 @@ from invenio_app_rdm import __version__
 
 ADMINISTRATION_DISPLAY_VERSIONS = [("invenio-app-rdm", f"v{__version__}")]
 """Show the InvenioRDM version in the administration panel."""
+
+ADMINISTRATION_THEME_BASE_TEMPLATE = "invenio_app_rdm/administration_page.html"
+"""Administration base template."""
+
+
+APP_RDM_SUBCOMMUNITIES_LABEL = "Subcommunities"
+"""Label for the subcommunities in the community browse page."""
+
+RDM_DETAIL_SIDE_BAR_MANAGE_ATTRIBUTES_EXTENSION_TEMPLATE = None
+"""Side bar manage attributes extension template."""
+
+# Invenio-Sitemap
+# ===============
+# See https://github.com/inveniosoftware/invenio-sitemap/blob/master/invenio_sitemap/config.py  # noqa
+SITEMAP_SECTIONS = [
+    SitemapSectionOfRDMRecords(),
+    SitemapSectionOfCommunities(),
+]
+
+
+# Moderation requests search configuration
+# ========================================
+APP_RDM_MODERATION_REQUEST_SEARCH = {
+    "facets": ["status", "is_open"],
+    "sort": ["bestmatch", "newest", "oldest", "newestactivity", "oldestactivity"],
+}
+"""Moderation requests search configuration."""
+
+APP_RDM_MODERATION_REQUEST_SORT_OPTIONS = {
+    "bestmatch": dict(
+        title=_("Best match"),
+        fields=["_score"],
+    ),
+    "newest": dict(
+        title=_("Newest"),
+        fields=["-created"],
+    ),
+    "oldest": dict(
+        title=_("Oldest"),
+        fields=["created"],
+    ),
+    "newestactivity": dict(
+        title=_("Newest activity"),
+        fields=["-last_activity_at"],
+    ),
+    "oldestactivity": dict(
+        title=_("Oldest activity"),
+        fields=["last_activity_at"],
+    ),
+}
+"""Definitions of available record sort options."""
+
+
+APP_RDM_MODERATION_REQUEST_FACETS = {
+    "status": {
+        "facet": facets.status,
+        "ui": {
+            "field": "status",
+        },
+    },
+    "is_open": {"facet": facets.is_open, "ui": {"field": "is_open"}},
+}
+"""Available facets defined for this module."""

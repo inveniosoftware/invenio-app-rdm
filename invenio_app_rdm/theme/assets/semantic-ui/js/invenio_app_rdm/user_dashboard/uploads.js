@@ -3,6 +3,7 @@
 // Copyright (C) 2020-2021 Northwestern University.
 // Copyright (C) 2021 Graz University of Technology.
 // Copyright (C) 2021 New York University.
+// Copyright (C) 2024 KTH Royal Institute of Technology.
 //
 // Invenio App RDM is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
@@ -19,7 +20,6 @@ import {
   RDMRecordSearchBarElement,
   RDMToggleComponent,
 } from "../search/components";
-import { http } from "react-invenio-forms";
 import { DashboardResultView, DashboardSearchLayoutHOC } from "./base";
 import { createSearchAppInit } from "@js/invenio_search_ui";
 import { ComputerTabletUploadsItem } from "./uploads_items/ComputerTabletUploadsItem";
@@ -41,24 +41,10 @@ const statuses = {
 };
 
 export const RDMRecordResultsListItem = ({ result }) => {
-  const editRecord = () => {
-    http
-      .post(
-        `/api/records/${result.id}/draft`,
-        {},
-        {
-          headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/vnd.inveniordm.v1+json",
-          },
-        }
-      )
-      .then(() => {
-        window.location = `/uploads/${result.id}`;
-      })
-      .catch((error) => {
-        console.error(error.response.data);
-      });
+  const viewDraft = () => {
+    // The upload view is responsible to redirect the user to the upload form or
+    // the preview page depending on the permissions they have.
+    window.location = `/uploads/${result.id}`;
   };
 
   const isPublished = result.is_published;
@@ -97,14 +83,14 @@ export const RDMRecordResultsListItem = ({ result }) => {
     <>
       <ComputerTabletUploadsItem
         result={result}
-        editRecord={editRecord}
+        viewDraft={viewDraft}
         statuses={statuses}
         access={access}
         uiMetadata={uiMetadata}
       />
       <MobileUploadsItem
         result={result}
-        editRecord={editRecord}
+        viewDraft={viewDraft}
         statuses={statuses}
         access={access}
         uiMetadata={uiMetadata}
@@ -121,7 +107,11 @@ RDMRecordResultsListItem.propTypes = {
 // these components in RDM result broken.
 
 export const RDMRecordResultsGridItem = ({ result, index }) => {
-  const descriptionStripped = _get(result, "ui.description_stripped", "No description");
+  const descriptionStripped = _get(
+    result,
+    "ui.description_stripped",
+    i18next.t("No description")
+  );
   return (
     <Card fluid key={index} href={`/records/${result.id}`}>
       <Card.Content>
@@ -185,6 +175,8 @@ export const DashboardUploadsSearchLayout = DashboardSearchLayoutHOC({
     />
   ),
   appName: appName,
+  mineLabel: i18next.t("My uploads"),
+  showSharedFilters: true,
 });
 
 const ContribSearchAppFacetsWithConfig = parametrize(ContribSearchAppFacets, {

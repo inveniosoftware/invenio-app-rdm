@@ -1,5 +1,5 @@
 // This file is part of InvenioRDM
-// Copyright (C) 2021-2024 CERN.
+// Copyright (C) 2021-2025 CERN.
 // Copyright (C) 2021 Graz University of Technology.
 // Copyright (C) 2021 TU Wien
 //
@@ -28,8 +28,12 @@ export class RecordCitationField extends Component {
   }
 
   componentDidMount() {
-    const { record, defaultStyle, includeDeleted } = this.props;
-    this.getCitation(record, defaultStyle, includeDeleted);
+    const { recordLinks, defaultStyle, includeDeleted } = this.props;
+    this.getCitation(recordLinks, defaultStyle, includeDeleted);
+  }
+
+  async componentDidUpdate() {
+    await window.MathJax?.typesetPromise();
   }
 
   componentWillUnmount() {
@@ -52,9 +56,9 @@ export class RecordCitationField extends Component {
     return <Message negative>{message}</Message>;
   };
 
-  fetchCitation = async (record, style, includeDeleted) => {
+  fetchCitation = async (recordLinks, style, includeDeleted) => {
     const includeDeletedParam = includeDeleted === true ? "&include_deleted=1" : "";
-    const url = `${record.links.self}?locale=${navigator.language}&style=${style}${includeDeletedParam}`;
+    const url = `${recordLinks.self}?locale=${navigator.language}&style=${style}${includeDeletedParam}`;
     return await http.get(url, {
       headers: {
         Accept: "text/x-bibliography",
@@ -62,7 +66,7 @@ export class RecordCitationField extends Component {
     });
   };
 
-  getCitation = async (record, style, includeDeleted) => {
+  getCitation = async (recordLinks, style, includeDeleted) => {
     this.setState({
       loading: true,
       citation: "",
@@ -70,7 +74,7 @@ export class RecordCitationField extends Component {
     });
 
     this.cancellableFetchCitation = withCancel(
-      this.fetchCitation(record, style, includeDeleted)
+      this.fetchCitation(recordLinks, style, includeDeleted)
     );
 
     try {
@@ -91,7 +95,7 @@ export class RecordCitationField extends Component {
   };
 
   render() {
-    const { styles, record, defaultStyle, includeDeleted } = this.props;
+    const { styles, recordLinks, defaultStyle, includeDeleted } = this.props;
     const { loading, citation, error } = this.state;
     const citationOptions = styles.map((style) => {
       return {
@@ -136,7 +140,8 @@ export class RecordCitationField extends Component {
               options={citationOptions}
               selection
               onChange={_debounce(
-                (event, data) => this.getCitation(record, data.value, includeDeleted),
+                (event, data) =>
+                  this.getCitation(recordLinks, data.value, includeDeleted),
                 500
               )}
             />
@@ -151,7 +156,7 @@ export class RecordCitationField extends Component {
 
 RecordCitationField.propTypes = {
   styles: PropTypes.array.isRequired,
-  record: PropTypes.object.isRequired,
+  recordLinks: PropTypes.object.isRequired,
   defaultStyle: PropTypes.string.isRequired,
   includeDeleted: PropTypes.bool.isRequired,
 };

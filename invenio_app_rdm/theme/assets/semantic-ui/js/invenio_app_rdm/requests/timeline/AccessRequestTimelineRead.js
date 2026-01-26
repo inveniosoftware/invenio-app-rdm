@@ -1,5 +1,5 @@
 // This file is part of InvenioRDM
-// Copyright (C) 2023 CERN.
+// Copyright (C) 2023-2025 CERN.
 //
 // Invenio App RDM is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
@@ -20,7 +20,7 @@ export class AccessRequestTimelineRead extends Component {
     } = this.props;
 
     const expirationDate =
-      secretLinkExpiration === 0
+      parseInt(secretLinkExpiration) === 0
         ? i18next.t("Never")
         : DateTime.fromISO(updated)
             .plus({

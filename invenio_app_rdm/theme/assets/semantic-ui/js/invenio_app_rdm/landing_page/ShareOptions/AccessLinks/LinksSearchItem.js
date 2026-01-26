@@ -1,6 +1,7 @@
 /*
  * This file is part of Invenio.
  * Copyright (C) 2023-2024 CERN.
+ * Copyright (C) 2024 KTH Royal Institute of Technology.
  *
  * Invenio is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
@@ -73,7 +74,7 @@ export const LinksSearchItem = ({
       selfLink = `${record.links.record_html || record.links.self_html}?`;
     } else if (result?.permission === "preview") {
       // point to `/records/<id>?preview=1` even for published records
-      selfLink = `${record.links.record_html || record.links.self_html}?preview=1&`;
+      selfLink = `${record.links.preview_html}&`;
     } else if (result?.permission === "edit") {
       selfLink = `${record.links.self_html}?`;
     }
@@ -97,20 +98,20 @@ export const LinksSearchItem = ({
 
       {!error && (
         <>
-          <Table.Cell width={3} data-label="Link title">
+          <Table.Cell width={3} data-label={i18next.t("Link title")}>
             {isEmpty(result.description)
               ? "-"
               : _truncate(result.description, { length: 60 })}
           </Table.Cell>
-          <Table.Cell width={3} data-label="Created">
+          <Table.Cell width={3} data-label={i18next.t("Created")}>
             {timestampToRelativeTime(result.created_at)}
           </Table.Cell>
-          <Table.Cell width={3} data-label="Expires at">
+          <Table.Cell width={3} data-label={i18next.t("Expires at")}>
             {isEmpty(result.expires_at)
               ? i18next.t("Never")
               : `${timestampToRelativeTime(result.expires_at)} (${result.expires_at})`}
           </Table.Cell>
-          <Table.Cell width={3} data-label="Access">
+          <Table.Cell width={3} data-label={i18next.t("Access")}>
             <AccessDropdown
               updateEndpoint={`${record.links.access_links}/${result.id}`}
               dropdownOptions={dropdownOptions}

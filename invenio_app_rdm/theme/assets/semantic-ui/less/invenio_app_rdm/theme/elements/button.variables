@@ -3,3 +3,4 @@
 ***********************************************/
 
 @searchButtonColor: #fb8273;
+@textOnlyHorizontalPadding: 0.5rem;

@@ -5,6 +5,9 @@
   {%- block css %}
   {{ super() }}
   <link rel="stylesheet" type="text/css" href="/communities/{{community.slug}}/community-theme-{{ community.revision_id }}.css">
+  {%- if config.APP_RDM_DEPOSIT_NG_FILES_UI_ENABLED %}
+  {{ webpack['uppy-file-uploader.css'] }}
+  {%- endif %}
   {%- endblock %}
 {%- endif %}
 
@@ -45,10 +48,18 @@
           value='{{ config.RDM_RECORDS_RESTRICTION_GRACE_PERIOD.days | tojson }}'>
   <input type="hidden" name="deposits-allow-record-restriction"
           value='{{ config.RDM_RECORDS_ALLOW_RESTRICTION_AFTER_GRACE_PERIOD | tojson }}'>
+  {% if record_deletion %}
+    <input type="hidden" name="deposits-record-deletion" value='{{ record_deletion | tojson }}'>
+  {% endif %}
+  {% if file_modification %}
+    <input type="hidden" name="deposits-file-modification" value='{{ file_modification | tojson }}'>
+  {% endif %}
   <input type="hidden" name="config-groups-enabled"
           value='{{ config.USERS_RESOURCES_GROUPS_ENABLED | tojson }}'>
   <input type="hidden" name="records-resources-allow-empty-files"
           value='{{ config.RECORDS_RESOURCES_ALLOW_EMPTY_FILES | tojson }}'>
+  <input type="hidden" name="deposits-use-uppy-ui"
+          value='{{ config.APP_RDM_DEPOSIT_NG_FILES_UI_ENABLED | tojson }}'>
 
   {%- if forms_config %}
     <input type="hidden" name="deposits-config"
@@ -60,6 +71,9 @@
            name="deposits-record-permissions"
            value='{{ permissions | tojson }}'>
   {%- endif %}
+
+<input type="hidden" id="deposits-share-btn-require-link-expiration"
+        data-share-btn-require-link-expiration='{{ config.RDM_RECORDS_REQUIRE_SECRET_LINKS_EXPIRATION | tojson }}'>
 
   <div id="deposit-form"></div>
 

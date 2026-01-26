@@ -1,5 +1,5 @@
 // This file is part of InvenioRDM
-// Copyright (C) 2021 CERN.
+// Copyright (C) 2021-2026 CERN.
 //
 // Invenio RDM Records is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
@@ -7,29 +7,38 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Button, Popup } from "semantic-ui-react";
-import { CopyToClipboard } from "react-copy-to-clipboard";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 
 class SimpleCopyButton extends React.Component {
+  fetchUrl = async (url) => {
+    return await (await fetch(url)).text();
+  };
+
+  handleClick = async () => {
+    const { url, text, onCopy } = this.props;
+    let textToCopy = text;
+    if (url) {
+      textToCopy = await this.fetchUrl(url);
+    }
+
+    await navigator.clipboard.writeText(textToCopy);
+    onCopy(text);
+  };
+
   render() {
-    const { text, onCopy, hoverState } = this.props;
+    const { hoverState, className, uiProps } = this.props;
 
     return (
-      <CopyToClipboard
-        text={text}
-        onCopy={() => {
-          onCopy(text);
-        }}
-      >
-        <Button
-          className="copy"
-          basic
-          icon="copy"
-          aria-label={i18next.t("Copy to clipboard")}
-          onMouseEnter={hoverState}
-          onMouseLeave={hoverState}
-        />
-      </CopyToClipboard>
+      <Button
+        className={`copy ${className || ""}`}
+        basic
+        icon="copy"
+        aria-label={i18next.t("Copy to clipboard")}
+        onClick={this.handleClick} // Handle click to fetch from url if url passed, otherwise use text from props
+        onMouseEnter={hoverState}
+        onMouseLeave={hoverState}
+        {...uiProps}
+      />
     );
   }
 }
@@ -37,11 +46,17 @@ class SimpleCopyButton extends React.Component {
 SimpleCopyButton.propTypes = {
   text: PropTypes.string.isRequired,
   onCopy: PropTypes.func.isRequired,
+  url: PropTypes.string,
   hoverState: PropTypes.func,
+  className: PropTypes.string,
+  uiProps: PropTypes.object,
 };
 
 SimpleCopyButton.defaultProps = {
   hoverState: null,
+  url: null,
+  className: "",
+  uiProps: {},
 };
 
 export class CopyButton extends Component {
@@ -86,12 +101,12 @@ export class CopyButton extends Component {
   };
 
   render() {
-    const { text, popUpPosition } = this.props;
+    const { popUpPosition, text, url, ...uiProps } = this.props;
     const { confirmationPopupMsg, confirmationPopupIsOpen, hoverPopupIsOpen } =
       this.state;
 
     return (
-      text && (
+      (text || url) && ( // Ensure text or url is provided
         <Popup
           role="alert"
           open={hoverPopupIsOpen || confirmationPopupIsOpen}
@@ -103,7 +118,9 @@ export class CopyButton extends Component {
             <SimpleCopyButton
               text={text}
               onCopy={this.onCopy}
+              url={url}
               hoverState={this.hoverStateHandler}
+              uiProps={uiProps}
             />
           }
         />
@@ -115,9 +132,11 @@ export class CopyButton extends Component {
 CopyButton.propTypes = {
   popUpPosition: PropTypes.string,
   text: PropTypes.string,
+  url: PropTypes.string,
 };
 
 CopyButton.defaultProps = {
   popUpPosition: "right center",
   text: "",
+  url: "",
 };

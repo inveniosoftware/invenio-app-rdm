@@ -3,6 +3,7 @@
 # Copyright (C) 2019-2024 CERN.
 # Copyright (C) 2019-2020 Northwestern University.
 # Copyright (C)      2021 TU Wien.
+# Copyright (C) 2024 Graz University of Technology.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -122,9 +123,16 @@ def order_entries(files):
 
 def get_scheme_label(scheme):
     """Convert backend scheme to frontend label."""
-    scheme_to_label = current_app.config.get("RDM_RECORDS_IDENTIFIERS_SCHEMES", {})
+    configs = [
+        current_app.config.get("RDM_RECORDS_IDENTIFIERS_SCHEMES", {}),
+        current_app.config.get("RDM_RECORDS_RELATED_IDENTIFIERS_SCHEMES", {}),
+    ]
 
-    return scheme_to_label.get(scheme, {}).get("label", scheme)
+    for cfg in configs:
+        if scheme in cfg:
+            return cfg[scheme].get("label", scheme)
+
+    return scheme
 
 
 def localize_number(value):
@@ -183,11 +191,22 @@ def custom_fields_search(field, field_value, field_cfg=None):
         if not locale:
             locale = current_app.config.get("BABEL_DEFAULT_LOCALE", "en")
         # example: cern:experiments.title.en
-        namespace_string = "\:".join(namespace_array) + f".{localised_title}.{locale}"
+        # the \ is necessary for the lucene syntax but produces a SyntaxWarning.
+        # The r marks the string as raw and prevents the warning
+        # https://docs.python.org/3/reference/lexical_analysis.html#escape-sequences
+        namespace_string = r"\:".join(namespace_array) + rf".{localised_title}.{locale}"
     else:
-        namespace_string = "\:".join(namespace_array)
+        namespace_string = r"\:".join(namespace_array)
+        # Check if the field config has a landing page search attribute to search by
+        landing_page_search_attr = (field_cfg or {}).get(
+            "landing_page_search_attr", False
+        )
+        if landing_page_search_attr:
+            namespace_string += rf".{landing_page_search_attr}"
+
     return url_for(
-        "invenio_search_ui.search", q=f"custom_fields.{namespace_string}:{field_value}"
+        "invenio_search_ui.search",
+        q=f'custom_fields.{namespace_string}:"{field_value}"',
     )
 
 
@@ -202,6 +221,6 @@ def transform_record(record, serializer, module=None, throws=True, **kwargs):
         if throws:
             raise Exception("No serializer found.")
     except Exception:
-        current_app.logger.error("Record transformation failed.")
+        current_app.logger.exception("Record transformation failed.")
         if throws:
             raise

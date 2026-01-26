@@ -23,14 +23,14 @@
       </div>
     </div>
     {% if active_dashboard_menu_item == "uploads" %}
-      <a class="ui tiny button positive left labeled icon m-0" href="/uploads/new">
+      <a class="ui tiny button positive left labeled icon m-0" href={{ url_for("invenio_app_rdm_records.deposit_create") }}>
         <i class="upload icon" aria-hidden="true"></i>
         {{ _('New upload') }}
       </a>
     {% endif %}
 
     {% if active_dashboard_menu_item == "communities" %}
-      <a class="ui tiny button positive left labeled icon m-0" href="/communities/new">
+      <a class="ui tiny button positive left labeled icon m-0" href={{ url_for("invenio_communities.communities_new") }}>
         <i class="plus icon" aria-hidden="true"></i>
         {{ _('New community') }}
       </a>

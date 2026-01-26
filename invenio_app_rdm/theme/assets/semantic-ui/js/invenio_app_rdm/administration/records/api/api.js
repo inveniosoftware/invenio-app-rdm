@@ -22,7 +22,17 @@ const restoreRecord = async (record) => {
   return await http.post(APIRoutes.restore(record));
 };
 
+const getRevisions = async (record) => {
+  return await http.get(APIRoutes.compare(record));
+};
+
+const getLastRevision = async (record, revisionId, includePrevious) => {
+  return await http.get(APIRoutes.lastRevision(record, revisionId, includePrevious));
+};
+
 export const RecordModerationApi = {
   deleteRecord: deleteRecord,
   restoreRecord: restoreRecord,
+  getRevisions: getRevisions,
+  getLastRevision: getLastRevision,
 };

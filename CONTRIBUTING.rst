@@ -1,6 +1,6 @@
 ..
     Copyright (C) 2020 CERN.
-    Copyright (C) 2020 Northwestern University.
+    Copyright (C) 2020-2025 Northwestern University.
 
     Invenio App RDM is free software; you can redistribute it and/or modify
     it under the terms of the MIT License; see LICENSE file for more details.
@@ -9,8 +9,8 @@ Contributing
 ============
 
 Contributions are welcome, and they are greatly appreciated! Every
-little bit helps, and credit will always be given. Additional documentation 
-can be found in the Invenio `maintainers guide <https://inveniordm.docs.cern.ch/maintenance/newcomers/#tools>`_.
+little bit helps, and credit will always be given. Additional documentation
+can be found in the `InvenioRDM community contribution guide <https://inveniordm.docs.cern.ch/community/>`_.
 
 
 Types of Contributions
@@ -71,15 +71,18 @@ Ready to contribute? Here's how to set up `invenio-app-rdm` for local developmen
 
       $ git clone git@github.com:your_name_here/invenio-app-rdm.git
 
-3. Install your local copy. Assuming you have
-   `pipenv <https://docs.pipenv.org/install/#installing-pipenv>`_, installed, this is how you
-   set up your fork for local development:
+3. Install your local copy into a virtualenv. Here we present two alternatives to do so:
+   the [`uv`](https://docs.astral.sh/uv/) or [pipenv](https://pipenv.pypa.io/en/latest/) tools.
+   The equivalent with any other tool is perfectly fine as well.
 
    .. code-block:: console
 
-      $ mkvirtualenv invenio-app-rdm
       $ cd invenio-app-rdm/
-      $ pip install -e ".[all]"
+      # with uv
+      $ uv venv
+      $ uv pip install -e ".[tests,opensearch2]"
+      # with pipenv
+      $ pipenv run pip install -e ".[tests,opensearch2]"
 
 4. Create a branch for local development:
 
@@ -89,11 +92,12 @@ Ready to contribute? Here's how to set up `invenio-app-rdm` for local developmen
 
    Now you can make your changes locally.
 
-5. When you're done making changes, check that your changes pass tests:
+5. When you're done making changes, check that your changes pass tests
+   (within an active virtual environment):
 
    .. code-block:: console
 
-      $ ./run-tests.sh
+      $ (venv) ./run-tests.sh
 
    The tests will provide you with test coverage and also check PEP8
    (code style), PEP257 (documentation), flake8 as well as build the Sphinx
@@ -122,6 +126,6 @@ Before you submit a pull request, check that it meets these guidelines:
 1. The pull request should include tests and must not decrease test coverage.
 2. If the pull request adds functionality, the docs should be updated. Put
    your new functionality into a function with a docstring.
-3. The pull request should work for Python 2.7, 3.3, 3.4 and 3.5. Check
-   https://github.com/inveniosoftware/invenio-app-rdm/actions?query=event%3Apull_request
+3. The pull request should work for the supported Python versions. Check
+   https://github.com/inveniosoftware/workflows/blob/master/.github/workflows/tests-python.yml
    and make sure that the tests pass for all supported Python versions.

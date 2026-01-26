@@ -31,7 +31,13 @@
 {%- endmacro %}
 
 
-{% macro preview_file_box(file, pid, is_preview, record, include_deleted) %}
+{% macro preview_file_box(file, pid, is_preview, record, include_deleted, display_name=None) %}
+  {%- set is_remote_file = file.transfer.type == transfer_types.REMOTE %}
+  {%- if display_name %}
+    {%- set human_readable_file_name = display_name(file) or file.key %}
+  {%- else %}
+    {%- set human_readable_file_name = file.key %}
+  {%- endif %}
   <div class="ui accordion panel mb-10 {{record.ui.access_status.id}}" href="#files-preview-accordion-panel">
     <h3 class="active title panel-heading {{ record.ui.access_status.id }} m-0">
       <div
@@ -43,7 +49,7 @@
         class="trigger"
         aria-label="{{ _('File preview') }}"
       >
-        <span id="preview-file-title">{{ file.key }}</span>
+        <span id="preview-file-title">{{ human_readable_file_name }}</span>
         <i class="angle right icon" aria-hidden="true"></i>
       </div>
     </h3>
@@ -53,9 +59,22 @@
       aria-labelledby="files-preview-accordion-trigger"
       class="active content preview-container pt-0 {{record.ui.access_status.id}}"
     >
+      {%- if is_remote_file %}
+      <div class="ui info message">
+        <div class="header">
+          {{ _('This file cannot be previewed') }}
+        </div>
+        <ul class="list">
+          <li>{{ _('This file is an external reference and not stored directly in this repository.
+To access its content, please download it and open it locally.') }}
+          </li>
+        </ul>
+      </div>
+      {%- else %}
       <div>
         {{ preview_file('invenio_app_rdm_records.record_file_preview', pid_value=pid, filename=file.key, is_preview=is_preview, include_deleted=include_deleted) }}
       </div>
+      {%- endif %}
     </div>
   </div>
 {%- endmacro %}
@@ -68,9 +87,10 @@
     download_endpoint='invenio_app_rdm_records.record_file_download',
     preview_endpoint='invenio_app_rdm_records.record_file_preview',
     is_media=false,
-    permissions=None
+    permissions=None,
+    display_name=None
 ) %}
-  <table class="ui striped table files fluid {{record.ui.access_status.id}}">
+  <table id="file-list-table" class="ui striped table files fluid {{record.ui.access_status.id}}">
     <thead>
       <tr>
         <th>{{_('Name')}}</th>
@@ -93,6 +113,12 @@
     {% endif %}
     {% for file in files %}
       {% if not file.access.hidden %}
+        {%- set is_remote_file = file.transfer.type == transfer_types.REMOTE %}
+        {%- if display_name %}
+          {%- set human_readable_file_name = display_name(file) or file.key %}
+        {%- else %}
+          {%- set human_readable_file_name = file.key %}
+        {%- endif %}
         {% if is_preview %}
           {%- set file_url_download = url_for(download_endpoint, pid_value=pid, filename=file.key, download=1, preview=1) %}
           {%- set file_url_preview = url_for(preview_endpoint, pid_value=pid, filename=file.key, preview=1, include_deleted=include_deleted_value) %}
@@ -105,18 +131,20 @@
         <tr>
           <td class="ten wide">
             <div>
-              <a href="{{ file_url_download }}">{{ file.key }}</a>
+              <a href="{{ file_url_download }}">{{ human_readable_file_name }}</a>
             </div>
-            <small class="ui text-muted font-tiny">{{ file.checksum }}
+            {%- if not is_remote_file %}
+            <small class="ui text-muted font-tiny">{{ file.checksum or _("Checksum not yet calculated.") }}
             <div class="ui icon inline-block" data-tooltip="{{_('This is the file fingerprint (checksum), which can be used to verify the file integrity.')}}">
               <i class="question circle checksum icon"></i>
             </div>
             </small>
+            {%- endif %}
           </td>
-          <td>{{ file.size|filesizeformat(binary=binary_sizes) }}</td>
+          <td>{%- if is_remote_file %}{{_("N/A (external)")}}{%- else -%}{{ file.size|filesizeformat(binary=binary_sizes) }}{%- endif %}</td>
           <td class="right aligned">
             <span>
-              {% if with_preview and file_type|lower is previewable %}
+              {% if with_preview and file_type|lower is previewable and not is_remote_file %}
                 <a role="button" class="ui compact mini button preview-link" href="{{ file_url_preview }}" target="preview-iframe" data-file-key="{{file.key}}">
                   <i class="eye icon" aria-hidden="true"></i>{{_("Preview")}}
                 </a>
@@ -134,13 +162,13 @@
 {%- endmacro %}
 
 
-{% macro file_list_box(files, pid, is_preview, include_deleted, record, permissions) %}
+{% macro file_list_box(files, pid, is_preview, include_deleted, record, permissions, display_name=None) %}
   {%- set binary_sizes = not config.APP_RDM_DISPLAY_DECIMAL_FILE_SIZES %}
   <div class="ui accordion panel mb-10 {{ record.ui.access_status.id }}" href="#files-list-accordion-panel">
     <h3 class="active title panel-heading {{ record.ui.access_status.id }} m-0">
       <div role="button" id="files-list-accordion-trigger" aria-controls="files-list-accordion-panel" aria-expanded="true" tabindex="0" class="trigger">
         {{ _("Files") }}
-        <small class="text-muted">{% if files %} ({{files|sum(attribute='size')|filesizeformat(binary=binary_sizes)}}){% endif %}</small>
+        <small class="text-muted">{% if files %} ({{files|map(attribute='size', default=0)|sum()|filesizeformat(binary=binary_sizes)}}){% endif %}</small>
         <i class="angle right icon" aria-hidden="true"></i>
       </div>
     </h3>
@@ -157,13 +185,13 @@
         </div>
       {% endif %}
       <div>
-        {{ file_list(files, pid, is_preview, include_deleted, record=record,download_endpoint="invenio_app_rdm_records.record_file_download", permissions=permissions) }}
+        {{ file_list(files, pid, is_preview, include_deleted, record=record,download_endpoint="invenio_app_rdm_records.record_file_download", permissions=permissions, display_name=display_name) }}
       </div>
     </div>
   </div>
 {%- endmacro %}
 
-{% macro media_file_list_box(files, pid, is_preview, include_deleted, record, permissions) %}
+{% macro media_file_list_box(files, pid, is_preview, include_deleted, record, permissions, display_name=None) %}
   {%- set binary_sizes = not config.APP_RDM_DISPLAY_DECIMAL_FILE_SIZES %}
   <div class="ui accordion panel mb-10 {{ record.access.record }}" href="#media-files-preview-accordion-panel">
     <h3 class="active title panel-heading {{ record.access.record }} m-0">
@@ -187,7 +215,7 @@
         </div>
       {% endif %}
       <div>
-        {{ file_list(files, pid, is_preview, include_deleted, record=record, with_preview=false, download_endpoint="invenio_app_rdm_records.record_media_file_download", is_media=true, permissions=permissions) }}
+        {{ file_list(files, pid, is_preview, include_deleted, record=record, with_preview=false, download_endpoint="invenio_app_rdm_records.record_media_file_download", is_media=true, permissions=permissions, display_name=display_name) }}
       </div>
     </div>
   </div>

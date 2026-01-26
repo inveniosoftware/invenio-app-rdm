@@ -7,7 +7,7 @@ it under the terms of the MIT License; see LICENSE file for more details.
 
 {%- from "invenio_app_rdm/records/macros/locations.html" import render_feature %}
 
-{% set locations = record.ui.get('locations') %}
+{% set locations = record_ui["ui"].get('locations') %}
 
 {%- if locations %}
 <div class="sidebar-container">

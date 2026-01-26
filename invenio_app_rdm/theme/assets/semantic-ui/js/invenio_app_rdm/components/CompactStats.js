@@ -8,6 +8,7 @@ import { i18next } from "@translations/invenio_app_rdm/i18next";
 import PropTypes from "prop-types";
 import React from "react";
 import { Icon, Label, Popup } from "semantic-ui-react";
+import { localizedFormatNumber } from "../utils";
 
 export const CompactStats = ({ uniqueViews, uniqueDownloads }) => {
   return (
@@ -19,7 +20,7 @@ export const CompactStats = ({ uniqueViews, uniqueDownloads }) => {
           trigger={
             <Label className="transparent">
               <Icon name="eye" />
-              {uniqueViews}
+              {localizedFormatNumber(uniqueViews)}
             </Label>
           }
         />
@@ -31,7 +32,7 @@ export const CompactStats = ({ uniqueViews, uniqueDownloads }) => {
           trigger={
             <Label className="transparent">
               <Icon name="download" />
-              {uniqueDownloads}
+              {localizedFormatNumber(uniqueDownloads)}
             </Label>
           }
         />

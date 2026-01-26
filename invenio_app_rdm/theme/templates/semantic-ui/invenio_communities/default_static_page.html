@@ -1,0 +1,26 @@
+{# -*- coding: utf-8 -*-
+
+  This file is part of Invenio.
+  Copyright (C) 2025 CERN.
+
+  Invenio is free software; you can redistribute it and/or modify it
+  under the terms of the MIT License; see LICENSE file for more details.
+#}
+
+{% extends "invenio_communities/base.html" %}
+
+{% set title = page.title %}
+{% set community_menu_active = True %}
+
+{% block page_body %}
+    {% include "invenio_communities/details/header.html" %}
+    <div class="ui container rel-mt-2">
+        <div class="row">
+            <div class="col-xs-12 rich-input-content">
+                {% block content %}
+                    {{ page.content|safe }}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

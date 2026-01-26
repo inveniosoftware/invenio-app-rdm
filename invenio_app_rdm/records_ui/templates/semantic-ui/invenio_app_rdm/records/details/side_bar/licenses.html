@@ -1,8 +1,9 @@
 {#
-  Copyright (C) 2020 CERN.
+  Copyright (C) 2020-2025 CERN.
   Copyright (C) 2020 Northwestern University.
   Copyright (C) 2021 Graz University of Technology.
   Copyright (C) 2021 New York University.
+  Copyright (C) 2024 KTH Royal Institute of Technology.
 
   Invenio RDM Records is free software; you can redistribute it and/or modify
   it under the terms of the MIT License; see LICENSE file for more details.
@@ -10,59 +11,68 @@
 
 {% macro license_link(license) %}
   {% if license.link %}
-      <a class="license-link" href="{{ license.link }}" target="_blank" title="{{ _('Opens in new tab') }}">Read more</a>
+    <a class="license-link" href="{{ license.link }}" target="_blank"
+       title="{{ _('Opens in new tab') }}">{{ _('Read more') }}</a>
   {% elif license.props and license.props.url %}
-      <a class="license-link" href="{{ license.props.url }}" target="_blank" title="{{ _('Opens in new tab') }}">Read more</a>
+    <a class="license-link" href="{{ license.props.url }}" target="_blank"
+       title="{{ _('Opens in new tab') }}">{{ _('Read more') }}</a>
   {% endif %}
 {% endmacro %}
 
-
-{% set rights = record.ui.get('rights') %}
-{% if rights %}
+{% set rights = record_ui["ui"].get('rights', []) %}
+{% set copyrights = record_ui.get('metadata', {}).get('copyright') %}
+{% if rights or copyrights %}
   <div class="sidebar-container">
     <h2 class="ui medium top attached header mt-0">{{ _('Rights') }}</h2>
     <div id="licenses" class="ui segment bottom attached rdm-sidebar">
-
-      <ul class="details-list m-0 p-0">
-
-        {%- for license in rights%}
-          <li id="license-{{license.id}}-{{loop.index}}" class="has-popup">
-            <div id="title-{{license.id}}-{{loop.index}}"
-                class="license clickable"
-                tabindex="0"
-                aria-haspopup="dialog"
-                aria-expanded="false"
-                role="button"
-                aria-label="{{ license.title_l10n }}"
-            >
-              {% if license.icon %}
-                {% set iconFile = 'icons/licenses/{}.svg'.format(license.icon) %}
-                <span class="icon-wrap">
-                  <img class="icon" src="{{ url_for('static', filename=iconFile) }}" alt="{{ license.id }} icon"/>
+      <dl class="details-list">
+      {% if rights %}
+        <dt class="ui tiny header">License</dt>
+          {%- for license in rights -%}
+            <dd id="license-{{ license.id }}-{{ loop.index }}" class="has-popup">
+              <div id="title-{{ license.id }}-{{ loop.index }}"
+                   class="license clickable"
+                   tabindex="0"
+                   aria-haspopup="dialog"
+                   aria-expanded="false"
+                   role="button"
+                   aria-label="{{ license.title_l10n }}"
+              >
+                {% if license.icon %}
+                  {% set iconFile = 'icons/licenses/{}.svg'.format(license.icon) %}
+                  <span class="icon-wrap">
+                  <img class="icon" src="{{ url_for('static', filename=iconFile) }}"
+                       alt="{{ license.id }} icon"/>
                 </span>
-              {% endif %}
-
-              <span class="title-text">
+                {% endif %}
+                <span class="title-text">
                 {{ license.title_l10n }}
               </span>
-            </div>
-            <div id="description-{{license.id}}-{{loop.index}}"
-                  class="licenses-description ui flowing popup transition hidden"
-                  role="dialog"
-                  aria-labelledby="title-{{license.id}}-{{loop.index}}"
-            >
-              <i role="button" tabindex="0" class="close icon text-muted" aria-label="{{ _('Close') }}"></i>
-
-              <div id="license-description-{{loop.index}}" class="description">
-                <span class="text-muted">
-                  {{ license.description_l10n or _('No further description.')}}
-                </span>
-                {{ license_link(license)}}
               </div>
-            </div>
-          </li>
-        {% endfor %}
-      </ul>
+              <div id="description-{{ license.id }}-{{ loop.index }}"
+                   class="licenses-description ui flowing popup transition hidden"
+                   role="dialog"
+                   aria-labelledby="title-{{ license.id }}-{{ loop.index }}"
+              >
+                <i role="button" tabindex="0" class="close icon text-muted"
+                   aria-label="{{ _('Close') }}"></i>
+                <div id="license-description-{{ loop.index }}" class="description">
+                <span class="text-muted">
+                  {{ license.description_l10n or _('No further description.') }}
+                </span>
+                  {{ license_link(license) }}
+                </div>
+              </div>
+            </dd>
+          {% endfor %}
+      {% endif %}
+      {% if copyrights %}
+        <dt class="ui tiny header">Copyright</dt>
+        <dd id="copyrights">
+          {{ copyrights }}
+        </dd>
+      {% endif %}
+      </dl>
     </div>
   </div>
 {% endif %}

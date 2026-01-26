@@ -184,13 +184,13 @@
   <p>
     It is possible to search for records that either are missing a value or have
     a value in a specific field using the <code>_exists_</code> and
-    <code> not _exists_</code> field names.
+    <code>NOT _exists_</code> field names.
   </p>
   <p>
     <strong>Example:</strong>
-    <a href="/search?page=1&amp;size=20&amp;q=_missing_:metadata.additional_titles"
-      ><code>not _exists_:metadata.additional_titles</code></a
-    >
+    <a href="/search?page=1&amp;size=20&amp;q=NOT%20_exists_:metadata.additional_titles">
+      <code>NOT _exists_:metadata.additional_titles</code>
+    </a>
     (all records without metadata.additional_titles)
   </p>
   <p>
@@ -235,7 +235,7 @@
     in exactly the same order, and thus for instance would not match a record
     containing the phrase <em>"open access and science"</em>. A proximity search
     allows that the terms are not in the exact order and may include other terms
-    inbetween. The degree of flexiblity is specified by an integer afterwards:
+    in between. The degree of flexibility is specified by an integer afterwards:
   </p>
   <p>
     <strong>Example:</strong>

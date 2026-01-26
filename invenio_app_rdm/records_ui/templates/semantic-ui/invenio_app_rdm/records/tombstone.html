@@ -1,5 +1,5 @@
 {#
-  Copyright (C) 2021 CERN.
+  Copyright (C) 2021-2025 CERN.
   Copyright (C) 2023 TU Wien.
 
   Invenio App RDM is free software; you can redistribute it and/or modify it
@@ -37,6 +37,11 @@
       <p>
         <strong>{{ _("Removed by:") }}</strong> {{ record.ui.tombstone.removed_by }}
       </p>
+      {%- if record.ui.tombstone.deletion_policy %}
+      <p>
+        <strong>{{ _("Deletion Policy:") }}</strong> {{ record.ui.tombstone.deletion_policy }}
+      </p>
+      {%- endif %}
       {%- if record.ui.tombstone.note %}
       <p>
         <strong>{{ _("Removal note:") }}</strong> {{ record.ui.tombstone.note }}

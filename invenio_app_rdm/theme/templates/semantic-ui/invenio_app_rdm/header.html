@@ -1,8 +1,9 @@
 {#
     -*- coding: utf-8 -*-
-    Copyright (C) 2019-2020 CERN.
+    Copyright (C) 2019-2025 CERN.
     Copyright (C) 2019-2020 Northwestern University.
     Copyright (C) 2021 New York University.
+    Copyright (C) 2024 KTH Royal Institute of Technology.
 
     Invenio App RDM is free software; you can redistribute it and/or modify it
     under the terms of the MIT License; see LICENSE file for more details.
@@ -15,9 +16,9 @@
         <div class="ui negative flashed top attached manage m-0 big message">
           <div class="ui container">
             <div class="header">
-              <i class="ui spy big icon"></i><strong>Impersonated session</strong>
+              <i class="ui spy big icon"></i><strong>{{ _('Impersonated session') }}</strong>
             </div>
-            You must logout after you finish with you inquiry!
+            {{ _('You must logout after you finish with you inquiry!') }}
           </div>
         </div>
       {%- endif %}
@@ -126,6 +127,7 @@
             {%- endblock navbar_right %}
           </nav>
         </nav>
+      </div>
       {%- endblock navbar %}
     </div>
 

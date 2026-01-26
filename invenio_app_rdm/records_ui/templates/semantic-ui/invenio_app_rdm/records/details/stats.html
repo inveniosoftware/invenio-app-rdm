@@ -1,5 +1,5 @@
 {#
-  Copyright (C) 2020 CERN.
+  Copyright (C) 2020-2025 CERN.
 
   Invenio RDM Records is free software; you can redistribute it and/or modify
   it under the terms of the MIT License; see LICENSE file for more details.
@@ -7,8 +7,8 @@
 {% from "invenio_app_rdm/records/macros/stats_popup.html" import stats_popup %}
 
 <div class="ui tiny two statistics rel-mt-1">
-  {% set all_versions = record.stats.all_versions %}
-  {% set this_version = record.stats.this_version %}
+  {% set all_versions = record_ui["stats"]["all_versions"] %}
+  {% set this_version = record_ui["stats"]["this_version"] %}
 
   <div class="ui statistic">
     <div class="value">{{ all_versions.unique_views|compact_number(max_value=1_000_000) }}</div>
@@ -28,11 +28,9 @@
 </div>
 
 <div class="ui accordion rel-mt-1 centered">
-  <div class="title">
+  <div class="title trigger" tabindex="0">
     <i class="caret right icon" aria-hidden="true"></i>
     <span
-      tabindex="0"
-      class="trigger"
       data-open-text="{{ _('Show more details') }}"
       data-close-text="{{ _('Show less details') }}"
     >

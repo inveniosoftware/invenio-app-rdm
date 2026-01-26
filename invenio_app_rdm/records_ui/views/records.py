@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2019-2024 CERN.
+# Copyright (C) 2019-2025 CERN.
 # Copyright (C) 2019-2021 Northwestern University.
 # Copyright (C) 2021-2023 TU Wien.
 #
@@ -15,6 +15,7 @@ from pathlib import Path
 
 from flask import abort, current_app, g, redirect, render_template, request, url_for
 from flask_login import current_user
+from flask_principal import AnonymousIdentity
 from invenio_base.utils import obj_or_import_string
 from invenio_communities.communities.resources.serializer import (
     UICommunityJSONSerializer,
@@ -28,7 +29,10 @@ from invenio_rdm_records.proxies import current_rdm_records
 from invenio_rdm_records.records.systemfields.access.access_settings import (
     AccessSettings,
 )
+from invenio_rdm_records.requests import CommunityInclusion, CommunitySubmission
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
+from invenio_requests.proxies import current_requests_service
+from invenio_search.api import dsl
 from invenio_stats.proxies import current_stats
 from invenio_users_resources.proxies import current_user_resources
 from marshmallow import ValidationError
@@ -37,20 +41,28 @@ from invenio_app_rdm.records_ui.previewer.iiif_simple import (
     previewable_extensions as image_extensions,
 )
 
-from ..utils import get_external_resources
+from ..utils import evaluate_record_deletion, get_external_resources
 from .decorators import (
-    add_signposting,
+    add_signposting_content_resources,
+    add_signposting_landing_page,
+    add_signposting_metadata_resources,
     pass_file_item,
     pass_file_metadata,
     pass_include_deleted,
+    pass_is_iframe,
     pass_is_preview,
+    pass_preview_file,
     pass_record_files,
     pass_record_from_pid,
     pass_record_latest,
     pass_record_media_files,
     pass_record_or_draft,
 )
-from .deposits import get_user_communities_memberships, load_custom_fields
+from .deposits import (
+    VocabulariesOptions,
+    get_user_communities_memberships,
+    load_custom_fields,
+)
 
 
 def get_record_community(record):
@@ -93,6 +105,43 @@ def get_record_community(record):
         return None, None
 
 
+def get_record_requests(record, identity):
+    """Return all requests that concern this record.
+
+    Output: {<Community-UUID>: <Request-UUID>}
+    """
+    can_review = current_rdm_records.records_service.check_permission(
+        identity, "review", record=record._record
+    )
+    if not can_review:
+        return {}
+
+    if type(identity) is AnonymousIdentity:
+        return {}  # secret link users do not have permissions to search requests
+
+    record_requests = current_requests_service.search(
+        identity,
+        extra_filter=dsl.Q(
+            "bool",
+            must=[
+                dsl.Q("term", **{"topic.record": record["id"]}),
+                dsl.Q(
+                    "terms",
+                    **{
+                        "type": [
+                            CommunityInclusion.type_id,
+                            CommunitySubmission.type_id,
+                        ]
+                    },
+                ),
+            ],
+        ),
+        params={"sort": "oldest"},
+    )
+
+    return {r["receiver"]["community"]: r["id"] for r in record_requests}
+
+
 class PreviewFile:
     """Preview file implementation for InvenioRDM.
 
@@ -100,7 +149,9 @@ class PreviewFile:
     `invenio_previewer.api.PreviewFile`.
     """
 
-    def __init__(self, file_item, record_pid_value, record=None, url=None):
+    def __init__(
+        self, file_item, record_pid_value, record=None, url=None, is_iframe=False
+    ):
         """Create a new PreviewFile."""
         self.file = file_item
         self.data = file_item.data
@@ -113,6 +164,7 @@ class PreviewFile:
             pid_value=record_pid_value,
             filename=self.filename,
         )
+        self.is_iframe = is_iframe
 
     def is_local(self):
         """Check if file is local."""
@@ -138,12 +190,19 @@ class PreviewFile:
 
 @pass_is_preview
 @pass_include_deleted
+@pass_preview_file
 @pass_record_or_draft(expand=True)
 @pass_record_files
 @pass_record_media_files
-@add_signposting
+@add_signposting_landing_page
 def record_detail(
-    pid_value, record, files, media_files, is_preview=False, include_deleted=False
+    pid_value,
+    record,
+    files,
+    media_files,
+    is_preview=False,
+    include_deleted=False,
+    preview_file=None,
 ):
     """Record detail page (aka landing page)."""
     files_dict = None if files is None else files.to_dict()
@@ -154,6 +213,19 @@ def record_detail(
         record._record.parent["access"]["settings"] = AccessSettings({}).dump()
 
     record_ui = UIJSONSerializer().dump_obj(record.to_dict())
+
+    if preview_file:
+        record_ui["files"]["default_preview"] = preview_file
+
+    record_deletion = evaluate_record_deletion(record._record, g.identity)
+
+    # The deletion options are only needed if the user is allowed to delete the given record.
+    record_deletion_options = (
+        VocabulariesOptions().deletion_request_removal_reasons()
+        if record_deletion["allowed"]
+        else []
+    )
+
     is_draft = record_ui["is_draft"]
     custom_fields = load_custom_fields()
     # keep only landing page configurable custom fields
@@ -178,7 +250,7 @@ def record_detail(
             )
         except ValidationError:
             abort(404)
-        # inject parent doi format for new drafts so we can show in preview
+        # inject parent doi format for new drafts so we can show in preview if parent doi is required
         if current_app.config["DATACITE_ENABLED"]:
             service = current_rdm_records.records_service
             datacite_provider = [
@@ -187,35 +259,48 @@ def record_detail(
                 if p == "doi" and "datacite" in v
             ]
             if datacite_provider:
-                datacite_provider = datacite_provider[0]
-                parent_doi = datacite_provider.client.generate_doi(
-                    record._record.parent
+                should_mint_parent_doi = True
+                is_doi_required = (
+                    current_app.config.get("RDM_PARENT_PERSISTENT_IDENTIFIERS", {})
+                    .get("doi", {})
+                    .get("required")
                 )
-                record_ui["ui"]["new_draft_parent_doi"] = parent_doi
+                if not is_doi_required:
+                    # check if the draft has a reserved doi and mint parent doi only in that case
+                    record_doi = record._record.pids.get("doi", {})
+                    is_doi_reserved = record_doi.get(
+                        "provider", ""
+                    ) == "datacite" and record_doi.get("identifier")
+                    if not is_doi_reserved:
+                        should_mint_parent_doi = False
+
+                if should_mint_parent_doi:
+                    datacite_provider = datacite_provider[0]
+                    parent_doi = datacite_provider.client.generate_doi(
+                        record._record.parent
+                    )
+                    record_ui["ui"]["new_draft_parent_doi"] = parent_doi
 
     # emit a record view stats event
     emitter = current_stats.get_event_emitter("record-view")
     if record is not None and emitter is not None:
         emitter(current_app, record=record._record, via_api=False)
 
-    record_owner = (
-        record_ui.get("expanded", {})
-        .get("parent", {})
-        .get("access", {})
-        .get("owned_by", {})
-    )
     resolved_community, _ = get_record_community(record_ui)
-    resolved_community = (
+    resolved_community_ui = (
         UICommunityJSONSerializer().dump_obj(resolved_community.to_dict())
         if resolved_community
         else None
     )
-    theme = resolved_community.get("theme", {}) if resolved_community else None
+    theme = resolved_community_ui.get("theme", {}) if resolved_community else None
+
+    record_requests = get_record_requests(record, g.identity)
 
     return render_community_theme_template(
         current_app.config.get("APP_RDM_RECORD_LANDING_PAGE_TEMPLATE"),
         theme=theme,
-        record=record_ui,
+        record=record,
+        record_ui=record_ui,
         files=files_dict,
         media_files=media_files_dict,
         user_communities_memberships=get_user_communities_memberships(),
@@ -230,6 +315,8 @@ def record_detail(
                 "view",
                 "media_read_files",
                 "moderate",
+                "request_deletion",
+                "immediately_delete",
             ]
         ),
         custom_fields_ui=custom_fields["ui"],
@@ -237,16 +324,18 @@ def record_detail(
         include_deleted=include_deleted,
         is_draft=is_draft,
         community=resolved_community,
+        community_ui=resolved_community_ui,
+        record_requests=record_requests,
         external_resources=get_external_resources(record),
         user_avatar=avatar,
-        record_owner_username=(
-            record_owner.get("username")
-        ),  # record created with system_identity have not owners e.g demo
+        record_deletion=record_deletion,
+        record_deletion_options=record_deletion_options,
     )
 
 
 @pass_is_preview
 @pass_record_or_draft(expand=False)
+@add_signposting_metadata_resources
 def record_export(
     pid_value, record, export_format=None, permissions=None, is_preview=False
 ):
@@ -273,6 +362,7 @@ def record_export(
 @pass_include_deleted
 @pass_record_or_draft(expand=False)
 @pass_file_metadata
+@pass_is_iframe
 def record_file_preview(
     pid_value,
     record=None,
@@ -280,6 +370,7 @@ def record_file_preview(
     file_metadata=None,
     is_preview=False,
     include_deleted=False,
+    is_iframe=False,
     **kwargs,
 ):
     """Render a preview of the specified file."""
@@ -291,7 +382,7 @@ def record_file_preview(
     )
 
     # Find a suitable previewer
-    fileobj = PreviewFile(file_metadata, pid_value, record, url)
+    fileobj = PreviewFile(file_metadata, pid_value, record, url, is_iframe)
     # Try to see if specific previewer preference is set for the file
     file_previewer = (file_metadata.data.get("metadata") or {}).get("previewer")
     if file_previewer:
@@ -309,7 +400,7 @@ def record_file_preview(
 
 @pass_is_preview
 @pass_file_item(is_media=False)
-@add_signposting
+@add_signposting_content_resources
 def record_file_download(pid_value, file_item=None, is_preview=False, **kwargs):
     """Download a file from a record."""
     download = bool(request.args.get("download"))

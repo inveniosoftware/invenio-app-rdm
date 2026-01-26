@@ -98,7 +98,7 @@ export class AccessUsersGroups extends Component {
                           <Grid.Column>
                             <Item className="flex">
                               <Image
-                                src={recOwner.links.avatar}
+                                src={recOwner.links?.avatar}
                                 avatar
                                 className="rel-ml-1"
                                 alt=""

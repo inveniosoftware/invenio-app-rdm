@@ -7,7 +7,6 @@
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import React from "react";
 import PropTypes from "prop-types";
-import _truncate from "lodash/truncate";
 import _get from "lodash/get";
 import { Button, Icon, Item, Label } from "semantic-ui-react";
 import { SearchItemCreators } from "../../utils";
@@ -16,7 +15,7 @@ import { DisplayPartOfCommunities } from "../../components/DisplayPartOfCommunit
 
 export const ComputerTabletUploadsItem = ({
   result,
-  editRecord,
+  viewDraft,
   statuses,
   access,
   uiMetadata,
@@ -70,21 +69,23 @@ export const ComputerTabletUploadsItem = ({
             <i className={`icon ${accessStatusIcon}`} />
             {accessStatus}
           </Label>
-          <Button
-            compact
-            size="small"
-            floated="right"
-            onClick={() => editRecord()}
-            labelPosition="left"
-            icon="edit"
-            content={i18next.t("Edit")}
-          />
-          {isPublished && (
+
+          {isPublished ? (
             <Button
               compact
               size="small"
               floated="right"
               href={viewLink}
+              labelPosition="left"
+              icon="eye"
+              content={i18next.t("View")}
+            />
+          ) : (
+            <Button
+              compact
+              size="small"
+              floated="right"
+              onClick={() => viewDraft()}
               labelPosition="left"
               icon="eye"
               content={i18next.t("View")}
@@ -101,10 +102,8 @@ export const ComputerTabletUploadsItem = ({
             <SearchItemCreators creators={creators} />
           </div>
         </Item.Meta>
-        <Item.Description>
-          {_truncate(descriptionStripped, {
-            length: 350,
-          })}
+        <Item.Description className="truncate-lines-2">
+          {descriptionStripped}
         </Item.Description>
         <Item.Extra>
           {subjects.map((subject) => (
@@ -128,7 +127,7 @@ export const ComputerTabletUploadsItem = ({
                 <span>
                   {" "}
                   |{" "}
-                  {i18next.t("Published in: {{publishInfo}}", {
+                  {i18next.t("Published in: {{- publishInfo }}", {
                     publishInfo: publishingInformation,
                   })}
                 </span>
@@ -149,7 +148,7 @@ export const ComputerTabletUploadsItem = ({
 
 ComputerTabletUploadsItem.propTypes = {
   result: PropTypes.object.isRequired,
-  editRecord: PropTypes.func.isRequired,
+  viewDraft: PropTypes.func.isRequired,
   statuses: PropTypes.object.isRequired,
   access: PropTypes.object.isRequired,
   uiMetadata: PropTypes.object.isRequired,
