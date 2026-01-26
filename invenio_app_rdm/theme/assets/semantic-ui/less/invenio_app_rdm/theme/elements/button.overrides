@@ -111,3 +111,14 @@
     transform: none;
   }
 }
+
+/* accessible disabled buttons */
+button[aria-disabled=true] {
+  opacity: .5;
+}
+
+button[aria-disabled=true]:hover {
+  cursor: default;
+}
+
+
