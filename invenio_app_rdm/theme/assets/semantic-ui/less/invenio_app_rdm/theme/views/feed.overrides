@@ -59,6 +59,14 @@
     }
   }
 
+  button[aria-disabled=true] {
+    opacity: .5;
+  }
+
+  button[aria-disabled=true]:hover {
+    cursor: default;
+  }
+
   .requests-avatar-container {
     padding-right: 0.5em;
     margin-top: 1rem;
