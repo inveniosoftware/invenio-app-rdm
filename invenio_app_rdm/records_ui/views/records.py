@@ -181,7 +181,7 @@ class PreviewFile:
         return self.file._file.file.storage().open()
 
 
-class ContainerItemPreview:
+class PreviewContainerItem:
     """Container Item Preview file implementation for InvenioRDM."""
 
     def __init__(
@@ -454,27 +454,10 @@ def record_container_item_preview(
         path=path,
     )
 
-    listing_file = file_metadata._record.media_files.get(f"{filename}.listing")
-
-    with listing_file.file.storage().open("rb") as f:
-        listing = json.load(f)
-
-    parts = list(PurePosixPath(path).parts)
-    entry = find_container_item(listing.get("items", {}), parts)
-    if entry is None:
-        abort(404)
-
-    extracted_file_size = entry.get("size", 0)
-    # Find a suitable previewer
-    fileobj = ContainerItemPreview(
+    extracted_file_size = 0
+    fileobj = PreviewContainerItem(
         file_metadata, pid_value, path, extracted_file_size, record, url
     )
-    # Try to see if specific previewer preference is set for the file
-    file_previewer = (file_metadata.data.get("metadata") or {}).get("previewer")
-    if file_previewer:
-        previewer = current_previewer.previewers.get(file_previewer)
-        if previewer and previewer.can_preview(fileobj):
-            return previewer.preview(fileobj)
 
     # Go through all previewers to find the first one that can preview the file
     for plugin in current_previewer.iter_container_item_previewers():

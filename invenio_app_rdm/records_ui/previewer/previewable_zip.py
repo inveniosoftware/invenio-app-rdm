@@ -7,6 +7,7 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """Simple ZIP archive previewer."""
+import sys
 
 from flask import render_template
 from invenio_access.permissions import system_identity
@@ -14,7 +15,7 @@ from invenio_base import invenio_url_for
 from invenio_previewer.proxies import current_previewer
 from invenio_previewer.views import is_container_item_previewable
 
-from ..views.records import ContainerItemPreview
+from ..views.records import PreviewContainerItem
 
 previewable_extensions = ["zip"]
 
@@ -31,16 +32,34 @@ def create_container_item_preview_link(record_id, container_filename, item_path)
     )
 
 
-def convert_zip_list_container(tree, record_id, container_filename):
+def convert_zip_list_container(entries, record_id, container_filename):
     """Convert structure returned by files.list_container(...).to_dict()."""
+    counter = iter(range(sys.maxsize))
 
-    def convert_node(key, node, counter):
+    def create_parent_hierarchy(node, path):
+
+        for path_item in path:
+            items = node["items"]
+            for child_item in items:
+                if child_item["name"] == path_item:
+                    node = child_item
+                    break
+            else:
+                node = {
+                    "type": "folder",
+                    "name": path_item,
+                    "id": f"folder{next(counter)}",
+                    "items": []
+                }
+                items.append(node)
+        return node
+
+    def convert_file_entry(key, node):
         """Convert one node (file or folder)."""
         converted = {
             "name": key,
-            "type": "item",  # previewer later decides if it's folder
+            "type": "item",
             "id": f"item{next(counter)}",
-            "items": {},
         }
 
         # Copy metadata fields if they exist
@@ -48,58 +67,29 @@ def convert_zip_list_container(tree, record_id, container_filename):
             if field in node:
                 converted[field] = node[field]
 
-        # Case 1: File
-        if node.get("type") == "file":
-            # create preview link
-            container_item_extension = node.get("key", "").split(".")[-1].lower()
-            if is_container_item_previewable(container_item_extension):
-                converted["links"].update(
-                    {
-                        "preview": create_container_item_preview_link(
-                            record_id, container_filename, node["id"]
-                        )
-                    }
-                )
-            return converted
-
-        # Case 2: Folder
-        items = node.get("items", {})
-        for child_key, child_node in items.items():
-            converted["items"][child_key] = convert_node(
-                child_key, child_node, counter
+        # create preview link
+        container_item_extension = key.split(".")[-1].lower()
+        if is_container_item_previewable(container_item_extension):
+            converted["links"].update(
+                {
+                    "preview": create_container_item_preview_link(
+                        record_id, container_filename, node["key"]
+                    )
+                }
             )
-
         return converted
 
-    # ID counter for "item0", "item1", ...
-    def counter_gen():
-        i = 0
-        while True:
-            yield i
-            i += 1
-
-    counter = counter_gen()
-
     # Root folder
-    root = {"type": "folder", "id": -1, "items": {}}
+    root = {"type": "folder", "id": -1, "items": []}
 
     # Convert items of root
-    for key, child in tree.get("items", {}).items():
-        root["items"][key] = convert_node(key, child, counter)
+    for entry in sorted(entries,key=lambda x: x["key"]):
+        entry_key = entry["key"].split("/")
+        converted = convert_file_entry(entry_key[-1], entry)
+        hierarchy_position = create_parent_hierarchy(root, entry_key[:-1])
+        hierarchy_position["items"].append(converted)
 
     return root
-
-
-def items_to_list(node):
-    """Organize items structure."""
-    if node["type"] == "item" and len(node["items"]) == 0:
-        del node["items"]
-    else:
-        node["type"] = "folder"
-        node["items"] = list(node["items"].values())
-        node["items"].sort(key=lambda x: x["name"])
-        node["items"] = map(items_to_list, node["items"])
-    return node
 
 
 def can_preview(file):
@@ -107,22 +97,21 @@ def can_preview(file):
     return (
         file.is_local()
         and file.has_extensions(".zip")
-        and not isinstance(file, ContainerItemPreview)  # we are top level file
+        and not isinstance(file, PreviewContainerItem)  # we are top level file
     )
 
 
 def preview(file):
     """Return the appropriate template and pass the file and an embed flag."""
     from invenio_rdm_records.proxies import current_rdm_records_service
-
     tree_raw = current_rdm_records_service.files.list_container(
         system_identity, file.record["id"], file.filename
     ).to_dict()
 
     converted_tree = convert_zip_list_container(
-        tree_raw, file.record["id"], file.filename
+        tree_raw["entries"], file.record["id"], file.filename
     )
-    tree_list = items_to_list(converted_tree)["items"]
+    tree_list = converted_tree["items"]
     return render_template(
         "invenio_previewer/previewable_zip.html",
         file=file,
