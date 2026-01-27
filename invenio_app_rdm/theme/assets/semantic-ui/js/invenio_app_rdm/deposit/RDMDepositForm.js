@@ -144,6 +144,7 @@ export class RDMDepositForm extends Component {
         groupsEnabled={groupsEnabled}
         allowEmptyFiles={allowEmptyFiles}
         customFieldsUI={customFieldsUI}
+        recordSerializer={null}
       >
         <DepositFormApp
           config={this.config}
@@ -152,6 +153,7 @@ export class RDMDepositForm extends Component {
           files={files}
           permissions={permissions}
           errors={record.errors}
+          recordSerializer={null}
         >
           <Overridable
             id="InvenioAppRdm.Deposit.FormFeedback.container"
