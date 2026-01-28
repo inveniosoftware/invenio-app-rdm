@@ -20,6 +20,7 @@ import {
   ContribSearchAppFacets,
   ContribBucketAggregationElement,
   ContribBucketAggregationValuesElement,
+  ContribRangeFacetElement,
 } from "@js/invenio_search_ui/components";
 import { overrideStore, parametrize } from "react-overridable";
 
@@ -38,6 +39,7 @@ const DashboardResultViewWAppName = parametrize(DashboardResultView, {
 export const defaultComponents = {
   [`${appName}.BucketAggregation.element`]: ContribBucketAggregationElement,
   [`${appName}.BucketAggregationValues.element`]: ContribBucketAggregationValuesElement,
+  [`${appName}.RangeFacet.element`]: ContribRangeFacetElement,
   [`${appName}.EmptyResults.element`]: CommunitiesEmptySearchResults,
   [`${appName}.SearchApp.facets`]: ContribSearchAppFacets,
   [`${appName}.ResultsList.item`]: CommunityItem,
