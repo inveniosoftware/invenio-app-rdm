@@ -12,6 +12,7 @@ import {
   ContribBucketAggregationElement,
   ContribBucketAggregationValuesElement,
   ContribSearchAppFacets,
+  ContribRangeFacetElement,
 } from "@js/invenio_search_ui/components";
 import PropTypes from "prop-types";
 import React from "react";
@@ -58,6 +59,7 @@ const RequestsSearchLayoutWithApp = parametrize(RequestsSearchLayout, {
 export const defaultComponents = {
   [`${appName}.BucketAggregation.element`]: ContribBucketAggregationElement,
   [`${appName}.BucketAggregationValues.element`]: ContribBucketAggregationValuesElement,
+  [`${appName}.RangeFacet.element`]: ContribRangeFacetElement,
   [`${appName}.SearchApp.facets`]: ContribSearchAppFacets,
   [`${appName}.ResultsList.item`]: RequestsResultsItemTemplateDashboard,
   [`${appName}.ResultsGrid.item`]: () => null,
