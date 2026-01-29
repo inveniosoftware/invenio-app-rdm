@@ -10,6 +10,18 @@
 Changes
 =======
 
+Version v14.0.0b3.dev5 (released 2026-01-29)
+
+- fix(deposit-ui): add explicit `data-label` for files section
+    * This is a fix for allowing for the `FormFeedbackSummary` to be able to
+      pick-up the correct "Files" label when reporting the error summary.
+      Getting the text from the original `label` attribute didn't work
+      because it has more than a single element/node, which caused the
+      section to show up as `[object Object]` on the error banner.
+
+- fix(tombstone): use consistent casing for labels
+- fix(deposit-ui): better display of expired file modification period
+
 Version v14.0.0b3.dev4 (released 2025-12-08)
 
 - fix: ensure that pages render if accessed via secret link
