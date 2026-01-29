@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version v14.0.0b3.dev6 (released 2026-01-29)
+
+- fix: formatting black+eslint
+
 Version v14.0.0b3.dev5 (released 2026-01-29)
 
 - fix(deposit-ui): add explicit `data-label` for files section

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2023-2024 CERN.
+# Copyright (C) 2023-2026 CERN.
 # Copyright (C) 2024 Graz University of Technology.
 #
 # Invenio-App-RDM is free software; you can redistribute it and/or modify
