@@ -7,6 +7,7 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """Administration views for managing roles."""
+
 from flask import abort
 from invenio_administration.views.base import (
     AdminResourceCreateView,
