@@ -9,254 +9,254 @@
 {%- extends config.BASE_TEMPLATE %}
 
 {%- block page_body %}
-  <div class="ui container mt-25">
-    <h1>Search guide</h1>
-    <p>
-      This guide explains how to write advanced search queries using easy
-      to understand examples.
-    </p>
-    <h3>Simple search (one or multiple terms)</h3>
-    <p>
-      <strong>Example:</strong>
-      <a href="/search?page=1&amp;size=20&amp;q=open%20science"
-      ><code>open science</code></a
-      >
-    </p>
-    <p>
-      Results will match records with the <em>terms</em> <code>open</code>
-      <em>or</em> <code>science</code> in <em>any field</em>. Note that stemming
-      is applied so e.g. <code>science</code> will also match
-      <code>sciences</code>. Search results are ranked according to an algorithm
-      that takes your query terms into account.
-    </p>
-    <p>
-      You can require <em>presence</em> of both terms using either the
-      <code>+</code> or <code>AND</code> operator:
-    </p>
-    <p>
-      <strong>Examples:</strong>
-      <a href="/search?page=1&amp;size=20&amp;q=%2Bopen%20%2Bscience"
-      ><code>+open +science</code></a
-      >
-      or
-      <a href="/search?page=1&amp;size=20&amp;q=open%20AND%20science"
-      ><code>open AND science</code></a
-      >
-    </p>
-    <p>
-      You can require <em>absence</em> of one or more terms using either the
-      <code>-</code> or <code>NOT</code> operator:
-    </p>
-    <p>
-      <strong>Examples:</strong>
-      <a href="/search?page=1&amp;size=20&amp;q=-open%20%2Bscience"
-      ><code>-open +science</code></a
-      >
-      or
-      <a href="/search?page=1&amp;size=20&amp;q=NOT%20open%20AND%20science"
-      ><code>NOT open AND science</code></a
-      >
-    </p>
-    <h3>Phrase search</h3>
-    <p>
-      <strong>Example:</strong>
-      <a href="/search?page=1&amp;size=20&amp;q=%22open%20science%22"
-      ><code>"open science"</code></a
-      >
-    </p>
-    <p>
-      Results will match records with the <em>phrase</em>
-      <code>open science</code> in <em>any field</em>.
-    </p>
-    <h3>Field search</h3>
-    <p>
-      <strong>Example:</strong>
-      <a href="/search?page=1&amp;size=20&amp;q=metadata.title:open"
-      ><code>metadata.title:open</code></a
-      >
-    </p>
-    <p>
-      Results will match records with the <em>term</em> <code>open</code> in the
-      <em>field</em> <code>metadata.title</code>. If you want to search for multiple terms
-      in the title you must <strong>group the terms</strong> using parenthesis:
-    </p>
-    <p>
-      <strong>Example:</strong>
-      <a href="/search?page=1&amp;size=20&amp;q=metadata.title:(open%20science%29"
-      ><code>metadata.title:(open science)</code></a
-      >
-    </p>
-    <p>
-      See <a href="https://inveniordm.docs.cern.ch/reference/metadata/#metadata"
-    > the InvenioRDM documentation </a
-    > for the full list of fields you can search.
-    </p>
-    <h3>Combined simple, phrase or field search</h3>
-    <p>
-      <strong>Example:</strong>
-      <a
-        href="/search?page=1&amp;size=20&amp;q=%2Bmetadata.title:%22open%20science%22%20-metadata.title:policy"
-      ><code>+metadata.title:"open science" -metadata.title:policy</code></a
-      >
-      or e.g.
-      <a href="/search?page=1&amp;size=20&amp;q=metadata.title:(-open%20%2Bscience%29"
-      ><code>metadata.title:(-open +science)</code></a
-      >
-    </p>
-    <p>
-      You can combine simple, phrase and field search to construct advanced search
-      queries.
-    </p>
-    <h3>Range search</h3>
-    <p>
-      <strong>Example:</strong>
-      <a
-        href="/search?page=1&amp;size=20&amp;q=metadata.publication_date:%5B2017%20TO%202018%5D"
-      ><code>metadata.publication_date:[2017 TO 2018]</code></a
-      >
-      (note, you must capitalize <code>TO</code>).
-    </p>
-    <p>
-      Results will match any record with a publication date between 2017-01-01 and
-      2018-01-01 (both dates inclusive).
-    </p>
-    <p>Note that, partial dates are expanded to full dates, e.g.:</p>
-    <ul>
-      <li>2017 is expanded to 2017-01-01</li>
-      <li>2017-06 is expanded to 2017-06-01</li>
-    </ul>
-    <p>
-      Use square brackets (<code>[]</code>) for <em>inclusive</em> ranges and use
-      curly brackets (<code>{}</code>) for <em>exclusive</em> ranges, e.g.:
-    </p>
-    <ul>
-      <li>
-        <code>[2017 TO 2018}</code> is equivalent to
-        <code>[2017-01-01 TO 2017-12-31]</code> because of date expansion and
-        exclusive upper bound.
-      </li>
-    </ul>
-    <p>Examples of other ranges:</p>
-    <ul>
-      <li>
-        <code>metadata.publication_date:{* TO 2017-01-01}</code>: All days until 2017.
-      </li>
-      <li>
-        <code>metadata.publication_date:[2017-01-01 TO *]</code>: All days from 2017.
-      </li>
-    </ul>
-    <h3>Ranking/Sorting</h3>
-    <p>
-      By default all searches are sorted according to an internal ranking
-      algorithm that scores each match against your query. In both the user
-      interface and REST API, it's possible to sort the results by:
-    </p>
-    <ul>
-      <li>Most recent</li>
-      <li>Best match</li>
-      <li>Oldest</li>
-      <li>Most viewed</li>
-      <li>Most downloaded</li>
-    </ul>
-    <h3>Regular expressions</h3>
-    <p>
-      Regular expressions are a powerful pattern matching language that allow to
-      search for specific patterns in a field. For instance if we wanted to find
-      all records with a DOI-prefix 10.5281 we could use a regular expression
-      search:
-    </p>
-    <p>
-      <strong>Example:</strong>
-      <a href="/search?page=1&amp;size=20&amp;q=doi%3A%2F10\.5281.*%2F">
-        <code>doi:/10\.5281.*/</code>
-      </a>
-    </p>
-    <p>
-      Careful, the regular expression must match the <em>entire</em> field value.
-      See the
-      <a
-        href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-regexp-query.html#regexp-syntax"
-      >regular expression syntax</a
-      >
-      for further details.
-    </p>
-    <h3>Missing values</h3>
-    <p>
-      It is possible to search for records that either are missing a value or have
-      a value in a specific field using the <code>_exists_</code> and
-      <code>NOT _exists_</code> field names.
-    </p>
-    <p>
-      <strong>Example:</strong>
-      <a href="/search?page=1&amp;size=20&amp;q=NOT%20_exists_:metadata.additional_titles">
-        <code>NOT _exists_:metadata.additional_titles</code>
-      </a>
-      (all records without metadata.additional_titles)
-    </p>
-    <p>
-      <strong>Example:</strong>
-      <a href="/search?page=1&amp;size=20&amp;q=_exists_:metadata.creators"
-      ><code>_exists_:metadata.creators</code></a
-      >
-      (all records with metadata.creators)
-    </p>
-    <h3>Advanced concepts</h3>
-    <h4>Boosting</h4>
-    <p>
-      You can use the boost operator <code>^</code> when one term is more relevant
-      than another. For instance, you can search for all records with the phrase
-      <em>open science</em> in either <em>title</em> or
-      <em>description</em> field, but rank records with the phrase in the
-      <em>title</em> field higher:
-    </p>
-    <p>
-      <strong>Example:</strong>
-      <a
-        href="/search?page=1&amp;size=20&amp;q=metadata.title:%22open%20science%22%5E5%20metadata.description:%22open%20science%22"
-      ><code>metadata.title:"open science"^5 metadata.description:"open science"</code></a
-      >
-    </p>
-    <h4>Fuzziness</h4>
-    <p>
-      You can search for terms similar to but not exactly like your search term
-      using the fuzzy operator <code>~</code>.
-    </p>
-    <p>
-      <strong>Example:</strong>
-      <a href="/search?page=1&amp;size=20&amp;q=oepn~"><code>oepn~</code></a>
-    </p>
-    <p>
-      Results will match records with terms similar to <code>oepn</code> which
-      would e.g. also match <code>open</code>.
-    </p>
-    <h4>Proximity searches</h4>
-    <p>
-      A phrase search like <code>"open science"</code> by default expect all terms
-      in exactly the same order, and thus for instance would not match a record
-      containing the phrase <em>"open access and science"</em>. A proximity search
-      allows that the terms are not in the exact order and may include other terms
-      in between. The degree of flexibility is specified by an integer afterwards:
-    </p>
-    <p>
-      <strong>Example:</strong>
-      <a href="/search?page=1&amp;size=20&amp;q=%22open%20science%22~5"
-      ><code>"open science"~5</code></a
-      >
-    </p>
-    <h4>Wildcards</h4>
-    <p>
-      You can use wildcards in search terms to replace a single character (using
-      <code>?</code> operator) or zero or more characters (using
-      <code>*</code> operator).
-    </p>
-    <p>
-      <strong>Example:</strong>
-      <a href="/search?page=1&amp;size=20&amp;q=ope%3F%20scien*"
-      ><code>ope? scien*</code></a
-      >
-    </p>
-    <p>
-      Wildcard searches can be slow and should normally be avoided if possible.
-    </p>
-  </div>
+<div class="ui container mt-25">
+  <h1>Search guide</h1>
+  <p>
+    This guide explains how to write advanced search queries using easy
+    to understand examples.
+  </p>
+  <h3>Simple search (one or multiple terms)</h3>
+  <p>
+    <strong>Example:</strong>
+    <a href="/search?page=1&amp;size=20&amp;q=open%20science"
+    ><code>open science</code></a
+    >
+  </p>
+  <p>
+    Results will match records with the <em>terms</em> <code>open</code>
+    <em>or</em> <code>science</code> in <em>any field</em>. Note that stemming
+    is applied so e.g. <code>science</code> will also match
+    <code>sciences</code>. Search results are ranked according to an algorithm
+    that takes your query terms into account.
+  </p>
+  <p>
+    You can require <em>presence</em> of both terms using either the
+    <code>+</code> or <code>AND</code> operator:
+  </p>
+  <p>
+    <strong>Examples:</strong>
+    <a href="/search?page=1&amp;size=20&amp;q=%2Bopen%20%2Bscience"
+    ><code>+open +science</code></a
+    >
+    or
+    <a href="/search?page=1&amp;size=20&amp;q=open%20AND%20science"
+    ><code>open AND science</code></a
+    >
+  </p>
+  <p>
+    You can require <em>absence</em> of one or more terms using either the
+    <code>-</code> or <code>NOT</code> operator:
+  </p>
+  <p>
+    <strong>Examples:</strong>
+    <a href="/search?page=1&amp;size=20&amp;q=-open%20%2Bscience"
+    ><code>-open +science</code></a
+    >
+    or
+    <a href="/search?page=1&amp;size=20&amp;q=NOT%20open%20AND%20science"
+    ><code>NOT open AND science</code></a
+    >
+  </p>
+  <h3>Phrase search</h3>
+  <p>
+    <strong>Example:</strong>
+    <a href="/search?page=1&amp;size=20&amp;q=%22open%20science%22"
+    ><code>"open science"</code></a
+    >
+  </p>
+  <p>
+    Results will match records with the <em>phrase</em>
+    <code>open science</code> in <em>any field</em>.
+  </p>
+  <h3>Field search</h3>
+  <p>
+    <strong>Example:</strong>
+    <a href="/search?page=1&amp;size=20&amp;q=metadata.title:open"
+    ><code>metadata.title:open</code></a
+    >
+  </p>
+  <p>
+    Results will match records with the <em>term</em> <code>open</code> in the
+    <em>field</em> <code>metadata.title</code>. If you want to search for multiple terms
+    in the title you must <strong>group the terms</strong> using parenthesis:
+  </p>
+  <p>
+    <strong>Example:</strong>
+    <a href="/search?page=1&amp;size=20&amp;q=metadata.title:(open%20science%29"
+    ><code>metadata.title:(open science)</code></a
+    >
+  </p>
+  <p>
+    See <a href="https://inveniordm.docs.cern.ch/reference/metadata/#metadata"
+  > the InvenioRDM documentation </a
+  > for the full list of fields you can search.
+  </p>
+  <h3>Combined simple, phrase or field search</h3>
+  <p>
+    <strong>Example:</strong>
+    <a
+      href="/search?page=1&amp;size=20&amp;q=%2Bmetadata.title:%22open%20science%22%20-metadata.title:policy"
+    ><code>+metadata.title:"open science" -metadata.title:policy</code></a
+    >
+    or e.g.
+    <a href="/search?page=1&amp;size=20&amp;q=metadata.title:(-open%20%2Bscience%29"
+    ><code>metadata.title:(-open +science)</code></a
+    >
+  </p>
+  <p>
+    You can combine simple, phrase and field search to construct advanced search
+    queries.
+  </p>
+  <h3>Range search</h3>
+  <p>
+    <strong>Example:</strong>
+    <a
+      href="/search?page=1&amp;size=20&amp;q=metadata.publication_date:%5B2017%20TO%202018%5D"
+    ><code>metadata.publication_date:[2017 TO 2018]</code></a
+    >
+    (note, you must capitalize <code>TO</code>).
+  </p>
+  <p>
+    Results will match any record with a publication date between 2017-01-01 and
+    2018-01-01 (both dates inclusive).
+  </p>
+  <p>Note that, partial dates are expanded to full dates, e.g.:</p>
+  <ul>
+    <li>2017 is expanded to 2017-01-01</li>
+    <li>2017-06 is expanded to 2017-06-01</li>
+  </ul>
+  <p>
+    Use square brackets (<code>[]</code>) for <em>inclusive</em> ranges and use
+    curly brackets (<code>{}</code>) for <em>exclusive</em> ranges, e.g.:
+  </p>
+  <ul>
+    <li>
+      <code>[2017 TO 2018}</code> is equivalent to
+      <code>[2017-01-01 TO 2017-12-31]</code> because of date expansion and
+      exclusive upper bound.
+    </li>
+  </ul>
+  <p>Examples of other ranges:</p>
+  <ul>
+    <li>
+      <code>metadata.publication_date:{* TO 2017-01-01}</code>: All days until 2017.
+    </li>
+    <li>
+      <code>metadata.publication_date:[2017-01-01 TO *]</code>: All days from 2017.
+    </li>
+  </ul>
+  <h3>Ranking/Sorting</h3>
+  <p>
+    By default all searches are sorted according to an internal ranking
+    algorithm that scores each match against your query. In both the user
+    interface and REST API, it's possible to sort the results by:
+  </p>
+  <ul>
+    <li>Most recent</li>
+    <li>Best match</li>
+    <li>Oldest</li>
+    <li>Most viewed</li>
+    <li>Most downloaded</li>
+  </ul>
+  <h3>Regular expressions</h3>
+  <p>
+    Regular expressions are a powerful pattern matching language that allow to
+    search for specific patterns in a field. For instance if we wanted to find
+    all records with a DOI-prefix 10.5281 we could use a regular expression
+    search:
+  </p>
+  <p>
+    <strong>Example:</strong>
+    <a href="/search?page=1&amp;size=20&amp;q=doi%3A%2F10\.5281.*%2F">
+      <code>pids.doi.identifier:/10\.5281.*/</code>
+    </a>
+  </p>
+  <p>
+    Careful, the regular expression must match the <em>entire</em> field value.
+    See the
+    <a
+      href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-regexp-query.html#regexp-syntax"
+    >regular expression syntax</a
+    >
+    for further details.
+  </p>
+  <h3>Missing values</h3>
+  <p>
+    It is possible to search for records that either are missing a value or have
+    a value in a specific field using the <code>_exists_</code> and
+    <code>NOT _exists_</code> field names.
+  </p>
+  <p>
+    <strong>Example:</strong>
+    <a href="/search?page=1&amp;size=20&amp;q=NOT%20_exists_:metadata.additional_titles">
+      <code>NOT _exists_:metadata.additional_titles</code>
+    </a>
+    (all records without metadata.additional_titles)
+  </p>
+  <p>
+    <strong>Example:</strong>
+    <a href="/search?page=1&amp;size=20&amp;q=_exists_:metadata.creators"
+    ><code>_exists_:metadata.creators</code></a
+    >
+    (all records with metadata.creators)
+  </p>
+  <h3>Advanced concepts</h3>
+  <h4>Boosting</h4>
+  <p>
+    You can use the boost operator <code>^</code> when one term is more relevant
+    than another. For instance, you can search for all records with the phrase
+    <em>open science</em> in either <em>title</em> or
+    <em>description</em> field, but rank records with the phrase in the
+    <em>title</em> field higher:
+  </p>
+  <p>
+    <strong>Example:</strong>
+    <a
+      href="/search?page=1&amp;size=20&amp;q=metadata.title:%22open%20science%22%5E5%20metadata.description:%22open%20science%22"
+    ><code>metadata.title:"open science"^5 metadata.description:"open science"</code></a
+    >
+  </p>
+  <h4>Fuzziness</h4>
+  <p>
+    You can search for terms similar to but not exactly like your search term
+    using the fuzzy operator <code>~</code>.
+  </p>
+  <p>
+    <strong>Example:</strong>
+    <a href="/search?page=1&amp;size=20&amp;q=oepn~"><code>oepn~</code></a>
+  </p>
+  <p>
+    Results will match records with terms similar to <code>oepn</code> which
+    would e.g. also match <code>open</code>.
+  </p>
+  <h4>Proximity searches</h4>
+  <p>
+    A phrase search like <code>"open science"</code> by default expect all terms
+    in exactly the same order, and thus for instance would not match a record
+    containing the phrase <em>"open access and science"</em>. A proximity search
+    allows that the terms are not in the exact order and may include other terms
+    in between. The degree of flexibility is specified by an integer afterwards:
+  </p>
+  <p>
+    <strong>Example:</strong>
+    <a href="/search?page=1&amp;size=20&amp;q=%22open%20science%22~5"
+    ><code>"open science"~5</code></a
+    >
+  </p>
+  <h4>Wildcards</h4>
+  <p>
+    You can use wildcards in search terms to replace a single character (using
+    <code>?</code> operator) or zero or more characters (using
+    <code>*</code> operator).
+  </p>
+  <p>
+    <strong>Example:</strong>
+    <a href="/search?page=1&amp;size=20&amp;q=ope%3F%20scien*"
+    ><code>ope? scien*</code></a
+    >
+  </p>
+  <p>
+    Wildcard searches can be slow and should normally be avoided if possible.
+  </p>
+</div>
 {%- endblock page_body %}
