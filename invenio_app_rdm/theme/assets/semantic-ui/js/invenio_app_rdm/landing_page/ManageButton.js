@@ -49,7 +49,7 @@ export const ManageButton = ({
           <>
             <Dropdown.Item
               as="a"
-              href={`/administration/records?q=id:${record["id"]}`}
+              href={`/administration/records?q=id:${record["id"]}&f=allversions:true`}
               target="_blank"
               key="manage_record"
               text={i18next.t("Manage record")}
