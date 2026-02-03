@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2023 TU Wien.
+# Copyright (C) 2026 Graz University of Technology.
 #
 # Invenio-App-RDM is free software; you can redistribute it and/or modify
 # it under the terms of the MIT License; see LICENSE file for more details.
@@ -8,7 +9,7 @@
 """Test the statistics integration."""
 
 import time
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 import pytest
 from flask import current_app
@@ -81,8 +82,8 @@ def test_record_view_statistics(
         assert indexed_event["via_api"] is False
 
         # calculate the aggregations and check if the query is correct
-        yesterday = datetime.today() - timedelta(days=1)
-        tomorrow = datetime.today() + timedelta(days=1)
+        yesterday = datetime.now(timezone.utc) - timedelta(days=1)
+        tomorrow = datetime.now(timezone.utc) + timedelta(days=1)
         agg.run(start_date=yesterday, end_date=tomorrow, update_bookmark=False)
         dsl.Index(agg.index, using=agg.client).refresh()
         query_result = query.run(recid=record.id)
