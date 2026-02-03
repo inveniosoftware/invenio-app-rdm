@@ -60,7 +60,7 @@ export const RDMRecordResultsListItem = ({ result }) => {
       i18next.t("No description")
     ),
     title: _get(result, "metadata.title", i18next.t("No title")),
-    creators: _get(result, "ui.creators.creators", []).slice(0, 3),
+    creators: _get(result, "ui.creators.creators", []),
     subjects: _get(result, "ui.subjects", []),
     publicationDate: _get(
       result,
