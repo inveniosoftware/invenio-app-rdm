@@ -99,7 +99,7 @@ export const ComputerTabletUploadsItem = ({
         </Item.Header>
         <Item.Meta>
           <div className="creatibutors">
-            <SearchItemCreators creators={creators} />
+            <SearchItemCreators creators={creators} othersLink={viewLink} />
           </div>
         </Item.Meta>
         <Item.Description className="truncate-lines-2">
