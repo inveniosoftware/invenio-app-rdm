@@ -1169,10 +1169,24 @@ PREVIEWER_PREFERENCE = [
     "video_videojs",
     "audio_videojs",
     "ipynb",
-    "zip",
+    "previewable_zip",
     "txt",
 ]
 """Preferred previewers."""
+
+CONTAINER_ITEM_PREVIEWER_PREFERENCE = [
+    "csv_papaparsejs",
+    "pdfjs",
+    "simple_image",
+    "json_prismjs",
+    "xml_prismjs",
+    "mistune",
+    "video_videojs",
+    "audio_videojs",
+    "ipynb",
+    "zip",
+    "txt",
+]
 
 RECORDS_RESOURCES_IMAGE_FORMATS = ["." + ext for ext in IIIF_FORMATS.keys()]
 """RECORDS_RESOURCES_IMAGE_FORMATS must contain all possible IIIF formats to ensure their metadata is extracted."""

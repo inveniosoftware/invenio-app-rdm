@@ -497,7 +497,7 @@ def record_file_download(pid_value, file_item=None, is_preview=False, **kwargs):
 def record_container_item_download(
     pid_value, container_item=None, is_preview=False, **kwargs
 ):
-    """Download a file from a record."""
+    """Download a file extracted from a container (e.g., zip archive) within a record."""
     # emit a file download stats event
     emitter = current_stats.get_event_emitter("file-download")
     if container_item is not None and emitter is not None:

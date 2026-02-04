@@ -40,43 +40,49 @@
       {%- endif %}
       <li>
         {%- if t.type != 'folder' %}
-        <div class="ui equal width grid">
-          <div class="row">
-            <div class="no-padding left floated column"><span><i class="file outline icon"></i></i> {{ t.name }}</span></div>
-            <div class="no-padding right aligned column">{{ t.size|filesizeformat }}</div>
-            <div class="no-padding right aligned column stretched">
-              <span>
-                {% if file_url_preview %}
-                <button class="ui compact mini button preview-link" id="{{t.id}}" data-container-file-key="{{file.filename}}" data-file-key="{{t.name}}" data-preview-url="{{file_url_preview}}">
-                  <i class="eye icon" aria-hidden="true"></i>{{_("Preview")}}
-                </button>
-                {% endif %}
-                {% if file_url_download %}
-                <a role="button" class="ui compact mini button" href="{{file_url_download}}">
-                  <i class="download icon" aria-hidden="true"></i>{{_('Download')}}
-                </a>
-                {% endif %}
-              </span>
+          <div class="ui equal width grid">
+            <div class="row">
+              <div class="no-padding left floated column"><span><i class="file outline icon"></i></i> {{ t.name }}</span></div>
+              <div class="no-padding right aligned column">{{ t.size|filesizeformat }}</div>
+              <div class="no-padding right aligned column stretched">
+                <span>
+                  {% if file_url_preview %}
+                  <button class="ui compact mini button preview-link" id="{{t.id}}" data-container-file-key="{{file.filename}}" data-file-key="{{t.name}}" data-preview-url="{{file_url_preview}}">
+                    <i class="eye icon" aria-hidden="true"></i>{{_("Preview")}}
+                  </button>
+                  {% endif %}
+                  {% if file_url_download %}
+                  <a role="button" class="ui compact mini button" href="{{file_url_download}}">
+                    <i class="download icon" aria-hidden="true"></i>{{_('Download')}}
+                  </a>
+                  {% endif %}
+                </span>
+              </div>
             </div>
           </div>
-        </div>
         {%- else %}
-        <div class="ui equal width grid">
-          <div class="row">
-            <div class="no-padding left floated column">
-              <span>
-                <i class="folder icon"></i> <a href="#tree_{{ folder_identifier }}">{{ t.name }} </a>
-              </span>
-            </div>
-            <div class="no-padding right aligned column">
-              {%- if config.RDM_ARCHIVE_DOWNLOAD_ENABLED and file_url_download %}
-              <a role="button" class="ui compact mini button right floated archive-link" href="{{file_url_download}}">
-                <i class="file archive icon button" aria-hidden="true"></i> {{_("Download all")}}
-              </a>
-              {%- endif %}
+          <div class="ui equal width grid">
+            <div class="row">
+              <div class="no-padding left floated column">
+                <span>
+                  <i class="folder icon"></i> <a data-toggle="collapse" href="#tree_{{ folder_identifier }}">{{ t.name }} </a>
+                </span>
+              </div>
+              <div class="no-padding right aligned column">
+                {%- if config.RDM_ARCHIVE_DOWNLOAD_ENABLED and file_url_download %}
+                <a role="button" class="ui compact mini button right floated archive-link" href="{{file_url_download}}">
+                  <i class="file archive icon button" aria-hidden="true"></i> {{_("Download all")}}
+                </a>
+                {%- endif %}
+              </div>
             </div>
           </div>
-        </div>
+          {%- if t.children -%}
+            <ul id="tree_{{ folder_identifier }}"
+              class="collapse in">
+              {{ loop(t.children) }}
+            </ul>
+          {%- endif %}
         {%- endif %}
       </li>
       {%- endfor %}

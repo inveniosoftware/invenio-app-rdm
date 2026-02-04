@@ -32,14 +32,14 @@ def create_container_item_preview_link(record_id, container_filename, item_path)
     )
 
 
-def convert_zip_list_container(entries, record_id, container_filename):
+def convert_zip_list_container(entries, folders, record_id, container_filename):
     """Convert structure returned by files.list_container(...).to_dict()."""
     counter = iter(range(sys.maxsize))
 
     def create_parent_hierarchy(node, path):
 
         for path_item in path:
-            items = node["items"]
+            items = node["children"]
             for child_item in items:
                 if child_item["name"] == path_item:
                     node = child_item
@@ -49,7 +49,7 @@ def convert_zip_list_container(entries, record_id, container_filename):
                     "type": "folder",
                     "name": path_item,
                     "id": f"folder{next(counter)}",
-                    "items": []
+                    "children": []
                 }
                 items.append(node)
         return node
@@ -79,15 +79,33 @@ def convert_zip_list_container(entries, record_id, container_filename):
             )
         return converted
 
+    def convert_folder(key, node):
+        """Convert one node (file or folder)."""
+        converted = {
+            "name": key,
+             "type": "folder",
+            "id": f"folder{next(counter)}",
+            "children": [],
+            "links": node["links"]
+        }
+        return converted
+
     # Root folder
-    root = {"type": "folder", "id": -1, "items": []}
+    root = {"type": "folder", "id": -1, "children": []}
 
     # Convert items of root
+    for folder in sorted(folders,key=lambda x: x["key"]):
+        folder_key = folder["key"].split("/")
+        converted = convert_folder(folder_key[-1], folder)
+        hierarchy_position = create_parent_hierarchy(root, folder_key[:-1])
+        hierarchy_position["children"].append(converted)
+
+
     for entry in sorted(entries,key=lambda x: x["key"]):
         entry_key = entry["key"].split("/")
         converted = convert_file_entry(entry_key[-1], entry)
         hierarchy_position = create_parent_hierarchy(root, entry_key[:-1])
-        hierarchy_position["items"].append(converted)
+        hierarchy_position["children"].append(converted)
 
     return root
 
@@ -109,9 +127,10 @@ def preview(file):
     ).to_dict()
 
     converted_tree = convert_zip_list_container(
-        tree_raw["entries"], file.record["id"], file.filename
+        tree_raw["entries"], tree_raw["folders"], file.record["id"], file.filename
     )
-    tree_list = converted_tree["items"]
+    print(converted_tree)
+    tree_list = converted_tree["children"]
     return render_template(
         "invenio_previewer/previewable_zip.html",
         file=file,
