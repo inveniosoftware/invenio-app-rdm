@@ -71,7 +71,8 @@
   <p>
     <strong>Beispiel:</strong>
     <a
-      href="/search?page=1&amp;size=20&amp;q=metadata.title:(open%20science%29"><code>metadata.title:(open science)</code></a>
+      href="/search?page=1&amp;size=20&amp;q=metadata.title:(open%20science%29"><code>metadata.title:(open
+      science)</code></a>
   </p>
   <p>
     Die vollständige Liste der Felder, die Sie durchsuchen können, finden Sie in der Feldreferenz unten.
@@ -80,10 +81,12 @@
   <p>
     <strong>Beispiel:</strong>
     <a
-      href="/search?page=1&amp;size=20&amp;q=%2Bmetadata.title:%22open%20science%22%20-metadata.title:policy"><code>+metadata.title:"open science" -metadata.title:policy</code></a>
+      href="/search?page=1&amp;size=20&amp;q=%2Bmetadata.title:%22open%20science%22%20-metadata.title:policy"><code>+metadata.title:"open
+      science" -metadata.title:policy</code></a>
     oder z. B.
     <a
-      href="/search?page=1&amp;size=20&amp;q=metadata.title:(-open%20%2Bscience%29"><code>metadata.title:(-open +science)</code></a>
+      href="/search?page=1&amp;size=20&amp;q=metadata.title:(-open%20%2Bscience%29"><code>metadata.title:(-open
+      +science)</code></a>
   </p>
   <p>
     Sie können einfache Phrasen- und Feldsuche kombinieren, um erweiterte Suchanfragen zu konstruieren.
@@ -92,7 +95,8 @@
   <p>
     <strong>Beispiel:</strong>
     <a
-      href="/search?page=1&amp;size=20&amp;q=metadata.publication_date:%5B2017%20TO%202018%5D"><code>metadata.publication_date:[2017 TO 2018]</code></a>
+      href="/search?page=1&amp;size=20&amp;q=metadata.publication_date:%5B2017%20TO%202018%5D"><code>metadata.publication_date:[2017
+      TO 2018]</code></a>
     (Achtung, <code>TO</code> muss großgeschrieben werden).
   </p>
   <p>
@@ -143,13 +147,15 @@
   </p>
   <p>
     <strong>Beispiel:</strong>
-    <a
-      href="/search?page=1&amp;size=20&amp;q=metadata.subjects.identifier:%2F03yrm5c2%5B1%2C6%5D%2F"><code>metadata.subjects.identifier:/03yrm5c2[1,6]/</code></a>
+    <a href="/search?page=1&amp;size=20&amp;q=pids.doi.identifier%3A%2F10\.5281.*%2F">
+      <code>pids.doi.identifier:/10\.5281.*/</code>
+    </a>
   </p>
   <p>
     Vorsicht, der reguläre Ausdruck muss mit dem <em>gesamten</em> Feldwert übereinstimmen.
     Weitere Einzelheiten finden Sie in der
-    <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-regexp-query.html#regexp-syntax">Syntax
+    <a
+      href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-regexp-query.html#regexp-syntax">Syntax
       des regulären Ausdrucks</a>
     .
   </p>
@@ -162,7 +168,8 @@
   <p>
     <strong>Beispiel:</strong>
     <a
-      href="/search?page=1&amp;size=20&amp;q=NOT%20_exists_:metadata.additional_titles"><code>NOT _exists_:metadata.additional_titles</code></a>
+      href="/search?page=1&amp;size=20&amp;q=NOT%20_exists_:metadata.additional_titles"><code>NOT
+      _exists_:metadata.additional_titles</code></a>
     (alle Datensätze ohne metadata.additional_titles)
   </p>
   <p>
@@ -182,7 +189,8 @@
   <p>
     <strong>Beispiel:</strong>
     <a
-      href="/search?page=1&amp;size=20&amp;q=metadata.title:%22open%20science%22%5E5%20metadata.description:%22open%20science%22"><code>metadata.title:"open science"^5 metadata.description:"open science"</code></a>
+      href="/search?page=1&amp;size=20&amp;q=metadata.title:%22open%20science%22%5E5%20metadata.description:%22open%20science%22"><code>metadata.title:"open
+      science"^5 metadata.description:"open science"</code></a>
   </p>
   <h4>Unschärfe</h4>
   <p>
@@ -226,4 +234,4 @@
     Platzhaltersuchen können langsam sein und sollten normalerweise nach Möglichkeit vermieden werden.
   </p>
 </div>
-{%- endblock page_body%}
+{%- endblock page_body %}
