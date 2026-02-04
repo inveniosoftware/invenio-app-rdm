@@ -11,6 +11,13 @@
 Changes
 =======
 
+Version v13.0.9 (released 2026-02-04)
+
+- fix: black formatting
+- search guide: fix regex example
+- fix: manage record link functionality for all versions
+- fix: show all contributers on dashboard page
+
 Version v13.0.8 (released 2026-01-16)
 
 - fix(landing_page): use text instead of html for fileKey
