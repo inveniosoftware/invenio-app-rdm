@@ -1,0 +1,141 @@
+{#
+  Copyright (C) 2021-2023 CERN.
+  Copyright (C) 2021 Northwestern University.
+
+  Invenio App RDM is free software; you can redistribute it and/or modify it
+  under the terms of the MIT License; see LICENSE file for more details.
+#}
+{%- set title = _("FAQ versioning") %}
+{%- extends config.BASE_TEMPLATE %}
+
+{%- block page_body %}
+<div class="ui two column grid container rel-mt-2">
+  <div class="ui row">
+    <div class="ui sixteen wide column">
+      <h1 id="versioning">DOI-Versionierung</h1>
+    </div>
+    <div class="ui eight wide column">
+      <h2>Was ist DOI-Versionierung?</h2>
+      <p>
+        Die DOI-Versionierung ermöglicht es Ihnen,
+      </p>
+      <ul>
+        <li>die Dateien eines Datensatzes nach der Veröffentlichung zu bearbeiten oder zu aktualisieren,</li>
+        <li>eine bestimmte Version eines Datensatzes zu zitieren,</li>
+        <li>alle Versionen eines Datensatzes insgesamt zu zitieren.</li>
+      </ul>
+
+      <h5>Wie funktioniert die DOI-Versionierung?</h5>
+      <p>
+        Wenn Sie einen Datensatz zum ersten Mal veröffentlichen, registrieren wir zwei DOIs:
+      </p>
+      <ul>
+        <li>einen DOI für die <strong>konkrete Version</strong> des Datensatzes,</li>
+        <li>einen DOI für <strong>alle Versionen</strong> des Datensatzes.</li>
+      </ul>
+      <p>
+        Für jede weitere veröffentlichte Version wird anschließend ein zusätzlicher DOI registriert.
+      </p>
+
+      <h3>Beispiel</h3>
+      <p>
+        Angenommen, ein Softwarepaket wird in zwei Versionen veröffentlicht (v1.0 und v1.1). Dann werden folgende
+        DOIs registriert:
+      </p>
+      <ul>
+        <li><strong>v1.0 (konkrete Version):</strong> <code>10.1234/7s0da-05p39</code></li>
+        <li><strong>v1.1 (konkrete Version):</strong> <code>10.1234/chc5z-w0r30</code></li>
+        <li><strong>Konzept (alle Versionen):</strong> <code>10.1234/3s67k-pd636</code></li>
+      </ul>
+      <p>
+        Die ersten beiden DOIs stehen jeweils für eine konkrete Version der Software. Der letzte DOI steht für alle
+        Versionen gemeinsam, also für das das Konzept der Software und die Gesamtheit aller Versionen.
+      </p>
+      <p>Diese beiden Typen werden auch als</p>
+      <ul>
+        <li><strong>Versions-DOIs</strong> und</li>
+        <li><strong>Konzept-DOIs</strong></li>
+      </ul>
+      <p>
+        bezeichnet (technisch gesehen sind beide ganz normale DOIs).
+      </p>
+      <p>
+        Vielleicht fällt Ihnen auf, dass die Versions-DOIs keine Endung wie „.v1“ enthalten. Warum das so ist, wird
+        weiter unten erklärt.
+      </p>
+
+      <h5>Welchen DOI sollte ich beim Zitieren verwenden?</h5>
+      <p>
+        In der Regel sollten Sie immer den DOI der <strong>konkreten Version</strong> zitieren.
+      </p>
+      <p>
+        So stellen Sie sicher, dass andere Forschende <strong>genau</strong> die Version des Forschungsartefakts
+        aufrufen können, die
+        Sie verwendet haben – ein wichtiger Aspekt für die Nachvollziehbarkeit und Reproduzierbarkeit.
+      </p>
+      <p>
+        Standardmäßig werden Zitationen daher mit dem Versions-DOI erzeugt. Der Konzept-DOI (für
+        alle Versionen) kann
+        verwendet werden, wenn Sie bewusst ein sich weiterentwickelndes Forschungsartefakt zitieren möchten, ohne sich
+        auf eine bestimmte Version zu beziehen.
+      </p>
+
+      <h5>Wohin führt der Konzept-DOI?</h5>
+      <p>
+        Der Konzept-DOI verweist immer auf die Seite der aktuellsten Version des Datensatzes.
+      </p>
+    </div>
+    <div class="ui eight wide column">
+      <h5>Ich möchte nur den Titel ändern – bekomme ich dann einen neuen DOI?</h5>
+      <p>
+        Nein. Sie können die Metadaten eines Datensatzes (z. B. Titel oder Beschreibung) weiterhin bearbeiten, ohne
+        eine neue Version zu erzeugen.
+      </p>
+      <p>
+        Eine neue Version – und damit ein neuer Versions-DOI – wird nur dann erstellt, wenn Sie die Dateien des
+        Datensatzes ändern.
+      </p>
+
+      <h5>Warum enthalten die DOIs keine Versionsnummer wie „.v1“?</h5>
+      <p>
+        Das Einbauen von Versionsnummern (z. B. „.v1“) in DOIs gilt als schlechte Praxis, da:
+      </p>
+      <ul>
+        <li>DOIs dauerhaft und unveränderlich sein müssen,</li>
+        <li>Versionsinformationen sich jedoch im Laufe der Zeit ändern können.</li>
+      </ul>
+      <p>
+        Zudem ist die DOI-Versionierung linear, was bedeutet, dass die Versionsnummer unter Umständen nicht der
+        tatsächlichen Versionsnummer der Ressource entspricht. Dies zeigt sich beispielsweise bei Software, bei der es
+        gängige Praxis ist, Punkt-Versionen zu verwenden und neue Releases in nicht-linearer Reihenfolge zu
+        veröffentlichen (z. B. zunächst v1.0, dann v1.1, anschließend v2.0 und danach v1.2).
+      </p>
+      <p>
+        Der Versionssuffix ist zudem keine Funktionalität des DOI-Systems, d. h. das Anhängen von .v2 an einen DOI
+        führt bei keinem DOI eines beliebigen Anbieters zur Auflösung auf Version 2 einer Ressource. Unterschiedliche
+        Anbieter verwenden außerdem unterschiedliche Muster, wie z. B. .v2, .2 oder /2.
+      </p>
+      <p>Am wichtigsten ist jedoch, dass Versionssuffixe nicht maschinenlesbar sind. Ein Auffindungssystem, das DOIs
+        versteht, erkennt nicht, dass .v1 und .v2 eines DOI tatsächlich zwei Versionen derselben Ressource sind. </p>
+      <p>
+        Eine bessere Lösung für dieses Problem besteht darin, zwei DOIs semantisch in den Metadaten eines DOI
+        miteinander zu verknüpfen. Dadurch wird sichergestellt, dass Auffindungssysteme auf maschinenlesbare Weise
+        erkennen können, dass zwei DOIs Versionen derselben Ressource sind.
+      </p>
+      <p>
+        Weitere Informationen dazu finden Sie unter <a href="https://datacite.org/blog/cool-dois/"><em>Cool DOIs</em></a>.
+      </p>
+
+      <h5>Werden bei jeder neuen Version alle Dateien dupliziert?</h5>
+      <p>
+        Nein. Wenn Sie beispielsweise in einem 50-GB-Datensatz lediglich eine 10-KB-README-Datei ändern, wird nicht
+        der gesamte Datensatz kopiert.
+      </p>
+      <p>
+        Die zugrunde liegende Software InvenioRDM verwaltet die Speicherung effizient und speichert nur die
+        tatsächlich geänderten Daten.
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock page_body %}
