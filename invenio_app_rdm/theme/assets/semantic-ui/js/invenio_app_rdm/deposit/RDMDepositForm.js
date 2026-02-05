@@ -204,16 +204,19 @@ export class RDMDepositForm extends Component {
                     includesPaths={this.sectionsConfig["files-section"]}
                     severityChecks={this.severityChecks}
                     active
+                    // NOTE: This is needed because the `FormFeedbackSummary` component
+                    // expects the `label` prop to be a string.
+                    data-label={i18next.t("Files")}
                     label={
                       <>
                         {i18next.t("Files")}
-                        {record.is_published && (
+                        {record.is_published ? (
                           <FileModificationUntil
                             fileModification={fileModification}
                             filesLocked={filesLocked}
                             record={record}
                           />
-                        )}
+                        ) : null}
                       </>
                     }
                     id="files-section"
