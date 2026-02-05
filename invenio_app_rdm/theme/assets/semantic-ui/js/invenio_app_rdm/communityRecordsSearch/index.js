@@ -23,6 +23,7 @@ import {
   ContribSearchAppFacets,
   ContribBucketAggregationElement,
   ContribBucketAggregationValuesElement,
+  ContribRangeFacetElement,
 } from "@js/invenio_search_ui/components";
 
 const appName = "InvenioCommunities.DetailsSearch";
@@ -45,6 +46,7 @@ const CommunityRecordsResultsListItem = parametrize(RecordsResultsListItem, {
 const defaultComponents = {
   [`${appName}.BucketAggregation.element`]: ContribBucketAggregationElement,
   [`${appName}.BucketAggregationValues.element`]: ContribBucketAggregationValuesElement,
+  [`${appName}.RangeFacet.element`]: ContribRangeFacetElement,
   [`${appName}.ResultsGrid.item`]: RDMRecordResultsGridItem,
   [`${appName}.EmptyResults.element`]: RDMEmptyResults,
   [`${appName}.ResultsList.item`]: CommunityRecordsResultsListItem,
