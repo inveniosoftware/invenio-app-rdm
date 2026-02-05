@@ -1,0 +1,152 @@
+{#
+  Copyright (C) 2025 CERN.
+  Copyright (C) 2025 KTH Royal Institute of Technology.
+
+  Invenio App RDM is free software; you can redistribute it and/or modify it
+  under the terms of the MIT License; see LICENSE file for more details.
+#}
+
+{% from "invenio_administration/macros.html" import go_back %}
+
+{% extends admin_base_template %}
+
+{% block page_title %}
+  {{ go_back() }}
+  <h1 class="ui header">{{ title }}</h1>
+  <div class="ui divider" aria-hidden="true"></div>
+{% endblock page_title %}
+
+{%- block flashmessages %}
+  {%- from "invenio_theme/macros/messages.html" import flashed_messages with context -%}
+  {{ flashed_messages() }}
+{%- endblock flashmessages %}
+
+{% block admin_page_content %}
+
+  <section class="ui segment" aria-labelledby="user-summary">
+    <h3 id="user-summary" class="ui header">{{ user_label }}</h3>
+    <div class="ui relaxed list">
+      {% if user.email %}
+        <div class="item">
+          <strong>{{ _("Email") }}:</strong>
+          <span>{{ user.email }}</span>
+        </div>
+      {% endif %}
+      {% if user.username %}
+        <div class="item">
+          <strong>{{ _("Username") }}:</strong>
+          <span>{{ user.username }}</span>
+        </div>
+      {% endif %}
+      <div class="item">
+        <strong>{{ _("User ID") }}:</strong>
+        <span>{{ user.id }}</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="ui stackable grid">
+    <div class="sixteen wide mobile twelve wide tablet eight wide computer column">
+      <form class="ui form" method="post" novalidate>
+        {{ form.hidden_tag() }}
+
+        <div class="field {% if form.roles.errors %}error{% endif %}">
+          <label for="{{ form.roles.id }}">{{ form.roles.label.text }}</label>
+          <div class="ui info message">
+              {% if not can_manage_roles %}
+                {{ _("You cannot edit your own roles or manage roles for this user due to insufficient permissions.") }}
+              {% else %}
+                {{ _("Choose roles carefully. e.g: 'administration' or 'administration-moderation' grants admin-panel access and can perform destructive actions.") }}
+              {% endif %}
+            </div>
+
+          {% if has_roles %}
+            <div class="ui form" role="group" aria-label="{{ _('Available roles') }}">
+              <div class="ui segments">
+                {% for role in role_entries %}
+                  {# Assigns each checkbox a unique id #}
+                  {% set role_input_id = 'role-input-' ~ loop.index0 %}
+                  <div class="ui segment">
+                    <div class="field">
+                      <div class="ui toggle checkbox">
+                        <input
+                          type="checkbox"
+                          id="{{ role_input_id }}"
+                          name="roles"
+                          value="{{ role.name }}"
+                          {% if role.selected %}checked{% endif %}
+                          {% if not can_manage_roles %}disabled{% endif %}
+                          tabindex="0"
+                        >
+                        <label for="{{ role_input_id }}" class="left aligned">
+                          <strong class="left aligned">{{ role.name }}</strong>
+                          {% if role.description %}
+                            <div class="ui small text left aligned">{{ role.description }}</div>
+                          {% endif %}
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+          {% else %}
+            <div class="ui message">
+              {{ _("No roles are configured yet. Create roles first to assign them to users.") }}
+            </div>
+          {% endif %}
+
+          {% if form.roles.errors %}
+            <div class="ui pointing red basic label">
+              {{ form.roles.errors|join(", ") }}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="ui divider" aria-hidden="true"></div>
+
+        <button type="submit" class="ui primary button" {% if not can_manage_roles %}disabled{% endif %}>
+          <i class="save icon" aria-hidden="true"></i>
+          {{ form.submit.label.text }}
+        </button>
+        <a class="ui button" href="{{ detail_url }}">{{ _("Cancel") }}</a>
+      </form>
+    </div>
+  </div>
+{% endblock admin_page_content %}
+
+{% block javascript %}
+  {{ super() }}
+  {# Custom style for Focus checkbox #}
+  <style>
+    .ui.segments .ui.segment:has(input[type="checkbox"]:focus-visible) {
+      outline: 2px solid #2185d0;
+      outline-offset: -2px;
+      box-shadow: 0 0 0 2px rgba(33, 133, 208, 0.2);
+    }
+    
+    /* Force left alignment for role names and descriptions */
+    .ui.toggle.checkbox label {
+      text-align: left !important;
+      display: block;
+    }
+    
+    .ui.toggle.checkbox label strong,
+    .ui.toggle.checkbox label .ui.small.text {
+      text-align: left !important;
+      display: block;
+      word-wrap: break-word;
+    }
+    
+    /* Disabled state styling */
+    .ui.toggle.checkbox input[type="checkbox"]:disabled ~ label {
+      opacity: 0.6;
+      cursor: not-allowed !important;
+    }
+    
+    .ui.segment:has(input[type="checkbox"]:disabled) {
+      opacity: 0.7;
+      background-color: #fafafa;
+    }
+  </style>
+{% endblock %}
