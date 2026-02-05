@@ -4,8 +4,14 @@
     box-sizing: border-box;
 
     &.selected, &:target {
-      & > .requests-event-container > .requests-event-inner-container > .event {
-        outline: 2px solid @primaryColor;
+      & > .requests-event-container:not(.reply) > .requests-event-inner-container > .event {
+        box-shadow: 0 0 0 2px @primaryColor;
+      }
+
+      & > .requests-event-container.reply {
+        box-shadow: 0 0 0 2px @primaryColor;
+        border-radius: @defaultBorderRadius;
+        z-index: 1000;
       }
     }
   }
@@ -86,11 +92,16 @@
       // Full height of the comment + the margin of the next comment
       height: calc(100% + 1rem);
 
+
       @media screen and (max-width: @largestMobileScreen) {
         & {
           display: none;
         }
       }
+    }
+
+    &.has-line.line-fade::before {
+      background: linear-gradient(to top, #f9f9f9, @borderColor);
     }
   }
 
@@ -102,6 +113,10 @@
   .requests-reply-container {
     padding-top: 0.5rem;
     background-color: #f9f9f9;
+
+    .ui.message.warning {
+      margin: 0.5rem;
+    }
   }
 
   .requests-comment-fake-reply {
@@ -156,6 +171,50 @@
       margin-top: .5rem;
     }
 
+    .collapsible-comment {
+      display: block;
+      position: relative;
+
+      .collapsible-comment-inner {
+        display: block;
+        overflow: hidden;
+        transition: max-height 300ms ease;
+        max-height: @collapsibleHeight;
+      }
+
+      &.expanded .collapsible-comment-inner {
+        max-height: none;
+      }
+
+      &.overflowing,
+      &.expanded {
+        margin-bottom: 50px;
+      }
+
+      &.overflowing::after {
+        position: absolute;
+        bottom: 0px;
+        height: @collapsibleHeight;
+        width: 100%;
+        content: "";
+        background: linear-gradient(transparent, var(--collapsible-color, @white));
+      }
+
+      &.expanded::after {
+        display: none;
+      }
+
+      .show-more {
+        position: absolute;
+        bottom: -50px;
+        left: 50%;
+        right: 50%;
+        transform: translate(-50%, -50%);
+        width: 100px;
+        z-index: 1000;
+      }
+    }
+
     .text {
       width: auto;
 
@@ -184,6 +243,14 @@
       }
     }
 
+    .requests-event-container {
+      --collapsible-color: #f9f9f9;
+
+      &:hover {
+        --collapsible-color: #f2f2f2;
+      }
+    }
+
     &.requests-reply-event {
       border: none;
       padding: 0;
@@ -195,8 +262,14 @@
       color: @mutedTextColor;
     }
 
-    & > .placeholder {
+    &:not(.requests-reply-event) > .placeholder {
       margin: 1rem;
+    }
+
+    &.requests-reply-event > .placeholder {
+      &, &::before, & .line, & .line::after{
+        background-color: #f9f9f9;
+      }
     }
   }
 
@@ -254,7 +327,7 @@
       // Margin on left-side of main content, padding on right-side of avatar, half width of line
       left: calc(-1rem - 1em);
       width: 2px;
-      background: linear-gradient(to bottom, white, @borderColor);
+      background: linear-gradient(to bottom, #f9f9f9, @borderColor);
       // Full height of the comment + the margin of the next comment
       height: calc(100% + 1rem);
     }
@@ -271,7 +344,7 @@
 }
 
 /* First element after LoadMore component */
-.ui.feed.stretched-feed .requests-event-item:first-child .requests-event-container:not(.reply) {
+.ui.feed.after-load-more .requests-event-item:first-child .requests-event-container:not(.reply) {
   padding-top: 3em;
   &::before {
     background: linear-gradient(180deg, transparent 0, @borderColor 75%) !important;
@@ -279,7 +352,7 @@
 }
 
 /* Last element before LoadMore component */
-.ui.feed.gradient-feed .requests-event-item:last-child .requests-event-container:not(.reply) {
+.ui.feed.before-load-more .requests-event-item:last-child .requests-event-container:not(.reply) {
   padding-bottom: 3em;
   &::before {
     background: linear-gradient(0deg, transparent 0, @borderColor 75%) !important;
