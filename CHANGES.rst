@@ -10,7 +10,15 @@
 Changes
 =======
 
-Version v14.0.0b4.dev6 released 2026-01-22)
+Version v14.0.0b4.dev7 (released 2026-02-05)
+
+- fix(search-guide): regex example
+- style(requests): collapsible messages
+- style(requests): deep linked replies
+- fix: manage record link functionality for all versions
+- fix: show all contributors on dashboard page
+
+Version v14.0.0b4.dev6 (released 2026-01-22)
 
 - fix(ExportDropdown): Fix css spacing and responsiveness
 
