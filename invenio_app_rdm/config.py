@@ -3,7 +3,7 @@
 # Copyright (C) 2019-2025 CERN.
 # Copyright (C) 2019-2020 Northwestern University.
 # Copyright (C) 2021-2025 Graz University of Technology.
-# Copyright (C) 2022-2024 KTH Royal Institute of Technology.
+# Copyright (C) 2022-2025 KTH Royal Institute of Technology.
 # Copyright (C) 2023      TU Wien
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
@@ -87,6 +87,7 @@ from invenio_rdm_records.services.tasks import StatsRDMReindexTask
 from invenio_records_resources.references.entity_resolvers import ServiceResultResolver
 from invenio_requests.notifications.builders import (
     CommentRequestEventCreateNotificationBuilder,
+    CommentRequestEventReplyNotificationBuilder,
 )
 from invenio_requests.resources.requests.config import request_error_handlers
 from invenio_requests.services.requests import facets
@@ -1074,9 +1075,9 @@ COMMUNITIES_SHOW_BROWSE_MENU_ENTRY = False
 # ===================
 
 RDM_REQUESTS_ROUTES = {
-    "user-dashboard-request-details": "/me/requests/<request_pid_value>",
-    "community-dashboard-request-details": "/communities/<pid_value>/requests/<request_pid_value>",
-    "community-dashboard-invitation-details": "/communities/<pid_value>/invitations/<request_pid_value>",
+    "user-dashboard-request-details": "/me/requests/<uuid:request_pid_value>",
+    "community-dashboard-request-details": "/communities/<pid_value>/requests/<uuid:request_pid_value>",
+    "community-dashboard-invitation-details": "/communities/<pid_value>/invitations/<uuid:request_pid_value>",
 }
 
 RDM_COMMUNITIES_ROUTES = {
@@ -1171,6 +1172,9 @@ PREVIEWER_PREFERENCE = [
     "txt",
 ]
 """Preferred previewers."""
+
+PREVIEWER_ABSTRACT_TEMPLATE = "invenio_previewer/rdm_abstract_previewer.html"
+"""Override the abstract template with an RDM-specific one."""
 
 RECORDS_RESOURCES_IMAGE_FORMATS = ["." + ext for ext in IIIF_FORMATS.keys()]
 """RECORDS_RESOURCES_IMAGE_FORMATS must contain all possible IIIF formats to ensure their metadata is extracted."""
@@ -1404,6 +1408,7 @@ NOTIFICATIONS_BUILDERS = {
     GrantUserAccessNotificationBuilder.type: GrantUserAccessNotificationBuilder,
     # Comment request event
     CommentRequestEventCreateNotificationBuilder.type: CommentRequestEventCreateNotificationBuilder,
+    CommentRequestEventReplyNotificationBuilder.type: CommentRequestEventReplyNotificationBuilder,
     community_notifications.SubComReqCommentNotificationBuilder.type: community_notifications.SubComReqCommentNotificationBuilder,
     community_notifications.SubComInvCommentNotificationBuilder.type: community_notifications.SubComInvCommentNotificationBuilder,
     # Community inclusion

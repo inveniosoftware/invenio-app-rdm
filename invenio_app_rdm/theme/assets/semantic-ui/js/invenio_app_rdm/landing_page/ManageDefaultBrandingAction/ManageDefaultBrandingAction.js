@@ -57,7 +57,7 @@ export class ManageDefaultBrandingAction extends Component {
       <Popup
         trigger={
           <Button
-            size="tiny"
+            size="mini"
             labelPosition="left"
             icon="paint brush"
             floated="right"
@@ -81,7 +81,7 @@ export class ManageDefaultBrandingAction extends Component {
       <Popup
         trigger={
           <Button
-            size="tiny"
+            size="mini"
             labelPosition="left"
             icon="paint brush"
             floated="right"
@@ -111,7 +111,7 @@ export class ManageDefaultBrandingAction extends Component {
         negative
         floated="right"
         className="community-branding-error"
-        size="tiny"
+        size="mini"
       >
         {error}
       </Message>

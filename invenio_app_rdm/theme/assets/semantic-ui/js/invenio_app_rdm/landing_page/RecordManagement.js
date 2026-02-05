@@ -128,6 +128,10 @@ RecordManagement.propTypes = {
   isPreviewSubmissionRequest: PropTypes.bool.isRequired,
   currentUserId: PropTypes.string.isRequired,
   recordOwnerID: PropTypes.string.isRequired,
-  recordDeletion: PropTypes.object.isRequired,
-  recordDeletionOptions: PropTypes.object.isRequired,
+  recordDeletion: PropTypes.object,
+  recordDeletionOptions: PropTypes.array.isRequired,
+};
+
+RecordManagement.defaultProps = {
+  recordDeletion: {},
 };

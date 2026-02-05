@@ -49,7 +49,7 @@ export const ManageButton = ({
           <>
             <Dropdown.Item
               as="a"
-              href={`/administration/records?q=id:${record["id"]}`}
+              href={`/administration/records?q=id:${record["id"]}&f=allversions:true`}
               target="_blank"
               key="manage_record"
               text={i18next.t("Manage record")}
@@ -74,8 +74,12 @@ ManageButton.propTypes = {
   record: PropTypes.object.isRequired,
   recordOwnerID: PropTypes.string.isRequired,
   permissions: PropTypes.object.isRequired,
-  recordDeletion: PropTypes.object.isRequired,
-  recordDeletionOptions: PropTypes.object.isRequired,
+  recordDeletion: PropTypes.object,
+  recordDeletionOptions: PropTypes.array.isRequired,
+};
+
+ManageButton.defaultProps = {
+  recordDeletion: {},
 };
 
 const BlockUserItem = ({ recordOwnerID }) => {

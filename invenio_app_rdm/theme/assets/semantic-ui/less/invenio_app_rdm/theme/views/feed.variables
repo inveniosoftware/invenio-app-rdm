@@ -1,0 +1,2 @@
+@eventPadding: 0.5 * @defaultPadding;
+@collapsibleHeight: 200px;

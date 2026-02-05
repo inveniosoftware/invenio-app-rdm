@@ -1,0 +1,18 @@
+{# -*- coding: utf-8 -*-
+
+  This file is part of Invenio.
+  Copyright (C) 2026 CERN.
+
+  Invenio is free software; you can redistribute it and/or modify it
+  under the terms of the MIT License; see LICENSE file for more details.
+#}
+
+{% if file.record.data["is_published"] and file.record.data["links"]["latest_html"] and not file.record.data["versions"]["is_latest"] %}
+  <div class="ui warning flashed attached manage message pl-10 pr-10">
+    <p>
+      {% trans link_start=('<a href="' + file.record.data["links"]["latest_html"] + '"><b>')|safe, link_end='</b></a>'|safe %}
+        You are viewing a file from an older version of this record. {{ link_start }}View latest record{{ link_end }}.
+      {% endtrans %}
+    </p>
+  </div>
+{% endif %}

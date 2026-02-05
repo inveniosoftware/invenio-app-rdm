@@ -2,13 +2,101 @@
     Copyright (C) 2019-2025 CERN.
     Copyright (C) 2019-2024 Northwestern University.
     Copyright (C) 2021-2024 TU Wien.
-    Copyright (C) 2021-2025 Graz University of Technology.
+    Copyright (C) 2021-2026 Graz University of Technology.
 
     Invenio App RDM is free software; you can redistribute it and/or modify
     it under the terms of the MIT License; see LICENSE file for more details.
 
 Changes
 =======
+
+Version v14.0.0b5.dev0 (released 2026-02-03)
+
+- fix(chore): DeprecationWarning stdlib
+- chore(setup): bump dependencies
+- fix: manage record link functionality for all versions
+- feat(css): styles for deep-linked request comment replies
+- style: collapsible messages style
+- Fix regex search example URL
+- Fix regex search example
+- search guide: fix regex example in swedish translation
+- search guide: fix regex example
+
+Version v14.0.0b4.dev6 released 2026-01-22)
+
+- fix(ExportDropdown): Fix css spacing and responsiveness
+
+Version v14.0.0b4.dev5 (released 2026-01-21)
+
+- feat(CopyButton): Pass remaining props to customize UI & functionality
+- refactor(RecordVersionsList): Make version items overridable
+
+Version v14.0.0b4.dev4 (released 2026-01-15)
+
+- refactor(ui): support custom file display name resolver
+- fix: use UUID type for request identifiers
+- feat(comment-replies): add single threading on comments
+- fix(moderation.requests): handle empty payload key not in request
+- feat(previewer): show message for outdated records
+
+Version v14.0.0b4.dev3 (released 2025-12-18)
+
+- fix(feed): styling for disabled reply input
+
+Version v14.0.0b4.dev2 (released 2025-12-16)
+
+- semantic-ui: feed.overrides: Add placeholder css
+- fix: css padding for preview msg
+
+Version v14.0.0b4.dev1 (released 2025-12-13)
+
+- feat(css): styles for threaded replies
+- feat(views-request): include `can_reply_comment` in template permissions dict
+
+Version v14.0.0b4.dev0 (released 2025-12-12)
+
+- chore(setup): bump major versions
+- feat: add empty Overridable container before and after the files accordion
+- assets: added css for hidden comment line and last page first comment
+
+Version v14.0.0b3.dev4 (released 2025-12-08)
+
+- fix: ensure that pages render if accessed via secret link
+- UI: change button icon and text
+- chore: drill recordRequests into the modal
+- fix: restrict to only community sub/inc reqs
+- frontend: add direct link to request if user has access
+- feat(css): styles for quote replies
+- fix(requests_ui): Inject lock_request and create_comment permissions
+- fix: correct types
+
+Version v14.0.0b3.dev3 (released 2025-11-21)
+
+- feat(css): request comment deep links
+
+Version v14.0.0b3.dev2 (released 2025-11-21)
+
+- fix: revert mapping.js symlink
+
+Version v14.0.0b3.dev1 (released 2025-11-21)
+
+- UI: add info message about remaining days to publish changes
+- request: add file mod request template
+- fix: set files_locked to `bucket.locked` rather than permission
+    * currently the permission is whether you can unlock the files
+    * but the files are only unlocked when you create the draft
+    * as such as an admin when you edit a published draft, if it was
+      created by a user it will look like the files are unlocked but
+      this is false
+- feat: pass file modification eval to deposit form
+- fix: align selector with semantic-ui
+- fix(views): pass API record to evaluate record deletion
+- fix(record-ui): do not sanitize additional description in template
+- admin: requests details view improvements
+    - Replace `Record deletion` by `Deletion request for "Record name"`
+    - Link showing all requests for a given user
+- tombstone: add deletion policy
+- Update release date for version v14.0.0b3.dev0
 
 Version v14.0.0b3.dev0 (released 2025-11-12)
 

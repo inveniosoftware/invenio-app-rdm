@@ -9,13 +9,17 @@
 
 """Utility functions."""
 
+from datetime import datetime, timezone
 from itertools import chain
 
 from flask import current_app
 from invenio_access.permissions import system_identity
 from invenio_rdm_records.records.api import RDMRecord
 from invenio_rdm_records.requests.record_deletion import RecordDeletion
-from invenio_rdm_records.services.config import RDMRecordDeletionPolicy
+from invenio_rdm_records.services.config import (
+    FileModificationPolicyEvaluator,
+    RDMRecordDeletionPolicy,
+)
 from invenio_records.dictutils import dict_set
 from invenio_records.errors import MissingModelError
 from invenio_records_files.api import FileObject
@@ -119,10 +123,7 @@ def evaluate_record_deletion(record: RDMRecord, identity):
 
     immediate, request = rec_del["immediate_deletion"], rec_del["request_deletion"]
     rd_enabled = immediate.enabled or request.enabled
-    rd_valid_user = (
-        rec_del["immediate_deletion"].valid_user
-        or rec_del["request_deletion"].valid_user
-    )
+    rd_valid_user = immediate.valid_user or request.valid_user
     rd_allowed = immediate.allowed or request.allowed
 
     if rd_allowed:
@@ -155,3 +156,27 @@ def evaluate_record_deletion(record: RDMRecord, identity):
     )
 
     return record_deletion
+
+
+def evaluate_file_modification(record, identity):
+    """Evaluate whether a given record file's can be edited by an identity."""
+    file_mod = FileModificationPolicyEvaluator().evaluate(identity, record)
+
+    file_mod = file_mod["immediate_file_modification"]
+
+    file_modification = {
+        "enabled": file_mod.enabled,
+        "valid_user": file_mod.valid_user,
+        "allowed": file_mod.allowed,
+    }
+
+    if file_mod.allowed:
+        file_modification["fileModification"] = file_mod
+        created = record.created.replace(tzinfo=timezone.utc)
+        modification_until = created + current_app.config.get(
+            "RDM_FILE_MODIFICATION_PERIOD"
+        )
+        days_until = (modification_until - datetime.now(timezone.utc)).days
+        file_modification["context"] = {"days_until": days_until}
+
+    return file_modification
