@@ -128,22 +128,29 @@ export class RDMDepositForm extends Component {
     }));
     const UploaderField = useUppy ? UppyUploader : FileUploader;
 
+    const overridableBlocksCommonProps = {
+      record,
+      files,
+      config,
+      permissions,
+      preselectedCommunity,
+      filesLocked,
+      recordRestrictionGracePeriod,
+      allowRecordRestriction,
+      groupsEnabled,
+      allowEmptyFiles,
+      customFieldsUI,
+      vocabularies: this.vocabularies,
+      noFiles: this.noFiles,
+      hideCommunitySelection: this.hide_community_selection,
+    };
+
     return (
       <Overridable
         id="InvenioAppRdm.Deposit.RDMDepositForm.layout"
-        record={record}
-        files={files}
-        config={config}
-        permissions={permissions}
-        preselectedCommunity={preselectedCommunity}
-        filesLocked={filesLocked}
-        recordRestrictionGracePeriod={recordRestrictionGracePeriod}
-        allowRecordRestriction={allowRecordRestriction}
-        recordDeletion={recordDeletion}
+        {...overridableBlocksCommonProps}
         fileModification={fileModification}
-        groupsEnabled={groupsEnabled}
-        allowEmptyFiles={allowEmptyFiles}
-        customFieldsUI={customFieldsUI}
+        recordDeletion={recordDeletion}
       >
         <DepositFormApp
           config={this.config}
@@ -181,20 +188,7 @@ export class RDMDepositForm extends Component {
               <Grid.Column mobile={16} tablet={16} computer={11}>
                 <Overridable
                   id="InvenioAppRdm.Deposit.Files.before.container"
-                  record={record}
-                  files={files}
-                  permissions={permissions}
-                  preselectedCommunity={preselectedCommunity}
-                  filesLocked={filesLocked}
-                  recordRestrictionGracePeriod={recordRestrictionGracePeriod}
-                  allowRecordRestriction={allowRecordRestriction}
-                  groupsEnabled={groupsEnabled}
-                  allowEmptyFiles={allowEmptyFiles}
-                  customFieldsUI={customFieldsUI}
-                  config={this.config}
-                  vocabularies={this.vocabularies}
-                  noFiles={this.noFiles}
-                  hideCommunitySelection={this.hide_community_selection}
+                  {...overridableBlocksCommonProps}
                 />
                 <Overridable
                   id="InvenioAppRdm.Deposit.AccordionFieldFiles.container"
@@ -250,20 +244,7 @@ export class RDMDepositForm extends Component {
                 </Overridable>
                 <Overridable
                   id="InvenioAppRdm.Deposit.Files.after.container"
-                  record={record}
-                  files={files}
-                  permissions={permissions}
-                  preselectedCommunity={preselectedCommunity}
-                  filesLocked={filesLocked}
-                  recordRestrictionGracePeriod={recordRestrictionGracePeriod}
-                  allowRecordRestriction={allowRecordRestriction}
-                  groupsEnabled={groupsEnabled}
-                  allowEmptyFiles={allowEmptyFiles}
-                  customFieldsUI={customFieldsUI}
-                  config={this.config}
-                  vocabularies={this.vocabularies}
-                  noFiles={this.noFiles}
-                  hideCommunitySelection={this.hide_community_selection}
+                  {...overridableBlocksCommonProps}
                 />
                 <Overridable
                   id="InvenioAppRdm.Deposit.AccordionFieldBasicInformation.container"
@@ -314,6 +295,7 @@ export class RDMDepositForm extends Component {
                     <Overridable
                       id="InvenioAppRdm.Deposit.ResourceTypeField.container"
                       vocabularies={this.vocabularies}
+                      record={record}
                       fieldPath="metadata.resource_type"
                     >
                       <ResourceTypeField
@@ -340,6 +322,7 @@ export class RDMDepositForm extends Component {
                     <Overridable
                       id="InvenioAppRdm.Deposit.PublicationDateField.container"
                       fieldPath="metadata.publication_date"
+                      record={record}
                     >
                       <PublicationDateField
                         required
@@ -352,6 +335,7 @@ export class RDMDepositForm extends Component {
                       vocabularies={this.vocabularies}
                       config={this.config}
                       fieldPath="metadata.creators"
+                      record={record}
                     >
                       <CreatibutorsField
                         label={i18next.t("Authors/Creators")}
@@ -383,6 +367,7 @@ export class RDMDepositForm extends Component {
                     <Overridable
                       id="InvenioAppRdm.Deposit.LicenseField.container"
                       fieldPath="metadata.rights"
+                      record={record}
                     >
                       <LicenseField
                         fieldPath="metadata.rights"
@@ -416,44 +401,19 @@ export class RDMDepositForm extends Component {
                     <Overridable
                       id="InvenioAppRdm.Deposit.CopyrightsField.container"
                       fieldPath="metadata.copyright"
+                      record={record}
                     >
                       <CopyrightsField fieldPath="metadata.copyright" />
                     </Overridable>
                     <Overridable
                       id="InvenioAppRdm.Deposit.AccordionFieldBasicInformation.extra"
-                      record={record}
-                      files={files}
-                      permissions={permissions}
-                      preselectedCommunity={preselectedCommunity}
-                      filesLocked={filesLocked}
-                      recordRestrictionGracePeriod={recordRestrictionGracePeriod}
-                      allowRecordRestriction={allowRecordRestriction}
-                      groupsEnabled={groupsEnabled}
-                      allowEmptyFiles={allowEmptyFiles}
-                      customFieldsUI={customFieldsUI}
-                      config={this.config}
-                      vocabularies={this.vocabularies}
-                      noFiles={this.noFiles}
-                      hideCommunitySelection={this.hide_community_selection}
+                      {...overridableBlocksCommonProps}
                     />
                   </AccordionField>
                 </Overridable>
                 <Overridable
                   id="InvenioAppRdm.Deposit.BasicInformation.after.container"
-                  record={record}
-                  files={files}
-                  permissions={permissions}
-                  preselectedCommunity={preselectedCommunity}
-                  filesLocked={filesLocked}
-                  recordRestrictionGracePeriod={recordRestrictionGracePeriod}
-                  allowRecordRestriction={allowRecordRestriction}
-                  groupsEnabled={groupsEnabled}
-                  allowEmptyFiles={allowEmptyFiles}
-                  customFieldsUI={customFieldsUI}
-                  config={this.config}
-                  vocabularies={this.vocabularies}
-                  noFiles={this.noFiles}
-                  hideCommunitySelection={this.hide_community_selection}
+                  {...overridableBlocksCommonProps}
                 />
                 <Overridable
                   id="InvenioAppRdm.Deposit.AccordionFieldRecommendedInformation.container"
@@ -474,6 +434,7 @@ export class RDMDepositForm extends Component {
                       fieldPath="metadata.contributors"
                       vocabularies={this.vocabularies}
                       config={this.config}
+                      record={record}
                     >
                       <CreatibutorsField
                         addButtonLabel={i18next.t("Add contributor")}
@@ -531,6 +492,7 @@ export class RDMDepositForm extends Component {
                       id="InvenioAppRdm.Deposit.DateField.container"
                       vocabularies={this.vocabularies}
                       fieldPath="metadata.dates"
+                      record={record}
                     >
                       <DatesField
                         fieldPath="metadata.dates"
@@ -542,6 +504,7 @@ export class RDMDepositForm extends Component {
                     <Overridable
                       id="InvenioAppRdm.Deposit.VersionField.container"
                       fieldPath="metadata.version"
+                      record={record}
                     >
                       <VersionField fieldPath="metadata.version" />
                     </Overridable>
@@ -549,14 +512,24 @@ export class RDMDepositForm extends Component {
                     <Overridable
                       id="InvenioAppRdm.Deposit.PublisherField.container"
                       fieldPath="metadata.publisher"
+                      record={record}
                     >
                       <PublisherField fieldPath="metadata.publisher" />
                     </Overridable>
+                    <Overridable
+                      id="InvenioAppRdm.Deposit.AccordionFieldRecommendedInformation.extra"
+                      {...overridableBlocksCommonProps}
+                    />
                   </AccordionField>
                 </Overridable>
                 <Overridable
+                  id="InvenioAppRdm.Deposit.RecommendedInformation.after.container"
+                  {...overridableBlocksCommonProps}
+                />
+                <Overridable
                   id="InvenioAppRdm.Deposit.AccordionFieldFunding.container"
                   ui={this.accordionStyle}
+                  record={record}
                 >
                   <AccordionField
                     includesPaths={this.sectionsConfig["funding-section"]}
@@ -569,6 +542,7 @@ export class RDMDepositForm extends Component {
                     <Overridable
                       id="InvenioAppRdm.Deposit.FundingField.container"
                       fieldPath="metadata.funding"
+                      record={record}
                     >
                       <FundingField
                         fieldPath="metadata.funding"
@@ -647,11 +621,20 @@ export class RDMDepositForm extends Component {
                         }}
                       />
                     </Overridable>
+                    <Overridable
+                      id="InvenioAppRdm.Deposit.AccordionFieldFunding.extra"
+                      {...overridableBlocksCommonProps}
+                    />
                   </AccordionField>
                 </Overridable>
                 <Overridable
+                  id="InvenioAppRdm.Deposit.Funding.after.container"
+                  {...overridableBlocksCommonProps}
+                />
+                <Overridable
                   id="InvenioAppRdm.Deposit.AccordionFieldAlternateIdentifiers.container"
                   vocabularies={this.vocabularies}
+                  record={record}
                 >
                   <AccordionField
                     includesPaths={this.sectionsConfig["alternate-identifiers-section"]}
@@ -664,6 +647,7 @@ export class RDMDepositForm extends Component {
                       id="InvenioAppRdm.Deposit.IdentifiersField.container"
                       vocabularies={this.vocabularies}
                       fieldPath="metadata.identifiers"
+                      record={record}
                     >
                       <IdentifiersField
                         fieldPath="metadata.identifiers"
@@ -673,12 +657,21 @@ export class RDMDepositForm extends Component {
                         showEmptyValue
                       />
                     </Overridable>
+                    <Overridable
+                      id="InvenioAppRdm.Deposit.AccordionFieldAlternateIdentifiers.extra"
+                      {...overridableBlocksCommonProps}
+                    />
                   </AccordionField>
                 </Overridable>
+                <Overridable
+                  id="InvenioAppRdm.Deposit.AlternateIdentifiers.after.container"
+                  {...overridableBlocksCommonProps}
+                />
 
                 <Overridable
                   id="InvenioAppRdm.Deposit.AccordionFieldRelatedWorks.container"
                   vocabularies={this.vocabularies}
+                  record={record}
                 >
                   <AccordionField
                     includesPaths={this.sectionsConfig["related-works-section"]}
@@ -691,6 +684,7 @@ export class RDMDepositForm extends Component {
                       id="InvenioAppRdm.Deposit.RelatedWorksField.container"
                       fieldPath="metadata.related_identifiers"
                       vocabularies={this.vocabularies}
+                      record={record}
                     >
                       <RelatedWorksField
                         fieldPath="metadata.related_identifiers"
@@ -698,11 +692,20 @@ export class RDMDepositForm extends Component {
                         showEmptyValue
                       />
                     </Overridable>
+                    <Overridable
+                      id="InvenioAppRdm.Deposit.AccordionFieldRelatedWorks.extra"
+                      {...overridableBlocksCommonProps}
+                    />
                   </AccordionField>
                 </Overridable>
                 <Overridable
+                  id="InvenioAppRdm.Deposit.RelatedWorks.after.container"
+                  {...overridableBlocksCommonProps}
+                />
+                <Overridable
                   id="InvenioAppRdm.Deposit.AccordionFieldReferences.container"
                   vocabularies={this.vocabularies}
+                  record={record}
                 >
                   <AccordionField
                     includesPaths={this.sectionsConfig["references-section"]}
@@ -715,11 +718,20 @@ export class RDMDepositForm extends Component {
                       id="InvenioAppRdm.Deposit.ReferencesField.container"
                       fieldPath="metadata.references"
                       vocabularies={this.vocabularies}
+                      record={record}
                     >
                       <ReferencesField fieldPath="metadata.references" showEmptyValue />
                     </Overridable>
+                    <Overridable
+                      id="InvenioAppRdm.Deposit.AccordionFieldReferences.extra"
+                      {...overridableBlocksCommonProps}
+                    />
                   </AccordionField>
                 </Overridable>
+                <Overridable
+                  id="InvenioAppRdm.Deposit.References.after.container"
+                  {...overridableBlocksCommonProps}
+                />
                 {!_isEmpty(customFieldsUI) && (
                   <Overridable
                     id="InvenioAppRdm.Deposit.CustomFields.container"
