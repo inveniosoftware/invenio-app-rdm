@@ -60,6 +60,7 @@
   img {
     max-height: @tinyWidth;
     min-width: @tinyWidth;
+    max-width: @mediumWidth;
     object-fit: contain;
   }
 }
