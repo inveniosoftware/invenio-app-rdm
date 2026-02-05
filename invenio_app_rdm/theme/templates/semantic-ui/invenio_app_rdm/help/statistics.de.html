@@ -1,0 +1,161 @@
+{#
+  Copyright (C) 2021-2023 CERN.
+  Copyright (C) 2021 Northwestern University.
+
+  Invenio App RDM is free software; you can redistribute it and/or modify it
+  under the terms of the MIT License; see LICENSE file for more details.
+#}
+{%- set title = _("FAQ statistics") %}
+{%- extends config.BASE_TEMPLATE %}
+
+{%- block page_body %}
+<div class="ui two column grid container rel-mt-2">
+  <div class="ui row">
+    <div class="ui sixteen wide column">
+      <h2 id="statistics">Nutzungstatistiken</h2>
+      <p></p>
+    </div>
+    <div class="ui eight wide column">
+      <h3>
+        Was wird erfasst?
+      </h3>
+      <p>Wir erfassen zwei Arten von Ereignissen:</p>
+      <ul>
+        <li>Aufrufe einer Datensatzseite</li>
+        <li>Downloads von Dateien</li>
+      </ul>
+      <p>Für beide Ereignistypen werden folgende Informationen gespeichert:</p>
+      <ul>
+        <li><strong>Besucher*in</strong>: eine anonymisierte Besucher-ID</li>
+        <li><p><strong>Besucherart</strong>: ob die Anfrage von</p>
+          <p> a) einem Menschen,</p>
+          <p> b) automatisiert oder</p>
+          <p> c) durch einen Crawler erfolgt ist.</p>
+        </li>
+        <li><p><strong>Land</strong>: Herkunftsland der Anfrage (basierend auf der IP-Adresse)</p>
+        </li>
+        <li><strong>Referrer:</strong> die Domain der verweisenden Website</li>
+      </ul>
+
+      <h3>Was ist ein <em>Aufruf</em> („View“)?</h3>
+      <p>Ein Aufruf ist der Besuch eines Datensatzes durch eine<em>n Nutzer</em>in (manuell oder automatisiert).</p>
+      <p>Doppelklicks und Zugriffe durch Crawler werden nicht gezählt.</p>
+
+      <h3>Was ist ein <em>eindeutiger Aufruf</em> („Unique View“)?</h3>
+      <p>Ein Aufruf ist der Besuch eines Datensatzes durch eine<em>n Nutzer</em>in (manuell oder automatisiert).</p>
+      <p>Doppelklicks und Zugriffe durch Crawler werden nicht gezählt.</p>
+
+      <h3>Was ist ein <em>Download</em>?</h3>
+      <p>Ein Download liegt vor, wenn ein<em>e Nutzer</em>in manuell oder automatisiert eine Datei aus einem Datensatz
+        herunterlädt.</p>
+      <p>Doppelklicks und Zugriffe durch Crawler werden auch hier nicht gezählt.</p>
+      <p>Besteht ein Datensatz aus mehreren Dateien, zählt jede heruntergeladene Datei als ein eigener Download.</p>
+
+      <h3>Was ist ein <em>eindeutiger Download</em> („Unique Download“)?</h3>
+      <p>Ein eindeutiger Download umfasst einen oder mehrere Datei-Downloads aus demselben Datensatz durch dieselbe
+        Person innerhalb eines Zeitfensters
+        von einer Stunde.</p>
+      <p>Das heißt: Wer innerhalb einer Stunde mehrere Dateien desselben Datensatzes (oder dieselbe Datei mehrfach)
+        herunterlädt, erzeugt nur einen eindeutigen Download.</p>
+
+      <h3>Was bedeutet „<em>heruntergeladenes Datenvolumen</em>“?</h3>
+      <p>Das heruntergeladene Datenvolumen ist die Gesamtmenge aller heruntergeladenen Daten aus einem Datensatz,
+        unabhängig davon ob der
+        Download manuell oder automatisiert erfolgt ist.</p>
+      <p>Doppelklicks und Zugriffe durch Crawler werden auch hier nicht gezählt. </p>
+      <p>Wird ein Download vorzeitig abgebrochen, wird trotzdem die vollständige Dateigröße gezählt,</p>
+
+      <h3>Wie werden verschiedene Versionen eines Datensatzes berücksichtigt?</h3>
+      <p>Standardmäßig zeigen wir zusammengefasste Statistiken über alle Versionen eines Datensatzes hinweg (Aufrufe,
+        Downloads und Datenvolumen).</p>
+      <p>Auf der Datensatzseite können Sie den Statistikbereich erweitern, um die Nutzungszahlen für einzelne
+        Versionen einzusehen.</p>
+
+      <h3>Wie wird mit Crawlern umgegangen?</h3>
+      <p>Maschinelle Zugriffe durch Crawler, Bots etc. werden nicht in den Nutzungsstatistiken gezählt.</p>
+      <p>Die Erkennung erfolgt anhand einer standardisierten Liste, die von den Projekten <a
+        href="https://www.projectcounter.org/">COUNTER</a> und <a href="https://makedatacount.org/">Making Data
+        Count</a> bereitgestellt wird.</p>
+
+      <h3>Wie oft werden die Statistiken aktualisiert?</h3>
+      <p>Einmal täglich.</p>
+
+      <h3>Wie finde ich die am häufigsten angesehenen Datensätze?</h3>
+      <p>In jeder Suche in datastore können die Ergebnisse nach <a href="/search?sort=mostviewed">&quot;am häufigsten
+        angesehen&quot;</a> sortiert werden.</p>
+
+      <h3>Nach welchem Standard wird getrackt?</h3>
+      <p>Die Erfassung erfolgt gemäß</p>
+      <ul>
+        <li>dem <a href="https://www.projectcounter.org/">COUNTER Code of Practice</a> und</li>
+        <li>dem <a href="https://peerj.com/preprints/26505/">Code of Practice for Research Data Usage Metrics</a></li>
+      </ul>
+      <p>Dadurch sind unsere Nutzungsstatistiken vergleichbar mit anderen COUNTER-konformen Repositorien.</p>
+    </div>
+    <div class="ui eight wide column">
+      <h3>Was ist der Unterschied zwischen einer automatisierten und einer maschinellen Anfrage?</h3>
+      <ul>
+        <li><em>Automatisierte Anfragen</em> sind Zugriffe, die von Menschen ausgelöst werden, z.B. in Form eines
+          Skripts welches Daten aus datastore herunterlädt und anschließend analysiert.
+        </li>
+        <li><em>Maschinelle Anfragen</em> sind Zugriffe, die eigenständig durch Programme erfolgen, z. B. durch
+          Suchmaschinen-Crawler oder andere Bots.
+        </li>
+      </ul>
+
+      <h3>Wie werden Nutzer*innen anonymisiert?</h3>
+      <p>Für jeden Aufruf oder Download erfassen wir eine anonymisierte Besucher-ID.</p>
+      <ul>
+        <li><p>Diese Besucher-ID ändert sich alle 24 Stunden.</p>
+          <p> Das bedeutet: Ruft dieselbe Person denselben Datensatz an zwei verschiedenen Tagen auf, entstehen zwei
+            unterschiedliche anonymisierte
+            IDs.</p>
+        </li>
+        <li><p>Die anonymisierte Besucher-ID ist notwendig, um eindeutige Aufrufe und Downloads zählen zu können.</p>
+        </li>
+      </ul>
+      <p>Für Sicherheitszwecke führen wir zudem ein Web‑Server‑Zugriffsprotokoll, das Ihre
+        <a href="IP‑Adresse</a" target="_blank" rel="noreferrer">https://en.wikipedia.org/wiki/IP_address">IP‑Adresse</a>
+        und den <a href="User‑Agent</a>-String" target="_blank" rel="noreferrer">https://en.wikipedia.org/wiki/User_agent">User‑Agent</a>-String
+        Ihres Browsers enthält. Dieses Web‑Server‑Zugriffsprotokoll wird nach höchstens einem Jahr automatisch gelöscht
+        und ist zudem streng von der Erfassung der Nutzungsstatistiken getrennt.</p>
+
+      <p>Die anonymisierte Besucher-ID wird aus einem Nutzer-Merkmal abgeleitet, zum Beispiel:</p>
+      <ul>
+        <li>einer Nutzer-ID (z. B. wenn Sie eingeloggt sind),</li>
+        <li>einer Sitzungs-ID,</li>
+        <li>oder einer Kombination aus IP-Adresse und dem User Agent Ihres Browsers.</li>
+      </ul>
+      <p>Dieses Merkmal wird:</p>
+      <ol>
+        <li>mit einem zufälligen Textwert (&quot;Salt&quot;) kombiniert</li>
+        <li>durch eine <a href="https://de.wikipedia.org/wiki/Kryptographische_Hashfunktion">Einweg-Kryptofunktion</a>
+          verarbeitet (Hashing)
+        </li>
+      </ol>
+      <p>Der zufällige Textwert wird alle 24 Stunden neu erzeugt und anschließend verworfen. Dadurch ist die
+        resultierende Besucher-ID nicht
+        rückverfolgbar und vollständig zufällig.</p>
+
+      <h3>Kann ich der Erfassung von Nutzungsstatistiken widersprechen (Opt-out)?</h3>
+      <p>Nein, ein Opt-out ist nicht möglich.</p>
+      <p>Die Erfassung erfolgt jedoch:</p>
+      <ul>
+        <li>vollständig anonymisiert</li>
+        <li>serverseitig</li>
+        <li>ohne personenbezogene Auswertung</li>
+      </ul>
+
+      <h3>Gibt es Nutzungsstatistiken für Communities?</h3>
+      <p>Aktuell noch nicht. Es ist jedoch geplant, künftig aggregierte Nutzungsstatistiken für Communities
+        bereitzustellen.</p>
+
+      <h3>Werden meine Suchanfragen gespeichert?</h3>
+      <p>Nein. Suchanfragen werden nicht getrackt.</p>
+
+      <h3>Findet eine manuelle oder automatische Profilbildung statt?</h3>
+      <p>Nein. Es erfolgt keinerlei Profiling von Nutzer*innen.</p>
+    </div>
+  </div>
+</div>
+{% endblock page_body %}
