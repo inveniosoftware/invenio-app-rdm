@@ -11,27 +11,20 @@
 
 {%- block page_body %}
 <div class="ui container mt-25">
-  <h1>Suchanleitung</h1>
-  <p>
-    Diese Anleitung erklärt anhand von leicht verständlichen Beispielen,
-    wie man erweiterte Suchanfragen schreibt.
-  </p>
+  <h2>Suchanleitung</h2>
+  <p>Diese Anleitung erklärt anhand von leicht verständlichen Beispielen, wie man erweiterte Suchanfragen stellt.</p>
   <h3>Einfache Suche (ein oder mehrere Begriffe)</h3>
   <p>
     <strong>Beispiel:</strong>
     <a href="/search?page=1&amp;size=20&amp;q=open%20science"><code>open science</code></a>
   </p>
   <p>
-    Die Ergebnisse entsprechen Datensätzen mit den <em>Begriffen</em> <code>open</code>
-    <em>oder</em> <code>science</code> in einem <em>beliebigen Feld</em>. Beachten Sie, dass die Abstammung angewendet
-    wird,
-    so dass z. B. <code>science</code> auch mit
-    <code>sciences</code>übereinstimmt. Die Suchergebnisse werden nach einem Algorithmus geordnet,
-    der Ihre Suchbegriffe berücksichtigt.
-  </p>
-  <p>
-    Sie können das <em>Vorhandensein</em> beider Terme entweder mit dem
-    <code>+</code> oder dem <code>AND</code> Operator erzwingen:
+    Die Ergebnisse entsprechen Datensätzen, die einen der <em>Begriffe</em> <code>open</code> <em>oder</em> <code>science</code>
+    in einem <em>beliebigen Feld</em> beinhalten. Beachten Sie, dass eine Wortstamm-Erkennung angewendet wird, sodass
+    z. B. <em>science</em> auch mit <em>sciences</em> übereinstimmt. Die Suchergebnisse werden mithilfe eines
+    Algorithmus sortiert, der Ihre Suchbegriffe berücksichtigt. Sie können das <em>Vorhandensein</em> beider Begriffe
+    entweder mit dem <code>+</code>- oder dem <code>AND</code>-Operator erzwingen: Sie können das
+    <em>Vorhandensein</em> beider Terme entweder mit dem <code>+</code> oder dem <code>AND</code> Operator erzwingen:
   </p>
   <p>
     <strong>Beispiele:</strong>
@@ -40,8 +33,8 @@
     <a href="/search?page=1&amp;size=20&amp;q=open%20AND%20science"><code>open AND science</code></a>
   </p>
   <p>
-    Sie können das <em>Nichtvorhandensein</em> eines oder mehrerer Begriffe mit dem Operator
-    <code>-</code> oder <code>NOT</code> erzwingen:
+    Sie können das <em>Nichtvorhandensein</em> eines oder mehrerer Begriffe mit dem <code>-</code>- oder dem
+    <code>NOT</code>-Operator erzwingen:
   </p>
   <p>
     <strong>Beispiele:</strong>
@@ -55,8 +48,8 @@
     <a href="/search?page=1&amp;size=20&amp;q=%22open%20science%22"><code>"open science"</code></a>
   </p>
   <p>
-    Die Ergebnisse entsprechen Datensätzen mit der <em>phrase</em>
-    <code>open science</code> in einem <em>beliebigen Feld</em>.
+    Die Ergebnisse entsprechen Datensätzen mit der <em>Phrase</em> <code>open science</code> in einem <em>beliebigen
+    Feld</em>.
   </p>
   <h3>Feldsuche</h3>
   <p>
@@ -64,9 +57,9 @@
     <a href="/search?page=1&amp;size=20&amp;q=metadata.title:open"><code>metadata.title:open</code></a>
   </p>
   <p>
-    Die Ergebnisse stimmen mit Datensätzen überein, bei denen der <em>Begriff</em> <code>open</code> im
-    <em>Feld</em> <code>metadata.title</code>ist. Wenn Sie nach mehreren Begriffen im Titel suchen möchten,
-    müssen Sie <strong>die Begriffe</strong> mit Klammern gruppieren:
+    Die Ergebnisse stimmen mit Datensätzen überein, bei denen das <em>Feld</em> <code>metadata.title</code> den <em>Begriff</em>
+    <code>open</code> enthält. Wenn Sie nach mehreren Begriffen im Titel suchen möchten, müssen Sie die Begriffe mit
+    Klammern <strong>gruppieren</strong>:
   </p>
   <p>
     <strong>Beispiel:</strong>
@@ -75,9 +68,10 @@
       science)</code></a>
   </p>
   <p>
-    Die vollständige Liste der Felder, die Sie durchsuchen können, finden Sie in der Feldreferenz unten.
+    Die vollständige Liste der Felder, die Sie durchsuchen können, finden Sie in der InvenioRDM-Dokumentation: <a
+    href="https://inveniordm.docs.cern.ch/reference/metadata/#metadata">https://inveniordm.docs.cern.ch/reference/metadata/#metadata</a>.
   </p>
-  <h3>Kombinierte einfache Phrasen- oder Feldsuche</h3>
+  <h3>Kombinierte einfache, Phrasen- oder Feldsuche</h3>
   <p>
     <strong>Beispiel:</strong>
     <a
@@ -89,7 +83,7 @@
       +science)</code></a>
   </p>
   <p>
-    Sie können einfache Phrasen- und Feldsuche kombinieren, um erweiterte Suchanfragen zu konstruieren.
+    Sie können einfache, Phrasen- und Feldsuchen kombinieren, um erweiterte Suchanfragen zu konstruieren.
   </p>
   <h3>Bereichssuche</h3>
   <p>
@@ -97,25 +91,25 @@
     <a
       href="/search?page=1&amp;size=20&amp;q=metadata.publication_date:%5B2017%20TO%202018%5D"><code>metadata.publication_date:[2017
       TO 2018]</code></a>
-    (Achtung, <code>TO</code> muss großgeschrieben werden).
+    (Achtung: <code>TO</code> muss großgeschrieben werden.)
   </p>
   <p>
-    Die Ergebnisse entsprechen allen Datensätzen mit einem Veröffentlichungsdatum
-    zwischen 2017-01-01 und 2018-01-01 (beide Daten inklusive).
+    Die Ergebnisse entsprechen allen Datensätzen mit einem Veröffentlichungsdatum zwischen 2017-01-01 und 2018-01-01
+    (beide Daten eingeschlossen).
   </p>
-  <p>Beachten Sie, dass partielle Daten zu vollständigen Daten erweitert werden, z. B.:</p>
+  <p>
+    Beachten Sie, dass partielle Daten zu vollständigen Daten ergänzt werden, z. B.:
+  </p>
   <ul>
-    <li>2017 wird erweitert auf 2017-01-01</li>
-    <li>2017-06 wird erweitert auf 2017-06-01</li>
+    <li><code>2017</code> wird ergänzt zu <code>2017-01-01</code></li>
+    <li><code>2017-06</code> wird ergänzt zu <code>2017-06-01</code></li>
   </ul>
   <p>
-    Verwenden Sie eckige Klammern (<code>[]</code>) für <em>einschließende</em> Bereiche und geschweifte
-    Klammern (<code>{}</code>) für <em>ausschließende</em> Bereiche, z. B.:
+    Verwenden Sie eckige Klammern (<code>[]</code>) für <em>einschließende</em> Bereiche und geschweifte Klammern
+    (<code>{}</code>) für <em>ausschließende</em> Bereiche, z. B.:
   </p>
   <ul>
-    <li>
-      <code>[2017 TO 2018}</code> ist aufgrund der Datumserweiterung
-      und der exklusiven Obergrenze äquivalent zu
+    <li><code>[2017 TO 2018}</code> ist aufgrund der Datumsergänzung und der exklusiven Obergrenze äquivalent zu
       <code>[2017-01-01 TO 2017-12-31]</code>.
     </li>
   </ul>
@@ -125,66 +119,62 @@
       <code>metadata.publication_date:{* TO 2017-01-01}</code>: Alle Tage bis 2017.
     </li>
     <li>
-      <code>metadata.publication_date:[2017-01-01 TO *]</code>: Alle Tage von 2017.
+      <code>metadata.publication_date:[2017-01-01 TO *]</code>: Alle Tage ab 2017.
     </li>
   </ul>
   <h3>Ranking/Sortierung</h3>
   <p>
-    Standardmäßig werden alle Suchen nach einem internen Ranking-Algorithmus sortiert,
-    der jede Übereinstimmung mit Ihrer Abfrage bewertet. Sowohl in der Benutzeroberfläche
-    als auch in der REST-API ist es möglich, die Ergebnisse zu sortieren nach:
+    Standardmäßig werden alle Suchergebnisse mithilfe eines internen Ranking-Algorithmus sortiert, der jedes
+    Suchergebnis anhand Ihrer Suchparameter bewertet. Sowohl in der Benutzeroberfläche als auch in der REST-API ist es
+    möglich, die Ergebnisse zu sortieren nach:
   </p>
   <ul>
-    <li>Aktuellste</li>
     <li>Beste Übereinstimmung</li>
+    <li>Neuste</li>
+    <li>Älteste</li>
+    <li>Am häufigsten angesehen</li>
+    <li>Am häufigsten heruntergeladen</li>
   </ul>
   <h3>Reguläre Ausdrücke</h3>
   <p>
-    Reguläre Ausdrücke sind eine mächtige Sprache für den Mustervergleich, mit der
-    man nach bestimmten Mustern in einem Feld suchen kann. Wenn Sie zum Beispiel
-    alle Datensätze mit dem DOI-Präfix 10.5281 finden wollen, können Sie eine Suche mit
-    regulären Ausdrücken verwenden:
+    Reguläre Ausdrücke sind eine mächtige Sprache für den Mustervergleich, mit der man nach bestimmten Mustern in
+    einem Feld suchen kann. Wenn Sie zum Beispiel alle Datensätze mit dem DOI-Präfix <code>10.5281</code> finden
+    wollen, können Sie eine Suche mit regulären Ausdrücken verwenden:
   </p>
   <p>
     <strong>Beispiel:</strong>
-    <a href="/search?page=1&amp;size=20&amp;q=pids.doi.identifier%3A%2F10\.5281.*%2F">
-      <code>pids.doi.identifier:/10\.5281.*/</code>
-    </a>
+    <a
+      href="/search?page=1&amp;size=20&amp;q=pids.doi.identifier%3A%2F10\.5281.*%2F"><code>pids.doi.identifier:/10\.5281.*/</code></a>
   </p>
   <p>
-    Vorsicht, der reguläre Ausdruck muss mit dem <em>gesamten</em> Feldwert übereinstimmen.
-    Weitere Einzelheiten finden Sie in der
-    <a
-      href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-regexp-query.html#regexp-syntax">Syntax
-      des regulären Ausdrucks</a>
-    .
+    Vorsicht: Der reguläre Ausdruck muss mit dem <em>gesamten</em> Feldwert übereinstimmen. Weitere Einzelheiten
+    finden Sie in der <a
+    href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-regexp-query.html#regexp-syntax">Syntax
+    regulärer Ausdrücke</a>.
   </p>
   <h3>Fehlende Werte</h3>
   <p>
-    Es ist möglich, mit den Feldnamen <code>_exists_</code> und
-    <code>NOT _exists_</code> nach Datensätzen zu suchen,
-    in denen entweder ein Wert fehlt oder die einen Wert in einem bestimmten Feld haben.
+    Es ist möglich, mit den Feldnamen <code>_exists_</code> und <code>NOT _exists_</code> nach Datensätzen zu suchen,
+    bei denen ein Wert fehlt oder vorhanden ist.
   </p>
   <p>
     <strong>Beispiel:</strong>
-    <a
-      href="/search?page=1&amp;size=20&amp;q=NOT%20_exists_:metadata.additional_titles"><code>NOT
-      _exists_:metadata.additional_titles</code></a>
-    (alle Datensätze ohne metadata.additional_titles)
-  </p>
-  <p>
-    <strong>Beispiel:</strong>
-    <a href="/search?page=1&amp;size=20&amp;q=_exists_:metadata.creators"><code>_exists_:metadata.creators</code></a>
-    (alle Datensätze mit metadata.creators)
+  <ul>
+    <li><code>NOT _exists_:metadata.additional_titles</code>
+      (alle Datensätze ohne <code>metadata.additional_titles</code>)
+    </li>
+    <li><code>_exists_:metadata.creators</code>
+      (alle Datensätze mit <code>metadata.creators</code>)
+    </li>
+  </ul>
   </p>
   <h3>Erweiterte Konzepte</h3>
-  <h4>Boosten</h4>
+  <h3>Boosten</h3>
   <p>
-    Sie können den Boost-Operator <code>^</code> verwenden, wenn ein Begriff relevanter ist als ein
-    anderer. Sie können z. B. nach allen Datensätzen suchen, die den Ausdruck
-    <em>open science</em> entweder im <em>title</em> oder im
-    <em>description</em> Feld enthalten, aber Datensätze mit dem Ausdruck im
-    <em>title</em> Feld höher einstufen:
+    Sie können den Boost-Operator <code>^</code> verwenden, wenn ein Begriff relevanter ist als ein anderer. Sie
+    können z. B. nach allen Datensätzen suchen, die die Phrase <code>open science</code> entweder im
+    <code>title</code>- oder im <code>description</code>-Feld enthalten, aber Datensätze mit der Phrase im
+    <code>title</code>-Feld höher einstufen:
   </p>
   <p>
     <strong>Beispiel:</strong>
@@ -192,46 +182,46 @@
       href="/search?page=1&amp;size=20&amp;q=metadata.title:%22open%20science%22%5E5%20metadata.description:%22open%20science%22"><code>metadata.title:"open
       science"^5 metadata.description:"open science"</code></a>
   </p>
-  <h4>Unschärfe</h4>
+  <h3>Unschärfe</h3>
   <p>
-    Mit dem Fuzzy-Operator <code>~</code>können Sie nach
-    Begriffen suchen, die Ihrem Suchbegriff ähnlich, aber nicht genau gleich sind.
+    Mit dem Fuzzy-Operator <code>~</code> können Sie nach Begriffen suchen, die Ihrem Suchbegriff ähnlich, aber nicht
+    exakt gleich sind.
   </p>
   <p>
     <strong>Beispiel:</strong>
     <a href="/search?page=1&amp;size=20&amp;q=oepn~"><code>oepn~</code></a>
   </p>
   <p>
-    Die Ergebnisse entsprechen Datensätzen mit ähnlichen Begriffen (oder
-    Rechtschreibfehlern) wie <code>oepn</code> die z. B. auch auf
-    <code>open</code> passen würden.
+    Die Ergebnisse entsprechen Datensätzen mit ähnlichen Begriffen, die auch für z.B. <code>open</code> Suchtreffer
+    ergeben würden (z. B. mit Rechtschreibfehlern).
   </p>
-  <h4>Näherungssuche</h4>
+  <h3>Näherungssuche</h3>
   <p>
-    Eine Phrasensuche wie <code>"open science"</code> (mit Anführungszeichen)
-    erwartet standardmäßig alle Begriffe in genau der gleichen Reihenfolge und
-    würde daher z. B. nicht auf einen Datensatz passen, der die Phrase
-    <em>"open access and science"</em> enthält. Eine Proximity-Suche erlaubt,
-    dass die Begriffe nicht in der exakten Reihenfolge stehen und auch andere
-    Begriffe dazwischen enthalten können. Der Grad der Flexibilität wird
-    anschließend durch eine Ganzzahl angegeben:
+    Eine Phrasensuche wie <code>&quot;open science&quot;</code> erwartet standardmäßig alle Begriffe in genau der
+    gleichen Reihenfolge und würde daher z. B. nicht auf einen Datensatz passen, der die Phrase <code>&quot;open
+    access and science&quot;</code> enthält. Eine Näherungssuche erlaubt, dass die Begriffe nicht in der exakten
+    Reihenfolge stehen und auch andere Begriffe dazwischen enthalten können. Der Grad der Flexibilität wird durch eine
+    Ganzzahl angegeben:
   </p>
   <p>
     <strong>Beispiel:</strong>
     <a href="/search?page=1&amp;size=20&amp;q=%22open%20science%22~5"><code>"open science"~5</code></a>
   </p>
-  <h4>Wildcards</h4>
+  <h3>Platzhalter (&quot;Wildcards&quot;)</h3>
   <p>
-    Sie können Wildcards in Suchbegriffen verwenden, um ein einzelnes Zeichen
-    (mit dem <code>?</code> Operator) oder keines bis mehrere Zeichen (mit dem
-    <code>*</code> Operator) zu ersetzen.
+    Sie können Platzhalter in Suchbegriffen verwenden, um
+  <ul>
+    <li>ein einzelnes Zeichen (<code>?</code>-Operator) oder</li>
+    <li>kein bis mehrere Zeichen (<code>*</code>-Operator)</li>
+  </ul>
+  zu ersetzen.
   </p>
   <p>
     <strong>Beispiel:</strong>
     <a href="/search?page=1&amp;size=20&amp;q=ope%3F%20scien*"><code>ope? scien*</code></a>
   </p>
   <p>
-    Platzhaltersuchen können langsam sein und sollten normalerweise nach Möglichkeit vermieden werden.
+    Platzhaltersuchen können langsam sein und sollten nach Möglichkeit vermieden werden.
   </p>
 </div>
 {%- endblock page_body %}
