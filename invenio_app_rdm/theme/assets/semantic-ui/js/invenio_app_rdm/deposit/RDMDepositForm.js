@@ -208,16 +208,19 @@ export class RDMDepositForm extends Component {
                     includesPaths={this.sectionsConfig["files-section"]}
                     severityChecks={this.severityChecks}
                     active
+                    // NOTE: This is needed because the `FormFeedbackSummary` component
+                    // expects the `label` prop to be a string.
+                    data-label={i18next.t("Files")}
                     label={
                       <>
                         {i18next.t("Files")}
-                        {record.is_published && (
+                        {record.is_published ? (
                           <FileModificationUntil
                             fileModification={fileModification}
                             filesLocked={filesLocked}
                             record={record}
                           />
-                        )}
+                        ) : null}
                       </>
                     }
                     id="files-section"
@@ -275,6 +278,9 @@ export class RDMDepositForm extends Component {
                     includesPaths={this.sectionsConfig["basic-information-section"]}
                     severityChecks={this.severityChecks}
                     active
+                    // NOTE: This is needed because the `FormFeedbackSummary` component
+                    // expects the `label` prop to be a string.
+                    data-label={i18next.t("Basic information")}
                     label={i18next.t("Basic information")}
                     id="basic-information-section"
                   >
@@ -466,6 +472,9 @@ export class RDMDepositForm extends Component {
                       this.sectionsConfig["recommended-information-section"]
                     }
                     severityChecks={this.severityChecks}
+                    // NOTE: This is needed because the `FormFeedbackSummary` component
+                    // expects the `label` prop to be a string.
+                    data-label={i18next.t("Recommended information")}
                     label={i18next.t("Recommended information")}
                     id="recommended-information-section"
                   >
@@ -562,6 +571,9 @@ export class RDMDepositForm extends Component {
                     includesPaths={this.sectionsConfig["funding-section"]}
                     severityChecks={this.severityChecks}
                     active
+                    // NOTE: This is needed because the `FormFeedbackSummary` component
+                    // expects the `label` prop to be a string.
+                    data-label={i18next.t("Funding")}
                     label={i18next.t("Funding")}
                     ui={this.accordionStyle}
                     id="funding-section"
@@ -657,6 +669,9 @@ export class RDMDepositForm extends Component {
                     includesPaths={this.sectionsConfig["alternate-identifiers-section"]}
                     severityChecks={this.severityChecks}
                     active
+                    // NOTE: This is needed because the `FormFeedbackSummary` component
+                    // expects the `label` prop to be a string.
+                    data-label={i18next.t("Alternate identifiers")}
                     label={i18next.t("Alternate identifiers")}
                     id="alternate-identifiers-section"
                   >
@@ -684,6 +699,9 @@ export class RDMDepositForm extends Component {
                     includesPaths={this.sectionsConfig["related-works-section"]}
                     severityChecks={this.severityChecks}
                     active
+                    // NOTE: This is needed because the `FormFeedbackSummary` component
+                    // expects the `label` prop to be a string.
+                    data-label={i18next.t("Related works")}
                     label={i18next.t("Related works")}
                     id="related-works-section"
                   >
@@ -708,6 +726,9 @@ export class RDMDepositForm extends Component {
                     includesPaths={this.sectionsConfig["references-section"]}
                     severityChecks={this.severityChecks}
                     active
+                    // NOTE: This is needed because the `FormFeedbackSummary` component
+                    // expects the `label` prop to be a string.
+                    data-label={i18next.t("References")}
                     label={i18next.t("References")}
                     id="references-section"
                   >
