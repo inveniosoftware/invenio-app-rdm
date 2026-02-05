@@ -6,7 +6,7 @@
 // under the terms of the MIT License; see LICENSE file for more details.
 
 import React, { Component } from "react";
-import { Button, Modal, Message, Icon, Checkbox } from "semantic-ui-react";
+import { Button, Modal, Message, Icon, Checkbox, Popup } from "semantic-ui-react";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import { http, ErrorMessage } from "react-invenio-forms";
 import PropTypes from "prop-types";
@@ -85,23 +85,37 @@ export class RemoveFromCommunityAction extends Component {
       checkboxRecords,
       buttonDisabled,
     } = this.state;
-    const { result } = this.props;
+    const { result, canRemoveCommunity } = this.props;
     const communityTitle = result.metadata.title;
+
+    const removeButton = (
+      <Button
+        size="mini"
+        negative
+        labelPosition="left"
+        icon="trash"
+        floated="right"
+        onClick={this.openConfirmModal}
+        content={i18next.t("Remove")}
+        disabled={!canRemoveCommunity}
+        aria-label={i18next.t("Remove {{communityTitle}} from this record", {
+          communityTitle,
+        })}
+      />
+    );
 
     return (
       <>
-        <Button
-          size="mini"
-          negative
-          labelPosition="left"
-          icon="trash"
-          floated="right"
-          onClick={this.openConfirmModal}
-          content={i18next.t("Remove")}
-          aria-label={i18next.t("Remove {{communityTitle}} from this record", {
-            communityTitle,
-          })}
-        />
+        {canRemoveCommunity ? (
+          removeButton
+        ) : (
+          <Popup
+            content={i18next.t(
+              "You don't have permission to remove this community from the record"
+            )}
+            trigger={<span>{removeButton}</span>}
+          />
+        )}
         <Modal size="tiny" dimmer="blurring" open={modalOpen}>
           <Modal.Header as="h2">{i18next.t("Remove community")}</Modal.Header>
           <Modal.Content>
@@ -185,4 +199,5 @@ RemoveFromCommunityAction.propTypes = {
   result: PropTypes.object.isRequired,
   recordCommunityEndpoint: PropTypes.object.isRequired,
   successCallback: PropTypes.func.isRequired,
+  canRemoveCommunity: PropTypes.bool.isRequired,
 };
