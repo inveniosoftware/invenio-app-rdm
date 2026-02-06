@@ -14,6 +14,11 @@
   height: @iconHeight;
 }
 
+/* use these classes to change children facets in an accordion within a facet container */
+.facet-container .ui.accordion:not(.styled) .title ~ .content:not(.ui) {
+  padding: 0em 0em 0.25em 1em;
+}
+
 /* use these classes to change accordion title when up/down */
 div.affiliations.accordion div.title.active span.up,
 div.affiliations.accordion div.title.active button.up {
