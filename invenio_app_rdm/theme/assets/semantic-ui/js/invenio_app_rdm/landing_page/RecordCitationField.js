@@ -58,7 +58,10 @@ export class RecordCitationField extends Component {
 
   fetchCitation = async (recordLinks, style, includeDeleted) => {
     const includeDeletedParam = includeDeleted === true ? "&include_deleted=1" : "";
-    const url = `${recordLinks.self}?locale=${navigator.language}&style=${style}${includeDeletedParam}`;
+    const citationLocale = navigator.language.startsWith(i18next.language)
+      ? navigator.language
+      : i18next.language;
+    const url = `${recordLinks.self}?locale=${citationLocale}&style=${style}${includeDeletedParam}`;
     return await http.get(url, {
       headers: {
         Accept: "text/x-bibliography",
