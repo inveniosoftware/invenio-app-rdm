@@ -10,8 +10,8 @@
 .ui.accordion .title .icon,
 .ui.accordion .accordion .title .icon {
   transition: @iconTransition;
-  width: auto;
-  height: auto;
+  width: @iconWidth;
+  height: @iconHeight;
 }
 
 /* use these classes to change accordion title when up/down */
