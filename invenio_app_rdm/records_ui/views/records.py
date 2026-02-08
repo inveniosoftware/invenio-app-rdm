@@ -411,7 +411,12 @@ def record_file_download(pid_value, file_item=None, is_preview=False, **kwargs):
         obj = file_item._file.object_version
         emitter(current_app, record=file_item._record, obj=obj, via_api=False)
 
-    return file_item.send_file(as_attachment=download)
+    if file_item._record.access.protection.files == "public":
+        restricted = False
+    else:
+        restricted = True
+
+    return file_item.send_file(as_attachment=download, restricted=restricted)
 
 
 @pass_record_or_draft(expand=False)
