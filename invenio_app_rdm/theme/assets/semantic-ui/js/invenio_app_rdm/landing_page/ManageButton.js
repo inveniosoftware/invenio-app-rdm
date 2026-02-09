@@ -25,7 +25,7 @@ export const ManageButton = ({ recid, recordOwnerID }) => {
       <Dropdown.Menu>
         <Dropdown.Item
           as="a"
-          href={`/administration/records?q=id:${recid}`}
+          href={`/administration/records?q=id:${recid}&f=allversions:true`}
           target="_blank"
           key="manage_record"
           text={i18next.t("Manage record")}

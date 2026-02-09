@@ -19,7 +19,7 @@
   <p>
     <strong>Example:</strong>
     <a href="/search?page=1&amp;size=20&amp;q=open%20science"
-      ><code>open science</code></a
+    ><code>open science</code></a
     >
   </p>
   <p>
@@ -36,11 +36,11 @@
   <p>
     <strong>Examples:</strong>
     <a href="/search?page=1&amp;size=20&amp;q=%2Bopen%20%2Bscience"
-      ><code>+open +science</code></a
+    ><code>+open +science</code></a
     >
     or
     <a href="/search?page=1&amp;size=20&amp;q=open%20AND%20science"
-      ><code>open AND science</code></a
+    ><code>open AND science</code></a
     >
   </p>
   <p>
@@ -50,18 +50,18 @@
   <p>
     <strong>Examples:</strong>
     <a href="/search?page=1&amp;size=20&amp;q=-open%20%2Bscience"
-      ><code>-open +science</code></a
+    ><code>-open +science</code></a
     >
     or
     <a href="/search?page=1&amp;size=20&amp;q=NOT%20open%20AND%20science"
-      ><code>NOT open AND science</code></a
+    ><code>NOT open AND science</code></a
     >
   </p>
   <h3>Phrase search</h3>
   <p>
     <strong>Example:</strong>
     <a href="/search?page=1&amp;size=20&amp;q=%22open%20science%22"
-      ><code>"open science"</code></a
+    ><code>"open science"</code></a
     >
   </p>
   <p>
@@ -72,7 +72,7 @@
   <p>
     <strong>Example:</strong>
     <a href="/search?page=1&amp;size=20&amp;q=metadata.title:open"
-      ><code>metadata.title:open</code></a
+    ><code>metadata.title:open</code></a
     >
   </p>
   <p>
@@ -83,24 +83,24 @@
   <p>
     <strong>Example:</strong>
     <a href="/search?page=1&amp;size=20&amp;q=metadata.title:(open%20science%29"
-      ><code>metadata.title:(open science)</code></a
+    ><code>metadata.title:(open science)</code></a
     >
   </p>
   <p>
     See <a href="https://inveniordm.docs.cern.ch/reference/metadata/#metadata"
-      > the InvenioRDM documentation </a
-    > for the full list of fields you can search.
+  > the InvenioRDM documentation </a
+  > for the full list of fields you can search.
   </p>
   <h3>Combined simple, phrase or field search</h3>
   <p>
     <strong>Example:</strong>
     <a
       href="/search?page=1&amp;size=20&amp;q=%2Bmetadata.title:%22open%20science%22%20-metadata.title:policy"
-      ><code>+metadata.title:"open science" -metadata.title:policy</code></a
+    ><code>+metadata.title:"open science" -metadata.title:policy</code></a
     >
     or e.g.
     <a href="/search?page=1&amp;size=20&amp;q=metadata.title:(-open%20%2Bscience%29"
-      ><code>metadata.title:(-open +science)</code></a
+    ><code>metadata.title:(-open +science)</code></a
     >
   </p>
   <p>
@@ -112,7 +112,7 @@
     <strong>Example:</strong>
     <a
       href="/search?page=1&amp;size=20&amp;q=metadata.publication_date:%5B2017%20TO%202018%5D"
-      ><code>metadata.publication_date:[2017 TO 2018]</code></a
+    ><code>metadata.publication_date:[2017 TO 2018]</code></a
     >
     (note, you must capitalize <code>TO</code>).
   </p>
@@ -167,16 +167,16 @@
   </p>
   <p>
     <strong>Example:</strong>
-    <a href="/search?page=1&amp;size=20&amp;q=metadata.subjects.identifier:%2F03yrm5c2%5B1%2C6%5D%2F"
-      ><code>metadata.subjects.identifier:/03yrm5c2[1,6]/</code></a
-    >
+    <a href="/search?page=1&amp;size=20&amp;q=pids.doi.identifier%3A%2F10\.5281.*%2F">
+      <code>pids.doi.identifier:/10\.5281.*/</code>
+    </a>
   </p>
   <p>
     Careful, the regular expression must match the <em>entire</em> field value.
     See the
     <a
       href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-regexp-query.html#regexp-syntax"
-      >regular expression syntax</a
+    >regular expression syntax</a
     >
     for further details.
   </p>
@@ -196,7 +196,7 @@
   <p>
     <strong>Example:</strong>
     <a href="/search?page=1&amp;size=20&amp;q=_exists_:metadata.creators"
-      ><code>_exists_:metadata.creators</code></a
+    ><code>_exists_:metadata.creators</code></a
     >
     (all records with metadata.creators)
   </p>
@@ -213,7 +213,7 @@
     <strong>Example:</strong>
     <a
       href="/search?page=1&amp;size=20&amp;q=metadata.title:%22open%20science%22%5E5%20metadata.description:%22open%20science%22"
-      ><code>metadata.title:"open science"^5 metadata.description:"open science"</code></a
+    ><code>metadata.title:"open science"^5 metadata.description:"open science"</code></a
     >
   </p>
   <h4>Fuzziness</h4>
@@ -240,7 +240,7 @@
   <p>
     <strong>Example:</strong>
     <a href="/search?page=1&amp;size=20&amp;q=%22open%20science%22~5"
-      ><code>"open science"~5</code></a
+    ><code>"open science"~5</code></a
     >
   </p>
   <h4>Wildcards</h4>
@@ -252,11 +252,11 @@
   <p>
     <strong>Example:</strong>
     <a href="/search?page=1&amp;size=20&amp;q=ope%3F%20scien*"
-      ><code>ope? scien*</code></a
+    ><code>ope? scien*</code></a
     >
   </p>
   <p>
     Wildcard searches can be slow and should normally be avoided if possible.
   </p>
 </div>
-{%- endblock page_body%}
+{%- endblock page_body %}
