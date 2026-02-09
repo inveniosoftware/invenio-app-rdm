@@ -47,6 +47,15 @@ class RecordsResultsListItem extends Component {
       "ui.resource_type.title_l10n",
       i18next.t("No resource type")
     );
+    const resourceTypeId = _get(result, "ui.resource_type.id", "");
+
+    const [mainType] = resourceTypeId.split("-");
+    const filterValue = resourceTypeId.includes("-")
+      ? `resource_type:${mainType}+inner:${resourceTypeId}`
+      : `resource_type:${resourceTypeId}`;
+
+    const resourceTypeFilter = encodeURIComponent(filterValue);
+
     const subjects = _get(result, "ui.subjects", []);
     const title = _get(result, "metadata.title", i18next.t("No title"));
     const version = _get(result, "ui.version", null);
@@ -90,7 +99,13 @@ class RecordsResultsListItem extends Component {
               <Label horizontal size="small" className="primary theme-primary">
                 {publicationDate} ({version})
               </Label>
-              <Label horizontal size="small" className="neutral">
+              <Label
+                horizontal
+                size="small"
+                className="neutral"
+                as="a"
+                href={`/search?q=&f=${resourceTypeFilter}`}
+              >
                 {resourceType}
               </Label>
               <Label
