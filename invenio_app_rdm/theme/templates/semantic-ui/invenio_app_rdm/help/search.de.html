@@ -63,24 +63,26 @@
   </p>
   <p>
     <strong>Beispiel:</strong>
-    <a
-      href="/search?page=1&amp;size=20&amp;q=metadata.title:(open%20science%29"><code>metadata.title:(open
-      science)</code></a>
+    <a href="/search?page=1&amp;size=20&amp;q=metadata.title:(open%20science%29">
+      <code>metadata.title:(open science)</code>
+    </a>
   </p>
   <p>
-    Die vollständige Liste der Felder, die Sie durchsuchen können, finden Sie in der InvenioRDM-Dokumentation: <a
-    href="https://inveniordm.docs.cern.ch/reference/metadata/#metadata">https://inveniordm.docs.cern.ch/reference/metadata/#metadata</a>.
+    Die vollständige Liste der Felder, die Sie durchsuchen können, finden Sie in der InvenioRDM-Dokumentation:
+    <a href="https://inveniordm.docs.cern.ch/reference/metadata/#metadata">
+      https://inveniordm.docs.cern.ch/reference/metadata/#metadata
+    </a>.
   </p>
   <h3>Kombinierte einfache, Phrasen- oder Feldsuche</h3>
   <p>
     <strong>Beispiel:</strong>
-    <a
-      href="/search?page=1&amp;size=20&amp;q=%2Bmetadata.title:%22open%20science%22%20-metadata.title:policy"><code>+metadata.title:"open
-      science" -metadata.title:policy</code></a>
+    <a href="/search?page=1&amp;size=20&amp;q=%2Bmetadata.title:%22open%20science%22%20-metadata.title:policy">
+      <code>+metadata.title:"open science" -metadata.title:policy</code>
+    </a>
     oder z. B.
-    <a
-      href="/search?page=1&amp;size=20&amp;q=metadata.title:(-open%20%2Bscience%29"><code>metadata.title:(-open
-      +science)</code></a>
+    <a href="/search?page=1&amp;size=20&amp;q=metadata.title:(-open%20%2Bscience%29">
+      <code>metadata.title:(-open +science)</code>
+    </a>
   </p>
   <p>
     Sie können einfache, Phrasen- und Feldsuchen kombinieren, um erweiterte Suchanfragen zu konstruieren.
@@ -88,9 +90,9 @@
   <h3>Bereichssuche</h3>
   <p>
     <strong>Beispiel:</strong>
-    <a
-      href="/search?page=1&amp;size=20&amp;q=metadata.publication_date:%5B2017%20TO%202018%5D"><code>metadata.publication_date:[2017
-      TO 2018]</code></a>
+    <a href="/search?page=1&amp;size=20&amp;q=metadata.publication_date:%5B2017%20TO%202018%5D">
+      <code>metadata.publication_date:[2017 TO 2018]</code>
+    </a>
     (Achtung: <code>TO</code> muss großgeschrieben werden.)
   </p>
   <p>
@@ -143,14 +145,16 @@
   </p>
   <p>
     <strong>Beispiel:</strong>
-    <a
-      href="/search?page=1&amp;size=20&amp;q=pids.doi.identifier%3A%2F10\.5281.*%2F"><code>pids.doi.identifier:/10\.5281.*/</code></a>
+    <a href="/search?page=1&amp;size=20&amp;q=pids.doi.identifier%3A%2F10\.5281.*%2F">
+      <code>pids.doi.identifier:/10\.5281.*/</code>
+    </a>
   </p>
   <p>
     Vorsicht: Der reguläre Ausdruck muss mit dem <em>gesamten</em> Feldwert übereinstimmen. Weitere Einzelheiten
-    finden Sie in der <a
-    href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-regexp-query.html#regexp-syntax">Syntax
-    regulärer Ausdrücke</a>.
+    finden Sie in der
+    <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-regexp-query.html#regexp-syntax">
+      Syntax regulärer Ausdrücke
+    </a>.
   </p>
   <h3>Fehlende Werte</h3>
   <p>
@@ -178,9 +182,9 @@
   </p>
   <p>
     <strong>Beispiel:</strong>
-    <a
-      href="/search?page=1&amp;size=20&amp;q=metadata.title:%22open%20science%22%5E5%20metadata.description:%22open%20science%22"><code>metadata.title:"open
-      science"^5 metadata.description:"open science"</code></a>
+    <a href="/search?page=1&amp;size=20&amp;q=metadata.title:%22open%20science%22%5E5%20metadata.description:%22open%20science%22">
+      <code>metadata.title:"open science"^5 metadata.description:"open science"</code>
+    </a>
   </p>
   <h4>Unschärfe</h4>
   <p>
