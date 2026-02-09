@@ -231,12 +231,24 @@
                     <div class="right floated right aligned column">
 
                       {% if record_ui["ui"]["resource_type"] %}
-                        <span role="note"
-                              class="ui label horizontal small neutral mb-5"
-                              aria-label="{{ _('Resource type') }}"
+                      {% set rt_id = record_ui["ui"]["resource_type"]["id"] %}
+                        {% if "-" in rt_id %}
+                          {% set rt_filter = "resource_type%3A" ~ rt_id.split("-")[0] ~ "%2Binner%3A" ~ rt_id %}
+                        {% else %}
+                          {% set rt_filter = "resource_type%3A" ~ rt_id %}
+                        {% endif %}
+                        {% if community %}
+                          {% set rt_search_url = url_for('invenio_app_rdm_communities.communities_detail', pid_value=community.slug) ~ "?q=&f=" ~ rt_filter %}
+                        {% else %}
+                          {% set rt_search_url = "/search?q=&f=" ~ rt_filter %}
+                        {% endif %}
+                        <a href="{{ rt_search_url }}"
+                           role="note"
+                           class="ui label horizontal small neutral mb-5"
+                           aria-label="{{ _('Resource type') }}"
                         >
                           {{ record_ui["ui"]["resource_type"]["title_l10n"] }}
-                        </span>
+                        </a>
                       {% endif %}
 
                       <span role="note"
