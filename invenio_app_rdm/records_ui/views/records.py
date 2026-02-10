@@ -3,6 +3,7 @@
 # Copyright (C) 2019-2025 CERN.
 # Copyright (C) 2019-2021 Northwestern University.
 # Copyright (C) 2021-2023 TU Wien.
+# Copyright (C) 2025 CESNET i.a.l.e.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -10,7 +11,7 @@
 """Routes for record-related pages provided by Invenio-App-RDM."""
 
 import itertools
-from os.path import splitext
+from os.path import basename, splitext
 from pathlib import Path
 
 from flask import abort, current_app, g, redirect, render_template, request, url_for
@@ -46,6 +47,7 @@ from .decorators import (
     add_signposting_content_resources,
     add_signposting_landing_page,
     add_signposting_metadata_resources,
+    pass_container_item,
     pass_file_item,
     pass_file_metadata,
     pass_include_deleted,
@@ -181,6 +183,57 @@ class PreviewFile:
     def open(self):
         """Open the file."""
         return self.file._file.file.storage().open()
+
+
+class PreviewContainerItem:
+    """Container Item Preview file implementation for InvenioRDM."""
+
+    def __init__(
+        self,
+        file_item,
+        record_pid_value,
+        path,
+        extracted_file_size,
+        record=None,
+        url=None,
+    ):
+        """Create a new PreviewFile."""
+        self.file = file_item
+        self.data = file_item.data
+        self.record = record
+        self.path = path
+        self.size = extracted_file_size
+        self.container_item_filename = basename(self.path)
+        self.filename = self.data["key"]  # container file name
+        self.bucket = self.data["bucket_id"]
+        self.uri = url or url_for(
+            "invenio_app_rdm_records.record_container_item_download",
+            pid_value=record_pid_value,
+            filename=self.filename,
+            path=path,
+        )
+
+    def is_local(self):
+        """Check if file is local."""
+        return True
+
+    def has_extensions(self, *exts):
+        """Check if file has one of the extensions.
+
+        Each `exts` has the format `.{file type}` e.g. `.txt` .
+        """
+        file_ext = splitext(self.container_item_filename)[1].lower()
+        return file_ext in exts
+
+    def open(self):
+        """Open the file."""
+        from invenio_records_resources.proxies import current_service_registry
+
+        file_service = current_service_registry.get("files")
+        opened_file = file_service.open_container_item(
+            g.identity, self.record["id"], self.filename, self.path
+        )
+        return opened_file
 
 
 #
@@ -398,6 +451,47 @@ def record_file_preview(
     return default_previewer.preview(fileobj)
 
 
+@pass_record_or_draft(expand=False)
+@pass_file_metadata
+def record_container_item_preview(
+    pid_value,
+    record=None,
+    file_metadata=None,
+    **kwargs,
+):
+    """Render a preview of the specified item in a container."""
+    filename = kwargs.get("filename")
+    path = kwargs.get("path")
+
+    url = url_for(
+        "invenio_app_rdm_records.record_container_item_download",
+        pid_value=pid_value,
+        filename=filename,
+        path=path,
+    )
+
+    extracted_file_size = 0
+    fileobj = PreviewContainerItem(
+        file_metadata, pid_value, path, extracted_file_size, record, url
+    )
+
+    # Go through all previewers to find the first one that can preview the file
+    for plugin in current_previewer.iter_container_item_previewers():
+        if plugin.can_preview(fileobj):
+            return plugin.preview(fileobj)
+
+    return default_previewer.preview(fileobj)
+
+
+def find_container_item(container_item_metadata, path_parts):
+    """Find a container item in TOC based on path parts."""
+    if not path_parts:
+        return None
+
+    container_item_id = "/".join(path_parts)
+    return container_item_metadata.get(container_item_id)
+
+
 @pass_is_preview
 @pass_file_item(is_media=False)
 @add_signposting_content_resources
@@ -412,6 +506,21 @@ def record_file_download(pid_value, file_item=None, is_preview=False, **kwargs):
         emitter(current_app, record=file_item._record, obj=obj, via_api=False)
 
     return file_item.send_file(as_attachment=download)
+
+
+@pass_container_item()
+@add_signposting_content_resources
+def record_container_item_download(
+    pid_value, container_item=None, is_preview=False, **kwargs
+):
+    """Download a file extracted from a container (e.g., zip archive) within a record."""
+    # emit a file download stats event
+    emitter = current_stats.get_event_emitter("file-download")
+    if container_item is not None and emitter is not None:
+        obj = container_item._file_record.object_version
+        emitter(current_app, record=container_item._record, obj=obj, via_api=False)
+
+    return container_item.send_file()
 
 
 @pass_record_or_draft(expand=False)
