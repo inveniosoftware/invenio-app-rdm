@@ -802,7 +802,9 @@ APP_RDM_ROUTES = {
     "record_detail": "/records/<pid_value>",
     "record_export": "/records/<pid_value>/export/<export_format>",
     "record_file_preview": "/records/<pid_value>/preview/<path:filename>",
+    "record_container_item_preview": "/records/<pid_value>/preview/<path:filename>/container/<path:path>",
     "record_file_download": "/records/<pid_value>/files/<path:filename>",
+    "record_container_item_download": "/records/<pid_value>/files/<path:filename>/container/<path:path>",
     "record_thumbnail": "/records/<pid_value>/thumb<int:size>",
     "record_media_file_download": "/records/<pid_value>/media-files/<path:filename>",
     "record_from_pid": "/<any({schemes}):pid_scheme>/<path:pid_value>",
@@ -1165,13 +1167,27 @@ PREVIEWER_PREFERENCE = [
     "video_videojs",
     "audio_videojs",
     "ipynb",
-    "zip",
+    "previewable_zip",
     "txt",
 ]
 """Preferred previewers."""
 
 PREVIEWER_ABSTRACT_TEMPLATE = "invenio_previewer/rdm_abstract_previewer.html"
 """Override the abstract template with an RDM-specific one."""
+
+CONTAINER_ITEM_PREVIEWER_PREFERENCE = [
+    "csv_papaparsejs",
+    "pdfjs",
+    "simple_image",
+    "json_prismjs",
+    "xml_prismjs",
+    "mistune",
+    "video_videojs",
+    "audio_videojs",
+    "ipynb",
+    "zip",
+    "txt",
+]
 
 RECORDS_RESOURCES_IMAGE_FORMATS = ["." + ext for ext in IIIF_FORMATS.keys()]
 """RECORDS_RESOURCES_IMAGE_FORMATS must contain all possible IIIF formats to ensure their metadata is extracted."""
