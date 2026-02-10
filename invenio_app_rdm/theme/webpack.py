@@ -44,6 +44,7 @@ theme = WebpackThemeBundle(
                 "uppy-file-uploader": "./less/invenio_app_rdm/file_uploader/uppy.less",
                 "flask-multiprofiler-style": "./less/invenio_app_rdm/multiprofiler/profiler.less",
                 "flask-multiprofiler-code": "./js/invenio_app_rdm/multiprofiler.js",
+                "previewable-zip": "./js/invenio_app_rdm/previewer/previewable_zip.js",
             },
             dependencies={
                 "@babel/runtime": "^7.9.0",
