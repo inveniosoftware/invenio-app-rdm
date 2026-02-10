@@ -27,6 +27,7 @@ const CollapsibleDescription = ({ descriptionStripped }) => {
       </Item.Description>
       
       <div
+        tabIndex={0} 
         onClick={() => setOpen((v) => !v)}
         style={{
           display: "flex",
@@ -36,6 +37,12 @@ const CollapsibleDescription = ({ descriptionStripped }) => {
         }}
         aria-label={open ? "Collapse description" : "Expand description"}
         role="button"
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            setOpen((v) => !v);
+            e.preventDefault();
+          }
+        }}      
       >
         <Icon
             name={open ? "angle up" : "angle down"}
