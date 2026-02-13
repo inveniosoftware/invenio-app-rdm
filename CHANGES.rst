@@ -10,6 +10,17 @@
 Changes
 =======
 
+Version v14.0.0b5.dev2 (released 2026-02-13)
+
+- fix: show all contributers on dashboard page
+- feat(deposit): allow overriding deposit serializer
+- feat(administration): add user creation
+- feat(deposit): add record to overridable context
+- feat(deposit): add extra and after overridables
+- Improve German translation of search help page
+- help pages: Add German translations for statistics and versioning pages
+- feat(roles): add administration views for role management
+
 Version v14.0.0b5.dev0 (released 2026-02-03)
 
 - fix(chore): DeprecationWarning stdlib
