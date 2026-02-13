@@ -12,6 +12,7 @@ import {
   ContribBucketAggregationElement,
   ContribBucketAggregationValuesElement,
   ContribSearchAppFacets,
+  SearchResultsBox,
 } from "@js/invenio_search_ui/components";
 import PropTypes from "prop-types";
 import React from "react";
@@ -24,7 +25,6 @@ import {
   ComputerTabletRequestItem,
   RequestsSearchLayout,
   RequestsEmptyResultsWithState,
-  RequestsResults,
 } from "@js/invenio_requests/search";
 
 const appName = "InvenioAppRdm.DashboardRequests";
@@ -62,7 +62,7 @@ export const defaultComponents = {
   [`${appName}.ResultsList.item`]: RequestsResultsItemTemplateDashboard,
   [`${appName}.ResultsGrid.item`]: () => null,
   [`${appName}.SearchApp.layout`]: RequestsSearchLayoutWithApp,
-  [`${appName}.SearchApp.results`]: RequestsResults,
+  [`${appName}.SearchApp.results`]: SearchResultsBox,
   [`${appName}.SearchBar.element`]: RDMRecordSearchBarElement,
   [`${appName}.EmptyResults.element`]: RequestsEmptyResultsWithState,
   ...defaultContribComponents,
