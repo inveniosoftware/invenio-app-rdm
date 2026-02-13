@@ -37,6 +37,10 @@ export class RecordsList extends Component {
     this.fetchData();
   }
 
+  async componentDidUpdate() {
+    await window.MathJax?.typesetPromise();
+  }
+
   componentWillUnmount() {
     this.cancellableFetch && this.cancellableFetch.cancel();
   }
