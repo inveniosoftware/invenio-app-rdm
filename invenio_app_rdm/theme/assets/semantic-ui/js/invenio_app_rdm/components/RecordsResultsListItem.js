@@ -58,7 +58,7 @@ class RecordsResultsListItem extends Component {
 
     const filters = currentQueryState && Object.fromEntries(currentQueryState.filters);
     const allVersionsVisible = filters?.allversions;
-    const numOtherVersions = versions.index - 1;
+    const numOtherVersions = versions.versions_count - 1;
 
     // Derivatives
     const viewLink = `/records/${result.id}`;
@@ -147,7 +147,7 @@ class RecordsResultsListItem extends Component {
                     )}
                   </p>
 
-                  {!allVersionsVisible && versions.index > 1 && (
+                  {!allVersionsVisible && versions.versions_count > 1 && (
                     <p>
                       <b>
                         {i18next.t("{{count}} more versions exist for this record", {
