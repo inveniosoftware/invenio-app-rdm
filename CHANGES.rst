@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version v14.0.0b5.dev3 (released 2026-02-17)
+
+- feat(facets): register overriden range facet element as default
+
 Version v14.0.0b5.dev2 (released 2026-02-13)
 
 - fix: show all contributers on dashboard page
