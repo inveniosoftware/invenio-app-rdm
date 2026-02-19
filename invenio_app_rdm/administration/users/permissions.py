@@ -10,6 +10,7 @@
 
 from flask import g
 from flask_principal import RoleNeed
+from invenio_access import Permission
 from invenio_access.permissions import superuser_access
 
 
@@ -23,6 +24,8 @@ def can_access_user_administration(identity=None):
     admin_need = RoleNeed("administration")
     moderator_need = RoleNeed("administration-moderation")
 
-    return (superuser_access in provides) or (
-        admin_need in provides and moderator_need in provides
-    )
+    permission = Permission(superuser_access)
+    if permission.allows(identity):
+        return True
+
+    return admin_need in provides and moderator_need in provides
