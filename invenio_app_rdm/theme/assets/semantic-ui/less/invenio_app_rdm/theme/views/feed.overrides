@@ -177,7 +177,8 @@
 
       .collapsible-comment-inner {
         display: block;
-        overflow: hidden;
+        overflow-y: hidden;
+        overflow-x: auto;
         transition: max-height 300ms ease;
         max-height: @collapsibleHeight;
       }
