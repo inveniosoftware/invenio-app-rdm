@@ -37,10 +37,7 @@ from .communities import (
 
 def _show_browse_page():
     """Whether the browse page should be visible in the menu."""
-    return (
-        current_app.config.get("COMMUNITIES_SHOW_BROWSE_MENU_ENTRY", False)
-        and request.community["children"]["allow"]
-    )
+    return current_app.config.get("COMMUNITIES_SHOW_BROWSE_MENU_ENTRY", False)
 
 
 def create_ui_blueprint(app):
