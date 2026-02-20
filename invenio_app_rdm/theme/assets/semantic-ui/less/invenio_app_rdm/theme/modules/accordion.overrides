@@ -10,8 +10,13 @@
 .ui.accordion .title .icon,
 .ui.accordion .accordion .title .icon {
   transition: @iconTransition;
-  width: auto;
-  height: auto;
+  width: @iconWidth;
+  height: @iconHeight;
+}
+
+/* use these classes to change children facets in an accordion within a facet container */
+.facet-container .ui.accordion:not(.styled) .title ~ .content:not(.ui) {
+  padding: 0em 0em 0.25em 1em;
 }
 
 /* use these classes to change accordion title when up/down */
