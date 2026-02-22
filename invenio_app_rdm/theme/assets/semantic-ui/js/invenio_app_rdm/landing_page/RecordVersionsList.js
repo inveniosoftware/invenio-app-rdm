@@ -7,8 +7,9 @@
 // under the terms of the MIT License; see LICENSE file for more details.
 
 import _get from "lodash/get";
+import _truncate from "lodash/truncate";
 import React, { useEffect, useState } from "react";
-import { Grid, Icon, Message, Placeholder, List, Divider } from "semantic-ui-react";
+import { Grid, Icon, Message, Placeholder, List, Divider, Popup } from "semantic-ui-react";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import PropTypes from "prop-types";
 import { withCancel, http, ErrorMessage } from "react-invenio-forms";
@@ -39,13 +40,29 @@ export const RecordVersionItem = ({ item, activeVersion }) => {
       <List.Item key={item.id} {...(activeVersion && { className: "version active" })}>
         <List.Content floated="left">
           {activeVersion ? (
-            <span className="text-break">
-              {i18next.t("Version {{- version}}", { version: item.version })}
-            </span>
+            <Popup
+              content={item.version}
+              disabled={!item.version || item.version.length <= 20}
+              trigger={
+                <span className="text-break">
+                  {i18next.t("Version {{- version}}", {
+                    version: _truncate(item.version, { length: 20 }),
+                  })}
+                </span>
+              }
+            />
           ) : (
-            <a href={`/records/${item.id}`} className="text-break">
-              {i18next.t("Version {{- version}}", { version: item.version })}
-            </a>
+            <Popup
+              content={item.version}
+              disabled={!item.version || item.version.length <= 20}
+              trigger={
+                <a href={`/records/${item.id}`} className="text-break">
+                  {i18next.t("Version {{- version}}", {
+                    version: _truncate(item.version, { length: 20 }),
+                  })}
+                </a>
+              }
+            />
           )}
 
           {doi && (
