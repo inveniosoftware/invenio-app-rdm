@@ -15,6 +15,7 @@ from flask_menu import current_menu
 from invenio_i18n import lazy_gettext as _
 
 from .communities_ui.views.ui import _show_browse_page
+from .patches import apply_patches
 
 
 def _is_branded_community():
@@ -27,6 +28,7 @@ def _is_branded_community():
 
 def finalize_app(app):
     """Finalize app."""
+    apply_patches()
     init_menu(app)
     init_config(app)
 
