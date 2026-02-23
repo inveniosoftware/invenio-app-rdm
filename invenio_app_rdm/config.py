@@ -528,6 +528,10 @@ SQLALCHEMY_ENGINE_OPTIONS = {
     "pool_recycle": 3600,
     # set a more agressive timeout to ensure http requests don't wait for long
     "pool_timeout": 10,
+    # Ensure the database is using the UTC timezone for interpreting timestamps (Postgres only).
+    # This overrides any default setting (e.g. in postgresql.conf). Invenio expects the DB to receive
+    # and provide UTC timestamps in all cases, so it's important that this doesn't get changed.
+    "connect_args": {"options": "-c timezone=UTC"},
 }
 """SQLAlchemy engine options.
 
