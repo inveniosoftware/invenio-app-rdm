@@ -10,6 +10,15 @@
 Changes
 =======
 
+Version v14.0.0b5.dev4 (released 2026-02-23)
+
+- fix(db): use UTC for Postgres
+- feat(style): aria-disabled button
+- fix: limit max width of community logo
+- fix(administration-user-access): user permission based ACL
+- feat(comment-file): limit display width of user uploaded images
+- fix(css): allow horizontal scrolling for request comment body
+
 Version v14.0.0b5.dev3 (released 2026-02-17)
 
 - feat(facets): register overriden range facet element as default
