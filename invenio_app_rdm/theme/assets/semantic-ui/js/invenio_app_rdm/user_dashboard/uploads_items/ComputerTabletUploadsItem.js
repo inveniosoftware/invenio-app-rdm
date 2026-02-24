@@ -8,7 +8,8 @@ import { i18next } from "@translations/invenio_app_rdm/i18next";
 import React from "react";
 import PropTypes from "prop-types";
 import _get from "lodash/get";
-import { Button, Icon, Item, Label } from "semantic-ui-react";
+import _truncate from "lodash/truncate";
+import { Button, Icon, Item, Label, Popup } from "semantic-ui-react";
 import { SearchItemCreators } from "../../utils";
 import { CompactStats } from "../../components/CompactStats";
 import { DisplayPartOfCommunities } from "../../components/DisplayPartOfCommunities";
@@ -59,9 +60,15 @@ export const ComputerTabletUploadsItem = ({
               {statuses[result.status].title}
             </Label>
           )}
-          <Label horizontal size="small" className="primary">
-            {publicationDate} ({version})
-          </Label>
+          <Popup
+            content={version}
+            disabled={!version || version.length <= 20}
+            trigger={
+              <Label horizontal size="small" className="primary">
+                {publicationDate} ({_truncate(version, { length: 20 })})
+              </Label>
+            }
+          />
           <Label horizontal size="small" className="neutral">
             {resourceType}
           </Label>
