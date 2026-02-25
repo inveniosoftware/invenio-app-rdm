@@ -7,6 +7,7 @@
  */
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import _isEmpty from "lodash/isEmpty";
 import { RecordModerationApi } from "../records/api";
 import { withCancel, ErrorMessage } from "react-invenio-forms";
 import { Modal, Button, Grid } from "semantic-ui-react";
@@ -25,11 +26,30 @@ export class ViewRecentChanges extends Component {
   }
 
   componentDidMount() {
-    this.fetchPreviousRevision();
+    // If before and after payloads are provided, use them to create the diff
+    this.setDiff();
   }
 
   componentWillUnmount() {
     this.cancellableAction && this.cancellableAction.cancel();
+  }
+
+  setDiff() {
+    const { resource } = this.props;
+    const {
+      metadata: { before, after },
+    } = resource;
+    const diff = {
+      targetRevision: after || {},
+      srcRevision: before || {},
+    };
+
+    const isDiffEmpty = _isEmpty(diff.targetRevision) && _isEmpty(diff.srcRevision);
+    if (isDiffEmpty) {
+      this.fetchPreviousRevision();
+    } else {
+      this.setState({ diff, loading: false });
+    }
   }
 
   async fetchPreviousRevision() {
@@ -57,7 +77,7 @@ export class ViewRecentChanges extends Component {
       this.setState({
         diff: {
           targetRevision: revisions[0],
-          srcRevision: revisions.length > 1 ? revisions[1] : revisions[0],
+          srcRevision: revisions.length > 1 ? revisions[1] : {},
         },
         loading: false,
       });
@@ -78,19 +98,17 @@ export class ViewRecentChanges extends Component {
 
     return (
       <>
-        <Modal.Content>
-          {error && (
-            <Modal.Content>
-              <ErrorMessage
-                header={i18next.t("Unable to fetch revisions.")}
-                content={error}
-                icon="exclamation"
-                className="text-align-left"
-                negative
-              />
-            </Modal.Content>
-          )}
-        </Modal.Content>
+        {error && (
+          <Modal.Content>
+            <ErrorMessage
+              header={i18next.t("Unable to fetch revisions.")}
+              content={error}
+              icon="exclamation"
+              className="text-align-left"
+              negative
+            />
+          </Modal.Content>
+        )}
         <Modal.Content scrolling>
           <RevisionsDiffViewer diff={diff} />
         </Modal.Content>
