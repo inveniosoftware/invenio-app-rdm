@@ -68,7 +68,7 @@ class AuditLogListView(AdminResourceListView):
             "text": _("View Changes"),
             "payload_schema": None,
             "order": 2,
-            "show_for": ["record.publish"],
+            "show_for": ["record.publish", "record.grant_update", "draft.grant_update", "record.secret_link_update", "draft.secret_link_update", "record.access_settings_update", "draft.access_settings_update"],
         },
     }
 
