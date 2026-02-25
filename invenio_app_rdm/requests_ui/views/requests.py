@@ -250,9 +250,8 @@ def user_dashboard_request_view(request, **kwargs):
             base_template="invenio_app_rdm/users/base.html",
             user_avatar=avatar,
             invenio_request=request.to_dict(),
-            request_is_accepted=request_is_accepted,
             permissions={**request_permissions},
-            include_deleted=False,
+            include_deleted=False,  # Could probably be removed
         )
 
     topic = _resolve_topic_record(request)
