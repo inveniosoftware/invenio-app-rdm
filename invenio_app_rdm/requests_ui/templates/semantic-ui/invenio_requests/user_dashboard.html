@@ -22,7 +22,7 @@
 
     <div id="request-actions" class="flex align-items-center ml-auto mb-10">
       {% if is_accepted_request(invenio_request) %}
-      <a href="{{ url_for(" invenio_app_rdm_communities.communities_detail", pid_value=invenio_request.topic.community) }}"
+      <a href="{{ url_for('invenio_app_rdm_communities.communities_detail', pid_value=invenio_request.topic.community) }}"
         class="ui small button">
         {{ _("View Community") }}
       </a>
