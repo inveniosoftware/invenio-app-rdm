@@ -51,6 +51,10 @@ class MockManifestLoader(JinjaManifestLoader):
 def app_config(app_config):
     """Create test app."""
     app_config["WEBPACKEXT_MANIFEST_LOADER"] = MockManifestLoader
+    app_config["RDM_NAMESPACES"] = {
+        "test": "https://example.com/terms/#",
+        "empty": None,
+    }
     return app_config
 
 
