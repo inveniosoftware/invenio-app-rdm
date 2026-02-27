@@ -495,11 +495,13 @@ def record_tombstone_error(error):
     # the RecordDeletedError will have the following properties,
     # while the PIDDeletedError won't
     record = getattr(error, "record", None)
-    if (record_ui := getattr(error, "result_item", None)) is not None:
+    result_item = getattr(error, "result_item", None)
+    record_ui = None
+    if result_item is not None:
         if record is None:
-            record = record_ui._record
+            record = result_item._record
 
-        record_ui = UIJSONSerializer().dump_obj(record_ui.to_dict())
+        record_ui = UIJSONSerializer().dump_obj(result_item.to_dict())
 
     # render a 404 page if the tombstone isn't visible
     if not record.tombstone.is_visible:
@@ -510,6 +512,9 @@ def record_tombstone_error(error):
         render_template(
             "invenio_app_rdm/records/tombstone.html",
             record=record_ui,
+            permissions=(
+                result_item.has_permissions_to(["moderate"]) if result_item else None
+            ),
         ),
         410,
     )
