@@ -8,6 +8,7 @@
 import $ from "jquery";
 import { MultipleOptionsSearchBar } from "@js/invenio_search_ui/components";
 import { CopyButton } from "@js/invenio_app_rdm/components/CopyButton";
+import { ManageButton } from "@js/invenio_app_rdm/landing_page/ManageButton";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import ReactDOM from "react-dom";
 import React from "react";
@@ -162,3 +163,16 @@ document.querySelectorAll(".copy-doi-button").forEach((element) => {
     element
   );
 });
+
+// Tombstone Manage Button
+const tombstoneManageButtonDiv = document.getElementById("tombstone-manage-button");
+if (tombstoneManageButtonDiv) {
+  ReactDOM.render(
+    <ManageButton
+      record={JSON.parse(tombstoneManageButtonDiv.dataset.record)}
+      permissions={JSON.parse(tombstoneManageButtonDiv.dataset.permissions)}
+      uiProps={JSON.parse(tombstoneManageButtonDiv.dataset.uiProps)}
+    />,
+    tombstoneManageButtonDiv
+  );
+}

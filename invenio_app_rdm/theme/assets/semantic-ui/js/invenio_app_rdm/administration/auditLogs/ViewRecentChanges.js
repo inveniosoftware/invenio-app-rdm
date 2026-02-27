@@ -25,11 +25,30 @@ export class ViewRecentChanges extends Component {
   }
 
   componentDidMount() {
-    this.fetchPreviousRevision();
+    // If before and after payloads are provided, use them to create the diff
+    const diff = this.fetchDiff();
+    if (diff) {
+      this.setState({ diff: diff, loading: false });
+    } else {
+      this.fetchPreviousRevision();
+    }
   }
 
   componentWillUnmount() {
     this.cancellableAction && this.cancellableAction.cancel();
+  }
+
+  fetchDiff() {
+    const { resource } = this.props;
+    const {
+      metadata: { before, after },
+    } = resource;
+    if (before && after) {
+      return {
+        targetRevision: after,
+        srcRevision: before,
+      };
+    }
   }
 
   async fetchPreviousRevision() {
@@ -57,7 +76,7 @@ export class ViewRecentChanges extends Component {
       this.setState({
         diff: {
           targetRevision: revisions[0],
-          srcRevision: revisions.length > 1 ? revisions[1] : revisions[0],
+          srcRevision: revisions.length > 1 ? revisions[1] : {},
         },
         loading: false,
       });
@@ -78,19 +97,17 @@ export class ViewRecentChanges extends Component {
 
     return (
       <>
-        <Modal.Content>
-          {error && (
-            <Modal.Content>
-              <ErrorMessage
-                header={i18next.t("Unable to fetch revisions.")}
-                content={error}
-                icon="exclamation"
-                className="text-align-left"
-                negative
-              />
-            </Modal.Content>
-          )}
-        </Modal.Content>
+        {error && (
+          <Modal.Content>
+            <ErrorMessage
+              header={i18next.t("Unable to fetch revisions.")}
+              content={error}
+              icon="exclamation"
+              className="text-align-left"
+              negative
+            />
+          </Modal.Content>
+        )}
         <Modal.Content scrolling>
           <RevisionsDiffViewer diff={diff} />
         </Modal.Content>

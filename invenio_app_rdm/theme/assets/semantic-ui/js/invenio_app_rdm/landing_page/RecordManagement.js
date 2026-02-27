@@ -46,17 +46,15 @@ export class RecordManagement extends Component {
 
     return (
       <Grid columns={1} className="record-management">
-        {(recordDeletion["valid_user"] || permissions.can_moderate) && (
-          <Grid.Column className="pb-5">
-            <ManageButton
-              record={record}
-              recordOwnerID={recordOwnerID}
-              permissions={permissions}
-              recordDeletion={recordDeletion}
-              recordDeletionOptions={recordDeletionOptions}
-            />
-          </Grid.Column>
-        )}
+        <Grid.Column className="pb-5">
+          <ManageButton
+            record={record}
+            recordOwnerID={recordOwnerID}
+            permissions={permissions}
+            recordDeletion={recordDeletion}
+            recordDeletionOptions={recordDeletionOptions}
+          />
+        </Grid.Column>
         {permissions.can_edit && !isDraft && (
           <Grid.Column className={permissions.can_manage ? "pb-5 pt-5" : "pb-5"}>
             <EditButton recid={recid} onError={handleError} />

@@ -19,7 +19,7 @@ export class RevisionsDiffViewer extends Component {
       detectCircular: true,
       maxDepth: null,
       showModifications: true,
-      arrayDiffMethod: "lcs",
+      arrayDiffMethod: "normal",
       ignoreCase: false,
       ignoreCaseForKey: false,
       recursiveEqual: true,
