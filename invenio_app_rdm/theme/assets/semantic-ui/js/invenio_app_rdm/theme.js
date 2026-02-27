@@ -162,3 +162,14 @@ document.querySelectorAll(".copy-doi-button").forEach((element) => {
     element
   );
 });
+$(document).on("click", "#record-tab", function () {
+  setTimeout(function () {
+    const $panel = $("#record-tab-panel");
+    if (!$panel.length) return;
+    // Force previewer re-bootstrap by replacing container node
+    $panel.find(".preview-container").each(function () {
+      const $el = $(this);
+      $el.replaceWith($el.clone(true));
+    });
+  }, 120);
+});
