@@ -167,7 +167,7 @@
             >
               <i class="{{ record_ui["ui"]["access_status"]["icon"] }} icon" aria-hidden="true"></i>
               <strong>{{ record_ui["ui"]["access_status"]["title_l10n"] }}</strong>
-              {{ record_ui["ui"]["access_status"]["description_l10n"] }}
+              {{ record_ui["ui"]["access_status"]["description_l10n"] | safe }}
 
               {% if record_ui["access"]["embargo"]["reason"] %}
                 <p>{{ _("Reason") }}: {{ record_ui["access"]["embargo"]["reason"] }}</p>
@@ -328,7 +328,7 @@
                              aria-hidden="true"></i>
                           <h4
                             class="inline">{{ record_ui["ui"]["access_status"]["title_l10n"] }}</h4>
-                          <p>{{ record_ui["ui"]["access_status"]["description_l10n"] }}</p>
+                          <p>{{ record_ui["ui"]["access_status"]["description_l10n"] | safe }}</p>
 
                           {% if record_ui["access"]["embargo"]["reason"] %}
                             <p>{{ _("Reason") }}: {{ record_ui["access"]["embargo"]["reason"] }}</p>
