@@ -46,19 +46,17 @@ export class RecordManagement extends Component {
 
     return (
       <Grid columns={1} className="record-management">
-        {(recordDeletion["valid_user"] || permissions.can_moderate) && (
-          <Grid.Column className="pb-5">
-            <ManageButton
-              record={record}
-              recordOwnerID={recordOwnerID}
-              permissions={permissions}
-              recordDeletion={recordDeletion}
-              recordDeletionOptions={recordDeletionOptions}
-            />
-          </Grid.Column>
-        )}
-        {permissions.can_edit && !isDraft && (
-          <Grid.Column className={permissions.can_manage ? "pb-5 pt-5" : "pb-5"}>
+        <Grid.Column className="pb-5">
+          <ManageButton
+            record={record}
+            recordOwnerID={recordOwnerID}
+            permissions={permissions}
+            recordDeletion={recordDeletion}
+            recordDeletionOptions={recordDeletionOptions}
+          />
+        </Grid.Column>
+        {permissions?.can_edit && !isDraft && (
+          <Grid.Column className={permissions?.can_manage ? "pb-5 pt-5" : "pb-5"}>
             <EditButton recid={recid} onError={handleError} />
           </Grid.Column>
         )}
@@ -85,14 +83,14 @@ export class RecordManagement extends Component {
                 size="medium"
                 record={record}
                 onError={handleError}
-                disabled={!permissions.can_new_version}
+                disabled={!permissions?.can_new_version}
               />
             </Grid.Column>
 
             <Grid.Column className="pt-5">
-              {permissions.can_manage && (
+              {permissions?.can_manage && (
                 <ShareButton
-                  disabled={!permissions.can_update_draft}
+                  disabled={!permissions?.can_update_draft}
                   record={record}
                   permissions={permissions}
                   groupsEnabled={groupsEnabled}

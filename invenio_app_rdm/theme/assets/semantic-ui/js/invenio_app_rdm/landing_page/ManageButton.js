@@ -18,7 +18,12 @@ export const ManageButton = ({
   permissions,
   recordDeletion,
   recordDeletionOptions,
+  uiProps,
 }) => {
+  if (!(recordDeletion["valid_user"] || permissions?.can_moderate)) {
+    return null;
+  }
+  const recordStatus = record.deletion_status.status;
   return (
     <Dropdown
       fluid
@@ -28,6 +33,7 @@ export const ManageButton = ({
       labeled
       button
       className="icon text-align-center"
+      {...uiProps}
     >
       <Dropdown.Menu>
         {recordDeletion["valid_user"] && (
@@ -42,27 +48,38 @@ export const ManageButton = ({
               />
             </Dropdown.Item>
 
-            {permissions.can_moderate && <Dropdown.Divider />}
+            {permissions?.can_moderate && <Dropdown.Divider />}
           </>
         )}
-        {permissions.can_moderate && (
+        {permissions?.can_moderate && (
           <>
             <Dropdown.Item
               as="a"
-              href={`/administration/records?q=id:${record["id"]}&f=allversions:true`}
+              href={`/administration/records?q=id:${record["id"]}&f=allversions:true&f=status:${recordStatus}`}
               target="_blank"
               key="manage_record"
               text={i18next.t("Manage record")}
             />
             <Dropdown.Item
               as="a"
-              href={`/administration/users?q=id:${recordOwnerID}`}
+              href={`/administration/audit-logs?q="${record["id"]}" OR "${record["parent"]["id"]}"&sort=newest`}
               target="_blank"
-              key="manage_user"
-              text={i18next.t("Manage user")}
+              key="view_audit_logs"
+              text={i18next.t("View audit logs")}
             />
-            <Dropdown.Divider />
-            {recordOwnerID && <BlockUserItem recordOwnerID={recordOwnerID} />}
+            {recordOwnerID && (
+              <>
+                <Dropdown.Item
+                  as="a"
+                  href={`/administration/users?q=id:${recordOwnerID}`}
+                  target="_blank"
+                  key="manage_user"
+                  text={i18next.t("Manage user")}
+                />
+                <Dropdown.Divider />
+                <BlockUserItem recordOwnerID={recordOwnerID} />
+              </>
+            )}
           </>
         )}
       </Dropdown.Menu>
@@ -72,14 +89,18 @@ export const ManageButton = ({
 
 ManageButton.propTypes = {
   record: PropTypes.object.isRequired,
-  recordOwnerID: PropTypes.string.isRequired,
   permissions: PropTypes.object.isRequired,
+  recordOwnerID: PropTypes.string,
   recordDeletion: PropTypes.object,
-  recordDeletionOptions: PropTypes.array.isRequired,
+  recordDeletionOptions: PropTypes.array,
+  uiProps: PropTypes.object,
 };
 
 ManageButton.defaultProps = {
+  recordOwnerID: null,
   recordDeletion: {},
+  recordDeletionOptions: [],
+  uiProps: {},
 };
 
 const BlockUserItem = ({ recordOwnerID }) => {
