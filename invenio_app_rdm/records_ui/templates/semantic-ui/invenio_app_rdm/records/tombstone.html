@@ -61,7 +61,14 @@
       </p>
       {%- endif %}
     </div>
+  </div>
 
+  <div
+    id="tombstone-manage-button"
+    data-record='{{ record | tojson }}'
+    data-permissions='{{ permissions | tojson }}'
+    data-ui-props='{"fluid": false}'
+  >
   </div>
 </div>
 {% endblock message %}
