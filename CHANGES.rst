@@ -10,6 +10,14 @@
 Changes
 =======
 
+Version v14.0.0b5.dev5 (released 2026-02-27)
+
+- fix(record-detail): render access status as safe HTML
+- fix: add record files restriction option to enable cache-control header
+- fix(pending-communities): use self_html link instead of adding /me manually
+- chore(deps-dev): bump lodash
+- fix(config): remove value for the deprecated WSGI_PROXIES variable
+
 Version v14.0.0b5.dev4 (released 2026-02-23)
 
 - fix(db): use UTC for Postgres
