@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version v14.0.0b4.dev8 (released 2026-03-02)
+
+- fix(record-detail): render access status as safe HTML
+
 Version v14.0.0b4.dev7 (released 2026-02-05)
 
 - fix(search-guide): regex example
