@@ -10,6 +10,13 @@
 Changes
 =======
 
+Version v14.0.0b5.dev6 (released 2026-03-03)
+
+- fix(requests): reload preview iframe when opening record tab
+- fix(ui): change padding for children facets in accordion
+- fix(ui): use preset variable to set icon height
+- chore(deps-dev): bump minimatch
+
 Version v14.0.0b5.dev5 (released 2026-02-27)
 
 - fix(record-detail): render access status as safe HTML
