@@ -1,3 +1,5 @@
+"""Personal data export."""
+
 import json
 import os
 import time
@@ -188,7 +190,11 @@ def _export_record(rec, user_id, path):
     record_quota = RDMRecordQuota.query.filter(
         RDMRecordQuota.parent_id == rec.parent.id
     ).one_or_none()
-    quota = record_quota.quota_size if record_quota is not None else 50000000000
+    quota = (
+        record_quota.quota_size
+        if record_quota is not None
+        else current_app.config.get("RDM_FILES_DEFAULT_QUOTA_SIZE", 10**6)
+    )
     output["quota"] = quota
 
     with open(file_path, "w", encoding="utf-8") as w:
@@ -274,7 +280,6 @@ def export_account_data(user_id, directory):
 
 def get_records(user_id, directory):
     """Export all records and their revisions."""
-
     user_records_q = dsl.Q("term", **{"parent.access.owned_by.user": user_id})
     records = records_service.scan(
         identity=system_identity,  # get records as system but we serialize as user
@@ -338,7 +343,6 @@ def get_records(user_id, directory):
 
 def get_drafts(user_id, directory):
     """Export all drafts."""
-
     user_records_q = dsl.Q("term", **{"parent.access.owned_by.user": user_id})
     user_drafts_is_pub_q = dsl.Q("term", **{"is_published": False})
     user_identity = _get_user_identity(user_id)
@@ -429,7 +433,8 @@ def get_communities(user_id, directory):
 def get_access_logs(user_id, directory):
     """Export access logs from OpenSearch/ElasticSearch.
 
-    Only tested with OpenSearch"""
+    Only tested with OpenSearch
+    """
     opensearch_url = os.getenv("ELASTICSEARCH_URL")
     opensearch_username = os.getenv("ELASTICSEARCH_USERNAME")
     opensearch_password = os.getenv("ELASTICSEARCH_PASSWORD")
