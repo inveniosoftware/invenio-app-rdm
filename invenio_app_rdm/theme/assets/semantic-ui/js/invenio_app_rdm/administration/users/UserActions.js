@@ -1,7 +1,7 @@
 /*
  * This file is part of Invenio.
  * Copyright (C) 2022-2026 CERN.
- * Copyright (C) 2024 KTH Royal Institute of Technology.
+ * Copyright (C) 2024-2026 KTH Royal Institute of Technology.
  *
  * Invenio is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
@@ -15,6 +15,7 @@ import { ActionModal, NotificationContext } from "@js/invenio_administration";
 import { withCancel } from "react-invenio-forms";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import { ImpersonateUser } from "../components/ImpersonateUser";
+import { ManageUserRoles } from "../components/ManageUserRoles";
 import { SetQuotaAction } from "../components/SetQuotaAction";
 import { UserModerationApi } from "./api";
 import UserBlockForm from "./UserBlockForm";
@@ -169,21 +170,16 @@ export class UserActions extends Component {
               user={user}
             />
           )}
+          <ManageUserRoles successCallback={successCallback} user={user} />
           <Dropdown.Divider />
           {filteredActions.map((actionItem) => (
             <Dropdown.Item
               key={actionItem.key}
               onClick={() => this.handleAction(actionItem.key)}
               disabled={loading}
-              loading={loading}
-              icon
-              fluid
-              basic
-              labelPosition="left"
-            >
-              <Icon name={actionItem.icon} />
-              {i18next.t(actionItem.label)}
-            </Dropdown.Item>
+              icon={actionItem.icon}
+              text={i18next.t(actionItem.label)}
+            />
           ))}
         </>
       );
@@ -233,7 +229,7 @@ export class UserActions extends Component {
               </Button>
             )}
             <Dropdown
-              text={<Icon name="cog" />}
+              trigger={<Icon name="cog" />}
               tooltip={i18next.t("Actions")}
               button
               className="icon"

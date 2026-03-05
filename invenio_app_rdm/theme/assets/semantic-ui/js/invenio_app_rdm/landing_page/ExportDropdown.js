@@ -7,7 +7,7 @@
 
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Grid, Dropdown, Button } from "semantic-ui-react";
+import { Dropdown, Button } from "semantic-ui-react";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import { CopyButton } from "@js/invenio_app_rdm/components/CopyButton";
 
