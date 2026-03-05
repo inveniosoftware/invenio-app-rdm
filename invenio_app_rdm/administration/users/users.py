@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2023-2024 CERN.
-# Copyright (C) 2024 KTH Royal Institute of Technology.
+# Copyright (C) 2024-2026 KTH Royal Institute of Technology.
 # Copyright (C) 2024 Ubiquity Press.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
@@ -15,6 +15,7 @@ from flask import abort, current_app
 from invenio_administration.views.base import (
     AdminResourceCreateView,
     AdminResourceDetailView,
+    AdminResourceEditView,
     AdminResourceListView,
 )
 from invenio_i18n import lazy_gettext as _
@@ -139,16 +140,17 @@ class UsersDetailView(UserAdminAccessMixin, AdminResourceDetailView):
     """Configuration for users sets detail view."""
 
     url = "/users/<pid_value>"
-    api_endpoint = "/users/"
+    api_endpoint = "/users"
     search_request_headers = {"Accept": "application/json"}
     extension_name = "invenio-users-resources"
     name = "User details"
     resource_config = "users_resource"
     title = _("User details")
     display_delete = False
-    display_edit = False
+    display_edit = True
 
     pid_path = "id"
+    list_view_name = "users"
     item_field_list = USERS_ITEM_DETAIL
 
 
@@ -164,3 +166,18 @@ class UsersCreateView(AdminResourceCreateView):
     pid_path = "id"
     list_view_name = "users"
     form_fields = USERS_DEFAULT_FORM_ITEMS
+
+
+class UsersEditView(UserAdminAccessMixin, AdminResourceEditView):
+    """Configuration for user edit view."""
+
+    url = "/users/<pid_value>/edit"
+    api_endpoint = "/users"
+    extension_name = "invenio-users-resources"
+    name = "invenio-users-resources-edit"
+    resource_config = "users_resource"
+    title = _("Edit user details")
+    pid_path = "id"
+    list_view_name = "users"
+    form_fields = USERS_DEFAULT_FORM_ITEMS
+    template = "invenio_app_rdm/administration/users_edit.html"
