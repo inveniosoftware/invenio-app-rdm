@@ -1,6 +1,7 @@
 /*
  * This file is part of Invenio.
  * Copyright (C) 2023-2026 CERN.
+ * Copyright (C) 2026 KTH Royal Institute of Technology.
  *
  * Invenio is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
@@ -32,6 +33,14 @@ const impersonateUser = async (user) => {
   return await http.post(APIRoutes.impersonate(user));
 };
 
+const userGroups = async (user) => {
+  return await http.get(user.links.groups);
+};
+
+const setUserGroups = async (user, payload) => {
+  return await http.put(user.links.groups, payload);
+};
+
 export const UserModerationApi = {
   restoreUser: restoreUser,
   approveUser: approveUser,
@@ -39,4 +48,6 @@ export const UserModerationApi = {
   impersonateUser: impersonateUser,
   deactivateUser: deactivateUser,
   blockUser: blockUser,
+  userGroups: userGroups,
+  setUserGroups: setUserGroups,
 };

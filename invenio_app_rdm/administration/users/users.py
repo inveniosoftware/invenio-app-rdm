@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2023-2024 CERN.
-# Copyright (C) 2024 KTH Royal Institute of Technology.
+# Copyright (C) 2024-2026 KTH Royal Institute of Technology.
 # Copyright (C) 2024 Ubiquity Press.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
@@ -139,7 +139,7 @@ class UsersDetailView(UserAdminAccessMixin, AdminResourceDetailView):
     """Configuration for users sets detail view."""
 
     url = "/users/<pid_value>"
-    api_endpoint = "/users/"
+    api_endpoint = "/users"
     search_request_headers = {"Accept": "application/json"}
     extension_name = "invenio-users-resources"
     name = "User details"
@@ -149,6 +149,7 @@ class UsersDetailView(UserAdminAccessMixin, AdminResourceDetailView):
     display_edit = False
 
     pid_path = "id"
+    list_view_name = "users"
     item_field_list = USERS_ITEM_DETAIL
 
 
