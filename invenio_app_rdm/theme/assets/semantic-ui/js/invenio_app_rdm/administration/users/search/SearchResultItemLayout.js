@@ -1,6 +1,7 @@
 /*
  * This file is part of Invenio.
  * Copyright (C) 2022-2024 CERN.
+ * Copyright (C) 2026 KTH Royal Institute of Technology.
  *
  * Invenio is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
@@ -180,6 +181,7 @@ class SearchResultItemComponent extends Component {
             useDropdown
             user={result}
             successCallback={this.refreshAfterAction}
+            displayManageRoles
             displayImpersonateUser
             displayQuota
           />
