@@ -13,7 +13,8 @@
 
 from copy import deepcopy
 
-from flask import current_app, g, redirect
+import requests
+from flask import current_app, g, jsonify, redirect
 from flask_login import login_required
 from invenio_communities.communities.resources.serializer import (
     UICommunityJSONSerializer,
@@ -21,6 +22,7 @@ from invenio_communities.communities.resources.serializer import (
 from invenio_communities.errors import CommunityDeletedError
 from invenio_communities.proxies import current_communities
 from invenio_communities.views.communities import render_community_theme_template
+from invenio_files_rest.models import FileInstance
 from invenio_i18n import lazy_gettext as _
 from invenio_i18n.ext import current_i18n
 from invenio_rdm_records.proxies import current_rdm_records
@@ -647,3 +649,29 @@ def community_upload(pid_value):
     """Redirection for upload to community."""
     routes = current_app.config.get("APP_RDM_ROUTES")
     return redirect(f"{routes['deposit_create']}?community={pid_value}")
+
+
+@pass_draft(expand=True)
+@pass_draft_files
+@no_cache_response
+def trigger_workflow(pid_value, draft=None, draft_files=None, files_locked=True):
+    """Proxy a workflow request to the local FastAPI service."""
+    files_dict = None if draft_files is None else draft_files.to_dict()
+    if not files_dict:
+        return jsonify({"error": "No files found for this draft"}), 404
+    # For now, we only do one file, need to adjust the workflow to receive several files per record
+    entry = files_dict.get("entries", [])[0]
+    file_instance = FileInstance.get(entry["file_id"])
+
+    try:
+        response = requests.post(
+            "http://127.0.0.1:8000/workflows",
+            json={"url": file_instance.uri},
+            headers={"x-token": current_app.config.get("APP_RDM_AI_WORKFLOW_TOKEN")},
+            timeout=10,
+        )
+        response.raise_for_status()
+        return jsonify(response.json()), response.status_code
+    except requests.RequestException as exc:
+        current_app.logger.exception("Workflow trigger failed: %s", exc)
+        return jsonify({"error": "Failed to trigger workflow"}), 502

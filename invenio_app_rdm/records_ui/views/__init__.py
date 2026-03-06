@@ -27,7 +27,7 @@ from sqlalchemy.orm.exc import NoResultFound
 from invenio_app_rdm.views import create_url_rule
 
 from ..searchapp import search_app_context
-from .deposits import community_upload, deposit_create, deposit_edit
+from .deposits import community_upload, deposit_create, deposit_edit, trigger_workflow
 from .filters import (
     can_list_files,
     compact_number,
@@ -154,6 +154,13 @@ def create_blueprint(app):
             communities_routes["upload"],
             default_view_func=community_upload,
         )
+    )
+
+    blueprint.add_url_rule(
+        **create_url_rule(
+            routes["trigger_workflow"], default_view_func=trigger_workflow
+        ),
+        methods=["POST"],
     )
 
     # Register error handlers
