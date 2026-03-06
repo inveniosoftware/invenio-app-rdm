@@ -1,6 +1,6 @@
 // This file is part of InvenioRDM
 // Copyright (C) 2020-2024 CERN.
-// Copyright (C) 2020-2021 Northwestern University.
+// Copyright (C) 2020-2026 Northwestern University.
 // Copyright (C) 2021 Graz University of Technology.
 //
 // Invenio RDM Records is free software; you can redistribute it and/or modify it
@@ -29,6 +29,7 @@ const NUMBER_OF_VERSIONS = 5;
 
 export const RecordVersionItem = ({ item, activeVersion }) => {
   const doi = _get(item.pids, "doi.identifier", "");
+  const doiLink = _get(item, "links.doi", "");
   return (
     <Overridable
       id="InvenioAppRdm.RecordVersionsList.Item.container"
@@ -50,7 +51,7 @@ export const RecordVersionItem = ({ item, activeVersion }) => {
 
           {doi && (
             <a
-              href={`https://doi.org/${doi}`}
+              href={doiLink}
               className={"doi" + (activeVersion ? " text-muted-darken" : " text-muted")}
             >
               {doi}
