@@ -82,6 +82,11 @@
   }
 }
 
+.ui.grid .column.trigger-workflow-col {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .ui.grid .column.storage-col {
   display: flex;
   justify-content: flex-end;
