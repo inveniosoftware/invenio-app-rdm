@@ -45,6 +45,7 @@
 }
 
 .ui.image.community-image {
+  max-width: @mediumWidth;
 
   &.mini {
     width: 45px;
@@ -60,7 +61,6 @@
   img {
     max-height: @tinyWidth;
     min-width: @tinyWidth;
-    max-width: @mediumWidth;
     object-fit: contain;
   }
 }
@@ -113,4 +113,15 @@
 
 .image.avatar.tiny {
   height: @lineHeight;
+  width: @lineHeight;
+  object-fit: contain;
 }
+
+.avatar-logo-container {
+  .item {
+    .image + .content {
+      padding-left: 5px !important; // needs to override padding set for content in items by SUI
+    }
+  }
+}
+
