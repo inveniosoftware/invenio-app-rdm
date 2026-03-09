@@ -9,10 +9,13 @@
 
 """Utility functions."""
 
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from itertools import chain
+from pathlib import Path
 
+import jwt
 from flask import current_app
+from flask_login import current_user
 from invenio_access.permissions import system_identity
 from invenio_rdm_records.records.api import RDMRecord
 from invenio_rdm_records.requests.record_deletion import RecordDeletion
@@ -180,3 +183,29 @@ def evaluate_file_modification(record, identity):
         file_modification["context"] = {"days_until": days_until}
 
     return file_modification
+
+
+def create_token_ai_workflow(workflow_id=None):
+    """Generates a JWT token for accessing the AI workflow.
+
+    Args:
+        workflow_id (str or None): The unique identifier for the AI workflow. If None,
+            the token will be generated for all workflows.
+
+    Returns:
+        str: The generated JWT token as a string.
+    """
+    key_path = current_app.config.get("APP_RDM_AI_WORKFLOW_KEY_PATH")
+    private_key = open(key_path).read()
+
+    token = jwt.encode(
+        {
+            "iss": current_app.config.get("APP_RDM_AI_WORKFLOW_TENANT"),
+            "sub": current_user.username,
+            "workflow_id": workflow_id or "*",
+            "exp": datetime.now(timezone.utc) + timedelta(hours=1),
+        },
+        private_key,
+        algorithm="RS256",
+    )
+    return token

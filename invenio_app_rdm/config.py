@@ -1568,4 +1568,5 @@ APP_RDM_MODERATION_REQUEST_FACETS = {
 
 # AI Workflow
 # ===============
-APP_RDM_AI_WORKFLOW_TOKEN = "fake-super-secret-token"
+APP_RDM_AI_WORKFLOW_KEY_PATH = ""
+APP_RDM_AI_WORKFLOW_TENANT = ""

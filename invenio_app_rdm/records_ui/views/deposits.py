@@ -40,6 +40,7 @@ from marshmallow_utils.fields.babel import gettext_from_dict
 from sqlalchemy.orm import load_only
 
 from ..utils import (
+    create_token_ai_workflow,
     evaluate_file_modification,
     evaluate_record_deletion,
     set_default_value,
@@ -667,7 +668,7 @@ def trigger_workflow(pid_value, draft=None, draft_files=None, files_locked=True)
         response = requests.post(
             "http://127.0.0.1:8000/workflows",
             json={"url": file_instance.uri},
-            headers={"x-token": current_app.config.get("APP_RDM_AI_WORKFLOW_TOKEN")},
+            headers={"Authorization": f"Bearer {create_token_ai_workflow()}"},
             timeout=10,
         )
         response.raise_for_status()
