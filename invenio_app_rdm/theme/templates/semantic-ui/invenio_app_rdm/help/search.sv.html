@@ -18,12 +18,13 @@
   <p>
     <strong>Exempel:</strong>
     <a href="/search?page=1&amp;size=20&amp;q=open%20science"
-      ><code>open science</code></a
+    ><code>open science</code></a
     >
   </p>
   <p>
     Resultaten kommer att matcha poster som innehåller <em>termerna</em> <code>open</code>
-    <em>eller</em> <code>science</code> i <em>något fält</em>. Observera att grundord används, så exempelvis kommer <code>science</code> även att matcha
+    <em>eller</em> <code>science</code> i <em>något fält</em>. Observera att grundord används, så exempelvis kommer
+    <code>science</code> även att matcha
     <code>sciences</code>. Sökresultaten rankas enligt en algoritm som tar hänsyn till dina söktermer.
   </p>
   <p>
@@ -33,11 +34,11 @@
   <p>
     <strong>Exempel:</strong>
     <a href="/search?page=1&amp;size=20&amp;q=%2Bopen%20%2Bscience"
-      ><code>+open +science</code></a
+    ><code>+open +science</code></a
     >
     eller
     <a href="/search?page=1&amp;size=20&amp;q=open%20AND%20science"
-      ><code>open AND science</code></a
+    ><code>open AND science</code></a
     >
   </p>
   <p>
@@ -47,18 +48,18 @@
   <p>
     <strong>Exempel:</strong>
     <a href="/search?page=1&amp;size=20&amp;q=-open%20%2Bscience"
-      ><code>-open +science</code></a
+    ><code>-open +science</code></a
     >
     eller
     <a href="/search?page=1&amp;size=20&amp;q=NOT%20open%20AND%20science"
-      ><code>NOT open AND science</code></a
+    ><code>NOT open AND science</code></a
     >
   </p>
   <h3>Frassökning</h3>
   <p>
     <strong>Exempel:</strong>
     <a href="/search?page=1&amp;size=20&amp;q=%22open%20science%22"
-      ><code>"open science"</code></a
+    ><code>"open science"</code></a
     >
   </p>
   <p>
@@ -69,7 +70,7 @@
   <p>
     <strong>Exempel:</strong>
     <a href="/search?page=1&amp;size=20&amp;q=metadata.title:open"
-      ><code>metadata.title:open</code></a
+    ><code>metadata.title:open</code></a
     >
   </p>
   <p>
@@ -80,24 +81,24 @@
   <p>
     <strong>Exempel:</strong>
     <a href="/search?page=1&amp;size=20&amp;q=metadata.title:(open%20science%29"
-      ><code>metadata.title:(open science)</code></a
+    ><code>metadata.title:(open science)</code></a
     >
   </p>
   <p>
     Se <a href="https://inveniordm.docs.cern.ch/reference/metadata/#metadata"
-      >InvenioRDM-dokumentationen</a
-    > för en fullständig lista över fält du kan söka i.
+  >InvenioRDM-dokumentationen</a
+  > för en fullständig lista över fält du kan söka i.
   </p>
   <h3>Kombinerad enkel-, fras- eller fältsökning</h3>
   <p>
     <strong>Exempel:</strong>
     <a
       href="/search?page=1&amp;size=20&amp;q=%2Bmetadata.title:%22open%20science%22%20-metadata.title:policy"
-      ><code>+metadata.title:"open science" -metadata.title:policy</code></a
+    ><code>+metadata.title:"open science" -metadata.title:policy</code></a
     >
     eller t.ex.
     <a href="/search?page=1&amp;size=20&amp;q=metadata.title:(-open%20%2Bscience%29"
-      ><code>metadata.title:(-open +science)</code></a
+    ><code>metadata.title:(-open +science)</code></a
     >
   </p>
   <p>
@@ -108,7 +109,7 @@
     <strong>Exempel:</strong>
     <a
       href="/search?page=1&amp;size=20&amp;q=metadata.publication_date:%5B2017%20TO%202018%5D"
-      ><code>metadata.publication_date:[2017 TO 2018]</code></a
+    ><code>metadata.publication_date:[2017 TO 2018]</code></a
     >
     (notera att du måste skriva <code>TO</code> med versaler).
   </p>
@@ -142,7 +143,8 @@
   </ul>
   <h3>Rankning/Sortering</h3>
   <p>
-    Som standard sorteras alla sökningar enligt en intern rankningsalgoritm som poängsätter varje matchning mot din sökfråga. Både i användargränssnittet och REST API är det möjligt att sortera resultaten efter:
+    Som standard sorteras alla sökningar enligt en intern rankningsalgoritm som poängsätter varje matchning mot din
+    sökfråga. Både i användargränssnittet och REST API är det möjligt att sortera resultaten efter:
   </p>
   <ul>
     <li>Senaste</li>
@@ -159,16 +161,16 @@
   </p>
   <p>
     <strong>Exempel:</strong>
-    <a href="/search?page=1&amp;size=20&amp;q=metadata.subjects.identifier:%2F03yrm5c2%5B1%2C6%5D%2F"
-      ><code>metadata.subjects.identifier:/03yrm5c2[1,6]/</code></a
-    >
+    <a href="/search?page=1&amp;size=20&amp;q=pids.doi.identifier%3A%2F10\.5281.*%2F">
+      <code>pids.doi.identifier:/10\.5281.*/</code>
+    </a>
   </p>
   <p>
     Var försiktig, det reguljära uttrycket måste matcha <em>hela</em> fältvärdet.
     Se
     <a
       href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-regexp-query.html#regexp-syntax"
-      >syntax för reguljära uttryck</a
+    >syntax för reguljära uttryck</a
     >
     för ytterligare detaljer.
   </p>
@@ -188,7 +190,7 @@
   <p>
     <strong>Exempel:</strong>
     <a href="/search?page=1&amp;size=20&amp;q=_exists_:metadata.creators"
-      ><code>_exists_:metadata.creators</code></a
+    ><code>_exists_:metadata.creators</code></a
     >
     (alla poster med metadata.creators)
   </p>
@@ -205,7 +207,7 @@
     <strong>Exempel:</strong>
     <a
       href="/search?page=1&amp;size=20&amp;q=metadata.title:%22open%20science%22%5E5%20metadata.description:%22open%20science%22"
-      ><code>metadata.title:"open science"^5 metadata.description:"open science"</code></a
+    ><code>metadata.title:"open science"^5 metadata.description:"open science"</code></a
     >
   </p>
   <h4>Fuzzy-sök</h4>
@@ -232,7 +234,7 @@
   <p>
     <strong>Exempel:</strong>
     <a href="/search?page=1&amp;size=20&amp;q=%22open%20science%22~5"
-      ><code>"open science"~5</code></a
+    ><code>"open science"~5</code></a
     >
   </p>
   <h4>Wildcard-tecken</h4>
@@ -244,11 +246,11 @@
   <p>
     <strong>Exempel:</strong>
     <a href="/search?page=1&amp;size=20&amp;q=ope%3F%20scien*"
-      ><code>ope? scien*</code></a
+    ><code>ope? scien*</code></a
     >
   </p>
   <p>
     Wildcard-sökningar kan vara långsamma och bör normalt undvikas om möjligt.
   </p>
 </div>
-{%- endblock page_body%}
+{%- endblock page_body %}
