@@ -46,7 +46,7 @@ import PropTypes from "prop-types";
 import Overridable from "react-overridable";
 import { CopyrightsField } from "@js/invenio_rdm_records/src/deposit/fields/CopyrightsField/CopyrightsField";
 import { ShareDraftButton } from "./ShareDraftButton";
-import { WorkflowButton } from "./WorkflowButton";
+import { WorkflowSection } from "./WorkflowSection";
 import { depositFormSectionsConfig, severityChecksConfig } from "./config";
 import { RecordDeletion } from "../components/RecordDeletion";
 import { FileModificationUntil } from "../components/FileModificationUntil";
@@ -243,15 +243,9 @@ export class RDMDepositForm extends Component {
                         fileModification={fileModification}
                       />
                     </Overridable>
-                    <Grid className="mt-0">
-                      <Grid.Row>
-                        <Grid.Column className="trigger-workflow-col">
-                          {(record.is_draft === null || permissions.can_manage) && (
-                            <WorkflowButton record={record} permissions={permissions} />
-                          )}
-                        </Grid.Column>
-                      </Grid.Row>
-                    </Grid>
+                    {(record.is_draft === null || permissions.can_manage) && (
+                      <WorkflowSection record={record} />
+                    )}
                   </AccordionField>
                 </Overridable>
                 <Overridable
