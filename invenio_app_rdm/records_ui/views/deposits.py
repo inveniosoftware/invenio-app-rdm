@@ -672,7 +672,33 @@ def trigger_workflow(pid_value, draft=None, draft_files=None, files_locked=True)
             timeout=10,
         )
         response.raise_for_status()
-        return jsonify(response.json()), response.status_code
+        workflow_id = response.json()["public_id"]
+        return jsonify({"workflow_id": workflow_id}), 200
     except requests.RequestException as exc:
         current_app.logger.exception("Workflow trigger failed: %s", exc)
         return jsonify({"error": "Failed to trigger workflow"}), 502
+
+
+def stream_workflow(pid_value, workflow_id=None):
+    """Proxy a workflow request to the local FastAPI service."""
+    # create the stream url
+    token = create_token_ai_workflow(workflow_id)
+    print(f"workflow_id received: {workflow_id}")
+
+    def generate():
+        with requests.get(
+            f"http://127.0.0.1:8000/workflows/{workflow_id}/stream?token={token}",
+            stream=True,
+        ) as r:
+            for chunk in r.iter_content(chunk_size=None):
+                if chunk:
+                    yield chunk
+
+    return current_app.response_class(
+        generate(),
+        mimetype="text/event-stream",
+        headers={
+            "Cache-Control": "no-cache",
+            "X-Accel-Buffering": "no",  # necessary for streaming response
+        },
+    )

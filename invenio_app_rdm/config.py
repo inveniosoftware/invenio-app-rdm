@@ -811,6 +811,7 @@ APP_RDM_ROUTES = {
     "deposit_create": "/uploads/new",
     "deposit_edit": "/uploads/<pid_value>",
     "trigger_workflow": "/uploads/<pid_value>/workflow",
+    "stream_workflow": "/uploads/<pid_value>/workflow/<workflow_id>/stream",
 }
 
 APP_RDM_RECORD_EXPORTERS = {
