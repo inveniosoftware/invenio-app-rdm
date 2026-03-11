@@ -173,3 +173,49 @@ def test_record_search(client, headers, running_app, es_clear):
     for r in response.json["hits"]["hits"]:
         metadata_keys = set(r["metadata"])
         assert expected_metadata_keys.issubset(metadata_keys)
+
+
+def test_record_draft_create_chunked(
+    client_with_login, running_app, minimal_record, es_clear
+):
+    """Test draft creation of an existing record with a chunked payload.
+
+    This simulates a large payload (or explict chunking) sent to the draft creation
+    endpoint. Since the endpoint does not expect a payload, it previously failed
+    to consume the chunked stream, causing a socket abort.
+    """
+    client = client_with_login
+
+    # 1. Create a published record
+    response = client.post(LIST_RECORDS_API_URL, json=minimal_record)
+    assert response.status_code == 201
+    recid = response.json["id"]
+    response = client.post(DRAFT_ACTION_API_URL.format(recid, "publish"))
+    assert response.status_code == 202
+
+    # 2. Re-create a draft from the published record with a chunked transfer encoding
+    # We use a generator to force werkzeug/flask test client into chunked mode
+    def generate_chunks():
+        # Yield a few chunks to simulate a Transfer-Encoding: chunked payload
+        yield b'{"metadata": '
+        yield b'{"title": "Chunked Title"}}'
+
+    # The issue being tested is whether the server aborts the connection (e.g. raises
+    # IncompleteRead/ChunkedEncodingError on the client) when the view finishes
+    # without explicitly reading the payload.
+
+    # send a payload large enough (> 126KB) to trigger chunked transfer
+    # encoding or unread socket aborts natively in requests/werkzeug scenarios.
+    large_payload = (
+        '{"metadata": {"title": "Chunked Title", "pad": "' + ("x" * 200000) + '"}}'
+    )
+
+    response = client.post(
+        DRAFT_API_URL.format(recid),
+        data=large_payload,
+        content_type="application/json",
+    )
+
+    # 3. Verify it succeeds and connection is not dropped
+    assert response.status_code == 201
+    assert response.json["id"] == recid
