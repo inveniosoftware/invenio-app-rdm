@@ -23,7 +23,11 @@ from invenio_requests.views.ui import (
 from sqlalchemy.exc import NoResultFound
 
 from ...records_ui.searchapp import search_app_context
-from .requests import community_dashboard_request_view, user_dashboard_request_view
+from .requests import (
+    community_dashboard_request_view,
+    is_accepted_request,
+    user_dashboard_request_view,
+)
 
 
 def create_ui_blueprint(app):
@@ -37,6 +41,7 @@ def create_ui_blueprint(app):
         static_folder="../static",
     )
 
+    # Register url rules
     blueprint.add_url_rule(
         routes["user-dashboard-request-details"],
         view_func=user_dashboard_request_view,
@@ -67,6 +72,11 @@ def create_ui_blueprint(app):
     blueprint.register_error_handler(PIDDoesNotExistError, not_found_error)
     # due to requests found by ID, not PID (check service read method)
     blueprint.register_error_handler(NoResultFound, not_found_error)
+
+    # Register app-scoped context processors
     blueprint.app_context_processor(search_app_context)
+
+    # Register blueprint-scoped context processors
+    blueprint.context_processor(lambda: {"is_accepted_request": is_accepted_request})
 
     return blueprint
