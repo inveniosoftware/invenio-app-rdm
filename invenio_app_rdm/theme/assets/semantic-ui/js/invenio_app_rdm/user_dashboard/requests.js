@@ -18,6 +18,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { overrideStore, parametrize } from "react-overridable";
 import { withState } from "react-searchkit";
+import { Icon } from "semantic-ui-react";
 import { defaultContribComponents } from "@js/invenio_requests/contrib";
 import { RDMRecordSearchBarElement } from "../search/components";
 import {
@@ -56,6 +57,20 @@ const RequestsSearchLayoutWithApp = parametrize(RequestsSearchLayout, {
   showSharedFilters: true,
 });
 
+/**
+ * This component is used to override the icon of a membership
+ * request. For now it's placed here rather than like others in
+ * invenio-requests/invenio_requests/assets/semantic-ui/js/invenio_requests/
+ * contrib/Icons.js bc that repository shouldn't know about specific
+ * request implementations in the first place. It's ideal location might be
+ * in invenio-communities, but because of simple implementation, development
+ * order and low cost of repeating, it's here for now. It can eventually be
+ * moved.
+ */
+function CommunityMembershipRequestIcon() {
+  return <Icon name="user plus" className="neutral" />;
+}
+
 export const defaultComponents = {
   [`${appName}.BucketAggregation.element`]: ContribBucketAggregationElement,
   [`${appName}.BucketAggregationValues.element`]: ContribBucketAggregationValuesElement,
@@ -68,6 +83,8 @@ export const defaultComponents = {
   [`${appName}.SearchBar.element`]: RDMRecordSearchBarElement,
   [`${appName}.EmptyResults.element`]: RequestsEmptyResultsWithState,
   ...defaultContribComponents,
+  "InvenioRequests.RequestTypeIcon.layout.community-membership-request":
+    CommunityMembershipRequestIcon,
 };
 
 const overriddenComponents = overrideStore.getAll();
