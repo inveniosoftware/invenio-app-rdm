@@ -77,8 +77,6 @@ def create_ui_blueprint(app):
     blueprint.app_context_processor(search_app_context)
 
     # Register blueprint-scoped context processors
-    blueprint.context_processor(lambda: {
-        "is_accepted_request": is_accepted_request
-    })
+    blueprint.context_processor(lambda: {"is_accepted_request": is_accepted_request})
 
     return blueprint

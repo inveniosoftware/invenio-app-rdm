@@ -473,7 +473,7 @@ def record_latest(record=None, **kwargs):
 
 @pass_record_from_pid
 def record_from_pid(record=None, **kwargs):
-    """Redirect to record's latest version page."""
+    """Redirect to record's page."""
     return redirect(record["links"]["self_html"], code=302)
 
 
