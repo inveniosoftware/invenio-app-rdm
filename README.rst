@@ -12,8 +12,8 @@
 .. image:: https://github.com/inveniosoftware/invenio-app-rdm/workflows/CI/badge.svg
         :target: https://github.com/inveniosoftware/invenio-app-rdm/actions?query=workflow%3ACI
 
-.. image:: https://img.shields.io/coveralls/inveniosoftware/invenio-app-rdm.svg
-        :target: https://coveralls.io/r/inveniosoftware/invenio-app-rdm
+.. image:: https://img.shields.io/github/actions/workflow/status/inveniosoftware/invenio-app-rdm/ci.yml?label=coverage
+        :target: https://github.com/inveniosoftware/invenio-app-rdm/actions
 
 .. image:: https://img.shields.io/github/license/inveniosoftware/invenio-app-rdm.svg
         :target: https://github.com/inveniosoftware/invenio-app-rdm/blob/master/LICENSE
