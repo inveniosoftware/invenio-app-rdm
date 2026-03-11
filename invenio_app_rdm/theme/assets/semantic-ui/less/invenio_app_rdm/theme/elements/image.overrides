@@ -45,6 +45,7 @@
 }
 
 .ui.image.community-image {
+  max-width: @mediumWidth;
 
   &.mini {
     width: 45px;
@@ -60,7 +61,6 @@
   img {
     max-height: @tinyWidth;
     min-width: @tinyWidth;
-    max-width: @mediumWidth;
     object-fit: contain;
   }
 }
