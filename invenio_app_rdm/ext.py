@@ -30,6 +30,21 @@ def finalize_app(app):
     init_menu(app)
     init_config(app)
 
+    @app.before_request
+    def consume_draft_request_body():
+        """Consume the request body for draft creation requests.
+
+        This acts as a workaround for an issue where Werkzeug fails to
+        gracefully handle chunked requests if the view does not explicitly
+        read them, resulting in a socket error (ChunkedEncodingError / IncompleteRead).
+        """
+        if (
+            request.method == "POST"
+            and request.path.startswith("/api/records/")
+            and request.path.endswith("/draft")
+        ):
+            _ = request.get_data()
+
 
 def init_config(app):
     """Initialize configuration."""
