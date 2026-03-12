@@ -22,16 +22,20 @@ from invenio_communities.subcommunities.services.request import (
 from invenio_communities.utils import identity_cache_key
 from invenio_communities.views.communities import render_community_theme_template
 from invenio_communities.views.decorators import pass_community
+from invenio_i18n.ext import current_i18n
 from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_rdm_records.proxies import current_rdm_records_service
 from invenio_rdm_records.requests import CommunityInclusion, CommunitySubmission
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
+from invenio_rdm_records.services.errors import RecordDeletedException
 from invenio_rdm_records.services.generators import CommunityInclusionNeed
 from invenio_records_resources.services.errors import PermissionDeniedError
 from invenio_requests.customizations import AcceptAction
 from invenio_requests.resolvers.registry import ResolverRegistry
 from invenio_requests.views.decorators import pass_request
 from invenio_users_resources.proxies import current_user_resources
+from invenio_vocabularies.proxies import current_service as vocabulary_service
+from marshmallow_utils.fields.babel import gettext_from_dict
 from sqlalchemy.orm.exc import NoResultFound
 
 from ...records_ui.utils import get_external_resources
@@ -89,7 +93,7 @@ def _resolve_topic_record(request):
             record = current_rdm_records_service.read_draft(
                 g.identity, pid, expand=True
             )
-    except (NoResultFound, PIDDoesNotExistError):
+    except (NoResultFound, PIDDoesNotExistError, RecordDeletedException):
         # We catch PIDDoesNotExistError because a published record with
         # a soft-deleted draft will raise this error. The lines below
         # will catch the case that a id does not exists and raise a
@@ -98,7 +102,7 @@ def _resolve_topic_record(request):
         try:
             # read published record
             record = current_rdm_records_service.read(g.identity, pid, expand=True)
-        except NoResultFound:
+        except (NoResultFound, RecordDeletedException):
             # record tab not displayed when the record is not found
             # the request is probably not open anymore
             pass
@@ -182,6 +186,9 @@ def user_dashboard_request_view(request, **kwargs):
     has_record_topic = has_topic and "record" in request["topic"]
     has_community_topic = has_topic and "community" in request["topic"]
     is_record_inclusion = request_type == CommunityInclusion.type_id
+    request_permissions = request.has_permissions_to(
+        ["action_accept", "lock_request", "create_comment", "reply_comment"]
+    )
 
     if has_record_topic:
         topic = _resolve_topic_record(request)
@@ -201,6 +208,17 @@ def user_dashboard_request_view(request, **kwargs):
             else:
                 checks = ChecksAPI.get_runs(record._record)
 
+        if request_type == "record-deletion":
+            reason_title = vocabulary_service.read(
+                g.identity,
+                ("removalreasons", request["payload"]["reason"]),
+            ).to_dict()
+            request["payload"]["reason_label"] = gettext_from_dict(
+                reason_title["title"],
+                current_i18n.locale,
+                current_app.config.get("BABEL_DEFAULT_LOCALE", "en"),
+            )
+
         return render_template(
             f"invenio_requests/{request_type}/index.html",
             base_template="invenio_app_rdm/users/base.html",
@@ -209,7 +227,7 @@ def user_dashboard_request_view(request, **kwargs):
             record_ui=record_ui,
             record=record,
             checks=checks,
-            permissions=topic["permissions"],
+            permissions={**topic["permissions"], **request_permissions},
             is_preview=is_draft,  # preview only when draft
             is_draft=is_draft,
             is_published=is_published,
@@ -231,7 +249,7 @@ def user_dashboard_request_view(request, **kwargs):
             user_avatar=avatar,
             invenio_request=request.to_dict(),
             request_is_accepted=request_is_accepted,
-            permissions={},
+            permissions={**request_permissions},
             include_deleted=False,
         )
 
@@ -244,7 +262,7 @@ def user_dashboard_request_view(request, **kwargs):
         user_avatar=avatar,
         record=record,
         record_ui=record_ui,
-        permissions=topic["permissions"],
+        permissions={**topic["permissions"], **request_permissions},
         invenio_request=request.to_dict(),
         request_is_accepted=request_is_accepted,
         include_deleted=False,
@@ -274,6 +292,11 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
     permissions = community.has_permissions_to(
         ["update", "read", "search_requests", "search_invites", "submit_record"]
     )
+    request_permissions = request.has_permissions_to(
+        ["action_accept", "lock_request", "create_comment", "reply_comment"]
+    )
+    # Add request specific permissions so that reviewers can be selected from community curators
+    permissions.update(request_permissions)
 
     if is_draft_submission or is_record_inclusion:
         topic = _resolve_topic_record(request)
