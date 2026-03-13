@@ -9,7 +9,8 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 """Communities UI blueprints module."""
 
-from flask import Blueprint, current_app, request
+from flask import Blueprint, current_app, g, request
+from invenio_collections.proxies import current_collections
 from invenio_collections.searchapp import search_app_context as c_search_app_context
 from invenio_communities.errors import CommunityDeletedError
 from invenio_communities.views.ui import (
@@ -37,10 +38,27 @@ from .communities import (
 
 def _show_browse_page():
     """Whether the browse page should be visible in the menu."""
-    return (
-        current_app.config.get("COMMUNITIES_SHOW_BROWSE_MENU_ENTRY", False)
-        and request.community["children"]["allow"]
-    )
+    feature_enabled = current_app.config.get("COMMUNITIES_SHOW_BROWSE_MENU_ENTRY", False)
+    if not feature_enabled:
+        return False
+
+    community = getattr(request, "community", None)
+    if not community:
+        return False
+
+    subcommunities_enabled = community.get("children", {}).get("allow", False)
+
+    has_collections = False
+    try:
+        collections_service = current_collections.service
+        community_id = community.get("id")
+        if community_id:
+            trees = collections_service.list_trees(g.identity, community_id=community_id, depth=0)
+            has_collections = len(trees.to_dict()) > 0
+    except Exception:
+        has_collections = False
+
+    return subcommunities_enabled or has_collections
 
 
 def create_ui_blueprint(app):
