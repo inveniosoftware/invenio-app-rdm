@@ -7,11 +7,12 @@
 
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import _get from "lodash/get";
+import _truncate from "lodash/truncate";
 import React, { Component } from "react";
 import Overridable from "react-overridable";
 import { SearchItemCreators } from "../utils";
 import PropTypes from "prop-types";
-import { Item, Label, Icon } from "semantic-ui-react";
+import { Item, Label, Icon, Popup } from "semantic-ui-react";
 import { buildUID } from "react-searchkit";
 import { CompactStats } from "./CompactStats";
 import { DisplayPartOfCommunities } from "./DisplayPartOfCommunities";
@@ -87,9 +88,15 @@ class RecordsResultsListItem extends Component {
             {/* FIXME: Uncomment to enable themed banner */}
             {/* <DisplayVerifiedCommunity communities={result.parent?.communities} /> */}
             <Item.Extra className="labels-actions">
-              <Label horizontal size="small" className="primary theme-primary">
-                {publicationDate} ({version})
-              </Label>
+              <Popup
+                content={version}
+                disabled={!version || version.length <= 20}
+                trigger={
+                  <Label horizontal size="small" className="primary theme-primary">
+                    {publicationDate} ({_truncate(version, { length: 20 })})
+                  </Label>
+                }
+              />
               <Label horizontal size="small" className="neutral">
                 {resourceType}
               </Label>
