@@ -75,8 +75,21 @@ def pid_url(identifier, scheme=None, url_scheme="https"):
             scheme = idutils.detect_identifier_schemes(identifier)[0]
         except IndexError:
             scheme = None
+
     try:
         if scheme and identifier:
+            configs = (
+                current_app.config.get("RDM_RECORDS_IDENTIFIERS_SCHEMES", {}),
+                current_app.config.get("RDM_RECORDS_RELATED_IDENTIFIERS_SCHEMES", {}),
+            )
+
+            for cfg in configs:
+                scheme_cfg = cfg.get(scheme)
+                if scheme_cfg:
+                    url_template = scheme_cfg.get("url_template")
+                    if url_template:
+                        return url_template.format(identifier=identifier)
+
             return idutils.to_url(identifier, scheme, url_scheme=url_scheme)
     except Exception:
         current_app.logger.warning(
