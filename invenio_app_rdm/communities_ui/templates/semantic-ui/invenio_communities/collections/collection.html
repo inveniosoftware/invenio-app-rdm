@@ -41,7 +41,7 @@ under the terms of the MIT License; see LICENSE file for more details.
 
     {% if root_collection.breadcrumbs %}
     {%- for breadcrumb in root_collection.breadcrumbs -%}
-    <a class="section" href="{{ breadcrumb.link }}">
+    <a class="section" href="{{ breadcrumb.link or url_for('invenio_app_rdm_communities.community_collection', pid_value=community.slug, tree_slug=tree.slug, collection_slug=breadcrumb.slug) }}">
       {{ breadcrumb.title }}
     </a>
     {% if not loop.last %}

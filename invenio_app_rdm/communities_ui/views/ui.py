@@ -38,7 +38,9 @@ from .communities import (
 
 def _show_browse_page():
     """Whether the browse page should be visible in the menu."""
-    feature_enabled = current_app.config.get("COMMUNITIES_SHOW_BROWSE_MENU_ENTRY", False)
+    feature_enabled = current_app.config.get(
+        "COMMUNITIES_SHOW_BROWSE_MENU_ENTRY", False
+    )
     if not feature_enabled:
         return False
 
@@ -53,7 +55,9 @@ def _show_browse_page():
         collections_service = current_collections.service
         community_id = community.get("id")
         if community_id:
-            trees = collections_service.list_trees(g.identity, community_id=community_id, depth=0)
+            trees = collections_service.list_trees(
+                g.identity, namespace_id=community_id, depth=0
+            )
             has_collections = len(trees.to_dict()) > 0
     except Exception:
         has_collections = False
