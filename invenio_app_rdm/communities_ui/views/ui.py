@@ -53,7 +53,7 @@ def _show_browse_page():
         collections_service = current_collections.service
         community_id = community.get("id")
         if community_id:
-            trees = collections_service.list_trees(g.identity, community_id=community_id, depth=0)
+            trees = collections_service.list_trees(g.identity, namespace_id=community_id, depth=0)
             has_collections = len(trees.to_dict()) > 0
     except Exception:
         has_collections = False

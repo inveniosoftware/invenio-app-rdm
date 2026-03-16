@@ -129,7 +129,7 @@ def communities_browse(pid_value, community, community_ui):
     collections_service = current_collections.service
 
     trees_ui = collections_service.list_trees(
-        g.identity, community_id=community.id, depth=2
+        g.identity, namespace_id=community.id, depth=2
     ).to_dict()
     return render_community_theme_template(
         "invenio_communities/details/browse/index.html",
