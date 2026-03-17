@@ -10,6 +10,11 @@
 Changes
 =======
 
+Version v14.0.0b6.dev0 (released 2026-03-10)
+
+- breaking change(setup): upgrade invenio packagea
+                          requires alembic upgrade and mappings upgrades
+
 Version v14.0.0b5.dev6 (released 2026-03-03)
 
 - fix(requests): reload preview iframe when opening record tab
