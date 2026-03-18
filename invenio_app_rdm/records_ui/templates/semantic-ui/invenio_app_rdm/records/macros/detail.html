@@ -215,7 +215,7 @@
 
 
 {% macro _vocabulary_search_url(field, value, field_cfg) %}
-  {% if field_cfg.landing_page_search_attr and field_cfg.landing_page_search_attr in field_cfg %}
+  {% if field_cfg.landing_page_search_attr and field_cfg.landing_page_search_attr in value %}
     {% set search_text = value[field_cfg.landing_page_search_attr] %}
   {% else %}
     {% set search_text = value.title_l10n %}
