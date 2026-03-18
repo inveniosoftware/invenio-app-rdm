@@ -10,6 +10,15 @@
 Changes
 =======
 
+
+Version v14.0.0b7.dev0 (released 2026-03-10)
+
+- breaking change(setup): upgrade invenio packagea
+                          requires alembic upgrade and mappings upgrades
+- feat: add remove_community_from_record permission check
+- fix(ui): group publishing information fields into Journal/Imprint/Thesis sections
+
+
 Version v14.0.0b6.dev0 (released 2026-03-10)
 
 - breaking change(setup): upgrade invenio packagea
