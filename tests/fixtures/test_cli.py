@@ -19,7 +19,7 @@ def test_create_fixtures(app, db, cli_runner):
     assert result.exit_code == 0
 
     service = current_oaipmh_server_service
-    res_set = service.search(system_identity, params={"q": f"%"})
+    res_set = service.search(system_identity, params={"q": "%"})
 
     # oai_sets.yaml file left empty
     assert res_set.total == 2

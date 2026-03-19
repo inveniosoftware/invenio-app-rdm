@@ -9,8 +9,6 @@
 
 from unittest.mock import Mock, patch
 
-import pytest
-
 from invenio_app_rdm.theme.views import add_static_page_routes
 
 
