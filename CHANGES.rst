@@ -10,6 +10,9 @@
 Changes
 =======
 
+Version v14.0.0b7.dev1 (released 2026-03-19)
+
+- macros: fix vocabulary custom field search value on landing page
 
 Version v14.0.0b7.dev0 (released 2026-03-10)
 
