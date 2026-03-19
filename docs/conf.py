@@ -8,8 +8,6 @@
 
 """Sphinx configuration."""
 
-import os
-
 from invenio_app_rdm import __version__
 
 # -- General configuration ------------------------------------------------

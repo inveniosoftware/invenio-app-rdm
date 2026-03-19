@@ -346,7 +346,7 @@ def record_file_download(pid_value, file_item=None, is_preview=False, **kwargs):
     else:
         restricted = True
 
-    return file_item.send_file(as_attachment=download,restricted=restricted)
+    return file_item.send_file(as_attachment=download, restricted=restricted)
 
 
 @pass_record_or_draft(expand=False)
