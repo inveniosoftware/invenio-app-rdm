@@ -66,56 +66,54 @@ export class RecordCommunitiesList extends Component {
                   <Image wrapped size="mini" src={community.links.logo} alt="" />
                 </Grid.Column>
                 <Grid.Column width={13} className="pl-0">
-                  <Item.Content>
-                    <Item.Header className="ui">
-                      <Header as="a" href={community.links.self_html} size="small">
-                        {community.metadata.title}
-                        {/* Show the icon for communities allowing children, and for subcommunities */}
-                        {(community.children?.allow ||
-                          community.parent !== undefined) && (
-                          <p className="ml-5 display-inline-block">
-                            <Popup
-                              content="Verified community"
-                              trigger={
-                                <Icon
-                                  size="small"
-                                  color="green"
-                                  name="check circle outline"
-                                />
-                              }
-                              position="top center"
-                            />
-                          </p>
-                        )}
-                      </Header>
-                      {community.parent && (
-                        <HeaderSubheader>
-                          {i18next.t("Part of")}{" "}
-                          <a href={`/communities/${community.parent.slug}`}>
-                            {i18next.t(community.parent.metadata.title)}
+                  <Item.Content className="ui">
+                    <Header as="a" href={community.links.self_html} size="small">
+                      {community.metadata.title}
+                      {/* Show the icon for communities allowing children, and for subcommunities */}
+                      {(community.children?.allow ||
+                        community.parent !== undefined) && (
+                        <p className="ml-5 display-inline-block">
+                          <Popup
+                            content="Verified community"
+                            trigger={
+                              <Icon
+                                size="small"
+                                color="green"
+                                name="check circle outline"
+                              />
+                            }
+                            position="top center"
+                          />
+                        </p>
+                      )}
+                    </Header>
+                    {community.parent && (
+                      <HeaderSubheader>
+                        {i18next.t("Part of")}{" "}
+                        <a href={`/communities/${community.parent.slug}`}>
+                          {i18next.t(community.parent.metadata.title)}
+                        </a>
+                      </HeaderSubheader>
+                    )}
+                    {viewRequest && (
+                      <p>
+                        <small>
+                          <a
+                            // building request link as the self_html of the request is
+                            // /requests/<uuid> which doesn't resolve as missing
+                            // /communities/ or /me/. We prefer /communities/ here
+                            href={`${community.links.self_html}requests/${
+                              recordRequests[community.id]?.request_id
+                            }`}
+                          >
+                            <Icon name="discussions" className="mr-5" />
+                            <strong>{i18next.t("View comments")}</strong>
+                            {!recordRequests[community.id]?.is_current &&
+                              i18next.t(" (accepted version)")}
                           </a>
-                        </HeaderSubheader>
-                      )}
-                      {viewRequest && (
-                        <div>
-                          <small>
-                            <b>
-                              <a
-                                // building request link as the self_html of the request is
-                                // /requests/<uuid> which doesn't resolve as missing
-                                // /communities/ or /me/. We prefer /communities/ here
-                                href={`${community.links.self_html}requests/${
-                                  recordRequests[community.id]
-                                }`}
-                              >
-                                <Icon name="discussions" className="mr-5" />
-                                {i18next.t("View comments")}
-                              </a>
-                            </b>
-                          </small>
-                        </div>
-                      )}
-                    </Item.Header>
+                        </small>
+                      </p>
+                    )}
                   </Item.Content>
                 </Grid.Column>
               </Grid.Row>
