@@ -10,6 +10,16 @@
 Changes
 =======
 
+Version v14.0.0b8.dev0 (released 2026-03-20)
+
+- combined b6,b7 (yanked) releases, fixed invenio-jobs alembic branches
+- macros: fix vocabulary custom field search value on landing page
+- breaking change(setup): upgrade invenio packagea
+                          requires alembic upgrade and mappings upgrades
+- feat: add remove_community_from_record permission check
+- fix(ui): group publishing information fields into Journal/Imprint/Thesis sections
+
+
 Version v14.0.0b7.dev1 (released 2026-03-19)
 
 - macros: fix vocabulary custom field search value on landing page
