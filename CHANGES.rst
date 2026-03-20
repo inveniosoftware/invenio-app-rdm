@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version v14.0.0b9.dev0 (released 2026-03-20)
+
+- change(setup): upgrade invenio-checks to fix empty alembic revision
+
 Version v14.0.0b8.dev0 (released 2026-03-20)
 
 - combined b6,b7 (yanked) releases, fixed invenio-jobs alembic branches
