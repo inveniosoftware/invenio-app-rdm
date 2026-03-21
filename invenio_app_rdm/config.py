@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2019-2025 CERN.
+# Copyright (C) 2019-2026 CERN.
 # Copyright (C) 2019-2020 Northwestern University.
 # Copyright (C) 2021-2025 Graz University of Technology.
 # Copyright (C) 2022-2025 KTH Royal Institute of Technology.
@@ -80,7 +80,6 @@ from invenio_rdm_records.services.errors import (
     InvalidAccessRestrictions,
     InvalidCommunityVisibility,
 )
-from invenio_rdm_records.services.github.release import RDMGithubRelease
 from invenio_rdm_records.services.permissions import RDMRequestsPermissionPolicy
 from invenio_rdm_records.services.stats import permissions_policy_lookup_factory
 from invenio_rdm_records.services.tasks import StatsRDMReindexTask
@@ -1480,13 +1479,6 @@ REQUESTS_ERROR_HANDLERS = {
 }
 
 
-# Invenio-Github
-# =================
-#
-GITHUB_RELEASE_CLASS = RDMGithubRelease
-"""Default RDM release class."""
-
-
 # Flask-Menu
 # ==========
 #
@@ -1564,3 +1556,10 @@ APP_RDM_MODERATION_REQUEST_FACETS = {
     "is_open": {"facet": facets.is_open, "ui": {"field": "is_open"}},
 }
 """Available facets defined for this module."""
+
+# Invenio-VCS
+# ===========
+VCS_TEMPLATE_INDEX = "invenio_vcs/rdm-index.html"
+VCS_TEMPLATE_VIEW = "invenio_vcs/rdm-view.html"
+VCS_TEMPLATE_REPO_SWITCH = "invenio_vcs/rdm-repo-switch.html"
+VCS_TEMPLATE_RELEASE_ITEM = "invenio_vcs/rdm-release-item.html"
