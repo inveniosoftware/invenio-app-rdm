@@ -1,0 +1,48 @@
+{#
+Copyright (C) 2026 CERN.
+# Copyright (C) 2026 KTH Royal Institute of Technology.
+
+Invenio App RDM is free software; you can redistribute it and/or modify it
+under the terms of the MIT License; see LICENSE file for more details.
+#}
+
+{% extends admin_base_template %}
+
+{% block page_title %}
+  <div class="rel-mb-2">
+    <a href="{{ list_endpoint or request.referrer }}" class="ui mini button labeled icon rel-mr-1">
+      <i class="ui icon left arrow" aria-hidden="true"></i>
+      {{ _("Back") }}
+    </a>
+  </div>
+  <h1>{{ title or name }}</h1>
+  <div class="ui divider" aria-hidden="true"></div>
+{% endblock page_title %}
+
+{% block admin_page_content %}
+  <div class="ui segment">
+    <h3 class="ui header">{{ _("User information") }}</h3>
+    <div class="ui list">
+      <div class="item">
+        <div class="header">{{ _("Username") }}</div>
+        <div id="invenio-user-username" class="description"></div>
+      </div>
+      <div class="item">
+        <div class="header">{{ _("Email") }}</div>
+        <div id="invenio-user-email" class="description"></div>
+      </div>
+    </div>
+  </div>
+  <div class="ui segment">
+    <h3 class="ui header">{{ _("Role management") }}</h3>
+    <h4 class="ui header">{{ _("Current user roles") }}</h4>
+    <div id="invenio-user-roles" class="ui bulleted list"></div>
+    <div class="ui divider"></div>
+    <div id="invenio-users-manage-roles-root" data-user-id="{{ pid }}"></div>
+  </div>
+{% endblock admin_page_content %}
+
+{% block javascript %}
+  {{ super() }}
+  {{ webpack['invenio-users-administration.js'] }}
+{% endblock %}

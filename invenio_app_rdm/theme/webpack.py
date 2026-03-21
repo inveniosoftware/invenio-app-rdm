@@ -4,6 +4,7 @@
 # Copyright (C) 2019-2022 Northwestern University.
 # Copyright (C)      2022 TU Wien.
 # Copyright (C)      2022 Graz University of Technology.
+# Copyright (C) 2026 KTH Royal Institute of Technology.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -36,6 +37,7 @@ theme = WebpackThemeBundle(
                 "invenio-users-moderation-administration": "./js/invenio_app_rdm/administration/userModeration/index.js",
                 "invenio-requests-administration": "./js/invenio_app_rdm/administration/requests/index.js",
                 "invenio-users-administration": "./js/invenio_app_rdm/administration/users/index.js",
+                "invenio-users-administration-edit": "./js/invenio_app_rdm/administration/users/edit.js",
                 "invenio-records-administration": "./js/invenio_app_rdm/administration/records/index.js",
                 "invenio-drafts-administration": "./js/invenio_app_rdm/administration/drafts/index.js",
                 "invenio-domains-administration": "./js/invenio_app_rdm/administration/domains/index.js",
