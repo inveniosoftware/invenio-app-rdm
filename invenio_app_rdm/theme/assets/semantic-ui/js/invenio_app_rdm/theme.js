@@ -171,3 +171,21 @@ $("#record-tab").on("click", function () {
     iframe.contentWindow.location.reload();
   }
 });
+
+$(".preview-link").on("click", function (event) {
+  if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+    return;
+  }
+  const iframe = document.getElementById("preview-iframe");
+  if (!iframe) {
+    return;
+  }
+
+  setTimeout(() => {
+    iframe.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+    iframe.focus();
+  }, 100);
+});
