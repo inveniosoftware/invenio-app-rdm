@@ -191,6 +191,7 @@ def user_dashboard_request_view(request, **kwargs):
     )
 
     if has_record_topic:
+        # Submission or inclusion request
         topic = _resolve_topic_record(request)
         record_ui = topic["record_ui"]
         record = topic["record"]
@@ -243,14 +244,14 @@ def user_dashboard_request_view(request, **kwargs):
         )
 
     elif has_community_topic or not has_topic:
+        # Invitation or membership request
         return render_template(
             f"invenio_requests/{request_type}/user_dashboard.html",
             base_template="invenio_app_rdm/users/base.html",
             user_avatar=avatar,
             invenio_request=request.to_dict(),
-            request_is_accepted=request_is_accepted,
             permissions={**request_permissions},
-            include_deleted=False,
+            include_deleted=False,  # Could probably be removed
         )
 
     topic = _resolve_topic_record(request)
@@ -372,3 +373,8 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
             user_avatar=avatar,
             include_deleted=False,
         )
+
+
+def is_accepted_request(request_dict):
+    """Jinja test for if request is accepted."""
+    return request_dict["status"] == AcceptAction.status_to

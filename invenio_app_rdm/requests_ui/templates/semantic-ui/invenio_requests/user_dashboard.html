@@ -1,0 +1,37 @@
+{# -*- coding: utf-8 -*-
+
+  Copyright (C) 2026 Northwestern University.
+
+  Invenio App RDM is free software; you can redistribute it and/or modify it
+  under the terms of the MIT License; see LICENSE file for more details.
+#}
+
+{% extends "invenio_requests/details/index.html" %}
+
+{% set title = invenio_request.title %}
+{% set active_dashboard_menu_item = 'requests' %}
+
+{% block request_header %}
+  <div class="flex wrap space-between">
+    <div class="mb-10">
+      <a href="{{ url_for('invenio_app_rdm_users.requests') }}" class="ui small button labeled icon rel-mr-1">
+        <i class="ui icon left arrow" aria-hidden="true"></i>
+        {{ _("Back to requests") }}
+      </a>
+    </div>
+
+    <div id="request-actions" class="flex align-items-center ml-auto mb-10">
+      {% if is_accepted_request(invenio_request) %}
+      <a href="{{ url_for('invenio_app_rdm_communities.communities_detail', pid_value=invenio_request.topic.community) }}"
+        class="ui small button">
+        {{ _("View Community") }}
+      </a>
+      {% endif %}
+    </div>
+  </div>
+
+  <h2 class="ui header">{{ invenio_request.title }}</h2>
+  <p class="ui header">{{ invenio_request.description|safe }}</p>
+
+  <div class="ui divider"></div>
+{% endblock %}
