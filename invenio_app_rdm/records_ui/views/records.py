@@ -108,7 +108,8 @@ def get_record_community(record):
 def get_record_requests(record, identity):
     """Return all requests that concern this record.
 
-    Output: {<Community-UUID>: <Request-UUID>}
+    Output: {<Community-UUID>: {'request_id': <Request-UUID>, 'is_current': boolean}}
+    The boolean indicates if the request is the current record's request.
     """
     can_review = current_rdm_records.records_service.check_permission(
         identity, "review", record=record._record
@@ -119,6 +120,17 @@ def get_record_requests(record, identity):
     if type(identity) is AnonymousIdentity:
         return {}  # secret link users do not have permissions to search requests
 
+    # Get all accepted requests that led to the record being added to the community
+    parent = record._record.parent
+    community_requests = parent.communities.get_accepted_requests()
+    community_requests = {
+        str(r.community_id): {"request_id": str(r.request_id), "is_current": False}
+        for r in community_requests
+    }
+
+    # Get the requests that concern only the current record, i.e. submission or inclusion regardless of their status
+    # This takes precedence over only considering accepted requests because there may be an unaccepted request in this
+    # version of the record that should be shown instead of the accepted request.
     record_requests = current_requests_service.search(
         identity,
         extra_filter=dsl.Q(
@@ -138,8 +150,14 @@ def get_record_requests(record, identity):
         ),
         params={"sort": "oldest"},
     )
+    record_requests = {
+        r["receiver"]["community"]: {"request_id": r["id"], "is_current": True}
+        for r in record_requests
+    }
 
-    return {r["receiver"]["community"]: r["id"] for r in record_requests}
+    community_requests.update(record_requests)
+    # Return a dictionary with the community id mapped to a dictionary with the request id and a boolean indicating if it is the current record request
+    return community_requests
 
 
 class PreviewFile:
