@@ -33,6 +33,12 @@ $("#file-list-table")
     const iframe = document.getElementById("preview-iframe");
     if (iframe && iframe.contentWindow) {
       iframe.contentWindow.location.replace(previewUrl);
+
+      iframe.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+      iframe.focus();
     }
   });
 
