@@ -44,6 +44,13 @@ class SearchResultItemComponent extends Component {
     // See  https://github.com/inveniosoftware/invenio-app-rdm/issues/2849
     const recordOwner = result?.parent?.access?.owned_by;
 
+    let selfLink = result.links.self_html;
+    if (result?.deletion_status?.is_deleted) {
+      const url = new URL(selfLink);
+      url.searchParams.set("include_deleted", "1");
+      selfLink = url.toString();
+    }
+
     return (
       <Table.Row>
         <Table.Cell
@@ -64,7 +71,7 @@ class SearchResultItemComponent extends Component {
             color="red"
             icon="lock"
           />
-          <a target="_blank" rel="noreferrer noopener" href={result.links.self_html}>
+          <a target="_blank" rel="noreferrer noopener" href={selfLink}>
             {_truncate(result.metadata.title || i18next.t("Empty draft title"), {
               length: 100,
             })}
