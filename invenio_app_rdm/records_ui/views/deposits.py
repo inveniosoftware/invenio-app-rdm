@@ -399,6 +399,14 @@ def get_form_config(**kwargs):
     record_quota = kwargs.pop("quota", None)
     if record_quota:
         quota["maxStorage"] = record_quota["quota_size"]
+        quota["defaultStorage"] = current_app.config.get("RDM_FILES_DEFAULT_QUOTA_SIZE")
+        quota["additionalStorage"] = max(quota["maxStorage"] - quota["defaultStorage"], 0)
+        quota["maxAdditionalStorage"] = current_app.config.get(
+            "RDM_FILES_DEFAULT_MAX_ADDITIONAL_QUOTA_SIZE", 0
+        )
+        quota["remainingStorage"] = max(
+            quota["maxAdditionalStorage"] - quota["additionalStorage"], 0
+        )
 
     record = kwargs.pop("record", None)
 
