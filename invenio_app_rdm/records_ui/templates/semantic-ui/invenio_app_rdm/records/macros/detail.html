@@ -215,7 +215,7 @@
 
 
 {% macro _vocabulary_search_url(field, value, field_cfg) %}
-  {% if field_cfg.landing_page_search_attr and field_cfg.landing_page_search_attr in field_cfg %}
+  {% if field_cfg.landing_page_search_attr and field_cfg.landing_page_search_attr in value %}
     {% set search_text = value[field_cfg.landing_page_search_attr] %}
   {% else %}
     {% set search_text = value.title_l10n %}
@@ -252,53 +252,119 @@
 {% endmacro %}
 
 
+{% macro render_custom_field_dt_dd(custom_fields, field_cfg) %}
+  {% set field_value = custom_fields.get(field_cfg.field) %}
+  {% if field_value is not none and field_value != '' %}
+    {% if field_cfg.template %}
+      {% include field_cfg.template %}
+    {% else %}
+      <dt class="ui mini header">
+        {{ field_cfg.props.label }}
+        {% set namespace_url = field_cfg.display_url if field_cfg.display_url is defined else field_cfg.field | namespace_url %}
+        {% if namespace_url %}
+          <a href="{{ namespace_url }}" aria-label="{{ namespace_url }}">
+            <i class="icon external" aria-hidden="true"></i>
+          </a>
+        {% endif %}
+      </dt>
+
+      {% if field_value is string %}
+        <dd>
+          {% set search_url = (field_value | pid_url) if field_cfg.props.is_identifier else (field_cfg.field | custom_fields_search(field_value | safe)) %}
+          {% if search_url %}
+            <a href="{{ search_url }}">{{ field_value | safe }}</a>
+          {% else %}
+            {{ field_value | safe }}
+          {% endif %}
+        </dd>
+      {% elif field_value is boolean %}
+        <dd>
+          {% if field_value %}
+            {{ field_cfg.props.trueLabel }}
+          {% else %}
+            {{ field_cfg.props.falseLabel }}
+          {% endif %}
+        </dd>
+      {% elif field_cfg.is_vocabulary %}
+        <dd>{{ list_vocabulary_values(field_cfg.field, field_value, field_cfg) }}</dd>
+      {% elif field_value is iterable and field_value|length > 0 and field_value[0] is string %}
+        <dd>{{ list_string_values(field_cfg.field, field_value) }}</dd>
+      {% elif field_value is iterable and field_value|length > 0 and field_value[0] is number %}
+        <dd>{{ list_float_values(field_cfg.field, field_value) }}</dd>
+      {% else %}
+        <dd>{{ field_value }}</dd>
+      {% endif %}
+    {% endif %}
+  {% endif %}
+{% endmacro %}
+
+{% macro render_custom_field_group(custom_fields, fields, title) %}
+  {% if fields %}
+    <div class="ui medium header">{{ title }}</div>
+    <dl class="details-list">
+      {% for field_cfg in fields %}
+        {{ render_custom_field_dt_dd(custom_fields, field_cfg) }}
+      {% endfor %}
+    </dl>
+  {% endif %}
+{% endmacro %}
+
 {% macro show_section_custom_fields(custom_fields, section_fields) %}
+  {% set ns = namespace(journal=[], imprint=[], thesis=[], conference=[], other=[]) %}
+
   {% for field_cfg in section_fields %}
     {% set field_value = custom_fields.get(field_cfg.field) %}
-    {% if field_value %}
-      {% if field_cfg.template %}
-        {% include field_cfg.template %}
+    {% if field_value is not none and field_value != '' %}
+      {% if field_cfg.field.startswith('journal:') %}
+        {% set ns.journal = ns.journal + [field_cfg] %}
+      {% elif field_cfg.field.startswith('imprint:') %}
+        {% set ns.imprint = ns.imprint + [field_cfg] %}
+      {% elif field_cfg.field.startswith('thesis:') %}
+        {% set ns.thesis = ns.thesis + [field_cfg] %}
+      {% elif field_cfg.field.startswith('conference:') %}
+        {% set ns.conference = ns.conference + [field_cfg] %}
       {% else %}
-        <dt class="ui tiny header">
-          {{ field_cfg.props.label }}
-          {% set namespace_url = field_cfg.display_url if field_cfg.display_url is defined else field_cfg.field | namespace_url %}
-          {% if namespace_url %}
-            <a href="{{ namespace_url }}" aria-label="{{ namespace_url }}">
-              <i class="icon external" aria-hidden="true"></i>
-            </a>
-          {% endif %}
-        </dt>
-        {% if field_value is string %}
-          <dd>
-            {% set search_url = (field_value | pid_url) if field_cfg.props.is_identifier else (field_cfg.field | custom_fields_search(field_value | safe)) %}
-            {% if search_url %}
-              <a href="{{ search_url }}">{{ field_value | safe }}</a>
-            {% else %}
-              {{ field_value | safe }}
-            {% endif %}
-          </dd>
-        {% elif field_value is boolean %}
-          <dd>
-            {% if field_value %}
-              {{ field_cfg.props.trueLabel }}
-            {% else %}
-              {{ field_cfg.props.falseLabel }}
-            {% endif %}
-          </dd>
-        {% elif field_cfg.is_vocabulary %}
-          <dd>{{ list_vocabulary_values(field_cfg.field, field_value, field_cfg) }}</dd>
-        {% elif field_value is iterable and field_value|length > 0 and field_value[0] is string %}
-          <dd>{{ list_string_values(field_cfg.field, field_value) }}</dd>
-        {% elif field_value is iterable and field_value|length > 0 and field_value[0] is number %}
-          <dd>{{ list_float_values(field_cfg.field, field_value) }}</dd>
-        {% else %}
-          <dd>{{ field_value }}</dd>
-        {% endif %}
+        {% set ns.other = ns.other + [field_cfg] %}
       {% endif %}
     {% endif %}
   {% endfor %}
-{% endmacro %}
 
+  {% if ns.journal or ns.imprint or ns.thesis or ns.conference %}
+    <div class="ui grid publishing-info-grid">
+      {% if ns.journal %}
+        <div class="sixteen wide mobile eight wide tablet five wide computer column">
+          {{ render_custom_field_group(custom_fields, ns.journal, 'Journal') }}
+        </div>
+      {% endif %}
+
+      {% if ns.imprint %}
+        <div class="sixteen wide mobile eight wide tablet five wide computer column">
+          {{ render_custom_field_group(custom_fields, ns.imprint, 'Imprint') }}
+        </div>
+      {% endif %}
+
+      {% if ns.thesis %}
+        <div class="sixteen wide mobile eight wide tablet five wide computer column">
+          {{ render_custom_field_group(custom_fields, ns.thesis, 'Thesis') }}
+        </div>
+      {% endif %}
+
+      {% if ns.conference %}
+        <div class="sixteen wide mobile eight wide tablet five wide computer column">
+          {{ render_custom_field_group(custom_fields, ns.conference, 'Conference') }}
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {% if ns.other %}
+    <dl class="details-list">
+      {% for field_cfg in ns.other %}
+        {{ render_custom_field_dt_dd(custom_fields, field_cfg) }}
+      {% endfor %}
+    </dl>
+  {% endif %}
+{% endmacro %}
 
 {% macro show_detail_conference(conference) %}
   <dd>

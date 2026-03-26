@@ -10,6 +10,52 @@
 Changes
 =======
 
+Version v14.0.0b9.dev0 (released 2026-03-20)
+
+- change(setup): upgrade invenio-checks to fix empty alembic revision
+
+Version v14.0.0b8.dev0 (released 2026-03-20)
+
+- combined b6,b7 (yanked) releases, fixed invenio-jobs alembic branches
+- macros: fix vocabulary custom field search value on landing page
+- breaking change(setup): upgrade invenio packagea
+                          requires alembic upgrade and mappings upgrades
+- feat: add remove_community_from_record permission check
+- fix(ui): group publishing information fields into Journal/Imprint/Thesis sections
+
+
+Version v14.0.0b7.dev1 (released 2026-03-19)
+
+- macros: fix vocabulary custom field search value on landing page
+
+Version v14.0.0b7.dev0 (released 2026-03-10)
+
+- breaking change(setup): upgrade invenio packagea
+                          requires alembic upgrade and mappings upgrades
+- feat: add remove_community_from_record permission check
+- fix(ui): group publishing information fields into Journal/Imprint/Thesis sections
+
+
+Version v14.0.0b6.dev0 (released 2026-03-10)
+
+- breaking change(setup): upgrade invenio packagea
+                          requires alembic upgrade and mappings upgrades
+
+Version v14.0.0b5.dev6 (released 2026-03-03)
+
+- fix(requests): reload preview iframe when opening record tab
+- fix(ui): change padding for children facets in accordion
+- fix(ui): use preset variable to set icon height
+- chore(deps-dev): bump minimatch
+
+Version v14.0.0b5.dev5 (released 2026-02-27)
+
+- fix(record-detail): render access status as safe HTML
+- fix: add record files restriction option to enable cache-control header
+- fix(pending-communities): use self_html link instead of adding /me manually
+- chore(deps-dev): bump lodash
+- fix(config): remove value for the deprecated WSGI_PROXIES variable
+
 Version v14.0.0b5.dev4 (released 2026-02-23)
 
 - fix(db): use UTC for Postgres

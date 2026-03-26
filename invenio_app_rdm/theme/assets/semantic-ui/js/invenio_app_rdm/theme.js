@@ -162,3 +162,12 @@ document.querySelectorAll(".copy-doi-button").forEach((element) => {
     element
   );
 });
+
+$("#record-tab").on("click", function () {
+  // Since we use hidden for record-tab-panel in the request details template, the previewer has
+  // zero width and zero height and it's failing initialization. So we need to reload the iframe.
+  const iframe = document.getElementById("preview-iframe");
+  if (iframe) {
+    iframe.contentWindow.location.reload();
+  }
+});
