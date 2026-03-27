@@ -11,6 +11,12 @@
 Changes
 =======
 
+Version v13.0.9 (released 2026-03-27)
+
+- fix(searchbar): wrap search icon in button element
+- backport: fix for black
+- backport: fix DOI link of record versions to display DOI link from API
+
 Version v13.0.8 (released 2026-01-16)
 
 - fix(landing_page): use text instead of html for fileKey
