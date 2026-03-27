@@ -12,7 +12,7 @@
 """Routes for record-related pages provided by Invenio-App-RDM."""
 
 from copy import deepcopy
-
+from invenio_db import db
 from flask import current_app, g, redirect
 from flask_login import login_required
 from invenio_communities.communities.resources.serializer import (
@@ -51,6 +51,8 @@ from .decorators import (
 )
 from .filters import get_scheme_label
 
+from sqlalchemy import func
+from invenio_rdm_records.records.models import RDMRecordQuota
 
 #
 # Helpers
@@ -404,8 +406,15 @@ def get_form_config(**kwargs):
         quota["maxAdditionalStorage"] = current_app.config.get(
             "RDM_FILES_DEFAULT_MAX_ADDITIONAL_QUOTA_SIZE", 0
         )
+        additional_storage_user = (
+            RDMRecordQuota.query
+            .with_entities(func.coalesce(func.sum(RDMRecordQuota.quota_size - 50 * 10**9), 0))
+            .filter(RDMRecordQuota.user_id == kwargs.pop("user_id", None))
+            .scalar()
+        )
+
         quota["remainingStorage"] = max(
-            quota["maxAdditionalStorage"] - quota["additionalStorage"], 0
+            (quota["maxAdditionalStorage"] - additional_storage_user) + quota["additionalStorage"], 0
         )
 
     record = kwargs.pop("record", None)
@@ -513,6 +522,7 @@ def deposit_create(community=None, community_ui=None):
             quota=get_actual_files_quota(None),
             hide_community_selection=community_use_jinja_header,
             is_doi_required=is_doi_required,
+            user_id=g.identity.id,
         ),
         searchbar_config=dict(searchUrl=get_search_url()),
         record=new_record(),
@@ -612,6 +622,7 @@ def deposit_edit(pid_value, draft=None, draft_files=None, files_locked=True):
         is_doi_required=is_doi_required,
         record=draft._record,
         published_record=published_record,
+        user_id=g.identity.id,
     )
 
     if is_doi_required and not record.get("pids", {}).get("doi"):
