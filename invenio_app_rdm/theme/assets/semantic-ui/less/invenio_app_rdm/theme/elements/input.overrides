@@ -49,3 +49,9 @@
     }
   }
 }
+
+input[type="range"] {
+  padding-left: 0!important;
+  padding-right: 0!important;
+  border: 0!important;
+}
