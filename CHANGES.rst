@@ -11,6 +11,20 @@
 Changes
 =======
 
+Version v13.1.0 (released 2026-03-27)
+
+- feat(requests): backport request view function changes for reviewers
+- chore: reformat with black and fix some linter issues
+- fix: add record files restriction option to enable cache-control header
+- fix: show all contributers on dashboard page
+- fix: manage record link functionality for all versions
+- fix: regex search example
+- fix(tests): pin the setuptools version for the tests
+- search guide: fix regex example in swedish translation
+- search guide: fix regex example
+
+fatal: unrecognized argument: --format
+
 Version v13.0.9 (released 2026-03-27)
 
 - fix(searchbar): wrap search icon in button element
