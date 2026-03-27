@@ -12,7 +12,7 @@
 """Routes for record-related pages provided by Invenio-App-RDM."""
 
 from copy import deepcopy
-from invenio_db import db
+
 from flask import current_app, g, redirect
 from flask_login import login_required
 from invenio_communities.communities.resources.serializer import (
@@ -21,10 +21,12 @@ from invenio_communities.communities.resources.serializer import (
 from invenio_communities.errors import CommunityDeletedError
 from invenio_communities.proxies import current_communities
 from invenio_communities.views.communities import render_community_theme_template
+from invenio_db import db
 from invenio_i18n import lazy_gettext as _
 from invenio_i18n.ext import current_i18n
 from invenio_rdm_records.proxies import current_rdm_records
 from invenio_rdm_records.records.api import get_files_quota
+from invenio_rdm_records.records.models import RDMRecordQuota
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
 from invenio_rdm_records.services.schemas import RDMRecordSchema
 from invenio_rdm_records.services.schemas.utils import dump_empty
@@ -35,10 +37,12 @@ from invenio_search.engine import dsl
 from invenio_vocabularies.proxies import current_service as vocabulary_service
 from invenio_vocabularies.records.models import VocabularyScheme
 from marshmallow_utils.fields.babel import gettext_from_dict
+from sqlalchemy import func
 from sqlalchemy.orm import load_only
 
 from ..utils import (
     evaluate_file_modification,
+    evaluate_quota_increase,
     evaluate_record_deletion,
     set_default_value,
 )
@@ -51,8 +55,6 @@ from .decorators import (
 )
 from .filters import get_scheme_label
 
-from sqlalchemy import func
-from invenio_rdm_records.records.models import RDMRecordQuota
 
 #
 # Helpers
@@ -399,25 +401,31 @@ def get_form_config(**kwargs):
     quota = deepcopy(conf.get("APP_RDM_DEPOSIT_FORM_QUOTA", {}))
     max_file_size = conf.get("RDM_FILES_DEFAULT_MAX_FILE_SIZE", None)
     record_quota = kwargs.pop("quota", None)
+    record = kwargs.pop("record", None)
+    identity = kwargs.pop("identity", None)
+    user_id = identity.id if identity else None
     if record_quota:
         quota["maxStorage"] = record_quota["quota_size"]
         quota["defaultStorage"] = current_app.config.get("RDM_FILES_DEFAULT_QUOTA_SIZE")
-        quota["additionalStorage"] = max(quota["maxStorage"] - quota["defaultStorage"], 0)
+        quota["additionalStorage"] = max(
+            quota["maxStorage"] - quota["defaultStorage"], 0
+        )
         quota["maxAdditionalStorage"] = current_app.config.get(
             "RDM_FILES_DEFAULT_MAX_ADDITIONAL_QUOTA_SIZE", 0
         )
         additional_storage_user = (
-            RDMRecordQuota.query
-            .with_entities(func.coalesce(func.sum(RDMRecordQuota.quota_size - 50 * 10**9), 0))
-            .filter(RDMRecordQuota.user_id == kwargs.pop("user_id", None))
+            RDMRecordQuota.query.with_entities(
+                func.coalesce(func.sum(RDMRecordQuota.quota_size - 50 * 10**9), 0)
+            )
+            .filter(RDMRecordQuota.user_id == user_id)
             .scalar()
         )
-
         quota["remainingStorage"] = max(
-            (quota["maxAdditionalStorage"] - additional_storage_user) + quota["additionalStorage"], 0
+            (quota["maxAdditionalStorage"] - additional_storage_user)
+            + quota["additionalStorage"],
+            0,
         )
-
-    record = kwargs.pop("record", None)
+        quota["quotaIncrease"] = evaluate_quota_increase(record, identity)
 
     return dict(
         vocabularies=VocabulariesOptions().dump(),
@@ -522,7 +530,7 @@ def deposit_create(community=None, community_ui=None):
             quota=get_actual_files_quota(None),
             hide_community_selection=community_use_jinja_header,
             is_doi_required=is_doi_required,
-            user_id=g.identity.id,
+            identity=g.identity,
         ),
         searchbar_config=dict(searchUrl=get_search_url()),
         record=new_record(),
@@ -622,7 +630,7 @@ def deposit_edit(pid_value, draft=None, draft_files=None, files_locked=True):
         is_doi_required=is_doi_required,
         record=draft._record,
         published_record=published_record,
-        user_id=g.identity.id,
+        identity=g.identity,
     )
 
     if is_doi_required and not record.get("pids", {}).get("doi"):

@@ -18,6 +18,7 @@ from invenio_rdm_records.records.api import RDMRecord
 from invenio_rdm_records.requests.record_deletion import RecordDeletion
 from invenio_rdm_records.services.config import (
     FileModificationPolicyEvaluator,
+    QuotaIncreasePolicyEvaluator,
     RDMRecordDeletionPolicy,
 )
 from invenio_records.dictutils import dict_set
@@ -180,3 +181,16 @@ def evaluate_file_modification(record, identity):
         file_modification["context"] = {"days_until": days_until}
 
     return file_modification
+
+
+def evaluate_quota_increase(record, identity):
+    """Evaluate whether a given draft can have its quota increased by an identity."""
+    quota_inc = QuotaIncreasePolicyEvaluator().evaluate(identity, record)
+
+    quota_increase = {
+        "enabled": quota_inc["immediate_quota_increase"].enabled,
+        "valid_user": quota_inc["immediate_quota_increase"].valid_user,
+        "allowed": quota_inc["immediate_quota_increase"].allowed,
+    }
+
+    return quota_increase
