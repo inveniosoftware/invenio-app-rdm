@@ -7,60 +7,54 @@
   under the terms of the MIT License; see LICENSE file for more details.
 #}
 
-{# allows to have conversation/record tab #}
+{#
+  Renders the request details page for guest access requests.
+  Extends community-submission to have conversation/record tabs.
+#}
+
 {% extends "invenio_requests/community-submission/index.html" %}
 
 {% set title = _("Access request") %}
+{% set active_dashboard_menu_item = 'requests' %}
 
-{% from "invenio_requests/macros/request_header.html" import inclusion_request_header %}
+{%- block request_header %}
+  {% from "invenio_requests/macros/request_header.html" import inclusion_request_header %}
 
-{% block page_body %}
-  {%- if not (current_user and current_user.is_authenticated) %}
-    <div class=rel-mt-2>
-      {{ super.super() }}
+  {%- if current_user and current_user.is_authenticated %}
+    {%- set back_button_url = url_for("invenio_app_rdm_users.requests") %}
+    {{ inclusion_request_header(
+        request=invenio_request,
+        record=record,
+        accepted=request_is_accepted,
+        back_button_url=back_button_url,
+        back_button_text=_("Back to requests")
+      ) }}
+
+    <div class="rel-mt-1">
+      <p>
+        <strong>{{ _("Access level:") }}</strong>
+        {{ invenio_request.payload.permission }}
+      </p>
     </div>
-  {% else %}
-    {{ super.super() }}
-  {% endif %}
-  {%- block request_body %}
-    <div class="ui container request-detail-page">
 
-      {%- block request_header %}
-        {%- if current_user and current_user.is_authenticated %}
-          {# only display the header for the receiver #}
-          {%- set back_button_url = url_for("invenio_app_rdm_users.requests") %}
-          {{ inclusion_request_header(
-            back_button_url=back_button_url,
-            back_button_text=_("Back to requests"),
-            request=invenio_request,
-            accepted=request_is_accepted
-          ) }}
-
-        {%- else %}
-          <div class="ui grid rel-mt-2">
-            <div class="twelve wide column">
-              <strong>Access level:</strong>
-              {{ invenio_request.payload.permission }}
-
-            </div>
-            <div id="request-actions" class="four wide column text-align-right">
-            </div>
-          </div>
-        {%- endif %}
-
-        <div class="ui container rel-mt-2">
-          {%- block user_dashboard_body %}
-          {%- endblock user_dashboard_body %}
-        </div>
-
-        <div class="ui divider"></div>
-
-      {%- endblock request_header %}
-
-      {%- block request_timeline %}
-        {{ super() }}
-      {%- endblock request_timeline %}
-
+  {%- else %}
+    <div class="computer-flex-header rel-mt-2">
+      <div class="mb-10">
+        <h2 class="ui header request-header">{{ invenio_request.title }}</h2>
+      </div>
+      <div id="request-actions" class="flex align-items-start ml-auto mb-10">
+      </div>
     </div>
-  {% endblock request_body %}
-{% endblock page_body %}
+
+    <div class="rel-mt-1">
+      <p>
+        <strong>{{ _("Access level:") }}</strong>
+        {{ invenio_request.payload.permission }}
+      </p>
+    </div>
+  {%- endif %}
+
+  {%- block user_dashboard_body %}
+  {%- endblock user_dashboard_body %}
+
+{%- endblock request_header %}

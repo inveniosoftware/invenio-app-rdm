@@ -93,7 +93,12 @@ def _resolve_topic_record(request):
             record = current_rdm_records_service.read_draft(
                 g.identity, pid, expand=True
             )
-    except (NoResultFound, PIDDoesNotExistError, RecordDeletedException):
+    except (
+        NoResultFound,
+        PIDDoesNotExistError,
+        RecordDeletedException,
+        PermissionDeniedError,
+    ):
         # We catch PIDDoesNotExistError because a published record with
         # a soft-deleted draft will raise this error. The lines below
         # will catch the case that a id does not exists and raise a
@@ -102,7 +107,7 @@ def _resolve_topic_record(request):
         try:
             # read published record
             record = current_rdm_records_service.read(g.identity, pid, expand=True)
-        except (NoResultFound, RecordDeletedException):
+        except (NoResultFound, RecordDeletedException, PermissionDeniedError):
             # record tab not displayed when the record is not found
             # the request is probably not open anymore
             pass
@@ -131,17 +136,16 @@ def _resolve_topic_record(request):
 
 def _resolve_record_or_draft_files(record, request):
     """Resolve the record's or draft's files."""
-    request_type = request["type"]
-    is_record_inclusion = request_type == CommunityInclusion.type_id
     if record and record["files"]["enabled"]:
         record_pid = record["id"]
+        is_draft = record.get("is_draft", False)
         try:
-            if is_record_inclusion:
-                files = files_service().list_files(id_=record_pid, identity=g.identity)
-            else:
+            if is_draft:
                 files = draft_files_service().list_files(
                     id_=record_pid, identity=g.identity
                 )
+            else:
+                files = files_service().list_files(id_=record_pid, identity=g.identity)
         except NoResultFound:
             files = files_service().list_files(id_=record_pid, identity=g.identity)
         return files.to_dict()
@@ -150,17 +154,16 @@ def _resolve_record_or_draft_files(record, request):
 
 def _resolve_record_or_draft_media_files(record, request):
     """Resolve the record's or draft's media files."""
-    request_type = request["type"]
-    is_record_inclusion = request_type == CommunityInclusion.type_id
     if record and record["media_files"]["enabled"]:
         record_pid = record["id"]
+        is_draft = record.get("is_draft", False)
         try:
-            if is_record_inclusion:
-                media_files = media_files_service().list_files(
+            if is_draft:
+                media_files = draft_media_files_service().list_files(
                     id_=record_pid, identity=g.identity
                 )
             else:
-                media_files = draft_media_files_service().list_files(
+                media_files = media_files_service().list_files(
                     id_=record_pid, identity=g.identity
                 )
         except NoResultFound:
