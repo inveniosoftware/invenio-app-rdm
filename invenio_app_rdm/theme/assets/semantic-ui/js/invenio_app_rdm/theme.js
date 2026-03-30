@@ -145,12 +145,13 @@ $authButton.on({ click: handleAuthButtonClick });
 const invenioConfig = JSON.parse(document.body.dataset.invenioConfig);
 const isMathJaxEnabled = invenioConfig?.isMathJaxEnabled;
 if (window.invenio) {
-  window.invenio.onSearchResultsRendered = async () => {
+  window.invenio.onSearchResultsRendered = async (elements) => {
     if (isMathJaxEnabled) {
       // Re-render mathematical content on the page using MathJax.
       // The promise is required to make sure that MathJax is fully loaded before
       // typesetting, and potentially autoloading extra extensions.
-      await window.MathJax.typesetPromise();
+      // Only render the list of elements that are provided, otherwise render all elements (when undefined).
+      await window.MathJax.typesetPromise(elements);
     }
   };
 }
