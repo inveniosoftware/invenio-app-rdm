@@ -78,7 +78,9 @@ export class AddUserGroupAccessModal extends Component {
       searchBarTooltip = i18next.t(
         "Search for users to grant access (only users with a public profile can be invited)"
       );
-      searchBarPlaceholder = i18next.t("Search by email, full name or username");
+      searchBarPlaceholder = i18next.t(
+        "Search by full name, username or email (if publicly visible)"
+      );
       doneButtonTipType = i18next.t("users");
     }
     if (searchType === "role") {
