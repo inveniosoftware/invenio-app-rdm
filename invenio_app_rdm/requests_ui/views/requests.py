@@ -198,8 +198,18 @@ def user_dashboard_request_view(request, **kwargs):
         is_published = record_ui["is_published"] if record_ui else False
         has_draft = record._record.has_draft if record else False
 
-        files = _resolve_record_or_draft_files(record_ui, request)
-        media_files = _resolve_record_or_draft_media_files(record_ui, request)
+        files = None
+        media_files = None
+        try:
+            files = _resolve_record_or_draft_files(record_ui, request)
+            media_files = _resolve_record_or_draft_media_files(record_ui, request)
+        except PermissionDeniedError:
+            # If the user can't access the files of the record (e.g. if it's a user access request),
+            # we should still show them the request, just without the files. In the example of the
+            # user access request, we don't show the record preview tab anyway, so this is not needed.
+            # If the user does not have permission, the `files`/`media_files` will simply be None.
+            # Therefore, this doesn't risk overriding the permission system or exposing files.
+            pass
 
         checks = None
         if current_app.config.get("CHECKS_ENABLED", False) and record:
