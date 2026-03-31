@@ -107,43 +107,6 @@ def get_record_community(record):
         return None, None
 
 
-def get_record_requests(record, identity):
-    """Return all requests that concern this record.
-
-    Output: {<Community-UUID>: <Request-UUID>}
-    """
-    can_review = current_rdm_records.records_service.check_permission(
-        identity, "review", record=record._record
-    )
-    if not can_review:
-        return {}
-
-    if type(identity) is AnonymousIdentity:
-        return {}  # secret link users do not have permissions to search requests
-
-    record_requests = current_requests_service.search(
-        identity,
-        extra_filter=dsl.Q(
-            "bool",
-            must=[
-                dsl.Q("term", **{"topic.record": record["id"]}),
-                dsl.Q(
-                    "terms",
-                    **{
-                        "type": [
-                            CommunityInclusion.type_id,
-                            CommunitySubmission.type_id,
-                        ]
-                    },
-                ),
-            ],
-        ),
-        params={"sort": "oldest"},
-    )
-
-    return {r["receiver"]["community"]: r["id"] for r in record_requests}
-
-
 class PreviewFile:
     """Preview file implementation for InvenioRDM.
 
@@ -346,7 +309,11 @@ def record_detail(
     )
     theme = resolved_community_ui.get("theme", {}) if resolved_community else None
 
-    record_requests = get_record_requests(record, g.identity)
+    record_requests = (
+        current_rdm_records.record_communities_service.get_record_requests(
+            g.identity, record
+        )
+    )
 
     # permissions needs to include extra params to be passed to the template
     permissions = record.has_permissions_to(
