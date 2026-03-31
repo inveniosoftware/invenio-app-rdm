@@ -134,44 +134,62 @@ def _resolve_topic_record(request):
     return dict(permissions={}, record_ui=None, record=None)
 
 
+def _list_files(service, record_pid):
+    return service.list_files(id_=record_pid, identity=g.identity).to_dict()
+
+
 def _resolve_record_or_draft_files(record, request):
-    """Resolve the record's or draft's files."""
-    if record and record["files"]["enabled"]:
-        record_pid = record["id"]
-        is_draft = record.get("is_draft", False)
+    """Resolve the record's or draft's files.
+
+    Returns None if the record has no files, files are disabled, or if the
+    user doesn't have permission to access them (e.g. user-access-request
+    where the requester can view the request but not the record's files).
+    """
+    if not record or not record["files"]["enabled"]:
+        return None
+
+    record_pid = record["id"]
+    is_draft = record.get("is_draft", False)
+
+    primary_service = draft_files_service() if is_draft else files_service()
+    fallback_service = files_service()
+
+    try:
+        return _list_files(primary_service, record_pid)
+    except NoResultFound:
         try:
-            if is_draft:
-                files = draft_files_service().list_files(
-                    id_=record_pid, identity=g.identity
-                )
-            else:
-                files = files_service().list_files(id_=record_pid, identity=g.identity)
-        except NoResultFound:
-            files = files_service().list_files(id_=record_pid, identity=g.identity)
-        return files.to_dict()
-    return None
+            return _list_files(fallback_service, record_pid)
+        except PermissionDeniedError:
+            return None
+    except PermissionDeniedError:
+        return None
 
 
 def _resolve_record_or_draft_media_files(record, request):
-    """Resolve the record's or draft's media files."""
-    if record and record["media_files"]["enabled"]:
-        record_pid = record["id"]
-        is_draft = record.get("is_draft", False)
+    """Resolve the record's or draft's media files.
+
+    Returns None if the record has no media files, media files are disabled,
+    or if the user doesn't have permission to access them (e.g. user-access-request
+    where the requester can view the request but not the record's media files).
+    """
+    if not record or not record["media_files"]["enabled"]:
+        return None
+
+    record_pid = record["id"]
+    is_draft = record.get("is_draft", False)
+
+    primary_service = draft_media_files_service() if is_draft else media_files_service()
+    fallback_service = media_files_service()
+
+    try:
+        return _list_files(primary_service, record_pid)
+    except NoResultFound:
         try:
-            if is_draft:
-                media_files = draft_media_files_service().list_files(
-                    id_=record_pid, identity=g.identity
-                )
-            else:
-                media_files = media_files_service().list_files(
-                    id_=record_pid, identity=g.identity
-                )
-        except NoResultFound:
-            media_files = media_files_service().list_files(
-                id_=record_pid, identity=g.identity
-            )
-        return media_files.to_dict()
-    return None
+            return _list_files(fallback_service, record_pid)
+        except PermissionDeniedError:
+            return None
+    except PermissionDeniedError:
+        return None
 
 
 @login_required
