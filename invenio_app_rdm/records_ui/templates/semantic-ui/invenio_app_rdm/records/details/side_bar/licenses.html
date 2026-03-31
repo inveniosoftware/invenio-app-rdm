@@ -27,7 +27,7 @@
     <div id="licenses" class="ui segment bottom attached rdm-sidebar">
       <dl class="details-list">
       {% if rights %}
-        <dt class="ui tiny header">License</dt>
+        <dt class="ui tiny header">{{ _("License") }}</dt>
           {%- for license in rights -%}
             <dd id="license-{{ license.id }}-{{ loop.index }}" class="has-popup">
               <div id="title-{{ license.id }}-{{ loop.index }}"
