@@ -7,6 +7,7 @@
 
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import _get from "lodash/get";
+import _truncate from "lodash/truncate";
 import React, { Component } from "react";
 import Overridable from "react-overridable";
 import { SearchItemCreators } from "../utils";
@@ -49,6 +50,7 @@ class RecordsResultsListItem extends Component {
     );
     const subjects = _get(result, "ui.subjects", []);
     const title = _get(result, "metadata.title", i18next.t("No title"));
+    const titleTruncated = _truncate(title, { length: 100 });
     const version = _get(result, "ui.version", null);
     const versions = _get(result, "versions");
     const uniqueViews = _get(result, "stats.all_versions.unique_views", 0);
@@ -103,7 +105,7 @@ class RecordsResultsListItem extends Component {
               </Label>
             </Item.Extra>
             <Item.Header as="h2" className="theme-primary-text">
-              <a href={viewLink}>{title}</a>
+              <a href={viewLink}>{titleTruncated}</a>
             </Item.Header>
             <Item className="creatibutors">
               <SearchItemCreators creators={creators} othersLink={viewLink} />
