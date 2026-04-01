@@ -86,6 +86,37 @@ button:focus-visible, a:focus-visible {
 
 .wrap-overflowing-text {
   word-wrap: break-word;
+  overflow-wrap: anywhere;
+
+  mjx-container[jax="CHTML"],
+  mjx-container[jax="CHTML"] > mjx-math,
+  mjx-container[jax="CHTML"] mjx-mrow,
+  mjx-container[jax="CHTML"] mjx-texatom,
+  mjx-container[jax="CHTML"] mjx-mi,
+  mjx-container[jax="CHTML"] mjx-mo,
+  mjx-container[jax="CHTML"] mjx-mn,
+  mjx-container[jax="CHTML"] mjx-msub,
+  mjx-container[jax="CHTML"] mjx-msup,
+  mjx-container[jax="CHTML"] mjx-msubsup {
+    white-space: normal !important;
+  }
+}
+
+.rich-input-content {
+  overflow-wrap: anywhere;
+
+  mjx-container[jax="CHTML"],
+  mjx-container[jax="CHTML"] > mjx-math,
+  mjx-container[jax="CHTML"] mjx-mrow,
+  mjx-container[jax="CHTML"] mjx-texatom,
+  mjx-container[jax="CHTML"] mjx-mi,
+  mjx-container[jax="CHTML"] mjx-mo,
+  mjx-container[jax="CHTML"] mjx-mn,
+  mjx-container[jax="CHTML"] mjx-msub,
+  mjx-container[jax="CHTML"] mjx-msup,
+  mjx-container[jax="CHTML"] mjx-msubsup {
+    white-space: normal !important;
+  }
 }
 
 // Log-in and sign-up
