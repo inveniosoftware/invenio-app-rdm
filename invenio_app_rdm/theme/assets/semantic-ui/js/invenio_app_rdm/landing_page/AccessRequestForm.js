@@ -197,7 +197,7 @@ export class AccessRequestForm extends Component {
                           control={Checkbox}
                           fieldPath="consent_to_share_personal_data"
                           label={i18next.t(
-                            "I agree to that my full name and email address is shared with the owners of the record"
+                            "I agree that my full name and email address will be shared with the owners of the record"
                           )}
                           onChange={this.handleChangeConsent}
                         />
