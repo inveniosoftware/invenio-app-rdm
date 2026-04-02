@@ -38,9 +38,7 @@ from .communities import (
 
 def _show_browse_page():
     """Whether the browse page should be visible in the menu."""
-    feature_enabled = current_app.config.get(
-        "COMMUNITIES_SHOW_BROWSE_MENU_ENTRY", False
-    )
+    feature_enabled = current_app.config.get("COMMUNITIES_COLLECTIONS_ENABLED", True)
     if not feature_enabled:
         return False
 
