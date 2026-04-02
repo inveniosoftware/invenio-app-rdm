@@ -1065,8 +1065,6 @@ COMMUNITIES_RECORDS_SEARCH = {
 }
 """Community requests search configuration (i.e list of community requests)"""
 
-COMMUNITIES_SHOW_BROWSE_MENU_ENTRY = False
-"""Toggle to show or hide the 'Browse' menu entry for communities."""
 
 # Invenio-RDM-Records
 # ===================
