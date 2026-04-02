@@ -14,6 +14,7 @@ from itertools import chain
 
 from flask import current_app
 from invenio_access.permissions import system_identity
+from invenio_rdm_records.proxies import current_rdm_records_storage_service
 from invenio_rdm_records.records.api import RDMRecord
 from invenio_rdm_records.requests.record_deletion import RecordDeletion
 from invenio_rdm_records.services.config import (
@@ -192,5 +193,30 @@ def evaluate_quota_increase(record, identity):
         "valid_user": quota_inc["immediate_quota_increase"].valid_user,
         "allowed": quota_inc["immediate_quota_increase"].allowed,
     }
+
+    if quota_increase["enabled"] and quota_increase["valid_user"]:
+        user_id = identity.id if identity else None
+        quota_increase["defaultStorage"] = (
+            current_rdm_records_storage_service.default_quota(user_id)
+        )
+        quota_increase["additionalStorage"] = (
+            current_rdm_records_storage_service.additional_storage(user_id, record)
+        )
+        quota_increase["maxAdditionalStorage"] = (
+            current_rdm_records_storage_service.max_additional_quota
+        )
+        quota_increase["minAdditionalQuotaValue"] = (
+            current_rdm_records_storage_service.min_additional_quota_value(
+                user_id, record
+            )
+        )
+        quota_increase["maxAdditionalQuotaValue"] = (
+            current_rdm_records_storage_service.max_additional_quota_value(
+                user_id, record
+            )
+        )
+        quota_increase["remainingStorage"] = (
+            current_rdm_records_storage_service.remaining_storage(user_id, record)
+        )
 
     return quota_increase

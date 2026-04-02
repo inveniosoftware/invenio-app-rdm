@@ -68,8 +68,8 @@ export class SetQuotaForm extends Component {
 
       addNotification({
         title: i18next.t("Success"),
-        content: i18next.t("Quota of {{id}} was set to {{quota}} {{unit}}", {
-          id: resource.id,
+        content: i18next.t("Quota of @{{username}} was set to {{quota}} {{unit}}", {
+          username: resource.username,
           quota: quotaInGb || quotaSize,
           unit: quotaInGb ? "GB" : "bytes",
         }),

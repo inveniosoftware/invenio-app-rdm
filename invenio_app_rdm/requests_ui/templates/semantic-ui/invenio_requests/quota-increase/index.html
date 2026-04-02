@@ -22,16 +22,20 @@
       back_button_url=back_button_url,
       back_button_text=_("Back to requests")
     ) }}
+
+    <div class="twelve wide column mt-10">
+      <p><strong>{{ _("Quota size:") }}</strong> {{ invenio_request["payload"]["quota_size"] }} GB</p>
+    </div>
 {%- endblock request_header %}
 
 {% block request_timeline %}
   <div
     class="ui container rdm-tab-container fluid rel-pt-2 ml-0-mobile mr-0-mobile"
-    id="request-request-deletion-tab-container"
+    id="request-quota-increase-tab-container"
   >
     <div
       class="ui secondary pointing menu rdm-tab-menu"
-      id="request-deletion-request-tab"
+      id="request-quota-increase-tab"
     >
       <a
         class="active item"
