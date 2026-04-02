@@ -21,12 +21,10 @@ from invenio_communities.communities.resources.serializer import (
 from invenio_communities.errors import CommunityDeletedError
 from invenio_communities.proxies import current_communities
 from invenio_communities.views.communities import render_community_theme_template
-from invenio_db import db
 from invenio_i18n import lazy_gettext as _
 from invenio_i18n.ext import current_i18n
 from invenio_rdm_records.proxies import current_rdm_records
 from invenio_rdm_records.records.api import get_files_quota
-from invenio_rdm_records.records.models import RDMRecordQuota
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
 from invenio_rdm_records.services.schemas import RDMRecordSchema
 from invenio_rdm_records.services.schemas.utils import dump_empty
@@ -37,7 +35,6 @@ from invenio_search.engine import dsl
 from invenio_vocabularies.proxies import current_service as vocabulary_service
 from invenio_vocabularies.records.models import VocabularyScheme
 from marshmallow_utils.fields.babel import gettext_from_dict
-from sqlalchemy import func
 from sqlalchemy.orm import load_only
 
 from ..utils import (
@@ -403,28 +400,8 @@ def get_form_config(**kwargs):
     record_quota = kwargs.pop("quota", None)
     record = kwargs.pop("record", None)
     identity = kwargs.pop("identity", None)
-    user_id = identity.id if identity else None
     if record_quota:
         quota["maxStorage"] = record_quota["quota_size"]
-        quota["defaultStorage"] = current_app.config.get("RDM_FILES_DEFAULT_QUOTA_SIZE")
-        quota["additionalStorage"] = max(
-            quota["maxStorage"] - quota["defaultStorage"], 0
-        )
-        quota["maxAdditionalStorage"] = current_app.config.get(
-            "RDM_FILES_DEFAULT_MAX_ADDITIONAL_QUOTA_SIZE", 0
-        )
-        additional_storage_user = (
-            RDMRecordQuota.query.with_entities(
-                func.coalesce(func.sum(RDMRecordQuota.quota_size - 50 * 10**9), 0)
-            )
-            .filter(RDMRecordQuota.user_id == user_id)
-            .scalar()
-        )
-        quota["remainingStorage"] = max(
-            (quota["maxAdditionalStorage"] - additional_storage_user)
-            + quota["additionalStorage"],
-            0,
-        )
         quota["quotaIncrease"] = evaluate_quota_increase(record, identity)
 
     return dict(
