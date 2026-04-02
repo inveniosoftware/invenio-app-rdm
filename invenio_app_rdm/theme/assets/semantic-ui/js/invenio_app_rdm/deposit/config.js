@@ -34,11 +34,11 @@ const depositFormSectionsConfig = {
 
 const severityChecksConfig = {
   info: {
-    label: i18next.t("Recommendation"),
+    label: i18next.t("Recommendation(s)"),
     description: i18next.t("This check is recommended but not mandatory."),
   },
   error: {
-    label: i18next.t("Error"),
+    label: i18next.t("Error(s)"),
     description: i18next.t(
       "This check indicates a critical issue that must be addressed."
     ),
