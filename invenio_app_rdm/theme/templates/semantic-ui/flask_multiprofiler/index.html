@@ -1,0 +1,24 @@
+{# -*- coding: utf-8 -*-
+
+  This file is part of Invenio.
+  Copyright (C) 2026 TU Wien.
+
+  Invenio is free software; you can redistribute it and/or modify it
+  under the terms of the MIT License; see LICENSE file for more details.
+#}
+
+{%- extends config.BASE_TEMPLATE %}
+
+{%- block head_title -%}
+  <title>{{ _("Profiler") }}</title>
+{%- endblock -%}
+
+{%- block javascript -%}
+  {{ super() }}
+  {{ webpack["flask-multiprofiler-code.js"] }}
+{%- endblock %}
+
+{%- block css %}
+  {{ super() }}
+  {{ webpack["flask-multiprofiler-style.css"] }}
+{%- endblock css %}
