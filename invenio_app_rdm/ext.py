@@ -16,6 +16,24 @@ from invenio_i18n import lazy_gettext as _
 
 from .communities_ui.views.ui import _show_browse_page
 
+try:
+    from flask_multiprofiler import MultiProfiler
+
+except (ImportError, ModuleNotFoundError):
+
+    class MultiProfiler:
+        """Dummy profiler for entrypoints if Flask-MultiProfiler isn't installed.
+
+        Note that this dummy extension does not register itself to ``app.extensions``.
+        """
+
+        def __init__(self, app=None):
+            """Constructor."""
+
+        def init_app(self, app):
+            """Initialize application."""
+            self.app = app
+
 
 def _is_branded_community():
     """Function used to check if community is branded."""
