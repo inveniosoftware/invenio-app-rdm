@@ -2,6 +2,7 @@
 #
 # Copyright (C) 2025 CERN.
 # Copyright (C) 2025 KTH Royal Institute of Technology.
+# Copyright (C) 2026 Paradigm Repositories.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -9,9 +10,7 @@
 """Helpers for administration moderation access checks."""
 
 from flask import g
-from flask_principal import RoleNeed
-from invenio_access import Permission
-from invenio_access.permissions import superuser_access
+from invenio_access import ActionNeed, Permission
 
 
 def can_access_user_administration(identity=None):
@@ -20,12 +19,6 @@ def can_access_user_administration(identity=None):
     if not identity:
         return False
 
-    provides = identity.provides
-    admin_need = RoleNeed("administration")
-    moderator_need = RoleNeed("administration-moderation")
-
-    permission = Permission(superuser_access)
-    if permission.allows(identity):
-        return True
-
-    return admin_need in provides and moderator_need in provides
+    moderator_need = ActionNeed("administration-moderation")
+    permission = Permission(moderator_need)
+    return permission.allows(identity)
