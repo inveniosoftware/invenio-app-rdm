@@ -10,6 +10,38 @@
 Changes
 =======
 
+Version v14.0.0b10.dev0 (released 2026-04-08)
+
+- chore(config): update collections task import
+- chore: upgrade major dependencies
+- feat(manage): Add view audit logs option to manage menu
+- feat(audit_logs): Allow diff view for access audit logs
+- fix(RevisionsDiffViewer.js): Use better diff algo & diff from metadata
+- fix: allow rendering request page without file permissions
+- fix: templates for guest and user access
+- fix: detail url from the dashboard
+- ui(translations): addition to fix incorrect pluralization in react-invenio-forms
+- feat(mshp-req): add icon to membership request in listing
+- refactor(invitation-req): user user_dashboard.html common to mbshp req
+- feat(mshp-req): create user dashboard membership request discussion page [+]
+- tests: fixtures: OpenAIRE resource type consistent format
+- collections: update conf variable to use COMMUNITIES_COLLECTIONS_ENABLED
+- fix(communities): update collections service call to use namespace_id
+- collections: update browse display rule
+- fix: fixed hacky pluralization of contributors
+- fix: typo in users with access
+- AddUserGroupAccessModal: De-emphasize search by email
+- feat: compat with new invenio-vcs module
+- ui(translations): mark string as translatable
+- refactor(MathJax): Pass elements to typesetPromise to optimize re-render  
+- style: fix wide community logo in community selection and request metadata
+- fix(searchbar): wrap search icon in button element
+- feat: add max-width to tombstone container
+- fix: using app locale for citations 
+- Fix to display latex symbols correctly in homepage.
+- fix(file-preview): focus previewer when Preview button is clicked
+
+
 Version v14.0.0b9.dev0 (released 2026-03-20)
 
 - change(setup): upgrade invenio-checks to fix empty alembic revision
