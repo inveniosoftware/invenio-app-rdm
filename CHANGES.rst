@@ -10,6 +10,19 @@
 Changes
 =======
 
+Version v14.0.0b10.dev5 (released 2026-04-09)
+
+- fix: display of range input on Chrome
+    without this CSS, there is a 2em gap on either side of the progress bar
+    which makes it look like you could get more/less quota. Firefox is not
+    affected with or without CSS. For some reason !important is needed as
+    the overrides don't come after the CSS we're trying to override
+- assets: added override for progress bar
+- chore: deprecate FILES_REST in favour of RDM_FILES
+    This was deprecated in RDM records in August 2024
+    https://github.com/inveniosoftware/invenio-rdm-records/pull/1789/changes
+- feat(storage-quota): deposit form intergration and request templates
+
 Version v14.0.0b10.dev4 (released 2026-04-09)
 
 - fix(tasks): correct collection task registration
@@ -50,11 +63,11 @@ Version v14.0.0b10.dev0 (released 2026-04-08)
 - AddUserGroupAccessModal: De-emphasize search by email
 - feat: compat with new invenio-vcs module
 - ui(translations): mark string as translatable
-- refactor(MathJax): Pass elements to typesetPromise to optimize re-render  
+- refactor(MathJax): Pass elements to typesetPromise to optimize re-render
 - style: fix wide community logo in community selection and request metadata
 - fix(searchbar): wrap search icon in button element
 - feat: add max-width to tombstone container
-- fix: using app locale for citations 
+- fix: using app locale for citations
 - Fix to display latex symbols correctly in homepage.
 - fix(file-preview): focus previewer when Preview button is clicked
 
