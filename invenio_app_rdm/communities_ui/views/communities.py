@@ -25,9 +25,9 @@ from invenio_i18n import get_locale
 from invenio_pages.proxies import current_pages_service
 from invenio_pages.records.errors import PageNotFoundError
 from invenio_rdm_records.proxies import (
+    current_community_collections_service,
     current_community_records_service,
 )
-from invenio_rdm_records.proxies import current_community_collections_service
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
 from invenio_records_resources.services.errors import PermissionDeniedError
 
