@@ -173,3 +173,17 @@ def init_menu(app):
         },
         **dict(icon="upload", permissions="can_read"),
     )
+
+    # register a menu entry for the profiler, if it is installed
+    if "multiprofiler" in app.extensions:
+        permission_check_func = app.config["MULTIPROFILER_PERMISSION"]
+        current_menu.submenu("profile-admin.profiler").register(
+            "profiler.index",
+            text=_(
+                "%(icon)s Profiler",
+                icon='<i class="bar chart icon"></i>',
+            ),
+            order=10,
+            visible_when=permission_check_func,
+            permissions="can_read",
+        )
