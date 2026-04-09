@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version v14.0.0b10.dev3 (released 2026-04-09)
+
+- feat(communities-browse): show subcommunities section only if community allows
+
 Version v14.0.0b10.dev2 (released 2026-04-09)
 
 - fix(views-ui): fix wrong import for collections service
