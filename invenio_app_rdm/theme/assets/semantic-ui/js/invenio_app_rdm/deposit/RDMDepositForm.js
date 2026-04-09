@@ -262,6 +262,7 @@ export class RDMDepositForm extends Component {
                     severityChecks={this.severityChecks}
                     active
                     label={i18next.t("Basic information")}
+                    data-label={i18next.t("Basic information")}
                     id="basic-information-section"
                   >
                     <Overridable
@@ -432,6 +433,7 @@ export class RDMDepositForm extends Component {
                     }
                     severityChecks={this.severityChecks}
                     label={i18next.t("Recommended information")}
+                    data-label={i18next.t("Recommended information")}
                     id="recommended-information-section"
                   >
                     <Overridable
@@ -541,6 +543,7 @@ export class RDMDepositForm extends Component {
                     severityChecks={this.severityChecks}
                     active
                     label={i18next.t("Funding")}
+                    data-label={i18next.t("Funding")}
                     ui={this.accordionStyle}
                     id="funding-section"
                   >
@@ -646,6 +649,7 @@ export class RDMDepositForm extends Component {
                     severityChecks={this.severityChecks}
                     active
                     label={i18next.t("Alternate identifiers")}
+                    data-label={i18next.t("Alternate identifiers")}
                     id="alternate-identifiers-section"
                   >
                     <Overridable
@@ -683,6 +687,7 @@ export class RDMDepositForm extends Component {
                     severityChecks={this.severityChecks}
                     active
                     label={i18next.t("Related works")}
+                    data-label={i18next.t("Related works")}
                     id="related-works-section"
                   >
                     <Overridable
@@ -717,6 +722,7 @@ export class RDMDepositForm extends Component {
                     severityChecks={this.severityChecks}
                     active
                     label={i18next.t("References")}
+                    data-label={i18next.t("References")}
                     id="references-section"
                   >
                     <Overridable
