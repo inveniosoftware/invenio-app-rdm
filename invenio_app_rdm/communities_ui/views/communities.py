@@ -14,7 +14,6 @@ from invenio_collections.errors import (
     CollectionTreeNotFound,
     LogoNotFoundError,
 )
-from invenio_collections.proxies import current_collections
 from invenio_communities.views.communities import (
     HEADER_PERMISSIONS,
     _get_roles_can_invite,
@@ -28,6 +27,7 @@ from invenio_pages.records.errors import PageNotFoundError
 from invenio_rdm_records.proxies import (
     current_community_records_service,
 )
+from invenio_rdm_records.proxies import current_community_collections_service
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
 from invenio_records_resources.services.errors import PermissionDeniedError
 
@@ -55,7 +55,7 @@ def communities_detail(pid_value, community, community_ui):
 def communities_home(pid_value, community, community_ui):
     """Community home page."""
     query_params = request.args
-    collections_service = current_collections.service
+    collections_service = current_community_collections_service
     permissions = community.has_permissions_to(HEADER_PERMISSIONS)
     if not permissions["can_read"]:
         raise PermissionDeniedError()
@@ -126,7 +126,7 @@ def communities_browse(pid_value, community, community_ui):
     """Community browse page."""
     permissions = community.has_permissions_to(HEADER_PERMISSIONS)
 
-    collections_service = current_collections.service
+    collections_service = current_community_collections_service
 
     trees_ui = collections_service.list_trees(
         g.identity, namespace_id=community.id, depth=2
@@ -176,7 +176,7 @@ def community_collection(
     community, community_ui, pid_value, tree_slug=None, collection_slug=None
 ):
     """Render a community collection page."""
-    collections_service = current_collections.service
+    collections_service = current_community_collections_service
     try:
         collection = collections_service.read(
             identity=g.identity,

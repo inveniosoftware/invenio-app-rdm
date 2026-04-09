@@ -10,7 +10,6 @@
 """Communities UI blueprints module."""
 
 from flask import Blueprint, current_app, g, request
-from invenio_collections.proxies import current_collections
 from invenio_collections.searchapp import search_app_context as c_search_app_context
 from invenio_communities.errors import CommunityDeletedError
 from invenio_communities.views.ui import (
@@ -19,6 +18,9 @@ from invenio_communities.views.ui import (
     record_tombstone_error,
 )
 from invenio_pidstore.errors import PIDDeletedError, PIDDoesNotExistError
+from invenio_rdm_records.proxies import (
+    current_community_records_service,
+)
 from invenio_records_resources.services.errors import (
     PermissionDeniedError,
     RecordPermissionDeniedError,
@@ -50,7 +52,7 @@ def _show_browse_page():
 
     has_collections = False
     try:
-        collections_service = current_collections.service
+        collections_service = current_community_records_service
         community_id = community.get("id")
         if community_id:
             trees = collections_service.list_trees(
