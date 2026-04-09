@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version v14.0.0b10.dev1 (released 2026-04-09)
+
+- fix(views): set correct collections service reference
+
 Version v14.0.0b10.dev0 (released 2026-04-08)
 
 - chore(config): update collections task import
