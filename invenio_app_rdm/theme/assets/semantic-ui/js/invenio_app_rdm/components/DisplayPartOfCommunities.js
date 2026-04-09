@@ -52,7 +52,7 @@ export const DisplayPartOfCommunities = ({ communities }) => {
                 {(community.children?.allow || community.parent !== undefined) && (
                   <Popup
                     trigger={<Icon name="check outline circle" color="green mr-0" />}
-                    content="Verified community"
+                    content={i18next.t("Verified community")}
                     position="top center"
                   />
                 )}
