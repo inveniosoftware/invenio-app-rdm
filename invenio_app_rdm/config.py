@@ -495,7 +495,7 @@ CELERY_BEAT_SCHEDULE = {
         "schedule": crontab(minute=0, hour=2),
     },
     "update-collections-size": {
-        "task": "invenio_collections.tasks.update_collections_size",
+        "task": "invenio_rdm_records.collections.tasks.update_collections_size",
         "schedule": timedelta(hours=1),
     },
 }
