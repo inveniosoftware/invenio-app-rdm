@@ -10,6 +10,11 @@
 Changes
 =======
 
+Version v14.0.0b10.dev4 (released 2026-04-09)
+
+- fix(tasks): correct collection task registration
+- fix: collection logo size
+
 Version v14.0.0b10.dev3 (released 2026-04-09)
 
 - feat(communities-browse): show subcommunities section only if community allows
