@@ -19,7 +19,7 @@ from invenio_communities.views.ui import (
 )
 from invenio_pidstore.errors import PIDDeletedError, PIDDoesNotExistError
 from invenio_rdm_records.proxies import (
-    current_community_records_service,
+    current_community_collections_service,
 )
 from invenio_records_resources.services.errors import (
     PermissionDeniedError,
@@ -52,7 +52,7 @@ def _show_browse_page():
 
     has_collections = False
     try:
-        collections_service = current_community_records_service
+        collections_service = current_community_collections_service
         community_id = community.get("id")
         if community_id:
             trees = collections_service.list_trees(
