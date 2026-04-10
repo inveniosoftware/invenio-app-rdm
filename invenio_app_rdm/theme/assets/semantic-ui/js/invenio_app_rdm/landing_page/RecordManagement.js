@@ -36,6 +36,7 @@ export class RecordManagement extends Component {
       groupsEnabled,
       recordDeletion,
       recordDeletionOptions,
+      auditLogsEnabled,
     } = this.props;
     const { error } = this.state;
     const { id: recid } = record;
@@ -53,6 +54,7 @@ export class RecordManagement extends Component {
             permissions={permissions}
             recordDeletion={recordDeletion}
             recordDeletionOptions={recordDeletionOptions}
+            auditLogsEnabled={auditLogsEnabled}
           />
         </Grid.Column>
         {permissions?.can_edit && !isDraft && (
@@ -128,8 +130,10 @@ RecordManagement.propTypes = {
   recordOwnerID: PropTypes.string.isRequired,
   recordDeletion: PropTypes.object,
   recordDeletionOptions: PropTypes.array.isRequired,
+  auditLogsEnabled: PropTypes.bool,
 };
 
 RecordManagement.defaultProps = {
   recordDeletion: {},
+  auditLogsEnabled: false,
 };

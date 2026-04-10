@@ -182,6 +182,7 @@ if (tombstoneManageButtonDiv) {
       record={JSON.parse(tombstoneManageButtonDiv.dataset.record)}
       permissions={JSON.parse(tombstoneManageButtonDiv.dataset.permissions)}
       uiProps={JSON.parse(tombstoneManageButtonDiv.dataset.uiProps)}
+      auditLogsEnabled={JSON.parse(tombstoneManageButtonDiv.dataset.auditLogsEnabled)}
     />,
     tombstoneManageButtonDiv
   );

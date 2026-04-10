@@ -19,6 +19,7 @@ export const ManageButton = ({
   recordDeletion,
   recordDeletionOptions,
   uiProps,
+  auditLogsEnabled,
 }) => {
   if (!(recordDeletion["valid_user"] || permissions?.can_moderate)) {
     return null;
@@ -60,13 +61,15 @@ export const ManageButton = ({
               key="manage_record"
               text={i18next.t("Manage record")}
             />
-            <Dropdown.Item
-              as="a"
-              href={`/administration/audit-logs?q="${record["id"]}" OR "${record["parent"]["id"]}"&sort=newest`}
-              target="_blank"
-              key="view_audit_logs"
-              text={i18next.t("View audit logs")}
-            />
+            {auditLogsEnabled && (
+              <Dropdown.Item
+                as="a"
+                href={`/administration/audit-logs?q="${record["id"]}" OR "${record["parent"]["id"]}"&sort=newest`}
+                target="_blank"
+                key="view_audit_logs"
+                text={i18next.t("View audit logs")}
+              />
+            )}
             {recordOwnerID && (
               <>
                 <Dropdown.Item
@@ -94,6 +97,7 @@ ManageButton.propTypes = {
   recordDeletion: PropTypes.object,
   recordDeletionOptions: PropTypes.array,
   uiProps: PropTypes.object,
+  auditLogsEnabled: PropTypes.bool,
 };
 
 ManageButton.defaultProps = {
@@ -101,6 +105,7 @@ ManageButton.defaultProps = {
   recordDeletion: {},
   recordDeletionOptions: [],
   uiProps: {},
+  auditLogsEnabled: false,
 };
 
 const BlockUserItem = ({ recordOwnerID }) => {
