@@ -43,6 +43,7 @@ function renderRecordManagement(element) {
         recordDeletionOptions={JSON.parse(
           recordManagementAppDiv.dataset.recordDeletionOptions
         )}
+        auditLogsEnabled={JSON.parse(recordManagementAppDiv.dataset.auditLogsEnabled)}
       />
     </OverridableContext.Provider>,
     element
