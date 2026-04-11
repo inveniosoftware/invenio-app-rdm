@@ -12,6 +12,7 @@ from datetime import timedelta
 
 from flask import request
 from flask_menu import current_menu
+from invenio_app import talisman
 from invenio_i18n import lazy_gettext as _
 
 from .communities_ui.views.ui import _show_browse_page
@@ -47,6 +48,15 @@ def finalize_app(app):
     """Finalize app."""
     init_menu(app)
     init_config(app)
+
+    # make CSP headers for profiler reports very lax
+    if "multiprofiler" in app.extensions:
+        orig_profiler_report_view = app.view_functions["profiler.report_view"]
+
+        @app.endpoint("profiler.report_view")
+        @talisman(content_security_policy={})
+        def wrapped_profiler_report_view(*args, **kwargs):
+            return orig_profiler_report_view(*args, **kwargs)
 
 
 def init_config(app):
