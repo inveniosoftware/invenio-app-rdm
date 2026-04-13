@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2025 CERN.
+# Copyright (C) 2025-2026 CERN.
 # Copyright (C) 2025 KTH Royal Institute of Technology.
 # Copyright (C) 2026 Paradigm Repositories.
 #

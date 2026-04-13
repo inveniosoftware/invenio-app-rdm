@@ -10,6 +10,11 @@
 Changes
 =======
 
+Version v14.0.0b10.dev6 (released 2026-04-13)
+
+- feat: use new RDMSubCommunity request class
+- fix(administration): set correct permissions for user dashboard
+
 Version v14.0.0b10.dev5 (released 2026-04-09)
 
 - fix: display of range input on Chrome
