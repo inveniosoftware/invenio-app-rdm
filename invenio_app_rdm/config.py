@@ -73,6 +73,10 @@ from invenio_rdm_records.requests.entity_resolvers import (
     EmailResolver,
     RDMRecordServiceResultResolver,
 )
+from invenio_rdm_records.requests.subcommunities import (
+    RDMSubCommunityInvitationRequest,
+    RDMSubCommunityRequest,
+)
 from invenio_rdm_records.resources.stats.event_builders import build_record_unique_id
 from invenio_rdm_records.services.communities.components import (
     CommunityServiceComponents,
@@ -1042,6 +1046,12 @@ APP_RDM_IDENTIFIER_SCHEMES_UI = {
 # ===================
 
 COMMUNITIES_SERVICE_COMPONENTS = CommunityServiceComponents
+
+COMMUNITIES_SUB_REQUEST_CLS = RDMSubCommunityRequest
+"""RDM specific request type for subcommunities."""
+
+COMMUNITIES_SUB_INVITATION_REQUEST_CLS = RDMSubCommunityInvitationRequest
+"""RDM specific request type for subcommunity invitations."""
 
 COMMUNITIES_ERROR_HANDLERS = {
     **community_error_handlers,
