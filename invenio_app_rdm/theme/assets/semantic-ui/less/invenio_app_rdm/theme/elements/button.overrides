@@ -81,7 +81,7 @@
 .ui.button.request-lock-button {
   text-align: left;
   background-color: transparent;
-  padding-left: 0;
+  padding-left: 0.2em;
 }
 
 .ui.button.text-only {
