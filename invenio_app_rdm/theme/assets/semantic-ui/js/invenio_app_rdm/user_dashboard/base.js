@@ -154,7 +154,7 @@ export const DashboardSearchLayoutHOC = ({
             {/* End mobile/tablet search header */}
 
             {/* Desktop search header */}
-            <Grid.Row className="computer only">
+            <Grid.Row className="computer only" verticalAlign="bottom">
               <Grid.Column width={4} />
               {showSharedFilters && (
                 <Grid.Column width={4}>
