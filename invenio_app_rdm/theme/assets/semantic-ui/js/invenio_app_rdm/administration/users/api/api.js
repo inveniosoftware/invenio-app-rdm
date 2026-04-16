@@ -12,8 +12,8 @@ const restoreUser = async (user) => {
   return await http.post(APIRoutes.restore(user));
 };
 
-const blockUser = async (user) => {
-  return await http.post(APIRoutes.block(user));
+const blockUser = async (user, payload) => {
+  return await http.post(APIRoutes.block(user), payload || {});
 };
 
 const deactivateUser = async (user) => {
