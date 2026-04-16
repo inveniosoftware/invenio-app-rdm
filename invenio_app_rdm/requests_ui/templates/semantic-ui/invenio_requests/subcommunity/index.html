@@ -29,8 +29,34 @@
 {% block request_timeline %}
   <div
     class="ui container rdm-tab-container fluid rel-pt-2 ml-0-mobile mr-0-mobile"
-    id="request-community-submission-tab-container"
+    id="request-subcommunity-tab-container"
   >
+    <div class="ui secondary pointing menu rdm-tab-menu" role="tablist">
+      <a
+        role="tab"
+        class="item active"
+        data-tab="conversation"
+        aria-selected="true"
+        aria-controls="conversation-tab-panel"
+        id="conversation-tab"
+      >
+        {{ _("Conversation") }}
+      </a>
+
+      {% if checks %}
+        <a
+          role="tab"
+          class="item"
+          data-tab="checks"
+          aria-selected="false"
+          aria-controls="checks-tab-panel"
+          id="checks-tab"
+        >
+          <i class="{% include 'invenio_checks/requests/overall_severity_level.html' %}"></i> {{ _("Checks") }}
+        </a>
+      {% endif %}
+    </div>
+
     <div
       class="ui bottom attached tab segment active borderless p-0"
       data-tab="conversation"
@@ -40,6 +66,19 @@
     >
       {{ super() }}
     </div>
+
+    {% if checks %}
+      <div
+        class="ui bottom attached tab segment borderless"
+        data-tab="checks"
+        role="tabpanel"
+        aria-labelledby="checks-tab"
+        id="checks-tab-panel"
+        hidden="hidden"
+      >
+        {% include "invenio_checks/requests/details.html" %}
+      </div>
+    {% endif %}
 
   </div>
 {% endblock request_timeline %}
