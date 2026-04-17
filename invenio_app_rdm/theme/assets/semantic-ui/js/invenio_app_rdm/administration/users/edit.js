@@ -36,20 +36,34 @@ const fetchUserInfo = async (userId) => {
 };
 
 const createRoleItem = (role) => {
-  const item = document.createElement("div");
-  item.className = "item";
+  const item = document.createElement("li");
+  item.className = "flex align-items-center rel-mb-1";
+
+  const icon = document.createElement("i");
+  icon.className = `large middle aligned icon rel-mr-1 ${
+    role?.is_managed ? "address card" : "address book outline"
+  }`;
+  icon.setAttribute("aria-hidden", "true");
+  item.appendChild(icon);
 
   const content = document.createElement("div");
   content.className = "content";
 
-  const header = document.createElement("div");
-  header.className = "header";
-  header.textContent = role?.name || role?.id || "";
-  content.appendChild(header);
+  const name = document.createElement("div");
+  name.className = "ui small header mb-0";
+  name.textContent = role?.name || role?.id || "";
+  content.appendChild(name);
+
+  const managedStatus = document.createElement("div");
+  managedStatus.className = "description text-muted";
+  managedStatus.textContent = role?.is_managed
+    ? i18next.t("Managed role")
+    : i18next.t("Unmanaged role");
+  content.appendChild(managedStatus);
 
   if (role?.description) {
     const description = document.createElement("div");
-    description.className = "description";
+    description.className = "description text-muted";
     description.textContent = role.description;
     content.appendChild(description);
   }
@@ -95,6 +109,7 @@ const fetchUserRoles = async (user) => {
       return {
         ...role,
         description: group?.description,
+        is_managed: group?.is_managed,
       };
     });
 

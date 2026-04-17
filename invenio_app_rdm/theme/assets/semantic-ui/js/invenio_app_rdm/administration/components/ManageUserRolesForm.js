@@ -251,7 +251,7 @@ export class ManageUserRolesForm extends Component {
                 </Form.Field>
               </Form>
               <Message visible>
-                <h4>{i18next.t("Current user roles")}</h4>
+                <h3>{i18next.t("Current user roles")}</h3>
                 <ul>
                   {assignedRoles.length > 0 ? (
                     assignedRoles.map((role) => (
