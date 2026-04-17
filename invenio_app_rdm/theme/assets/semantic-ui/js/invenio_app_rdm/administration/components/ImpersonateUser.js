@@ -75,9 +75,11 @@ export class ImpersonateUser extends Component {
           <Icon name="spy" />
           {i18next.t("Impersonate")}
         </Dropdown.Item>
-        <ActionModal modalOpen={modalOpen} user={user}>
-          {modalHeader && <Modal.Header>{modalHeader}</Modal.Header>}
-          {!_isEmpty(modalBody) && modalBody}
+        <ActionModal modalOpen={modalOpen} resource={user}>
+          <>
+            {modalHeader && <Modal.Header>{modalHeader}</Modal.Header>}
+            {!_isEmpty(modalBody) && modalBody}
+          </>
         </ActionModal>
       </>
     );

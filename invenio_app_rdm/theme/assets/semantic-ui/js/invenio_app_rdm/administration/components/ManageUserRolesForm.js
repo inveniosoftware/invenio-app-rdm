@@ -25,6 +25,10 @@ const _extractTotal = (responseData) => {
   return responseData?.hits?.total || 0;
 };
 
+const _extractAssignedRoles = (responseData) => {
+  return responseData?.groups || [];
+};
+
 const _extractBackendError = (error) => {
   const status = error?.response?.status;
   const message = error?.response?.data?.message || error?.message;
@@ -42,6 +46,67 @@ const _extractBackendError = (error) => {
   return message;
 };
 
+const _toRoleId = (role) => String(role.id);
+
+const _toRoleOption = (role, index) => {
+  const roleId = _toRoleId(role);
+  return {
+    key: `${roleId}-${index}`,
+    text: role.name,
+    value: roleId,
+  };
+};
+
+const _mergeRolesById = (assignedRoles, allRoles) => {
+  const rolesById = new Map(allRoles.map((role) => [_toRoleId(role), role]));
+
+  assignedRoles.forEach((role) => {
+    const roleId = _toRoleId(role);
+    if (!rolesById.has(roleId)) {
+      rolesById.set(roleId, role);
+    }
+  });
+
+  return rolesById;
+};
+
+const _prepareRolesState = (assignedRoles, allRoles) => {
+  const rolesById = _mergeRolesById(assignedRoles, allRoles);
+  const roles = Array.from(rolesById.values());
+  const managedRoles = roles.filter((role) => role?.is_managed);
+  const managedRoleIds = new Set(managedRoles.map(_toRoleId));
+  const assignedRoleIds = assignedRoles.map(_toRoleId);
+
+  return {
+    assignedRoles: assignedRoles.map((role) => ({
+      ...role,
+      is_managed: rolesById.get(_toRoleId(role))?.is_managed,
+    })),
+    initialSelectedRoleIds: assignedRoleIds.filter((roleId) =>
+      managedRoleIds.has(roleId)
+    ),
+    unmanagedAssignedRoleIds: assignedRoleIds.filter(
+      (roleId) => !managedRoleIds.has(roleId)
+    ),
+    roleOptions: managedRoles
+      .map(_toRoleOption)
+      .sort((left, right) => left.text.localeCompare(right.text)),
+  };
+};
+
+const _hasSelectionChanged = (initialSelectedRoleIds, selectedRoleIds) => {
+  if (initialSelectedRoleIds.length !== selectedRoleIds.length) {
+    return true;
+  }
+
+  const initialSet = new Set(initialSelectedRoleIds);
+  return selectedRoleIds.some((roleId) => !initialSet.has(roleId));
+};
+
+const _mergeSelectedRoleIds = (selectedRoleIds, unmanagedAssignedRoleIds) => {
+  return Array.from(new Set([...selectedRoleIds, ...unmanagedAssignedRoleIds]));
+};
+
 export class ManageUserRolesForm extends Component {
   constructor(props) {
     super(props);
@@ -52,6 +117,7 @@ export class ManageUserRolesForm extends Component {
       roleOptions: [],
       assignedRoles: [],
       initialSelectedRoleIds: [],
+      unmanagedAssignedRoleIds: [],
     };
     this.validationSchema = Yup.object({
       selectedOptions: Yup.array().of(Yup.string()),
@@ -107,42 +173,11 @@ export class ManageUserRolesForm extends Component {
         this.fetchAllGroups(),
       ]);
 
-      const assignedRoles = userRolesResponse?.data?.groups || [];
-      const initialSelectedRoleIds = assignedRoles
-        .map((role) => role?.id)
-        .filter((roleId) => roleId !== undefined && roleId !== null)
-        .map((roleId) => String(roleId));
-
-      const assignedById = new Map(
-        assignedRoles.filter((role) => role?.id).map((role) => [String(role.id), role])
-      );
-      const allRolesById = new Map(
-        allRoles.filter((role) => role?.id).map((role) => [String(role.id), role])
-      );
-      // Keep assigned roles searchable even if groups search is paginated/truncated.
-      assignedById.forEach((role, roleId) => {
-        if (!allRolesById.has(roleId)) {
-          allRolesById.set(roleId, role);
-        }
-      });
-
-      const roleOptions = Array.from(allRolesById.values())
-        .filter((role) => role?.id)
-        .map((role, index) => {
-          const roleId = String(role.id);
-          const roleName = role.name || roleId;
-          return {
-            key: `${roleId}-${index}`,
-            text: roleName,
-            value: roleId,
-          };
-        })
-        .sort((left, right) => left.text.localeCompare(right.text));
+      const assignedRoles = _extractAssignedRoles(userRolesResponse?.data);
+      const rolesState = _prepareRolesState(assignedRoles, allRoles);
 
       this.setState({
-        assignedRoles,
-        roleOptions,
-        initialSelectedRoleIds,
+        ...rolesState,
         loadingOptions: false,
       });
     } catch (error) {
@@ -156,24 +191,20 @@ export class ManageUserRolesForm extends Component {
   handleSubmit = async (values) => {
     const { addNotification } = this.context;
     const { user, actionSuccessCallback } = this.props;
-    const { initialSelectedRoleIds } = this.state;
+    const { initialSelectedRoleIds, unmanagedAssignedRoleIds } = this.state;
 
     const selectedOptions = values.selectedOptions || [];
-    const initialSet = new Set(initialSelectedRoleIds);
-    const selectedSet = new Set(selectedOptions);
-
-    const roleIdsToAdd = selectedOptions.filter((roleId) => !initialSet.has(roleId));
-    const roleIdsToRemove = initialSelectedRoleIds.filter(
-      (roleId) => !selectedSet.has(roleId)
-    );
-
-    if (!roleIdsToAdd.length && !roleIdsToRemove.length) return;
+    if (!_hasSelectionChanged(initialSelectedRoleIds, selectedOptions)) return;
 
     this.setState({ loading: true, error: undefined });
 
     try {
+      const roleIdsToKeep = _mergeSelectedRoleIds(
+        selectedOptions,
+        unmanagedAssignedRoleIds
+      );
       this.cancellableAction = withCancel(
-        UserModerationApi.setGroupsForUser(user, selectedOptions)
+        UserModerationApi.setGroupsForUser(user, roleIdsToKeep)
       );
       await this.cancellableAction.promise;
 
@@ -256,7 +287,9 @@ export class ManageUserRolesForm extends Component {
                   {assignedRoles.length > 0 ? (
                     assignedRoles.map((role) => (
                       <li key={role.id}>
-                        <strong>{role.name || role.id}</strong>
+                        <strong className={role.is_managed ? "" : "text-muted"}>
+                          {role.name}
+                        </strong>
                       </li>
                     ))
                   ) : (

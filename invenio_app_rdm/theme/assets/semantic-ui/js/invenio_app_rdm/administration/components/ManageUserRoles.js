@@ -77,9 +77,11 @@ export class ManageUserRoles extends Component {
             {i18next.t("Manage roles")}
           </Button>
         )}
-        <ActionModal modalOpen={modalOpen} user={user}>
-          {modalHeader && <Modal.Header>{modalHeader}</Modal.Header>}
-          {!_isEmpty(modalBody) && modalBody}
+        <ActionModal modalOpen={modalOpen} resource={user}>
+          <>
+            {modalHeader && <Modal.Header>{modalHeader}</Modal.Header>}
+            {!_isEmpty(modalBody) && modalBody}
+          </>
         </ActionModal>
       </>
     );
