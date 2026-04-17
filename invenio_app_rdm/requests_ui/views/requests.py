@@ -273,6 +273,7 @@ def user_dashboard_request_view(request, **kwargs):
             invenio_request=request.to_dict(),
             permissions={**request_permissions},
             include_deleted=False,  # Could probably be removed
+            is_user_dashboard=True,
         )
 
     topic = _resolve_topic_record(request)
