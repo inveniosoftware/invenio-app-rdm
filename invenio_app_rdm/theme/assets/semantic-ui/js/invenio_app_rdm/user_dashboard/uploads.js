@@ -146,7 +146,7 @@ export const RDMEmptyResults = (props) => {
           positive
           icon="upload"
           floated="right"
-          href="/uploads/new"
+          href={document.getElementById("invenio-search-config").dataset.depositUrl}
           content={i18next.t("New upload")}
         />
       </Segment>
@@ -170,7 +170,7 @@ export const DashboardUploadsSearchLayout = DashboardSearchLayoutHOC({
     <Button
       positive
       icon="upload"
-      href="/uploads/new"
+      href={document.getElementById("invenio-search-config").dataset.depositUrl}
       content={i18next.t("New upload")}
       floated="right"
     />
