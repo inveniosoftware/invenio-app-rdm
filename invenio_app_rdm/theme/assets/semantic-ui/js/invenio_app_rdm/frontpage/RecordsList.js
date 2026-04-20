@@ -121,7 +121,9 @@ export class RecordsList extends Component {
             </Item.Group>
 
             <Container textAlign="center">
-              <Button href="/search">{i18next.t("More")}</Button>
+              <Button href="/search" aria-label={i18next.t("Load more search results")}>
+                {i18next.t("More")}
+              </Button>
             </Container>
 
             {error && <Message content={error} error icon="warning sign" />}
