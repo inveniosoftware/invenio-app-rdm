@@ -10,6 +10,18 @@
 Changes
 =======
 
+Version v14.0.0b10.dev7 (released 2026-04-21)
+
+- feat(administration): allow blocking with removal reason
+    * Introduces a modal when blocking a user (via the Users administration
+      or manage dropdown on the record landing page), which previews the
+      user to be deleted and allows for choosing a removal reason and
+      public note. On success, it displays a link to view the blocked user
+      in users administration.
+- style: fix alignment of sort by on uploads
+- fix: display user dashboard header for community topic requests as before
+- feat(auditlogs): hide auditlogs button when the feature is disabled
+
 Version v14.0.0b10.dev6 (released 2026-04-13)
 
 - feat: use new RDMSubCommunity request class

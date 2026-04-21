@@ -1,6 +1,6 @@
 /*
  * This file is part of Invenio.
- * Copyright (C) 2023 CERN.
+ * Copyright (C) 2023-2026 CERN.
  *
  * Invenio is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
@@ -12,8 +12,8 @@ const restoreUser = async (user) => {
   return await http.post(APIRoutes.restore(user));
 };
 
-const blockUser = async (user) => {
-  return await http.post(APIRoutes.block(user));
+const blockUser = async (user, payload) => {
+  return await http.post(APIRoutes.block(user), payload || {});
 };
 
 const deactivateUser = async (user) => {
