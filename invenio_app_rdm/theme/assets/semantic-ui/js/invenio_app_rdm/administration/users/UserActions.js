@@ -1,6 +1,6 @@
 /*
  * This file is part of Invenio.
- * Copyright (C) 2022 CERN.
+ * Copyright (C) 2022-2026 CERN.
  * Copyright (C) 2024 KTH Royal Institute of Technology.
  *
  * Invenio is free software; you can redistribute it and/or modify it
