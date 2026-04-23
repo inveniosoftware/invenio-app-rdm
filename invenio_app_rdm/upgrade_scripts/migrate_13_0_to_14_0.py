@@ -80,8 +80,8 @@ def run_upgrade(migrate_record, migrate_draft):
             secho(f"Draft {draft_id} failed to update", fg="red")
             errored_draft_ids.append((draft_id, error))
 
-    print(f"Errored record IDs:", *errored_record_ids, sep="\n")
-    print(f"Errored draft IDs:", *errored_draft_ids, sep="\n")
+    print("Errored record IDs:", *errored_record_ids, sep="\n")
+    print("Errored draft IDs:", *errored_draft_ids, sep="\n")
 
 
 def run_update_for_resource_type():
@@ -163,7 +163,7 @@ def run_update_for_resource_type():
             # Commit the changes for both the record and the draft in one transaction
             db.session.commit()
             records_service.indexer.index(record._record)
-            records_service.indexer.index(draft._record)
+            records_service.draft_indexer.index(draft._record)
             secho(f"Draft <{draft.id}> has been updated successfully.", fg="green")
             # Update DOI metadata if record has DOI
             if hasattr(record, "pids") and record.pids.get("doi", None):
