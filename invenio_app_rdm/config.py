@@ -1017,7 +1017,7 @@ APP_RDM_FILES_INTEGRITY_REPORT_TEMPLATE = (
 )
 """Files integrity report template"""
 
-APP_RDM_FILES_INTEGRITY_REPORT_SUBJECT = "Files integrity report"
+APP_RDM_FILES_INTEGRITY_REPORT_SUBJECT = _("Files integrity report")
 """Files integrity report subject"""
 
 APP_RDM_ADMIN_EMAIL_RECIPIENT = "info@inveniosoftware.org"
@@ -1501,7 +1501,7 @@ ADMINISTRATION_THEME_BASE_TEMPLATE = "invenio_app_rdm/administration_page.html"
 """Administration base template."""
 
 
-APP_RDM_SUBCOMMUNITIES_LABEL = "Subcommunities"
+APP_RDM_SUBCOMMUNITIES_LABEL = _("Subcommunities")
 """Label for the subcommunities in the community browse page."""
 
 RDM_DETAIL_SIDE_BAR_MANAGE_ATTRIBUTES_EXTENSION_TEMPLATE = None
