@@ -2,7 +2,9 @@
          Invenio App RDM Input Overrides
 ***********************************************/
 
-.input.invitation-searchbar {
+.input.invitation-searchbar,
+.input.invitations-searchbar,
+.input.membership-requests-searchbar {
     width: 100%;
 }
 

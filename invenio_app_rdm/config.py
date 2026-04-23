@@ -1077,6 +1077,7 @@ RDM_REQUESTS_ROUTES = {
     "user-dashboard-request-details": "/me/requests/<uuid:request_pid_value>",
     "community-dashboard-request-details": "/communities/<pid_value>/requests/<uuid:request_pid_value>",
     "community-dashboard-invitation-details": "/communities/<pid_value>/invitations/<uuid:request_pid_value>",
+    "community-dashboard-membership-request-details": "/communities/<pid_value>/membership-requests/<uuid:request_pid_value>",
 }
 
 RDM_COMMUNITIES_ROUTES = {
