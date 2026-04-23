@@ -24,6 +24,8 @@ from sqlalchemy.exc import NoResultFound
 
 from ...records_ui.searchapp import search_app_context
 from .requests import (
+    community_dashboard_invitation_view,
+    community_dashboard_membership_request_view,
     community_dashboard_request_view,
     is_accepted_request,
     user_dashboard_request_view,
@@ -54,7 +56,12 @@ def create_ui_blueprint(app):
 
     blueprint.add_url_rule(
         routes["community-dashboard-invitation-details"],
-        view_func=community_dashboard_request_view,
+        view_func=community_dashboard_invitation_view,
+    )
+
+    blueprint.add_url_rule(
+        routes["community-dashboard-membership-request-details"],
+        view_func=community_dashboard_membership_request_view,
     )
 
     blueprint.add_url_rule(

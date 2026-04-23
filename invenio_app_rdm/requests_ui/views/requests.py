@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019-2026 CERN.
-# Copyright (C) 2019-2022 Northwestern University.
+# Copyright (C) 2019-2026 Northwestern University.
 # Copyright (C)      2022 TU Wien.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
@@ -9,7 +9,7 @@
 
 """Request views module."""
 
-from flask import current_app, g, render_template
+from flask import current_app, g, redirect, render_template, url_for
 from flask_login import current_user, login_required
 from invenio_checks.api import ChecksAPI
 from invenio_communities.config import COMMUNITIES_ROLES
@@ -20,7 +20,10 @@ from invenio_communities.subcommunities.services.request import (
     SubCommunityRequest,
 )
 from invenio_communities.utils import identity_cache_key
-from invenio_communities.views.communities import render_community_theme_template
+from invenio_communities.views.communities import (
+    MEMBERS_PERMISSIONS,
+    render_community_theme_template,
+)
 from invenio_communities.views.decorators import pass_community
 from invenio_i18n.ext import current_i18n
 from invenio_pidstore.errors import PIDDoesNotExistError
@@ -272,7 +275,7 @@ def user_dashboard_request_view(request, **kwargs):
             user_avatar=avatar,
             invenio_request=request.to_dict(),
             permissions={**request_permissions},
-            include_deleted=False,  # Could probably be removed
+            include_deleted=False,
             is_user_dashboard=True,
         )
 
@@ -366,20 +369,14 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
         )
 
     elif is_member_invitation:
-        if not permissions["can_search_invites"]:
-            raise PermissionDeniedError()
-
-        return render_community_theme_template(
-            f"invenio_requests/{request_type}/community_dashboard.html",
-            theme=community.to_dict().get("theme", {}),
-            base_template="invenio_communities/details/members/base.html",
-            invenio_request=request.to_dict(),
-            community=community,
-            community_ui=community_ui,
-            permissions=permissions,
-            request_is_accepted=request_is_accepted,
-            user_avatar=avatar,
-            include_deleted=False,
+        # From legacy of this view serving
+        # /communities/<community pid>/requests/<request pid>
+        return redirect(
+            url_for(
+                "invenio_app_rdm_requests.community_dashboard_invitation_view",
+                pid_value=kwargs["pid_value"],
+                request_pid_value=kwargs["request_pid_value"],
+            )
         )
 
     elif is_subcommunity_request or is_subcommunity_invitation_request:
@@ -395,6 +392,78 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
             user_avatar=avatar,
             include_deleted=False,
         )
+
+
+@login_required
+@pass_request(expand=True)
+@pass_community(serialize=True)
+def community_dashboard_invitation_view(request, community, community_ui, **kwargs):
+    """Community dashboard's invitation view."""
+    request_type = request["type"]
+    permissions = community.has_permissions_to(MEMBERS_PERMISSIONS)
+    request_permissions = request.has_permissions_to(
+        ["action_cancel", "lock_request", "create_comment", "reply_comment"]
+    )
+    permissions.update(request_permissions)
+
+    if not permissions["can_search_invites"]:
+        raise PermissionDeniedError()
+
+    # TODO: This should just be a context_processor or filter
+    avatar = current_user_resources.users_service.links_item_tpl.expand(
+        g.identity, current_user
+    )["avatar"]
+
+    return render_community_theme_template(
+        f"invenio_requests/{request_type}/community_dashboard.html",
+        theme=community.to_dict().get("theme", {}),
+        base_template="invenio_communities/details/members/base.html",
+        invenio_request=request.to_dict(),  # so to not clash with flask's `request`
+        community=community,
+        community_ui=community_ui,
+        permissions=permissions,
+        user_avatar=avatar,
+    )
+
+
+@login_required
+@pass_request(expand=True)
+@pass_community(serialize=True)
+def community_dashboard_membership_request_view(
+    request, community, community_ui, **kwargs
+):
+    """Community dashboard's membership request view."""
+    request_type = request["type"]
+    permissions = community.has_permissions_to(MEMBERS_PERMISSIONS)
+    request_permissions = request.has_permissions_to(
+        [
+            "action_accept",
+            "action_decline",
+            "lock_request",
+            "create_comment",
+            "reply_comment",
+        ]
+    )
+    permissions.update(request_permissions)
+
+    if not permissions["can_search_membership_requests"]:
+        raise PermissionDeniedError()
+
+    # TODO: This should just be a context_processor or filter
+    avatar = current_user_resources.users_service.links_item_tpl.expand(
+        g.identity, current_user
+    )["avatar"]
+
+    return render_community_theme_template(
+        f"invenio_requests/{request_type}/community_dashboard.html",
+        theme=community.to_dict().get("theme", {}),
+        base_template="invenio_communities/details/members/base.html",
+        invenio_request=request.to_dict(),  # so to not clash with flask's `request`
+        community=community,
+        community_ui=community_ui,
+        permissions=permissions,
+        user_avatar=avatar,
+    )
 
 
 def is_accepted_request(request_dict):

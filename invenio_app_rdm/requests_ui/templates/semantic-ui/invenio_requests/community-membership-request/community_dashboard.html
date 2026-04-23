@@ -1,38 +1,40 @@
 {# -*- coding: utf-8 -*-
 
   This file is part of Invenio.
-  Copyright (C) 2022 CERN.
+
   Copyright (C) 2026 Northwestern University.
 
   Invenio is free software; you can redistribute it and/or modify it
   under the terms of the MIT License; see LICENSE file for more details.
 #}
+
 {% set title = invenio_request.title %}
 {% extends "invenio_requests/details/index.html" %}
 {% from "invenio_requests/macros/request_header.html" import member_request_header %}
 
 {% set active_community_header_menu_item = 'members' %}
-{% set active_members_menu_item = 'invitations' %}
+{% set active_members_menu_item = 'membership_requests' %}
 
 {% block request_header %}
   {{
     member_request_header(
-      back_button_url=url_for("invenio_communities.invitations", pid_value=community.slug),
-      back_button_text=_("Back to invitations"),
-      request=invenio_request
+      back_button_url=url_for("invenio_communities.membership_requests", pid_value=community.slug),
+      back_button_text=_("Back to membership requests"),
+      request=invenio_request,
+      accepted=is_accepted_request(invenio_request)
     )
   }}
 {% endblock %}
 
 
 {% block settings_body %}
-  <div class="sixteen wide mobile sixteen wide tablet thirteen wide computer column right floated">
-    {% block request_body %}
-      {{ super() }}
-    {% endblock request_body %}
-  </div>
+<div class="sixteen wide mobile sixteen wide tablet thirteen wide computer column right floated">
+  {% block request_body %}
+  {{ super() }}
+  {% endblock request_body %}
+</div>
 {% endblock %}
 
 {% block page_body %}
-  {{ super.super() }}
+{{ super.super() }}
 {% endblock page_body %}
