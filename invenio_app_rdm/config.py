@@ -966,6 +966,15 @@ If the value is callable, its return value will be used for the field
 (e.g. lambda/function for dynamic calculation of values).
 """
 
+APP_RDM_DEPOSIT_FORM_CUSTOM_FIELD_DEFAULTS = {}
+"""Default values for custom fields in new records in the deposit UI.
+    
+The keys denote the dot-separated path, where in the record's custom field
+values should be set (see invenio-records.dictutils).
+If the value is callable, its return value will be used for the field
+(e.g. lambda/function for dynamic calculation of values).
+"""
+
 APP_RDM_DEPOSIT_FORM_AUTOCOMPLETE_NAMES = "search"
 """Behavior for autocomplete names search field for creators/contributors.
 
