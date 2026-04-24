@@ -498,8 +498,7 @@ def draft_not_found_error(error):
 
 def record_tombstone_error(error):
     """Tombstone page."""
-    # the RecordDeletedError will have the following properties,
-    # while the PIDDeletedError won't
+    # RecordDeletedError has both of these properties; PIDDeletedError only has `record`
     record = getattr(error, "record", None)
     result_item = getattr(error, "result_item", None)
     record_ui = None
@@ -510,7 +509,13 @@ def record_tombstone_error(error):
         record_ui = UIJSONSerializer().dump_obj(result_item.to_dict())
 
     # render a 404 page if the tombstone isn't visible
-    if not record.tombstone.is_visible:
+    if record_ui is None or not record.tombstone.is_visible:
+        if record_ui is None:
+            # Log an exception; this should not happen.
+            current_app.logger.exception(
+                "Tried to access record via deleted PID. This should not happen; the record itself should be soft-deleted instead."
+            )
+
         return not_found_error(error)
 
     # we only render a tombstone page if there is a record with a visible tombstone
