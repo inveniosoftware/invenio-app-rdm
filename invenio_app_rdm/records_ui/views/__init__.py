@@ -48,6 +48,8 @@ from .filters import (
 from .records import (
     draft_not_found_error,
     not_found_error,
+    record_container_item_download,
+    record_container_item_preview,
     record_detail,
     record_export,
     record_file_download,
@@ -114,11 +116,23 @@ def create_blueprint(app):
             default_view_func=record_file_preview,
         )
     )
+    blueprint.add_url_rule(
+        **create_url_rule(
+            routes["record_container_item_preview"],
+            default_view_func=record_container_item_preview,
+        )
+    )
 
     blueprint.add_url_rule(
         **create_url_rule(
             routes["record_file_download"],
             default_view_func=record_file_download,
+        )
+    )
+    blueprint.add_url_rule(
+        **create_url_rule(
+            routes["record_container_item_download"],
+            default_view_func=record_container_item_download,
         )
     )
     blueprint.add_url_rule(
