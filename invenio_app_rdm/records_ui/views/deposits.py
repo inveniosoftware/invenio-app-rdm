@@ -469,6 +469,11 @@ def new_record():
     defaults = current_app.config.get("APP_RDM_DEPOSIT_FORM_DEFAULTS") or {}
     for key, value in defaults.items():
         set_default_value(record, value, key)
+    cf_defaults = (
+        current_app.config.get("APP_RDM_DEPOSIT_FORM_CUSTOM_FIELD_DEFAULTS") or {}
+    )
+    for key, value in cf_defaults.items():
+        set_default_value(record, value, key, "custom_fields")
     return record
 
 
