@@ -956,7 +956,7 @@ APP_RDM_DEPOSIT_FORM_DEFAULTS = {
             "link": "https://creativecommons.org/licenses/by/4.0/legalcode",
         }
     ],
-    "publisher": "CERN",
+    "publisher": THEME_SITENAME,
 }
 """Default values for new records in the deposit UI.
 
