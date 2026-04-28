@@ -16,6 +16,7 @@ import { Item, Label, Icon } from "semantic-ui-react";
 import { buildUID } from "react-searchkit";
 import { CompactStats } from "./CompactStats";
 import { DisplayPartOfCommunities } from "./DisplayPartOfCommunities";
+import { CollapsibleDescription } from "./CollapsibleDescription";
 
 class RecordsResultsListItem extends Component {
   render() {
@@ -115,9 +116,7 @@ class RecordsResultsListItem extends Component {
               descriptionStripped={descriptionStripped}
               result={result}
             >
-              <Item.Description className="truncate-lines-2">
-                {descriptionStripped}
-              </Item.Description>
+                <CollapsibleDescription descriptionStripped={descriptionStripped} />
             </Overridable>
 
             <Item.Extra>
