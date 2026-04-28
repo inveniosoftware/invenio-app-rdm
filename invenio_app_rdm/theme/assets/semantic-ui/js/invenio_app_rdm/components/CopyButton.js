@@ -10,19 +10,29 @@ import { Button, Popup } from "semantic-ui-react";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 
 class SimpleCopyButton extends React.Component {
-  fetchUrl = async (url) => {
-    return await (await fetch(url)).text();
-  };
-
-  handleClick = async () => {
+  handleClick = () => {
     const { url, text, onCopy } = this.props;
-    let textToCopy = text;
-    if (url) {
-      textToCopy = await this.fetchUrl(url);
-    }
 
-    await navigator.clipboard.writeText(textToCopy);
-    onCopy(text);
+    // Resolve what to copy: fetch from URL or use text directly.
+    // Safari requires clipboard writes to occur synchronously within the
+    // user-gesture call stack. Using async/await with fetch() breaks this
+    // chain. The ClipboardItem API accepts a Promise, keeping the
+    // clipboard.write() call synchronous while resolving data internally.
+    const dataPromise = url
+      ? fetch(url).then((response) => response.text())
+      : Promise.resolve(text);
+
+    if (typeof ClipboardItem !== "undefined") {
+      const item = new ClipboardItem({
+        "text/plain": dataPromise.then((t) => new Blob([t], { type: "text/plain" })),
+      });
+      navigator.clipboard.write([item]).then(() => onCopy(text));
+    } else {
+      // Fallback for browsers where ClipboardItem is not available
+      dataPromise.then((t) =>
+        navigator.clipboard.writeText(t).then(() => onCopy(text))
+      );
+    }
   };
 
   render() {
