@@ -38,6 +38,7 @@ from celery.schedules import crontab
 from flask_principal import Denial
 from flask_resources import HTTPJSONException, create_error_handler
 from invenio_access.permissions import any_user
+from invenio_administration.permissions import administration_permission
 from invenio_communities.communities.resources.config import community_error_handlers
 from invenio_communities.notifications.builders import (
     CommunityInvitationAcceptNotificationBuilder,
@@ -1562,8 +1563,28 @@ APP_RDM_MODERATION_REQUEST_FACETS = {
 
 # Invenio-VCS
 # ===========
+#
+
 VCS_TEMPLATE_INDEX = "invenio_vcs/rdm-index.html"
 VCS_TEMPLATE_INDEX_ITEM = "invenio_vcs/rdm-index-item.html"
 VCS_TEMPLATE_VIEW = "invenio_vcs/rdm-view.html"
 VCS_TEMPLATE_REPO_SWITCH = "invenio_vcs/rdm-repo-switch.html"
 VCS_TEMPLATE_RELEASE_ITEM = "invenio_vcs/rdm-release-item.html"
+
+# Flask-MultiProfiler
+# ===================
+#
+
+MULTIPROFILER_BASE_TEMPLATE = "flask_multiprofiler/index.html"
+"""Base template for the profiler page."""
+
+MULTIPROFILER_IGNORED_ENDPOINTS = [
+    "static",
+    "_debug_toolbar.static",
+    r"profiler\..+",
+    "invenio_formatter_badges.badge",
+]
+"""Ignore static assets endpoints and endpoints for the profiler itself."""
+
+MULTIPROFILER_PERMISSION = administration_permission.can
+"""Function to check for permissions to access the profiler."""

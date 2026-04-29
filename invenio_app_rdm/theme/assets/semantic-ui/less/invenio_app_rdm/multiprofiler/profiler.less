@@ -1,0 +1,36 @@
+/*
+ *   Copyright (C) 2026 TU Wien.
+ *
+ * Invenio App RDM is free software; you can redistribute it and/or modify
+ * it under the terms of the MIT License; see LICENSE file for more details.
+ */
+
+#profiler-container {
+  /* remove negative margin on the grid */
+  .ui.grid {
+    margin: 1em;
+  }
+
+  #profiler-sessions-list {
+    /* highlight child sessions */
+    .child.session.list {
+      border-left: 5px solid whitesmoke;
+      padding: 0;
+      margin: 1em 0;
+
+      /* remove extra top padding for the child session list */
+      .item .list {
+        padding-top: 0;
+      }
+    }
+
+    /* add a bit of top padding for each item */
+    .parent.session.item {
+      padding-top: 1em;
+    }
+
+    .sessions.accordion {
+      margin-top: 2em;
+    }
+  }
+}
