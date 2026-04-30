@@ -466,11 +466,11 @@ def new_record():
     else:
         record["pids"] = {}
     record["status"] = "draft"
-    defaults = current_app.config.get("APP_RDM_DEPOSIT_FORM_DEFAULTS") or {}
+    defaults = current_app.config.get("APP_RDM_DEPOSIT_FORM_DEFAULTS", {})
     for key, value in defaults.items():
         set_default_value(record, value, key)
-    cf_defaults = (
-        current_app.config.get("APP_RDM_DEPOSIT_FORM_CUSTOM_FIELD_DEFAULTS") or {}
+    cf_defaults = current_app.config.get(
+        "APP_RDM_DEPOSIT_FORM_CUSTOM_FIELD_DEFAULTS", {}
     )
     for key, value in cf_defaults.items():
         set_default_value(record, value, key, "custom_fields")
