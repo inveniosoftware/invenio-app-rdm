@@ -50,7 +50,7 @@
         class="trigger"
         aria-label="{{ _('File preview') }}"
       >
-        <span id="preview-file-title">{{ human_readable_file_name }}</span>
+        <span id="preview-file-title" class="wrap-overflowing-text">{{ human_readable_file_name }}</span>
         <i class="angle right icon" aria-hidden="true"></i>
       </div>
     </h3>
@@ -131,7 +131,7 @@ To access its content, please download it and open it locally.') }}
         {%- set file_type = file.key.split('.')[-1] %}
         <tr>
           <td class="ten wide">
-            <div>
+            <div class="wrap-overflowing-text">
               <a href="{{ file_url_download }}">{{ human_readable_file_name }}</a>
             </div>
             {%- if not is_remote_file %}
