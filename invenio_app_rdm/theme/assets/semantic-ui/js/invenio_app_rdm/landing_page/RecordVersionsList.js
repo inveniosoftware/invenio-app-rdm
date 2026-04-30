@@ -81,7 +81,7 @@ const PreviewMessage = () => {
         <Icon name="eye" />
         {i18next.t("Preview")}
       </Message.Header>
-      <p>{i18next.t("Only published versions are displayed.")}</p>
+      <p>{i18next.t("This version of the record has not yet been published.")}</p>
     </Message>
   );
 };
