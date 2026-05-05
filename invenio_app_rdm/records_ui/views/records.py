@@ -196,26 +196,19 @@ class PreviewContainerItem(PreviewFile):
         extracted_file_size,
         record=None,
         url=None,
+        is_iframe=False
     ):
         """Create a new PreviewFile."""
-        self.file = file_item
-        self.data = file_item.data
-        self.record = record
+        super().__init__(file_item=file_item, record_pid_value=record_pid_value, record=record, url=url, is_iframe=is_iframe )
         self.path = path
         self.size = extracted_file_size
         self.container_item_filename = basename(self.path)
-        self.filename = self.data["key"]  # container file name
-        self.bucket = self.data["bucket_id"]
         self.uri = url or url_for(
             "invenio_app_rdm_records.record_container_item_download",
             pid_value=record_pid_value,
             filename=self.filename,
             path=path,
         )
-
-    def is_local(self):
-        """Check if file is local."""
-        return True
 
     def has_extensions(self, *exts):
         """Check if file has one of the extensions.
