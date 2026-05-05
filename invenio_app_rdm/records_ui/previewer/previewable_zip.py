@@ -9,16 +9,19 @@
 """Simple ZIP archive previewer."""
 
 import sys
-
 from flask import render_template
 from invenio_access.permissions import system_identity
 from invenio_base import invenio_url_for
 from invenio_previewer.proxies import current_previewer
 from invenio_previewer.views import is_container_item_previewable
+from invenio_rdm_records.proxies import current_rdm_records_service
 
 from ..views.records import PreviewContainerItem
 
-previewable_extensions = ["zip"]
+# previewable_extensions = ["zip"]
+previewable_extensions = LocalProxy(
+    lambda: current_app.config["PREVIEWABLE_ZIP_PREVIEWER_NATIVE_EXTENSIONS"]
+)
 
 
 def create_container_item_preview_link(record_id, container_filename, item_path):
@@ -114,15 +117,14 @@ def convert_zip_list_container(entries, directories, record_id, container_filena
 def can_preview(file):
     """Return True if filetype can be previewed."""
     return (
-        file.is_local()
-        and file.has_extensions(".zip")
-        and not isinstance(file, PreviewContainerItem)  # we are top level file
+            file.is_local()
+            and file.has_extensions(".zip")
+            and not isinstance(file, PreviewContainerItem)  # we are top level file
     )
 
 
 def preview(file):
     """Return the appropriate template and pass the file and an embed flag."""
-    from invenio_rdm_records.proxies import current_rdm_records_service
 
     tree_raw = current_rdm_records_service.files.list_container(
         system_identity, file.record["id"], file.filename

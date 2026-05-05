@@ -1154,6 +1154,10 @@ IIIF_FORMATS_PIL_MAP = {
 }
 """Mapping of IIIF formats to PIL-compatible formats."""
 
+
+PREVIEWABLE_ZIP_PREVIEWER_NATIVE_EXTENSIONS = ["zip"]
+"""Extensions for previewable zip."""
+
 # Invenio-Previewer
 # =================
 # See https://github.com/inveniosoftware/invenio-previewer/blob/master/invenio_previewer/config.py  # noqa
