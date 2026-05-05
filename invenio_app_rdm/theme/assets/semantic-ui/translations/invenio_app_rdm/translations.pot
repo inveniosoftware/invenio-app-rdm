@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-06-30T21:08:07.188Z\n"
-"PO-Revision-Date: 2025-06-30T21:08:07.188Z\n"
+"POT-Creation-Date: 2025-07-22T14:13:07.642Z\n"
+"PO-Revision-Date: 2025-07-22T14:13:07.642Z\n"
 "Language: en\n"
 
 msgid "Recent changes"
@@ -382,11 +382,6 @@ msgstr "Uploaded on {{uploadDate}}"
 msgid "Published in: {{- publishInfo }}"
 msgstr "Published in: {{- publishInfo }}"
 
-msgid "{{count}} more versions exist for this record"
-msgid_plural "{{count}} more versions exist for this record"
-msgstr[0] "{{count}} more versions exist for this record"
-msgstr[1] "{{count}} more versions exist for this record"
-
 msgid "Recommendation"
 msgstr "Recommendation"
 
@@ -491,11 +486,6 @@ msgstr "An error occurred while fetching communities."
 
 msgid "Communities"
 msgstr "Communities"
-
-msgid "View all {{count}} communities"
-msgid_plural "View all {{count}} communities"
-msgstr[0] "View all {{count}} communities"
-msgstr[1] "View all {{count}} communities"
 
 msgid "Submit to community"
 msgstr "Submit to community"
@@ -604,11 +594,6 @@ msgstr "Only published versions are displayed."
 
 msgid "An error occurred while fetching the versions."
 msgstr "An error occurred while fetching the versions."
-
-msgid "View all {{count}} versions"
-msgid_plural "View all {{count}} versions"
-msgstr[0] "View all {{count}} versions"
-msgstr[1] "View all {{count}} versions"
 
 msgid "Cite all versions?"
 msgstr "Cite all versions?"
@@ -997,13 +982,3 @@ msgstr "GND logo"
 
 msgid "No name"
 msgstr "No name"
-
-msgid "and {{count}} other"
-msgid_plural "and {{count}} other"
-msgstr[0] "and {{count}} other"
-msgstr[1] "and {{count}} other"
-
-msgid "and {{count}} others"
-msgid_plural "and {{count}} others"
-msgstr[0] "and {{count}} others"
-msgstr[1] "and {{count}} others"

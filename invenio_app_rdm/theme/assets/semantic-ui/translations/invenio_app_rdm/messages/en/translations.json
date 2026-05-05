@@ -116,8 +116,6 @@
   "No title": "No title",
   "Uploaded on {{uploadDate}}": "Uploaded on {{uploadDate}}",
   "Published in: {{- publishInfo }}": "Published in: {{- publishInfo }}",
-  "{{count}} more versions exist for this record": "{{count}} more versions exist for this record",
-  "{{count}} more versions exist for this record_plural": "{{count}} more versions exist for this record",
   "Recommendation": "Recommendation",
   "This check is recommended but not mandatory.": "This check is recommended but not mandatory.",
   "This check indicates a critical issue that must be addressed.": "This check indicates a critical issue that must be addressed.",
@@ -149,8 +147,6 @@
   "\n                Please check the email and follow the instructions to complete the access request.\n              ": "\n                Please check the email and follow the instructions to complete the access request.\n              ",
   "An error occurred while fetching communities.": "An error occurred while fetching communities.",
   "Communities": "Communities",
-  "View all {{count}} communities": "View all {{count}} communities",
-  "View all {{count}} communities_plural": "View all {{count}} communities",
   "Submit to community": "Submit to community",
   "Pending submissions": "Pending submissions",
   "Manage communities": "Manage communities",
@@ -187,8 +183,6 @@
   "Preview": "Preview",
   "Only published versions are displayed.": "Only published versions are displayed.",
   "An error occurred while fetching the versions.": "An error occurred while fetching the versions.",
-  "View all {{count}} versions": "View all {{count}} versions",
-  "View all {{count}} versions_plural": "View all {{count}} versions",
   "Cite all versions?": "Cite all versions?",
   "You can cite all versions by using the DOI": "You can cite all versions by using the DOI",
   "This DOI represents all versions, and will always resolve to the latest one.": "This DOI represents all versions, and will always resolve to the latest one.",
@@ -308,9 +302,5 @@
   "ROR logo": "ROR logo",
   "GND profile": "GND profile",
   "GND logo": "GND logo",
-  "No name": "No name",
-  "and {{count}} other": "and {{count}} other",
-  "and {{count}} other_plural": "and {{count}} other",
-  "and {{count}} others": "and {{count}} others",
-  "and {{count}} others_plural": "and {{count}} others"
+  "No name": "No name"
 }
