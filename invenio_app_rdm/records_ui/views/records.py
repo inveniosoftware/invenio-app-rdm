@@ -185,7 +185,7 @@ class PreviewFile:
         return self.file._file.file.storage().open()
 
 
-class PreviewContainerItem:
+class PreviewContainerItem(PreviewFile):
     """Container Item Preview file implementation for InvenioRDM."""
 
     def __init__(

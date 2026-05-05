@@ -10,10 +10,9 @@
 
 """Routes for record-related pages provided by Invenio-App-RDM."""
 
-from functools import wraps
-
 from flask import current_app, g, make_response, redirect, request, session, url_for
 from flask_login import login_required
+from functools import wraps
 from invenio_base import invenio_url_for
 from invenio_communities.communities.resources.serializer import (
     UICommunityJSONSerializer,
@@ -25,6 +24,7 @@ from invenio_rdm_records.resources.serializers.signposting import (
     FAIRSignpostingProfileLvl1Serializer,
 )
 from invenio_rdm_records.services.errors import RecordDeletedException
+from invenio_records_resources.proxies import current_service_registry
 from invenio_records_resources.services.errors import PermissionDeniedError
 from sqlalchemy.orm.exc import NoResultFound
 
@@ -276,8 +276,6 @@ def pass_container_item():
                 "identity": g.identity,
                 "path": path,
             }
-
-            from invenio_records_resources.proxies import current_service_registry
 
             file_service = current_service_registry.get("files")
 
