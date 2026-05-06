@@ -13,43 +13,47 @@ import { i18next } from "@translations/invenio_app_rdm/i18next";
 import { Formik } from "formik";
 import { withCancel, ErrorMessage, SelectField, ErrorLabel } from "react-invenio-forms";
 import { Form, Button, Modal, Message, Icon } from "semantic-ui-react";
-import { NotificationContext } from "@js/invenio_administration";
-import * as Yup from "yup";
 import {
-  emptyUserRolesState,
-  fetchUserRoleManagementState,
-  UserModerationApi,
-} from "../users/api";
+  InvenioAdministrationActionsApi,
+  NotificationContext,
+} from "@js/invenio_administration";
+import * as Yup from "yup";
+import { emptyUserRolesState, fetchUserRoleManagementState } from "../users/api";
 
-const _hasSelectionChanged = (initialManagedRoleIds, selectedRoleIds) => {
-  if (initialManagedRoleIds.length !== selectedRoleIds.length) {
+const _hasSelectionChanged = (initialRoleIds, selectedRoleIds) => {
+  if (initialRoleIds.length !== selectedRoleIds.length) {
     return true;
   }
 
-  const initialSet = new Set(initialManagedRoleIds);
+  const initialSet = new Set(initialRoleIds);
   return selectedRoleIds.some((roleId) => !initialSet.has(roleId));
 };
 
-const _mergeSelectedRoleIds = (selectedRoleIds, unmanagedAssignedRoleIds) => {
-  return Array.from(new Set([...selectedRoleIds, ...unmanagedAssignedRoleIds]));
+const _toRoleOption = (role) => ({
+  "key": role.id,
+  "text": role.name,
+  "value": role.id,
+  "data-managed": role.isManaged,
+});
+
+const _toSortedRoleOptions = (roles) =>
+  roles.map(_toRoleOption).sort((left, right) => left.text.localeCompare(right.text));
+
+const _filterRoleOptions = (options, query) => {
+  const lowerQuery = query.toLowerCase();
+  return options.filter((option) => option.text.toLowerCase().includes(lowerQuery));
 };
 
-const _toRoleOption = (role) => {
-  return {
-    key: role.id,
-    text: role.name,
-    value: role.id,
-  };
-};
+const _getVisibleRoleOptions = (options, showUnmanagedRoles, selectedRoleIds = []) => {
+  const selectedRoleIdSet = new Set(selectedRoleIds);
 
-const _toSortedRoleOptions = (roles) => {
-  return roles
-    .map((role) => {
-      return _toRoleOption(role);
-    })
-    .sort((left, right) => {
-      return left.text.localeCompare(right.text);
-    });
+  return options.filter((option) => {
+    if (selectedRoleIdSet.has(option.value)) {
+      return true;
+    }
+
+    return showUnmanagedRoles ? !option["data-managed"] : option["data-managed"];
+  });
 };
 
 export class ManageUserRolesForm extends Component {
@@ -59,6 +63,7 @@ export class ManageUserRolesForm extends Component {
       loading: false,
       loadingRoles: true,
       error: undefined,
+      showUnmanagedRoles: false,
       rolesState: emptyUserRolesState(),
     };
     this.validationSchema = Yup.object({
@@ -77,11 +82,11 @@ export class ManageUserRolesForm extends Component {
   static contextType = NotificationContext;
 
   fetchRoles = async () => {
-    const { user } = this.props;
+    const { resource } = this.props;
     this.setState({ loadingRoles: true, error: undefined });
 
     try {
-      const rolesState = await fetchUserRoleManagementState(user);
+      const rolesState = await fetchUserRoleManagementState(resource);
       this.setState({
         loadingRoles: false,
         rolesState,
@@ -96,24 +101,24 @@ export class ManageUserRolesForm extends Component {
 
   handleSubmit = async (values) => {
     const { addNotification } = this.context;
-    const { user, actionSuccessCallback } = this.props;
+    const { actionKey, actionSuccessCallback, resource } = this.props;
     const { rolesState } = this.state;
-    const { initialManagedRoleIds, unmanagedAssignedRoleIds } = rolesState;
+    const { initialRoleIds } = rolesState;
 
     const selectedRoleIds = values.selectedRoleIds || [];
-    if (!_hasSelectionChanged(initialManagedRoleIds, selectedRoleIds)) {
+    if (!_hasSelectionChanged(initialRoleIds, selectedRoleIds)) {
       return;
     }
 
     this.setState({ loading: true, error: undefined });
 
     try {
-      const roleIdsToKeep = _mergeSelectedRoleIds(
-        selectedRoleIds,
-        unmanagedAssignedRoleIds
-      );
+      const actionEndpoint =
+        resource.links?.actions?.[actionKey] || resource.links?.[actionKey];
       this.cancellableAction = withCancel(
-        UserModerationApi.setGroupsForUser(user, roleIdsToKeep)
+        InvenioAdministrationActionsApi.resourceAction(actionEndpoint, {
+          groups: selectedRoleIds,
+        })
       );
       await this.cancellableAction.promise;
 
@@ -137,99 +142,117 @@ export class ManageUserRolesForm extends Component {
   };
 
   handleModalClose = () => {
-    const { actionCloseCallback } = this.props;
-    actionCloseCallback();
+    const { actionCancelCallback } = this.props;
+    actionCancelCallback();
+  };
+
+  toggleUnmanagedRoles = (event, data) => {
+    this.setState({ showUnmanagedRoles: data.checked });
   };
 
   render() {
-    const { error, loading, loadingRoles, rolesState } = this.state;
-    const { assignedRoles, initialManagedRoleIds, managedRoles } = rolesState;
-    const roleOptions = _toSortedRoleOptions(managedRoles);
+    const { error, loading, loadingRoles, rolesState, showUnmanagedRoles } = this.state;
+    const { assignedRoles, initialRoleIds, roles } = rolesState;
 
     return (
       <Formik
         onSubmit={this.handleSubmit}
-        initialValues={{ selectedRoleIds: initialManagedRoleIds }}
+        initialValues={{ selectedRoleIds: initialRoleIds }}
         enableReinitialize
         validateOnChange={false}
         validateOnBlur={false}
-        validationSchema={() => this.validationSchema}
+        validationSchema={this.validationSchema}
       >
-        {({ handleSubmit }) => (
-          <>
-            {error && (
-              <ErrorMessage
-                header={i18next.t("Unable to manage user roles")}
-                content={error}
-                icon="exclamation"
-                className="text-align-left"
-                negative
-              />
-            )}
-            <Modal.Content>
-              <Message visible warning>
-                <p>
-                  <Icon name="warning sign" />
-                  {i18next.t(
-                    "Only managed roles can be changed here. Role changes may affect the user's permissions."
-                  )}
-                </p>
-              </Message>
-              <Form>
-                <Form.Field id="selected-role-ids">
-                  <SelectField
-                    multiple
-                    clearable
-                    search
-                    loading={loadingRoles}
-                    fieldPath="selectedRoleIds"
-                    options={roleOptions}
-                  />
-                  <ErrorLabel fieldPath="selectedRoleIds" />
-                </Form.Field>
-              </Form>
-              <Message visible>
-                <h3>{i18next.t("Current user roles")}</h3>
-                <ul>
-                  {assignedRoles.length > 0 ? (
-                    assignedRoles.map((role) => (
-                      <li key={role.id}>
-                        <strong className={role.isManaged ? "" : "text-muted"}>
-                          {role.name}
-                        </strong>
-                      </li>
-                    ))
-                  ) : (
-                    <li>{i18next.t("No roles assigned.")}</li>
-                  )}
-                </ul>
-              </Message>
-            </Modal.Content>
-            <Modal.Actions>
-              <Button onClick={this.handleModalClose} floated="left">
-                {i18next.t("Close")}
-              </Button>
-              <Button
-                size="small"
-                type="submit"
-                labelPosition="left"
-                icon="check"
-                color="green"
-                content={i18next.t("Update roles")}
-                onClick={(event) => handleSubmit(event)}
-                loading={loading}
-                disabled={loading || loadingRoles}
-              />
-            </Modal.Actions>
-          </>
-        )}
+        {({ handleSubmit, values }) => {
+          const roleOptions = _toSortedRoleOptions(roles);
+          const visibleRoleOptions = _getVisibleRoleOptions(
+            roleOptions,
+            showUnmanagedRoles,
+            values.selectedRoleIds || []
+          );
+
+          return (
+            <>
+              {error && (
+                <ErrorMessage
+                  header={i18next.t("Unable to manage user roles")}
+                  content={error}
+                  icon="exclamation"
+                  className="text-align-left"
+                  negative
+                />
+              )}
+              <Modal.Content>
+                <Message warning>
+                  <p>
+                    <Icon name="warning sign" />
+                    {i18next.t("Role changes may affect the user's permissions.")}
+                  </p>
+                </Message>
+                <Form>
+                  <Form.Field id="selected-role-ids">
+                    <Form.Checkbox
+                      toggle
+                      checked={showUnmanagedRoles}
+                      label={i18next.t("Show unmanaged roles only")}
+                      onChange={this.toggleUnmanagedRoles}
+                    />
+                    <SelectField
+                      key={showUnmanagedRoles ? "unmanaged-roles" : "managed-roles"}
+                      multiple
+                      clearable
+                      loading={loadingRoles}
+                      fieldPath="selectedRoleIds"
+                      options={visibleRoleOptions}
+                      search={_filterRoleOptions}
+                    />
+                    <ErrorLabel fieldPath="selectedRoleIds" />
+                  </Form.Field>
+                </Form>
+                <Message>
+                  <h3>{i18next.t("Current user roles")}</h3>
+                  <ul>
+                    {assignedRoles.length > 0 ? (
+                      assignedRoles.map((role) => (
+                        <li key={role.id}>
+                          <strong className={role.isManaged ? "" : "text-muted"}>
+                            {role.name}
+                          </strong>
+                        </li>
+                      ))
+                    ) : (
+                      <li>{i18next.t("No roles assigned.")}</li>
+                    )}
+                  </ul>
+                </Message>
+              </Modal.Content>
+              <Modal.Actions>
+                <Button onClick={this.handleModalClose} floated="left">
+                  {i18next.t("Close")}
+                </Button>
+                <Button
+                  size="small"
+                  type="submit"
+                  labelPosition="left"
+                  icon="check"
+                  color="green"
+                  content={i18next.t("Update roles")}
+                  onClick={handleSubmit}
+                  loading={loading}
+                  disabled={loading || loadingRoles}
+                />
+              </Modal.Actions>
+            </>
+          );
+        }}
       </Formik>
     );
   }
 }
 
 ManageUserRolesForm.propTypes = {
-  user: PropTypes.object.isRequired,
-  actionCloseCallback: PropTypes.func.isRequired,
+  actionKey: PropTypes.string.isRequired,
+  resource: PropTypes.object.isRequired,
+  actionCancelCallback: PropTypes.func.isRequired,
   actionSuccessCallback: PropTypes.func.isRequired,
 };

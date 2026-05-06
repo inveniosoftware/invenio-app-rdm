@@ -24,7 +24,7 @@ class SearchResultItemComponent extends Component {
   };
 
   render() {
-    const { result, idKeyPath, listUIEndpoint } = this.props;
+    const { actions, result, idKeyPath, listUIEndpoint } = this.props;
 
     return (
       <Table.Row>
@@ -179,6 +179,7 @@ class SearchResultItemComponent extends Component {
         <Table.Cell collapsing>
           <UserActions
             useDropdown
+            actions={actions}
             user={result}
             successCallback={this.refreshAfterAction}
             displayManageRoles
@@ -193,6 +194,7 @@ class SearchResultItemComponent extends Component {
 
 SearchResultItemComponent.propTypes = {
   result: PropTypes.object.isRequired,
+  actions: PropTypes.object.isRequired,
   idKeyPath: PropTypes.string.isRequired,
   updateQueryState: PropTypes.func.isRequired,
   currentQueryState: PropTypes.object.isRequired,

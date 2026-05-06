@@ -37,10 +37,6 @@ const userGroups = async (user) => {
   return await http.get(APIRoutes.userGroups(user));
 };
 
-const setGroupsForUser = async (user, groups) => {
-  return await http.put(APIRoutes.setGroups(user), { groups });
-};
-
 const groups = async (params = {}) => {
   return await http.get(APIRoutes.groups(), { params });
 };
@@ -53,6 +49,5 @@ export const UserModerationApi = {
   deactivateUser: deactivateUser,
   blockUser: blockUser,
   userGroups: userGroups,
-  setGroupsForUser: setGroupsForUser,
   groups: groups,
 };

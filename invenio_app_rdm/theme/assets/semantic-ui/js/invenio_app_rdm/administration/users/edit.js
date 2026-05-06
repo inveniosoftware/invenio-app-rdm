@@ -18,12 +18,8 @@ import { ManageUserRoles } from "../components/ManageUserRoles";
 import { fetchUserRoleManagementState } from "./api";
 
 const fetchUserInfo = async (userId) => {
-  try {
-    const response = await http.get(`/api/users/${userId}`);
-    return response.data;
-  } catch (error) {
-    return {};
-  }
+  const response = await http.get(`/api/users/${userId}`);
+  return response.data;
 };
 
 const UserRoleItem = ({ role }) => {
@@ -63,6 +59,7 @@ class UserEditEnhancements extends Component {
       rolesError: undefined,
       rolesLoading: true,
       userInfo: {},
+      userInfoError: undefined,
     };
   }
 
@@ -73,8 +70,12 @@ class UserEditEnhancements extends Component {
 
   fetchUserInfo = async () => {
     const { userId } = this.props;
-    const userInfo = await fetchUserInfo(userId);
-    this.setState({ userInfo });
+    try {
+      const userInfo = await fetchUserInfo(userId);
+      this.setState({ userInfo });
+    } catch {
+      this.setState({ userInfoError: true });
+    }
   };
 
   fetchUserRoles = async () => {
@@ -96,24 +97,34 @@ class UserEditEnhancements extends Component {
   };
 
   render() {
-    const { userId } = this.props;
-    const { roles, rolesError, rolesLoading, userInfo } = this.state;
-    const user = { id: userId };
+    const { actions, userId } = this.props;
+    const { roles, rolesError, rolesLoading, userInfo, userInfoError } = this.state;
+    const user = { id: userId, ...userInfo };
 
     return (
       <>
         <Segment>
           <Header as="h3">{i18next.t("User information")}</Header>
-          <List size="small">
-            <List.Item>
-              <List.Header>{i18next.t("Username")}</List.Header>
-              <List.Description>{userInfo.username}</List.Description>
-            </List.Item>
-            <List.Item>
-              <List.Header>{i18next.t("Email")}</List.Header>
-              <List.Description>{userInfo.email}</List.Description>
-            </List.Item>
-          </List>
+          {userInfoError ? (
+            <ErrorMessage
+              header={i18next.t("Unable to load user information")}
+              content={i18next.t("Refresh the page or try again.")}
+              icon="exclamation"
+              className="text-align-left"
+              negative
+            />
+          ) : (
+            <List size="small">
+              <List.Item>
+                <List.Header>{i18next.t("Username")}</List.Header>
+                <List.Description>{userInfo.username}</List.Description>
+              </List.Item>
+              <List.Item>
+                <List.Header>{i18next.t("Email")}</List.Header>
+                <List.Description>{userInfo.email}</List.Description>
+              </List.Item>
+            </List>
+          )}
         </Segment>
         <Segment>
           <Header as="h2">{i18next.t("Role management")}</Header>
@@ -137,6 +148,7 @@ class UserEditEnhancements extends Component {
           )}
           <Divider />
           <ManageUserRoles
+            actions={actions}
             user={user}
             asDropdownItem={false}
             successCallback={this.fetchUserRoles}
@@ -147,16 +159,17 @@ class UserEditEnhancements extends Component {
   }
 }
 
-export const initUserEditEnhancements = () => {
+export const initUsersEdit = () => {
   const root = document.getElementById("invenio-users-edit-root");
   if (!root) {
     return;
   }
 
   const userId = root.dataset.userId;
+  const actions = JSON.parse(root.dataset.actions || "{}");
   ReactDOM.render(
     <NotificationController>
-      <UserEditEnhancements userId={userId} />
+      <UserEditEnhancements actions={actions} userId={userId} />
     </NotificationController>,
     root
   );
@@ -178,5 +191,6 @@ UserRolesList.propTypes = {
 };
 
 UserEditEnhancements.propTypes = {
+  actions: PropTypes.object.isRequired,
   userId: PropTypes.string.isRequired,
 };

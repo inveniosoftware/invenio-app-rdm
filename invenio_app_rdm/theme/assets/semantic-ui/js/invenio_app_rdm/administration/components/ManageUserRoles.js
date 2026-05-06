@@ -9,92 +9,45 @@
 
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Modal, Icon, Dropdown, Button } from "semantic-ui-react";
-import { ActionModal } from "@js/invenio_administration";
+import { Button, Dropdown } from "semantic-ui-react";
+import { ResourceActions } from "@js/invenio_administration";
+import { OverridableContext } from "react-overridable";
 import { ManageUserRolesForm } from "./ManageUserRolesForm";
-import { i18next } from "@translations/invenio_app_rdm/i18next";
+
+const ManageRolesDropdownItem = (props) => <Dropdown.Item {...props} />;
+
+const ManageRolesButton = (props) => (
+  <Button primary size="small" {...props} basic={false} />
+);
 
 export class ManageUserRoles extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      modalOpen: false,
-    };
-  }
-
-  onModalTriggerClick = () => {
-    this.setState({
-      modalOpen: true,
-    });
-  };
-
-  closeModal = () => {
-    this.setState({
-      modalOpen: false,
-    });
-  };
-
-  handleSuccess = () => {
-    const { successCallback } = this.props;
-    this.closeModal();
-    successCallback();
-  };
-
-  renderTrigger = () => {
-    const { asDropdownItem } = this.props;
-
-    if (asDropdownItem) {
-      return (
-        <Dropdown.Item
-          key="manage-user-roles"
-          onClick={this.onModalTriggerClick}
-          icon
-          fluid
-          basic
-          labelPosition="left"
-        >
-          <Icon name="id badge" />
-          {i18next.t("Manage roles")}
-        </Dropdown.Item>
-      );
+  render() {
+    const { actions, asDropdownItem, successCallback, user } = this.props;
+    const manageRolesAction = actions?.manage_roles;
+    if (!manageRolesAction || !user.links?.manage_roles) {
+      return null;
     }
 
     return (
-      <Button
-        onClick={this.onModalTriggerClick}
-        icon
-        labelPosition="left"
-        primary
-        size="small"
+      <OverridableContext.Provider
+        value={{
+          "InvenioAdministration.ResourceActions.ModalBody.manage_roles":
+            ManageUserRolesForm,
+        }}
       >
-        <Icon name="id badge" />
-        {i18next.t("Manage roles")}
-      </Button>
-    );
-  };
-
-  render() {
-    const { user } = this.props;
-    const { modalOpen } = this.state;
-    return (
-      <>
-        {this.renderTrigger()}
-        <ActionModal modalOpen={modalOpen} resource={user}>
-          <Modal.Header>{i18next.t("Manage user roles")}</Modal.Header>
-          {modalOpen && (
-            <ManageUserRolesForm
-              actionCloseCallback={this.closeModal}
-              actionSuccessCallback={this.handleSuccess}
-              user={user}
-            />
-          )}
-        </ActionModal>
-      </>
+        <ResourceActions
+          actions={{ manage_roles: manageRolesAction }}
+          Element={asDropdownItem ? ManageRolesDropdownItem : ManageRolesButton}
+          resource={user}
+          successCallback={successCallback}
+        />
+      </OverridableContext.Provider>
     );
   }
 }
 
 ManageUserRoles.propTypes = {
+  actions: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
   successCallback: PropTypes.func.isRequired,
   asDropdownItem: PropTypes.bool,

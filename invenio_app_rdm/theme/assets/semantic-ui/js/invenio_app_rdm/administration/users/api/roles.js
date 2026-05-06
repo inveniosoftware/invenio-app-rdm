@@ -32,61 +32,41 @@ const _toRole = (role, description, isManaged) => {
   };
 };
 
-const _rolesById = (roles) => {
-  const roleEntries = roles.map((role) => {
-    const roleId = _toRoleId(role);
-    return [roleId, role];
-  });
-
-  return new Map(roleEntries);
-};
+const _rolesById = (roles) => new Map(roles.map((role) => [_toRoleId(role), role]));
 
 export const emptyUserRolesState = () => ({
   assignedRoles: [],
-  initialManagedRoleIds: [],
-  managedRoles: [],
-  unmanagedAssignedRoleIds: [],
+  initialRoleIds: [],
+  roles: [],
 });
 
 const prepareUserRolesState = (assignedRoles, allRoles) => {
   const rolesById = _rolesById(allRoles);
-  const managedRoles = allRoles
-    .filter((role) => role.is_managed)
-    .map((role) => {
-      return _toRole(role, role.description, true);
-    });
-  const managedRoleIds = managedRoles.map((role) => {
-    return _toRoleId(role);
-  });
+  const roles = allRoles.map((role) =>
+    _toRole(role, role.description, role.is_managed)
+  );
+  const roleIds = new Set(roles.map(_toRoleId));
 
   const userRoles = assignedRoles.map((role) => {
-    const roleId = _toRoleId(role);
-    const roleFromAllRoles = rolesById.get(roleId);
-    const isManaged = managedRoleIds.includes(roleId);
-    let description;
-    if (roleFromAllRoles) {
-      description = roleFromAllRoles.description;
-    }
-
+    const roleFromAllRoles = rolesById.get(_toRoleId(role));
+    const description = roleFromAllRoles?.description;
+    const isManaged = Boolean(roleFromAllRoles?.is_managed);
     return _toRole(role, description, isManaged);
   });
-
-  const initialManagedRoleIds = [];
-  const unmanagedAssignedRoleIds = [];
   userRoles.forEach((role) => {
     const roleId = _toRoleId(role);
-    if (role.isManaged) {
-      initialManagedRoleIds.push(roleId);
-    } else {
-      unmanagedAssignedRoleIds.push(roleId);
+    if (!roleIds.has(roleId)) {
+      roles.push(role);
+      roleIds.add(roleId);
     }
   });
+
+  const initialRoleIds = userRoles.map(_toRoleId);
 
   return {
     assignedRoles: userRoles,
-    initialManagedRoleIds: initialManagedRoleIds,
-    managedRoles: managedRoles,
-    unmanagedAssignedRoleIds: unmanagedAssignedRoleIds,
+    initialRoleIds: initialRoleIds,
+    roles: roles,
   };
 };
 
@@ -94,24 +74,17 @@ const fetchAllRoles = async () => {
   const size = 100;
   let page = 1;
   let allRoles = [];
-  let total = null;
-  let shouldContinue = true;
 
-  while (shouldContinue) {
-    const response = await UserModerationApi.groups({
-      size,
-      page,
-    });
+  let hasMore = true;
+  while (hasMore) {
+    const response = await UserModerationApi.groups({ size, page });
     const data = response?.data || {};
     const hits = _extractHits(data);
     allRoles = allRoles.concat(hits);
 
-    if (total === null) {
-      total = _extractTotal(data);
-    }
-
-    shouldContinue = Boolean(hits.length) && allRoles.length < total;
-    if (shouldContinue) {
+    if (!hits.length || allRoles.length >= _extractTotal(data)) {
+      hasMore = false;
+    } else {
       page += 1;
     }
   }

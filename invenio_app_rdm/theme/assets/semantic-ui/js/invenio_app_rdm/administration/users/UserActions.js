@@ -123,6 +123,7 @@ export class UserActions extends Component {
       displayImpersonateUser,
       displayQuota,
       useDropdown,
+      actions,
     } = this.props;
     const { loading, blockModalOpen } = this.state;
     const isUserBlocked = !isEmpty(user.blocked_at);
@@ -172,7 +173,12 @@ export class UserActions extends Component {
             />
           )}
           {displayManageRoles && (
-            <ManageUserRoles successCallback={successCallback} user={user} />
+            <ManageUserRoles
+              actions={actions}
+              asDropdownItem={useDropdown}
+              successCallback={successCallback}
+              user={user}
+            />
           )}
           <Dropdown.Divider />
           {filteredActions.map((actionItem) => (
@@ -278,6 +284,7 @@ UserActions.propTypes = {
   displayImpersonateUser: PropTypes.bool,
   displayQuota: PropTypes.bool,
   useDropdown: PropTypes.bool,
+  actions: PropTypes.object,
 };
 
 UserActions.defaultProps = {
@@ -289,4 +296,5 @@ UserActions.defaultProps = {
   displayImpersonateUser: false,
   displayQuota: false,
   useDropdown: false,
+  actions: {},
 };

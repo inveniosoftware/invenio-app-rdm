@@ -9,7 +9,7 @@
 
 import _get from "lodash/get";
 
-const APIRoutesGenerators = {
+export const APIRoutes = {
   restore: (user, idKeyPath = "id") => {
     return `/api/users/${_get(user, idKeyPath)}/restore`;
   },
@@ -38,14 +38,7 @@ const APIRoutesGenerators = {
     return `/api/users/${_get(user, idKeyPath)}/groups`;
   },
 
-  setGroups: (user, idKeyPath = "id") => {
-    return `/api/users/${_get(user, idKeyPath)}/groups`;
-  },
-
   groups: () => {
     return "/api/groups";
   },
-};
-export const APIRoutes = {
-  ...APIRoutesGenerators,
 };
