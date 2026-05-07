@@ -99,9 +99,13 @@ To access its content, please download it and open it locally.') }}
         <th class>
           {%- if config.RDM_ARCHIVE_DOWNLOAD_ENABLED %}
             {% set archive_download_url = record.links.archive_media if is_media else record.links.archive %}
-            <a role="button" class="ui compact mini button right floated archive-link" href="{{ archive_download_url }}">
-              <i class="file archive icon button" aria-hidden="true"></i> {{_("Download all")}}
-            </a>
+            {%- set archive_max_size = config.RECORDS_RESOURCES_ARCHIVE_DOWNLOAD_MAX_SIZE %}
+            {%- set archive_total_bytes = files|map(attribute='size', default=0)|sum() %}
+            {%- if not archive_max_size or archive_total_bytes <= archive_max_size %}
+              <a role="button" class="ui compact mini button right floated archive-link" href="{{ archive_download_url }}">
+                <i class="file archive icon button" aria-hidden="true"></i> {{_("Download all")}}
+              </a>
+            {%- endif %}
           {%- endif %}
         </th>
       </tr>
