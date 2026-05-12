@@ -19,7 +19,7 @@ def test_redirector(client_with_login, redirection_rules):
         # Target can be either a url or a function that returns a tuple(url, code)
         if callable(target):
             target_output = target()
-            if type(target_output) == tuple:
+            if type(target_output) is tuple:
                 expected_url, expected_code = target_output
             else:
                 expected_url = target_output

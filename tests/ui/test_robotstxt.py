@@ -28,7 +28,7 @@ def test_robotstxt(app, client, cache_for_sitemap_index):
     response = client.get("/robots.txt")
 
     assert 200 == response.status_code
-    assert type(response.text) == str
+    assert type(response.text) is str
     assert "Disallow: /search" in response.text
     assert "Disallow: /api" in response.text
     assert "Disallow: /administration" in response.text
