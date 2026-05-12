@@ -175,6 +175,8 @@ from invenio_vocabularies.contrib.subjects.datastreams import (
 )
 from werkzeug.local import LocalProxy
 
+from invenio_app_rdm import __version__
+
 from .communities_ui.sitemap import SitemapSectionOfCommunities
 from .records_ui.sitemap import SitemapSectionOfRDMRecords
 from .theme.views import notification_settings
@@ -1492,7 +1494,6 @@ USER_DASHBOARD_MENU_OVERRIDES = {}
 # Invenio-Administration
 # ======================
 #
-from invenio_app_rdm import __version__
 
 ADMINISTRATION_DISPLAY_VERSIONS = [("invenio-app-rdm", f"v{__version__}")]
 """Show the InvenioRDM version in the administration panel."""

@@ -12,10 +12,8 @@ import time
 from datetime import datetime, timedelta, timezone
 
 import pytest
-from flask import current_app
 from invenio_search.engine import dsl
 from invenio_stats.proxies import current_stats
-from invenio_stats.tasks import process_events
 
 
 @pytest.fixture()

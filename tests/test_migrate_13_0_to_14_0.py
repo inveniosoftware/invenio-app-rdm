@@ -188,7 +188,7 @@ class TestMigration13To14:
 
         # 1. Published record without draft
         draft = records_service.create(system_identity, thesis_record_data)
-        record_without_draft = records_service.publish(system_identity, draft.id)
+        _record_without_draft = records_service.publish(system_identity, draft.id)
 
         # 2. Published record with draft
         draft = records_service.create(system_identity, thesis_record_data)
@@ -229,7 +229,7 @@ class TestMigration13To14:
         )
 
         # 4. Draft-only
-        draft_only = records_service.create(system_identity, thesis_draft_data)
+        _draft_only = records_service.create(system_identity, thesis_draft_data)
 
         # 5. Non-thesis record (should not be affected)
         thesis_record_data["metadata"]["resource_type"]["id"] = "publication-article"
