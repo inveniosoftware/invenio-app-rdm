@@ -4,7 +4,7 @@
 {%- if community and community.theme and community.theme.enabled %}
   {%- block css %}
   {{ super() }}
-  <link rel="stylesheet" type="text/css" href="/communities/{{community.slug}}/community-theme-{{ community.revision_id }}.css">
+  <link rel="stylesheet" type="text/css" href="{{ invenio_url_for('invenio_communities.community_theme_css_config', pid_value=community.slug, revision=community.revision_id) }}">
   {%- if config.APP_RDM_DEPOSIT_NG_FILES_UI_ENABLED %}
   {{ webpack['uppy-file-uploader.css'] }}
   {%- endif %}

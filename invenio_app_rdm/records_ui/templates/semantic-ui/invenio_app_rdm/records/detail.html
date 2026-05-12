@@ -16,7 +16,7 @@
     {{ super() }}
     {% if community and community.theme and community.theme.enabled  %}
       <link rel="stylesheet" type="text/css"
-            href="/communities/{{ community.slug }}/community-theme-{{ community.revision_id }}.css">
+            href="{{ invenio_url_for('invenio_communities.community_theme_css_config', pid_value=community.slug, revision=community.revision_id) }}">
     {% endif %}
   {%- endblock css %}
 {% endif %}

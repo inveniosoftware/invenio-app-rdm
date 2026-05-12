@@ -32,13 +32,13 @@
             {%- block navbar_header %}
                 {%- block brand %}
                   {%- if config.THEME_LOGO %}
-                    <a class="logo-link" href="/">
+                      <a class="logo-link" href="{{ invenio_url_for('invenio_app_rdm.index') }}">
                       <img class="ui image rdm-logo"
                             src="{{ url_for('static', filename=config.THEME_LOGO) }}"
                             alt="{{ _(config.THEME_SITENAME) }} {{ _('home') }}"/>
                     </a>
                   {%- else %}
-                    <a class="logo" href="/">{{ _(config.THEME_SITENAME) }}</a>
+                    <a class="logo" href="{{ invenio_url_for('invenio_app_rdm.index') }}">{{ _(config.THEME_SITENAME) }}</a>
                   {%- endif %}
                 {%- endblock brand %}
               {%- endblock navbar_header %}

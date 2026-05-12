@@ -17,7 +17,7 @@
   <h3>Enkel sökning (en eller flera termer)</h3>
   <p>
     <strong>Exempel:</strong>
-    <a href="/search?page=1&amp;size=20&amp;q=open%20science"
+    <a href="{{ invenio_url_for('invenio_search_ui.search', page='1', size='20', q='open science') }}"
     ><code>open science</code></a
     >
   </p>
@@ -33,11 +33,11 @@
   </p>
   <p>
     <strong>Exempel:</strong>
-    <a href="/search?page=1&amp;size=20&amp;q=%2Bopen%20%2Bscience"
+    <a href="{{ invenio_url_for('invenio_search_ui.search', page='1', size='20', q='+open +science') }}"
     ><code>+open +science</code></a
     >
     eller
-    <a href="/search?page=1&amp;size=20&amp;q=open%20AND%20science"
+    <a href="{{ invenio_url_for('invenio_search_ui.search', page='1', size='20', q='open AND science') }}"
     ><code>open AND science</code></a
     >
   </p>
@@ -47,18 +47,18 @@
   </p>
   <p>
     <strong>Exempel:</strong>
-    <a href="/search?page=1&amp;size=20&amp;q=-open%20%2Bscience"
+    <a href="{{ invenio_url_for('invenio_search_ui.search', page='1', size='20', q='-open +science') }}"
     ><code>-open +science</code></a
     >
     eller
-    <a href="/search?page=1&amp;size=20&amp;q=NOT%20open%20AND%20science"
+    <a href="{{ invenio_url_for('invenio_search_ui.search', page='1', size='20', q='NOT open AND science') }}"
     ><code>NOT open AND science</code></a
     >
   </p>
   <h3>Frassökning</h3>
   <p>
     <strong>Exempel:</strong>
-    <a href="/search?page=1&amp;size=20&amp;q=%22open%20science%22"
+    <a href="{{ invenio_url_for('invenio_search_ui.search', page='1', size='20', q='"open science"') }}"
     ><code>"open science"</code></a
     >
   </p>
@@ -69,7 +69,7 @@
   <h3>Fältsökning</h3>
   <p>
     <strong>Exempel:</strong>
-    <a href="/search?page=1&amp;size=20&amp;q=metadata.title:open"
+    <a href="{{ invenio_url_for('invenio_search_ui.search', page='1', size='20', q='metadata.title:open') }}"
     ><code>metadata.title:open</code></a
     >
   </p>
@@ -80,7 +80,7 @@
   </p>
   <p>
     <strong>Exempel:</strong>
-    <a href="/search?page=1&amp;size=20&amp;q=metadata.title:(open%20science%29"
+    <a href="{{ invenio_url_for('invenio_search_ui.search', page='1', size='20', q='metadata.title:(open science)') }}"
     ><code>metadata.title:(open science)</code></a
     >
   </p>
@@ -93,11 +93,11 @@
   <p>
     <strong>Exempel:</strong>
     <a
-      href="/search?page=1&amp;size=20&amp;q=%2Bmetadata.title:%22open%20science%22%20-metadata.title:policy"
+      href="{{ invenio_url_for('invenio_search_ui.search', page='1', size='20', q='+metadata.title:"open science" -metadata.title:policy') }}"
     ><code>+metadata.title:"open science" -metadata.title:policy</code></a
     >
     eller t.ex.
-    <a href="/search?page=1&amp;size=20&amp;q=metadata.title:(-open%20%2Bscience%29"
+    <a href="{{ invenio_url_for('invenio_search_ui.search', page='1', size='20', q='metadata.title:(-open +science)') }}"
     ><code>metadata.title:(-open +science)</code></a
     >
   </p>
@@ -108,7 +108,7 @@
   <p>
     <strong>Exempel:</strong>
     <a
-      href="/search?page=1&amp;size=20&amp;q=metadata.publication_date:%5B2017%20TO%202018%5D"
+      href="{{ invenio_url_for('invenio_search_ui.search', page='1', size='20', q='metadata.publication_date:[2017 TO 2018]') }}"
     ><code>metadata.publication_date:[2017 TO 2018]</code></a
     >
     (notera att du måste skriva <code>TO</code> med versaler).
@@ -161,7 +161,7 @@
   </p>
   <p>
     <strong>Exempel:</strong>
-    <a href="/search?page=1&amp;size=20&amp;q=pids.doi.identifier%3A%2F10\.5281.*%2F">
+    <a href="{{ invenio_url_for('invenio_search_ui.search', page='1', size='20', q='pids.doi.identifier:/10\\.5281.*/') }}">
       <code>pids.doi.identifier:/10\.5281.*/</code>
     </a>
   </p>
@@ -182,14 +182,14 @@
   </p>
   <p>
     <strong>Exempel:</strong>
-    <a href="/search?page=1&amp;size=20&amp;q=NOT%20_exists_:metadata.additional_titles">
+    <a href="{{ invenio_url_for('invenio_search_ui.search', page='1', size='20', q='NOT _exists_:metadata.additional_titles') }}">
       <code>NOT _exists_:metadata.additional_titles</code>
     </a>
     (alla poster utan metadata.additional_titles)
   </p>
   <p>
     <strong>Exempel:</strong>
-    <a href="/search?page=1&amp;size=20&amp;q=_exists_:metadata.creators"
+    <a href="{{ invenio_url_for('invenio_search_ui.search', page='1', size='20', q='_exists_:metadata.creators') }}"
     ><code>_exists_:metadata.creators</code></a
     >
     (alla poster med metadata.creators)
@@ -206,7 +206,7 @@
   <p>
     <strong>Exempel:</strong>
     <a
-      href="/search?page=1&amp;size=20&amp;q=metadata.title:%22open%20science%22%5E5%20metadata.description:%22open%20science%22"
+      href="{{ invenio_url_for('invenio_search_ui.search', page='1', size='20', q='metadata.title:"open science"^5 metadata.description:"open science"') }}"
     ><code>metadata.title:"open science"^5 metadata.description:"open science"</code></a
     >
   </p>
@@ -217,7 +217,7 @@
   </p>
   <p>
     <strong>Exempel:</strong>
-    <a href="/search?page=1&amp;size=20&amp;q=oepn~"><code>oepn~</code></a>
+    <a href="{{ invenio_url_for('invenio_search_ui.search', page='1', size='20', q='oepn~') }}"><code>oepn~</code></a>
   </p>
   <p>
     Resultaten kommer att matcha poster med termer liknande <code>oepn</code> vilket
@@ -233,7 +233,7 @@
   </p>
   <p>
     <strong>Exempel:</strong>
-    <a href="/search?page=1&amp;size=20&amp;q=%22open%20science%22~5"
+    <a href="{{ invenio_url_for('invenio_search_ui.search', page='1', size='20', q='"open science"~5') }}"
     ><code>"open science"~5</code></a
     >
   </p>
@@ -245,7 +245,7 @@
   </p>
   <p>
     <strong>Exempel:</strong>
-    <a href="/search?page=1&amp;size=20&amp;q=ope%3F%20scien*"
+    <a href="{{ invenio_url_for('invenio_search_ui.search', page='1', size='20', q='ope? scien*') }}"
     ><code>ope? scien*</code></a
     >
   </p>

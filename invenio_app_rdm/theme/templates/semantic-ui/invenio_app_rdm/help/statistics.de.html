@@ -81,7 +81,8 @@
       <p>Einmal täglich.</p>
 
       <h3>Wie finde ich die am häufigsten angesehenen Datensätze?</h3>
-      <p>In jeder Suche in datastore können die Ergebnisse nach <a href="/search?sort=mostviewed">&quot;am häufigsten
+      <p>In jeder Suche in datastore können die Ergebnisse nach <a href="{{ invenio_url_for('invenio_search_ui.search', sort='mostviewed')
+ }}">&quot;am häufigsten
         angesehen&quot;</a> sortiert werden.</p>
 
       <h3>Nach welchem Standard wird getrackt?</h3>

@@ -14,7 +14,7 @@
     <p class="rel-mb-2">
       <i aria-hidden="true" class="user secret icon"></i>
       <strong>{{ _("You are currently not logged in") }}</strong>. {{ _("Do you have an account?") }}
-      <a href="/login/">{{ _("Log in here") }}</a>
+      <a href="{{ invenio_url_for('security.login') }}">{{ _("Log in here") }}</a>
     </p>
   {% else %}
     {% set email = current_user.email %}
@@ -28,7 +28,7 @@
 
       <p class="mt-0 mb-10">
         {{ _("Not you?") }}
-        <a href="{{ url_for('security.login') }}">{{ _("Log out") }}</a> {{ _("to switch account.") }}
+        <a href="{{ invenio_url_for('security.logout') }}">{{ _("Log out") }}</a> {{ _("to switch account.") }}
       </p>
     </div>
   {% endif %}
