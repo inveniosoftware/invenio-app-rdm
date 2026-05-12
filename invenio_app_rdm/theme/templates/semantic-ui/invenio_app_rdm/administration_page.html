@@ -15,5 +15,5 @@
 
 {%- block css %}
   {{ super()}}
-  <link rel="stylesheet" href="/static/css/json-diff-kit.css">
+  <link rel="stylesheet" href="{{ invenio_url_for('static', filename='css/json-diff-kit.css') }}">
 {%- endblock css %}
