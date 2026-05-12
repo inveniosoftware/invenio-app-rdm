@@ -88,7 +88,7 @@ class RedirectorResource(Resource):
         # Retrieve url from target if it's a method
         if callable(target):
             target_output = redirect_url()
-            if type(target_output) == tuple:
+            if type(target_output) is tuple:
                 redirect_url, code = target_output
             else:
                 redirect_url = target_output
