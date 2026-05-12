@@ -25,7 +25,7 @@ def test_load_oai_sets(app):
 
     oai_sets.load()
 
-    res_set = service.search(system_identity, params={"q": f"set1"})
+    res_set = service.search(system_identity, params={"q": "set1"})
 
     assert res_set.total == 1
 
