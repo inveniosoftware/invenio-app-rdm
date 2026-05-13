@@ -2,7 +2,7 @@
  * SPDX-FileCopyrightText: 2020-2026 CERN.
  * SPDX-FileCopyrightText: 2020-2021 Northwestern University.
  * SPDX-FileCopyrightText: 2021 Graz University of Technology.
- * SPDX-FileCopyrightText: 2023 TU Wien.
+ * SPDX-FileCopyrightText: 2023-2026 TU Wien.
  * SPDX-License-Identifier: MIT
  */
 
@@ -67,6 +67,7 @@ if (recordCitationAppDiv) {
   ReactDOM.render(
     <RecordCitationField
       recordLinks={JSON.parse(recordCitationAppDiv.dataset.recordLinks)}
+      citation={JSON.parse(recordCitationAppDiv.dataset.recordCitation)}
       styles={JSON.parse(recordCitationAppDiv.dataset.styles)}
       defaultStyle={JSON.parse(recordCitationAppDiv.dataset.defaultstyle)}
       includeDeleted={JSON.parse(recordCitationAppDiv.dataset.includeDeleted)}
