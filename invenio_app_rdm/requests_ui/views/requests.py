@@ -9,8 +9,9 @@
 
 """Request views module."""
 
-from flask import current_app, g, redirect, render_template, url_for
+from flask import current_app, g, redirect, render_template
 from flask_login import current_user, login_required
+from invenio_base import invenio_url_for
 from invenio_checks.api import ChecksAPI
 from invenio_communities.config import COMMUNITIES_ROLES
 from invenio_communities.members.services.request import CommunityInvitation
@@ -372,7 +373,7 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
         # From legacy of this view serving
         # /communities/<community pid>/requests/<request pid>
         return redirect(
-            url_for(
+            invenio_url_for(
                 "invenio_app_rdm_requests.community_dashboard_invitation_view",
                 pid_value=kwargs["pid_value"],
                 request_pid_value=kwargs["request_pid_value"],

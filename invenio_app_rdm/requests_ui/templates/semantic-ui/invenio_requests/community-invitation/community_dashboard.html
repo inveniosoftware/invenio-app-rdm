@@ -17,7 +17,7 @@
 {% block request_header %}
   {{
     member_request_header(
-      back_button_url=url_for("invenio_communities.invitations", pid_value=community.slug),
+      back_button_url=invenio_url_for("invenio_communities.invitations", pid_value=community.slug),
       back_button_text=_("Back to invitations"),
       request=invenio_request
     )
