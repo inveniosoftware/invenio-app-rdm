@@ -14,7 +14,7 @@
 {% block request_header %}
   <div class="flex wrap space-between">
     <div class="mb-10">
-      <a href="{{ url_for('invenio_app_rdm_users.requests') }}" class="ui small button labeled icon rel-mr-1">
+      <a href="{{ invenio_url_for('invenio_app_rdm_users.requests') }}" class="ui small button labeled icon rel-mr-1">
         <i class="ui icon left arrow" aria-hidden="true"></i>
         {{ _("Back to requests") }}
       </a>
@@ -23,7 +23,7 @@
     <div id="request-actions" class="flex align-items-center ml-auto mb-10">
       {% if is_accepted_request(invenio_request) %}
       {# In this case we know the topic is always a community #}
-      <a href="{{ url_for('invenio_app_rdm_communities.communities_detail', pid_value=invenio_request['expanded']['topic']['slug']) }}"
+      <a href="{{ invenio_url_for('invenio_app_rdm_communities.communities_detail', pid_value=invenio_request['expanded']['topic']['slug']) }}"
         class="ui small button">
         {{ _("View Community") }}
       </a>
