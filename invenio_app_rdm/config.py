@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019-2026 CERN.
-# Copyright (C) 2019-2020 Northwestern University.
+# Copyright (C) 2019-2026 Northwestern University.
 # Copyright (C) 2021-2025 Graz University of Technology.
 # Copyright (C) 2022-2025 KTH Royal Institute of Technology.
 # Copyright (C) 2023      TU Wien
@@ -46,6 +46,11 @@ from invenio_communities.notifications.builders import (
     CommunityInvitationDeclineNotificationBuilder,
     CommunityInvitationExpireNotificationBuilder,
     CommunityInvitationSubmittedNotificationBuilder,
+    CommunityMembershipRequestAcceptedNotificationBuilder,
+    CommunityMembershipRequestCancelledNotificationBuilder,
+    CommunityMembershipRequestDeclinedNotificationBuilder,
+    CommunityMembershipRequestExpiredNotificationBuilder,
+    CommunityMembershipRequestSubmittedNotificationBuilder,
 )
 from invenio_notifications.backends import EmailNotificationBackend
 from invenio_rdm_records.config import RDM_FILES_DEFAULT_QUOTA_SIZE
@@ -1453,6 +1458,12 @@ NOTIFICATIONS_BUILDERS = {
     CommunityInvitationDeclineNotificationBuilder.type: CommunityInvitationDeclineNotificationBuilder,
     CommunityInvitationExpireNotificationBuilder.type: CommunityInvitationExpireNotificationBuilder,
     CommunityInvitationSubmittedNotificationBuilder.type: CommunityInvitationSubmittedNotificationBuilder,
+    # Community membership request
+    CommunityMembershipRequestAcceptedNotificationBuilder.type: CommunityMembershipRequestAcceptedNotificationBuilder,
+    CommunityMembershipRequestCancelledNotificationBuilder.type: CommunityMembershipRequestCancelledNotificationBuilder,
+    CommunityMembershipRequestDeclinedNotificationBuilder.type: CommunityMembershipRequestDeclinedNotificationBuilder,
+    CommunityMembershipRequestExpiredNotificationBuilder.type: CommunityMembershipRequestExpiredNotificationBuilder,
+    CommunityMembershipRequestSubmittedNotificationBuilder.type: CommunityMembershipRequestSubmittedNotificationBuilder,
     # Subcommunity request
     community_notifications.SubCommunityCreate.type: community_notifications.SubCommunityCreate,
     community_notifications.SubCommunityAccept.type: community_notifications.SubCommunityAccept,
