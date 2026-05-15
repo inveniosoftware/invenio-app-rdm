@@ -90,14 +90,14 @@ export class DeletionModal extends Component {
   deletionRequestSchema = (immediateDeletionAllowed) => {
     if (immediateDeletionAllowed) {
       return Yup.object({
-        reason: Yup.string().required("Required"),
+        reason: Yup.string().required(i18next.t("Required")),
       });
     } else {
       return Yup.object({
-        reason: Yup.string().required("Required"),
+        reason: Yup.string().required(i18next.t("Required")),
         comment: Yup.string()
-          .min(25, "Please write at least 25 characters")
-          .required("Required"),
+          .min(25, i18next.t("Please write at least 25 characters"))
+          .required(i18next.t("Required")),
       });
     }
   };
@@ -110,7 +110,10 @@ export class DeletionModal extends Component {
       comment: values.comment,
     };
     if (!("request_deletion" in record.links)) {
-      this.setState({ error: "Could not submit deletion request", loading: false });
+      this.setState({
+        error: i18next.t("Could not submit deletion request"),
+        loading: false,
+      });
       return;
     }
     this.cancellableAction = withCancel(

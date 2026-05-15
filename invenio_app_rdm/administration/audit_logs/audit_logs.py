@@ -20,9 +20,9 @@ class AuditLogListView(AdminResourceListView):
     name = "audit-logs"
     resource_config = "audit_log_resource"
 
-    title = "Audit Logs"
-    menu_label = "Audit Logs"
-    category = "Logs"
+    title = _("Audit Logs")
+    menu_label = _("Audit Logs")
+    category = _("Logs")
     pid_path = "id"
     icon = "file alternate"
     template = "invenio_app_rdm/administration/audit_logs.html"

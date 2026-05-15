@@ -75,7 +75,7 @@ export class RecordCommunitiesList extends Component {
                           community.parent !== undefined) && (
                           <p className="ml-5 display-inline-block">
                             <Popup
-                              content="Verified community"
+                              content={i18next.t("Verified community")}
                               trigger={
                                 <Icon
                                   size="small"
