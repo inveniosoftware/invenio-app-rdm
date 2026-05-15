@@ -3,6 +3,7 @@
 # Copyright (C) 2019-2025 CERN.
 # Copyright (C) 2019-2025 Northwestern University.
 # Copyright (C)      2021 TU Wien.
+# Copyright (C) 2025 CESNET i.a.l.e.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -279,6 +280,34 @@ def pass_file_metadata(f):
             files = files_service().read_file_metadata(**read_kwargs)
 
         kwargs["file_metadata"] = files
+        return f(**kwargs)
+
+    return view
+
+
+def pass_file_content(f):
+    """Decorate a view to pass a file's content using the files service."""
+
+    @wraps(f)
+    def view(**kwargs):
+        pid_value = kwargs.get("pid_value")
+        file_key = kwargs.get("filename")
+        is_preview = kwargs.get("is_preview")
+        read_kwargs = {
+            "id_": pid_value,
+            "file_key": file_key,
+            "identity": g.identity,
+        }
+
+        if is_preview:
+            try:
+                files = draft_files_service().get_file_content(**read_kwargs)
+            except NoResultFound:
+                files = files_service().get_file_content(**read_kwargs)
+        else:
+            files = files_service().get_file_content(**read_kwargs)
+
+        kwargs["file_content"] = files
         return f(**kwargs)
 
     return view
