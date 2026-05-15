@@ -20,15 +20,15 @@ def test_sitemap_section_of_communities(running_app, community_input, create_com
     # by default converted to UTC w/ time 00:00:00
     with time_machine.travel(datetime.date(2025, 3, 27)):
         community_input["slug"] = "my-test-community-1"
-        c1 = create_community(data=community_input)
+        create_community(data=community_input)
         community_input["slug"] = "my-test-community-2"
         community_input["access"]["visibility"] = "restricted"
-        c2 = create_community(data=community_input)
+        create_community(data=community_input)
     with time_machine.travel(datetime.date(2025, 3, 28)):
         community_input["slug"] = "my-test-community-3"
         community_input["access"]["visibility"] = "public"
         community_input["metadata"]["page"] = "A page to be indexed."
-        c3 = create_community(data=community_input)
+        create_community(data=community_input)
 
     current_communities.service.indexer.refresh()  # index in search engine
     section = SitemapSectionOfCommunities()
@@ -61,7 +61,7 @@ def test_sitemap_section_of_records(
         r1 = create_record(data=minimal_record)
         minimal_record["title"] = "my-test-record-2"
         minimal_record["access"]["record"] = "restricted"
-        r2 = create_record(data=minimal_record)
+        _r2 = create_record(data=minimal_record)
     with time_machine.travel(datetime.date(2025, 3, 28)):
         minimal_record["title"] = "my-test-record-3"
         minimal_record["access"]["record"] = "public"
