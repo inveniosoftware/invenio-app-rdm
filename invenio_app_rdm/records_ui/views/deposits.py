@@ -570,10 +570,19 @@ def deposit_edit(pid_value, draft=None, draft_files=None, files_locked=True):
 
     community_ui = None
     community_theme = None
-    community = record.get("expanded", {}).get("parent", {}).get("review", {}).get(
-        "receiver"
-    ) or record.get("expanded", {}).get("parent", {}).get("communities", {}).get(
-        "default"
+    # We get the community from one of three sources, in order of priority:
+    #   1. The draft's review receiver.
+    #   2. The draft's parent's review receiver. Same as above, but refers to the deprecated `parent.review` field.
+    #      We continue to support this for backward-compatibility with records that entered the in-review status before the `review`
+    #      field was moved to be on the draft directly.
+    #   3. The draft's parent's default community, only available for new versions of existing (published) records.
+    community = (
+        record.get("expanded", {}).get("parent", {}).get("review", {}).get("receiver")
+        or record.get("expanded", {}).get("review", {}).get("receiver")
+        or record.get("expanded", {})
+        .get("parent", {})
+        .get("communities", {})
+        .get("default")
     )
 
     if community:
