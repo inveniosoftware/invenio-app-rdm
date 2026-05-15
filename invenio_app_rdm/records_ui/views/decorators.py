@@ -3,16 +3,16 @@
 # Copyright (C) 2019-2025 CERN.
 # Copyright (C) 2019-2025 Northwestern University.
 # Copyright (C)      2021 TU Wien.
+# Copyright (C) 2025 CESNET i.a.l.e.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """Routes for record-related pages provided by Invenio-App-RDM."""
 
-from functools import wraps
-
 from flask import current_app, g, make_response, redirect, request, session, url_for
 from flask_login import login_required
+from functools import wraps
 from invenio_base import invenio_url_for
 from invenio_communities.communities.resources.serializer import (
     UICommunityJSONSerializer,
@@ -24,6 +24,7 @@ from invenio_rdm_records.resources.serializers.signposting import (
     FAIRSignpostingProfileLvl1Serializer,
 )
 from invenio_rdm_records.services.errors import RecordDeletedException
+from invenio_records_resources.proxies import current_service_registry
 from invenio_records_resources.services.errors import PermissionDeniedError
 from sqlalchemy.orm.exc import NoResultFound
 
@@ -242,6 +243,46 @@ def pass_file_item(is_media=False):
                     item = record_service().get_file_content(**read_kwargs)
 
                 kwargs["file_item"] = item
+                return f(**kwargs)
+
+            except RecordDeletedException:
+                # Redirect to the record page which has proper tombstone handling
+                return redirect(
+                    url_for(
+                        "invenio_app_rdm_records.record_detail",
+                        pid_value=pid_value,
+                    ),
+                    # Use 302 (temporary) instead of 301 since records can be restored
+                    code=302,
+                )
+
+        return view
+
+    return decorator
+
+
+def pass_container_item():
+    """Decorator to pass a extracted file from container (e.g. zip)."""
+
+    def decorator(f):
+        @wraps(f)
+        def view(**kwargs):
+            pid_value = kwargs.get("pid_value")
+            file_key = kwargs.get("filename")
+            path = kwargs.get("path")
+            extract_kwargs = {
+                "id_": pid_value,
+                "file_key": file_key,
+                "identity": g.identity,
+                "path": path,
+            }
+
+            file_service = current_service_registry.get("files")
+
+            try:
+                item = file_service.extract_container_item(**extract_kwargs)
+
+                kwargs["container_item"] = item
                 return f(**kwargs)
 
             except RecordDeletedException:
