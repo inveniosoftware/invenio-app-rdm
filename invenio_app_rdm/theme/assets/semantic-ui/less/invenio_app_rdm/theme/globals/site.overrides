@@ -590,3 +590,43 @@ dl.details-list {
   align-items: center;
   justify-content: space-between;
 }
+
+/* Prevent long values and links from overflowing in details lists */
+dl.details-list dd,
+dl.details-list a {
+  display: block;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  white-space: normal;
+}
+
+/* Prevent long links/values from overflowing in the right sidebar column */
+.stackable.mobile.reversed.grid > .column:last-child {
+  min-width: 0;
+
+  a,
+  dd {
+    display: block;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    white-space: normal;
+  }
+}
+
+.publishing-info-grid {
+  margin-left: 2rem !important;
+}
+
+/* Add vertical spacing between Journal / Imprint / Thesis on small screens */
+@media only screen and (max-width: @largestMobileScreen) {
+  .publishing-info-grid .column {
+    min-width: 0;
+    margin-bottom: 2rem;
+  }
+
+  .publishing-info-grid .column:first-child {
+    margin-top: 1.5rem;
+  }
+}
