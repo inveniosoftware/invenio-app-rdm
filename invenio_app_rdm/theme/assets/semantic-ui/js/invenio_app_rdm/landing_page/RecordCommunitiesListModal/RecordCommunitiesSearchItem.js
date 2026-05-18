@@ -14,7 +14,7 @@ export class RecordCommunitiesSearchItem extends Component {
       recordParent,
       permissions: {
         can_manage: canManage,
-        can_remove_community_from_record: canRemoveCommunity,
+        removable_community_ids: removableCommunityIds,
       },
       recordRequests,
     } = this.props;
@@ -32,7 +32,7 @@ export class RecordCommunitiesSearchItem extends Component {
           result={result}
           recordCommunityEndpoint={recordCommunityEndpoint}
           successCallback={successCallback}
-          canRemoveCommunity={canRemoveCommunity}
+          canRemoveCommunity={removableCommunityIds?.includes(result?.id)}
         />
       </>
     );

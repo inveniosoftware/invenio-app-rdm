@@ -296,6 +296,33 @@ def record_detail(
 
     record_requests = get_record_requests(record, g.identity)
 
+    permissions = record.has_permissions_to(
+        [
+            "edit",
+            "new_version",
+            "manage",
+            "update_draft",
+            "read_files",
+            "review",
+            "view",
+            "media_read_files",
+            "moderate",
+            "request_deletion",
+            "immediately_delete",
+            "remove_community_from_record",
+        ]
+    )
+    permissions["removable_community_ids"] = [
+        str(cid)
+        for cid in record._record.parent.communities.ids
+        if current_rdm_records.records_service.check_permission(
+            g.identity,
+            "remove_community_from_record",
+            record=record._record,
+            community_id=str(cid),
+        )
+    ]
+
     return render_community_theme_template(
         current_app.config.get("APP_RDM_RECORD_LANDING_PAGE_TEMPLATE"),
         theme=theme,
@@ -304,22 +331,7 @@ def record_detail(
         files=files_dict,
         media_files=media_files_dict,
         user_communities_memberships=get_user_communities_memberships(),
-        permissions=record.has_permissions_to(
-            [
-                "edit",
-                "new_version",
-                "manage",
-                "update_draft",
-                "read_files",
-                "review",
-                "view",
-                "media_read_files",
-                "moderate",
-                "request_deletion",
-                "immediately_delete",
-                "remove_community_from_record",
-            ]
-        ),
+        permissions=permissions,
         custom_fields_ui=custom_fields["ui"],
         is_preview=is_preview,
         include_deleted=include_deleted,
