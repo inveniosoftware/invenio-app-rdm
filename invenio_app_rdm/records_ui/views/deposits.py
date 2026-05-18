@@ -636,6 +636,7 @@ def deposit_edit(pid_value, draft=None, draft_files=None, files_locked=True):
         permissions=draft.has_permissions_to(
             [
                 "manage",
+                "moderate",
                 "new_version",
                 "delete_draft",
                 "manage_files",
