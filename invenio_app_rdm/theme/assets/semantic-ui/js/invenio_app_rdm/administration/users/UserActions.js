@@ -1,7 +1,7 @@
 /*
  * This file is part of Invenio.
  * Copyright (C) 2022-2026 CERN.
- * Copyright (C) 2024 KTH Royal Institute of Technology.
+ * Copyright (C) 2024-2026 KTH Royal Institute of Technology.
  *
  * Invenio is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
@@ -15,6 +15,7 @@ import { ActionModal, NotificationContext } from "@js/invenio_administration";
 import { withCancel } from "react-invenio-forms";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import { ImpersonateUser } from "../components/ImpersonateUser";
+import { ManageUserRoles } from "../components/ManageUserRoles";
 import { SetQuotaAction } from "../components/SetQuotaAction";
 import { UserModerationApi } from "./api";
 import UserBlockForm from "./UserBlockForm";
@@ -118,6 +119,7 @@ export class UserActions extends Component {
       displayApprove,
       displayRestore,
       successCallback,
+      displayManageRoles,
       displayImpersonateUser,
       displayQuota,
       useDropdown,
@@ -168,6 +170,9 @@ export class UserActions extends Component {
               }}
               user={user}
             />
+          )}
+          {displayManageRoles && (
+            <ManageUserRoles successCallback={successCallback} user={user} />
           )}
           <Dropdown.Divider />
           {filteredActions.map((actionItem) => (
@@ -269,6 +274,7 @@ UserActions.propTypes = {
   displaySuspend: PropTypes.bool,
   displayApprove: PropTypes.bool,
   displayRestore: PropTypes.bool,
+  displayManageRoles: PropTypes.bool,
   displayImpersonateUser: PropTypes.bool,
   displayQuota: PropTypes.bool,
   useDropdown: PropTypes.bool,
@@ -279,6 +285,7 @@ UserActions.defaultProps = {
   displaySuspend: false,
   displayApprove: false,
   displayRestore: false,
+  displayManageRoles: false,
   displayImpersonateUser: false,
   displayQuota: false,
   useDropdown: false,

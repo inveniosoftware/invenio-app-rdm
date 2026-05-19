@@ -1,6 +1,7 @@
 /*
  * This file is part of Invenio.
  * Copyright (C) 2023 CERN.
+ * Copyright (C) 2026 KTH Royal Institute of Technology.
  *
  * Invenio is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
@@ -8,7 +9,7 @@
 
 import _get from "lodash/get";
 
-const APIRoutesGenerators = {
+export const APIRoutes = {
   restore: (user, idKeyPath = "id") => {
     return `/api/users/${_get(user, idKeyPath)}/restore`;
   },
@@ -32,7 +33,4 @@ const APIRoutesGenerators = {
   impersonate: (user, idKeyPath = "id") => {
     return `/api/users/${_get(user, idKeyPath)}/impersonate`;
   },
-};
-export const APIRoutes = {
-  ...APIRoutesGenerators,
 };
