@@ -296,6 +296,7 @@ def record_detail(
 
     record_requests = get_record_requests(record, g.identity)
 
+    # permissions needs to include extra params to be passed to the template
     permissions = record.has_permissions_to(
         [
             "edit",
@@ -313,13 +314,13 @@ def record_detail(
         ]
     )
     permissions["removable_community_ids"] = [
-        str(cid)
+        cid
         for cid in record._record.parent.communities.ids
         if current_rdm_records.records_service.check_permission(
             g.identity,
             "remove_community_from_record",
             record=record._record,
-            community_id=str(cid),
+            community_id=cid,
         )
     ]
 
