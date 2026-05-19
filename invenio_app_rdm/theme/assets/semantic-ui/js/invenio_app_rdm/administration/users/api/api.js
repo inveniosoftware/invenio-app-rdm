@@ -34,11 +34,11 @@ const impersonateUser = async (user) => {
 };
 
 const userGroups = async (user) => {
-  return await http.get(APIRoutes.userGroups(user));
-};
-
-const groups = async (params = {}) => {
-  return await http.get(APIRoutes.groups(), { params });
+  const groupsUrl = user.links?.groups;
+  if (!groupsUrl) {
+    throw new Error("Missing user groups link.");
+  }
+  return await http.get(groupsUrl);
 };
 
 export const UserModerationApi = {
@@ -49,5 +49,4 @@ export const UserModerationApi = {
   deactivateUser: deactivateUser,
   blockUser: blockUser,
   userGroups: userGroups,
-  groups: groups,
 };

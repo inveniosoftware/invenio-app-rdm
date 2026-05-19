@@ -82,11 +82,11 @@ export class ManageUserRolesForm extends Component {
   static contextType = NotificationContext;
 
   fetchRoles = async () => {
-    const { resource } = this.props;
+    const { user } = this.props;
     this.setState({ loadingRoles: true, error: undefined });
 
     try {
-      const rolesState = await fetchUserRoleManagementState(resource);
+      const rolesState = await fetchUserRoleManagementState(user);
       this.setState({
         loadingRoles: false,
         rolesState,
@@ -101,7 +101,7 @@ export class ManageUserRolesForm extends Component {
 
   handleSubmit = async (values) => {
     const { addNotification } = this.context;
-    const { actionKey, actionSuccessCallback, resource } = this.props;
+    const { actionSuccessCallback, user } = this.props;
     const { rolesState } = this.state;
     const { initialRoleIds } = rolesState;
 
@@ -114,7 +114,7 @@ export class ManageUserRolesForm extends Component {
 
     try {
       const actionEndpoint =
-        resource.links?.actions?.[actionKey] || resource.links?.[actionKey];
+        user.links?.actions?.manage_roles || user.links?.manage_roles;
       this.cancellableAction = withCancel(
         InvenioAdministrationActionsApi.resourceAction(actionEndpoint, {
           groups: selectedRoleIds,
@@ -152,7 +152,7 @@ export class ManageUserRolesForm extends Component {
 
   render() {
     const { error, loading, loadingRoles, rolesState, showUnmanagedRoles } = this.state;
-    const { assignedRoles, initialRoleIds, roles } = rolesState;
+    const { initialRoleIds, roles } = rolesState;
 
     return (
       <Formik
@@ -164,25 +164,30 @@ export class ManageUserRolesForm extends Component {
         validationSchema={this.validationSchema}
       >
         {({ handleSubmit, values }) => {
+          const selectedRoleIds = values.selectedRoleIds || [];
+          const hasSelectionChanged = _hasSelectionChanged(
+            initialRoleIds,
+            selectedRoleIds
+          );
           const roleOptions = _toSortedRoleOptions(roles);
           const visibleRoleOptions = _getVisibleRoleOptions(
             roleOptions,
             showUnmanagedRoles,
-            values.selectedRoleIds || []
+            selectedRoleIds
           );
 
           return (
             <>
-              {error && (
-                <ErrorMessage
-                  header={i18next.t("Unable to manage user roles")}
-                  content={error}
-                  icon="exclamation"
-                  className="text-align-left"
-                  negative
-                />
-              )}
               <Modal.Content>
+                {error && (
+                  <ErrorMessage
+                    header={i18next.t("Unable to manage user roles")}
+                    content={error}
+                    icon="exclamation"
+                    className="text-align-left"
+                    negative
+                  />
+                )}
                 <Message warning>
                   <p>
                     <Icon name="warning sign" />
@@ -209,22 +214,6 @@ export class ManageUserRolesForm extends Component {
                     <ErrorLabel fieldPath="selectedRoleIds" />
                   </Form.Field>
                 </Form>
-                <Message>
-                  <h3>{i18next.t("Current user roles")}</h3>
-                  <ul>
-                    {assignedRoles.length > 0 ? (
-                      assignedRoles.map((role) => (
-                        <li key={role.id}>
-                          <strong className={role.isManaged ? "" : "text-muted"}>
-                            {role.name}
-                          </strong>
-                        </li>
-                      ))
-                    ) : (
-                      <li>{i18next.t("No roles assigned.")}</li>
-                    )}
-                  </ul>
-                </Message>
               </Modal.Content>
               <Modal.Actions>
                 <Button onClick={this.handleModalClose} floated="left">
@@ -239,7 +228,7 @@ export class ManageUserRolesForm extends Component {
                   content={i18next.t("Update roles")}
                   onClick={handleSubmit}
                   loading={loading}
-                  disabled={loading || loadingRoles}
+                  disabled={loading || loadingRoles || !hasSelectionChanged}
                 />
               </Modal.Actions>
             </>
@@ -251,8 +240,7 @@ export class ManageUserRolesForm extends Component {
 }
 
 ManageUserRolesForm.propTypes = {
-  actionKey: PropTypes.string.isRequired,
-  resource: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
   actionCancelCallback: PropTypes.func.isRequired,
   actionSuccessCallback: PropTypes.func.isRequired,
 };

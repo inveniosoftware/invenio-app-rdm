@@ -33,12 +33,4 @@ export const APIRoutes = {
   impersonate: (user, idKeyPath = "id") => {
     return `/api/users/${_get(user, idKeyPath)}/impersonate`;
   },
-
-  userGroups: (user, idKeyPath = "id") => {
-    return `/api/users/${_get(user, idKeyPath)}/groups`;
-  },
-
-  groups: () => {
-    return "/api/groups";
-  },
 };

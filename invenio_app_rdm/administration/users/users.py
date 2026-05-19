@@ -11,17 +11,14 @@
 
 from functools import partial
 
-import marshmallow as ma
 from flask import abort, current_app
 from invenio_administration.views.base import (
     AdminResourceCreateView,
     AdminResourceDetailView,
-    AdminResourceEditView,
     AdminResourceListView,
 )
 from invenio_i18n import lazy_gettext as _
 from invenio_search_ui.searchconfig import search_app_config
-from marshmallow import fields
 
 from .permissions import can_access_user_administration
 
@@ -54,22 +51,6 @@ USERS_ITEM_DETAIL = {
 USERS_DEFAULT_FORM_ITEMS = {
     "username": {"text": _("Username"), "order": 1, "width": 2},
     "email": {"text": _("Email"), "order": 2, "width": 1},
-}
-
-
-class UserGroupsActionSchema(ma.Schema):
-    """Schema for user role management administration action."""
-
-    groups = fields.List(fields.Str(), required=True)
-
-
-USERS_ROLE_ACTIONS = {
-    "manage_roles": {
-        "text": _("Manage roles"),
-        "payload_schema": UserGroupsActionSchema,
-        "order": 0,
-        "icon": "id badge",
-    },
 }
 
 
@@ -116,7 +97,6 @@ class UsersListView(UserAdminAccessMixin, AdminResourceListView):
     # These actions are not connected on the frontend -
     # TODO: missing permission based links in resource
     actions = {
-        **USERS_ROLE_ACTIONS,
         "approve": {
             "text": _("Approve"),
             "payload_schema": None,
@@ -159,14 +139,14 @@ class UsersDetailView(UserAdminAccessMixin, AdminResourceDetailView):
     """Configuration for users sets detail view."""
 
     url = "/users/<pid_value>"
-    api_endpoint = "/users/"
+    api_endpoint = "/users"
     search_request_headers = {"Accept": "application/json"}
     extension_name = "invenio-users-resources"
     name = "User details"
     resource_config = "users_resource"
     title = _("User details")
     display_delete = False
-    display_edit = True
+    display_edit = False
 
     pid_path = "id"
     list_view_name = "users"
@@ -185,36 +165,3 @@ class UsersCreateView(AdminResourceCreateView):
     pid_path = "id"
     list_view_name = "users"
     form_fields = USERS_DEFAULT_FORM_ITEMS
-
-
-class UsersEditView(UserAdminAccessMixin, AdminResourceEditView):
-    """Configuration for user edit view."""
-
-    url = "/users/<pid_value>/edit"
-    api_endpoint = "/users"
-    extension_name = "invenio-users-resources"
-    name = "invenio-users-resources-edit"
-    resource_config = "users_resource"
-    title = _("Edit user details")
-    pid_path = "id"
-    list_view_name = "users"
-    form_fields = USERS_DEFAULT_FORM_ITEMS
-    template = "invenio_app_rdm/administration/users_edit.html"
-    actions = USERS_ROLE_ACTIONS
-
-    def get(self, pid_value=None):
-        """GET view method."""
-        schema = self.get_service_schema()
-        serialized_schema = self._schema_to_json(schema)
-        return self.render(
-            **{
-                "resource_schema": serialized_schema,
-                "form_fields": self.form_fields,
-                "pid": pid_value,
-                "api_endpoint": self.get_api_endpoint(),
-                "title": self.title,
-                "list_endpoint": self.get_list_view_endpoint(),
-                "ui_config": self.form_fields,
-                "actions": self.serialize_actions(),
-            }
-        )

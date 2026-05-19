@@ -9,50 +9,71 @@
 
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Button, Dropdown } from "semantic-ui-react";
-import { ResourceActions } from "@js/invenio_administration";
-import { OverridableContext } from "react-overridable";
+import { Dropdown, Icon, Modal } from "semantic-ui-react";
+import { ActionModal } from "@js/invenio_administration";
+import { i18next } from "@translations/invenio_app_rdm/i18next";
 import { ManageUserRolesForm } from "./ManageUserRolesForm";
 
-const ManageRolesDropdownItem = (props) => <Dropdown.Item {...props} />;
-
-const ManageRolesButton = (props) => (
-  <Button primary size="small" {...props} basic={false} />
-);
+const getManageRolesLink = (user) => {
+  return user.links?.actions?.manage_roles || user.links?.manage_roles;
+};
 
 export class ManageUserRoles extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { modalOpen: false };
+  }
+
+  openModal = () => {
+    this.setState({ modalOpen: true });
+  };
+
+  closeModal = () => {
+    this.setState({ modalOpen: false });
+  };
+
+  handleSuccess = () => {
+    const { successCallback } = this.props;
+    this.closeModal();
+    successCallback();
+  };
+
   render() {
-    const { actions, asDropdownItem, successCallback, user } = this.props;
-    const manageRolesAction = actions?.manage_roles;
-    if (!manageRolesAction || !user.links?.manage_roles) {
+    const { user } = this.props;
+    const { modalOpen } = this.state;
+    if (!getManageRolesLink(user)) {
       return null;
     }
 
     return (
-      <OverridableContext.Provider
-        value={{
-          "InvenioAdministration.ResourceActions.ModalBody.manage_roles":
-            ManageUserRolesForm,
-        }}
-      >
-        <ResourceActions
-          actions={{ manage_roles: manageRolesAction }}
-          Element={asDropdownItem ? ManageRolesDropdownItem : ManageRolesButton}
-          resource={user}
-          successCallback={successCallback}
-        />
-      </OverridableContext.Provider>
+      <>
+        <Dropdown.Item
+          key="manage-user-roles"
+          onClick={this.openModal}
+          icon
+          fluid
+          basic
+          labelPosition="left"
+        >
+          <Icon name="id badge" />
+          {i18next.t("Manage roles")}
+        </Dropdown.Item>
+        <ActionModal modalOpen={modalOpen} resource={user}>
+          <Modal.Header>{i18next.t("Manage roles")}</Modal.Header>
+          {modalOpen && (
+            <ManageUserRolesForm
+              actionSuccessCallback={this.handleSuccess}
+              actionCancelCallback={this.closeModal}
+              user={user}
+            />
+          )}
+        </ActionModal>
+      </>
     );
   }
 }
 
 ManageUserRoles.propTypes = {
-  actions: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
   successCallback: PropTypes.func.isRequired,
-  asDropdownItem: PropTypes.bool,
-};
-
-ManageUserRoles.defaultProps = {
-  asDropdownItem: true,
 };

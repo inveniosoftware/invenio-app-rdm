@@ -9,98 +9,57 @@
 
 import { UserModerationApi } from "./api";
 
-const _extractHits = (responseData) => {
-  return responseData?.hits?.hits || [];
-};
-
-const _extractTotal = (responseData) => {
-  return responseData?.hits?.total || 0;
-};
-
 const _extractAssignedRoles = (responseData) => {
   return responseData?.groups || [];
 };
 
+const _extractAvailableRoles = (responseData) => {
+  return responseData?.available_groups || [];
+};
+
 const _toRoleId = (role) => String(role.id);
 
-const _toRole = (role, description, isManaged) => {
+const _toRole = (role) => {
   return {
     id: _toRoleId(role),
     name: role.name,
-    description: description,
-    isManaged: isManaged,
+    description: role.description,
+    isManaged: Boolean(role.is_managed),
   };
 };
 
 const _rolesById = (roles) => new Map(roles.map((role) => [_toRoleId(role), role]));
 
 export const emptyUserRolesState = () => ({
-  assignedRoles: [],
   initialRoleIds: [],
   roles: [],
 });
 
-const prepareUserRolesState = (assignedRoles, allRoles) => {
-  const rolesById = _rolesById(allRoles);
-  const roles = allRoles.map((role) =>
-    _toRole(role, role.description, role.is_managed)
-  );
+const prepareUserRolesState = (assignedRoles, availableRoles) => {
+  const availableRolesById = _rolesById(availableRoles);
+  const roles = availableRoles.map(_toRole);
   const roleIds = new Set(roles.map(_toRoleId));
 
-  const userRoles = assignedRoles.map((role) => {
-    const roleFromAllRoles = rolesById.get(_toRoleId(role));
-    const description = roleFromAllRoles?.description;
-    const isManaged = Boolean(roleFromAllRoles?.is_managed);
-    return _toRole(role, description, isManaged);
-  });
-  userRoles.forEach((role) => {
+  const assignedRoleIds = assignedRoles.map(_toRoleId);
+  assignedRoles.forEach((role) => {
     const roleId = _toRoleId(role);
     if (!roleIds.has(roleId)) {
-      roles.push(role);
+      roles.push(_toRole({ ...role, ...availableRolesById.get(roleId) }));
       roleIds.add(roleId);
     }
   });
 
-  const initialRoleIds = userRoles.map(_toRoleId);
-
   return {
-    assignedRoles: userRoles,
-    initialRoleIds: initialRoleIds,
+    initialRoleIds: assignedRoleIds,
     roles: roles,
   };
 };
 
-const fetchAllRoles = async () => {
-  const size = 100;
-  let page = 1;
-  let allRoles = [];
-
-  let hasMore = true;
-  while (hasMore) {
-    const response = await UserModerationApi.groups({ size, page });
-    const data = response?.data || {};
-    const hits = _extractHits(data);
-    allRoles = allRoles.concat(hits);
-
-    if (!hits.length || allRoles.length >= _extractTotal(data)) {
-      hasMore = false;
-    } else {
-      page += 1;
-    }
-  }
-
-  return allRoles;
-};
-
-export const fetchAssignedUserRoles = async (user) => {
-  const userRolesResponse = await UserModerationApi.userGroups(user);
-  return _extractAssignedRoles(userRolesResponse?.data);
-};
-
 export const fetchUserRoleManagementState = async (user) => {
-  const [assignedRoles, allRoles] = await Promise.all([
-    fetchAssignedUserRoles(user),
-    fetchAllRoles(),
-  ]);
-  return prepareUserRolesState(assignedRoles, allRoles);
+  const userRolesResponse = await UserModerationApi.userGroups(user);
+  const responseData = userRolesResponse?.data || {};
+  return prepareUserRolesState(
+    _extractAssignedRoles(responseData),
+    _extractAvailableRoles(responseData)
+  );
 };

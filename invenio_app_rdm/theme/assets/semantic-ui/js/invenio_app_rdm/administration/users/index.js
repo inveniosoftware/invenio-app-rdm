@@ -7,14 +7,14 @@
 
 import { initDefaultSearchComponents } from "@js/invenio_administration";
 import { createSearchAppInit } from "@js/invenio_search_ui";
-import { NotificationController } from "@js/invenio_administration";
 import { SearchResultItemLayout, UserSearchLayout } from "./search";
-import { SearchFacets } from "@js/invenio_administration";
-import { initUsersEdit } from "./edit";
+import { SearchFacets, NotificationController } from "@js/invenio_administration";
 
 const initUsersSearch = () => {
   const domContainer = document.getElementById("invenio-search-config");
-  if (!domContainer) return;
+  if (!domContainer) {
+    return;
+  }
 
   const defaultComponents = initDefaultSearchComponents(domContainer);
 
@@ -34,9 +34,4 @@ const initUsersSearch = () => {
   );
 };
 
-const initUsersAdministration = () => {
-  initUsersSearch();
-  initUsersEdit();
-};
-
-initUsersAdministration();
+initUsersSearch();

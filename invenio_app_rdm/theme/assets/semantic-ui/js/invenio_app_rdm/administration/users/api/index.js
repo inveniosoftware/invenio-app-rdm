@@ -6,8 +6,4 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 export { UserModerationApi } from "./api";
-export {
-  emptyUserRolesState,
-  fetchAssignedUserRoles,
-  fetchUserRoleManagementState,
-} from "./roles";
+export { emptyUserRolesState, fetchUserRoleManagementState } from "./roles";
