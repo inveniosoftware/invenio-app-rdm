@@ -13,9 +13,8 @@
 {% if description %}
   <section id="description" class="rel-mt-2 rich-input-content" aria-label="{{ _('Record description') }}">
     <h2 id="description-heading" class="sr-only">{{ _('Description') }}</h2>
-    {# description data is being sanitized by marshmallow in the backend #}
     <div style="word-wrap: break-word;">
-      {{ description | safe }}
+      {{ description }}
     </div>
   </section>
 {% endif %}
