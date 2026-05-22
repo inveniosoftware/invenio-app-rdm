@@ -1,10 +1,9 @@
-// This file is part of InvenioRDM
-// Copyright (C) 2021-2025 CERN.
-// Copyright (C) 2021 Graz University of Technology.
-// Copyright (C) 2021 TU Wien
-//
-// Invenio RDM Records is free software; you can redistribute it and/or modify it
-// under the terms of the MIT License; see LICENSE file for more details.
+/*
+ * SPDX-FileCopyrightText: 2021-2025 CERN.
+ * SPDX-FileCopyrightText: 2021 Graz University of Technology.
+ * SPDX-FileCopyrightText: 2021 TU Wien
+ * SPDX-License-Identifier: MIT
+ */
 
 import _debounce from "lodash/debounce";
 import _escape from "lodash/escape";

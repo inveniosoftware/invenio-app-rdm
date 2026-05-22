@@ -1,8 +1,8 @@
-// This file is part of InvenioRDM
-// Copyright (C) 2025 CERN.
-//
-// Invenio APP RDM is free software; you can redistribute it and/or modify it
-// under the terms of the MIT License; see LICENSE file for more details.
+/*
+ * SPDX-FileCopyrightText: 2025 CERN.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 
 const depositFormSectionsConfig = {

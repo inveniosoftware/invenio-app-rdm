@@ -1,3 +1,8 @@
+/*
+ * SPDX-FileCopyrightText: 2023-2025 CERN.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { RemoveFromCommunityAction } from "../RemoveFromCommunity/RemoveFromCommunityAction";
 import React, { Component } from "react";
 import { CommunityCompactItem } from "@js/invenio_communities/community";

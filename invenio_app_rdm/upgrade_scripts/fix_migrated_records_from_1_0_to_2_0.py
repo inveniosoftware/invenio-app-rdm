@@ -1,9 +1,5 @@
-# -*- coding: utf-8 -*-
-#
-# Copyright (C) 2021 CERN.
-#
-# Invenio-RDM-Records is free software; you can redistribute it and/or modify
-# it under the terms of the MIT License; see LICENSE file for more details.
+# SPDX-FileCopyrightText: 2021 CERN.
+# SPDX-License-Identifier: MIT
 """Record migration fix script from InvenioRDM 1.0 to 2.0."""
 
 from invenio_db import db

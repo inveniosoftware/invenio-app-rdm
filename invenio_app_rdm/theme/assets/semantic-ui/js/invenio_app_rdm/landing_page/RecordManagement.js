@@ -1,10 +1,10 @@
-// This file is part of InvenioRDM
-// Copyright (C) 2020-2026 CERN.
-// Copyright (C) 2020-2021 Northwestern University.
-// Copyright (C) 2021 Graz University of Technology.
-//
-// Invenio RDM Records is free software; you can redistribute it and/or modify it
-// under the terms of the MIT License; see LICENSE file for more details.
+/*
+ * SPDX-FileCopyrightText: 2020-2026 CERN.
+ * SPDX-FileCopyrightText: 2020-2021 Northwestern University.
+ * SPDX-FileCopyrightText: 2021 Graz University of Technology.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 
 import React, { Component } from "react";
