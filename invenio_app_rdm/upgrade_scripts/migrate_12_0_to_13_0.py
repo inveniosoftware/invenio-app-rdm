@@ -1,11 +1,7 @@
-# -*- coding: utf-8 -*-
-#
-# Copyright (C) 2023-2025 CERN.
-# Copyright (C) 2024-2025 Graz University of Technology.
-# Copyright (C) 2025 Northwestern University.
-#
-# Invenio-App-RDM is free software; you can redistribute it and/or modify
-# it under the terms of the MIT License; see LICENSE file for more details.
+# SPDX-FileCopyrightText: 2023-2025 CERN.
+# SPDX-FileCopyrightText: 2024-2025 Graz University of Technology.
+# SPDX-FileCopyrightText: 2025 Northwestern University.
+# SPDX-License-Identifier: MIT
 
 """Record migration script from InvenioRDM 12.0 to 13.0.
 

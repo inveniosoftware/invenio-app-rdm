@@ -1,8 +1,7 @@
-// This file is part of InvenioRDM
-// Copyright (C) 2025 CERN
-//
-// Invenio-app-rdm is free software; you can redistribute it and/or modify it
-// under the terms of the MIT License; see LICENSE file for more details.
+/*
+ * SPDX-FileCopyrightText: 2025 CERN
+ * SPDX-License-Identifier: MIT
+ */
 
 import React from "react";
 import PropTypes from "prop-types";

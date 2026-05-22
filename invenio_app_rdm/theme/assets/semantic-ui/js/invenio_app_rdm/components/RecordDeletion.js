@@ -1,8 +1,7 @@
-// This file is part of InvenioRDM
-// Copyright (C) 2025.
-//
-// Invenio RDM Records is free software; you can redistribute it and/or modify it
-// under the terms of the MIT License; see LICENSE file for more details.
+/*
+ * SPDX-FileCopyrightText: 2025 .
+ * SPDX-License-Identifier: MIT
+ */
 
 import React, { useState } from "react";
 import { Button, Popup } from "semantic-ui-react";

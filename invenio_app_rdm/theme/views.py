@@ -1,13 +1,9 @@
-# -*- coding: utf-8 -*-
-#
-# Copyright (C) 2019-2024 CERN.
-# Copyright (C) 2019-2025 Northwestern University.
-# Copyright (C)      2021 TU Wien.
-# Copyright (C) 2023-2024 Graz University of Technology.
-# Copyright (C)      2024 KTH Royal Institute of Technology.
-#
-# Invenio App RDM is free software; you can redistribute it and/or modify it
-# under the terms of the MIT License; see LICENSE file for more details.
+# SPDX-FileCopyrightText: 2019-2024 CERN.
+# SPDX-FileCopyrightText: 2019-2025 Northwestern University.
+# SPDX-FileCopyrightText: 2021 TU Wien.
+# SPDX-FileCopyrightText: 2023-2024 Graz University of Technology.
+# SPDX-FileCopyrightText: 2024 KTH Royal Institute of Technology.
+# SPDX-License-Identifier: MIT
 
 """Routes for general pages provided by Invenio-App-RDM."""
 

@@ -1,12 +1,7 @@
-# -*- coding: utf-8 -*-
-#
-# Copyright (C) 2023-2025 CERN.
-# Copyright (C) 2023 Graz University of Technology.
-# Copyright (C) 2024 KTH Royal Institute of Technology.
-#
-# Invenio-app-rdm is free software; you can redistribute it and/or
-# modify it under the terms of the MIT License; see LICENSE file for more
-# details.
+# SPDX-FileCopyrightText: 2023-2025 CERN.
+# SPDX-FileCopyrightText: 2023 Graz University of Technology.
+# SPDX-FileCopyrightText: 2024 KTH Royal Institute of Technology.
+# SPDX-License-Identifier: MIT
 
 """Invenio administration records and drafts list views."""
 

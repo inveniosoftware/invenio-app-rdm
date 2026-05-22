@@ -1,3 +1,8 @@
+# SPDX-FileCopyrightText: 2022 Northwestern University.
+# SPDX-FileCopyrightText: 2023 CERN.
+# SPDX-FileCopyrightText: 2025 Ubiquity Press.
+# SPDX-License-Identifier: MIT
+
 from invenio_app_rdm.records_ui.views.filters import get_scheme_label, namespace_url
 
 
