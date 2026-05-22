@@ -1,9 +1,8 @@
-// This file is part of InvenioRDM
-// Copyright (C) 2023 CERN.
-// Copyright (C) 2024 KTH Royal Institute of Technology.
-//
-// Invenio App RDM is free software; you can redistribute it and/or modify it
-// under the terms of the MIT License; see LICENSE file for more details.
+/*
+ * SPDX-FileCopyrightText: 2023 CERN.
+ * SPDX-FileCopyrightText: 2024 KTH Royal Institute of Technology.
+ * SPDX-License-Identifier: MIT
+ */
 
 import { PendingCommunitiesModal } from "./PendingCommunitiesModal/PendingCommunitiesModal";
 import { RecordCommunitySubmissionModal } from "./RecordCommunitySubmission/RecordCommunitySubmissionModal";

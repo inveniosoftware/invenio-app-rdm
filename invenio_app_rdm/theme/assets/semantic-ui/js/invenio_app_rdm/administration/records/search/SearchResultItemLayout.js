@@ -1,11 +1,8 @@
 /*
- * This file is part of Invenio.
- * Copyright (C) 2023-2024 CERN.
- * Copyright (C) 2024      KTH Royal Institute of Technology.
- * Copyright (C) 2024      Northwestern University.
- *
- * Invenio is free software; you can redistribute it and/or modify it
- * under the terms of the MIT License; see LICENSE file for more details.
+ * SPDX-FileCopyrightText: 2023-2024 CERN.
+ * SPDX-FileCopyrightText: 2024 KTH Royal Institute of Technology.
+ * SPDX-FileCopyrightText: 2024 Northwestern University.
+ * SPDX-License-Identifier: MIT
  */
 
 import { BoolFormatter } from "@js/invenio_administration";
