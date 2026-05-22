@@ -1,8 +1,7 @@
-// This file is part of invenio-app-rdm.
-// Copyright (C) 2021 Graz University of Technology.
-//
-// Invenio-app-rdm is free software; you can redistribute it and/or modify it
-// under the terms of the MIT License; see LICENSE file for more details.
+/*
+ * SPDX-FileCopyrightText: 2021 Graz University of Technology.
+ * SPDX-License-Identifier: MIT
+ */
 
 const { writeFileSync } = require("fs");
 const packageJson = require("../package");

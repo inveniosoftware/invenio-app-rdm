@@ -1,9 +1,5 @@
-# -*- coding: utf-8 -*-
-#
-# Copyright (C) 2022 TU Wien.
-#
-# Invenio-App-RDM is free software; you can redistribute it and/or modify
-# it under the terms of the MIT License; see LICENSE file for more details.
+# SPDX-FileCopyrightText: 2022 TU Wien.
+# SPDX-License-Identifier: MIT
 
 """Record migration script from InvenioRDM 7.0 to 8.0.
 

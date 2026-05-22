@@ -1,10 +1,7 @@
 /*
- * This file is part of Invenio.
- * Copyright (C) 2022-2026 CERN.
- * Copyright (C) 2024-2026 KTH Royal Institute of Technology.
- *
- * Invenio is free software; you can redistribute it and/or modify it
- * under the terms of the MIT License; see LICENSE file for more details.
+ * SPDX-FileCopyrightText: 2022-2026 CERN.
+ * SPDX-FileCopyrightText: 2024-2026 KTH Royal Institute of Technology.
+ * SPDX-License-Identifier: MIT
  */
 
 import isEmpty from "lodash/isEmpty";
