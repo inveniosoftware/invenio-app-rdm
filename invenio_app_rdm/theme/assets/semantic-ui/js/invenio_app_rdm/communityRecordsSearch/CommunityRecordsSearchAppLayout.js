@@ -15,7 +15,7 @@ export const CommunityRecordsSearchAppLayout = ({ config, appName }) => {
 
   return (
     <Container className="rel-pt-2">
-      <Grid>
+      <Grid verticalAlign="middle">
         <Grid.Column only="mobile tablet" mobile={2} tablet={1}>
           <Button
             basic
@@ -25,7 +25,7 @@ export const CommunityRecordsSearchAppLayout = ({ config, appName }) => {
           />
         </Grid.Column>
 
-        <Grid.Column mobile={14} tablet={14} computer={12} floated="right">
+        <Grid.Column mobile={14} tablet={14} computer={12}>
           <Grid>
             <Grid.Column width={16}>
               <SearchBar placeholder={i18next.t("Search records in community...")} />
