@@ -44,8 +44,13 @@ USERS_ITEM_DETAIL = {
     "confirmed_at": {"text": _("Confirmed at"), "order": 10, "width": 1},
     "verified_at": {"text": _("Verified at"), "order": 11, "width": 1},
     "blocked_at": {"text": _("Blocked at"), "order": 12, "width": 1},
-    "created": {"text": _("Created"), "order": 13, "width": 2},
-    "updated": {"text": _("Updated"), "order": 14, "width": 2},
+    "current_login_at": {"text": _("Current login"), "order": 13, "width": 1},
+    "current_login_ip": {"text": _("Current login IP"), "order": 14, "width": 1},
+    "last_login_at": {"text": _("Last login"), "order": 15, "width": 1},
+    "last_login_ip": {"text": _("Last login IP"), "order": 16, "width": 1},
+    "login_count": {"text": _("Login count"), "order": 17, "width": 1},
+    "created": {"text": _("Created"), "order": 18, "width": 2},
+    "updated": {"text": _("Updated"), "order": 19, "width": 2},
 }
 
 USERS_DEFAULT_FORM_ITEMS = {
