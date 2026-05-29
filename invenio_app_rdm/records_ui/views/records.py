@@ -3,6 +3,7 @@
 # Copyright (C) 2019-2025 CERN.
 # Copyright (C) 2019-2021 Northwestern University.
 # Copyright (C) 2021-2023 TU Wien.
+# Copyright (C) 2025 CESNET i.a.l.e.
 #
 # Invenio App RDM is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -46,6 +47,7 @@ from .decorators import (
     add_signposting_content_resources,
     add_signposting_landing_page,
     add_signposting_metadata_resources,
+    pass_file_content,
     pass_file_item,
     pass_file_metadata,
     pass_include_deleted,
@@ -363,6 +365,7 @@ def record_export(
 @pass_include_deleted
 @pass_record_or_draft(expand=False)
 @pass_file_metadata
+@pass_file_content
 @pass_is_iframe
 def record_file_preview(
     pid_value,
