@@ -10,6 +10,32 @@
 Changes
 =======
 
+Version v14.0.0b11.dev0 (released 2026-05-29)
+
+- chore(setup): bump dependencies
+- feat: UI support for zip content previewing
+- fix(alembic): script for preparing migration from 13 -> 14
+- deposits: switch to standard get syntax
+- deposit: add default values for custom fields on deposit form
+- fix(profiler): remove CSP headers for profiler result pages
+- fix(profiler): register menu item for the multi-profiler
+- fix(profiler): override the MultiProfiler base template
+- feat(profiler): integrate Flask-MultiProfiler
+- fix: linting warning
+- feat(users): implement role management in user details
+- fix(records-ui): namespace url filter
+- chore(url): use invenio_url_for for consistency in mshp-req and inv code
+- feat(mshp-req+inv): show invitation & mshp-req pages from user & community sides [+]
+- fix(urls): use invenio_url_for() instead of hard-coded URLs
+- feat: make resouce type badge clickable
+- fix(tombstone): return not-found page + log exception for PIDDeletedError
+- config: remove hardcoded publisher and use THEME_SITENAME
+- frontpage: Add aria-label to 'More' search button
+- fix(upgrade_scripts): use correct indexer for drafts
+- fix: wrap overflowing MathJax content in rich text
+- users: use invenio_url_for for deposit URL
+- users: fix hardcoded deposit URL in uploads dashboard
+
 Version v14.0.0b10.dev7 (released 2026-04-21)
 
 - feat(administration): allow blocking with removal reason
