@@ -27,11 +27,11 @@ export default class UserBlockForm extends Component {
     });
   }
 
-  static contextType = NotificationContext;
-
   componentWillUnmount() {
     this.cancellableAction && this.cancellableAction.cancel();
   }
+
+  static contextType = NotificationContext;
 
   handleSubmit = async (values) => {
     const { user } = this.props;
