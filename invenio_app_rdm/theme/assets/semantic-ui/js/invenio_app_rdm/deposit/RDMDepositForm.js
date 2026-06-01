@@ -825,6 +825,7 @@ export class RDMDepositForm extends Component {
                         labelIcon="shield"
                         fieldPath="access"
                         showMetadataAccess={permissions?.can_manage_record_access}
+                        permissions={permissions}
                         recordRestrictionGracePeriod={recordRestrictionGracePeriod}
                         allowRecordRestriction={allowRecordRestriction}
                         id="visibility-section"
