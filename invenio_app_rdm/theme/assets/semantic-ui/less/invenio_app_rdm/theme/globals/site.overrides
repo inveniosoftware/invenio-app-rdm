@@ -558,7 +558,12 @@ dl.details-list {
 }
 
 .text-break {
-  word-break: break-word
+  word-break: break-word;
+}
+
+.text-break-wrap {
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 
