@@ -13,46 +13,56 @@ import PropTypes from "prop-types";
 export const CommunityRecordsSearchAppLayout = ({ config, appName }) => {
   const [sidebarVisible, setSidebarVisible] = React.useState(false);
 
+  const searchControls = (
+    <Grid>
+      <Grid.Column width={16}>
+        <SearchBar placeholder={i18next.t("Search records in community...")} />
+      </Grid.Column>
+
+      <Grid.Column width={4} textAlign="left">
+        <Count
+          label={(cmp) => (
+            <>
+              {cmp} {i18next.t("results found")}
+            </>
+          )}
+        />
+      </Grid.Column>
+      <Grid.Column width={12} textAlign="right">
+        <Sort
+          values={config.sortOptions}
+          label={(cmp) => (
+            <>
+              <label className="mr-10">{i18next.t("Sort by")}</label>
+              {cmp}
+            </>
+          )}
+        />
+      </Grid.Column>
+    </Grid>
+  );
+
   return (
     <Container className="rel-pt-2">
-      <Grid verticalAlign="middle">
-        <Grid.Column only="mobile tablet" mobile={2} tablet={1}>
-          <Button
-            basic
-            icon="sliders"
-            onClick={() => setSidebarVisible(true)}
-            aria-label={i18next.t("Filter results")}
-          />
-        </Grid.Column>
+      <Grid>
+        <Grid.Row verticalAlign="middle">
+          <Grid.Column only="mobile tablet" mobile={2} tablet={1}>
+            <Button
+              basic
+              icon="sliders"
+              onClick={() => setSidebarVisible(true)}
+              aria-label={i18next.t("Filter results")}
+            />
+          </Grid.Column>
 
-        <Grid.Column mobile={14} tablet={14} computer={12}>
-          <Grid>
-            <Grid.Column width={16}>
-              <SearchBar placeholder={i18next.t("Search records in community...")} />
-            </Grid.Column>
+          <Grid.Column only="mobile tablet" mobile={14} tablet={14}>
+            {searchControls}
+          </Grid.Column>
 
-            <Grid.Column width={4} textAlign="left">
-              <Count
-                label={(cmp) => (
-                  <>
-                    {cmp} {i18next.t("results found")}
-                  </>
-                )}
-              />
-            </Grid.Column>
-            <Grid.Column width={12} textAlign="right">
-              <Sort
-                values={config.sortOptions}
-                label={(cmp) => (
-                  <>
-                    <label className="mr-10">{i18next.t("Sort by")}</label>
-                    {cmp}
-                  </>
-                )}
-              />
-            </Grid.Column>
-          </Grid>
-        </Grid.Column>
+          <Grid.Column only="computer" computer={12} floated="right">
+            {searchControls}
+          </Grid.Column>
+        </Grid.Row>
 
         <Grid.Row>
           <GridResponsiveSidebarColumn
