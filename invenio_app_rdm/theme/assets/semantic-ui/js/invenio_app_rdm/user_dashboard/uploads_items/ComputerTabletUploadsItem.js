@@ -31,6 +31,7 @@ export const ComputerTabletUploadsItem = ({
     createdDate,
     version,
     isPublished,
+    isDraft,
     viewLink,
     publishingInformation,
   } = uiMetadata;
@@ -133,12 +134,14 @@ export const ComputerTabletUploadsItem = ({
                 </span>
               )}
             </small>
-            <small>
-              <CompactStats
-                uniqueViews={uniqueViews}
-                uniqueDownloads={uniqueDownloads}
-              />
-            </small>
+            {isPublished && !isDraft && (
+              <small>
+                <CompactStats
+                  uniqueViews={uniqueViews}
+                  uniqueDownloads={uniqueDownloads}
+                />
+              </small>
+            )}
           </div>
         </Item.Extra>
       </Item.Content>
