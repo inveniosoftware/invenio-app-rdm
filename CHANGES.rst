@@ -10,6 +10,11 @@
 Changes
 =======
 
+Version v14.0.0b11.dev2 (released 2026-06-03)
+
+- files: hide archive button over the size cap
+- fix: enable community owner to remove it from record
+
 Version v14.0.0b11.dev1 (released 2026-05-29)
 
 - chore(setup): bump dependencies
