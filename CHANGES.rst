@@ -10,6 +10,11 @@
 Changes
 =======
 
+Version v14.0.0b11.dev4 (released 2026-06-05)
+
+- chore(setup): bump dependencies
+- feat(records): deposit form compatibility with per-record-version review requests
+
 Version v14.0.0b11.dev3 (released 2026-06-05)
 
 - chore(setup): bump dependencies
