@@ -88,6 +88,5 @@ under the terms of the MIT License; see LICENSE file for more details.
 
 {% block javascript %}
   {{ super() }}
-  {% include config.THEME_JAVASCRIPT_TEMPLATE %}
   {{ webpack['invenio-requests-base.js'] }}
 {% endblock %}
