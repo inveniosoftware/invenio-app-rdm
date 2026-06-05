@@ -978,7 +978,7 @@ If the value is callable, its return value will be used for the field
 
 APP_RDM_DEPOSIT_FORM_CUSTOM_FIELD_DEFAULTS = {}
 """Default values for custom fields in new records in the deposit UI.
-    
+
 The keys denote the dot-separated path, where in the record's custom field
 values should be set (see invenio-records.dictutils).
 If the value is callable, its return value will be used for the field
@@ -1199,7 +1199,7 @@ PREVIEWER_PREFERENCE = [
 PREVIEWER_ABSTRACT_TEMPLATE = "invenio_previewer/rdm_abstract_previewer.html"
 """Override the abstract template with an RDM-specific one."""
 
-CONTAINER_ITEM_PREVIEWER_PREFERENCE = [
+PREVIEWER_CONTAINER_ITEM_PREFERENCE = [
     "csv_papaparsejs",
     "pdfjs",
     "simple_image",
