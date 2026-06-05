@@ -10,6 +10,19 @@
 Changes
 =======
 
+Version v14.0.0b11.dev3 (released 2026-06-05)
+
+- chore(setup): bump dependencies
+- fix: corrected config variable name
+- fix(ui): prevent overflow of long values and links in details and sidebar
+- chore: remove duplicate function definition in tests
+- chore: apply some linter fixes
+- chore: replace `type(...) == str` with `type(...) is str`
+- chore: fix __all__ tuple in audit_logs
+- feat(users): add last login details to admin ui
+- fix(i18n): v14 wrap missing strings
+- feat(mshp-req): integrate membership request notifications
+
 Version v14.0.0b11.dev2 (released 2026-06-03)
 
 - files: hide archive button over the size cap
