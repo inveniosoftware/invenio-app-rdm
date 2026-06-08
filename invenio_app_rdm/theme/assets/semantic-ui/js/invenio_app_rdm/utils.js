@@ -12,52 +12,52 @@ import React from "react";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import { DateTime } from "luxon";
 
+export function makeIcon(scheme, identifier, name) {
+  let link = null;
+  let linkTitle = null;
+  let icon = null;
+  let alt = "";
+
+  switch (scheme) {
+    case "orcid":
+      link = `https://orcid.org/${identifier}`;
+      linkTitle = i18next.t("ORCID profile");
+      icon = "/static/images/orcid.svg";
+      alt = i18next.t("ORCID logo");
+      break;
+    case "ror":
+      link = `https://ror.org/${identifier}`;
+      linkTitle = i18next.t("ROR profile");
+      icon = "/static/images/ror-icon.svg";
+      alt = i18next.t("ROR logo");
+      break;
+    case "gnd":
+      link = `https://d-nb.info/gnd/${identifier}`;
+      linkTitle = i18next.t("GND profile");
+      icon = "/static/images/gnd-icon.svg";
+      alt = i18next.t("GND logo");
+      break;
+    default:
+      return null;
+  }
+
+  icon = (
+    <a
+      className="no-text-decoration mr-0"
+      href={link}
+      aria-label={`${name}: ${linkTitle}`}
+      title={`${name}: ${linkTitle}`}
+      key={scheme}
+    >
+      <img className="inline-id-icon ml-5" src={icon} alt={alt} />
+    </a>
+  );
+  return icon;
+}
+
 export function SearchItemCreators({ creators, className, othersLink }) {
   let spanClass = "creatibutor-wrap separated";
   className && (spanClass += ` ${className}`);
-
-  function makeIcon(scheme, identifier, name) {
-    let link = null;
-    let linkTitle = null;
-    let icon = null;
-    let alt = "";
-
-    switch (scheme) {
-      case "orcid":
-        link = `https://orcid.org/${identifier}`;
-        linkTitle = i18next.t("ORCID profile");
-        icon = "/static/images/orcid.svg";
-        alt = i18next.t("ORCID logo");
-        break;
-      case "ror":
-        link = `https://ror.org/${identifier}`;
-        linkTitle = i18next.t("ROR profile");
-        icon = "/static/images/ror-icon.svg";
-        alt = i18next.t("ROR logo");
-        break;
-      case "gnd":
-        link = `https://d-nb.info/gnd/${identifier}`;
-        linkTitle = i18next.t("GND profile");
-        icon = "/static/images/gnd-icon.svg";
-        alt = i18next.t("GND logo");
-        break;
-      default:
-        return null;
-    }
-
-    icon = (
-      <a
-        className="no-text-decoration mr-0"
-        href={link}
-        aria-label={`${name}: ${linkTitle}`}
-        title={`${name}: ${linkTitle}`}
-        key={scheme}
-      >
-        <img className="inline-id-icon ml-5" src={icon} alt={alt} />
-      </a>
-    );
-    return icon;
-  }
 
   function getIcons(creator) {
     let ids = _get(creator, "person_or_org.identifiers", []);
