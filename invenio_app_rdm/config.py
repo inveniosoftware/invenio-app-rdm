@@ -1624,3 +1624,5 @@ MULTIPROFILER_IGNORED_ENDPOINTS = [
 
 MULTIPROFILER_PERMISSION = administration_permission.can
 """Function to check for permissions to access the profiler."""
+
+RDM_DEPOSIT_ORCHA_ENABLED = False
