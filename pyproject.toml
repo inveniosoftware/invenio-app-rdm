@@ -118,6 +118,7 @@ invenio_app_rdm_records = "invenio_app_rdm.records_ui.views:create_blueprint"
 invenio_app_rdm_requests = "invenio_app_rdm.requests_ui.views:create_ui_blueprint"
 invenio_app_rdm_users = "invenio_app_rdm.users_ui.views:create_ui_blueprint"
 invenio_redirector = "invenio_app_rdm.redirector.views:create_blueprint"
+invenio_app_rdm_orcha = "invenio_app_rdm.orcha.views:blueprint"
 
 [project.entry-points."invenio_base.finalize_app"]
 invenio_app_rdm = "invenio_app_rdm.ext:finalize_app"
