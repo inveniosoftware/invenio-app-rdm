@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version v15.0.0b0.dev0 (released 2026-06-08)
+
+- release: v15.0.0b0.dev0
+
 Version v14.0.0b11.dev4 (released 2026-06-05)
 
 - chore(setup): bump dependencies
