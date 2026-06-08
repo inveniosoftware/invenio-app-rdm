@@ -49,6 +49,7 @@ export const RDMRecordResultsListItem = ({ result }) => {
   };
 
   const isPublished = result.is_published;
+  const isDraft = result.is_draft;
   const access = {
     accessStatusId: _get(result, "ui.access_status.id", i18next.t("open")),
     accessStatus: _get(result, "ui.access_status.title_l10n", i18next.t("Open")),
@@ -76,6 +77,7 @@ export const RDMRecordResultsListItem = ({ result }) => {
     createdDate: result.ui?.created_date_l10n_long,
     version: result.ui?.version ?? "",
     isPublished: isPublished,
+    isDraft: isDraft,
     viewLink: isPublished ? `/records/${result.id}` : `/uploads/${result.id}`,
     publishingInformation: _get(result, "ui.publishing_information.journal", ""),
   };
