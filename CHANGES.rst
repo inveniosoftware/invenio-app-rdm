@@ -10,6 +10,10 @@
 Changes
 =======
 
+Version v14.0.0rc1 (released 2026-06-08)
+
+- release: release candidate 1
+
 Version v14.0.0b11.dev4 (released 2026-06-05)
 
 - chore(setup): bump dependencies
