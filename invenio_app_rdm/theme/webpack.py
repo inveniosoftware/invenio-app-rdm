@@ -48,8 +48,8 @@ theme = WebpackThemeBundle(
             },
             dependencies={
                 "@babel/runtime": "^7.9.0",
-                "@tinymce/tinymce-react": "^4.3.0",
-                "tinymce": "^6.7.2",
+                "@hugerte/hugerte-react": "^2.0.2",
+                "hugerte": "^1.0.10",
                 "formik": "^2.1.0",
                 "i18next": "^20.3.0",
                 "i18next-browser-languagedetector": "^6.1.0",
@@ -80,18 +80,18 @@ theme = WebpackThemeBundle(
                 "@translations/invenio_app_rdm": "translations/invenio_app_rdm",
             },
             copy=[
-                # Copy some assets into "static/dist", as TinyMCE requires that
+                # Copy some assets into "static/dist", as HugeRTE requires that
                 # Note that the base path for all entries is the `config.json` directory
                 {
-                    "from": "../node_modules/tinymce/skins/content/default/content.css",
+                    "from": "../node_modules/hugerte/skins/content/default/content.css",
                     "to": "../../static/dist/js/skins/content/default",
                 },
                 {
-                    "from": "../node_modules/tinymce/skins/ui/oxide/skin.min.css",
+                    "from": "../node_modules/hugerte/skins/ui/oxide/skin.min.css",
                     "to": "../../static/dist/js/skins/ui/oxide",
                 },
                 {
-                    "from": "../node_modules/tinymce/skins/ui/oxide/content.min.css",
+                    "from": "../node_modules/hugerte/skins/ui/oxide/content.min.css",
                     "to": "../../static/dist/js/skins/ui/oxide",
                 },
                 {
