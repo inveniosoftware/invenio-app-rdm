@@ -121,4 +121,8 @@ button[aria-disabled=true]:hover {
   cursor: default;
 }
 
-
+.orcha-suggestions-button {
+  .orcha-suggestions-count {
+    font-size: 12px;
+  }
+}
