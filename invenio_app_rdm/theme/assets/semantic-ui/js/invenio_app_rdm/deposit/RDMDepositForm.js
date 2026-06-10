@@ -1,5 +1,5 @@
 // This file is part of InvenioRDM
-// Copyright (C) 2020-2025 CERN.
+// Copyright (C) 2020-2026 CERN.
 // Copyright (C) 2020-2022 Northwestern University.
 // Copyright (C) 2021-2022 Graz University of Technology.
 // Copyright (C) 2022-2024 KTH Royal Institute of Technology.
@@ -352,6 +352,8 @@ export class RDMDepositForm extends Component {
                         roleOptions={this.vocabularies.metadata.creators.role}
                         schema="creators"
                         autocompleteNames={this.config.autocomplete_names}
+                        scrollThreshold={this.config.creatibutors_inline_list_threshold}
+                        batchSize={this.config.creatibutors_render_batch_size}
                         required
                       />
                     </Overridable>
@@ -452,6 +454,8 @@ export class RDMDepositForm extends Component {
                         roleOptions={this.vocabularies.metadata.contributors.role}
                         schema="contributors"
                         autocompleteNames={this.config.autocomplete_names}
+                        scrollThreshold={this.config.creatibutors_inline_list_threshold}
+                        batchSize={this.config.creatibutors_render_batch_size}
                         modal={{
                           addLabel: i18next.t("Add contributor"),
                           editLabel: i18next.t("Edit contributor"),
