@@ -49,4 +49,46 @@ h3.ui.small.header.creatibutors-header + ul.creatibutors {
       margin: 0 .1rem 0 .2rem;
     }
   }
+
+}
+
+.creatibutor-et-al {
+  color: @mutedTextColor;
+
+  .creatibutors-show-all-link {
+    margin-left: 0.35rem;
+  }
+}
+
+.creatibutors-landing-modal {
+  .creatibutors-modal-search {
+    border-bottom: 1px solid lighten(@borderColor, 40%);
+    padding-bottom: 0.75rem;
+  }
+
+  .creatibutors li.hidden,
+  .creatibutors-modal-list > div.hidden {
+    display: none;
+  }
+}
+
+.creatibutors-panel-affiliations {
+  margin-top: 1rem;
+
+  &.hidden {
+    display: none;
+  }
+
+  li.hidden {
+    display: none;
+  }
+
+  ul {
+    list-style-type: none;
+    background-color: lighten(@borderColor, 72%);
+    color: @textMutedColorDarken;
+    font-size: @font-size-small;
+    padding: 1rem 1.5rem;
+    margin: 0;
+  }
 }

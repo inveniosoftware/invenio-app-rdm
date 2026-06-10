@@ -1,5 +1,5 @@
 {#
-  SPDX-FileCopyrightText: 2020-2024 CERN.
+  SPDX-FileCopyrightText: 2020-2026 CERN.
   SPDX-FileCopyrightText: 2020 Northwestern University.
   SPDX-FileCopyrightText: 2021 Graz University of Technology.
   SPDX-FileCopyrightText: 2021-2022 New York University.
@@ -36,17 +36,20 @@
 {% endmacro %}
 
 
-
 {% macro show_creatibutors(creatibutors, show_affiliations=False, type="creators", show_role=False) %}
   {% for creatibutor in creatibutors if creatibutor.person_or_org and creatibutor.person_or_org.name %}
-  <li class="creatibutor-wrap separated">
+  <li class="creatibutor-wrap separated"
+      {%- if show_affiliations and creatibutor.affiliations %}
+      data-affiliation-refs="{{ creatibutor.affiliations|map(attribute=0)|join(',') }}"
+      data-affiliations="{{ creatibutor.affiliations|join('; ', attribute='1') }}"
+      {%- endif %}>
     <a class="ui creatibutor-link"
       {% if show_affiliations and creatibutor.affiliations %}
         data-tooltip="{{ creatibutor.affiliations|join('; ', attribute='1') }}"
+        data-position="bottom center"
       {% endif %}
       href="{{url_for('invenio_search_ui.search', q='metadata.' + type + '.person_or_org.name:"' + creatibutor.person_or_org.name + '"')}}"
     >
-
       <span class="creatibutor-name">
         {{- creatibutor.person_or_org.name -}}
         {% if show_role and creatibutor.role %}
@@ -67,22 +70,36 @@
 {%- endmacro %}
 
 
-{% macro affiliations_accordion(group, affiliations) %}
-<div class="ui sixteen wide tablet three wide computer column title right aligned bottom aligned">
-  <button class="ui affiliations-button trigger button mini mr-0"
-          aria-controls="{{ group }}-affiliations"
-          data-open-text="{{_('Show affiliations')}}"
-          data-close-text="{{ _('Hide affiliations') }}"
-          aria-expanded="false"
-  >
-    {{ _("Show affiliations") }}
-  </button>
-</div>
+{% macro creatibutors_show_all_link(section_id, count, entity_label) %}
+  <a href="#"
+     class="creatibutors-show-all-link"
+     data-target="#{{ section_id }}-all-modal"
+     aria-haspopup="dialog">
+    {{ _('Show all') }} {{ count }} {{ entity_label }}
+  </a>
+{% endmacro %}
 
-<section class="ui sixteen wide column content" id="{{ group }}-affiliations" aria-label="{{ _('Affiliations for') }} {{ group }}">
+
+{% macro contributors_grouped(contributors, count_source=None) %}
+  {%- for group in contributors|groupby('role.title') %}
+  {%- set role_count = (count_source|selectattr('role.title', 'equalto', group.grouper)|list)|length
+                       if count_source else group.list|length %}
+  <div>
+    <h3 class="creatibutors-header ui small header">
+      {{ group.grouper }}{% if role_count > 1 %} ({{ role_count }}){% endif %}:
+    </h3>
+    <ul class="creatibutors">
+      {{ show_creatibutors(group.list, show_affiliations=True, type="contributors") }}
+    </ul>
+  </div>
+  {%- endfor %}
+{%- endmacro %}
+
+
+{% macro affiliations_list(affiliations) %}
   <ul>
     {% for affiliation in affiliations %}
-    <li>
+    <li data-affiliation-ref="{{ affiliation[0] }}">
       {{ affiliation[0] }}.
 
       {% if affiliation[2] %}
@@ -105,8 +122,68 @@
 
       {{ affiliation[1] }}
     </li>
-  {% endfor %}
+    {% endfor %}
+  </ul>
+{% endmacro %}
 
-    </ul>
+
+{% macro creatibutors_landing_modal(section_id, count, entity_label, modal_title, affiliations=None) %}
+<div class="ui modal creatibutors-landing-modal"
+     id="{{ section_id }}-all-modal"
+     data-section="{{ section_id }}">
+  <i class="close icon"></i>
+  <div class="header">{{ modal_title }}</div>
+
+  <div class="content creatibutors-modal-search">
+    <div class="ui fluid icon input">
+      <input type="search"
+             class="creatibutors-filter-input"
+             data-panel="{{ section_id }}-modal-list"
+             placeholder="{{ _('Search by name or affiliation…') }}"
+             aria-label="{{ _('Filter') }} {{ entity_label }}"
+             autocomplete="off" />
+      <i class="search icon" aria-hidden="true"></i>
+    </div>
+    <div class="creatibutors-count-bar mt-5">
+      <span class="creatibutors-filter-count text-muted" data-total="{{ count }}">
+        {{ count }} {{ _('total') }}
+      </span>
+    </div>
+  </div>
+
+  <div class="scrolling content">
+    <div id="{{ section_id }}-modal-list" class="creatibutors-modal-list">
+      {{ caller() }}
+    </div>
+    {%- if affiliations %}
+    <section class="creatibutors-panel-affiliations"
+             aria-label="{{ _('Affiliations for') }} {{ section_id }}">
+      {{ affiliations_list(affiliations) }}
+    </section>
+    {%- endif %}
+  </div>
+
+  <div class="actions">
+    <button type="button" class="ui button">{{ _('Close') }}</button>
+  </div>
+</div>
+{% endmacro %}
+
+
+{% macro affiliations_accordion(group, affiliations) %}
+<div id="{{ group }}-affiliations-title"
+     class="ui sixteen wide tablet three wide computer column title right aligned bottom aligned">
+  <button class="ui affiliations-button trigger button mini mr-0"
+          aria-controls="{{ group }}-affiliations"
+          data-open-text="{{_('Show affiliations')}}"
+          data-close-text="{{ _('Hide affiliations') }}"
+          aria-expanded="false"
+  >
+    {{ _("Show affiliations") }}
+  </button>
+</div>
+
+<section class="ui sixteen wide column content" id="{{ group }}-affiliations" aria-label="{{ _('Affiliations for') }} {{ group }}">
+  {{ affiliations_list(affiliations) }}
 </section>
 {% endmacro %}
