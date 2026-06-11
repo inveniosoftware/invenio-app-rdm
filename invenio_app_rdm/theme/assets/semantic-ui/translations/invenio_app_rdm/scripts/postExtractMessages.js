@@ -1,8 +1,7 @@
-// This file is part of invenio-app-rdm.
-// Copyright (C) 2025 KTH Royal Institute of Technology.
-//
-// invenio-app-rdm is free software; you can redistribute it and/or modify it
-// under the terms of the MIT License; see LICENSE file for more details.
+/*
+ * SPDX-FileCopyrightText: 2025 KTH Royal Institute of Technology.
+ * SPDX-License-Identifier: MIT
+ */
 
 const { execSync } = require("child_process");
 
