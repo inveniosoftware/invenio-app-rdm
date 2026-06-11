@@ -381,6 +381,13 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
         )
 
     elif is_subcommunity_request or is_subcommunity_invitation_request:
+        checks = None
+        if current_app.config.get("CHECKS_SUBCOMMUNITY_ENABLED", False):
+            topic_entity = ResolverRegistry.resolve_entity_proxy(
+                request._request.topic.reference_dict
+            ).resolve()
+            checks = ChecksAPI.get_runs(topic_entity) or None
+
         return render_community_theme_template(
             f"invenio_requests/{request_type}/index.html",
             theme=community.to_dict().get("theme", {}),
@@ -388,6 +395,7 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
             invenio_request=request.to_dict(),
             community=community,
             community_ui=community_ui,
+            checks=checks,
             permissions=permissions,
             request_is_accepted=request_is_accepted,
             user_avatar=avatar,
