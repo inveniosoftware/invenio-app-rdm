@@ -34,3 +34,7 @@
   {%- endblock page_footer %}
 
 {%- endblock body_inner %}
+
+{%- block javascript_overridable %}
+  {{ webpack['overridable-registry.js'] }}
+{%- endblock javascript_overridable %}
