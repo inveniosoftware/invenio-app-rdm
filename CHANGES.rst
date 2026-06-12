@@ -10,6 +10,11 @@
 Changes
 =======
 
+Version v14.0.0rc2 (released 2026-06-13)
+
+- chore(setup): bump dependencies
+- refactor(views): Move get_record_requests to RecordCommunitiesService
+
 Version v14.0.0rc1 (released 2026-06-08)
 
 - release: release candidate 1
