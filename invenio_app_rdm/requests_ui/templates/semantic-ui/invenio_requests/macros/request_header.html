@@ -54,12 +54,13 @@
 {% endmacro %}
 
 
-{% macro inclusion_request_header(back_button_url=None, back_button_text=None, request=None, record=None, accepted=False) %}
+{% macro inclusion_request_header(back_button_url=None, back_button_text=None, request=None, record=None, record_ui=None, accepted=False) %}
 {#
   Renders the record inclusion request header block with:
   - a back button
   - a `View record` button, when accepted
   - the request's title
+  - the record's version, when record_ui is passed
   - the record's creators, when record is passed
 #}
   <div class="computer-flex-header rel-mt-2">
@@ -88,6 +89,9 @@
 
   <div class="rel-mt-2">
     <h2 class="ui header request-header">{{ request.title }}</h2>
+    {% if record_ui and record_ui.get("ui", {}).get("version") %}
+      <p class="label text-muted">{{ _('Version {version_number}').format(version_number=record_ui["ui"]["version"]) }}</p>
+    {% endif %}
     <p class="ui header">{{ request.description|safe }}</p>
     {% if record %}
       <ul class="creatibutors" aria-label="{{ _('Creators') }}">
