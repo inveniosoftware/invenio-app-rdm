@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-06-30T21:08:07.188Z\n"
-"PO-Revision-Date: 2025-06-30T21:08:07.188Z\n"
+"POT-Creation-Date: 2026-06-22T20:53:26.159Z\n"
+"PO-Revision-Date: 2026-06-22T20:53:26.159Z\n"
 "Language: en\n"
 
 msgid "Recent changes"
@@ -94,9 +94,6 @@ msgid ""
 msgstr ""
 "This is the default quota that will be applied to any NEW records created "
 "by this user - it will NOT update quota of existing records."
-
-msgid "Quota of {{id}} was set to {{quota}} {{unit}}"
-msgstr "Quota of {{id}} was set to {{quota}} {{unit}}"
 
 msgid "Unable to set quota."
 msgstr "Unable to set quota."
@@ -387,9 +384,6 @@ msgid_plural "{{count}} more versions exist for this record"
 msgstr[0] "{{count}} more versions exist for this record"
 msgstr[1] "{{count}} more versions exist for this record"
 
-msgid "Recommendation"
-msgstr "Recommendation"
-
 msgid "This check is recommended but not mandatory."
 msgstr "This check is recommended but not mandatory."
 
@@ -404,9 +398,6 @@ msgstr "The record has no files."
 
 msgid "Basic information"
 msgstr "Basic information"
-
-msgid "Creators"
-msgstr "Creators"
 
 msgid "Recommended information"
 msgstr "Recommended information"
@@ -458,13 +449,6 @@ msgstr "Full name"
 
 msgid "Request message"
 msgstr "Request message"
-
-msgid ""
-"I agree to that my full name and email address is shared with the owners of "
-"the record"
-msgstr ""
-"I agree to that my full name and email address is shared with the owners of "
-"the record"
 
 msgid "Request access"
 msgstr "Request access"
@@ -533,12 +517,6 @@ msgstr "Manage user"
 msgid "Block user"
 msgstr "Block user"
 
-msgid "Block User"
-msgstr "Block User"
-
-msgid "Blocking the user will delete all existing records of the user."
-msgstr "Blocking the user will delete all existing records of the user."
-
 msgid "Remove branding"
 msgstr "Remove branding"
 
@@ -598,9 +576,6 @@ msgstr "Version {{- version}}"
 
 msgid "Preview"
 msgstr "Preview"
-
-msgid "Only published versions are displayed."
-msgstr "Only published versions are displayed."
 
 msgid "An error occurred while fetching the versions."
 msgstr "An error occurred while fetching the versions."
@@ -788,9 +763,6 @@ msgid ""
 msgstr ""
 "Search for users to grant access (only users with a public profile can be "
 "invited)"
-
-msgid "Search by email, full name or username"
-msgstr "Search by email, full name or username"
 
 msgid "users"
 msgstr "users"
@@ -1007,3 +979,183 @@ msgid "and {{count}} others"
 msgid_plural "and {{count}} others"
 msgstr[0] "and {{count}} others"
 msgstr[1] "and {{count}} others"
+
+msgid "Manage roles"
+msgstr "Manage roles"
+
+msgid "User roles were updated."
+msgstr "User roles were updated."
+
+msgid "Unable to manage user roles"
+msgstr "Unable to manage user roles"
+
+msgid "Are you sure you want to update this user's roles?"
+msgstr "Are you sure you want to update this user's roles?"
+
+msgid "Role changes may affect the user's permissions."
+msgstr "Role changes may affect the user's permissions."
+
+msgid "Show unmanaged roles only"
+msgstr "Show unmanaged roles only"
+
+msgid "Confirm role update"
+msgstr "Confirm role update"
+
+msgid "Update roles"
+msgstr "Update roles"
+
+msgid "Quota of @{{username}} was set to {{quota}} {{unit}}"
+msgstr "Quota of @{{username}} was set to {{quota}} {{unit}}"
+
+msgid "No replies"
+msgstr "No replies"
+
+msgid "A removal reason is required."
+msgstr "A removal reason is required."
+
+msgid "User {{name}} was blocked."
+msgstr "User {{name}} was blocked."
+
+msgid "User blocked"
+msgstr "User blocked"
+
+msgid ""
+"Their records and communities are being tombstoned in the background. This "
+"may take a few minutes to complete."
+msgstr ""
+"Their records and communities are being tombstoned in the background. This "
+"may take a few minutes to complete."
+
+msgid "View in admin"
+msgstr "View in admin"
+
+msgid "Unable to block user"
+msgstr "Unable to block user"
+
+msgid ""
+"Blocking this user will tombstone their records and communities using the "
+"removal reason below."
+msgstr ""
+"Blocking this user will tombstone their records and communities using the "
+"removal reason below."
+
+msgid "Verified community"
+msgstr "Verified community"
+
+msgid "– Unlocked, {{ daysUntil }} days to publish changes"
+msgstr "– Unlocked, {{ daysUntil }} days to publish changes"
+
+msgid "It is not possible to delete this record."
+msgstr "It is not possible to delete this record."
+
+msgid "View deletion request"
+msgstr "View deletion request"
+
+msgid "Required"
+msgstr "Required"
+
+msgid "Please write at least 25 characters"
+msgstr "Please write at least 25 characters"
+
+msgid "Could not submit deletion request"
+msgstr "Could not submit deletion request"
+
+msgid "Request deletion"
+msgstr "Request deletion"
+
+msgid "Delete immediately"
+msgstr "Delete immediately"
+
+msgid "By deleting this record you acknowledge that:"
+msgstr "By deleting this record you acknowledge that:"
+
+msgid "will be deleted."
+msgstr "will be deleted."
+
+msgid "The DOI cannot be reused"
+msgstr "The DOI cannot be reused"
+
+msgid ""
+"and the DOI will resolve to a tombstone page with the record's citation "
+"(including title, author/s, publication year and publisher)"
+msgstr ""
+"and the DOI will resolve to a tombstone page with the record's citation "
+"(including title, author/s, publication year and publisher)"
+
+msgid "A tombstone page with the citation will replace the record page"
+msgstr "A tombstone page with the citation will replace the record page"
+
+msgid "Record deletion checklist:"
+msgstr "Record deletion checklist:"
+
+msgid "Yes"
+msgstr "Yes"
+
+msgid "No"
+msgstr "No"
+
+msgid "I want to delete this record because:"
+msgstr "I want to delete this record because:"
+
+msgid "Detailed justification:"
+msgstr "Detailed justification:"
+
+msgid "Your justification will not be shared publicly"
+msgstr "Your justification will not be shared publicly"
+
+msgid "Unable to request deletion."
+msgstr "Unable to request deletion."
+
+msgid "Recommendation(s)"
+msgstr "Recommendation(s)"
+
+msgid "Error(s)"
+msgstr "Error(s)"
+
+msgid "Authors/Creators"
+msgstr "Authors/Creators"
+
+msgid ""
+"Use the Authors/Creators field for names that should appear in the "
+"citation. Use the Contributors field below for other names."
+msgstr ""
+"Use the Authors/Creators field for names that should appear in the "
+"citation. Use the Contributors field below for other names."
+
+msgid ""
+"Contributors are not included in the citation, but are shown on the record "
+"page."
+msgstr ""
+"Contributors are not included in the citation, but are shown on the record "
+"page."
+
+msgid "Load more search results"
+msgstr "Load more search results"
+
+msgid ""
+"I agree that my full name and email address will be shared with the owners "
+"of the record"
+msgstr ""
+"I agree that my full name and email address will be shared with the owners "
+"of the record"
+
+msgid "View audit logs"
+msgstr "View audit logs"
+
+msgid "View comments"
+msgstr "View comments"
+
+msgid "This version of the record has not yet been published."
+msgstr "This version of the record has not yet been published."
+
+msgid "You don't have permission to remove this community from the record"
+msgstr "You don't have permission to remove this community from the record"
+
+msgid "Expiration date: YYYY-MM-DD (required)."
+msgstr "Expiration date: YYYY-MM-DD (required)."
+
+msgid "Search by full name, username or email (if publicly visible)"
+msgstr "Search by full name, username or email (if publicly visible)"
+
+msgid "your search"
+msgstr "your search"
