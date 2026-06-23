@@ -81,7 +81,13 @@ export class ViewRecentChanges extends Component {
       });
     } catch (error) {
       if (error === "UNMOUNTED") return;
-      this.setState({ error: error, loading: false });
+      this.setState({
+        error:
+          error.response?.data?.message ||
+          error.message ||
+          i18next.t("Unable to fetch revisions."),
+        loading: false,
+      });
       console.error(error);
     }
   }
@@ -107,9 +113,11 @@ export class ViewRecentChanges extends Component {
             />
           </Modal.Content>
         )}
-        <Modal.Content scrolling>
-          <RevisionsDiffViewer diff={diff} />
-        </Modal.Content>
+        {!error && (
+          <Modal.Content scrolling>
+            <RevisionsDiffViewer diff={diff} />
+          </Modal.Content>
+        )}
         <Modal.Actions>
           <Grid>
             <Grid.Column floated="left" width={8} textAlign="left">
