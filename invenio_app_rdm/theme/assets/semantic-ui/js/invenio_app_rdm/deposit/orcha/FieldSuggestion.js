@@ -24,7 +24,7 @@ const renderAuthor = (author) => (
 );
 
 const renderSuggestionActions = (onApply, onDeny) => (
-  <Button.Group size="mini" className="orcha-suggestion-actions">
+  <Button.Group size="mini" compact className="orcha-suggestion-actions">
     <Button
       type="button"
       positive
