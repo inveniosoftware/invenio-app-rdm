@@ -100,8 +100,21 @@ const FieldSuggestionComponent = ({ field, formik }) => {
         <Message.Header>
           <Icon name="lightbulb outline" />
           {i18next.t("Suggested {{field}}", {
-            field: i18next.t(suggestedFieldLabels[field] ?? "Value"),
+            field: suggestedFieldLabels[field] ?? "Value",
+            interpolation: { escapeValue: false },
           })}
+          {isCreatorsSuggestion && (
+            <Button
+              type="button"
+              positive
+              compact
+              size="mini"
+              icon="check"
+              content={i18next.t("Apply all authors")}
+              onClick={() => apply(formik, field)}
+              className="ml-30"
+            />
+          )}
         </Message.Header>
         {isCreatorsSuggestion ? (
           renderSuggestedCreators(
