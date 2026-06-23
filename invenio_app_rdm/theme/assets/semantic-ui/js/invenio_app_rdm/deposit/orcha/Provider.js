@@ -15,7 +15,6 @@ const SUGGESTION_PENDING = "pending";
 const SUGGESTION_APPLIED = "applied";
 const SUGGESTION_DENIED = "denied";
 
-
 const getDraftId = (record) => {
   const id = record?.id;
   return id && id !== "null" && id !== "undefined" ? id : null;
