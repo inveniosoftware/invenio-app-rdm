@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Button, Message } from "semantic-ui-react";
@@ -12,28 +12,39 @@ const getDraftId = (record) => {
 
 export const SuggestionsButtonComponent = ({ record, currentRecord, file }) => {
   const suggestions = useSuggestions();
+  const [elapsedSeconds, setElapsedSeconds] = useState(0);
+  const fileKey = file?.name ?? null;
+  const isCurrentFile = !fileKey || suggestions?.activeFileKey === fileKey;
+  const isButtonLoading = Boolean(suggestions?.isLoading && isCurrentFile);
+
+  useEffect(() => {
+    if (!isButtonLoading) {
+      setElapsedSeconds(0);
+      return undefined;
+    }
+
+    const startedAt = Date.now();
+    setElapsedSeconds(0);
+    const intervalId = setInterval(() => {
+      setElapsedSeconds(Math.floor((Date.now() - startedAt) / 1000));
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, [isButtonLoading]);
 
   if (!suggestions) return null;
 
-  const {
-    isLoading,
-    status,
-    error,
-    activeFileKey,
-    suggestionsCount,
-    trigger,
-    dismissError,
-  } = suggestions;
+  const { isLoading, status, error, suggestionsCount, trigger, dismissError } =
+    suggestions;
   const draftRecord = getDraftId(currentRecord) ? currentRecord : record;
   const draftId = getDraftId(draftRecord);
-  const fileKey = file?.name ?? null;
-  const isCurrentFile = !fileKey || activeFileKey === fileKey;
-  const isButtonLoading = isLoading && isCurrentFile;
   const showError = error && isCurrentFile;
   const showSuggestionsCount = status === "success" && isCurrentFile;
   let label = i18next.t("Extract metadata");
   if (isButtonLoading) {
-    label = i18next.t("Extracting metadata...");
+    label = i18next.t("Extracting metadata... {{seconds}}s", {
+      seconds: elapsedSeconds,
+    });
   } else if (status === "success" && isCurrentFile) {
     label = i18next.t("Re-extract metadata");
   }
@@ -45,7 +56,6 @@ export const SuggestionsButtonComponent = ({ record, currentRecord, file }) => {
         primary
         compact
         size="mini"
-        loading={isButtonLoading}
         disabled={isLoading || !draftId || !fileKey}
         icon="magic"
         content={label}
