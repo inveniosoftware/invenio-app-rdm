@@ -51,12 +51,16 @@ const applyToFormik = (formik, field, value) => {
   }
 };
 
-const appendCreatorToFormik = (formik, creator) => {
+const appendCreatorsToFormik = (formik, creators) => {
   const currentCreators = formik.values?.metadata?.creators ?? [];
   formik.setFieldValue("metadata.creators", [
     ...currentCreators,
-    creatorField(creator),
+    ...creators.map(creatorField),
   ]);
+};
+
+const appendCreatorToFormik = (formik, creator) => {
+  appendCreatorsToFormik(formik, [creator]);
 };
 
 export const SuggestionsProvider = ({ children }) => {
@@ -250,6 +254,15 @@ export const SuggestionsProvider = ({ children }) => {
     if (!suggestion) return;
 
     if (field === "creators") {
+      if (valueIndex === null) {
+        const creators = Array.isArray(suggestion.value) ? suggestion.value : [];
+        if (creators.length === 0) return;
+
+        appendCreatorsToFormik(formik, creators);
+        updateSuggestionStatus(field, SUGGESTION_APPLIED);
+        return;
+      }
+
       const creator = Array.isArray(suggestion.value)
         ? suggestion.value[valueIndex]
         : null;
