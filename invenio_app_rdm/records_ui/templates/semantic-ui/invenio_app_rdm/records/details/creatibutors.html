@@ -15,16 +15,17 @@
 <div class="ui grid">
 
   {% if record_ui["ui"]["creators"] and record_ui["ui"]["creators"]["creators"] %}
+    {% set creatibutors_inline_list_threshold = 10 %}
     {%- set all_creators = record_ui["ui"]["creators"]["creators"] -%}
     {%- set creator_count = all_creators | length -%}
-    {%- set use_controls = creator_count > config.RDM_CREATIBUTORS_INLINE_LIST_THRESHOLD -%}
+    {%- set use_controls = creator_count > creatibutors_inline_list_threshold -%}
 
     <div id="creators-section" class="row ui accordion affiliations">
       <div class="sixteen wide mobile twelve wide tablet thirteen wide computer column">
         <h3 class="sr-only">{{ _('Authors/Creators') }}</h3>
         <ul class="creatibutors">
           {{ show_creatibutors(
-               all_creators[:config.RDM_CREATIBUTORS_INLINE_LIST_THRESHOLD] if use_controls else all_creators,
+               all_creators[:creatibutors_inline_list_threshold] if use_controls else all_creators,
                show_affiliations=True, show_role=True) }}
           {%- if use_controls %}
           <li class="creatibutor-et-al">
@@ -54,14 +55,14 @@
   {% if record_ui["ui"]["contributors"] and record_ui["ui"]["contributors"]["contributors"] %}
     {%- set all_contributors = record_ui["ui"]["contributors"]["contributors"] -%}
     {%- set contributor_count = all_contributors | length -%}
-    {%- set use_controls = contributor_count > config.RDM_CREATIBUTORS_INLINE_LIST_THRESHOLD -%}
+    {%- set use_controls = contributor_count > creatibutors_inline_list_threshold -%}
 
     <div id="contributors-section" class="row ui accordion affiliations">
       <div class="sixteen wide mobile twelve wide tablet thirteen wide computer column">
         <h3>{{ _('Contributors') }}</h3>
 
         {{ contributors_grouped(
-             all_contributors[:config.RDM_CREATIBUTORS_INLINE_LIST_THRESHOLD] if use_controls else all_contributors,
+             all_contributors[:creatibutors_inline_list_threshold] if use_controls else all_contributors,
              count_source=all_contributors if use_controls else none) }}
 
         {%- if use_controls %}

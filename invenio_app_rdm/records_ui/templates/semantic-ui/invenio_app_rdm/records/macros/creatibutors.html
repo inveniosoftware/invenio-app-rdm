@@ -146,7 +146,7 @@
     </div>
     <div class="creatibutors-count-bar mt-5">
       <span class="creatibutors-filter-count text-muted" data-total="{{ count }}">
-        {{ count }} {{ _('total') }}
+        {{ count }} / {{ count }}
       </span>
     </div>
   </div>
@@ -156,7 +156,7 @@
       {{ caller() }}
     </div>
     {%- if affiliations %}
-    <section class="creatibutors-panel-affiliations"
+    <section class="creatibutors-panel-affiliations mt-1"
              aria-label="{{ _('Affiliations for') }} {{ section_id }}">
       {{ affiliations_list(affiliations) }}
     </section>
