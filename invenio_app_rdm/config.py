@@ -1628,3 +1628,22 @@ MULTIPROFILER_PERMISSION = administration_permission.can
 """Function to check for permissions to access the profiler."""
 
 RDM_DEPOSIT_ORCHA_ENABLED = False
+"""Enable ORCHA in the form."""
+
+RDM_ORCHA_KEY_PATH = None
+"""Path to the private key used to auhtenticate ORCHA requests."""
+
+RDM_ORCHA_KID = None
+"""Key ID."""
+
+RDM_ORCHA_TENANT = None
+"""ORCHA tenant used in JWT."""
+
+RDM_ORCHA_URL = None
+"""Internal ORHCA service URL."""
+
+RDM_ORCHA_PUBLIC_URL = None
+"""Public ORCHA URL."""
+
+RDM_ORCHA_SSL_VERIFY = True
+"""Verify ORCHA TLS certificates."""
