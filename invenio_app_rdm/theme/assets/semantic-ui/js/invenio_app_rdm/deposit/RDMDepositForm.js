@@ -2,7 +2,7 @@
  * SPDX-FileCopyrightText: 2020-2025 CERN.
  * SPDX-FileCopyrightText: 2020-2022 Northwestern University.
  * SPDX-FileCopyrightText: 2021-2022 Graz University of Technology.
- * SPDX-FileCopyrightText: 2022-2024 KTH Royal Institute of Technology.
+ * SPDX-FileCopyrightText: 2022-2025 KTH Royal Institute of Technology.
  * SPDX-License-Identifier: MIT
  */
 
@@ -501,7 +501,6 @@ export class RDMDepositForm extends Component {
                       <DatesField
                         fieldPath="metadata.dates"
                         options={this.vocabularies.metadata.dates}
-                        showEmptyValue
                       />
                     </Overridable>
 
@@ -538,7 +537,7 @@ export class RDMDepositForm extends Component {
                   <AccordionField
                     includesPaths={this.sectionsConfig["funding-section"]}
                     severityChecks={this.severityChecks}
-                    active
+                    active={!!_get(record, "metadata.funding.length")}
                     label={i18next.t("Funding")}
                     ui={this.accordionStyle}
                     id="funding-section"
@@ -643,7 +642,7 @@ export class RDMDepositForm extends Component {
                   <AccordionField
                     includesPaths={this.sectionsConfig["alternate-identifiers-section"]}
                     severityChecks={this.severityChecks}
-                    active
+                    active={!!_get(record, "metadata.identifiers.length")}
                     label={i18next.t("Alternate identifiers")}
                     id="alternate-identifiers-section"
                   >
@@ -658,7 +657,6 @@ export class RDMDepositForm extends Component {
                         label={i18next.t("Alternate identifiers")}
                         labelIcon="barcode"
                         schemeOptions={this.vocabularies.metadata.identifiers.scheme}
-                        showEmptyValue
                       />
                     </Overridable>
                     <Overridable
@@ -680,7 +678,7 @@ export class RDMDepositForm extends Component {
                   <AccordionField
                     includesPaths={this.sectionsConfig["related-works-section"]}
                     severityChecks={this.severityChecks}
-                    active
+                    active={!!_get(record, "metadata.related_identifiers.length")}
                     label={i18next.t("Related works")}
                     id="related-works-section"
                   >
@@ -693,7 +691,6 @@ export class RDMDepositForm extends Component {
                       <RelatedWorksField
                         fieldPath="metadata.related_identifiers"
                         options={this.vocabularies.metadata.related_identifiers}
-                        showEmptyValue
                       />
                     </Overridable>
                     <Overridable
@@ -714,7 +711,7 @@ export class RDMDepositForm extends Component {
                   <AccordionField
                     includesPaths={this.sectionsConfig["references-section"]}
                     severityChecks={this.severityChecks}
-                    active
+                    active={!!_get(record, "metadata.references.length")}
                     label={i18next.t("References")}
                     id="references-section"
                   >
@@ -724,7 +721,7 @@ export class RDMDepositForm extends Component {
                       vocabularies={this.vocabularies}
                       record={record}
                     >
-                      <ReferencesField fieldPath="metadata.references" showEmptyValue />
+                      <ReferencesField fieldPath="metadata.references" />
                     </Overridable>
                     <Overridable
                       id="InvenioAppRdm.Deposit.AccordionFieldReferences.extra"
