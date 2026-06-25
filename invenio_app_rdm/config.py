@@ -1011,6 +1011,10 @@ APP_RDM_RECORD_LANDING_PAGE_FAIR_SIGNPOSTING_LEVEL_1_ENABLED = False
 APP_RDM_RECORD_THUMBNAIL_SIZES = [10, 50, 100, 250, 750, 1200]
 """Allowed record thumbnail sizes."""
 
+RDM_CREATIBUTORS_INLINE_LIST_THRESHOLD = 10
+"""Number of creators/contributors shown inline on the record landing page before
+displaying 'et al.' and opening the search modal."""
+
 APP_RDM_DETAIL_SIDE_BAR_TEMPLATES = [
     "invenio_app_rdm/records/details/side_bar/manage_menu.html",
     "invenio_app_rdm/records/details/side_bar/metrics.html",

@@ -50,6 +50,11 @@ body {
   }
 }
 
+// Generic display-toggle utility used by jQuery toggleClass("hidden", ...) everywhere
+.hidden {
+  display: none !important;
+}
+
 button:focus-visible, a:focus-visible {
   outline: 3px solid @focusedFormBorderColor !important;
 }
