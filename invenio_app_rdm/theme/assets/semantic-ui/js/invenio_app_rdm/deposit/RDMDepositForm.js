@@ -351,8 +351,6 @@ export class RDMDepositForm extends Component {
                         roleOptions={this.vocabularies.metadata.creators.role}
                         schema="creators"
                         autocompleteNames={this.config.autocomplete_names}
-                        scrollThreshold={this.config.creatibutors_inline_list_threshold}
-                        batchSize={this.config.creatibutors_render_batch_size}
                         required
                       />
                     </Overridable>
@@ -453,8 +451,6 @@ export class RDMDepositForm extends Component {
                         roleOptions={this.vocabularies.metadata.contributors.role}
                         schema="contributors"
                         autocompleteNames={this.config.autocomplete_names}
-                        scrollThreshold={this.config.creatibutors_inline_list_threshold}
-                        batchSize={this.config.creatibutors_render_batch_size}
                         modal={{
                           addLabel: i18next.t("Add contributor"),
                           editLabel: i18next.t("Edit contributor"),

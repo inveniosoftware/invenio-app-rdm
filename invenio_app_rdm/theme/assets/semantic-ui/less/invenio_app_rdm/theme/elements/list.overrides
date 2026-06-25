@@ -4,28 +4,17 @@
 
 /* Deposit license field */
 
-@keyframes creatibutor-highlight-fade {
-  0%,
-  70% {
-    background-color: rgba(33, 133, 208, 0.12);
-  }
-
-  100% {
-    background-color: transparent;
-  }
-}
-
 .item.deposit-drag-listitem {
   padding: 0.3rem 0.3rem 0.15rem 0.3rem !important;
   border-radius: 0.3rem;
   transition: background-color 0.5s ease, box-shadow 0.5s ease;
 
-  &.hidden {
+  &.drag-ghost {
     opacity: 0;
   }
 
-  &:hover:not(highlighted) {
-    background-color: rgba(0, 0, 0, 0.04);
+  &:hover:not(.highlighted) {
+    background-color: @transparentBlack;
   }
 
   &.highlighted {
@@ -35,89 +24,6 @@
   .drag-anchor {
     cursor: move;
   }
-}
-
-.creatibutors-filter-input {
-  width: 50% !important;
-}
-
-.creatibutors-count-bar {
-  display: flex;
-  align-items: center;
-  font-size: 0.9em;
-  color: rgba(0, 0, 0, 0.55);
-}
-
-.creatibutors-action-bar {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  align-items: center;
-}
-
-.creatibutors-scroll-wrapper {
-  position: relative;
-
-  .creatibutors-scroll-container {
-    &.scrollable {
-      overflow-y: auto;
-      max-height: 30vh;
-
-      .deposit-drag-listitem {
-        scroll-margin-top: 2.25rem;
-        scroll-margin-bottom: 2.25rem;
-      }
-    }
-  }
-
-  .creatibutors-scroll-fade {
-    position: absolute;
-    left: 0;
-    right: 0;
-    height: 2.25rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    pointer-events: none;
-    z-index: 1;
-
-    &.start {
-      top: 0;
-      background: linear-gradient(to bottom, @pageBackground 30%, transparent 100%);
-    }
-
-    &.end {
-      bottom: 0;
-      background: linear-gradient(to top, @pageBackground 30%, transparent 100%);
-    }
-  }
-
-  .creatibutors-scroll-btn.ui.button {
-    pointer-events: auto;
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-    color: rgba(0, 0, 0, 0.4) !important;
-
-    &:hover,
-    &:focus {
-      background: rgba(0, 0, 0, 0.06) !important;
-      color: rgba(0, 0, 0, 0.85) !important;
-    }
-  }
-}
-
-.creatibutors-import-example {
-  display: block;
-  text-align: left;
-  max-height: 12rem;
-  overflow: auto;
-  font-size: 0.8em;
-  margin: 0.5rem 0 0;
-  padding: 0.75rem;
-  background: lighten(@borderColor, 72%);
-  border-radius: 4px;
-  white-space: pre;
 }
 
 .ui.list .disabled {

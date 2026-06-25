@@ -8,24 +8,37 @@
 
 import $ from "jquery";
 
+// Normalise a string for diacritic insensitive search: decompose into base chars +
+// combining marks, strip the marks, then lower-case while still matching the literal character.
+const normalizeSearch = (str) =>
+  str
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
+
+// Checks if the current creatibutor entry matches the search query.
 function creatibutorMatchesQuery($wrap, query) {
   if (!query) return true;
-  const text = $wrap.text().toLowerCase();
-  const affiliations = (
+  const q = normalizeSearch(query);
+  const text = normalizeSearch($wrap.text());
+  const affiliations = normalizeSearch(
     $wrap.attr("data-affiliations") ||
-    $wrap.find("[data-tooltip]").attr("data-tooltip") ||
-    ""
-  ).toLowerCase();
-  return text.includes(query) || affiliations.includes(query);
+      $wrap.find("[data-tooltip]").attr("data-tooltip") ||
+      ""
+  );
+  return text.includes(q) || affiliations.includes(q);
 }
 
+// Filters the creatibutors panel (modal) according to the current input value.
 function filterCreatibutorsPanel($input) {
-  const query = $input.val().toLowerCase().trim();
+  const query = $input.val().trim();
   const $modal = $input.closest(".creatibutors-landing-modal");
   const $panel = $(`#${$input.data("panel")}`);
+
   let shown = 0;
   const visibleAffiliationRefs = new Set();
 
+  // Walk over all creatibutors and hide those that don't match
   $panel.find(".creatibutor-wrap").each(function () {
     const $wrap = $(this);
     const matches = creatibutorMatchesQuery($wrap, query);
@@ -33,12 +46,10 @@ function filterCreatibutorsPanel($input) {
     if (!matches) return;
 
     shown += 1;
-    ($wrap.attr("data-affiliation-refs") || "")
-      .split(",")
-      .forEach((ref) => {
-        const marker = ref.trim();
-        if (marker) visibleAffiliationRefs.add(marker);
-      });
+    ($wrap.attr("data-affiliation-refs") || "").split(",").forEach((ref) => {
+      const marker = ref.trim();
+      if (marker) visibleAffiliationRefs.add(marker);
+    });
   });
 
   $panel.children("div").each(function () {
@@ -47,7 +58,10 @@ function filterCreatibutorsPanel($input) {
     $group.toggleClass("hidden", !hasVisible);
   });
 
-  const $count = $input.closest(".creatibutors-modal-search").find(".creatibutors-filter-count");
+  // Update the visible/total count
+  const $count = $input
+    .closest(".creatibutors-modal-search")
+    .find(".creatibutors-filter-count");
   if ($count.length) {
     const total = parseInt($count.data("total"), 10);
     $count.text(`${query ? shown : total} / ${total}`);
@@ -56,6 +70,7 @@ function filterCreatibutorsPanel($input) {
   const $affiliationsPanel = $modal.find(".creatibutors-panel-affiliations");
   if (!$affiliationsPanel.length) return;
 
+  // Hide/show affiliations based on what matches the current filtered list
   let visibleAffiliations = 0;
   $affiliationsPanel.find("li[data-affiliation-ref]").each(function () {
     const ref = $(this).attr("data-affiliation-ref");
@@ -66,6 +81,7 @@ function filterCreatibutorsPanel($input) {
   $affiliationsPanel.toggleClass("hidden", visibleAffiliations === 0);
 }
 
+// Every time the user types in the filter box, refilter the panel
 $(document).on("input", ".creatibutors-filter-input", function () {
   filterCreatibutorsPanel($(this));
 });

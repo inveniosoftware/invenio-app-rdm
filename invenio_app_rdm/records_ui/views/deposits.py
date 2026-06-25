@@ -405,8 +405,6 @@ def get_form_config(**kwargs):
         autocomplete_names=conf.get(
             "APP_RDM_DEPOSIT_FORM_AUTOCOMPLETE_NAMES", "search"
         ),
-        creatibutors_inline_list_threshold=conf["RDM_CREATIBUTORS_INLINE_LIST_THRESHOLD"],
-        creatibutors_render_batch_size=conf["RDM_CREATIBUTORS_RENDER_BATCH_SIZE"],
         current_locale=str(current_i18n.locale),
         default_locale=conf.get("BABEL_DEFAULT_LOCALE", "en"),
         pids=get_form_pids_config(record=record),
