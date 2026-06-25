@@ -49,7 +49,12 @@ import { depositFormSectionsConfig, severityChecksConfig } from "./config";
 import { RecordDeletion } from "../components/RecordDeletion";
 import { FileModificationUntil } from "../components/FileModificationUntil";
 import { DepositAccordionField, isCustomSectionActive } from "./DepositAccordionField";
-import { SuggestionsProvider, SuggestionsButton, FieldSuggestion } from "./orcha";
+import {
+  SuggestionsProvider,
+  SuggestionsButton,
+  FieldSuggestion,
+  isOrchaEnabled,
+} from "./orcha";
 
 export class RDMDepositForm extends Component {
   constructor(props) {
@@ -147,7 +152,7 @@ export class RDMDepositForm extends Component {
       hideCommunitySelection: this.hide_community_selection,
     };
 
-    const orchaEnabled = Boolean(this.config.orcha_enabled ?? this.config.orchaEnabled);
+    const orchaEnabled = isOrchaEnabled(this.config);
 
     const fileActions =
       !record.is_published && orchaEnabled
@@ -168,8 +173,10 @@ export class RDMDepositForm extends Component {
           }
         : undefined;
 
+    const SuggestionsWrapper = orchaEnabled ? SuggestionsProvider : Fragment;
+
     return (
-      <SuggestionsProvider>
+      <SuggestionsWrapper>
         <Overridable
           id="InvenioAppRdm.Deposit.RDMDepositForm.layout"
           {...overridableBlocksCommonProps}
@@ -907,7 +914,7 @@ export class RDMDepositForm extends Component {
             </Container>
           </DepositFormApp>
         </Overridable>
-      </SuggestionsProvider>
+      </SuggestionsWrapper>
     );
   }
 }
