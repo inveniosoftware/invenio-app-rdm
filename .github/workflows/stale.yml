@@ -20,4 +20,3 @@ jobs:
         stale-pr-message: 'This PR was automatically marked as stale.'
         stale-issue-label: 'stale'
         stale-pr-label: 'stale'
-        
