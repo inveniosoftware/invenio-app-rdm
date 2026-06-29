@@ -1,5 +1,6 @@
 # SPDX-FileCopyrightText: 2019 CERN.
 # SPDX-FileCopyrightText: 2019 Northwestern University.
+# SPDX-FileCopyrightText: 2026 TU Wien.
 # SPDX-License-Identifier: MIT
 
 root = true
@@ -10,6 +11,10 @@ end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
 charset = utf-8
+
+# Align TOML indenting with Tombi
+[*.toml]
+indent_size = 2
 
 # RST files (used by sphinx)
 [*.rst]
