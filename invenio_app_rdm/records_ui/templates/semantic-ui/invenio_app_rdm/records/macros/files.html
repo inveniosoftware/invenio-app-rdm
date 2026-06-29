@@ -144,13 +144,15 @@ To access its content, please download it and open it locally.') }}
             </small>
             {%- endif %}
           </td>
-          <td>{%- if is_remote_file %}{{_("N/A (external)")}}{%- else -%}{{ file.size|filesizeformat(binary=binary_sizes) }}{%- endif %}</td>
+	  <td>{{ file.size|filesizeformat(binary=binary_sizes) or _("N/A")}}</td>
           <td class="right aligned">
             <span>
               {% if with_preview and file_type|lower is previewable and not is_remote_file %}
                 <a role="button" class="ui compact mini button preview-link" href="{{ file_url_preview }}" target="preview-iframe" data-file-key="{{file.key}}">
                   <i class="eye icon" aria-hidden="true"></i>{{_("Preview")}}
                 </a>
+	      {%- elif is_remote_file %}
+	      <span class="item"> {{_("(external)")}}</span>
               {% endif %}
               <a role="button" class="ui compact mini button" href="{{ file_url_download }}">
                 <i class="download icon" aria-hidden="true"></i>{{_('Download')}}
