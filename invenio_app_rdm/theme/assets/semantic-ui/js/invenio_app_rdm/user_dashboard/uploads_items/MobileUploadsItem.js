@@ -30,6 +30,7 @@ export const MobileUploadsItem = ({
     createdDate,
     version,
     isPublished,
+    isDraft,
     viewLink,
     publishingInformation,
   } = uiMetadata;
@@ -108,12 +109,14 @@ export const MobileUploadsItem = ({
                 )}
               </small>
               <div className="rel-mt-1">
-                <small>
-                  <CompactStats
-                    uniqueViews={uniqueViews}
-                    uniqueDownloads={uniqueDownloads}
-                  />
-                </small>
+                {isPublished && !isDraft && (
+                  <small>
+                    <CompactStats
+                      uniqueViews={uniqueViews}
+                      uniqueDownloads={uniqueDownloads}
+                    />
+                  </small>
+                )}
               </div>
             </div>
           </Item.Extra>
