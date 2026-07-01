@@ -20,3 +20,4 @@ jobs:
     secrets: inherit
     with:
       babel-compile-catalog: true
+      backend-package-path: invenio_app_rdm
