@@ -19,6 +19,7 @@ This script has been tested for the following scenarios:
 5. Update requests to make it ready for the commenting feature
 """
 
+import argparse
 import time
 from datetime import datetime, timezone
 
@@ -388,7 +389,7 @@ def run_update_for_request():
         secho(f"⚠ Warning: {final_pending} documents still pending", fg="yellow")
 
 
-def execute_upgrade():
+def execute_upgrade(migrate_theses=False):
     """Execute the upgrade from InvenioRDM 13.0 to 14.0.
 
     Please read the disclaimer on this module before thinking about executing
@@ -402,13 +403,27 @@ def execute_upgrade():
     records/drafts explicitly. this should improve speed and should make it
     easier to upgrade large instances
 
+    Args:
+        migrate_theses (bool): If True, run the migration for publication-thesis resource types.
+                               Defaults to False.
     """
     secho("Starting data migration...", fg="green")
 
-    run_update_for_resource_type()
+    if migrate_theses:
+        run_update_for_resource_type()
     run_update_for_request()
 
 
 # if the script is executed on its own, perform the upgrade
 if __name__ == "__main__":
-    execute_upgrade()
+    parser = argparse.ArgumentParser(
+        description="Execute the upgrade from InvenioRDM 13.0 to 14.0"
+    )
+    parser.add_argument(
+        "--migrate-theses",
+        action="store_true",
+        default=False,
+        help="Run the migration for publication-thesis resource types."
+    )
+    args = parser.parse_args()
+    execute_upgrade(migrate_theses=args.migrate_theses)

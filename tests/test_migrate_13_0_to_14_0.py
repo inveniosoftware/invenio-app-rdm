@@ -284,7 +284,7 @@ class TestMigration13To14:
         RDMRecord.index.refresh()
 
         # Run the complete migration
-        execute_upgrade()
+        execute_upgrade(migrate_theses=True)
 
         # Refresh indices before searching and testing
         RDMDraft.index.refresh()
