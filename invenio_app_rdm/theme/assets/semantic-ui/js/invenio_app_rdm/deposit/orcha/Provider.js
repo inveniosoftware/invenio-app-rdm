@@ -31,6 +31,36 @@ const creatorField = (creator) => ({
   role: "",
 });
 
+const getRichEditor = (fieldPath) => {
+  if (typeof document === "undefined" || typeof window === "undefined") return null;
+
+  const fieldElement = document.getElementById(fieldPath);
+  if (!fieldElement) return null;
+
+  const editorId = fieldElement.querySelector("textarea")?.id;
+  const editorManager = window.tinymce;
+  return editorId && typeof editorManager?.get === "function"
+    ? editorManager.get(editorId)
+    : null;
+};
+
+const setRichEditorContent = (fieldPath, value) => {
+  const editor = getRichEditor(fieldPath);
+  if (!editor) return;
+
+  const updateEditor = () => {
+    editor.setContent(value, { no_events: true });
+    editor.save?.();
+  };
+
+  if (editor.initialized === false && typeof editor.on === "function") {
+    editor.on("init", updateEditor);
+    return;
+  }
+
+  updateEditor();
+};
+
 const applyToFormik = (formik, field, value) => {
   switch (field) {
     case "creators":
@@ -42,9 +72,12 @@ const applyToFormik = (formik, field, value) => {
         provider: "external",
       });
       break;
-    case "description":
-      formik.setFieldValue("metadata.description", `<p>${value}</p>`);
+    case "description": {
+      const description = `<p>${value}</p>`;
+      formik.setFieldValue("metadata.description", description);
+      setRichEditorContent("metadata.description", description);
       break;
+    }
     default:
       formik.setFieldValue(`metadata.${field}`, value);
   }
