@@ -4,19 +4,6 @@
 
 /* Deposit license field */
 
-.item.deposit-drag-listitem {
-  margin-bottom: 5px;
-
-  &.hidden {
-    opacity: 0;
-  }
-
-  .drag-anchor {
-    cursor: move;
-  }
-}
-
-
 .ui.list .disabled {
   opacity: 0.5;
   cursor: default;
