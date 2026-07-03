@@ -6,7 +6,6 @@
 import { MultipleOptionsSearchBarRSK } from "@js/invenio_search_ui/components";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import _isEmpty from "lodash/isEmpty";
-import React from "react";
 import PropTypes from "prop-types";
 import { CommunityRecordsSingleSearchBarElement } from "./CommunityRecordsSingleSearchBarElement";
 

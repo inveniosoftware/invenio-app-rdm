@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import React, { useState } from "react";
+import { useState } from "react";
 import PropTypes from "prop-types";
 import { Grid, Dropdown, Button } from "semantic-ui-react";
 
@@ -12,8 +12,8 @@ export const CompareRevisionsDropdown = ({
   loading,
   options,
   onCompare,
-  srcRevision: srcOption,
-  targetRevision: targetOption,
+  srcRevision: srcOption = 0,
+  targetRevision: targetOption = 0,
 }) => {
   // Local state for selected revisions
   const [srcRevision, setSrcRevision] = useState(srcOption);
@@ -78,9 +78,4 @@ CompareRevisionsDropdown.propTypes = {
   onCompare: PropTypes.func.isRequired,
   srcRevision: PropTypes.object,
   targetRevision: PropTypes.object,
-};
-
-CompareRevisionsDropdown.defaultProps = {
-  srcRevision: 0,
-  targetRevision: 0,
 };

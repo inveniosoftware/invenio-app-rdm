@@ -4,7 +4,7 @@
  */
 
 import PropTypes from "prop-types";
-import React, { Component } from "react";
+import { Component } from "react";
 import { Grid, Form, Button, Header, Segment } from "semantic-ui-react";
 import { Formik } from "formik";
 import { i18next } from "@translations/invenio_app_rdm/i18next";

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import React, { Component } from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 import { AccessUsersGroups } from "./AccessUsersGroups";
 import { withCancel } from "react-invenio-forms";
@@ -82,6 +82,6 @@ export class GroupsTab extends Component {
 GroupsTab.propTypes = {
   record: PropTypes.object.isRequired,
   permissions: PropTypes.object.isRequired,
-  results: PropTypes.array.isRequired,
+  results: PropTypes.array,
   updateGroupsState: PropTypes.func.isRequired,
 };

@@ -9,8 +9,9 @@ import { MultipleOptionsSearchBar } from "@js/invenio_search_ui/components";
 import { CopyButton } from "@js/invenio_app_rdm/components/CopyButton";
 import { ManageButton } from "@js/invenio_app_rdm/landing_page/ManageButton";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
-import ReactDOM from "react-dom";
-import React from "react";
+import { createRoot } from "react-dom/client";
+
+const renderReact = (component, element) => createRoot(element).render(component);
 
 /* Expand and collapse navbar  */
 const toggleIcon = $("#rdm-burger-menu-icon");
@@ -154,7 +155,7 @@ const headerSearchbar = document.getElementById("header-search-bar");
 if (headerSearchbar) {
   const searchBarOptions = JSON.parse(headerSearchbar.dataset.options);
 
-  ReactDOM.render(
+  renderReact(
     <MultipleOptionsSearchBar
       options={searchBarOptions}
       placeholder={i18next.t("Search records...")}
@@ -210,7 +211,7 @@ if (window.invenio) {
 
 // Copy Buttons for DOI
 document.querySelectorAll(".copy-doi-button").forEach((element) => {
-  ReactDOM.render(
+  renderReact(
     <CopyButton text={element.dataset.value} size={element.dataset.size} />,
     element
   );
@@ -228,7 +229,7 @@ $("#record-tab").on("click", function () {
 // Tombstone Manage Button
 const tombstoneManageButtonDiv = document.getElementById("tombstone-manage-button");
 if (tombstoneManageButtonDiv) {
-  ReactDOM.render(
+  renderReact(
     <ManageButton
       record={JSON.parse(tombstoneManageButtonDiv.dataset.record)}
       permissions={JSON.parse(tombstoneManageButtonDiv.dataset.permissions)}

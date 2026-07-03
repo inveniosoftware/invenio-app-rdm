@@ -3,7 +3,7 @@
  * SPDX-FileCopyrightText: 2024 KTH Royal Institute of Technology.
  * SPDX-License-Identifier: MIT
  */
-import React, { useEffect, useState } from "react";
+import { createRef, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Table, Popup, Icon, Button } from "semantic-ui-react";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
@@ -47,7 +47,7 @@ export const LinksSearchItem = ({
     }
   };
 
-  const copyButtonRef = React.createRef();
+  const copyButtonRef = createRef();
 
   useEffect(() => {
     copyButtonRef.current?.focus(); // Accessiblity: focus the copy-button when modal opens
@@ -84,13 +84,15 @@ export const LinksSearchItem = ({
   return (
     <Table.Row key={result.id}>
       {error && (
-        <ErrorMessage
-          header={i18next.t("Something went wrong")}
-          content={error?.response?.data?.message || error.message}
-          icon="exclamation"
-          negative
-          size="mini"
-        />
+        <Table.Cell colSpan="5">
+          <ErrorMessage
+            header={i18next.t("Something went wrong")}
+            content={error?.response?.data?.message || error.message}
+            icon="exclamation"
+            negative
+            size="mini"
+          />
+        </Table.Cell>
       )}
 
       {!error && (

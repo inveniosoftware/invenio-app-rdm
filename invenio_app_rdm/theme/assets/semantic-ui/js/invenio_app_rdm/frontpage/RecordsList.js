@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import React, { Component } from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import { withCancel, http } from "react-invenio-forms";
@@ -99,7 +99,7 @@ export class RecordsList extends Component {
 
   render() {
     const { isLoading, data, error } = this.state;
-    const { title, appName } = this.props;
+    const { title, appName = "" } = this.props;
 
     const listItems = data.hits?.map((record) => {
       return (
@@ -139,13 +139,9 @@ RecordsList.propTypes = {
   appName: PropTypes.string,
 };
 
-RecordsList.defaultProps = {
-  appName: "",
-};
-
 export class RecordsListOverridable extends Component {
   render() {
-    const { title, fetchUrl, appName } = this.props;
+    const { title, fetchUrl, appName = "" } = this.props;
     return (
       <Overridable
         id={buildUID("layout", "", appName)}
@@ -163,8 +159,4 @@ RecordsListOverridable.propTypes = {
   title: PropTypes.string.isRequired,
   fetchUrl: PropTypes.string.isRequired,
   appName: PropTypes.string,
-};
-
-RecordsListOverridable.defaultProps = {
-  appName: "",
 };

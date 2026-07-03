@@ -4,10 +4,12 @@
  */
 
 import { RemoveFromCommunityAction } from "../RemoveFromCommunity/RemoveFromCommunityAction";
-import React, { Component } from "react";
+import { Component } from "react";
 import { CommunityCompactItem } from "@js/invenio_communities/community";
 import PropTypes from "prop-types";
 import { ManageDefaultBrandingAction } from "../ManageDefaultBrandingAction/ManageDefaultBrandingAction";
+
+const DEFAULT_RECORD_REQUESTS = {};
 
 export class RecordCommunitiesSearchItem extends Component {
   render() {
@@ -21,7 +23,7 @@ export class RecordCommunitiesSearchItem extends Component {
         can_manage: canManage,
         removable_community_ids: removableCommunityIds,
       },
-      recordRequests,
+      recordRequests = DEFAULT_RECORD_REQUESTS,
     } = this.props;
 
     const isCommunityDefault = recordParent?.communities?.default === result?.id;
@@ -60,8 +62,4 @@ RecordCommunitiesSearchItem.propTypes = {
   permissions: PropTypes.object.isRequired,
   recordParent: PropTypes.object.isRequired,
   recordRequests: PropTypes.object,
-};
-
-RecordCommunitiesSearchItem.defaultProps = {
-  recordRequests: {},
 };

@@ -2,7 +2,7 @@
  * SPDX-FileCopyrightText: 2023-2024 CERN.
  * SPDX-License-Identifier: MIT
  */
-import React, { Component } from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 import { Table, Input, Dropdown, Button, Icon, Grid } from "semantic-ui-react";
 import { i18next } from "@translations/invenio_app_rdm/i18next";

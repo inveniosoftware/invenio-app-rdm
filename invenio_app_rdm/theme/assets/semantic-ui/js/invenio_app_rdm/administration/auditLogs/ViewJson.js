@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: MIT
  */
 
-import React, { Component } from "react";
+import { Component } from "react";
 import { Button, Modal } from "semantic-ui-react";
 import PropTypes from "prop-types";
-import ReactJson from "react-json-view";
+import ReactJson from "@microlink/react-json-view";
 
 export class ViewJson extends Component {
   render() {

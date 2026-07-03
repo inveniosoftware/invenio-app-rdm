@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import React, { Component } from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 import { Dropdown, http, withCancel } from "react-invenio-forms";
 import { Dropdown as SUIDropdown } from "semantic-ui-react";
