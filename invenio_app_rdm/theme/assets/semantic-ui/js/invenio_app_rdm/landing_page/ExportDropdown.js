@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import React, { Component } from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 import { Dropdown, Button } from "semantic-ui-react";
 import { i18next } from "@translations/invenio_app_rdm/i18next";

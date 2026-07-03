@@ -7,7 +7,7 @@
 
 import _debounce from "lodash/debounce";
 import _escape from "lodash/escape";
-import React, { Component } from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 import { Placeholder, Dropdown, Message } from "semantic-ui-react";
 import { withCancel } from "react-invenio-forms";

@@ -3,21 +3,24 @@
  * SPDX-License-Identifier: MIT
  */
 
-import React from "react";
+import { useState } from "react";
 import { Dropdown, Modal } from "semantic-ui-react";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import PropTypes from "prop-types";
 import UserBlockForm from "../administration/users/UserBlockForm";
 import { RecordDeletion } from "../components/RecordDeletion";
 
+const manageButtonDefaultPropRecordDeletion = {};
+const manageButtonDefaultPropRecordDeletionOptions = [];
+const manageButtonDefaultPropUiProps = {};
 export const ManageButton = ({
   record,
-  recordOwnerID,
+  recordOwnerID = null,
   permissions,
-  recordDeletion,
-  recordDeletionOptions,
-  uiProps,
-  auditLogsEnabled,
+  recordDeletion = manageButtonDefaultPropRecordDeletion,
+  recordDeletionOptions = manageButtonDefaultPropRecordDeletionOptions,
+  uiProps = manageButtonDefaultPropUiProps,
+  auditLogsEnabled = false,
 }) => {
   if (!(recordDeletion["valid_user"] || permissions?.can_moderate)) {
     return null;
@@ -99,16 +102,8 @@ ManageButton.propTypes = {
   auditLogsEnabled: PropTypes.bool,
 };
 
-ManageButton.defaultProps = {
-  recordOwnerID: null,
-  recordDeletion: {},
-  recordDeletionOptions: [],
-  uiProps: {},
-  auditLogsEnabled: false,
-};
-
 const BlockUserItem = ({ user }) => {
-  const [modalOpen, setModalOpen] = React.useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
   const handleClose = () => setModalOpen(false);
 
   return (

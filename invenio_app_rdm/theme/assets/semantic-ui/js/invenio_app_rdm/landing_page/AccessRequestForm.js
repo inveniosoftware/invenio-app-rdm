@@ -4,21 +4,19 @@
  * SPDX-License-Identifier: MIT
  */
 
-import _get from "lodash/get";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import isEmpty from "lodash/isEmpty";
-import React, { Component } from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { Form, Grid, Checkbox, Button, Modal } from "semantic-ui-react";
+import { Form, Grid, Button, Modal } from "semantic-ui-react";
 import {
   http,
   withCancel,
   ErrorMessage,
   TextField,
   TextAreaField,
-  RadioField,
 } from "react-invenio-forms";
 
 export class AccessRequestForm extends Component {
@@ -55,9 +53,9 @@ export class AccessRequestForm extends Component {
     const { email, fullName } = this.props;
 
     return {
-      email: email,
-      full_name: !isEmpty(fullName) ? fullName : undefined,
-      message: undefined,
+      email: email || "",
+      full_name: !isEmpty(fullName) ? fullName : "",
+      message: "",
       consent_to_share_personal_data: false,
     };
   };
@@ -68,7 +66,7 @@ export class AccessRequestForm extends Component {
 
   handleSuccess = (response) => {
     const { data } = this.state;
-    const { isAnonymous } = this.props;
+    const { isAnonymous = true } = this.props;
     if (isAnonymous) {
       this.setState({ modalOpen: true });
     } else {
@@ -112,13 +110,9 @@ export class AccessRequestForm extends Component {
     }
   };
 
-  handleChangeConsent = ({ data, formikProps }) => {
-    formikProps.form.setFieldValue("consent_to_share_personal_data", data.checked);
-  };
-
   render() {
     const { error, loading, modalOpen } = this.state;
-    const { isAnonymous } = this.props;
+    const { isAnonymous = true } = this.props;
     const disablePersonalDataField = !isAnonymous;
     return (
       <>
@@ -132,7 +126,7 @@ export class AccessRequestForm extends Component {
           validateOnChange={false}
           validateOnBlur={false}
         >
-          {({ values, handleSubmit }) => {
+          {({ values, handleSubmit, setFieldValue }) => {
             const { consent_to_share_personal_data: consent } = values;
             return (
               <>
@@ -185,20 +179,23 @@ export class AccessRequestForm extends Component {
                         <TextAreaField
                           fieldPath="message"
                           label={i18next.t("Request message")}
-                          fluid
                         />
                       </Form.Field>
                     </Grid.Column>
                     <Grid.Column width={16} className="rel-pt-1">
                       <Form.Field>
-                        <RadioField
-                          checked={_get(values, "consent_to_share_personal_data")}
-                          control={Checkbox}
-                          fieldPath="consent_to_share_personal_data"
+                        <Form.Checkbox
+                          checked={Boolean(values.consent_to_share_personal_data)}
+                          name="consent_to_share_personal_data"
                           label={i18next.t(
                             "I agree that my full name and email address will be shared with the owners of the record"
                           )}
-                          onChange={this.handleChangeConsent}
+                          onChange={(_event, data) =>
+                            setFieldValue(
+                              "consent_to_share_personal_data",
+                              data.checked
+                            )
+                          }
                         />
                       </Form.Field>
                     </Grid.Column>
@@ -242,12 +239,8 @@ export class AccessRequestForm extends Component {
 }
 
 AccessRequestForm.propTypes = {
-  email: PropTypes.string.isRequired,
-  fullName: PropTypes.string.isRequired,
+  email: PropTypes.string,
+  fullName: PropTypes.string,
   record: PropTypes.object.isRequired,
   isAnonymous: PropTypes.bool,
-};
-
-AccessRequestForm.defaultProps = {
-  isAnonymous: true,
 };

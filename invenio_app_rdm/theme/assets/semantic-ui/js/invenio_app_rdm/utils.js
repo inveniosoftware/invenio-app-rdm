@@ -8,7 +8,6 @@
  */
 
 import _get from "lodash/get";
-import React from "react";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import { DateTime } from "luxon";
 

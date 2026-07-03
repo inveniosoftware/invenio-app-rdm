@@ -3,18 +3,18 @@
  * SPDX-License-Identifier: MIT
  */
 
-import React, { Component } from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 import { Button, Popup } from "semantic-ui-react";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 
-class SimpleCopyButton extends React.Component {
+class SimpleCopyButton extends Component {
   fetchUrl = async (url) => {
     return await (await fetch(url)).text();
   };
 
   handleClick = async () => {
-    const { url, text, onCopy } = this.props;
+    const { url, text = "", onCopy } = this.props;
     let textToCopy = text;
     if (url) {
       textToCopy = await this.fetchUrl(url);
@@ -25,7 +25,7 @@ class SimpleCopyButton extends React.Component {
   };
 
   render() {
-    const { hoverState, className, uiProps } = this.props;
+    const { hoverState, className = "", uiProps = {} } = this.props;
 
     return (
       <Button
@@ -43,19 +43,12 @@ class SimpleCopyButton extends React.Component {
 }
 
 SimpleCopyButton.propTypes = {
-  text: PropTypes.string.isRequired,
+  text: PropTypes.string,
   onCopy: PropTypes.func.isRequired,
   url: PropTypes.string,
   hoverState: PropTypes.func,
   className: PropTypes.string,
   uiProps: PropTypes.object,
-};
-
-SimpleCopyButton.defaultProps = {
-  hoverState: null,
-  url: null,
-  className: "",
-  uiProps: {},
 };
 
 export class CopyButton extends Component {
@@ -100,7 +93,12 @@ export class CopyButton extends Component {
   };
 
   render() {
-    const { popUpPosition, text, url, ...uiProps } = this.props;
+    const {
+      popUpPosition = "right center",
+      text = "",
+      url = "",
+      ...uiProps
+    } = this.props;
     const { confirmationPopupMsg, confirmationPopupIsOpen, hoverPopupIsOpen } =
       this.state;
 
@@ -132,10 +130,4 @@ CopyButton.propTypes = {
   popUpPosition: PropTypes.string,
   text: PropTypes.string,
   url: PropTypes.string,
-};
-
-CopyButton.defaultProps = {
-  popUpPosition: "right center",
-  text: "",
-  url: "",
 };

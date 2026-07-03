@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import React, { Component } from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 import _isEmpty from "lodash/isEmpty";
 import { RecordModerationApi } from "../records/api";

@@ -14,7 +14,6 @@ import {
   ContribRangeFacetElement,
 } from "@js/invenio_search_ui/components";
 import PropTypes from "prop-types";
-import React from "react";
 import { overrideStore, parametrize } from "react-overridable";
 import { withState } from "react-searchkit";
 import { Icon } from "semantic-ui-react";

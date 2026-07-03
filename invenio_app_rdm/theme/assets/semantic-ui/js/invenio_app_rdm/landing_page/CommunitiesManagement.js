@@ -4,7 +4,7 @@
  */
 
 import { RecordCommunitiesListModal } from "./RecordCommunitiesListModal";
-import React, { Component } from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 import _isEmpty from "lodash/isEmpty";
 import { RecordCommunitiesList } from "./RecordCommunitiesList";
@@ -14,6 +14,7 @@ import { CommunitiesManagementDropdown } from "./CommunitiesManagementDropdown";
 import { http, withCancel } from "react-invenio-forms";
 
 const MAX_COMMUNITIES = 3;
+const DEFAULT_RECORD_REQUESTS = {};
 
 export class CommunitiesManagement extends Component {
   constructor(props) {
@@ -92,7 +93,7 @@ export class CommunitiesManagement extends Component {
       recordUserCommunitySearchConfig,
       searchConfig,
       record,
-      recordRequests,
+      recordRequests = DEFAULT_RECORD_REQUESTS,
     } = this.props;
     const { communities, loading, error, manageCommunitiesModalOpen } = this.state;
     return (
@@ -171,8 +172,4 @@ CommunitiesManagement.propTypes = {
   searchConfig: PropTypes.object.isRequired,
   record: PropTypes.object.isRequired,
   recordRequests: PropTypes.object,
-};
-
-CommunitiesManagement.defaultProps = {
-  recordRequests: {},
 };

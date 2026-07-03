@@ -7,7 +7,7 @@
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import _get from "lodash/get";
 import _truncate from "lodash/truncate";
-import React, { Component } from "react";
+import { Component } from "react";
 import Overridable from "react-overridable";
 import { SearchItemCreators } from "../utils";
 import PropTypes from "prop-types";
@@ -18,7 +18,7 @@ import { DisplayPartOfCommunities } from "./DisplayPartOfCommunities";
 
 class RecordsResultsListItem extends Component {
   render() {
-    const { currentQueryState, result, key, appName } = this.props;
+    const { currentQueryState = null, result, key = null, appName = "" } = this.props;
 
     const accessStatusId = _get(result, "ui.access_status.id", "open");
     const accessStatus = _get(result, "ui.access_status.title_l10n", "Open");
@@ -212,12 +212,6 @@ RecordsResultsListItem.propTypes = {
   result: PropTypes.object.isRequired,
   key: PropTypes.string,
   appName: PropTypes.string,
-};
-
-RecordsResultsListItem.defaultProps = {
-  key: null,
-  currentQueryState: null,
-  appName: "",
 };
 
 export default Overridable.component("RecordsResultsListItem", RecordsResultsListItem);

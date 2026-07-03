@@ -5,13 +5,13 @@
 
 import { SearchAppResultsPane } from "@js/invenio_search_ui/components";
 import PropTypes from "prop-types";
-import React, { Component } from "react";
+import { Component } from "react";
 import { RequestStatusFilter } from "@js/invenio_requests/search";
 import { SearchBar, Sort } from "react-searchkit";
 
 export class AdministrationSearchLayout extends Component {
   render() {
-    const { config, appName } = this.props;
+    const { config, appName = "" } = this.props;
 
     return (
       <>
@@ -46,8 +46,4 @@ export class AdministrationSearchLayout extends Component {
 AdministrationSearchLayout.propTypes = {
   config: PropTypes.object.isRequired,
   appName: PropTypes.string,
-};
-
-AdministrationSearchLayout.defaultProps = {
-  appName: "",
 };

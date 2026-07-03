@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { i18next } from "@translations/invenio_requests/i18next";
+import { i18next } from "@translations/invenio_app_rdm/i18next";
 import PropTypes from "prop-types";
-import React, { Component } from "react";
+import { Component } from "react";
 import { withState } from "react-searchkit";
 import { Button } from "semantic-ui-react";
 
@@ -37,7 +37,11 @@ class UserStatusFilterComponent extends Component {
    * @param {number} value true if open requests and false if closed requests
    */
   retrieveUsers = (selectedFilter, filterField, value = 1) => {
-    const { currentQueryState, updateQueryState, keepFiltersOnUpdate } = this.props;
+    const {
+      currentQueryState,
+      updateQueryState,
+      keepFiltersOnUpdate = false,
+    } = this.props;
     const { selected } = this.state;
 
     if (selected === selectedFilter) {
@@ -104,10 +108,6 @@ UserStatusFilterComponent.propTypes = {
   updateQueryState: PropTypes.func.isRequired,
   currentQueryState: PropTypes.object.isRequired,
   keepFiltersOnUpdate: PropTypes.bool,
-};
-
-UserStatusFilterComponent.defaultProps = {
-  keepFiltersOnUpdate: false,
 };
 
 export const UserStatusFilter = withState(UserStatusFilterComponent);

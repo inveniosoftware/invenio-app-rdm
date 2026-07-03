@@ -5,11 +5,10 @@
 
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import PropTypes from "prop-types";
-import React from "react";
 import { Icon, Label, Popup } from "semantic-ui-react";
 import { localizedFormatNumber } from "../utils";
 
-export const CompactStats = ({ uniqueViews, uniqueDownloads }) => {
+export const CompactStats = ({ uniqueViews = null, uniqueDownloads = null }) => {
   return (
     <>
       {uniqueViews != null && (
@@ -43,9 +42,4 @@ export const CompactStats = ({ uniqueViews, uniqueDownloads }) => {
 CompactStats.propTypes = {
   uniqueViews: PropTypes.number,
   uniqueDownloads: PropTypes.number,
-};
-
-CompactStats.defaultProps = {
-  uniqueViews: null,
-  uniqueDownloads: null,
 };
