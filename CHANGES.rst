@@ -8,6 +8,15 @@
 Changes
 =======
 
+Version v15.0.0b1.dev0 (released 2026-07-03)
+
+- fix(admin): update edit roles UI (#3502)
+- chore(migration): add request parent for commenting
+- fix(admin): show clear error in View Changes modal on 403
+- chore(setup): bump dependencies
+- chore(licenses): update license headers to use SPDX
+- refactor(views): Move get_record_requests to invenio-rdm-records
+
 Version v15.0.0b0.dev0 (released 2026-06-08)
 
 - release: v15.0.0b0.dev0
