@@ -1,5 +1,5 @@
 # SPDX-FileCopyrightText: 2025 CERN.
-# SPDX-FileCopyrightText: 2025 KTH Royal Institute of Technology.
+# SPDX-FileCopyrightText: 2025-2026 KTH Royal Institute of Technology.
 # SPDX-License-Identifier: MIT
 
 """Administration views for managing roles."""
@@ -56,7 +56,6 @@ class RolesListView(RoleAdminMixin, AdminResourceListView):
 
     item_field_list = {
         "name": {"text": _("Name"), "order": 0, "width": 3},
-        "id": {"text": _("ID"), "order": 1, "width": 3},
         "description": {"text": _("Description"), "order": 2, "width": 5},
         "is_managed": {"text": _("Managed"), "order": 3, "width": 1},
         "created": {"text": _("Created"), "order": 4, "width": 2},
@@ -109,4 +108,9 @@ class RolesEditView(RoleAdminMixin, AdminResourceEditView):
     url = "/roles/<pid_value>/edit"
     title = _("Edit role")
 
-    form_fields = RolesCreateView.form_fields
+    form_fields = {
+        "description": {
+            "order": 1,
+            "text": _("Description"),
+        },
+    }
