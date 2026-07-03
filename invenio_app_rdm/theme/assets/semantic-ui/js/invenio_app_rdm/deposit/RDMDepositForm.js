@@ -40,7 +40,7 @@ import {
   SaveButton,
 } from "@js/invenio_rdm_records";
 import { FundingField } from "@js/invenio_vocabularies";
-import { Card, Container, Grid, Ref, Sticky } from "semantic-ui-react";
+import { Card, Container, Grid, Sticky } from "semantic-ui-react";
 import PropTypes from "prop-types";
 import Overridable from "react-overridable";
 import { CopyrightsField } from "@js/invenio_rdm_records/src/deposit/fields/CopyrightsField/CopyrightsField";
@@ -801,113 +801,112 @@ export class RDMDepositForm extends Component {
                     </Overridable>
                   )}
                 </Grid.Column>
-                <Ref innerRef={this.sidebarRef}>
-                  <Grid.Column
-                    mobile={16}
-                    tablet={16}
-                    computer={5}
-                    className="deposit-sidebar"
-                  >
-                    <Sticky context={this.sidebarRef} offset={20}>
-                      <Overridable
-                        id="InvenioAppRdm.Deposit.CardDepositStatusBox.container"
+                <Grid.Column
+                  ref={this.sidebarRef}
+                  mobile={16}
+                  tablet={16}
+                  computer={5}
+                  className="deposit-sidebar"
+                >
+                  <Sticky context={this.sidebarRef} offset={20}>
+                    <Overridable
+                      id="InvenioAppRdm.Deposit.CardDepositStatusBox.container"
+                      record={record}
+                      permissions={permissions}
+                      groupsEnabled={groupsEnabled}
+                    >
+                      <Card>
+                        <Card.Content>
+                          <DepositStatusBox />
+                        </Card.Content>
+                        <Card.Content>
+                          <Grid relaxed>
+                            <Grid.Column
+                              computer={8}
+                              mobile={16}
+                              className="pb-0 left-btn-col"
+                            >
+                              <SaveButton fluid />
+                            </Grid.Column>
+
+                            <Grid.Column
+                              computer={8}
+                              mobile={16}
+                              className="pb-0 right-btn-col"
+                            >
+                              <PreviewButton fluid />
+                            </Grid.Column>
+
+                            <Grid.Column width={16} className="pt-10">
+                              <PublishButton fluid record={record} />
+                            </Grid.Column>
+
+                            <Grid.Column width={16} className="pt-0">
+                              {(record.is_draft === null ||
+                                permissions.can_manage) && (
+                                <ShareDraftButton
+                                  record={record}
+                                  permissions={permissions}
+                                  groupsEnabled={groupsEnabled}
+                                />
+                              )}
+                            </Grid.Column>
+                          </Grid>
+                        </Card.Content>
+                      </Card>
+                    </Overridable>
+                    <Overridable
+                      id="InvenioAppRdm.Deposit.AccessRightField.container"
+                      fieldPath="access"
+                      record={record}
+                      permissions={permissions}
+                      recordRestrictionGracePeriod={recordRestrictionGracePeriod}
+                      allowRecordRestriction={allowRecordRestriction}
+                    >
+                      <AccessRightField
+                        label={i18next.t("Visibility")}
                         record={record}
-                        permissions={permissions}
-                        groupsEnabled={groupsEnabled}
+                        labelIcon="shield"
+                        fieldPath="access"
+                        showMetadataAccess={permissions?.can_manage_record_access}
+                        recordRestrictionGracePeriod={recordRestrictionGracePeriod}
+                        allowRecordRestriction={allowRecordRestriction}
+                        id="visibility-section"
+                      />
+                    </Overridable>
+                    {permissions?.can_delete_draft && (
+                      <Overridable
+                        id="InvenioAppRdm.Deposit.CardDeleteButton.container"
+                        record={record}
                       >
                         <Card>
                           <Card.Content>
-                            <DepositStatusBox />
-                          </Card.Content>
-                          <Card.Content>
                             <Grid relaxed>
-                              <Grid.Column
-                                computer={8}
-                                mobile={16}
-                                className="pb-0 left-btn-col"
-                              >
-                                <SaveButton fluid />
+                              <Grid.Column width={16}>
+                                <DeleteButton fluid />
                               </Grid.Column>
 
-                              <Grid.Column
-                                computer={8}
-                                mobile={16}
-                                className="pb-0 right-btn-col"
-                              >
-                                <PreviewButton fluid />
-                              </Grid.Column>
-
-                              <Grid.Column width={16} className="pt-10">
-                                <PublishButton fluid record={record} />
-                              </Grid.Column>
-
-                              <Grid.Column width={16} className="pt-0">
-                                {(record.is_draft === null ||
-                                  permissions.can_manage) && (
-                                  <ShareDraftButton
+                              {record.is_published && recordDeletion["enabled"] && (
+                                <Grid.Column width={16} className="pt-0">
+                                  <RecordDeletion
                                     record={record}
                                     permissions={permissions}
-                                    groupsEnabled={groupsEnabled}
+                                    recordDeletion={recordDeletion}
+                                    options={
+                                      this.vocabularies.metadata
+                                        .deletion_request_removal_reasons
+                                    }
+                                    disabled={!recordDeletion["allowed"]}
                                   />
-                                )}
-                              </Grid.Column>
+                                </Grid.Column>
+                              )}
                             </Grid>
                           </Card.Content>
                         </Card>
                       </Overridable>
-                      <Overridable
-                        id="InvenioAppRdm.Deposit.AccessRightField.container"
-                        fieldPath="access"
-                        record={record}
-                        permissions={permissions}
-                        recordRestrictionGracePeriod={recordRestrictionGracePeriod}
-                        allowRecordRestriction={allowRecordRestriction}
-                      >
-                        <AccessRightField
-                          label={i18next.t("Visibility")}
-                          record={record}
-                          labelIcon="shield"
-                          fieldPath="access"
-                          showMetadataAccess={permissions?.can_manage_record_access}
-                          recordRestrictionGracePeriod={recordRestrictionGracePeriod}
-                          allowRecordRestriction={allowRecordRestriction}
-                          id="visibility-section"
-                        />
-                      </Overridable>
-                      {permissions?.can_delete_draft && (
-                        <Overridable
-                          id="InvenioAppRdm.Deposit.CardDeleteButton.container"
-                          record={record}
-                        >
-                          <Card>
-                            <Card.Content>
-                              <Grid relaxed>
-                                <Grid.Column width={16}>
-                                  <DeleteButton fluid />
-                                </Grid.Column>
-
-                                {record.is_published && recordDeletion["enabled"] && (
-                                  <Grid.Column width={16} className="pt-0">
-                                    <RecordDeletion
-                                      record={record}
-                                      permissions={permissions}
-                                      recordDeletion={recordDeletion}
-                                      options={
-                                        this.vocabularies.metadata
-                                          .deletion_request_removal_reasons
-                                      }
-                                      disabled={!recordDeletion["allowed"]}
-                                    />
-                                  </Grid.Column>
-                                )}
-                              </Grid>
-                            </Card.Content>
-                          </Card>
-                        </Overridable>
-                      )}
-                    </Sticky>
-                  </Grid.Column>
-                </Ref>
+                    )}
+                  </Sticky>
+                </Grid.Column>
               </Grid>
             </Container>
           </DepositFormApp>
