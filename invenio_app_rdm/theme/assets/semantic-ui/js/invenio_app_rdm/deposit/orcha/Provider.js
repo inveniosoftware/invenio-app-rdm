@@ -271,12 +271,17 @@ export const SuggestionsProvider = ({ children }) => {
         };
       })
       .catch((err) => {
+        let message = err.message;
+        try {
+          const parsed = JSON.parse(err.message);
+          message = parsed.error || parsed.detail || parsed.message || err.message;
+        } catch {
+          // Just use the raw mesage
+        }
         setState((prev) => ({
           ...prev,
           status: STATUS.ERROR,
-          error: i18next.t("Failed to start workflow: {{err}}", {
-            err: err.message,
-          }),
+          error: message,
         }));
       });
   };
