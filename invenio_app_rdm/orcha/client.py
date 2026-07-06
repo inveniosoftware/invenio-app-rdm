@@ -55,6 +55,17 @@ class OrchaClient:
         response.raise_for_status()
         return response.json()
 
+    def get_workflow(self, workflow_id, token):
+        """Get the status and result of an ORCHA workflow."""
+        response = requests.get(
+            f"{self.base_url}/workflows/{workflow_id}",
+            headers = {"Authorization": f"Bearer {token}"},
+            timeout = 10,
+            verify = self.ssl_verify,
+        )
+        response.raise_for_status()
+        return response.json()
+
     def stream_url(self, workflow_id: str, token: str):
         """Create the stream URL for an ORCHA workflow."""
         return f"{self.public_url}/workflows/{workflow_id}/stream?token={token}"
