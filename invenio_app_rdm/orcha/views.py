@@ -100,6 +100,7 @@ def get_workflow_stream_url(pid_value):
     file_key = data.get("fileKey")
     payload = {
         "workflow_type": "extract_metadata",
+        "user_id": str(g.identity.id),
         "params": {"url": _file_download_url(pid_value, orcha, key=file_key)},
     }
 
