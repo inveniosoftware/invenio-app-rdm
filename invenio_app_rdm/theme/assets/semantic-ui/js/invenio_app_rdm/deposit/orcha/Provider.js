@@ -101,6 +101,7 @@ export const SuggestionsProvider = ({ children }) => {
     error: null,
     suggestions: [],
     activeFileKey: null,
+    recordId: null,
   });
   const eventSourceRef = useRef(null);
   const streamTimeoutIdRef = useRef(null);
@@ -178,6 +179,7 @@ export const SuggestionsProvider = ({ children }) => {
       status: STATUS.TRIGGERING,
       error: null,
       activeFileKey: fileKey,
+      recordId: draftId,
     }));
 
     const requestOptions = { method: "POST" };
@@ -195,8 +197,12 @@ export const SuggestionsProvider = ({ children }) => {
         }
         return res.json();
       })
-      .then(({ streamUrl, workflowUrl }) => {
-        setState((prev) => ({ ...prev, status: STATUS.STREAMING }));
+      .then(({ workflowId, streamUrl, workflowUrl }) => {
+        setState((prev) => ({
+          ...prev,
+          status: STATUS.STREAMING,
+          workflowId,
+        }));
 
         const source = new EventSource(streamUrl);
         eventSourceRef.current = source;
@@ -331,6 +337,24 @@ export const SuggestionsProvider = ({ children }) => {
     updateSuggestionStatus(field, SUGGESTION_DENIED);
   };
 
+  const sendFeedback = (field, rating, comment = null) => {
+    const { workflowId, recordId } = state;
+    if (!workflowId || !recordId) return;
+
+    fetch(`/uploads/${encodeURIComponent(recordId)}/orcha/feedback`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        workflowId,
+        fieldPath: field,
+        rating,
+        comment,
+      }),
+    }).catch((e) => {
+      console.error(e);
+    });
+  };
+
   const dismissError = () => {
     setState((prev) => ({ ...prev, error: null }));
   };
@@ -344,11 +368,13 @@ export const SuggestionsProvider = ({ children }) => {
     status,
     error,
     activeFileKey,
+    workflowId: state.workflowId,
     suggestionsCount: state.suggestions.length,
     isLoading: status === STATUS.TRIGGERING || status === STATUS.STREAMING,
     trigger,
     apply,
     deny,
+    sendFeedback,
     getSuggestion,
     dismissError,
   };
