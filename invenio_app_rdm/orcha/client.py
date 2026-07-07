@@ -32,8 +32,15 @@ class OrchaClient:
         if self._private_key is None:
             if not self.key_path:
                 raise RuntimeError("No private key configured for ORCHA client.")
-            with open(self.key_path) as f:
-                self._private_key = f.read()
+            try:
+                with open(self.key_path) as f:
+                    self._private_key = f.read()
+            except FileNotFoundError:
+                raise RuntimeError(f"Private key file not found: {self.key_path}")
+            except PermissionError:
+                raise RuntimeError(
+                    f"Permission denied reading private key: {self.key_path}"
+                )
         return self._private_key
 
     def trigger_workflow(self, payload, token):

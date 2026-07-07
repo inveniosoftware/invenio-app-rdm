@@ -66,6 +66,18 @@
     z-index: 2;
   }
 
+  &.feedback {
+    background: #f5f5f5;
+
+    &::after{
+      background-color: #d0d0d0;
+    }
+
+    &::before{
+      background-color: #f5f5f5;
+    }
+  }
+
   .header {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
