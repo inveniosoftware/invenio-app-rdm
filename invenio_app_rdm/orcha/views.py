@@ -98,16 +98,17 @@ def get_workflow_stream_url(pid_value):
     orcha = _orcha_client()
     data = request.get_json(silent=True) or {}
     file_key = data.get("fileKey")
-    payload = {
-        "workflow_type": "extract_metadata",
-        "user_id": str(g.identity.id),
-        "params": {"url": _file_download_url(pid_value, orcha, key=file_key)},
-    }
 
     try:
+        payload = {
+            "workflow_type": "extract_metadata",
+            "user_id": str(g.identity.id),
+            "params": {"url": _file_download_url(pid_value, orcha, key=file_key)},
+        }
         response = orcha.trigger_workflow(payload, _workflow_token(orcha))
         workflow_id = response["public_id"]
         workflow_token = _workflow_token(orcha, workflow_id)
+
         return (
             jsonify(
                 {
@@ -125,6 +126,8 @@ def get_workflow_stream_url(pid_value):
             ),
             200,
         )
+    except RuntimeError as exc:
+        return jsonify({"error": str(exc)}), 500
     except requests.Timeout:
         return jsonify({"error": "Workflow service timed out."}), 504
     except requests.ConnectionError:
@@ -202,10 +205,60 @@ def _verify_file_download_token(client, pid_value, key):
 @blueprint.route("/uploads/<pid_value>/orcha/files/<path:key>", methods=["GET"])
 def download_orcha_file(pid_value, key):
     """Download an ORCHA file."""
-    orcha = _orcha_client()
-    _verify_file_download_token(orcha, pid_value, key)
-    _, _, record_file = _record_file(pid_value, key=key, identity=system_identity)
+    try:
+        orcha = _orcha_client()
+        _verify_file_download_token(orcha, pid_value, key)
+        _, _, record_file = _record_file(pid_value, key=key, identity=system_identity)
+    except RuntimeError as exc:
+        return jsonify({"error": str(exc)}), 500
     return record_file.object_version.send_file()
+
+
+@blueprint.route("/uploads/<pid_value>/orcha/feedback", methods=["POST"])
+def send_orcha_feedback(pid_value):
+    """Proxy feedback for a workflow suggestion to ORCHA."""
+    _require_orcha_enabled()
+
+    orcha = _orcha_client()
+    data = request.get_json(silent=True) or {}
+    workflow_id = data.get("workflowId")
+    field_path = data.get("fieldPath")
+    rating = data.get("rating")
+    comment = data.get("comment")
+
+    if not workflow_id or not field_path or not rating:
+        return jsonify({"error": "Missing required fields"}), 400
+
+    if rating not in ("positive", "negative"):
+        return jsonify({"error": "Rating must be 'positive' or 'negative'"}), 400
+
+    token = _workflow_token(orcha)
+
+    feedback_payload = {
+        "field_path": field_path,
+        "rating": rating,
+        "comment": comment,
+        "user_id": str(g.identity.id),
+    }
+
+    try:
+        response = requests.post(
+            f"{orcha.base_url}/workflows/{workflow_id}/feedback",
+            json=feedback_payload,
+            headers={"Authorization": f"Bearer {token}"},
+            timeout=10,
+            verify=orcha.ssl_verify,
+        )
+        response.raise_for_status()
+        return jsonify(response.json()), 201
+    except requests.Timeout:
+        return jsonify({"error": "Feedback service timed out."}), 504
+    except requests.ConnectionError:
+        return jsonify({"error": "Feedback service unavailable."}), 503
+    except requests.HTTPError as exc:
+        if exc.response is not None and exc.response.status_code in {401, 403}:
+            return jsonify({"error": "Feedback service authorization failed."}), 502
+        return jsonify({"error": "Failed to send feedback"}), 502
 
 
 @blueprint.route("/orcha-proxy/<path:subpath>", methods=["GET"])
