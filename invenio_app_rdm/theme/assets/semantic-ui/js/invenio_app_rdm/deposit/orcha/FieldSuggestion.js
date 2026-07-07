@@ -1,12 +1,11 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
 import { connect as connectFormik } from "formik";
-import { Button, Icon, Message } from "semantic-ui-react";
+import { Button, Form, Icon, Message, TextArea } from "semantic-ui-react";
 import { useSuggestions } from "./Context";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import { makeIcon } from "../../utils";
 
-// This is the mapping for suggestion feild translation
 const suggestedFieldLabels = {
   doi: "DOI",
   title: "Title",
@@ -75,23 +74,113 @@ const renderSuggestedValue = (field, value) => {
 
 const FieldSuggestionComponent = ({ field, formik }) => {
   const suggestions = useSuggestions();
+  const [feedbackState, setFeedbackState] = useState(null);
+  const [comment, setComment] = useState("");
+  const suggestionRef = useRef(null);
 
   if (!suggestions) return null;
   if (!formik) return null;
 
-  const { getSuggestion, apply, deny } = suggestions;
+  const { getSuggestion, apply, deny, sendFeedback } = suggestions;
   const suggestion = getSuggestion(field);
 
   if (!suggestion) return null;
 
+  if (suggestionRef.current !== suggestion) {
+    suggestionRef.current = suggestion;
+    if (suggestion.status === "pending") {
+      if (feedbackState !== null) setFeedbackState(null);
+      if (comment !== "") setComment("");
+    }
+  }
+
   const isCreatorsSuggestion = field === "creators" && Array.isArray(suggestion.value);
 
-  if (suggestion.status === "applied") {
+  if (suggestion.status === "applied" && feedbackState !== "shown") {
     return null;
   }
 
-  if (suggestion.status === "denied") {
+  if (suggestion.status === "denied" && feedbackState !== "shown") {
     return null;
+  }
+
+  const handleApply = () => {
+    apply(formik, field);
+    setFeedbackState("shown");
+  };
+
+  const handleDeny = () => {
+    deny(field);
+    setFeedbackState("shown");
+  };
+
+  const handleApplyAll = () => {
+    apply(formik, field);
+    setFeedbackState("shown");
+  };
+
+  const handleCreatorAction = (index, isApply) => {
+    const creatorCount = Array.isArray(suggestion.value) ? suggestion.value.length : 0;
+    const isLastCreator = creatorCount <= 1;
+
+    if (isApply) {
+      apply(formik, field, index);
+    } else {
+      deny(field, index);
+    }
+
+    if (isLastCreator) {
+      setFeedbackState("shown");
+    }
+  };
+
+  const handleSubmitFeedback = (rating) => {
+    sendFeedback(field, rating, comment.trim() || null);
+    setFeedbackState("submitted");
+  };
+
+  if (feedbackState === "submitted") {
+    return null;
+  }
+
+  if (feedbackState === "shown") {
+    return (
+      <Message size="tiny" className="orcha-field-suggestion feedback">
+        <Message.Content>
+          <Message.Header>
+            <Icon name="lightbulb outline" />
+            {i18next.t("Was this suggestion helpful?")}
+          </Message.Header>
+          <div className="orcha-suggestion-row">
+            <div className="orcha-suggestion-value">
+              <Form.Field
+                className="orcha-feedback-comment"
+                control={TextArea}
+                placeholder={i18next.t("Optional feedback...")}
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+              />
+            </div>
+            <Button.Group size="mini" compact className="orcha-suggestion-actions">
+              <Button
+                type="button"
+                positive
+                icon="thumbs up"
+                content={i18next.t("Yes")}
+                onClick={() => handleSubmitFeedback("positive")}
+              />
+              <Button
+                type="button"
+                negative
+                icon="thumbs down"
+                content={i18next.t("No")}
+                onClick={() => handleSubmitFeedback("negative")}
+              />
+            </Button.Group>
+          </div>
+        </Message.Content>
+      </Message>
+    );
   }
 
   return (
@@ -111,7 +200,7 @@ const FieldSuggestionComponent = ({ field, formik }) => {
               size="mini"
               icon="check"
               content={i18next.t("Apply all authors")}
-              onClick={() => apply(formik, field)}
+              onClick={handleApplyAll}
               className="ml-30"
             />
           )}
@@ -119,18 +208,15 @@ const FieldSuggestionComponent = ({ field, formik }) => {
         {isCreatorsSuggestion ? (
           renderSuggestedCreators(
             suggestion.value,
-            (index) => apply(formik, field, index),
-            (index) => deny(field, index)
+            (index) => handleCreatorAction(index, true),
+            (index) => handleCreatorAction(index, false)
           )
         ) : (
           <div className="orcha-suggestion-row">
             <div className="orcha-suggestion-value">
               {renderSuggestedValue(field, suggestion.value)}
             </div>
-            {renderSuggestionActions(
-              () => apply(formik, field),
-              () => deny(field)
-            )}
+            {renderSuggestionActions(handleApply, handleDeny)}
           </div>
         )}
       </Message.Content>
