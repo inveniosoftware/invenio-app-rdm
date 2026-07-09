@@ -120,7 +120,13 @@ def can_preview(file):
 
 def preview(file):
     """Return the appropriate template and pass the file and an embed flag."""
-    tree_raw = current_rdm_records_service.files.list_container(
+    is_draft = file.record._record.is_draft
+    file_service = (
+        current_rdm_records_service.draft_files
+        if is_draft
+        else current_rdm_records_service.files
+    )
+    tree_raw = file_service.list_container(
         system_identity, file.record["id"], file.filename
     ).to_dict()
 
