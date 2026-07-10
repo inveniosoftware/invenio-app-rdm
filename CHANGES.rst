@@ -8,6 +8,17 @@
 Changes
 =======
 
+Version v15.0.0b1.dev0 (released 2026-07-10)
+
+- refactor(views): Move get_record_requests to RecordCommunitiesService
+- chore(setup): bump dependencies
+- chore(licenses): update license headers to use SPDX
+- fix(admin): show clear error in View Changes modal on 403
+- chore(migration): replace print with secho
+- chore(migration): add request parent for commenting
+- fix(admin): update edit roles UI
+- chore(setup): migrate from setuptools to hatchling
+
 Version v15.0.0b0.dev0 (released 2026-06-08)
 
 - release: v15.0.0b0.dev0
