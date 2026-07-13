@@ -378,6 +378,9 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
 
     elif is_subcommunity_request or is_subcommunity_invitation_request:
         checks = None
+        subcommunity_slug = (
+            request.to_dict().get("expanded", {}).get("topic", {}).get("slug")
+        )
         if current_app.config.get("CHECKS_SUBCOMMUNITY_ENABLED", False):
             topic_entity = ResolverRegistry.resolve_entity_proxy(
                 request._request.topic.reference_dict
@@ -391,6 +394,7 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
             invenio_request=request.to_dict(),
             community=community,
             community_ui=community_ui,
+            subcommunity_slug=subcommunity_slug,
             checks=checks,
             permissions=permissions,
             request_is_accepted=request_is_accepted,
