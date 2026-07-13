@@ -59,9 +59,9 @@ class OrchaClient:
         """Get the status and result of an ORCHA workflow."""
         response = requests.get(
             f"{self.base_url}/workflows/{workflow_id}",
-            headers = {"Authorization": f"Bearer {token}"},
-            timeout = 10,
-            verify = self.ssl_verify,
+            headers={"Authorization": f"Bearer {token}"},
+            timeout=10,
+            verify=self.ssl_verify,
         )
         response.raise_for_status()
         return response.json()
