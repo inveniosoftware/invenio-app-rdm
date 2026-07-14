@@ -261,7 +261,7 @@ if __name__ == "__main__":
 
     Please run:
 
-        invenio alembic upgrade heads
+        invenio alembic upgrade
 
     to finish the database structure migration process. Then continue with the data migration script.
     """)
