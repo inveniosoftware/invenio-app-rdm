@@ -13,13 +13,13 @@ export const RecordActions = ({
   title,
   resourceName,
   record,
-  displayEdit,
-  displayDelete,
+  displayEdit = false,
+  displayDelete = false,
   actions,
   idKeyPath,
   listUIEndpoint,
   successCallback,
-  displayQuota,
+  displayQuota = false,
   editUrl,
 }) => {
   return (
@@ -63,10 +63,4 @@ RecordActions.propTypes = {
   displayQuota: PropTypes.bool,
   displayEdit: PropTypes.bool,
   displayDelete: PropTypes.bool,
-};
-
-RecordActions.defaultProps = {
-  displayQuota: false,
-  displayEdit: false,
-  displayDelete: false,
 };

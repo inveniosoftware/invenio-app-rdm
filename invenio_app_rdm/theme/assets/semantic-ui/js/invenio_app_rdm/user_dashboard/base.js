@@ -22,6 +22,11 @@ import PropTypes from "prop-types";
 import Overridable from "react-overridable";
 
 export function DashboardResultView(props) {
+  props = {
+    ...props,
+    appName: typeof props.appName === "undefined" ? "" : props.appName,
+  };
+
   const { sortOptions, paginationOptions, currentResultsState, appName } = props;
   const { total } = currentResultsState.data;
 
@@ -67,10 +72,6 @@ DashboardResultView.propTypes = {
   paginationOptions: PropTypes.object.isRequired,
   currentResultsState: PropTypes.object.isRequired,
   appName: PropTypes.string,
-};
-
-DashboardResultView.defaultProps = {
-  appName: "",
 };
 
 export const DashboardSearchLayoutHOC = ({

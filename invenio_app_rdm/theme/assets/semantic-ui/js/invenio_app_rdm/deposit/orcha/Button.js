@@ -10,7 +10,11 @@ const getDraftId = (record) => {
   return id && id !== "null" && id !== "undefined" ? id : null;
 };
 
-export const SuggestionsButtonComponent = ({ record, currentRecord, file }) => {
+export const SuggestionsButtonComponent = ({
+  record,
+  currentRecord = null,
+  file = null,
+}) => {
   const suggestions = useSuggestions();
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const fileKey = file?.name ?? null;
@@ -83,11 +87,6 @@ SuggestionsButtonComponent.propTypes = {
   file: PropTypes.shape({
     name: PropTypes.string,
   }),
-};
-
-SuggestionsButtonComponent.defaultProps = {
-  currentRecord: null,
-  file: null,
 };
 
 const mapStateToProps = (state) => ({
