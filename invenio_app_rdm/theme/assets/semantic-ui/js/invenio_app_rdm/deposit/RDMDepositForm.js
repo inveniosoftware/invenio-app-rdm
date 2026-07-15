@@ -845,8 +845,7 @@ export class RDMDepositForm extends Component {
                             </Grid.Column>
 
                             <Grid.Column width={16} className="pt-0">
-                              {(record.is_draft === null ||
-                                permissions.can_manage) && (
+                              {(record.is_draft === null || permissions.can_manage) && (
                                 <ShareDraftButton
                                   record={record}
                                   permissions={permissions}

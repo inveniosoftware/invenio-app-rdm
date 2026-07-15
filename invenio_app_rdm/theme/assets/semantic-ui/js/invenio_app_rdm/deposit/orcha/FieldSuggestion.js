@@ -113,7 +113,7 @@ const renderSuggestedFunding = (value, onApply, onDeny) => (
   </ul>
 );
 
-const FieldSuggestionComponent = ({ field, formik }) => {
+const FieldSuggestionComponent = ({ field, formik = null }) => {
   const suggestions = useSuggestions();
   const [feedbackState, setFeedbackState] = useState(null);
   const [comment, setComment] = useState("");
@@ -279,10 +279,6 @@ const FieldSuggestionComponent = ({ field, formik }) => {
 FieldSuggestionComponent.propTypes = {
   field: PropTypes.string.isRequired,
   formik: PropTypes.object,
-};
-
-FieldSuggestionComponent.defaultProps = {
-  formik: null,
 };
 
 export const FieldSuggestion = connectFormik(FieldSuggestionComponent);

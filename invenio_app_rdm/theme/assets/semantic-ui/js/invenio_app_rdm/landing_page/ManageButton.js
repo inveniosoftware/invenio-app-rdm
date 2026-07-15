@@ -10,14 +10,17 @@ import PropTypes from "prop-types";
 import UserBlockForm from "../administration/users/UserBlockForm";
 import { RecordDeletion } from "../components/RecordDeletion";
 
+const manageButtonDefaultPropRecordDeletion = {};
+const manageButtonDefaultPropRecordDeletionOptions = [];
+const manageButtonDefaultPropUiProps = {};
 export const ManageButton = ({
   record,
-  recordOwnerID,
+  recordOwnerID = null,
   permissions,
-  recordDeletion,
-  recordDeletionOptions,
-  uiProps,
-  auditLogsEnabled,
+  recordDeletion = manageButtonDefaultPropRecordDeletion,
+  recordDeletionOptions = manageButtonDefaultPropRecordDeletionOptions,
+  uiProps = manageButtonDefaultPropUiProps,
+  auditLogsEnabled = false,
 }) => {
   if (!(recordDeletion["valid_user"] || permissions?.can_moderate)) {
     return null;
@@ -97,14 +100,6 @@ ManageButton.propTypes = {
   recordDeletionOptions: PropTypes.array,
   uiProps: PropTypes.object,
   auditLogsEnabled: PropTypes.bool,
-};
-
-ManageButton.defaultProps = {
-  recordOwnerID: null,
-  recordDeletion: {},
-  recordDeletionOptions: [],
-  uiProps: {},
-  auditLogsEnabled: false,
 };
 
 const BlockUserItem = ({ user }) => {

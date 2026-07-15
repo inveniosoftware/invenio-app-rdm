@@ -106,7 +106,7 @@ const appendCreatorToFormik = (formik, creator) => {
   appendCreatorsToFormik(formik, [creator]);
 };
 
-export const SuggestionsProvider = ({ children }) => {
+export const SuggestionsProvider = ({ children = null }) => {
   const [state, setState] = useState({
     status: STATUS.IDLE,
     error: null,
@@ -414,8 +414,4 @@ export const SuggestionsProvider = ({ children }) => {
 
 SuggestionsProvider.propTypes = {
   children: PropTypes.node,
-};
-
-SuggestionsProvider.defaultProps = {
-  children: null,
 };

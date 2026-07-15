@@ -9,11 +9,12 @@ import { i18next } from "@translations/invenio_app_rdm/i18next";
 import PropTypes from "prop-types";
 import { DeletionModal } from "./RecordDeletion/DeletionModal";
 
+const recordDeletionDefaultPropRecordDeletion = {};
 export const RecordDeletion = ({
-  disabled,
+  disabled = false,
   record,
   permissions,
-  recordDeletion,
+  recordDeletion = recordDeletionDefaultPropRecordDeletion,
   options,
 }) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -72,9 +73,4 @@ RecordDeletion.propTypes = {
   permissions: PropTypes.object.isRequired,
   recordDeletion: PropTypes.object,
   options: PropTypes.array.isRequired,
-};
-
-RecordDeletion.defaultProps = {
-  disabled: false,
-  recordDeletion: {},
 };

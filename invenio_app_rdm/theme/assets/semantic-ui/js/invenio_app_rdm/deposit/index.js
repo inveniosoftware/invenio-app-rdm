@@ -6,14 +6,16 @@
  */
 
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import { getInputFromDOM } from "@js/invenio_rdm_records";
 import { RDMDepositForm } from "./RDMDepositForm";
 import { OverridableContext, overrideStore } from "react-overridable";
 
 const overriddenComponents = overrideStore.getAll();
 
-ReactDOM.render(
+const root = createRoot(document.getElementById("deposit-form"));
+
+root.render(
   <OverridableContext.Provider value={overriddenComponents}>
     <RDMDepositForm
       record={getInputFromDOM("deposits-record")}
@@ -33,6 +35,5 @@ ReactDOM.render(
       allowEmptyFiles={getInputFromDOM("records-resources-allow-empty-files")}
       isDoiRequired={getInputFromDOM("deposits-is-doi-required")}
     />
-  </OverridableContext.Provider>,
-  document.getElementById("deposit-form")
+  </OverridableContext.Provider>
 );

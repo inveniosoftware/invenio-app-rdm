@@ -16,7 +16,7 @@ import { Button, Container, Grid } from "semantic-ui-react";
 import { GridResponsiveSidebarColumn } from "react-invenio-forms";
 import PropTypes from "prop-types";
 
-export const CommunityRecordsSearchAppLayout = ({ config, appName }) => {
+export const CommunityRecordsSearchAppLayout = ({ config, appName = "" }) => {
   const [sidebarVisible, setSidebarVisible] = React.useState(false);
 
   return (
@@ -83,8 +83,4 @@ export const CommunityRecordsSearchAppLayout = ({ config, appName }) => {
 CommunityRecordsSearchAppLayout.propTypes = {
   config: PropTypes.object.isRequired,
   appName: PropTypes.string,
-};
-
-CommunityRecordsSearchAppLayout.defaultProps = {
-  appName: "",
 };
