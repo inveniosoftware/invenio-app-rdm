@@ -12,6 +12,8 @@ const suggestedFieldLabels = {
   publication_date: "Publication date",
   creators: "Authors/Creators",
   description: "Description",
+  license: "License",
+  funding: "Funding",
 };
 
 const renderAuthor = (author) => (
@@ -57,6 +59,34 @@ const renderSuggestedCreators = (value, onApply, onDeny) => {
   );
 };
 
+const renderLicenseValue = (value) => (
+  <ul className="orcha-suggestion-list">
+    {value.map((license, index) => (
+      <li key={`${index}-${license}`}>
+        <span className="orcha-suggestion-value">{license}</span>
+      </li>
+    ))}
+  </ul>
+);
+
+const renderFundingEntry = (entry) => (
+  <>
+    <strong>{entry.funder}</strong>
+    {entry.award_number && <span> ({entry.award_number})</span>}
+    {entry.award_title && <div className="text-muted">{entry.award_title}</div>}
+  </>
+);
+
+const renderFundingValue = (value) => (
+  <ul className="orcha-suggestion-list">
+    {value.map((entry, index) => (
+      <li key={`${index}-${entry.funder}`}>
+        <span className="orcha-suggestion-value">{renderFundingEntry(entry)}</span>
+      </li>
+    ))}
+  </ul>
+);
+
 const renderSuggestedValue = (field, value) => {
   if (field === "creators" && Array.isArray(value)) {
     return (
@@ -68,6 +98,12 @@ const renderSuggestedValue = (field, value) => {
         ))}
       </ul>
     );
+  }
+  if (field === "license" && Array.isArray(value)) {
+    return renderLicenseValue(value);
+  }
+  if (field === "funding" && Array.isArray(value)) {
+    return renderFundingValue(value);
   }
   return <span>{value}</span>;
 };
