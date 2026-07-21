@@ -444,6 +444,7 @@ export class RDMDepositForm extends Component {
                           })}
                         />
                       </Overridable>
+                      {orchaEnabled && <FieldSuggestion field="license" />}
                       <Overridable
                         id="InvenioAppRdm.Deposit.CopyrightsField.container"
                         fieldPath="metadata.copyright"
@@ -671,6 +672,7 @@ export class RDMDepositForm extends Component {
                           }}
                         />
                       </Overridable>
+                      {orchaEnabled && <FieldSuggestion field="funding" />}
                       <Overridable
                         id="InvenioAppRdm.Deposit.AccordionFieldFunding.extra"
                         {...overridableBlocksCommonProps}
