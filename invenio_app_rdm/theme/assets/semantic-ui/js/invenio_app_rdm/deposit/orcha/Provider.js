@@ -78,6 +78,28 @@ const applyToFormik = (formik, field, value) => {
       setRichEditorContent("metadata.description", description);
       break;
     }
+    case "license":
+      formik.setFieldValue(
+        "metadata.rights",
+        value.map((id) => ({ id }))
+      );
+      break;
+    case "funding":
+      formik.setFieldValue(
+        "metadata.funding",
+        value.map((f) => ({
+          funder: { name: f.funder },
+          ...(f.award_number || f.award_title
+            ? {
+                award: {
+                  ...(f.award_number ? { number: f.award_number } : {}),
+                  ...(f.award_title ? { title: { en: f.award_title } } : {}),
+                },
+              }
+            : {}),
+        }))
+      );
+      break;
     default:
       formik.setFieldValue(`metadata.${field}`, value);
   }
