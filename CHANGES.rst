@@ -8,6 +8,12 @@
 Changes
 =======
 
+Version v15.0.0b2.dev0 (released 2026-07-21)
+
+- feat(Creatibutors): Add landing page "show-all" modal with searching for large author/contributor lists.
+- chore: Create SECURITY.md.
+- files: Improve external file size display.
+
 Version v15.0.0b1.dev0 (released 2026-07-10)
 
 - refactor(views): Move get_record_requests to RecordCommunitiesService
