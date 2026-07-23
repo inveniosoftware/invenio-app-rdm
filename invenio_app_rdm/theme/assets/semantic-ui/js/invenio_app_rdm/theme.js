@@ -37,12 +37,39 @@ $tabElement.tab({
   },
 });
 
+// Update URL hash on tab click: #outerTab or #outerTab/innerTab for nested tabs.
+function updateTabHash($tab) {
+  const tab = $tab.data("tab");
+  if (!tab) return;
+  const outerPanel = $tab.closest(".rdm-tab-container .tab.segment");
+  const hash = outerPanel.length ? `${outerPanel.data("tab")}/${tab}` : tab;
+  window.history.replaceState(null, "", `#${hash}`);
+}
+
+$tabElement.on("click", function () {
+  updateTabHash($(this));
+});
+
+// Restore active tab from URL hash on page load (#outerTab or #outerTab/innerTab).
+const hash = window.location.hash.slice(1);
+if (hash) {
+  const [outerTab, innerTab] = hash.split("/");
+  $(`.rdm-tab-container > .rdm-tab-menu .item[data-tab="${outerTab}"]`).tab(
+    "change tab",
+    outerTab
+  );
+  if (innerTab) {
+    $(`${tabElementSelector}[data-tab="${innerTab}"]`).tab("change tab", innerTab);
+  }
+}
+
 // adding missing accessibility event (change tabs on enter keystroke)
 $tabElement.on("keydown", function (event) {
   if (event.key === "Enter") {
     let dataTab = event.target.attributes["data-tab"];
     let tabName = dataTab && dataTab.value;
     $(event.target).tab("change tab", tabName);
+    updateTabHash($(event.target));
   }
 });
 
