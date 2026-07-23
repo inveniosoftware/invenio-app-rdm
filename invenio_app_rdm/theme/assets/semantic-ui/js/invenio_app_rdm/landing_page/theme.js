@@ -91,6 +91,9 @@ $(".creatibutors-landing-modal").modal({
   onHidden() {
     $(this).find(".creatibutors-filter-input").val("").trigger("input");
   },
+  selector: {
+    close: ".close",
+  },
 });
 
 $(document).on("click", ".creatibutors-show-all-link", function (e) {
