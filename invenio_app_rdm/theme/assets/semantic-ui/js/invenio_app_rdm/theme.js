@@ -50,14 +50,26 @@ $tabElement.on("click", function () {
   updateTabHash($(this));
 });
 
+// Preserve current tab hash across any form submit that opts in via a
+// `return_hash` hidden input, so redirect can restore the active tab afterwards
+$(".rdm-tab-container").on("submit", "form", function (event) {
+  const input = this.querySelector('input[name="return_hash"]');
+  if (input) {
+    input.value = window.location.hash.slice(1);
+  }
+});
+
 // Restore active tab from URL hash on page load (#outerTab or #outerTab/innerTab).
 const hash = window.location.hash.slice(1);
 if (hash) {
   const [outerTab, innerTab] = hash.split("/");
-  $(`.rdm-tab-container > .rdm-tab-menu .item[data-tab="${outerTab}"]`).tab(
-    "change tab",
-    outerTab
+  const $outerItem = $(
+    `.rdm-tab-container > .rdm-tab-menu .item[data-tab="${outerTab}"]`
   );
+  $outerItem.tab("change tab", outerTab);
+  // belt-and-suspenders: Semantic UI's tab() doesn't always clear a literal `hidden` attribute
+  $(`.rdm-tab-container .tab.segment[data-tab="${outerTab}"]`).removeAttr("hidden");
+
   if (innerTab) {
     $(`${tabElementSelector}[data-tab="${innerTab}"]`).tab("change tab", innerTab);
   }

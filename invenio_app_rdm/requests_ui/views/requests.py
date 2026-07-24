@@ -5,7 +5,7 @@
 
 """Request views module."""
 
-from flask import current_app, g, redirect, render_template
+from flask import current_app, g, redirect, render_template, request
 from flask_login import current_user, login_required
 from invenio_base import invenio_url_for
 from invenio_checks.api import ChecksAPI
@@ -473,6 +473,22 @@ def community_dashboard_membership_request_view(
         permissions=permissions,
         user_avatar=avatar,
     )
+
+
+@login_required
+def rerun_check_view(check_run_id):
+    """Manually rerun a check."""
+    ChecksAPI.rerun_check(
+        check_run_id,
+        g.identity,
+    )
+
+    target = request.referrer or "/"
+    return_hash = request.form.get("return_hash")
+    if return_hash:
+        target = f"{target}#{return_hash}"
+
+    return redirect(target)
 
 
 def is_accepted_request(request_dict):
