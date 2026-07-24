@@ -225,10 +225,13 @@ def user_dashboard_request_view(request, **kwargs):
 
         checks = None
         if current_app.config.get("CHECKS_ENABLED", False) and record:
+            community_id = (request["receiver"] or {}).get("community")
             if is_record_inclusion and has_draft:
-                checks = ChecksAPI.get_runs(record._record, is_draft=True)
+                checks = ChecksAPI.get_runs(
+                    record._record, is_draft=True, community_id=community_id
+                )
             else:
-                checks = ChecksAPI.get_runs(record._record)
+                checks = ChecksAPI.get_runs(record._record, community_id=community_id)
 
         if request_type == "record-deletion":
             reason_title = vocabulary_service.read(
@@ -336,9 +339,11 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
         checks = None
         if current_app.config.get("CHECKS_ENABLED", False) and record:
             if is_record_inclusion and has_draft:
-                checks = ChecksAPI.get_runs(record._record, is_draft=True)
+                checks = ChecksAPI.get_runs(
+                    record._record, is_draft=True, community_id=community.id
+                )
             else:
-                checks = ChecksAPI.get_runs(record._record)
+                checks = ChecksAPI.get_runs(record._record, community_id=community.id)
 
         return render_community_theme_template(
             f"invenio_requests/{request_type}/index.html",
@@ -385,7 +390,7 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
             topic_entity = ResolverRegistry.resolve_entity_proxy(
                 request._request.topic.reference_dict
             ).resolve()
-            checks = ChecksAPI.get_runs(topic_entity) or None
+            checks = ChecksAPI.get_runs(topic_entity, community_id=community.id) or None
 
         return render_community_theme_template(
             f"invenio_requests/{request_type}/index.html",
