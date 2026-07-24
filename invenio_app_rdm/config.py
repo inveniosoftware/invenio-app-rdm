@@ -1121,8 +1121,8 @@ RDM_CITATION_STYLES = [
     ("apa", _("APA")),
     ("harvard-cite-them-right", _("Harvard")),
     ("modern-language-association", _("MLA")),
-    ("vancouver", _("Vancouver")),
-    ("chicago-fullnote-bibliography", _("Chicago")),
+    ("nlm-citation-sequence", _("Vancouver")),
+    ("chicago-notes-bibliography", _("Chicago")),
     ("ieee", _("IEEE")),
 ]
 """List of citation style """
