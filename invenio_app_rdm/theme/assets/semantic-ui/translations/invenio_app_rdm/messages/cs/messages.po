@@ -1,26 +1,52 @@
-# 
 # Translators:
-# Tibor Simko <tibor.simko@cern.ch>, 2024
-# Jiří Kunčar <jiri.kuncar@gmail.com>, 2025
 # Ivan Masár <helix84@centrum.sk>, 2025
-# Mirek Simek <miroslav.simek@gmail.com>, 2025
-# daniela.hornickova, 2025
+# Jiří Kunčar <jiri.kuncar@gmail.com>, 2025
+# Tibor Simko <tibor.simko@cern.ch>, 2026
+# daniela.hornickova, 2026
+# Mirek Simek <miroslav.simek@gmail.com>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-03-27T16:30:16.192Z\n"
+"POT-Creation-Date: 2026-06-22T20:53:26.159Z\n"
 "PO-Revision-Date: 2021-07-14 16:07+0000\n"
-"Last-Translator: daniela.hornickova, 2025\n"
+"Last-Translator: Mirek Simek <miroslav.simek@gmail.com>, 2026\n"
 "Language-Team: Czech (https://app.transifex.com/inveniosoftware/teams/23537/cs/)\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: cs\n"
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
 "mime-version: 1.0\n"
 
-msgid "Basic information"
-msgstr "Základní informace"
+msgid "Recent changes"
+msgstr "Nedávné změny"
+
+msgid "Audit Log Details"
+msgstr "Podrobnosti auditního logu"
+
+msgid "Resource"
+msgstr "Zdroj"
+
+msgid "Resource ID"
+msgstr "ID zdroje"
+
+msgid "Action"
+msgstr "Akce"
+
+msgid "User"
+msgstr "Uživatel"
+
+msgid "Created"
+msgstr "Vytvořeno"
+
+msgid "No revision ID found."
+msgstr "Nenalezeno žádné ID revize."
+
+msgid "Unable to fetch revisions."
+msgstr "Nelze načíst revize."
+
+msgid "Cancel revision comparison"
+msgstr "Zrušit srovnání revizí"
 
 msgid "Impersonate user"
 msgstr "Přihlásit se jako uživatel"
@@ -50,12 +76,17 @@ msgstr ""
 "Před pokračováním si prosím pečlivě přečtěte a potvrďte následující "
 "prohlášení."
 
-msgid "You are about to impersonate user <bold>{{email}}(id: {{id}})</bold>."
-msgstr ""
-"Chystáte se přihlásit jako uživatel <bold>{{email}}(id: {{id}})</bold>."
+msgid "You are about to impersonate user "
+msgstr "Chystáte se přihlásit jako uživatel"
 
-msgid "You <bold>MUST</bold> logout after completing your inquiry."
-msgstr "Po dokončení se <bold>BUDETE MUSET</bold> odhlásit."
+msgid "You "
+msgstr "Vy"
+
+msgid "MUST"
+msgstr "MUSÍ"
+
+msgid " logout after completing your inquiry."
+msgstr "odhlášení po dokončení Vašeho dotazu"
 
 msgid "Close"
 msgstr "Zavřít"
@@ -71,13 +102,10 @@ msgstr "Poznámka"
 
 msgid ""
 "This is the default quota that will be applied to any NEW records created by"
-" this user – it will NOT update quota of existing records."
+" this user - it will NOT update quota of existing records."
 msgstr ""
 "Toto je výchozí kvóta, která bude použita pro VŠECHNY NOVÉ záznamy vytvořené"
 " tímto uživatelem – NEAKTUALIZUJE kvótu existujících záznamů."
-
-msgid "Quota of {{id}} was set to {{quota}} {{unit}}"
-msgstr "Kvóta uživatele {{id}} byla nastavena na {{quota}} {{unit}}"
 
 msgid "Unable to set quota."
 msgstr "Nelze nastavit kvótu."
@@ -154,6 +182,9 @@ msgstr "Odkazy"
 msgid "Set quota for record {{recordId}}"
 msgstr "Nastavit kvótu pro záznam {{recordId}}"
 
+msgid "Compare revisions"
+msgstr "Porovnat revize"
+
 msgid "Delete record"
 msgstr "Smazat záznam"
 
@@ -190,8 +221,8 @@ msgstr "verze"
 msgid "Owner"
 msgstr "Vlastník"
 
-msgid "Created"
-msgstr "Vytvořeno"
+msgid "System"
+msgstr "Systém"
 
 msgid "Files"
 msgstr "Soubory"
@@ -248,9 +279,6 @@ msgstr "Uživatel {{name}} je blokován."
 msgid "Error"
 msgstr "Chyba"
 
-msgid "User"
-msgstr "Uživatel"
-
 msgid "Email"
 msgstr "E-mail"
 
@@ -271,6 +299,12 @@ msgstr "GitHub"
 
 msgid "Updated"
 msgstr "Aktualizováno"
+
+msgid "Drafts"
+msgstr "Návrhy"
+
+msgid "Moderation"
+msgstr "Moderace"
 
 msgid "Restore"
 msgstr "Obnovit"
@@ -308,15 +342,11 @@ msgstr "Filtrovat výsledky"
 msgid "Search records in community..."
 msgstr "Hledat záznamy v komunitě..."
 
+msgid "results found"
+msgstr "nalezených výsledků"
+
 msgid "Sort by"
 msgstr "Řadit podle"
-
-msgid " results found"
-msgid_plural " results found"
-msgstr[0] " nalezený výsledek"
-msgstr[1] " nalezené výsledky"
-msgstr[2] " nalezených výsledků"
-msgstr[3] " nalezených výsledků"
 
 msgid "Search records..."
 msgstr "Hledat záznamy..."
@@ -357,8 +387,8 @@ msgstr "Bez názvu"
 msgid "Uploaded on {{uploadDate}}"
 msgstr "Nahráno dne {{uploadDate}}"
 
-msgid "Published in: {{publishInfo}}"
-msgstr "Publikováno v: {{publishInfo}}"
+msgid "Published in: {{- publishInfo }}"
+msgstr "Publikováno v: {{- publishInfo }}"
 
 msgid "{{count}} more versions exist for this record"
 msgid_plural "{{count}} more versions exist for this record"
@@ -367,14 +397,20 @@ msgstr[1] "Existují {{count}} další verze tohoto záznamu"
 msgstr[2] "Existuje {{count}} dalších verzí tohoto záznamu"
 msgstr[3] "Existuje {{count}} dalších verzí tohoto záznamu"
 
+msgid "This check is recommended but not mandatory."
+msgstr "Tato kontrola je doporučená, nikoli však povinná."
+
+msgid "This check indicates a critical issue that must be addressed."
+msgstr "Tato kontrola odhalila kritickou chybu, kterou je nutné vyřešit."
+
 msgid "Person"
 msgstr "Osoba"
 
 msgid "The record has no files."
 msgstr "Záznam nemá žádné soubory."
 
-msgid "Creators"
-msgstr "Autoři"
+msgid "Basic information"
+msgstr "Základní informace"
 
 msgid "Recommended information"
 msgstr "Doporučené informace"
@@ -426,13 +462,6 @@ msgstr "Celé jméno"
 
 msgid "Request message"
 msgstr "Zpráva žádosti"
-
-msgid ""
-"I agree to that my full name and email address is shared with the owners of "
-"the record"
-msgstr ""
-"Souhlasím s tím, že mé celé jméno a e-mailová adresa budou sdíleny s "
-"majiteli záznamu"
 
 msgid "Request access"
 msgstr "Zažádat o přístup"
@@ -497,6 +526,9 @@ msgstr "Spravovat záznam"
 msgid "Manage user"
 msgstr "Spravovat uživatele"
 
+msgid "Block user"
+msgstr "Blokovat uživatele"
+
 msgid "Remove branding"
 msgstr "Odstranit branding"
 
@@ -535,6 +567,9 @@ msgstr "Styl"
 msgid "This record is not included in any communities yet."
 msgstr "Tento záznam ještě není zahrnut v žádné komunitě."
 
+msgid "Part of"
+msgstr "Část čeho"
+
 msgid "Search for community..."
 msgstr "Hledat komunitu..."
 
@@ -559,9 +594,6 @@ msgstr "Verze {{- version}}"
 msgid "Preview"
 msgstr "Náhled"
 
-msgid "Only published versions are displayed."
-msgstr "Jsou zobrazeny pouze publikované verze."
-
 msgid "An error occurred while fetching the versions."
 msgstr "Došlo k chybě při načítání verzí."
 
@@ -572,22 +604,21 @@ msgstr[1] "Zobrazit všechny {{count}} verze"
 msgstr[2] "Zobrazit všech {{count}} verzí"
 msgstr[3] "Zobrazit všech {{count}} verzí"
 
-msgid ""
-"<0><0>Cite all versions?</0> You can cite all versions by using the DOI "
-"<3></3>. This DOI represents all versions, and will always resolve to the "
-"latest one. <5>Read more</5>.</0>"
-msgstr ""
-"<0><0>Citovat všechny verze?</0> Všechny verze můžete citovat pomocí DOI "
-"<3></3>. Toto DOI reprezentuje všechny verze a vždy se odkazuje na "
-"nejnovější verzi. <5>Čtěte dál</5>.</0>"
+msgid "Cite all versions?"
+msgstr "Citovat všechny verze?"
+
+msgid "You can cite all versions by using the DOI"
+msgstr "Pomocí DOI můžete citovat všechny verze"
 
 msgid ""
-"<0><0>Cite all versions?</0> You can cite all versions by using the DOI . "
-"The DOI is registered when the first version is published. <4>Read "
-"more</4>.</0>"
-msgstr ""
-"<0><0>Citovat všechny verze?</0> Všechny verze můžete citovat pomocí DOI. "
-"DOI je registrováno, když je publikována první verze. <4>Čtěte dál</4>.</0>"
+"This DOI represents all versions, and will always resolve to the latest one."
+msgstr "Toto DOI zahrnuje všechny verze a vždy povede k té poslední z nich."
+
+msgid "Read more"
+msgstr "Čtěte více"
+
+msgid "The DOI is registered when the first version is published."
+msgstr "DOI je zaregistrována v okamžiku publikace první verze."
 
 msgid "Remove"
 msgstr "Odstranit"
@@ -603,6 +634,18 @@ msgstr "Jste si jisti, že chcete odstranit záznam z komunity?"
 
 msgid "I understand the consequences:"
 msgstr "Rozumím následkům:"
+
+msgid "Members of the community "
+msgstr "Členové komunity"
+
+msgid " will "
+msgstr " "
+
+msgid "lose their access"
+msgstr "ztratí přístup"
+
+msgid " to the record."
+msgstr "k záznamu."
 
 msgid ""
 "The record can only be re-included in the community by going through a new "
@@ -622,13 +665,6 @@ msgstr "Stornovat"
 
 msgid "Confirm removal"
 msgstr "Potvrdit odstranění"
-
-msgid ""
-"Members of the community <1>\"<1>{{communityTitle}}</1>\"</1> will <4>lose "
-"their access</4> to the record."
-msgstr ""
-"Členové komunity <1>\"<1>{{communityTitle}}</1>\"</1> <4>přijdou o "
-"přístup</4> k záznamu."
 
 msgid "Select permissions"
 msgstr "Vyberte oprávnění"
@@ -673,19 +709,22 @@ msgstr ""
 msgid "Can preview drafts"
 msgstr "Možnost náhledu konceptů"
 
-msgid "Can view drafts and restricted files of all versions of this record."
+msgid ""
+"Can view drafts, restricted files, and comment on associated draft requests "
+"of all versions of this record."
 msgstr ""
-"Může zobrazit koncepty a soubory s omezeným přístupem ve všech verzích "
-"tohoto záznamu."
+" Možnost zobrazit koncepty, soubory s omezeným přístupem a komentovat "
+"související návrhy žádostí ve všech verzích tohoto záznamu."
 
 msgid "Can edit"
 msgstr "Možnost editace"
 
 msgid ""
-"Can edit drafts and view restricted files of all versions of this record."
+"Can edit drafts, view restricted files, and comment on associated draft "
+"requests of all versions of this record."
 msgstr ""
-"Může modifikovat koncepty a zobrazit soubory s omezeným přístupem ve všech "
-"verzích tohoto záznamu."
+"Možnost modifikovat koncepty, zobrazit soubory s omezeným přístupem a "
+"komentovat související návrhy žádostí ve všech verzích tohoto záznamu."
 
 msgid ""
 "Can view (view access link can be created only after the record is "
@@ -749,9 +788,6 @@ msgstr ""
 "Hledat uživatele, kterým bude udělen přístup (mohou být pozváni pouze "
 "uživatelé s veřejným profilem)"
 
-msgid "Search by email, full name or username"
-msgstr "Hledat podle emailu, plného jména nebo uživatelského jména"
-
 msgid "users"
 msgstr "uživatelé"
 
@@ -789,11 +825,12 @@ msgid "Can manage"
 msgstr "Může spravovat"
 
 msgid ""
-"Can manage access, edit drafts and view restricted files of all versions of "
-"this record."
+"Can manage access, edit drafts, view restricted files, and comment on "
+"associated draft requests of all versions of this record."
 msgstr ""
-"Může spravovat přístup, upravovat koncepty a zobrazovat soubory s omezeným "
-"přístupem všech verzí tohoto záznamu."
+"Možnost řídit přístup, modifikovat koncepty, zobrazit soubory s omezeným "
+"přístupem a komentovat související návrhy žádostí ve všech verzích tohoto "
+"záznamu."
 
 msgid "You don't have permissions to share this record."
 msgstr "Nemáte právo na sdílení tohoto záznamu."
@@ -862,24 +899,41 @@ msgstr "Začít znovu"
 msgid "ProTip"
 msgstr "Pro tip"
 
+msgid "will give you all the publications from 2025 until today."
+msgstr "vrátí všechny publikované záznamy od roku 2025 dodnes."
+
+msgid "For more tips, check out our "
+msgstr "Více tipů je k dispozici v"
+
 msgid "Search guide"
 msgstr "Průvodce vyhledáváním"
 
-msgid ""
-"<0>For more tips, check out our <2>search guide</2> for defining advanced "
-"search queries.</0>"
-msgstr ""
-"<0>Pro více tipů se podívejte na <2>náš průvodce vyhledáváním</2> pro "
-"definování pokročilých vyhledávacích dotazů.</0>"
+msgid "search guide"
+msgstr "průvodce hledáním"
+
+msgid "for defining advanced search queries."
+msgstr "na definici pokročilých vyhledávacích dotazů."
+
+msgid "This community has no subcommunities"
+msgstr "Tato komunita nemá žádné podkomunity"
+
+msgid "Logging in..."
+msgstr "Přihlašování..."
+
+msgid "Logging out..."
+msgstr "Odhlašování..."
 
 msgid "Search in my communities..."
 msgstr "Hledat v mých komunitách..."
 
+msgid "My communities"
+msgstr "Moje komunity"
+
 msgid "View"
 msgstr "Zobrazit"
 
-msgid "Published in: {{publishedIn}}"
-msgstr "Publikováno v: {{publishedIn}}"
+msgid "Published in: {{- publishedIn }}"
+msgstr "Publikováno v: {{- publishedIn }}"
 
 msgid "In review"
 msgstr "V procesu kontroly"
@@ -917,6 +971,9 @@ msgstr "Nový záznam"
 msgid "Search in my uploads..."
 msgstr "Hledat v mých záznamech..."
 
+msgid "My uploads"
+msgstr "Moje nahraná data"
+
 msgid "ORCID profile"
 msgstr "ORCID profil"
 
@@ -952,10 +1009,184 @@ msgstr[1] "a {{count}} další"
 msgstr[2] "a {{count}}  další"
 msgstr[3] "a {{count}} další"
 
-msgctxt ""
-"date:[2017-01-01 TO *]</0> will give you all the publications from 2017 "
-"until today.</0>"
-msgid "<0><0>metadata.publication"
+msgid "Manage roles"
+msgstr "Spravovat role"
+
+msgid "User roles were updated."
+msgstr "Uživatelské role byly aktualizovány."
+
+msgid "Unable to manage user roles"
+msgstr "Nelze spravovat uživatelské role"
+
+msgid "Are you sure you want to update this user's roles?"
+msgstr "Jste si jisti, že chcete aktualizovat role uživatele?"
+
+msgid "Role changes may affect the user's permissions."
+msgstr "Změny v rolích mohou ovlivnit uživatelská oprávnění."
+
+msgid "Show unmanaged roles only"
+msgstr "Zobrazit pouze nespravované role"
+
+msgid "Confirm role update"
+msgstr "Potvrdit akutalizaci role"
+
+msgid "Update roles"
+msgstr "Aktualizovat role"
+
+msgid "Quota of @{{username}} was set to {{quota}} {{unit}}"
+msgstr "Kvóta uživatele @{{username}} byla nastavena na {{quota}} {{unit}}"
+
+msgid "No replies"
+msgstr "Žádné odpovědi"
+
+msgid "A removal reason is required."
+msgstr "Vyžaduje se uvedení důvodu pro smazání."
+
+msgid "User {{name}} was blocked."
+msgstr "Uživatel {{name}} byl zablokován."
+
+msgid "User blocked"
+msgstr "Uživatel blokován"
+
+msgid ""
+"Their records and communities are being tombstoned in the background. This "
+"may take a few minutes to complete."
 msgstr ""
-"<0><0>metadata.publication_date:[2017-01-01 TO *]</0> vrátí všechny "
-"publikace od 2017 dodnes.</0>"
+"Jejich záznamy a komunity jsou na pozadí postupně odstraňovány. Může to "
+"trvat několik minut."
+
+msgid "View in admin"
+msgstr "Zobrazit jako admin"
+
+msgid "Unable to block user"
+msgstr "Nelze blokovat uživatele"
+
+msgid ""
+"Blocking this user will tombstone their records and communities using the "
+"removal reason below."
+msgstr ""
+"Zablokování tohoto uživatele odstraní jeho záznamy a komunity s uvedením "
+"níže uvedeného důvodu smazání."
+
+msgid "Verified community"
+msgstr "Ověřená komunita"
+
+msgid "– Unlocked, {{ daysUntil }} days to publish changes"
+msgstr "Odemčeno, zbývá {{ daysUntil }} dní do zveřejnění změn"
+
+msgid "It is not possible to delete this record."
+msgstr "Není možné tento záznam smazat."
+
+msgid "View deletion request"
+msgstr "Zobrazit žádost o smazání"
+
+msgid "Required"
+msgstr "Vyžadováno"
+
+msgid "Please write at least 25 characters"
+msgstr "Napište prosím alespoň 25 znaků"
+
+msgid "Could not submit deletion request"
+msgstr "Nebylo možno odeslat žádost o smazání"
+
+msgid "Request deletion"
+msgstr "Požádat o smazání"
+
+msgid "Delete immediately"
+msgstr "Smazat ihned"
+
+msgid "By deleting this record you acknowledge that:"
+msgstr "Smazáním tohoto záznamu berete na vědomí, že:"
+
+msgid "will be deleted."
+msgstr "bude smazán."
+
+msgid "The DOI cannot be reused"
+msgstr "DOI nemůže být použito opakovaně"
+
+msgid ""
+"and the DOI will resolve to a tombstone page with the record's citation "
+"(including title, author/s, publication year and publisher)"
+msgstr ""
+"a DOI bude přesměrováno na archivní stránku (stránku s náhrobkem), která "
+"obsahuje záznam s citací (včetně názvu, autora/ů, roku vydání a vydavatele)"
+
+msgid "A tombstone page with the citation will replace the record page"
+msgstr "Stránka s náhrobkem a citací nahradí stránku se záznamem."
+
+msgid "Record deletion checklist:"
+msgstr "Kontrolní seznam pro vymazání záznamů:"
+
+msgid "Yes"
+msgstr "Ano"
+
+msgid "No"
+msgstr "Ne"
+
+msgid "I want to delete this record because:"
+msgstr "Chci vymazat tento záznam, protože:"
+
+msgid "Detailed justification:"
+msgstr "Podrobné odůvodnění:"
+
+msgid "Your justification will not be shared publicly"
+msgstr "Vaše odůvodnění nebude veřejně sdíleno"
+
+msgid "Unable to request deletion."
+msgstr "Nelze požádat o smazání."
+
+msgid "Recommendation(s)"
+msgstr "Doporučení"
+
+msgid "Error(s)"
+msgstr "Chyba(y)"
+
+msgid "Authors/Creators"
+msgstr "Autoři"
+
+msgid ""
+"Use the Authors/Creators field for names that should appear in the citation."
+" Use the Contributors field below for other names."
+msgstr ""
+"Pole autoři použijte pro jména, která mají být uvedena v citaci. Pro ostatní"
+" jména použijte níže uvedené pole přispěvatelé."
+
+msgid ""
+"Contributors are not included in the citation, but are shown on the record "
+"page."
+msgstr ""
+"Přispěvatelé nejsou zahrnuti v citaci, ale jsou zobrazeni na stránce se "
+"záznamem."
+
+msgid "Load more search results"
+msgstr "Načíst více výsledků hledání"
+
+msgid ""
+"I agree that my full name and email address will be shared with the owners "
+"of the record"
+msgstr ""
+"Souhlasím se sdílením svého celého jména a emailové adresy s vlastníky "
+"záznamu"
+
+msgid "View audit logs"
+msgstr "Zobrazit auditní logy"
+
+msgid "View comments"
+msgstr "Zobrazit komentáře"
+
+msgid "This version of the record has not yet been published."
+msgstr "Tato verze záznamu nebyla dosud publikována."
+
+msgid "You don't have permission to remove this community from the record"
+msgstr "Nemáte oprávnění odstranit tuto komunitu ze záznamu"
+
+msgid "Expiration date: YYYY-MM-DD (required)."
+msgstr "Datum expirace: RRRR-MM-DD (povinné pole)."
+
+msgid "Search by full name, username or email (if publicly visible)"
+msgstr ""
+"Vyhledávat podle celého jména, uživatelského jména nebo e-mailu (pokud je "
+"veřejně viditelný)"
+
+msgid "your search"
+msgstr "váš vyhledávací dotaz"

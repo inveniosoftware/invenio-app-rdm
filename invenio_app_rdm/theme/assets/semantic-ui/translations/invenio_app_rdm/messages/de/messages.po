@@ -1,32 +1,58 @@
-# 
 # Translators:
 # Zacharias Zacharodimos <zacharias.zacharodimos@cern.ch>, 2022
-# Alizee Pace <alizee.pace@gmail.com>, 2024
 # David Eckhard <dabombeeer@gmail.com>, 2024
-# Tibor Simko <tibor.simko@cern.ch>, 2024
 # Frank Berkemeier, 2024
-# Alexander Gruber <alexander.gruber@tugraz.at>, 2025
 # Mojib Wali <mojib.wali@tugraz.at>, 2025
 # c960a0736ea0fb7507bb1c3555e7d33f_88b575f <3cef15c38ce2563e884ec389656c9161_1006830>, 2025
-# Hermann Schranzhofer <hermann.schranzhofer@tugraz.at>, 2025
-# Sarah Wiechers, 2025
-# Adienne Karsten-Welker, 2025
+# Alizee Pace <alizee.pace@gmail.com>, 2025
+# Alexander Gruber <alexander.gruber@tugraz.at>, 2025
+# Tibor Simko <tibor.simko@cern.ch>, 2026
+# Hermann Schranzhofer <hermann.schranzhofer@tugraz.at>, 2026
+# Sarah Wiechers, 2026
+# Adienne Karsten-Welker, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-03-27T16:30:16.192Z\n"
+"POT-Creation-Date: 2026-06-22T20:53:26.159Z\n"
 "PO-Revision-Date: 2021-07-14 16:07+0000\n"
-"Last-Translator: Adienne Karsten-Welker, 2025\n"
+"Last-Translator: Adienne Karsten-Welker, 2026\n"
 "Language-Team: German (https://app.transifex.com/inveniosoftware/teams/23537/de/)\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "mime-version: 1.0\n"
 
-msgid "Basic information"
-msgstr "Allgemeine Informationen"
+msgid "Recent changes"
+msgstr "Neueste Änderungen"
+
+msgid "Audit Log Details"
+msgstr "Details zum Audit-Protokoll"
+
+msgid "Resource"
+msgstr "Ressource"
+
+msgid "Resource ID"
+msgstr "Ressourcen-ID"
+
+msgid "Action"
+msgstr "Aktion"
+
+msgid "User"
+msgstr "Benutzer*in"
+
+msgid "Created"
+msgstr "Erstellt"
+
+msgid "No revision ID found."
+msgstr "Es wurde keine Revisions-ID gefunden."
+
+msgid "Unable to fetch revisions."
+msgstr "Revisionen können nicht abgerufen werden."
+
+msgid "Cancel revision comparison"
+msgstr "Vergleich der Revisionen abbrechen"
 
 msgid "Impersonate user"
 msgstr "Sich als ein*e andere*r Benutzer*in ausgeben"
@@ -55,13 +81,19 @@ msgid ""
 msgstr ""
 "Bitte lesen und bestätigen Sie den folgenden Text, bevor Sie fortfahren."
 
-msgid "You are about to impersonate user <bold>{{email}}(id: {{id}})</bold>."
-msgstr ""
-"Sie sind dabei, sich als ein*e andere*r Benutzer*in <bold>{{email}}(id: "
-"{{id}})</bold> auszugeben."
+msgid "You are about to impersonate user "
+msgstr "Sie übernehmen nun die Identität von Benutzer*in "
 
-msgid "You <bold>MUST</bold> logout after completing your inquiry."
-msgstr "Sie <bold>MÜSSEN</bold> sich nach Abschluss Ihrer Anfrage abmelden."
+msgid "You "
+msgstr "Sie "
+
+msgid "MUST"
+msgstr "MÜSSEN"
+
+msgid " logout after completing your inquiry."
+msgstr ""
+" sich aus Sicherheitsgründen abmelden, nachdem Sie Ihre Anfrage "
+"abgeschlossen haben."
 
 msgid "Close"
 msgstr "Schließen"
@@ -77,14 +109,11 @@ msgstr "Bemerkung"
 
 msgid ""
 "This is the default quota that will be applied to any NEW records created by"
-" this user – it will NOT update quota of existing records."
+" this user - it will NOT update quota of existing records."
 msgstr ""
-"Dies ist die Standard-Quota, die auf alle neu erstellten Einträge dieses "
-"Benutzers angewendet wird – sie wird NICHT die Quota von bereits "
-"existierenden Einträgen ersetzen."
-
-msgid "Quota of {{id}} was set to {{quota}} {{unit}}"
-msgstr "Quota von {{id}} wurde auf {{quota}} {{unit}} gesetzt"
+"Dies ist das Standard-Speicherkontingent, das auf alle NEUEN Datensätze "
+"angewendet wird, die von diese*r Benutzer*in angelegt werden – das "
+"Speicherkontingent bestehender Datensätze wird dadurch NICHT aktualisiert."
 
 msgid "Unable to set quota."
 msgstr "Es ist nicht möglich, die Quota zu setzen."
@@ -161,6 +190,9 @@ msgstr "Links"
 msgid "Set quota for record {{recordId}}"
 msgstr "Quota für den Eintrag {{recordId}} setzen"
 
+msgid "Compare revisions"
+msgstr "Revisionen vergleichen"
+
 msgid "Delete record"
 msgstr "Eintrag löschen"
 
@@ -187,7 +219,7 @@ msgid "Deleted"
 msgstr "Gelöscht"
 
 msgid "Scheduled for purge"
-msgstr "Zur Sperrung vorgesehen"
+msgstr "Zur Löschung vorgesehen"
 
 msgid "Empty draft title"
 msgstr "Leerer Entwurfstitel"
@@ -198,8 +230,8 @@ msgstr "Version"
 msgid "Owner"
 msgstr "Besitzer*in"
 
-msgid "Created"
-msgstr "Erstellt"
+msgid "System"
+msgstr "System"
 
 msgid "Files"
 msgstr "Dateien"
@@ -258,9 +290,6 @@ msgstr "Benutzer*in {{name}} wurde gesperrt."
 msgid "Error"
 msgstr "Fehler"
 
-msgid "User"
-msgstr "Benutzer*in"
-
 msgid "Email"
 msgstr "E-Mail"
 
@@ -281,6 +310,12 @@ msgstr "GitHub"
 
 msgid "Updated"
 msgstr "Aktualisiert"
+
+msgid "Drafts"
+msgstr "Entwürfe"
+
+msgid "Moderation"
+msgstr "Moderation"
 
 msgid "Restore"
 msgstr "Wiederherstellen"
@@ -318,13 +353,11 @@ msgstr "Ergebnisse filtern"
 msgid "Search records in community..."
 msgstr "Einträge in dieser Community suchen..."
 
+msgid "results found"
+msgstr "Treffer gefunden"
+
 msgid "Sort by"
 msgstr "Sortieren nach"
-
-msgid " results found"
-msgid_plural " results found"
-msgstr[0] " Ergebnisse gefunden"
-msgstr[1] " Ergebnisse gefunden"
 
 msgid "Search records..."
 msgstr "Einträge suchen..."
@@ -357,7 +390,7 @@ msgid "No publication date found."
 msgstr "Kein Veröffentlichungsdatum gefunden."
 
 msgid "No resource type"
-msgstr "Kein Ressource-Typ"
+msgstr "Kein Ressourcen-Typ"
 
 msgid "No title"
 msgstr "Ohne Titel"
@@ -365,13 +398,21 @@ msgstr "Ohne Titel"
 msgid "Uploaded on {{uploadDate}}"
 msgstr "Hochgeladen am {{uploadDate}}"
 
-msgid "Published in: {{publishInfo}}"
-msgstr "Veröffentlicht in: {{publishInfo}}"
+msgid "Published in: {{- publishInfo }}"
+msgstr "Veröffentlicht in: {{- publishInfo }}"
 
 msgid "{{count}} more versions exist for this record"
 msgid_plural "{{count}} more versions exist for this record"
 msgstr[0] "Es existiert {{count}} weitere Version dieses Eintrags"
 msgstr[1] "Es existieren {{count}} weitere Versionen dieses Eintrags"
+
+msgid "This check is recommended but not mandatory."
+msgstr "Diese Überprüfung wird empfohlen, ist jedoch nicht verpflichtend."
+
+msgid "This check indicates a critical issue that must be addressed."
+msgstr ""
+"Dieser Hinweis weist auf ein kritisches Problem hin, das behoben werden "
+"muss."
 
 msgid "Person"
 msgstr "Person"
@@ -379,8 +420,8 @@ msgstr "Person"
 msgid "The record has no files."
 msgstr "Der Eintrag enthält keine Dateien."
 
-msgid "Creators"
-msgstr "Ersteller*innen"
+msgid "Basic information"
+msgstr "Allgemeine Informationen"
 
 msgid "Recommended information"
 msgstr "Empfohlene Informationen"
@@ -404,7 +445,7 @@ msgid "Alternate identifiers"
 msgstr "Alternative IDs"
 
 msgid "Related works"
-msgstr "Verwandte Arbeiten"
+msgstr "Verknüpfte Arbeiten"
 
 msgid "References"
 msgstr "Referenzen"
@@ -432,13 +473,6 @@ msgstr "Vollständiger Name"
 
 msgid "Request message"
 msgstr "Ihre Nachricht"
-
-msgid ""
-"I agree to that my full name and email address is shared with the owners of "
-"the record"
-msgstr ""
-"Ich stimme zu, dass mein vollständiger Name und meine E-Mail-Adresse mit den"
-" Besitzer*innen des Eintrags geteilt werden."
 
 msgid "Request access"
 msgstr "Zugriff beantragen"
@@ -504,6 +538,9 @@ msgstr "Eintrag verwalten"
 msgid "Manage user"
 msgstr "Benutzer*innen verwalten"
 
+msgid "Block user"
+msgstr "Benutzer*in sperren"
+
 msgid "Remove branding"
 msgstr "Branding entfernen"
 
@@ -541,6 +578,9 @@ msgstr "Stil"
 msgid "This record is not included in any communities yet."
 msgstr "Dieser Eintrag ist noch nicht Teil einer Community."
 
+msgid "Part of"
+msgstr "Teil von"
+
 msgid "Search for community..."
 msgstr "Suche nach Community ..."
 
@@ -565,9 +605,6 @@ msgstr "Version {{- version}}"
 msgid "Preview"
 msgstr "Vorschau"
 
-msgid "Only published versions are displayed."
-msgstr "Es werden nur veröffentlichte Versionen angezeigt."
-
 msgid "An error occurred while fetching the versions."
 msgstr "Es ist ein Fehler aufgetreten, während die Versionen geladen wurden."
 
@@ -576,24 +613,23 @@ msgid_plural "View all {{count}} versions"
 msgstr[0] "Alle {{count}} Versionen ansehen"
 msgstr[1] "Alle {{count}} Versionen ansehen"
 
-msgid ""
-"<0><0>Cite all versions?</0> You can cite all versions by using the DOI "
-"<3></3>. This DOI represents all versions, and will always resolve to the "
-"latest one. <5>Read more</5>.</0>"
-msgstr ""
-"<0><0>Alle Versionen zitieren?</0> Sie können alle Versionen zitieren, indem"
-" Sie die DOI <3></3> verwenden. Diese DOI repräsentiert alle Versionen und "
-"wird immer auf die neueste Version verweisen. <5>Weitere "
-"Informationen</5>.</0>"
+msgid "Cite all versions?"
+msgstr "Alle Versionen zitieren?"
+
+msgid "You can cite all versions by using the DOI"
+msgstr "Sie können alle Versionen durch Angabe des DOI zitieren"
 
 msgid ""
-"<0><0>Cite all versions?</0> You can cite all versions by using the DOI . "
-"The DOI is registered when the first version is published. <4>Read "
-"more</4>.</0>"
+"This DOI represents all versions, and will always resolve to the latest one."
 msgstr ""
-"<0><0>Alle Versionen zitieren?</0> Sie können alle Versionen zitieren, indem"
-" Sie die DOI . Die DOI wird registriert, sobald die erste Version des "
-"Eintrags veröffentlicht wird. <4>Weitere Informationen</4>.</0>"
+"Dieser DOI gilt für alle Versionen und verweist stets auf die aktuellste "
+"Version."
+
+msgid "Read more"
+msgstr "Mehr lesen"
+
+msgid "The DOI is registered when the first version is published."
+msgstr "Der DOI wird bei Veröffentlichung der ersten Version registriert."
 
 msgid "Remove"
 msgstr "Entfernen"
@@ -610,6 +646,18 @@ msgstr ""
 
 msgid "I understand the consequences:"
 msgstr "Ich verstehe die Auswirkungen:"
+
+msgid "Members of the community "
+msgstr "Community-Mitglieder"
+
+msgid " will "
+msgstr "werden"
+
+msgid "lose their access"
+msgstr "ihren Zugriff verlieren"
+
+msgid " to the record."
+msgstr "zu diesem Datensatz."
 
 msgid ""
 "The record can only be re-included in the community by going through a new "
@@ -630,13 +678,6 @@ msgstr "Abbrechen"
 msgid "Confirm removal"
 msgstr "Löschen bestätigen"
 
-msgid ""
-"Members of the community <1>\"<1>{{communityTitle}}</1>\"</1> will <4>lose "
-"their access</4> to the record."
-msgstr ""
-"Mitglieder der Community <1>\"<1>{{communityTitle}}</1>\"</1> werden "
-"<4>keinen Zugriff</4> mehr auf den Eintrag haben."
-
 msgid "Select permissions"
 msgstr "Berechtigungen auswählen"
 
@@ -644,10 +685,10 @@ msgid "Short name for your link (optional)."
 msgstr "Kurzname für Ihren Link (optional)."
 
 msgid "Expiration date format: YYYY-MM-DD"
-msgstr "Format des Ablaufdatums: YYYY-MM-DD"
+msgstr "Format des Ablaufdatums: JJJJ-MM-TT"
 
 msgid "Expiration date: YYYY-MM-DD or never if blank (optional)."
-msgstr "Ablaufdatum: YYYY-MM-DD oder nie, falls leer (optional)."
+msgstr "Ablaufdatum: JJJJ-MM-TT oder nie, falls leer (optional)."
 
 msgid "Create a new link"
 msgstr "Neuen Link erstellen"
@@ -680,19 +721,22 @@ msgstr ""
 msgid "Can preview drafts"
 msgstr "Kann Entwürfe einsehen"
 
-msgid "Can view drafts and restricted files of all versions of this record."
+msgid ""
+"Can view drafts, restricted files, and comment on associated draft requests "
+"of all versions of this record."
 msgstr ""
-"Kann Entwürfe und zugriffsbeschränkte Dateien aller Versionen dieses "
-"Eintrags einsehen."
+"Kann Entwürfe einsehen, eingeschränkte Dateien anzeigen und zugehörige "
+"Entwurfsanfragen für alle Versionen dieses Datensatzes kommentieren."
 
 msgid "Can edit"
 msgstr "Bearbeitungsrechte"
 
 msgid ""
-"Can edit drafts and view restricted files of all versions of this record."
+"Can edit drafts, view restricted files, and comment on associated draft "
+"requests of all versions of this record."
 msgstr ""
-"Kann Entwürfe und zugriffsbeschränkte Dateien aller Versionen dieses "
-"Eintrags bearbeiten."
+"Kann Entwürfe bearbeiten, eingeschränkte Dateien einsehen und zugehörige "
+"Entwurfsanfragen für alle Versionen dieses Datensatzes kommentieren."
 
 msgid ""
 "Can view (view access link can be created only after the record is "
@@ -757,9 +801,6 @@ msgstr ""
 "Suche nach Personen, denen Zugriff gewährt werden soll (nur Personen mit "
 "einem öffentlichen Profil können eingeladen werden)"
 
-msgid "Search by email, full name or username"
-msgstr "Suche anhand von E-Mail, vollständigem Namen oder Kontonamen"
-
 msgid "users"
 msgstr "Benutzer*innen"
 
@@ -782,10 +823,10 @@ msgid "Add"
 msgstr "Hinzufügen"
 
 msgid "Notify people"
-msgstr "User Benachrichtigen"
+msgstr "Benutzer*innen benachrichtigen"
 
 msgid "Notification message"
-msgstr "Benachrichtigungs-Nachricht"
+msgstr "Benachrichtigungs-Text"
 
 msgid "You are about to add"
 msgstr "Sie sind dabei, Folgendes hinzuzufügen"
@@ -797,11 +838,12 @@ msgid "Can manage"
 msgstr "Kann verwalten"
 
 msgid ""
-"Can manage access, edit drafts and view restricted files of all versions of "
-"this record."
+"Can manage access, edit drafts, view restricted files, and comment on "
+"associated draft requests of all versions of this record."
 msgstr ""
-"Kann Zugriffsrechte verwalten, Entwürfe bearbeiten und eingeschränkte "
-"Dateien aller Versionen dieses Eintrags einsehen."
+"Kann den Zugriff verwalten, Entwürfe bearbeiten, eingeschränkte Dateien "
+"einsehen und zugehörige Entwurfsanfragen für alle Versionen dieses "
+"Datensatzes kommentieren."
 
 msgid "You don't have permissions to share this record."
 msgstr "Sie haben nicht die Berechtigung diesen Eintrag zu teilen."
@@ -856,7 +898,7 @@ msgid ""
 "Format: YYYY-MM-DD. Granted access will expire on the given date. Leave "
 "empty to set no expiration limit."
 msgstr ""
-"Format: YYYY-MM-DD. Der Zugriff wird am angegebenen Datum ablaufen. Lassen "
+"Format: JJJJ-MM-TT. Der Zugriff wird am angegebenen Datum ablaufen. Lassen "
 "Sie das Feld leer, um keine Ablaufzeit festzulegen."
 
 msgid "Link expiration date:"
@@ -869,26 +911,43 @@ msgid "Start over"
 msgstr "Neu beginnen"
 
 msgid "ProTip"
-msgstr "ProTipp"
+msgstr "Profi-Tipp"
+
+msgid "will give you all the publications from 2025 until today."
+msgstr "liefert Ihnen alle Publikationen von 2025 bis heute."
+
+msgid "For more tips, check out our "
+msgstr "Weitere Tipps finden Sie in unserem"
 
 msgid "Search guide"
-msgstr "Suchanleitung"
+msgstr "Suchleitfaden"
 
-msgid ""
-"<0>For more tips, check out our <2>search guide</2> for defining advanced "
-"search queries.</0>"
-msgstr ""
-"<0>Weitere Tipps finden Sie in unserer <2>Suchanleitung</2> für erweiterte "
-"Suchanfragen.</0>"
+msgid "search guide"
+msgstr "Suchleitfaden"
+
+msgid "for defining advanced search queries."
+msgstr "für erweiterte Suchanfragen."
+
+msgid "This community has no subcommunities"
+msgstr "Diese Community hat keine untergeordneten Communities"
+
+msgid "Logging in..."
+msgstr "Anmelden ..."
+
+msgid "Logging out..."
+msgstr "Abmelden ..."
 
 msgid "Search in my communities..."
 msgstr "Suche in meinen Communitys"
 
+msgid "My communities"
+msgstr "Meine Communitys"
+
 msgid "View"
 msgstr "Ansicht"
 
-msgid "Published in: {{publishedIn}}"
-msgstr "Veröffentlicht in: {{publishedIn}}"
+msgid "Published in: {{- publishedIn }}"
+msgstr "Veröffentlicht in: {{- publishedIn }}"
 
 msgid "In review"
 msgstr "In Begutachtung"
@@ -926,6 +985,9 @@ msgstr "Neuer Eintrag"
 msgid "Search in my uploads..."
 msgstr "Suche in meinen Uploads..."
 
+msgid "My uploads"
+msgstr "Meine Uploads"
+
 msgid "ORCID profile"
 msgstr "ORCID Profil"
 
@@ -950,17 +1012,200 @@ msgstr "Kein Name"
 msgid "and {{count}} other"
 msgid_plural "and {{count}} other"
 msgstr[0] "und {{count}} andere"
-msgstr[1] "und {{count}} anderer"
+msgstr[1] "und {{count}} andere*r"
 
 msgid "and {{count}} others"
 msgid_plural "and {{count}} others"
 msgstr[0] "und {{count}} andere"
-msgstr[1] "und {{count}} anderer"
+msgstr[1] "und {{count}} andere"
 
-msgctxt ""
-"date:[2017-01-01 TO *]</0> will give you all the publications from 2017 "
-"until today.</0>"
-msgid "<0><0>metadata.publication"
+msgid "Manage roles"
+msgstr "Rollen verwalten"
+
+msgid "User roles were updated."
+msgstr "Benutzer*innenrollen wurden aktualisiert."
+
+msgid "Unable to manage user roles"
+msgstr "Benutzer*innenrollen können nicht verwaltet werden"
+
+msgid "Are you sure you want to update this user's roles?"
 msgstr ""
-"<0><0>metadata.publication_date:[2017-01-01 TO *] </0>liefert als Ergebnis "
-"alle Publikationen von 2017 bis heute zurück.</0>"
+"Möchten Sie die Rollen dieses*dieser Benutzers*Benutzerin wirklich "
+"aktualisieren?"
+
+msgid "Role changes may affect the user's permissions."
+msgstr ""
+"Rollenänderungen können die Berechtigungen des*der Benutzers*Benutzerin "
+"beeinflussen."
+
+msgid "Show unmanaged roles only"
+msgstr "Nur nicht verwaltete Rollen anzeigen"
+
+msgid "Confirm role update"
+msgstr "Rollenaktualisierung bestätigen"
+
+msgid "Update roles"
+msgstr "Rollen aktualisieren"
+
+msgid "Quota of @{{username}} was set to {{quota}} {{unit}}"
+msgstr "Kontingent von @{{username}} wurde auf {{quota}} {{unit}} gesetzt"
+
+msgid "No replies"
+msgstr "Keine Antworten"
+
+msgid "A removal reason is required."
+msgstr "Ein Grund für die Entfernung ist erforderlich."
+
+msgid "User {{name}} was blocked."
+msgstr "Benutzer*in {{name}} wurde blockiert."
+
+msgid "User blocked"
+msgstr "Benutzer*in blockiert"
+
+msgid ""
+"Their records and communities are being tombstoned in the background. This "
+"may take a few minutes to complete."
+msgstr ""
+"Ihre Datensätze und Communitys werden im Hintergrund als gelöscht markiert. "
+"Dies kann einige Minuten dauern."
+
+msgid "View in admin"
+msgstr "In der Verwaltung anzeigen"
+
+msgid "Unable to block user"
+msgstr "Benutzer*in kann nicht blockiert werden"
+
+msgid ""
+"Blocking this user will tombstone their records and communities using the "
+"removal reason below."
+msgstr ""
+"Durch das Blockieren dieses*dieser Benutzers*Benutzerin werden seine "
+"Datensätze und Communitys mit dem unten angegebenen Grund als gelöscht "
+"markiert."
+
+msgid "Verified community"
+msgstr "Verifizierte Community"
+
+msgid "– Unlocked, {{ daysUntil }} days to publish changes"
+msgstr ""
+"– Entsperrt, noch {{ daysUntil }} Tage bis zur Veröffentlichung der "
+"Änderungen"
+
+msgid "It is not possible to delete this record."
+msgstr "Es ist nicht möglich, diesen Datensatz zu löschen."
+
+msgid "View deletion request"
+msgstr "Löschanfrage ansehen"
+
+msgid "Required"
+msgstr "Erforderlich"
+
+msgid "Please write at least 25 characters"
+msgstr "Bitte geben Sie mindestens 25 Zeichen ein"
+
+msgid "Could not submit deletion request"
+msgstr "Löschanfrage konnte nicht übermittelt werden"
+
+msgid "Request deletion"
+msgstr "Löschung anfordern"
+
+msgid "Delete immediately"
+msgstr "Sofort löschen"
+
+msgid "By deleting this record you acknowledge that:"
+msgstr "Durch das Löschen dieses Datensatzes bestätigen Sie, dass:"
+
+msgid "will be deleted."
+msgstr "wird gelöscht."
+
+msgid "The DOI cannot be reused"
+msgstr "Der DOI kann nicht wiederverwendet werden"
+
+msgid ""
+"and the DOI will resolve to a tombstone page with the record's citation "
+"(including title, author/s, publication year and publisher)"
+msgstr ""
+"und der DOI wird auf eine Tombstone-Seite mit der Zitation des Datensatzes "
+"verweisen (einschließlich Titel, Autor/en, Veröffentlichungsjahr und Verlag)"
+
+msgid "A tombstone page with the citation will replace the record page"
+msgstr "Eine Tombstone-Seite mit der Zitation ersetzt die Datensatz-Seite"
+
+msgid "Record deletion checklist:"
+msgstr "Checkliste zur Datensatzlöschung:"
+
+msgid "Yes"
+msgstr "Ja"
+
+msgid "No"
+msgstr "Nein"
+
+msgid "I want to delete this record because:"
+msgstr "Ich möchte diesen Datensatz löschen, weil:"
+
+msgid "Detailed justification:"
+msgstr "Ausführliche Begründung:"
+
+msgid "Your justification will not be shared publicly"
+msgstr "Ihre Begründung wird nicht öffentlich geteilt"
+
+msgid "Unable to request deletion."
+msgstr "Löschung kann nicht angefordert werden."
+
+msgid "Recommendation(s)"
+msgstr "Empfehlung(en)"
+
+msgid "Error(s)"
+msgstr "Fehler"
+
+msgid "Authors/Creators"
+msgstr "Autor*innen/Ersteller*innen"
+
+msgid ""
+"Use the Authors/Creators field for names that should appear in the citation."
+" Use the Contributors field below for other names."
+msgstr ""
+"Verwenden Sie das Feld Autor*innen/Ersteller*innen für Namen, die in der "
+"Zitation erscheinen sollen. Verwenden Sie das Feld Mitwirkende unten für "
+"andere Namen."
+
+msgid ""
+"Contributors are not included in the citation, but are shown on the record "
+"page."
+msgstr ""
+"Mitwirkende werden nicht in der Zitation aufgeführt, aber auf der "
+"Datensatzseite angezeigt."
+
+msgid "Load more search results"
+msgstr "Weitere Suchergebnisse laden"
+
+msgid ""
+"I agree that my full name and email address will be shared with the owners "
+"of the record"
+msgstr ""
+"Ich bin damit einverstanden, dass mein vollständiger Name und meine E-Mail-"
+"Adresse mit den Verantwortlichen des Datensatzes geteilt werden"
+
+msgid "View audit logs"
+msgstr "Audit-Protokolle anzeigen"
+
+msgid "View comments"
+msgstr "Kommentare anzeigen"
+
+msgid "This version of the record has not yet been published."
+msgstr "Diese Version des Datensatzes wurde noch nicht veröffentlicht."
+
+msgid "You don't have permission to remove this community from the record"
+msgstr ""
+"Sie haben keine Berechtigung, diese Community aus dem Datensatz zu entfernen"
+
+msgid "Expiration date: YYYY-MM-DD (required)."
+msgstr "Ablaufdatum: JJJJ-MM-TT (erforderlich)."
+
+msgid "Search by full name, username or email (if publicly visible)"
+msgstr ""
+"Suche nach vollständigem Namen, Benutzernamen oder E-Mail (falls öffentlich "
+"sichtbar)"
+
+msgid "your search"
+msgstr "Ihre Suche"

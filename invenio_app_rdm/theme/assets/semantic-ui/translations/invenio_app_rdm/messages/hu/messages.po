@@ -1,28 +1,54 @@
-# 
 # Translators:
 # Tibor Simko <tibor.simko@cern.ch>, 2021
-# Dorottya Szemigán, 2024
 # Júlia Babos, 2025
 # Dora Szauter, 2025
-# Andrea Dömötör, 2025
-# j k, 2025
-# Zoltán Kanász-Nagy, 2025
+# j k, 2026
+# Dorottya Szemigán, 2026
+# Zoltán Kanász-Nagy, 2026
+# Andrea Dömötör, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-03-27T16:30:16.192Z\n"
+"POT-Creation-Date: 2026-06-22T20:53:26.159Z\n"
 "PO-Revision-Date: 2021-07-14 16:07+0000\n"
-"Last-Translator: Zoltán Kanász-Nagy, 2025\n"
+"Last-Translator: Andrea Dömötör, 2026\n"
 "Language-Team: Hungarian (https://app.transifex.com/inveniosoftware/teams/23537/hu/)\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "mime-version: 1.0\n"
 
-msgid "Basic information"
-msgstr "Alapvető információ"
+msgid "Recent changes"
+msgstr ""
+
+msgid "Audit Log Details"
+msgstr ""
+
+msgid "Resource"
+msgstr "Erőforrás"
+
+msgid "Resource ID"
+msgstr "Erőforrásazonosító"
+
+msgid "Action"
+msgstr "Tevékenység"
+
+msgid "User"
+msgstr "Felhasználó"
+
+msgid "Created"
+msgstr "Létrehozva"
+
+msgid "No revision ID found."
+msgstr ""
+
+msgid "Unable to fetch revisions."
+msgstr ""
+
+msgid "Cancel revision comparison"
+msgstr ""
 
 msgid "Impersonate user"
 msgstr "Felhasználó azonosítása"
@@ -51,12 +77,17 @@ msgstr ""
 "Mielőtt továbblépne, kérjük, olvassa el figyelmesen és hagyja jóvá a "
 "következő pontokat."
 
-msgid "You are about to impersonate user <bold>{{email}}(id: {{id}})</bold>."
+msgid "You are about to impersonate user "
 msgstr ""
-"A <bold>{{email}}(id: {{id}})</bold> felhasználó azonosítása következik."
 
-msgid "You <bold>MUST</bold> logout after completing your inquiry."
-msgstr "A lekérdezés befejezése után ki <bold>KELL</bold> jelentkeznie."
+msgid "You "
+msgstr ""
+
+msgid "MUST"
+msgstr ""
+
+msgid " logout after completing your inquiry."
+msgstr ""
 
 msgid "Close"
 msgstr "Bezárás"
@@ -72,13 +103,8 @@ msgstr "Jegyzet"
 
 msgid ""
 "This is the default quota that will be applied to any NEW records created by"
-" this user – it will NOT update quota of existing records."
+" this user - it will NOT update quota of existing records."
 msgstr ""
-"Ez az alapértelmezett kvóta, amely az adott felhasználó által létrehozott "
-"minden ÚJ rekordra vonatkozik - a meglévő rekordok kvótáját NEM frissíti."
-
-msgid "Quota of {{id}} was set to {{quota}} {{unit}}"
-msgstr " {{id}} kvótája {{quota}} {{unit}}-ra módosult."
 
 msgid "Unable to set quota."
 msgstr "Kvóta beállítása sikertelen."
@@ -155,6 +181,9 @@ msgstr "Linkek"
 msgid "Set quota for record {{recordId}}"
 msgstr "Kvóta beállítása a rekordhoz {{recordId}}"
 
+msgid "Compare revisions"
+msgstr "Változatok összehasonlítása"
+
 msgid "Delete record"
 msgstr "Rekord törlése"
 
@@ -191,8 +220,8 @@ msgstr "verzió"
 msgid "Owner"
 msgstr "Tulajdonos"
 
-msgid "Created"
-msgstr "Létrehozva"
+msgid "System"
+msgstr "Rendszer"
 
 msgid "Files"
 msgstr "Fájlok"
@@ -250,9 +279,6 @@ msgstr "{{name}} felhasználó le lett tiltva."
 msgid "Error"
 msgstr "Hiba"
 
-msgid "User"
-msgstr "Felhasználó"
-
 msgid "Email"
 msgstr "Email"
 
@@ -273,6 +299,12 @@ msgstr "GitHub"
 
 msgid "Updated"
 msgstr "Frissítve"
+
+msgid "Drafts"
+msgstr "Piszkozatok"
+
+msgid "Moderation"
+msgstr "Moderáció"
 
 msgid "Restore"
 msgstr "Visszaállítás"
@@ -310,13 +342,11 @@ msgstr "Találatok szűrése"
 msgid "Search records in community..."
 msgstr "Rekordok keresése a közösségben..."
 
+msgid "results found"
+msgstr "találat"
+
 msgid "Sort by"
 msgstr "Rendezési elv"
-
-msgid " results found"
-msgid_plural " results found"
-msgstr[0] "találat"
-msgstr[1] "találat"
 
 msgid "Search records..."
 msgstr "Rekordok keresése..."
@@ -357,13 +387,19 @@ msgstr "Nincs cím"
 msgid "Uploaded on {{uploadDate}}"
 msgstr "Feltöltve: {{uploadDate}}"
 
-msgid "Published in: {{publishInfo}}"
-msgstr "Publikálva: {{publishInfo}}"
+msgid "Published in: {{- publishInfo }}"
+msgstr ""
 
 msgid "{{count}} more versions exist for this record"
 msgid_plural "{{count}} more versions exist for this record"
 msgstr[0] "{{count}} további verzió érhető el ehhez a rekordhoz"
 msgstr[1] "{{count}} további verzió érhető el ehhez a rekordhoz"
+
+msgid "This check is recommended but not mandatory."
+msgstr ""
+
+msgid "This check indicates a critical issue that must be addressed."
+msgstr ""
 
 msgid "Person"
 msgstr "Személy"
@@ -371,8 +407,8 @@ msgstr "Személy"
 msgid "The record has no files."
 msgstr "A rekordhoz nem tartoznak fájlok. "
 
-msgid "Creators"
-msgstr "Készítők"
+msgid "Basic information"
+msgstr "Alapvető információ"
 
 msgid "Recommended information"
 msgstr "Ajánlott információ"
@@ -424,13 +460,6 @@ msgstr "Teljes név"
 
 msgid "Request message"
 msgstr "Üzenet kérése"
-
-msgid ""
-"I agree to that my full name and email address is shared with the owners of "
-"the record"
-msgstr ""
-"Hozzájárulok, hogy a teljes nevemet és e-mail címemet megosszák a rekord "
-"tulajdonosaival"
 
 msgid "Request access"
 msgstr "Hozzáférés kérése"
@@ -494,6 +523,9 @@ msgstr "Rekord kezelése"
 msgid "Manage user"
 msgstr "Felhasználó kezelése"
 
+msgid "Block user"
+msgstr ""
+
 msgid "Remove branding"
 msgstr "Branding eltávolítása"
 
@@ -530,6 +562,9 @@ msgstr "Stílus"
 msgid "This record is not included in any communities yet."
 msgstr "Ez a rekord még nem szerepel egyetlen közösségben sem."
 
+msgid "Part of"
+msgstr ""
+
 msgid "Search for community..."
 msgstr "Közösség keresése..."
 
@@ -554,9 +589,6 @@ msgstr "{{- version}} verzió"
 msgid "Preview"
 msgstr "Előnézet"
 
-msgid "Only published versions are displayed."
-msgstr "Csak a közzétett verziókat jelenítettük meg."
-
 msgid "An error occurred while fetching the versions."
 msgstr "A verziók lekérdezése során hiba történt."
 
@@ -565,23 +597,21 @@ msgid_plural "View all {{count}} versions"
 msgstr[0] "Mind a(z) {{count}} verzió megtekintése"
 msgstr[1] "Mind a(z) {{count}} verzió megtekintése"
 
-msgid ""
-"<0><0>Cite all versions?</0> You can cite all versions by using the DOI "
-"<3></3>. This DOI represents all versions, and will always resolve to the "
-"latest one. <5>Read more</5>.</0>"
+msgid "Cite all versions?"
 msgstr ""
-"<0><0>Összes változat idézése?</0> Az összes változatot idézheti a "
-"DOI<3></3> használatával. Ez a DOI az összes verziót tartalmazza, és mindig "
-"a legutolsó verzióra fog mutatni.<5> Bővebben</5>.</0>"
+
+msgid "You can cite all versions by using the DOI"
+msgstr ""
 
 msgid ""
-"<0><0>Cite all versions?</0> You can cite all versions by using the DOI . "
-"The DOI is registered when the first version is published. <4>Read "
-"more</4>.</0>"
+"This DOI represents all versions, and will always resolve to the latest one."
 msgstr ""
-"<0><0>Összes változat idézése?</0> Az összes változatot idézheti a DOI "
-"használatával. A DOI-t az első változat közzétételekor regisztrálják. <4> "
-"Bővebben</4>.</0>"
+
+msgid "Read more"
+msgstr "Tudjon meg többet!"
+
+msgid "The DOI is registered when the first version is published."
+msgstr ""
 
 msgid "Remove"
 msgstr "Eltávolítás"
@@ -597,6 +627,18 @@ msgstr "Biztosan el akarja távolítani a rekordot a közösségből?"
 
 msgid "I understand the consequences:"
 msgstr "Megértettem a következményeket:"
+
+msgid "Members of the community "
+msgstr ""
+
+msgid " will "
+msgstr ""
+
+msgid "lose their access"
+msgstr ""
+
+msgid " to the record."
+msgstr ""
 
 msgid ""
 "The record can only be re-included in the community by going through a new "
@@ -616,13 +658,6 @@ msgstr "Mégsem"
 
 msgid "Confirm removal"
 msgstr "Eltávolítás megerősítése"
-
-msgid ""
-"Members of the community <1>\"<1>{{communityTitle}}</1>\"</1> will <4>lose "
-"their access</4> to the record."
-msgstr ""
-"A <1>„<1>{{communityTitle}}</1>”</1> közösség tagjai <4>elveszítik "
-"hozzáférésüket</4> a rekordhoz."
 
 msgid "Select permissions"
 msgstr "Engedélyek kiválasztása"
@@ -666,19 +701,18 @@ msgstr "Megtekintheti a rekord összes verziójának korlátozott fájljait."
 msgid "Can preview drafts"
 msgstr "Előnézet megtekintése vázlatokból"
 
-msgid "Can view drafts and restricted files of all versions of this record."
+msgid ""
+"Can view drafts, restricted files, and comment on associated draft requests "
+"of all versions of this record."
 msgstr ""
-"Megtekintheti a vázlatokat és a rekord összes verziójának korlátozott "
-"fájljait."
 
 msgid "Can edit"
 msgstr "Szerkesztheti"
 
 msgid ""
-"Can edit drafts and view restricted files of all versions of this record."
+"Can edit drafts, view restricted files, and comment on associated draft "
+"requests of all versions of this record."
 msgstr ""
-"Szerkesztheti a vázlatokat, és megtekintheti az összes verzió korlátozott "
-"fájljait."
 
 msgid ""
 "Can view (view access link can be created only after the record is "
@@ -743,9 +777,6 @@ msgstr ""
 "Felhasználók keresése hozzáférés megadásához (csak nyilvános profillal "
 "rendelkező felhasználók hívhatók meg)"
 
-msgid "Search by email, full name or username"
-msgstr "Keresés email, teljes név vagy felhasználónév alapján"
-
 msgid "users"
 msgstr "felhasználók"
 
@@ -783,11 +814,9 @@ msgid "Can manage"
 msgstr "Kezelheti"
 
 msgid ""
-"Can manage access, edit drafts and view restricted files of all versions of "
-"this record."
+"Can manage access, edit drafts, view restricted files, and comment on "
+"associated draft requests of all versions of this record."
 msgstr ""
-"Kezelheti a hozzáférést, szerkesztheti a vázlatokat, és megtekintheti az "
-"összes verzió korlátozott fájljait."
 
 msgid "You don't have permissions to share this record."
 msgstr "Nincs jogosultsága a rekord megosztására."
@@ -856,24 +885,41 @@ msgstr "Újrakezdés"
 msgid "ProTip"
 msgstr "ProTip"
 
+msgid "will give you all the publications from 2025 until today."
+msgstr ""
+
+msgid "For more tips, check out our "
+msgstr "További tippekért keresse fel: "
+
 msgid "Search guide"
 msgstr "Keresési útmutató"
 
-msgid ""
-"<0>For more tips, check out our <2>search guide</2> for defining advanced "
-"search queries.</0>"
+msgid "search guide"
+msgstr "keresési útmutató"
+
+msgid "for defining advanced search queries."
 msgstr ""
-"<0>További tippekért tekintse meg a <2>keresési útmutatónkat</2> az "
-"összetett keresési lekérdezések megadásához.</0>"
+
+msgid "This community has no subcommunities"
+msgstr "Ennek a közösségnek nincs alcsoportja."
+
+msgid "Logging in..."
+msgstr ""
+
+msgid "Logging out..."
+msgstr ""
 
 msgid "Search in my communities..."
 msgstr "Keresés a közösségeimben..."
 
+msgid "My communities"
+msgstr "Közösségeim"
+
 msgid "View"
 msgstr "Megtekintés"
 
-msgid "Published in: {{publishedIn}}"
-msgstr "Publikálva: {{publishedIn}}"
+msgid "Published in: {{- publishedIn }}"
+msgstr ""
 
 msgid "In review"
 msgstr "Bírálás alatt"
@@ -894,7 +940,7 @@ msgid "open"
 msgstr "megnyit"
 
 msgid "Open"
-msgstr "Megnyitás"
+msgstr "Nyílt"
 
 msgid "unlock"
 msgstr "felold"
@@ -910,6 +956,9 @@ msgstr "Új feltöltés"
 
 msgid "Search in my uploads..."
 msgstr "Keresés a feltöltéseim között..."
+
+msgid "My uploads"
+msgstr ""
 
 msgid "ORCID profile"
 msgstr "ORCID profil"
@@ -942,11 +991,170 @@ msgid_plural "and {{count}} others"
 msgstr[0] "és további {{count}}"
 msgstr[1] "és további {{count}}"
 
-msgctxt ""
-"date:[2017-01-01 TO *]</0> will give you all the publications from 2017 "
-"until today.</0>"
-msgid "<0><0>metadata.publication"
+msgid "Manage roles"
 msgstr ""
-"<0><0>metadata.publication_date:[2017-01-01 TO *]</0> lekérdezéssel 2017. "
-"január 1-jétől kezdődően a mai napig bezárólag minden publikáció listázásra "
-"kerül.</0>"
+
+msgid "User roles were updated."
+msgstr ""
+
+msgid "Unable to manage user roles"
+msgstr ""
+
+msgid "Are you sure you want to update this user's roles?"
+msgstr ""
+
+msgid "Role changes may affect the user's permissions."
+msgstr ""
+
+msgid "Show unmanaged roles only"
+msgstr ""
+
+msgid "Confirm role update"
+msgstr ""
+
+msgid "Update roles"
+msgstr ""
+
+msgid "Quota of @{{username}} was set to {{quota}} {{unit}}"
+msgstr ""
+
+msgid "No replies"
+msgstr ""
+
+msgid "A removal reason is required."
+msgstr ""
+
+msgid "User {{name}} was blocked."
+msgstr ""
+
+msgid "User blocked"
+msgstr ""
+
+msgid ""
+"Their records and communities are being tombstoned in the background. This "
+"may take a few minutes to complete."
+msgstr ""
+
+msgid "View in admin"
+msgstr ""
+
+msgid "Unable to block user"
+msgstr ""
+
+msgid ""
+"Blocking this user will tombstone their records and communities using the "
+"removal reason below."
+msgstr ""
+
+msgid "Verified community"
+msgstr "Ellenőrzött közösség"
+
+msgid "– Unlocked, {{ daysUntil }} days to publish changes"
+msgstr ""
+
+msgid "It is not possible to delete this record."
+msgstr ""
+
+msgid "View deletion request"
+msgstr ""
+
+msgid "Required"
+msgstr ""
+
+msgid "Please write at least 25 characters"
+msgstr ""
+
+msgid "Could not submit deletion request"
+msgstr ""
+
+msgid "Request deletion"
+msgstr ""
+
+msgid "Delete immediately"
+msgstr ""
+
+msgid "By deleting this record you acknowledge that:"
+msgstr ""
+
+msgid "will be deleted."
+msgstr ""
+
+msgid "The DOI cannot be reused"
+msgstr ""
+
+msgid ""
+"and the DOI will resolve to a tombstone page with the record's citation "
+"(including title, author/s, publication year and publisher)"
+msgstr ""
+
+msgid "A tombstone page with the citation will replace the record page"
+msgstr ""
+
+msgid "Record deletion checklist:"
+msgstr ""
+
+msgid "Yes"
+msgstr "Igen"
+
+msgid "No"
+msgstr "Nem"
+
+msgid "I want to delete this record because:"
+msgstr ""
+
+msgid "Detailed justification:"
+msgstr ""
+
+msgid "Your justification will not be shared publicly"
+msgstr ""
+
+msgid "Unable to request deletion."
+msgstr ""
+
+msgid "Recommendation(s)"
+msgstr ""
+
+msgid "Error(s)"
+msgstr ""
+
+msgid "Authors/Creators"
+msgstr ""
+
+msgid ""
+"Use the Authors/Creators field for names that should appear in the citation."
+" Use the Contributors field below for other names."
+msgstr ""
+
+msgid ""
+"Contributors are not included in the citation, but are shown on the record "
+"page."
+msgstr ""
+
+msgid "Load more search results"
+msgstr ""
+
+msgid ""
+"I agree that my full name and email address will be shared with the owners "
+"of the record"
+msgstr ""
+
+msgid "View audit logs"
+msgstr ""
+
+msgid "View comments"
+msgstr ""
+
+msgid "This version of the record has not yet been published."
+msgstr ""
+
+msgid "You don't have permission to remove this community from the record"
+msgstr ""
+
+msgid "Expiration date: YYYY-MM-DD (required)."
+msgstr ""
+
+msgid "Search by full name, username or email (if publicly visible)"
+msgstr ""
+
+msgid "your search"
+msgstr "az Ön keresése"
