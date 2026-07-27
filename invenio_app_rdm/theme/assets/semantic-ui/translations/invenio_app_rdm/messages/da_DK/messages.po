@@ -1,21 +1,14 @@
-# Translators:
-# Jiří Kunčar <jiri.kuncar@gmail.com>, 2024
-# Zacharias Zacharodimos <zacharias.zacharodimos@cern.ch>, 2025
-# Fare Fare <fare@polito.it>, 2025
-# Alizee Pace <alizee.pace@gmail.com>, 2025
-# Tibor Simko <tibor.simko@cern.ch>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2026-06-22T20:53:26.159Z\n"
 "PO-Revision-Date: 2021-07-14 16:07+0000\n"
-"Last-Translator: Tibor Simko <tibor.simko@cern.ch>, 2026\n"
-"Language-Team: Italian (https://app.transifex.com/inveniosoftware/teams/23537/it/)\n"
+"Language-Team: Danish (Denmark) (https://app.transifex.com/inveniosoftware/teams/23537/da_DK/)\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: it\n"
-"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+"Language: da_DK\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "mime-version: 1.0\n"
 
 msgid "Recent changes"
@@ -31,13 +24,13 @@ msgid "Resource ID"
 msgstr ""
 
 msgid "Action"
-msgstr "Azione"
+msgstr ""
 
 msgid "User"
-msgstr "Utente"
+msgstr ""
 
 msgid "Created"
-msgstr "Creato"
+msgstr ""
 
 msgid "No revision ID found."
 msgstr ""
@@ -85,7 +78,7 @@ msgid " logout after completing your inquiry."
 msgstr ""
 
 msgid "Close"
-msgstr "Chiudi"
+msgstr ""
 
 msgid "Set Quota"
 msgstr ""
@@ -94,7 +87,7 @@ msgid "Set quota in bytes"
 msgstr ""
 
 msgid "Note"
-msgstr "Nota"
+msgstr ""
 
 msgid ""
 "This is the default quota that will be applied to any NEW records created by"
@@ -144,10 +137,10 @@ msgid "TLD"
 msgstr ""
 
 msgid "Status"
-msgstr "Stato"
+msgstr ""
 
 msgid "New"
-msgstr "Nuovo"
+msgstr ""
 
 msgid "Moderated"
 msgstr ""
@@ -159,10 +152,10 @@ msgid "Blocked"
 msgstr ""
 
 msgid "Users"
-msgstr "Utenti"
+msgstr ""
 
 msgid "Active"
-msgstr "Attivo"
+msgstr ""
 
 msgid "Inactive"
 msgstr ""
@@ -198,10 +191,10 @@ msgid "Are you sure you want to restore #{{id}}"
 msgstr ""
 
 msgid "Published"
-msgstr "Pubblicato"
+msgstr ""
 
 msgid "Deleted"
-msgstr "Eliminato"
+msgstr ""
 
 msgid "Scheduled for purge"
 msgstr ""
@@ -210,16 +203,16 @@ msgid "Empty draft title"
 msgstr ""
 
 msgid "version"
-msgstr "versione"
+msgstr ""
 
 msgid "Owner"
-msgstr "Proprietario"
+msgstr ""
 
 msgid "System"
 msgstr ""
 
 msgid "Files"
-msgstr "File"
+msgstr ""
 
 msgid "Stats"
 msgstr ""
@@ -231,7 +224,7 @@ msgid "Unable to delete"
 msgstr ""
 
 msgid "Public"
-msgstr "Publico"
+msgstr ""
 
 msgid "Hidden"
 msgstr ""
@@ -265,25 +258,25 @@ msgid "User {{name}} is blocked."
 msgstr ""
 
 msgid "Error"
-msgstr "Errore"
+msgstr ""
 
 msgid "Email"
-msgstr "Email"
+msgstr ""
 
 msgid "Email domain"
 msgstr ""
 
 msgid "Actions"
-msgstr "Azioni"
+msgstr ""
 
 msgid "Records"
-msgstr "Record"
+msgstr ""
 
 msgid "Username"
-msgstr "Nome utente"
+msgstr ""
 
 msgid "GitHub"
-msgstr "GitHub"
+msgstr ""
 
 msgid "Updated"
 msgstr ""
@@ -310,13 +303,13 @@ msgid "Suspended"
 msgstr ""
 
 msgid "Approve"
-msgstr "Approva"
+msgstr ""
 
 msgid "Approved"
-msgstr "Approvato"
+msgstr ""
 
 msgid "Activate"
-msgstr "Attivare"
+msgstr ""
 
 msgid "Activated"
 msgstr ""
@@ -340,10 +333,10 @@ msgid "Search records..."
 msgstr ""
 
 msgid "Search"
-msgstr "Cerca"
+msgstr ""
 
 msgid "Views"
-msgstr "Viste"
+msgstr ""
 
 msgid "Downloads"
 msgstr ""
@@ -370,7 +363,7 @@ msgid "No resource type"
 msgstr ""
 
 msgid "No title"
-msgstr "Senza titolo"
+msgstr ""
 
 msgid "Uploaded on {{uploadDate}}"
 msgstr ""
@@ -382,7 +375,6 @@ msgid "{{count}} more versions exist for this record"
 msgid_plural "{{count}} more versions exist for this record"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
 
 msgid "This check is recommended but not mandatory."
 msgstr ""
@@ -412,7 +404,7 @@ msgid "Edit contributor"
 msgstr ""
 
 msgid "Funding"
-msgstr "Finanziamento"
+msgstr ""
 
 msgid "Awards/Grants"
 msgstr ""
@@ -421,10 +413,10 @@ msgid "Alternate identifiers"
 msgstr ""
 
 msgid "Related works"
-msgstr "Lavori correlati"
+msgstr ""
 
 msgid "References"
-msgstr "Riferimenti"
+msgstr ""
 
 msgid "Visibility"
 msgstr ""
@@ -439,13 +431,13 @@ msgid "Your email address"
 msgstr ""
 
 msgid "Email address"
-msgstr "Indirizzo email"
+msgstr ""
 
 msgid "Your full name"
 msgstr ""
 
 msgid "Full name"
-msgstr "Nome e cognome"
+msgstr ""
 
 msgid "Request message"
 msgstr ""
@@ -469,13 +461,12 @@ msgid "An error occurred while fetching communities."
 msgstr ""
 
 msgid "Communities"
-msgstr "Comunità"
+msgstr ""
 
 msgid "View all {{count}} communities"
 msgid_plural "View all {{count}} communities"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
 
 msgid "Submit to community"
 msgstr ""
@@ -490,7 +481,7 @@ msgid "Community management menu dropdown"
 msgstr ""
 
 msgid "Edit"
-msgstr "Modifica"
+msgstr ""
 
 msgid "Export selection"
 msgstr ""
@@ -499,13 +490,13 @@ msgid "Download file"
 msgstr ""
 
 msgid "Export"
-msgstr "Esporta"
+msgstr ""
 
 msgid "Manage"
-msgstr "Gestire"
+msgstr ""
 
 msgid "Manage record"
-msgstr "Gestisci record"
+msgstr ""
 
 msgid "Manage user"
 msgstr ""
@@ -572,7 +563,7 @@ msgid "Version {{- version}}"
 msgstr ""
 
 msgid "Preview"
-msgstr "Anteprima"
+msgstr ""
 
 msgid "An error occurred while fetching the versions."
 msgstr ""
@@ -581,7 +572,6 @@ msgid "View all {{count}} versions"
 msgid_plural "View all {{count}} versions"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
 
 msgid "Cite all versions?"
 msgstr ""
@@ -594,13 +584,13 @@ msgid ""
 msgstr ""
 
 msgid "Read more"
-msgstr "Per saperne di più"
+msgstr ""
 
 msgid "The DOI is registered when the first version is published."
 msgstr ""
 
 msgid "Remove"
-msgstr "Rimuovi"
+msgstr ""
 
 msgid "Remove {{communityTitle}} from this record"
 msgstr ""
@@ -638,7 +628,7 @@ msgid "Cancel removal"
 msgstr ""
 
 msgid "Cancel"
-msgstr "Annulla"
+msgstr ""
 
 msgid "Confirm removal"
 msgstr ""
@@ -668,10 +658,10 @@ msgid "Never"
 msgstr ""
 
 msgid "Access"
-msgstr "Accesso"
+msgstr ""
 
 msgid "Delete"
-msgstr "Cancella"
+msgstr ""
 
 msgid "Copy link"
 msgstr ""
@@ -725,7 +715,7 @@ msgid "Advanced options"
 msgstr ""
 
 msgid "Save"
-msgstr "Memorizza"
+msgstr ""
 
 msgid "No user has access to this record yet."
 msgstr ""
@@ -760,7 +750,7 @@ msgid "Add groups"
 msgstr ""
 
 msgid "Group"
-msgstr "Gruppo"
+msgstr ""
 
 msgid "No selected groups"
 msgstr ""
@@ -772,7 +762,7 @@ msgid "groups"
 msgstr ""
 
 msgid "Add"
-msgstr "Aggiungi"
+msgstr ""
 
 msgid "Notify people"
 msgstr ""
@@ -804,10 +794,10 @@ msgid "People"
 msgstr ""
 
 msgid "Groups"
-msgstr "Gruppi"
+msgstr ""
 
 msgid "Settings"
-msgstr "Impostazioni"
+msgstr ""
 
 msgid "Share access"
 msgstr ""
@@ -887,10 +877,10 @@ msgid "Search in my communities..."
 msgstr ""
 
 msgid "My communities"
-msgstr "Le mie comunità"
+msgstr ""
 
 msgid "View"
-msgstr "Visualizzazione"
+msgstr ""
 
 msgid "Published in: {{- publishedIn }}"
 msgstr ""
@@ -914,7 +904,7 @@ msgid "open"
 msgstr ""
 
 msgid "Open"
-msgstr "Apri"
+msgstr ""
 
 msgid "unlock"
 msgstr ""
@@ -926,7 +916,7 @@ msgid "Make your first upload!"
 msgstr ""
 
 msgid "New upload"
-msgstr "Nuovo caricamento"
+msgstr ""
 
 msgid "Search in my uploads..."
 msgstr ""
@@ -959,13 +949,11 @@ msgid "and {{count}} other"
 msgid_plural "and {{count}} other"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
 
 msgid "and {{count}} others"
 msgid_plural "and {{count}} others"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
 
 msgid "Manage roles"
 msgstr ""
@@ -1070,10 +1058,10 @@ msgid "Record deletion checklist:"
 msgstr ""
 
 msgid "Yes"
-msgstr "Sì"
+msgstr ""
 
 msgid "No"
-msgstr "No"
+msgstr ""
 
 msgid "I want to delete this record because:"
 msgstr ""

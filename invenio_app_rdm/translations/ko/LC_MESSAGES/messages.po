@@ -1,219 +1,315 @@
 # Translations template for invenio-app-rdm.
-# Copyright (C) 2025 CERN
+# Copyright (C) 2026 CERN
 # This file is distributed under the same license as the invenio-app-rdm
 # project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 # 
 # Translators:
-# Minjae Kwon, 2024
+# Minjae Kwon, 2026
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: invenio-app-rdm 12.0.15\n"
+"Project-Id-Version: invenio-app-rdm 14.0.0rc2\n"
 "Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
-"POT-Creation-Date: 2025-03-27 16:30+0000\n"
+"POT-Creation-Date: 2026-06-22 20:53+0000\n"
 "PO-Revision-Date: 2020-07-07 14:12+0000\n"
-"Last-Translator: Minjae Kwon, 2024\n"
+"Last-Translator: Minjae Kwon, 2026\n"
 "Language-Team: Korean (https://app.transifex.com/inveniosoftware/teams/23537/ko/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.17.0\n"
+"Generated-By: Babel 2.18.0\n"
 "Language: ko\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: invenio_app_rdm/config.py:219
+#: invenio_app_rdm/config.py:285
 msgid "The turn-key research data management repository"
-msgstr ""
+msgstr "턴키 연구데이터 관리 리포지토리"
 
-#: invenio_app_rdm/config.py:258
+#: invenio_app_rdm/config.py:324
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/site_footer.html:16
 msgid "InvenioRDM"
-msgstr ""
+msgstr "InvenioRDM"
 
-#: invenio_app_rdm/config.py:353
+#: invenio_app_rdm/config.py:413
 msgid "Welcome to Invenio App RDM!"
-msgstr ""
+msgstr "Invenio App RDM에 오신 것을 환영합니다."
 
-#: invenio_app_rdm/config.py:750
+#: invenio_app_rdm/config.py:825
 msgid "JSON"
-msgstr ""
+msgstr "JSON"
 
-#: invenio_app_rdm/config.py:757
+#: invenio_app_rdm/config.py:832
 msgid "JSON-LD"
-msgstr ""
+msgstr "JSON-LD"
 
-#: invenio_app_rdm/config.py:765
+#: invenio_app_rdm/config.py:840
 msgid "CSL"
-msgstr ""
+msgstr "CSL"
 
-#: invenio_app_rdm/config.py:772
+#: invenio_app_rdm/config.py:847
 msgid "DataCite JSON"
-msgstr ""
+msgstr "DataCite JSON"
 
-#: invenio_app_rdm/config.py:781
+#: invenio_app_rdm/config.py:856
 msgid "DataCite XML"
-msgstr ""
+msgstr "DataCite XML"
 
-#: invenio_app_rdm/config.py:790
+#: invenio_app_rdm/config.py:865
 msgid "Dublin Core XML"
-msgstr ""
+msgstr "Dublin Core XML"
 
-#: invenio_app_rdm/config.py:799
+#: invenio_app_rdm/config.py:874
 msgid "MARCXML"
-msgstr ""
+msgstr "MARCXML"
 
-#: invenio_app_rdm/config.py:806
+#: invenio_app_rdm/config.py:881
 msgid "BibTeX"
-msgstr ""
+msgstr "BibTeX"
 
-#: invenio_app_rdm/config.py:813
+#: invenio_app_rdm/config.py:888
 msgid "GeoJSON"
-msgstr ""
+msgstr "GeoJSON"
 
-#: invenio_app_rdm/config.py:820
+#: invenio_app_rdm/config.py:895
 msgid "DCAT"
-msgstr ""
+msgstr "DCAT"
 
-#: invenio_app_rdm/config.py:827
+#: invenio_app_rdm/config.py:902
 msgid "Codemeta"
-msgstr ""
+msgstr "Codemeta"
 
-#: invenio_app_rdm/config.py:834
+#: invenio_app_rdm/config.py:909
 msgid "Citation File Format"
-msgstr ""
+msgstr "Citation File Format"
 
-#: invenio_app_rdm/config.py:996
+#: invenio_app_rdm/config.py:916
+msgid "Data Package JSON"
+msgstr "Data Package JSON"
+
+#: invenio_app_rdm/config.py:1039
+msgid "Files integrity report"
+msgstr "파일 무결성 보고서"
+
+#: invenio_app_rdm/config.py:1125
 msgid "APA"
-msgstr ""
+msgstr "APA"
 
-#: invenio_app_rdm/config.py:997
+#: invenio_app_rdm/config.py:1126
 msgid "Harvard"
-msgstr ""
+msgstr "Harvard"
 
-#: invenio_app_rdm/config.py:998
+#: invenio_app_rdm/config.py:1127
 msgid "MLA"
-msgstr ""
+msgstr "MLA"
 
-#: invenio_app_rdm/config.py:999
+#: invenio_app_rdm/config.py:1128
 msgid "Vancouver"
-msgstr ""
+msgstr "Vancouver"
 
-#: invenio_app_rdm/config.py:1000
+#: invenio_app_rdm/config.py:1129
 msgid "Chicago"
-msgstr ""
+msgstr "Chicago"
 
-#: invenio_app_rdm/config.py:1001
+#: invenio_app_rdm/config.py:1130
 msgid "IEEE"
-msgstr ""
+msgstr "IEEE"
 
-#: invenio_app_rdm/ext.py:57
+#: invenio_app_rdm/communities_ui/templates/semantic-ui/invenio_communities/details/browse/index.html:41
+#: invenio_app_rdm/config.py:1547
+msgid "Subcommunities"
+msgstr "하위 커뮤니티"
+
+#: invenio_app_rdm/config.py:1572
+msgid "Best match"
+msgstr "가장 적절함"
+
+#: invenio_app_rdm/config.py:1576
+msgid "Newest"
+msgstr "최신순"
+
+#: invenio_app_rdm/config.py:1580
+msgid "Oldest"
+msgstr "오래된순"
+
+#: invenio_app_rdm/config.py:1584
+msgid "Newest activity"
+msgstr "최신 활동순"
+
+#: invenio_app_rdm/config.py:1588
+msgid "Oldest activity"
+msgstr "오래된 활동순"
+
+#: invenio_app_rdm/ext.py:101
 msgid "My dashboard"
-msgstr ""
+msgstr "내 대시보드"
 
-#: invenio_app_rdm/ext.py:63
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/deposit.html:14
+#: invenio_app_rdm/ext.py:107
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/deposit.html:17
 #: invenio_app_rdm/users_ui/templates/semantic-ui/invenio_app_rdm/users/header.html:28
 msgid "New upload"
-msgstr ""
+msgstr "새 업로드"
 
-#: invenio_app_rdm/ext.py:77
+#: invenio_app_rdm/ext.py:121
 #: invenio_app_rdm/users_ui/templates/semantic-ui/invenio_app_rdm/users/uploads.html:8
 msgid "Uploads"
-msgstr ""
+msgstr "업로드"
 
-#: invenio_app_rdm/ext.py:82
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/communities.html:15
+#: invenio_app_rdm/ext.py:126
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/communities.html:16
 #: invenio_app_rdm/users_ui/templates/semantic-ui/invenio_app_rdm/users/communities.html:8
 msgid "Communities"
-msgstr ""
+msgstr "커뮤니티"
 
-#: invenio_app_rdm/ext.py:87
+#: invenio_app_rdm/administration/moderation/requests.py:35
+#: invenio_app_rdm/administration/moderation/requests.py:36
+#: invenio_app_rdm/ext.py:131
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header.html:118
 #: invenio_app_rdm/theme/templates/themes/default/invenio_app_rdm/header.html:117
 #: invenio_app_rdm/users_ui/templates/semantic-ui/invenio_app_rdm/users/requests.html:8
 msgid "Requests"
-msgstr ""
+msgstr "요청"
 
-#: invenio_app_rdm/ext.py:110
+#: invenio_app_rdm/ext.py:154
 msgid "Home"
-msgstr ""
+msgstr "홈"
 
-#: invenio_app_rdm/administration/records/records.py:26
-#: invenio_app_rdm/administration/records/records.py:27
-#: invenio_app_rdm/ext.py:118
+#: invenio_app_rdm/communities_ui/templates/semantic-ui/invenio_communities/collections/collection.html:38
+#: invenio_app_rdm/ext.py:162
+msgid "Browse"
+msgstr "둘러보기"
+
+#: invenio_app_rdm/administration/records/records.py:28
+#: invenio_app_rdm/administration/records/records.py:29
+#: invenio_app_rdm/ext.py:170
 msgid "Records"
-msgstr ""
+msgstr "레코드"
 
-#: invenio_app_rdm/ext.py:125
+#: invenio_app_rdm/ext.py:177
 msgid "Submit"
-msgstr ""
+msgstr "제출"
+
+#: invenio_app_rdm/ext.py:193
+#, python-format
+msgid "%(icon)s Profiler"
+msgstr "%(icon)s 프로파일러"
+
+#: invenio_app_rdm/administration/audit_logs/audit_logs.py:23
+#: invenio_app_rdm/administration/audit_logs/audit_logs.py:24
+msgid "Audit Logs"
+msgstr "감사 로그"
+
+#: invenio_app_rdm/administration/audit_logs/audit_logs.py:25
+msgid "Logs"
+msgstr "로그"
+
+#: invenio_app_rdm/administration/audit_logs/audit_logs.py:39
+msgid "Resource"
+msgstr "리소스"
+
+#: invenio_app_rdm/administration/audit_logs/audit_logs.py:44
+msgid "Resource ID"
+msgstr "리소스 ID"
+
+#: invenio_app_rdm/administration/audit_logs/audit_logs.py:48
+msgid "Action"
+msgstr "작업"
+
+#: invenio_app_rdm/administration/audit_logs/audit_logs.py:52
+#: invenio_app_rdm/administration/user_moderation/user_moderation.py:46
+#: invenio_app_rdm/administration/user_moderation/user_moderation.py:169
+#: invenio_app_rdm/administration/users/users.py:26
+msgid "User"
+msgstr "사용자"
+
+#: invenio_app_rdm/administration/audit_logs/audit_logs.py:56
+#: invenio_app_rdm/administration/domains/domains.py:150
+#: invenio_app_rdm/administration/moderation/requests.py:55
+#: invenio_app_rdm/administration/records/records.py:44
+#: invenio_app_rdm/administration/records/records.py:129
+#: invenio_app_rdm/administration/roles/roles.py:66
+#: invenio_app_rdm/administration/roles/roles.py:84
+#: invenio_app_rdm/administration/user_moderation/user_moderation.py:173
+#: invenio_app_rdm/administration/users/users.py:30
+#: invenio_app_rdm/administration/users/users.py:52
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/technical_metadata.html:10
+msgid "Created"
+msgstr "생성일"
+
+#: invenio_app_rdm/administration/audit_logs/audit_logs.py:63
+msgid "View Log"
+msgstr "로그 보기"
+
+#: invenio_app_rdm/administration/audit_logs/audit_logs.py:68
+msgid "View Changes"
+msgstr "변경 사항 보기"
 
 #: invenio_app_rdm/administration/domains/domains.py:41
 #: invenio_app_rdm/administration/domains/domains.py:42
 msgid "Domains"
-msgstr ""
+msgstr "도메인"
 
 #: invenio_app_rdm/administration/domains/domains.py:43
 msgid "Site management"
-msgstr ""
+msgstr "사이트 관리"
 
 #: invenio_app_rdm/administration/domains/domains.py:47
 #: invenio_app_rdm/administration/domains/domains.py:74
 #: invenio_app_rdm/administration/domains/domains.py:144
 msgid "Domain"
-msgstr ""
+msgstr "도메인"
 
 #: invenio_app_rdm/administration/domains/domains.py:48
 msgid "TLD"
-msgstr ""
+msgstr "TLD"
 
 #: invenio_app_rdm/administration/domains/domains.py:49
 #: invenio_app_rdm/administration/domains/domains.py:80
 #: invenio_app_rdm/administration/domains/domains.py:146
-#: invenio_app_rdm/administration/user_moderation/user_moderation.py:68
-#: invenio_app_rdm/administration/users/users.py:24
-#: invenio_app_rdm/administration/users/users.py:35
+#: invenio_app_rdm/administration/user_moderation/user_moderation.py:69
+#: invenio_app_rdm/administration/users/users.py:29
+#: invenio_app_rdm/administration/users/users.py:40
 #: invenio_app_rdm/theme/templates/themes/default/invenio_app_rdm/site_footer.html:28
 msgid "Status"
 msgstr "상태"
 
 #: invenio_app_rdm/administration/domains/domains.py:50
 #: invenio_app_rdm/administration/domains/domains.py:153
-#: invenio_app_rdm/administration/users/users.py:57
+#: invenio_app_rdm/administration/user_moderation/user_moderation.py:31
+#: invenio_app_rdm/administration/users/users.py:83
 msgid "Users"
-msgstr ""
+msgstr "사용자"
 
 #: invenio_app_rdm/administration/domains/domains.py:51
 #: invenio_app_rdm/administration/domains/domains.py:154
-#: invenio_app_rdm/administration/users/users.py:37
+#: invenio_app_rdm/administration/users/users.py:42
 msgid "Active"
-msgstr ""
+msgstr "활성"
 
 #: invenio_app_rdm/administration/domains/domains.py:52
 #: invenio_app_rdm/administration/domains/domains.py:155
 msgid "Inactive"
-msgstr ""
+msgstr "비활성"
 
 #: invenio_app_rdm/administration/domains/domains.py:53
 #: invenio_app_rdm/administration/domains/domains.py:156
 msgid "Confirmed"
-msgstr ""
+msgstr "확인됨"
 
 #: invenio_app_rdm/administration/domains/domains.py:54
 #: invenio_app_rdm/administration/domains/domains.py:157
 msgid "Verified"
-msgstr ""
+msgstr "인증됨"
 
 #: invenio_app_rdm/administration/domains/domains.py:55
 #: invenio_app_rdm/administration/domains/domains.py:158
 msgid "Blocked"
-msgstr ""
+msgstr "차단됨"
 
 #: invenio_app_rdm/administration/domains/domains.py:75
 msgid "Domain name (all lowercase)"
-msgstr ""
+msgstr "도메인 이름 (모두 소문자)"
 
 #: invenio_app_rdm/administration/domains/domains.py:82
 msgid ""
@@ -221,421 +317,526 @@ msgid ""
 "domain require moderation), verified (users in domain does not require "
 "moderation) or blocked (users cannot register using this domain)."
 msgstr ""
+"도메인의 상태입니다. new(도메인 검토 필요), moderated(도메인 내 사용자 심사 필요), verified(도메인 내 사용자 "
+"심사 불필요), blocked(이 도메인으로 가입 불가) 중 하나입니다."
 
 #: invenio_app_rdm/administration/domains/domains.py:94
 #: invenio_app_rdm/administration/domains/domains.py:147
 msgid "Category"
-msgstr ""
+msgstr "카테고리"
 
 #: invenio_app_rdm/administration/domains/domains.py:95
 msgid "A label to categorise the domain."
-msgstr ""
+msgstr "도메인을 분류하는 레이블입니다."
 
 #: invenio_app_rdm/administration/domains/domains.py:107
 #: invenio_app_rdm/administration/domains/domains.py:148
 msgid "Flagged"
-msgstr ""
+msgstr "신고됨"
 
 #: invenio_app_rdm/administration/domains/domains.py:109
 msgid "Used by automatic processes to flag the domain as requiring review."
-msgstr ""
+msgstr "자동 프로세스가 도메인을 검토 필요로 표시하는 데 사용됩니다."
 
 #: invenio_app_rdm/administration/domains/domains.py:114
 #: invenio_app_rdm/administration/domains/domains.py:149
 msgid "Source of flag"
-msgstr ""
+msgstr "플래그 출처"
 
 #: invenio_app_rdm/administration/domains/domains.py:115
 msgid "Which source flagged the domain."
-msgstr ""
+msgstr "도메인을 플래그한 출처입니다."
 
 #: invenio_app_rdm/administration/domains/domains.py:125
 msgid "Create domain"
-msgstr ""
+msgstr "도메인 만들기"
 
 #: invenio_app_rdm/administration/domains/domains.py:133
 msgid "Edit domain"
-msgstr ""
+msgstr "도메인 수정"
 
 #: invenio_app_rdm/administration/domains/domains.py:141
 msgid "Domain details"
-msgstr ""
+msgstr "도메인 세부 정보"
 
 #: invenio_app_rdm/administration/domains/domains.py:145
 msgid "Top-level domain"
-msgstr ""
-
-#: invenio_app_rdm/administration/domains/domains.py:150
-#: invenio_app_rdm/administration/records/records.py:41
-#: invenio_app_rdm/administration/records/records.py:120
-#: invenio_app_rdm/administration/user_moderation/user_moderation.py:172
-#: invenio_app_rdm/administration/users/users.py:25
-#: invenio_app_rdm/administration/users/users.py:41
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/technical_metadata.html:10
-msgid "Created"
-msgstr ""
+msgstr "최상위 도메인"
 
 #: invenio_app_rdm/administration/domains/domains.py:151
-#: invenio_app_rdm/administration/users/users.py:26
-#: invenio_app_rdm/administration/users/users.py:42
+#: invenio_app_rdm/administration/roles/roles.py:85
+#: invenio_app_rdm/administration/users/users.py:31
+#: invenio_app_rdm/administration/users/users.py:53
 msgid "Updated"
-msgstr ""
+msgstr "수정일"
 
 #: invenio_app_rdm/administration/domains/domains.py:152
 msgid "Organisation"
-msgstr ""
+msgstr "기관"
 
-#: invenio_app_rdm/administration/records/records.py:28
-#: invenio_app_rdm/administration/records/records.py:107
-msgid "Records & files"
-msgstr ""
+#: invenio_app_rdm/administration/moderation/requests.py:37
+#: invenio_app_rdm/administration/user_moderation/user_moderation.py:32
+msgid "Moderation"
+msgstr "심사"
 
-#: invenio_app_rdm/administration/records/records.py:39
-#: invenio_app_rdm/administration/records/records.py:118
-msgid "Title"
-msgstr ""
-
-#: invenio_app_rdm/administration/records/records.py:40
-#: invenio_app_rdm/administration/records/records.py:119
-msgid "Owner"
-msgstr ""
-
+#: invenio_app_rdm/administration/moderation/requests.py:54
 #: invenio_app_rdm/administration/records/records.py:42
-#: invenio_app_rdm/administration/records/records.py:121
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:271
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:276
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:293
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:142
-msgid "Files"
-msgstr ""
+#: invenio_app_rdm/administration/records/records.py:127
+msgid "Title"
+msgstr "제목"
+
+#: invenio_app_rdm/administration/moderation/requests.py:56
+msgid "Last reply"
+msgstr "마지막 답글"
+
+#: invenio_app_rdm/administration/moderation/requests.py:110
+msgid "Request details"
+msgstr "요청 세부 정보"
+
+#: invenio_app_rdm/administration/records/records.py:30
+#: invenio_app_rdm/administration/records/records.py:115
+msgid "Deposits"
+msgstr "등록물"
 
 #: invenio_app_rdm/administration/records/records.py:43
-#: invenio_app_rdm/administration/records/records.py:122
+#: invenio_app_rdm/administration/records/records.py:128
+msgid "Owner"
+msgstr "소유자"
+
+#: invenio_app_rdm/administration/records/records.py:45
+#: invenio_app_rdm/administration/records/records.py:130
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:303
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:309
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:330
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:175
+msgid "Files"
+msgstr "파일"
+
+#: invenio_app_rdm/administration/records/records.py:46
+#: invenio_app_rdm/administration/records/records.py:131
 msgid "Stats"
-msgstr ""
+msgstr "통계"
 
-#: invenio_app_rdm/administration/records/records.py:48
+#: invenio_app_rdm/administration/records/records.py:51
 msgid "Delete record"
-msgstr ""
+msgstr "레코드 제거"
 
-#: invenio_app_rdm/administration/records/records.py:53
+#: invenio_app_rdm/administration/records/records.py:56
 msgid "Restore record"
-msgstr ""
+msgstr "레코드 복원"
 
-#: invenio_app_rdm/administration/records/records.py:105
-#: invenio_app_rdm/administration/records/records.py:106
+#: invenio_app_rdm/administration/records/records.py:61
+msgid "Compare revisions"
+msgstr "리비전 비교"
+
+#: invenio_app_rdm/administration/records/records.py:113
+#: invenio_app_rdm/administration/records/records.py:114
 msgid "Drafts"
-msgstr ""
+msgstr "초안"
 
-#: invenio_app_rdm/administration/records/records.py:127
+#: invenio_app_rdm/administration/records/records.py:136
 msgid "Set quota"
-msgstr ""
+msgstr "할당량 설정"
 
-#: invenio_app_rdm/administration/user_moderation/user_moderation.py:29
+#: invenio_app_rdm/administration/roles/roles.py:55
+#: invenio_app_rdm/administration/roles/roles.py:56
+#: invenio_app_rdm/administration/users/users.py:43
+msgid "Roles"
+msgstr "역할"
+
+#: invenio_app_rdm/administration/roles/roles.py:57
+#: invenio_app_rdm/administration/users/users.py:82
+#: invenio_app_rdm/administration/users/users.py:84
+msgid "User management"
+msgstr "사용자 관리"
+
+#: invenio_app_rdm/administration/roles/roles.py:62
+#: invenio_app_rdm/administration/roles/roles.py:81
+#: invenio_app_rdm/administration/roles/roles.py:99
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:97
+msgid "Name"
+msgstr "이름"
+
+#: invenio_app_rdm/administration/roles/roles.py:63
+#: invenio_app_rdm/administration/roles/roles.py:80
+#: invenio_app_rdm/administration/user_moderation/user_moderation.py:165
+#: invenio_app_rdm/administration/users/users.py:36
+msgid "ID"
+msgstr "ID"
+
+#: invenio_app_rdm/administration/roles/roles.py:64
+#: invenio_app_rdm/administration/roles/roles.py:82
+#: invenio_app_rdm/administration/roles/roles.py:104
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/description.html:15
+msgid "Description"
+msgstr "설명"
+
+#: invenio_app_rdm/administration/roles/roles.py:65
+#: invenio_app_rdm/administration/roles/roles.py:83
+msgid "Managed"
+msgstr "관리"
+
+#: invenio_app_rdm/administration/roles/roles.py:77
+msgid "Role details"
+msgstr "역할 세부 정보"
+
+#: invenio_app_rdm/administration/roles/roles.py:94
+msgid "Create role"
+msgstr "역할 만들기"
+
+#: invenio_app_rdm/administration/roles/roles.py:114
+msgid "Edit role"
+msgstr "역할 수정"
+
+#: invenio_app_rdm/administration/templates/semantic-ui/invenio_app_rdm/administration/requests_details.html:17
+msgid "Request "
+msgstr "요청 "
+
+#: invenio_app_rdm/administration/templates/semantic-ui/invenio_app_rdm/administration/requests_details.html:26
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/community-submission/index.html:38
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/file-modification/index.html:23
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/guest-access-request/index.html:30
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/quota-increase/index.html:23
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/record-deletion/index.html:23
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/subcommunity-invitation/index.html:29
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/subcommunity/index.html:29
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/user-access-request/index.html:22
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/user_dashboard.html:19
+msgid "Back to requests"
+msgstr "요청으로 돌아가기"
+
+#: invenio_app_rdm/administration/templates/semantic-ui/invenio_app_rdm/administration/requests_details.html:34
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/record-deletion/index.html:27
+msgid "Reason:"
+msgstr "사유:"
+
+#: invenio_app_rdm/administration/templates/semantic-ui/invenio_app_rdm/administration/requests_details.html:36
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/record-deletion/index.html:29
+msgid "Justification:"
+msgstr "사유:"
+
 #: invenio_app_rdm/administration/user_moderation/user_moderation.py:30
-#: invenio_app_rdm/administration/user_moderation/user_moderation.py:31
-msgid "Moderation"
-msgstr ""
+msgid "User Moderation"
+msgstr "사용자 심사"
 
-#: invenio_app_rdm/administration/user_moderation/user_moderation.py:45
-#: invenio_app_rdm/administration/user_moderation/user_moderation.py:168
-#: invenio_app_rdm/administration/users/users.py:21
-msgid "User"
-msgstr ""
-
-#: invenio_app_rdm/administration/user_moderation/user_moderation.py:51
-#: invenio_app_rdm/administration/users/users.py:23
-#: invenio_app_rdm/administration/users/users.py:33
+#: invenio_app_rdm/administration/user_moderation/user_moderation.py:52
+#: invenio_app_rdm/administration/users/users.py:28
+#: invenio_app_rdm/administration/users/users.py:38
+#: invenio_app_rdm/administration/users/users.py:58
 msgid "Email"
 msgstr "이메일"
 
-#: invenio_app_rdm/administration/user_moderation/user_moderation.py:57
+#: invenio_app_rdm/administration/user_moderation/user_moderation.py:58
 msgid "Email domain"
-msgstr ""
+msgstr "이메일 도메인"
 
-#: invenio_app_rdm/administration/user_moderation/user_moderation.py:63
+#: invenio_app_rdm/administration/user_moderation/user_moderation.py:64
 msgid "Activity"
-msgstr ""
+msgstr "활동"
 
-#: invenio_app_rdm/administration/user_moderation/user_moderation.py:76
-#: invenio_app_rdm/administration/users/users.py:78
+#: invenio_app_rdm/administration/user_moderation/user_moderation.py:77
+#: invenio_app_rdm/administration/users/users.py:106
 msgid "Approve"
-msgstr ""
+msgstr "승인"
 
-#: invenio_app_rdm/administration/user_moderation/user_moderation.py:81
-#: invenio_app_rdm/administration/users/users.py:88
+#: invenio_app_rdm/administration/user_moderation/user_moderation.py:82
+#: invenio_app_rdm/administration/users/users.py:116
 msgid "Block"
-msgstr ""
+msgstr "차단"
 
-#: invenio_app_rdm/administration/user_moderation/user_moderation.py:141
+#: invenio_app_rdm/administration/user_moderation/user_moderation.py:142
 msgid "User moderation"
-msgstr ""
+msgstr "사용자 심사"
 
-#: invenio_app_rdm/administration/user_moderation/user_moderation.py:164
-#: invenio_app_rdm/administration/users/users.py:31
-msgid "ID"
-msgstr ""
-
-#: invenio_app_rdm/administration/user_moderation/user_moderation.py:173
+#: invenio_app_rdm/administration/user_moderation/user_moderation.py:174
 msgid "Open"
-msgstr ""
+msgstr "열림"
 
-#: invenio_app_rdm/administration/users/users.py:22
-#: invenio_app_rdm/administration/users/users.py:32
+#: invenio_app_rdm/administration/users/users.py:27
+#: invenio_app_rdm/administration/users/users.py:37
+#: invenio_app_rdm/administration/users/users.py:57
 msgid "Username"
-msgstr ""
-
-#: invenio_app_rdm/administration/users/users.py:34
-msgid "Domain "
-msgstr ""
-
-#: invenio_app_rdm/administration/users/users.py:36
-msgid "Visibility"
-msgstr ""
-
-#: invenio_app_rdm/administration/users/users.py:38
-msgid "Confirmed at"
-msgstr ""
+msgstr "사용자 이름"
 
 #: invenio_app_rdm/administration/users/users.py:39
+msgid "Domain "
+msgstr "도메인 "
+
+#: invenio_app_rdm/administration/users/users.py:41
+msgid "Visibility"
+msgstr "공개 범위"
+
+#: invenio_app_rdm/administration/users/users.py:44
+msgid "Confirmed at"
+msgstr "확인 일시"
+
+#: invenio_app_rdm/administration/users/users.py:45
 msgid "Verified at"
-msgstr ""
+msgstr "인증 일시"
 
-#: invenio_app_rdm/administration/users/users.py:40
+#: invenio_app_rdm/administration/users/users.py:46
 msgid "Blocked at"
-msgstr ""
+msgstr "차단 일시"
 
-#: invenio_app_rdm/administration/users/users.py:56
-#: invenio_app_rdm/administration/users/users.py:58
-msgid "User management"
-msgstr ""
+#: invenio_app_rdm/administration/users/users.py:47
+msgid "Current login"
+msgstr "현재 로그인"
 
-#: invenio_app_rdm/administration/users/users.py:83
+#: invenio_app_rdm/administration/users/users.py:48
+msgid "Current login IP"
+msgstr "현재 로그인 IP"
+
+#: invenio_app_rdm/administration/users/users.py:49
+msgid "Last login"
+msgstr "마지막 로그인"
+
+#: invenio_app_rdm/administration/users/users.py:50
+msgid "Last login IP"
+msgstr "마지막 로그인 IP"
+
+#: invenio_app_rdm/administration/users/users.py:51
+msgid "Login count"
+msgstr "로그인 횟수"
+
+#: invenio_app_rdm/administration/users/users.py:111
 msgid "Restore"
-msgstr ""
+msgstr "복원"
 
-#: invenio_app_rdm/administration/users/users.py:93
+#: invenio_app_rdm/administration/users/users.py:121
 msgid "Suspend"
-msgstr ""
+msgstr "정지"
 
-#: invenio_app_rdm/administration/users/users.py:129
+#: invenio_app_rdm/administration/users/users.py:152
 msgid "User details"
-msgstr ""
+msgstr "사용자 세부 정보"
+
+#: invenio_app_rdm/administration/users/users.py:169
+msgid "Create user details"
+msgstr "사용자 세부 정보 만들기"
+
+#: invenio_app_rdm/communities_ui/templates/semantic-ui/invenio_communities/details/browse/index.html:44
+msgid "See all"
+msgstr "모두 보기"
 
 #: invenio_app_rdm/communities_ui/templates/semantic-ui/invenio_communities/records/index.html:12
 msgid "Search "
-msgstr ""
+msgstr "검색 "
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/deposit.html:12
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/deposit.html:15
 msgid "New version"
-msgstr ""
+msgstr "새 버전"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/deposit.html:16
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/deposit.html:19
 msgid "Edit upload"
-msgstr ""
+msgstr "업로드 수정"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:51
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:57
 msgid "Information banner"
-msgstr ""
+msgstr "정보 배너"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:76
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:86
+msgid "Part of"
+msgstr "소속:"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:97
 msgid "Community visibility"
-msgstr ""
+msgstr "커뮤니티 공개 범위"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:77
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:98
 msgid "The community is restricted to users with access."
-msgstr ""
-
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:79
-msgid "Restricted"
-msgstr ""
-
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:96
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:24
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:121
-msgid "Preview"
-msgstr ""
+msgstr "이 커뮤니티는 접근 권한이 있는 사용자로 제한됩니다."
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:100
-msgid "You are previewing a published record."
-msgstr ""
+msgid "Restricted"
+msgstr "제한"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:102
-msgid "You are previewing changes that have not yet been published."
-msgstr ""
-
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:104
-msgid "You are previewing a new record that has not yet been published."
-msgstr ""
-
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:106
-msgid ""
-"You are previewing a new record version that has not yet been published."
-msgstr ""
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:117
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:24
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:154
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_previewer/previewable_zip.html:51
+msgid "Preview"
+msgstr "미리보기"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:121
+msgid "You are previewing a published record."
+msgstr "게시된 레코드를 미리 보고 있습니다."
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:123
+msgid "You are previewing changes that have not yet been published."
+msgstr "아직 게시되지 않은 변경 사항을 미리 보고 있습니다."
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:125
+msgid "You are previewing a new record that has not yet been published."
+msgstr "아직 게시되지 않은 새 레코드를 미리 보고 있습니다."
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:127
+msgid ""
+"You are previewing a new record version that has not yet been published."
+msgstr "아직 게시되지 않은 새 레코드 버전을 미리 보고 있습니다."
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:142
 #, python-format
 msgid ""
 "\n"
 "                    There is a %(link_start)snewer version%(link_end)s of the record\n"
 "                    available.\n"
 "                  "
-msgstr ""
+msgstr "이 레코드의 %(link_start)s최신 버전%(link_end)s이(가) 있습니다."
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:145
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:166
 msgid "Record access information"
-msgstr ""
+msgstr "레코드 접근 정보"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:152
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:309
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:155
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:185
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:173
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:346
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:188
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:218
 msgid "Reason"
-msgstr ""
+msgstr "사유"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:165
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:186
 msgid "Back-navigation"
-msgstr ""
+msgstr "뒤로 이동"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:167
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:188
 msgid "Back to edit"
-msgstr ""
-
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:185
-msgid "Manage record"
-msgstr ""
-
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:201
-msgid "Publication date and version number"
-msgstr ""
-
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:205
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:25
-msgid "Publication date"
-msgstr ""
+msgstr "수정으로 돌아가기"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:206
-msgid "Published"
-msgstr ""
+msgid "Manage record"
+msgstr "레코드 관리"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:209
-#, python-brace-format
-msgid "Version {version_number}"
-msgstr ""
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:221
+msgid "Publication date and version number"
+msgstr "발행일 및 버전 번호"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:216
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:24
-msgid "Resource type"
-msgstr ""
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:225
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:25
+msgid "Publication date"
+msgstr "발행일"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:226
-msgid "Access status"
-msgstr ""
+msgid "Published"
+msgstr "게시됨"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:229
+#, python-brace-format
+msgid "Version {version_number}"
+msgstr "버전 {version_number}"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:248
-msgid "Record title and creators"
-msgstr ""
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:24
+msgid "Resource type"
+msgstr "자원 유형"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:254
-msgid "Creators and contributors"
-msgstr ""
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:258
+msgid "Access status"
+msgstr "접근 상태"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:315
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:280
+msgid "Record title, authors and contributors"
+msgstr "레코드 제목, 저자 및 기여자"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:286
+msgid "Authors and contributors"
+msgstr "저자 및 기여자"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:352
 msgid "Request access"
-msgstr ""
+msgstr "접근 요청"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:317
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:354
 msgid ""
 "If you would like to request access to these files, please fill out the form"
 " below."
-msgstr ""
+msgstr "이 파일에 대한 접근을 요청하려면 아래 양식을 작성하십시오."
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:325
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:362
 msgid ""
 "You need to satisfy these conditions in order for this request to be "
 "accepted:"
-msgstr ""
+msgstr "이 요청이 수락되려면 다음 조건을 충족해야 합니다:"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:350
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:171
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:387
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:204
 msgid "System files"
-msgstr ""
+msgstr "시스템 파일"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:363
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:400
 msgid "Additional record details"
-msgstr ""
+msgstr "추가 레코드 세부 정보"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:377
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:414
 msgid "Record details"
-msgstr ""
+msgstr "레코드 세부 정보"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:394
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:431
 msgid "Jump to top of page"
-msgstr ""
+msgstr "페이지 맨 위로 이동"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:396
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:433
 msgid "Jump up"
-msgstr ""
+msgstr "위로 이동"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/draft_not_found.html:10
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/draft_not_found.html:14
 msgid "Draft not found"
-msgstr ""
+msgstr "초안을 찾을 수 없습니다"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/draft_not_found.html:15
 msgid ""
 "This record has already been published and is not currently being edited, so"
 " no draft exists."
-msgstr ""
+msgstr "이 레코드는 이미 게시되었고 현재 편집 중이 아니므로 초안이 없습니다."
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/draft_not_found.html:16
 msgid "Go to published record"
-msgstr ""
+msgstr "게시된 레코드로 이동"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/export.html:18
 msgid "Back to details"
-msgstr ""
+msgstr "세부 정보로 돌아가기"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/iiif_preview.html:13
 msgid "Preview for"
-msgstr ""
+msgstr "다음의 미리보기:"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/restricted_with_doi_tombstone.html:14
 msgid "Permission required"
-msgstr ""
+msgstr "권한 필요"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/restricted_with_doi_tombstone.html:18
 msgid ""
 "The record was previously accessible to the public but is now restricted to "
 "users with access."
-msgstr ""
+msgstr "이 레코드는 이전에는 공개되었지만 이제 접근 권한이 있는 사용자로 제한됩니다."
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/restricted_with_doi_tombstone.html:20
 msgid ""
 "The Digital Object Identifier (DOI) associated with this record remains "
 "active for reference."
-msgstr ""
+msgstr "이 레코드와 연결된 디지털 객체 식별자(DOI)는 참조를 위해 계속 활성 상태로 유지됩니다."
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/restricted_with_doi_tombstone.html:27
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/tombstone.html:55
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/tombstone.html:60
 msgid "Identifier:"
-msgstr ""
+msgstr "식별자:"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/search.html:8
 msgid "Search results"
-msgstr ""
+msgstr "검색 결과"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/tombstone.html:10
 msgid "Tombstone"
-msgstr ""
+msgstr "삭제된 레코드"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/tombstone.html:11
 msgid "Reason unknown"
-msgstr ""
+msgstr "사유 불명"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/tombstone.html:21
 msgid "Gone"
-msgstr ""
+msgstr "사라짐"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/tombstone.html:26
 #, python-format
@@ -643,719 +844,822 @@ msgid ""
 "\n"
 "      The record you are trying to access was removed from %(sitename)s. The\n"
 "      metadata of the record is kept for archival purposes."
-msgstr ""
+msgstr "접근하려는 레코드가 %(sitename)s에서 제거되었습니다. 레코드의 메타데이터는 보관 목적으로 유지됩니다."
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/tombstone.html:35
 msgid "Reason for removal:"
-msgstr ""
+msgstr "제거 사유:"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/tombstone.html:38
 msgid "Removed by:"
-msgstr ""
+msgstr "제거자:"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/tombstone.html:42
+msgid "Deletion Policy:"
+msgstr "삭제 정책:"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/tombstone.html:47
 msgid "Removal note:"
-msgstr ""
+msgstr "제거 메모:"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/tombstone.html:46
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/tombstone.html:51
 msgid "Date of removal:"
-msgstr ""
+msgstr "제거일:"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/tombstone.html:50
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/tombstone.html:55
 msgid "Citation:"
-msgstr ""
+msgstr "인용:"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/access-form.html:16
 msgid "You are currently not logged in"
-msgstr ""
+msgstr "현재 로그인되어 있지 않습니다"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/access-form.html:16
 msgid "Do you have an account?"
-msgstr ""
+msgstr "계정이 있으신가요?"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/access-form.html:17
 msgid "Log in here"
-msgstr ""
+msgstr "여기에서 로그인"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/access-form.html:22
 msgid "You are logged in as"
-msgstr ""
+msgstr "다음으로 로그인되어 있습니다:"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/access-form.html:30
 msgid "Not you?"
-msgstr ""
+msgstr "본인이 아니신가요?"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/access-form.html:31
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:113
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:145
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:153
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:114
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:117
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:148
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:151
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:158
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:161
 msgid "Log out"
-msgstr ""
+msgstr "로그아웃"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/access-form.html:31
 msgid "to switch account."
-msgstr ""
+msgstr "계정을 전환하려면."
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/contact.html:11
 msgid "Send message"
-msgstr ""
+msgstr "메시지 보내기"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/creatibutors.html:16
-#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/macros/request_header.html:73
-msgid "Creators"
-msgstr ""
+msgid "Authors/Creators"
+msgstr "저자/제작자"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/creatibutors.html:34
 msgid "Contributors"
-msgstr ""
+msgstr "기여자"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/description.html:14
 msgid "Record description"
-msgstr ""
-
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/description.html:15
-msgid "Description"
-msgstr ""
+msgstr "레코드 설명"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:38
 msgid "Additional details"
-msgstr ""
+msgstr "추가 세부 정보"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:55
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:73
 msgid "Additional titles"
-msgstr ""
+msgstr "추가 제목"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:98
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:116
 msgid "Identifiers"
-msgstr ""
+msgstr "식별자"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:141
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:157
 msgid "Related works"
-msgstr ""
+msgstr "관련 자료"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:180
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:198
 msgid "Funding"
-msgstr ""
+msgstr "지원 정보"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:223
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:241
 msgid "Dates"
-msgstr ""
+msgstr "날짜"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:311
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/details.html:327
 msgid "References"
-msgstr ""
+msgstr "참고문헌"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:17
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:55
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:53
 msgid "Views"
-msgstr ""
+msgstr "조회수"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:25
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:75
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:73
 msgid "Downloads"
-msgstr ""
+msgstr "다운로드수"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:36
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:39
-msgid "Show more details"
-msgstr ""
-
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:34
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:37
+msgid "Show more details"
+msgstr "세부 정보 더 보기"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:35
 msgid "Show less details"
-msgstr ""
+msgstr "세부 정보 간략히 보기"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:48
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:70
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:90
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:112
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:46
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:68
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:88
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:110
 msgid "All versions"
-msgstr ""
+msgstr "모든 버전"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:49
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:71
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:91
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:113
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:47
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:69
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:89
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:111
 msgid "This version"
-msgstr ""
+msgstr "이 버전"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:62
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:82
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:102
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:60
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:80
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:100
 msgid "More info"
-msgstr ""
+msgstr "자세히 보기"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:67
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:65
 msgid "Total views"
-msgstr ""
+msgstr "총 조회수"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:87
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:85
 msgid "Total downloads"
-msgstr ""
+msgstr "총 다운로드수"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:95
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:93
 msgid "Data volume"
-msgstr ""
+msgstr "데이터 용량"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:107
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:105
 msgid "Total data volume"
-msgstr ""
+msgstr "총 데이터 용량"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:119
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/stats.html:117
 msgid "More info on how stats are collected."
-msgstr ""
+msgstr "통계 수집 방법에 대한 자세한 정보입니다."
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/subjects.html:15
 msgid "Keywords"
-msgstr ""
+msgstr "키워드"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/subjects.html:22
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/subjects.html:39
 msgid "Search results for "
-msgstr ""
+msgstr "다음에 대한 검색 결과: "
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/citations.html:2
 msgid "Citation"
-msgstr ""
+msgstr "인용"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:17
 msgid "Details"
-msgstr ""
+msgstr "세부 정보"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:26
 msgid "Publisher"
-msgstr ""
+msgstr "발행처"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:27
 msgid "Published in"
-msgstr ""
+msgstr "게재"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:28
 msgid "Imprint"
-msgstr ""
+msgstr "출판 정보"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:29
-msgid "Awarding university"
-msgstr ""
+msgid "Thesis"
+msgstr "학위 논문"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:30
 msgid "Conference"
-msgstr ""
+msgstr "컨퍼런스"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:31
 msgid "Languages"
-msgstr ""
+msgstr "언어"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:32
 msgid "Formats"
-msgstr ""
+msgstr "형식"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/details.html:33
 msgid "Sizes"
-msgstr ""
+msgstr "크기"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/export.html:14
 msgid "Export"
-msgstr ""
+msgstr "내보내기"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/external_resources.html:9
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/external_resources.html:10
 msgid "External resources"
-msgstr ""
+msgstr "외부 자원"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/keywords_subjects.html:13
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/keywords_subjects.html:14
 msgid "Keywords and subjects"
-msgstr ""
+msgstr "키워드 및 주제"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/licenses.html:14
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/licenses.html:16
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:162
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:191
-#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/macros/request_header.html:61
-#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/user-access-request/index.html:43
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/licenses.html:15
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/licenses.html:18
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:168
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:199
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/macros/request_header.html:81
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/user-access-request/index.html:35
 msgid "Opens in new tab"
-msgstr ""
+msgstr "새 탭에서 열림"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/licenses.html:14
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/licenses.html:16
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/licenses.html:15
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/licenses.html:18
 msgid "Read more"
-msgstr ""
+msgstr "자세히 보기"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/licenses.html:23
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/licenses.html:26
 msgid "Rights"
-msgstr ""
+msgstr "이용 권리"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/licenses.html:54
-msgid "Close"
-msgstr ""
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/licenses.html:30
+msgid "License"
+msgstr "라이선스"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/licenses.html:58
+msgid "Close"
+msgstr "닫기"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/licenses.html:61
 msgid "No further description."
-msgstr ""
+msgstr "추가 설명이 없습니다."
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/licenses.html:70
+msgid "Copyright"
+msgstr "저작권"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/locations.html:14
 msgid "Geographic locations"
-msgstr ""
+msgstr "지리적 위치"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/manage_menu.html:10
 msgid "Record management"
-msgstr ""
+msgstr "레코드 관리"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/metrics.html:12
 msgid "Metrics"
-msgstr ""
+msgstr "지표"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/technical_metadata.html:5
 msgid "Upload information"
-msgstr ""
+msgstr "업로드 정보"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/technical_metadata.html:8
 msgid "Technical metadata"
-msgstr ""
+msgstr "기술 메타데이터"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/technical_metadata.html:15
 msgid "Modified"
-msgstr ""
+msgstr "수정일"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/details/side_bar/versions.html:12
 msgid "Versions"
-msgstr ""
+msgstr "버전"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:17
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:22
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:27
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:88
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:89
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:20
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:21
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:97
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:98
 msgid "profile"
-msgstr ""
+msgstr "프로필"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:71
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:75
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:76
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:80
 msgid "Show affiliations"
-msgstr ""
+msgstr "소속 표시"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:72
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:77
 msgid "Hide affiliations"
-msgstr ""
+msgstr "소속 숨기기"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:79
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/creatibutors.html:84
 msgid "Affiliations for"
-msgstr ""
+msgstr "다음의 소속:"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:119
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:68
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:71
+msgid "Missing description type!"
+msgstr "설명 유형이 없습니다."
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:91
+msgid "Unknown date type"
+msgstr "알 수 없는 날짜 유형"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:131
 msgid "Open external link"
-msgstr ""
+msgstr "외부 링크 열기"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:297
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/detail.html:387
 msgid "Conference website"
-msgstr ""
+msgstr "컨퍼런스 웹사이트"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/doi.html:9
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/doi.html:24
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/doi.html:10
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/doi.html:26
+#: invenio_app_rdm/records_ui/views/deposits.py:114
 msgid "DOI"
-msgstr ""
+msgstr "DOI"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/doi.html:15
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/doi.html:17
 msgid "Get the DOI badge!"
-msgstr ""
+msgstr "DOI 배지 받기."
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/doi.html:21
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/doi.html:23
 msgid "DOI Badge"
-msgstr ""
+msgstr "DOI 배지"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:44
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:51
 msgid "File preview"
+msgstr "파일 미리보기"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:66
+msgid "This file cannot be previewed"
+msgstr "이 파일은 미리 볼 수 없습니다"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:69
+msgid ""
+"This file is an external reference and not stored directly in this repository.\n"
+"To access its content, please download it and open it locally."
 msgstr ""
+"이 파일은 외부 참조이며 이 리포지토리에 직접 저장되어 있지 않습니다.\n"
+"내용에 접근하려면 다운로드하여 로컬에서 여십시오."
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:76
-msgid "Name"
-msgstr "이름"
-
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:77
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:98
 msgid "Size"
-msgstr ""
+msgstr "크기"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:82
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:106
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_previewer/previewable_zip.html:74
 msgid "Download all"
-msgstr ""
+msgstr "모두 다운로드"
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:111
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:142
+msgid "Checksum not yet calculated."
+msgstr "체크섬이 아직 계산되지 않았습니다."
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:143
 msgid ""
 "This is the file fingerprint (checksum), which can be used to verify the "
 "file integrity."
-msgstr ""
+msgstr "이것은 파일 지문(체크섬)으로, 파일 무결성을 확인하는 데 사용할 수 있습니다."
 
-#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:125
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:149
+msgid "N/A (external)"
+msgstr "해당 없음 (외부)"
+
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/files.html:158
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_previewer/previewable_zip.html:56
 msgid "Download"
-msgstr ""
+msgstr "다운로드"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/locations.html:55
 msgid "Unknown"
-msgstr ""
+msgstr "알 수 없음"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/stats_popup.html:9
 msgid "See the full number"
-msgstr ""
+msgstr "전체 숫자 보기"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/version.html:13
 msgid "Version"
-msgstr ""
+msgstr "버전"
 
 #: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/macros/version.html:14
 msgid "No DOI available"
-msgstr ""
+msgstr "사용할 수 있는 DOI가 없습니다"
 
-#: invenio_app_rdm/records_ui/views/deposits.py:71
+#: invenio_app_rdm/records_ui/views/deposits.py:113
+msgid "Digital Object Identifier"
+msgstr "디지털 객체 식별자"
+
+#: invenio_app_rdm/records_ui/views/deposits.py:115
+msgid "Copy/paste your existing DOI here..."
+msgstr "기존 DOI를 여기에 복사/붙여넣기하십시오..."
+
+#: invenio_app_rdm/records_ui/views/deposits.py:119
 #, python-format
 msgid "Discard the reserved %(scheme_label)s."
-msgstr ""
+msgstr "예약된 %(scheme_label)s을(를) 취소합니다."
 
-#: invenio_app_rdm/records_ui/views/deposits.py:74
+#: invenio_app_rdm/records_ui/views/deposits.py:122
 #, python-format
 msgid "Get a %(scheme_label)s now!"
-msgstr ""
+msgstr "지금 %(scheme_label)s 받기."
 
-#: invenio_app_rdm/records_ui/views/deposits.py:77
+#: invenio_app_rdm/records_ui/views/deposits.py:125
 #, python-format
 msgid ""
 "Reserve a %(scheme_label)s by pressing the button (so it can be included in "
 "files prior to upload). The %(scheme_label)s is registered when your upload "
 "is published."
 msgstr ""
+"버튼을 눌러 %(scheme_label)s을(를) 예약하십시오(업로드 전 파일에 포함할 수 있도록). "
+"%(scheme_label)s은(는) 업로드가 게시될 때 등록됩니다."
 
-#: invenio_app_rdm/records_ui/views/deposits.py:83
+#: invenio_app_rdm/records_ui/views/deposits.py:131
 #, python-format
 msgid ""
 "A %(scheme_label)s allows your upload to be easily and unambiguously cited. "
 "Example: 10.1234/foo.bar"
-msgstr ""
+msgstr "%(scheme_label)s을(를) 사용하면 업로드를 쉽고 명확하게 인용할 수 있습니다. 예: 10.1234/foo.bar"
 
-#: invenio_app_rdm/records_ui/views/deposits.py:197
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/searchbar.html:11
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/searchbar.html:19
+#: invenio_app_rdm/records_ui/views/deposits.py:246
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/searchbar.html:18
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/searchbar.html:31
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/searchbar.html:40
 msgid "All"
-msgstr ""
+msgstr "전체"
+
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/user_dashboard.html:28
+msgid "View Community"
+msgstr "커뮤니티 보기"
 
 #: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/community-invitation/community_dashboard.html:21
 msgid "Back to invitations"
-msgstr ""
+msgstr "초대로 돌아가기"
 
-#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/community-invitation/user_dashboard.html:19
-#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/community-submission/index.html:31
-#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/guest-access-request/index.html:34
-#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/user-access-request/index.html:28
-msgid "Back to requests"
-msgstr ""
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/community-membership-request/community_dashboard.html:22
+msgid "Back to membership requests"
+msgstr "가입 요청으로 돌아가기"
 
-#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/community-submission/index.html:52
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/community-submission/index.html:59
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/file-modification/index.html:44
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/quota-increase/index.html:48
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/record-deletion/index.html:51
 msgid "Conversation"
-msgstr ""
+msgstr "대화"
 
-#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/community-submission/index.html:64
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/community-submission/index.html:71
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/file-modification/index.html:56
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/quota-increase/index.html:60
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/record-deletion/index.html:63
 msgid "Record"
-msgstr ""
+msgstr "레코드"
 
-#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/guest-access-request/index.html:13
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/community-submission/index.html:84
+msgid "Checks"
+msgstr "검사"
+
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/guest-access-request/index.html:17
 msgid "Access request"
-msgstr ""
+msgstr "접근 요청"
 
-#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/macros/request_header.html:25
-msgid "View Community"
-msgstr ""
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/guest-access-request/index.html:35
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/guest-access-request/index.html:51
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/user-access-request/index.html:27
+msgid "Access level:"
+msgstr "접근 수준:"
 
-#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/macros/request_header.html:63
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/macros/request_header.html:83
 msgid "View record"
-msgstr ""
+msgstr "레코드 보기"
 
-#: invenio_app_rdm/theme/views.py:132
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/macros/request_header.html:93
+msgid "Creators"
+msgstr "제작자"
+
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/quota-increase/index.html:27
+msgid "Quota size:"
+msgstr "할당량 크기:"
+
+#: invenio_app_rdm/requests_ui/templates/semantic-ui/invenio_requests/user-access-request/index.html:31
+msgid "Record:"
+msgstr "레코드:"
+
+#: invenio_app_rdm/theme/views.py:128
 msgid "Notification preferences were updated."
-msgstr ""
+msgstr "알림 환경설정이 업데이트되었습니다."
+
+#: invenio_app_rdm/theme/templates/semantic-ui/flask_multiprofiler/index.html:13
+msgid "Profiler"
+msgstr "프로파일러"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:18
 msgid "About InvenioRDM"
-msgstr ""
+msgstr "InvenioRDM 소개"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:19
 msgid "Product page"
-msgstr ""
+msgstr "제품 페이지"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:20
 msgid "Features"
-msgstr ""
+msgstr "기능"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:21
 msgid "Roadmap"
-msgstr ""
+msgstr "로드맵"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:22
 msgid "Demo site"
-msgstr ""
+msgstr "데모 사이트"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:25
 msgid "Get involved"
-msgstr ""
+msgstr "참여하기"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:26
 msgid "GitHub"
-msgstr ""
+msgstr "GitHub"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:27
 msgid "Project Milestones"
-msgstr ""
+msgstr "프로젝트 마일스톤"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:28
 msgid "Documentation"
-msgstr ""
+msgstr "문서"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:31
 msgid "Community"
-msgstr ""
+msgstr "커뮤니티"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:32
 msgid "Chatroom"
-msgstr ""
+msgstr "채팅방"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:33
 msgid "Forum"
-msgstr ""
+msgstr "포럼"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/footer.html:34
 msgid "Events & training"
-msgstr ""
+msgstr "행사 및 교육"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header.html:19
 msgid "Impersonated session"
-msgstr ""
+msgstr "가장 세션"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header.html:21
 msgid "You must logout after you finish with you inquiry!"
-msgstr ""
+msgstr "조회를 마친 후 반드시 로그아웃해야 합니다."
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header.html:38
 #: invenio_app_rdm/theme/templates/themes/default/invenio_app_rdm/header.html:37
 msgid "home"
-msgstr ""
+msgstr "홈"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header.html:51
 #: invenio_app_rdm/theme/templates/themes/default/invenio_app_rdm/header.html:50
 msgid "Menu"
-msgstr ""
+msgstr "메뉴"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header.html:68
 #: invenio_app_rdm/theme/templates/themes/default/invenio_app_rdm/header.html:67
 msgid "Close menu"
-msgstr ""
+msgstr "메뉴 닫기"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header.html:120
 #: invenio_app_rdm/theme/templates/themes/default/invenio_app_rdm/header.html:120
 msgid "Inbox"
-msgstr ""
+msgstr "받은편지함"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_frontpage.html:36
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_frontpage.html:37
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/searchbar.html:58
 msgid "Search"
 msgstr "검색"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:18
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:16
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:19
 msgid "Log in"
 msgstr "로그인"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:22
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:24
 msgid "Sign up"
 msgstr "가입"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:39
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:41
 msgid "Quick create"
-msgstr ""
+msgstr "빠른 생성"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:56
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:58
 msgid "Actions"
-msgstr ""
+msgstr "작업"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:77
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:120
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:79
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/header_login.html:124
 msgid "My account"
-msgstr ""
+msgstr "내 계정"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:12
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:13
 msgid "You've successfully installed InvenioRDM!"
-msgstr ""
+msgstr "InvenioRDM을 성공적으로 설치했습니다."
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:14
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:15
 msgid "What is ahead?"
-msgstr ""
+msgstr "다음은 무엇인가요?"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:24
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:25
 msgid "Configure"
-msgstr ""
+msgstr "구성"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:27
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:28
 msgid ""
 "Configure the datamodel, resource types, permissions and much more to make "
 "it suit your needs! For more information on how to do it visit the"
-msgstr ""
+msgstr "데이터 모델, 자원 유형, 권한 등을 구성하여 필요에 맞게 조정하십시오. 방법에 대한 자세한 내용은 다음을 참조하십시오:"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:29
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:30
 msgid "configuration section in the docs"
-msgstr ""
+msgstr "문서의 구성 섹션"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:41
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:42
 msgid "Customize"
-msgstr ""
+msgstr "사용자 지정"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:44
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:45
 msgid ""
 "Customize the layout and adapt the styling to match your institution's. See "
 "how to do so"
-msgstr ""
+msgstr "레이아웃을 사용자 지정하고 스타일을 기관에 맞게 조정하십시오. 방법은 다음 링크를 참조하십시오:"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:46
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:47
 msgid "here"
-msgstr ""
+msgstr "링크"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:57
-msgid "Run it!"
-msgstr ""
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:58
+msgid "Use it!"
+msgstr "사용해 보세요."
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:59
-msgid "Run your InvenioRDM instance locally or in containers."
-msgstr ""
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:60
+msgid "Use and explore your InvenioRDM instance."
+msgstr "InvenioRDM 인스턴스를 사용하고 탐색하십시오."
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:61
-msgid "Run"
-msgstr ""
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:62
+msgid "Use"
+msgstr "사용"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:75
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:76
 msgid "Docs"
-msgstr ""
+msgstr "문서"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:84
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:85
 msgid "Code"
-msgstr ""
+msgstr "코드"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:91
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:92
 msgid "To disable this section, add"
-msgstr ""
+msgstr "이 섹션을 비활성화하려면 다음 파일에 추가하십시오:"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:93
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/intro_section.html:94
 msgid "to your invenio.cfg file."
-msgstr ""
+msgstr "invenio.cfg"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/searchbar.html:6
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/searchbar.html:8
+msgid "In this collection"
+msgstr "이 컬렉션에서"
+
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/searchbar.html:13
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/searchbar.html:26
 msgid "In this community"
-msgstr ""
+msgstr "이 커뮤니티에서"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/searchbar.html:30
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/searchbar.html:31
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/searchbar.html:51
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/searchbar.html:52
 msgid "Search records"
-msgstr ""
+msgstr "레코드 검색"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/site_footer.html:15
 #: invenio_app_rdm/theme/templates/themes/default/invenio_app_rdm/site_footer.html:15
 msgid "Powered by"
-msgstr ""
+msgstr "제공:"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/files_integrity_report/email/files_integrity_report.html:13
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/files_integrity_report/email/files_integrity_report.html:12
 msgid ""
 "The following files were flagged as 'unhealthy'. This means that the "
 "checksum check failed or timed out. Please take any action if needed."
 msgstr ""
+"다음 파일이 '비정상'으로 표시되었습니다. 이는 체크섬 검사가 실패했거나 시간 초과되었음을 의미합니다. 필요하면 조치를 취하십시오."
+
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/files_integrity_report/email/files_integrity_report.html:15
+#, python-brace-format
+msgid "ID: {}"
+msgstr "ID: {}"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/files_integrity_report/email/files_integrity_report.html:16
-#, python-format
-msgid "ID: %s"
-msgstr ""
+#, python-brace-format
+msgid "URI: {}"
+msgstr "URI: {}"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/files_integrity_report/email/files_integrity_report.html:17
-#, python-format
-msgid "URI: %s"
-msgstr ""
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/files_integrity_report/email/files_integrity_report.html:18
+#, python-brace-format
+msgid "Name: {}"
+msgstr "이름: {}"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/files_integrity_report/email/files_integrity_report.html:19
-#, python-format
-msgid "Name: %s"
-msgstr ""
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/files_integrity_report/email/files_integrity_report.html:20
+#, python-brace-format
+msgid "Created: {}"
+msgstr "생성: {}"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/files_integrity_report/email/files_integrity_report.html:21
-#, python-format
-msgid "Created: %s"
-msgstr ""
+#, python-brace-format
+msgid "Checksum: {}"
+msgstr "체크섬: {}"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/files_integrity_report/email/files_integrity_report.html:22
-#, python-format
-msgid "Checksum: %s"
-msgstr ""
+#, python-brace-format
+msgid "Last check date: {}"
+msgstr "마지막 검사일: {}"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/files_integrity_report/email/files_integrity_report.html:23
-#, python-format
-msgid "Last check date: %s"
-msgstr ""
+#, python-brace-format
+msgid "Last check FAILED with result: {}"
+msgstr "마지막 검사가 실패했습니다. 결과: {}"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/files_integrity_report/email/files_integrity_report.html:24
-#, python-format
-msgid "Last check FAILED with result: %s"
-msgstr ""
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/files_integrity_report/email/files_integrity_report.html:25
+#, python-brace-format
+msgid "Record: {}"
+msgstr "레코드: {}"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/files_integrity_report/email/files_integrity_report.html:26
-#, python-format
-msgid "Record: %s/records/%s"
-msgstr ""
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/files_integrity_report/email/files_integrity_report.html:28
+#, python-brace-format
+msgid "Draft: {}"
+msgstr "초안: {}"
 
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/files_integrity_report/email/files_integrity_report.html:29
-#, python-format
-msgid "Draft: %s/uploads/%s"
-msgstr ""
-
-#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/help/search.de.html:9
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/help/search.de.html:10
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/help/search.en.html:8
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/help/search.sv.html:8
 msgid "Search guide"
-msgstr ""
+msgstr "검색 가이드"
 
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/help/statistics.de.html:9
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/help/statistics.en.html:8
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/help/statistics.sv.html:8
 msgid "FAQ statistics"
-msgstr ""
+msgstr "FAQ 통계"
 
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/help/versioning.de.html:9
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/help/versioning.en.html:8
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/help/versioning.sv.html:8
 msgid "FAQ versioning"
-msgstr ""
+msgstr "FAQ 버전 관리"
 
 #: invenio_app_rdm/theme/templates/semantic-ui/invenio_app_rdm/macros/records_list.html:10
 msgid "Recent uploads"
-msgstr ""
+msgstr "최근 업로드"
+
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_previewer/latest_record.html:13
+#, python-format
+msgid ""
+"\n"
+"        You are viewing a file from an older version of this record. %(link_start)sView latest record%(link_end)s.\n"
+"      "
+msgstr "이 레코드의 이전 버전 파일을 보고 있습니다. %(link_start)s최신 레코드 보기%(link_end)s."
+
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_previewer/previewable_zip.html:24
+msgid "Full screen"
+msgstr "전체 화면"
+
+#: invenio_app_rdm/theme/templates/semantic-ui/invenio_previewer/previewable_zip.html:30
+msgid "The previewer is not showing all the files."
+msgstr "미리보기에 모든 파일이 표시되지 않습니다."
 
 #: invenio_app_rdm/theme/templates/themes/default/invenio_app_rdm/site_footer.html:22
 msgid "Verified community"
-msgstr ""
+msgstr "인증된 커뮤니티"
 
 #: invenio_app_rdm/theme/templates/themes/default/invenio_app_rdm/site_footer.html:29
 msgid "Privacy policy"
-msgstr ""
+msgstr "개인정보 처리방침"
 
 #: invenio_app_rdm/theme/templates/themes/default/invenio_app_rdm/site_footer.html:30
 msgid "Terms of use"
-msgstr ""
+msgstr "이용약관"
 
 #: invenio_app_rdm/theme/templates/themes/default/invenio_app_rdm/site_footer.html:31
 msgid "Support"
-msgstr ""
+msgstr "지원"
 
 #: invenio_app_rdm/users_ui/templates/semantic-ui/invenio_app_rdm/users/header.html:18
 msgid "Your dashboard"
-msgstr ""
+msgstr "내 대시보드"
 
 #: invenio_app_rdm/users_ui/templates/semantic-ui/invenio_app_rdm/users/header.html:18
 msgid "Anonymous user"
-msgstr ""
+msgstr "익명 사용자"
 
 #: invenio_app_rdm/users_ui/templates/semantic-ui/invenio_app_rdm/users/header.html:35
 msgid "New community"
-msgstr ""
+msgstr "새 커뮤니티"
