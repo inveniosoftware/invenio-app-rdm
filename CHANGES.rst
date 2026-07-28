@@ -8,6 +8,21 @@
 Changes
 =======
 
+Version v14.0.0rc3 (released 2026-07-28)
+
+- fix(build): include mo files
+- i18n: pulled translations
+- chore(v14/migration): restructure script
+- config: fix citation styles for Vancouver and Chicago with csl 1.0.2
+- fix: unify command with documentation
+- fix: adding server default for system_created
+- fix: migration step for removal of user_id column from the transaction table
+- chore(setup): migrate from setuptools to hatchling
+- chore(licenses): update license headers to use SPDX
+- fix: admin role ui (#3503)
+- chore(migration): add request parent for commenting
+- chore(migration): replace print with secho
+
 Version v14.0.0rc2 (released 2026-06-13)
 
 - chore(setup): bump dependencies
