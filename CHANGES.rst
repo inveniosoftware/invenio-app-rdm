@@ -8,6 +8,10 @@
 Changes
 =======
 
+Version v14.0.0rc4 (released 2026-07-29)
+
+- fix(administration): role ui depends on groups
+
 Version v14.0.0rc3 (released 2026-07-28)
 
 - fix(build): include mo files
