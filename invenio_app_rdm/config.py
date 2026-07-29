@@ -27,6 +27,7 @@ WARNING: An instance should NOT install multiple flavour extensions since
          there would be no guarantee of priority anymore.
 """
 
+from copy import copy
 from datetime import datetime, timedelta
 
 import invenio_communities.notifications.builders as community_notifications
@@ -1598,6 +1599,27 @@ APP_RDM_MODERATION_REQUEST_FACETS = {
     "is_open": {"facet": facets.is_open, "ui": {"field": "is_open"}},
 }
 """Available facets defined for this module."""
+
+# Apply request type filters as query filters so aggregations (facet counts)
+# match the result list. By default, type is a post_filter which leaves facet
+# counts from other request types visible while hiding them from hits.
+_request_type_facet = copy(facets.type)
+_request_type_facet.post_filter = False
+REQUESTS_FACETS = {
+    "type": {
+        "facet": _request_type_facet,
+        "ui": {
+            "field": "type",
+        },
+    },
+    "status": {
+        "facet": facets.status,
+        "ui": {
+            "field": "status",
+        },
+    },
+}
+"""Request facets with type filtering applied to aggregations and hits."""
 
 # Invenio-VCS
 # ===========
