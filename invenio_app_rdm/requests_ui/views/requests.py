@@ -390,7 +390,14 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
             topic_entity = ResolverRegistry.resolve_entity_proxy(
                 request._request.topic.reference_dict
             ).resolve()
-            checks = ChecksAPI.get_runs(topic_entity, community_id=community.id) or None
+            checks = (
+                ChecksAPI.get_runs(
+                    topic_entity,
+                    is_draft=False,
+                    community_id=community.id,
+                )
+                or None
+            )
 
         return render_community_theme_template(
             f"invenio_requests/{request_type}/index.html",
