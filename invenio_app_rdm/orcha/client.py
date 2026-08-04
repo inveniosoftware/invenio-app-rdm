@@ -5,6 +5,11 @@
 import requests
 
 
+def bearer_headers(token):
+    """Authorization headers for a token, or none when ORCHA has auth off."""
+    return {"Authorization": f"Bearer {token}"} if token else {}
+
+
 class OrchaClient:
     """ORCHA client."""
 
@@ -48,7 +53,7 @@ class OrchaClient:
         response = requests.post(
             f"{self.base_url}/workflows/",
             json=payload,
-            headers={"Authorization": f"Bearer {token}"},
+            headers=bearer_headers(token),
             timeout=10,
             verify=self.ssl_verify,
         )
@@ -59,13 +64,14 @@ class OrchaClient:
         """Get the status and result of an ORCHA workflow."""
         response = requests.get(
             f"{self.base_url}/workflows/{workflow_id}",
-            headers={"Authorization": f"Bearer {token}"},
+            headers=bearer_headers(token),
             timeout=10,
             verify=self.ssl_verify,
         )
         response.raise_for_status()
         return response.json()
 
-    def stream_url(self, workflow_id: str, token: str):
+    def stream_url(self, workflow_id: str, token=None):
         """Create the stream URL for an ORCHA workflow."""
-        return f"{self.public_url}/workflows/{workflow_id}/stream?token={token}"
+        url = f"{self.public_url}/workflows/{workflow_id}/stream"
+        return f"{url}?token={token}" if token else url
