@@ -1645,3 +1645,11 @@ RDM_ORCHA_PUBLIC_URL = None
 
 RDM_ORCHA_SSL_VERIFY = True
 """Verify ORCHA TLS certificates."""
+
+RDM_ORCHA_DEV_MODE = False
+"""Talk to a local ORCHA that runs with authentication off.
+
+Sends no tokens and skips the draft file download check, so no keys are needed
+on either side. ``RDM_ORCHA_URL`` still applies. Never enable this outside
+local development.
+"""
