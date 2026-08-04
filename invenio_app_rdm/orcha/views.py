@@ -22,9 +22,14 @@ from invenio_access.permissions import system_identity
 from invenio_files_rest.errors import InvalidOperationError
 from invenio_rdm_records.proxies import current_rdm_records
 
-from .client import OrchaClient
+from .client import OrchaClient, bearer_headers
 
 blueprint = Blueprint("orcha", __name__)
+
+
+def _dev_mode():
+    """Return whether ORCHA is a local instance running with auth off."""
+    return bool(current_app.config.get("RDM_ORCHA_DEV_MODE"))
 
 
 def _orcha_enabled():
@@ -41,13 +46,24 @@ def _require_orcha_enabled():
 
 def _orcha_client():
     """Build an ORCHA client from application configuration."""
+    config = current_app.config
+    if _dev_mode():
+        # No key, because a local ORCHA runs with authentication off and this
+        # side signs nothing. RDM_ORCHA_URL still applies, since a containerised
+        # instance reaches a host-side ORCHA on a different name than localhost.
+        return OrchaClient(
+            base_url=config.get("RDM_ORCHA_URL") or "http://localhost:8000",
+            public_url=config.get("RDM_ORCHA_PUBLIC_URL"),
+            ssl_verify=False,
+        )
+
     return OrchaClient(
-        key_path=current_app.config.get("RDM_ORCHA_KEY_PATH"),
-        key_id=current_app.config.get("RDM_ORCHA_KID"),
-        tenant=current_app.config.get("RDM_ORCHA_TENANT"),
-        base_url=current_app.config.get("RDM_ORCHA_URL"),
-        public_url=current_app.config.get("RDM_ORCHA_PUBLIC_URL"),
-        ssl_verify=current_app.config.get("RDM_ORCHA_SSL_VERIFY"),
+        key_path=config.get("RDM_ORCHA_KEY_PATH"),
+        key_id=config.get("RDM_ORCHA_KID"),
+        tenant=config.get("RDM_ORCHA_TENANT"),
+        base_url=config.get("RDM_ORCHA_URL"),
+        public_url=config.get("RDM_ORCHA_PUBLIC_URL"),
+        ssl_verify=config.get("RDM_ORCHA_SSL_VERIFY"),
     )
 
 
@@ -139,7 +155,10 @@ def get_workflow_stream_url(pid_value):
 
 
 def _workflow_token(client, workflow_id=None, expiry=timedelta(minutes=30)):
-    """Create a token for ORHCA workflow."""
+    """Create a token for an ORCHA workflow, or None when ORCHA has auth off."""
+    if _dev_mode():
+        return None
+
     return jwt.encode(
         {
             "workflow_id": workflow_id or "*",
@@ -154,6 +173,9 @@ def _workflow_token(client, workflow_id=None, expiry=timedelta(minutes=30)):
 
 def _file_download_token(client, pid_value, key, expiry=timedelta(minutes=30)):
     """Create a token for downloading a file from the ORCHA route."""
+    if _dev_mode():
+        return None
+
     return jwt.encode(
         {
             "scope": "orcha:file-download",
@@ -170,6 +192,9 @@ def _file_download_token(client, pid_value, key, expiry=timedelta(minutes=30)):
 
 def _verify_file_download_token(client, pid_value, key):
     """Verify an ORCHA draft file download token."""
+    if _dev_mode():
+        return
+
     token = request.args.get("token")
     if not token:
         abort(401)
@@ -245,7 +270,7 @@ def send_orcha_feedback(pid_value):
         response = requests.post(
             f"{orcha.base_url}/workflows/{workflow_id}/feedback",
             json=feedback_payload,
-            headers={"Authorization": f"Bearer {token}"},
+            headers=bearer_headers(token),
             timeout=10,
             verify=orcha.ssl_verify,
         )
