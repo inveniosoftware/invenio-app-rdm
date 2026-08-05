@@ -120,9 +120,17 @@ def can_preview(file):
 
 def preview(file):
     """Return the appropriate template and pass the file and an embed flag."""
-    tree_raw = current_rdm_records_service.files.list_container(
-        system_identity, file.record["id"], file.filename
-    ).to_dict()
+    error = None
+    try:
+        tree_raw = current_rdm_records_service.files.list_container(
+            system_identity, file.record["id"], file.filename
+        ).to_dict()
+    except Exception as e:
+        error = e
+        tree_raw = {
+            "entries": [],
+            "directories": [],
+        }
 
     converted_tree = convert_zip_list_container(
         tree_raw["entries"], tree_raw["directories"], file.record["id"], file.filename
@@ -133,7 +141,7 @@ def preview(file):
         file=file,
         tree=tree_list,
         limit_reached=False,
-        error=None,
+        error=error,
         js_bundles=current_previewer.js_bundles + ["previewable-zip.js"],
         css_bundles=current_previewer.css_bundles + ["zip_css.css"],
     )
