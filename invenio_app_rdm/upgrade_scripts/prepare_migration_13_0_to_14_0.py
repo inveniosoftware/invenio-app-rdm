@@ -7,7 +7,7 @@ Clean up v13 alembic table, prepare the database for v14 migration.
 Note: invenio-webhooks is an optional package that is not installed by default
 If the cleanup process finds the package installed, it will add the head to the alembic table
 and keep the webhooks tables intact. If the package is not installed, the webhooks tables
-will be dropped and the head will be removed from the alembic table.
+will be dropped if they are empty and the head will be removed from the alembic table.
 """
 
 import importlib.metadata
@@ -112,12 +112,25 @@ def fix_invenio_access(connection):
 
 
 def remove_table_if_package_not_installed(connection, package_name, table_name):
-    """Remove the given table if the package is not installed."""
-    if not _is_installed(package_name):
-        print(f"Package {package_name} not found, removing table {table_name}")
-        connection.execute(text(f"DROP TABLE IF EXISTS {table_name} CASCADE"))
-    else:
+    """Remove the given table if the package is not installed and it has no rows."""
+    if _is_installed(package_name):
         print(f"Package {package_name} found, keeping table {table_name}")
+        return
+
+    if not table_exist(connection, table_name):
+        print(f"Table {table_name} not found, nothing to remove")
+        return
+
+    rows = connection.execute(text(f"SELECT count(*) FROM {table_name}")).scalar()
+    if rows:
+        raise Exception(
+            f"Package {package_name} is not installed, but table {table_name} still "
+            f"has {rows} rows. Migrate the data (see the invenio-vcs upgrade guide) "
+            "or drop the table yourself, then re-run this script."
+        )
+
+    print(f"Package {package_name} not found, removing table {table_name}")
+    connection.execute(text(f"DROP TABLE IF EXISTS {table_name} CASCADE"))
 
 
 def fix_invenio_github(connection):
