@@ -8,6 +8,10 @@
 Changes
 =======
 
+Version v14.0.0rc5 (released 2026-08-06)
+
+- fix(previewer): enable ZIP preview for draft records
+
 Version v14.0.0rc4 (released 2026-07-29)
 
 - fix(administration): role ui depends on groups
