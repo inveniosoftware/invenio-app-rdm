@@ -8,6 +8,10 @@
 Changes
 =======
 
+Version v14.0.0 (released 2026-08-06)
+
+- release: v14.0.0
+
 Version v14.0.0rc6 (released 2026-08-06)
 
 - fix(upgrade): avoid dropping populated github and webhooks tables
