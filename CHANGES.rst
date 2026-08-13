@@ -8,6 +8,16 @@
 Changes
 =======
 
+Version v15.0.0b3.dev0 (released 2026-08-13)
+
+- chore(deps): bump invenio-rdm-records to v35.x
+- fix(request_ui): properly fetch subcommunity checks
+- fix(requests): pass community_id to get_runs
+- feat(requests): added endpoint to trigger rerunning a check
+- feat(ui): add anchor for active tab across page reloads
+- views: added comunity slug in request render template
+- feat(checks): add subcommunity checks tab
+
 Version v15.0.0b2.dev1 (released 2026-08-13)
 
 - feat(search): add overridable ids for result item labels
