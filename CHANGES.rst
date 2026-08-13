@@ -8,6 +8,17 @@
 Changes
 =======
 
+Version v15.0.0b2.dev1 (released 2026-08-13)
+
+- feat(search): add overridable ids for result item labels
+- previewer: enable ZIP preview for draft records
+- fix(theme): keep details-list custom field links inline
+- fix(administration): role ui depends on groups
+- fix(build): include mo files
+- chore(v14/migration): restructure script
+- config: fix citation styles for Vancouver and Chicago with csl 1.0.2
+- fix(creatibutors): add selector for modal close button
+
 Version v15.0.0b2.dev0 (released 2026-07-21)
 
 - feat(Creatibutors): Add landing page "show-all" modal with searching for large author/contributor lists.
