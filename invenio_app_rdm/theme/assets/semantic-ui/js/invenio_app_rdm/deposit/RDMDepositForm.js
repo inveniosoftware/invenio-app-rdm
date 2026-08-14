@@ -452,6 +452,7 @@ export class RDMDepositForm extends Component {
                       >
                         <CopyrightsField fieldPath="metadata.copyright" />
                       </Overridable>
+                      {orchaEnabled && <FieldSuggestion field="copyright" />}
                       <Overridable
                         id="InvenioAppRdm.Deposit.AccordionFieldBasicInformation.extra"
                         {...overridableBlocksCommonProps}
