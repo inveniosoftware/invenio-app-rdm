@@ -13,6 +13,7 @@ const suggestedFieldLabels = {
   creators: "Authors/Creators",
   description: "Description",
   license: "License",
+  copyright: "Copyright",
   funding: "Funding",
 };
 
