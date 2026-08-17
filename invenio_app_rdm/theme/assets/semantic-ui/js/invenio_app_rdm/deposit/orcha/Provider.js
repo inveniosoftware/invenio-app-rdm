@@ -15,6 +15,11 @@ const SUGGESTION_PENDING = "pending";
 const SUGGESTION_APPLIED = "applied";
 const SUGGESTION_DENIED = "denied";
 
+const LIST_FIELD_PATHS = {
+  funding: "metadata.funding",
+  license: "metadata.rights",
+};
+
 const getDraftId = (record) => {
   const id = record?.id;
   return id && id !== "null" && id !== "undefined" ? id : null;
@@ -79,26 +84,10 @@ const applyToFormik = (formik, field, value) => {
       break;
     }
     case "license":
-      formik.setFieldValue(
-        "metadata.rights",
-        value.map((id) => ({ id }))
-      );
+      formik.setFieldValue("metadata.rights", value);
       break;
     case "funding":
-      formik.setFieldValue(
-        "metadata.funding",
-        value.map((f) => ({
-          funder: { name: f.funder },
-          ...(f.award_number || f.award_title
-            ? {
-                award: {
-                  ...(f.award_number ? { number: f.award_number } : {}),
-                  ...(f.award_title ? { title: { en: f.award_title } } : {}),
-                },
-              }
-            : {}),
-        }))
-      );
+      formik.setFieldValue("metadata.funding", value);
       break;
     default:
       formik.setFieldValue(`metadata.${field}`, value);
@@ -164,11 +153,11 @@ export const SuggestionsProvider = ({ children }) => {
     }));
   };
 
-  const removeSuggestedCreator = (index, emptyStatus) => {
+  const removeSuggestedItem = (field, index, emptyStatus) => {
     setState((prev) => ({
       ...prev,
       suggestions: prev.suggestions.map((s) => {
-        if (s.field !== "creators" || !Array.isArray(s.value)) return s;
+        if (s.field !== field || !Array.isArray(s.value)) return s;
 
         const value = s.value.filter((_, currentIndex) => currentIndex !== index);
         return {
@@ -334,7 +323,19 @@ export const SuggestionsProvider = ({ children }) => {
       if (!creator) return;
 
       appendCreatorToFormik(formik, creator);
-      removeSuggestedCreator(valueIndex, SUGGESTION_APPLIED);
+      removeSuggestedItem("creators", valueIndex, SUGGESTION_APPLIED);
+      return;
+    }
+
+    if (field in LIST_FIELD_PATHS) {
+      const entries = Array.isArray(suggestion.value) ? suggestion.value : [];
+      const entry = valueIndex !== null ? entries[valueIndex] ?? null : null;
+      if (!entry) return;
+      const path = LIST_FIELD_PATHS[field];
+      const [ns, key] = path.split(".");
+      const current = formik.values?.[ns]?.[key] ?? [];
+      formik.setFieldValue(path, [...current, entry]);
+      removeSuggestedItem(field, valueIndex, SUGGESTION_APPLIED);
       return;
     }
 
@@ -352,7 +353,12 @@ export const SuggestionsProvider = ({ children }) => {
         : null;
       if (!creator) return;
 
-      removeSuggestedCreator(valueIndex, SUGGESTION_DENIED);
+      removeSuggestedItem("creators", valueIndex, SUGGESTION_DENIED);
+      return;
+    }
+
+    if (field === "funding" || field === "license") {
+      removeSuggestedItem(field, valueIndex, SUGGESTION_DENIED);
       return;
     }
 

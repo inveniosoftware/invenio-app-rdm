@@ -60,54 +60,58 @@ const renderSuggestedCreators = (value, onApply, onDeny) => {
   );
 };
 
-const renderLicenseValue = (value) => (
+const renderSuggestedLicense = (value, onApply, onDeny) => (
   <ul className="orcha-suggestion-list">
-    {value.map((license, index) => (
-      <li key={`${index}-${license}`}>
-        <span className="orcha-suggestion-value">{license}</span>
-      </li>
-    ))}
+    {value.map((license, index) => {
+      return (
+        <li key={license.id}>
+          <span className="orcha-suggestion-value">{license.title || license.id}</span>
+          {renderSuggestionActions(
+            () => onApply(index),
+            () => onDeny(index)
+          )}
+        </li>
+      );
+    })}
   </ul>
 );
 
-const renderFundingEntry = (entry) => (
-  <>
-    <strong>{entry.funder}</strong>
-    {entry.award_number && <span> ({entry.award_number})</span>}
-    {entry.award_title && <div className="text-muted">{entry.award_title}</div>}
-  </>
-);
+const renderFundingEntry = (entry) => {
+  const funderName = entry.funder?.name;
+  const awardTitle = entry.award?.title;
+  const awardNumber = entry.award?.number;
+  if (funderName && !awardTitle && !awardNumber) {
+    return <strong>{funderName}</strong>;
+  }
+  return (
+    <>
+      {awardTitle && (
+        <strong>
+          {awardTitle}
+          {awardNumber && <span> ({awardNumber})</span>}
+        </strong>
+      )}
+      {!awardTitle && awardNumber && <strong>{awardNumber}</strong>}
+      {funderName && <div>{funderName}</div>}
+    </>
+  );
+};
 
-const renderFundingValue = (value) => (
+const renderSuggestedFunding = (value, onApply, onDeny) => (
   <ul className="orcha-suggestion-list">
     {value.map((entry, index) => (
-      <li key={`${index}-${entry.funder}`}>
+      <li
+        key={entry.award?.id ?? `${index}-${entry.funder?.id ?? entry.award?.number}`}
+      >
         <span className="orcha-suggestion-value">{renderFundingEntry(entry)}</span>
+        {renderSuggestionActions(
+          () => onApply(index),
+          () => onDeny(index)
+        )}
       </li>
     ))}
   </ul>
 );
-
-const renderSuggestedValue = (field, value) => {
-  if (field === "creators" && Array.isArray(value)) {
-    return (
-      <ul className="orcha-suggestion-list">
-        {value.map((author, index) => (
-          <li key={author.orcid ?? `${index}-${author.name}`}>
-            {renderAuthor(author)}
-          </li>
-        ))}
-      </ul>
-    );
-  }
-  if (field === "license" && Array.isArray(value)) {
-    return renderLicenseValue(value);
-  }
-  if (field === "funding" && Array.isArray(value)) {
-    return renderFundingValue(value);
-  }
-  return <span>{value}</span>;
-};
 
 const FieldSuggestionComponent = ({ field, formik }) => {
   const suggestions = useSuggestions();
@@ -132,6 +136,8 @@ const FieldSuggestionComponent = ({ field, formik }) => {
   }
 
   const isCreatorsSuggestion = field === "creators" && Array.isArray(suggestion.value);
+  const isFundingSuggestion = field === "funding" && Array.isArray(suggestion.value);
+  const isLicenseSuggestion = field === "license" && Array.isArray(suggestion.value);
 
   if (suggestion.status === "applied" && feedbackState !== "shown") {
     return null;
@@ -156,17 +162,14 @@ const FieldSuggestionComponent = ({ field, formik }) => {
     setFeedbackState("shown");
   };
 
-  const handleCreatorAction = (index, isApply) => {
-    const creatorCount = Array.isArray(suggestion.value) ? suggestion.value.length : 0;
-    const isLastCreator = creatorCount <= 1;
-
+  const handlePerEntryAction = (index, isApply) => {
+    const count = Array.isArray(suggestion.value) ? suggestion.value.length : 0;
     if (isApply) {
       apply(formik, field, index);
     } else {
       deny(field, index);
     }
-
-    if (isLastCreator) {
+    if (count <= 1) {
       setFeedbackState("shown");
     }
   };
@@ -245,13 +248,25 @@ const FieldSuggestionComponent = ({ field, formik }) => {
         {isCreatorsSuggestion ? (
           renderSuggestedCreators(
             suggestion.value,
-            (index) => handleCreatorAction(index, true),
-            (index) => handleCreatorAction(index, false)
+            (index) => handlePerEntryAction(index, true),
+            (index) => handlePerEntryAction(index, false)
+          )
+        ) : isFundingSuggestion ? (
+          renderSuggestedFunding(
+            suggestion.value,
+            (index) => handlePerEntryAction(index, true),
+            (index) => handlePerEntryAction(index, false)
+          )
+        ) : isLicenseSuggestion ? (
+          renderSuggestedLicense(
+            suggestion.value,
+            (index) => handlePerEntryAction(index, true),
+            (index) => handlePerEntryAction(index, false)
           )
         ) : (
           <div className="orcha-suggestion-row">
             <div className="orcha-suggestion-value">
-              {renderSuggestedValue(field, suggestion.value)}
+              <span>{suggestion.value}</span>
             </div>
             {renderSuggestionActions(handleApply, handleDeny)}
           </div>
