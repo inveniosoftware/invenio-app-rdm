@@ -5,13 +5,14 @@
 # Tibor Simko <tibor.simko@cern.ch>, 2026
 # Sam Arbid, 2026
 # Mattias Vesterlund, 2026
+# Taha Ahmed, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2026-06-22T20:53:26.159Z\n"
 "PO-Revision-Date: 2021-07-14 16:07+0000\n"
-"Last-Translator: Mattias Vesterlund, 2026\n"
+"Last-Translator: Taha Ahmed, 2026\n"
 "Language-Team: Swedish (https://app.transifex.com/inveniosoftware/teams/23537/sv/)\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -76,7 +77,7 @@ msgid ""
 msgstr "Läs noga igenom och bekräfta följande text innan du fortsätter."
 
 msgid "You are about to impersonate user "
-msgstr "Du är på väg att imitera användaren "
+msgstr "Du är på väg att utge dig för att vara användaren "
 
 msgid "You "
 msgstr "Du "
@@ -1044,8 +1045,8 @@ msgid ""
 "Their records and communities are being tombstoned in the background. This "
 "may take a few minutes to complete."
 msgstr ""
-"Deras poster och communities markeras som borttagna i bakgrunden. Det kan ta"
-" några minuter att slutföra."
+"Deras poster och communities markeras som borttagna i bakgrunden. Detta kan "
+"ta några minuter att slutföra."
 
 msgid "View in admin"
 msgstr "Visa i admin"
@@ -1058,7 +1059,7 @@ msgid ""
 "removal reason below."
 msgstr ""
 "Om du blockerar den här användaren kommer deras poster och communities att "
-"markeras som borttagna med orsaken nedan."
+"markeras som borttagna med orsak enligt nedan."
 
 msgid "Verified community"
 msgstr "Verifierad community"
@@ -1100,11 +1101,11 @@ msgid ""
 "and the DOI will resolve to a tombstone page with the record's citation "
 "(including title, author/s, publication year and publisher)"
 msgstr ""
-"och DOI:n kommer att leda till en gravstenssida med postens citering "
+"och DOI:n kommer att leda till en tombstone-sida med postens citering "
 "(inklusive titel, författare, publiceringsår och utgivare)"
 
 msgid "A tombstone page with the citation will replace the record page"
-msgstr "En gravstenssida med citeringen kommer att ersätta postsidan"
+msgstr "En tombstone-sida med citeringen kommer att ersätta postsidan"
 
 msgid "Record deletion checklist:"
 msgstr "Checklista för radering av post:"
@@ -1141,12 +1142,12 @@ msgid ""
 " Use the Contributors field below for other names."
 msgstr ""
 "Använd fältet Författare/Skapare för namn som ska visas i citeringen. Använd"
-" fältet Medverkande nedan för andra namn."
+" fältet Medverkande (nedan) för andra namn."
 
 msgid ""
 "Contributors are not included in the citation, but are shown on the record "
 "page."
-msgstr "Bidragsgivare ingår inte i citeringen, men visas på postsidan."
+msgstr "\"Medverkande\" ingår inte i citeringen, men visas på postsidan."
 
 msgid "Load more search results"
 msgstr "Ladda fler sökresultat"
