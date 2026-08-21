@@ -1,8 +1,7 @@
-// This file is part of InvenioRDM
-// Copyright (C) 2023 CERN.
-//
-// Invenio App RDM is free software; you can redistribute it and/or modify it
-// under the terms of the MIT License; see LICENSE file for more details.
+/*
+ * SPDX-FileCopyrightText: 2023 CERN.
+ * SPDX-License-Identifier: MIT
+ */
 
 import React, { Component } from "react";
 import { Button, Message, Popup } from "semantic-ui-react";
@@ -57,7 +56,7 @@ export class ManageDefaultBrandingAction extends Component {
       <Popup
         trigger={
           <Button
-            size="tiny"
+            size="mini"
             labelPosition="left"
             icon="paint brush"
             floated="right"
@@ -81,7 +80,7 @@ export class ManageDefaultBrandingAction extends Component {
       <Popup
         trigger={
           <Button
-            size="tiny"
+            size="mini"
             labelPosition="left"
             icon="paint brush"
             floated="right"
@@ -111,7 +110,7 @@ export class ManageDefaultBrandingAction extends Component {
         negative
         floated="right"
         className="community-branding-error"
-        size="tiny"
+        size="mini"
       >
         {error}
       </Message>

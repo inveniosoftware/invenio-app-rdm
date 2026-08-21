@@ -1,11 +1,10 @@
-// This file is part of InvenioRDM
-// Copyright (C) 2020-2025 CERN.
-// Copyright (C) 2020-2021 Northwestern University.
-// Copyright (C) 2021 Graz University of Technology.
-// Copyright (C) 2023 TU Wien.
-//
-// Invenio RDM Records is free software; you can redistribute it and/or modify it
-// under the terms of the MIT License; see LICENSE file for more details.
+/*
+ * SPDX-FileCopyrightText: 2020-2026 CERN.
+ * SPDX-FileCopyrightText: 2020-2021 Northwestern University.
+ * SPDX-FileCopyrightText: 2021 Graz University of Technology.
+ * SPDX-FileCopyrightText: 2023 TU Wien.
+ * SPDX-License-Identifier: MIT
+ */
 
 import React from "react";
 import ReactDOM from "react-dom";
@@ -43,6 +42,7 @@ function renderRecordManagement(element) {
         recordDeletionOptions={JSON.parse(
           recordManagementAppDiv.dataset.recordDeletionOptions
         )}
+        auditLogsEnabled={JSON.parse(recordManagementAppDiv.dataset.auditLogsEnabled)}
       />
     </OverridableContext.Provider>,
     element
@@ -52,10 +52,12 @@ function renderRecordManagement(element) {
 const recordVersionsAppDiv = document.getElementById("recordVersions");
 if (recordVersionsAppDiv) {
   ReactDOM.render(
-    <RecordVersionsList
-      record={JSON.parse(recordVersionsAppDiv.dataset.record)}
-      isPreview={JSON.parse(recordVersionsAppDiv.dataset.preview)}
-    />,
+    <OverridableContext.Provider value={overriddenComponents}>
+      <RecordVersionsList
+        record={JSON.parse(recordVersionsAppDiv.dataset.record)}
+        isPreview={JSON.parse(recordVersionsAppDiv.dataset.preview)}
+      />
+    </OverridableContext.Provider>,
     recordVersionsAppDiv
   );
 }
@@ -101,6 +103,7 @@ if (sidebarCommunitiesManageDiv) {
   );
   const permissions = JSON.parse(sidebarCommunitiesManageDiv.dataset.permissions);
   const record = JSON.parse(sidebarCommunitiesManageDiv.dataset.record);
+  const recordRequests = JSON.parse(sidebarCommunitiesManageDiv.dataset.recordRequests);
   ReactDOM.render(
     <OverridableContext.Provider value={overriddenComponents}>
       <Overridable
@@ -112,6 +115,7 @@ if (sidebarCommunitiesManageDiv) {
         permissions={permissions}
         searchConfig={pendingCommunitiesSearchConfig}
         record={record}
+        recordRequests={recordRequests}
       >
         <CommunitiesManagement
           userCommunitiesMemberships={userCommunitiesMemberships}
@@ -121,6 +125,7 @@ if (sidebarCommunitiesManageDiv) {
           permissions={permissions}
           searchConfig={pendingCommunitiesSearchConfig}
           record={record}
+          recordRequests={recordRequests}
         />
       </Overridable>
     </OverridableContext.Provider>,

@@ -1,9 +1,5 @@
-# -*- coding: utf-8 -*-
-#
-# Copyright (C) 2021 Northwestern University.
-#
-# Invenio-App-RDM is free software; you can redistribute it and/or modify
-# it under the terms of the MIT License; see LICENSE file for more details.
+# SPDX-FileCopyrightText: 2021 Northwestern University.
+# SPDX-License-Identifier: MIT
 
 """Test deposit views."""
 
@@ -29,7 +25,7 @@ def additional_resource_types(running_app):
                 "datacite_general": "Text",
                 "datacite_type": "",
                 "eurepo": "info:eu-repo/semantics/other",
-                "openaire_resourceType": "17",
+                "openaire_resourceType": "0017",
                 "openaire_type": "publication",
                 "schema.org": "https://schema.org/CreativeWork",
                 "subtype": "",
@@ -50,7 +46,7 @@ def additional_resource_types(running_app):
                 "datacite_general": "Collection",
                 "datacite_type": "",
                 "eurepo": "info:eu-repo/semantics/technicalDocumentation",
-                "openaire_resourceType": "9",
+                "openaire_resourceType": "0009",
                 "openaire_type": "publication",
                 "schema.org": "https://schema.org/Collection",
                 "subtype": "publication-annotationcollection",

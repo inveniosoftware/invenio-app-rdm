@@ -1,8 +1,7 @@
-// This file is part of InvenioRDM
-// Copyright (C) 2022-2024 CERN.
-//
-// Invenio RDM is free software; you can redistribute it and/or modify it
-// under the terms of the MIT License; see LICENSE file for more details.
+/*
+ * SPDX-FileCopyrightText: 2022-2024 CERN.
+ * SPDX-License-Identifier: MIT
+ */
 
 import React, { Component } from "react";
 import PropTypes from "prop-types";
@@ -35,6 +34,10 @@ export class RecordsList extends Component {
 
   componentDidMount() {
     this.fetchData();
+  }
+
+  async componentDidUpdate() {
+    await window.MathJax?.typesetPromise();
   }
 
   componentWillUnmount() {
@@ -117,7 +120,9 @@ export class RecordsList extends Component {
             </Item.Group>
 
             <Container textAlign="center">
-              <Button href="/search">{i18next.t("More")}</Button>
+              <Button href="/search" aria-label={i18next.t("Load more search results")}>
+                {i18next.t("More")}
+              </Button>
             </Container>
 
             {error && <Message content={error} error icon="warning sign" />}

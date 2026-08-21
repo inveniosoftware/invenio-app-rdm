@@ -1,10 +1,7 @@
 /*
- * // This file is part of Invenio-App-Rdm
- * // Copyright (C) 2023 CERN.
- * // Copyright (C) 2024 KTH Royal Institute of Technology.
- * //
- * // Invenio-App-Rdm is free software; you can redistribute it and/or modify it
- * // under the terms of the MIT License; see LICENSE file for more details.
+ * SPDX-FileCopyrightText: 2023 CERN.
+ * SPDX-FileCopyrightText: 2024 KTH Royal Institute of Technology.
+ * SPDX-License-Identifier: MIT
  */
 
 import React, { Component } from "react";
@@ -75,7 +72,7 @@ export class ImpersonateUser extends Component {
           <Icon name="spy" />
           {i18next.t("Impersonate")}
         </Dropdown.Item>
-        <ActionModal modalOpen={modalOpen} user={user}>
+        <ActionModal modalOpen={modalOpen} resource={user}>
           {modalHeader && <Modal.Header>{modalHeader}</Modal.Header>}
           {!_isEmpty(modalBody) && modalBody}
         </ActionModal>

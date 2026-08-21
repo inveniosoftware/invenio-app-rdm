@@ -1,23 +1,19 @@
-{# -*- coding: utf-8 -*-
-
-  This file is part of Invenio.
-  Copyright (C) 2022 CERN.
-
-  Invenio is free software; you can redistribute it and/or modify it
-  under the terms of the MIT License; see LICENSE file for more details.
+{#
+  SPDX-FileCopyrightText: 2022 CERN.
+  SPDX-FileCopyrightText: 2026 Northwestern University.
+  SPDX-License-Identifier: MIT
 #}
 {% set title = invenio_request.title %}
 {% extends "invenio_requests/details/index.html" %}
-{% from "invenio_requests/macros/request_header.html" import invitation_request_header %}
+{% from "invenio_requests/macros/request_header.html" import member_request_header %}
 
 {% set active_community_header_menu_item = 'members' %}
 {% set active_members_menu_item = 'invitations' %}
 
 {% block request_header %}
-  {% set back_button_url = url_for("invenio_communities.invitations", pid_value=invenio_request.created_by.community) %}
   {{
-    invitation_request_header(
-      back_button_url=back_button_url,
+    member_request_header(
+      back_button_url=invenio_url_for("invenio_communities.invitations", pid_value=community.slug),
       back_button_text=_("Back to invitations"),
       request=invenio_request
     )

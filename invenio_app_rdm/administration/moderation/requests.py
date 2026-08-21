@@ -1,9 +1,5 @@
-# -*- coding: utf-8 -*-
-#
-# Copyright (C) 2025 CERN.
-#
-# Invenio App RDM is free software; you can redistribute it and/or modify it
-# under the terms of the MIT License; see LICENSE file for more details.
+# SPDX-FileCopyrightText: 2025 CERN.
+# SPDX-License-Identifier: MIT
 """Invenio administration view module for requests moderation."""
 
 from functools import partial
@@ -138,7 +134,7 @@ class ModerationRequestDetailView(AdminResourceDetailView):
             g.identity, current_user
         )["avatar"]
         permissions = []
-        if "reason" in request["payload"]:
+        if "reason" in request.get("payload", {}):
             reason_title = vocabulary_service.read(
                 g.identity,
                 ("removalreasons", request["payload"]["reason"]),

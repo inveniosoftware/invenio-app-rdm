@@ -1,3 +1,8 @@
+/*
+ * SPDX-FileCopyrightText: 2023-2025 CERN.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { RemoveFromCommunityAction } from "../RemoveFromCommunity/RemoveFromCommunityAction";
 import React, { Component } from "react";
 import { CommunityCompactItem } from "@js/invenio_communities/community";
@@ -12,7 +17,11 @@ export class RecordCommunitiesSearchItem extends Component {
       updateRecordCallback,
       recordCommunityEndpoint,
       recordParent,
-      permissions: { can_manage: canManage },
+      permissions: {
+        can_manage: canManage,
+        removable_community_ids: removableCommunityIds,
+      },
+      recordRequests,
     } = this.props;
 
     const isCommunityDefault = recordParent?.communities?.default === result?.id;
@@ -28,6 +37,7 @@ export class RecordCommunitiesSearchItem extends Component {
           result={result}
           recordCommunityEndpoint={recordCommunityEndpoint}
           successCallback={successCallback}
+          canRemoveCommunity={removableCommunityIds?.includes(result?.id)}
         />
       </>
     );
@@ -36,6 +46,7 @@ export class RecordCommunitiesSearchItem extends Component {
         actions={actions}
         result={result}
         isCommunityDefault={isCommunityDefault}
+        recordRequests={recordRequests}
       />
     );
   }
@@ -48,4 +59,9 @@ RecordCommunitiesSearchItem.propTypes = {
   updateRecordCallback: PropTypes.func.isRequired,
   permissions: PropTypes.object.isRequired,
   recordParent: PropTypes.object.isRequired,
+  recordRequests: PropTypes.object,
+};
+
+RecordCommunitiesSearchItem.defaultProps = {
+  recordRequests: {},
 };

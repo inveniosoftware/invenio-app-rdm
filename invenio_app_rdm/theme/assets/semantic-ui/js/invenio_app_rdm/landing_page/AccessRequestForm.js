@@ -1,9 +1,8 @@
-// This file is part of InvenioRDM
-// Copyright (C) 2024 CERN.
-// Copyright (C) 2024 KTH Royal Institute of Technology.
-//
-// Invenio RDM Records is free software; you can redistribute it and/or modify it
-// under the terms of the MIT License; see LICENSE file for more details.
+/*
+ * SPDX-FileCopyrightText: 2024 CERN.
+ * SPDX-FileCopyrightText: 2024 KTH Royal Institute of Technology.
+ * SPDX-License-Identifier: MIT
+ */
 
 import _get from "lodash/get";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
@@ -197,7 +196,7 @@ export class AccessRequestForm extends Component {
                           control={Checkbox}
                           fieldPath="consent_to_share_personal_data"
                           label={i18next.t(
-                            "I agree to that my full name and email address is shared with the owners of the record"
+                            "I agree that my full name and email address will be shared with the owners of the record"
                           )}
                           onChange={this.handleChangeConsent}
                         />

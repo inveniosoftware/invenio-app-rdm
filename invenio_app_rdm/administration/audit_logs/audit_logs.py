@@ -1,11 +1,8 @@
-# -*- coding: utf-8 -*-
-#
-# Copyright (C) 2025 CERN.
-#
-# Invenio App RDM is free software; you can redistribute it and/or modify it
-# under the terms of the MIT License; see LICENSE file for more details.
+# SPDX-FileCopyrightText: 2025 CERN.
+# SPDX-License-Identifier: MIT
 
 """Invenio administration view module for audit logs."""
+
 from flask import current_app
 from invenio_administration.views.base import AdminResourceListView
 from invenio_i18n import lazy_gettext as _
@@ -19,9 +16,9 @@ class AuditLogListView(AdminResourceListView):
     name = "audit-logs"
     resource_config = "audit_log_resource"
 
-    title = "Audit Logs"
-    menu_label = "Audit Logs"
-    category = "Logs"
+    title = _("Audit Logs")
+    menu_label = _("Audit Logs")
+    category = _("Logs")
     pid_path = "id"
     icon = "file alternate"
     template = "invenio_app_rdm/administration/audit_logs.html"
@@ -67,7 +64,15 @@ class AuditLogListView(AdminResourceListView):
             "text": _("View Changes"),
             "payload_schema": None,
             "order": 2,
-            "show_for": ["record.publish"],
+            "show_for": [
+                "record.publish",
+                "record.grant_update",
+                "draft.grant_update",
+                "record.secret_link_update",
+                "draft.secret_link_update",
+                "record.access_settings_update",
+                "draft.access_settings_update",
+            ],
         },
     }
 

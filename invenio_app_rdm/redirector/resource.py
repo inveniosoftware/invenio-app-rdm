@@ -1,9 +1,5 @@
-# -*- coding: utf-8 -*-
-#
-# Copyright (C) 2022 CERN.
-#
-# Invenio App RDM is free software; you can redistribute it and/or modify it
-# under the terms of the MIT License; see LICENSE file for more details.
+# SPDX-FileCopyrightText: 2022 CERN.
+# SPDX-License-Identifier: MIT
 """Invenio RDM redirector resource."""
 
 from flask import redirect, request
@@ -88,7 +84,7 @@ class RedirectorResource(Resource):
         # Retrieve url from target if it's a method
         if callable(target):
             target_output = redirect_url()
-            if type(target_output) == tuple:
+            if type(target_output) is tuple:
                 redirect_url, code = target_output
             else:
                 redirect_url = target_output

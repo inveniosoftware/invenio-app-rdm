@@ -1,11 +1,7 @@
-# -*- coding: utf-8 -*-
-#
-# Copyright (C) 2019-2025 CERN.
-# Copyright (C) 2019-2025 Northwestern University.
-# Copyright (C) 2024-2025 Graz University of Technology.
-#
-# Invenio App RDM is free software; you can redistribute it and/or modify it
-# under the terms of the MIT License; see LICENSE file for more details.
+# SPDX-FileCopyrightText: 2019-2025 CERN.
+# SPDX-FileCopyrightText: 2019-2025 Northwestern University.
+# SPDX-FileCopyrightText: 2024-2025 Graz University of Technology.
+# SPDX-License-Identifier: MIT
 
 """Common pytest fixtures and plugins."""
 
@@ -200,7 +196,7 @@ def resource_type_item(app, resource_type_type):
                 "datacite_general": "Image",
                 "datacite_type": "Photo",
                 "eurepo": "info:eu-repo/semantic/image-photo",
-                "openaire_resourceType": "25",
+                "openaire_resourceType": "0025",
                 "openaire_type": "dataset",
                 "schema.org": "https://schema.org/Photograph",
                 "subtype": "image-photo",

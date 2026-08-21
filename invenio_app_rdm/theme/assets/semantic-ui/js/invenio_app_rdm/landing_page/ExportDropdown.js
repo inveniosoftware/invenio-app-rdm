@@ -1,13 +1,12 @@
-// This file is part of InvenioRDM
-// Copyright (C) 2023 CERN.
-// Copyright (C) 2023 Northwestern University.
-//
-// Invenio App RDM is free software; you can redistribute it and/or modify it
-// under the terms of the MIT License; see LICENSE file for more details.
+/*
+ * SPDX-FileCopyrightText: 2023 CERN.
+ * SPDX-FileCopyrightText: 2023 Northwestern University.
+ * SPDX-License-Identifier: MIT
+ */
 
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Grid, Dropdown, Button } from "semantic-ui-react";
+import { Dropdown, Button } from "semantic-ui-react";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import { CopyButton } from "@js/invenio_app_rdm/components/CopyButton";
 
@@ -32,33 +31,27 @@ export class ExportDropdown extends Component {
     });
 
     return (
-      <Grid>
-        <Grid.Column width={10}>
-          <Dropdown
-            aria-label={i18next.t("Export selection")}
-            selection
-            fluid
-            selectOnNavigation={false}
-            options={exportOptions}
-            onChange={(event, data) => this.setState({ selectedFormatUrl: data.value })}
-            defaultValue={selectedFormatUrl}
-          />
-        </Grid.Column>
-        <Grid.Column width={4} className="pl-0">
-          <Button
-            as="a"
-            role="button"
-            fluid
-            href={selectedFormatUrl}
-            title={i18next.t("Download file")}
-          >
-            {i18next.t("Export")}
-          </Button>
-        </Grid.Column>
-        <Grid.Column width={2} className="pl-0">
-          <CopyButton url={selectedFormatUrl} />
-        </Grid.Column>
-      </Grid>
+      <div className="auto-column-grid no-wrap">
+        <Dropdown
+          aria-label={i18next.t("Export selection")}
+          selection
+          fluid
+          selectOnNavigation={false}
+          options={exportOptions}
+          onChange={(event, data) => this.setState({ selectedFormatUrl: data.value })}
+          defaultValue={selectedFormatUrl}
+        />
+        <Button
+          as="a"
+          role="button"
+          fluid
+          href={selectedFormatUrl}
+          title={i18next.t("Download file")}
+        >
+          {i18next.t("Export")}
+        </Button>
+        <CopyButton url={selectedFormatUrl} />
+      </div>
     );
   }
 }

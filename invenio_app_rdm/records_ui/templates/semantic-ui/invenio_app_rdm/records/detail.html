@@ -1,13 +1,11 @@
 {#
-  Copyright (C) 2020-2024 CERN.
-  Copyright (C) 2020-2021 Northwestern University.
-  Copyright (C) 2021-2023 TU Wien.
-  Copyright (C) 2021 Graz University of Technology.
-  Copyright (C) 2021 New York University.
-  Copyright (C) 2024 KTH Royal Institute of Technology.
-
-  Invenio RDM Records is free software; you can redistribute it and/or modify
-  it under the terms of the MIT License; see LICENSE file for more details.
+  SPDX-FileCopyrightText: 2020-2024 CERN.
+  SPDX-FileCopyrightText: 2020-2021 Northwestern University.
+  SPDX-FileCopyrightText: 2021-2023 TU Wien.
+  SPDX-FileCopyrightText: 2021 Graz University of Technology.
+  SPDX-FileCopyrightText: 2021 New York University.
+  SPDX-FileCopyrightText: 2024-2025 KTH Royal Institute of Technology.
+  SPDX-License-Identifier: MIT
 #}
 
 {% if use_theme_basic_template|default(true) %}
@@ -16,7 +14,7 @@
     {{ super() }}
     {% if community and community.theme and community.theme.enabled  %}
       <link rel="stylesheet" type="text/css"
-            href="/communities/{{ community.slug }}/community-theme-{{ community.revision_id }}.css">
+            href="{{ invenio_url_for('invenio_communities.community_theme_css_config', pid_value=community.slug, revision=community.revision_id) }}">
     {% endif %}
   {%- endblock css %}
 {% endif %}
@@ -25,6 +23,9 @@
 
 {%- set title = record_ui["metadata"]["title"] %}
 {%- set metadata = record_ui["metadata"] %}
+
+<!-- Shared namespace for files to allow overridability on child blocks while maintaining reference to parent values -->
+{% set files_ns = namespace(preview_file=None, files=[]) %}
 
 {%- set can_curate_record = permissions is defined and (permissions.can_edit or permissions.can_review) %}
 
@@ -107,7 +108,7 @@
 
     <!-- PREVIEW HEADER -->
     {% if is_preview %}
-      <div class="ui info flashed bottom attached manage message">
+      <div class="ui info bottom attached manage message">
         <div class="ui container">
           <div class="header">
             <i class="eye icon"></i>
@@ -164,7 +165,7 @@
             >
               <i class="{{ record_ui["ui"]["access_status"]["icon"] }} icon" aria-hidden="true"></i>
               <strong>{{ record_ui["ui"]["access_status"]["title_l10n"] }}</strong>
-              {{ record_ui["ui"]["access_status"]["description_l10n"] }}
+              {{ record_ui["ui"]["access_status"]["description_l10n"] | safe }}
 
               {% if record_ui["access"]["embargo"]["reason"] %}
                 <p>{{ _("Reason") }}: {{ record_ui["access"]["embargo"]["reason"] }}</p>
@@ -228,12 +229,24 @@
                     <div class="right floated right aligned column">
 
                       {% if record_ui["ui"]["resource_type"] %}
-                        <span role="note"
-                              class="ui label horizontal small neutral mb-5"
-                              aria-label="{{ _('Resource type') }}"
+                      {% set rt_id = record_ui["ui"]["resource_type"]["id"] %}
+                        {% if "-" in rt_id %}
+                          {% set rt_filter = "resource_type%3A" ~ rt_id.split("-")[0] ~ "%2Binner%3A" ~ rt_id %}
+                        {% else %}
+                          {% set rt_filter = "resource_type%3A" ~ rt_id %}
+                        {% endif %}
+                        {% if community %}
+                          {% set rt_search_url = url_for('invenio_app_rdm_communities.communities_detail', pid_value=community.slug) ~ "?q=&f=" ~ rt_filter %}
+                        {% else %}
+                          {% set rt_search_url = "/search?q=&f=" ~ rt_filter %}
+                        {% endif %}
+                        <a href="{{ rt_search_url }}"
+                           role="note"
+                           class="ui label horizontal small neutral mb-5"
+                           aria-label="{{ _('Resource type') }}"
                         >
                           {{ record_ui["ui"]["resource_type"]["title_l10n"] }}
-                        </span>
+                        </a>
                       {% endif %}
 
                       <span role="note"
@@ -288,14 +301,19 @@
                          aria-label="{{ _('Files') }}">
                   {%- if permissions.can_read_files -%}
                     {# record has files AND user can see files #}
-                    {%- set files = files | order_entries | selectattr("status", "==", "completed") | list %}
-                    {%- if files|length > 0 -%}
+                    {# Shared namespace for files (outside blocks) #}
+                    {%- set files_ns.files = files | order_entries | selectattr("status", "==", "completed") | list %}
+                    {%- if files_ns.files|length > 0 -%}
                       <h2 id="files-heading">{{ _('Files') }}</h2>
-                      {%- if files|has_previewable_files -%}
-                        {%-set preview_file = files|select_preview_file(default_preview=record_ui["files"]["default_preview"]) %}
-                        {{ preview_file_box(preview_file, record_ui["id"], is_preview, record, include_deleted) }}
+                      {%- if files_ns.files|has_previewable_files -%}
+                        {%-set files_ns.preview_file = files_ns.files|select_preview_file(default_preview=record_ui["files"]["default_preview"]) %}
+                        {%- block record_file_preview -%}
+                          {{ preview_file_box(files_ns.preview_file, record_ui["id"], is_preview, record, include_deleted) }}
+                        {%- endblock record_file_preview -%}
                       {%- endif -%}
-                      {{ file_list_box(files, record_ui["id"], is_preview, include_deleted, record, permissions) }}
+                      {%- block record_file_list -%}
+                        {{ file_list_box(files_ns.files, record_ui["id"], is_preview, include_deleted, record, permissions) }}
+                      {%- endblock record_file_list -%}
                     {% endif %}
                   {% else %}
                     {# record has files BUT user does not have permission to see files #}
@@ -320,7 +338,7 @@
                              aria-hidden="true"></i>
                           <h4
                             class="inline">{{ record_ui["ui"]["access_status"]["title_l10n"] }}</h4>
-                          <p>{{ record_ui["ui"]["access_status"]["description_l10n"] }}</p>
+                          <p>{{ record_ui["ui"]["access_status"]["description_l10n"] | safe }}</p>
 
                           {% if record_ui["access"]["embargo"]["reason"] %}
                             <p>{{ _("Reason") }}: {{ record_ui["access"]["embargo"]["reason"] }}</p>

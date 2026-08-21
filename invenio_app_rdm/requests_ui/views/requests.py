@@ -1,16 +1,13 @@
-# -*- coding: utf-8 -*-
-#
-# Copyright (C) 2019-2025 CERN.
-# Copyright (C) 2019-2022 Northwestern University.
-# Copyright (C)      2022 TU Wien.
-#
-# Invenio App RDM is free software; you can redistribute it and/or modify it
-# under the terms of the MIT License; see LICENSE file for more details.
+# SPDX-FileCopyrightText: 2019-2026 CERN.
+# SPDX-FileCopyrightText: 2019-2026 Northwestern University.
+# SPDX-FileCopyrightText: 2022 TU Wien.
+# SPDX-License-Identifier: MIT
 
 """Request views module."""
 
-from flask import current_app, g, render_template
+from flask import current_app, g, redirect, render_template, request
 from flask_login import current_user, login_required
+from invenio_base import invenio_url_for
 from invenio_checks.api import ChecksAPI
 from invenio_communities.config import COMMUNITIES_ROLES
 from invenio_communities.members.services.request import CommunityInvitation
@@ -20,7 +17,10 @@ from invenio_communities.subcommunities.services.request import (
     SubCommunityRequest,
 )
 from invenio_communities.utils import identity_cache_key
-from invenio_communities.views.communities import render_community_theme_template
+from invenio_communities.views.communities import (
+    MEMBERS_PERMISSIONS,
+    render_community_theme_template,
+)
 from invenio_communities.views.decorators import pass_community
 from invenio_i18n.ext import current_i18n
 from invenio_pidstore.errors import PIDDoesNotExistError
@@ -93,7 +93,12 @@ def _resolve_topic_record(request):
             record = current_rdm_records_service.read_draft(
                 g.identity, pid, expand=True
             )
-    except (NoResultFound, PIDDoesNotExistError, RecordDeletedException):
+    except (
+        NoResultFound,
+        PIDDoesNotExistError,
+        RecordDeletedException,
+        PermissionDeniedError,
+    ):
         # We catch PIDDoesNotExistError because a published record with
         # a soft-deleted draft will raise this error. The lines below
         # will catch the case that a id does not exists and raise a
@@ -102,7 +107,7 @@ def _resolve_topic_record(request):
         try:
             # read published record
             record = current_rdm_records_service.read(g.identity, pid, expand=True)
-        except (NoResultFound, RecordDeletedException):
+        except (NoResultFound, RecordDeletedException, PermissionDeniedError):
             # record tab not displayed when the record is not found
             # the request is probably not open anymore
             pass
@@ -129,46 +134,62 @@ def _resolve_topic_record(request):
     return dict(permissions={}, record_ui=None, record=None)
 
 
+def _list_files(service, record_pid):
+    return service.list_files(id_=record_pid, identity=g.identity).to_dict()
+
+
 def _resolve_record_or_draft_files(record, request):
-    """Resolve the record's or draft's files."""
-    request_type = request["type"]
-    is_record_inclusion = request_type == CommunityInclusion.type_id
-    if record and record["files"]["enabled"]:
-        record_pid = record["id"]
+    """Resolve the record's or draft's files.
+
+    Returns None if the record has no files, files are disabled, or if the
+    user doesn't have permission to access them (e.g. user-access-request
+    where the requester can view the request but not the record's files).
+    """
+    if not record or not record["files"]["enabled"]:
+        return None
+
+    record_pid = record["id"]
+    is_draft = record.get("is_draft", False)
+
+    primary_service = draft_files_service() if is_draft else files_service()
+    fallback_service = files_service()
+
+    try:
+        return _list_files(primary_service, record_pid)
+    except NoResultFound:
         try:
-            if is_record_inclusion:
-                files = files_service().list_files(id_=record_pid, identity=g.identity)
-            else:
-                files = draft_files_service().list_files(
-                    id_=record_pid, identity=g.identity
-                )
-        except NoResultFound:
-            files = files_service().list_files(id_=record_pid, identity=g.identity)
-        return files.to_dict()
-    return None
+            return _list_files(fallback_service, record_pid)
+        except PermissionDeniedError:
+            return None
+    except PermissionDeniedError:
+        return None
 
 
 def _resolve_record_or_draft_media_files(record, request):
-    """Resolve the record's or draft's media files."""
-    request_type = request["type"]
-    is_record_inclusion = request_type == CommunityInclusion.type_id
-    if record and record["media_files"]["enabled"]:
-        record_pid = record["id"]
+    """Resolve the record's or draft's media files.
+
+    Returns None if the record has no media files, media files are disabled,
+    or if the user doesn't have permission to access them (e.g. user-access-request
+    where the requester can view the request but not the record's media files).
+    """
+    if not record or not record["media_files"]["enabled"]:
+        return None
+
+    record_pid = record["id"]
+    is_draft = record.get("is_draft", False)
+
+    primary_service = draft_media_files_service() if is_draft else media_files_service()
+    fallback_service = media_files_service()
+
+    try:
+        return _list_files(primary_service, record_pid)
+    except NoResultFound:
         try:
-            if is_record_inclusion:
-                media_files = media_files_service().list_files(
-                    id_=record_pid, identity=g.identity
-                )
-            else:
-                media_files = draft_media_files_service().list_files(
-                    id_=record_pid, identity=g.identity
-                )
-        except NoResultFound:
-            media_files = media_files_service().list_files(
-                id_=record_pid, identity=g.identity
-            )
-        return media_files.to_dict()
-    return None
+            return _list_files(fallback_service, record_pid)
+        except PermissionDeniedError:
+            return None
+    except PermissionDeniedError:
+        return None
 
 
 @login_required
@@ -186,9 +207,12 @@ def user_dashboard_request_view(request, **kwargs):
     has_record_topic = has_topic and "record" in request["topic"]
     has_community_topic = has_topic and "community" in request["topic"]
     is_record_inclusion = request_type == CommunityInclusion.type_id
-    request_permissions = request.has_permissions_to(["action_accept"])
+    request_permissions = request.has_permissions_to(
+        ["action_accept", "lock_request", "create_comment", "reply_comment"]
+    )
 
     if has_record_topic:
+        # Submission or inclusion request
         topic = _resolve_topic_record(request)
         record_ui = topic["record_ui"]
         record = topic["record"]
@@ -201,10 +225,13 @@ def user_dashboard_request_view(request, **kwargs):
 
         checks = None
         if current_app.config.get("CHECKS_ENABLED", False) and record:
+            community_id = (request["receiver"] or {}).get("community")
             if is_record_inclusion and has_draft:
-                checks = ChecksAPI.get_runs(record._record, is_draft=True)
+                checks = ChecksAPI.get_runs(
+                    record._record, is_draft=True, community_id=community_id
+                )
             else:
-                checks = ChecksAPI.get_runs(record._record)
+                checks = ChecksAPI.get_runs(record._record, community_id=community_id)
 
         if request_type == "record-deletion":
             reason_title = vocabulary_service.read(
@@ -241,14 +268,15 @@ def user_dashboard_request_view(request, **kwargs):
         )
 
     elif has_community_topic or not has_topic:
+        # Invitation or membership request
         return render_template(
             f"invenio_requests/{request_type}/user_dashboard.html",
             base_template="invenio_app_rdm/users/base.html",
             user_avatar=avatar,
             invenio_request=request.to_dict(),
-            request_is_accepted=request_is_accepted,
             permissions={**request_permissions},
             include_deleted=False,
+            is_user_dashboard=True,
         )
 
     topic = _resolve_topic_record(request)
@@ -290,7 +318,9 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
     permissions = community.has_permissions_to(
         ["update", "read", "search_requests", "search_invites", "submit_record"]
     )
-    request_permissions = request.has_permissions_to(["action_accept"])
+    request_permissions = request.has_permissions_to(
+        ["action_accept", "lock_request", "create_comment", "reply_comment"]
+    )
     # Add request specific permissions so that reviewers can be selected from community curators
     permissions.update(request_permissions)
 
@@ -309,9 +339,11 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
         checks = None
         if current_app.config.get("CHECKS_ENABLED", False) and record:
             if is_record_inclusion and has_draft:
-                checks = ChecksAPI.get_runs(record._record, is_draft=True)
+                checks = ChecksAPI.get_runs(
+                    record._record, is_draft=True, community_id=community.id
+                )
             else:
-                checks = ChecksAPI.get_runs(record._record)
+                checks = ChecksAPI.get_runs(record._record, community_id=community.id)
 
         return render_community_theme_template(
             f"invenio_requests/{request_type}/index.html",
@@ -339,23 +371,34 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
         )
 
     elif is_member_invitation:
-        if not permissions["can_search_invites"]:
-            raise PermissionDeniedError()
-
-        return render_community_theme_template(
-            f"invenio_requests/{request_type}/community_dashboard.html",
-            theme=community.to_dict().get("theme", {}),
-            base_template="invenio_communities/details/members/base.html",
-            invenio_request=request.to_dict(),
-            community=community,
-            community_ui=community_ui,
-            permissions=permissions,
-            request_is_accepted=request_is_accepted,
-            user_avatar=avatar,
-            include_deleted=False,
+        # From legacy of this view serving
+        # /communities/<community pid>/requests/<request pid>
+        return redirect(
+            invenio_url_for(
+                "invenio_app_rdm_requests.community_dashboard_invitation_view",
+                pid_value=kwargs["pid_value"],
+                request_pid_value=kwargs["request_pid_value"],
+            )
         )
 
     elif is_subcommunity_request or is_subcommunity_invitation_request:
+        checks = None
+        subcommunity_slug = (
+            request.to_dict().get("expanded", {}).get("topic", {}).get("slug")
+        )
+        if current_app.config.get("CHECKS_SUBCOMMUNITY_ENABLED", False):
+            topic_entity = ResolverRegistry.resolve_entity_proxy(
+                request._request.topic.reference_dict
+            ).resolve()
+            checks = (
+                ChecksAPI.get_runs(
+                    topic_entity,
+                    is_draft=False,
+                    community_id=community.id,
+                )
+                or None
+            )
+
         return render_community_theme_template(
             f"invenio_requests/{request_type}/index.html",
             theme=community.to_dict().get("theme", {}),
@@ -363,8 +406,103 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
             invenio_request=request.to_dict(),
             community=community,
             community_ui=community_ui,
+            subcommunity_slug=subcommunity_slug,
+            checks=checks,
             permissions=permissions,
             request_is_accepted=request_is_accepted,
             user_avatar=avatar,
             include_deleted=False,
         )
+
+
+@login_required
+@pass_request(expand=True)
+@pass_community(serialize=True)
+def community_dashboard_invitation_view(request, community, community_ui, **kwargs):
+    """Community dashboard's invitation view."""
+    request_type = request["type"]
+    permissions = community.has_permissions_to(MEMBERS_PERMISSIONS)
+    request_permissions = request.has_permissions_to(
+        ["action_cancel", "lock_request", "create_comment", "reply_comment"]
+    )
+    permissions.update(request_permissions)
+
+    if not permissions["can_search_invites"]:
+        raise PermissionDeniedError()
+
+    # TODO: This should just be a context_processor or filter
+    avatar = current_user_resources.users_service.links_item_tpl.expand(
+        g.identity, current_user
+    )["avatar"]
+
+    return render_community_theme_template(
+        f"invenio_requests/{request_type}/community_dashboard.html",
+        theme=community.to_dict().get("theme", {}),
+        base_template="invenio_communities/details/members/base.html",
+        invenio_request=request.to_dict(),  # so to not clash with flask's `request`
+        community=community,
+        community_ui=community_ui,
+        permissions=permissions,
+        user_avatar=avatar,
+    )
+
+
+@login_required
+@pass_request(expand=True)
+@pass_community(serialize=True)
+def community_dashboard_membership_request_view(
+    request, community, community_ui, **kwargs
+):
+    """Community dashboard's membership request view."""
+    request_type = request["type"]
+    permissions = community.has_permissions_to(MEMBERS_PERMISSIONS)
+    request_permissions = request.has_permissions_to(
+        [
+            "action_accept",
+            "action_decline",
+            "lock_request",
+            "create_comment",
+            "reply_comment",
+        ]
+    )
+    permissions.update(request_permissions)
+
+    if not permissions["can_search_membership_requests"]:
+        raise PermissionDeniedError()
+
+    # TODO: This should just be a context_processor or filter
+    avatar = current_user_resources.users_service.links_item_tpl.expand(
+        g.identity, current_user
+    )["avatar"]
+
+    return render_community_theme_template(
+        f"invenio_requests/{request_type}/community_dashboard.html",
+        theme=community.to_dict().get("theme", {}),
+        base_template="invenio_communities/details/members/base.html",
+        invenio_request=request.to_dict(),  # so to not clash with flask's `request`
+        community=community,
+        community_ui=community_ui,
+        permissions=permissions,
+        user_avatar=avatar,
+    )
+
+
+@login_required
+def rerun_check_view(check_run_id):
+    """Manually rerun a check."""
+    ChecksAPI.rerun_check(
+        check_run_id,
+        g.identity,
+    )
+
+    target = request.referrer or "/"
+    return_hash = request.form.get("return_hash")
+    if return_hash:
+        target = f"{target}#{return_hash}"
+
+    return redirect(target)
+
+
+def is_accepted_request(request_dict):
+    """Jinja test for if request is accepted."""
+    return request_dict["status"] == AcceptAction.status_to

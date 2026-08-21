@@ -1,8 +1,7 @@
-// This file is part of InvenioRDM
-// Copyright (C) 2023-2025 CERN.
-//
-// InvenioRDM is free software; you can redistribute it and/or modify it
-// under the terms of the MIT License; see LICENSE file for more details.
+/*
+ * SPDX-FileCopyrightText: 2023-2025 CERN.
+ * SPDX-License-Identifier: MIT
+ */
 
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import React, { Component } from "react";
@@ -32,6 +31,7 @@ export class RecordCommunitiesListModal extends Component {
       handleOnClose,
       trigger,
       permissions,
+      recordRequests,
     } = this.props;
     const { recordParent } = this.state;
 
@@ -59,6 +59,7 @@ export class RecordCommunitiesListModal extends Component {
           permissions={permissions}
           recordParent={recordParent}
           updateRecordCallback={this.handleRecordUpdate}
+          recordRequests={recordRequests}
         />
 
         <Modal.Actions>
@@ -78,9 +79,11 @@ RecordCommunitiesListModal.propTypes = {
   handleOnOpen: PropTypes.func.isRequired,
   permissions: PropTypes.object.isRequired,
   recordParent: PropTypes.object.isRequired,
+  recordRequests: PropTypes.object,
 };
 
 RecordCommunitiesListModal.defaultProps = {
   modalOpen: false,
   trigger: undefined,
+  recordRequests: {},
 };

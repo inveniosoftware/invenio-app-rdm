@@ -1,8 +1,7 @@
-// This file is part of InvenioRDM
-// Copyright (C) 2025 CERN
-//
-// Invenio-app-rdm is free software; you can redistribute it and/or modify it
-// under the terms of the MIT License; see LICENSE file for more details.
+/*
+ * SPDX-FileCopyrightText: 2025 CERN
+ * SPDX-License-Identifier: MIT
+ */
 
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import { Formik } from "formik";
@@ -90,14 +89,14 @@ export class DeletionModal extends Component {
   deletionRequestSchema = (immediateDeletionAllowed) => {
     if (immediateDeletionAllowed) {
       return Yup.object({
-        reason: Yup.string().required("Required"),
+        reason: Yup.string().required(i18next.t("Required")),
       });
     } else {
       return Yup.object({
-        reason: Yup.string().required("Required"),
+        reason: Yup.string().required(i18next.t("Required")),
         comment: Yup.string()
-          .min(25, "Please write at least 25 characters")
-          .required("Required"),
+          .min(25, i18next.t("Please write at least 25 characters"))
+          .required(i18next.t("Required")),
       });
     }
   };
@@ -109,27 +108,30 @@ export class DeletionModal extends Component {
       reason: values.reason,
       comment: values.comment,
     };
-    if ("request_deletion" in record.links) {
-      this.cancellableAction = withCancel(
-        http.post(record.links.request_deletion, payload)
-      );
-      try {
-        const response = await this.cancellableAction.promise;
-        const data = response.data;
+    if (!("request_deletion" in record.links)) {
+      this.setState({
+        error: i18next.t("Could not submit deletion request"),
+        loading: false,
+      });
+      return;
+    }
+    this.cancellableAction = withCancel(
+      http.post(record.links.request_deletion, payload)
+    );
+    try {
+      const response = await this.cancellableAction.promise;
+      const data = response.data;
 
-        if (response.status === 200) {
-          window.location.reload();
-        } else if (response.status === 201) {
-          window.location.href = data.links.self_html;
-        }
-      } catch (error) {
-        this.setState({ error: error });
-        console.error(error);
-      } finally {
-        this.setState({ loading: false });
+      if (response.status === 200) {
+        window.location.reload();
+      } else if (response.status === 201) {
+        window.location.href = data.links.self_html;
       }
-    } else {
-      this.setState({ error: "Could not submit deletion request", loading: false });
+    } catch (error) {
+      this.setState({ error: error });
+      console.error(error);
+    } finally {
+      this.setState({ loading: false });
     }
   };
 
@@ -189,17 +191,15 @@ export class DeletionModal extends Component {
                   {immediateDeletionAllowed ? (
                     <p>
                       {
-                        recordDeletion["recordDeletion"]["immediate_deletion"][
-                          "policy"
-                        ]["description"]
+                        recordDeletion.recordDeletion?.immediate_deletion?.policy
+                          ?.description
                       }
                     </p>
                   ) : (
                     <p>
                       {
-                        recordDeletion["recordDeletion"]["request_deletion"]["policy"][
-                          "description"
-                        ]
+                        recordDeletion.recordDeletion?.request_deletion?.policy
+                          ?.description
                       }
                     </p>
                   )}

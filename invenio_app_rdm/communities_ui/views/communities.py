@@ -1,11 +1,7 @@
-# -*- coding: utf-8 -*-
-#
-# Copyright (C) 2019-2024 CERN.
-# Copyright (C) 2019-2022 Northwestern University.
-# Copyright (C)      2022 TU Wien.
-#
-# Invenio App RDM is free software; you can redistribute it and/or modify it
-# under the terms of the MIT License; see LICENSE file for more details.
+# SPDX-FileCopyrightText: 2019-2024 CERN.
+# SPDX-FileCopyrightText: 2019-2022 Northwestern University.
+# SPDX-FileCopyrightText: 2022 TU Wien.
+# SPDX-License-Identifier: MIT
 """Request views module."""
 
 from flask import abort, g, redirect, request, url_for
@@ -14,7 +10,6 @@ from invenio_collections.errors import (
     CollectionTreeNotFound,
     LogoNotFoundError,
 )
-from invenio_collections.proxies import current_collections
 from invenio_communities.views.communities import (
     HEADER_PERMISSIONS,
     _get_roles_can_invite,
@@ -26,6 +21,7 @@ from invenio_i18n import get_locale
 from invenio_pages.proxies import current_pages_service
 from invenio_pages.records.errors import PageNotFoundError
 from invenio_rdm_records.proxies import (
+    current_community_collections_service,
     current_community_records_service,
 )
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
@@ -55,7 +51,7 @@ def communities_detail(pid_value, community, community_ui):
 def communities_home(pid_value, community, community_ui):
     """Community home page."""
     query_params = request.args
-    collections_service = current_collections.service
+    collections_service = current_community_collections_service
     permissions = community.has_permissions_to(HEADER_PERMISSIONS)
     if not permissions["can_read"]:
         raise PermissionDeniedError()
@@ -126,10 +122,10 @@ def communities_browse(pid_value, community, community_ui):
     """Community browse page."""
     permissions = community.has_permissions_to(HEADER_PERMISSIONS)
 
-    collections_service = current_collections.service
+    collections_service = current_community_collections_service
 
     trees_ui = collections_service.list_trees(
-        g.identity, community_id=community.id, depth=2
+        g.identity, namespace_id=community.id, depth=2
     ).to_dict()
     return render_community_theme_template(
         "invenio_communities/details/browse/index.html",
@@ -176,11 +172,11 @@ def community_collection(
     community, community_ui, pid_value, tree_slug=None, collection_slug=None
 ):
     """Render a community collection page."""
-    collections_service = current_collections.service
+    collections_service = current_community_collections_service
     try:
         collection = collections_service.read(
             identity=g.identity,
-            community_id=community.id,
+            namespace_id=community.id,
             slug=collection_slug,
             tree_slug=tree_slug,
         )

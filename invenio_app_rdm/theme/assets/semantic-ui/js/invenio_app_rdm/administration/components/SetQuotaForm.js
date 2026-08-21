@@ -1,9 +1,6 @@
 /*
- * // This file is part of Invenio-App-Rdm
- * // Copyright (C) 2023 CERN.
- * //
- * // Invenio-App-Rdm is free software; you can redistribute it and/or modify it
- * // under the terms of the MIT License; see LICENSE file for more details.
+ * SPDX-FileCopyrightText: 2023-2026 CERN.
+ * SPDX-License-Identifier: MIT
  */
 
 import React, { Component } from "react";
@@ -68,8 +65,8 @@ export class SetQuotaForm extends Component {
 
       addNotification({
         title: i18next.t("Success"),
-        content: i18next.t("Quota of {{id}} was set to {{quota}} {{unit}}", {
-          id: resource.id,
+        content: i18next.t("Quota of @{{username}} was set to {{quota}} {{unit}}", {
+          username: resource.username,
           quota: quotaInGb || quotaSize,
           unit: quotaInGb ? "GB" : "bytes",
         }),

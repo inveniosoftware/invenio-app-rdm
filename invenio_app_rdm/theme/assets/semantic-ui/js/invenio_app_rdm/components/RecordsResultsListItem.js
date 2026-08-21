@@ -1,12 +1,12 @@
-// This file is part of InvenioRDM
-// Copyright (C) 2022-2024 CERN.
-// Copyright (C) 2024 KTH Royal Institute of Technology.
-//
-// Invenio RDM is free software; you can redistribute it and/or modify it
-// under the terms of the MIT License; see LICENSE file for more details.
+/*
+ * SPDX-FileCopyrightText: 2022-2024 CERN.
+ * SPDX-FileCopyrightText: 2024 KTH Royal Institute of Technology.
+ * SPDX-License-Identifier: MIT
+ */
 
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import _get from "lodash/get";
+import _truncate from "lodash/truncate";
 import React, { Component } from "react";
 import Overridable from "react-overridable";
 import { SearchItemCreators } from "../utils";
@@ -47,8 +47,18 @@ class RecordsResultsListItem extends Component {
       "ui.resource_type.title_l10n",
       i18next.t("No resource type")
     );
+    const resourceTypeId = _get(result, "ui.resource_type.id", "");
+
+    const [mainType] = resourceTypeId.split("-");
+    const filterValue = resourceTypeId.includes("-")
+      ? `resource_type:${mainType}+inner:${resourceTypeId}`
+      : `resource_type:${resourceTypeId}`;
+
+    const resourceTypeFilter = encodeURIComponent(filterValue);
+
     const subjects = _get(result, "ui.subjects", []);
     const title = _get(result, "metadata.title", i18next.t("No title"));
+    const titleTruncated = _truncate(title, { length: 100 });
     const version = _get(result, "ui.version", null);
     const versions = _get(result, "versions");
     const uniqueViews = _get(result, "stats.all_versions.unique_views", 0);
@@ -87,23 +97,40 @@ class RecordsResultsListItem extends Component {
             {/* FIXME: Uncomment to enable themed banner */}
             {/* <DisplayVerifiedCommunity communities={result.parent?.communities} /> */}
             <Item.Extra className="labels-actions">
-              <Label horizontal size="small" className="primary theme-primary">
-                {publicationDate} ({version})
-              </Label>
-              <Label horizontal size="small" className="neutral">
-                {resourceType}
-              </Label>
-              <Label
-                horizontal
-                size="small"
-                className={`access-status ${accessStatusId}`}
+              <Overridable
+                id={buildUID("RecordsResultsListItem.labels", "", appName)}
+                result={result}
               >
-                {accessStatusIcon && <Icon name={accessStatusIcon} />}
-                {accessStatus}
-              </Label>
+                <>
+                  <Label horizontal size="small" className="primary theme-primary">
+                    {publicationDate} ({version})
+                  </Label>
+                  <Label
+                    horizontal
+                    size="small"
+                    className="neutral"
+                    as="a"
+                    href={`${window.location.pathname}?q=&f=${resourceTypeFilter}`}
+                  >
+                    {resourceType}
+                  </Label>
+                  <Label
+                    horizontal
+                    size="small"
+                    className={`access-status ${accessStatusId}`}
+                  >
+                    {accessStatusIcon && <Icon name={accessStatusIcon} />}
+                    {accessStatus}
+                  </Label>
+                </>
+              </Overridable>
+              <Overridable
+                id={buildUID("RecordsResultsListItem.labels.after", "", appName)}
+                result={result}
+              />
             </Item.Extra>
             <Item.Header as="h2" className="theme-primary-text">
-              <a href={viewLink}>{title}</a>
+              <a href={viewLink}>{titleTruncated}</a>
             </Item.Header>
             <Item className="creatibutors">
               <SearchItemCreators creators={creators} othersLink={viewLink} />

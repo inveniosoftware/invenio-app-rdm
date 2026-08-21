@@ -1,12 +1,8 @@
-# -*- coding: utf-8 -*-
-#
-# Copyright (C) 2019-2024 CERN.
-# Copyright (C) 2019-2020 Northwestern University.
-# Copyright (C)      2021 TU Wien.
-# Copyright (C) 2024 Graz University of Technology.
-#
-# Invenio App RDM is free software; you can redistribute it and/or modify it
-# under the terms of the MIT License; see LICENSE file for more details.
+# SPDX-FileCopyrightText: 2019-2024 CERN.
+# SPDX-FileCopyrightText: 2019-2020 Northwestern University.
+# SPDX-FileCopyrightText: 2021 TU Wien.
+# SPDX-FileCopyrightText: 2024 Graz University of Technology.
+# SPDX-License-Identifier: MIT
 
 """Filters to be used in the Jinja templates."""
 
@@ -166,6 +162,10 @@ def truncate_number(value, max_value):
 def namespace_url(field):
     """Get custom field namespace url."""
     namespace_array = field.split(":")
+    if len(namespace_array) < 2:
+        # Not a namespaced field
+        return None
+
     namespace = namespace_array[0]
     namespace_value = namespace_array[1]
     namespaces = current_app.config.get("RDM_NAMESPACES")
@@ -179,6 +179,10 @@ def namespace_url(field):
 def custom_fields_search(field, field_value, field_cfg=None):
     """Get custom field search url."""
     namespace_array = field.split(":")
+    if len(namespace_array) < 2:
+        # Not a namespaced field
+        return None
+
     namespace = namespace_array[0]
     namespaces = current_app.config.get("RDM_NAMESPACES")
 

@@ -1,14 +1,344 @@
 ..
-    Copyright (C) 2019-2025 CERN.
-    Copyright (C) 2019-2024 Northwestern University.
-    Copyright (C) 2021-2024 TU Wien.
-    Copyright (C) 2021-2025 Graz University of Technology.
-
-    Invenio App RDM is free software; you can redistribute it and/or modify
-    it under the terms of the MIT License; see LICENSE file for more details.
+    SPDX-FileCopyrightText: 2019-2025 CERN.
+    SPDX-FileCopyrightText: 2019-2024 Northwestern University.
+    SPDX-FileCopyrightText: 2021-2024 TU Wien.
+    SPDX-FileCopyrightText: 2021-2026 Graz University of Technology.
+    SPDX-License-Identifier: MIT
 
 Changes
 =======
+
+Version v15.0.0b3.dev0 (released 2026-08-13)
+
+- chore(deps): bump invenio-rdm-records to v35.x
+- fix(request_ui): properly fetch subcommunity checks
+- fix(requests): pass community_id to get_runs
+- feat(requests): added endpoint to trigger rerunning a check
+- feat(ui): add anchor for active tab across page reloads
+- views: added comunity slug in request render template
+- feat(checks): add subcommunity checks tab
+
+Version v15.0.0b2.dev1 (released 2026-08-13)
+
+- feat(search): add overridable ids for result item labels
+- previewer: enable ZIP preview for draft records
+- fix(theme): keep details-list custom field links inline
+- fix(administration): role ui depends on groups
+- fix(build): include mo files
+- chore(v14/migration): restructure script
+- config: fix citation styles for Vancouver and Chicago with csl 1.0.2
+- fix(creatibutors): add selector for modal close button
+
+Version v15.0.0b2.dev0 (released 2026-07-21)
+
+- feat(Creatibutors): Add landing page "show-all" modal with searching for large author/contributor lists.
+- chore: Create SECURITY.md.
+- files: Improve external file size display.
+
+Version v15.0.0b1.dev0 (released 2026-07-10)
+
+- refactor(views): Move get_record_requests to RecordCommunitiesService
+- chore(setup): bump dependencies
+- chore(licenses): update license headers to use SPDX
+- fix(admin): show clear error in View Changes modal on 403
+- chore(migration): replace print with secho
+- chore(migration): add request parent for commenting
+- fix(admin): update edit roles UI
+- chore(setup): migrate from setuptools to hatchling
+
+Version v15.0.0b0.dev0 (released 2026-06-08)
+
+- release: v15.0.0b0.dev0
+
+Version v14.0.0b11.dev4 (released 2026-06-05)
+
+- chore(setup): bump dependencies
+- feat(records): deposit form compatibility with per-record-version review requests
+
+Version v14.0.0b11.dev3 (released 2026-06-05)
+
+- chore(setup): bump dependencies
+- fix: corrected config variable name
+- fix(ui): prevent overflow of long values and links in details and sidebar
+- chore: remove duplicate function definition in tests
+- chore: apply some linter fixes
+- chore: replace `type(...) == str` with `type(...) is str`
+- chore: fix __all__ tuple in audit_logs
+- feat(users): add last login details to admin ui
+- fix(i18n): v14 wrap missing strings
+- feat(mshp-req): integrate membership request notifications
+
+Version v14.0.0b11.dev2 (released 2026-06-03)
+
+- files: hide archive button over the size cap
+- fix: enable community owner to remove it from record
+
+Version v14.0.0b11.dev1 (released 2026-05-29)
+
+- chore(setup): bump dependencies
+
+Version v14.0.0b11.dev0 (released 2026-05-29)
+
+- chore(setup): bump dependencies
+- feat: UI support for zip content previewing
+- fix(alembic): script for preparing migration from 13 -> 14
+- deposits: switch to standard get syntax
+- deposit: add default values for custom fields on deposit form
+- fix(profiler): remove CSP headers for profiler result pages
+- fix(profiler): register menu item for the multi-profiler
+- fix(profiler): override the MultiProfiler base template
+- feat(profiler): integrate Flask-MultiProfiler
+- fix: linting warning
+- feat(users): implement role management in user details
+- fix(records-ui): namespace url filter
+- chore(url): use invenio_url_for for consistency in mshp-req and inv code
+- feat(mshp-req+inv): show invitation & mshp-req pages from user & community sides [+]
+- fix(urls): use invenio_url_for() instead of hard-coded URLs
+- feat: make resouce type badge clickable
+- fix(tombstone): return not-found page + log exception for PIDDeletedError
+- config: remove hardcoded publisher and use THEME_SITENAME
+- frontpage: Add aria-label to 'More' search button
+- fix(upgrade_scripts): use correct indexer for drafts
+- fix: wrap overflowing MathJax content in rich text
+- users: use invenio_url_for for deposit URL
+- users: fix hardcoded deposit URL in uploads dashboard
+
+Version v14.0.0b10.dev7 (released 2026-04-21)
+
+- feat(administration): allow blocking with removal reason
+    * Introduces a modal when blocking a user (via the Users administration
+      or manage dropdown on the record landing page), which previews the
+      user to be deleted and allows for choosing a removal reason and
+      public note. On success, it displays a link to view the blocked user
+      in users administration.
+- style: fix alignment of sort by on uploads
+- fix: display user dashboard header for community topic requests as before
+- feat(auditlogs): hide auditlogs button when the feature is disabled
+
+Version v14.0.0b10.dev6 (released 2026-04-13)
+
+- feat: use new RDMSubCommunity request class
+- fix(administration): set correct permissions for user dashboard
+
+Version v14.0.0b10.dev5 (released 2026-04-09)
+
+- fix: display of range input on Chrome
+    without this CSS, there is a 2em gap on either side of the progress bar
+    which makes it look like you could get more/less quota. Firefox is not
+    affected with or without CSS. For some reason !important is needed as
+    the overrides don't come after the CSS we're trying to override
+- assets: added override for progress bar
+- chore: deprecate FILES_REST in favour of RDM_FILES
+    This was deprecated in RDM records in August 2024
+    https://github.com/inveniosoftware/invenio-rdm-records/pull/1789/changes
+- feat(storage-quota): deposit form intergration and request templates
+
+Version v14.0.0b10.dev4 (released 2026-04-09)
+
+- fix(tasks): correct collection task registration
+- fix: collection logo size
+
+Version v14.0.0b10.dev3 (released 2026-04-09)
+
+- feat(communities-browse): show subcommunities section only if community allows
+
+Version v14.0.0b10.dev2 (released 2026-04-09)
+
+- fix(views-ui): fix wrong import for collections service
+
+Version v14.0.0b10.dev1 (released 2026-04-09)
+
+- fix(views): set correct collections service reference
+
+Version v14.0.0b10.dev0 (released 2026-04-08)
+
+- chore(config): update collections task import
+- chore: upgrade major dependencies
+- feat(manage): Add view audit logs option to manage menu
+- feat(audit_logs): Allow diff view for access audit logs
+- fix(RevisionsDiffViewer.js): Use better diff algo & diff from metadata
+- fix: allow rendering request page without file permissions
+- fix: templates for guest and user access
+- fix: detail url from the dashboard
+- ui(translations): addition to fix incorrect pluralization in react-invenio-forms
+- feat(mshp-req): add icon to membership request in listing
+- refactor(invitation-req): user user_dashboard.html common to mbshp req
+- feat(mshp-req): create user dashboard membership request discussion page [+]
+- tests: fixtures: OpenAIRE resource type consistent format
+- collections: update conf variable to use COMMUNITIES_COLLECTIONS_ENABLED
+- fix(communities): update collections service call to use namespace_id
+- collections: update browse display rule
+- fix: fixed hacky pluralization of contributors
+- fix: typo in users with access
+- AddUserGroupAccessModal: De-emphasize search by email
+- feat: compat with new invenio-vcs module
+- ui(translations): mark string as translatable
+- refactor(MathJax): Pass elements to typesetPromise to optimize re-render
+- style: fix wide community logo in community selection and request metadata
+- fix(searchbar): wrap search icon in button element
+- feat: add max-width to tombstone container
+- fix: using app locale for citations
+- Fix to display latex symbols correctly in homepage.
+- fix(file-preview): focus previewer when Preview button is clicked
+
+
+Version v14.0.0b9.dev0 (released 2026-03-20)
+
+- change(setup): upgrade invenio-checks to fix empty alembic revision
+
+Version v14.0.0b8.dev0 (released 2026-03-20)
+
+- combined b6,b7 (yanked) releases, fixed invenio-jobs alembic branches
+- macros: fix vocabulary custom field search value on landing page
+- breaking change(setup): upgrade invenio packagea
+                          requires alembic upgrade and mappings upgrades
+- feat: add remove_community_from_record permission check
+- fix(ui): group publishing information fields into Journal/Imprint/Thesis sections
+
+
+Version v14.0.0b7.dev1 (released 2026-03-19)
+
+- macros: fix vocabulary custom field search value on landing page
+
+Version v14.0.0b7.dev0 (released 2026-03-10)
+
+- breaking change(setup): upgrade invenio packagea
+                          requires alembic upgrade and mappings upgrades
+- feat: add remove_community_from_record permission check
+- fix(ui): group publishing information fields into Journal/Imprint/Thesis sections
+
+
+Version v14.0.0b6.dev0 (released 2026-03-10)
+
+- breaking change(setup): upgrade invenio packagea
+                          requires alembic upgrade and mappings upgrades
+
+Version v14.0.0b5.dev6 (released 2026-03-03)
+
+- fix(requests): reload preview iframe when opening record tab
+- fix(ui): change padding for children facets in accordion
+- fix(ui): use preset variable to set icon height
+- chore(deps-dev): bump minimatch
+
+Version v14.0.0b5.dev5 (released 2026-02-27)
+
+- fix(record-detail): render access status as safe HTML
+- fix: add record files restriction option to enable cache-control header
+- fix(pending-communities): use self_html link instead of adding /me manually
+- chore(deps-dev): bump lodash
+- fix(config): remove value for the deprecated WSGI_PROXIES variable
+
+Version v14.0.0b5.dev4 (released 2026-02-23)
+
+- fix(db): use UTC for Postgres
+- feat(style): aria-disabled button
+- fix: limit max width of community logo
+- fix(administration-user-access): user permission based ACL
+- feat(comment-file): limit display width of user uploaded images
+- fix(css): allow horizontal scrolling for request comment body
+
+Version v14.0.0b5.dev3 (released 2026-02-17)
+
+- feat(facets): register overriden range facet element as default
+
+Version v14.0.0b5.dev2 (released 2026-02-13)
+
+- fix: show all contributers on dashboard page
+- feat(deposit): allow overriding deposit serializer
+- feat(administration): add user creation
+- feat(deposit): add record to overridable context
+- feat(deposit): add extra and after overridables
+- Improve German translation of search help page
+- help pages: Add German translations for statistics and versioning pages
+- feat(roles): add administration views for role management
+
+Version v14.0.0b5.dev0 (released 2026-02-03)
+
+- fix(chore): DeprecationWarning stdlib
+- chore(setup): bump dependencies
+- fix: manage record link functionality for all versions
+- feat(css): styles for deep-linked request comment replies
+- style: collapsible messages style
+- Fix regex search example URL
+- Fix regex search example
+- search guide: fix regex example in swedish translation
+- search guide: fix regex example
+
+Version v14.0.0b4.dev6 released 2026-01-22)
+
+- fix(ExportDropdown): Fix css spacing and responsiveness
+
+Version v14.0.0b4.dev5 (released 2026-01-21)
+
+- feat(CopyButton): Pass remaining props to customize UI & functionality
+- refactor(RecordVersionsList): Make version items overridable
+
+Version v14.0.0b4.dev4 (released 2026-01-15)
+
+- refactor(ui): support custom file display name resolver
+- fix: use UUID type for request identifiers
+- feat(comment-replies): add single threading on comments
+- fix(moderation.requests): handle empty payload key not in request
+- feat(previewer): show message for outdated records
+
+Version v14.0.0b4.dev3 (released 2025-12-18)
+
+- fix(feed): styling for disabled reply input
+
+Version v14.0.0b4.dev2 (released 2025-12-16)
+
+- semantic-ui: feed.overrides: Add placeholder css
+- fix: css padding for preview msg
+
+Version v14.0.0b4.dev1 (released 2025-12-13)
+
+- feat(css): styles for threaded replies
+- feat(views-request): include `can_reply_comment` in template permissions dict
+
+Version v14.0.0b4.dev0 (released 2025-12-12)
+
+- chore(setup): bump major versions
+- feat: add empty Overridable container before and after the files accordion
+- assets: added css for hidden comment line and last page first comment
+
+Version v14.0.0b3.dev4 (released 2025-12-08)
+
+- fix: ensure that pages render if accessed via secret link
+- UI: change button icon and text
+- chore: drill recordRequests into the modal
+- fix: restrict to only community sub/inc reqs
+- frontend: add direct link to request if user has access
+- feat(css): styles for quote replies
+- fix(requests_ui): Inject lock_request and create_comment permissions
+- fix: correct types
+
+Version v14.0.0b3.dev3 (released 2025-11-21)
+
+- feat(css): request comment deep links
+
+Version v14.0.0b3.dev2 (released 2025-11-21)
+
+- fix: revert mapping.js symlink
+
+Version v14.0.0b3.dev1 (released 2025-11-21)
+
+- UI: add info message about remaining days to publish changes
+- request: add file mod request template
+- fix: set files_locked to `bucket.locked` rather than permission
+    * currently the permission is whether you can unlock the files
+    * but the files are only unlocked when you create the draft
+    * as such as an admin when you edit a published draft, if it was
+      created by a user it will look like the files are unlocked but
+      this is false
+- feat: pass file modification eval to deposit form
+- fix: align selector with semantic-ui
+- fix(views): pass API record to evaluate record deletion
+- fix(record-ui): do not sanitize additional description in template
+- admin: requests details view improvements
+    - Replace `Record deletion` by `Deletion request for "Record name"`
+    - Link showing all requests for a given user
+- tombstone: add deletion policy
+- Update release date for version v14.0.0b3.dev0
 
 Version v14.0.0b3.dev0 (released 2025-11-12)
 

@@ -1,9 +1,5 @@
-# -*- coding: utf-8 -*-
-#
-# Copyright (C) 2022 CERN.
-#
-# Invenio App RDM is free software; you can redistribute it and/or modify
-# it under the terms of the MIT License; see LICENSE file for more details.
+# SPDX-FileCopyrightText: 2022 CERN.
+# SPDX-License-Identifier: MIT
 
 from pathlib import Path
 
@@ -25,7 +21,7 @@ def test_load_oai_sets(app):
 
     oai_sets.load()
 
-    res_set = service.search(system_identity, params={"q": f"set1"})
+    res_set = service.search(system_identity, params={"q": "set1"})
 
     assert res_set.total == 1
 

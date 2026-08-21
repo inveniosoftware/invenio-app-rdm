@@ -1,9 +1,5 @@
-# -*- coding: utf-8 -*-
-#
-# Copyright (C) 2022 CERN.
-#
-# Invenio App RDM is free software; you can redistribute it and/or modify
-# it under the terms of the MIT License; see LICENSE file for more details.
+# SPDX-FileCopyrightText: 2022 CERN.
+# SPDX-License-Identifier: MIT
 
 """Tests for the CLI."""
 
@@ -19,7 +15,7 @@ def test_create_fixtures(app, db, cli_runner):
     assert result.exit_code == 0
 
     service = current_oaipmh_server_service
-    res_set = service.search(system_identity, params={"q": f"%"})
+    res_set = service.search(system_identity, params={"q": "%"})
 
     # oai_sets.yaml file left empty
     assert res_set.total == 2

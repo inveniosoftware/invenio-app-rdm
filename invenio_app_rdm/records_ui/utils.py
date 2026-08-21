@@ -1,21 +1,23 @@
-# -*- coding: utf-8 -*-
-#
-# Copyright (C) 2020-2025 CERN.
-# Copyright (C) 2020 Northwestern University.
-# Copyright (C) 2021 TU Wien.
-#
-# Invenio-App-RDM is free software; you can redistribute it and/or modify
-# it under the terms of the MIT License; see LICENSE file for more details.
+# SPDX-FileCopyrightText: 2020-2026 CERN.
+# SPDX-FileCopyrightText: 2020 Northwestern University.
+# SPDX-FileCopyrightText: 2021 TU Wien.
+# SPDX-License-Identifier: MIT
 
 """Utility functions."""
 
+from datetime import datetime, timezone
 from itertools import chain
 
 from flask import current_app
 from invenio_access.permissions import system_identity
+from invenio_rdm_records.proxies import current_rdm_records_storage_service
 from invenio_rdm_records.records.api import RDMRecord
 from invenio_rdm_records.requests.record_deletion import RecordDeletion
-from invenio_rdm_records.services.config import RDMRecordDeletionPolicy
+from invenio_rdm_records.services.config import (
+    FileModificationPolicyEvaluator,
+    QuotaIncreasePolicyEvaluator,
+    RDMRecordDeletionPolicy,
+)
 from invenio_records.dictutils import dict_set
 from invenio_records.errors import MissingModelError
 from invenio_records_files.api import FileObject
@@ -115,14 +117,11 @@ def get_existing_deletion_request(record_id):
 
 def evaluate_record_deletion(record: RDMRecord, identity):
     """Evaluate whether a given record can be deleted by an identity."""
-    rec_del = RDMRecordDeletionPolicy().evaluate(identity, record._record)
+    rec_del = RDMRecordDeletionPolicy().evaluate(identity, record)
 
     immediate, request = rec_del["immediate_deletion"], rec_del["request_deletion"]
     rd_enabled = immediate.enabled or request.enabled
-    rd_valid_user = (
-        rec_del["immediate_deletion"].valid_user
-        or rec_del["request_deletion"].valid_user
-    )
+    rd_valid_user = immediate.valid_user or request.valid_user
     rd_allowed = immediate.allowed or request.allowed
 
     if rd_allowed:
@@ -138,7 +137,7 @@ def evaluate_record_deletion(record: RDMRecord, identity):
             ),
             "context": {
                 "files": record.files.count,
-                "internalDoi": record.pids["doi"]["provider"] != "external",
+                "internalDoi": record.pids.get("doi", {}).get("provider") != "external",
             },
         }
     else:
@@ -149,9 +148,71 @@ def evaluate_record_deletion(record: RDMRecord, identity):
         }
     record_deletion["existing_request"] = (
         # We show existing requests to valid users (even if they are not allowed to delete a record anymore).
-        get_existing_deletion_request(record.id)
+        get_existing_deletion_request(record.pid.pid_value)
         if rd_valid_user
         else None
     )
 
     return record_deletion
+
+
+def evaluate_file_modification(record, identity):
+    """Evaluate whether a given record file's can be edited by an identity."""
+    file_mod = FileModificationPolicyEvaluator().evaluate(identity, record)
+
+    file_mod = file_mod["immediate_file_modification"]
+
+    file_modification = {
+        "enabled": file_mod.enabled,
+        "valid_user": file_mod.valid_user,
+        "allowed": file_mod.allowed,
+    }
+
+    if file_mod.allowed:
+        file_modification["fileModification"] = file_mod
+        created = record.created.replace(tzinfo=timezone.utc)
+        modification_until = created + current_app.config.get(
+            "RDM_FILE_MODIFICATION_PERIOD"
+        )
+        days_until = (modification_until - datetime.now(timezone.utc)).days
+        file_modification["context"] = {"days_until": days_until}
+
+    return file_modification
+
+
+def evaluate_quota_increase(record, identity):
+    """Evaluate whether a given draft can have its quota increased by an identity."""
+    quota_inc = QuotaIncreasePolicyEvaluator().evaluate(identity, record)
+
+    quota_increase = {
+        "enabled": quota_inc["immediate_quota_increase"].enabled,
+        "valid_user": quota_inc["immediate_quota_increase"].valid_user,
+        "allowed": quota_inc["immediate_quota_increase"].allowed,
+    }
+
+    if quota_increase["enabled"] and quota_increase["valid_user"]:
+        user_id = identity.id if identity else None
+        quota_increase["defaultStorage"] = (
+            current_rdm_records_storage_service.default_quota(user_id)
+        )
+        quota_increase["additionalStorage"] = (
+            current_rdm_records_storage_service.additional_storage(user_id, record)
+        )
+        quota_increase["maxAdditionalStorage"] = (
+            current_rdm_records_storage_service.max_additional_quota
+        )
+        quota_increase["minAdditionalQuotaValue"] = (
+            current_rdm_records_storage_service.min_additional_quota_value(
+                user_id, record
+            )
+        )
+        quota_increase["maxAdditionalQuotaValue"] = (
+            current_rdm_records_storage_service.max_additional_quota_value(
+                user_id, record
+            )
+        )
+        quota_increase["remainingStorage"] = (
+            current_rdm_records_storage_service.remaining_storage(user_id, record)
+        )
+
+    return quota_increase

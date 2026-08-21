@@ -1,9 +1,8 @@
-// This file is part of Invenio
-// Copyright (C) 2022-2024 CERN.
-// Copyright (C) 2024 Northwestern University.
-//
-// Invenio is free software; you can redistribute it and/or modify it under the
-// terms of the MIT License; see LICENSE file for more details.
+/*
+ * SPDX-FileCopyrightText: 2022-2024 CERN.
+ * SPDX-FileCopyrightText: 2024 Northwestern University.
+ * SPDX-License-Identifier: MIT
+ */
 
 import { createSearchAppInit } from "@js/invenio_search_ui";
 import {
@@ -23,6 +22,7 @@ import {
   ContribSearchAppFacets,
   ContribBucketAggregationElement,
   ContribBucketAggregationValuesElement,
+  ContribRangeFacetElement,
 } from "@js/invenio_search_ui/components";
 
 const appName = "InvenioCommunities.DetailsSearch";
@@ -45,6 +45,7 @@ const CommunityRecordsResultsListItem = parametrize(RecordsResultsListItem, {
 const defaultComponents = {
   [`${appName}.BucketAggregation.element`]: ContribBucketAggregationElement,
   [`${appName}.BucketAggregationValues.element`]: ContribBucketAggregationValuesElement,
+  [`${appName}.RangeFacet.element`]: ContribRangeFacetElement,
   [`${appName}.ResultsGrid.item`]: RDMRecordResultsGridItem,
   [`${appName}.EmptyResults.element`]: RDMEmptyResults,
   [`${appName}.ResultsList.item`]: CommunityRecordsResultsListItem,

@@ -1,0 +1,20 @@
+{#
+  SPDX-FileCopyrightText: 2026 TU Wien.
+  SPDX-License-Identifier: MIT
+#}
+
+{%- extends config.BASE_TEMPLATE %}
+
+{%- block head_title -%}
+  <title>{{ _("Profiler") }}</title>
+{%- endblock -%}
+
+{%- block javascript -%}
+  {{ super() }}
+  {{ webpack["flask-multiprofiler-code.js"] }}
+{%- endblock %}
+
+{%- block css %}
+  {{ super() }}
+  {{ webpack["flask-multiprofiler-style.css"] }}
+{%- endblock css %}

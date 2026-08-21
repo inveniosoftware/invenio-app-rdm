@@ -1,10 +1,7 @@
-# -*- coding: utf-8 -*-
-#
-# Copyright (C) 2019 CERN.
-# Copyright (C) 2019 Northwestern University.
-#
-# Invenio App RDM is free software; you can redistribute it and/or modify it
-# under the terms of the MIT License; see LICENSE file for more details.
+# SPDX-FileCopyrightText: 2019 CERN.
+# SPDX-FileCopyrightText: 2019 Northwestern University.
+# SPDX-FileCopyrightText: 2026 TU Wien.
+# SPDX-License-Identifier: MIT
 
 root = true
 
@@ -14,6 +11,10 @@ end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
 charset = utf-8
+
+# Align TOML indenting with Tombi
+[*.toml]
+indent_size = 2
 
 # RST files (used by sphinx)
 [*.rst]
