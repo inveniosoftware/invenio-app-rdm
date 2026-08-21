@@ -1,9 +1,6 @@
-# -*- coding: utf-8 -*-
-#
-# Copyright (C) 2026 CERN.
-#
-# Invenio-App-RDM is free software; you can redistribute it and/or modify
-# it under the terms of the MIT License; see LICENSE file for more details.
+# SPDX-FileCopyrightText: 2026 KTH Royal Institute of Technology.
+# SPDX-FileCopyrightText: 2026 Northwestern University.
+# SPDX-License-Identifier: MIT
 
 """Role migration script for InvenioRDM 14.0.
 
@@ -16,8 +13,10 @@ import sys
 
 from click import secho
 from invenio_access.models import ActionRoles
-from invenio_accounts.models import Role
+from invenio_accounts.models import Role, userrole
+from invenio_communities.members import MemberModel
 from invenio_db import db
+from sqlalchemy import update
 
 
 def execute_upgrade():
@@ -43,26 +42,54 @@ def execute_upgrade():
     for role in roles:
         old_id = role.id
         new_id = role.name
-        users = list(role.users)
-        secho(f"Updating role <{old_id}> to <{new_id}>.", fg="yellow")
+        secho(f"Updating role id <{old_id}> to <{new_id}>.", fg="yellow")
 
-        # Role.id is referenced by foreign keys without ON UPDATE CASCADE, so
-        # replace the row instead of mutating the primary key in place.
-        role.name = None
-        db.session.flush()
+        # Role.id is referenced by foreign keys without ON UPDATE CASCADE, and
+        # we can't alter a persisted role's name directly because of
+        # https://github.com/inveniosoftware/invenio-accounts/blob/master/invenio_accounts/models.py#L128  # noqa
+        # . So idea is to create a new Role, make related entities point to it,
+        # and delete old Role afterwards. And do it all using "low-level"
+        # SQL primitives that avoid the application-level constraints.
 
+        db.session.execute(update(Role).where(Role.id == old_id).values(name=None))
+
+        # Create new Role with id == name
         replacement_role = Role(
             id=new_id,
             name=new_id,
             description=role.description,
             is_managed=role.is_managed,
         )
-        replacement_role.users = users
         db.session.add(replacement_role)
+        db.session.flush()
 
-        ActionRoles.query.filter_by(role_id=old_id).update(
-            {ActionRoles.role_id: new_id}, synchronize_session=False
+        # Change access_actionroles to use new entry
+        db.session.execute(
+            update(ActionRoles)
+            .where(ActionRoles.role_id == old_id)
+            .values(role_id=replacement_role.id)
         )
+
+        # Change accounts_userrole to use new entry
+        # fmt: off
+        db.session.execute(
+            update(userrole)
+            # Note 'c' because userrole is a Table and not a Model
+            .where(userrole.c.role_id == old_id)
+            .values(role_id=replacement_role.id)
+        )
+        # fmt: on
+
+        # Change communities_members to use new entry
+        db.session.execute(
+            update(MemberModel)
+            .where(MemberModel.group_id == old_id)
+            .values(group_id=replacement_role.id)
+        )
+
+        # Can skip archived invitations (cannot invite group)
+
+        # Delete old role
         db.session.delete(role)
 
     secho("Committing to DB", fg="green")
