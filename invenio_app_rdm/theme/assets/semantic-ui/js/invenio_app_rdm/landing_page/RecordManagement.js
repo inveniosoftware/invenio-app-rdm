@@ -1,10 +1,10 @@
-// This file is part of InvenioRDM
-// Copyright (C) 2020-2025 CERN.
-// Copyright (C) 2020-2021 Northwestern University.
-// Copyright (C) 2021 Graz University of Technology.
-//
-// Invenio RDM Records is free software; you can redistribute it and/or modify it
-// under the terms of the MIT License; see LICENSE file for more details.
+/*
+ * SPDX-FileCopyrightText: 2020-2026 CERN.
+ * SPDX-FileCopyrightText: 2020-2021 Northwestern University.
+ * SPDX-FileCopyrightText: 2021 Graz University of Technology.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 
 import React, { Component } from "react";
@@ -36,6 +36,7 @@ export class RecordManagement extends Component {
       groupsEnabled,
       recordDeletion,
       recordDeletionOptions,
+      auditLogsEnabled,
     } = this.props;
     const { error } = this.state;
     const { id: recid } = record;
@@ -46,19 +47,18 @@ export class RecordManagement extends Component {
 
     return (
       <Grid columns={1} className="record-management">
-        {(recordDeletion["valid_user"] || permissions.can_moderate) && (
-          <Grid.Column className="pb-5">
-            <ManageButton
-              record={record}
-              recordOwnerID={recordOwnerID}
-              permissions={permissions}
-              recordDeletion={recordDeletion}
-              recordDeletionOptions={recordDeletionOptions}
-            />
-          </Grid.Column>
-        )}
-        {permissions.can_edit && !isDraft && (
-          <Grid.Column className={permissions.can_manage ? "pb-5 pt-5" : "pb-5"}>
+        <Grid.Column className="pb-5">
+          <ManageButton
+            record={record}
+            recordOwnerID={recordOwnerID}
+            permissions={permissions}
+            recordDeletion={recordDeletion}
+            recordDeletionOptions={recordDeletionOptions}
+            auditLogsEnabled={auditLogsEnabled}
+          />
+        </Grid.Column>
+        {permissions?.can_edit && !isDraft && (
+          <Grid.Column className={permissions?.can_manage ? "pb-5 pt-5" : "pb-5"}>
             <EditButton recid={recid} onError={handleError} />
           </Grid.Column>
         )}
@@ -85,14 +85,14 @@ export class RecordManagement extends Component {
                 size="medium"
                 record={record}
                 onError={handleError}
-                disabled={!permissions.can_new_version}
+                disabled={!permissions?.can_new_version}
               />
             </Grid.Column>
 
             <Grid.Column className="pt-5">
-              {permissions.can_manage && (
+              {permissions?.can_manage && (
                 <ShareButton
-                  disabled={!permissions.can_update_draft}
+                  disabled={!permissions?.can_update_draft}
                   record={record}
                   permissions={permissions}
                   groupsEnabled={groupsEnabled}
@@ -128,6 +128,12 @@ RecordManagement.propTypes = {
   isPreviewSubmissionRequest: PropTypes.bool.isRequired,
   currentUserId: PropTypes.string.isRequired,
   recordOwnerID: PropTypes.string.isRequired,
-  recordDeletion: PropTypes.object.isRequired,
-  recordDeletionOptions: PropTypes.object.isRequired,
+  recordDeletion: PropTypes.object,
+  recordDeletionOptions: PropTypes.array.isRequired,
+  auditLogsEnabled: PropTypes.bool,
+};
+
+RecordManagement.defaultProps = {
+  recordDeletion: {},
+  auditLogsEnabled: false,
 };

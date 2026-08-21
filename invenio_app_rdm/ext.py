@@ -1,9 +1,5 @@
-# -*- coding: utf-8 -*-
-#
-# Copyright (C) 2023-2024 Graz University of Technology.
-#
-# Invenio App RDM is free software; you can redistribute it and/or modify it
-# under the terms of the MIT License; see LICENSE file for more details.
+# SPDX-FileCopyrightText: 2023-2024 Graz University of Technology.
+# SPDX-License-Identifier: MIT
 
 """Invenio Research Data Management."""
 
@@ -12,6 +8,7 @@ from datetime import timedelta
 
 from flask import request
 from flask_menu import current_menu
+from invenio_app import talisman
 from invenio_i18n import lazy_gettext as _
 
 from .communities_ui.views.ui import _show_browse_page
@@ -19,6 +16,24 @@ from .utils.template_filters import (
     register_context_processors,
     register_template_filters,
 )
+
+try:
+    from flask_multiprofiler import MultiProfiler
+
+except (ImportError, ModuleNotFoundError):
+
+    class MultiProfiler:
+        """Dummy profiler for entrypoints if Flask-MultiProfiler isn't installed.
+
+        Note that this dummy extension does not register itself to ``app.extensions``.
+        """
+
+        def __init__(self, app=None):
+            """Constructor."""
+
+        def init_app(self, app):
+            """Initialize application."""
+            self.app = app
 
 
 def _is_branded_community():
@@ -43,6 +58,15 @@ def init_persian_rtl_support(app):
 
     # Register context processors for RTL and calendar detection
     register_context_processors(app)
+
+    # make CSP headers for profiler reports very lax
+    if "multiprofiler" in app.extensions:
+        orig_profiler_report_view = app.view_functions["profiler.report_view"]
+
+        @app.endpoint("profiler.report_view")
+        @talisman(content_security_policy={})
+        def wrapped_profiler_report_view(*args, **kwargs):
+            return orig_profiler_report_view(*args, **kwargs)
 
 
 def init_config(app):
@@ -169,3 +193,17 @@ def init_menu(app):
         },
         **dict(icon="upload", permissions="can_read"),
     )
+
+    # register a menu entry for the profiler, if it is installed
+    if "multiprofiler" in app.extensions:
+        permission_check_func = app.config["MULTIPROFILER_PERMISSION"]
+        current_menu.submenu("profile-admin.profiler").register(
+            "profiler.index",
+            text=_(
+                "%(icon)s Profiler",
+                icon='<i class="bar chart icon"></i>',
+            ),
+            order=10,
+            visible_when=permission_check_func,
+            permissions="can_read",
+        )

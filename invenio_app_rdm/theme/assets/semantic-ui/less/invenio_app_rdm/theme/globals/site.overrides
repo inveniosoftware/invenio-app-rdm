@@ -13,6 +13,7 @@
 
 @import "../../landing_page/creatibutors.less";
 @import "../../landing_page/licenses.less";
+@import "../../landing_page/files-previewer-zip.less";
 
 html,
 body {
@@ -58,6 +59,11 @@ body {
   }
 }
 
+// Generic display-toggle utility used by jQuery toggleClass("hidden", ...) everywhere
+.hidden {
+  display: none !important;
+}
+
 button:focus-visible, a:focus-visible {
   outline: 3px solid @focusedFormBorderColor !important;
 }
@@ -95,6 +101,37 @@ button:focus-visible, a:focus-visible {
 
 .wrap-overflowing-text {
   word-wrap: break-word;
+  overflow-wrap: anywhere;
+
+  mjx-container[jax="CHTML"],
+  mjx-container[jax="CHTML"] > mjx-math,
+  mjx-container[jax="CHTML"] mjx-mrow,
+  mjx-container[jax="CHTML"] mjx-texatom,
+  mjx-container[jax="CHTML"] mjx-mi,
+  mjx-container[jax="CHTML"] mjx-mo,
+  mjx-container[jax="CHTML"] mjx-mn,
+  mjx-container[jax="CHTML"] mjx-msub,
+  mjx-container[jax="CHTML"] mjx-msup,
+  mjx-container[jax="CHTML"] mjx-msubsup {
+    white-space: normal !important;
+  }
+}
+
+.rich-input-content {
+  overflow-wrap: anywhere;
+
+  mjx-container[jax="CHTML"],
+  mjx-container[jax="CHTML"] > mjx-math,
+  mjx-container[jax="CHTML"] mjx-mrow,
+  mjx-container[jax="CHTML"] mjx-texatom,
+  mjx-container[jax="CHTML"] mjx-mi,
+  mjx-container[jax="CHTML"] mjx-mo,
+  mjx-container[jax="CHTML"] mjx-mn,
+  mjx-container[jax="CHTML"] mjx-msub,
+  mjx-container[jax="CHTML"] mjx-msup,
+  mjx-container[jax="CHTML"] mjx-msubsup {
+    white-space: normal !important;
+  }
 }
 
 // Log-in and sign-up
@@ -596,4 +633,40 @@ html[lang="fa-IR"],
 [dir="rtl"] .ui.form textarea,
 [dir="rtl"] .ui.dropdown {
   font-family: 'IRANSans', 'Vazirmatn', sans-serif !important;
+}
+
+/* Prevent long values from overflowing in details lists */
+dl.details-list dd {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  white-space: normal;
+}
+
+/* Prevent long links/values from overflowing in the right sidebar column */
+.stackable.mobile.reversed.grid > .column:last-child {
+  min-width: 0;
+
+  dd {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    white-space: normal;
+  }
+}
+
+.publishing-info-grid {
+  margin-left: 2rem !important;
+}
+
+/* Add vertical spacing between Journal / Imprint / Thesis on small screens */
+@media only screen and (max-width: @largestMobileScreen) {
+  .publishing-info-grid .column {
+    min-width: 0;
+    margin-bottom: 2rem;
+  }
+
+  .publishing-info-grid .column:first-child {
+    margin-top: 1.5rem;
+  }
 }

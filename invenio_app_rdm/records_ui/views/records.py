@@ -1,20 +1,18 @@
-# -*- coding: utf-8 -*-
-#
-# Copyright (C) 2019-2025 CERN.
-# Copyright (C) 2019-2021 Northwestern University.
-# Copyright (C) 2021-2023 TU Wien.
-#
-# Invenio App RDM is free software; you can redistribute it and/or modify it
-# under the terms of the MIT License; see LICENSE file for more details.
+# SPDX-FileCopyrightText: 2019-2025 CERN.
+# SPDX-FileCopyrightText: 2019-2021 Northwestern University.
+# SPDX-FileCopyrightText: 2021-2023 TU Wien.
+# SPDX-FileCopyrightText: 2025 CESNET i.a.l.e.
+# SPDX-License-Identifier: MIT
 
 """Routes for record-related pages provided by Invenio-App-RDM."""
 
 import itertools
-from os.path import splitext
+from os.path import basename, splitext
 from pathlib import Path
 
 from flask import abort, current_app, g, redirect, render_template, request, url_for
 from flask_login import current_user
+from flask_principal import AnonymousIdentity
 from invenio_base.utils import obj_or_import_string
 from invenio_communities.communities.resources.serializer import (
     UICommunityJSONSerializer,
@@ -28,7 +26,10 @@ from invenio_rdm_records.proxies import current_rdm_records
 from invenio_rdm_records.records.systemfields.access.access_settings import (
     AccessSettings,
 )
+from invenio_rdm_records.requests import CommunityInclusion, CommunitySubmission
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
+from invenio_requests.proxies import current_requests_service
+from invenio_search.api import dsl
 from invenio_stats.proxies import current_stats
 from invenio_users_resources.proxies import current_user_resources
 from marshmallow import ValidationError
@@ -42,10 +43,13 @@ from .decorators import (
     add_signposting_content_resources,
     add_signposting_landing_page,
     add_signposting_metadata_resources,
+    pass_container_item,
     pass_file_item,
     pass_file_metadata,
     pass_include_deleted,
+    pass_is_iframe,
     pass_is_preview,
+    pass_preview_file,
     pass_record_files,
     pass_record_from_pid,
     pass_record_latest,
@@ -106,7 +110,9 @@ class PreviewFile:
     `invenio_previewer.api.PreviewFile`.
     """
 
-    def __init__(self, file_item, record_pid_value, record=None, url=None):
+    def __init__(
+        self, file_item, record_pid_value, record=None, url=None, is_iframe=False
+    ):
         """Create a new PreviewFile."""
         self.file = file_item
         self.data = file_item.data
@@ -119,6 +125,7 @@ class PreviewFile:
             pid_value=record_pid_value,
             filename=self.filename,
         )
+        self.is_iframe = is_iframe
 
     def is_local(self):
         """Check if file is local."""
@@ -137,6 +144,56 @@ class PreviewFile:
         return self.file._file.file.storage().open()
 
 
+class PreviewContainerItem(PreviewFile):
+    """Container Item Preview file implementation for InvenioRDM."""
+
+    def __init__(
+        self,
+        file_item,
+        record_pid_value,
+        path,
+        extracted_file_size,
+        record=None,
+        url=None,
+        is_iframe=False,
+    ):
+        """Create a new PreviewFile."""
+        super().__init__(
+            file_item=file_item,
+            record_pid_value=record_pid_value,
+            record=record,
+            url=url,
+            is_iframe=is_iframe,
+        )
+        self.path = path
+        self.size = extracted_file_size
+        self.container_item_filename = basename(self.path)
+        self.uri = url or url_for(
+            "invenio_app_rdm_records.record_container_item_download",
+            pid_value=record_pid_value,
+            filename=self.filename,
+            path=path,
+        )
+
+    def has_extensions(self, *exts):
+        """Check if file has one of the extensions.
+
+        Each `exts` has the format `.{file type}` e.g. `.txt` .
+        """
+        file_ext = splitext(self.container_item_filename)[1].lower()
+        return file_ext in exts
+
+    def open(self):
+        """Open the file."""
+        from invenio_records_resources.proxies import current_service_registry
+
+        file_service = current_service_registry.get("files")
+        opened_file = file_service.open_container_item(
+            g.identity, self.record["id"], self.filename, self.path
+        )
+        return opened_file
+
+
 #
 # Views
 #
@@ -144,12 +201,19 @@ class PreviewFile:
 
 @pass_is_preview
 @pass_include_deleted
+@pass_preview_file
 @pass_record_or_draft(expand=True)
 @pass_record_files
 @pass_record_media_files
 @add_signposting_landing_page
 def record_detail(
-    pid_value, record, files, media_files, is_preview=False, include_deleted=False
+    pid_value,
+    record,
+    files,
+    media_files,
+    is_preview=False,
+    include_deleted=False,
+    preview_file=None,
 ):
     """Record detail page (aka landing page)."""
     files_dict = None if files is None else files.to_dict()
@@ -161,7 +225,10 @@ def record_detail(
 
     record_ui = UIJSONSerializer().dump_obj(record.to_dict())
 
-    record_deletion = evaluate_record_deletion(record, g.identity)
+    if preview_file:
+        record_ui["files"]["default_preview"] = preview_file
+
+    record_deletion = evaluate_record_deletion(record._record, g.identity)
 
     # The deletion options are only needed if the user is allowed to delete the given record.
     record_deletion_options = (
@@ -238,6 +305,40 @@ def record_detail(
     )
     theme = resolved_community_ui.get("theme", {}) if resolved_community else None
 
+    record_requests = (
+        current_rdm_records.record_communities_service.get_record_requests(
+            g.identity, record
+        )
+    )
+
+    # permissions needs to include extra params to be passed to the template
+    permissions = record.has_permissions_to(
+        [
+            "edit",
+            "new_version",
+            "manage",
+            "update_draft",
+            "read_files",
+            "review",
+            "view",
+            "media_read_files",
+            "moderate",
+            "request_deletion",
+            "immediately_delete",
+            "remove_community_from_record",
+        ]
+    )
+    permissions["removable_community_ids"] = [
+        cid
+        for cid in record._record.parent.communities.ids
+        if current_rdm_records.records_service.check_permission(
+            g.identity,
+            "remove_community_from_record",
+            record=record._record,
+            community_id=cid,
+        )
+    ]
+
     return render_community_theme_template(
         current_app.config.get("APP_RDM_RECORD_LANDING_PAGE_TEMPLATE"),
         theme=theme,
@@ -246,27 +347,14 @@ def record_detail(
         files=files_dict,
         media_files=media_files_dict,
         user_communities_memberships=get_user_communities_memberships(),
-        permissions=record.has_permissions_to(
-            [
-                "edit",
-                "new_version",
-                "manage",
-                "update_draft",
-                "read_files",
-                "review",
-                "view",
-                "media_read_files",
-                "moderate",
-                "request_deletion",
-                "immediately_delete",
-            ]
-        ),
+        permissions=permissions,
         custom_fields_ui=custom_fields["ui"],
         is_preview=is_preview,
         include_deleted=include_deleted,
         is_draft=is_draft,
         community=resolved_community,
         community_ui=resolved_community_ui,
+        record_requests=record_requests,
         external_resources=get_external_resources(record),
         user_avatar=avatar,
         record_deletion=record_deletion,
@@ -303,6 +391,7 @@ def record_export(
 @pass_include_deleted
 @pass_record_or_draft(expand=False)
 @pass_file_metadata
+@pass_is_iframe
 def record_file_preview(
     pid_value,
     record=None,
@@ -310,6 +399,7 @@ def record_file_preview(
     file_metadata=None,
     is_preview=False,
     include_deleted=False,
+    is_iframe=False,
     **kwargs,
 ):
     """Render a preview of the specified file."""
@@ -321,7 +411,7 @@ def record_file_preview(
     )
 
     # Find a suitable previewer
-    fileobj = PreviewFile(file_metadata, pid_value, record, url)
+    fileobj = PreviewFile(file_metadata, pid_value, record, url, is_iframe)
     # Try to see if specific previewer preference is set for the file
     file_previewer = (file_metadata.data.get("metadata") or {}).get("previewer")
     if file_previewer:
@@ -337,6 +427,47 @@ def record_file_preview(
     return default_previewer.preview(fileobj)
 
 
+@pass_record_or_draft(expand=False)
+@pass_file_metadata
+def record_container_item_preview(
+    pid_value,
+    record=None,
+    file_metadata=None,
+    **kwargs,
+):
+    """Render a preview of the specified item in a container."""
+    filename = kwargs.get("filename")
+    path = kwargs.get("path")
+
+    url = url_for(
+        "invenio_app_rdm_records.record_container_item_download",
+        pid_value=pid_value,
+        filename=filename,
+        path=path,
+    )
+
+    extracted_file_size = 0
+    fileobj = PreviewContainerItem(
+        file_metadata, pid_value, path, extracted_file_size, record, url
+    )
+
+    # Go through all previewers to find the first one that can preview the file
+    for plugin in current_previewer.iter_container_item_previewers():
+        if plugin.can_preview(fileobj):
+            return plugin.preview(fileobj)
+
+    return default_previewer.preview(fileobj)
+
+
+def find_container_item(container_item_metadata, path_parts):
+    """Find a container item in TOC based on path parts."""
+    if not path_parts:
+        return None
+
+    container_item_id = "/".join(path_parts)
+    return container_item_metadata.get(container_item_id)
+
+
 @pass_is_preview
 @pass_file_item(is_media=False)
 @add_signposting_content_resources
@@ -350,7 +481,27 @@ def record_file_download(pid_value, file_item=None, is_preview=False, **kwargs):
         obj = file_item._file.object_version
         emitter(current_app, record=file_item._record, obj=obj, via_api=False)
 
-    return file_item.send_file(as_attachment=download)
+    if file_item._record.access.protection.files == "public":
+        restricted = False
+    else:
+        restricted = True
+
+    return file_item.send_file(as_attachment=download, restricted=restricted)
+
+
+@pass_container_item()
+@add_signposting_content_resources
+def record_container_item_download(
+    pid_value, container_item=None, is_preview=False, **kwargs
+):
+    """Download a file extracted from a container (e.g., zip archive) within a record."""
+    # emit a file download stats event
+    emitter = current_stats.get_event_emitter("file-download")
+    if container_item is not None and emitter is not None:
+        obj = container_item._file_record.object_version
+        emitter(current_app, record=container_item._record, obj=obj, via_api=False)
+
+    return container_item.send_file()
 
 
 @pass_record_or_draft(expand=False)
@@ -406,7 +557,7 @@ def record_latest(record=None, **kwargs):
 
 @pass_record_from_pid
 def record_from_pid(record=None, **kwargs):
-    """Redirect to record's latest version page."""
+    """Redirect to record's page."""
     return redirect(record["links"]["self_html"], code=302)
 
 
@@ -431,17 +582,24 @@ def draft_not_found_error(error):
 
 def record_tombstone_error(error):
     """Tombstone page."""
-    # the RecordDeletedError will have the following properties,
-    # while the PIDDeletedError won't
+    # RecordDeletedError has both of these properties; PIDDeletedError only has `record`
     record = getattr(error, "record", None)
-    if (record_ui := getattr(error, "result_item", None)) is not None:
+    result_item = getattr(error, "result_item", None)
+    record_ui = None
+    if result_item is not None:
         if record is None:
-            record = record_ui._record
+            record = result_item._record
 
-        record_ui = UIJSONSerializer().dump_obj(record_ui.to_dict())
+        record_ui = UIJSONSerializer().dump_obj(result_item.to_dict())
 
     # render a 404 page if the tombstone isn't visible
-    if not record.tombstone.is_visible:
+    if record_ui is None or not record.tombstone.is_visible:
+        if record_ui is None:
+            # Log an exception; this should not happen.
+            current_app.logger.exception(
+                "Tried to access record via deleted PID. This should not happen; the record itself should be soft-deleted instead."
+            )
+
         return not_found_error(error)
 
     # we only render a tombstone page if there is a record with a visible tombstone
@@ -449,6 +607,9 @@ def record_tombstone_error(error):
         render_template(
             "invenio_app_rdm/records/tombstone.html",
             record=record_ui,
+            permissions=(
+                result_item.has_permissions_to(["moderate"]) if result_item else None
+            ),
         ),
         410,
     )

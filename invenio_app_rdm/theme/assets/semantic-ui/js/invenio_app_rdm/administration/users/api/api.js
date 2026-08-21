@@ -1,9 +1,7 @@
 /*
- * This file is part of Invenio.
- * Copyright (C) 2023 CERN.
- *
- * Invenio is free software; you can redistribute it and/or modify it
- * under the terms of the MIT License; see LICENSE file for more details.
+ * SPDX-FileCopyrightText: 2023-2026 CERN.
+ * SPDX-FileCopyrightText: 2026 KTH Royal Institute of Technology.
+ * SPDX-License-Identifier: MIT
  */
 import { APIRoutes } from "./routes";
 import { http } from "react-invenio-forms";
@@ -12,8 +10,8 @@ const restoreUser = async (user) => {
   return await http.post(APIRoutes.restore(user));
 };
 
-const blockUser = async (user) => {
-  return await http.post(APIRoutes.block(user));
+const blockUser = async (user, payload) => {
+  return await http.post(APIRoutes.block(user), payload || {});
 };
 
 const deactivateUser = async (user) => {
@@ -32,6 +30,14 @@ const impersonateUser = async (user) => {
   return await http.post(APIRoutes.impersonate(user));
 };
 
+const userGroups = async (user) => {
+  return await http.get(user.links.groups);
+};
+
+const setUserGroups = async (user, payload) => {
+  return await http.put(user.links.groups, payload);
+};
+
 export const UserModerationApi = {
   restoreUser: restoreUser,
   approveUser: approveUser,
@@ -39,4 +45,6 @@ export const UserModerationApi = {
   impersonateUser: impersonateUser,
   deactivateUser: deactivateUser,
   blockUser: blockUser,
+  userGroups: userGroups,
+  setUserGroups: setUserGroups,
 };

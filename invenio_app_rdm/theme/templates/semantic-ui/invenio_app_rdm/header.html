@@ -1,12 +1,9 @@
 {#
-    -*- coding: utf-8 -*-
-    Copyright (C) 2019-2025 CERN.
-    Copyright (C) 2019-2020 Northwestern University.
-    Copyright (C) 2021 New York University.
-    Copyright (C) 2024 KTH Royal Institute of Technology.
-
-    Invenio App RDM is free software; you can redistribute it and/or modify it
-    under the terms of the MIT License; see LICENSE file for more details.
+  SPDX-FileCopyrightText: 2019-2025 CERN.
+  SPDX-FileCopyrightText: 2019-2020 Northwestern University.
+  SPDX-FileCopyrightText: 2021 New York University.
+  SPDX-FileCopyrightText: 2024 KTH Royal Institute of Technology.
+  SPDX-License-Identifier: MIT
 #}
 
 <div>
@@ -32,13 +29,13 @@
             {%- block navbar_header %}
                 {%- block brand %}
                   {%- if config.THEME_LOGO %}
-                    <a class="logo-link" href="/">
+                      <a class="logo-link" href="{{ invenio_url_for('invenio_app_rdm.index') }}">
                       <img class="ui image rdm-logo"
                             src="{{ url_for('static', filename=config.THEME_LOGO) }}"
                             alt="{{ _(config.THEME_SITENAME) }} {{ _('home') }}"/>
                     </a>
                   {%- else %}
-                    <a class="logo" href="/">{{ _(config.THEME_SITENAME) }}</a>
+                    <a class="logo" href="{{ invenio_url_for('invenio_app_rdm.index') }}">{{ _(config.THEME_SITENAME) }}</a>
                   {%- endif %}
                 {%- endblock brand %}
               {%- endblock navbar_header %}

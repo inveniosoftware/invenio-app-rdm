@@ -1,13 +1,9 @@
-# -*- coding: utf-8 -*-
-#
-# Copyright (C) 2019-2025 CERN.
-# Copyright (C) 2019-2020 Northwestern University.
-# Copyright (C) 2021-2025 Graz University of Technology.
-# Copyright (C) 2022-2024 KTH Royal Institute of Technology.
-# Copyright (C) 2023      TU Wien
-#
-# Invenio App RDM is free software; you can redistribute it and/or modify it
-# under the terms of the MIT License; see LICENSE file for more details.
+# SPDX-FileCopyrightText: 2019-2026 CERN.
+# SPDX-FileCopyrightText: 2019-2026 Northwestern University.
+# SPDX-FileCopyrightText: 2021-2025 Graz University of Technology.
+# SPDX-FileCopyrightText: 2022-2025 KTH Royal Institute of Technology.
+# SPDX-FileCopyrightText: 2023 TU Wien
+# SPDX-License-Identifier: MIT
 
 """Default configuration for Invenio App RDM.
 
@@ -38,6 +34,7 @@ from celery.schedules import crontab
 from flask_principal import Denial
 from flask_resources import HTTPJSONException, create_error_handler
 from invenio_access.permissions import any_user
+from invenio_administration.permissions import administration_permission
 from invenio_communities.communities.resources.config import community_error_handlers
 from invenio_communities.notifications.builders import (
     CommunityInvitationAcceptNotificationBuilder,
@@ -45,8 +42,14 @@ from invenio_communities.notifications.builders import (
     CommunityInvitationDeclineNotificationBuilder,
     CommunityInvitationExpireNotificationBuilder,
     CommunityInvitationSubmittedNotificationBuilder,
+    CommunityMembershipRequestAcceptedNotificationBuilder,
+    CommunityMembershipRequestCancelledNotificationBuilder,
+    CommunityMembershipRequestDeclinedNotificationBuilder,
+    CommunityMembershipRequestExpiredNotificationBuilder,
+    CommunityMembershipRequestSubmittedNotificationBuilder,
 )
 from invenio_notifications.backends import EmailNotificationBackend
+from invenio_rdm_records.config import RDM_FILES_DEFAULT_QUOTA_SIZE
 from invenio_rdm_records.notifications.builders import (
     CommunityInclusionAcceptNotificationBuilder,
     CommunityInclusionCancelNotificationBuilder,
@@ -72,6 +75,10 @@ from invenio_rdm_records.requests.entity_resolvers import (
     EmailResolver,
     RDMRecordServiceResultResolver,
 )
+from invenio_rdm_records.requests.subcommunities import (
+    RDMSubCommunityInvitationRequest,
+    RDMSubCommunityRequest,
+)
 from invenio_rdm_records.resources.stats.event_builders import build_record_unique_id
 from invenio_rdm_records.services.communities.components import (
     CommunityServiceComponents,
@@ -80,13 +87,13 @@ from invenio_rdm_records.services.errors import (
     InvalidAccessRestrictions,
     InvalidCommunityVisibility,
 )
-from invenio_rdm_records.services.github.release import RDMGithubRelease
 from invenio_rdm_records.services.permissions import RDMRequestsPermissionPolicy
 from invenio_rdm_records.services.stats import permissions_policy_lookup_factory
 from invenio_rdm_records.services.tasks import StatsRDMReindexTask
 from invenio_records_resources.references.entity_resolvers import ServiceResultResolver
 from invenio_requests.notifications.builders import (
     CommentRequestEventCreateNotificationBuilder,
+    CommentRequestEventReplyNotificationBuilder,
 )
 from invenio_requests.resources.requests.config import request_error_handlers
 from invenio_requests.services.requests import facets
@@ -169,6 +176,8 @@ from invenio_vocabularies.contrib.subjects.datastreams import (
     VOCABULARIES_DATASTREAM_WRITERS as SUBJECTS_WRITERS,
 )
 from werkzeug.local import LocalProxy
+
+from invenio_app_rdm import __version__
 
 from .communities_ui.sitemap import SitemapSectionOfCommunities
 from .records_ui.sitemap import SitemapSectionOfRDMRecords
@@ -344,12 +353,6 @@ FILES_REST_STORAGE_CLASS_LIST = {
 
 FILES_REST_DEFAULT_STORAGE_CLASS = "L"
 
-FILES_REST_DEFAULT_QUOTA_SIZE = 10**10
-"""Default quota size is 10Gb."""
-
-FILES_REST_DEFAULT_MAX_FILE_SIZE = FILES_REST_DEFAULT_QUOTA_SIZE
-"""Default maximum file size for a bucket in bytes."""
-
 # Invenio-Formatter
 # =================
 
@@ -495,7 +498,7 @@ CELERY_BEAT_SCHEDULE = {
         "schedule": crontab(minute=0, hour=2),
     },
     "update-collections-size": {
-        "task": "invenio_collections.tasks.update_collections_size",
+        "task": "invenio_rdm_records.collections.tasks.update_collections_size",
         "schedule": timedelta(hours=1),
     },
 }
@@ -527,6 +530,10 @@ SQLALCHEMY_ENGINE_OPTIONS = {
     "pool_recycle": 3600,
     # set a more agressive timeout to ensure http requests don't wait for long
     "pool_timeout": 10,
+    # Ensure the database is using the UTC timezone for interpreting timestamps (Postgres only).
+    # This overrides any default setting (e.g. in postgresql.conf). Invenio expects the DB to receive
+    # and provide UTC timestamps in all cases, so it's important that this doesn't get changed.
+    "connect_args": {"options": "-c timezone=UTC"},
 }
 """SQLAlchemy engine options.
 
@@ -725,13 +732,6 @@ ACCESS_CACHE = "invenio_cache:current_cache"
 SEARCH_HOSTS = [{"host": "localhost", "port": 9200}]
 """Search hosts."""
 
-# Invenio-Base
-# ============
-# See https://invenio-base.readthedocs.io/en/latest/api.html#invenio_base.wsgi.wsgi_proxyfix  # noqa
-
-WSGI_PROXIES = 2
-"""Correct number of proxies in front of your application."""
-
 # Invenio-REST
 # ============
 
@@ -804,7 +804,9 @@ APP_RDM_ROUTES = {
     "record_detail": "/records/<pid_value>",
     "record_export": "/records/<pid_value>/export/<export_format>",
     "record_file_preview": "/records/<pid_value>/preview/<path:filename>",
+    "record_container_item_preview": "/records/<pid_value>/preview/<path:filename>/container/<path:path>",
     "record_file_download": "/records/<pid_value>/files/<path:filename>",
+    "record_container_item_download": "/records/<pid_value>/files/<path:filename>/container/<path:path>",
     "record_thumbnail": "/records/<pid_value>/thumb<int:size>",
     "record_media_file_download": "/records/<pid_value>/media-files/<path:filename>",
     "record_from_pid": "/<any({schemes}):pid_scheme>/<path:pid_value>",
@@ -960,12 +962,21 @@ APP_RDM_DEPOSIT_FORM_DEFAULTS = {
             "link": "https://creativecommons.org/licenses/by/4.0/legalcode",
         }
     ],
-    "publisher": "CERN",
+    "publisher": THEME_SITENAME,
 }
 """Default values for new records in the deposit UI.
 
 The keys denote the dot-separated path, where in the record's metadata
 the values should be set (see invenio-records.dictutils).
+If the value is callable, its return value will be used for the field
+(e.g. lambda/function for dynamic calculation of values).
+"""
+
+APP_RDM_DEPOSIT_FORM_CUSTOM_FIELD_DEFAULTS = {}
+"""Default values for custom fields in new records in the deposit UI.
+
+The keys denote the dot-separated path, where in the record's custom field
+values should be set (see invenio-records.dictutils).
 If the value is callable, its return value will be used for the field
 (e.g. lambda/function for dynamic calculation of values).
 """
@@ -983,7 +994,7 @@ Available options:
 
 APP_RDM_DEPOSIT_FORM_QUOTA = {
     "maxFiles": 100,
-    "maxStorage": FILES_REST_DEFAULT_QUOTA_SIZE,
+    "maxStorage": RDM_FILES_DEFAULT_QUOTA_SIZE,
 }
 """Deposit file upload quota """
 
@@ -1021,7 +1032,7 @@ APP_RDM_FILES_INTEGRITY_REPORT_TEMPLATE = (
 )
 """Files integrity report template"""
 
-APP_RDM_FILES_INTEGRITY_REPORT_SUBJECT = "Files integrity report"
+APP_RDM_FILES_INTEGRITY_REPORT_SUBJECT = _("Files integrity report")
 """Files integrity report subject"""
 
 APP_RDM_ADMIN_EMAIL_RECIPIENT = "info@inveniosoftware.org"
@@ -1051,6 +1062,12 @@ APP_RDM_IDENTIFIER_SCHEMES_UI = {
 
 COMMUNITIES_SERVICE_COMPONENTS = CommunityServiceComponents
 
+COMMUNITIES_SUB_REQUEST_CLS = RDMSubCommunityRequest
+"""RDM specific request type for subcommunities."""
+
+COMMUNITIES_SUB_INVITATION_REQUEST_CLS = RDMSubCommunityInvitationRequest
+"""RDM specific request type for subcommunity invitations."""
+
 COMMUNITIES_ERROR_HANDLERS = {
     **community_error_handlers,
     InvalidCommunityVisibility: create_error_handler(
@@ -1067,16 +1084,15 @@ COMMUNITIES_RECORDS_SEARCH = {
 }
 """Community requests search configuration (i.e list of community requests)"""
 
-COMMUNITIES_SHOW_BROWSE_MENU_ENTRY = False
-"""Toggle to show or hide the 'Browse' menu entry for communities."""
 
 # Invenio-RDM-Records
 # ===================
 
 RDM_REQUESTS_ROUTES = {
-    "user-dashboard-request-details": "/me/requests/<request_pid_value>",
-    "community-dashboard-request-details": "/communities/<pid_value>/requests/<request_pid_value>",
-    "community-dashboard-invitation-details": "/communities/<pid_value>/invitations/<request_pid_value>",
+    "user-dashboard-request-details": "/me/requests/<uuid:request_pid_value>",
+    "community-dashboard-request-details": "/communities/<pid_value>/requests/<uuid:request_pid_value>",
+    "community-dashboard-invitation-details": "/communities/<pid_value>/invitations/<uuid:request_pid_value>",
+    "community-dashboard-membership-request-details": "/communities/<pid_value>/membership-requests/<uuid:request_pid_value>",
 }
 
 RDM_COMMUNITIES_ROUTES = {
@@ -1105,8 +1121,8 @@ RDM_CITATION_STYLES = [
     ("apa", _("APA")),
     ("harvard-cite-them-right", _("Harvard")),
     ("modern-language-association", _("MLA")),
-    ("vancouver", _("Vancouver")),
-    ("chicago-fullnote-bibliography", _("Chicago")),
+    ("nlm-citation-sequence", _("Vancouver")),
+    ("chicago-notes-bibliography", _("Chicago")),
     ("ieee", _("IEEE")),
 ]
 """List of citation style """
@@ -1152,6 +1168,10 @@ IIIF_FORMATS_PIL_MAP = {
 }
 """Mapping of IIIF formats to PIL-compatible formats."""
 
+
+PREVIEWABLE_ZIP_PREVIEWER_NATIVE_EXTENSIONS = ["zip"]
+"""Extensions for previewable zip."""
+
 # Invenio-Previewer
 # =================
 # See https://github.com/inveniosoftware/invenio-previewer/blob/master/invenio_previewer/config.py  # noqa
@@ -1167,10 +1187,27 @@ PREVIEWER_PREFERENCE = [
     "video_videojs",
     "audio_videojs",
     "ipynb",
-    "zip",
+    "previewable_zip",
     "txt",
 ]
 """Preferred previewers."""
+
+PREVIEWER_ABSTRACT_TEMPLATE = "invenio_previewer/rdm_abstract_previewer.html"
+"""Override the abstract template with an RDM-specific one."""
+
+PREVIEWER_CONTAINER_ITEM_PREFERENCE = [
+    "csv_papaparsejs",
+    "pdfjs",
+    "simple_image",
+    "json_prismjs",
+    "xml_prismjs",
+    "mistune",
+    "video_videojs",
+    "audio_videojs",
+    "ipynb",
+    "zip",
+    "txt",
+]
 
 RECORDS_RESOURCES_IMAGE_FORMATS = ["." + ext for ext in IIIF_FORMATS.keys()]
 """RECORDS_RESOURCES_IMAGE_FORMATS must contain all possible IIIF formats to ensure their metadata is extracted."""
@@ -1404,6 +1441,7 @@ NOTIFICATIONS_BUILDERS = {
     GrantUserAccessNotificationBuilder.type: GrantUserAccessNotificationBuilder,
     # Comment request event
     CommentRequestEventCreateNotificationBuilder.type: CommentRequestEventCreateNotificationBuilder,
+    CommentRequestEventReplyNotificationBuilder.type: CommentRequestEventReplyNotificationBuilder,
     community_notifications.SubComReqCommentNotificationBuilder.type: community_notifications.SubComReqCommentNotificationBuilder,
     community_notifications.SubComInvCommentNotificationBuilder.type: community_notifications.SubComInvCommentNotificationBuilder,
     # Community inclusion
@@ -1418,6 +1456,12 @@ NOTIFICATIONS_BUILDERS = {
     CommunityInvitationDeclineNotificationBuilder.type: CommunityInvitationDeclineNotificationBuilder,
     CommunityInvitationExpireNotificationBuilder.type: CommunityInvitationExpireNotificationBuilder,
     CommunityInvitationSubmittedNotificationBuilder.type: CommunityInvitationSubmittedNotificationBuilder,
+    # Community membership request
+    CommunityMembershipRequestAcceptedNotificationBuilder.type: CommunityMembershipRequestAcceptedNotificationBuilder,
+    CommunityMembershipRequestCancelledNotificationBuilder.type: CommunityMembershipRequestCancelledNotificationBuilder,
+    CommunityMembershipRequestDeclinedNotificationBuilder.type: CommunityMembershipRequestDeclinedNotificationBuilder,
+    CommunityMembershipRequestExpiredNotificationBuilder.type: CommunityMembershipRequestExpiredNotificationBuilder,
+    CommunityMembershipRequestSubmittedNotificationBuilder.type: CommunityMembershipRequestSubmittedNotificationBuilder,
     # Subcommunity request
     community_notifications.SubCommunityCreate.type: community_notifications.SubCommunityCreate,
     community_notifications.SubCommunityAccept.type: community_notifications.SubCommunityAccept,
@@ -1478,13 +1522,6 @@ REQUESTS_ERROR_HANDLERS = {
 }
 
 
-# Invenio-Github
-# =================
-#
-GITHUB_RELEASE_CLASS = RDMGithubRelease
-"""Default RDM release class."""
-
-
 # Flask-Menu
 # ==========
 #
@@ -1495,7 +1532,6 @@ USER_DASHBOARD_MENU_OVERRIDES = {}
 # Invenio-Administration
 # ======================
 #
-from invenio_app_rdm import __version__
 
 ADMINISTRATION_DISPLAY_VERSIONS = [("invenio-app-rdm", f"v{__version__}")]
 """Show the InvenioRDM version in the administration panel."""
@@ -1504,7 +1540,7 @@ ADMINISTRATION_THEME_BASE_TEMPLATE = "invenio_app_rdm/administration_page.html"
 """Administration base template."""
 
 
-APP_RDM_SUBCOMMUNITIES_LABEL = "Subcommunities"
+APP_RDM_SUBCOMMUNITIES_LABEL = _("Subcommunities")
 """Label for the subcommunities in the community browse page."""
 
 RDM_DETAIL_SIDE_BAR_MANAGE_ATTRIBUTES_EXTENSION_TEMPLATE = None
@@ -1563,7 +1599,6 @@ APP_RDM_MODERATION_REQUEST_FACETS = {
 }
 """Available facets defined for this module."""
 
-
 # Persian Calendar and RTL Support
 # =================================
 
@@ -1587,3 +1622,31 @@ PERSIAN_DATETIME_DEFAULT_FORMAT = "%Y/%m/%d %H:%M"
 
 USE_PERSIAN_NUMERALS = True
 """Automatically convert numerals to Persian numerals for Persian locale."""
+
+# Invenio-VCS
+# ===========
+#
+
+VCS_TEMPLATE_INDEX = "invenio_vcs/rdm-index.html"
+VCS_TEMPLATE_INDEX_ITEM = "invenio_vcs/rdm-index-item.html"
+VCS_TEMPLATE_VIEW = "invenio_vcs/rdm-view.html"
+VCS_TEMPLATE_REPO_SWITCH = "invenio_vcs/rdm-repo-switch.html"
+VCS_TEMPLATE_RELEASE_ITEM = "invenio_vcs/rdm-release-item.html"
+
+# Flask-MultiProfiler
+# ===================
+#
+
+MULTIPROFILER_BASE_TEMPLATE = "flask_multiprofiler/index.html"
+"""Base template for the profiler page."""
+
+MULTIPROFILER_IGNORED_ENDPOINTS = [
+    "static",
+    "_debug_toolbar.static",
+    r"profiler\..+",
+    "invenio_formatter_badges.badge",
+]
+"""Ignore static assets endpoints and endpoints for the profiler itself."""
+
+MULTIPROFILER_PERMISSION = administration_permission.can
+"""Function to check for permissions to access the profiler."""

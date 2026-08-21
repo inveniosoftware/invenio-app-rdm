@@ -1,11 +1,8 @@
-# -*- coding: utf-8 -*-
-#
-# Copyright (C) 2019-2025 CERN.
-# Copyright (C) 2019-2025 Northwestern University.
-# Copyright (C)      2021 TU Wien.
-#
-# Invenio App RDM is free software; you can redistribute it and/or modify it
-# under the terms of the MIT License; see LICENSE file for more details.
+# SPDX-FileCopyrightText: 2019-2025 CERN.
+# SPDX-FileCopyrightText: 2019-2025 Northwestern University.
+# SPDX-FileCopyrightText: 2021 TU Wien.
+# SPDX-FileCopyrightText: 2025 CESNET i.a.l.e.
+# SPDX-License-Identifier: MIT
 
 """Routes for record-related pages provided by Invenio-App-RDM."""
 
@@ -24,6 +21,7 @@ from invenio_rdm_records.resources.serializers.signposting import (
     FAIRSignpostingProfileLvl1Serializer,
 )
 from invenio_rdm_records.services.errors import RecordDeletedException
+from invenio_records_resources.proxies import current_service_registry
 from invenio_records_resources.services.errors import PermissionDeniedError
 from sqlalchemy.orm.exc import NoResultFound
 
@@ -81,11 +79,7 @@ def pass_draft(expand=False):
                     expand=expand,
                 )
                 kwargs["draft"] = draft
-                kwargs["files_locked"] = (
-                    record_service.config.lock_edit_published_files(
-                        record_service, g.identity, draft=draft, record=draft._record
-                    )
-                )
+                kwargs["files_locked"] = draft._record.files.bucket.locked
                 return f(**kwargs)
             except PIDDoesNotExistError:
                 # Redirect to /records/:id because users are interchangeably
@@ -110,6 +104,30 @@ def pass_is_preview(f):
     @wraps(f)
     def view(**kwargs):
         kwargs["is_preview"] = request.args.get("preview") == "1"
+        return f(**kwargs)
+
+    return view
+
+
+def pass_is_iframe(f):
+    """Decorate a view to check if it's being requested from inside an iframe."""
+
+    @wraps(f)
+    def view(**kwargs):
+        # See https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Sec-Fetch-Dest
+        header_value = request.headers.get("Sec-Fetch-Dest")
+        kwargs["is_iframe"] = header_value == "iframe"
+        return f(**kwargs)
+
+    return view
+
+
+def pass_preview_file(f):
+    """Decorate a view to pass the preview file."""
+
+    @wraps(f)
+    def view(**kwargs):
+        kwargs["preview_file"] = request.args.get("preview_file")
         return f(**kwargs)
 
     return view
@@ -159,6 +177,7 @@ def pass_record_or_draft(expand=False):
         def view(**kwargs):
             pid_value = kwargs.get("pid_value")
             is_preview = kwargs.get("is_preview")
+            preview_file = kwargs.get("preview_file")
             include_deleted = kwargs.get("include_deleted", False)
             read_kwargs = {
                 "id_": pid_value,
@@ -167,23 +186,8 @@ def pass_record_or_draft(expand=False):
             }
 
             if is_preview:
-                try:
-                    record = service().read_draft(**read_kwargs)
-                except NoResultFound:
-                    try:
-                        record = service().read(
-                            include_deleted=include_deleted, **read_kwargs
-                        )
-                    except NoResultFound:
-                        # If the parent pid is being used we can get the id of the latest record and redirect
-                        latest_version = service().read_latest(**read_kwargs)
-                        return redirect(
-                            url_for(
-                                "invenio_app_rdm_records.record_detail",
-                                pid_value=latest_version.id,
-                                preview=1,
-                            )
-                        )
+                # read_draft internally handles NoResultFound and renders an error page
+                record = service().read_draft(**read_kwargs)
             else:
                 try:
                     record = service().read(
@@ -196,6 +200,7 @@ def pass_record_or_draft(expand=False):
                         url_for(
                             "invenio_app_rdm_records.record_detail",
                             pid_value=latest_version.id,
+                            preview_file=preview_file,
                         )
                     )
             kwargs["record"] = record
@@ -235,6 +240,46 @@ def pass_file_item(is_media=False):
                     item = record_service().get_file_content(**read_kwargs)
 
                 kwargs["file_item"] = item
+                return f(**kwargs)
+
+            except RecordDeletedException:
+                # Redirect to the record page which has proper tombstone handling
+                return redirect(
+                    url_for(
+                        "invenio_app_rdm_records.record_detail",
+                        pid_value=pid_value,
+                    ),
+                    # Use 302 (temporary) instead of 301 since records can be restored
+                    code=302,
+                )
+
+        return view
+
+    return decorator
+
+
+def pass_container_item():
+    """Decorator to pass a extracted file from container (e.g. zip)."""
+
+    def decorator(f):
+        @wraps(f)
+        def view(**kwargs):
+            pid_value = kwargs.get("pid_value")
+            file_key = kwargs.get("filename")
+            path = kwargs.get("path")
+            extract_kwargs = {
+                "id_": pid_value,
+                "file_key": file_key,
+                "identity": g.identity,
+                "path": path,
+            }
+
+            file_service = current_service_registry.get("files")
+
+            try:
+                item = file_service.extract_container_item(**extract_kwargs)
+
+                kwargs["container_item"] = item
                 return f(**kwargs)
 
             except RecordDeletedException:

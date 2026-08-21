@@ -1,0 +1,8 @@
+/***********************************************
+         Invenio Theme Progress Overrides
+***********************************************/
+
+/* Primary */
+.storage-overview-table .progress .bar {
+  min-width: 0.15em;
+}

@@ -1,13 +1,9 @@
-# -*- coding: utf-8 -*-
-#
-# Copyright (C) 2019-2025 CERN.
-# Copyright (C) 2019-2021 Northwestern University.
-# Copyright (C)      2021 TU Wien.
-# Copyright (C) 2022-2025 KTH Royal Institute of Technology
-# Copyright (C) 2023-2024 Graz University of Technology.
-#
-# Invenio App RDM is free software; you can redistribute it and/or modify it
-# under the terms of the MIT License; see LICENSE file for more details.
+# SPDX-FileCopyrightText: 2019-2026 CERN.
+# SPDX-FileCopyrightText: 2019-2021 Northwestern University.
+# SPDX-FileCopyrightText: 2021 TU Wien.
+# SPDX-FileCopyrightText: 2022-2025 KTH Royal Institute of Technology
+# SPDX-FileCopyrightText: 2023-2024 Graz University of Technology.
+# SPDX-License-Identifier: MIT
 
 """Routes for record-related pages provided by Invenio-App-RDM."""
 
@@ -37,7 +33,12 @@ from invenio_vocabularies.records.models import VocabularyScheme
 from marshmallow_utils.fields.babel import gettext_from_dict
 from sqlalchemy.orm import load_only
 
-from ..utils import evaluate_record_deletion, set_default_value
+from ..utils import (
+    evaluate_file_modification,
+    evaluate_quota_increase,
+    evaluate_record_deletion,
+    set_default_value,
+)
 from .decorators import (
     no_cache_response,
     pass_draft,
@@ -393,10 +394,11 @@ def get_form_config(**kwargs):
     quota = deepcopy(conf.get("APP_RDM_DEPOSIT_FORM_QUOTA", {}))
     max_file_size = conf.get("RDM_FILES_DEFAULT_MAX_FILE_SIZE", None)
     record_quota = kwargs.pop("quota", None)
+    record = kwargs.pop("record", None)
+    identity = kwargs.pop("identity", None)
     if record_quota:
         quota["maxStorage"] = record_quota["quota_size"]
-
-    record = kwargs.pop("record", None)
+        quota["quotaIncrease"] = evaluate_quota_increase(record, identity)
 
     return dict(
         vocabularies=VocabulariesOptions().dump(),
@@ -460,9 +462,14 @@ def new_record():
     else:
         record["pids"] = {}
     record["status"] = "draft"
-    defaults = current_app.config.get("APP_RDM_DEPOSIT_FORM_DEFAULTS") or {}
+    defaults = current_app.config.get("APP_RDM_DEPOSIT_FORM_DEFAULTS", {})
     for key, value in defaults.items():
         set_default_value(record, value, key)
+    cf_defaults = current_app.config.get(
+        "APP_RDM_DEPOSIT_FORM_CUSTOM_FIELD_DEFAULTS", {}
+    )
+    for key, value in cf_defaults.items():
+        set_default_value(record, value, key, "custom_fields")
     return record
 
 
@@ -501,6 +508,7 @@ def deposit_create(community=None, community_ui=None):
             quota=get_actual_files_quota(None),
             hide_community_selection=community_use_jinja_header,
             is_doi_required=is_doi_required,
+            identity=g.identity,
         ),
         searchbar_config=dict(searchUrl=get_search_url()),
         record=new_record(),
@@ -551,16 +559,31 @@ def deposit_edit(pid_value, draft=None, draft_files=None, files_locked=True):
         )
         published_record = ui_serializer.dump_obj(published_record_result.to_dict())
 
-        record_deletion = evaluate_record_deletion(published_record_result, g.identity)
+        record_deletion = evaluate_record_deletion(
+            published_record_result._record, g.identity
+        )
+        file_modification = evaluate_file_modification(
+            published_record_result._record, g.identity
+        )
     else:
         record_deletion = {}
+        file_modification = {}
 
     community_ui = None
     community_theme = None
-    community = record.get("expanded", {}).get("parent", {}).get("review", {}).get(
-        "receiver"
-    ) or record.get("expanded", {}).get("parent", {}).get("communities", {}).get(
-        "default"
+    # We get the community from one of three sources, in order of priority:
+    #   1. The draft's review receiver.
+    #   2. The draft's parent's review receiver. Same as above, but refers to the deprecated `parent.review` field.
+    #      We continue to support this for backward-compatibility with records that entered the in-review status before the `review`
+    #      field was moved to be on the draft directly.
+    #   3. The draft's parent's default community, only available for new versions of existing (published) records.
+    community = (
+        record.get("expanded", {}).get("parent", {}).get("review", {}).get("receiver")
+        or record.get("expanded", {}).get("review", {}).get("receiver")
+        or record.get("expanded", {})
+        .get("parent", {})
+        .get("communities", {})
+        .get("default")
     )
 
     if community:
@@ -594,6 +617,7 @@ def deposit_edit(pid_value, draft=None, draft_files=None, files_locked=True):
         is_doi_required=is_doi_required,
         record=draft._record,
         published_record=published_record,
+        identity=g.identity,
     )
 
     if is_doi_required and not record.get("pids", {}).get("doi"):
@@ -629,6 +653,7 @@ def deposit_edit(pid_value, draft=None, draft_files=None, files_locked=True):
             ]
         ),
         record_deletion=record_deletion,
+        file_modification=file_modification,
     )
 
 

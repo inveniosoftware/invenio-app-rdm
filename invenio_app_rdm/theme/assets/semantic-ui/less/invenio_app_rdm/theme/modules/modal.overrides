@@ -125,6 +125,12 @@
       background: transparent;
       padding: 0;
     }
+
+    .ui.list .content {
+      background: transparent;
+      width: auto;
+      padding: 0;
+    }
   }
 }
 

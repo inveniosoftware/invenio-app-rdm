@@ -1,22 +1,22 @@
-# -*- coding: utf-8 -*-
-#
-# Copyright (C) 2023-2024 CERN.
-# Copyright (C) 2024 KTH Royal Institute of Technology.
-#
-# Invenio App RDM is free software; you can redistribute it and/or modify it
-# under the terms of the MIT License; see LICENSE file for more details.
+# SPDX-FileCopyrightText: 2023-2024 CERN.
+# SPDX-FileCopyrightText: 2024-2026 KTH Royal Institute of Technology.
+# SPDX-FileCopyrightText: 2024 Ubiquity Press.
+# SPDX-License-Identifier: MIT
 
 """Invenio administration users view module."""
 
 from functools import partial
 
-from flask import current_app
+from flask import abort, current_app
 from invenio_administration.views.base import (
+    AdminResourceCreateView,
     AdminResourceDetailView,
     AdminResourceListView,
 )
 from invenio_i18n import lazy_gettext as _
 from invenio_search_ui.searchconfig import search_app_config
+
+from .permissions import can_access_user_administration
 
 USERS_ITEM_LIST = {
     "user": {"text": _("User"), "order": 2, "width": 3},
@@ -36,18 +36,39 @@ USERS_ITEM_DETAIL = {
     "status": {"text": _("Status"), "order": 6, "width": 1},
     "visibility": {"text": _("Visibility"), "order": 7, "width": 1},
     "active": {"text": _("Active"), "order": 8, "width": 1},
-    "confirmed_at": {"text": _("Confirmed at"), "order": 9, "width": 1},
-    "verified_at": {"text": _("Verified at"), "order": 10, "width": 1},
-    "blocked_at": {"text": _("Blocked at"), "order": 11, "width": 1},
-    "created": {"text": _("Created"), "order": 12, "width": 2},
-    "updated": {"text": _("Updated"), "order": 13, "width": 2},
+    "roles": {"text": _("Roles"), "order": 9, "width": 2},
+    "confirmed_at": {"text": _("Confirmed at"), "order": 10, "width": 1},
+    "verified_at": {"text": _("Verified at"), "order": 11, "width": 1},
+    "blocked_at": {"text": _("Blocked at"), "order": 12, "width": 1},
+    "current_login_at": {"text": _("Current login"), "order": 13, "width": 1},
+    "current_login_ip": {"text": _("Current login IP"), "order": 14, "width": 1},
+    "last_login_at": {"text": _("Last login"), "order": 15, "width": 1},
+    "last_login_ip": {"text": _("Last login IP"), "order": 16, "width": 1},
+    "login_count": {"text": _("Login count"), "order": 17, "width": 1},
+    "created": {"text": _("Created"), "order": 18, "width": 2},
+    "updated": {"text": _("Updated"), "order": 19, "width": 2},
+}
+
+USERS_DEFAULT_FORM_ITEMS = {
+    "username": {"text": _("Username"), "order": 1, "width": 2},
+    "email": {"text": _("Email"), "order": 2, "width": 1},
 }
 
 
-# List of the columns displayed on the user list and user details
+# List of the columns displayed on the user list, user details, and user create form
 
 
-class UsersListView(AdminResourceListView):
+class UserAdminAccessMixin:
+    """Mixin asserting only user admins identities access user views."""
+
+    def dispatch_request(self, *args, **kwargs):
+        """Override Flask view to add permission check."""
+        if not can_access_user_administration():
+            abort(403)
+        return super().dispatch_request(*args, **kwargs)
+
+
+class UsersListView(UserAdminAccessMixin, AdminResourceListView):
     """Configuration for users sets list view."""
 
     api_endpoint = "/users/all"
@@ -63,7 +84,9 @@ class UsersListView(AdminResourceListView):
     display_search = True
     display_delete = False
     display_edit = False
-    display_create = False
+    display_create = True
+    # self.name from create class
+    create_view_name = "invenio-users-resources-create"
 
     item_field_list = USERS_ITEM_LIST
 
@@ -113,11 +136,11 @@ class UsersListView(AdminResourceListView):
         )
 
 
-class UsersDetailView(AdminResourceDetailView):
+class UsersDetailView(UserAdminAccessMixin, AdminResourceDetailView):
     """Configuration for users sets detail view."""
 
     url = "/users/<pid_value>"
-    api_endpoint = "/users/"
+    api_endpoint = "/users"
     search_request_headers = {"Accept": "application/json"}
     extension_name = "invenio-users-resources"
     name = "User details"
@@ -126,5 +149,20 @@ class UsersDetailView(AdminResourceDetailView):
     display_delete = False
     display_edit = False
 
-    pid_path = "username"
+    pid_path = "id"
+    list_view_name = "users"
     item_field_list = USERS_ITEM_DETAIL
+
+
+class UsersCreateView(AdminResourceCreateView):
+    """Configuration for user create view."""
+
+    url = "/users/create"
+    api_endpoint = "/users"
+    extension_name = "invenio-users-resources"
+    name = "invenio-users-resources-create"
+    resource_config = "users_resource"
+    title = _("Create user details")
+    pid_path = "id"
+    list_view_name = "users"
+    form_fields = USERS_DEFAULT_FORM_ITEMS

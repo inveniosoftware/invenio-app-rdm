@@ -1,0 +1,26 @@
+{#
+  SPDX-FileCopyrightText: 2026 CERN.
+  SPDX-License-Identifier: MIT
+#}
+
+{%- extends "invenio_previewer/base.html" %}
+
+{%- block head %}
+  {% for css_bundle in css_bundles %}
+    {{ webpack[css_bundle] }}
+  {% endfor %}
+  {{ webpack['theme.css'] }}
+{%- endblock %}
+
+{%- block page_body %}
+  {%- if request.args.get('embed') %}
+    {%- include 'invenio_previewer/top.html' %}
+  {%- endif %}
+  {%- if not file.is_iframe %}
+    {%- include "invenio_previewer/latest_record.html" %}
+  {%- endif %}
+  {%- block panel %}{% endblock %}
+  {%- if request.args.get('embed') %}
+    {%- include 'invenio_previewer/bottom.html' %}
+  {%- endif %}
+{%- endblock %}

@@ -1,8 +1,7 @@
-// This file is part of InvenioRDM
-// Copyright (C) 2024 CERN.
-//
-// Invenio App RDM is free software; you can redistribute it and/or modify it
-// under the terms of the MIT License; see LICENSE file for more details.
+/*
+ * SPDX-FileCopyrightText: 2024 CERN.
+ * SPDX-License-Identifier: MIT
+ */
 
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
@@ -52,7 +51,7 @@ export const DisplayPartOfCommunities = ({ communities }) => {
                 {(community.children?.allow || community.parent !== undefined) && (
                   <Popup
                     trigger={<Icon name="check outline circle" color="green mr-0" />}
-                    content="Verified community"
+                    content={i18next.t("Verified community")}
                     position="top center"
                   />
                 )}

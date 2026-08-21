@@ -1,0 +1,14 @@
+{#
+  SPDX-FileCopyrightText: 2026 CERN.
+  SPDX-License-Identifier: MIT
+#}
+
+{% if file.record.data["is_published"] and file.record.data["links"]["latest_html"] and not file.record.data["versions"]["is_latest"] %}
+  <div class="ui warning flashed attached manage message pl-10 pr-10">
+    <p>
+      {% trans link_start=('<a href="' + file.record.data["links"]["latest_html"] + '"><b>')|safe, link_end='</b></a>'|safe %}
+        You are viewing a file from an older version of this record. {{ link_start }}View latest record{{ link_end }}.
+      {% endtrans %}
+    </p>
+  </div>
+{% endif %}

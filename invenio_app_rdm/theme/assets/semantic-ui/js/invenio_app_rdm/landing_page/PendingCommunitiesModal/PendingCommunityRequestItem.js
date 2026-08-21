@@ -1,3 +1,8 @@
+/*
+ * SPDX-FileCopyrightText: 2023-2026 CERN.
+ * SPDX-License-Identifier: MIT
+ */
+
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { CommunityCompactItem } from "@js/invenio_communities/community";
@@ -10,7 +15,6 @@ export class PendingCommunityRequestItem extends Component {
       expanded: { receiver: community },
       links: { self_html: requestLinkSelf },
     } = result;
-    const requestLink = requestLinkSelf.replace("/requests", "/me/requests"); //We should use self_html once the following issue is fixed: https://github.com/inveniosoftware/invenio-requests/issues/332
     const actions = (
       <RequestActionController
         request={result}
@@ -21,7 +25,7 @@ export class PendingCommunityRequestItem extends Component {
       <CommunityCompactItem
         result={community}
         actions={actions}
-        detailUrl={requestLink}
+        detailUrl={requestLinkSelf}
       />
     );
   }

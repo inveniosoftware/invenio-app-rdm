@@ -1,10 +1,9 @@
-// This file is part of InvenioRDM
-// Copyright (C) 2021-2025 CERN.
-// Copyright (C) 2021 Graz University of Technology.
-// Copyright (C) 2021 TU Wien
-//
-// Invenio RDM Records is free software; you can redistribute it and/or modify it
-// under the terms of the MIT License; see LICENSE file for more details.
+/*
+ * SPDX-FileCopyrightText: 2021-2025 CERN.
+ * SPDX-FileCopyrightText: 2021 Graz University of Technology.
+ * SPDX-FileCopyrightText: 2021 TU Wien
+ * SPDX-License-Identifier: MIT
+ */
 
 import _debounce from "lodash/debounce";
 import _escape from "lodash/escape";
@@ -58,7 +57,13 @@ export class RecordCitationField extends Component {
 
   fetchCitation = async (recordLinks, style, includeDeleted) => {
     const includeDeletedParam = includeDeleted === true ? "&include_deleted=1" : "";
-    const url = `${recordLinks.self}?locale=${navigator.language}&style=${style}${includeDeletedParam}`;
+    const navLang = (navigator.language || "").toLowerCase();
+    const uiLang = (i18next.language || "").toLowerCase();
+    const citationLocale =
+      uiLang && navLang.startsWith(uiLang)
+        ? navigator.language
+        : i18next.language || navigator.language;
+    const url = `${recordLinks.self}?locale=${citationLocale}&style=${style}${includeDeletedParam}`;
     return await http.get(url, {
       headers: {
         Accept: "text/x-bibliography",

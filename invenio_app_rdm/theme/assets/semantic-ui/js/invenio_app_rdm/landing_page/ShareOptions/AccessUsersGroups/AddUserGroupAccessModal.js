@@ -1,9 +1,8 @@
-// This file is part of InvenioRDM
-// Copyright (C) 2024 CERN.
-// Copyright (C) 2024 KTH Royal Institute of Technology.
-//
-// Invenio App RDM is free software; you can redistribute it and/or modify it
-// under the terms of the MIT License; see LICENSE file for more details.
+/*
+ * SPDX-FileCopyrightText: 2024 CERN.
+ * SPDX-FileCopyrightText: 2024 KTH Royal Institute of Technology.
+ * SPDX-License-Identifier: MIT
+ */
 
 import React, { Component } from "react";
 import { Button, Modal, Checkbox } from "semantic-ui-react";
@@ -78,7 +77,9 @@ export class AddUserGroupAccessModal extends Component {
       searchBarTooltip = i18next.t(
         "Search for users to grant access (only users with a public profile can be invited)"
       );
-      searchBarPlaceholder = i18next.t("Search by email, full name or username");
+      searchBarPlaceholder = i18next.t(
+        "Search by full name, username or email (if publicly visible)"
+      );
       doneButtonTipType = i18next.t("users");
     }
     if (searchType === "role") {

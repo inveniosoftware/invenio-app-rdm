@@ -1,9 +1,7 @@
 /*
- * This file is part of Invenio.
- * Copyright (C) 2022-2024 CERN.
- *
- * Invenio is free software; you can redistribute it and/or modify it
- * under the terms of the MIT License; see LICENSE file for more details.
+ * SPDX-FileCopyrightText: 2022-2024 CERN.
+ * SPDX-FileCopyrightText: 2026 KTH Royal Institute of Technology.
+ * SPDX-License-Identifier: MIT
  */
 
 import { BoolFormatter, DateFormatter } from "@js/invenio_administration";
@@ -155,7 +153,7 @@ class SearchResultItemComponent extends Component {
           data-label={i18next.t("Links")}
           className="word-break-all"
         >
-          <Dropdown text={<Icon name="eye" />}>
+          <Dropdown trigger={<Icon name="eye" />}>
             <Dropdown.Menu>
               <Dropdown.Item
                 as="a"

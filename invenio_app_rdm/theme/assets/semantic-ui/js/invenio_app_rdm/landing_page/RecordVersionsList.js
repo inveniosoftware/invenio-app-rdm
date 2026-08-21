@@ -1,10 +1,9 @@
-// This file is part of InvenioRDM
-// Copyright (C) 2020-2024 CERN.
-// Copyright (C) 2020-2021 Northwestern University.
-// Copyright (C) 2021 Graz University of Technology.
-//
-// Invenio RDM Records is free software; you can redistribute it and/or modify it
-// under the terms of the MIT License; see LICENSE file for more details.
+/*
+ * SPDX-FileCopyrightText: 2020-2024 CERN.
+ * SPDX-FileCopyrightText: 2020-2026 Northwestern University.
+ * SPDX-FileCopyrightText: 2021 Graz University of Technology.
+ * SPDX-License-Identifier: MIT
+ */
 
 import _get from "lodash/get";
 import React, { useEffect, useState } from "react";
@@ -12,6 +11,7 @@ import { Grid, Icon, Message, Placeholder, List, Divider } from "semantic-ui-rea
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import PropTypes from "prop-types";
 import { withCancel, http, ErrorMessage } from "react-invenio-forms";
+import Overridable from "react-overridable";
 
 const deserializeRecord = (record) => ({
   id: record.id,
@@ -26,37 +26,45 @@ const deserializeRecord = (record) => ({
 
 const NUMBER_OF_VERSIONS = 5;
 
-const RecordVersionItem = ({ item, activeVersion }) => {
+export const RecordVersionItem = ({ item, activeVersion }) => {
   const doi = _get(item.pids, "doi.identifier", "");
+  const doiLink = _get(item, "links.doi", "");
   return (
-    <List.Item key={item.id} {...(activeVersion && { className: "version active" })}>
-      <List.Content floated="left">
-        {activeVersion ? (
-          <span className="text-break">
-            {i18next.t("Version {{- version}}", { version: item.version })}
-          </span>
-        ) : (
-          <a href={`/records/${item.id}`} className="text-break">
-            {i18next.t("Version {{- version}}", { version: item.version })}
-          </a>
-        )}
+    <Overridable
+      id="InvenioAppRdm.RecordVersionsList.Item.container"
+      item={item}
+      activeVersion={activeVersion}
+      doi={doi}
+    >
+      <List.Item key={item.id} {...(activeVersion && { className: "version active" })}>
+        <List.Content floated="left">
+          {activeVersion ? (
+            <span className="text-break">
+              {i18next.t("Version {{- version}}", { version: item.version })}
+            </span>
+          ) : (
+            <a href={`/records/${item.id}`} className="text-break">
+              {i18next.t("Version {{- version}}", { version: item.version })}
+            </a>
+          )}
 
-        {doi && (
-          <a
-            href={`https://doi.org/${doi}`}
-            className={"doi" + (activeVersion ? " text-muted-darken" : " text-muted")}
-          >
-            {doi}
-          </a>
-        )}
-      </List.Content>
+          {doi && (
+            <a
+              href={doiLink}
+              className={"doi" + (activeVersion ? " text-muted-darken" : " text-muted")}
+            >
+              {doi}
+            </a>
+          )}
+        </List.Content>
 
-      <List.Content floated="right">
-        <small className={activeVersion ? "text-muted-darken" : "text-muted"}>
-          {item.publication_date}
-        </small>
-      </List.Content>
-    </List.Item>
+        <List.Content floated="right">
+          <small className={activeVersion ? "text-muted-darken" : "text-muted"}>
+            {item.publication_date}
+          </small>
+        </List.Content>
+      </List.Item>
+    </Overridable>
   );
 };
 
@@ -72,7 +80,7 @@ const PreviewMessage = () => {
         <Icon name="eye" />
         {i18next.t("Preview")}
       </Message.Header>
-      <p>{i18next.t("Only published versions are displayed.")}</p>
+      <p>{i18next.t("This version of the record has not yet been published.")}</p>
     </Message>
   );
 };

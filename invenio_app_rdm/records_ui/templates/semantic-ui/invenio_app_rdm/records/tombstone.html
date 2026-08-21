@@ -1,9 +1,7 @@
 {#
-  Copyright (C) 2021 CERN.
-  Copyright (C) 2023 TU Wien.
-
-  Invenio App RDM is free software; you can redistribute it and/or modify it
-  under the terms of the MIT License; see LICENSE file for more details.
+  SPDX-FileCopyrightText: 2021-2026 CERN.
+  SPDX-FileCopyrightText: 2023 TU Wien.
+  SPDX-License-Identifier: MIT
 #}
 {% extends config.THEME_ERROR_TEMPLATE %}
 
@@ -14,7 +12,7 @@
 {%- endif %}
 
 {%- block message %}
-<div class="container centered rel-pt-2">
+<div class="ui container max-w-3/5 centered rel-pt-2">
   <h1 class="ui header inline-block">
     <i class="icon lightning" aria-hidden="true"></i>
     <div class="content pl-0 rel-pr-1">
@@ -61,7 +59,15 @@
       </p>
       {%- endif %}
     </div>
+  </div>
 
+  <div
+    id="tombstone-manage-button"
+    data-record='{{ record | tojson }}'
+    data-permissions='{{ permissions | tojson }}'
+    data-ui-props='{"fluid": false}'
+    data-audit-logs-enabled='{{ config.AUDIT_LOGS_ENABLED | tojson }}'
+  >
   </div>
 </div>
 {% endblock message %}

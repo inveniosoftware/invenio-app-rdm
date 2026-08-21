@@ -1,8 +1,7 @@
-// This file is part of InvenioRDM
-// Copyright (C) 2023 CERN.
-//
-// InvenioRDM is free software; you can redistribute it and/or modify it
-// under the terms of the MIT License; see LICENSE file for more details.
+/*
+ * SPDX-FileCopyrightText: 2023 CERN.
+ * SPDX-License-Identifier: MIT
+ */
 
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import { RecordCommunitiesSearchItem } from "./RecordCommunitiesSearchItem";
@@ -30,8 +29,13 @@ export class RecordCommunitiesSearch extends Component {
   };
 
   render() {
-    const { recordCommunityEndpoint, permissions, recordParent, updateRecordCallback } =
-      this.props;
+    const {
+      recordCommunityEndpoint,
+      permissions,
+      recordParent,
+      updateRecordCallback,
+      recordRequests,
+    } = this.props;
     const overriddenComponents = {
       [`${appName}.ResultsList.item`]: parametrize(RecordCommunitiesSearchItem, {
         recordCommunityEndpoint: recordCommunityEndpoint,
@@ -39,6 +43,7 @@ export class RecordCommunitiesSearch extends Component {
         updateRecordCallback: updateRecordCallback,
         permissions: permissions,
         recordParent: recordParent,
+        recordRequests: recordRequests,
       }),
     };
 
@@ -95,4 +100,9 @@ RecordCommunitiesSearch.propTypes = {
   updateRecordCallback: PropTypes.func.isRequired,
   permissions: PropTypes.object.isRequired,
   recordParent: PropTypes.object.isRequired,
+  recordRequests: PropTypes.object,
+};
+
+RecordCommunitiesSearch.defaultProps = {
+  recordRequests: {},
 };

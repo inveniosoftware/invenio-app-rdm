@@ -1,8 +1,7 @@
-// This file is part of InvenioRDM
-// Copyright (C) 2021 CERN.
-//
-// Invenio RDM Records is free software; you can redistribute it and/or modify it
-// under the terms of the MIT License; see LICENSE file for more details.
+/*
+ * SPDX-FileCopyrightText: 2021-2026 CERN.
+ * SPDX-License-Identifier: MIT
+ */
 
 import React, { Component } from "react";
 import PropTypes from "prop-types";
@@ -26,18 +25,18 @@ class SimpleCopyButton extends React.Component {
   };
 
   render() {
-    const { hoverState, size } = this.props;
+    const { hoverState, className, uiProps } = this.props;
 
     return (
       <Button
-        className="copy"
+        className={`copy ${className || ""}`}
         basic
-        size={size}
         icon="copy"
         aria-label={i18next.t("Copy to clipboard")}
         onClick={this.handleClick} // Handle click to fetch from url if url passed, otherwise use text from props
         onMouseEnter={hoverState}
         onMouseLeave={hoverState}
+        {...uiProps}
       />
     );
   }
@@ -46,15 +45,17 @@ class SimpleCopyButton extends React.Component {
 SimpleCopyButton.propTypes = {
   text: PropTypes.string.isRequired,
   onCopy: PropTypes.func.isRequired,
-  url: PropTypes.func,
+  url: PropTypes.string,
   hoverState: PropTypes.func,
-  size: PropTypes.string,
+  className: PropTypes.string,
+  uiProps: PropTypes.object,
 };
 
 SimpleCopyButton.defaultProps = {
   hoverState: null,
   url: null,
-  size: "medium",
+  className: "",
+  uiProps: {},
 };
 
 export class CopyButton extends Component {
@@ -99,7 +100,7 @@ export class CopyButton extends Component {
   };
 
   render() {
-    const { popUpPosition, text, url, size } = this.props;
+    const { popUpPosition, text, url, ...uiProps } = this.props;
     const { confirmationPopupMsg, confirmationPopupIsOpen, hoverPopupIsOpen } =
       this.state;
 
@@ -118,7 +119,7 @@ export class CopyButton extends Component {
               onCopy={this.onCopy}
               url={url}
               hoverState={this.hoverStateHandler}
-              size={size}
+              uiProps={uiProps}
             />
           }
         />
@@ -130,13 +131,11 @@ export class CopyButton extends Component {
 CopyButton.propTypes = {
   popUpPosition: PropTypes.string,
   text: PropTypes.string,
-  url: PropTypes.func,
-  size: PropTypes.string,
+  url: PropTypes.string,
 };
 
 CopyButton.defaultProps = {
   popUpPosition: "right center",
   text: "",
   url: "",
-  size: "medium",
 };

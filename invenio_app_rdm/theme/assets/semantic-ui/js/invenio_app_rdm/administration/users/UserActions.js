@@ -1,27 +1,26 @@
 /*
- * This file is part of Invenio.
- * Copyright (C) 2022 CERN.
- * Copyright (C) 2024 KTH Royal Institute of Technology.
- *
- * Invenio is free software; you can redistribute it and/or modify it
- * under the terms of the MIT License; see LICENSE file for more details.
+ * SPDX-FileCopyrightText: 2022-2026 CERN.
+ * SPDX-FileCopyrightText: 2024-2026 KTH Royal Institute of Technology.
+ * SPDX-License-Identifier: MIT
  */
 
 import isEmpty from "lodash/isEmpty";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Button, Icon, Dropdown } from "semantic-ui-react";
-import { NotificationContext } from "@js/invenio_administration";
+import { Button, Icon, Dropdown, Modal } from "semantic-ui-react";
+import { ActionModal, NotificationContext } from "@js/invenio_administration";
 import { withCancel } from "react-invenio-forms";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import { ImpersonateUser } from "../components/ImpersonateUser";
+import { ManageUserRoles } from "../components/ManageUserRoles";
 import { SetQuotaAction } from "../components/SetQuotaAction";
 import { UserModerationApi } from "./api";
+import UserBlockForm from "./UserBlockForm";
 
 export class UserActions extends Component {
   constructor(props) {
     super(props);
-    this.state = { loading: false };
+    this.state = { loading: false, blockModalOpen: false };
   }
 
   componentWillUnmount() {
@@ -30,7 +29,24 @@ export class UserActions extends Component {
 
   static contextType = NotificationContext;
 
+  openBlockModal = () => this.setState({ blockModalOpen: true });
+
+  closeBlockModal = () => this.setState({ blockModalOpen: false });
+
+  handleBlockSuccess = () => {
+    const { successCallback } = this.props;
+    this.setState({ blockModalOpen: false });
+    successCallback();
+  };
+
   handleAction = async (action) => {
+    // The "block" action requires picking a removal reason, so it opens a
+    // dedicated modal instead of firing the API call immediately.
+    if (action === "block") {
+      this.openBlockModal();
+      return;
+    }
+
     this.setState({ loading: true });
     const { user, successCallback } = this.props;
     const { addNotification } = this.context;
@@ -42,12 +58,6 @@ export class UserActions extends Component {
         icon: "undo",
         apiFunction: UserModerationApi.restoreUser,
         notificationTitle: i18next.t("Restored"),
-      },
-      block: {
-        label: i18next.t("Block"),
-        icon: "ban",
-        apiFunction: UserModerationApi.blockUser,
-        notificationTitle: i18next.t("Blocked"),
       },
       deactivate: {
         label: i18next.t("Suspend"),
@@ -110,7 +120,7 @@ export class UserActions extends Component {
       displayQuota,
       useDropdown,
     } = this.props;
-    const { loading } = this.state;
+    const { loading, blockModalOpen } = this.state;
     const isUserBlocked = !isEmpty(user.blocked_at);
     const isUserActive = user.active;
     const isUserVerified = !isEmpty(user.verified_at);
@@ -157,21 +167,16 @@ export class UserActions extends Component {
               user={user}
             />
           )}
+          <ManageUserRoles successCallback={successCallback} user={user} />
           <Dropdown.Divider />
           {filteredActions.map((actionItem) => (
             <Dropdown.Item
               key={actionItem.key}
               onClick={() => this.handleAction(actionItem.key)}
               disabled={loading}
-              loading={loading}
-              icon
-              fluid
-              basic
-              labelPosition="left"
-            >
-              <Icon name={actionItem.icon} />
-              {i18next.t(actionItem.label)}
-            </Dropdown.Item>
+              icon={actionItem.icon}
+              text={i18next.t(actionItem.label)}
+            />
           ))}
         </>
       );
@@ -221,7 +226,7 @@ export class UserActions extends Component {
               </Button>
             )}
             <Dropdown
-              text={<Icon name="cog" />}
+              trigger={<Icon name="cog" />}
               tooltip={i18next.t("Actions")}
               button
               className="icon"
@@ -235,6 +240,16 @@ export class UserActions extends Component {
             {generateActions()}
           </Button.Group>
         )}
+        <ActionModal modalOpen={blockModalOpen} resource={user}>
+          <Modal.Header>{i18next.t("Block user")}</Modal.Header>
+          {blockModalOpen && (
+            <UserBlockForm
+              user={user}
+              actionSuccessCallback={this.handleBlockSuccess}
+              actionCancelCallback={this.closeBlockModal}
+            />
+          )}
+        </ActionModal>
       </div>
     );
   }

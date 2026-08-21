@@ -1,3 +1,7 @@
+{#
+  SPDX-FileCopyrightText: 2023 CERN.
+  SPDX-License-Identifier: MIT
+#}
 {% macro stats_popup(number) %}
   {% if number|truncate_number(max_value=10_000_000) != number|localize_number %}
   <div>

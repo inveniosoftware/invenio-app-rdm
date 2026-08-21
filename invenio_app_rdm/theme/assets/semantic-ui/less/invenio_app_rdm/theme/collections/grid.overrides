@@ -112,3 +112,10 @@
     padding-right: 0 !important;
   }
 }
+
+.ui.grid {
+  .hidden-comment-line {
+   border-bottom: 3px dotted @borderColor;
+   width: 100%
+  }
+}

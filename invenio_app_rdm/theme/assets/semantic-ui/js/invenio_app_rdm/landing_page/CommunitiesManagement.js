@@ -1,8 +1,7 @@
-// This file is part of InvenioRDM
-// Copyright (C) 2023-2025 CERN.
-//
-// Invenio App RDM is free software; you can redistribute it and/or modify it
-// under the terms of the MIT License; see LICENSE file for more details.
+/*
+ * SPDX-FileCopyrightText: 2023-2025 CERN.
+ * SPDX-License-Identifier: MIT
+ */
 
 import { RecordCommunitiesListModal } from "./RecordCommunitiesListModal";
 import React, { Component } from "react";
@@ -93,6 +92,7 @@ export class CommunitiesManagement extends Component {
       recordUserCommunitySearchConfig,
       searchConfig,
       record,
+      recordRequests,
     } = this.props;
     const { communities, loading, error, manageCommunitiesModalOpen } = this.state;
     return (
@@ -126,6 +126,7 @@ export class CommunitiesManagement extends Component {
               loading={loading}
               maxDisplayedCommunities={MAX_COMMUNITIES}
               branded={record.parent?.communities?.default}
+              recordRequests={recordRequests}
             />
             <RecordCommunitiesListModal
               id="record-communities-list-modal"
@@ -136,6 +137,7 @@ export class CommunitiesManagement extends Component {
               recordCommunityEndpoint={recordCommunityEndpoint}
               permissions={permissions}
               recordParent={record.parent}
+              recordRequests={recordRequests}
             />
 
             {!loading && communities?.length > MAX_COMMUNITIES && (
@@ -168,4 +170,9 @@ CommunitiesManagement.propTypes = {
   userCommunitiesMemberships: PropTypes.object.isRequired,
   searchConfig: PropTypes.object.isRequired,
   record: PropTypes.object.isRequired,
+  recordRequests: PropTypes.object,
+};
+
+CommunitiesManagement.defaultProps = {
+  recordRequests: {},
 };
