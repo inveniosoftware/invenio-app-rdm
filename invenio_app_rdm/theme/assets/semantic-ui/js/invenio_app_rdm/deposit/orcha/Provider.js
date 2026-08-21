@@ -223,7 +223,7 @@ export const SuggestionsProvider = ({ children }) => {
           setState((prev) => ({
             ...prev,
             status: STATUS.ERROR,
-            error: i18next.t("Workflow timed out."),
+            error: i18next.t("Metadata extraction timed out."),
           }));
         }, 180 * 1000);
 
@@ -234,7 +234,7 @@ export const SuggestionsProvider = ({ children }) => {
             setState((prev) => ({
               ...prev,
               status: STATUS.ERROR,
-              error: i18next.t("Workflow failed."),
+              error: i18next.t("Metadata extraction failed."),
             }));
             return;
           }
