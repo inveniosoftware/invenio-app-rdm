@@ -3,10 +3,18 @@
     SPDX-FileCopyrightText: 2019-2024 Northwestern University.
     SPDX-FileCopyrightText: 2021-2024 TU Wien.
     SPDX-FileCopyrightText: 2021-2026 Graz University of Technology.
+    SPDX-FileCopyrightText: 2026 KTH Royal Institute of Technology.
     SPDX-License-Identifier: MIT
 
 Changes
 =======
+
+Version v14.0.1 (released 2026-08-26)
+
+- fix: migrate role ids to names across relevant tables w/ new constraints
+- feat(upgrade): migrate role ids to names patch
+- fix(config): update deprecated CACHE_TYPE value
+- i18n: pulled translations
 
 Version v14.0.0 (released 2026-08-06)
 
