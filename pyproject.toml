@@ -151,6 +151,9 @@ profiler = [
 s3 = [
   "invenio-s3>=6.0.0,<7.0.0",
 ]
+saml = [
+  "invenio-saml>=5.0.0,<6.0.0",
+]
 tests = [
   "pytest-black>=0.6.0",
   "pytest-invenio>=4.0.0,<5.0.0",
