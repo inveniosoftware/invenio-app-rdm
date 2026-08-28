@@ -70,17 +70,6 @@ def init_config(app):
             "RDM_PARENT_PERSISTENT_IDENTIFIERS.doi.required must be set to the same value."
         )
 
-    if "COMMUNITIES_GROUPS_ENABLED" in app.config:
-        warnings.warn(
-            "COMMUNITIES_GROUPS_ENABLED config variable is deprecated. Please use USERS_RESOURCES_GROUPS_ENABLED "
-            "instead. For now, COMMUNITIES_GROUPS_ENABLED value will be taken into account and features related to "
-            "groups will be disabled if this was the intention.",
-            DeprecationWarning,
-        )
-
-        if not app.config["COMMUNITIES_GROUPS_ENABLED"]:
-            app.config["USERS_RESOURCES_GROUPS_ENABLED"] = False
-
     # validate grace period
     grace_period = app.config["RDM_RECORDS_RESTRICTION_GRACE_PERIOD"]
     if not isinstance(grace_period, timedelta) or grace_period.total_seconds() < 0:
