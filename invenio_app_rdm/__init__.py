@@ -1,6 +1,7 @@
 # SPDX-FileCopyrightText: 2019-2026 CERN.
 # SPDX-FileCopyrightText: 2019-2022 Northwestern University.
 # SPDX-FileCopyrightText: 2024-2026 Graz University of Technology.
+# SPDX-FileCopyrightText: 2026 KTH Royal Institute of Technology.
 # SPDX-License-Identifier: MIT
 
 """Invenio App RDM."""
@@ -13,6 +14,6 @@
 #
 # See PEP 0440 for details - https://www.python.org/dev/peps/pep-0440
 
-__version__ = "15.0.0b3.dev0"
+__version__ = "15.0.0b3.dev1"
 
 __all__ = ("__version__",)
