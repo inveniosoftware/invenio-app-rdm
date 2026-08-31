@@ -938,8 +938,6 @@ def github_link_render(record):
     ...
 """
 
-APP_RDM_RECORDS_EXPORT_URL = "/records/<pid_value>/export/<export_format>"
-
 APP_RDM_DEPOSIT_NG_FILES_UI_ENABLED = False
 """
 Feature toggle to enable the next-generation (NG) file uploader UI in the deposit form.
