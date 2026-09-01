@@ -9,6 +9,10 @@
 Changes
 =======
 
+Version v14.0.2 (released 2026-09-01)
+
+- fix: optionally chain user in RecordManagement.recordOwnerID to account for system records
+
 Version v14.0.1 (released 2026-08-26)
 
 - fix: migrate role ids to names across relevant tables w/ new constraints
