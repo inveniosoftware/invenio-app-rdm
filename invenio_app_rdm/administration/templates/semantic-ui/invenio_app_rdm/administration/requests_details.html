@@ -86,6 +86,5 @@
 
 {% block javascript %}
   {{ super() }}
-  {% include config.THEME_JAVASCRIPT_TEMPLATE %}
   {{ webpack['invenio-requests-base.js'] }}
 {% endblock %}
