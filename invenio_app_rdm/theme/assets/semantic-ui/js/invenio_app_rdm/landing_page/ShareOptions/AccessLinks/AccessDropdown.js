@@ -1,5 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2023-2024 CERN.
+ * SPDX-FileCopyrightText: 2026 KTH Royal Institute of Technology.
  * SPDX-License-Identifier: MIT
  */
 import React, { Component } from "react";
@@ -11,7 +12,9 @@ import { SuccessIcon, ErrorPopup } from "@js/invenio_communities/members";
 import { withCancel } from "react-invenio-forms";
 
 export const errorSerializer = (error) =>
-  error?.response?.data?.message || error?.message;
+  error?.response?.data?.errors?.[0]?.messages?.[0] ||
+  error?.response?.data?.message ||
+  error?.message;
 
 const MIN_LOADING_DURATION = 400;
 
