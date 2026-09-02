@@ -231,19 +231,66 @@ $statsInfoPopup.on("blur", function (event) {
 
 // ZIP Previewer
 
-const broadcastChannel = new BroadcastChannel("invenio-previewer-zip");
+const previewIframe = $("#preview-iframe");
+const iframeEl = previewIframe?.[0];
+if (iframeEl) {
+  let channel;
+  const channelId = `invenio-previewer-zip-${crypto.randomUUID()}`;
 
-broadcastChannel.onmessage = (e) => {
-  const previewIframe = $("#preview-iframe");
-  $("#preview-file-title").html(`
-  <div class="ui breadcrumb">
-    <a class="section preview-link" href="${e.data.containerPreviewUrl}" target="preview-iframe" data-file-key="${e.data.containerFileKey}">${e.data.containerFileKey}</a>
-    <i class="divider">/</i>
-    <div class="active section">${e.data.fileKey}</div>
-  </div>
-  `);
-  $(".preview-link").on("click", function (event) {
-    $("#preview-file-title").html(event.target.dataset.fileKey);
+  const checkIsZipPreview = (url) => {
+    let isZip = false;
+    try {
+      // Use URL to reliably extract pathname
+      const parsed = new URL(url, window.location.origin);
+      isZip = parsed.pathname.toLowerCase().endsWith(".zip");
+      // Fallback: strip query/hash and test with regex
+      if (!isZip) {
+        const pathOnly = url.split(/[?#]/)[0];
+        isZip = /\.zip$/i.test(pathOnly);
+      }
+      return isZip;
+    } catch (err) {
+      console.error("Error while checking URL for .zip:", err);
+      return false;
+    }
+  }
+
+  const onIframeMessage = (e) => {
+    if (!e.data?.type || e.data?.type !== "invenio-previewer-zip" || e.data?.channelId !== channelId) {
+      return;
+    }
+    $("#preview-file-title").html(`
+    <div class="ui breadcrumb">
+      <a class="section preview-link" href="${e.data.containerPreviewUrl}" target="preview-iframe" data-file-key="${e.data.containerFileKey}">${e.data.containerFileKey}</a>
+      <i class="divider">/</i>
+      <div class="active section">${e.data.fileKey}</div>
+    </div>
+    `);
+    $(".preview-link").on("click", function (event) {
+      $("#preview-file-title").html(event.target.dataset.fileKey);
+    });
+    previewIframe.attr("src", e.data.previewUrl);
+  };
+
+  const origin = window.location.href.split(/[?#]/)[0];
+  iframeEl.addEventListener("load", function () {
+    const win = iframeEl.contentWindow || iframeEl.contentDocument?.defaultView;
+    // Check whether the iframe's location path ends with .zip (ignore query/hash)
+    let isZip = false;
+    if (typeof win?.location.href === "string") {
+      isZip = checkIsZipPreview(win.location.href);
+    }
+
+    if (!isZip) return;
+
+    if (iframeEl.getAttribute("src") !== win.location.href) {
+      iframeEl.setAttribute("src", win.location.href);
+    }
+    
+    // Always create the channel and register handler; only transfer the port when iframe is a .zip
+    channel = new MessageChannel();
+    channel.port1.onmessage = onIframeMessage;
+
+    win.postMessage({ type: "invenio-previewer-zip", channelId: channelId }, origin, [channel.port2]);
   });
-  previewIframe.attr("src", e.data.previewUrl);
-};
+}
