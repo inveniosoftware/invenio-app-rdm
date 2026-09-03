@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import React, { Component } from "react";
+import { Component } from "react";
 import { Modal, Loader } from "semantic-ui-react";
 import PropTypes from "prop-types";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
@@ -98,8 +98,8 @@ export class LinksTab extends Component {
 }
 
 LinksTab.propTypes = {
-  record: PropTypes.string.isRequired,
-  results: PropTypes.array.isRequired,
+  record: PropTypes.object.isRequired,
+  results: PropTypes.array,
   updateLinksState: PropTypes.func.isRequired,
   isAccessLinksExpirationRequired: PropTypes.bool.isRequired,
 };

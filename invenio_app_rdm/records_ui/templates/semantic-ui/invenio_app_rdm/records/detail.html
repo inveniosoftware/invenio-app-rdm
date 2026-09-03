@@ -93,8 +93,8 @@
                   <span
                     class="ui label horizontal small access-status restricted rel-ml-1"
                     title="{{ _('Community visibility') }}"
-                    data-tooltip="{{ _('The community is restricted to users with access.') }}"
-                    data-inverted="">
+                    data-tooltip='{{ _('The community is restricted to users with access.') }}'
+                    data-inverted=''>
                   <i class="icon ban" aria-hidden="true"></i> {{ _("Restricted") }}
                 </span>
                 {% endif %}
@@ -251,8 +251,8 @@
 
                       <span role="note"
                             class="ui label horizontal small access-status {{ record_ui["ui"]["access_status"]["id"] }} mb-5"
-                            data-tooltip="{{ record_ui["ui"]["access_status"]["description_l10n"] }}"
-                            data-inverted=""
+                            data-tooltip='{{ record_ui["ui"]["access_status"]["description_l10n"] }}'
+                            data-inverted=''
                             aria-label="{{ _('Access status') }}"
                       >
                         {% if record_ui["ui"]["access_status"]["icon"] %}

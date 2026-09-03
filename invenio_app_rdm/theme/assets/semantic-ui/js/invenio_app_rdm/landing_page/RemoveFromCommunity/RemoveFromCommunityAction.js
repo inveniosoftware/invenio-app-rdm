@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import React, { Component } from "react";
+import { Component, createRef } from "react";
 import { Button, Modal, Message, Icon, Checkbox, Popup } from "semantic-ui-react";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import { http, ErrorMessage } from "react-invenio-forms";
@@ -23,7 +23,7 @@ export class RemoveFromCommunityAction extends Component {
     };
     this.state = this.INITIAL_STATE;
 
-    this.checkBoxRef = React.createRef();
+    this.checkBoxRef = createRef();
   }
 
   componentDidUpdate() {
@@ -84,7 +84,7 @@ export class RemoveFromCommunityAction extends Component {
       checkboxRecords,
       buttonDisabled,
     } = this.state;
-    const { result, canRemoveCommunity } = this.props;
+    const { result, canRemoveCommunity = true } = this.props;
     const communityTitle = result.metadata.title;
 
     const removeButton = (
@@ -199,8 +199,4 @@ RemoveFromCommunityAction.propTypes = {
   recordCommunityEndpoint: PropTypes.object.isRequired,
   successCallback: PropTypes.func.isRequired,
   canRemoveCommunity: PropTypes.bool,
-};
-
-RemoveFromCommunityAction.defaultProps = {
-  canRemoveCommunity: true,
 };

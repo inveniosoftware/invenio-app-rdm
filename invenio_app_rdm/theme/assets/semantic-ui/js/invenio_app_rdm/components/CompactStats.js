@@ -5,7 +5,6 @@
 
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import PropTypes from "prop-types";
-import React from "react";
 import { Icon, Label, Popup } from "semantic-ui-react";
 import { localizedFormatNumber } from "../utils";
 

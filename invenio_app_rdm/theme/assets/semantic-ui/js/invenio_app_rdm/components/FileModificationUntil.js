@@ -3,13 +3,16 @@
  * SPDX-License-Identifier: MIT
  */
 
-import React, { Component } from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 
+
+const DEFAULT_FILE_MODIFICATION = {};
+
 export class FileModificationUntil extends Component {
   render() {
-    const { filesLocked, fileModification, record } = this.props;
+    const { filesLocked, fileModification = DEFAULT_FILE_MODIFICATION, record } = this.props;
 
     if (!fileModification.fileModification?.enabled) {
       return null;
@@ -37,8 +40,4 @@ FileModificationUntil.propTypes = {
   filesLocked: PropTypes.bool.isRequired,
   fileModification: PropTypes.object,
   record: PropTypes.object.isRequired,
-};
-
-FileModificationUntil.defaultProps = {
-  fileModification: {},
 };

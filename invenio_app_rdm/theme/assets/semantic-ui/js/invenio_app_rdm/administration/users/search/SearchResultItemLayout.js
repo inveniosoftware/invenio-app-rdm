@@ -7,7 +7,7 @@
 import { BoolFormatter, DateFormatter } from "@js/invenio_administration";
 import { UserActions } from "../UserActions";
 import PropTypes from "prop-types";
-import React, { Component } from "react";
+import { Component } from "react";
 import { Table, Dropdown, Icon } from "semantic-ui-react";
 import { withState } from "react-searchkit";
 import { AdminUIRoutes } from "@js/invenio_administration/src/routes";
@@ -194,7 +194,5 @@ SearchResultItemComponent.propTypes = {
   currentQueryState: PropTypes.object.isRequired,
   listUIEndpoint: PropTypes.string.isRequired,
 };
-
-SearchResultItemComponent.defaultProps = {};
 
 export const SearchResultItemLayout = withState(SearchResultItemComponent);

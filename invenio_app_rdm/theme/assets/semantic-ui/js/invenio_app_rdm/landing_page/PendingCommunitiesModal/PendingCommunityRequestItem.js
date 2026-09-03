@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import React, { Component } from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 import { CommunityCompactItem } from "@js/invenio_communities/community";
 import { RequestActionController } from "@js/invenio_requests";

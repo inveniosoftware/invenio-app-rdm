@@ -5,7 +5,7 @@
  */
 
 import { RecordModerationApi } from "./api";
-import React, { Component } from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 import { NotificationContext } from "@js/invenio_administration";
 import { withCancel, ErrorMessage } from "react-invenio-forms";

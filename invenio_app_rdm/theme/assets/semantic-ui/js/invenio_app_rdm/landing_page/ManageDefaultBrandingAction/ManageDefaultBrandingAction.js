@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import React, { Component } from "react";
+import { Component } from "react";
 import { Button, Message, Popup } from "semantic-ui-react";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import { http, withCancel } from "react-invenio-forms";

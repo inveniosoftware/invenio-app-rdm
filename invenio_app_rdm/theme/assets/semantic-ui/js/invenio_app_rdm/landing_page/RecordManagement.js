@@ -7,7 +7,7 @@
 
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 
-import React, { Component } from "react";
+import { Component } from "react";
 import { Button, Grid, Icon, Message } from "semantic-ui-react";
 
 import { EditButton } from "./EditButton";
@@ -16,6 +16,8 @@ import { NewVersionButton } from "@js/invenio_rdm_records";
 import PropTypes from "prop-types";
 import Overridable from "react-overridable";
 import { ManageButton } from "./ManageButton";
+
+const DEFAULT_RECORD_DELETION = {};
 
 export class RecordManagement extends Component {
   constructor(props) {
@@ -34,10 +36,10 @@ export class RecordManagement extends Component {
       currentUserId,
       recordOwnerID,
       groupsEnabled,
-      recordDeletion,
+      recordDeletion = DEFAULT_RECORD_DELETION,
       recordDeletionOptions,
-      auditLogsEnabled,
-      allowExternalDoiVersions,
+      auditLogsEnabled = false,
+      allowExternalDoiVersions = true,
     } = this.props;
     const { error } = this.state;
     const { id: recid } = record;
@@ -134,10 +136,4 @@ RecordManagement.propTypes = {
   recordDeletionOptions: PropTypes.array.isRequired,
   auditLogsEnabled: PropTypes.bool,
   allowExternalDoiVersions: PropTypes.bool,
-};
-
-RecordManagement.defaultProps = {
-  recordDeletion: {},
-  auditLogsEnabled: false,
-  allowExternalDoiVersions: true,
 };

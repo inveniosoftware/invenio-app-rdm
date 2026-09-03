@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import React, { Component } from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 import { Formik } from "formik";
 import { ErrorMessage, Image, TextAreaField, withCancel } from "react-invenio-forms";

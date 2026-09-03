@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import PropTypes from "prop-types";
 import { connect as connectFormik } from "formik";
 import { Button, Form, Icon, Message, TextArea } from "semantic-ui-react";

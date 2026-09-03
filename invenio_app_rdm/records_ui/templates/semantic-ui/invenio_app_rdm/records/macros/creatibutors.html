@@ -40,13 +40,13 @@
   {% for creatibutor in creatibutors if creatibutor.person_or_org and creatibutor.person_or_org.name %}
   <li class="creatibutor-wrap separated"
       {%- if show_affiliations and creatibutor.affiliations %}
-      data-affiliation-refs="{{ creatibutor.affiliations|map(attribute=0)|join(',') }}"
-      data-affiliations="{{ creatibutor.affiliations|join('; ', attribute='1') }}"
+      data-affiliation-refs='{{ creatibutor.affiliations|map(attribute=0)|join(",") }}'
+      data-affiliations='{{ creatibutor.affiliations|join("; ", attribute="1") }}'
       {%- endif %}>
     <a class="ui creatibutor-link"
       {% if show_affiliations and creatibutor.affiliations %}
-        data-tooltip="{{ creatibutor.affiliations|join('; ', attribute='1') }}"
-        data-position="bottom center"
+        data-tooltip='{{ creatibutor.affiliations|join("; ", attribute="1") }}'
+        data-position='bottom center'
       {% endif %}
       href="{{url_for('invenio_search_ui.search', q='metadata.' + type + '.person_or_org.name:"' + creatibutor.person_or_org.name + '"')}}"
     >
@@ -73,7 +73,7 @@
 {% macro creatibutors_show_all_link(section_id, count, entity_label) %}
   <a href="#"
      class="creatibutors-show-all-link"
-     data-target="#{{ section_id }}-all-modal"
+     data-target='#{{ section_id }}-all-modal'
      aria-haspopup="dialog">
     {{ _('Show all') }} {{ count }} {{ entity_label }}
   </a>
@@ -99,7 +99,7 @@
 {% macro affiliations_list(affiliations) %}
   <ul>
     {% for affiliation in affiliations %}
-    <li data-affiliation-ref="{{ affiliation[0] }}">
+    <li data-affiliation-ref='{{ affiliation[0] }}'>
       {{ affiliation[0] }}.
 
       {% if affiliation[2] %}
@@ -130,7 +130,7 @@
 {% macro creatibutors_landing_modal(section_id, count, entity_label, modal_title, affiliations=None) %}
 <div class="ui modal creatibutors-landing-modal"
      id="{{ section_id }}-all-modal"
-     data-section="{{ section_id }}">
+     data-section='{{ section_id }}'>
   <i class="close icon"></i>
   <div class="header">{{ modal_title }}</div>
 
@@ -138,14 +138,14 @@
     <div class="ui fluid icon input">
       <input type="search"
              class="creatibutors-filter-input"
-             data-panel="{{ section_id }}-modal-list"
+             data-panel='{{ section_id }}-modal-list'
              placeholder="{{ _('Search by name or affiliation…') }}"
              aria-label="{{ _('Filter') }} {{ entity_label }}"
              autocomplete="off" />
       <i class="search icon" aria-hidden="true"></i>
     </div>
     <div class="creatibutors-count-bar mt-5">
-      <span class="creatibutors-filter-count text-muted" data-total="{{ count }}">
+      <span class="creatibutors-filter-count text-muted" data-total='{{ count }}'>
         {{ count }} / {{ count }}
       </span>
     </div>
@@ -175,8 +175,8 @@
      class="ui sixteen wide tablet three wide computer column title right aligned bottom aligned">
   <button class="ui affiliations-button trigger button mini mr-0"
           aria-controls="{{ group }}-affiliations"
-          data-open-text="{{_('Show affiliations')}}"
-          data-close-text="{{ _('Hide affiliations') }}"
+          data-open-text='{{_("Show affiliations")}}'
+          data-close-text='{{ _("Hide affiliations") }}'
           aria-expanded="false"
   >
     {{ _("Show affiliations") }}

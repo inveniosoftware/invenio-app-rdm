@@ -5,19 +5,13 @@
 
 import _has from "lodash/has";
 import { AccessRequestExpirationSelect } from "../../../requests";
-import React, { Component } from "react";
-import { Modal, Divider, Grid, Form, Checkbox, Button } from "semantic-ui-react";
+import { Component } from "react";
+import { Modal, Divider, Grid, Form, Button } from "semantic-ui-react";
 import PropTypes from "prop-types";
 import { Formik } from "formik";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import { SuccessIcon } from "@js/invenio_communities/members";
-import {
-  RadioField,
-  RichInputField,
-  http,
-  withCancel,
-  ErrorMessage,
-} from "react-invenio-forms";
+import { RichInputField, http, withCancel, ErrorMessage } from "react-invenio-forms";
 import * as Yup from "yup";
 import _get from "lodash/get";
 
@@ -73,17 +67,21 @@ export class AccessRequestsTab extends Component {
   initFormValues = () => {
     const { record, isAccessLinksExpirationRequired } = this.props;
 
-    const settings = record.parent.access.settings;
+    const settings = { ...record.parent.access.settings };
 
     if (!_has(settings, "secret_link_expiration")) {
-      settings["secret_link_expiration"] = 0;
+      settings["secret_link_expiration"] = "0";
     } else if (
-      settings["secret_link_expiration"] === 0 &&
+      String(settings["secret_link_expiration"] ?? "0") === "0" &&
       isAccessLinksExpirationRequired
     ) {
-      settings["secret_link_expiration"] = 30;
+      settings["secret_link_expiration"] = "30";
+    } else {
+      settings["secret_link_expiration"] = String(
+        settings["secret_link_expiration"] ?? "0"
+      );
     }
-    return { ...settings };
+    return settings;
   };
 
   render() {
@@ -96,7 +94,7 @@ export class AccessRequestsTab extends Component {
         initialValues={this.initFormValues()}
         validationSchema={this.accessRequestSchema}
       >
-        {({ values, handleSubmit }) => {
+        {({ values, handleSubmit, setFieldValue }) => {
           return (
             <>
               <Modal.Content className="share-content">
@@ -115,34 +113,26 @@ export class AccessRequestsTab extends Component {
                       <Grid.Row>
                         <Grid.Column width={16}>
                           <Form.Field>
-                            <RadioField
-                              checked={_get(values, "allow_user_requests")}
-                              control={Checkbox}
-                              fieldPath="allow_user_requests"
+                            <Form.Checkbox
+                              checked={Boolean(_get(values, "allow_user_requests"))}
+                              name="allow_user_requests"
                               label={i18next.t(
                                 "Allow authenticated users to request access to restricted files."
                               )}
-                              onChange={({ data, formikProps }) => {
-                                formikProps.form.setFieldValue(
-                                  "allow_user_requests",
-                                  data.checked
-                                );
+                              onChange={(_event, data) => {
+                                setFieldValue("allow_user_requests", data.checked);
                               }}
                             />
                           </Form.Field>
                           <Form.Field>
-                            <RadioField
-                              checked={_get(values, "allow_guest_requests")}
-                              control={Checkbox}
-                              fieldPath="allow_guest_requests"
+                            <Form.Checkbox
+                              checked={Boolean(_get(values, "allow_guest_requests"))}
+                              name="allow_guest_requests"
                               label={i18next.t(
                                 "Allow non-authenticated users to request access to restricted files."
                               )}
-                              onChange={({ data, formikProps }) => {
-                                formikProps.form.setFieldValue(
-                                  "allow_guest_requests",
-                                  data.checked
-                                );
+                              onChange={(_event, data) => {
+                                setFieldValue("allow_guest_requests", data.checked);
                               }}
                             />
                           </Form.Field>
@@ -231,7 +221,7 @@ export class AccessRequestsTab extends Component {
 }
 
 AccessRequestsTab.propTypes = {
-  record: PropTypes.string.isRequired,
+  record: PropTypes.object.isRequired,
   successCallback: PropTypes.func.isRequired,
   handleClose: PropTypes.func.isRequired,
   isAccessLinksExpirationRequired: PropTypes.bool.isRequired,

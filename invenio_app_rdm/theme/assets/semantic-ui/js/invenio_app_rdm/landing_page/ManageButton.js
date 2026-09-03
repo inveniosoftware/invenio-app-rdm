@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import React from "react";
+import { useState } from "react";
 import { Dropdown, Modal } from "semantic-ui-react";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import PropTypes from "prop-types";
@@ -103,7 +103,7 @@ ManageButton.propTypes = {
 };
 
 const BlockUserItem = ({ user }) => {
-  const [modalOpen, setModalOpen] = React.useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
   const handleClose = () => setModalOpen(false);
 
   return (

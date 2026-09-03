@@ -4,7 +4,7 @@
  */
 
 import _isEmpty from "lodash/isEmpty";
-import React, { Component } from "react";
+import { Component } from "react";
 import { Modal, Loader, Container, Table, Grid, Item, Label } from "semantic-ui-react";
 import PropTypes from "prop-types";
 import { ErrorMessage, Image } from "react-invenio-forms";
@@ -58,7 +58,7 @@ export class AccessUsersGroups extends Component {
           />
         )}
         <Modal.Content className="share-content">
-          {loading && <Loader isLoading active />}
+          {loading && <Loader active />}
           {!loading && results !== undefined && (
             <>
               <AddUserGroupAccessModal
@@ -172,7 +172,7 @@ AccessUsersGroups.propTypes = {
   searchType: PropTypes.oneOf(["group", "role", "user"]).isRequired,
   onGrantAddedOrDeleted: PropTypes.func.isRequired,
   onPermissionChanged: PropTypes.func.isRequired,
-  results: PropTypes.array.isRequired,
+  results: PropTypes.array,
   loading: PropTypes.bool.isRequired,
-  error: PropTypes.object.isRequired,
+  error: PropTypes.object,
 };
