@@ -6,8 +6,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import { RecordManagement } from "./RecordManagement";
 import { RecordVersionsList } from "./RecordVersionsList";
 import { RecordCitationField } from "./RecordCitationField";
@@ -26,7 +25,7 @@ if (recordManagementAppDiv) {
 
 function renderRecordManagement(element) {
   const record = JSON.parse(recordManagementAppDiv.dataset.record);
-  ReactDOM.render(
+  createRoot(element).render(
     <OverridableContext.Provider value={overriddenComponents}>
       <RecordManagement
         record={record}
@@ -44,42 +43,38 @@ function renderRecordManagement(element) {
         )}
         auditLogsEnabled={JSON.parse(recordManagementAppDiv.dataset.auditLogsEnabled)}
       />
-    </OverridableContext.Provider>,
-    element
+    </OverridableContext.Provider>
   );
 }
 
 const recordVersionsAppDiv = document.getElementById("recordVersions");
 if (recordVersionsAppDiv) {
-  ReactDOM.render(
+  createRoot(recordVersionsAppDiv).render(
     <OverridableContext.Provider value={overriddenComponents}>
       <RecordVersionsList
         record={JSON.parse(recordVersionsAppDiv.dataset.record)}
         isPreview={JSON.parse(recordVersionsAppDiv.dataset.preview)}
       />
-    </OverridableContext.Provider>,
-    recordVersionsAppDiv
+    </OverridableContext.Provider>
   );
 }
 
 const recordCitationAppDiv = document.getElementById("recordCitation");
 if (recordCitationAppDiv) {
-  ReactDOM.render(
+  createRoot(recordCitationAppDiv).render(
     <RecordCitationField
       recordLinks={JSON.parse(recordCitationAppDiv.dataset.recordLinks)}
       styles={JSON.parse(recordCitationAppDiv.dataset.styles)}
       defaultStyle={JSON.parse(recordCitationAppDiv.dataset.defaultstyle)}
       includeDeleted={JSON.parse(recordCitationAppDiv.dataset.includeDeleted)}
-    />,
-    recordCitationAppDiv
+    />
   );
 }
 
 const recordExportDownloadDiv = document.getElementById("recordExportDownload");
 if (recordExportDownloadDiv) {
-  ReactDOM.render(
-    <ExportDropdown formats={JSON.parse(recordExportDownloadDiv.dataset.formats)} />,
-    recordExportDownloadDiv
+  createRoot(recordExportDownloadDiv).render(
+    <ExportDropdown formats={JSON.parse(recordExportDownloadDiv.dataset.formats)} />
   );
 }
 
@@ -104,7 +99,7 @@ if (sidebarCommunitiesManageDiv) {
   const permissions = JSON.parse(sidebarCommunitiesManageDiv.dataset.permissions);
   const record = JSON.parse(sidebarCommunitiesManageDiv.dataset.record);
   const recordRequests = JSON.parse(sidebarCommunitiesManageDiv.dataset.recordRequests);
-  ReactDOM.render(
+  createRoot(sidebarCommunitiesManageDiv).render(
     <OverridableContext.Provider value={overriddenComponents}>
       <Overridable
         id="InvenioAppRdm.RecordLandingPage.CommunitiesManagement.container"
@@ -128,7 +123,6 @@ if (sidebarCommunitiesManageDiv) {
           recordRequests={recordRequests}
         />
       </Overridable>
-    </OverridableContext.Provider>,
-    sidebarCommunitiesManageDiv
+    </OverridableContext.Provider>
   );
 }

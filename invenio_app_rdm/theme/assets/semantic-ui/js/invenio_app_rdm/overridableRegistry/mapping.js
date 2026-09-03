@@ -1,6 +1,1 @@
-/*
- * SPDX-FileCopyrightText: 2023-2025 CERN.
- * SPDX-License-Identifier: MIT
- */
-
-export const overriddenComponents = {};
+/home/olivergeneser/dev/work/cern/zenodo-rdm/assets/js/invenio_app_rdm/overridableRegistry/mapping.js
