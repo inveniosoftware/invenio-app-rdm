@@ -9,6 +9,10 @@
 Changes
 =======
 
+Version v14.0.4 (released 2026-09-03)
+
+- release: correct v14.0.3 tag pointing to the wrong commit
+
 Version v14.0.3 (released 2026-09-03)
 
 - fix(ui): show secret links validation error msgs
