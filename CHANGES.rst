@@ -9,6 +9,10 @@
 Changes
 =======
 
+Version v14.0.3 (released 2026-09-03)
+
+- fix(ui): show secret links validation error msgs
+
 Version v14.0.2 (released 2026-09-01)
 
 - fix: optionally chain user in RecordManagement.recordOwnerID to account for system records
