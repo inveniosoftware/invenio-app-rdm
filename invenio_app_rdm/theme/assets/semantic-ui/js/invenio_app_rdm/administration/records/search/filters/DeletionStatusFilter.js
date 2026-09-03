@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { i18next } from "@translations/invenio_requests/i18next";
+import { i18next } from "@translations/invenio_app_rdm/i18next";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { withState } from "react-searchkit";
@@ -21,7 +21,9 @@ class DeletionStatusFilterComponent extends Component {
   componentDidMount() {
     const { currentQueryState } = this.props;
     const userSelectionFilters = currentQueryState.filters;
-    const openFilter = userSelectionFilters.find((obj) => obj.includes("status"));
+    const openFilter = userSelectionFilters.find((obj) =>
+      obj.includes("status")
+    );
 
     if (openFilter) {
       // eslint-disable-next-line react/no-did-mount-set-state
@@ -37,7 +39,8 @@ class DeletionStatusFilterComponent extends Component {
    * @param {string} value true if open requests and false if closed requests
    */
   filterRecords = (value = "P") => {
-    const { currentQueryState, updateQueryState, keepFiltersOnUpdate } = this.props;
+    const { currentQueryState, updateQueryState, keepFiltersOnUpdate } =
+      this.props;
     const { selected } = this.state;
 
     if (selected === value) {

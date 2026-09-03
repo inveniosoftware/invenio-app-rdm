@@ -53,7 +53,7 @@ export const RecordActions = ({
 
 RecordActions.propTypes = {
   successCallback: PropTypes.func.isRequired,
-  record: PropTypes.string.isRequired,
+  record: PropTypes.object.isRequired,
   idKeyPath: PropTypes.string.isRequired,
   listUIEndpoint: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,

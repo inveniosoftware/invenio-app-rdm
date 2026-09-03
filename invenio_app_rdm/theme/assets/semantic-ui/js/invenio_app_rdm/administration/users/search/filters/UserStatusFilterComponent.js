@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { i18next } from "@translations/invenio_requests/i18next";
+import { i18next } from "@translations/invenio_app_rdm/i18next";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { withState } from "react-searchkit";
@@ -21,7 +21,9 @@ class UserStatusFilterComponent extends Component {
   componentDidMount() {
     const { currentQueryState } = this.props;
     const userSelectionFilters = currentQueryState.filters;
-    const openFilter = userSelectionFilters.find((obj) => obj.includes("active"));
+    const openFilter = userSelectionFilters.find((obj) =>
+      obj.includes("active")
+    );
     if (openFilter) {
       // eslint-disable-next-line react/no-did-mount-set-state
       this.setState({
@@ -37,7 +39,8 @@ class UserStatusFilterComponent extends Component {
    * @param {number} value true if open requests and false if closed requests
    */
   retrieveUsers = (selectedFilter, filterField, value = 1) => {
-    const { currentQueryState, updateQueryState, keepFiltersOnUpdate } = this.props;
+    const { currentQueryState, updateQueryState, keepFiltersOnUpdate } =
+      this.props;
     const { selected } = this.state;
 
     if (selected === selectedFilter) {
@@ -51,7 +54,9 @@ class UserStatusFilterComponent extends Component {
     });
 
     currentQueryState.filters = keepFiltersOnUpdate
-      ? currentQueryState.filters.filter((element) => element[0] !== filterField)
+      ? currentQueryState.filters.filter(
+          (element) => element[0] !== filterField
+        )
       : [];
 
     currentQueryState.filters.push([filterField, value]);

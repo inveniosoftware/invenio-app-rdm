@@ -5,7 +5,6 @@
 
 {% extends "invenio_administration/search.html" %}
 
-{% block javascript %}
-  {{ super() }}
+{% block search_javascript %}
   {{ webpack['invenio-domains-administration.js'] }}
 {% endblock %}

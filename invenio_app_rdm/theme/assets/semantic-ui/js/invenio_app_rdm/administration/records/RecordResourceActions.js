@@ -24,7 +24,7 @@ export class RecordResourceActions extends Component {
     };
   }
 
-  onModalTriggerClick = (e, { payloadSchema, dataName, dataActionKey }) => {
+  onModalTriggerClick = (payloadSchema, dataName, dataActionKey) => {
     const { resource } = this.props;
 
     if (dataActionKey === "compare") {
@@ -103,11 +103,13 @@ export class RecordResourceActions extends Component {
             return (
               <Element
                 key={actionKey}
-                onClick={this.onModalTriggerClick}
-                payloadSchema={actionConfig.payload_schema}
-                dataName={actionConfig.text}
-                dataActionKey={actionKey}
-                icon={icon}
+                onClick={() =>
+                  this.onModalTriggerClick(
+                    actionConfig.payload_schema,
+                    actionConfig.text,
+                    actionKey
+                  )
+                }
                 fluid
                 basic
                 labelPosition="left"
@@ -122,11 +124,13 @@ export class RecordResourceActions extends Component {
             return (
               <Element
                 key={actionKey}
-                onClick={this.onModalTriggerClick}
-                payloadSchema={actionConfig.payload_schema}
-                dataName={actionConfig.text}
-                dataActionKey={actionKey}
-                icon={icon}
+                onClick={() =>
+                  this.onModalTriggerClick(
+                    actionConfig.payload_schema,
+                    actionConfig.text,
+                    actionKey
+                  )
+                }
                 fluid
                 basic
                 labelPosition="left"
@@ -141,11 +145,13 @@ export class RecordResourceActions extends Component {
             return (
               <Element
                 key={actionKey}
-                onClick={this.onModalTriggerClick}
-                payloadSchema={actionConfig.payload_schema}
-                dataName={actionConfig.text}
-                dataActionKey={actionKey}
-                icon={icon}
+                onClick={() =>
+                  this.onModalTriggerClick(
+                    actionConfig.payload_schema,
+                    actionConfig.text,
+                    actionKey
+                  )
+                }
                 fluid
                 labelPosition="left"
               >
@@ -156,7 +162,11 @@ export class RecordResourceActions extends Component {
           }
           return null;
         })}
-        <ActionModal modalOpen={modalOpen} resource={resource} modalProps={modalProps}>
+        <ActionModal
+          modalOpen={modalOpen}
+          resource={resource}
+          modalProps={modalProps}
+        >
           {modalHeader && <Modal.Header>{modalHeader}</Modal.Header>}
           {!_isEmpty(modalBody) && modalBody}
         </ActionModal>
@@ -168,15 +178,16 @@ export class RecordResourceActions extends Component {
 RecordResourceActions.propTypes = {
   resource: PropTypes.object.isRequired,
   successCallback: PropTypes.func.isRequired,
-  actions: PropTypes.shape({
-    text: PropTypes.string.isRequired,
-    payload_schema: PropTypes.object.isRequired,
-    order: PropTypes.number.isRequired,
-  }),
-  Element: PropTypes.node,
+  actions: PropTypes.objectOf(
+    PropTypes.shape({
+      text: PropTypes.string.isRequired,
+      payload_schema: PropTypes.object,
+      order: PropTypes.number.isRequired,
+    })
+  ).isRequired,
+  Element: PropTypes.elementType,
 };
 
 RecordResourceActions.defaultProps = {
   Element: Button,
-  actions: undefined,
 };

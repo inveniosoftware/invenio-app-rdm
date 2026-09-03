@@ -35,7 +35,10 @@ class SearchResultItemComponent extends Component {
         {/*We pass user ID to bulk actions - user moderation API takes user IDs*/}
         {/*<SearchResultsRowCheckbox rowId={userId} data={result} />*/}
         {/*</Table.Cell>*/}
-        <Table.Cell key={`domain-column-${result.id}`} data-label={i18next.t("Domain")}>
+        <Table.Cell
+          key={`domain-column-${result.id}`}
+          data-label={i18next.t("Domain")}
+        >
           <a href={result.links.admin_self_html}>{result.domain}</a> &nbsp;
           <BoolFormatter
             tooltip={i18next.t("Flagged")}
@@ -68,10 +71,16 @@ class SearchResultItemComponent extends Component {
             value={result.status_name === "spammer"}
           />
         </Table.Cell>
-        <Table.Cell key={`domain-tld-${result.id}`} data-label={i18next.t("TLD")}>
+        <Table.Cell
+          key={`domain-tld-${result.id}`}
+          data-label={i18next.t("TLD")}
+        >
           {result.tld}
         </Table.Cell>
-        <Table.Cell key={`domain-status-${result.id}`} data-label={i18next.t("Status")}>
+        <Table.Cell
+          key={`domain-status-${result.id}`}
+          data-label={i18next.t("Status")}
+        >
           <BoolFormatter
             tooltip={i18next.t("New")}
             icon="hourglass end"
@@ -97,10 +106,16 @@ class SearchResultItemComponent extends Component {
             value={result.status_name === "blocked"}
           />
         </Table.Cell>
-        <Table.Cell key={`domain-users-${result.id}`} data-label={i18next.t("Users")}>
+        <Table.Cell
+          key={`domain-users-${result.id}`}
+          data-label={i18next.t("Users")}
+        >
           {result.num_users}
         </Table.Cell>
-        <Table.Cell key={`domain-active-${result.id}`} data-label={i18next.t("Active")}>
+        <Table.Cell
+          key={`domain-active-${result.id}`}
+          data-label={i18next.t("Active")}
+        >
           {result.num_active}
         </Table.Cell>
         <Table.Cell
@@ -133,7 +148,7 @@ class SearchResultItemComponent extends Component {
           data-label={i18next.t("Links")}
           className="word-break-all"
         >
-          <Dropdown text={<Icon name="eye" />}>
+          <Dropdown trigger={<Icon name="eye" />}>
             <Dropdown.Menu>
               <Dropdown.Item
                 as="a"
@@ -144,11 +159,21 @@ class SearchResultItemComponent extends Component {
           </Dropdown>
         </Table.Cell>
         <Table.Cell collapsing>
-          <Button.Group size="tiny" basic widths={5} compact className="margined">
+          <Button.Group
+            size="tiny"
+            basic
+            widths={5}
+            compact
+            className="margined"
+          >
             <Actions
               title={title}
               resourceName={resourceName}
-              editUrl={AdminUIRoutes.editView(listUIEndpoint, result, idKeyPath)}
+              editUrl={AdminUIRoutes.editView(
+                listUIEndpoint,
+                result,
+                idKeyPath
+              )}
               displayEdit={displayEdit}
               displayDelete={displayDelete}
               actions={actions}

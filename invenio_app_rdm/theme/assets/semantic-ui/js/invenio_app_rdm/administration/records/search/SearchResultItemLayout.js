@@ -51,7 +51,8 @@ class SearchResultItemComponent extends Component {
           <BoolFormatter
             value={result.access.record === "public"}
             color="green"
-            icon="lock unlocked"
+            icon="unlock"
+            tooltip={i18next.t("Public")}
           />
           <BoolFormatter
             value={
@@ -60,11 +61,19 @@ class SearchResultItemComponent extends Component {
             }
             color="red"
             icon="lock"
+            tooltip={i18next.t("Restricted")}
           />
-          <a target="_blank" rel="noreferrer noopener" href={result.links.self_html}>
-            {_truncate(result.metadata.title || i18next.t("Empty draft title"), {
-              length: 100,
-            })}
+          <a
+            target="_blank"
+            rel="noreferrer noopener"
+            href={result.links.self_html}
+          >
+            {_truncate(
+              result.metadata.title || i18next.t("Empty draft title"),
+              {
+                length: 100,
+              }
+            )}
           </a>
           <br />
           <div className="text-muted">
@@ -126,7 +135,11 @@ class SearchResultItemComponent extends Component {
               displayQuota={!result.is_published}
               title={title}
               resourceName={resourceName}
-              editUrl={AdminUIRoutes.editView(listUIEndpoint, result, idKeyPath)}
+              editUrl={AdminUIRoutes.editView(
+                listUIEndpoint,
+                result,
+                idKeyPath
+              )}
               displayEdit={displayEdit}
               displayDelete={displayDelete}
               actions={actions}
@@ -163,6 +176,9 @@ SearchResultItemComponent.propTypes = {
   actions: PropTypes.object.isRequired,
 };
 
-SearchResultItemComponent.defaultProps = { displayEdit: false, displayDelete: false };
+SearchResultItemComponent.defaultProps = {
+  displayEdit: false,
+  displayDelete: false,
+};
 
 export const SearchResultItemLayout = withState(SearchResultItemComponent);
