@@ -6,7 +6,7 @@
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import { defaultContribComponents } from "@js/invenio_requests/contrib";
 import { PendingCommunityRequestItem } from "./PendingCommunityRequestItem";
-import React, { Component } from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 import { OverridableContext, parametrize } from "react-overridable";
 import {

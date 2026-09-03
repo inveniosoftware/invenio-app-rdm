@@ -14,20 +14,19 @@ import {
 import { SharedOrMineFilter } from "@js/invenio_requests/components/SharedOrMineFilter";
 
 import { i18next } from "@translations/invenio_app_rdm/i18next";
-import React from "react";
+import { useState } from "react";
 import { ResultsList, SearchBar, Sort, buildUID } from "react-searchkit";
 import { GridResponsiveSidebarColumn } from "react-invenio-forms";
 import { Grid, Button } from "semantic-ui-react";
 import PropTypes from "prop-types";
 import Overridable from "react-overridable";
 
-export function DashboardResultView(props) {
-  props = {
-    ...props,
-    appName: typeof props.appName === "undefined" ? "" : props.appName,
-  };
-
-  const { sortOptions, paginationOptions, currentResultsState, appName } = props;
+export function DashboardResultView({
+  sortOptions,
+  paginationOptions,
+  currentResultsState,
+  appName = "",
+}) {
   const { total } = currentResultsState.data;
 
   const handleResultsRendered = () => {
@@ -81,7 +80,7 @@ export const DashboardSearchLayoutHOC = ({
   mineLabel = "",
 }) => {
   const DashboardUploadsSearchLayout = (props) => {
-    const [sidebarVisible, setSidebarVisible] = React.useState(false);
+    const [sidebarVisible, setSidebarVisible] = useState(false);
     const { config } = props;
 
     return (

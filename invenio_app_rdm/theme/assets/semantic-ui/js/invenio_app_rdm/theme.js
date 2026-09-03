@@ -10,7 +10,6 @@ import { CopyButton } from "@js/invenio_app_rdm/components/CopyButton";
 import { ManageButton } from "@js/invenio_app_rdm/landing_page/ManageButton";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import { createRoot } from "react-dom/client";
-import React from "react";
 
 const renderReact = (component, element) => createRoot(element).render(component);
 

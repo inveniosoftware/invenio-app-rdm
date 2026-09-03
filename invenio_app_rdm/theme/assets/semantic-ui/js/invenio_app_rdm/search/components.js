@@ -13,7 +13,6 @@ import {
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import _get from "lodash/get";
 import _truncate from "lodash/truncate";
-import React from "react";
 import Overridable from "react-overridable";
 import { withState, buildUID } from "react-searchkit";
 import {

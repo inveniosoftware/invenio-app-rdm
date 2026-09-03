@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: MIT
  */
 
-import React from "react";
 import PropTypes from "prop-types";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import { Actions } from "@js/invenio_administration";
@@ -53,7 +52,7 @@ export const RecordActions = ({
 
 RecordActions.propTypes = {
   successCallback: PropTypes.func.isRequired,
-  record: PropTypes.string.isRequired,
+  record: PropTypes.object.isRequired,
   idKeyPath: PropTypes.string.isRequired,
   listUIEndpoint: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,

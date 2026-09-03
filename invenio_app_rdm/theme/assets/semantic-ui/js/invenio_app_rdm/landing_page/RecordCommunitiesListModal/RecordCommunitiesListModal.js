@@ -4,15 +4,17 @@
  */
 
 import { i18next } from "@translations/invenio_app_rdm/i18next";
-import React, { Component } from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 import { Header, Modal, Button } from "semantic-ui-react";
 import { RecordCommunitiesSearch } from "./RecordCommunitiesSearch";
 
+const DEFAULT_RECORD_REQUESTS = {};
+
 export class RecordCommunitiesListModal extends Component {
   constructor(props) {
     super(props);
-    const { recordParent } = this.props;
+    const { recordParent } = props;
     this.state = {
       recordParent: recordParent,
     };
@@ -25,13 +27,13 @@ export class RecordCommunitiesListModal extends Component {
   render() {
     const {
       recordCommunityEndpoint,
-      modalOpen,
+      modalOpen = false,
       successActionCallback,
       handleOnOpen,
       handleOnClose,
       trigger,
       permissions,
-      recordRequests,
+      recordRequests = DEFAULT_RECORD_REQUESTS,
     } = this.props;
     const { recordParent } = this.state;
 
@@ -80,10 +82,4 @@ RecordCommunitiesListModal.propTypes = {
   permissions: PropTypes.object.isRequired,
   recordParent: PropTypes.object.isRequired,
   recordRequests: PropTypes.object,
-};
-
-RecordCommunitiesListModal.defaultProps = {
-  modalOpen: false,
-  trigger: undefined,
-  recordRequests: {},
 };
