@@ -37,6 +37,7 @@ export class RecordManagement extends Component {
       recordDeletion,
       recordDeletionOptions,
       auditLogsEnabled,
+      allowExternalDoiVersions,
     } = this.props;
     const { error } = this.state;
     const { id: recid } = record;
@@ -86,6 +87,7 @@ export class RecordManagement extends Component {
                 record={record}
                 onError={handleError}
                 disabled={!permissions?.can_new_version}
+                allowExternalDoiVersions={allowExternalDoiVersions}
               />
             </Grid.Column>
 
@@ -131,9 +133,11 @@ RecordManagement.propTypes = {
   recordDeletion: PropTypes.object,
   recordDeletionOptions: PropTypes.array.isRequired,
   auditLogsEnabled: PropTypes.bool,
+  allowExternalDoiVersions: PropTypes.bool,
 };
 
 RecordManagement.defaultProps = {
   recordDeletion: {},
   auditLogsEnabled: false,
+  allowExternalDoiVersions: true,
 };

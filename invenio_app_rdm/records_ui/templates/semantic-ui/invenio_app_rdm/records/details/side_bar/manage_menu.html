@@ -27,6 +27,7 @@
          {% if config.RDM_DETAIL_SIDE_BAR_MANAGE_ATTRIBUTES_EXTENSION_TEMPLATE %}
           {% include config.RDM_DETAIL_SIDE_BAR_MANAGE_ATTRIBUTES_EXTENSION_TEMPLATE %}
          {% endif %}
+         data-allow-external-doi-versions='{{ config.RDM_ALLOW_EXTERNAL_DOI_VERSIONING | tojson }}'
          >
       <div class="ui placeholder">
         <div class="header">
