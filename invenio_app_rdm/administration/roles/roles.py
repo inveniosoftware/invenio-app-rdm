@@ -1,10 +1,11 @@
 # SPDX-FileCopyrightText: 2025 CERN.
 # SPDX-FileCopyrightText: 2025-2026 KTH Royal Institute of Technology.
+# SPDX-FileCopyrightText: 2026 Graz University of Technology.
 # SPDX-License-Identifier: MIT
 
 """Administration views for managing roles."""
 
-from flask import abort
+from flask import abort, current_app
 from invenio_administration.views.base import (
     AdminResourceCreateView,
     AdminResourceDetailView,
@@ -36,6 +37,11 @@ class RoleAdminMixin:
     search_config_name = "USERS_RESOURCES_GROUPS_ADMIN_SEARCH"
     search_sort_config_name = "USERS_RESOURCES_GROUPS_ADMIN_SORT_OPTIONS"
     search_facets_config_name = "USERS_RESOURCES_GROUPS_ADMIN_FACETS"
+
+    @staticmethod
+    def disabled():
+        """Disable the view on demand."""
+        return not current_app.config["USERS_RESOURCES_GROUPS_ENABLED"]
 
     def dispatch_request(self, **kwargs):
         """Deny direct navigation to unauthorized users."""

@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: 2019-2026 CERN.
 # SPDX-FileCopyrightText: 2019-2026 Northwestern University.
 # SPDX-FileCopyrightText: 2021-2025 Graz University of Technology.
-# SPDX-FileCopyrightText: 2022-2025 KTH Royal Institute of Technology.
+# SPDX-FileCopyrightText: 2022-2026 KTH Royal Institute of Technology.
 # SPDX-FileCopyrightText: 2023 TU Wien
 # SPDX-License-Identifier: MIT
 
@@ -715,7 +715,7 @@ DEBUG_TB_INTERCEPT_REDIRECTS = False
 CACHE_REDIS_URL = "redis://localhost:6379/0"
 """URL to connect to Redis server."""
 
-CACHE_TYPE = "flask_caching.backends.redis"
+CACHE_TYPE = "flask_caching.backends.RedisCache"
 """Use Redis caching object."""
 
 # Invenio-Access
@@ -938,8 +938,6 @@ def github_link_render(record):
     ...
 """
 
-APP_RDM_RECORDS_EXPORT_URL = "/records/<pid_value>/export/<export_format>"
-
 APP_RDM_DEPOSIT_NG_FILES_UI_ENABLED = False
 """
 Feature toggle to enable the next-generation (NG) file uploader UI in the deposit form.
@@ -1121,8 +1119,8 @@ RDM_CITATION_STYLES = [
     ("apa", _("APA")),
     ("harvard-cite-them-right", _("Harvard")),
     ("modern-language-association", _("MLA")),
-    ("vancouver", _("Vancouver")),
-    ("chicago-fullnote-bibliography", _("Chicago")),
+    ("nlm-citation-sequence", _("Vancouver")),
+    ("chicago-notes-bibliography", _("Chicago")),
     ("ieee", _("IEEE")),
 ]
 """List of citation style """

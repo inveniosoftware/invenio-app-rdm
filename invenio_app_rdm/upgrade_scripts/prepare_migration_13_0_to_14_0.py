@@ -56,6 +56,16 @@ def table_exist(connection, table_name):
     return inspect(connection).has_table(table_name)
 
 
+def column_exists(connection, table_name, column_name):
+    """Check if the given column exists on the given table."""
+    if not table_exist(connection, table_name):
+        return False
+    return any(
+        column["name"] == column_name
+        for column in inspect(connection).get_columns(table_name)
+    )
+
+
 def add_head_if_package_installed(connection, package_name, head, require_tables=None):
     """Add the given head to the alembic table if not already present."""
     if not _is_installed(package_name):
@@ -154,6 +164,66 @@ def remove_obsolete_files_index(connection):
     connection.execute(text("DROP INDEX IF EXISTS ix_uq_partial_files_object_is_head"))
 
 
+def remove_user_id_from_transaction(connection):
+    """Remove the user_id column from transaction table.
+
+    Repositories generated later than 5 years ago already do not have this column, older repositories
+    might have. We drop it to avoid schema conflicts between the model and the database only if it does
+    not contain values.
+
+    ALEMBIC_DIFF_COUNT:3
+    - ('remove_index', Index('ix_transaction_user_id', Column('user_id', INTEGER(), table=<transaction>)))
+    - ('remove_fk',
+       ForeignKeyConstraint(<sqlalchemy.sql.base.ReadOnlyColumnCollection object at 0x1162cae30>, None, name='fk_transaction_user_id_accounts_user', table=Table('transaction', MetaData(), Column('user_id', NullType(), ForeignKey('accounts_user.id'), table=<transaction>), schema=None)))
+    - ('remove_column',
+       None,
+       'transaction',
+       Column('user_id', INTEGER(), ForeignKey('accounts_user.id'), ForeignKey('accounts_user.id'), table=<transaction>))
+    """
+    print("Checking whether the transaction table should be migrated...")
+    if not column_exists(connection, "transaction", "user_id"):
+        print("The transaction table has no user_id column, nothing to do.")
+        return
+
+    result = connection.execute(
+        text("select count(1) from transaction where user_id is not null")
+    )
+    if result.fetchone()[0] > 0:
+        print(
+            "The transaction.user_id column contains non-null values, keeping it. "
+            "The database will remain inconsistent (but working) with the invenio-db "
+            "model until this is resolved manually. Please contact the Invenio team "
+            "on Discord for help.",
+            file=sys.stderr,
+        )
+    else:
+        print("Dropping the empty transaction.user_id column")
+        connection.execute(text("ALTER TABLE transaction DROP COLUMN user_id CASCADE"))
+
+
+def fix_system_created_server_default(connection):
+    """Add the missing server_default to oaiserver_set.system_created.
+
+    invenio-oaiserver's migration that adds this column has always set
+    server_default=false, but the SQLAlchemy model didn't set one until it was fixed in
+    https://github.com/inveniosoftware/invenio-oaiserver/commit/d2faa0d780a6cbcdf1e9fea4375e75176a68863e.
+    Instances that got the column via `db create` (built from the model, before that fix)
+    are missing the server default. We backfill it here with the column's own default
+    value, so it's safe to apply regardless of when the repository was created.
+
+    ALEMBIC_DIFF_COUNT:1
+    - ('modify_default', None, 'oaiserver_set', 'system_created', {'existing_nullable': False, 'existing_type': BOOLEAN()}, None, Column('system_created', Boolean(), table=<oaiserver_set>, server_default=DefaultClause(<sqlalchemy.sql.elements.ColumnClause object at 0x1162cae30>, for_update=False)))
+    """
+    if not column_exists(connection, "oaiserver_set", "system_created"):
+        print("The oaiserver_set table has no system_created column, nothing to do.")
+        return
+
+    print("Setting the server default for oaiserver_set.system_created")
+    connection.execute(
+        text("ALTER TABLE oaiserver_set ALTER COLUMN system_created SET DEFAULT false")
+    )
+
+
 class FailureReporter:
     """Report failures during the upgrade process."""
 
@@ -181,6 +251,8 @@ if __name__ == "__main__":
             fix_invenio_webhooks(connection)
             fix_invenio_github(connection)
             remove_obsolete_files_index(connection)
+            remove_user_id_from_transaction(connection)
+            fix_system_created_server_default(connection)
             connection.commit()
 
     # fmt: off
@@ -189,7 +261,7 @@ if __name__ == "__main__":
 
     Please run:
 
-        invenio alembic upgrade heads
+        invenio alembic upgrade
 
     to finish the database structure migration process. Then continue with the data migration script.
     """)

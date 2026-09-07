@@ -5,7 +5,7 @@
 
 """Request views module."""
 
-from flask import current_app, g, redirect, render_template
+from flask import current_app, g, redirect, render_template, request
 from flask_login import current_user, login_required
 from invenio_base import invenio_url_for
 from invenio_checks.api import ChecksAPI
@@ -225,10 +225,13 @@ def user_dashboard_request_view(request, **kwargs):
 
         checks = None
         if current_app.config.get("CHECKS_ENABLED", False) and record:
+            community_id = (request["receiver"] or {}).get("community")
             if is_record_inclusion and has_draft:
-                checks = ChecksAPI.get_runs(record._record, is_draft=True)
+                checks = ChecksAPI.get_runs(
+                    record._record, is_draft=True, community_id=community_id
+                )
             else:
-                checks = ChecksAPI.get_runs(record._record)
+                checks = ChecksAPI.get_runs(record._record, community_id=community_id)
 
         if request_type == "record-deletion":
             reason_title = vocabulary_service.read(
@@ -336,9 +339,11 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
         checks = None
         if current_app.config.get("CHECKS_ENABLED", False) and record:
             if is_record_inclusion and has_draft:
-                checks = ChecksAPI.get_runs(record._record, is_draft=True)
+                checks = ChecksAPI.get_runs(
+                    record._record, is_draft=True, community_id=community.id
+                )
             else:
-                checks = ChecksAPI.get_runs(record._record)
+                checks = ChecksAPI.get_runs(record._record, community_id=community.id)
 
         return render_community_theme_template(
             f"invenio_requests/{request_type}/index.html",
@@ -377,6 +382,23 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
         )
 
     elif is_subcommunity_request or is_subcommunity_invitation_request:
+        checks = None
+        subcommunity_slug = (
+            request.to_dict().get("expanded", {}).get("topic", {}).get("slug")
+        )
+        if current_app.config.get("CHECKS_SUBCOMMUNITY_ENABLED", False):
+            topic_entity = ResolverRegistry.resolve_entity_proxy(
+                request._request.topic.reference_dict
+            ).resolve()
+            checks = (
+                ChecksAPI.get_runs(
+                    topic_entity,
+                    is_draft=False,
+                    community_id=community.id,
+                )
+                or None
+            )
+
         return render_community_theme_template(
             f"invenio_requests/{request_type}/index.html",
             theme=community.to_dict().get("theme", {}),
@@ -384,6 +406,8 @@ def community_dashboard_request_view(request, community, community_ui, **kwargs)
             invenio_request=request.to_dict(),
             community=community,
             community_ui=community_ui,
+            subcommunity_slug=subcommunity_slug,
+            checks=checks,
             permissions=permissions,
             request_is_accepted=request_is_accepted,
             user_avatar=avatar,
@@ -461,6 +485,22 @@ def community_dashboard_membership_request_view(
         permissions=permissions,
         user_avatar=avatar,
     )
+
+
+@login_required
+def rerun_check_view(check_run_id):
+    """Manually rerun a check."""
+    ChecksAPI.rerun_check(
+        check_run_id,
+        g.identity,
+    )
+
+    target = request.referrer or "/"
+    return_hash = request.form.get("return_hash")
+    if return_hash:
+        target = f"{target}#{return_hash}"
+
+    return redirect(target)
 
 
 def is_accepted_request(request_dict):

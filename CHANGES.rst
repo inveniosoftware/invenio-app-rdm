@@ -3,10 +3,56 @@
     SPDX-FileCopyrightText: 2019-2024 Northwestern University.
     SPDX-FileCopyrightText: 2021-2024 TU Wien.
     SPDX-FileCopyrightText: 2021-2026 Graz University of Technology.
+    SPDX-FileCopyrightText: 2026 KTH Royal Institute of Technology.
     SPDX-License-Identifier: MIT
 
 Changes
 =======
+
+Version v15.0.0b3.dev1 (released 2026-08-31)
+
+- chore(deps-dev): bump brace-expansion
+- fix: migrate role ids to names across relevant tables w/ new constraints
+- feat(upgrade): migrate role ids to names patch
+- fix(config): update deprecated CACHE_TYPE value
+
+Version v15.0.0b3.dev0 (released 2026-08-13)
+
+- chore(deps): bump invenio-rdm-records to v35.x
+- fix(request_ui): properly fetch subcommunity checks
+- fix(requests): pass community_id to get_runs
+- feat(requests): added endpoint to trigger rerunning a check
+- feat(ui): add anchor for active tab across page reloads
+- views: added comunity slug in request render template
+- feat(checks): add subcommunity checks tab
+
+Version v15.0.0b2.dev1 (released 2026-08-13)
+
+- feat(search): add overridable ids for result item labels
+- previewer: enable ZIP preview for draft records
+- fix(theme): keep details-list custom field links inline
+- fix(administration): role ui depends on groups
+- fix(build): include mo files
+- chore(v14/migration): restructure script
+- config: fix citation styles for Vancouver and Chicago with csl 1.0.2
+- fix(creatibutors): add selector for modal close button
+
+Version v15.0.0b2.dev0 (released 2026-07-21)
+
+- feat(Creatibutors): Add landing page "show-all" modal with searching for large author/contributor lists.
+- chore: Create SECURITY.md.
+- files: Improve external file size display.
+
+Version v15.0.0b1.dev0 (released 2026-07-10)
+
+- refactor(views): Move get_record_requests to RecordCommunitiesService
+- chore(setup): bump dependencies
+- chore(licenses): update license headers to use SPDX
+- fix(admin): show clear error in View Changes modal on 403
+- chore(migration): replace print with secho
+- chore(migration): add request parent for commenting
+- fix(admin): update edit roles UI
+- chore(setup): migrate from setuptools to hatchling
 
 Version v15.0.0b0.dev0 (released 2026-06-08)
 

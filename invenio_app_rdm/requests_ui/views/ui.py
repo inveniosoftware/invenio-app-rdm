@@ -24,6 +24,7 @@ from .requests import (
     community_dashboard_membership_request_view,
     community_dashboard_request_view,
     is_accepted_request,
+    rerun_check_view,
     user_dashboard_request_view,
 )
 
@@ -65,6 +66,11 @@ def create_ui_blueprint(app):
     )
     blueprint.add_url_rule(
         "/access/requests/<request_pid_value>", view_func=read_request
+    )
+    blueprint.add_url_rule(
+        "/checks/<check_run_id>/rerun",
+        view_func=rerun_check_view,
+        methods=["POST"],
     )
 
     # Register error handlers
