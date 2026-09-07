@@ -19,6 +19,8 @@ from flask import (
     url_for,
 )
 from invenio_access.permissions import system_identity
+from invenio_base import invenio_url_for
+from invenio_drafts_resources.resources.records.errors import DraftNotCreatedError
 from invenio_files_rest.errors import InvalidOperationError
 from invenio_rdm_records.proxies import current_rdm_records
 
@@ -68,35 +70,38 @@ def _orcha_client():
 
 
 def _record_file(pid_value, key=None, identity=None):
-    """Return a draft file by PID and optional file key."""
+    """Return a file by PID and optional file key, from the draft or its published record."""
     service = current_rdm_records.records_service
     identity = identity if identity is not None else g.identity
-    draft = service.read_draft(identity, pid_value)._record
+    try:
+        record = service.read_draft(identity, pid_value)._record
+    except DraftNotCreatedError:
+        record = service.read(identity, pid_value)._record
 
-    if not (draft.files and draft.files.entries):
-        raise InvalidOperationError(description="Draft has no files")
+    if not (record.files and record.files.entries):
+        raise InvalidOperationError(description="Record has no files")
 
-    file_key = key or next(iter(draft.files.entries))
-    if file_key not in draft.files.entries:
-        raise InvalidOperationError(description="Draft file does not exist")
+    file_key = key or next(iter(record.files.entries))
+    if file_key not in record.files.entries:
+        raise InvalidOperationError(description="Record file does not exist")
 
-    return draft, file_key, draft.files[file_key]
+    return record, file_key, record.files[file_key]
 
 
-def _file_download_url(pid_value, orcha, key=None):
+def _file_download_url(pid_value, orcha, key=None, identity=None):
     """Create a signed URL that ORCHA can use to download a draft file."""
     _require_orcha_enabled()
+    identity = identity if identity is not None else g.identity
 
-    draft, file_key, _ = _record_file(pid_value, key=key)
+    draft, file_key, _ = _record_file(pid_value, key=key, identity=identity)
     service = current_rdm_records.records_service
-    service.require_permission(g.identity, "manage", record=draft)
+    service.require_permission(identity, "manage", record=draft)
 
-    return url_for(
+    return invenio_url_for(
         "orcha.download_orcha_file",
         pid_value=pid_value,
         key=file_key,
         token=_file_download_token(orcha, pid_value, file_key),
-        _external=True,
     )
 
 
