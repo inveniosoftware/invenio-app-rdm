@@ -129,9 +129,16 @@ class RecordsResultsListItem extends Component {
                 result={result}
               />
             </Item.Extra>
-            <Item.Header as="h2" className="theme-primary-text">
-              <a href={viewLink}>{titleTruncated}</a>
-            </Item.Header>
+            <Overridable
+              id={buildUID("RecordsResultsListItem.title", "", appName)}
+              titleTruncated={titleTruncated}
+              viewLink={viewLink}
+              result={result}
+            >
+              <Item.Header as="h2" className="theme-primary-text">
+                <a href={viewLink}>{titleTruncated}</a>
+              </Item.Header>
+            </Overridable>
             <Item className="creatibutors">
               <SearchItemCreators creators={creators} othersLink={viewLink} />
             </Item>
