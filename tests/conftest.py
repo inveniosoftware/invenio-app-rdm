@@ -1,6 +1,6 @@
 # SPDX-FileCopyrightText: 2019-2025 CERN.
 # SPDX-FileCopyrightText: 2019-2025 Northwestern University.
-# SPDX-FileCopyrightText: 2024-2025 Graz University of Technology.
+# SPDX-FileCopyrightText: 2024-2026 Graz University of Technology.
 # SPDX-License-Identifier: MIT
 
 """Common pytest fixtures and plugins."""
@@ -166,7 +166,7 @@ def administration_user(users, roles):
 def client_with_login(client, users):
     """Log in a user to the client."""
     user = users["user1"]
-    login_user(user, remember=True)
+    login_user(user)
     login_user_via_session(client, email=user.email)
     return client
 
