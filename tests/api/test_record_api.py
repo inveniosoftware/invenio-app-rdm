@@ -1,6 +1,6 @@
 # SPDX-FileCopyrightText: 2019-2021 CERN.
 # SPDX-FileCopyrightText: 2019-2021 Northwestern University.
-# SPDX-FileCopyrightText: 2024 Graz University of Technology.
+# SPDX-FileCopyrightText: 2024-2026 Graz University of Technology.
 # SPDX-License-Identifier: MIT
 
 """Module tests."""
@@ -14,7 +14,7 @@ DRAFT_API_URL = "/records/{}/draft"
 DRAFT_ACTION_API_URL = "/records/{}/draft/actions/{}"
 
 
-def test_record_read_non_existing_pid(client, location, minimal_record, es_clear):
+def test_record_read_non_existing_pid(client, location, minimal_record, search_clear):
     """Retrieve a non existing record."""
     # retrieve unknown record
     response = client.get(SINGLE_RECORD_API_URL.format("notfound"))
@@ -24,7 +24,7 @@ def test_record_read_non_existing_pid(client, location, minimal_record, es_clear
 
 
 def test_record_draft_create_and_read(
-    client_with_login, running_app, minimal_record, es_clear
+    client_with_login, running_app, minimal_record, search_clear
 ):
     """Test draft creation of a non-existing record."""
     # create a record
@@ -48,7 +48,7 @@ def test_record_draft_create_and_read(
 
 
 def test_record_draft_publish(
-    client_with_login, headers, running_app, minimal_record, es_clear
+    client_with_login, headers, running_app, minimal_record, search_clear
 ):
     """Test draft publication of a non-existing record.
 
@@ -89,7 +89,7 @@ def test_record_draft_publish(
 
 
 def test_read_record_with_redirected_pid(
-    client_with_login, headers, running_app, minimal_record, es_clear
+    client_with_login, headers, running_app, minimal_record, search_clear
 ):
     """Test read a record with a redirected pid."""
     # Create dummy record
@@ -127,7 +127,12 @@ def test_read_record_with_redirected_pid(
 
 @pytest.mark.skip()
 def test_read_deleted_record(
-    client_with_login, headers, location, minimal_record, es_clear, administration_user
+    client_with_login,
+    headers,
+    location,
+    minimal_record,
+    search_clear,
+    administration_user,
 ):
     """Test read a deleted record."""
     client = client_with_login
@@ -152,7 +157,7 @@ def test_read_deleted_record(
     assert response.json["message"] == "The record has been deleted."
 
 
-def test_record_search(client, headers, running_app, es_clear):
+def test_record_search(client, headers, running_app, search_clear):
     """Test record search."""
     expected_response_keys = set(["hits", "links", "aggregations"])
     expected_metadata_keys = set(["resource_type", "creators", "titles"])
