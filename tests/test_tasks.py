@@ -1,5 +1,6 @@
 # SPDX-FileCopyrightText: 2022-2024 CERN.
 # SPDX-FileCopyrightText: 2025 Northwestern University.
+# SPDX-FileCopyrightText: 2026 Graz University of Technology.
 # SPDX-License-Identifier: MIT
 """Test invenio-app-rdm celery tasks."""
 
@@ -54,7 +55,7 @@ def draft_with_file_instance(running_app, minimal_record):
         .object_version.file_id
     )
     # fmt: on
-    f = FileInstance.query.get(id_of_file_instance)
+    f = db.session.get(FileInstance, id_of_file_instance)
     return draft, f
 
 
@@ -67,7 +68,7 @@ def draft_with_invalid_file_instance(draft_with_file_instance):
     db.session.commit()
 
     # Retrieve the file instance (with updated last_check)
-    f = FileInstance.query.get(f.id)
+    f = db.session.get(FileInstance, f.id)
 
     return draft, f
 
