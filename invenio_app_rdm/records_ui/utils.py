@@ -138,6 +138,9 @@ def evaluate_record_deletion(record: RDMRecord, identity):
             "context": {
                 "files": record.files.count,
                 "internalDoi": record.pids.get("doi", {}).get("provider") != "external",
+                "reasonWarnings": current_app.config.get(
+                    "RDM_RECORD_DELETION_REASON_WARNINGS", {}
+                ),
             },
         }
     else:
