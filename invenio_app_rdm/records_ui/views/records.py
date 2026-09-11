@@ -1,6 +1,6 @@
 # SPDX-FileCopyrightText: 2019-2025 CERN.
 # SPDX-FileCopyrightText: 2019-2021 Northwestern University.
-# SPDX-FileCopyrightText: 2021-2023 TU Wien.
+# SPDX-FileCopyrightText: 2021-2026 TU Wien.
 # SPDX-FileCopyrightText: 2025 CESNET i.a.l.e.
 # SPDX-License-Identifier: MIT
 
@@ -20,6 +20,7 @@ from invenio_communities.communities.resources.serializer import (
 from invenio_communities.errors import CommunityDeletedError
 from invenio_communities.proxies import current_communities
 from invenio_communities.views.communities import render_community_theme_template
+from invenio_i18n.proxies import current_i18n
 from invenio_previewer.extensions import default as default_previewer
 from invenio_previewer.proxies import current_previewer
 from invenio_rdm_records.proxies import current_rdm_records
@@ -28,6 +29,11 @@ from invenio_rdm_records.records.systemfields.access.access_settings import (
 )
 from invenio_rdm_records.requests import CommunityInclusion, CommunitySubmission
 from invenio_rdm_records.resources.serializers import UIJSONSerializer
+from invenio_rdm_records.resources.serializers.csl import (
+    CSLJSONSerializer,
+    get_citation_string,
+    get_style_location,
+)
 from invenio_requests.proxies import current_requests_service
 from invenio_search.api import dsl
 from invenio_stats.proxies import current_stats
@@ -311,6 +317,23 @@ def record_detail(
         )
     )
 
+    # since we've already resolved the record, we might as well generate
+    # the citation text in the default style, to save ourselves an XHR
+    try:
+        default_citation_style = current_app.config.get(
+            "RDM_CITATION_STYLES_DEFAULT", None
+        )
+        csl_serializer = CSLJSONSerializer()
+        style = get_style_location(default_citation_style)
+        record_citation = get_citation_string(
+            csl_serializer.dump_obj(record.data),
+            record.id,
+            style,
+            locale=current_i18n.language,
+        )
+    except Exception:
+        record_citation = None
+
     # permissions needs to include extra params to be passed to the template
     permissions = record.has_permissions_to(
         [
@@ -344,6 +367,7 @@ def record_detail(
         theme=theme,
         record=record,
         record_ui=record_ui,
+        record_citation=record_citation,
         files=files_dict,
         media_files=media_files_dict,
         user_communities_memberships=get_user_communities_memberships(),
