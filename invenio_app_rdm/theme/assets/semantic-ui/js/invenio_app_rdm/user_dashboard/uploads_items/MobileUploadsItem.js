@@ -30,6 +30,7 @@ export const MobileUploadsItem = ({
     createdDate,
     version,
     isPublished,
+    isDraft,
     viewLink,
     publishingInformation,
   } = uiMetadata;
@@ -108,12 +109,14 @@ export const MobileUploadsItem = ({
                 )}
               </small>
               <div className="rel-mt-1">
-                <small>
-                  <CompactStats
-                    uniqueViews={uniqueViews}
-                    uniqueDownloads={uniqueDownloads}
-                  />
-                </small>
+                {isPublished && !isDraft && (
+                  <small>
+                    <CompactStats
+                      uniqueViews={uniqueViews}
+                      uniqueDownloads={uniqueDownloads}
+                    />
+                  </small>
+                )}
               </div>
             </div>
           </Item.Extra>
@@ -121,20 +124,33 @@ export const MobileUploadsItem = ({
         <Item.Extra>
           <Dropdown button text={i18next.t("Actions")} labeled className="icon">
             <Dropdown.Menu>
-              {isPublished ? (
+              {isPublished && !isDraft ? (
                 <Dropdown.Item
                   labelposition="left"
                   href={viewLink}
                   icon="eye"
                   content={i18next.t("View")}
                 />
-              ) : (
+              ) : !isPublished && isDraft ? (
                 <Dropdown.Item
                   onClick={() => viewDraft()}
                   labelposition="left"
                   icon="eye"
                   content={i18next.t("View")}
                 />
+              ) : (
+                <>
+                  <Dropdown.Item
+                    labelposition="left"
+                    href={viewLink}
+                    content={i18next.t("View record")}
+                  />
+                  <Dropdown.Item
+                    onClick={() => viewDraft()}
+                    labelposition="left"
+                    content={i18next.t("View draft")}
+                  />
+                </>
               )}
             </Dropdown.Menu>
           </Dropdown>
