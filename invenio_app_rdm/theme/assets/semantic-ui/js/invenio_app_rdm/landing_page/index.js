@@ -43,6 +43,9 @@ function renderRecordManagement(element) {
           recordManagementAppDiv.dataset.recordDeletionOptions
         )}
         auditLogsEnabled={JSON.parse(recordManagementAppDiv.dataset.auditLogsEnabled)}
+        allowExternalDoiVersions={JSON.parse(
+          recordManagementAppDiv.dataset.allowExternalDoiVersions
+        )}
       />
     </OverridableContext.Provider>,
     element

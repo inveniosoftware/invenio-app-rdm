@@ -423,6 +423,7 @@ def get_form_config(**kwargs):
         default_transfer_type=current_transfer_registry.default_transfer_type,
         enabled_transfer_types=list(current_transfer_registry.get_transfer_types()),
         transfer_types=file_transfer_type()["transfer_types"],
+        allow_external_doi_versions=conf["RDM_ALLOW_EXTERNAL_DOI_VERSIONING"],
         **kwargs,
     )
 
