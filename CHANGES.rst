@@ -9,6 +9,15 @@
 Changes
 =======
 
+Version v15.0.04.dev0 (released 2026-09-15)
+
+- fix(tests): DeprecationWarning
+- fix(tests): DeprecationWarning
+- fix(tests): LegacyAPIWarning
+- feat(search): add overridable title
+- fix(ui): show link validation error msgs
+- config: remove unused APP_RDM_RECORDS_EXPORT_URL config
+
 Version v15.0.0b3.dev1 (released 2026-08-31)
 
 - chore(deps-dev): bump brace-expansion
