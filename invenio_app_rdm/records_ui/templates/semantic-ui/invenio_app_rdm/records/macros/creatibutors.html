@@ -28,9 +28,9 @@
   {# Fallback for missing identifiers #}
   {% if not identifier_found.value %}
     {% if creatibutor.person_or_org.type == 'organizational' %}
-      <i class="group icon"></i>
+      <i class="group icon ml-5"></i>
     {% else %}
-      <i class="user icon"></i>
+      <i class="user icon ml-5"></i>
     {% endif %}
   {% endif %}
 {% endmacro %}
