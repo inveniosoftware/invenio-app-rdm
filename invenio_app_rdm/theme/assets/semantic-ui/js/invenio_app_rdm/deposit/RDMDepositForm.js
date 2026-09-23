@@ -2,7 +2,7 @@
  * SPDX-FileCopyrightText: 2020-2026 CERN.
  * SPDX-FileCopyrightText: 2020-2022 Northwestern University.
  * SPDX-FileCopyrightText: 2021-2022 Graz University of Technology.
- * SPDX-FileCopyrightText: 2022-2025 KTH Royal Institute of Technology.
+ * SPDX-FileCopyrightText: 2022-2026 KTH Royal Institute of Technology.
  * SPDX-License-Identifier: MIT
  */
 
@@ -111,6 +111,9 @@ export class RDMDepositForm extends Component {
   formFeedbackRef = createRef();
   sidebarRef = createRef();
 
+  isSectionOpen = (id, hasContent, openWhenEmpty) =>
+    hasContent || (openWhenEmpty ?? !this.config.collapse_empty_sections?.includes(id));
+
   render() {
     const {
       config,
@@ -129,16 +132,19 @@ export class RDMDepositForm extends Component {
     } = this.props;
 
     // Adding section id to custom fields UI, to be used for accordions
-    const customFieldsUI = this.config.custom_fields.ui.map((section) => ({
-      ...section,
-      id: section.section.toLowerCase().replace(/\s+/g, "-") + "-section",
-      active:
-        section.active ??
-        section.fields.some(
-          ({ field, props }) =>
-            props?.required || hasFieldValue(record.custom_fields?.[field])
-        ),
-    }));
+    const customFieldsUI = this.config.custom_fields.ui.map((section) => {
+      const id =
+        section.id ?? section.section.toLowerCase().replace(/\s+/g, "-") + "-section";
+      const hasContent = section.fields.some(
+        ({ field, props }) =>
+          props?.required || hasFieldValue(record.custom_fields?.[field])
+      );
+      return {
+        ...section,
+        id,
+        active: this.isSectionOpen(id, hasContent, section.active),
+      };
+    });
     const UploaderField = useUppy ? UppyUploader : FileUploader;
 
     const overridableBlocksCommonProps = {
@@ -444,6 +450,12 @@ export class RDMDepositForm extends Component {
                       this.sectionsConfig["recommended-information-section"]
                     }
                     severityChecks={this.severityChecks}
+                    active={this.isSectionOpen(
+                      "recommended-information-section",
+                      this.sectionsConfig["recommended-information-section"].some(
+                        (path) => hasFieldValue(_get(record, path))
+                      )
+                    )}
                     label={i18next.t("Recommended information")}
                     id="recommended-information-section"
                   >
@@ -551,7 +563,10 @@ export class RDMDepositForm extends Component {
                   <AccordionField
                     includesPaths={this.sectionsConfig["funding-section"]}
                     severityChecks={this.severityChecks}
-                    active={hasFieldValue(_get(record, "metadata.funding"))}
+                    active={this.isSectionOpen(
+                      "funding-section",
+                      hasFieldValue(_get(record, "metadata.funding"))
+                    )}
                     label={i18next.t("Funding")}
                     ui={this.accordionStyle}
                     id="funding-section"
@@ -656,7 +671,10 @@ export class RDMDepositForm extends Component {
                   <AccordionField
                     includesPaths={this.sectionsConfig["alternate-identifiers-section"]}
                     severityChecks={this.severityChecks}
-                    active={hasFieldValue(_get(record, "metadata.identifiers"))}
+                    active={this.isSectionOpen(
+                      "alternate-identifiers-section",
+                      hasFieldValue(_get(record, "metadata.identifiers"))
+                    )}
                     label={i18next.t("Alternate identifiers")}
                     id="alternate-identifiers-section"
                   >
@@ -692,7 +710,10 @@ export class RDMDepositForm extends Component {
                   <AccordionField
                     includesPaths={this.sectionsConfig["related-works-section"]}
                     severityChecks={this.severityChecks}
-                    active={hasFieldValue(_get(record, "metadata.related_identifiers"))}
+                    active={this.isSectionOpen(
+                      "related-works-section",
+                      hasFieldValue(_get(record, "metadata.related_identifiers"))
+                    )}
                     label={i18next.t("Related works")}
                     id="related-works-section"
                   >
@@ -725,7 +746,10 @@ export class RDMDepositForm extends Component {
                   <AccordionField
                     includesPaths={this.sectionsConfig["references-section"]}
                     severityChecks={this.severityChecks}
-                    active={hasFieldValue(_get(record, "metadata.references"))}
+                    active={this.isSectionOpen(
+                      "references-section",
+                      hasFieldValue(_get(record, "metadata.references"))
+                    )}
                     label={i18next.t("References")}
                     id="references-section"
                   >
