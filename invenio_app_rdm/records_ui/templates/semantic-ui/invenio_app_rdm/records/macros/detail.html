@@ -268,11 +268,11 @@
 
       {% if field_value is string %}
         <dd>
-          {% set search_url = (field_value | pid_url) if field_cfg.props.is_identifier else (field_cfg.field | custom_fields_search(field_value | safe)) %}
+          {% set search_url = (field_value | pid_url) if field_cfg.props.is_identifier else (field_cfg.field | custom_fields_search(field_value)) %}
           {% if search_url %}
-            <a href="{{ search_url }}">{{ field_value | safe }}</a>
+            <a href="{{ search_url }}">{{ field_value }}</a>
           {% else %}
-            {{ field_value | safe }}
+            {{ field_value }}
           {% endif %}
         </dd>
       {% elif field_value is boolean %}
@@ -391,6 +391,6 @@
   <dt class="ui tiny header">
     {{ title }}
   </dt>
-  <dd>{{ thesis | safe }}
+  <dd>{{ thesis }}
   </dd>
 {% endmacro %}
