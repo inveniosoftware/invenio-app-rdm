@@ -5,7 +5,7 @@
 
 import sys
 
-from flask import current_app, render_template
+from flask import current_app, render_template, request
 from invenio_access.permissions import system_identity
 from invenio_base import invenio_url_for
 from invenio_previewer.proxies import current_previewer
@@ -58,6 +58,7 @@ def convert_zip_list_container(entries, directories, record_id, container_filena
         """Convert one node (file or directory)."""
         converted = {
             "name": key,
+            "path": node["key"],
             "type": "item",
             "id": f"item{next(counter)}",
         }
@@ -109,6 +110,15 @@ def convert_zip_list_container(entries, directories, record_id, container_filena
     return root
 
 
+def container_breadcrumb_trail(file):
+    """Breadcrumb trail of the previewed container, used for previews of its items.
+
+    Each crumb is a ``{"label": ..., "url": ...}`` dict. Previews of the container's
+    items append their own crumbs to it (see ``previewer/breadcrumb.js``).
+    """
+    return [{"label": file.filename, "url": request.full_path.rstrip("?")}]
+
+
 def can_preview(file):
     """Return True if filetype can be previewed."""
     return (
@@ -138,6 +148,7 @@ def preview(file):
         "invenio_previewer/previewable_zip.html",
         file=file,
         tree=tree_list,
+        breadcrumb_trail=container_breadcrumb_trail(file),
         limit_reached=False,
         error=None,
         js_bundles=current_previewer.js_bundles + ["previewable-zip.js"],
