@@ -7,7 +7,7 @@ import { i18next } from "@translations/invenio_app_rdm/i18next";
 import React from "react";
 import PropTypes from "prop-types";
 import _get from "lodash/get";
-import { Button, Icon, Item, Label } from "semantic-ui-react";
+import { Button, Dropdown, Icon, Item, Label } from "semantic-ui-react";
 import { SearchItemCreators } from "../../utils";
 import { CompactStats } from "../../components/CompactStats";
 import { DisplayPartOfCommunities } from "../../components/DisplayPartOfCommunities";
@@ -30,6 +30,7 @@ export const ComputerTabletUploadsItem = ({
     createdDate,
     version,
     isPublished,
+    isDraft,
     viewLink,
     publishingInformation,
   } = uiMetadata;
@@ -69,7 +70,7 @@ export const ComputerTabletUploadsItem = ({
             {accessStatus}
           </Label>
 
-          {isPublished ? (
+          {isPublished && !isDraft ? (
             <Button
               compact
               size="small"
@@ -79,7 +80,7 @@ export const ComputerTabletUploadsItem = ({
               icon="eye"
               content={i18next.t("View")}
             />
-          ) : (
+          ) : !isPublished && isDraft ? (
             <Button
               compact
               size="small"
@@ -89,6 +90,28 @@ export const ComputerTabletUploadsItem = ({
               icon="eye"
               content={i18next.t("View")}
             />
+          ) : (
+            <Dropdown
+              compact
+              text={i18next.t("View")}
+              icon="eye"
+              labeled
+              button
+              className="icon small right floated"
+            >
+              <Dropdown.Menu>
+                <Dropdown.Item
+                  href={viewLink}
+                  key="view_record"
+                  text={i18next.t("View record")}
+                />
+                <Dropdown.Item
+                  onClick={() => viewDraft()}
+                  key="view_draft"
+                  text={i18next.t("View draft")}
+                />
+              </Dropdown.Menu>
+            </Dropdown>
           )}
         </Item.Extra>
         <Item.Header as="h2">
@@ -132,12 +155,14 @@ export const ComputerTabletUploadsItem = ({
                 </span>
               )}
             </small>
-            <small>
-              <CompactStats
-                uniqueViews={uniqueViews}
-                uniqueDownloads={uniqueDownloads}
-              />
-            </small>
+            {isPublished && !isDraft && (
+              <small>
+                <CompactStats
+                  uniqueViews={uniqueViews}
+                  uniqueDownloads={uniqueDownloads}
+                />
+              </small>
+            )}
           </div>
         </Item.Extra>
       </Item.Content>
