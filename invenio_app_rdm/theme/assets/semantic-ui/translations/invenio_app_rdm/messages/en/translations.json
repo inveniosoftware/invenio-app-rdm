@@ -185,6 +185,7 @@
   "Select a community": "Select a community",
   "Version {{- version}}": "Version {{- version}}",
   "Preview": "Preview",
+  "Previewed file path": "Previewed file path",
   "Only published versions are displayed.": "Only published versions are displayed.",
   "An error occurred while fetching the versions.": "An error occurred while fetching the versions.",
   "View all {{count}} versions": "View all {{count}} versions",
