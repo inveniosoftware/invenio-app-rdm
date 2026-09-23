@@ -49,6 +49,14 @@ import { depositFormSectionsConfig, severityChecksConfig } from "./config";
 import { RecordDeletion } from "../components/RecordDeletion";
 import { FileModificationUntil } from "../components/FileModificationUntil";
 
+const hasFieldValue = (value) => {
+  if (Array.isArray(value)) return value.some(hasFieldValue);
+  if (value && typeof value === "object") {
+    return Object.values(value).some(hasFieldValue);
+  }
+  return value !== null && value !== undefined && value !== "";
+};
+
 export class RDMDepositForm extends Component {
   constructor(props) {
     super(props);
@@ -124,6 +132,12 @@ export class RDMDepositForm extends Component {
     const customFieldsUI = this.config.custom_fields.ui.map((section) => ({
       ...section,
       id: section.section.toLowerCase().replace(/\s+/g, "-") + "-section",
+      active:
+        section.active ??
+        section.fields.some(
+          ({ field, props }) =>
+            props?.required || hasFieldValue(record.custom_fields?.[field])
+        ),
     }));
     const UploaderField = useUppy ? UppyUploader : FileUploader;
 
@@ -537,7 +551,7 @@ export class RDMDepositForm extends Component {
                   <AccordionField
                     includesPaths={this.sectionsConfig["funding-section"]}
                     severityChecks={this.severityChecks}
-                    active={!!_get(record, "metadata.funding.length")}
+                    active={hasFieldValue(_get(record, "metadata.funding"))}
                     label={i18next.t("Funding")}
                     ui={this.accordionStyle}
                     id="funding-section"
@@ -642,7 +656,7 @@ export class RDMDepositForm extends Component {
                   <AccordionField
                     includesPaths={this.sectionsConfig["alternate-identifiers-section"]}
                     severityChecks={this.severityChecks}
-                    active={!!_get(record, "metadata.identifiers.length")}
+                    active={hasFieldValue(_get(record, "metadata.identifiers"))}
                     label={i18next.t("Alternate identifiers")}
                     id="alternate-identifiers-section"
                   >
@@ -678,7 +692,7 @@ export class RDMDepositForm extends Component {
                   <AccordionField
                     includesPaths={this.sectionsConfig["related-works-section"]}
                     severityChecks={this.severityChecks}
-                    active={!!_get(record, "metadata.related_identifiers.length")}
+                    active={hasFieldValue(_get(record, "metadata.related_identifiers"))}
                     label={i18next.t("Related works")}
                     id="related-works-section"
                   >
@@ -711,7 +725,7 @@ export class RDMDepositForm extends Component {
                   <AccordionField
                     includesPaths={this.sectionsConfig["references-section"]}
                     severityChecks={this.severityChecks}
-                    active={!!_get(record, "metadata.references.length")}
+                    active={hasFieldValue(_get(record, "metadata.references"))}
                     label={i18next.t("References")}
                     id="references-section"
                   >
