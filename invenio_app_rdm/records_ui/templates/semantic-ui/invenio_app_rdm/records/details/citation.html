@@ -2,10 +2,16 @@
   SPDX-FileCopyrightText: 2020-2025 CERN.
   SPDX-FileCopyrightText: 2020 Northwestern University.
   SPDX-FileCopyrightText: 2021 New York University.
+  SPDX-FileCopyrightText: 2026 TU Wien.
   SPDX-License-Identifier: MIT
 #}
 
+{#-
+  The default value for `rdm_citation` is there to avoid crashes when the value isn't provided,
+  e.g. for requests UI pages. The citation component can handle this case as well.
+-#}
 <div id="recordCitation" data-record-links='{{ record_ui.links | tojson }}'
+  data-record-citation='{{ record_citation | default("") | tojson }}'
   data-styles='{{ config.get("RDM_CITATION_STYLES") | tojson }}'
   data-defaultstyle='{{ config.get("RDM_CITATION_STYLES_DEFAULT") | tojson }}'
   data-include-deleted='{{ include_deleted | tojson }}'>
