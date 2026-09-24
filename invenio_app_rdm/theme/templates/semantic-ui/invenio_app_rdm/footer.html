@@ -3,41 +3,41 @@
   SPDX-FileCopyrightText: 2019-2020 Northwestern University.
   SPDX-FileCopyrightText: 2021 Graz University of Technology.
   SPDX-FileCopyrightText: 2024 KTH Royal Institute of Technology.
+  SPDX-FileCopyrightText: 2026 Helmholtz-Zentrum Dresden - Rossendorf (HZDR).
   SPDX-License-Identifier: MIT
 #}
 {%- block footer_top %}
 
   <div class="footer-top">
     <div class="ui container app-rdm-footer">
-      {%- block footer_top_left %}
-        <div class="ui grid app-rdm-footer">
-        <div class="rdm-footer five wide tablet two wide computer column">
-          <h2 class="ui small header">{{ _("About InvenioRDM") }}</h2>
-          <p><a href="http://inveniosoftware.org/products/rdm">{{ _("Product page") }}</a></p>
-          <p><a href="https://inveniosoftware.org/products/rdm/#features">{{ _("Features") }}</a></p>
-          <p><a href="https://inveniosoftware.org/products/rdm/roadmap/">{{ _("Roadmap") }}</a></p>
-          <p><a href="http://inveniordm.web.cern.ch">{{ _("Demo site") }}</a></p>
+      <div class="ui grid app-rdm-footer">
+        {%- block footer_top_left %}
+          <div class="rdm-footer five wide tablet two wide computer column">
+            <h2 class="ui small header">{{ _("About InvenioRDM") }}</h2>
+            <p><a href="http://inveniosoftware.org/products/rdm">{{ _("Product page") }}</a></p>
+            <p><a href="https://inveniosoftware.org/products/rdm/#features">{{ _("Features") }}</a></p>
+            <p><a href="https://inveniosoftware.org/products/rdm/roadmap/">{{ _("Roadmap") }}</a></p>
+            <p><a href="http://inveniordm.web.cern.ch">{{ _("Demo site") }}</a></p>
+          </div>
+          <div class="rdm-footer five wide tablet two wide computer column">
+            <h2 class="ui small header">{{ _("Get involved") }}</h2>
+            <p><a href="https://github.com/inveniosoftware/invenio-app-rdm">{{ _("GitHub") }}</a></p>
+            <p><a href="https://github.com/inveniosoftware/product-rdm">{{ _("Project Milestones") }}</a></p>
+            <p><a href="http://inveniordm.docs.cern.ch">{{ _("Documentation") }}</a></p>
+          </div>
+          <div class="rdm-footer five wide tablet two wide computer column">
+            <h2 class="ui small header">{{ _("Community") }}</h2>
+            <p><a href="https://discord.gg/8qatqBC">{{ _("Chatroom") }}</a></p>
+            <p><a href="https://invenio-talk.web.cern.ch/c/projects/invenio-rdm">{{ _("Forum") }}</a></p>
+            <p><a href="https://inveniosoftware.org/events/">{{ _("Events & training") }}</a></p>
+          </div>
+        {%- endblock footer_top_left %}
+        <div class="six wide column right aligned">
+          {%- block footer_top_right %}
+          {%- endblock footer_top_right %}
         </div>
-        <div class="rdm-footer five wide tablet two wide computer column">
-          <h2 class="ui small header">{{ _("Get involved") }}</h2>
-          <p><a href="https://github.com/inveniosoftware/invenio-app-rdm">{{ _("GitHub") }}</a></p>
-          <p><a href="https://github.com/inveniosoftware/product-rdm">{{ _("Project Milestones") }}</a></p>
-          <p><a href="http://inveniordm.docs.cern.ch">{{ _("Documentation") }}</a></p>
-        </div>
-        <div class="rdm-footer five wide tablet two wide computer column">
-          <h2 class="ui small header">{{ _("Community") }}</h2>
-          <p><a href="https://discord.gg/8qatqBC">{{ _("Chatroom") }}</a></p>
-          <p><a href="https://invenio-talk.web.cern.ch/c/projects/invenio-rdm">{{ _("Forum") }}</a></p>
-          <p><a href="https://inveniosoftware.org/events/">{{ _("Events & training") }}</a></p>
-        </div>
-
-      {%- endblock footer_top_left %}
-      <div class="six wide column right aligned">
-        {%- block footer_top_right %}
-        {%- endblock footer_top_right %}
-      </div>
       </div>
     </div>
-
   </div>
+
 {%- endblock footer_top %}
