@@ -23,6 +23,7 @@ const deserializeRecord = (record) => ({
   pids: record.pids,
   new_draft_parent_doi: record.ui.new_draft_parent_doi,
   resource_type: record.ui.resource_type,
+  access_status: record.ui.access_status,
 });
 
 const NUMBER_OF_VERSIONS = 5;
