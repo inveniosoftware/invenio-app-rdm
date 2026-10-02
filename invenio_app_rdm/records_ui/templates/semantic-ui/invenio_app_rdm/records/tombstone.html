@@ -42,7 +42,7 @@
       {%- endif %}
       {%- if record.ui.tombstone.note %}
       <p>
-        <strong>{{ _("Removal note:") }}</strong> {{ record.ui.tombstone.note }}
+        <strong>{{ _("Removal note:") }}</strong> {{ record.ui.tombstone.note | urlize }}
       </p>
       {%- endif %}
       <p>
