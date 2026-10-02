@@ -11,7 +11,8 @@ from invenio_i18n import lazy_gettext as _
 class AuditLogListView(AdminResourceListView):
     """Audit logs admin search view."""
 
-    api_endpoint = "/audit-logs/"
+    api_endpoint = "/audit-logs/"  # DEPRECATED. Remove in v15
+    api_endpoint_name = "audit_logs.search"
     extension_name = "invenio-audit-logs"
     name = "audit-logs"
     resource_config = "audit_log_resource"
