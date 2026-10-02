@@ -9,7 +9,19 @@
 Changes
 =======
 
-Version v15.0.04.dev0 (released 2026-09-15)
+Version v15.0.0b5.dev0 (released 2026-10-02)
+
+- fix(ui): fix spacing on custom field labels
+- fix(ui): align accordion content padding
+- feat(versions): add access_status to deserializer
+- feat(versions): add resource_type to deserializer
+- fix: load only the specialised search bundle
+- packaging: add saml as an extra
+- fix(versions): text for disabled version depends on flag
+- fix: add spacing to default creatibutors icon (as is done for scheme icons)
+- cleanup: Remove deprecated COMMUNITIES_GROUPS_ENABLED
+
+Version v15.0.0b4.dev0 (released 2026-09-15)
 
 - fix(tests): DeprecationWarning
 - fix(tests): DeprecationWarning
