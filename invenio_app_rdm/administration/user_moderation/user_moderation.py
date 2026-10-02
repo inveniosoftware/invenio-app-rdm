@@ -1,5 +1,6 @@
 # SPDX-FileCopyrightText: 2023-2025 CERN.
 # SPDX-FileCopyrightText: 2024 KTH Royal Institute of Technology.
+# SPDX-FileCopyrightText: 2026 Northwestern University.
 # SPDX-License-Identifier: MIT
 """Invenio administration view module for user moderation."""
 
@@ -18,7 +19,8 @@ from invenio_search_ui.searchconfig import search_app_config
 class UserModerationListView(AdminResourceListView):
     """User moderation admin search view."""
 
-    api_endpoint = "/requests"
+    api_endpoint = "/requests"  # Deprecated in favor of api_endpoint_name
+    api_endpoint_name = "requests.search"
     extension_name = "invenio-requests"
     name = "moderation"
     resource_config = "requests_resource"
@@ -132,7 +134,8 @@ class UserModerationRequestDetailView(AdminResourceDetailView):
 
     url = "/moderation/<pid_value>"
     extension_name = "invenio-requests"
-    api_endpoint = "/requests"
+    api_endpoint_name = "requests.search"
+    api_endpoint = "/requests"  # Deprecated in favor of api_endpoint_name
     name = "user-moderation-details"
     resource_config = "requests_resource"
     title = _("User moderation")
