@@ -1,4 +1,5 @@
 # SPDX-FileCopyrightText: 2021 Northwestern University.
+# SPDX-FileCopyrightText: 2026 KTH Royal Institute of Technology.
 # SPDX-License-Identifier: MIT
 
 """Test deposit views."""
@@ -9,7 +10,10 @@ from invenio_search.engine import dsl
 from invenio_vocabularies.proxies import current_service as vocabulary_service
 from invenio_vocabularies.records.api import Vocabulary
 
-from invenio_app_rdm.records_ui.views.deposits import VocabulariesOptions
+from invenio_app_rdm.records_ui.views.deposits import (
+    VocabulariesOptions,
+    get_form_config,
+)
 
 
 @pytest.fixture()
@@ -95,6 +99,22 @@ def test_resource_types(app, client_with_login, additional_resource_types):
 
     sorted_result = sorted(result, key=lambda e: e["id"])
     assert expected == sorted_result
+
+
+def test_collapse_empty_sections_config(running_app, monkeypatch):
+    """Pass the instance's per-section accordion settings to the deposit UI."""
+    monkeypatch.setattr(VocabulariesOptions, "dump", lambda self: {})
+    monkeypatch.setattr(
+        "invenio_app_rdm.records_ui.views.deposits.get_user_communities_memberships",
+        lambda: {},
+    )
+    for sections in ([], ["funding-section", "related-works-section"]):
+        monkeypatch.setitem(
+            running_app.app.config,
+            "APP_RDM_DEPOSIT_FORM_COLLAPSE_EMPTY_SECTIONS",
+            sections,
+        )
+        assert get_form_config()["collapse_empty_sections"] == sections
 
 
 def test_dump_subjects_vocabulary(running_app):

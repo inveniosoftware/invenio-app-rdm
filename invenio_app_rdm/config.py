@@ -970,6 +970,23 @@ If the value is callable, its return value will be used for the field
 (e.g. lambda/function for dynamic calculation of values).
 """
 
+APP_RDM_DEPOSIT_FORM_COLLAPSE_EMPTY_SECTIONS = []
+"""Deposit accordion section IDs to close when they contain no data.
+
+By default, all sections start open. Supported built-in IDs are
+``recommended-information-section``, ``funding-section``,
+``alternate-identifiers-section``, ``related-works-section``, and
+``references-section``. Custom-field sections can also be listed by their
+``id`` in ``RDM_CUSTOM_FIELDS_UI``. Sections with data (or required custom
+fields) remain open regardless of this setting.
+
+For example::
+
+    APP_RDM_DEPOSIT_FORM_COLLAPSE_EMPTY_SECTIONS = [
+        "funding-section", "related-works-section", "software-section"
+    ]
+"""
+
 APP_RDM_DEPOSIT_FORM_CUSTOM_FIELD_DEFAULTS = {}
 """Default values for custom fields in new records in the deposit UI.
 

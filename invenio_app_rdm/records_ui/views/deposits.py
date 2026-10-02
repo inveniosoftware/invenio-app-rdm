@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: 2019-2026 CERN.
 # SPDX-FileCopyrightText: 2019-2021 Northwestern University.
 # SPDX-FileCopyrightText: 2021 TU Wien.
-# SPDX-FileCopyrightText: 2022-2025 KTH Royal Institute of Technology
+# SPDX-FileCopyrightText: 2022-2026 KTH Royal Institute of Technology
 # SPDX-FileCopyrightText: 2023-2024 Graz University of Technology.
 # SPDX-License-Identifier: MIT
 
@@ -417,6 +417,7 @@ def get_form_config(**kwargs):
         ),
         user_communities_memberships=get_user_communities_memberships(),
         custom_fields=custom_fields,
+        collapse_empty_sections=conf["APP_RDM_DEPOSIT_FORM_COLLAPSE_EMPTY_SECTIONS"],
         publish_modal_extra=current_app.config.get(
             "APP_RDM_DEPOSIT_FORM_PUBLISH_MODAL_EXTRA"
         ),
