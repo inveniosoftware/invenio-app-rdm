@@ -23,7 +23,8 @@ class RoleAdminMixin:
     resource_config = "groups_resource"
     extension_name = "invenio-users-resources"
 
-    api_endpoint = "/groups"
+    api_endpoint = "/groups"  # DEPRECATED. Remove in v15
+    api_endpoint_name = "groups.search"
     pid_path = "id"
 
     create_view_name = "roles_create"
