@@ -1,6 +1,7 @@
 # SPDX-FileCopyrightText: 2023-2024 CERN.
 # SPDX-FileCopyrightText: 2024-2026 KTH Royal Institute of Technology.
 # SPDX-FileCopyrightText: 2024 Ubiquity Press.
+# SPDX-FileCopyrightText: 2026 Northwestern University.
 # SPDX-License-Identifier: MIT
 
 """Invenio administration users view module."""
@@ -71,7 +72,8 @@ class UserAdminAccessMixin:
 class UsersListView(UserAdminAccessMixin, AdminResourceListView):
     """Configuration for users sets list view."""
 
-    api_endpoint = "/users/all"
+    api_endpoint = "/users/all"  # Deprecated in favor of api_endpoint_name
+    api_endpoint_name = "users.search_all"
     extension_name = "invenio-users-resources"
     name = "users"
     resource_config = "users_resource"
@@ -140,7 +142,8 @@ class UsersDetailView(UserAdminAccessMixin, AdminResourceDetailView):
     """Configuration for users sets detail view."""
 
     url = "/users/<pid_value>"
-    api_endpoint = "/users"
+    api_endpoint = "/users"  # Deprecated in favor of api_endpoint_name
+    api_endpoint_name = "users.search"
     search_request_headers = {"Accept": "application/json"}
     extension_name = "invenio-users-resources"
     name = "User details"
@@ -158,7 +161,8 @@ class UsersCreateView(AdminResourceCreateView):
     """Configuration for user create view."""
 
     url = "/users/create"
-    api_endpoint = "/users"
+    api_endpoint = "/users"  # Deprecated in favor of api_endpoint_name
+    api_endpoint_name = "users.search"
     extension_name = "invenio-users-resources"
     name = "invenio-users-resources-create"
     resource_config = "users_resource"

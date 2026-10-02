@@ -1,6 +1,7 @@
 # SPDX-FileCopyrightText: 2023-2025 CERN.
 # SPDX-FileCopyrightText: 2023 Graz University of Technology.
 # SPDX-FileCopyrightText: 2024 KTH Royal Institute of Technology.
+# SPDX-FileCopyrightText: 2026 Northwestern University.
 # SPDX-License-Identifier: MIT
 
 """Invenio administration records and drafts list views."""
@@ -16,7 +17,8 @@ from invenio_search_ui.searchconfig import search_app_config
 class RecordAdminListView(AdminResourceListView):
     """Configuration for the records list view."""
 
-    api_endpoint = "/records"
+    api_endpoint = "/records"  # Deprecated in favor of api_endpoint_name
+    api_endpoint_name = "records.search"
     name = "records"
     resource_config = "records_resource"
     search_request_headers = {"Accept": "application/vnd.inveniordm.v1+json"}
@@ -101,7 +103,8 @@ class RecordAdminListView(AdminResourceListView):
 class DraftAdminListView(AdminResourceListView):
     """Configuration for the drafts list view."""
 
-    api_endpoint = "/user/records"
+    api_endpoint = "/user/records"  # Deprecated in favor of api_endpoint_name
+    api_endpoint_name = "records.search_user_records"
     name = "drafts"
     resource_config = "records_resource"
     search_request_headers = {"Accept": "application/vnd.inveniordm.v1+json"}

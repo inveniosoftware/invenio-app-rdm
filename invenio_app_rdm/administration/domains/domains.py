@@ -18,7 +18,8 @@ class DomainAdminMixin:
     resource_config = "domains_resource"
     extension_name = "invenio-users-resources"
 
-    api_endpoint = "/domains"
+    api_endpoint = "/domains"  # Deprecated in favor of api_endpoint_name
+    api_endpoint_name = "domains.search"
     pid_path = "domain"
 
     create_view_name = "domains_create"
