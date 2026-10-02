@@ -2,11 +2,13 @@
  * SPDX-FileCopyrightText: 2020-2025 CERN.
  * SPDX-FileCopyrightText: 2020-2021 Northwestern University.
  * SPDX-FileCopyrightText: 2021 Graz University of Technology.
- * SPDX-FileCopyrightText: 2025 CESNET i.a.l.e.
+ * SPDX-FileCopyrightText: 2025-2026 CESNET i.a.l.e.
  * SPDX-License-Identifier: MIT
  */
 
 import $ from "jquery";
+import { i18next } from "@translations/invenio_app_rdm/i18next";
+import { onPreviewBreadcrumb, renderPreviewBreadcrumb } from "../previewer/breadcrumb";
 
 // Normalise a string for diacritic insensitive search: decompose into base chars +
 // combining marks, strip the marks, then lower-case while still matching the literal character.
@@ -109,29 +111,51 @@ $("#record-conceptdoi-badge").on("click", function () {
   $("#conceptdoi-modal").modal("show");
 });
 
+const previewIframe = document.getElementById("preview-iframe");
+const previewTitle = document.getElementById("preview-file-title");
+
+// Navigate the preview iframe without adding entries to the browser history, so that
+// the back button navigates the record and not the iframe.
+function navigatePreview(url) {
+  previewIframe?.contentWindow?.location.replace(url);
+}
+
+function showPreviewTrail(trail) {
+  renderPreviewBreadcrumb(previewTitle, trail, {
+    ariaLabel: i18next.t("Previewed file path"),
+    onNavigate: (subTrail) => {
+      showPreviewTrail(subTrail);
+      navigatePreview(subTrail[subTrail.length - 1].url);
+    },
+  });
+}
+
+// Container previewers (e.g. ZIP) in the iframe post the breadcrumb of the item they open
+if (previewIframe && previewTitle) {
+  onPreviewBreadcrumb(previewIframe, showPreviewTrail);
+}
+
 $("#file-list-table")
   .find(".preview-link")
   .on("click", function (event) {
-    const fileKey = event.target.dataset.fileKey;
-    $("#preview-file-title").text(fileKey);
+    event.preventDefault();
 
-    event.preventDefault(); // Prevent default link navigation for back button to navigate the record and not the iframe
+    const fileKey = this.dataset.fileKey;
+    const previewUrl = this.getAttribute("href");
 
     const newUrl = new URL(window.location);
     newUrl.searchParams.set("preview_file", fileKey); // .set method automatically encodes the value
     window.history.replaceState(null, "", newUrl);
 
-    // Update iframe with the updated URL to the preview file without adding to browser history
-    const previewUrl = $(this).attr("href");
-    const iframe = document.getElementById("preview-iframe");
-    if (iframe && iframe.contentWindow) {
-      iframe.contentWindow.location.replace(previewUrl);
+    if (previewIframe && previewTitle) {
+      showPreviewTrail([{ label: fileKey, url: previewUrl }]);
+      navigatePreview(previewUrl);
 
-      iframe.scrollIntoView({
+      previewIframe.scrollIntoView({
         behavior: "smooth",
         block: "start",
       });
-      iframe.focus();
+      previewIframe.focus();
     }
   });
 
@@ -228,22 +252,3 @@ $statsInfoPopup.on("blur", function (event) {
   $(event.target).popup("hide");
   $(event.target).attr("aria-expanded", false);
 });
-
-// ZIP Previewer
-
-const broadcastChannel = new BroadcastChannel("invenio-previewer-zip");
-
-broadcastChannel.onmessage = (e) => {
-  const previewIframe = $("#preview-iframe");
-  $("#preview-file-title").html(`
-  <div class="ui breadcrumb">
-    <a class="section preview-link" href="${e.data.containerPreviewUrl}" target="preview-iframe" data-file-key="${e.data.containerFileKey}">${e.data.containerFileKey}</a>
-    <i class="divider">/</i>
-    <div class="active section">${e.data.fileKey}</div>
-  </div>
-  `);
-  $(".preview-link").on("click", function (event) {
-    $("#preview-file-title").html(event.target.dataset.fileKey);
-  });
-  previewIframe.attr("src", e.data.previewUrl);
-};
