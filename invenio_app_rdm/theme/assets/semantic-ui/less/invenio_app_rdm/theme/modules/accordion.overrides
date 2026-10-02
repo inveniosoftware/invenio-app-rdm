@@ -19,6 +19,11 @@
   padding: 0em 0em 0.25em 1em;
 }
 
+/* to align with non-accordion Additional detail values*/
+#additional-details .ui.accordion:not(.styled) .title ~ .content:not(.ui) {
+  padding-left: 0.5em;
+}
+
 /* use these classes to change accordion title when up/down */
 div.affiliations.accordion div.title.active span.up,
 div.affiliations.accordion div.title.active button.up {
