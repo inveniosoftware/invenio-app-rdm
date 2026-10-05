@@ -1,4 +1,5 @@
 # SPDX-FileCopyrightText: 2019-2025 CERN.
+# SPDX-FileCopyrightText: 2026 Northwestern University.
 # SPDX-License-Identifier: MIT
 
 """General views and view utilities."""
@@ -15,3 +16,9 @@ def create_url_rule(rule, default_view_func):
         return {"rule": path, "view_func": view_func}
     else:
         return {"rule": rule, "view_func": default_view_func}
+
+
+def create_administration_moderation_requests_bp(app):
+    """Create administration moderation requests blueprint."""
+    ext = app.extensions["invenio-app-rdm"]
+    return ext.administration_moderation_requests_resource.as_blueprint()

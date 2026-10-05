@@ -1,9 +1,9 @@
 # SPDX-FileCopyrightText: 2023-2024 Graz University of Technology.
+# SPDX-FileCopyrightText: 2026 Northwestern University.
 # SPDX-License-Identifier: MIT
 
 """Invenio Research Data Management."""
 
-import warnings
 from datetime import timedelta
 
 from flask import request
@@ -11,6 +11,10 @@ from flask_menu import current_menu
 from invenio_app import talisman
 from invenio_i18n import lazy_gettext as _
 
+from .administration.moderation.resources import (
+    AdministrationModerationRequestsResource,
+    AdministrationModerationRequestsResourceConfig,
+)
 from .communities_ui.views.ui import _show_browse_page
 
 try:
@@ -30,6 +34,32 @@ except (ImportError, ModuleNotFoundError):
         def init_app(self, app):
             """Initialize application."""
             self.app = app
+
+
+class InvenioAppRDM:
+    """Invenio-App-RDM extension.
+
+    This is for things that don't fit in a separate repo because they usually combine
+    multiple scopes/responsibilities into one.
+    """
+
+    def init_resources(self, app):
+        """Initialize resources."""
+        self.administration_moderation_requests_resource = (
+            AdministrationModerationRequestsResource(
+                config=AdministrationModerationRequestsResourceConfig.build(app),
+            )
+        )
+
+    def init_app(self, app):
+        """Initialiaze Flask application."""
+        self.init_resources(app)
+        app.extensions["invenio-app-rdm"] = self
+
+    def __init__(self, app=None):
+        """Extension initialization."""
+        if app:
+            self.init_app(app)
 
 
 def _is_branded_community():
