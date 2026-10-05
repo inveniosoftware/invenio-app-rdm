@@ -8,7 +8,7 @@
 #}
 
 
-{%- macro preview_file(preview_endpoint, pid_value, filename, is_preview, include_deleted, id='preview-iframe' ) %}
+{%- macro preview_file(preview_endpoint, pid_value, filename, is_preview, include_deleted, id='preview-iframe', sandbox='' ) %}
   {%- set include_deleted_value = 0 -%}
   {% if include_deleted %}
     {%- set include_deleted_value = 1 -%}
@@ -24,6 +24,9 @@
     id="{{id}}"
     name="{{id}}"
     src="{{ preview_url }}"
+    {%- if sandbox %}
+    sandbox="{{ sandbox }}"
+    {%- endif %}
     tabindex="-1"
   >
   </iframe>
@@ -71,7 +74,7 @@ To access its content, please download it and open it locally.') }}
       </div>
       {%- else %}
       <div>
-        {{ preview_file('invenio_app_rdm_records.record_file_preview', pid_value=pid, filename=file.key, is_preview=is_preview, include_deleted=include_deleted) }}
+        {{ preview_file('invenio_app_rdm_records.record_file_preview', pid_value=pid, filename=file.key, is_preview=is_preview, include_deleted=include_deleted, sandbox=file|preview_sandbox) }}
       </div>
       {%- endif %}
     </div>
@@ -148,7 +151,7 @@ To access its content, please download it and open it locally.') }}
           <td class="right aligned">
             <span>
               {% if with_preview and file_type|lower is previewable and not is_remote_file %}
-                <a role="button" class="ui compact mini button preview-link" href="{{ file_url_preview }}" target="preview-iframe" data-file-key="{{file.key}}">
+                <a role="button" class="ui compact mini button preview-link" href="{{ file_url_preview }}" target="preview-iframe" data-file-key="{{file.key}}" data-sandbox="{{ file|preview_sandbox }}">
                   <i class="eye icon" aria-hidden="true"></i>{{_("Preview")}}
                 </a>
 	      {%- elif is_remote_file %}
