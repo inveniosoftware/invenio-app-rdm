@@ -1193,6 +1193,16 @@ PREVIEWER_PREFERENCE = [
 PREVIEWER_ABSTRACT_TEMPLATE = "invenio_previewer/rdm_abstract_previewer.html"
 """Override the abstract template with an RDM-specific one."""
 
+APP_RDM_PREVIEW_SANDBOX = "allow-scripts allow-popups allow-popups-to-escape-sandbox"
+"""Sandbox applied to file previews, if their previewer supports it.
+
+Previewers declare it by setting ``sandbox = True`` in their module. Sandboxed
+previews run in an opaque origin, without access to the user's session. The
+value is used both as the ``sandbox`` directive of the preview's
+Content-Security-Policy and as the ``sandbox`` attribute of the preview iframe.
+Set to ``None`` to disable it.
+"""
+
 PREVIEWER_CONTAINER_ITEM_PREFERENCE = [
     "csv_papaparsejs",
     "pdfjs",
