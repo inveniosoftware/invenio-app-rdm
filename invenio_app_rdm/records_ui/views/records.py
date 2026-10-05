@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2019-2025 CERN.
+# SPDX-FileCopyrightText: 2019-2026 CERN.
 # SPDX-FileCopyrightText: 2019-2021 Northwestern University.
 # SPDX-FileCopyrightText: 2021-2023 TU Wien.
 # SPDX-FileCopyrightText: 2025 CESNET i.a.l.e.
@@ -10,9 +10,19 @@ import itertools
 from os.path import basename, splitext
 from pathlib import Path
 
-from flask import abort, current_app, g, redirect, render_template, request, url_for
+from flask import (
+    abort,
+    current_app,
+    g,
+    make_response,
+    redirect,
+    render_template,
+    request,
+    url_for,
+)
 from flask_login import current_user
 from flask_principal import AnonymousIdentity
+from invenio_app import talisman
 from invenio_base.utils import obj_or_import_string
 from invenio_communities.communities.resources.serializer import (
     UICommunityJSONSerializer,
@@ -387,6 +397,51 @@ def record_export(
     return (exported_record, 200, headers)
 
 
+def format_content_security_policy(policy):
+    """Format a Talisman-style policy (string or dict) as a header value."""
+    if isinstance(policy, str):
+        return policy
+
+    directives = []
+    for name, sources in (policy or {}).items():
+        if not isinstance(sources, str):
+            sources = " ".join(sources)
+        directives.append(f"{name} {sources}".strip())
+    return "; ".join(directives)
+
+
+def preview_response(previewer, fileobj):
+    """Render a file preview with its Content-Security-Policy.
+
+    The preview views opt out of Talisman's policy, so the application's policy
+    is set here, adding the ``sandbox`` directive for previewers supporting it.
+    """
+    response = make_response(previewer.preview(fileobj))
+
+    secure_headers = current_app.config.get("APP_DEFAULT_SECURE_HEADERS", {})
+    policy = format_content_security_policy(
+        secure_headers.get("content_security_policy")
+    )
+    report_uri = secure_headers.get("content_security_policy_report_uri")
+    if policy and report_uri:
+        policy += f"; report-uri {report_uri}"
+
+    # `sandbox` is ignored in report-only policies, so it is always enforced
+    if policy and secure_headers.get("content_security_policy_report_only"):
+        response.headers["Content-Security-Policy-Report-Only"] = policy
+        policy = ""
+
+    sandbox = current_app.config.get("APP_RDM_PREVIEW_SANDBOX")
+    if sandbox and getattr(previewer, "sandbox", False):
+        policy = "; ".join(filter(None, [policy, f"sandbox {sandbox}"]))
+
+    if policy:
+        response.headers["Content-Security-Policy"] = policy
+    return response
+
+
+# must be the outermost decorator, as Talisman reads it from the registered view
+@talisman(content_security_policy={})
 @pass_is_preview
 @pass_include_deleted
 @pass_record_or_draft(expand=False)
@@ -417,16 +472,18 @@ def record_file_preview(
     if file_previewer:
         previewer = current_previewer.previewers.get(file_previewer)
         if previewer and previewer.can_preview(fileobj):
-            return previewer.preview(fileobj)
+            return preview_response(previewer, fileobj)
 
     # Go through all previewers to find the first one that can preview the file
     for plugin in current_previewer.iter_previewers():
         if plugin.can_preview(fileobj):
-            return plugin.preview(fileobj)
+            return preview_response(plugin, fileobj)
 
-    return default_previewer.preview(fileobj)
+    return preview_response(default_previewer, fileobj)
 
 
+# must be the outermost decorator, as Talisman reads it from the registered view
+@talisman(content_security_policy={})
 @pass_record_or_draft(expand=False)
 @pass_file_metadata
 def record_container_item_preview(
@@ -454,9 +511,9 @@ def record_container_item_preview(
     # Go through all previewers to find the first one that can preview the file
     for plugin in current_previewer.iter_container_item_previewers():
         if plugin.can_preview(fileobj):
-            return plugin.preview(fileobj)
+            return preview_response(plugin, fileobj)
 
-    return default_previewer.preview(fileobj)
+    return preview_response(default_previewer, fileobj)
 
 
 def find_container_item(container_item_metadata, path_parts):
