@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2019-2024 CERN.
+# SPDX-FileCopyrightText: 2019-2026 CERN.
 # SPDX-FileCopyrightText: 2019-2020 Northwestern University.
 # SPDX-FileCopyrightText: 2021 TU Wien.
 # SPDX-FileCopyrightText: 2024 Graz University of Technology.
@@ -13,6 +13,8 @@ from babel.numbers import format_compact_decimal, format_decimal
 from flask import current_app, url_for
 from invenio_base.utils import obj_or_import_string
 from invenio_i18n import get_locale
+from invenio_previewer.extensions import default as default_previewer
+from invenio_previewer.proxies import current_previewer
 from invenio_previewer.views import is_previewable
 from invenio_records_files.api import FileObject
 from invenio_records_permissions.policies import get_record_permission_policy
@@ -42,6 +44,37 @@ def select_preview_file(files, default_preview=None):
             elif f.get("key") == default_preview:
                 return f
     return selected
+
+
+def preview_sandbox(file):
+    """Return the sandbox of the preview iframe for a file, or an empty string.
+
+    The previewer is guessed like in the preview view, but from the file's
+    extension only: the view also checks ``can_preview``, which needs the file's
+    content. The view's Content-Security-Policy remains the actual sandbox.
+    """
+    sandbox = current_app.config.get("APP_RDM_PREVIEW_SANDBOX")
+    if not sandbox:
+        return ""
+
+    # iterating the previewers also loads them from their entry points
+    previewers = list(current_previewer.iter_previewers())
+    file_previewer = (file.get("metadata") or {}).get("previewer")
+    previewer = (
+        current_previewer.previewers.get(file_previewer) if file_previewer else None
+    )
+    if previewer is None:
+        file_type = splitext(file.get("key", ""))[1][1:].lower()
+        previewer = next(
+            (
+                p
+                for p in previewers
+                if file_type in getattr(p, "previewable_extensions", [])
+            ),
+            default_previewer,
+        )
+
+    return sandbox if getattr(previewer, "sandbox", False) else ""
 
 
 def to_previewer_files(record):
