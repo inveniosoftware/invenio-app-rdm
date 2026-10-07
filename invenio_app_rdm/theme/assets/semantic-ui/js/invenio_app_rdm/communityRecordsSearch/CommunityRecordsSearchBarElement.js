@@ -12,7 +12,7 @@ import { CommunityRecordsSingleSearchBarElement } from "./CommunityRecordsSingle
 
 export const CommunityRecordsSearchBarElement = ({ queryString, onInputChange }) => {
   const headerSearchbar = document.getElementById("header-search-bar");
-  const searchbarOptions = headerSearchbar.dataset.options
+  const searchbarOptions = headerSearchbar?.dataset?.options
     ? JSON.parse(headerSearchbar.dataset.options)
     : [];
 
