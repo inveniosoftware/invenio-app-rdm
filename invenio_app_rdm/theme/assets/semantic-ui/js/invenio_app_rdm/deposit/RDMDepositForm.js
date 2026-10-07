@@ -2,7 +2,7 @@
  * SPDX-FileCopyrightText: 2020-2026 CERN.
  * SPDX-FileCopyrightText: 2020-2022 Northwestern University.
  * SPDX-FileCopyrightText: 2021-2022 Graz University of Technology.
- * SPDX-FileCopyrightText: 2022-2024 KTH Royal Institute of Technology.
+ * SPDX-FileCopyrightText: 2022-2026 KTH Royal Institute of Technology.
  * SPDX-License-Identifier: MIT
  */
 
@@ -48,6 +48,15 @@ import { ShareDraftButton } from "./ShareDraftButton";
 import { depositFormSectionsConfig, severityChecksConfig } from "./config";
 import { RecordDeletion } from "../components/RecordDeletion";
 import { FileModificationUntil } from "../components/FileModificationUntil";
+
+// Ignore empty placeholder rows when deciding whether to open a section.
+const hasFieldValue = (value) => {
+  if (Array.isArray(value)) return value.some(hasFieldValue);
+  if (value && typeof value === "object") {
+    return Object.values(value).some(hasFieldValue);
+  }
+  return value !== null && value !== undefined && value !== "";
+};
 
 export class RDMDepositForm extends Component {
   constructor(props) {
@@ -124,6 +133,11 @@ export class RDMDepositForm extends Component {
     const customFieldsUI = this.config.custom_fields.ui.map((section) => ({
       ...section,
       id: section.section.toLowerCase().replace(/\s+/g, "-") + "-section",
+      active:
+        section.active ??
+        section.fields.some(({ field }) =>
+          hasFieldValue(record.custom_fields?.[field])
+        ),
     }));
     const UploaderField = useUppy ? UppyUploader : FileUploader;
 
@@ -430,6 +444,9 @@ export class RDMDepositForm extends Component {
                       this.sectionsConfig["recommended-information-section"]
                     }
                     severityChecks={this.severityChecks}
+                    active={this.sectionsConfig["recommended-information-section"].some(
+                      (path) => hasFieldValue(_get(record, path))
+                    )}
                     label={i18next.t("Recommended information")}
                     id="recommended-information-section"
                   >
@@ -501,7 +518,6 @@ export class RDMDepositForm extends Component {
                       <DatesField
                         fieldPath="metadata.dates"
                         options={this.vocabularies.metadata.dates}
-                        showEmptyValue
                       />
                     </Overridable>
 
@@ -538,7 +554,7 @@ export class RDMDepositForm extends Component {
                   <AccordionField
                     includesPaths={this.sectionsConfig["funding-section"]}
                     severityChecks={this.severityChecks}
-                    active
+                    active={hasFieldValue(_get(record, "metadata.funding"))}
                     label={i18next.t("Funding")}
                     ui={this.accordionStyle}
                     id="funding-section"
@@ -643,7 +659,7 @@ export class RDMDepositForm extends Component {
                   <AccordionField
                     includesPaths={this.sectionsConfig["alternate-identifiers-section"]}
                     severityChecks={this.severityChecks}
-                    active
+                    active={hasFieldValue(_get(record, "metadata.identifiers"))}
                     label={i18next.t("Alternate identifiers")}
                     id="alternate-identifiers-section"
                   >
@@ -658,7 +674,6 @@ export class RDMDepositForm extends Component {
                         label={i18next.t("Alternate identifiers")}
                         labelIcon="barcode"
                         schemeOptions={this.vocabularies.metadata.identifiers.scheme}
-                        showEmptyValue
                       />
                     </Overridable>
                     <Overridable
@@ -680,7 +695,7 @@ export class RDMDepositForm extends Component {
                   <AccordionField
                     includesPaths={this.sectionsConfig["related-works-section"]}
                     severityChecks={this.severityChecks}
-                    active
+                    active={hasFieldValue(_get(record, "metadata.related_identifiers"))}
                     label={i18next.t("Related works")}
                     id="related-works-section"
                   >
@@ -693,7 +708,6 @@ export class RDMDepositForm extends Component {
                       <RelatedWorksField
                         fieldPath="metadata.related_identifiers"
                         options={this.vocabularies.metadata.related_identifiers}
-                        showEmptyValue
                       />
                     </Overridable>
                     <Overridable
@@ -714,7 +728,7 @@ export class RDMDepositForm extends Component {
                   <AccordionField
                     includesPaths={this.sectionsConfig["references-section"]}
                     severityChecks={this.severityChecks}
-                    active
+                    active={hasFieldValue(_get(record, "metadata.references"))}
                     label={i18next.t("References")}
                     id="references-section"
                   >
@@ -724,7 +738,7 @@ export class RDMDepositForm extends Component {
                       vocabularies={this.vocabularies}
                       record={record}
                     >
-                      <ReferencesField fieldPath="metadata.references" showEmptyValue />
+                      <ReferencesField fieldPath="metadata.references" />
                     </Overridable>
                     <Overridable
                       id="InvenioAppRdm.Deposit.AccordionFieldReferences.extra"
