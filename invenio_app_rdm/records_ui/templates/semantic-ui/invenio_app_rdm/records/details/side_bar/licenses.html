@@ -37,9 +37,13 @@
                    aria-label="{{ license.title_l10n }}"
               >
                 {% if license.icon %}
-                  {% set iconFile = 'icons/licenses/{}.svg'.format(license.icon) %}
+                  {% if license.icon.lower().startswith(('http://', 'https://')) %}
+                    {% set iconSrc = license.icon %}
+                  {% else %}
+                    {% set iconSrc = url_for('static', filename='icons/licenses/{}.svg'.format(license.icon)) %}
+                  {% endif %}
                   <span class="icon-wrap">
-                  <img class="icon" src="{{ url_for('static', filename=iconFile) }}"
+                  <img class="icon" src="{{ iconSrc }}"
                        alt="{{ license.id }} icon"/>
                 </span>
                 {% endif %}
