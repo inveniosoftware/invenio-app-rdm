@@ -170,7 +170,6 @@ def create_blueprint(app):
     blueprint.register_error_handler(PIDDeletedError, record_tombstone_error)
     blueprint.register_error_handler(PIDDoesNotExistError, not_found_error)
     blueprint.register_error_handler(PIDUnregistered, not_found_error)
-    blueprint.register_error_handler(KeyError, not_found_error)
     blueprint.register_error_handler(FileKeyNotFoundError, not_found_error)
     blueprint.register_error_handler(NoResultFound, not_found_error)
     blueprint.register_error_handler(DraftNotCreatedError, draft_not_found_error)
