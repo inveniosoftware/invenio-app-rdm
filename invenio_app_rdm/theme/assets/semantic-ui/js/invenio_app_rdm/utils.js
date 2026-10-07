@@ -4,6 +4,7 @@
  * SPDX-FileCopyrightText: 2022 data-futures.
  * SPDX-FileCopyrightText: 2023 Northwestern University.
  * SPDX-FileCopyrightText: 2024 KTH Royal Institute of Technology.
+ * SPDX-FileCopyrightText: 2026 CESNET i.a.l.e.
  * SPDX-License-Identifier: MIT
  */
 
@@ -127,3 +128,17 @@ export const timestampToRelativeTime = (timestamp) =>
  */
 export const localizedFormatNumber = (number) =>
   new Intl.NumberFormat(i18next.language).format(number);
+
+/**
+ * Returns true if the (absolute or relative) URL points to the current origin.
+ *
+ * @param {String} url
+ * @returns boolean
+ */
+export const isSameOriginUrl = (url) => {
+  try {
+    return new URL(url, window.location.href).origin === window.location.origin;
+  } catch {
+    return false;
+  }
+};

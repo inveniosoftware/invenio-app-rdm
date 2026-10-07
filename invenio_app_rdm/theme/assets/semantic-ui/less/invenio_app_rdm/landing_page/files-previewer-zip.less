@@ -1,8 +1,7 @@
 .ui.accordion {
   .title:not(.ui).panel-heading {
     .ui.breadcrumb.preview-breadcrumb {
-      color: initial;
-      // Align with the plain (single file) title
+      // Match the single-file title
       padding: 0;
       line-height: inherit;
       vertical-align: baseline;
@@ -18,6 +17,10 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+      }
+
+      span.section {
+        color: initial;
       }
 
       a.section:hover {

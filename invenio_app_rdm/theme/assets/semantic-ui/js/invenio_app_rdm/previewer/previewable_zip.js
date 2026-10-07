@@ -4,7 +4,7 @@
  */
 
 import $ from "jquery";
-import { postPreviewBreadcrumb } from "./breadcrumb";
+import { postBreadcrumbsChange } from "./breadcrumbs/iframe";
 
 // Breadcrumb trail of this container, from the record's file down to this archive
 const containerTrail = $("[data-preview-trail]").data("preview-trail") || [];
@@ -20,7 +20,7 @@ $(document).on("click", ".preview-link", function (event) {
     url: index === segments.length - 1 ? previewUrl : null,
   }));
 
-  if (postPreviewBreadcrumb([...containerTrail, ...itemTrail])) {
+  if (postBreadcrumbsChange([...containerTrail, ...itemTrail])) {
     window.location.replace(previewUrl);
   } else {
     window.location.assign(previewUrl);

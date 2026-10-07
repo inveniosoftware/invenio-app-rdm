@@ -8,7 +8,10 @@
 
 import $ from "jquery";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
-import { onPreviewBreadcrumb, renderPreviewBreadcrumb } from "../previewer/breadcrumb";
+import {
+  registerOnBreadcrumbsChange,
+  renderBreadcrumbs,
+} from "../previewer/breadcrumbs/parent";
 
 // Normalise a string for diacritic insensitive search: decompose into base chars +
 // combining marks, strip the marks, then lower-case while still matching the literal character.
@@ -111,43 +114,40 @@ $("#record-conceptdoi-badge").on("click", function () {
   $("#conceptdoi-modal").modal("show");
 });
 
+// File preview
 const previewIframe = document.getElementById("preview-iframe");
 const previewTitle = document.getElementById("preview-file-title");
 
-// Navigate the preview iframe without adding entries to the browser history, so that
-// the back button navigates the record and not the iframe.
-function navigatePreview(url) {
-  previewIframe?.contentWindow?.location.replace(url);
-}
-
-function showPreviewTrail(trail) {
-  renderPreviewBreadcrumb(previewTitle, trail, {
-    ariaLabel: i18next.t("Previewed file path"),
-    onNavigate: (subTrail) => {
-      showPreviewTrail(subTrail);
-      navigatePreview(subTrail[subTrail.length - 1].url);
-    },
-  });
-}
-
-// Container previewers (e.g. ZIP) in the iframe post the breadcrumb of the item they open
 if (previewIframe && previewTitle) {
-  onPreviewBreadcrumb(previewIframe, showPreviewTrail);
-}
+  // Keep the iframe out of the browser history, so Back leaves the record
+  const navigatePreview = (url) => previewIframe.contentWindow.location.replace(url);
 
-$("#file-list-table")
-  .find(".preview-link")
-  .on("click", function (event) {
-    event.preventDefault();
+  const showPreviewTrail = (trail) =>
+    renderBreadcrumbs(previewTitle, trail, {
+      ariaLabel: i18next.t("Previewed file path"),
+      onNavigate: (subTrail) => {
+        showPreviewTrail(subTrail);
+        navigatePreview(subTrail[subTrail.length - 1].url);
+      },
+    });
 
-    const fileKey = this.dataset.fileKey;
-    const previewUrl = this.getAttribute("href");
+  // Render the initial title the same way as later ones
+  showPreviewTrail([{ label: previewTitle.textContent.trim() }]);
 
-    const newUrl = new URL(window.location);
-    newUrl.searchParams.set("preview_file", fileKey); // .set method automatically encodes the value
-    window.history.replaceState(null, "", newUrl);
+  registerOnBreadcrumbsChange(previewIframe, showPreviewTrail);
 
-    if (previewIframe && previewTitle) {
+  $("#file-list-table")
+    .find(".preview-link")
+    .on("click", function (event) {
+      event.preventDefault();
+
+      const fileKey = this.dataset.fileKey;
+      const previewUrl = this.getAttribute("href");
+
+      const newUrl = new URL(window.location);
+      newUrl.searchParams.set("preview_file", fileKey); // .set method automatically encodes the value
+      window.history.replaceState(null, "", newUrl);
+
       showPreviewTrail([{ label: fileKey, url: previewUrl }]);
       navigatePreview(previewUrl);
 
@@ -156,8 +156,8 @@ $("#file-list-table")
         block: "start",
       });
       previewIframe.focus();
-    }
-  });
+    });
+}
 
 // Export dropdown on landing page
 $(".dropdown.export").dropdown({
