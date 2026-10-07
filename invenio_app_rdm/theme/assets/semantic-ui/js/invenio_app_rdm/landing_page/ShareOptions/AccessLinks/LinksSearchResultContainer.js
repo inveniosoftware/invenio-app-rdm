@@ -9,7 +9,7 @@ import { Table, Message, Loader } from "semantic-ui-react";
 import PropTypes from "prop-types";
 import { withCancel } from "react-invenio-forms";
 import { http } from "react-invenio-forms";
-import { CreateAccessLink } from "./CreateAccessLink";
+import { AddAccessLinkModal } from "./AddAccessLinkModal";
 import { LinksSearchItem } from "./LinksSearchItem";
 import { dropdownOptionsGenerator } from "react-invenio-forms";
 import _cloneDeep from "lodash/cloneDeep";
@@ -107,13 +107,15 @@ export class LinksSearchResultContainer extends Component {
       await this.cancellableAction.promise;
       onItemAddedOrDeleted(record.links.access_links, "links");
       this.setState({ loading: false, error: undefined });
+      return true;
     } catch (error) {
-      if (error === "UNMOUNTED") return;
+      if (error === "UNMOUNTED") return false;
       this.setState({
         loading: false,
         error: error,
       });
       console.error(error);
+      return false;
     }
   };
 
@@ -161,6 +163,16 @@ export class LinksSearchResultContainer extends Component {
       <>
         {error && this.errorMessage()}
 
+        <AddAccessLinkModal
+          isComputer={false}
+          hasLinkExpirationError={hasLinkExpirationDateError}
+          handleCreation={this.handleCreation}
+          loading={loading}
+          record={record}
+          dropdownOptions={this.generateDropdownOptions()}
+          isAccessLinksExpirationRequired={isAccessLinksExpirationRequired}
+        />
+
         <Table className="fixed-header">
           <Table.Header>
             <Table.Row>
@@ -176,7 +188,17 @@ export class LinksSearchResultContainer extends Component {
               <Table.HeaderCell data-label="Access" width={3}>
                 {i18next.t("Access")}
               </Table.HeaderCell>
-              <Table.HeaderCell width={4} />
+              <Table.HeaderCell textAlign="center" width={4}>
+                <AddAccessLinkModal
+                  isComputer
+                  hasLinkExpirationError={hasLinkExpirationDateError}
+                  handleCreation={this.handleCreation}
+                  loading={loading}
+                  record={record}
+                  dropdownOptions={this.generateDropdownOptions()}
+                  isAccessLinksExpirationRequired={isAccessLinksExpirationRequired}
+                />
+              </Table.HeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body>
@@ -207,17 +229,6 @@ export class LinksSearchResultContainer extends Component {
               </Table.Row>
             )}
           </Table.Body>
-        </Table>
-
-        <Table color="green">
-          <CreateAccessLink
-            hasLinkExpirationError={hasLinkExpirationDateError}
-            handleCreation={this.handleCreation}
-            loading={loading}
-            record={record}
-            dropdownOptions={this.generateDropdownOptions()}
-            isAccessLinksExpirationRequired={isAccessLinksExpirationRequired}
-          />
         </Table>
       </>
     );
