@@ -1,9 +1,29 @@
 .ui.accordion {
   .title:not(.ui).panel-heading {
-    .ui.breadcrumb {
-      color: initial;
+    .ui.breadcrumb.preview-breadcrumb {
+      // Match the single-file title
+      padding: 0;
+      line-height: inherit;
+      vertical-align: baseline;
 
-      a.preview-link:hover {
+      .section,
+      .divider {
+        vertical-align: top;
+      }
+
+      .section {
+        display: inline-block;
+        max-width: 20em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      span.section {
+        color: initial;
+      }
+
+      a.section:hover {
         text-decoration: underline;
       }
     }

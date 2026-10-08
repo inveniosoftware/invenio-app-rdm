@@ -27,7 +27,7 @@
   </div>
   {%- endif %}
   <div class="ui basic segment">
-    <ul class="tree list-unstyled">
+    <ul class="tree list-unstyled" data-preview-trail='{{ breadcrumb_trail|tojson }}'>
       {%- for t in tree recursive %}
       {%- set directory_identifier = t.id %}
       {%- if t.links is defined %}
@@ -43,7 +43,7 @@
               <div class="no-padding right aligned column stretched">
                 <span>
                   {% if file_url_preview %}
-                  <button class="ui compact mini button preview-link" id="{{t.id}}" data-container-file-key="{{file.filename}}" data-file-key="{{t.name}}" data-preview-url="{{file_url_preview}}">
+                  <button class="ui compact mini button preview-link" id="{{t.id}}" data-item-path="{{t.path}}" data-preview-url="{{file_url_preview}}">
                     <i class="eye icon" aria-hidden="true"></i>{{_("Preview")}}
                   </button>
                   {% endif %}
