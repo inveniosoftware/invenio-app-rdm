@@ -43,7 +43,7 @@ export class DeletionModal extends Component {
       loading: false,
       error: undefined,
       checklistState: Array(checklistLength).fill(undefined),
-      checkboxState: Array(2).fill(false), // TODO dynamic count of number of checkboxes
+      checkboxState: { filesDeleted: false, doiOrTombstone: false },
       messages: [],
     };
     this.state = { ...this.initState };
@@ -74,16 +74,11 @@ export class DeletionModal extends Component {
     this.setState({ checklistState: nextChecklistState, messages: newMessages });
   };
 
-  handleCheckboxUpdate = (index) => {
+  handleCheckboxUpdate = (key) => {
     const { checkboxState } = this.state;
-    const nextCheckboxState = checkboxState.map((c, i) => {
-      if (i === index) {
-        return !checkboxState[i];
-      } else {
-        return c;
-      }
+    this.setState({
+      checkboxState: { ...checkboxState, [key]: !checkboxState[key] },
     });
-    this.setState({ checkboxState: nextCheckboxState });
   };
 
   deletionRequestSchema = (immediateDeletionAllowed) => {
@@ -158,10 +153,7 @@ export class DeletionModal extends Component {
 
     const files = recordDeletion["context"]["files"];
     const internalDoi = recordDeletion["context"]["internalDoi"];
-
-    const formDisabled =
-      checkboxState.some((v) => v === false) ||
-      checklistState.some((x) => x === true || x === undefined);
+    const reasonWarnings = recordDeletion["context"]["reasonWarnings"] || {};
 
     return (
       <Modal
@@ -184,7 +176,18 @@ export class DeletionModal extends Component {
           validateOnChange={false}
           validateOnBlur={false}
         >
-          {({ handleSubmit }) => (
+          {({ handleSubmit, values }) => {
+            const reasonWarning = reasonWarnings[values.reason];
+            const requiredCheckboxKeys = [
+              "filesDeleted",
+              "doiOrTombstone",
+              ...(reasonWarning ? ["reasonAck"] : []),
+            ];
+            const formDisabled =
+              requiredCheckboxKeys.some((key) => checkboxState[key] !== true) ||
+              checklistState.some((x) => x === true || x === undefined);
+
+            return (
             <Form>
               <ModalContent>
                 <>
@@ -218,7 +221,7 @@ export class DeletionModal extends Component {
                         </label>
                       }
                       className="mt-5 mb-5"
-                      onChange={() => this.handleCheckboxUpdate(0)}
+                      onChange={() => this.handleCheckboxUpdate("filesDeleted")}
                     />
                     <br />
                     {internalDoi ? (
@@ -233,7 +236,7 @@ export class DeletionModal extends Component {
                           </label>
                         }
                         className="mb-5"
-                        onChange={() => this.handleCheckboxUpdate(1)}
+                        onChange={() => this.handleCheckboxUpdate("doiOrTombstone")}
                       />
                     ) : (
                       <Checkbox
@@ -246,8 +249,33 @@ export class DeletionModal extends Component {
                           </label>
                         }
                         className="mb-5"
-                        onChange={() => this.handleCheckboxUpdate(1)}
+                        onChange={() => this.handleCheckboxUpdate("doiOrTombstone")}
                       />
+                    )}
+                    {reasonWarning && (
+                      <>
+                        <br />
+                        <Checkbox
+                          label={
+                            /* eslint-disable-next-line jsx-a11y/label-has-associated-control */
+                            <label>
+                              {reasonWarning.message}{" "}
+                              {reasonWarning.url && (
+                                <a
+                                  href={reasonWarning.url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  {reasonWarning.url}
+                                </a>
+                              )}
+                            </label>
+                          }
+                          className="mb-5"
+                          checked={!!checkboxState.reasonAck}
+                          onChange={() => this.handleCheckboxUpdate("reasonAck")}
+                        />
+                      </>
                     )}
                   </Message>
                 </>
@@ -340,7 +368,8 @@ export class DeletionModal extends Component {
                 />
               </ModalActions>
             </Form>
-          )}
+            );
+          }}
         </Formik>
       </Modal>
     );
