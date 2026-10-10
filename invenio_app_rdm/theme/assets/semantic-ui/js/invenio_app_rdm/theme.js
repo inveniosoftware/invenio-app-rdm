@@ -181,6 +181,19 @@ const handleAuthButtonClick = () => {
 
 $authButton.on({ click: handleAuthButtonClick });
 
+// Save the original state of the login button to restore after bfcache navigation
+const initialIconClass = $authIcon.attr("class");
+const initialAriaLabel = $authButton.attr("aria-label");
+window.addEventListener("pageshow", (event) => {
+  if (event.persisted) {
+    $authButton.removeClass("disabled").attr({
+      "aria-busy": "false",
+      "aria-label": initialAriaLabel,
+    });
+    $authIcon.attr("class", initialIconClass);
+  }
+});
+
 const invenioConfig = JSON.parse(document.body.dataset.invenioConfig);
 const isMathJaxEnabled = invenioConfig?.isMathJaxEnabled;
 if (window.invenio) {
