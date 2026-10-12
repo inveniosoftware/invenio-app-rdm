@@ -9,6 +9,13 @@
 Changes
 =======
 
+Version v15.0.0b6.dev0 (released 2026-10-11)
+
+- fix(tombstone): make URLs in removal notes clickable
+- fix: remove unsafe safe filter from record macros
+- fix: provide missing config to load deletion request in admin
+- chore(deps)!: bump rdm-records to 36
+
 Version v15.0.0b5.dev0 (released 2026-10-02)
 
 - fix(ui): fix spacing on custom field labels
