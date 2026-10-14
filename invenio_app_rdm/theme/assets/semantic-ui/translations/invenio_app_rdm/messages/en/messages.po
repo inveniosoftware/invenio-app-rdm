@@ -599,6 +599,9 @@ msgstr "Version {{- version}}"
 msgid "Preview"
 msgstr "Preview"
 
+msgid "Previewed file path"
+msgstr "Previewed file path"
+
 msgid "Only published versions are displayed."
 msgstr "Only published versions are displayed."
 
