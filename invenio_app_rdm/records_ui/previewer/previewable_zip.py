@@ -1,16 +1,20 @@
 # SPDX-FileCopyrightText: 2025 CESNET i.a.l.e.
+# SPDX-FileCopyrightText: 2026 KTH Royal Institute of Technology.
 # SPDX-License-Identifier: MIT
 
 """Simple ZIP archive previewer."""
 
 import sys
+from zipfile import BadZipFile
 
 from flask import current_app, render_template
 from invenio_access.permissions import system_identity
 from invenio_base import invenio_url_for
+from invenio_i18n import lazy_gettext as _
 from invenio_previewer.proxies import current_previewer
 from invenio_previewer.views import is_container_item_previewable
 from invenio_rdm_records.proxies import current_rdm_records_service
+from invenio_records_resources.services.errors import InvalidFileContentError
 from werkzeug.local import LocalProxy
 
 from ..views.records import PreviewContainerItem
@@ -126,20 +130,40 @@ def preview(file):
         if is_draft
         else current_rdm_records_service.files
     )
-    tree_raw = file_service.list_container(
-        system_identity, file.record["id"], file.filename
-    ).to_dict()
-
-    converted_tree = convert_zip_list_container(
-        tree_raw["entries"], tree_raw["directories"], file.record["id"], file.filename
-    )
-    tree_list = converted_tree["children"]
+    tree_list = []
+    limit_reached = False
+    error = None
+    try:
+        tree_raw = file_service.list_container(
+            system_identity, file.record["id"], file.filename
+        ).to_dict()
+    except (InvalidFileContentError, BadZipFile) as exc:
+        current_app.logger.info(
+            "ZIP preview rejected for record %s, file %s (draft=%s): %s",
+            file.record["id"],
+            file.filename,
+            is_draft,
+            exc,
+        )
+        error = _(
+            "This ZIP file cannot be previewed. "
+            "It may exceed preview limits or contain content the previewer cannot display."
+        )
+    else:
+        converted_tree = convert_zip_list_container(
+            tree_raw["entries"],
+            tree_raw["directories"],
+            file.record["id"],
+            file.filename,
+        )
+        tree_list = converted_tree["children"]
+        limit_reached = tree_raw["truncated"]
     return render_template(
         "invenio_previewer/previewable_zip.html",
         file=file,
         tree=tree_list,
-        limit_reached=False,
-        error=None,
+        limit_reached=limit_reached,
+        error=error,
         js_bundles=current_previewer.js_bundles + ["previewable-zip.js"],
         css_bundles=current_previewer.css_bundles + ["zip_css.css"],
     )
