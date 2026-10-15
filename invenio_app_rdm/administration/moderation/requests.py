@@ -23,7 +23,8 @@ from marshmallow_utils.fields.babel import gettext_from_dict
 class ModerationRequestListView(AdminResourceListView):
     """Requests moderation admin search view."""
 
-    api_endpoint = "/requests"
+    api_endpoint = "/requests"  # DEPRECATED. Remove in v15
+    api_endpoint_name = "requests.search"
     extension_name = "invenio-requests"
     name = "requests"
     resource_config = "requests_resource"
@@ -100,7 +101,8 @@ class ModerationRequestDetailView(AdminResourceDetailView):
 
     url = "/requests/<pid_value>"
     extension_name = "invenio-requests"
-    api_endpoint = "/requests"
+    api_endpoint = "/requests"  # DEPRECATED. Remove in v15
+    api_endpoint_name = "requests.search"
     name = "request_details"
     resource_config = "requests_resource"
     title = _("Request details")

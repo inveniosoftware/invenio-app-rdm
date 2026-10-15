@@ -16,7 +16,8 @@ from invenio_search_ui.searchconfig import search_app_config
 class RecordAdminListView(AdminResourceListView):
     """Configuration for the records list view."""
 
-    api_endpoint = "/records"
+    api_endpoint = "/records"  # DEPRECATED. Remove in v15
+    api_endpoint_name = "records.search"
     name = "records"
     resource_config = "records_resource"
     search_request_headers = {"Accept": "application/vnd.inveniordm.v1+json"}
@@ -101,7 +102,8 @@ class RecordAdminListView(AdminResourceListView):
 class DraftAdminListView(AdminResourceListView):
     """Configuration for the drafts list view."""
 
-    api_endpoint = "/user/records"
+    api_endpoint = "/user/records"  # DEPRECATED. Remove in v15
+    api_endpoint_name = "records.search_user_records"
     name = "drafts"
     resource_config = "records_resource"
     search_request_headers = {"Accept": "application/vnd.inveniordm.v1+json"}
