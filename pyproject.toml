@@ -106,9 +106,14 @@ invenio_app_rdm_theme = "invenio_app_rdm.theme.webpack:theme"
 
 [project.entry-points."invenio_base.api_apps"]
 profiler = "invenio_app_rdm.ext:MultiProfiler"
+invenio_app_rdm = "invenio_app_rdm.ext:InvenioAppRDM"
+
+[project.entry-points."invenio_base.api_blueprints"]
+invenio_app_rdm_administration_moderation_requests = "invenio_app_rdm.views:create_administration_moderation_requests_bp"
 
 [project.entry-points."invenio_base.apps"]
 profiler = "invenio_app_rdm.ext:MultiProfiler"
+invenio_app_rdm = "invenio_app_rdm.ext:InvenioAppRDM"
 
 [project.entry-points."invenio_base.blueprints"]
 invenio_app_rdm = "invenio_app_rdm.theme.views:create_blueprint"
