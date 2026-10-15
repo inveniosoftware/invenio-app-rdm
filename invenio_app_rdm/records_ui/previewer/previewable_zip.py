@@ -126,20 +126,25 @@ def preview(file):
         if is_draft
         else current_rdm_records_service.files
     )
-    tree_raw = file_service.list_container(
-        system_identity, file.record["id"], file.filename
-    ).to_dict()
+    try:
+        tree_raw = file_service.list_container(
+            system_identity, file.record["id"], file.filename
+        ).to_dict()
 
-    converted_tree = convert_zip_list_container(
-        tree_raw["entries"], tree_raw["directories"], file.record["id"], file.filename
-    )
-    tree_list = converted_tree["children"]
+        converted_tree = convert_zip_list_container(
+            tree_raw["entries"], tree_raw["directories"], file.record["id"], file.filename
+        )
+        tree_list = converted_tree["children"]
+        error = None
+    except Exception as e:
+        error = e
+        tree_list = []
     return render_template(
         "invenio_previewer/previewable_zip.html",
         file=file,
         tree=tree_list,
         limit_reached=False,
-        error=None,
+        error=error,
         js_bundles=current_previewer.js_bundles + ["previewable-zip.js"],
         css_bundles=current_previewer.css_bundles + ["zip_css.css"],
     )
