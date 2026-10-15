@@ -12,7 +12,7 @@
 
 {%- block panel %}
 {% if error %}
-  <div class="ui top attached negative message"><i class="exclamation icon"></i>{{ _(error) }}</div>
+  <div class="ui top attached info message"><i class="info circle icon"></i>{{ error }}</div>
 {% else %}
   <div class="ui equal width grid">
     <div class="row">
@@ -21,7 +21,7 @@
     </div>
   </div>
   {%- if limit_reached %}
-  <div class="ui attached negative message">
+  <div class="ui attached warning message">
     <i class="exclamation icon"></i>
     {{ _('The previewer is not showing all the files.') }}
   </div>
