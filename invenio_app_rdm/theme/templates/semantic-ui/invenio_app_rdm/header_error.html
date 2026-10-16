@@ -1,0 +1,11 @@
+{#
+  SPDX-FileCopyrightText: 2026 TU Wien.
+  SPDX-License-Identifier: MIT
+#}
+
+{#
+  This template is specific to error pages, and identical to the normal page header; with one exception:
+  We exclude the banner lookup/rendering, to avoid banner-related DB queries on error pages.
+#}
+{% extends config.THEME_HEADER_TEMPLATE %}
+{%- block site_banner -%}{%- endblock -%}
