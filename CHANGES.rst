@@ -9,6 +9,13 @@
 Changes
 =======
 
+Version v14.0.5 (released 2026-10-19)
+
+- fix(previewer): handle zip preview errors
+- fix: provide missing config to load deletion request in admin
+- packaging: add saml as an extra
+- fix: add spacing to default creatibutors icon (as is done for scheme icons)
+
 Version v14.0.4 (released 2026-09-03)
 
 - release: correct v14.0.3 tag pointing to the wrong commit
