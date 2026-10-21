@@ -21,7 +21,7 @@ except (ImportError, ModuleNotFoundError):
     class MultiProfiler:
         """Dummy profiler for entrypoints if Flask-MultiProfiler isn't installed.
 
-        Note that this dummy extension does not register itself to ``app.extensions``.
+        Note that this dummy extension does not register itself to `app.extensions`.
         """
 
         def __init__(self, app=None):

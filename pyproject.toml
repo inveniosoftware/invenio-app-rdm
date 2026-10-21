@@ -10,7 +10,7 @@
 [project]
 name = "invenio-app-rdm"
 description = "Invenio Research Data Management."
-readme = "README.rst"
+readme = "README.md"
 requires-python = ">=3.9"
 license = "MIT"
 authors = [
@@ -157,7 +157,6 @@ saml = [
 tests = [
   "pytest-black>=0.6.0",
   "pytest-invenio>=4.0.0,<5.0.0",
-  "sphinx>=4.5.0",
   "time-machine>=2.12.0,<3.0.0",
 ]
 
@@ -218,7 +217,7 @@ profile = "black"
 add_ignore = "D401"
 
 [tool.pytest.ini_options]
-addopts = '--black --isort --pydocstyle --doctest-glob="*.rst" --doctest-modules --cov=invenio_app_rdm --cov-report=term-missing'
+addopts = '--black --isort --pydocstyle --doctest-modules --cov=invenio_app_rdm --cov-report=term-missing'
 filterwarnings = ["ignore::marshmallow.warnings.RemovedInMarshmallow4Warning"]
 testpaths = "tests invenio_app_rdm"
 live_server_scope = "module"

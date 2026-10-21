@@ -14,14 +14,15 @@ configuration variables.
 Import below the configuration defined in other modules that should be
 (forcefully) set in an InvenioRDM instance, e.g.:
 
-    from invenio_rdm_records.config import *
-
+```python
+from invenio_rdm_records.config import *
+```
 
 The role of Invenio App RDM is to configure other modules a specific way.
 These configurations can nevertheless be overridden by either:
 
-- Configuration file: ``<virtualenv prefix>/var/instance/invenio.cfg``
-- Environment variables: ``APP_<variable name>``
+- Configuration file: `<virtualenv prefix>/var/instance/invenio.cfg`
+- Environment variables: `APP_<variable name>`
 
 WARNING: An instance should NOT install multiple flavour extensions since
          there would be no guarantee of priority anymore.
@@ -549,40 +550,42 @@ Note, that the connection pool settings have to be aligned with:
 Note, it's possible that a connection you get from the connection pool is no
 longer open. This happens if e.g. the database server was restarted or the
 server has a timeout that closes the connection. In these case you'll see an
-error similar to::
+error similar to:
 
-    psycopg2.OperationalError: server closed the connection unexpectedly
-        This probably means the server terminated abnormally
-        before or while processing the request.
+```
+psycopg2.OperationalError: server closed the connection unexpectedly
+    This probably means the server terminated abnormally
+    before or while processing the request.
+```
 
-The errors can be avoided by using the ``pool_pre_ping`` option, which will
-ensure the connection is open first by issuing a ``SELECT 1``. The pre-ping
+The errors can be avoided by using the `pool_pre_ping` option, which will
+ensure the connection is open first by issuing a `SELECT 1`. The pre-ping
 feature however, comes with a performance penalty, and thus it may be better
-to first try adjusting the ``pool_recyle`` to ensure connections are closed and
+to first try adjusting the `pool_recyle` to ensure connections are closed and
 reopened regularly.
 
-... code-block:: python
+```python
+SQLALCHEMY_ENGINE_OPTIONS = dict(
+    # enable the connection pool “pre-ping” feature that tests connections
+    # for liveness upon each checkout.
+    pool_pre_ping=True,
 
-    SQLALCHEMY_ENGINE_OPTIONS = dict(
-        # enable the connection pool “pre-ping” feature that tests connections
-        # for liveness upon each checkout.
-        pool_pre_ping=True,
+    # the number of connections to allow in connection pool “overflow”,
+    # that is connections that can be opened above and beyond the
+    # pool_size setting
+    max_overflow=10,
 
-        # the number of connections to allow in connection pool “overflow”,
-        # that is connections that can be opened above and beyond the
-        # pool_size setting
-        max_overflow=10,
+    # the number of connections to keep open inside the connection
+    pool_size=5,
 
-        # the number of connections to keep open inside the connection
-        pool_size=5,
+    # recycle connections after the given number of seconds has passed.
+    pool_recycle=3600,
 
-        # recycle connections after the given number of seconds has passed.
-        pool_recycle=3600,
-
-        # number of seconds to wait before giving up on getting a connection
-        # from the pool
-        pool_timeout=30,
-    )
+    # number of seconds to wait before giving up on getting a connection
+    # from the pool
+    pool_timeout=30,
+)
+```
 
 See https://docs.sqlalchemy.org/en/latest/core/engines.html.
 """
@@ -611,13 +614,13 @@ RECORDS_REFRESOLVER_CLS = "invenio_records.resolver.InvenioRefResolver"
 """Custom JSONSchemas ref resolver class.
 
 Note that when using a custom ref resolver class you should also set
-``RECORDS_REFRESOLVER_STORE`` to point to a JSONSchema ref resolver store.
+`RECORDS_REFRESOLVER_STORE` to point to a JSONSchema ref resolver store.
 """
 
 RECORDS_REFRESOLVER_STORE = "invenio_jsonschemas.proxies.current_refresolver_store"
 """JSONSchemas ref resolver store.
 
-Used together with ``RECORDS_REFRESOLVER_CLS`` to provide a specific
+Used together with `RECORDS_REFRESOLVER_CLS` to provide a specific
 ref resolver store.
 """
 
@@ -984,10 +987,10 @@ APP_RDM_DEPOSIT_FORM_AUTOCOMPLETE_NAMES = "search"
 
 Available options:
 
-- ``search`` (default): Show search field and form always.
-- ``search_only``: Only show search field. Form displayed after selection or
+- `search` (default): Show search field and form always.
+- `search_only`: Only show search field. Form displayed after selection or
   explicit "manual" entry.
-- ``off``: Only show person form (no search field).
+- `off`: Only show person form (no search field).
 """
 
 APP_RDM_DEPOSIT_FORM_QUOTA = {
