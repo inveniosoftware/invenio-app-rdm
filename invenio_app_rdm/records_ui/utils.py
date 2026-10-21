@@ -28,10 +28,13 @@ from invenio_search.api import dsl
 def previewer_record_file_factory(pid, record, filename):
     """Get file from a record.
 
-    :param pid: Not used. It keeps the function signature.
-    :param record: Record which contains the files.
-    :param filename: Name of the file to be returned.
-    :returns: Previewer compatible File object or ``None`` if not found.
+    Args:
+        pid: Not used. It keeps the function signature.
+        record: Record which contains the files.
+        filename: Name of the file to be returned.
+
+    Returns:
+        Previewer compatible File object or `None` if not found.
     """
     try:
         if not (hasattr(record, "files") and record.files):
@@ -50,10 +53,11 @@ def previewer_record_file_factory(pid, record, filename):
 def set_default_value(record_dict, value, path, default_prefix="metadata"):
     """Set the value with the specified dot-separated path in the record.
 
-    :param record_dict: The dict in which to set the value.
-    :param value: The value to set (can be callable).
-    :param path: The dot-separated path to the value.
-    :param default_prefix: The default path prefix to assume.
+    Args:
+        record_dict: The dict in which to set the value.
+        value: The value to set (can be callable).
+        path: The dot-separated path to the value.
+        default_prefix: The default path prefix to assume.
     """
     if callable(value):
         value = value()

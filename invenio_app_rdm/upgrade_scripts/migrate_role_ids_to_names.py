@@ -6,7 +6,7 @@
 
 Disclaimer: This script is intended to be executed *only once*, for v14
 instances where roles may have generated ids different from their names.
-It restores the invariant that ``accounts_role.id == accounts_role.name``.
+It restores the invariant that `accounts_role.id == accounts_role.name`.
 """
 
 import sys

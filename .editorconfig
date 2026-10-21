@@ -16,8 +16,8 @@ charset = utf-8
 [*.toml]
 indent_size = 2
 
-# RST files (used by sphinx)
-[*.rst]
+# Markdown files
+[*.md]
 indent_size = 4
 
 # CSS, HTML, JS, JSON, YML, LESS
