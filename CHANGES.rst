@@ -9,6 +9,12 @@
 Changes
 =======
 
+Version v14.0.6 (released 2026-10-21)
+
+- deps: reduce rdm-records pin for v14.1 isolation
+- fix(deposit): pass the record_quota max_file_size to the UI
+- fix: remove unsafe safe filter from record macros
+
 Version v14.0.5 (released 2026-10-19)
 
 - fix(previewer): handle zip preview errors
