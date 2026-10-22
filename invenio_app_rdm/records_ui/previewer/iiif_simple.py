@@ -19,8 +19,11 @@ native_extensions = LocalProxy(
 def can_preview(file):
     """Check if file can be previewed by this previewer.
 
-    :param file: The file to be previewed.
-    :returns: Boolean
+    Args:
+        file: The file to be previewed.
+
+    Returns:
+        Boolean
     """
     # supported_extensions list needs . prefixed -
     supported_extensions = ["." + ext for ext in previewable_extensions]
@@ -30,8 +33,11 @@ def can_preview(file):
 def preview(file):
     """Render template.
 
-    :param file: Image file to preview.
-    :returns: Rendered template with image from IIIF service.
+    Args:
+        file: Image file to preview.
+
+    Returns:
+        Rendered template with image from IIIF service.
     """
     ext = splitext(file.filename)[1].lower()[1:]
     format = ext if ext in native_extensions else "jpg"
