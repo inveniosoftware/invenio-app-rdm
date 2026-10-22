@@ -41,7 +41,7 @@ def commit_file(client, recid, headers):
 # NOTE: It seems like it was already the case that a logged in user wouldn't be
 #       able to access files-rest. We are just making doubly-clear.
 def test_files_rest_endpoint_is_protected(
-    running_app, client_with_login, headers, es_clear, minimal_record
+    running_app, client_with_login, headers, search_clear, minimal_record
 ):
     client = client_with_login
 
