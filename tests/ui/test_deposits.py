@@ -9,7 +9,7 @@ from invenio_search.engine import dsl
 from invenio_vocabularies.proxies import current_service as vocabulary_service
 from invenio_vocabularies.records.api import Vocabulary
 
-from invenio_app_rdm.records_ui.views.deposits import VocabulariesOptions
+from invenio_app_rdm.records_ui.views.deposits import VocabulariesOptions, new_record
 
 
 @pytest.fixture()
@@ -33,9 +33,9 @@ def additional_resource_types(running_app):
             },
             "title": {"en": "Publication"},
             "tags": ["depositable", "linkable"],
-            "type": "resourcetypes",
         },
     )
+
     vocabulary_service.create(
         system_identity,
         {
@@ -109,3 +109,14 @@ def test_dump_subjects_vocabulary(running_app):
     result = options.subjects()
 
     assert expected == result
+
+
+def test_new_record_with_custom_field_defaults(app):
+    """Test that custom field defaults are applied to a new record."""
+    app.config["APP_RDM_DEPOSIT_FORM_CUSTOM_FIELD_DEFAULTS"] = {
+        "department": "Computer Science"
+    }
+
+    record = new_record()
+
+    assert record["custom_fields"]["department"] == "Computer Science"
