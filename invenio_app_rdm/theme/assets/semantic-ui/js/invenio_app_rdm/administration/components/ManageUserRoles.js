@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import React, { Component } from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 import { Dropdown, Modal } from "semantic-ui-react";
 import { ActionModal } from "@js/invenio_administration";

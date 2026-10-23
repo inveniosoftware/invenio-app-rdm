@@ -29,8 +29,8 @@
   <div class="title trigger" tabindex="0">
     <i class="caret right icon" aria-hidden="true"></i>
     <span
-      data-open-text="{{ _('Show more details') }}"
-      data-close-text="{{ _('Show less details') }}"
+      data-open-text='{{ _("Show more details") }}'
+      data-close-text='{{ _("Show less details") }}'
     >
       {{ _('Show more details') }}
     </span>
@@ -56,15 +56,15 @@
               class="popup-trigger question circle small icon"
               aria-expanded="false"
               aria-label="{{ _('More info') }}"
-              data-variation="mini inverted"
+              data-variation='mini inverted'
             >
             </i>
             <p role="tooltip" class="popup-content ui flowing popup transition hidden">
               {{ _('Total views') }}
             </p>
           </td>
-          <td data-label="{{_('All versions')}}" class="right aligned">{{ stats_popup(all_versions.unique_views) }}</td>
-          <td data-label="{{_('This version')}}" class="right aligned">{{ stats_popup(this_version.unique_views) }}</td>
+          <td data-label='{{_("All versions")}}' class="right aligned">{{ stats_popup(all_versions.unique_views) }}</td>
+          <td data-label='{{_("This version")}}' class="right aligned">{{ stats_popup(this_version.unique_views) }}</td>
         </tr>
         <tr>
           <td>
@@ -76,15 +76,15 @@
               class="popup-trigger question circle small icon"
               aria-expanded="false"
               aria-label="{{ _('More info') }}"
-              data-variation="mini inverted"
+              data-variation='mini inverted'
             >
             </i>
             <p role="tooltip" class="popup-content ui flowing popup transition hidden">
               {{ _('Total downloads') }}
             </p>
           </td>
-          <td data-label="{{_('All versions')}}" class="right aligned">{{ stats_popup(all_versions.unique_downloads) }}</td>
-          <td data-label="{{_('This version')}}" class="right aligned">{{ stats_popup(this_version.unique_downloads) }}</td>
+          <td data-label='{{_("All versions")}}' class="right aligned">{{ stats_popup(all_versions.unique_downloads) }}</td>
+          <td data-label='{{_("This version")}}' class="right aligned">{{ stats_popup(this_version.unique_downloads) }}</td>
         </tr>
         <tr>
           <td>
@@ -96,7 +96,7 @@
               class="popup-trigger question circle small icon"
               aria-expanded="false"
               aria-label="{{ _('More info') }}"
-              data-variation="mini inverted"
+              data-variation='mini inverted'
             >
             </i>
             <p role="tooltip" class="popup-content ui flowing popup transition hidden">
@@ -105,8 +105,8 @@
           </td>
           {%- set binary_sizes = not config.APP_RDM_DISPLAY_DECIMAL_FILE_SIZES %}
 
-          <td data-label="{{_('All versions')}}" class="right aligned">{{ all_versions.data_volume|filesizeformat(binary=binary_sizes) }}</td>
-          <td data-label="{{_('This version')}}" class="right aligned">{{ this_version.data_volume|filesizeformat(binary=binary_sizes) }}</td>
+          <td data-label='{{_("All versions")}}' class="right aligned">{{ all_versions.data_volume|filesizeformat(binary=binary_sizes) }}</td>
+          <td data-label='{{_("This version")}}' class="right aligned">{{ this_version.data_volume|filesizeformat(binary=binary_sizes) }}</td>
         </tr>
       </tbody>
     </table>
@@ -118,4 +118,3 @@
   </div>
 
 </div>
-

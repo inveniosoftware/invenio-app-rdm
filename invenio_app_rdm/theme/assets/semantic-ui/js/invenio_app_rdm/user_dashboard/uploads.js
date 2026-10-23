@@ -10,7 +10,6 @@
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import _get from "lodash/get";
 import _truncate from "lodash/truncate";
-import React from "react";
 import { Button, Card, Divider, Header, Segment } from "semantic-ui-react";
 import { parametrize, overrideStore } from "react-overridable";
 import {

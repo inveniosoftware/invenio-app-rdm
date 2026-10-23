@@ -322,6 +322,15 @@ msgstr "Approved"
 msgid "Activate"
 msgstr "Activate"
 
+msgid "Deactivate"
+msgstr "Deactivate"
+
+msgid "Verify"
+msgstr "Verify"
+
+msgid "Manage roles"
+msgstr "Manage roles"
+
 msgid "Activated"
 msgstr "Activated"
 

@@ -6,7 +6,7 @@
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import { Formik } from "formik";
 import PropTypes from "prop-types";
-import React, { Component } from "react";
+import { Component } from "react";
 
 import {
   ErrorMessage,

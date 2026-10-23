@@ -12,9 +12,9 @@
          id="recordManagement"
          data-record='{{ record_ui | tojson }}'
          data-permissions='{{ permissions | tojson }}'
-         data-is-draft="{{ is_draft | tojson }}"
-         data-is-preview-submission-request="{{ is_preview_submission_request | tojson }}"
-         data-current-user-id="{{ current_user.id }}"
+         data-is-draft='{{ is_draft | tojson }}'
+         data-is-preview-submission-request='{{ is_preview_submission_request | tojson }}'
+         data-current-user-id='{{ current_user.id }}'
          data-groups-enabled='{{ config.USERS_RESOURCES_GROUPS_ENABLED | tojson }}'
          {% if record_deletion %}
             data-record-deletion='{{ record_deletion | tojson }}'

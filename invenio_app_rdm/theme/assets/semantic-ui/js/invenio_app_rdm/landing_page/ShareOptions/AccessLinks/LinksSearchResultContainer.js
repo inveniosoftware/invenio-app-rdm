@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 import { i18next } from "@translations/invenio_app_rdm/i18next";
-import React, { Component } from "react";
+import { Component } from "react";
 import _isEmpty from "lodash/isEmpty";
 import { Table, Message, Loader } from "semantic-ui-react";
 import PropTypes from "prop-types";
@@ -181,7 +181,11 @@ export class LinksSearchResultContainer extends Component {
           </Table.Header>
           <Table.Body>
             {loading ? (
-              <Loader />
+              <Table.Row>
+                <Table.Cell colSpan="5" textAlign="center">
+                  <Loader active inline />
+                </Table.Cell>
+              </Table.Row>
             ) : !_isEmpty(results) ? (
               results.map((result) => (
                 <LinksSearchItem
@@ -199,25 +203,27 @@ export class LinksSearchResultContainer extends Component {
               ))
             ) : (
               <Table.Row textAlign="center">
-                <p className="mt-10">
-                  <i>
-                    <h5>{i18next.t("This record has no links generated yet.")}</h5>
-                  </i>
-                </p>
+                <Table.Cell colSpan="5">
+                  <h5 className="mt-10">
+                    <i>{i18next.t("This record has no links generated yet.")}</i>
+                  </h5>
+                </Table.Cell>
               </Table.Row>
             )}
           </Table.Body>
         </Table>
 
         <Table color="green">
-          <CreateAccessLink
-            hasLinkExpirationError={hasLinkExpirationDateError}
-            handleCreation={this.handleCreation}
-            loading={loading}
-            record={record}
-            dropdownOptions={this.generateDropdownOptions()}
-            isAccessLinksExpirationRequired={isAccessLinksExpirationRequired}
-          />
+          <Table.Body>
+            <CreateAccessLink
+              hasLinkExpirationError={Boolean(hasLinkExpirationDateError)}
+              handleCreation={this.handleCreation}
+              loading={loading}
+              record={record}
+              dropdownOptions={this.generateDropdownOptions()}
+              isAccessLinksExpirationRequired={isAccessLinksExpirationRequired}
+            />
+          </Table.Body>
         </Table>
       </>
     );

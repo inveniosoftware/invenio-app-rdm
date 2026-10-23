@@ -402,6 +402,9 @@ def get_form_config(**kwargs):
         quota["maxStorage"] = record_quota["quota_size"]
         quota["maxFileSize"] = record_quota.get("max_file_size") or max_file_size
         quota["quotaIncrease"] = evaluate_quota_increase(record, identity)
+    orcha_enabled = conf.get("RDM_DEPOSIT_ORCHA_ENABLED", False)
+    if callable(orcha_enabled):
+        orcha_enabled = orcha_enabled()
 
     return dict(
         vocabularies=VocabulariesOptions().dump(),
@@ -427,6 +430,7 @@ def get_form_config(**kwargs):
         enabled_transfer_types=list(current_transfer_registry.get_transfer_types()),
         transfer_types=file_transfer_type()["transfer_types"],
         allow_external_doi_versions=conf["RDM_ALLOW_EXTERNAL_DOI_VERSIONING"],
+        orcha_enabled=orcha_enabled,
         **kwargs,
     )
 

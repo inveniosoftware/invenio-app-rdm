@@ -4,7 +4,7 @@
  */
 
 import PropTypes from "prop-types";
-import React, { Component } from "react";
+import { Component } from "react";
 import { RequestStatusFilter } from "@js/invenio_requests/search";
 import { SearchBar, Sort } from "react-searchkit";
 

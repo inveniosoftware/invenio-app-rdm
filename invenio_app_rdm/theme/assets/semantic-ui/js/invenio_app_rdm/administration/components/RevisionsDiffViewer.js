@@ -4,10 +4,24 @@
  * SPDX-License-Identifier: MIT
  */
 
-import React, { Component } from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 import { Grid, Container } from "semantic-ui-react";
 import { Differ, Viewer } from "json-diff-kit";
+
+const DEFAULT_DIFF = {};
+const DEFAULT_VIEWER_PROPS = {
+  indent: 4,
+  lineNumbers: true,
+  highlightInlineDiff: true,
+  inlineDiffOptions: {
+    mode: "word",
+    wordSeparator: " ",
+  },
+  hideUnchangedLines: true,
+  syntaxHighlight: false,
+  virtual: true,
+};
 
 export class RevisionsDiffViewer extends Component {
   constructor(props) {
@@ -35,13 +49,14 @@ export class RevisionsDiffViewer extends Component {
   }
 
   computeDiff = () => {
-    const { diff } = this.props;
+    const { diff = DEFAULT_DIFF } = this.props;
     const _diff = this.differ.diff(diff?.srcRevision, diff?.targetRevision);
     this.setState({ currentDiff: _diff });
   };
 
   render() {
-    const { currentDiff, viewerProps } = this.state;
+    const { currentDiff } = this.state;
+    const { viewerProps = DEFAULT_VIEWER_PROPS } = this.props;
 
     return currentDiff ? (
       <Grid>
@@ -58,20 +73,4 @@ export class RevisionsDiffViewer extends Component {
 RevisionsDiffViewer.propTypes = {
   diff: PropTypes.object,
   viewerProps: PropTypes.object,
-};
-
-RevisionsDiffViewer.defaultProps = {
-  diff: {},
-  viewerProps: {
-    indent: 4,
-    lineNumbers: true,
-    highlightInlineDiff: true,
-    inlineDiffOptions: {
-      mode: "word",
-      wordSeparator: " ",
-    },
-    hideUnchangedLines: true,
-    syntaxHighlight: false,
-    virtual: true,
-  },
 };

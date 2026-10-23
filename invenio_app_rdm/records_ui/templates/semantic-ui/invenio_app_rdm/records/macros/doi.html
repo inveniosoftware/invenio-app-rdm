@@ -11,13 +11,13 @@
     {% endif %}
   </dt>
   <dd>
-    <span class="get-badge details-doi-section" data-toggle="tooltip" data-placement="bottom">
-      <img id='{{badge_id}}' data-target="[data-modal='{{ doi_value }}']" title="{{ _('Get the DOI badge!') }}"
+    <span class="get-badge details-doi-section" data-toggle='tooltip' data-placement='bottom'>
+      <img id='{{badge_id}}' data-target='[data-modal="{{ doi_value }}"]' title="{{ _('Get the DOI badge!') }}"
         src="{{ url_for('invenio_formatter_badges.badge', title='DOI', value=doi_value, ext='svg') }}" alt="{{ doi_value }}" />
-      <div id="copy-button-{{ badge_id }}" class="copy-doi-button" data-value={{ doi_link }} data-size="mini"></div>
+      <div id="copy-button-{{ badge_id }}" class="copy-doi-button" data-value='{{ doi_link }}' data-size='mini'></div>
     </span>
 
-    <div id="{{modal_id}}" class="ui modal fade badge-modal" data-modal="{{ doi_value }}">
+    <div id="{{modal_id}}" class="ui modal fade badge-modal" data-modal='{{ doi_value }}'>
       <div class="header">{{ _("DOI Badge") }}</div>
       <div class="content">
         <h4>

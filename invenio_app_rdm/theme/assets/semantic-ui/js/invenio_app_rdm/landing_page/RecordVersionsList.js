@@ -6,7 +6,7 @@
  */
 
 import _get from "lodash/get";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Grid, Icon, Message, Placeholder, List, Divider } from "semantic-ui-react";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import PropTypes from "prop-types";

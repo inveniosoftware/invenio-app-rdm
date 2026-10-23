@@ -13,7 +13,6 @@ import {
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import _get from "lodash/get";
 import _truncate from "lodash/truncate";
-import React from "react";
 import Overridable from "react-overridable";
 import { withState, buildUID } from "react-searchkit";
 import {
@@ -32,7 +31,7 @@ import RecordsResultsListItem from "../components/RecordsResultsListItem";
 import PropTypes from "prop-types";
 
 export const RDMRecordResultsListItemWithState = withState(
-  ({ currentQueryState, result, appName }) => (
+  ({ currentQueryState = null, result, appName }) => (
     <RecordsResultsListItem
       currentQueryState={currentQueryState}
       result={result}
@@ -44,10 +43,6 @@ export const RDMRecordResultsListItemWithState = withState(
 RDMRecordResultsListItemWithState.propTypes = {
   currentQueryState: PropTypes.object,
   result: PropTypes.object.isRequired,
-};
-
-RDMRecordResultsListItemWithState.defaultProps = {
-  currentQueryState: null,
 };
 
 // TODO: Update this according to the full List item template?
@@ -196,7 +191,11 @@ RDMCountComponent.propTypes = {
   totalResults: PropTypes.number.isRequired,
 };
 
-export const RDMEmptyResults = ({ queryString, searchPath, resetQuery }) => {
+export const RDMEmptyResults = ({
+  queryString,
+  searchPath = "/search",
+  resetQuery,
+}) => {
   return (
     <Grid>
       <Grid.Row centered>
@@ -246,10 +245,6 @@ RDMEmptyResults.propTypes = {
   queryString: PropTypes.string.isRequired,
   resetQuery: PropTypes.func.isRequired,
   searchPath: PropTypes.string,
-};
-
-RDMEmptyResults.defaultProps = {
-  searchPath: "/search",
 };
 
 export const RDMErrorComponent = ({ error }) => {

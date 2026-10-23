@@ -10,14 +10,14 @@ import {
   SearchBar,
 } from "@js/invenio_search_ui/components";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
-import React from "react";
+import { useState } from "react";
 import { Count, Sort } from "react-searchkit";
 import { Button, Container, Grid } from "semantic-ui-react";
 import { GridResponsiveSidebarColumn } from "react-invenio-forms";
 import PropTypes from "prop-types";
 
-export const CommunityRecordsSearchAppLayout = ({ config, appName }) => {
-  const [sidebarVisible, setSidebarVisible] = React.useState(false);
+export const CommunityRecordsSearchAppLayout = ({ config, appName = "" }) => {
+  const [sidebarVisible, setSidebarVisible] = useState(false);
 
   return (
     <Container className="rel-pt-2">
@@ -83,8 +83,4 @@ export const CommunityRecordsSearchAppLayout = ({ config, appName }) => {
 CommunityRecordsSearchAppLayout.propTypes = {
   config: PropTypes.object.isRequired,
   appName: PropTypes.string,
-};
-
-CommunityRecordsSearchAppLayout.defaultProps = {
-  appName: "",
 };
