@@ -1,18 +1,17 @@
-# SPDX-FileCopyrightText: 2022 CERN.
+# SPDX-FileCopyrightText: 2022-2026 CERN.
 # SPDX-License-Identifier: MIT
 
 """Files utilities."""
 
 from __future__ import absolute_import, print_function
 
-from datetime import datetime
+from datetime import datetime, timezone
 
 import sqlalchemy as sa
 from flask import current_app
 from flask_mail import Message
 from invenio_files_rest.models import FileInstance
 from invenio_rdm_records.records.models import RDMDraftMetadata, RDMRecordMetadata
-from pytz import utc
 
 
 def checksum_verification_files_query():
@@ -75,7 +74,7 @@ def get_report_subject():
     subject = current_app.config.get(
         "APP_RDM_FILES_INTEGRITY_REPORT_SUBJECT", "Files integrity report"
     )
-    now = datetime.now(tz=utc).strftime("%Y-%m-%d %H:%M:%S")
+    now = datetime.now(tz=timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
     subject += f" [{now}]"
     return subject
 
