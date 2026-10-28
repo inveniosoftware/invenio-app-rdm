@@ -1,1 +1,1 @@
-@metaLineHeight: 1.43em;
+@metaLineHeight: @lineHeight;
