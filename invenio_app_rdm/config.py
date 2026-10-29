@@ -290,6 +290,9 @@ THEME_FRONTPAGE_TEMPLATE = "invenio_app_rdm/frontpage.html"
 THEME_HEADER_LOGIN_TEMPLATE = "invenio_app_rdm/header_login.html"
 """Header login base template."""
 
+THEME_ERROR_TEMPLATE = "invenio_app_rdm/page_error.html"
+"""Custom base template for error pages, excluding banners from being rendered."""
+
 
 def _get_package_version():
     from importlib.metadata import PackageNotFoundError, version
