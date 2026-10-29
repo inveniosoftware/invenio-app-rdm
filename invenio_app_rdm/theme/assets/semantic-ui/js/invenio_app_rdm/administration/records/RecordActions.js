@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: MIT
  */
 
-import React from "react";
 import PropTypes from "prop-types";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import { Actions } from "@js/invenio_administration";
@@ -13,13 +12,13 @@ export const RecordActions = ({
   title,
   resourceName,
   record,
-  displayEdit,
-  displayDelete,
+  displayEdit = false,
+  displayDelete = false,
   actions,
   idKeyPath,
   listUIEndpoint,
   successCallback,
-  displayQuota,
+  displayQuota = false,
   editUrl,
 }) => {
   return (
@@ -53,7 +52,7 @@ export const RecordActions = ({
 
 RecordActions.propTypes = {
   successCallback: PropTypes.func.isRequired,
-  record: PropTypes.string.isRequired,
+  record: PropTypes.object.isRequired,
   idKeyPath: PropTypes.string.isRequired,
   listUIEndpoint: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
@@ -63,10 +62,4 @@ RecordActions.propTypes = {
   displayQuota: PropTypes.bool,
   displayEdit: PropTypes.bool,
   displayDelete: PropTypes.bool,
-};
-
-RecordActions.defaultProps = {
-  displayQuota: false,
-  displayEdit: false,
-  displayDelete: false,
 };

@@ -6,7 +6,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import React, { Component } from "react";
+import { Component } from "react";
 import { Table, Button, Item, Label, Grid } from "semantic-ui-react";
 import { withCancel, http } from "react-invenio-forms";
 import { i18next } from "@translations/invenio_app_rdm/i18next";

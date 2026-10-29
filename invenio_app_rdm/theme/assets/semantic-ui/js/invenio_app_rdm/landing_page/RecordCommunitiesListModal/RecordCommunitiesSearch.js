@@ -5,7 +5,7 @@
 
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import { RecordCommunitiesSearchItem } from "./RecordCommunitiesSearchItem";
-import React, { Component } from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 import { OverridableContext, parametrize } from "react-overridable";
 import {
@@ -21,6 +21,7 @@ import {
 import { Modal } from "semantic-ui-react";
 
 const appName = "InvenioAppRdm.RecordCommunitiesSearch";
+const DEFAULT_RECORD_REQUESTS = {};
 
 export class RecordCommunitiesSearch extends Component {
   handleSuccessCallback = (data) => {
@@ -34,7 +35,7 @@ export class RecordCommunitiesSearch extends Component {
       permissions,
       recordParent,
       updateRecordCallback,
-      recordRequests,
+      recordRequests = DEFAULT_RECORD_REQUESTS,
     } = this.props;
     const overriddenComponents = {
       [`${appName}.ResultsList.item`]: parametrize(RecordCommunitiesSearchItem, {
@@ -101,8 +102,4 @@ RecordCommunitiesSearch.propTypes = {
   permissions: PropTypes.object.isRequired,
   recordParent: PropTypes.object.isRequired,
   recordRequests: PropTypes.object,
-};
-
-RecordCommunitiesSearch.defaultProps = {
-  recordRequests: {},
 };

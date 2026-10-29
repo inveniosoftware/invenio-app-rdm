@@ -5,7 +5,7 @@
  */
 
 import isEmpty from "lodash/isEmpty";
-import React, { Component } from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 import { Button, Icon, Dropdown, Modal } from "semantic-ui-react";
 import { ActionModal, NotificationContext } from "@js/invenio_administration";
@@ -111,14 +111,14 @@ export class UserActions extends Component {
   render() {
     const {
       user,
-      displaySuspend,
-      displayBlock,
-      displayApprove,
-      displayRestore,
+      displaySuspend = false,
+      displayBlock = false,
+      displayApprove = false,
+      displayRestore = false,
       successCallback,
-      displayImpersonateUser,
-      displayQuota,
-      useDropdown,
+      displayImpersonateUser = false,
+      displayQuota = false,
+      useDropdown = false,
     } = this.props;
     const { loading, blockModalOpen } = this.state;
     const isUserBlocked = !isEmpty(user.blocked_at);
@@ -265,14 +265,4 @@ UserActions.propTypes = {
   displayImpersonateUser: PropTypes.bool,
   displayQuota: PropTypes.bool,
   useDropdown: PropTypes.bool,
-};
-
-UserActions.defaultProps = {
-  displayBlock: false,
-  displaySuspend: false,
-  displayApprove: false,
-  displayRestore: false,
-  displayImpersonateUser: false,
-  displayQuota: false,
-  useDropdown: false,
 };

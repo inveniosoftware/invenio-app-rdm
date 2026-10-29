@@ -138,7 +138,7 @@ To access its content, please download it and open it locally.') }}
             </div>
             {%- if not is_remote_file %}
             <small class="ui text-muted font-tiny">{{ file.checksum or _("Checksum not yet calculated.") }}
-            <div class="ui icon inline-block" data-tooltip="{{_('This is the file fingerprint (checksum), which can be used to verify the file integrity.')}}">
+            <div class="ui icon inline-block" data-tooltip='{{_('This is the file fingerprint (checksum), which can be used to verify the file integrity.')}}'>
               <i class="question circle checksum icon"></i>
             </div>
             </small>
@@ -148,7 +148,7 @@ To access its content, please download it and open it locally.') }}
           <td class="right aligned">
             <span>
               {% if with_preview and file_type|lower is previewable and not is_remote_file %}
-                <a role="button" class="ui compact mini button preview-link" href="{{ file_url_preview }}" target="preview-iframe" data-file-key="{{file.key}}">
+                <a role="button" class="ui compact mini button preview-link" href="{{ file_url_preview }}" target="preview-iframe" data-file-key='{{file.key}}'>
                   <i class="eye icon" aria-hidden="true"></i>{{_("Preview")}}
                 </a>
 	      {%- elif is_remote_file %}
