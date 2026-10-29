@@ -806,6 +806,7 @@ APP_RDM_ROUTES = {
     "record_file_preview": "/records/<pid_value>/preview/<path:filename>",
     "record_container_item_preview": "/records/<pid_value>/preview/<path:filename>/container/<path:path>",
     "record_file_download": "/records/<pid_value>/files/<path:filename>",
+    "record_web_archive_file": "/web-archive-files/<token>/<path:filename>",
     "record_container_item_download": "/records/<pid_value>/files/<path:filename>/container/<path:path>",
     "record_thumbnail": "/records/<pid_value>/thumb<int:size>",
     "record_media_file_download": "/records/<pid_value>/media-files/<path:filename>",
@@ -1206,6 +1207,32 @@ PREVIEWER_CONTAINER_ITEM_PREFERENCE = [
     "zip",
     "txt",
 ]
+
+PREVIEWER_WEB_ARCHIVE_SOURCE_FACTORY = (
+    "invenio_app_rdm.records_ui.previewer.web_archive:web_archive_source"
+)
+"""Web archive files are served on the web archive host with a token.
+
+The web archive host never gets the user's session, so it can't know who is
+viewing. The short-lived token in the file's URL is the only way to tell it that
+this user may read the file, e.g. for restricted records or drafts.
+
+Set ``PREVIEWER_WEB_ARCHIVE_HOST`` and add ``web_archive`` to
+``PREVIEWER_PREFERENCE`` to preview web archives.
+"""
+
+PREVIEWER_WEB_ARCHIVE_FILE_ENDPOINTS = [
+    "invenio_app_rdm_records.record_web_archive_file",
+]
+"""Endpoints serving web archive files on the web archive host."""
+
+APP_RDM_WEB_ARCHIVE_TOKEN_TTL = 120
+"""Seconds a web archive file token stays valid.
+
+The token is given when rendering the preview. Raise it if
+``PREVIEWER_WEB_ARCHIVE_RANGE_REQUESTS`` is enabled, since files are then read
+while browsing the archive.
+"""
 
 RECORDS_RESOURCES_IMAGE_FORMATS = ["." + ext for ext in IIIF_FORMATS.keys()]
 """RECORDS_RESOURCES_IMAGE_FORMATS must contain all possible IIIF formats to ensure their metadata is extracted."""
