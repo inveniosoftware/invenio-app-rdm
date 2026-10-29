@@ -1,6 +1,6 @@
 # SPDX-FileCopyrightText: 2019-2025 CERN.
 # SPDX-FileCopyrightText: 2019-2021 Northwestern University.
-# SPDX-FileCopyrightText: 2021-2023 TU Wien.
+# SPDX-FileCopyrightText: 2021-2026 TU Wien.
 # SPDX-FileCopyrightText: 2025 CESNET i.a.l.e.
 # SPDX-License-Identifier: MIT
 
@@ -10,6 +10,7 @@ import itertools
 from os.path import basename, splitext
 from pathlib import Path
 
+from citeproc_styles.errors import StyleNotFoundError
 from flask import abort, current_app, g, redirect, render_template, request, url_for
 from flask_login import current_user
 from flask_principal import AnonymousIdentity
@@ -20,6 +21,7 @@ from invenio_communities.communities.resources.serializer import (
 from invenio_communities.errors import CommunityDeletedError
 from invenio_communities.proxies import current_communities
 from invenio_communities.views.communities import render_community_theme_template
+from invenio_i18n.proxies import current_i18n
 from invenio_previewer.extensions import default as default_previewer
 from invenio_previewer.proxies import current_previewer
 from invenio_rdm_records.proxies import current_rdm_records
@@ -27,7 +29,10 @@ from invenio_rdm_records.records.systemfields.access.access_settings import (
     AccessSettings,
 )
 from invenio_rdm_records.requests import CommunityInclusion, CommunitySubmission
-from invenio_rdm_records.resources.serializers import UIJSONSerializer
+from invenio_rdm_records.resources.serializers import (
+    StringCitationSerializer,
+    UIJSONSerializer,
+)
 from invenio_requests.proxies import current_requests_service
 from invenio_search.api import dsl
 from invenio_stats.proxies import current_stats
@@ -101,6 +106,39 @@ def get_record_community(record):
             return None, community_id
     else:
         return None, None
+
+
+def get_default_record_citation(record_ui):
+    """Generate the citation text for the record in the default style.
+
+    This can be used to eagerly generate citation strings for landing pages.
+    In doing so, we effectively trade an XHR with DB lookup + record serialization
+    for CSL serialization.
+
+    :param record_ui: dict from ``RecordItem.to_dict()``.
+    """
+    record_citation = None
+
+    try:
+        default_citation_style = current_app.config.get(
+            "RDM_CITATION_STYLES_DEFAULT", None
+        )
+        if default_citation_style is None:
+            return None
+
+        serializer = StringCitationSerializer(
+            url_args_retriever=(default_citation_style, current_i18n.language),
+        )
+        record_citation = serializer.serialize_object(record_ui)
+
+    except StyleNotFoundError:
+        current_app.logger.warning(
+            f"Could not find citation style: {default_citation_style}"
+        )
+    except Exception as e:
+        current_app.logger.exception(e)
+
+    return record_citation
 
 
 class PreviewFile:
@@ -344,6 +382,7 @@ def record_detail(
         theme=theme,
         record=record,
         record_ui=record_ui,
+        record_citation=get_default_record_citation(record_ui),
         files=files_dict,
         media_files=media_files_dict,
         user_communities_memberships=get_user_communities_memberships(),
