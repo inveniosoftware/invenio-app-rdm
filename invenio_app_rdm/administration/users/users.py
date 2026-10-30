@@ -71,7 +71,8 @@ class UserAdminAccessMixin:
 class UsersListView(UserAdminAccessMixin, AdminResourceListView):
     """Configuration for users sets list view."""
 
-    api_endpoint = "/users/all"
+    api_endpoint = "/users/all"  # DEPRECATED. Remove in v15
+    api_endpoint_name = "users.search_all"
     extension_name = "invenio-users-resources"
     name = "users"
     resource_config = "users_resource"
@@ -140,7 +141,8 @@ class UsersDetailView(UserAdminAccessMixin, AdminResourceDetailView):
     """Configuration for users sets detail view."""
 
     url = "/users/<pid_value>"
-    api_endpoint = "/users"
+    api_endpoint = "/users"  # DEPRECATED. Remove in v15
+    api_endpoint_name = "users.search"
     search_request_headers = {"Accept": "application/json"}
     extension_name = "invenio-users-resources"
     name = "User details"
@@ -158,7 +160,8 @@ class UsersCreateView(AdminResourceCreateView):
     """Configuration for user create view."""
 
     url = "/users/create"
-    api_endpoint = "/users"
+    api_endpoint = "/users"  # DEPRECATED. Remove in v15
+    api_endpoint_name = "users.search"
     extension_name = "invenio-users-resources"
     name = "invenio-users-resources-create"
     resource_config = "users_resource"
