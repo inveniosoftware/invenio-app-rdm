@@ -9,7 +9,7 @@
 Changes
 =======
 
-Version v14.0.6 (released 2026-10-21)
+Version v14.0.6 (released 2026-10-30)
 
 - deps: reduce rdm-records pin for v14.1 isolation
 - fix(deposit): pass the record_quota max_file_size to the UI
