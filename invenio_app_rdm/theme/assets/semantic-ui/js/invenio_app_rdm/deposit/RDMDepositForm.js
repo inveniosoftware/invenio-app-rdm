@@ -2,7 +2,7 @@
  * SPDX-FileCopyrightText: 2020-2026 CERN.
  * SPDX-FileCopyrightText: 2020-2022 Northwestern University.
  * SPDX-FileCopyrightText: 2021-2022 Graz University of Technology.
- * SPDX-FileCopyrightText: 2022-2024 KTH Royal Institute of Technology.
+ * SPDX-FileCopyrightText: 2022-2026 KTH Royal Institute of Technology.
  * SPDX-License-Identifier: MIT
  */
 
@@ -48,6 +48,7 @@ import { ShareDraftButton } from "./ShareDraftButton";
 import { depositFormSectionsConfig, severityChecksConfig } from "./config";
 import { RecordDeletion } from "../components/RecordDeletion";
 import { FileModificationUntil } from "../components/FileModificationUntil";
+import { DepositAccordionField, isCustomSectionActive } from "./DepositAccordionField";
 
 export class RDMDepositForm extends Component {
   constructor(props) {
@@ -124,6 +125,7 @@ export class RDMDepositForm extends Component {
     const customFieldsUI = this.config.custom_fields.ui.map((section) => ({
       ...section,
       id: section.section.toLowerCase().replace(/\s+/g, "-") + "-section",
+      active: isCustomSectionActive(section, record, config.collapse_empty_sections),
     }));
     const UploaderField = useUppy ? UppyUploader : FileUploader;
 
@@ -425,11 +427,13 @@ export class RDMDepositForm extends Component {
                   config={this.config}
                   record={record}
                 >
-                  <AccordionField
+                  <DepositAccordionField
                     includesPaths={
                       this.sectionsConfig["recommended-information-section"]
                     }
                     severityChecks={this.severityChecks}
+                    record={record}
+                    active={!config.collapse_empty_sections}
                     label={i18next.t("Recommended information")}
                     id="recommended-information-section"
                   >
@@ -501,7 +505,6 @@ export class RDMDepositForm extends Component {
                       <DatesField
                         fieldPath="metadata.dates"
                         options={this.vocabularies.metadata.dates}
-                        showEmptyValue
                       />
                     </Overridable>
 
@@ -524,7 +527,7 @@ export class RDMDepositForm extends Component {
                       id="InvenioAppRdm.Deposit.AccordionFieldRecommendedInformation.extra"
                       {...overridableBlocksCommonProps}
                     />
-                  </AccordionField>
+                  </DepositAccordionField>
                 </Overridable>
                 <Overridable
                   id="InvenioAppRdm.Deposit.RecommendedInformation.after.container"
@@ -535,10 +538,11 @@ export class RDMDepositForm extends Component {
                   ui={this.accordionStyle}
                   record={record}
                 >
-                  <AccordionField
+                  <DepositAccordionField
                     includesPaths={this.sectionsConfig["funding-section"]}
                     severityChecks={this.severityChecks}
-                    active
+                    record={record}
+                    active={!config.collapse_empty_sections}
                     label={i18next.t("Funding")}
                     ui={this.accordionStyle}
                     id="funding-section"
@@ -629,7 +633,7 @@ export class RDMDepositForm extends Component {
                       id="InvenioAppRdm.Deposit.AccordionFieldFunding.extra"
                       {...overridableBlocksCommonProps}
                     />
-                  </AccordionField>
+                  </DepositAccordionField>
                 </Overridable>
                 <Overridable
                   id="InvenioAppRdm.Deposit.Funding.after.container"
@@ -640,10 +644,11 @@ export class RDMDepositForm extends Component {
                   vocabularies={this.vocabularies}
                   record={record}
                 >
-                  <AccordionField
+                  <DepositAccordionField
                     includesPaths={this.sectionsConfig["alternate-identifiers-section"]}
                     severityChecks={this.severityChecks}
-                    active
+                    record={record}
+                    active={!config.collapse_empty_sections}
                     label={i18next.t("Alternate identifiers")}
                     id="alternate-identifiers-section"
                   >
@@ -658,14 +663,13 @@ export class RDMDepositForm extends Component {
                         label={i18next.t("Alternate identifiers")}
                         labelIcon="barcode"
                         schemeOptions={this.vocabularies.metadata.identifiers.scheme}
-                        showEmptyValue
                       />
                     </Overridable>
                     <Overridable
                       id="InvenioAppRdm.Deposit.AccordionFieldAlternateIdentifiers.extra"
                       {...overridableBlocksCommonProps}
                     />
-                  </AccordionField>
+                  </DepositAccordionField>
                 </Overridable>
                 <Overridable
                   id="InvenioAppRdm.Deposit.AlternateIdentifiers.after.container"
@@ -677,10 +681,11 @@ export class RDMDepositForm extends Component {
                   vocabularies={this.vocabularies}
                   record={record}
                 >
-                  <AccordionField
+                  <DepositAccordionField
                     includesPaths={this.sectionsConfig["related-works-section"]}
                     severityChecks={this.severityChecks}
-                    active
+                    record={record}
+                    active={!config.collapse_empty_sections}
                     label={i18next.t("Related works")}
                     id="related-works-section"
                   >
@@ -693,14 +698,13 @@ export class RDMDepositForm extends Component {
                       <RelatedWorksField
                         fieldPath="metadata.related_identifiers"
                         options={this.vocabularies.metadata.related_identifiers}
-                        showEmptyValue
                       />
                     </Overridable>
                     <Overridable
                       id="InvenioAppRdm.Deposit.AccordionFieldRelatedWorks.extra"
                       {...overridableBlocksCommonProps}
                     />
-                  </AccordionField>
+                  </DepositAccordionField>
                 </Overridable>
                 <Overridable
                   id="InvenioAppRdm.Deposit.RelatedWorks.after.container"
@@ -711,10 +715,11 @@ export class RDMDepositForm extends Component {
                   vocabularies={this.vocabularies}
                   record={record}
                 >
-                  <AccordionField
+                  <DepositAccordionField
                     includesPaths={this.sectionsConfig["references-section"]}
                     severityChecks={this.severityChecks}
-                    active
+                    record={record}
+                    active={!config.collapse_empty_sections}
                     label={i18next.t("References")}
                     id="references-section"
                   >
@@ -724,13 +729,13 @@ export class RDMDepositForm extends Component {
                       vocabularies={this.vocabularies}
                       record={record}
                     >
-                      <ReferencesField fieldPath="metadata.references" showEmptyValue />
+                      <ReferencesField fieldPath="metadata.references" />
                     </Overridable>
                     <Overridable
                       id="InvenioAppRdm.Deposit.AccordionFieldReferences.extra"
                       {...overridableBlocksCommonProps}
                     />
-                  </AccordionField>
+                  </DepositAccordionField>
                 </Overridable>
                 <Overridable
                   id="InvenioAppRdm.Deposit.References.after.container"
