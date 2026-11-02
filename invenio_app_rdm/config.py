@@ -948,6 +948,14 @@ Feature toggle to enable the next-generation (NG) file uploader UI in the deposi
 When enabled, the deposit form will use the new Uppy.io-based file uploader, replacing the current file upload interface.
 """
 
+APP_RDM_DEPOSIT_FORM_COLLAPSE_EMPTY_SECTIONS = False
+"""Collapse empty optional deposit sections initially when enabled.
+
+Populated sections always start open. Instance component overrides and custom
+section ``active`` settings can change the initial preference for empty sections.
+Files, Basic information and discoverable custom-field sections are unaffected.
+"""
+
 APP_RDM_DEPOSIT_FORM_DEFAULTS = {
     "publication_date": lambda: datetime.now().strftime("%Y-%m-%d"),
     "rights": [
