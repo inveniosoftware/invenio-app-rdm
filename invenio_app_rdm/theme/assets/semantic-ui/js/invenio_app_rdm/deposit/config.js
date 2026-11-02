@@ -1,5 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2025 CERN.
+ * SPDX-FileCopyrightText: 2026 KTH Royal Institute of Technology.
  * SPDX-License-Identifier: MIT
  */
 
@@ -29,6 +30,7 @@ const depositFormSectionsConfig = {
   "funding-section": ["metadata.funding"],
   "alternate-identifiers-section": ["metadata.identifiers"],
   "related-works-section": ["metadata.related_identifiers"],
+  "references-section": ["metadata.references"],
   "visibility-section": ["access.files", "access.embargo.until"],
 };
 

@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: 2019-2026 CERN.
 # SPDX-FileCopyrightText: 2019-2021 Northwestern University.
 # SPDX-FileCopyrightText: 2021 TU Wien.
-# SPDX-FileCopyrightText: 2022-2025 KTH Royal Institute of Technology
+# SPDX-FileCopyrightText: 2022-2026 KTH Royal Institute of Technology
 # SPDX-FileCopyrightText: 2023-2024 Graz University of Technology.
 # SPDX-License-Identifier: MIT
 
@@ -408,6 +408,7 @@ def get_form_config(**kwargs):
         autocomplete_names=conf.get(
             "APP_RDM_DEPOSIT_FORM_AUTOCOMPLETE_NAMES", "search"
         ),
+        collapse_empty_sections=conf["APP_RDM_DEPOSIT_FORM_COLLAPSE_EMPTY_SECTIONS"],
         current_locale=str(current_i18n.locale),
         default_locale=conf.get("BABEL_DEFAULT_LOCALE", "en"),
         pids=get_form_pids_config(record=record),
