@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2020-2025 CERN.
+ * SPDX-FileCopyrightText: 2020-2026 CERN.
  * SPDX-FileCopyrightText: 2020-2021 Northwestern University.
  * SPDX-FileCopyrightText: 2021 Graz University of Technology.
  * SPDX-FileCopyrightText: 2025 CESNET i.a.l.e.
@@ -125,6 +125,15 @@ $("#file-list-table")
     const previewUrl = $(this).attr("href");
     const iframe = document.getElementById("preview-iframe");
     if (iframe && iframe.contentWindow) {
+      // The sandbox attribute applies from the next navigation, so it is set before it
+      const sandbox = this.dataset.sandbox;
+      if (sandbox) {
+        iframe.setAttribute("sandbox", sandbox);
+      } else {
+        iframe.removeAttribute("sandbox");
+      }
+      // Sandboxed previews have an opaque origin, so their location can't be read
+      iframe.dataset.previewUrl = previewUrl;
       iframe.contentWindow.location.replace(previewUrl);
 
       iframe.scrollIntoView({
