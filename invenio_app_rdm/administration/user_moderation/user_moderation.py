@@ -18,7 +18,8 @@ from invenio_search_ui.searchconfig import search_app_config
 class UserModerationListView(AdminResourceListView):
     """User moderation admin search view."""
 
-    api_endpoint = "/requests"
+    api_endpoint = "/requests"  # DEPRECATED. Remove in v15
+    api_endpoint_name = "requests.search"
     extension_name = "invenio-requests"
     name = "moderation"
     resource_config = "requests_resource"
@@ -132,7 +133,8 @@ class UserModerationRequestDetailView(AdminResourceDetailView):
 
     url = "/moderation/<pid_value>"
     extension_name = "invenio-requests"
-    api_endpoint = "/requests"
+    api_endpoint_name = "requests.search"
+    api_endpoint = "/requests"  # DEPRECATED. Remove in v15
     name = "user-moderation-details"
     resource_config = "requests_resource"
     title = _("User moderation")
