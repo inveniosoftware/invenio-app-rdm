@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import React, { Component } from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 import { connect as connectFormik } from "formik";
 import { connect } from "react-redux";
@@ -12,7 +12,7 @@ import { ShareButton } from "../landing_page/ShareOptions/ShareButton";
 
 class ShareDraftButtonComponent extends Component {
   isDisabled = (values, isSubmitting, numberOfFiles) => {
-    const { disabled } = this.props;
+    const { disabled = false } = this.props;
     if (disabled) return true;
 
     const filesEnabled = _get(values, "files.enabled", false);
@@ -48,10 +48,6 @@ ShareDraftButtonComponent.propTypes = {
   groupsEnabled: PropTypes.bool.isRequired,
   formik: PropTypes.object.isRequired,
   numberOfFiles: PropTypes.number.isRequired,
-};
-
-ShareDraftButtonComponent.defaultProps = {
-  disabled: false,
 };
 
 const mapStateToProps = (state) => ({

@@ -4,9 +4,9 @@
  * SPDX-License-Identifier: MIT
  */
 
-import React, { Component } from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
-import { Modal, Icon, Dropdown } from "semantic-ui-react";
+import { Modal, Dropdown } from "semantic-ui-react";
 import { ActionModal } from "@js/invenio_administration";
 import _isEmpty from "lodash/isEmpty";
 import { ImpersonateUserForm } from "./ImpersonateUserForm";
@@ -64,14 +64,9 @@ export class ImpersonateUser extends Component {
         <Dropdown.Item
           key="impersonate-user"
           onClick={this.onModalTriggerClick}
-          icon
-          fluid
-          basic
-          labelPosition="left"
-        >
-          <Icon name="spy" />
-          {i18next.t("Impersonate")}
-        </Dropdown.Item>
+          icon="spy"
+          text={i18next.t("Impersonate")}
+        />
         <ActionModal modalOpen={modalOpen} resource={user}>
           {modalHeader && <Modal.Header>{modalHeader}</Modal.Header>}
           {!_isEmpty(modalBody) && modalBody}
@@ -85,5 +80,3 @@ ImpersonateUser.propTypes = {
   user: PropTypes.object.isRequired,
   successCallback: PropTypes.func.isRequired,
 };
-
-ImpersonateUser.defaultProps = {};

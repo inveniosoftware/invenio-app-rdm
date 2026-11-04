@@ -5,7 +5,7 @@
 
 import { BoolFormatter, Actions } from "@js/invenio_administration";
 import PropTypes from "prop-types";
-import React, { Component } from "react";
+import { Component } from "react";
 import { Table, Dropdown, Icon, Button } from "semantic-ui-react";
 import { withState } from "react-searchkit";
 import { AdminUIRoutes } from "@js/invenio_administration/src/routes";
@@ -133,7 +133,7 @@ class SearchResultItemComponent extends Component {
           data-label={i18next.t("Links")}
           className="word-break-all"
         >
-          <Dropdown text={<Icon name="eye" />}>
+          <Dropdown trigger={<Icon name="eye" />}>
             <Dropdown.Menu>
               <Dropdown.Item
                 as="a"
@@ -176,7 +176,5 @@ SearchResultItemComponent.propTypes = {
   title: PropTypes.string.isRequired,
   updateQueryState: PropTypes.func.isRequired,
 };
-
-SearchResultItemComponent.defaultProps = {};
 
 export const SearchResultItemLayout = withState(SearchResultItemComponent);

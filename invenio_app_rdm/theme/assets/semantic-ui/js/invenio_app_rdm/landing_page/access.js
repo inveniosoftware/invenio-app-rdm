@@ -7,18 +7,16 @@
  */
 
 import { AccessRequestForm } from "./AccessRequestForm";
-import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 
 const recordAccessFormRoot = document.getElementById("access-request-form-root");
 if (recordAccessFormRoot) {
-  ReactDOM.render(
+  createRoot(recordAccessFormRoot).render(
     <AccessRequestForm
       record={JSON.parse(recordAccessFormRoot.dataset.record)}
       isAnonymous={JSON.parse(recordAccessFormRoot.dataset.userAnonymous)}
       email={JSON.parse(recordAccessFormRoot.dataset.userEmail)}
       fullName={JSON.parse(recordAccessFormRoot.dataset.userFullName)}
-    />,
-    recordAccessFormRoot
+    />
   );
 }

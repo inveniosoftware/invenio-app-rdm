@@ -4,7 +4,7 @@
  */
 
 import PropTypes from "prop-types";
-import React, { Component } from "react";
+import { Component } from "react";
 import { Button, Item, Table } from "semantic-ui-react";
 import { Image, toRelativeTime } from "react-invenio-forms";
 import { withState } from "react-searchkit";

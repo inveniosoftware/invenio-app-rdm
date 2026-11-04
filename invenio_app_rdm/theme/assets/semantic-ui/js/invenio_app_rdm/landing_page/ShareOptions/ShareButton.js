@@ -6,13 +6,18 @@
  * SPDX-License-Identifier: MIT
  */
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { Icon, Button, Popup } from "semantic-ui-react";
 import { ShareModal } from "./ShareModal";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import PropTypes from "prop-types";
 
-export const ShareButton = ({ disabled, record, permissions, groupsEnabled }) => {
+export const ShareButton = ({
+  disabled = false,
+  record,
+  permissions,
+  groupsEnabled,
+}) => {
   const [modalOpen, setModalOpen] = useState(false);
   const handleOpen = () => setModalOpen(true);
   const handleClose = () => setModalOpen(false);
@@ -54,8 +59,4 @@ ShareButton.propTypes = {
   record: PropTypes.object.isRequired,
   permissions: PropTypes.object.isRequired,
   groupsEnabled: PropTypes.bool.isRequired,
-};
-
-ShareButton.defaultProps = {
-  disabled: false,
 };

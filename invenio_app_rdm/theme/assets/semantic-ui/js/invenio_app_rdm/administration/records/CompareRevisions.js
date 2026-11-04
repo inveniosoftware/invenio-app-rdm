@@ -3,7 +3,7 @@
  * SPDX-FileCopyrightText: 2025 Graz University of Technology.
  * SPDX-License-Identifier: MIT
  */
-import React, { Component } from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 import { RecordModerationApi } from "./api";
 import { withCancel, ErrorMessage } from "react-invenio-forms";

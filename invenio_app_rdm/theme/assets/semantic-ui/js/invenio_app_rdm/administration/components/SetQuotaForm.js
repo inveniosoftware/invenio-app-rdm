@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import React, { Component } from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import { Formik } from "formik";
@@ -41,7 +41,12 @@ export class SetQuotaForm extends Component {
   handleSubmit = async (values) => {
     this.setState({ loading: true });
     const { addNotification } = this.context;
-    const { resource, actionSuccessCallback, setQuotaInBytes, apiUrl } = this.props;
+    const {
+      resource,
+      actionSuccessCallback,
+      setQuotaInBytes = false,
+      apiUrl,
+    } = this.props;
     let { notes, quota_size: quotaSize, max_file_size: maxFileSize } = values;
 
     const quotaInGb = !setQuotaInBytes && quotaSize;
@@ -100,7 +105,7 @@ export class SetQuotaForm extends Component {
 
   render() {
     const { error, loading } = this.state;
-    const { setQuotaInBytes } = this.props;
+    const { setQuotaInBytes = false } = this.props;
 
     return (
       <Formik
@@ -186,8 +191,4 @@ SetQuotaForm.propTypes = {
   actionCancelCallback: PropTypes.func.isRequired,
   apiUrl: PropTypes.string.isRequired,
   setQuotaInBytes: PropTypes.bool,
-};
-
-SetQuotaForm.defaultProps = {
-  setQuotaInBytes: false,
 };

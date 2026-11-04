@@ -2,7 +2,7 @@
  * SPDX-FileCopyrightText: 2022 CERN.
  * SPDX-License-Identifier: MIT
  */
-import React, { Component } from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 import { Button, Icon } from "semantic-ui-react";
 import { InvenioAdministrationActionsApi as adminAPI } from "@js/invenio_administration";
@@ -96,5 +96,3 @@ ModerationActions.propTypes = {
   resource: PropTypes.object.isRequired,
   successCallback: PropTypes.func.isRequired,
 };
-
-ModerationActions.defaultProps = {};
