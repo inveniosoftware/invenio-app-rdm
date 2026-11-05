@@ -1,0 +1,25 @@
+{#
+  SPDX-FileCopyrightText: 2026 TU Wien.
+  SPDX-License-Identifier: MIT
+#}
+
+{#
+  We provide an error page override, to avoid DB queries for banners on error pages
+  (e.g. 404, 500, ...).
+  Otherwise, (almost) every request to the UI creates a DB query for active banners.
+  If the repository is getting crawled by bots regularly, this can create a lot of
+  unnecessary DB connections.
+
+  The base "page_error" template renders the base page template, which is configured
+  to be "invenio_app_rdm/page.html" in Invenio-App-RDM.
+#}
+{%- extends "invenio_theme/page_error.html" -%}
+
+{#
+  Jinja only allows overriding *extended* templates but not *included* ones.
+  Since the "site_banner" block is defined in the header template which is
+  only included in the page template, we need to override the block there.
+#}
+{% block page_header %}
+  {% include "invenio_app_rdm/header_error.html" %}
+{% endblock %}
