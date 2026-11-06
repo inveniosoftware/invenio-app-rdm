@@ -167,3 +167,21 @@
   // bug in SUI
   margin: @selectionIconMargin !important;
 }
+
+/* Community records search header controls on mobile */
+.community-records-search-count {
+  white-space: nowrap;
+}
+
+.community-records-search-sort {
+  .ui.dropdown {
+    @media all and (max-width: @largestMobileScreen) {
+      min-width: 0 !important;
+
+      & > .menu {
+        min-width: 12em !important;
+      }
+    }
+  }
+}
+
