@@ -1,5 +1,5 @@
 {#
-  SPDX-FileCopyrightText: 2020-2025 CERN.
+  SPDX-FileCopyrightText: 2020-2026 CERN.
   SPDX-FileCopyrightText: 2020 Northwestern University.
   SPDX-FileCopyrightText: 2021 New York University.
   SPDX-FileCopyrightText: 2023 Front Matter.
@@ -9,13 +9,15 @@
 {%- from "invenio_formatter/macros/meta.html" import meta_twittercard, meta_opengraph, meta_highwire -%}
 
 {%- set meta_title = record_ui["metadata"]["title"]|striptags -%}
-{%- set meta_description = record_ui["metadata"]["description"]|striptags -%}
+{#- Keep descriptions and link-preview titles short: search engines and social cards show ~160 and ~70 characters. -#}
+{%- set meta_description = record_ui["metadata"]["description"]|striptags|truncate(160, end="…", leeway=0) -%}
+{%- set preview_title = meta_title|truncate(70, end="…", leeway=0) -%}
 {%- set meta_authors = record_ui["metadata"]["creators"]|map(attribute='person_or_org')|map(attribute='name') -%}
 {%- set files = record_ui["files"] %}
 
 {{- meta_highwire(meta_title,meta_description,authors=meta_authors,publisher=meta_publisher,publication_date=record_ui["publication_date"]|from_isodate,doi=record_ui["pids"].get("doi", {}).get("identifier"),keywords=record_ui["metadata"]["subjects"] | map(attribute="subject"),url=record_ui["links"]["self_html"]) }}
-{{- meta_opengraph(meta_title, meta_description, url=record_ui["links"]["self_html"]) }}
-{{- meta_twittercard(meta_title, meta_description) }}
+{{- meta_opengraph(preview_title, meta_description, url=record_ui["links"]["self_html"]) }}
+{{- meta_twittercard(preview_title, meta_description) }}
 
 {%- if permissions.can_read_files -%}
   {%- for file_name, file in files.entries.items() or {} -%}
