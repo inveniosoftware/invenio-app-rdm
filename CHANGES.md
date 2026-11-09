@@ -9,6 +9,21 @@ SPDX-License-Identifier: MIT
 
 # Changes
 
+## Version v15.0.0b7.dev0 (released 2026-11-10)
+
+- chore(setup): bump dependencies
+- feat: upgrade react to version 18
+- fix(ui): align community records search controls on mobile
+- fix(records): truncate meta description and link-preview title
+- feat(deposit): optionally collapse empty sections
+- docs: remove docs directory and switch to md formatting
+- fix: set meta line-height relative to them default line-height
+- fix(search): increase .meta class line-height to 1.43em
+- chore(tests): address deprecation es clear to search clear
+- feat+fix: add admin moderation requests API to correctly aggregate/filter
+- fix(deposit): pass the record_quota max_file_size to the UI
+- fix(previewer): handle zip preview errors
+
 ## Version v15.0.0b6.dev0 (released 2026-10-11)
 
 - fix(tombstone): make URLs in removal notes clickable
