@@ -147,39 +147,6 @@ $(".dropdown.export").dropdown({
   },
 });
 
-const $licensesPopup = $("#licenses .has-popup .license.clickable");
-
-// Licenses description popup
-$licensesPopup.popup({
-  on: "click",
-  popup: ".licenses-description",
-  position: "top right",
-  onVisible: function ($module) {
-    $($module).attr("aria-expanded", true);
-  },
-  onHidden: function ($module) {
-    $($module).attr("aria-expanded", false);
-  },
-});
-
-$licensesPopup.on("keydown", function (event) {
-  if (event.key === "Enter") {
-    $licensesPopup.popup("hide");
-    $(event.target).popup("show");
-  }
-});
-
-$("#licenses .licenses-description .close.icon").on({
-  click: function () {
-    $licensesPopup.popup("hide");
-  },
-  keydown: function (event) {
-    if (event.key === "Enter") {
-      $licensesPopup.popup("hide");
-    }
-  },
-});
-
 // Record management popup (mobile)
 $("#manage-record-btn").popup({
   popup: $("#recordManagementMobile"),
