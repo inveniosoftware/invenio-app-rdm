@@ -4,6 +4,7 @@
   SPDX-FileCopyrightText: 2021 Graz University of Technology.
   SPDX-FileCopyrightText: 2021 TU Wien.
   SPDX-FileCopyrightText: 2021 New York University.
+  Copyright (C) 2026 KTH Royal Institute of Technology.
   SPDX-License-Identifier: MIT
 #}
 
@@ -48,7 +49,7 @@
         class="trigger"
         aria-label="{{ _('File preview') }}"
       >
-        <span id="preview-file-title">{{ human_readable_file_name }}</span>
+        <span id="preview-file-title" class="text-break-wrap">{{ human_readable_file_name }}</span>
         <i class="angle right icon" aria-hidden="true"></i>
       </div>
     </h3>
@@ -132,7 +133,7 @@ To access its content, please download it and open it locally.') }}
 
         {%- set file_type = file.key.split('.')[-1] %}
         <tr>
-          <td class="ten wide">
+          <td class="ten wide text-break-wrap">
             <div>
               <a href="{{ file_url_download }}">{{ human_readable_file_name }}</a>
             </div>
