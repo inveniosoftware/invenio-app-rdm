@@ -9,6 +9,10 @@
 Changes
 =======
 
+Version v14.0.7 (released 2026-11-13)
+
+- deps: adjust rdm-records pin for v14.1 isolation
+
 Version v14.0.6 (released 2026-10-21)
 
 - deps: reduce rdm-records pin for v14.1 isolation
