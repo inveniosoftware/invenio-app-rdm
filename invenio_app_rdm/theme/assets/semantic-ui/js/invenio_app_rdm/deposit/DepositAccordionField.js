@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: MIT
  */
 
-import React from "react";
 import PropTypes from "prop-types";
 import _get from "lodash/get";
 import { AccordionField } from "react-invenio-forms";
@@ -23,7 +22,12 @@ export const isCustomSectionActive = (section, record, collapseEmptySections) =>
 
 // Apply the value safeguard after instance overrides select an active preference.
 // AccordionField owns the mounted state, so rerenders do not reset manual toggles.
-export const DepositAccordionField = ({ record, includesPaths, active, ...props }) => (
+export const DepositAccordionField = ({
+  record,
+  includesPaths,
+  active = true,
+  ...props
+}) => (
   <AccordionField
     {...props}
     includesPaths={includesPaths}
@@ -35,8 +39,4 @@ DepositAccordionField.propTypes = {
   record: PropTypes.object.isRequired,
   includesPaths: PropTypes.arrayOf(PropTypes.string).isRequired,
   active: PropTypes.bool,
-};
-
-DepositAccordionField.defaultProps = {
-  active: true,
 };
