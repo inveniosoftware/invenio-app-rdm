@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import { SuggestionsContext } from "./Context";
@@ -43,7 +43,7 @@ const getRichEditor = (fieldPath) => {
   if (!fieldElement) return null;
 
   const editorId = fieldElement.querySelector("textarea")?.id;
-  const editorManager = window.tinymce;
+  const editorManager = window.hugerte;
   return editorId && typeof editorManager?.get === "function"
     ? editorManager.get(editorId)
     : null;
@@ -106,7 +106,7 @@ const appendCreatorToFormik = (formik, creator) => {
   appendCreatorsToFormik(formik, [creator]);
 };
 
-export const SuggestionsProvider = ({ children }) => {
+export const SuggestionsProvider = ({ children = null }) => {
   const [state, setState] = useState({
     status: STATUS.IDLE,
     error: null,
@@ -414,8 +414,4 @@ export const SuggestionsProvider = ({ children }) => {
 
 SuggestionsProvider.propTypes = {
   children: PropTypes.node,
-};
-
-SuggestionsProvider.defaultProps = {
-  children: null,
 };
