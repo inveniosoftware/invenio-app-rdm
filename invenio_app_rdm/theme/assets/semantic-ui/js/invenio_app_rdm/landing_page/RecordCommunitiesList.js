@@ -1,9 +1,11 @@
 /*
  * SPDX-FileCopyrightText: 2023-2024 CERN.
  * SPDX-FileCopyrightText: 2024 KTH Royal Institute of Technology.
+ * SPDX-FileCopyrightText: 2026 KTH Royal Institute of Technology.
  * SPDX-License-Identifier: MIT
  */
 
+import { Trans } from "react-i18next";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import _isEmpty from "lodash/isEmpty";
 import PropTypes from "prop-types";
@@ -96,10 +98,18 @@ export class RecordCommunitiesList extends Component {
                       </Header>
                       {community.parent && (
                         <HeaderSubheader>
-                          {i18next.t("Part of")}{" "}
-                          <a href={`/communities/${community.parent.slug}`}>
-                            {i18next.t(community.parent.metadata.title)}
-                          </a>
+                          <Trans
+                            i18n={i18next}
+                            defaults={
+                              "Part of <communityLink>{{title}}</communityLink>"
+                            }
+                            values={{ title: community.parent.metadata.title }}
+                            components={{
+                              communityLink: (
+                                <a href={`/communities/${community.parent.slug}`} />
+                              ),
+                            }}
+                          />
                         </HeaderSubheader>
                       )}
                       {viewRequest && (

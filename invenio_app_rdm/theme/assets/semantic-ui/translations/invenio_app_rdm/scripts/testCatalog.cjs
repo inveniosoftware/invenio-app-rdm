@@ -62,3 +62,9 @@ test("extract AccessRequestForm messages", () => {
   "We have sent you an email to verify your address. Please check the email and follow the instructions to complete the access request."
 ]);
 });
+
+test("extract RecordCommunitiesList messages", () => {
+  assertExtractedMessages("invenio_app_rdm/landing_page/RecordCommunitiesList.js", [
+  "Part of <communityLink>{{title}}</communityLink>"
+]);
+});
