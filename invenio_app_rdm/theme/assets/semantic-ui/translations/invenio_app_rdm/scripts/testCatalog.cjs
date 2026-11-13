@@ -47,3 +47,12 @@ test("extract SearchResultItemLayout messages", () => {
   "{{id}} | version {{version}}"
 ]);
 });
+
+test("extract UserActions messages", () => {
+  assertExtractedMessages("invenio_app_rdm/administration/users/UserActions.js", [
+  "User {{name}} was restored.",
+  "User {{name}} was suspended.",
+  "User {{name}} was approved.",
+  "User {{name}} was activated."
+]);
+});
