@@ -2,9 +2,11 @@
  * SPDX-FileCopyrightText: 2020-2024 CERN.
  * SPDX-FileCopyrightText: 2020-2026 Northwestern University.
  * SPDX-FileCopyrightText: 2021 Graz University of Technology.
+ * SPDX-FileCopyrightText: 2026 KTH Royal Institute of Technology.
  * SPDX-License-Identifier: MIT
  */
 
+import { Trans } from "react-i18next";
 import _get from "lodash/get";
 import { useEffect, useState } from "react";
 import { Grid, Icon, Message, Placeholder, List, Divider } from "semantic-ui-react";
@@ -189,13 +191,16 @@ export const RecordVersionsList = ({ record, isPreview }) => {
         <List.Item className="parent-doi pr-0">
           <List.Content floated="left">
             <p className="text-muted">
-              <strong>{i18next.t("Cite all versions?")}</strong>{" "}
-              {i18next.t("You can cite all versions by using the DOI")}{" "}
-              <a href={recordDeserialized.links.parent_doi}>{recordParentDOI}</a>.{" "}
-              {i18next.t(
-                "This DOI represents all versions, and will always resolve to the latest one."
-              )}{" "}
-              <a href="/help/versioning">{i18next.t("Read more")}</a>.
+              <Trans
+                i18n={i18next}
+                defaults="<bold>Cite all versions?</bold> You can cite all versions by using the DOI <doiLink>{{doi}}</doiLink>. This DOI represents all versions, and will always resolve to the latest one. <helpLink>Read more</helpLink>."
+                values={{ doi: recordParentDOI }}
+                components={{
+                  bold: <strong />,
+                  doiLink: <a href={recordDeserialized.links.parent_doi} />,
+                  helpLink: <a href="/help/versioning" />,
+                }}
+              />
             </p>
           </List.Content>
         </List.Item>
@@ -204,11 +209,15 @@ export const RecordVersionsList = ({ record, isPreview }) => {
         <List.Item className="parent-doi pr-0">
           <List.Content floated="left">
             <p className="text-muted">
-              <strong>{i18next.t("Cite all versions?")}</strong>{" "}
-              {i18next.t("You can cite all versions by using the DOI")}{" "}
-              {recordDraftParentDOIFormat}.{" "}
-              {i18next.t("The DOI is registered when the first version is published.")}{" "}
-              <a href="/help/versioning">{i18next.t("Read more")}</a>.
+              <Trans
+                i18n={i18next}
+                defaults="<bold>Cite all versions?</bold> You can cite all versions by using the DOI {{doi}}. The DOI is registered when the first version is published. <helpLink>Read more</helpLink>."
+                values={{ doi: recordDraftParentDOIFormat }}
+                components={{
+                  bold: <strong />,
+                  helpLink: <a href="/help/versioning" />,
+                }}
+              />
             </p>
           </List.Content>
         </List.Item>

@@ -3,9 +3,11 @@
  * SPDX-FileCopyrightText: 2020-2021 Northwestern University.
  * SPDX-FileCopyrightText: 2021 Graz University of Technology.
  * SPDX-FileCopyrightText: 2021-2022 New York University.
+ * SPDX-FileCopyrightText: 2026 KTH Royal Institute of Technology.
  * SPDX-License-Identifier: MIT
  */
 
+import { Trans } from "react-i18next";
 import {
   SearchBar,
   MultipleOptionsSearchBarRSK,
@@ -222,17 +224,28 @@ export const RDMEmptyResults = ({
               {i18next.t("ProTip")}!
             </Header>
             <p>
-              <a href={`${searchPath}?q=metadata.publication_date:[2025-01-01 TO *]`}>
-                metadata.publication_date:[2025-01-01 TO *]
-              </a>{" "}
-              {i18next.t("will give you all the publications from 2025 until today.")}
+              <Trans
+                i18n={i18next}
+                defaults="<queryLink>metadata.publication_date:[2025-01-01 TO *]</queryLink> will give you all the publications from 2025 until today."
+                components={{
+                  queryLink: (
+                    <a
+                      href={`${searchPath}?q=metadata.publication_date:[2025-01-01 TO *]`}
+                    />
+                  ),
+                }}
+              />
             </p>
             <p>
-              {i18next.t("For more tips, check out our ")}{" "}
-              <a href="/help/search" title={i18next.t("Search guide")}>
-                {i18next.t("search guide")}
-              </a>{" "}
-              {i18next.t("for defining advanced search queries.")}
+              <Trans
+                i18n={i18next}
+                defaults="For more tips, check out our <guideLink>search guide</guideLink> for defining advanced search queries."
+                components={{
+                  guideLink: (
+                    <a href="/help/search" title={i18next.t("Search guide")} />
+                  ),
+                }}
+              />
             </p>
           </Segment>
         </Grid.Column>

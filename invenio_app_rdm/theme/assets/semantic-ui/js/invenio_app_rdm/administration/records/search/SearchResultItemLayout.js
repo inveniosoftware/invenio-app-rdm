@@ -2,6 +2,7 @@
  * SPDX-FileCopyrightText: 2023-2024 CERN.
  * SPDX-FileCopyrightText: 2024 KTH Royal Institute of Technology.
  * SPDX-FileCopyrightText: 2024 Northwestern University.
+ * SPDX-FileCopyrightText: 2026 KTH Royal Institute of Technology.
  * SPDX-License-Identifier: MIT
  */
 
@@ -70,7 +71,10 @@ class SearchResultItemComponent extends Component {
           </a>
           <br />
           <div className="text-muted">
-            {result.id} | {i18next.t("version")} {result.versions.index}
+            {i18next.t("{{id}} | version {{version}}", {
+              id: result.id,
+              version: result.versions.index,
+            })}
           </div>
         </Table.Cell>
         <Table.Cell

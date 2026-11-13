@@ -13,6 +13,7 @@
     "extract_messages": "i18next-scanner --config i18next-scanner.config.js '../../js/**/*.{js,jsx}' '!../../js/**/node_modules/**'",
     "postextract_messages": "node ./scripts/postExtractMessages.js",
     "compile_catalog": "node ./scripts/compileCatalog.js",
-    "init_catalog": "node ./scripts/initCatalog"
+    "init_catalog": "node ./scripts/initCatalog",
+    "test_catalog": "node ./scripts/testCatalog.cjs"
   }
 }

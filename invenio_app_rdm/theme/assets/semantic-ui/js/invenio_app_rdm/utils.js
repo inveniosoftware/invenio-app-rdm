@@ -98,9 +98,7 @@ export function SearchItemCreators({ creators, className, othersLink }) {
     result.push(
       <span className={spanClass} key={text}>
         <a className="creatibutor-link" href={othersLink}>
-          <span className="creatibutor-name">
-            {i18next.t(text, { count: numExtra })}
-          </span>
+          <span className="creatibutor-name">{text}</span>
         </a>
       </span>
     );
