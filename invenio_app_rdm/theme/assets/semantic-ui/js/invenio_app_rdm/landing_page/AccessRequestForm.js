@@ -1,6 +1,7 @@
 /*
  * SPDX-FileCopyrightText: 2024 CERN.
  * SPDX-FileCopyrightText: 2024 KTH Royal Institute of Technology.
+ * SPDX-FileCopyrightText: 2026 KTH Royal Institute of Technology.
  * SPDX-License-Identifier: MIT
  */
 
@@ -223,10 +224,9 @@ export class AccessRequestForm extends Component {
           <Modal.Header>{i18next.t("Email confirmation needed")}</Modal.Header>
           <Modal.Content>
             <Modal.Description>
-              {i18next.t("We have sent you an email to verify your address.")}
-              {i18next.t(`
-                Please check the email and follow the instructions to complete the access request.
-              `)}
+              {i18next.t(
+                "We have sent you an email to verify your address. Please check the email and follow the instructions to complete the access request."
+              )}
             </Modal.Description>
           </Modal.Content>
           <Modal.Actions>

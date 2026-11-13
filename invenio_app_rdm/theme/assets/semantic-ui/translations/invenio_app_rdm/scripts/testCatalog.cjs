@@ -56,3 +56,9 @@ test("extract UserActions messages", () => {
   "User {{name}} was activated."
 ]);
 });
+
+test("extract AccessRequestForm messages", () => {
+  assertExtractedMessages("invenio_app_rdm/landing_page/AccessRequestForm.js", [
+  "We have sent you an email to verify your address. Please check the email and follow the instructions to complete the access request."
+]);
+});
