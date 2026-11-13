@@ -29,3 +29,9 @@ test("extract ImpersonateUserForm messages", () => {
   "You <bold>MUST</bold> logout after completing your inquiry."
 ]);
 });
+
+test("extract SetQuotaAction messages", () => {
+  assertExtractedMessages("invenio_app_rdm/administration/components/SetQuotaAction.js", [
+  "<bold>Note:</bold> This is the default quota that will be applied to any NEW records created by this user - it will NOT update quota of existing records."
+]);
+});

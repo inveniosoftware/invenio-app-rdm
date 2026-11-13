@@ -1,8 +1,10 @@
 /*
  * SPDX-FileCopyrightText: 2023-2024 CERN.
+ * SPDX-FileCopyrightText: 2026 KTH Royal Institute of Technology.
  * SPDX-License-Identifier: MIT
  */
 
+import { Trans } from "react-i18next";
 import { Component } from "react";
 import PropTypes from "prop-types";
 import { Button, Modal, Icon, Checkbox } from "semantic-ui-react";
@@ -73,10 +75,13 @@ export class SetQuotaAction extends Component {
           {!isRecord && (
             <Modal.Content>
               <p>
-                <strong>{i18next.t("Note")}:</strong>{" "}
-                {i18next.t(
-                  "This is the default quota that will be applied to any NEW records created by this user - it will NOT update quota of existing records."
-                )}
+                <Trans
+                  i18n={i18next}
+                  defaults={
+                    "<bold>Note:</bold> This is the default quota that will be applied to any NEW records created by this user - it will NOT update quota of existing records."
+                  }
+                  components={{ bold: <strong /> }}
+                />
               </p>
             </Modal.Content>
           )}
