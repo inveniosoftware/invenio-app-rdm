@@ -1,9 +1,11 @@
 /*
  * SPDX-FileCopyrightText: 2023 CERN.
  * SPDX-FileCopyrightText: 2023 KTH Royal Institute of Technology
+ * SPDX-FileCopyrightText: 2026 KTH Royal Institute of Technology.
  * SPDX-License-Identifier: MIT
  */
 
+import { Trans } from "react-i18next";
 import { Component, createRef } from "react";
 import { Button, Modal, Message, Icon, Checkbox, Popup } from "semantic-ui-react";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
@@ -136,11 +138,14 @@ export class RemoveFromCommunityAction extends Component {
                   label={
                     /* eslint-disable-next-line jsx-a11y/label-has-associated-control */
                     <label>
-                      {i18next.t("Members of the community ")}
-                      <b>"{communityTitle}"</b>
-                      {i18next.t(" will ")}
-                      <u>{i18next.t("lose their access")}</u>
-                      {i18next.t(" to the record.")}
+                      <Trans
+                        i18n={i18next}
+                        defaults={
+                          'Members of the community <bold>"{{communityTitle}}"</bold> will <underline>lose their access</underline> to the record.'
+                        }
+                        values={{ communityTitle }}
+                        components={{ bold: <b />, underline: <u /> }}
+                      />
                     </label>
                   }
                   checked={checkboxMembers}

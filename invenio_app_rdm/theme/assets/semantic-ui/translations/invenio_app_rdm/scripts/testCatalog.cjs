@@ -75,3 +75,9 @@ test("extract RecordVersionsList messages", () => {
   "<bold>Cite all versions?</bold> You can cite all versions by using the DOI {{doi}}. The DOI is registered when the first version is published. <helpLink>Read more</helpLink>."
 ]);
 });
+
+test("extract RemoveFromCommunityAction messages", () => {
+  assertExtractedMessages("invenio_app_rdm/landing_page/RemoveFromCommunity/RemoveFromCommunityAction.js", [
+  "Members of the community <bold>\"{{communityTitle}}\"</bold> will <underline>lose their access</underline> to the record."
+]);
+});
