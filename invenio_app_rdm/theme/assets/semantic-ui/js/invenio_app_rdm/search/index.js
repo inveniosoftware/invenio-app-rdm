@@ -15,6 +15,7 @@ import {
   RDMRecordSearchBarContainer,
   RDMRecordMultipleSearchBarElement,
   RDMToggleComponent,
+  RDMResultOptions,
 } from "./components";
 import { parametrize, overrideStore } from "react-overridable";
 import {
@@ -49,6 +50,7 @@ export const defaultComponents = {
   [`${appName}.EmptyResults.element`]: RDMEmptyResults,
   [`${appName}.ResultsList.item`]: RDMRecordResultsListItemWithConfig,
   [`${appName}.SearchApp.facets`]: ContribSearchAppFacetsWithConfig,
+  [`${appName}.SearchApp.resultOptions`]: RDMResultOptions,
   [`${appName}.SearchApp.searchbarContainer`]: RDMRecordSearchBarContainerWithConfig,
   [`${appName}.SearchBar.element`]: RDMRecordMultipleSearchBarElement,
   [`${appName}.Count.element`]: RDMCountComponent,
