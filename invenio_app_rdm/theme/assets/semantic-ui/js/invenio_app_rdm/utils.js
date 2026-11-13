@@ -99,7 +99,7 @@ export function SearchItemCreators({ creators, className, othersLink }) {
       <span className={spanClass} key={text}>
         <a className="creatibutor-link" href={othersLink}>
           <span className="creatibutor-name">
-            {i18next.t(text, { count: numExtra })}
+            {text}
           </span>
         </a>
       </span>
