@@ -68,3 +68,10 @@ test("extract RecordCommunitiesList messages", () => {
   "Part of <communityLink>{{title}}</communityLink>"
 ]);
 });
+
+test("extract RecordVersionsList messages", () => {
+  assertExtractedMessages("invenio_app_rdm/landing_page/RecordVersionsList.js", [
+  "<bold>Cite all versions?</bold> You can cite all versions by using the DOI <doiLink>{{doi}}</doiLink>. This DOI represents all versions, and will always resolve to the latest one. <helpLink>Read more</helpLink>.",
+  "<bold>Cite all versions?</bold> You can cite all versions by using the DOI {{doi}}. The DOI is registered when the first version is published. <helpLink>Read more</helpLink>."
+]);
+});
