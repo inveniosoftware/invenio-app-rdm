@@ -193,9 +193,7 @@ export const RecordVersionsList = ({ record, isPreview }) => {
             <p className="text-muted">
               <Trans
                 i18n={i18next}
-                defaults={
-                  "<bold>Cite all versions?</bold> You can cite all versions by using the DOI <doiLink>{{doi}}</doiLink>. This DOI represents all versions, and will always resolve to the latest one. <helpLink>Read more</helpLink>."
-                }
+                defaults="<bold>Cite all versions?</bold> You can cite all versions by using the DOI <doiLink>{{doi}}</doiLink>. This DOI represents all versions, and will always resolve to the latest one. <helpLink>Read more</helpLink>."
                 values={{ doi: recordParentDOI }}
                 components={{
                   bold: <strong />,
@@ -213,9 +211,7 @@ export const RecordVersionsList = ({ record, isPreview }) => {
             <p className="text-muted">
               <Trans
                 i18n={i18next}
-                defaults={
-                  "<bold>Cite all versions?</bold> You can cite all versions by using the DOI {{doi}}. The DOI is registered when the first version is published. <helpLink>Read more</helpLink>."
-                }
+                defaults="<bold>Cite all versions?</bold> You can cite all versions by using the DOI {{doi}}. The DOI is registered when the first version is published. <helpLink>Read more</helpLink>."
                 values={{ doi: recordDraftParentDOIFormat }}
                 components={{
                   bold: <strong />,

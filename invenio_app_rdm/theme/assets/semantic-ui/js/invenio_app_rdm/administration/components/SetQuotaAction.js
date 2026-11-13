@@ -77,9 +77,7 @@ export class SetQuotaAction extends Component {
               <p>
                 <Trans
                   i18n={i18next}
-                  defaults={
-                    "<bold>Note:</bold> This is the default quota that will be applied to any NEW records created by this user - it will NOT update quota of existing records."
-                  }
+                  defaults="<bold>Note:</bold> This is the default quota that will be applied to any NEW records created by this user - it will NOT update quota of existing records."
                   components={{ bold: <strong /> }}
                 />
               </p>

@@ -226,9 +226,7 @@ export const RDMEmptyResults = ({
             <p>
               <Trans
                 i18n={i18next}
-                defaults={
-                  "<queryLink>metadata.publication_date:[2025-01-01 TO *]</queryLink> will give you all the publications from 2025 until today."
-                }
+                defaults="<queryLink>metadata.publication_date:[2025-01-01 TO *]</queryLink> will give you all the publications from 2025 until today."
                 components={{
                   queryLink: (
                     <a
@@ -241,9 +239,7 @@ export const RDMEmptyResults = ({
             <p>
               <Trans
                 i18n={i18next}
-                defaults={
-                  "For more tips, check out our <guideLink>search guide</guideLink> for defining advanced search queries."
-                }
+                defaults="For more tips, check out our <guideLink>search guide</guideLink> for defining advanced search queries."
                 components={{
                   guideLink: (
                     <a href="/help/search" title={i18next.t("Search guide")} />

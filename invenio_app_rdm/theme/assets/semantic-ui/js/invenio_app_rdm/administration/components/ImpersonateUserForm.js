@@ -121,9 +121,7 @@ export class ImpersonateUserForm extends Component {
                       label={
                         <Trans
                           i18n={i18next}
-                          defaults={
-                            "You are about to impersonate user <bold>{{email}} (id: {{id}})</bold>."
-                          }
+                          defaults="You are about to impersonate user <bold>{{email}} (id: {{id}})</bold>."
                           values={{ email: user.email, id: user.id }}
                           components={{ bold: <b /> }}
                         />
@@ -151,9 +149,7 @@ export class ImpersonateUserForm extends Component {
                       label={
                         <Trans
                           i18n={i18next}
-                          defaults={
-                            "You <bold>MUST</bold> logout after completing your inquiry."
-                          }
+                          defaults="You <bold>MUST</bold> logout after completing your inquiry."
                           components={{ bold: <b /> }}
                         />
                       }

@@ -100,9 +100,7 @@ export class RecordCommunitiesList extends Component {
                         <HeaderSubheader>
                           <Trans
                             i18n={i18next}
-                            defaults={
-                              "Part of <communityLink>{{title}}</communityLink>"
-                            }
+                            defaults="Part of <communityLink>{{title}}</communityLink>"
                             values={{ title: community.parent.metadata.title }}
                             components={{
                               communityLink: (

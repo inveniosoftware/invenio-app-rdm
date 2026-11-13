@@ -98,9 +98,7 @@ export function SearchItemCreators({ creators, className, othersLink }) {
     result.push(
       <span className={spanClass} key={text}>
         <a className="creatibutor-link" href={othersLink}>
-          <span className="creatibutor-name">
-            {text}
-          </span>
+          <span className="creatibutor-name">{text}</span>
         </a>
       </span>
     );
