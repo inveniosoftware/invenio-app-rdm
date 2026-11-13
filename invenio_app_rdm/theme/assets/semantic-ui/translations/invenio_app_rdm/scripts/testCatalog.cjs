@@ -81,3 +81,10 @@ test("extract RemoveFromCommunityAction messages", () => {
   "Members of the community <bold>\"{{communityTitle}}\"</bold> will <underline>lose their access</underline> to the record."
 ]);
 });
+
+test("extract components messages", () => {
+  assertExtractedMessages("invenio_app_rdm/search/components.js", [
+  "<queryLink>metadata.publication_date:[2025-01-01 TO *]</queryLink> will give you all the publications from 2025 until today.",
+  "For more tips, check out our <guideLink>search guide</guideLink> for defining advanced search queries."
+]);
+});
