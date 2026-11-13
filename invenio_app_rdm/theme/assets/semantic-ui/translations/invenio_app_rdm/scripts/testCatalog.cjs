@@ -41,3 +41,9 @@ test("extract RestoreConfirmation messages", () => {
   "Are you sure you want to restore #{{id}} <bold>\"{{title}}\"</bold>?"
 ]);
 });
+
+test("extract SearchResultItemLayout messages", () => {
+  assertExtractedMessages("invenio_app_rdm/administration/records/search/SearchResultItemLayout.js", [
+  "{{id}} | version {{version}}"
+]);
+});
