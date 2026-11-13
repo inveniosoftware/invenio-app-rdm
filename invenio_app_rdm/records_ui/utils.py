@@ -1,6 +1,7 @@
 # SPDX-FileCopyrightText: 2020-2026 CERN.
 # SPDX-FileCopyrightText: 2020 Northwestern University.
 # SPDX-FileCopyrightText: 2021 TU Wien.
+# SPDX-FileCopyrightText: 2026 California Institute of Technology.
 # SPDX-License-Identifier: MIT
 
 """Utility functions."""
@@ -203,7 +204,7 @@ def evaluate_quota_increase(record, identity):
             current_rdm_records_storage_service.additional_storage(user_id, record)
         )
         quota_increase["maxAdditionalStorage"] = (
-            current_rdm_records_storage_service.max_additional_quota
+            current_rdm_records_storage_service.user_max_additional_quota(user_id)
         )
         quota_increase["minAdditionalQuotaValue"] = (
             current_rdm_records_storage_service.min_additional_quota_value(
