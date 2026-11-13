@@ -35,3 +35,9 @@ test("extract SetQuotaAction messages", () => {
   "<bold>Note:</bold> This is the default quota that will be applied to any NEW records created by this user - it will NOT update quota of existing records."
 ]);
 });
+
+test("extract RestoreConfirmation messages", () => {
+  assertExtractedMessages("invenio_app_rdm/administration/records/RestoreConfirmation.js", [
+  "Are you sure you want to restore #{{id}} <bold>\"{{title}}\"</bold>?"
+]);
+});

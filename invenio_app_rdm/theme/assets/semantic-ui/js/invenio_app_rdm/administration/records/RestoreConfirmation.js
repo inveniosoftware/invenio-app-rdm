@@ -1,9 +1,11 @@
 /*
  * SPDX-FileCopyrightText: 2023 CERN.
  * SPDX-FileCopyrightText: 2024 KTH Royal Institute of Technology.
+ * SPDX-FileCopyrightText: 2026 KTH Royal Institute of Technology.
  * SPDX-License-Identifier: MIT
  */
 
+import { Trans } from "react-i18next";
 import { RecordModerationApi } from "./api";
 import { Component } from "react";
 import PropTypes from "prop-types";
@@ -74,8 +76,14 @@ export class RestoreConfirmation extends Component {
           />
         )}
         <Modal.Content>
-          {i18next.t("Are you sure you want to restore #{{id}}", { id: resource.id })}
-          <b>"{resource.metadata.title}"</b> ?
+          <Trans
+            i18n={i18next}
+            defaults={
+              'Are you sure you want to restore #{{id}} <bold>"{{title}}"</bold>?'
+            }
+            values={{ id: resource.id, title: resource.metadata.title }}
+            components={{ bold: <b /> }}
+          />
         </Modal.Content>
         <Modal.Actions>
           <Button onClick={this.handleModalClose} floated="left">
