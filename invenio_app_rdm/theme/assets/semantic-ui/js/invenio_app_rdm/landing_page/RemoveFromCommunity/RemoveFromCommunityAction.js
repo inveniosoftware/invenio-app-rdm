@@ -28,12 +28,8 @@ export class RemoveFromCommunityAction extends Component {
 
   componentDidUpdate() {
     const { modalOpen } = this.state;
-    if (modalOpen && this.checkBoxRef) {
-      const {
-        current: { inputRef },
-      } = this.checkBoxRef;
-      inputRef?.current?.focus(); // A11y: Focus first interactive element when modal opens
-    }
+    if (!modalOpen) return;
+    this.checkBoxRef.current?.focus?.();
   }
 
   openConfirmModal = () => this.setState({ modalOpen: true });
