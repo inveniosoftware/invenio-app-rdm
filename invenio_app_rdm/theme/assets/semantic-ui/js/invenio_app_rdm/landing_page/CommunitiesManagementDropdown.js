@@ -26,12 +26,7 @@ export class CommunitiesManagementDropdown extends Component {
 
   focusDropdownRef = () => {
     // A11y: Bring focus to the dropdown menu (e.g. when the modal closes)
-    const {
-      current: {
-        ref: { current: dropdownToggle },
-      },
-    } = this.dropdownRef;
-    dropdownToggle.focus();
+    this.dropdownRef.current?.focus?.();
   };
 
   handleSuccessAction = (data, text) => {

@@ -110,8 +110,8 @@ export class RecordResourceActions extends Component {
                     actionKey
                   )
                 }
-                fluid
                 basic
+                icon
                 labelPosition="left"
               >
                 {icon && <Icon name={icon} />}
@@ -131,8 +131,8 @@ export class RecordResourceActions extends Component {
                     actionKey
                   )
                 }
-                fluid
                 basic
+                icon
                 labelPosition="left"
               >
                 {icon && <Icon name={icon} />}
@@ -153,6 +153,7 @@ export class RecordResourceActions extends Component {
                   )
                 }
                 fluid
+                icon
                 labelPosition="left"
               >
                 {icon && <Icon name={icon} />}

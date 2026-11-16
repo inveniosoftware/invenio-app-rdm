@@ -6,7 +6,7 @@
 
 import RemovalReasonsSelect from "./RemovalReasonsSelect";
 import { RecordModerationApi } from "../records/api";
-import { Component } from "react";
+import { Component, createRef } from "react";
 import PropTypes from "prop-types";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import { Formik } from "formik";
@@ -33,6 +33,11 @@ export default class TombstoneForm extends Component {
       citation_text: Yup.string(),
       is_visible: Yup.bool().required(),
     });
+    this.firstFieldRef = createRef();
+  }
+
+  componentDidMount() {
+    this.firstFieldRef.current?.focus?.();
   }
 
   componentWillUnmount() {
@@ -119,6 +124,7 @@ export default class TombstoneForm extends Component {
                 <Form className="full-width">
                   <Button.Group widths={2} fluid>
                     <Button
+                      ref={this.firstFieldRef}
                       color={values.is_visible ? "green" : ""}
                       active={values.is_visible}
                       // }
