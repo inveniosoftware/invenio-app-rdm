@@ -57,7 +57,7 @@ theme = WebpackThemeBundle(
                 "react-dnd-html5-backend": "^11.1.0",
                 "react-dropzone": "^11.0.0",
                 "react-i18next": "^11.11.0",
-                "react-invenio-forms": "^5.0.0",
+                "react-invenio-forms": "^5.0.2",
                 "react-searchkit": "^4.0.0",
                 "react-overridable": "^1.0.0",
                 "yup": "^0.32.0",
@@ -77,20 +77,6 @@ theme = WebpackThemeBundle(
                 "@translations/invenio_app_rdm": "translations/invenio_app_rdm",
             },
             copy=[
-                # Copy some assets into "static/dist", as HugeRTE requires that
-                # Note that the base path for all entries is the `config.json` directory
-                {
-                    "from": "../node_modules/hugerte/skins/content/default/content.css",
-                    "to": "../../static/dist/js/skins/content/default",
-                },
-                {
-                    "from": "../node_modules/hugerte/skins/ui/oxide/skin.min.css",
-                    "to": "../../static/dist/js/skins/ui/oxide",
-                },
-                {
-                    "from": "../node_modules/hugerte/skins/ui/oxide/content.min.css",
-                    "to": "../../static/dist/js/skins/ui/oxide",
-                },
                 {
                     "from": "../node_modules/json-diff-kit/dist/viewer.css",
                     "to": "../../static/css/json-diff-kit.css",
