@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2019-2021 CERN.
+# SPDX-FileCopyrightText: 2019-2026 CERN.
 # SPDX-FileCopyrightText: 2019-2022 Northwestern University.
 # SPDX-FileCopyrightText: 2021 TU Wien.
 # SPDX-License-Identifier: MIT
@@ -36,6 +36,7 @@ from .filters import (
     namespace_url,
     order_entries,
     pid_url,
+    preview_sandbox,
     select_preview_file,
     to_previewer_files,
     transform_record,
@@ -187,6 +188,7 @@ def create_blueprint(app):
     blueprint.add_app_template_filter(make_files_preview_compatible)
     blueprint.add_app_template_filter(pid_url)
     blueprint.add_app_template_filter(select_preview_file)
+    blueprint.add_app_template_filter(preview_sandbox)
     blueprint.add_app_template_filter(to_previewer_files)
     blueprint.add_app_template_filter(has_previewable_files)
     blueprint.add_app_template_filter(order_entries)
