@@ -8,6 +8,9 @@ Disallow: /me
 Disallow: /login
 Disallow: /logout
 Disallow: /records/*/preview
+Disallow: /records/*/files
+Disallow: /api/records/*/files
+Disallow: /api/records/*/files-archive
 Crawl-delay: 10
 
 {%- for url_of_sitemap_index in urls_of_sitemap_indices %}
