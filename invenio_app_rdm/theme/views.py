@@ -7,7 +7,7 @@
 
 """Routes for general pages provided by Invenio-App-RDM."""
 
-from flask import Blueprint, current_app, flash, render_template, request
+from flask import Blueprint, Response, current_app, flash, render_template, request
 from flask_login import current_user
 from invenio_db import db
 from invenio_i18n import get_locale
@@ -64,9 +64,12 @@ def index():
 
 def robots():
     """Robots.txt."""
-    return render_template(
-        "invenio_app_rdm/robots.txt",
-        urls_of_sitemap_indices=iterate_urls_of_sitemap_indices(),
+    return Response(
+        render_template(
+            "invenio_app_rdm/robots.txt",
+            urls_of_sitemap_indices=iterate_urls_of_sitemap_indices(),
+        ),
+        mimetype="text/plain",
     )
 
 
