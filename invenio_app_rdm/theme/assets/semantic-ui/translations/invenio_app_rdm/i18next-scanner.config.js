@@ -1,5 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2021 Graz University of Technology.
+ * SPDX-FileCopyrightText: 2026 KTH Royal Institute of Technology.
  * SPDX-License-Identifier: MIT
  */
 

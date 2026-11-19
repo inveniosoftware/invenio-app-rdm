@@ -1,27 +1,45 @@
-# -*- coding: utf-8 -*-
 #
-# Copyright (C) 2019 CERN.
-# Copyright (C) 2019 Northwestern University.
-# Copyright (C) 2023 Graz University of Technology.
+# SPDX-FileCopyrightText: 2019 CERN.
+# SPDX-FileCopyrightText: 2019 Northwestern University.
+# SPDX-FileCopyrightText: 2023 Graz University of Technology.
+# SPDX-FileCopyrightText: 2026 KTH Royal Institute of Technology.
+# SPDX-License-Identifier: MIT
 #
-# Invenio App RDM is free software; you can redistribute it and/or modify it
-# under the terms of the MIT License; see LICENSE file for more details.
 
-# Translate python strings
-# 1) Create message catalog:
-#    $ pybabel extract -F pyproject.toml -o invenio_app_rdm/translations/messages.pot invenio_app_rdm
-#    $ pybabel init -i invenio_app_rdm/translations/messages.pot -d invenio_app_rdm/translations -l <lang>
-#    $ pybabel compile -d invenio_app_rdm/translations --use-fuzzy
-# 2) Ensure project has been created on Transifex under the invenio-app-rdm
-#    organisation.
-# 3) Install the transifex-client
-#    see: https://developers.transifex.com/docs/cli#transifex-client
-# 4) Push source (.pot) and translations (.po) to Transifex
-#    $ tx push -s -t
-# 5) Pull translations for a single language from Transifex
-#    $ tx pull -l <lang>
-# 6) Pull translations for all languages from Transifex
-#    $ tx pull -a
+# Workflow: backend extract, pull and compile
+# Requires an authenticated Transifex CLI.
+# 1) $ cd "$(git rev-parse --show-toplevel)"
+# 2) $ pybabel extract -F pyproject.toml -o invenio_app_rdm/translations/messages.pot invenio_app_rdm
+# 3) $ tx pull -a
+# 4) $ pybabel compile -d invenio_app_rdm/translations
+
+# Workflow: frontend extract, pull and compile (from repository root)
+# 1) $ cd invenio_app_rdm/theme/assets/semantic-ui/translations/invenio_app_rdm
+# 2) $ npm ci
+# 3) $ npm run extract_messages
+# 4) Parentheses run in a subshell, keeping your current directory:
+#    $ (cd "$(git rev-parse --show-toplevel)" && tx pull -a)
+#    # Still in the frontend translation directory.
+# 5) $ npm run compile_catalog
+
+# Optional workflow: push extracted sources
+# 1) $ cd "$(git rev-parse --show-toplevel)"
+# 2) $ tx push -s
+
+# Optional workflow: new backend language
+# 1) $ cd "$(git rev-parse --show-toplevel)"
+# 2) $ pybabel init -i invenio_app_rdm/translations/messages.pot -d invenio_app_rdm/translations -l <lang>
+# 3) Translate the PO file, then compile:
+#    $ pybabel compile -d invenio_app_rdm/translations -l <lang>
+
+# Add languages in Transifex, then pull.
+# Optional: local frontend language (development only, from repository root)
+# 1) $ cd invenio_app_rdm/theme/assets/semantic-ui/translations/invenio_app_rdm
+# 2) $ npm ci
+# 3) $ npm run init_catalog lang <lang>
+# 4) $ npm run extract_messages
+# 5) Translate the PO file, then compile:
+#    $ npm run compile_catalog lang <lang>
 
 [main]
 host = https://app.transifex.com
@@ -32,28 +50,6 @@ source_file = invenio_app_rdm/translations/messages.pot
 source_lang = en
 type = PO
 
-# Translate JavaScript strings
-# 1) Navigate to the directory:
-#    cd invenio_app_rdm/theme/assets/semantic-ui/translations/invenio_app_rdm
-# 2) Install i18n dev dependencies
-#    npm install
-# 3) Add a new language
-#    npm run init_catalog lang <lang>
-# 4) Extract translation keys/values
-#    $ npm run extract_messages
-# 5) Install the transifex-client
-#    see: https://developers.transifex.com/docs/cli#transifex-client
-# 6) Push source (.pot) and translations (.po) to Transifex
-#    Navigate to the root of the invenio_administration repository
-#    $ tx push -s -t
-# 7) Pull translations for a single language from Transifex
-#    $ tx pull -l <lang>
-# 8) Pull translations for all languages from Transifex
-#    $ tx pull -a
-# 9) Compile .po files for all languages
-#    $ npm run compile_catalog
-# 10) Convert .po file for a single language
-#    $ npm run compile_catalog lang <lang>
 
 [o:inveniosoftware:p:invenio:r:invenio-app-rdm-messages-ui]
 file_filter = invenio_app_rdm/theme/assets/semantic-ui/translations/invenio_app_rdm/messages/<lang>/messages.po
