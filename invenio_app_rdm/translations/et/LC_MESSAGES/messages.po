@@ -8,7 +8,6 @@
 # Mart Jantson, 2022
 # Martin Jantson <martinjantson97@gmail.com>, 2025
 # 
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: invenio-app-rdm 12.0.15\n"
