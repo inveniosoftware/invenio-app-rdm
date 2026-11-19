@@ -654,7 +654,7 @@ OAISERVER_METADATA_FORMATS = {
     },
     "dcat": {
         "serializer": "invenio_rdm_records.oai:dcat_etree",
-        "schema": "http://schema.datacite.org/meta/kernel-4/metadata.xsd",
+        "schema": "https://www.w3.org/ns/dcat.rdf",
         "namespace": "https://www.w3.org/ns/dcat",
     },
     "marc21": {
