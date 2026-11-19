@@ -1,5 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2023-2024 CERN.
+ * SPDX-FileCopyrightText: 2026 California Institute of Technology.
  * SPDX-License-Identifier: MIT
  */
 
@@ -86,6 +87,7 @@ export class SetQuotaAction extends Component {
             resource={resource}
             apiUrl={apiUrl}
             setQuotaInBytes={setQuotaInBytes}
+            showMaxAdditionalQuota={!isRecord}
           />
         </ActionModal>
       </>
