@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-11-12T10:27:48.153Z\n"
-"PO-Revision-Date: 2026-11-12T10:27:48.153Z\n"
+"POT-Creation-Date: 2026-11-18T13:56:26.508Z\n"
+"PO-Revision-Date: 2026-11-18T13:56:26.509Z\n"
 "Language: en\n"
 
 msgid "Recent changes"
@@ -64,18 +64,6 @@ msgstr ""
 "Please read carefully and confirm the following statements before you "
 "proceed."
 
-msgid "You are about to impersonate user "
-msgstr "You are about to impersonate user "
-
-msgid "You "
-msgstr "You "
-
-msgid "MUST"
-msgstr "MUST"
-
-msgid " logout after completing your inquiry."
-msgstr " logout after completing your inquiry."
-
 msgid "Close"
 msgstr "Close"
 
@@ -87,13 +75,6 @@ msgstr "Set quota in bytes"
 
 msgid "Note"
 msgstr "Note"
-
-msgid ""
-"This is the default quota that will be applied to any NEW records created "
-"by this user - it will NOT update quota of existing records."
-msgstr ""
-"This is the default quota that will be applied to any NEW records created "
-"by this user - it will NOT update quota of existing records."
 
 msgid "Unable to set quota."
 msgstr "Unable to set quota."
@@ -188,9 +169,6 @@ msgstr "Record {{id}} was restored."
 msgid "Unable to restore."
 msgstr "Unable to restore."
 
-msgid "Are you sure you want to restore #{{id}}"
-msgstr "Are you sure you want to restore #{{id}}"
-
 msgid "Published"
 msgstr "Published"
 
@@ -202,9 +180,6 @@ msgstr "Scheduled for purge"
 
 msgid "Empty draft title"
 msgstr "Empty draft title"
-
-msgid "version"
-msgstr "version"
 
 msgid "Owner"
 msgstr "Owner"
@@ -459,20 +434,6 @@ msgstr "Request access"
 msgid "Email confirmation needed"
 msgstr "Email confirmation needed"
 
-msgid "We have sent you an email to verify your address."
-msgstr "We have sent you an email to verify your address."
-
-msgid ""
-"\n"
-"                Please check the email and follow the instructions to "
-"complete the access request.\n"
-"              "
-msgstr ""
-"\n"
-"                Please check the email and follow the instructions to "
-"complete the access request.\n"
-"              "
-
 msgid "An error occurred while fetching communities."
 msgstr "An error occurred while fetching communities."
 
@@ -553,9 +514,6 @@ msgstr "Style"
 msgid "This record is not included in any communities yet."
 msgstr "This record is not included in any communities yet."
 
-msgid "Part of"
-msgstr "Part of"
-
 msgid "Search for community..."
 msgstr "Search for community..."
 
@@ -588,21 +546,6 @@ msgid_plural "View all {{count}} versions"
 msgstr[0] "View all {{count}} versions"
 msgstr[1] "View all {{count}} versions"
 
-msgid "Cite all versions?"
-msgstr "Cite all versions?"
-
-msgid "You can cite all versions by using the DOI"
-msgstr "You can cite all versions by using the DOI"
-
-msgid "This DOI represents all versions, and will always resolve to the latest one."
-msgstr "This DOI represents all versions, and will always resolve to the latest one."
-
-msgid "Read more"
-msgstr "Read more"
-
-msgid "The DOI is registered when the first version is published."
-msgstr "The DOI is registered when the first version is published."
-
 msgid "Remove"
 msgstr "Remove"
 
@@ -617,18 +560,6 @@ msgstr "Are you sure you want to remove the record from the community?"
 
 msgid "I understand the consequences:"
 msgstr "I understand the consequences:"
-
-msgid "Members of the community "
-msgstr "Members of the community "
-
-msgid " will "
-msgstr " will "
-
-msgid "lose their access"
-msgstr "lose their access"
-
-msgid " to the record."
-msgstr " to the record."
 
 msgid ""
 "The record can only be re-included in the community by going through a new "
@@ -877,20 +808,8 @@ msgstr "Start over"
 msgid "ProTip"
 msgstr "ProTip"
 
-msgid "will give you all the publications from 2025 until today."
-msgstr "will give you all the publications from 2025 until today."
-
-msgid "For more tips, check out our "
-msgstr "For more tips, check out our "
-
 msgid "Search guide"
 msgstr "Search guide"
-
-msgid "search guide"
-msgstr "search guide"
-
-msgid "for defining advanced search queries."
-msgstr "for defining advanced search queries."
 
 msgid "This community has no subcommunities"
 msgstr "This community has no subcommunities"
@@ -1162,3 +1081,83 @@ msgstr "Search by full name, username or email (if publicly visible)"
 
 msgid "your search"
 msgstr "your search"
+
+msgid "You are about to impersonate user <bold>{{email}} (id: {{id}})</bold>."
+msgstr "You are about to impersonate user <bold>{{email}} (id: {{id}})</bold>."
+
+msgid "You <bold>MUST</bold> logout after completing your inquiry."
+msgstr "You <bold>MUST</bold> logout after completing your inquiry."
+
+msgid ""
+"<bold>Note:</bold> This is the default quota that will be applied to any "
+"NEW records created by this user - it will NOT update quota of existing "
+"records."
+msgstr ""
+"<bold>Note:</bold> This is the default quota that will be applied to any "
+"NEW records created by this user - it will NOT update quota of existing "
+"records."
+
+msgid "Are you sure you want to restore #{{id}} <bold>\"{{title}}\"</bold>?"
+msgstr "Are you sure you want to restore #{{id}} <bold>\"{{title}}\"</bold>?"
+
+msgid "{{id}} | version {{version}}"
+msgstr "{{id}} | version {{version}}"
+
+msgid "User {{name}} was restored."
+msgstr "User {{name}} was restored."
+
+msgid "User {{name}} was suspended."
+msgstr "User {{name}} was suspended."
+
+msgid "User {{name}} was activated."
+msgstr "User {{name}} was activated."
+
+msgid ""
+"We have sent you an email to verify your address. Please check the email "
+"and follow the instructions to complete the access request."
+msgstr ""
+"We have sent you an email to verify your address. Please check the email "
+"and follow the instructions to complete the access request."
+
+msgid "Part of <communityLink>{{title}}</communityLink>"
+msgstr "Part of <communityLink>{{title}}</communityLink>"
+
+msgid ""
+"<bold>Cite all versions?</bold> You can cite all versions by using the DOI "
+"<doiLink>{{doi}}</doiLink>. This DOI represents all versions, and will "
+"always resolve to the latest one. <helpLink>Read more</helpLink>."
+msgstr ""
+"<bold>Cite all versions?</bold> You can cite all versions by using the DOI "
+"<doiLink>{{doi}}</doiLink>. This DOI represents all versions, and will "
+"always resolve to the latest one. <helpLink>Read more</helpLink>."
+
+msgid ""
+"<bold>Cite all versions?</bold> You can cite all versions by using the DOI "
+"{{doi}}. The DOI is registered when the first version is published. "
+"<helpLink>Read more</helpLink>."
+msgstr ""
+"<bold>Cite all versions?</bold> You can cite all versions by using the DOI "
+"{{doi}}. The DOI is registered when the first version is published. "
+"<helpLink>Read more</helpLink>."
+
+msgid ""
+"Members of the community <bold>\"{{communityTitle}}\"</bold> will "
+"<underline>lose their access</underline> to the record."
+msgstr ""
+"Members of the community <bold>\"{{communityTitle}}\"</bold> will "
+"<underline>lose their access</underline> to the record."
+
+msgid ""
+"For more tips, check out our <guideLink>search guide</guideLink> for "
+"defining advanced search queries."
+msgstr ""
+"For more tips, check out our <guideLink>search guide</guideLink> for "
+"defining advanced search queries."
+
+msgctxt ""
+"date:[2025-01-01 TO *]</queryLink> will give you all the publications from "
+"2025 until today."
+msgid "<queryLink>metadata.publication"
+msgstr ""
+"<queryLink>metadata.publication_date:[2025-01-01 TO *]</queryLink> will "
+"give you all the publications from 2025 until today."

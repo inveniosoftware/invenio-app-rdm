@@ -1,9 +1,11 @@
 /*
  * SPDX-FileCopyrightText: 2023 CERN.
  * SPDX-FileCopyrightText: 2024 KTH Royal Institute of Technology.
+ * SPDX-FileCopyrightText: 2026 KTH Royal Institute of Technology.
  * SPDX-License-Identifier: MIT
  */
 
+import { Trans } from "react-i18next";
 import { Component } from "react";
 import PropTypes from "prop-types";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
@@ -117,13 +119,12 @@ export class ImpersonateUserForm extends Component {
                       control={Checkbox}
                       fieldPath="acceptImpersonation"
                       label={
-                        <>
-                          {i18next.t("You are about to impersonate user ")}
-                          <b>
-                            {user.email} (id: {user.id})
-                          </b>
-                          .
-                        </>
+                        <Trans
+                          i18n={i18next}
+                          defaults="You are about to impersonate user <bold>{{email}} (id: {{id}})</bold>."
+                          values={{ email: user.email, id: user.id }}
+                          components={{ bold: <b /> }}
+                        />
                       }
                       checked={_get(values, "acceptImpersonation") === true}
                       onChange={({ data, formikProps }) => {
@@ -146,11 +147,11 @@ export class ImpersonateUserForm extends Component {
                       control={Checkbox}
                       fieldPath="acceptToLogout"
                       label={
-                        <>
-                          {i18next.t("You ")}
-                          <b>{i18next.t("MUST")}</b>
-                          {i18next.t(" logout after completing your inquiry.")}
-                        </>
+                        <Trans
+                          i18n={i18next}
+                          defaults="You <bold>MUST</bold> logout after completing your inquiry."
+                          components={{ bold: <b /> }}
+                        />
                       }
                       checked={_get(values, "acceptToLogout") === true}
                       onChange={({ data, formikProps }) => {
