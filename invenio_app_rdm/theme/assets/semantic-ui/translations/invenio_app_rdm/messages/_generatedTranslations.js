@@ -6,12 +6,14 @@ import TRANSLATE_BG from "./bg/translations.json";
 import TRANSLATE_CA from "./ca/translations.json";
 import TRANSLATE_CS from "./cs/translations.json";
 import TRANSLATE_DA from "./da/translations.json";
+import TRANSLATE_DA_DK from "./da_DK/translations.json";
 import TRANSLATE_DE from "./de/translations.json";
 import TRANSLATE_EL from "./el/translations.json";
 import TRANSLATE_EN from "./en/translations.json";
 import TRANSLATE_ES from "./es/translations.json";
 import TRANSLATE_ET from "./et/translations.json";
 import TRANSLATE_FA from "./fa/translations.json";
+import TRANSLATE_FI from "./fi/translations.json";
 import TRANSLATE_FR from "./fr/translations.json";
 import TRANSLATE_HR from "./hr/translations.json";
 import TRANSLATE_HU from "./hu/translations.json";
@@ -27,6 +29,7 @@ import TRANSLATE_RO from "./ro/translations.json";
 import TRANSLATE_RU from "./ru/translations.json";
 import TRANSLATE_SK from "./sk/translations.json";
 import TRANSLATE_SV from "./sv/translations.json";
+import TRANSLATE_TH from "./th/translations.json";
 import TRANSLATE_TR from "./tr/translations.json";
 import TRANSLATE_UK from "./uk/translations.json";
 import TRANSLATE_ZH_CN from "./zh_CN/translations.json";
@@ -38,12 +41,14 @@ export const translations = {
   ca: { translation: TRANSLATE_CA },
   cs: { translation: TRANSLATE_CS },
   da: { translation: TRANSLATE_DA },
+  da_DK: { translation: TRANSLATE_DA_DK },
   de: { translation: TRANSLATE_DE },
   el: { translation: TRANSLATE_EL },
   en: { translation: TRANSLATE_EN },
   es: { translation: TRANSLATE_ES },
   et: { translation: TRANSLATE_ET },
   fa: { translation: TRANSLATE_FA },
+  fi: { translation: TRANSLATE_FI },
   fr: { translation: TRANSLATE_FR },
   hr: { translation: TRANSLATE_HR },
   hu: { translation: TRANSLATE_HU },
@@ -59,6 +64,7 @@ export const translations = {
   ru: { translation: TRANSLATE_RU },
   sk: { translation: TRANSLATE_SK },
   sv: { translation: TRANSLATE_SV },
+  th: { translation: TRANSLATE_TH },
   tr: { translation: TRANSLATE_TR },
   uk: { translation: TRANSLATE_UK },
   zh_CN: { translation: TRANSLATE_ZH_CN },

@@ -58,24 +58,28 @@ export class UserActions extends Component {
         icon: "undo",
         apiFunction: UserModerationApi.restoreUser,
         notificationTitle: i18next.t("Restored"),
+        notificationContent: i18next.t("User {{name}} was restored.", { name }),
       },
       deactivate: {
         label: i18next.t("Suspend"),
         icon: "pause",
         apiFunction: UserModerationApi.deactivateUser,
         notificationTitle: i18next.t("Suspended"),
+        notificationContent: i18next.t("User {{name}} was suspended.", { name }),
       },
       approve: {
         label: i18next.t("Approve"),
         icon: "check",
         apiFunction: UserModerationApi.approveUser,
         notificationTitle: i18next.t("Approved"),
+        notificationContent: i18next.t("User {{name}} was approved.", { name }),
       },
       activate: {
         label: i18next.t("Activate"),
         icon: "check",
         apiFunction: UserModerationApi.activateUser,
         notificationTitle: i18next.t("Activated"),
+        notificationContent: i18next.t("User {{name}} was activated.", { name }),
       },
     }[action];
 
@@ -83,12 +87,7 @@ export class UserActions extends Component {
       this.cancellableAction = withCancel(actionConfig.apiFunction(user));
       const successNotification = {
         title: actionConfig.notificationTitle,
-        content: i18next.t(
-          `User {{name}} was ${actionConfig.notificationTitle.toLowerCase()}.`,
-          {
-            name: name,
-          }
-        ),
+        content: actionConfig.notificationContent,
         type: "success",
       };
 

@@ -7,7 +7,6 @@
 # Translators:
 # Minjae Kwon, 2024
 # 
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: invenio-app-rdm 12.0.15\n"

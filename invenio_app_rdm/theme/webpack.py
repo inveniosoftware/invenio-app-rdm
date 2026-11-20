@@ -2,6 +2,7 @@
 # SPDX-FileCopyrightText: 2019-2022 Northwestern University.
 # SPDX-FileCopyrightText: 2022 TU Wien.
 # SPDX-FileCopyrightText: 2022 Graz University of Technology.
+# SPDX-FileCopyrightText: 2026 KTH Royal Institute of Technology.
 # SPDX-License-Identifier: MIT
 
 """JS/CSS Webpack bundles for theme."""
@@ -48,15 +49,15 @@ theme = WebpackThemeBundle(
                 "@microlink/react-json-view": "^1.31.20",
                 "hugerte": "^1.0.11",
                 "formik": "^2.4.9",
-                "i18next": "^20.3.0",
-                "i18next-browser-languagedetector": "^6.1.0",
+                "i18next": "^27.1.1",
+                "i18next-browser-languagedetector": "^8.3.0",
                 "luxon": "^1.23.0",
                 "path": "^0.12.7",
                 "prop-types": "^15.7.2",
                 "react-dnd": "^11.1.0",
                 "react-dnd-html5-backend": "^11.1.0",
                 "react-dropzone": "^11.0.0",
-                "react-i18next": "^11.11.0",
+                "react-i18next": "^18.0.1",
                 "react-invenio-forms": "^5.0.0",
                 "react-searchkit": "^4.0.0",
                 "react-overridable": "^1.0.0",

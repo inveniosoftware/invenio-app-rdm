@@ -1,0 +1,1152 @@
+# Translators:
+# Suthep Yonphimai <tomztt@gmail.com>, 2026
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2026-06-22T20:53:26.159Z\n"
+"PO-Revision-Date: 2021-07-14 16:07+0000\n"
+"Last-Translator: Suthep Yonphimai <tomztt@gmail.com>, 2026\n"
+"Language-Team: Thai (https://app.transifex.com/inveniosoftware/teams/23537/th/)\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: th\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"mime-version: 1.0\n"
+
+msgid "Recent changes"
+msgstr "การเปลี่ยนแปลงล่าสุด"
+
+msgid "Audit Log Details"
+msgstr "รายละเอียดบันทึกการตรวจสอบ"
+
+msgid "Resource"
+msgstr "ทรัพยากร"
+
+msgid "Resource ID"
+msgstr "รหัสทรัพยากร"
+
+msgid "Action"
+msgstr "การดำเนินการ"
+
+msgid "User"
+msgstr "ผู้ใช้"
+
+msgid "Created"
+msgstr "สร้างเมื่อ"
+
+msgid "No revision ID found."
+msgstr "ไม่พบรหัสเวอร์ชัน"
+
+msgid "Unable to fetch revisions."
+msgstr "ไม่สามารถดึงข้อมูลเวอร์ชันได้"
+
+msgid "Cancel revision comparison"
+msgstr "ยกเลิกการเปรียบเทียบเวอร์ชัน"
+
+msgid "Impersonate user"
+msgstr "แอบอ้างตัวตนผู้ใช้"
+
+msgid "Impersonate"
+msgstr "แอบอ้างตัวตน"
+
+msgid "You must accept this."
+msgstr "คุณต้องยอมรับข้อนี้"
+
+msgid "Success"
+msgstr "สำเร็จ"
+
+msgid ""
+"User impersonated succesfully! You will be redirected in frontpage soon."
+msgstr "แอบอ้างตัวตนผู้ใช้สำเร็จ คุณจะถูกเปลี่ยนเส้นทางไปยังหน้าหลักเร็วๆ นี้"
+
+msgid "Unable to impersonate user."
+msgstr "ไม่สามารถแอบอ้างตัวตนผู้ใช้ได้"
+
+msgid ""
+"Please read carefully and confirm the following statements before you "
+"proceed."
+msgstr "กรุณาอ่านอย่างละเอียดและยืนยันข้อความต่อไปนี้ก่อนดำเนินการ"
+
+msgid "You are about to impersonate user "
+msgstr "คุณกำลังจะแอบอ้างตัวตนผู้ใช้ "
+
+msgid "You "
+msgstr "คุณ "
+
+msgid "MUST"
+msgstr "ต้อง"
+
+msgid " logout after completing your inquiry."
+msgstr " ออกจากระบบหลังจากเสร็จสิ้นการสืบค้น"
+
+msgid "Close"
+msgstr "ปิด"
+
+msgid "Set Quota"
+msgstr "ตั้งค่าโควต้า"
+
+msgid "Set quota in bytes"
+msgstr "ตั้งค่าโควต้าเป็นไบต์"
+
+msgid "Note"
+msgstr "หมายเหตุ"
+
+msgid ""
+"This is the default quota that will be applied to any NEW records created by"
+" this user - it will NOT update quota of existing records."
+msgstr ""
+"นี่คือโควต้าเริ่มต้นที่จะใช้กับระเบียนใหม่ที่ผู้ใช้นี้สร้าง — "
+"จะไม่อัปเดตโควต้าของระเบียนที่มีอยู่"
+
+msgid "Unable to set quota."
+msgstr "ไม่สามารถตั้งค่าโควต้าได้"
+
+msgid "Quota size ({{unit}})"
+msgstr "ขนาดโควต้า ({{unit}})"
+
+msgid "Enter quota size..."
+msgstr "ระบุขนาดโควต้า..."
+
+msgid "Max file size ({{unit}})"
+msgstr "ขนาดไฟล์สูงสุด ({{unit}})"
+
+msgid "Enter max file size..."
+msgstr "ระบุขนาดไฟล์สูงสุด..."
+
+msgid "Ticket 1234"
+msgstr "Ticket 1234"
+
+msgid "Set quota"
+msgstr "ตั้งค่าโควต้า"
+
+msgid "Domain"
+msgstr "โดเมน"
+
+msgid "Flagged"
+msgstr "ถูกตั้งค่าสถานะ"
+
+msgid "Organization"
+msgstr "องค์กร"
+
+msgid "Company"
+msgstr "บริษัท"
+
+msgid "Mail provider"
+msgstr "ผู้ให้บริการอีเมล"
+
+msgid "Spammer"
+msgstr "ผู้ส่งสแปม"
+
+msgid "TLD"
+msgstr "TLD"
+
+msgid "Status"
+msgstr "สถานะ"
+
+msgid "New"
+msgstr "ใหม่"
+
+msgid "Moderated"
+msgstr "ต้องกลั่นกรอง"
+
+msgid "Verified"
+msgstr "ตรวจสอบแล้ว"
+
+msgid "Blocked"
+msgstr "ถูกบล็อก"
+
+msgid "Users"
+msgstr "ผู้ใช้"
+
+msgid "Active"
+msgstr "ใช้งานอยู่"
+
+msgid "Inactive"
+msgstr "ไม่ใช้งาน"
+
+msgid "Confirmed"
+msgstr "ยืนยันแล้ว"
+
+msgid "Links"
+msgstr "ลิงก์"
+
+msgid "Set quota for record {{recordId}}"
+msgstr "ตั้งค่าโควต้าสำหรับระเบียน {{recordId}}"
+
+msgid "Compare revisions"
+msgstr "เปรียบเทียบเวอร์ชัน"
+
+msgid "Delete record"
+msgstr "ลบระเบียน"
+
+msgid "Restore record"
+msgstr "กู้คืนระเบียน"
+
+msgid "Unavailability statement"
+msgstr "คำชี้แจงความไม่พร้อมใช้งาน"
+
+msgid "Record {{id}} was restored."
+msgstr "กู้คืนระเบียน {{id}} สำเร็จแล้ว"
+
+msgid "Unable to restore."
+msgstr "ไม่สามารถกู้คืนได้"
+
+msgid "Are you sure you want to restore #{{id}}"
+msgstr "คุณแน่ใจหรือไม่ว่าต้องการกู้คืน #{{id}}"
+
+msgid "Published"
+msgstr "เผยแพร่แล้ว"
+
+msgid "Deleted"
+msgstr "ถูกลบแล้ว"
+
+msgid "Scheduled for purge"
+msgstr "กำหนดให้ลบถาวร"
+
+msgid "Empty draft title"
+msgstr "ชื่อฉบับร่างว่างเปล่า"
+
+msgid "version"
+msgstr "เวอร์ชัน"
+
+msgid "Owner"
+msgstr "เจ้าของ"
+
+msgid "System"
+msgstr "ระบบ"
+
+msgid "Files"
+msgstr "ไฟล์"
+
+msgid "Stats"
+msgstr "สถิติ"
+
+msgid "Record {{id}} was deleted."
+msgstr "ลบระเบียน {{id}} สำเร็จแล้ว"
+
+msgid "Unable to delete"
+msgstr "ไม่สามารถลบได้"
+
+msgid "Public"
+msgstr "สาธารณะ"
+
+msgid "Hidden"
+msgstr "ซ่อน"
+
+msgid ""
+"The tombstone is set to hidden but your record is public. Best practice is "
+"to provide a public tombstone when deactivating public records."
+msgstr ""
+"บันทึกลบถูกตั้งเป็นซ่อน แต่ระเบียนของคุณเป็นสาธารณะ "
+"แนวปฏิบัติที่ดีคือควรมีบันทึกลบสาธารณะเมื่อปิดใช้งานระเบียนสาธารณะ"
+
+msgid ""
+"RISK INFORMATION LEAKAGE: The tombstone is set to public but your record is "
+"restricted. Please make sure no restricted information is shared in the "
+"tombstone below."
+msgstr ""
+"ความเสี่ยงการรั่วไหลของข้อมูล: "
+"บันทึกลบถูกตั้งเป็นสาธารณะแต่ระเบียนของคุณถูกจำกัดการเข้าถึง "
+"กรุณาตรวจสอบให้แน่ใจว่าไม่มีข้อมูลที่จำกัดในบันทึกลบด้านล่าง"
+
+msgid "Bibliographic citation"
+msgstr "การอ้างอิงบรรณานุกรม"
+
+msgid ""
+"Input citation text. Blank field will be filled with APA citation by "
+"default."
+msgstr "ระบุข้อความอ้างอิง หากเว้นว่างจะใช้รูปแบบ APA โดยค่าเริ่มต้น"
+
+msgid "Public note"
+msgstr "หมายเหตุสาธารณะ"
+
+msgid "User {{name}} was approved."
+msgstr "อนุมัติผู้ใช้ {{name}} แล้ว"
+
+msgid "User {{name}} is blocked."
+msgstr "บล็อกผู้ใช้ {{name}} แล้ว"
+
+msgid "Error"
+msgstr "ข้อผิดพลาด"
+
+msgid "Email"
+msgstr "อีเมล"
+
+msgid "Email domain"
+msgstr "โดเมนอีเมล"
+
+msgid "Actions"
+msgstr "การดำเนินการ"
+
+msgid "Records"
+msgstr "ระเบียน"
+
+msgid "Username"
+msgstr "ชื่อผู้ใช้"
+
+msgid "GitHub"
+msgstr "GitHub"
+
+msgid "Updated"
+msgstr "อัปเดตเมื่อ"
+
+msgid "Drafts"
+msgstr "ฉบับร่าง"
+
+msgid "Moderation"
+msgstr "การกลั่นกรอง"
+
+msgid "Restore"
+msgstr "กู้คืน"
+
+msgid "Restored"
+msgstr "กู้คืนแล้ว"
+
+msgid "Block"
+msgstr "บล็อก"
+
+msgid "Suspend"
+msgstr "ระงับ"
+
+msgid "Suspended"
+msgstr "ถูกระงับ"
+
+msgid "Approve"
+msgstr "อนุมัติ"
+
+msgid "Approved"
+msgstr "อนุมัติแล้ว"
+
+msgid "Activate"
+msgstr "เปิดใช้งาน"
+
+msgid "Activated"
+msgstr "เปิดใช้งานแล้ว"
+
+msgid "Set default quota for {{email}}"
+msgstr "ตั้งค่าโควต้าเริ่มต้นสำหรับ {{email}}"
+
+msgid "Filter results"
+msgstr "กรองผลลัพธ์"
+
+msgid "Search records in community..."
+msgstr "ค้นหาระเบียนในชุมชน..."
+
+msgid "results found"
+msgstr "พบผลลัพธ์"
+
+msgid "Sort by"
+msgstr "เรียงตาม"
+
+msgid "Search records..."
+msgstr "ค้นหาระเบียน..."
+
+msgid "Search"
+msgstr "ค้นหา"
+
+msgid "Views"
+msgstr "การดู"
+
+msgid "Downloads"
+msgstr "การดาวน์โหลด"
+
+msgid "Copy to clipboard"
+msgstr "คัดลอกไปยังคลิปบอร์ด"
+
+msgid "Copied!"
+msgstr "คัดลอกแล้ว!"
+
+msgid "Part of "
+msgstr "ส่วนหนึ่งของ "
+
+msgid "No creation date found."
+msgstr "ไม่พบวันที่สร้าง"
+
+msgid "No description"
+msgstr "ไม่มีคำอธิบาย"
+
+msgid "No publication date found."
+msgstr "ไม่พบวันที่เผยแพร่"
+
+msgid "No resource type"
+msgstr "ไม่มีประเภททรัพยากร"
+
+msgid "No title"
+msgstr "ไม่มีชื่อเรื่อง"
+
+msgid "Uploaded on {{uploadDate}}"
+msgstr "อัปโหลดเมื่อ {{uploadDate}}"
+
+msgid "Published in: {{- publishInfo }}"
+msgstr "เผยแพร่ใน: {{- publishInfo }}"
+
+msgid "{{count}} more versions exist for this record"
+msgid_plural "{{count}} more versions exist for this record"
+msgstr[0] "มีอีก {{count}} เวอร์ชันสำหรับระเบียนนี้"
+
+msgid "This check is recommended but not mandatory."
+msgstr "การตรวจสอบนี้แนะนำแต่ไม่บังคับ"
+
+msgid "This check indicates a critical issue that must be addressed."
+msgstr "การตรวจสอบนี้ระบุปัญหาสำคัญที่ต้องแก้ไข"
+
+msgid "Person"
+msgstr "บุคคล"
+
+msgid "The record has no files."
+msgstr "ระเบียนนี้ไม่มีไฟล์"
+
+msgid "Basic information"
+msgstr "ข้อมูลพื้นฐาน"
+
+msgid "Recommended information"
+msgstr "ข้อมูลที่แนะนำ"
+
+msgid "Add contributor"
+msgstr "เพิ่มผู้มีส่วนร่วม"
+
+msgid "Contributors"
+msgstr "ผู้มีส่วนร่วม"
+
+msgid "Edit contributor"
+msgstr "แก้ไขผู้มีส่วนร่วม"
+
+msgid "Funding"
+msgstr "การให้ทุน"
+
+msgid "Awards/Grants"
+msgstr "รางวัล/ทุน"
+
+msgid "Alternate identifiers"
+msgstr "ตัวระบุสำรอง"
+
+msgid "Related works"
+msgstr "ผลงานที่เกี่ยวข้อง"
+
+msgid "References"
+msgstr "เอกสารอ้างอิง"
+
+msgid "Visibility"
+msgstr "การมองเห็น"
+
+msgid "More"
+msgstr "เพิ่มเติม"
+
+msgid "Unable to request the access."
+msgstr "ไม่สามารถขอสิทธิ์เข้าถึงได้"
+
+msgid "Your email address"
+msgstr "ที่อยู่อีเมลของคุณ"
+
+msgid "Email address"
+msgstr "ที่อยู่อีเมล"
+
+msgid "Your full name"
+msgstr "ชื่อ-นามสกุลของคุณ"
+
+msgid "Full name"
+msgstr "ชื่อ-นามสกุล"
+
+msgid "Request message"
+msgstr "ข้อความคำขอ"
+
+msgid "Request access"
+msgstr "ขอสิทธิ์เข้าถึง"
+
+msgid "Email confirmation needed"
+msgstr "ต้องยืนยันอีเมล"
+
+msgid "We have sent you an email to verify your address."
+msgstr "เราได้ส่งอีเมลเพื่อยืนยันที่อยู่ของคุณแล้ว"
+
+msgid ""
+"\n"
+"                Please check the email and follow the instructions to complete the access request.\n"
+"              "
+msgstr ""
+"\n"
+"                กรุณาตรวจสอบอีเมลและปฏิบัติตามคำแนะนำเพื่อดำเนินการขอสิทธิ์เข้าถึง\n"
+"              "
+
+msgid "An error occurred while fetching communities."
+msgstr "เกิดข้อผิดพลาดขณะดึงข้อมูลชุมชน"
+
+msgid "Communities"
+msgstr "ชุมชน"
+
+msgid "View all {{count}} communities"
+msgid_plural "View all {{count}} communities"
+msgstr[0] "ดูทั้งหมด {{count}} ชุมชน"
+
+msgid "Submit to community"
+msgstr "ส่งไปยังชุมชน"
+
+msgid "Pending submissions"
+msgstr "การส่งที่รอดำเนินการ"
+
+msgid "Manage communities"
+msgstr "จัดการชุมชน"
+
+msgid "Community management menu dropdown"
+msgstr "เมนูจัดการชุมชน"
+
+msgid "Edit"
+msgstr "แก้ไข"
+
+msgid "Export selection"
+msgstr "ส่งออกที่เลือก"
+
+msgid "Download file"
+msgstr "ดาวน์โหลดไฟล์"
+
+msgid "Export"
+msgstr "ส่งออก"
+
+msgid "Manage"
+msgstr "จัดการ"
+
+msgid "Manage record"
+msgstr "จัดการระเบียน"
+
+msgid "Manage user"
+msgstr "จัดการผู้ใช้"
+
+msgid "Block user"
+msgstr "บล็อกผู้ใช้"
+
+msgid "Remove branding"
+msgstr "ลบการสร้างแบรนด์"
+
+msgid "{{communityTitle}} is a default branding for this record"
+msgstr "{{communityTitle}} เป็นการสร้างแบรนด์เริ่มต้นสำหรับระเบียนนี้"
+
+msgid ""
+"Remove this community from appearing on top of the record details page."
+msgstr "ลบชุมชนนี้ออกจากการแสดงที่ด้านบนของหน้ารายละเอียดระเบียน"
+
+msgid "Set branding"
+msgstr "ตั้งค่าการสร้างแบรนด์"
+
+msgid "Set {{communityTitle}} as a default branding for this record"
+msgstr "ตั้ง {{communityTitle}} เป็นการสร้างแบรนด์เริ่มต้นสำหรับระเบียนนี้"
+
+msgid "Set this community to appear on the top of the record details page."
+msgstr "ตั้งค่าชุมชนนี้ให้แสดงที่ด้านบนของหน้ารายละเอียดระเบียน"
+
+msgid "Pending communities"
+msgstr "ชุมชนที่รอดำเนินการ"
+
+msgid "Search for pending submissions to communities..."
+msgstr "ค้นหาการส่งที่รอดำเนินการในชุมชน..."
+
+msgid "An error occurred while generating the citation."
+msgstr "เกิดข้อผิดพลาดขณะสร้างการอ้างอิง"
+
+msgid "Style"
+msgstr "รูปแบบ"
+
+msgid "This record is not included in any communities yet."
+msgstr "ระเบียนนี้ยังไม่ได้รวมอยู่ในชุมชนใด"
+
+msgid "Part of"
+msgstr "ส่วนหนึ่งของ"
+
+msgid "Search for community..."
+msgstr "ค้นหาชุมชน..."
+
+msgid "Record submitted"
+msgstr "ส่งระเบียนแล้ว"
+
+msgid "Review requested"
+msgstr "ขอการตรวจสอบแล้ว"
+
+msgid "Search in all communities"
+msgstr "ค้นหาในทุกชุมชน"
+
+msgid "Search in my communities"
+msgstr "ค้นหาในชุมชนของฉัน"
+
+msgid "Select a community"
+msgstr "เลือกชุมชน"
+
+msgid "Version {{- version}}"
+msgstr "เวอร์ชัน {{- version}}"
+
+msgid "Preview"
+msgstr "ดูตัวอย่าง"
+
+msgid "An error occurred while fetching the versions."
+msgstr "เกิดข้อผิดพลาดขณะดึงข้อมูลเวอร์ชัน"
+
+msgid "View all {{count}} versions"
+msgid_plural "View all {{count}} versions"
+msgstr[0] "ดูทั้งหมด {{count}} เวอร์ชัน"
+
+msgid "Cite all versions?"
+msgstr "อ้างอิงทุกเวอร์ชัน?"
+
+msgid "You can cite all versions by using the DOI"
+msgstr "คุณสามารถอ้างอิงทุกเวอร์ชันโดยใช้ DOI"
+
+msgid ""
+"This DOI represents all versions, and will always resolve to the latest one."
+msgstr "DOI นี้แทนทุกเวอร์ชันและจะเปลี่ยนเส้นทางไปยังเวอร์ชันล่าสุดเสมอ"
+
+msgid "Read more"
+msgstr "อ่านเพิ่มเติม"
+
+msgid "The DOI is registered when the first version is published."
+msgstr "DOI จะถูกลงทะเบียนเมื่อเวอร์ชันแรกถูกเผยแพร่"
+
+msgid "Remove"
+msgstr "ลบ"
+
+msgid "Remove {{communityTitle}} from this record"
+msgstr "ลบ {{communityTitle}} ออกจากระเบียนนี้"
+
+msgid "Remove community"
+msgstr "ลบชุมชน"
+
+msgid "Are you sure you want to remove the record from the community?"
+msgstr "คุณแน่ใจหรือไม่ว่าต้องการลบระเบียนออกจากชุมชน?"
+
+msgid "I understand the consequences:"
+msgstr "ฉันเข้าใจผลที่ตามมา:"
+
+msgid "Members of the community "
+msgstr "สมาชิกของชุมชน "
+
+msgid " will "
+msgstr " จะ "
+
+msgid "lose their access"
+msgstr "สูญเสียสิทธิ์เข้าถึง"
+
+msgid " to the record."
+msgstr " ไปยังระเบียน"
+
+msgid ""
+"The record can only be re-included in the community by going through a new "
+"review by the community curators."
+msgstr ""
+"ระเบียนสามารถเพิ่มกลับเข้าชุมชนได้โดยผ่านการตรวจสอบใหม่จากผู้ดูแลชุมชน"
+
+msgid "Something went wrong"
+msgstr "เกิดข้อผิดพลาด"
+
+msgid "Cancel removal"
+msgstr "ยกเลิกการลบ"
+
+msgid "Cancel"
+msgstr "ยกเลิก"
+
+msgid "Confirm removal"
+msgstr "ยืนยันการลบ"
+
+msgid "Select permissions"
+msgstr "เลือกสิทธิ์"
+
+msgid "Short name for your link (optional)."
+msgstr "ชื่อย่อสำหรับลิงก์ของคุณ (ไม่บังคับ)"
+
+msgid "Expiration date format: YYYY-MM-DD"
+msgstr "รูปแบบวันหมดอายุ: YYYY-MM-DD"
+
+msgid "Expiration date: YYYY-MM-DD or never if blank (optional)."
+msgstr "วันหมดอายุ: YYYY-MM-DD หรือไม่มีวันหมดอายุหากเว้นว่าง (ไม่บังคับ)"
+
+msgid "Create a new link"
+msgstr "สร้างลิงก์ใหม่"
+
+msgid "Link title"
+msgstr "ชื่อลิงก์"
+
+msgid "Expires at"
+msgstr "หมดอายุเมื่อ"
+
+msgid "Never"
+msgstr "ไม่มีวันหมดอายุ"
+
+msgid "Access"
+msgstr "การเข้าถึง"
+
+msgid "Delete"
+msgstr "ลบ"
+
+msgid "Copy link"
+msgstr "คัดลอกลิงก์"
+
+msgid "Can view"
+msgstr "สามารถดูได้"
+
+msgid "Can view restricted files of all versions of this record."
+msgstr "สามารถดูไฟล์ที่จำกัดของทุกเวอร์ชันของระเบียนนี้"
+
+msgid "Can preview drafts"
+msgstr "สามารถดูตัวอย่างฉบับร่างได้"
+
+msgid ""
+"Can view drafts, restricted files, and comment on associated draft requests "
+"of all versions of this record."
+msgstr ""
+"สามารถดูฉบับร่าง ไฟล์ที่จำกัด "
+"และแสดงความคิดเห็นในคำขอฉบับร่างของทุกเวอร์ชันของระเบียนนี้"
+
+msgid "Can edit"
+msgstr "สามารถแก้ไขได้"
+
+msgid ""
+"Can edit drafts, view restricted files, and comment on associated draft "
+"requests of all versions of this record."
+msgstr ""
+"สามารถแก้ไขฉบับร่าง ดูไฟล์ที่จำกัด "
+"และแสดงความคิดเห็นในคำขอฉบับร่างของทุกเวอร์ชันของระเบียนนี้"
+
+msgid ""
+"Can view (view access link can be created only after the record is "
+"published)"
+msgstr ""
+"สามารถดูได้ "
+"(ลิงก์การเข้าถึงเพื่อดูสามารถสร้างได้หลังจากระเบียนถูกเผยแพร่แล้วเท่านั้น)"
+
+msgid "Expires"
+msgstr "หมดอายุ"
+
+msgid "This record has no links generated yet."
+msgstr "ระเบียนนี้ยังไม่มีลิงก์ที่สร้างขึ้น"
+
+msgid "Unable to change the access request settings."
+msgstr "ไม่สามารถเปลี่ยนการตั้งค่าคำขอสิทธิ์เข้าถึงได้"
+
+msgid "Allow authenticated users to request access to restricted files."
+msgstr "อนุญาตให้ผู้ใช้ที่เข้าสู่ระบบขอสิทธิ์เข้าถึงไฟล์ที่จำกัดได้"
+
+msgid "Allow non-authenticated users to request access to restricted files."
+msgstr "อนุญาตให้ผู้ใช้ที่ไม่ได้เข้าสู่ระบบขอสิทธิ์เข้าถึงไฟล์ที่จำกัดได้"
+
+msgid "Accept conditions"
+msgstr "ยอมรับเงื่อนไข"
+
+msgid "Advanced options"
+msgstr "ตัวเลือกขั้นสูง"
+
+msgid "Save"
+msgstr "บันทึก"
+
+msgid "No user has access to this record yet."
+msgstr "ยังไม่มีผู้ใช้ที่เข้าถึงระเบียนนี้"
+
+msgid "People with access"
+msgstr "ผู้ที่มีสิทธิ์เข้าถึง"
+
+msgid "No group has access to this record yet."
+msgstr "ยังไม่มีกลุ่มที่เข้าถึงระเบียนนี้"
+
+msgid "Groups with access"
+msgstr "กลุ่มที่มีสิทธิ์เข้าถึง"
+
+msgid "You"
+msgstr "คุณ"
+
+msgid "Add people"
+msgstr "เพิ่มบุคคล"
+
+msgid "No selected users"
+msgstr "ไม่มีผู้ใช้ที่เลือก"
+
+msgid ""
+"Search for users to grant access (only users with a public profile can be "
+"invited)"
+msgstr ""
+"ค้นหาผู้ใช้เพื่อให้สิทธิ์เข้าถึง "
+"(เฉพาะผู้ใช้ที่มีโปรไฟล์สาธารณะเท่านั้นที่สามารถเชิญได้)"
+
+msgid "users"
+msgstr "ผู้ใช้"
+
+msgid "Add groups"
+msgstr "เพิ่มกลุ่ม"
+
+msgid "Group"
+msgstr "กลุ่ม"
+
+msgid "No selected groups"
+msgstr "ไม่มีกลุ่มที่เลือก"
+
+msgid "Search for groups"
+msgstr "ค้นหากลุ่ม"
+
+msgid "groups"
+msgstr "กลุ่ม"
+
+msgid "Add"
+msgstr "เพิ่ม"
+
+msgid "Notify people"
+msgstr "แจ้งเตือนบุคคล"
+
+msgid "Notification message"
+msgstr "ข้อความแจ้งเตือน"
+
+msgid "You are about to add"
+msgstr "คุณกำลังจะเพิ่ม"
+
+msgid "Access already granted"
+msgstr "ให้สิทธิ์เข้าถึงแล้ว"
+
+msgid "Can manage"
+msgstr "สามารถจัดการได้"
+
+msgid ""
+"Can manage access, edit drafts, view restricted files, and comment on "
+"associated draft requests of all versions of this record."
+msgstr ""
+"สามารถจัดการการเข้าถึง แก้ไขฉบับร่าง ดูไฟล์ที่จำกัด "
+"และแสดงความคิดเห็นในคำขอฉบับร่างของทุกเวอร์ชันของระเบียนนี้"
+
+msgid "You don't have permissions to share this record."
+msgstr "คุณไม่มีสิทธิ์แชร์ระเบียนนี้"
+
+msgid "Share"
+msgstr "แชร์"
+
+msgid "People"
+msgstr "บุคคล"
+
+msgid "Groups"
+msgstr "กลุ่ม"
+
+msgid "Settings"
+msgstr "การตั้งค่า"
+
+msgid "Share access"
+msgstr "แชร์การเข้าถึง"
+
+msgid "Link expiration"
+msgstr "วันหมดอายุลิงก์"
+
+msgid "In 1 month"
+msgstr "ใน 1 เดือน"
+
+msgid "In 2 months"
+msgstr "ใน 2 เดือน"
+
+msgid "In 6 months"
+msgstr "ใน 6 เดือน"
+
+msgid "In 1 year"
+msgstr "ใน 1 ปี"
+
+msgid "Invalid date format."
+msgstr "รูปแบบวันที่ไม่ถูกต้อง"
+
+msgid "Access link expiration date cannot be in the past."
+msgstr "วันหมดอายุของลิงก์การเข้าถึงต้องไม่เป็นวันในอดีต"
+
+msgid "Access request"
+msgstr "คำขอสิทธิ์เข้าถึง"
+
+msgid "Unable to change the expiration request settings."
+msgstr "ไม่สามารถเปลี่ยนการตั้งค่าวันหมดอายุได้"
+
+msgid "Expiration date: "
+msgstr "วันหมดอายุ: "
+
+msgid ""
+"Format: YYYY-MM-DD. Granted access will expire on the given date. Leave "
+"empty to set no expiration limit."
+msgstr ""
+"รูปแบบ: YYYY-MM-DD การเข้าถึงที่ให้ไว้จะหมดอายุตามวันที่กำหนด "
+"ปล่อยว่างเพื่อไม่ตั้งวันหมดอายุ"
+
+msgid "Link expiration date:"
+msgstr "วันหมดอายุลิงก์:"
+
+msgid "We couldn't find any matches for {{- search}}"
+msgstr "ไม่พบผลลัพธ์สำหรับ {{- search}}"
+
+msgid "Start over"
+msgstr "เริ่มใหม่"
+
+msgid "ProTip"
+msgstr "เคล็ดลับ"
+
+msgid "will give you all the publications from 2025 until today."
+msgstr "จะแสดงสิ่งพิมพ์ทั้งหมดตั้งแต่ปี 2025 จนถึงวันนี้"
+
+msgid "For more tips, check out our "
+msgstr "สำหรับเคล็ดลับเพิ่มเติม ดูที่ "
+
+msgid "Search guide"
+msgstr "คู่มือการค้นหา"
+
+msgid "search guide"
+msgstr "คู่มือการค้นหา"
+
+msgid "for defining advanced search queries."
+msgstr "สำหรับการกำหนดการค้นหาขั้นสูง"
+
+msgid "This community has no subcommunities"
+msgstr "ชุมชนนี้ไม่มีชุมชนย่อย"
+
+msgid "Logging in..."
+msgstr "กำลังเข้าสู่ระบบ..."
+
+msgid "Logging out..."
+msgstr "กำลังออกจากระบบ..."
+
+msgid "Search in my communities..."
+msgstr "ค้นหาในชุมชนของฉัน..."
+
+msgid "My communities"
+msgstr "ชุมชนของฉัน"
+
+msgid "View"
+msgstr "ดู"
+
+msgid "Published in: {{- publishedIn }}"
+msgstr "เผยแพร่ใน: {{- publishedIn }}"
+
+msgid "In review"
+msgstr "อยู่ระหว่างการตรวจสอบ"
+
+msgid "Declined"
+msgstr "ปฏิเสธแล้ว"
+
+msgid "Expired"
+msgstr "หมดอายุแล้ว"
+
+msgid "Draft"
+msgstr "ฉบับร่าง"
+
+msgid "New version draft"
+msgstr "ฉบับร่างเวอร์ชันใหม่"
+
+msgid "open"
+msgstr "เปิด"
+
+msgid "Open"
+msgstr "เปิด"
+
+msgid "unlock"
+msgstr "ปลดล็อก"
+
+msgid "Get started!"
+msgstr "เริ่มต้นเลย!"
+
+msgid "Make your first upload!"
+msgstr "อัปโหลดครั้งแรกของคุณ!"
+
+msgid "New upload"
+msgstr "อัปโหลดใหม่"
+
+msgid "Search in my uploads..."
+msgstr "ค้นหาในการอัปโหลดของฉัน..."
+
+msgid "My uploads"
+msgstr "การอัปโหลดของฉัน"
+
+msgid "ORCID profile"
+msgstr "โปรไฟล์ ORCID"
+
+msgid "ORCID logo"
+msgstr "โลโก้ ORCID"
+
+msgid "ROR profile"
+msgstr "โปรไฟล์ ROR"
+
+msgid "ROR logo"
+msgstr "โลโก้ ROR"
+
+msgid "GND profile"
+msgstr "โปรไฟล์ GND"
+
+msgid "GND logo"
+msgstr "โลโก้ GND"
+
+msgid "No name"
+msgstr "ไม่มีชื่อ"
+
+msgid "and {{count}} other"
+msgid_plural "and {{count}} other"
+msgstr[0] "และอีก {{count}} คน"
+
+msgid "and {{count}} others"
+msgid_plural "and {{count}} others"
+msgstr[0] "และอีก {{count}} คน"
+
+msgid "Manage roles"
+msgstr "จัดการบทบาท"
+
+msgid "User roles were updated."
+msgstr "อัปเดตบทบาทผู้ใช้แล้ว"
+
+msgid "Unable to manage user roles"
+msgstr "ไม่สามารถจัดการบทบาทผู้ใช้ได้"
+
+msgid "Are you sure you want to update this user's roles?"
+msgstr "คุณแน่ใจหรือไม่ว่าต้องการอัปเดตบทบาทของผู้ใช้นี้?"
+
+msgid "Role changes may affect the user's permissions."
+msgstr "การเปลี่ยนบทบาทอาจส่งผลต่อสิทธิ์ของผู้ใช้"
+
+msgid "Show unmanaged roles only"
+msgstr "แสดงเฉพาะบทบาทที่ไม่ได้จัดการ"
+
+msgid "Confirm role update"
+msgstr "ยืนยันการอัปเดตบทบาท"
+
+msgid "Update roles"
+msgstr "อัปเดตบทบาท"
+
+msgid "Quota of @{{username}} was set to {{quota}} {{unit}}"
+msgstr "ตั้งค่าโควต้าของ @{{username}} เป็น {{quota}} {{unit}} แล้ว"
+
+msgid "No replies"
+msgstr "ไม่มีการตอบกลับ"
+
+msgid "A removal reason is required."
+msgstr "ต้องระบุเหตุผลในการลบ"
+
+msgid "User {{name}} was blocked."
+msgstr "บล็อกผู้ใช้ {{name}} แล้ว"
+
+msgid "User blocked"
+msgstr "ผู้ใช้ถูกบล็อก"
+
+msgid ""
+"Their records and communities are being tombstoned in the background. This "
+"may take a few minutes to complete."
+msgstr ""
+"ระเบียนและชุมชนของพวกเขากำลังถูกสร้างบันทึกลบในพื้นหลัง "
+"อาจใช้เวลาสองสามนาทีเพื่อดำเนินการให้เสร็จสิ้น"
+
+msgid "View in admin"
+msgstr "ดูในผู้ดูแลระบบ"
+
+msgid "Unable to block user"
+msgstr "ไม่สามารถบล็อกผู้ใช้ได้"
+
+msgid ""
+"Blocking this user will tombstone their records and communities using the "
+"removal reason below."
+msgstr ""
+"การบล็อกผู้ใช้นี้จะสร้างบันทึกลบสำหรับระเบียนและชุมชนของพวกเขาโดยใช้เหตุผลการลบด้านล่าง"
+
+msgid "Verified community"
+msgstr "ชุมชนที่ตรวจสอบแล้ว"
+
+msgid "– Unlocked, {{ daysUntil }} days to publish changes"
+msgstr "– ปลดล็อกแล้ว เหลือ {{ daysUntil }} วันในการเผยแพร่การเปลี่ยนแปลง"
+
+msgid "It is not possible to delete this record."
+msgstr "ไม่สามารถลบระเบียนนี้ได้"
+
+msgid "View deletion request"
+msgstr "ดูคำขอลบ"
+
+msgid "Required"
+msgstr "จำเป็น"
+
+msgid "Please write at least 25 characters"
+msgstr "กรุณาเขียนอย่างน้อย 25 ตัวอักษร"
+
+msgid "Could not submit deletion request"
+msgstr "ไม่สามารถส่งคำขอลบได้"
+
+msgid "Request deletion"
+msgstr "ขอลบ"
+
+msgid "Delete immediately"
+msgstr "ลบทันที"
+
+msgid "By deleting this record you acknowledge that:"
+msgstr "การลบระเบียนนี้หมายความว่าคุณยอมรับว่า:"
+
+msgid "will be deleted."
+msgstr "จะถูกลบ"
+
+msgid "The DOI cannot be reused"
+msgstr "DOI ไม่สามารถนำมาใช้ซ้ำได้"
+
+msgid ""
+"and the DOI will resolve to a tombstone page with the record's citation "
+"(including title, author/s, publication year and publisher)"
+msgstr ""
+"และ DOI จะเปลี่ยนเส้นทางไปยังหน้าบันทึกลบพร้อมการอ้างอิงของระเบียน "
+"(รวมถึงชื่อเรื่อง ผู้แต่ง ปีที่เผยแพร่ และผู้เผยแพร่)"
+
+msgid "A tombstone page with the citation will replace the record page"
+msgstr "หน้าบันทึกลบพร้อมการอ้างอิงจะแทนที่หน้าระเบียน"
+
+msgid "Record deletion checklist:"
+msgstr "รายการตรวจสอบการลบระเบียน:"
+
+msgid "Yes"
+msgstr "ใช่"
+
+msgid "No"
+msgstr "ไม่"
+
+msgid "I want to delete this record because:"
+msgstr "ฉันต้องการลบระเบียนนี้เพราะ:"
+
+msgid "Detailed justification:"
+msgstr "เหตุผลโดยละเอียด:"
+
+msgid "Your justification will not be shared publicly"
+msgstr "เหตุผลของคุณจะไม่ถูกเผยแพร่สาธารณะ"
+
+msgid "Unable to request deletion."
+msgstr "ไม่สามารถขอลบได้"
+
+msgid "Recommendation(s)"
+msgstr "คำแนะนำ"
+
+msgid "Error(s)"
+msgstr "ข้อผิดพลาด"
+
+msgid "Authors/Creators"
+msgstr "ผู้แต่ง/ผู้สร้าง"
+
+msgid ""
+"Use the Authors/Creators field for names that should appear in the citation."
+" Use the Contributors field below for other names."
+msgstr ""
+"ใช้ฟิลด์ผู้แต่ง/ผู้สร้างสำหรับชื่อที่ควรปรากฏในการอ้างอิง "
+"ใช้ฟิลด์ผู้มีส่วนร่วมด้านล่างสำหรับชื่ออื่นๆ"
+
+msgid ""
+"Contributors are not included in the citation, but are shown on the record "
+"page."
+msgstr "ผู้มีส่วนร่วมไม่รวมอยู่ในการอ้างอิง แต่จะแสดงบนหน้าระเบียน"
+
+msgid "Load more search results"
+msgstr "โหลดผลการค้นหาเพิ่มเติม"
+
+msgid ""
+"I agree that my full name and email address will be shared with the owners "
+"of the record"
+msgstr "ฉันยินยอมให้แชร์ชื่อ-นามสกุลและที่อยู่อีเมลของฉันกับเจ้าของระเบียน"
+
+msgid "View audit logs"
+msgstr "ดูบันทึกการตรวจสอบ"
+
+msgid "View comments"
+msgstr "ดูความคิดเห็น"
+
+msgid "This version of the record has not yet been published."
+msgstr "เวอร์ชันนี้ของระเบียนยังไม่ได้เผยแพร่"
+
+msgid "You don't have permission to remove this community from the record"
+msgstr "คุณไม่มีสิทธิ์ลบชุมชนนี้ออกจากระเบียน"
+
+msgid "Expiration date: YYYY-MM-DD (required)."
+msgstr "วันหมดอายุ: YYYY-MM-DD (จำเป็น)"
+
+msgid "Search by full name, username or email (if publicly visible)"
+msgstr "ค้นหาด้วยชื่อ-นามสกุล ชื่อผู้ใช้ หรืออีเมล (หากเปิดเผยต่อสาธารณะ)"
+
+msgid "your search"
+msgstr "การค้นหาของคุณ"

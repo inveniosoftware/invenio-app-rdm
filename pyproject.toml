@@ -173,8 +173,6 @@ build-backend = "hatchling.build"
 [tool.babel]
 [tool.babel.compile_catalog]
 directory = "invenio_app_rdm/translations/"
-use_fuzzy = true
-
 [tool.babel.extract_messages]
 copyright_holder = "CERN"
 msgid_bugs_address = "info@inveniosoftware.org"
@@ -185,6 +183,10 @@ add_comments = "NOTE"
 [tool.babel.init_catalog]
 input_file = "invenio_app_rdm/translations/messages.pot"
 output_dir = "invenio_app_rdm/translations/"
+
+[[tool.babel.mappings]]
+method = "ignore"
+pattern = "**/node_modules/**"
 
 [[tool.babel.mappings]]
 method = "javascript"
