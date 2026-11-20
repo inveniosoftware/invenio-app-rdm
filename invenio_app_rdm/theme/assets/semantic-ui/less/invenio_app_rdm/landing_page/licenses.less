@@ -19,31 +19,39 @@
       border-top: none;
     }
 
-    &.has-popup {
-      background-color: #f9f9f9;
-      cursor: pointer;
-
-      &:hover {
-        background-color: #f1f1f1;
-      }
-    }
-
     div.license {
       display: flex;
       font-size: 1em;
 
-      &.clickable {
-        cursor: pointer;
+      .license-content {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        background-color: #f9f9f9;
+        color: #000;
         padding: 1rem;
+        text-decoration: none;
+      }
+
+      a.license-content,
+      .license-content.clickable {
+        cursor: pointer;
+
+        &:hover,
+        &:focus {
+          background-color: #f1f1f1;
+          color: #000;
+          text-decoration: none;
+        }
       }
 
       .icon-wrap {
         min-width: 3.5rem;
         width: 3.5rem;
-        margin-top: .2rem;
         margin-right: .7rem;
-        float: left;
         font-weight: normal;
+        display: flex;
+        align-items: center;
 
         img.icon {
           width: 100%;
@@ -52,6 +60,7 @@
 
       .title-text {
         display: block;
+        flex: 1;
       }
     }
 
