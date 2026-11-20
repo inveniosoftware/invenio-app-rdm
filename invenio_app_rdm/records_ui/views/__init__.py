@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2019-2021 CERN.
+# SPDX-FileCopyrightText: 2019-2026 CERN.
 # SPDX-FileCopyrightText: 2019-2022 Northwestern University.
 # SPDX-FileCopyrightText: 2021 TU Wien.
 # SPDX-License-Identifier: MIT
@@ -22,6 +22,7 @@ from sqlalchemy.orm.exc import NoResultFound
 
 from invenio_app_rdm.views import create_url_rule
 
+from ..previewer.web_archive import record_web_archive_file
 from ..searchapp import search_app_context
 from .deposits import community_upload, deposit_create, deposit_edit
 from .filters import (
@@ -135,6 +136,12 @@ def create_blueprint(app):
         **create_url_rule(
             routes["record_thumbnail"],
             default_view_func=record_thumbnail,
+        )
+    )
+    blueprint.add_url_rule(
+        **create_url_rule(
+            routes["record_web_archive_file"],
+            default_view_func=record_web_archive_file,
         )
     )
 
