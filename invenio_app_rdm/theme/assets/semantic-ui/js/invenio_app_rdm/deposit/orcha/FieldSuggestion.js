@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { connect as connectFormik } from "formik";
 import { Button, Form, Icon, Message, TextArea } from "semantic-ui-react";
 import { useSuggestions } from "./Context";
+import { isSuggestionExactMatch } from "./utils";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 import { makeIcon } from "../../utils";
 
@@ -126,6 +127,13 @@ const FieldSuggestionComponent = ({ field, formik }) => {
   const suggestion = getSuggestion(field);
 
   if (!suggestion) return null;
+
+  if (
+    suggestion.status === "pending" &&
+    isSuggestionExactMatch(field, suggestion, formik.values)
+  ) {
+    return null;
+  }
 
   if (suggestionRef.current !== suggestion) {
     suggestionRef.current = suggestion;

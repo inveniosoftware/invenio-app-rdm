@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { connect as connectFormik } from "formik";
 import { Button, Message } from "semantic-ui-react";
 import { useSuggestions } from "./Context";
+import { isSuggestionExactMatch } from "./utils";
 import { i18next } from "@translations/invenio_app_rdm/i18next";
 
 const getDraftId = (record) => {
@@ -10,9 +12,10 @@ const getDraftId = (record) => {
   return id && id !== "null" && id !== "undefined" ? id : null;
 };
 
-export const SuggestionsButtonComponent = ({ record, currentRecord, file }) => {
+export const SuggestionsButtonComponent = ({ record, currentRecord, file, formik }) => {
   const suggestions = useSuggestions();
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
+  const extractedCountRef = useRef(null);
   const fileKey = file?.name ?? null;
   const isCurrentFile = !fileKey || suggestions?.activeFileKey === fileKey;
   const isButtonLoading = Boolean(suggestions?.isLoading && isCurrentFile);
@@ -34,12 +37,31 @@ export const SuggestionsButtonComponent = ({ record, currentRecord, file }) => {
 
   if (!suggestions) return null;
 
-  const { isLoading, status, error, suggestionsCount, trigger, dismissError } =
-    suggestions;
+  const {
+    isLoading,
+    status,
+    error,
+    workflowId,
+    suggestions: extracted,
+    trigger,
+    dismissError,
+  } = suggestions;
   const draftRecord = getDraftId(currentRecord) ? currentRecord : record;
   const draftId = getDraftId(draftRecord);
   const showError = error && isCurrentFile;
-  const showSuggestionsCount = status === "success" && isCurrentFile;
+
+  if (status === "success" && extractedCountRef.current?.workflowId !== workflowId) {
+    extractedCountRef.current = {
+      workflowId,
+      count: (extracted ?? []).filter(
+        (s) => !isSuggestionExactMatch(s.field, s, formik?.values)
+      ).length,
+    };
+  }
+  const extractedCount = extractedCountRef.current?.count ?? 0;
+
+  const showSuggestionsCount =
+    status === "success" && isCurrentFile && extractedCount > 0;
   let label = i18next.t("Extract metadata");
   if (isButtonLoading) {
     label = i18next.t("Extracting metadata... {{seconds}}s", {
@@ -64,7 +86,7 @@ export const SuggestionsButtonComponent = ({ record, currentRecord, file }) => {
       {showSuggestionsCount && (
         <span className="orcha-suggestions-count ml-5">
           {i18next.t("Extracted {{count}} suggestions", {
-            count: suggestionsCount,
+            count: extractedCount,
           })}
         </span>
       )}
@@ -83,15 +105,19 @@ SuggestionsButtonComponent.propTypes = {
   file: PropTypes.shape({
     name: PropTypes.string,
   }),
+  formik: PropTypes.object,
 };
 
 SuggestionsButtonComponent.defaultProps = {
   currentRecord: null,
   file: null,
+  formik: null,
 };
 
 const mapStateToProps = (state) => ({
   currentRecord: state.deposit?.record,
 });
 
-export const SuggestionsButton = connect(mapStateToProps)(SuggestionsButtonComponent);
+export const SuggestionsButton = connectFormik(
+  connect(mapStateToProps)(SuggestionsButtonComponent)
+);
