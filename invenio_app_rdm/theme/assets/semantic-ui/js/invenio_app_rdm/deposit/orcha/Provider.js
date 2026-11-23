@@ -397,7 +397,7 @@ export const SuggestionsProvider = ({ children = null }) => {
     error,
     activeFileKey,
     workflowId: state.workflowId,
-    suggestionsCount: state.suggestions.length,
+    suggestions: state.suggestions,
     isLoading: status === STATUS.TRIGGERING || status === STATUS.STREAMING,
     trigger,
     apply,
