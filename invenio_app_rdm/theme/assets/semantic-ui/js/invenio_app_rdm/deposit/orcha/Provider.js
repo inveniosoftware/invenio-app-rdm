@@ -334,7 +334,12 @@ export const SuggestionsProvider = ({ children = null }) => {
       const path = LIST_FIELD_PATHS[field];
       const [ns, key] = path.split(".");
       const current = formik.values?.[ns]?.[key] ?? [];
-      formik.setFieldValue(path, [...current, entry]);
+      const isDuplicateLicense =
+        field === "license" &&
+        current.some((item) => (entry.id ? item.id === entry.id : false));
+      if (!isDuplicateLicense) {
+        formik.setFieldValue(path, [...current, entry]);
+      }
       removeSuggestedItem(field, valueIndex, SUGGESTION_APPLIED);
       return;
     }
