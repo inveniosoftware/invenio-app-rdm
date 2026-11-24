@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2019-2025 CERN.
+# SPDX-FileCopyrightText: 2019-2026 CERN.
 # SPDX-FileCopyrightText: 2019-2026 Northwestern University.
 # SPDX-FileCopyrightText: 2022-2026 Graz University of Technology.
 # SPDX-FileCopyrightText: 2025 University of Münster.
@@ -43,7 +43,7 @@ dependencies = [
 
   # Invenio auth bundle
   "invenio-access>=7.0.0,<8.0.0",
-  "invenio-accounts>=9.0.0,<10.0.0",
+  "invenio-accounts>=10.0.0,<11.0.0",
   "invenio-oauth2server>=6.0.0,<7.0.0",
   "invenio-oauthclient>=9.0.0,<10.0.0",
   "invenio-userprofiles>=7.0.0,<8.0.0",
