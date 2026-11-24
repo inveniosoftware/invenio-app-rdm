@@ -1,5 +1,5 @@
 <!--
-SPDX-FileCopyrightText: 2019-2025 CERN.
+SPDX-FileCopyrightText: 2019-2026 CERN.
 SPDX-FileCopyrightText: 2019-2024 Northwestern University.
 SPDX-FileCopyrightText: 2021-2024 TU Wien.
 SPDX-FileCopyrightText: 2021-2026 Graz University of Technology.
@@ -8,6 +8,10 @@ SPDX-License-Identifier: MIT
 -->
 
 # Changes
+
+## Version v15.0.0b8.dev0 (released 2026-11-24)
+
+- chore(setup): bump dependencies
 
 ## Version v15.0.0b7.dev0 (released 2026-11-10)
 
