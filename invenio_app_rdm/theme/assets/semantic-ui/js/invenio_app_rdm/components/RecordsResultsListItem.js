@@ -97,26 +97,37 @@ class RecordsResultsListItem extends Component {
             {/* FIXME: Uncomment to enable themed banner */}
             {/* <DisplayVerifiedCommunity communities={result.parent?.communities} /> */}
             <Item.Extra className="labels-actions">
-              <Label horizontal size="small" className="primary theme-primary">
-                {publicationDate} ({version})
-              </Label>
-              <Label
-                horizontal
-                size="small"
-                className="neutral"
-                as="a"
-                href={`${window.location.pathname}?q=&f=${resourceTypeFilter}`}
+              <Overridable
+                id={buildUID("RecordsResultsListItem.labels", "", appName)}
+                result={result}
               >
-                {resourceType}
-              </Label>
-              <Label
-                horizontal
-                size="small"
-                className={`access-status ${accessStatusId}`}
-              >
-                {accessStatusIcon && <Icon name={accessStatusIcon} />}
-                {accessStatus}
-              </Label>
+                <>
+                  <Label horizontal size="small" className="primary theme-primary">
+                    {publicationDate} ({version})
+                  </Label>
+                  <Label
+                    horizontal
+                    size="small"
+                    className="neutral"
+                    as="a"
+                    href={`${window.location.pathname}?q=&f=${resourceTypeFilter}`}
+                  >
+                    {resourceType}
+                  </Label>
+                  <Label
+                    horizontal
+                    size="small"
+                    className={`access-status ${accessStatusId}`}
+                  >
+                    {accessStatusIcon && <Icon name={accessStatusIcon} />}
+                    {accessStatus}
+                  </Label>
+                </>
+              </Overridable>
+              <Overridable
+                id={buildUID("RecordsResultsListItem.labels.after", "", appName)}
+                result={result}
+              />
             </Item.Extra>
             <Item.Header as="h2" className="theme-primary-text">
               <a href={viewLink}>{titleTruncated}</a>

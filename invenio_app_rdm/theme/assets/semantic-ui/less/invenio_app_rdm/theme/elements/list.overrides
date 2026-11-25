@@ -5,17 +5,26 @@
 /* Deposit license field */
 
 .item.deposit-drag-listitem {
-  margin-bottom: 5px;
+  padding: 0.3rem 0.3rem 0.15rem 0.3rem !important;
+  border-radius: 0.3rem;
+  transition: background-color 0.5s ease, box-shadow 0.5s ease;
 
-  &.hidden {
+  &.drag-ghost {
     opacity: 0;
+  }
+
+  &:hover:not(.highlighted) {
+    background-color: @transparentBlack;
+  }
+
+  &.highlighted {
+    animation: creatibutor-highlight-fade 2s ease forwards;
   }
 
   .drag-anchor {
     cursor: move;
   }
 }
-
 
 .ui.list .disabled {
   opacity: 0.5;

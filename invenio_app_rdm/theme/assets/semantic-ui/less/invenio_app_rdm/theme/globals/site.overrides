@@ -50,6 +50,11 @@ body {
   }
 }
 
+// Generic display-toggle utility used by jQuery toggleClass("hidden", ...) everywhere
+.hidden {
+  display: none !important;
+}
+
 button:focus-visible, a:focus-visible {
   outline: 3px solid @focusedFormBorderColor !important;
 }
@@ -592,10 +597,8 @@ dl.details-list {
   justify-content: space-between;
 }
 
-/* Prevent long values and links from overflowing in details lists */
-dl.details-list dd,
-dl.details-list a {
-  display: block;
+/* Prevent long values from overflowing in details lists */
+dl.details-list dd {
   max-width: 100%;
   overflow-wrap: anywhere;
   word-break: break-word;
@@ -606,9 +609,7 @@ dl.details-list a {
 .stackable.mobile.reversed.grid > .column:last-child {
   min-width: 0;
 
-  a,
   dd {
-    display: block;
     max-width: 100%;
     overflow-wrap: anywhere;
     word-break: break-word;
