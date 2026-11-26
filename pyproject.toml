@@ -11,7 +11,7 @@
 name = "invenio-app-rdm"
 description = "Invenio Research Data Management."
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.11"
 license = "MIT"
 authors = [
   { name = "CERN", email = "info@inveniosoftware.org" },
