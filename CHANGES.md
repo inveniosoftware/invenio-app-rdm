@@ -9,6 +9,10 @@ SPDX-License-Identifier: MIT
 
 # Changes
 
+## Version v15.0.0b10.dev0 (released 2026-11-27)
+
+- chore(setup): bump dependencies
+
 ## Version v15.0.0b9.dev0 (released 2026-11-26)
 
 - chore(setup): bump dependencies
