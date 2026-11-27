@@ -1,5 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2023-2026 CERN.
+ * SPDX-FileCopyrightText: 2026 California Institute of Technology.
  * SPDX-License-Identifier: MIT
  */
 
@@ -28,6 +29,13 @@ export class SetQuotaForm extends Component {
     this.tombstoneSchema = Yup.object({
       quota_size: Yup.number().required().min(1),
       max_file_size: Yup.number().required().min(1),
+      // optional: an empty input means "leave unchanged"
+      max_additional_quota_size: Yup.number()
+        .transform((value, originalValue) =>
+          originalValue === "" || originalValue === null ? undefined : value
+        )
+        .min(0),
+      reset_max_additional_quota_size: Yup.boolean(),
       notes: Yup.string(),
     });
   }
@@ -45,24 +53,46 @@ export class SetQuotaForm extends Component {
       resource,
       actionSuccessCallback,
       setQuotaInBytes = false,
+      showMaxAdditionalQuota = false,
       apiUrl,
     } = this.props;
-    let { notes, quota_size: quotaSize, max_file_size: maxFileSize } = values;
+    let {
+      notes,
+      quota_size: quotaSize,
+      max_file_size: maxFileSize,
+      max_additional_quota_size: maxAdditionalQuotaSize,
+      reset_max_additional_quota_size: resetMaxAdditionalQuotaSize,
+    } = values;
 
     const quotaInGb = !setQuotaInBytes && quotaSize;
+    const unitMultiplier = setQuotaInBytes ? 1 : 10 ** 9;
 
-    if (!setQuotaInBytes) {
-      quotaSize *= 10 ** 9;
-      maxFileSize *= 10 ** 9;
+    quotaSize *= unitMultiplier;
+    maxFileSize *= unitMultiplier;
+
+    const payload = {
+      notes,
+      quota_size: quotaSize,
+      max_file_size: maxFileSize,
+    };
+
+    if (showMaxAdditionalQuota) {
+      if (resetMaxAdditionalQuotaSize) {
+        // null resets the user to the site-wide default
+        payload.max_additional_quota_size = null;
+      } else if (
+        maxAdditionalQuotaSize !== undefined &&
+        maxAdditionalQuotaSize !== null &&
+        maxAdditionalQuotaSize !== ""
+      ) {
+        payload.max_additional_quota_size = Math.round(
+          Number(maxAdditionalQuotaSize) * unitMultiplier
+        );
+      }
+      // otherwise omit it so the stored value is left unchanged
     }
 
-    this.cancellableAction = withCancel(
-      http.post(apiUrl, {
-        notes,
-        quota_size: quotaSize,
-        max_file_size: maxFileSize,
-      })
-    );
+    this.cancellableAction = withCancel(http.post(apiUrl, payload));
 
     try {
       await this.cancellableAction.promise;
@@ -99,13 +129,15 @@ export class SetQuotaForm extends Component {
     return {
       quota_size: undefined,
       max_file_size: undefined,
+      max_additional_quota_size: undefined,
+      reset_max_additional_quota_size: false,
       notes: undefined,
     };
   };
 
   render() {
     const { error, loading } = this.state;
-    const { setQuotaInBytes = false } = this.props;
+    const { setQuotaInBytes = false, showMaxAdditionalQuota = false } = this.props;
 
     return (
       <Formik
@@ -116,7 +148,7 @@ export class SetQuotaForm extends Component {
         validateOnBlur={false}
         validationSchema={this.tombstoneSchema}
       >
-        {({ values, handleSubmit }) => {
+        {({ values, handleSubmit, setFieldValue }) => {
           return (
             <>
               {error && (
@@ -152,6 +184,29 @@ export class SetQuotaForm extends Component {
                       type="number"
                     />
                   </Form.Field>
+                  {showMaxAdditionalQuota && (
+                    <Form.Field>
+                      <TextField
+                        fieldPath="max_additional_quota_size"
+                        label={i18next.t("Max additional quota ({{unit}})", {
+                          unit: setQuotaInBytes ? "bytes" : "GB",
+                        })}
+                        placeholder={i18next.t("Enter max additional quota...")}
+                        helpText={i18next.t(
+                          "Total extra storage this user can grant themselves across all their records. Leave empty to keep the current value."
+                        )}
+                        type="number"
+                        disabled={values.reset_max_additional_quota_size}
+                      />
+                      <Form.Checkbox
+                        label={i18next.t("Reset max additional quota to site default")}
+                        checked={values.reset_max_additional_quota_size}
+                        onChange={(event, { checked }) =>
+                          setFieldValue("reset_max_additional_quota_size", checked)
+                        }
+                      />
+                    </Form.Field>
+                  )}
                   <Form.Field>
                     <TextAreaField
                       fieldPath="notes"
@@ -191,4 +246,5 @@ SetQuotaForm.propTypes = {
   actionCancelCallback: PropTypes.func.isRequired,
   apiUrl: PropTypes.string.isRequired,
   setQuotaInBytes: PropTypes.bool,
+  showMaxAdditionalQuota: PropTypes.bool,
 };
