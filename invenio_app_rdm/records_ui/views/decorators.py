@@ -8,7 +8,16 @@
 
 from functools import wraps
 
-from flask import current_app, g, make_response, redirect, request, session, url_for
+from flask import (
+    abort,
+    current_app,
+    g,
+    make_response,
+    redirect,
+    request,
+    session,
+    url_for,
+)
 from flask_login import login_required
 from invenio_base import invenio_url_for
 from invenio_communities.communities.resources.serializer import (
@@ -22,7 +31,10 @@ from invenio_rdm_records.resources.serializers.signposting import (
 )
 from invenio_rdm_records.services.errors import RecordDeletedException
 from invenio_records_resources.proxies import current_service_registry
-from invenio_records_resources.services.errors import PermissionDeniedError
+from invenio_records_resources.services.errors import (
+    ContainerNotAllowedError,
+    PermissionDeniedError,
+)
 from sqlalchemy.orm.exc import NoResultFound
 
 
@@ -281,6 +293,9 @@ def pass_container_item():
 
                 kwargs["container_item"] = item
                 return f(**kwargs)
+
+            except ContainerNotAllowedError:
+                abort(404)
 
             except RecordDeletedException:
                 # Redirect to the record page which has proper tombstone handling

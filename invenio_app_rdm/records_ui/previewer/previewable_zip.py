@@ -14,7 +14,10 @@ from invenio_i18n import lazy_gettext as _
 from invenio_previewer.proxies import current_previewer
 from invenio_previewer.views import is_container_item_previewable
 from invenio_rdm_records.proxies import current_rdm_records_service
-from invenio_records_resources.services.errors import InvalidFileContentError
+from invenio_records_resources.services.errors import (
+    ContainerNotAllowedError,
+    InvalidFileContentError,
+)
 from werkzeug.local import LocalProxy
 
 from ..views.records import PreviewContainerItem
@@ -137,7 +140,7 @@ def preview(file):
         tree_raw = file_service.list_container(
             system_identity, file.record["id"], file.filename
         ).to_dict()
-    except (InvalidFileContentError, BadZipFile) as exc:
+    except (InvalidFileContentError, BadZipFile, ContainerNotAllowedError) as exc:
         current_app.logger.info(
             "ZIP preview rejected for record %s, file %s (draft=%s): %s",
             file.record["id"],

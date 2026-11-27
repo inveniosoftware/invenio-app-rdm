@@ -11,6 +11,7 @@ from zipfile import ZipFile
 import pytest
 from flask import url_for
 from invenio_access.permissions import system_identity
+from invenio_records_resources.services.errors import ContainerNotAllowedError
 
 from invenio_app_rdm.records_ui.previewer import previewable_zip
 
@@ -52,6 +53,15 @@ def test_zip_preview_unexpected_error(base_app, zip_preview):
     with base_app.test_request_context():
         with pytest.raises(RuntimeError, match="Storage unavailable"):
             previewable_zip.preview(file)
+
+
+def test_zip_preview_container_not_allowed(base_app, zip_preview):
+    """A disabled container access renders the rejection panel."""
+    file, list_container = zip_preview
+    list_container.side_effect = ContainerNotAllowedError("archive.zip")
+    with base_app.test_request_context():
+        html = previewable_zip.preview(file)
+    assert "This ZIP file cannot be previewed" in html
 
 
 @pytest.mark.parametrize("is_draft", [False, True], ids=["published", "draft"])
