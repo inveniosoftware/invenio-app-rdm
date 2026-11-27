@@ -60,7 +60,7 @@ dependencies = [
 
   # Invenio files bundle
   "invenio-files-rest>=6.0.0,<7.0.0",
-  "invenio-previewer>=6.0.0,<7.0.0",
+  "invenio-previewer>=7.0.0,<8.0.0",
   "invenio-records-files>=4.0.0,<5.0.0",
 
   # Invenio-App-RDM
