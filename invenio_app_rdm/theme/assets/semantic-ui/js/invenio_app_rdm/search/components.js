@@ -14,7 +14,7 @@ import { i18next } from "@translations/invenio_app_rdm/i18next";
 import _get from "lodash/get";
 import _truncate from "lodash/truncate";
 import Overridable from "react-overridable";
-import { withState, buildUID } from "react-searchkit";
+import { withState, buildUID, Count, Sort } from "react-searchkit";
 import {
   Button,
   Card,
@@ -189,6 +189,31 @@ export const RDMCountComponent = ({ totalResults }) => {
 
 RDMCountComponent.propTypes = {
   totalResults: PropTypes.number.isRequired,
+};
+
+// RDMResultOptions renders count and sort on a single flex row to keep mobile search knobs aligned.
+export const RDMResultOptions = ({ sortOptions = null }) => (
+  <div className="flex align-items-center justify-space-between">
+    <div className="community-records-search-count">
+      <Count label={(cmp) => [cmp, " ", i18next.t("result(s) found")]} />
+    </div>
+    <div className="community-records-search-sort">
+      <Sort
+        values={sortOptions}
+        ariaLabel={i18next.t("Sort")}
+        label={(cmp) => (
+          <>
+            <label className="mr-10">{i18next.t("Sort by")}</label>
+            {cmp}
+          </>
+        )}
+      />
+    </div>
+  </div>
+);
+
+RDMResultOptions.propTypes = {
+  sortOptions: PropTypes.array,
 };
 
 export const RDMEmptyResults = ({
