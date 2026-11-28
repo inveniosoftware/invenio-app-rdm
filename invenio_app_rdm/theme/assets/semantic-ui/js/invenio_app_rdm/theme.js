@@ -222,7 +222,13 @@ $("#record-tab").on("click", function () {
   // zero width and zero height and it's failing initialization. So we need to reload the iframe.
   const iframe = document.getElementById("preview-iframe");
   if (iframe) {
-    iframe.contentWindow.location.reload();
+    try {
+      iframe.contentWindow.location.reload();
+    } catch (error) {
+      // The browser isolates sandboxed previews from this page, so we can't
+      // reload them from here. Loading their URL again works the same way.
+      iframe.contentWindow.location.replace(iframe.dataset.previewUrl || iframe.src);
+    }
   }
 });
 

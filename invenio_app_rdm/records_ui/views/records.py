@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2019-2025 CERN.
+# SPDX-FileCopyrightText: 2019-2026 CERN.
 # SPDX-FileCopyrightText: 2019-2021 Northwestern University.
 # SPDX-FileCopyrightText: 2021-2026 TU Wien.
 # SPDX-FileCopyrightText: 2025 CESNET i.a.l.e.
@@ -14,6 +14,7 @@ from citeproc_styles.errors import StyleNotFoundError
 from flask import abort, current_app, g, redirect, render_template, request, url_for
 from flask_login import current_user
 from flask_principal import AnonymousIdentity
+from invenio_app import talisman
 from invenio_base.utils import obj_or_import_string
 from invenio_communities.communities.resources.serializer import (
     UICommunityJSONSerializer,
@@ -24,6 +25,7 @@ from invenio_communities.views.communities import render_community_theme_templat
 from invenio_i18n.proxies import current_i18n
 from invenio_previewer.extensions import default as default_previewer
 from invenio_previewer.proxies import current_previewer
+from invenio_previewer.response import preview_response
 from invenio_rdm_records.proxies import current_rdm_records
 from invenio_rdm_records.records.systemfields.access.access_settings import (
     AccessSettings,
@@ -426,6 +428,12 @@ def record_export(
     return (exported_record, 200, headers)
 
 
+# Talisman would replace the preview's CSP header, which has the sandbox, so we
+# turn its CSP off here. preview_response() sets the site's policy again, plus
+# the sandbox.
+# Keep this decorator first (on top of the others), so Talisman surely finds it
+# on the function that Flask registers for the URL.
+@talisman(content_security_policy={})
 @pass_is_preview
 @pass_include_deleted
 @pass_record_or_draft(expand=False)
@@ -456,16 +464,18 @@ def record_file_preview(
     if file_previewer:
         previewer = current_previewer.previewers.get(file_previewer)
         if previewer and previewer.can_preview(fileobj):
-            return previewer.preview(fileobj)
+            return preview_response(previewer, fileobj)
 
     # Go through all previewers to find the first one that can preview the file
     for plugin in current_previewer.iter_previewers():
         if plugin.can_preview(fileobj):
-            return plugin.preview(fileobj)
+            return preview_response(plugin, fileobj)
 
-    return default_previewer.preview(fileobj)
+    return preview_response(default_previewer, fileobj)
 
 
+# Same as record_file_preview: preview_response() sets the CSP header.
+@talisman(content_security_policy={})
 @pass_record_or_draft(expand=False)
 @pass_file_metadata
 def record_container_item_preview(
@@ -493,9 +503,9 @@ def record_container_item_preview(
     # Go through all previewers to find the first one that can preview the file
     for plugin in current_previewer.iter_container_item_previewers():
         if plugin.can_preview(fileobj):
-            return plugin.preview(fileobj)
+            return preview_response(plugin, fileobj)
 
-    return default_previewer.preview(fileobj)
+    return preview_response(default_previewer, fileobj)
 
 
 def find_container_item(container_item_metadata, path_parts):

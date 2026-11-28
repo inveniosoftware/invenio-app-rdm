@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2020-2025 CERN.
+ * SPDX-FileCopyrightText: 2020-2026 CERN.
  * SPDX-FileCopyrightText: 2020-2021 Northwestern University.
  * SPDX-FileCopyrightText: 2021 Graz University of Technology.
  * SPDX-FileCopyrightText: 2025 CESNET i.a.l.e.
@@ -125,6 +125,17 @@ $("#file-list-table")
     const previewUrl = $(this).attr("href");
     const iframe = document.getElementById("preview-iframe");
     if (iframe && iframe.contentWindow) {
+      // The browser only applies a new sandbox value the next time the iframe
+      // loads a page. So we set it first, then load the preview.
+      const sandbox = this.dataset.sandbox;
+      if (sandbox) {
+        iframe.setAttribute("sandbox", sandbox);
+      } else {
+        iframe.removeAttribute("sandbox");
+      }
+      // We can't read the URL of a sandboxed preview from this page (the browser
+      // isolates it), so we keep it here. theme.js uses it to reload the preview.
+      iframe.dataset.previewUrl = previewUrl;
       iframe.contentWindow.location.replace(previewUrl);
 
       iframe.scrollIntoView({

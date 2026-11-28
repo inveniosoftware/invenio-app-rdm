@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2019-2024 CERN.
+# SPDX-FileCopyrightText: 2019-2026 CERN.
 # SPDX-FileCopyrightText: 2019-2020 Northwestern University.
 # SPDX-FileCopyrightText: 2021 TU Wien.
 # SPDX-FileCopyrightText: 2024 Graz University of Technology.
