@@ -632,3 +632,22 @@ dl.details-list dd {
     margin-top: 1.5rem;
   }
 }
+
+/* Prevent long file names from breaking the layout on the landing page.
+   Applies to the file name link in the file list table and the active preview
+   title shown above the preview iframe. Fixes #3195. */
+#file-list-table td.ten.wide {
+  // Allow long file names to wrap inside the cell
+  word-break: break-word;
+  overflow-wrap: break-word;
+
+  a {
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+}
+
+#preview-file-title {
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
